@@ -1,0 +1,10 @@
+13:21:16 **** Incremental Build of configuration Debug for project Copasi_example1 ****
+make all 
+Building target: Copasi_example1
+Invoking: Cross G++ Linker
+g++ -L"/home/mkoenig/Workspace/c++/Copasi/Copasi_example1" -o "Copasi_example1"  ./src/example1.o   -lCOPASISE -llapack -lblas -lcppunit -lexpat -lf2c -lmml -lqwt -lqwtplot3d -lraptor -lsbml-static
+Finished building target: Copasi_example1
+ 
+
+13:21:18 Build Finished (took 2s.75ms)
+

@@ -1,0 +1,75 @@
+// multiple coupled small models
+model cell(gal_ext, GALK_k, comp)
+   gal_ext has mM;
+   GALK_k has mmol_per_s;
+
+   compartment comp;
+   species gal in comp;
+   gal is "D-galactose";
+   gal = 0 mM;
+
+   species gal1p in comp;
+   gal is "D-galactose 1-phosphate";   
+   gal1p = 0 mM;
+
+   GALI: gal_ext -> gal;
+   GALI in comp;
+   GALI is "Galactose Importer";
+   GALI_k = 10 mmol_per_s;
+   GALI = GALI_k *(gal - gal_ext);
+
+   GALK: gal -> gal1p;
+   GALK = GALK_k * gal;
+end
+
+
+// combined model of multiple cells
+model full()
+ // Unit definitions:
+  unit substance = 1e-3 mole;
+  unit volume = litre;
+  unit area = metre^2; 
+  unit length = metre;
+
+  unit mM = 1e-3 mole / litre;  
+  unit mmol_per_s = 1e-3 mole / second;
+  unit per_s = 1 / second;
+  unit mmol = 1e-3 mole;
+
+   // generate external layout
+   const species gal_pp;
+   gal_pp = 10 mM;
+   gal_1 = 0 mM;
+   gal_2 = 0 mM;
+   gal_pv = 0 mM;
+  
+   gal_pp is "D-galactose";
+   gal_1 is "D-galactose";
+   gal_2 is "D-galactose";
+   gal_pv is "D-galactose"; 
+
+   // here the exchanger with external
+   T1: gal_pp -> gal_1;
+   T2: gal_1 -> gal_2;
+   T3: gal_2 -> gal_pv;
+   
+   D = 10;
+   T1 = D*(gal_1 - gal_pp);
+   T2 = D*(gal_2 - gal_1);
+   T3 = D*(gal_pv - gal_2);
+
+   // initialize cell 1;
+   k1 = 1;
+   compartment Hc1;
+   Hc1 = 0.1 litre;
+   H1 : cell(gal_1, k1, Hc1);
+
+   // initialize cell 2;
+   k2 = 2;
+   compartment Hc2;
+   Hc2 = 0.1 litre;
+   H2 : cell(gal_2, k2, Hc2); 
+
+end
+
+

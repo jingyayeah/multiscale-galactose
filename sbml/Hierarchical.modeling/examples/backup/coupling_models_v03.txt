@@ -1,0 +1,167 @@
+/*      ------------------------------------------------
+	Hierarchical Modeling Composition via comp SBML
+	Toy model for galactose clearance by the liver.
+	------------------------------------------------
+	The model consists of an array of cells which can clear galactose from the 
+	blood compartment. The blood flows from periportal (pp) to perivenious (pv)
+	via the blood compartments adjacent to the single cells.
+	
+	Matthias König - 2013-09-23
+	Copyright © Matthias König 2013 All Rights Reserved.
+*/
+
+
+/*      ------------------------------------------------
+	Single cell model
+        ------------------------------------------------
+	This model is instantiated multiple times in the full hierarchical 
+	model with different parameters sets (function arguments).
+	Depending on the parametrization the cells have different functionality,
+	in this toy example it corresponds to different galactose clearance capacity.
+	
+	GALI - galactose import
+	GALK - galactokinase reaction (irreversible galactose clearance)
+*/
+model cell(gal_ext, GALK_vmax, comp)
+  // Unit definitions:
+  unit substance = 1e-3 mole;
+  unit volume = litre;
+  unit area = metre^2; 
+  unit length = metre;
+
+  unit mM = 1e-3 mole / litre;  
+  unit mmol_per_s = 1e-3 mole / second;
+  unit per_s = 1 / second;
+  unit mmol = 1e-3 mole;
+
+   gal_ext has mM;  			// external galactose concentration for the cell
+   GALK_vmax has mmol_per_s;		// galactose clearance capacity of the cell
+
+   compartment comp;			// single cell compartment
+   comp has litre;			// single cell compartment
+   species gal in comp;			// galactose in the single cell
+   gal is "D-galactose";
+   gal = 0 mM;
+
+   species gal1p in comp;
+   gal is "D-galactose 1-phosphate";   
+   gal1p = 0 mM;
+
+   GALI: gal_ext -> gal;
+   GALI in comp;
+   GALI is "Galactose Importer";
+   GALI_vmax = 10 mmol_per_s;
+   GALI_kgal = 1 mM; 
+   GALI = GALI_vmax/GALI_kgal*(gal - gal_ext)/(1+gal/GALI_kgal + gal_ext/GALI_kgal);
+
+   GALK: gal => ;
+   GALK_kgal = 0.3 mM;
+   GALK = GALK_vmax * gal/(gal + GALK_kgal);
+end
+
+
+/*      ------------------------------------------------
+	Combined model of multiple cells
+        ------------------------------------------------
+*/
+model full()
+ // Unit definitions:
+  unit substance = 1e-3 mole;
+  unit volume = litre;
+  unit area = metre^2; 
+  unit length = metre;
+
+  unit mM = 1e-3 mole / litre;  
+  unit mmol_per_s = 1e-3 mole / second;
+  unit per_s = 1 / second;
+  unit mmol = 1e-3 mole;
+
+  // Blood compartments and cell (hepatocyte Hc) compartments
+   compartment pp;
+   compartment blood1;
+   compartment blood2;
+   compartment blood3;
+   compartment blood4;
+   compartment blood5;
+
+   compartment pv;
+   pp = 10E-12 litre;
+   blood1 = 1E-12 litre;
+   blood2 = 1E-12 litre
+   blood3 = 1E-12 litre
+   blood4 = 1E-12 litre
+   blood5 = 1E-12 litre
+   pv = 1E-12 litre;
+   pp is "periportal";
+   pv is "perivenous";
+
+
+   // Species in the external layout (blood)
+   const species gal_pp;
+   gal_pp = 10 mM;	  	// periportal (front compartment)
+   gal_1 = 0 mM;                // 1st blood compartment
+   gal_2 = 0 mM;		// ...
+   gal_3 = 0 mM;		// ...
+   gal_4 = 0 mM;		// ...
+   gal_5 = 0 mM;		// ...
+   gal_pv = 0 mM;		// perivenious (end compartment)
+   gal_pp is "D-galactose";
+   gal_1 is "D-galactose";
+   gal_2 is "D-galactose";
+   gal_3 is "D-galactose";
+   gal_4 is "D-galactose";
+   gal_5 is "D-galactose";
+   gal_pv is "D-galactose"; 
+
+   // here the exchanger with external
+   TPP: gal_pp -> gal_1;
+   T1: gal_1 -> gal_2;
+   T2: gal_2 -> gal_3;
+   T3: gal_3 -> gal_4;
+   T4: gal_4 -> gal_5;
+   T5: gal_5 -> gal_pv;
+   D = 10 per_s;    // Diffusion like transport
+   TPP = D*(gal_1 - gal_pp);
+   T1  = D*(gal_2 - gal_1);
+   T2  = D*(gal_3 - gal_2);
+   T3  = D*(gal_4 - gal_3);
+   T4  = D*(gal_5 - gal_4);
+   T5  = D*(gal_pv - gal_5);
+   TPP has mmol_per_s;
+   T1 has mmol_per_s; 
+   T2 has mmol_per_s;
+   T3 has mmol_per_s;
+   T4 has mmol_per_s;
+   T5 has mmol_per_s;
+
+   // initialize cells;
+   k1 = 1 mmol_per_s;
+   k2 = 2 mmol_per_s;
+   k3 = 4 mmol_per_s;
+   k4 = 8 mmol_per_s;
+   k5 = 16 mmol_per_s;
+   compartment Hc1;
+   compartment Hc2;
+   compartment Hc3;
+   compartment Hc4;
+   compartment Hc5;
+   Hc1 = 1E-12 litre
+   Hc2 = 1E-12 litre
+   Hc3 = 1E-12 litre
+   Hc4 = 1E-12 litre
+   Hc5 = 1E-12 litre
+   Hc1 is "Hepatocyte 1";
+   Hc2 is "Hepatocyte 2";
+   Hc3 is "Hepatocyte 3";
+   Hc4 is "Hepatocyte 4";
+   Hc5 is "Hepatocyte 5";
+   
+   H1 : cell(gal_1, k1, Hc1);
+   H2 : cell(gal_2, k2, Hc2); 
+   H3 : cell(gal_3, k3, Hc3);
+   H4 : cell(gal_4, k4, Hc4); 
+   H5 : cell(gal_5, k5, Hc5);
+
+end
+
+

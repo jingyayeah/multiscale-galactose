@@ -1,0 +1,15 @@
+15:26:36 **** Incremental Build of configuration Debug for project SinusoidModel ****
+make all 
+Building file: ../src/SinusoidModel.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/mkoenig/Desktop/copasi/COPASI -I/home/mkoenig/Desktop/copasi/COPASI/copasi -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/SinusoidModel.d" -MT"src/SinusoidModel.d" -o "src/SinusoidModel.o" "../src/SinusoidModel.cpp"
+Finished building: ../src/SinusoidModel.cpp
+ 
+Building target: SinusoidModel
+Invoking: Cross G++ Linker
+g++ -L"/home/mkoenig/Workspace/c++/Copasi/SinusoidModel" -o "SinusoidModel"  ./src/SinusoidModel.o   -lCOPASISE -llapack -lblas -lcppunit -lexpat -lf2c -lmml -lqwt -lqwtplot3d -lraptor -lsbml-static
+Finished building target: SinusoidModel
+ 
+
+15:26:39 Build Finished (took 2s.775ms)
+
