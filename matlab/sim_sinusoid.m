@@ -46,7 +46,7 @@
 %       single/multiple indicator methods.
 % 
 %   Matthias Koenig (2013-09-09)
-%   Copyright © Matthias König 2013 All Rights Reserved.
+%   Copyright ï¿½ Matthias Kï¿½nig 2013 All Rights Reserved.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 format compact;
 clear all; clc; %close all;
@@ -85,8 +85,12 @@ p.with_flow       = true;
 p.with_diffusion  = true;
 
 print_model_overview(p);
-% return
 
+%%%%%%%%%%% MODEL DEFINITION %%%%%%%%%%%
+p.resultsFolder = '../../multiscale-galactose-results/';
+p.mname = strcat('galactose_model_', 'Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));  
+
+%%%%%%%%%%% SIMULATION %%%%%%%%%%%
 %% Test simulation
 fprintf('\n# NORMAL GALACTOSE METABOLISM #\n')
 tic
@@ -109,8 +113,11 @@ x(1:p.Nx_out,:) = p.pp_fun(t, p);
 % x(end-p.Nx_out+1:end, :) = p.pv_fun(t, p);
 
 x = x';
-name = strcat('./results/test_', num2str(p.deficiency));
-save(name, 'p', 't', 'x');
+
+num2str(p.deficiency)
+fname = strcat(p.resultsFolder, p.mname, '_D', num2str(p.deficiency))
+save(fname, 'p', 't', 'x');
+
 create_named_variables;
 % plots_dilution_curves;
 
@@ -133,8 +140,8 @@ for kd=1:23
     % set the used pp and pv concentrations
     x(1:p.Nx_out,:) = p.pp_fun(t, p);
     x = x';
-    name = strcat('./results/test_', num2str(p.deficiency));
-    save(name, 'p', 't', 'x');
+    fname = strcat(p.resultsFolder, p.mname, '_D', num2str(p.deficiency))
+    save(fname, 'p', 't', 'x');
 end
 
 return;
@@ -268,7 +275,7 @@ for k_sim = 1:size(p.c_sim, 1)
         t_total = t_total+tend;
     end
 end
-name = './results/test/matlab_test'; 
+
 save(name, 'p');
 
 %%%%%%%%%%% ANALYSIS %%%%%%%%%%%
