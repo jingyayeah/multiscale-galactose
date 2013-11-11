@@ -1,0 +1,7 @@
+copasi/.metadata/
+copasi/CopasiModelRunner/.cproject
+copasi/CopasiModelRunner/.project
+copasi/CopasiModelRunner/*.a
+copasi/CopasiModelRunner/*.la
+copasi/RemoteSystemsTempFiles/
+
