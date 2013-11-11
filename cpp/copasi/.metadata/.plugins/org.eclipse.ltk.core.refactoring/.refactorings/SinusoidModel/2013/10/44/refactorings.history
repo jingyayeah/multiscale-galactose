@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;SinusoidModel/src/example1.cpp&apos; to &apos;SinusoidModel.cpp&apos;" description="Rename resource &apos;example1.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/example1.cpp" name="SinusoidModel.cpp" stamp="1382876627488" updateReferences="true"/>
-</session>
