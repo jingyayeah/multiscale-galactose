@@ -21,7 +21,7 @@ plot(compartments, gal_dis(end, :),'r-', 'Color', 'r'); hold on
 plot(pv_pos, pv.gal_sin(end), 's', 'Color', 'black', 'MarkerFaceColor', [0.5 0.5 0.5]); hold on
 plot(cells_dist, gal(end, :),'s-', 'Color', 'b'); hold off
 ylabel('galactose [mole/m^3]')
-xlabel('pp < - > pv [µm]')
+xlabel('pp < - > pv [ï¿½m]')
 title('galactose')
 l1 = legend({'gal_{pp}', 'gal_{sin}', 'gal_{dis}', 'gal_{pv}', 'gal_{cell}'}, 'Location', 'NorthEast');
 legend boxoff; set(l1,'FontSize',10);
@@ -77,7 +77,7 @@ for k=1: numel(haxes)
     
     xlim=get(gca,'xlim');
     set(gca, 'xlim', 1.05*xlim)
-    % set(get(gca, 'XLabel'), 'String', 'pp < - > pv [µm]');
+    % set(get(gca, 'XLabel'), 'String', 'pp < - > pv [ï¿½m]');
     
     % set(ax, 'FontWeight', 'bold');
     tit = get(gca, 'Title');
@@ -254,7 +254,7 @@ for kn=1:numel(cnames)
     ylim([0 1.2*tmp(2)])
 end
 set(fig3, 'PaperPositionMode', 'auto');
-print(fig3, '-dtiff', '-r150', './results/Normal_Concentrations.tif'); 
+print(fig3, '-dtiff', '-r150', strcat(p.resultsFolder,'Normal_Concentrations.tif')); 
 return
 
 
@@ -354,7 +354,7 @@ plot(pv_pos, pv.rbc_sin, 's', 'Color', 'black', 'MarkerFaceColor', [0.5 0.5 0.5]
 ylabel('RBC [?]')
 
 subplot(4,6,19)
-plot(0, pp.rbcM_sin(end), 's-', 'Color', 'black', 'MarkerFaceColor', 'black'); hold on
+plot(0, pp.rbcM_sin(end), 's-', 'Color', 'black', 'MarkerFaceColor', 'blck'); hold on
 plot(compartments, rbcM_sin, 'k-'); hold on
 plot(compartments, rbcM_dis, 's-', 'Color', 'r'); hold on
 plot(pv_pos, pv.rbcM_sin, 's', 'Color', 'black', 'MarkerFaceColor', [0.5 0.5 0.5]); hold off
@@ -548,7 +548,7 @@ for k=1: numel(haxes)
     
     xlim=get(gca,'xlim');
     set(gca, 'xlim', [-0.05*compartments(end) 1.05*compartments(end)])
-    set(get(gca, 'XLabel'), 'String', 'pp < - > pv [µm]');
+    set(get(gca, 'XLabel'), 'String', 'pp < - > pv [ï¿½m]');
     
     % set(ax, 'FontWeight', 'bold');
     tit = get(gca, 'Title');

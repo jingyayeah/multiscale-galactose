@@ -3,8 +3,7 @@ function [y_pp] = pp_galactose_metabolism(t, p)
 % Here the simulation profiles in the external metabolites are 
 % generated and used to run the model.
 
-%   Matthias Koenig (2013-10-20)
-%   Copyright © Matthias König 2013 All Rights Reserved.
+%   Copyright Matthias Koenig 2013 All Rights Reserved.
 
 y_pp = zeros(p.Nx_out, numel(t));
 % constant initial concentrations (use the start initial concentrations
@@ -14,15 +13,17 @@ for kt = 1:numel(t)
    y_pp(:,kt) = p.x0(1:p.Nx_out)*3; 
 end
 
-sim_type = 'gal_profile';
-%sim_type = 'gal_constant';
+%sim_type = 'gal_profile';
+sim_type = 'gal_constant';
 
 galactose = zeros(size(t));
 switch (sim_type)
     case 'gal_profile'
         galactose = gal_profile(t);
-    case 'constant'
+    case 'gal_constant'
         galactose = gal_constant(t);
+    otherwise
+        error('pp profile not defined');
 end
 
 y_pp(1,:) = 0.0; %rbc_sin
@@ -46,17 +47,10 @@ y_pp(7,:) = 0.0; %h2oM_sin
         end
     end
 
-
-%         for k=1:Nt
-%             index = ceil(steps*t(k)/p.tspan(2))
-%             gal(k) = prof(index);
-%         end
-
-
     % constant galactose over time
     function [gal] = gal_constant(t)
-        disp('gal_constant')
-        value = 0.0;
+        %disp('gal_constant')
+        value = 2.0;
         gal = value * ones(size(t)); 
     end
         

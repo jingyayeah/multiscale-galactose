@@ -46,11 +46,14 @@
 %       single/multiple indicator methods.
 % 
 %   Matthias Koenig (2013-09-09)
-%   Copyright © Matthias König 2013 All Rights Reserved.
+%   Copyright Matthias Koenig 2013 All Rights Reserved.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 format compact;
 clear all; clc; %close all;
+
+% installation settings (mainly include folders)
 install;
+
 fprintf('***********************************************\n')
 fprintf('SINGLE SINUSOID MODEL - HEPATIC METABOLISM\n')
 fprintf('***********************************************\n')
@@ -85,61 +88,85 @@ p.with_flow       = true;
 p.with_diffusion  = true;
 
 print_model_overview(p);
-% return
 
-%% Test simulation
-fprintf('\n# NORMAL GALACTOSE METABOLISM #\n')
-tic
-% TODO:  'OutputFcn', @ode_out_function for printing time
+%%%%%%%%%%% SIMULATION RESULTS FOLDER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+p.resultsFolder = strcat('../../multiscale-galactose-results/', date, '/');
+if( ~exist(p.resultsFolder, 'file') )
+   sprintf('Create results folder: %s\n', p.resultsFolder);
+   mkdir(p.resultsFolder);
+end
+
+p.mname = strcat('galactose_model_', 'Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));
+
+% simulation timepoints
+exact_times = true;
+p.tstart = 0;
+p.tend   = 1000; %1E6;
+p.tsteps = 1000;
+
+%%%%%%%%%%% SIMULATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % set the galactosemia (0 normal , 1:8 GALK, 9:14 GALT, 15:23 GALE)
+fprintf('\n# NORMAL GALACTOSE METABOLISM #\n')
+p.deficiency = 0;
+sprintf('Deficiency: %s', num2str(p.deficiency));
+
 % p.opt = odeset('AbsTol', 1E-6, 'RelTol', 1E-6, 'MaxStep', 0.1); 
-p.deficiency = 0
-p.opt = odeset('AbsTol', 1E-8, 'RelTol', 1E-6); 
-p.tspan = [0, 1E6];
+p.opt = odeset('AbsTol', 1E-6, 'RelTol', 1E-6); 
+p.tspan = [p.tstart p.tend];
+tic
 sol = ode15s(p.odesin, p.tspan, p.x0, p.opt, p);
 toc;
 
-t = (sol.x)'; 
-%%
-%t = linspace(tspan(1), tspan(end), 21);
+if (exact_times)
+    t = linspace(p.tstart, p.tend, p.tsteps+1);   
+else
+    t = (sol.x)'; 
+end
 x = deval(sol, t);
+
 % set the used pp and pv concentrations
 x(1:p.Nx_out,:) = p.pp_fun(t, p);
-% x(end-p.Nx_out+1:end, :) = p.pv_fun(t, p);
-
 x = x';
-name = strcat('./results/test_', num2str(p.deficiency));
-save(name, 'p', 't', 'x');
+
+
+
+% store the simulation results
+fname = strcat(p.resultsFolder, p.mname, '_D', num2str(p.deficiency))
+save(fname, 'p', 't', 'x');
+% create csv file for comparison with java and cpp
+createCSV(strcat(fname, '.csv'), t, x, p);
+
+% variables and plots
 create_named_variables;
 % plots_dilution_curves;
+plots
+return;
 
-%plots
-%return;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % simulate all deficiencies
 fprintf('\n# GALACTOSEMIAS #\n')
 for kd=1:23
     p.deficiency = kd;
     fprintf('\tgalactosemia: %s/23 \n', num2str(kd))
-    % p
     tic
     sol = ode15s(p.odesin, p.tspan, p.x0, p.opt, p);
     toc
-    t = (sol.x)';
+    if (exact_times)
+        t = linspace(p.tstart, p.tend, p.tsteps+1);   
+    else
+        t = (sol.x)'; 
+    end
     x = deval(sol, t);
     % set the used pp and pv concentrations
     x(1:p.Nx_out,:) = p.pp_fun(t, p);
     x = x';
-    name = strcat('./results/test_', num2str(p.deficiency));
-    save(name, 'p', 't', 'x');
+    fname = strcat(p.resultsFolder, p.mname, '_D', num2str(p.deficiency))
+    save(fname, 'p', 't', 'x');
 end
 
 return;
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % TODO: make the more complex simulation definition work 
 
@@ -268,7 +295,7 @@ for k_sim = 1:size(p.c_sim, 1)
         t_total = t_total+tend;
     end
 end
-name = './results/test/matlab_test'; 
+
 save(name, 'p');
 
 %%%%%%%%%%% ANALYSIS %%%%%%%%%%%

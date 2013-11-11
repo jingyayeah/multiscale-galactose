@@ -1,12 +1,12 @@
 function [dxdt, V_names, V] = dydt_dilution_curves(t, x, p, ci)
-% DYDT_DILUTION_CURVES - Changes for the dilution curves.
+% DYDT_DILUTION_CURVES Changes for the dilution curves.
 %       t : time
 %       x : concentrations related to cell (length p.Nxc)
 %       p : model parameters
 %       ci : cell index (cell dependent metabolism 1, ...,  p.Nc)
 %
 %   Matthias Koenig (2013-09-25)
-%   Copyright © Matthias König 2013 All Rights Reserved.
+%   Copyright ï¿½ Matthias Kï¿½nig 2013 All Rights Reserved.
 if (nargout == 1)
     t
 end

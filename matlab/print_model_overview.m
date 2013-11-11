@@ -1,11 +1,5 @@
 function [] = print_model_overview(p)
-%% PRINT_MODEL_OVERVIEW : Prints the overview of the defined model.
-% Print geometry, initial conditions, ...
-% 
-%   Matthias Koenig (2013-08-22)
-%   Copyright © Matthias König 2013 All Rights Reserved.
-
-% TODO: detailed information
-fprintf('\n# MODEL OVERVIEW #\n')
+%% Printing overview over the multi-scale model
+% Display of important parameters from the model
+% parameter structure.
 p
-end
