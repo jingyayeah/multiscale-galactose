@@ -9,40 +9,40 @@ function [x_names, x_init, Nx_out, x_neg, x_ind, x_unit, Ddata] = pars_galactose
 % TODO: calculate Nx_out based on the named variables.
 Nx_out = 7;
 data = {
-    'rbc_sin',             0.0,    0,  '?' % 1   
-    'rbcM_sin',            0.0,    0,  '?' % 2
-    'suc_sin',             0.0,    0,  '?' % 3
-    'alb_sin',             0.0,    0,  '?' % 4
-    'gal_sin',             0.0012, 0,  'mmol/l' % 5
-    'galM_sin',            0.0,    0,  'mmol/l' % 6
-    'h2oM_sin',            0.0,    0,  '?' % 7
+    'rbc_sin',             0.0,    0,  '?'  % 1   
+    'rbcM_sin',            0.0,    0,  '?'  % 2
+    'suc_sin',             0.0,    0,  'mM' % 3
+    'alb_sin',             0.0,    0,  'mM' % 4
+    'gal_sin',             0.0012, 0,  'mM' % 5
+    'galM_sin',            0.0,    0,  'mM' % 6
+    'h2oM_sin',            0.0,    0,  'mM' % 7
     
-    'rbc_dis',             0.0,    0,  '?' % 1   
-    'rbcM_dis',            0.0,    0,  '?' % 2
-    'suc_dis',             0.0,    0,  '?' % 3
-    'alb_dis',             0.0,    0,  '?' % 4
-    'gal_dis',             0.0012, 0,  'mmol/l' % 5
-    'galM_dis',            0.0,    0,  'mmol/l' % 6
-    'h2oM_dis',            0.0,    0,  '?' % 7
+    'rbc_dis',             0.0,    0,  '?'  % 1   
+    'rbcM_dis',            0.0,    0,  '?'  % 2
+    'suc_dis',             0.0,    0,  'mM' % 3
+    'alb_dis',             0.0,    0,  'mM' % 4
+    'gal_dis',             0.0012, 0,  'mM' % 5
+    'galM_dis',            0.0,    0,  'mM' % 6
+    'h2oM_dis',            0.0,    0,  'mM' % 7
     
-    'gal',             0.00012, 0,  'mmol/l' % 1
-    'galM',            0.0,     0,  'mmol/l' % 2
-    'h2oM',            0.0,    0,  '?'      % 3
-    'glc1p',           0.012,  0,  'mmol/l' % 4
-    'glc6p',           0.12,   0,   'mmol/l' % 5
-    'gal1p',           0.001,   0,  'mmol/l' % 6
-    'udpglc',          0.34,   0,  'mmol/l' % 7
-    'udpgal',          0.11,   0,  'mmol/l' % 8
-    'galtol',          0.001,   0,  'mmol/l' % 9
+    'gal',             0.00012, 0,  'mM' % 1
+    'galM',            0.0,     0,  'mM' % 2
+    'h2oM',            0.0,     0,  'mM' % 3
+    'glc1p',           0.012,   0,  'mM' % 4
+    'glc6p',           0.12,    0,  'mM' % 5
+    'gal1p',           0.001,   0,  'mM' % 6
+    'udpglc',          0.34,    0,  'mM' % 7
+    'udpgal',          0.11,    0,  'mM' % 8
+    'galtol',          0.001,   0,  'mM' % 9
     
-    'atp',              2.7,    0,  'mmol/L' % 10
-    'adp',              1.2,    0,  'mmol/L' % 11
-    'utp',              0.27,   0,  'mmol/L' % 12
-    'udp',              0.09,    0,  'mmol/L' % 13
-    'phos',             5.0,    0,  'mmol/L' % 14
-    'ppi',              0.008,    0,  'mmol/L' % 15
-    'nadp',             0.1,    0,  'mmol/L' % 16
-    'nadph',            0.1,    0,  'mmol/L' % 17
+    'atp',              2.7,    0,  'mM' % 10
+    'adp',              1.2,    0,  'mM' % 11
+    'utp',              0.27,   0,  'mM' % 12
+    'udp',              0.09,   0,  'mM' % 13
+    'phos',             5.0,    0,  'mM' % 14
+    'ppi',              0.008,  0,  'mM' % 15
+    'nadp',             0.1,    0,  'mM' % 16
+    'nadph',            0.1,    0,  'mM' % 17
 };
 for k=1:length(data)
     data{k,5} = k;

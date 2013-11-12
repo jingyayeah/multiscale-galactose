@@ -1,5 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SIM_SINUSOID - single sinusoid model with adjacent cells.
+%% Model of sinusoidal unit
 %
 % Sinusoid model consisting of central blood flow within sinusoid, 
 % exchange of metabolites with adjacent space of Disse and hepatocytes
@@ -47,10 +46,18 @@
 % 
 %   Matthias Koenig (2013-11-12)
 %   Copyright Matthias Koenig 2013 All Rights Reserved.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% -----------------------------------------------------------------------------
+
 format compact;
-clear all; clc; %close all;
+clear all; clc; % close all;
 install;    % installation settings (define include folders)
+
+p.resultsFolder = strcat('../../multiscale-galactose-results/', ...
+                              datestr(date, 'yyyy-mm-dd'), '/');
+if( ~exist(p.resultsFolder, 'file') )
+   sprintf('Create results folder: %s\n', p.resultsFolder);
+   mkdir(p.resultsFolder);
+end
 
 fprintf('***********************************************\n')
 fprintf('SINGLE SINUSOID MODEL - HEPATIC METABOLISM\n')
@@ -58,12 +65,20 @@ fprintf('***********************************************\n')
 % p.id = 'Dilution';
 % p.id = 'Test';
 
-p.id = 'Galactose'; 
+p.name = 'Galactose'; 
+p.version = 0.3;
 p.Nc = 1;
 p.Nf = 5;
-p.version = 0.3;
-p = pars_layout(p, false);          
+p.id = strcat(p.name, '-v', num2str(p.version), '_Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));
 
+% simulation timepoints
+exact_times = true;
+p.tstart = 0;
+p.tend   = 1000;   %1E6;
+p.tsteps = 1000;
+
+% set parameters
+p = pars_layout(p, false);          
 p.ext_constant    = false;      % constant blood concentrations
 p.with_cells      = true;       % include cell ode
 p.with_flow       = true;       % include flow ode
@@ -71,7 +86,7 @@ p.with_diffusion  = true;       % include diffusion ode
 
 % ODE model for the sinusoids and the cells
 p.odesin   = @dydt_sinusoid;
-switch(p.id)                                 
+switch(p.name)                                 
     case 'Galactose'
         p.odecell  = @dydt_galactose_metabolism;
         p.parscell = @pars_galactose_metabolism;
@@ -87,31 +102,11 @@ switch(p.id)
     otherwise
         error('ODE definition not available');
 end
-
-% Initial concentrations based on layout (p.x0) and ode functions
-p = init_sinusoid(p);
-
-% model definition, which part should be simulated
-
+p = init_sinusoid(p);   % Initial conditions and nonnegativities
 print_model_overview(p);
 
-%%%%%%%%%%% SIMULATION RESULTS FOLDER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-p.resultsFolder = strcat('../../multiscale-galactose-results/', datestr(date, 'yyyy-mm-dd'), '/');
-if( ~exist(p.resultsFolder, 'file') )
-   sprintf('Create results folder: %s\n', p.resultsFolder);
-   mkdir(p.resultsFolder);
-end
-
-p.mname = strcat('galactose_model_', 'Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));
-
-% simulation timepoints
-exact_times = true;
-p.tstart = 0;
-p.tend   = 1000; %1E6;
-p.tsteps = 1000;
-
 %%%%%%%%%%% SIMULATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% set the galactosemia (0 normal , 1:8 GALK, 9:14 GALT, 15:23 GALE)
+
 fprintf('\n# NORMAL GALACTOSE METABOLISM #\n')
 p.deficiency = 0;
 sprintf('Deficiency: %s', num2str(p.deficiency));
@@ -134,22 +129,22 @@ x = deval(sol, t);
 x(1:p.Nx_out,:) = p.pp_fun(t, p);
 x = x';
 
-
-
-% store the simulation results
-fname = strcat(p.resultsFolder, p.mname, '_D', num2str(p.deficiency))
+% store the simulation results as *.mat and *.csv
+fname = strcat(p.resultsFolder, p.id, '_D', num2str(p.deficiency))
 save(fname, 'p', 't', 'x');
+
 % create csv file for comparison with java and cpp
 createCSV(strcat(fname, '.csv'), t, x, p);
 
 % variables and plots
 create_named_variables;
 % plots_dilution_curves;
-plots
+%plots
 return;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% simulate all deficiencies
+
+%% Simulate galactosemias
+% set the galactosemia (0 normal , 1:8 GALK, 9:14 GALT, 15:23 GALE)
 fprintf('\n# GALACTOSEMIAS #\n')
 for kd=1:23
     p.deficiency = kd;

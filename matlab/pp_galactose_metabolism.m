@@ -1,22 +1,19 @@
 function [y_pp] = pp_galactose_metabolism(t, p)
-%% PP_GALACTOSE_METABOLISM - Calculate periportal time courses.
+%% Calculate periportal galactose time courses.
 % Here the simulation profiles in the external metabolites are 
 % generated and used to run the model.
 
 %   Copyright Matthias Koenig 2013 All Rights Reserved.
 
-y_pp = zeros(p.Nx_out, numel(t));
-% constant initial concentrations (use the start initial concentrations
-% pp)
+sim_type = 'gal_constant';
 
+%% Set initial concentrations everywhere
+y_pp = zeros(p.Nx_out, numel(t));
 for kt = 1:numel(t)
    y_pp(:,kt) = p.x0(1:p.Nx_out)*3; 
 end
 
-%sim_type = 'gal_profile';
-sim_type = 'gal_constant';
-
-galactose = zeros(size(t));
+%% Set the selected galactose timecourse
 switch (sim_type)
     case 'gal_profile'
         galactose = gal_profile(t);
@@ -25,7 +22,6 @@ switch (sim_type)
     otherwise
         error('pp profile not defined');
 end
-
 y_pp(1,:) = 0.0; %rbc_sin
 y_pp(2,:) = 0.0; %rbcM_sin
 y_pp(3,:) = 0.0; %suc_sin
@@ -35,6 +31,7 @@ y_pp(6,:) = 0.0; %galM_sin
 y_pp(7,:) = 0.0; %h2oM_sin
 
 
+    %% galactose profile over time
     function [gal] = gal_profile(t)
         %disp('gal_profile');
         gal = zeros(size(t));
@@ -47,7 +44,7 @@ y_pp(7,:) = 0.0; %h2oM_sin
         end
     end
 
-    % constant galactose over time
+    %% constant galactose over time
     function [gal] = gal_constant(t)
         %disp('gal_constant')
         value = 2.0;
