@@ -74,7 +74,7 @@ p.id = strcat(p.name, '_v', num2str(p.version), '_Nc', num2str(p.Nc), '_Nf', num
 % simulation timepoints
 exact_times = true;
 p.tstart = 0;
-p.tend   = 1000;   %1E6;
+p.tend   = 1E6;   %1E6;
 p.tsteps = 1000;
 
 % set parameters

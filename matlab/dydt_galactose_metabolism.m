@@ -42,7 +42,7 @@ onevec = ones(size(gal_dis));
 % Scaling has to be performed based on the layout of the system.
 % Depending on the number of cells within the system.
 scale_f = 0.2E-15;      % [-]
-scale = scale_f*p.Nc;   % [-]
+scale = scale_f;        % [-]
 REF_P = 1;              % [mM] reference protein concentration
 deficiency = p.deficiency;  % [-] which Galactosemia
 
