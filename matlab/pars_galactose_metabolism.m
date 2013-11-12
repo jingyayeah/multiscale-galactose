@@ -4,8 +4,7 @@ function [x_names, x_init, Nx_out, x_neg, x_ind, x_unit, Ddata] = pars_galactose
 %   x_init: vector of initial conditions
 %   x_units:  vector of 
 
-%   Matthias Koenig (2013-10-20)0
-%   Copyright © Matthias König 2013 All Rights Reserved.
+%   Copyright Matthias Koenig 2013 All Rights Reserved.
 
 % TODO: calculate Nx_out based on the named variables.
 Nx_out = 7;
@@ -51,7 +50,7 @@ end
 fprintf('\n# METABOLIC CELL MODEL #\n')
 data
 
-% Diffusion coefficients [µm^2/s] -> [m^2/s]
+% Diffusion coefficients [Âµm^2/s] -> [m^2/s]
 Ddata = [             
            0       % [1] RBC
            0       % [2] RBCM

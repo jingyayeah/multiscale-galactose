@@ -45,38 +45,46 @@
 % TODO: handle various tracer profiles [pp] and [pv], one-time, continuous
 %       single/multiple indicator methods.
 % 
-%   Matthias Koenig (2013-09-09)
+%   Matthias Koenig (2013-11-12)
 %   Copyright Matthias Koenig 2013 All Rights Reserved.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 format compact;
 clear all; clc; %close all;
-
-% installation settings (mainly include folders)
-install;
+install;    % installation settings (define include folders)
 
 fprintf('***********************************************\n')
 fprintf('SINGLE SINUSOID MODEL - HEPATIC METABOLISM\n')
 fprintf('***********************************************\n')
 
-%%%%%%%%%%% MODEL DEFINITION %%%%%%%%%%%
-% Sinusoid geometry and layout
-p = pars_layout(false);          
+p.id = 'Galactose'; 
+% p.id = 'Dilution';
+% p.id = 'Test';
+p.Nc = 1;
+p.Nf = 5;
+p.version = 0.3;
+p = pars_layout(p, false);          
 
 % ODE model for the sinusoids and the cells
-p.odesin   = @dydt_sinusoid;         % sinusoid differential equations
-% p.odecell  = @dydt_test_metabolism;  % single cell metabolism equations
-% p.parscell = @pars_test_metabolism;  % single cell parameters
-% p.pp_fun = @pp_test_metabolism;      % periportal input function
-% p.pv_fun = @pv_zeros;                % perivenious output function is
-                                       % calculated from model
-
-% Galactose Metabolism                                       
-p.odecell  = @dydt_galactose_metabolism;
-p.parscell = @pars_galactose_metabolism;
-p.pp_fun   = @pp_galactose_metabolism;    
-% p.odecell  = @dydt_dilution_curves;
-% p.parscell = @pars_dilution_curves;
-% p.pp_fun = @pp_dilution_curves;    
+p.odesin   = @dydt_sinusoid;
+switch(p.id)                                 
+    case 'Galactose'
+        p.odecell  = @dydt_galactose_metabolism;
+        p.parscell = @pars_galactose_metabolism;
+        p.pp_fun   = @pp_galactose_metabolism;
+        break;
+    case 'Dilution'
+        p.odecell  = @dydt_dilution_curves;
+        p.parscell = @pars_dilution_curves;
+        p.pp_fun = @pp_dilution_curves;
+        break;
+    case 'Test'
+        p.odecell  = @dydt_test_metabolism;
+        p.parscell = @pars_test_metabolism;
+        p.pp_fun = @pp_test_metabolism;
+        break;
+    otherwise
+        error('ODE definition not available');
+end
 
 % Initial concentrations based on layout (p.x0) and ode functions
 p = init_sinusoid(p);
@@ -90,8 +98,7 @@ p.with_diffusion  = true;
 print_model_overview(p);
 
 %%%%%%%%%%% SIMULATION RESULTS FOLDER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-p.resultsFolder = strcat('../../multiscale-galactose-results/', date, '/');
+p.resultsFolder = strcat('../../multiscale-galactose-results/', datestr(date, 'yyyy-mm-dd'), '/');
 if( ~exist(p.resultsFolder, 'file') )
    sprintf('Create results folder: %s\n', p.resultsFolder);
    mkdir(p.resultsFolder);
