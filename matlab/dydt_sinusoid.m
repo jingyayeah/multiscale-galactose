@@ -1,33 +1,26 @@
 function [dydt] = dydt_sinusoid(t, y, p)
-%% DYDT_SINUSOID Calculate the derivates for the sinusoid model.
+%% Calculate the derivates for the sinusoid model.
 %   t       : time
 %   y       : vector of concentrations
 %   dydt    : returns changes in concentration [mole/m3]
 %   p       : vector of parameters
+%
+%   Copyright Matthias Koenig 2013 All Rights Reserved.
 
-%   Matthias Koenig (2013-08-23)
-%   Copyright © Matthias König 2013 All Rights Reserved.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+dydt = zeros(size(y));
+ofs_cel = p.Nx_out;     % Offset to variables of first cell
 
-% Concentrations in periportal and perivenious compartment
+%% Concentrations in periportal and perivenious compartment
 y_pp = p.pp_fun(t, p);
 y_pv = y(end-p.Nx_out+1:end);
 dydt_pv = zeros(size(y_pv));
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Offset to reach the first cell concentrations
-ofs_cel = p.Nx_out;
-
-% [1] CELLS - calculate changes in concentration due to cells
+%% Cells
 if p.with_cells
-    %disp('[1] CELLS')
-    dydt = zeros(size(y));
-    
+    %disp('[1] CELLS')    
     for ci = 1:p.Nc
         % get the concentration vector for cell ci
         x = y(ofs_cel + (ci-1)*p.Nxc + 1 : ofs_cel + ci*p.Nxc);
-        %fprintf('Cell: <%i>\n',ci);
-        %x'
         
         % calculate the changes in cell ci
         dxdt_ci      = p.odecell(t,x,p,ci);
@@ -35,17 +28,13 @@ if p.with_cells
         % write the dxdt in the global changes
         dydt(ofs_cel + (ci-1)*p.Nxc + 1 : ofs_cel + ci*p.Nxc) = dxdt_ci;
     end
-else
-    dydt = zeros(size(y));
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Create sinusoid and disse concentration matrix
-y_sin    = zeros(p.Nb, p.Nx_out);
-dydt_sin = zeros(p.Nb, p.Nx_out);
+%% Sinusoid and disse concentration matrix
+y_sin      = zeros(p.Nb, p.Nx_out);
+dydt_sin   = zeros(p.Nb, p.Nx_out);
 y_dis      = zeros(p.Nb, p.Nx_out);
 dydt_dis   = zeros(p.Nb, p.Nx_out);
-
 for k=1:p.Nx_out
     for ci=1:p.Nc
        y_sin( (ci-1)*p.Nf+1 : ci*p.Nf , k) = ...
@@ -58,8 +47,7 @@ for k=1:p.Nx_out
     end
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% [2] BLOOD FLOW & DISSE FLOW
+%% Blood flow disse
 if p.with_flow
     %disp('[2] BLOOD')
     vb = p.flow_sin * p.A_sin;    % [mole/s  * m3/mole]
@@ -76,15 +64,13 @@ if p.with_flow
         end
         % changes for the pv compartment
         dydt_pv(k) = dydt_pv(k) + ...
-            + vb/p.Vol_pv * (y_sin(p.Nb,k) - y_pv(k)); % [mmol/L/s]
+            + vb/p.Vol_pv * (y_sin(p.Nb,k) - y_pv(k)); % [mole/s/m3]
     end
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% [3] DIFFUSION BLOOD & DISSE
+%% Diffusion sinusoid & disse
 if p.with_diffusion
     %disp('[3] DIFFUSION')
-    
     for k=1:p.Nx_out
         % Changes depend on the architecture
         D = p.Ddata(k);     %[m^2/s]
@@ -139,9 +125,7 @@ if p.with_diffusion
     end
 end
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Add changes due to blood and diffusion
+%% Add flow and diffusion changes
 for k=1:p.Nx_out
     for ci=1:p.Nc
         % Sinusoid changes
@@ -155,8 +139,8 @@ for k=1:p.Nx_out
    end
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Concentrations in [pp] are given via functions, [pv] changes are dynamic;
+%% pp and pv changes 
+% Concentrations in [pp] are given via function, [pv] changes are dynamic;
 dydt(1:ofs_cel) = 0.0;
 dydt(end-ofs_cel+1 : end) = dydt_pv;
 

@@ -55,14 +55,19 @@ install;    % installation settings (define include folders)
 fprintf('***********************************************\n')
 fprintf('SINGLE SINUSOID MODEL - HEPATIC METABOLISM\n')
 fprintf('***********************************************\n')
-
-p.id = 'Galactose'; 
 % p.id = 'Dilution';
 % p.id = 'Test';
+
+p.id = 'Galactose'; 
 p.Nc = 1;
 p.Nf = 5;
 p.version = 0.3;
 p = pars_layout(p, false);          
+
+p.ext_constant    = false;      % constant blood concentrations
+p.with_cells      = true;       % include cell ode
+p.with_flow       = true;       % include flow ode
+p.with_diffusion  = true;       % include diffusion ode
 
 % ODE model for the sinusoids and the cells
 p.odesin   = @dydt_sinusoid;
@@ -71,17 +76,14 @@ switch(p.id)
         p.odecell  = @dydt_galactose_metabolism;
         p.parscell = @pars_galactose_metabolism;
         p.pp_fun   = @pp_galactose_metabolism;
-        break;
     case 'Dilution'
         p.odecell  = @dydt_dilution_curves;
         p.parscell = @pars_dilution_curves;
         p.pp_fun = @pp_dilution_curves;
-        break;
     case 'Test'
         p.odecell  = @dydt_test_metabolism;
         p.parscell = @pars_test_metabolism;
         p.pp_fun = @pp_test_metabolism;
-        break;
     otherwise
         error('ODE definition not available');
 end
@@ -90,10 +92,6 @@ end
 p = init_sinusoid(p);
 
 % model definition, which part should be simulated
-p.ext_constant    = false;      % constant blood concentrations in all compartments
-p.with_cells      = true;
-p.with_flow       = true;
-p.with_diffusion  = true;
 
 print_model_overview(p);
 
