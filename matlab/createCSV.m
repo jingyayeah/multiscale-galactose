@@ -8,6 +8,7 @@ Nt = numel(t);
 Nx = size(x, 2);
 
 % create proper header file for the simulation
+% the file has to have the same headers like the java/cpp generated files
 %% TODO: create the correct names of the variables
 
 
