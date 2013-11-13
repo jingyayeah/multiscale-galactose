@@ -23,13 +23,12 @@ switch (sim_type)
     otherwise
         error('pp profile not defined');
 end
-y_pp(1,:) = 0.0; %rbc_sin
-y_pp(2,:) = 0.0; %rbcM_sin
-y_pp(3,:) = 0.0; %suc_sin
-y_pp(4,:) = 0.0; %alb_sin
-y_pp(5,:) = galactose;
-y_pp(6,:) = 0.0; %galM_sin
-y_pp(7,:) = 0.0; %h2oM_sin
+y_pp(1,:) = 0.0; %rbcM_sin
+y_pp(2,:) = 0.0; %suc_sin
+y_pp(3,:) = 0.0; %alb_sin
+y_pp(4,:) = galactose;
+y_pp(5,:) = 0.0; %galM_sin
+y_pp(6,:) = 0.0; %h2oM_sin
 
     %% galactose profile over time
     function [gal] = gal_profile(t)
@@ -47,7 +46,7 @@ y_pp(7,:) = 0.0; %h2oM_sin
     %% constant galactose over time
     function [gal] = gal_constant(t)
         %disp('gal_constant')
-        value = y_pp(5,:);
+        value = y_pp(4,:);
         gal = value; 
     end
         

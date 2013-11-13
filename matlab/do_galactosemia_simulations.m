@@ -18,7 +18,7 @@ p.opt = odeset('AbsTol', 1E-6, 'relTol', 1E-6);
 
 % set the periportal galactose concentration
 % TODO: bad fix, get index via the name
-p.x0(5) = 2; 
+p.x0(4) = 2; 
 
 % do the simulations
 fprintf('\n* Simulations *\n')

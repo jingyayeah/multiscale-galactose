@@ -2,30 +2,35 @@
 fprintf('\n# Simulation time course #\n')
 
 % [gal_pp]  tend def  store
-tend = 1E5;
-p.c_sim = {
-   [0.0012] tend 0  true
-   [2.0]     tend 0  true
-   [0.0012] tend 0  true
-};
-p.c_sim
+tend = 600;
+sim_type = 'peak';
+%sim_type = 'stepwise';
 
-
-p.c_sim = {
-   [0.0012] tend*20 0  false % steady state simulation
-   [0.0012] tend 0  true
-   [1.0]     tend 0  true
-   [2.0]     tend 0  true
-   [3.0]     tend 0  true
-   [4.0]     tend 0  true
-   [5.0]     tend 0  true
-   [6.0]     tend 0  true
-   [7.0]     tend 0  true
-   [8.0]     tend 0  true
-   [9.0]     tend 0  true
-   [10.0]    tend 0  true
-   [0.0012] tend 0  true
-};
+switch sim_type
+    case 'peak'
+        p.c_sim = {
+            [0.0012] tend*20 0  false % steady state simulation   
+            [0.0012] tend 0  true
+            [2.0]     tend 0  true
+            [0.0012] tend 0  true
+        };
+    case 'stepwise'
+        p.c_sim = {
+           [0.0012] tend*20 0  false % steady state simulation
+           [0.0012] tend 0  true
+           [1.0]     tend 0  true
+           [2.0]     tend 0  true
+           [3.0]     tend 0  true
+           [4.0]     tend 0  true
+           [5.0]     tend 0  true
+           [6.0]     tend 0  true
+           %[7.0]     tend 0  true
+           %[8.0]     tend 0  true
+           %[9.0]     tend 0  true
+           %[10.0]    tend 0  true
+           [0.0012] tend 0  true
+        };
+end
 p.c_sim
 
 fprintf('\n---------------------------\n')
@@ -39,7 +44,7 @@ for k_sim=1:size(p.c_sim, 1)
     
     % set the periportal galactose concentration
     % TODO: bad fix, get index via the name
-    p.x0(5) = p.c_sim{k_sim, 1}; 
+    p.x0(4) = p.c_sim{k_sim, 1}; 
     
     % set the deficiency
     p.deficiency = p.c_sim{k_sim, 3};

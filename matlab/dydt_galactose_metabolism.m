@@ -11,9 +11,9 @@ Nf = p.Nf;
 
 %% Disse concentrations
 ofs_dis = p.Nx_out*Nf;    % offset disse concentrations
-gal_dis  = x(ofs_dis + 4*Nf+1:  ofs_dis + 5*Nf);
-galM_dis = x(ofs_dis + 5*Nf+1:  ofs_dis + 6*Nf);
-h2oM_dis = x(ofs_dis + 6*Nf+1:  ofs_dis +7*Nf);
+gal_dis  = x(ofs_dis + 3*Nf+1:  ofs_dis + 4*Nf);
+galM_dis = x(ofs_dis + 4*Nf+1:  ofs_dis + 5*Nf);
+h2oM_dis = x(ofs_dis + 5*Nf+1:  ofs_dis + 6*Nf);
 
 %% Internal concentrations 
 ofs_in = 2*p.Nx_out*Nf;     % offset internal concentrations
@@ -41,11 +41,10 @@ onevec = ones(size(gal_dis));
 %% Scaling
 % Scaling has to be performed based on the layout of the system.
 % Depending on the number of cells within the system.
-scale_f = 1.4E-15;      % [-]
-scale = scale_f;        % [-]
-REF_P = 1;              % [mM] reference protein concentration
+scale_f = 10E-15;      % [-]
+scale = scale_f;       % [-]
+REF_P = 1;             % [mM] reference protein concentration
 deficiency = p.deficiency;  % [-] which Galactosemia
-
 
 % [GLUT2_GAL] galactose transport (gal_dis <-> gal)
 % [GLUT2_GALM] galactoseM transport (galM_dis <-> galM)
@@ -97,7 +96,7 @@ H2OTM  = sum(H2OTM_dis);      % [mole/s]
 %% [GALKM] Galactokinase (galM + atp -> gal1p + adp)
 %------------------------------------------------------------
 GALK_P = 1;           % [mM]
-GALK_PA = 2.0;          % [mole]
+GALK_PA = 0.1;          % [mole]
 GALK_keq = 50;        % [-] DeltaG ~ 10kJ/mol
 GALK_k_gal1p = 1.5;   % [mM] ? 
 GALK_k_adp   = 0.8;   % [mM] ? 
@@ -131,12 +130,14 @@ end
 GALK_Vmax = scale * GALK_PA*GALK_kcat *GALK_P/REF_P;  % [mole/s]
 GALK_dm = ((1 +(gal+galM)/GALK_k_gal)*(1+atp/GALK_k_atp) +(1+gal1p/GALK_k_gal1p)*(1+adp/GALK_k_adp) -1);  % [-]
 GALK  = GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1/(1+gal1p/GALK_ki_gal1p) * (gal*atp -gal1p*adp/GALK_keq)/ GALK_dm;  % [mole/s] 
+%GALK  = GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1/(1+gal1p/GALK_ki_gal1p) * (gal*atp)/ GALK_dm;  % [mole/s] 
+
 GALKM = GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1/(1+gal1p/GALK_ki_gal1p) * galM*atp/GALK_dm;  % [mole/s]
 
 %% [IMP] Inositol monophosphatase (gal1p -> gal + phos)
 %------------------------------------------------------------
 IMP_P = 1;              % [mM]
-IMP_f = 0.2;           % [-]
+IMP_f = 0.05;           % [-]
 IMP_k_gal1p = 0.35;     % [mM]  [Slepak2007, Parthasarathy1997]
 IMP_Vmax = IMP_f * GALK_Vmax * IMP_P/REF_P;  % [mole/s]
 IMP = IMP_Vmax/IMP_k_gal1p * gal1p/(1 + gal1p/IMP_k_gal1p);  % [mole/s]
@@ -156,7 +157,7 @@ ATPS = ATPS_Vmax/(ATPS_k_adp*ATPS_k_phos) *(adp*phos-atp/ATPS_keq)/((1+adp/ATPS_
 %------------------------------------------------------------
 %ALDR_kcat = 0.40;     % [1/s] [Wemuth1982, SABIORK: 22893]
 ALDR_P = 1;            % [mM]
-ALDR_f = 1E11;         % [-]
+ALDR_f = 1E6;         % [-]
 ALDR_keq = 4.0;        % [-] [?]
 ALDR_k_gal = 40.0;     % [mM]  [Wemuth1982, SABIORK: 22893]
 ALDR_k_galtol = 40.0;  % [mM]  [?]
@@ -165,13 +166,14 @@ ALDR_k_nadph = 0.1;    % [mM]  [?]
 ALDR_Vmax = ALDR_f*GALK_Vmax * ALDR_P/REF_P;  % [mole/s]
 ALDR = ALDR_Vmax/(ALDR_k_gal*ALDR_k_nadp) *(gal*nadph - galtol*nadp/ALDR_keq) /...
     ( (1+gal/ALDR_k_gal)*(1+nadph/ALDR_k_nadph) +(1+galtol/ALDR_k_galtol)*(1+nadp/ALDR_k_nadp) -1);  % [mole/s]
-    
+
+
 %% [NADPR] NADP Reductase (nadp -> nadph)
 %------------------------------------------------------------
 % NADPR_deltag = -19.6; % [kJ/mol] (Schuster1995) (glc6p * nadp - pgl6*nadph*h/keq)                
 %NADPR_k_glc6p = 0.045;          % [mM] [Ozer2001, Corpas1995, Bautista1992]
 NADPR_P = 1;                     % [mM]
-NADPR_f = 1E-10;                 % [-];
+NADPR_f = 1E-5;                 % [-];
 NADPR_keq = 1;                   % [-] % nadph/nadp
 NADPR_k_nadp  = 0.015;           % [mM] [Ozer2001, Corpas1995, Bautista1992]
 NADPR_ki_nadph = 0.010;          % [mM] [Ozer2001, Corpas1995, Bautista1992]
@@ -328,7 +330,7 @@ GLY = GLY_Vmax*(glc6p - GLY_k_glc6p)/GLY_k_glc6p * phos/(phos + GLY_k_p);  % [mo
 %GTF_r_udpgal = 0.11;  % [mM]
 %GTF_r_udpglc = 0.34;  % [mM]
 GTF_P = 1;            % [mM]
-GTF_f = 2E-4;         % [-]
+GTF_f = 2E-2;         % [-]
 GTF_k_udpgal = 0.1;   % [mM]  (10-50�M Transporters)
 GTF_k_udpglc = 0.1;   % [mM]
 GTF_Vmax = GTF_f * GALK_Vmax * GTF_P/REF_P;  % [mole/s]
@@ -361,9 +363,9 @@ Vcel = p.Vol_cell;   % [m3]
 
 %% changes [mole/s/m3] via respective volumes
 dxdt = zeros(size(x)); 
-dxdt(ofs_dis + 4*Nf+1:  ofs_dis + 5*Nf) = - GLUT2_GAL_dis  /Vdis;
-dxdt(ofs_dis + 5*Nf+1:  ofs_dis +6*Nf)  = - GLUT2_GALM_dis /Vdis;
-dxdt(ofs_dis + 6*Nf+1:  ofs_dis +7*Nf)  = - H2OTM_dis      /Vdis;
+dxdt(ofs_dis + 3*Nf+1:  ofs_dis + 4*Nf)  = - GLUT2_GAL_dis  /Vdis;
+dxdt(ofs_dis + 4*Nf+1:  ofs_dis + 5*Nf)  = - GLUT2_GALM_dis /Vdis;
+dxdt(ofs_dis + 5*Nf+1:  ofs_dis + 6*Nf)  = - H2OTM_dis      /Vdis;
 dxdt(ofs_in+1:ofs_in+17) = [ 
     dx_gal
     dx_galM

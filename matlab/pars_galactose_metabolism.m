@@ -7,24 +7,22 @@ function [x_names, x_init, Nx_out, x_neg, x_ind, x_unit, Ddata, x_gal] = pars_ga
 %   Copyright Matthias Koenig 2013 All Rights Reserved.
 
 % TODO: calculate Nx_out based on the named variables.
-Nx_out = 7;
+Nx_out = 6;
 % Name, init, nonnegative, unit, 2h gal challenge 
 data = {
-    'rbc_sin',             0.0,    0,  '?',  NaN  % 1   
-    'rbcM_sin',            0.0,    0,  '?',  NaN  % 2
-    'suc_sin',             0.0,    0,  'mM', NaN % 3
-    'alb_sin',             0.0,    0,  'mM', NaN % 4
-    'gal_sin',             0.0012, 0,  'mM', NaN % 5
-    'galM_sin',            0.0,    0,  'mM', NaN % 6
-    'h2oM_sin',            0.0,    0,  'mM', NaN % 7
+    'rbcM_sin',            0.0,    0,  '?',  NaN  % 1
+    'suc_sin',             0.0,    0,  'mM', NaN % 2
+    'alb_sin',             0.0,    0,  'mM', NaN % 3
+    'gal_sin',             0.00012, 0,  'mM', NaN % 4
+    'galM_sin',            0.0,    0,  'mM', NaN % 5
+    'h2oM_sin',            0.0,    0,  'mM', NaN % 6
     
-    'rbc_dis',             0.0,    0,  '?',  NaN  % 1   
-    'rbcM_dis',            0.0,    0,  '?',  NaN  % 2
-    'suc_dis',             0.0,    0,  'mM', NaN % 3
-    'alb_dis',             0.0,    0,  'mM', NaN % 4
-    'gal_dis',             0.0012, 0,  'mM', NaN % 5
-    'galM_dis',            0.0,    0,  'mM', NaN % 6
-    'h2oM_dis',            0.0,    0,  'mM', NaN % 7
+    'rbcM_dis',            0.0,    0,  '?',  NaN  % 1
+    'suc_dis',             0.0,    0,  'mM', NaN % 2
+    'alb_dis',             0.0,    0,  'mM', NaN % 3
+    'gal_dis',             0.00012, 0,  'mM', NaN % 4
+    'galM_dis',            0.0,    0,  'mM', NaN % 5
+    'h2oM_dis',            0.0,    0,  'mM', NaN % 6
     
     'gal',             0.00012, 0,  'mM', NaN % 1
     'galM',            0.0,     0,  'mM', NaN % 2
@@ -54,13 +52,12 @@ data
 
 % Diffusion coefficients [µm^2/s] -> [m^2/s]
 Ddata = [             
-           0       % [1] RBC
-           0       % [2] RBCM
-         400       % [3] suc
-         100       % [4] albuminM
-         400       % [5] gal
-         400       % [6] galM
-        2000       % [7] h20M
+           0       % [1] RBCM
+         400       % [2] suc
+         100       % [3] albuminM
+         400       % [4] gal
+         400       % [5] galM
+        2000       % [6] h20M
 ]*1E-12;
 
 
