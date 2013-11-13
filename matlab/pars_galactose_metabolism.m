@@ -10,16 +10,16 @@ function [x_names, x_init, Nx_out, x_neg, x_ind, x_unit, Ddata, x_gal] = pars_ga
 Nx_out = 7;
 % Name, init, nonnegative, unit, 2h gal challenge 
 data = {
-    'rbc_sin',             0.0,    0,  '?', NaN  % 1   
-    'rbcM_sin',            0.0,    0,  '?', NaN  % 2
+    'rbc_sin',             0.0,    0,  '?',  NaN  % 1   
+    'rbcM_sin',            0.0,    0,  '?',  NaN  % 2
     'suc_sin',             0.0,    0,  'mM', NaN % 3
     'alb_sin',             0.0,    0,  'mM', NaN % 4
     'gal_sin',             0.0012, 0,  'mM', NaN % 5
     'galM_sin',            0.0,    0,  'mM', NaN % 6
     'h2oM_sin',            0.0,    0,  'mM', NaN % 7
     
-    'rbc_dis',             0.0,    0,  '?', NaN  % 1   
-    'rbcM_dis',            0.0,    0,  '?', NaN  % 2
+    'rbc_dis',             0.0,    0,  '?',  NaN  % 1   
+    'rbcM_dis',            0.0,    0,  '?',  NaN  % 2
     'suc_dis',             0.0,    0,  'mM', NaN % 3
     'alb_dis',             0.0,    0,  'mM', NaN % 4
     'gal_dis',             0.0012, 0,  'mM', NaN % 5

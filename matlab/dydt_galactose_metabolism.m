@@ -41,7 +41,7 @@ onevec = ones(size(gal_dis));
 %% Scaling
 % Scaling has to be performed based on the layout of the system.
 % Depending on the number of cells within the system.
-scale_f = 2E-15;      % [-]
+scale_f = 1.4E-15;      % [-]
 scale = scale_f;        % [-]
 REF_P = 1;              % [mM] reference protein concentration
 deficiency = p.deficiency;  % [-] which Galactosemia
@@ -97,7 +97,7 @@ H2OTM  = sum(H2OTM_dis);      % [mole/s]
 %% [GALKM] Galactokinase (galM + atp -> gal1p + adp)
 %------------------------------------------------------------
 GALK_P = 1;           % [mM]
-GALK_PA = 2.5;          % [mole]
+GALK_PA = 2.0;          % [mole]
 GALK_keq = 50;        % [-] DeltaG ~ 10kJ/mol
 GALK_k_gal1p = 1.5;   % [mM] ? 
 GALK_k_adp   = 0.8;   % [mM] ? 
@@ -136,7 +136,7 @@ GALKM = GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1/(1+gal1p/GALK_ki_gal1p) * galM*atp/G
 %% [IMP] Inositol monophosphatase (gal1p -> gal + phos)
 %------------------------------------------------------------
 IMP_P = 1;              % [mM]
-IMP_f = 0.05;           % [-]
+IMP_f = 0.2;           % [-]
 IMP_k_gal1p = 0.35;     % [mM]  [Slepak2007, Parthasarathy1997]
 IMP_Vmax = IMP_f * GALK_Vmax * IMP_P/REF_P;  % [mole/s]
 IMP = IMP_Vmax/IMP_k_gal1p * gal1p/(1 + gal1p/IMP_k_gal1p);  % [mole/s]
@@ -144,7 +144,7 @@ IMP = IMP_Vmax/IMP_k_gal1p * gal1p/(1 + gal1p/IMP_k_gal1p);  % [mole/s]
 %% [ATPS] ATP synthase (adp + phos <-> atp)
 %------------------------------------------------------------
 ATPS_P = 1;             % [mM]
-ATPS_f = 5.0;          % [-]
+ATPS_f = 100.0;          % [-]
 ATPS_keq = 0.58;        % [1/mM] 2.8/(0.8*6)
 ATPS_k_adp = 0.1;       % [mM] [?]
 ATPS_k_atp = 0.5;       % [mM] [?]
@@ -181,7 +181,7 @@ NADPR = NADPR_Vmax/NADPR_k_nadp *(nadp - nadph/NADPR_keq)/(1 +nadp/NADPR_k_nadp 
 %% [GALT] Galactose-1-phosphate uridyl transferase (gal1p + udpglc <-> glc1p + udpgal)
 %------------------------------------------------------------
 GALT_P = 1;               % [mM]
-GALT_f = 0.005;          % [-] 300/804*1/7
+GALT_f = 0.01;          % [-] 300/804*1/7
 GALT_keq = 1.0;           % [-] [?] 
 GALT_k_glc1p  = 0.37;     % [mM] [Geeganage1998]
 GALT_k_udpgal = 0.5;      % [mM] [?]
@@ -217,7 +217,7 @@ GALT = GALT_P/REF_P * GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(gal1p*udpglc - gl
 %% [GALE] UDP-glucose 4-epimerase (udpglc <-> udpgal)
 %------------------------------------------------------------
 GALE_P = 1;               % [mM]
-GALE_f = 0.06;             % [-]
+GALE_f = 0.3;             % [-]
 GALE_PA = 0.0278;         % [s] (1/36)
 GALE_kcat = 36;           % [1/s] [Timson2005]
 GALE_keq = 0.33;          % [-]  [?] (udpgal/udpglc ~ 1/3) 
@@ -290,7 +290,7 @@ PPASE = PPASE_Vmax * ppi^PPASE_n/(ppi^PPASE_n + PPASE_k_ppi^PPASE_n);  % [mole/s
 %% [NDKU] Nucleoside diphosphokinase (ATP:UDP phosphotransferase) (atp + udp <-> adp + utp)
 %------------------------------------------------------------
 NDKU_P = 1;         % [mM]
-NDKU_f = 10;        % [-]
+NDKU_f = 2;        % [-]
 NDKU_keq = 1;       % [-]
 NDKU_k_atp = 1.33;  % [mM] [Kimura1988, Fukuchi1994]
 NDKU_k_adp = 0.042; % [mM] [Kimura1988, Lam1986]

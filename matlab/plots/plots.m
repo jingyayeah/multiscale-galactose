@@ -8,8 +8,6 @@ Vcel = p.Vol_cell;
 
 
 %% Overview over external profiles
-
-
 sunit = 'mole/m^3';
 funit = 'mole/s';
 
@@ -143,6 +141,14 @@ plot(t, gal, 'b-'), hold off;
 legend({'galtol', 'gal'});
 hold off; title ('Galactitol'); ylabel('[mole/m^3]');
 
+% plot the difference pp<->pv
+subplot(rnum,cnum,6); hold on;
+plot(pp.gal_sin, pp.gal_sin, 'ro');
+plot(pp.gal_sin, pv.gal_sin, 'bo');
+plot(pp.gal_sin, pp.gal_sin-pv.gal_sin, 'ko');
+title('pp - pv Galactose Clearance');
+hold off; title('GLUT2 (galactose)'); ylabel('pv galactose');
+
 subplot(rnum,cnum,7); hold on;
 plot(t, GLUT2_GAL/Vcel, 'k-');
 plot(t, GLUT2_GALM/Vcel, 'r-');
@@ -222,7 +228,10 @@ for k=1: numel(haxes)
     set(get(gca, 'YLabel'), 'FontWeight', 'bold')
     axis square
 end
+clear xlim
 
+subplot(rnum,cnum,6);
+xlabel('pp galactose [mM]')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Plot initial concentrations (set ranges) and all model concentrations
@@ -270,6 +279,8 @@ for kn=1:numel(cnames)
     title(name, 'FontWeight', 'bold')
     tmp = ylim();
     ylim([0 1.2*tmp(2)])
+    xlim([0 t(end)])
+    
 end
 set(fig3, 'PaperPositionMode', 'auto');
 print(fig3, '-dtiff', '-r150', strcat(p.resultsFolder,'Normal_Concentrations.tif')); 
