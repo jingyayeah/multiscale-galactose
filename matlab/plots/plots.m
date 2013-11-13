@@ -8,11 +8,13 @@ Vcel = p.Vol_cell;
 
 
 %% Overview over external profiles
-fig1 = figure('Name', 'External', 'Position', [50 50 1500 600], 'Color', [1 1 1]);
+
 
 sunit = 'mole/m^3';
 funit = 'mole/s';
 
+if (false)
+fig1 = figure('Name', 'External', 'Position', [50 50 1500 600], 'Color', [1 1 1]);
 % Galactose
 subplot(1,6,1)
 plot(0, pp.gal_sin(end), 's', 'Color', 'black', 'MarkerFaceColor', 'black'); hold on
@@ -91,6 +93,7 @@ hline = findobj(gcf, 'type', 'line');
 set(hline, 'LineWidth', lwidth);
 %set(fig1, 'PaperPositionMode', 'auto');
 %print(fig1, '-dtiff', '-r150', './results/External_Concentrations.tif'); 
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Bilancing
@@ -228,6 +231,8 @@ cnames = {'gal', 'glc1p', 'glc6p', 'gal1p', 'udpglc', 'udpgal', 'galtol', ...
     'atp', 'adp', 'utp', 'udp', 'phos', 'ppi', 'nadp', 'nadph'};
 csize = ceil(sqrt(numel(cnames)));
 clear ylim
+
+[~, x_init, ~, ~, ~, ~, ~, x_gal] = pars_galactose_metabolism();
 for kn=1:numel(cnames)
     % TODO: get the real initial values, not from the integration start
     name = cnames{kn};
@@ -235,11 +240,24 @@ for kn=1:numel(cnames)
     y = eval([name]);
     hold on;
     tl = t(1); tu = t(end);
-    yl = 0.8*y(1);
-    yu = 1.2*y(1);
-    fill([tl tu tu tl], [yl yl yu yu], [0 0.8 0.2]);
-    line([tl tu], [yl yl], 'Color', [0.4 0.4 0.4], 'LineStyle', '--')
-    line([tl tu], [yu yu], 'Color', [0.4 0.4 0.4], 'LineStyle', '--')
+    % plot initial fill
+    tmp = x_init(name);
+    yl = 0.8*tmp;
+    yu = 1.2*tmp;
+    fp = fill([tl tu tu tl], [yl yl yu yu], [0 0.8 0.2]);
+    %line([tl tu], [yl yl], 'Color', [0.4 0.4 0.4], 'LineStyle', '--')
+    %line([tl tu], [yu yu], 'Color', [0.4 0.4 0.4], 'LineStyle', '--')
+    set(fp, 'FaceAlpha', 0.2, 'EdgeAlpha', 0.2);
+    
+    % plot gal challenge fill
+    % plot initial fill
+    tmp = x_gal(name);
+    if (~isnan(tmp))
+        yl = 0.8*tmp;
+        yu = 1.2*tmp;
+        fp = fill([tl tu tu tl], [yl yl yu yu], [0.5 0.5 0.5]);
+        set(fp, 'FaceAlpha', 0.2, 'EdgeAlpha', 0.2);
+    end
     
     plot(t, y, 'k-', 'LineWidth', 2);
     hold off;
