@@ -9,15 +9,15 @@ sim_type = 'peak';
 switch sim_type
     case 'peak'
         p.c_sim = {
-            [0.0012] tend*20 0  false % steady state simulation   
-            [0.0012] tend 0  true
+            [0.00012] tend*17 0  false % steady state simulation   
+            [0.00012] tend 0  true
             [2.0]     tend 0  true
-            [0.0012] tend 0  true
+            [0.00012] tend 0  true
         };
     case 'stepwise'
         p.c_sim = {
-           [0.0012] tend*20 0  false % steady state simulation
-           [0.0012] tend 0  true
+           [0.00012] tend*20 0  false % steady state simulation
+           [0.00012] tend 0  true
            [1.0]     tend 0  true
            [2.0]     tend 0  true
            [3.0]     tend 0  true
@@ -28,7 +28,7 @@ switch sim_type
            %[8.0]     tend 0  true
            %[9.0]     tend 0  true
            %[10.0]    tend 0  true
-           [0.0012] tend 0  true
+           [0.00012] tend 0  true
         };
 end
 p.c_sim

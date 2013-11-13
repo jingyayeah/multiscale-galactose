@@ -14,14 +14,14 @@ end
 p.L = 500E-6;               % [m] sinusoid length
 p.y_sin = 4.4E-6;           % [m] radius sinusoid
 p.y_dis = 0.8E-6;           % [m] diameter Disse space
-p.y_cell = 0.25*25E-6;      % [m] hepatocyte sheet thickness
+p.y_cell = 6.25E-6;      % [m] hepatocyte sheet thickness
 p.flow_sin = 60E-6;         % [m/s] blood flow
 
 if (random == true)
     stdL = 50E-6;      
     stdYsin = 0.45E-6; 
     stdYdis = 0.3E-6;  
-    stdYcell = 0.25*5E-6;  
+    stdYcell = 6.25E-6;  
     stdFsin = 50E-6;  
     % take random paramters around the mean values
     p.L = max(0.01*p.L, normrnd(p.L, stdL, 1));

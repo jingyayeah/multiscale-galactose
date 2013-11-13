@@ -130,8 +130,6 @@ end
 GALK_Vmax = scale * GALK_PA*GALK_kcat *GALK_P/REF_P;  % [mole/s]
 GALK_dm = ((1 +(gal+galM)/GALK_k_gal)*(1+atp/GALK_k_atp) +(1+gal1p/GALK_k_gal1p)*(1+adp/GALK_k_adp) -1);  % [-]
 GALK  = GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1/(1+gal1p/GALK_ki_gal1p) * (gal*atp -gal1p*adp/GALK_keq)/ GALK_dm;  % [mole/s] 
-%GALK  = GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1/(1+gal1p/GALK_ki_gal1p) * (gal*atp)/ GALK_dm;  % [mole/s] 
-
 GALKM = GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1/(1+gal1p/GALK_ki_gal1p) * galM*atp/GALK_dm;  % [mole/s]
 
 %% [IMP] Inositol monophosphatase (gal1p -> gal + phos)
@@ -278,12 +276,12 @@ UGALP = UGALP_f*UGP_Vmax/(UGP_k_utp*UGP_k_gal1p) *(gal1p*utp - udpgal*ppi/UGP_ke
 
 %% [PPASE] Pyrophosphatase (ppi + h2o -> 2 phos)
 %------------------------------------------------------------
-%PPASE_deltag = -19.2;   % [kJ/mol] [-19.2 Guyn1974]
-PPASE_P = 1;                   % [mM]
-PPASE_f = 0.05;                 % [-]
-PPASE_k_ppi = 0.07;           % [mM] [Irie1970][Yoshida1982 0.008] (also much higher values)
-PPASE_keq = 3.125;             % [mM] [phos^2/ppi ~ 5.0^2/0.008]
-PPASE_n = 4;           % [mM] [Yoshida1982]
+%PPASE_deltag = -19.2; % [kJ/mol] [-19.2 Guyn1974]
+%PPASE_keq = 3.125;    % [mM] [phos^2/ppi ~ 5.0^2/0.008]
+PPASE_P = 1;           % [mM]
+PPASE_f = 0.05;        % [-]
+PPASE_k_ppi = 0.07;    % [mM] [Irie1970][Yoshida1982 0.008] (also much higher values)
+PPASE_n = 4;           % [-]
 PPASE_Vmax = PPASE_f*UGP_Vmax *PPASE_P/REF_P;  % [mole/s]
 
 PPASE = PPASE_Vmax * ppi^PPASE_n/(ppi^PPASE_n + PPASE_k_ppi^PPASE_n);  % [mole/s]
@@ -305,8 +303,8 @@ NDKU = NDKU_Vmax/NDKU_k_atp/NDKU_k_udp *(atp*udp - adp*utp/NDKU_keq)/...
 %% [PGM1] Phosphoglucomutase-1 (glc1p <-> glc6p)
 %------------------------------------------------------------
 % TODO inhibition glc1p
-PGM1_P = 5;                  % [mM]
-PGM1_f = 10.0;                % [-]
+PGM1_P = 1;                  % [mM]
+PGM1_f = 50.0;                % [-]
 PGM1_keq = 10.0;             % [-] ( [glc6p]/[glc1p] ~10-12 [Guynn1974]) DeltaG=-7.1 [kJ/mol] [Koenig2012]
 PGM1_k_glc6p  = 0.67;        % [mM] [Kashiwaya1994]
 PGM1_k_glc1p = 0.045;        % [mM] [Kashiwaya1994, Quick1994]
