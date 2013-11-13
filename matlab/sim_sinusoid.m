@@ -44,7 +44,7 @@
 % TODO: handle various tracer profiles [pp] and [pv], one-time, continuous
 %       single/multiple indicator methods.
 % 
-%   Matthias Koenig (2013-11-12)
+%   Matthias Koenig (2013-11-13)
 %   Copyright Matthias Koenig 2013 All Rights Reserved.
 % -----------------------------------------------------------------------------
 
@@ -71,12 +71,6 @@ p.Nc = 1;
 p.Nf = 5;
 p.id = strcat(p.name, '_v', num2str(p.version), '_Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));
 
-% simulation timepoints
-exact_times = true;
-p.tstart = 0;
-p.tend   = 2E3;   %1E6;
-p.tsteps = 1000;
-
 % set parameters
 p = pars_layout(p, false);          
 p.ext_constant    = false;      % constant blood concentrations
@@ -102,53 +96,42 @@ switch(p.name)
     otherwise
         error('ODE definition not available');
 end
-p = init_sinusoid(p);   % Initial conditions and nonnegativities
+p = init_sinusoid(p);       % Initial conditions and nonnegativities
 print_model_overview(p);
 
-%%%%%%%%%%% SIMULATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-fprintf('\n# NORMAL GALACTOSE METABOLISM #\n')
-p.deficiency = 0;
-sprintf('Deficiency: %s', num2str(p.deficiency));
-
-% p.opt = odeset('AbsTol', 1E-6, 'RelTol', 1E-6, 'MaxStep', 0.1); 
-p.opt = odeset('AbsTol', 1E-6, 'RelTol', 1E-6); 
-p.tspan = [p.tstart p.tend];
-tic
-sol = ode15s(p.odesin, p.tspan, p.x0, p.opt, p);
-toc;
-
-if (exact_times)
-    t = linspace(p.tstart, p.tend, p.tsteps+1);   
-else
-    t = (sol.x)'; 
-end
-x = deval(sol, t);
-
-% set the used pp and pv concentrations
-x(1:p.Nx_out,:) = p.pp_fun(t, p);
-x = x';
-
-% store the simulation results as *.mat and *.csv
-fname = strcat(p.resultsFolder, p.id, '_D', num2str(p.deficiency))
-save(fname, 'p', 't', 'x');
-
-% create csv file for comparison with java and cpp
-createCSV(strcat(fname, '.csv'), t, x, p);
-
-% variables and plots
-create_named_variables;
-% plots_dilution_curves;
-%plots
-return;
+% Model definition finished
+% TODO: call different simulation time courses with the defined model
+% the model can be used to call different simulations on it
+do_simple_simulation();
+do_galactosemia_simulations();
+do_galactose_peak_simulation();
+do_galactose_ss_simulation();
 
 
-%% Simulate galactosemias
+%% Simulate normal state and galactosemias
 % set the galactosemia (0 normal , 1:8 GALK, 9:14 GALT, 15:23 GALE)
-fprintf('\n# GALACTOSEMIAS #\n')
-for kd=1:23
-    p.deficiency = kd;
-    fprintf('\tgalactosemia: %s/23 \n', num2str(kd))
+do_galactosemias = true;
+if (do_galactosemias)    
+    def_vector = [1:23 0];
+else
+    def_vector = 0;
+end
+
+% simulation timepoints
+exact_times = true;
+p.tend   = 2E3;  
+p.tsteps = 1000;
+p.tspan = [0 p.tend];
+
+% do the simulations
+for def_item = def_vector    
+    p.deficiency = def_item;
+    if (p.deficiency == 0)
+        fprintf('\tnormal: %i \n', p.deficiency)    
+    else 
+        fprintf('\tgalactosemia: %i/23 \n', p.deficiency)
+    end
+    
     tic
     sol = ode15s(p.odesin, p.tspan, p.x0, p.opt, p);
     toc
@@ -158,73 +141,51 @@ for kd=1:23
         t = (sol.x)'; 
     end
     x = deval(sol, t);
+    
     % set the used pp and pv concentrations
     x(1:p.Nx_out,:) = p.pp_fun(t, p);
     x = x';
     fname = strcat(p.resultsFolder, p.mname, '_D', num2str(p.deficiency))
     save(fname, 'p', 't', 'x');
+    createCSV(strcat(fname, '.csv'), t, x, p);
 end
 
-return;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% variables and plots
+create_named_variables;
+% plots_dilution_curves;
+plots
+return 
 
 
+%% Complex simulation time courses
+fprintf('\n# Simulation time course #\n')
+tend = 2E3;
 
+% [gal_pp]  tend def  store
+p.c_sim = {
+   [0.00012] tend 0  true
+   [2.0]     tend 0  true
+   [0.00012] tend 0  true
+};
+p.c_sim
 
-% TODO: make the more complex simulation definition work 
-
-%%%%%%%%%%% SIMULATION DEFINITION %%%%%%%%%%%
-% [glc lac o2 ins glu]    tend  [cells diffusion bloodflow] extconstant  store
-tend = 1E6;
-
-% Single cell simulation
-if (p.Nc == 1)
-    % p.opt = odeset('NonNegative', p.NonNegative, 'AbsTol', 1E-6, 'RelTol', 1E-3); 
-    p.opt = odeset('AbsTol', 1E-6, 'RelTol', 1E-3); 
-    
-    p.c_sim = {
-       [8.0 2   40 *1.3/760 10 5]    tend   [1 1 0]  true  true
-       [8.0 2   40 *1.3/760 10 5]    tend   [1 1 0]  false  true
-       [3.5 2   40 *1.3/760 10 5]    tend  [1 1 ]   false  true
-    };
-    
-% Cell array simulation
-else
-    %p.opt = odeset('NonNegative', p.NonNegative, 'OutputFcn', @outfun); 
-    p.opt = odeset('NonNegative', p.NonNegative, 'OutputFcn', @outfun, 'AbsTol', 1E-8, 'RelTol', 1E-5); 
-    p.c_sim = {
-       [8.0 2   40 *1.3/760 1 0.05]    tend   [1 1 0] 'constant' true  true
-       [8.0 2   40 *1.3/760 1 0.05]    tend   [1 1 0] 'constant' false  true
-       [3.5 2   40 *1.3/760 1 0.05]    tend  [1 1 0]  'constant' false  true
-    };
-end
-
-print_simulation_overview(p)
-return
-
-
-%%%%%%%%%%% SIMULATE SYSTEM %%%%%%%%%%%
 fprintf('\n---------------------------\n')
 fprintf('Integrate Solution')
-fprintf(' # [k_sim] \t[glc lac o2 ins glu]\n')
+fprintf(' # [sim] \t[gal]\n')
 fprintf('---------------------------\n')
 
+
 for k_sim=1:size(p.c_sim, 1)
-    % set external concentration profiles -> only in blood compartment
-    % generates the c_ext vector (glc_ext, lac_ext, o2_ext)
+    
+    % set pp concentrations
+    % todo: find way to set the constant pp concentrations
+    % overwrite values in the p.x0
     if numel(p.c_sim{k_sim, 1}) == 0
         c_pp = p.x0(1:p.Nx_out);
     else
         c_pp = p.c_sim{k_sim, 1};
     end
-   
-    % which components are part of the model
-    tmp = p.c_sim{k_sim, 3};
-    p.with_cells      = tmp(1);
-    p.with_diffusion  = tmp(2);
-    p.with_flow       = tmp(3);
-    p.ext_constant    = p.c_sim{k_sim, 5};
-    
     % Use constant concentrations in the outer compartment
     if (p.ext_constant)
        disp('<set constant external concentrations>')
@@ -239,43 +200,30 @@ for k_sim=1:size(p.c_sim, 1)
                   p.Nx_out + (ci-1)*p.Nxc + p.Nx_out*p.Nf + k*p.Nf) = c_pp(k); 
           end
        end
-   end
-    
-    % get the function handles for the timecourses of metabolite
-    % concentrations in pp compartment
-    for kx = 1:p.Nx_out
-        switch p.c_sim{k_sim, 4}
-            case 'constant'
-                % disp('Constant Generator')
-                p.f_pp{kx} = tc_generator('constant', c_pp(kx));
-                break;
-            case 'sinus'
-                % disp('Sinus Generator')
-                p.f_pp{kx} = tc_generator('sinus', c_pp(kx));
-                break;
-            otherwise
-                warning('Function handles for pp timecourses not found');
-        end
     end
+   
     
-    % simulate and store solution structure for later devaluation
-    tend = p.c_sim{k_sim, 2};
+    
+    % set the deficiency
+    p.deficiency = p.c_sim{k_sim, 3};
+    
+    % set the end times for simulation
+    p.tend = p.c_sim{k_sim, 2};
+    p.tspan = [0 p.tend];
     tic
-    sol = ode15s(p.odefun, [0 tend], p.x0, p.opt, p);
+    sol = ode15s(p.odesin, p.tspan, p.x0, p.opt, p);
     tint = toc;
-    p.sol{k_sim} = sol;
+    p.sol{k_sim} = sol; % store solution 
     
     % Set initial concentration for next simulation in row
     p.x0 = deval(sol, tend);
     
     % print information about simulation
-    fprintf(' # [%i] \t%s\t%s\t%s\t%s\t%s\t%s\t%s\t Elapsed time: %4.2f\n', ...
-            k_sim, mat2str(p.c_sim{k_sim, 1}),num2str(p.c_sim{k_sim, 2}), p.c_sim{k_sim, 3}, ...
-            mat2str(p.c_sim{k_sim, 4}), num2str(p.c_sim{k_sim, 5}), ...
-            num2str(p.c_sim{k_sim, 6}), mat2str(p.c_sim{k_sim, 7}), tint); 
+    fprintf(' # [%i] \t%s\t%s Elapsed time: %4.2f\n', ...
+            k_sim, mat2str(p.c_sim{k_sim, 1}), num2str(p.c_sim{k_sim, 3}), tint); 
 end
 
-%%%%%%%%%%% EVALUATE SIMULATION %%%%%%%%%%%
+%% Evaluate simulation
 t_total = 0;
 t = [];
 x = [];
@@ -284,13 +232,10 @@ for k_sim = 1:size(p.c_sim, 1)
     tend = p.c_sim{k_sim, 2};
     % if the solution for the simulation should be part of the plotted
     % timecourse
-    if p.c_sim{k_sim, 6}
+    if p.c_sim{k_sim, 4}
         sol = p.sol{k_sim};
-        % dtmp = 10;                  % step size for generating the solution
-        % t_sim = [0:dtmp:tend]';
         t_sim = (sol.x)';             % use provided stepsize by solver
         x_sim = deval(sol, t_sim);
-        
         t = [t 
              t_sim+t_total];
         x = [x 

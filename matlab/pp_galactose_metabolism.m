@@ -30,7 +30,6 @@ y_pp(5,:) = galactose;
 y_pp(6,:) = 0.0; %galM_sin
 y_pp(7,:) = 0.0; %h2oM_sin
 
-
     %% galactose profile over time
     function [gal] = gal_profile(t)
         %disp('gal_profile');
@@ -47,7 +46,7 @@ y_pp(7,:) = 0.0; %h2oM_sin
     %% constant galactose over time
     function [gal] = gal_constant(t)
         %disp('gal_constant')
-        value = 2.0;
+        value = y_pp(5,:);
         gal = value * ones(size(t)); 
     end
         
