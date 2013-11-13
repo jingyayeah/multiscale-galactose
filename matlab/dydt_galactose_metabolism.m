@@ -73,7 +73,7 @@ deficiency = p.deficiency;  % [-] which Galactosemia
 %% [GLUT2_GALM] galactoseM transport (galM_dis <-> galM)
 %------------------------------------------------------------
 GLUT2_P = 1;              % [mM]
-GLUT2_f = 1E6;            % [-]
+GLUT2_f = 1E8;            % [-]
 GLUT2_k_gal = 85.5;       % [mM] [Colville1993, Arbuckle1996]
 GLUT2_Vmax = GLUT2_f * scale * GLUT2_P/REF_P;  % [mole/s]
 GLUT2_dm = (1 + (gal_dis+galM_dis)/GLUT2_k_gal + (gal+galM)/GLUT2_k_gal); % [-]
@@ -276,14 +276,14 @@ UGALP = UGALP_f*UGP_Vmax/(UGP_k_utp*UGP_k_gal1p) *(gal1p*utp - udpgal*ppi/UGP_ke
 
 %% [PPASE] Pyrophosphatase (ppi + h2o -> 2 phos)
 %------------------------------------------------------------
-% TODO: better implementation of reversibilty (keep quit constant)
 %PPASE_deltag = -19.2;   % [kJ/mol] [-19.2 Guyn1974]
 PPASE_P = 1;                   % [mM]
-PPASE_f = 4E-6;                % [-]
-PPASE_k_pp = 0.008;            % [mM] [Yoshida1982]
-PPASE_n = 3;                   % [-]
+PPASE_f = 5.0;                 % [-]
+PPASE_k_ppi = 0.008;           % [mM] [Yoshida1982]
+PPASE_keq = 3.125;             % [mM] [phos^2/ppi ~ 5.0^2/0.008]
 PPASE_Vmax = PPASE_f*UGP_Vmax *PPASE_P/REF_P;  % [mole/s]
-PPASE = PPASE_Vmax * ppi^PPASE_n/(ppi^PPASE_n + PPASE_k_pp^PPASE_n);  % [mole/s]
+% PPASE = PPASE_Vmax * ppi^PPASE_n/(ppi^PPASE_n + PPASE_k_pp^PPASE_n);  % [mole/s]
+PPASE = PPASE_Vmax/PPASE_k_ppi*(ppi - phos*phos/PPASE_keq)/(1+PPASE_k_ppi);  % [mole/s]
 
 %% [NDKU] Nucleoside diphosphokinase (ATP:UDP phosphotransferase) (atp + udp <-> adp + utp)
 %------------------------------------------------------------
@@ -298,16 +298,25 @@ NDKU_Vmax = NDKU_f* UGP_Vmax *NDKU_P/REF_P;  % [mole/s]
 NDKU = NDKU_Vmax/NDKU_k_atp/NDKU_k_udp *(atp*udp - adp*utp/NDKU_keq)/...
     ((1+atp/NDKU_k_atp)*(1+udp/NDKU_k_udp) + (1+adp/NDKU_k_adp)*(1+utp/NDKU_k_utp) -1);  % [mole/s]
 
-%% [PGM1] Phosphoglucomutase-1 (glc1p <-> glc6p + phos)
+%% [PGM1] Phosphoglucomutase-1 (glc1p <-> glc6p)
 %------------------------------------------------------------
 % TODO inhibition glc1p
-PGM1_P = 1;                  % [mM]
-PGM1_f = 12.0;                % [-]
+PGM1_P = 5;                  % [mM]
+PGM1_f = 1.0;                % [-]
 PGM1_keq = 10.0;             % [-] ( [glc6p]/[glc1p] ~10-12 [Guynn1974]) DeltaG=-7.1 [kJ/mol] [Koenig2012]
 PGM1_k_glc6p  = 0.67;        % [mM] [Kashiwaya1994]
 PGM1_k_glc1p = 0.045;        % [mM] [Kashiwaya1994, Quick1994]
 PGM1_Vmax = PGM1_f * GALK_Vmax*PGM1_P/REF_P;   % [mole/s]
 PGM1 = PGM1_Vmax/PGM1_k_glc1p *(glc1p - glc6p/PGM1_keq)/(1+glc1p/PGM1_k_glc1p+glc6p/PGM1_k_glc6p);  % [mole/s]
+
+%% [GLY] Glycolysis (glc6p <-> phos)
+%------------------------------------------------------------
+GLY_P = 1;                  % [mM]
+GLY_f = 0.1;                % [-]
+GLY_k_glc6p = 0.12;         % [mM] [concentrations]
+GLY_k_p = 0.2;              % [mM] [limitation phosphate]
+GLY_Vmax = GLY_f * PGM1_Vmax*GLY_P/REF_P;   % [mole/s]
+GLY = GLY_Vmax*(glc6p - GLY_k_glc6p)/GLY_k_glc6p * phos/(phos + GLY_k_p);  % [mole/s]
 
 %% [GTFGAL] Glycosyltransferase galactose (udpgal -> udp)
 %% [GTFGLC] Glycosyltransferase glucose (udpglc -> udp)
@@ -325,13 +334,12 @@ GTFGAL = GTF_Vmax * udpgal/(udpgal + GTF_k_udpgal);  % [mole/s]
 GTFGLC = 0* GTF_Vmax * udpglc/(udpglc + GTF_k_udpglc);  % [mole/s]
 
 
-
 %% Stoichiometric matrix [mole/s]
 dx_gal   = GLUT2_GAL -GALK +IMP -ALDR;
 dx_galM  = GLUT2_GALM -GALKM;
 dx_h2oM  = H2OTM;
 dx_glc1p = GALT -PGM1 -UGP;
-dx_glc6p = 0; %! +v_PGM1;
+dx_glc6p = PGM1 -GLY;
 dx_gal1p  = -GALT +GALK -IMP -UGALP +GALKM;
 dx_udpglc = -GALT -GALE +UGP   -GTFGLC; 
 dx_udpgal =  GALT +GALE +UGALP -GTFGAL;
@@ -341,11 +349,10 @@ dx_atp  = -GALK +ATPS -NDKU;
 dx_adp  = +GALK -ATPS +NDKU;
 dx_utp  = -UGP -UGALP +NDKU;
 dx_udp  = -NDKU +GTFGAL + GTFGLC;
-dx_phos = 2*PPASE -ATPS +IMP +PGM1;
+dx_phos = 2*PPASE -ATPS +IMP +GLY;
 dx_ppi  = UGP +UGALP -PPASE;
 dx_nadp =  ALDR -NADPR;
 dx_nadph= -ALDR +NADPR;
-
 
 Vdis = p.Vol_dis;    % [m3]
 Vcel = p.Vol_cell;   % [m3]
@@ -410,6 +417,7 @@ if nargout > 1
         'NADPR'
         'PPASE'
         'PGM1'
+        'GLY'
     };
     V = NaN(length(V_names),1);
     for k=1:numel(V_names)
