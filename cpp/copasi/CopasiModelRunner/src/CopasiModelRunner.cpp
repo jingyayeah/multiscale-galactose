@@ -34,6 +34,15 @@
 
 #include "ModelSimulator.h"
 
+/**
+ * Main things to do are:
+ * 	- [DONE] take a model file and convert it to Copasi format
+ * 	- change parameters in the model (galactose, blood flow)
+ * 	- perform time course simulations
+ * 	- store data in files with SBML identifiers
+ * 	- read the data into Matlab for analysis.
+ */
+
 int main()
 {
 	std::cout << "Running CopasiModelRunner\n";
