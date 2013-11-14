@@ -40,13 +40,24 @@ ModelSimulator::ModelSimulator(std::string fname){
 	filename = fname;
 }
 
+struct stringbuilder
+{
+   std::stringstream ss;
+   template<typename T>
+   stringbuilder & operator << (const T &data)
+   {
+        ss << data;
+        return *this;
+   }
+   operator std::string() { return ss.str(); }
+};
 
 /** Do timecourse simulation and write to file with
  * the given parameter settings for the model.
  * TODO: only load model once and than perform all the
  * 		 timecourse simulations on the model.
  */
-int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters mPars, TimeCourseParameters tcPars) {
+int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCourseParameters tcPars) {
 
 	// initialize the backend library
 	CCopasiRootContainer::init(0, NULL);
@@ -101,14 +112,14 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 		}
 	}
 	// Change Initial concentrations
-	// ! carefule with setInitialConcentration & setInitialValue
+	// ! careful with setInitialConcentration & setInitialValue
 	for (size_t i=0; i<pModel->getMetabolites().size(); ++i){
 		CMetab* pMetab = pModel->getMetabolites()[i];
 		const std::string& sbmlId = pMetab->getSBMLId();
 		if(sbmlId.compare("PP__gal") == 0){
 			//found
 			std::cout << "Found pp galactose -> resetting" << std::endl;
-			double gal = mPars.getPPGalactose();
+			double gal = 0.00012;
 			pMetab->setInitialConcentration(gal);
 
 			// initial value set has to be update
@@ -118,26 +129,27 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 			break;
 		}
 	}
-	/**
-	// Change Event states
+
+	// Change Event states (for peak)
 	for (size_t i=0; i<pModel->getEvents().size(); ++i){
 		CEvent* pEvent = pModel->getEvents()[i];
-		const std::string& sbmlId = pMetab->getSBMLId();
-		if(sbmlId.compare("PP__gal") == 0){
+		const std::string& sbmlId = pEvent->getSBMLId();
+		if(sbmlId.compare("EGAL_1") == 0){
 			//found
-			std::cout << "Found pp galactose -> resetting" << std::endl;
-			double gal = mPars.getPPGalactose();
-			pMetab->setInitialValue(gal);
-
-			// initial value set has to be update
-			const CCopasiObject* pObject = pMetab->getInitialValueReference();
-			assert(pObject != NULL);
-			changedObjects.insert(pObject);
-			break;
+			std::cout << "Found EGAL_1 event -> resetting" << std::endl;
+			// find the right EventAssignment (only one, so take the first)
+			double galValue = mPars.getPPGalactose();
+			std::ostringstream tmp;
+			tmp << galValue;
+			std::string expression = tmp.str();
+			bool success = pEvent->getAssignments()[0]->setExpression(expression);
+			// targetKey of the assignment is already the PP__gal
+			if (!success){
+				std::cout << "The expression could not be set";
+			}
+			// Update initial values not necessary
 		}
 	}
-	*/
-
 
 	// finally compile the model
 	// compile needs to be done before updating all initial values for
@@ -270,8 +282,12 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 
 	// set the report for the task
 	pTrajectoryTask->getReport().setReportDefinition(pReport);
+
 	// set the output filename
-	pTrajectoryTask->getReport().setTarget("Timecourse_report.txt");
+	std::string reportTarget = stringbuilder()<< "/home/mkoenig/multiscale-galactose-results/" << pModel->getSBMLId() << "_flow" << mPars.getFlow()
+													<< "_gal" << mPars.getPPGalactose() << ".txt";
+	std::cout<< "Report Target: " << reportTarget << std::endl << std::endl;
+	pTrajectoryTask->getReport().setTarget(reportTarget);
 	// don't append output if the file exists, but overwrite the file
 	pTrajectoryTask->getReport().setAppend(false);
 
@@ -297,26 +313,6 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	assert(pParameter != NULL);
 	pParameter->setValue(tcPars.getRelTol());
 
-
-	/*
-	// simulate 100 steps
-	pProblem->setStepNumber(240);
-	// start at time 0
-	pDataModel->getModel()->setInitialTime(0.0);
-	// simulate a duration of 10 time units
-	pProblem->setDuration(120);
-	// tell the problem to actually generate time series data
-	pProblem->setTimeSeriesRequested(true);
-
-	// set some parameters for the LSODA method through the method
-	CTrajectoryMethod* pMethod = dynamic_cast<CTrajectoryMethod*>(pTrajectoryTask->getMethod());
-	CCopasiParameter* pParameter = pMethod->getParameter("Absolute Tolerance");
-	assert(pParameter != NULL);
-	pParameter->setValue(1.0e-06);
-	pParameter = pMethod->getParameter("Relative Tolerance");
-	assert(pParameter != NULL);
-	pParameter->setValue(1.0e-06);
-	*/
 
 	try {
 		// initialize the trajectory task
@@ -348,6 +344,7 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 
 	// look at the timeseries
 	const CTimeSeries* pTimeSeries = &pTrajectoryTask->getTimeSeries();
+	/*
 	// we simulated 100 steps, including the initial state, this should be
 	// 101 step in the timeseries
 	assert(pTimeSeries->getRecordedSteps() == 241);
@@ -368,9 +365,7 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 				  << pTimeSeries->getData(lastIndex, i) << "  "
 			      << pTimeSeries->getConcentrationData(lastIndex, i) << std::endl;
 	}
-
-	// Write the output table
-	// TODO:
+	*/
 
 	// clean up the library
 	CCopasiRootContainer::destroy();
