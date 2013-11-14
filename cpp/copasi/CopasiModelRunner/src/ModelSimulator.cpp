@@ -43,7 +43,8 @@ ModelSimulator::ModelSimulator(std::string fname){
 
 /** Do timecourse simulation and write to file with
  * the given parameter settings for the model.
- * TODO: timecourse parameteres TimeCourseParameters tcPars
+ * TODO: only load model once and than perform all the
+ * 		 timecourse simulations on the model.
  */
 int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters mPars, TimeCourseParameters tcPars) {
 
@@ -82,7 +83,7 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	// values are set to the correct initial value
 	std::set<const CCopasiObject*> changedObjects;
 
-	// getting Model values for changing (example flow)
+	// Change Model values (flow)
 	for (size_t i=0; i<pModel->getModelValues().size(); ++i){
 		CModelValue* pModelValue = pModel->getModelValues()[i];
 		const std::string& sbmlId = pModelValue->getSBMLId();
@@ -99,6 +100,44 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 			break;
 		}
 	}
+	// Change Initial concentrations
+	// ! carefule with setInitialConcentration & setInitialValue
+	for (size_t i=0; i<pModel->getMetabolites().size(); ++i){
+		CMetab* pMetab = pModel->getMetabolites()[i];
+		const std::string& sbmlId = pMetab->getSBMLId();
+		if(sbmlId.compare("PP__gal") == 0){
+			//found
+			std::cout << "Found pp galactose -> resetting" << std::endl;
+			double gal = mPars.getPPGalactose();
+			pMetab->setInitialConcentration(gal);
+
+			// initial value set has to be update
+			const CCopasiObject* pObject = pMetab->getInitialConcentrationReference();
+			assert(pObject != NULL);
+			changedObjects.insert(pObject);
+			break;
+		}
+	}
+	/**
+	// Change Event states
+	for (size_t i=0; i<pModel->getEvents().size(); ++i){
+		CEvent* pEvent = pModel->getEvents()[i];
+		const std::string& sbmlId = pMetab->getSBMLId();
+		if(sbmlId.compare("PP__gal") == 0){
+			//found
+			std::cout << "Found pp galactose -> resetting" << std::endl;
+			double gal = mPars.getPPGalactose();
+			pMetab->setInitialValue(gal);
+
+			// initial value set has to be update
+			const CCopasiObject* pObject = pMetab->getInitialValueReference();
+			assert(pObject != NULL);
+			changedObjects.insert(pObject);
+			break;
+		}
+	}
+	*/
+
 
 	// finally compile the model
 	// compile needs to be done before updating all initial values for
