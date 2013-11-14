@@ -37,7 +37,10 @@
 
 /** Constructor with SBML filename. */
 ModelSimulator::ModelSimulator(std::string fname){
+	std::cout << "Construct ModelSimulator" << std::endl;
 	filename = fname;
+	simulationCounter = 0;
+	readModel();
 }
 
 struct stringbuilder
@@ -52,19 +55,14 @@ struct stringbuilder
    operator std::string() { return ss.str(); }
 };
 
-/** Do timecourse simulation and write to file with
- * the given parameter settings for the model.
- * TODO: only load model once and than perform all the
- * 		 timecourse simulations on the model.
- */
-int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCourseParameters tcPars) {
 
+int ModelSimulator::readModel(){
 	// initialize the backend library
 	CCopasiRootContainer::init(0, NULL);
 	assert(CCopasiRootContainer::getRoot() != NULL);
 
 	// create a new datamodel
-	CCopasiDataModel* pDataModel = CCopasiRootContainer::addDatamodel();
+	pDataModel = CCopasiRootContainer::addDatamodel();
 	assert(CCopasiRootContainer::getDatamodelList()->size() == 1);
 
 	try {
@@ -82,11 +80,36 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 		CCopasiRootContainer::destroy();
 		return 1;
 	}
-	//Overview over model -> SBML identifier are available
-	//modelInfo(pDataModel);
+
+	//modelInfo(pDataModel); 	//Overview over model
+	std::cout << "Model read successfully" << std::endl;
+
+	return 0;
+}
+
+/** CCopasiRootContainer has to be destroyed in the end. */
+void ModelSimulator::destroy(){
+	// clean up the library
+	CCopasiRootContainer::destroy();
+}
+
+/** Do timecourse simulation and write to file with
+ * the given parameter settings for the model.
+ * Model is loaded once and than all timecourse simulations performed on the model.
+ */
+int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCourseParameters tcPars){
+	simulationCounter++;
+
+	CCopasiRootContainer::init(0, NULL);
+	assert(CCopasiRootContainer::getRoot() != NULL);
+
+	std::cout << "doTimeCourseSimulation" << std::endl;
+
 	CModel* pModel = pDataModel->getModel();
 	assert(pModel != NULL);
 
+	// Reset initial values for repetitive simulations
+	//pModel->applyInitialValues();
 
 	// we have to keep a set of all the initial values that are changed during
 	// the model building process
@@ -99,10 +122,8 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 		CModelValue* pModelValue = pModel->getModelValues()[i];
 		const std::string& sbmlId = pModelValue->getSBMLId();
 		if(sbmlId.compare("flow_sin") == 0){
-			//found
-			std::cout << "Found flow value -> resetting" << std::endl;
-			double flow = mPars.getFlow();
-			pModelValue->setInitialValue(flow);
+			std::cout << "flow -> " << mPars.getFlow() << std::endl;
+			pModelValue->setInitialValue(mPars.getFlow());
 
 			// initial value set has to be update
 			const CCopasiObject* pObject = pModelValue->getInitialValueReference();
@@ -117,9 +138,8 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 		CMetab* pMetab = pModel->getMetabolites()[i];
 		const std::string& sbmlId = pMetab->getSBMLId();
 		if(sbmlId.compare("PP__gal") == 0){
-			//found
-			std::cout << "Found pp galactose -> resetting" << std::endl;
 			double gal = 0.00012;
+			std::cout << "PP_gal -> " << gal  << std::endl;
 			pMetab->setInitialConcentration(gal);
 
 			// initial value set has to be update
@@ -135,14 +155,13 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 		CEvent* pEvent = pModel->getEvents()[i];
 		const std::string& sbmlId = pEvent->getSBMLId();
 		if(sbmlId.compare("EGAL_1") == 0){
-			//found
-			std::cout << "Found EGAL_1 event -> resetting" << std::endl;
 			// find the right EventAssignment (only one, so take the first)
 			double galValue = mPars.getPPGalactose();
 			std::ostringstream tmp;
 			tmp << galValue;
 			std::string expression = tmp.str();
 			bool success = pEvent->getAssignments()[0]->setExpression(expression);
+			std::cout << "EGAL_1 -> " << expression << std::endl;
 			// targetKey of the assignment is already the PP__gal
 			if (!success){
 				std::cout << "The expression could not be set";
@@ -151,6 +170,7 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 		}
 	}
 
+	std::cout << "Compile model and update initial conditions" << std::endl;
 	// finally compile the model
 	// compile needs to be done before updating all initial values for
 	// the model with the refresh sequence
@@ -173,15 +193,28 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	// 		metabolites)
 	// ODE entity is determined by an ode
 
-
-
-
+    // TODO: create report once
+    std::cout << "Create report: only once with updated file target" << std::endl;
 	// create a report with the correct filename and all the species against
 	// time.
 	CReportDefinitionVector* pReports = pDataModel->getReportDefinitionList();
 	// create a new report definition object
-	CReportDefinition* pReport = pReports->createReportDefinition("Report",
-			"Output for timecourse");
+
+	//if (pReports->size() > 0){
+	//	pDataModel->getReportDefinitionList()->remove("Output for timecourse");
+	//}
+
+	// TODO: i have to get the report somehow
+	std::cout << "Now creating" << std::endl;
+    CReportDefinition* pReport = pReports->createReportDefinition("Report", "Output for timecourse" + simulationCounter);
+	std::cout << "Creation finished" << std::endl;
+
+	// fucking report definition
+
+	if(pReport == NULL){
+		std::cout << "No fucking report created" << std::endl;
+	}
+
 	// set the task type for the report definition to timecourse
 	pReport->setTaskType(CCopasiTask::timeCourse);
 	// we don't want a table
@@ -189,6 +222,7 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	// the entries in the output should be seperated by a ", "
 	pReport->setSeparator(CCopasiReportSeparator(", "));
 
+	std::cout << "Define the report information" << std::endl;
 	// we need a handle to the header and the body
 	// the header will display the ids of the metabolites and "time" for
 	// the first column
@@ -203,6 +237,7 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	pHeader->push_back(pReport->getSeparator().getCN());
 
 	// write all metabolite concentrations
+	std::cout << "CMetab -> pReport" << std::endl;
 	size_t i, iMax = pModel->getMetabolites().size();
 	for (i = 0; i < iMax; ++i) {
 		CMetab* pMetab = pModel->getMetabolites()[i];
@@ -221,6 +256,7 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	}
 
 	// write all reactions
+	std::cout << "CReactions -> pReport" << std::endl;
 	iMax = pModel->getReactions().size();
 	for (i = 0; i < iMax; ++i) {
 		CReaction* pReaction = pModel->getReactions()[i];
@@ -251,6 +287,9 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 		}
 	}
 
+
+
+	 std::cout << "Create timecourse trajectory task" << std::endl;
 	// get the task list
 	CCopasiVectorN<CCopasiTask> & TaskList = *pDataModel->getTaskList();
 
@@ -280,6 +319,8 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	// and passed to CopasiSE
 	pTrajectoryTask->setScheduled(true);
 
+
+	// TODO: change settings of the report
 	// set the report for the task
 	pTrajectoryTask->getReport().setReportDefinition(pReport);
 
@@ -313,7 +354,6 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	assert(pParameter != NULL);
 	pParameter->setValue(tcPars.getRelTol());
 
-
 	try {
 		// initialize the trajectory task
 		// we want complete output (HEADER, BODY and FOOTER)
@@ -343,7 +383,7 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	pTrajectoryTask->restore();
 
 	// look at the timeseries
-	const CTimeSeries* pTimeSeries = &pTrajectoryTask->getTimeSeries();
+	//const CTimeSeries* pTimeSeries = &pTrajectoryTask->getTimeSeries();
 	/*
 	// we simulated 100 steps, including the initial state, this should be
 	// 101 step in the timeseries
@@ -366,9 +406,6 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 			      << pTimeSeries->getConcentrationData(lastIndex, i) << std::endl;
 	}
 	*/
-
-	// clean up the library
-	CCopasiRootContainer::destroy();
 	return 0;
 }
 

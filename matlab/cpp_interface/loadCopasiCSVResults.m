@@ -1,7 +1,8 @@
 function [] = loadCopasiCSVResults()
 %% Loading simulation results from copasi for visualization
 % Plot the results for the different models.
-mname = 'Galactose_v3_Nc1_Nf5';
+% mname = 'Galactose_v3_Nc1_Nf5';
+mname = 'Galactose_v3_Nc5_Nf5';
 
 %% Get simulation files
 clear all; clc;

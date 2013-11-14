@@ -42,9 +42,7 @@
  * 	- [DONE] change parameters in the model (galactose, blood flow)
  * 	- [DONE] perform time course simulations -> report
  * 	- [DONE] store data in files with SBML identifiers
- * 	- read the data into Matlab for analysis.
- * 	TODO: only read the file once; and than perform the simulation
- * 			with different settings;
+ * 	- [DONE] read the data into Matlab for analysis.
  */
 
 int main()
@@ -52,16 +50,23 @@ int main()
 	std::cout << "Running CopasiModelRunner\n";
 	// std::string filename = "./results/Galactose_v3_Nc1_Nf5.xml";
 	std::string filename = "/home/mkoenig/multiscale-galactose-results/Galactose_v3_Nc1_Nf5.xml";
+	//std::string filename = "/home/mkoenig/multiscale-galactose-results/Galactose_v3_Nc5_Nf5.xml";
+
 	std::string fnameCPS = filename.substr(0, filename.size()-3) + "cps";
 
 	double flow = 60E-6;	// [m]
 	double gal  = 0.00012;	// [m]
 
-	const int Nflow = 11;
-	double flows[Nflow]= {0.0E-6, 20E-6, 40.0E-6, 60.0E-6, 80.0E-6, 100E-6,
-						120E-6, 140E-6, 160E-6, 180E-6, 200.0E-6};
-	const int Ngal = 7;
-	double gals[Ngal]= {0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+	// const int Nflow = 11;
+	//double flows[Nflow]= {0.0E-6, 20E-6, 40.0E-6, 60.0E-6, 80.0E-6, 100E-6,
+	//					120E-6, 140E-6, 160E-6, 180E-6, 200.0E-6};
+	const int Nflow = 4;
+	double flows[Nflow]= {0.0E-6, 30E-6, 60.0E-6, 120E-6};
+
+	// const int Ngal = 7;
+	// double gals[Ngal]= {0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+	const int Ngal = 5;
+	double gals[Ngal]= {0, 1.0, 2.0 , 4.0 , 6.0};
 
 	//m.test();
 	//m.SBML2CPS(filename, fnameCPS);
@@ -80,5 +85,6 @@ int main()
 			counter ++;
 		}
 	}
+	m.destroy();
 	return 0;
 }
