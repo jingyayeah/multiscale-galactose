@@ -33,6 +33,8 @@
 #include "copasi/function/CEvaluationTree.h"
 
 #include "ModelSimulator.h"
+#include "ModelParameters.h"
+#include "TimeCourseParameters.h"
 
 /**
  * Main things to do are:
@@ -55,10 +57,12 @@ int main()
 	double gal  = 2.0;	// [m]
 	ModelParameters mPars = ModelParameters(gal, flow);
 
+	TimeCourseParameters tcPars = TimeCourseParameters(0.0, 12000.0, 2000, 1.0E-6, 1.0E-6);
+
 	//m.test();
 	//m.SBML2CPS(filename, fnameCPS);
 
-	m.doTimeCourseSimulation(filename, mPars);
+	m.doTimeCourseSimulation(filename, mPars, tcPars);
 
 
 	return 0;

@@ -33,6 +33,7 @@
 
 #include "ModelSimulator.h"
 #include "ModelParameters.h"
+#include "TimeCourseParameters.h"
 
 /** Constructor with SBML filename. */
 ModelSimulator::ModelSimulator(std::string fname){
@@ -219,8 +220,26 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	CTrajectoryProblem* pProblem =
 			dynamic_cast<CTrajectoryProblem*>(pTrajectoryTask->getProblem());
 
+	// use Timecourse parameters to set the timecourse
+	pProblem->setStepNumber(tcPars.getStepNumber());
+	// start at time 0
+	pDataModel->getModel()->setInitialTime(tcPars.getInitialTime());
+	// simulate a duration of 10 time units
+	pProblem->setDuration(tcPars.getDuration());
+	// tell the problem to actually generate time series data
+	pProblem->setTimeSeriesRequested(true);
 
-	// TODO: use Timecourse parameters to set the timecourse
+	// set some parameters for the LSODA method through the method
+	CTrajectoryMethod* pMethod = dynamic_cast<CTrajectoryMethod*>(pTrajectoryTask->getMethod());
+	CCopasiParameter* pParameter = pMethod->getParameter("Absolute Tolerance");
+	assert(pParameter != NULL);
+	pParameter->setValue(tcPars.getAbsTol());
+	pParameter = pMethod->getParameter("Relative Tolerance");
+	assert(pParameter != NULL);
+	pParameter->setValue(tcPars.getRelTol());
+
+
+	/*
 	// simulate 100 steps
 	pProblem->setStepNumber(240);
 	// start at time 0
@@ -238,6 +257,7 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	pParameter = pMethod->getParameter("Relative Tolerance");
 	assert(pParameter != NULL);
 	pParameter->setValue(1.0e-06);
+	*/
 
 	try {
 		// initialize the trajectory task
