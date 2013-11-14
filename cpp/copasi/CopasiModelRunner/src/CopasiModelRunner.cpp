@@ -50,11 +50,13 @@ int main()
 	std::string fnameCPS = filename.substr(0, filename.size()-3) + "cps";
 
 	ModelSimulator m = ModelSimulator(filename);
+	double flow = 60E-6;	// [m]
+	double gal  = 2.0;	// [m]
+	ModelParameters mPars = ModelParameters(gal, flow);
 
 	m.test();
 	m.SBML2CPS(filename, fnameCPS);
-	m.doSimulation(fnameCPS);
-
+	m.doTimeCourseSimulation(fnameCPS, mPars);
 
 
 

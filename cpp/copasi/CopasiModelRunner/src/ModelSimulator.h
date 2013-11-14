@@ -10,12 +10,14 @@
 
 #include <iostream>
 #include <string>
+#include "ModelParameters.h"
 
 class ModelSimulator {
   public:
     ModelSimulator(std::string filename);
     void modelInfo(CCopasiDataModel* pDataModel);
     int doSimulation(std::string filename);
+    int doTimeCourseSimulation(std::string filename, ModelParameters);
     int SBML2CPS(std::string fnameSBML, std::string fnameCPS);
     int test();
 
