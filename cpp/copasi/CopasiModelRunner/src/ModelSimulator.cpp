@@ -75,7 +75,6 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	CModel* pModel = pDataModel->getModel();
 	assert(pModel != NULL);
 
-	// Here the updating of the values is performed
 
 	// we have to keep a set of all the initial values that are changed during
 	// the model building process
@@ -83,19 +82,38 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	// values are set to the correct initial value
 	std::set<const CCopasiObject*> changedObjects;
 
-	// getting Model values for changing
-	// CCopasiVectorN<CModelValue> values = pModel->getModelValues();
-	// values[10]->getObjectType();
+	// getting Model values for changing (example flow)
+	for (size_t i=0; i<pModel->getModelValues().size(); ++i){
+		CModelValue* pModelValue = pModel->getModelValues()[i];
+		const std::string& sbmlId = pModelValue->getSBMLId();
+		if(sbmlId.compare("flow_sin") == 0){
+			//found
+			std::cout << "Found flow value -> resetting" << std::endl;
+			double flow = mPars.getFlow();
+			pModelValue->setInitialValue(flow);
 
-	// CModelValue v = values.getObject
-	// initial values can be set via CModelEntity;
-	// CModelEntity entity;
-	// entity.setInitialValue(10.0);
+			// initial value set has to be update
+			const CCopasiObject* pObject = pModelValue->getInitialValueReference();
+			assert(pObject != NULL);
+			changedObjects.insert(pObject);
+			break;
+		}
+	}
 
-	// CMetab metab;
-	// metab.setInitialConcentration(1.0);
-	// entity.getSBMLId();
+	// finally compile the model
+	// compile needs to be done before updating all initial values for
+	// the model with the refresh sequence
+	pModel->compileIfNecessary(NULL);
 
+    // now that we are done building the model, we have to make sure all
+    // initial values are updated according to their dependencies
+    std::vector<Refresh*> refreshes = pModel->buildInitialRefreshSequence(changedObjects);
+    std::vector<Refresh*>::iterator it2 = refreshes.begin(), endit2 = refreshes.end();
+    while (it2 != endit2){
+	  // call each refresh
+	  (**it2)();
+	  ++it2;
+	}
 
 	// Status of entities
 	// FIXED entity is fixed
@@ -103,6 +121,8 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	// REACTIONS entity is determined by reactions (only applicable to
 	// 		metabolites)
 	// ODE entity is determined by an ode
+
+
 
 
 	// create a report with the correct filename and all the species against
