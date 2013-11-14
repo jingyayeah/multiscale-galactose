@@ -39,7 +39,7 @@
  * 	- [DONE] take a model file and convert it to Copasi format
  * 	- change parameters in the model (galactose, blood flow)
  * 	- [DONE] perform time course simulations -> report
- * 	- store data in files with SBML identifiers
+ * 	- [DONE] store data in files with SBML identifiers
  * 	- read the data into Matlab for analysis.
  */
 
