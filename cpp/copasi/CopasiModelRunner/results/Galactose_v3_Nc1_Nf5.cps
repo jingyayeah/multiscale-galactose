@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.9.43 (Source) (http://www.copasi.org) at 2013-11-13 21:31:57 UTC -->
+<!-- generated with COPASI 4.9.43 (Source) (http://www.copasi.org) at 2013-11-14 08:28:22 UTC -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="9" versionDevel="43" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -2431,8 +2431,8 @@
           <Product metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_117" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_118" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_118" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_119" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_39">
           <ListOfCallParameters>
@@ -2456,8 +2456,8 @@
           <Product metabolite="Metabolite_7" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_119" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_120" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_120" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_121" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_40">
           <ListOfCallParameters>
@@ -2481,8 +2481,8 @@
           <Product metabolite="Metabolite_11" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_121" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_122" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_122" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_123" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_41">
           <ListOfCallParameters>
@@ -2506,8 +2506,8 @@
           <Product metabolite="Metabolite_15" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_123" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_124" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_124" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_125" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_42">
           <ListOfCallParameters>
@@ -2531,8 +2531,8 @@
           <Product metabolite="Metabolite_19" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_125" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_126" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_126" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_127" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_43">
           <ListOfCallParameters>
@@ -2556,8 +2556,8 @@
           <Product metabolite="Metabolite_23" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_127" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_128" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_128" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_129" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_44">
           <ListOfCallParameters>
@@ -2578,8 +2578,8 @@
           <Substrate metabolite="Metabolite_23" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_129" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_130" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_130" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_131" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_45">
           <ListOfCallParameters>
@@ -2606,8 +2606,8 @@
           <Product metabolite="Metabolite_27" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_131" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_132" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_132" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_133" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_46">
           <ListOfCallParameters>
@@ -2631,8 +2631,8 @@
           <Product metabolite="Metabolite_31" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_133" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_134" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_134" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_135" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_47">
           <ListOfCallParameters>
@@ -2656,8 +2656,8 @@
           <Product metabolite="Metabolite_35" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_135" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_136" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_136" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_137" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_48">
           <ListOfCallParameters>
@@ -2681,8 +2681,8 @@
           <Product metabolite="Metabolite_39" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_137" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_138" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_138" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_139" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_49">
           <ListOfCallParameters>
@@ -2706,8 +2706,8 @@
           <Product metabolite="Metabolite_43" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_139" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_140" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_140" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_141" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_50">
           <ListOfCallParameters>
@@ -2731,8 +2731,8 @@
           <Product metabolite="Metabolite_47" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_141" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_142" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_142" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_143" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_51">
           <ListOfCallParameters>
@@ -2753,8 +2753,8 @@
           <Substrate metabolite="Metabolite_47" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_143" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_144" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_144" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_145" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_52">
           <ListOfCallParameters>
@@ -2781,8 +2781,8 @@
           <Product metabolite="Metabolite_51" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_145" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_146" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_146" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_147" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_53">
           <ListOfCallParameters>
@@ -2806,8 +2806,8 @@
           <Product metabolite="Metabolite_55" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_147" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_148" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_148" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_149" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_54">
           <ListOfCallParameters>
@@ -2831,8 +2831,8 @@
           <Product metabolite="Metabolite_59" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_149" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_150" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_150" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_151" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_55">
           <ListOfCallParameters>
@@ -2856,8 +2856,8 @@
           <Product metabolite="Metabolite_63" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_151" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_152" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_152" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_153" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_56">
           <ListOfCallParameters>
@@ -2881,8 +2881,8 @@
           <Product metabolite="Metabolite_67" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_153" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_154" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_154" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_155" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_57">
           <ListOfCallParameters>
@@ -2906,8 +2906,8 @@
           <Product metabolite="Metabolite_71" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_155" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_156" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_156" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_157" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_58">
           <ListOfCallParameters>
@@ -2928,8 +2928,8 @@
           <Substrate metabolite="Metabolite_71" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_157" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_158" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_158" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_159" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_59">
           <ListOfCallParameters>
@@ -2956,8 +2956,8 @@
           <Product metabolite="Metabolite_75" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_159" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_160" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_160" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_161" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_60">
           <ListOfCallParameters>
@@ -2981,8 +2981,8 @@
           <Product metabolite="Metabolite_79" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_161" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_162" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_162" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_163" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_61">
           <ListOfCallParameters>
@@ -3006,8 +3006,8 @@
           <Product metabolite="Metabolite_83" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_163" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_164" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_164" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_165" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_62">
           <ListOfCallParameters>
@@ -3031,8 +3031,8 @@
           <Product metabolite="Metabolite_87" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_165" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_166" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_166" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_167" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_63">
           <ListOfCallParameters>
@@ -3056,8 +3056,8 @@
           <Product metabolite="Metabolite_91" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_167" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_168" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_168" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_169" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_64">
           <ListOfCallParameters>
@@ -3081,8 +3081,8 @@
           <Product metabolite="Metabolite_95" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_169" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_170" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_170" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_171" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_65">
           <ListOfCallParameters>
@@ -3103,8 +3103,8 @@
           <Substrate metabolite="Metabolite_95" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_171" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_172" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_172" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_173" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_66">
           <ListOfCallParameters>
@@ -3131,8 +3131,8 @@
           <Product metabolite="Metabolite_99" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_173" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_174" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_174" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_175" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_67">
           <ListOfCallParameters>
@@ -3156,8 +3156,8 @@
           <Product metabolite="Metabolite_103" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_175" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_176" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_176" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_177" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_68">
           <ListOfCallParameters>
@@ -3181,8 +3181,8 @@
           <Product metabolite="Metabolite_107" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_177" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_178" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_178" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_179" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_69">
           <ListOfCallParameters>
@@ -3206,8 +3206,8 @@
           <Product metabolite="Metabolite_111" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_179" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_180" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_180" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_181" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_70">
           <ListOfCallParameters>
@@ -3231,8 +3231,8 @@
           <Product metabolite="Metabolite_115" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_181" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_182" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_182" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_183" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_71">
           <ListOfCallParameters>
@@ -3256,8 +3256,8 @@
           <Product metabolite="Metabolite_119" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_183" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_184" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_184" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_185" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_72">
           <ListOfCallParameters>
@@ -3278,8 +3278,8 @@
           <Substrate metabolite="Metabolite_119" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_185" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_186" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_186" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_187" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_73">
           <ListOfCallParameters>
@@ -3306,8 +3306,8 @@
           <Product metabolite="Metabolite_123" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_187" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_188" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_188" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_189" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_74">
           <ListOfCallParameters>
@@ -3331,8 +3331,8 @@
           <Product metabolite="Metabolite_127" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_189" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_190" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_190" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_191" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_75">
           <ListOfCallParameters>
@@ -3356,8 +3356,8 @@
           <Product metabolite="Metabolite_131" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_191" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_192" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_192" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_193" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_76">
           <ListOfCallParameters>
@@ -3381,8 +3381,8 @@
           <Product metabolite="Metabolite_135" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_193" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_194" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_194" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_195" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_77">
           <ListOfCallParameters>
@@ -3406,8 +3406,8 @@
           <Product metabolite="Metabolite_139" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_195" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_196" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_196" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_197" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_78">
           <ListOfCallParameters>
@@ -3431,8 +3431,8 @@
           <Product metabolite="Metabolite_143" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_197" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_198" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_198" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_199" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_79">
           <ListOfCallParameters>
@@ -3453,8 +3453,8 @@
           <Substrate metabolite="Metabolite_143" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_199" name="A_sin" value="6.08212e-11"/>
-          <Constant key="Parameter_200" name="flow_sin" value="6e-05"/>
+          <Constant key="Parameter_200" name="A_sin" value="6.08212e-11"/>
+          <Constant key="Parameter_201" name="flow_sin" value="6e-05"/>
         </ListOfConstants>
         <KineticLaw function="Function_80">
           <ListOfCallParameters>
@@ -3481,7 +3481,7 @@
           <Product metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_201" name="Dx_sin_rbcM" value="0"/>
+          <Constant key="Parameter_202" name="Dx_sin_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_81">
           <ListOfCallParameters>
@@ -3505,7 +3505,7 @@
           <Product metabolite="Metabolite_7" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_202" name="Dx_sin_rbcM" value="0"/>
+          <Constant key="Parameter_203" name="Dx_sin_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_82">
           <ListOfCallParameters>
@@ -3529,7 +3529,7 @@
           <Product metabolite="Metabolite_11" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_203" name="Dx_sin_rbcM" value="0"/>
+          <Constant key="Parameter_204" name="Dx_sin_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_83">
           <ListOfCallParameters>
@@ -3553,7 +3553,7 @@
           <Product metabolite="Metabolite_15" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_204" name="Dx_sin_rbcM" value="0"/>
+          <Constant key="Parameter_205" name="Dx_sin_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_84">
           <ListOfCallParameters>
@@ -3577,7 +3577,7 @@
           <Product metabolite="Metabolite_19" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_205" name="Dx_sin_rbcM" value="0"/>
+          <Constant key="Parameter_206" name="Dx_sin_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_85">
           <ListOfCallParameters>
@@ -3601,7 +3601,7 @@
           <Product metabolite="Metabolite_23" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_206" name="Dx_sin_rbcM" value="0"/>
+          <Constant key="Parameter_207" name="Dx_sin_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_86">
           <ListOfCallParameters>
@@ -3625,7 +3625,7 @@
           <Product metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_207" name="Dx_dis_rbcM" value="0"/>
+          <Constant key="Parameter_208" name="Dx_dis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_87">
           <ListOfCallParameters>
@@ -3649,7 +3649,7 @@
           <Product metabolite="Metabolite_13" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_208" name="Dx_dis_rbcM" value="0"/>
+          <Constant key="Parameter_209" name="Dx_dis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_88">
           <ListOfCallParameters>
@@ -3673,7 +3673,7 @@
           <Product metabolite="Metabolite_17" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_209" name="Dx_dis_rbcM" value="0"/>
+          <Constant key="Parameter_210" name="Dx_dis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_89">
           <ListOfCallParameters>
@@ -3697,7 +3697,7 @@
           <Product metabolite="Metabolite_21" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_210" name="Dx_dis_rbcM" value="0"/>
+          <Constant key="Parameter_211" name="Dx_dis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_90">
           <ListOfCallParameters>
@@ -3721,7 +3721,7 @@
           <Product metabolite="Metabolite_5" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_211" name="Dy_sindis_rbcM" value="0"/>
+          <Constant key="Parameter_212" name="Dy_sindis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_91">
           <ListOfCallParameters>
@@ -3745,7 +3745,7 @@
           <Product metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_212" name="Dy_sindis_rbcM" value="0"/>
+          <Constant key="Parameter_213" name="Dy_sindis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_92">
           <ListOfCallParameters>
@@ -3769,7 +3769,7 @@
           <Product metabolite="Metabolite_13" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_213" name="Dy_sindis_rbcM" value="0"/>
+          <Constant key="Parameter_214" name="Dy_sindis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_93">
           <ListOfCallParameters>
@@ -3793,7 +3793,7 @@
           <Product metabolite="Metabolite_17" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_214" name="Dy_sindis_rbcM" value="0"/>
+          <Constant key="Parameter_215" name="Dy_sindis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_94">
           <ListOfCallParameters>
@@ -3817,7 +3817,7 @@
           <Product metabolite="Metabolite_21" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_215" name="Dy_sindis_rbcM" value="0"/>
+          <Constant key="Parameter_216" name="Dy_sindis_rbcM" value="0"/>
         </ListOfConstants>
         <KineticLaw function="Function_95">
           <ListOfCallParameters>
@@ -3841,7 +3841,7 @@
           <Product metabolite="Metabolite_27" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_216" name="Dx_sin_suc" value="2.43285e-16"/>
+          <Constant key="Parameter_217" name="Dx_sin_suc" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_96">
           <ListOfCallParameters>
@@ -3865,7 +3865,7 @@
           <Product metabolite="Metabolite_31" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_217" name="Dx_sin_suc" value="2.43285e-16"/>
+          <Constant key="Parameter_218" name="Dx_sin_suc" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_97">
           <ListOfCallParameters>
@@ -3889,7 +3889,7 @@
           <Product metabolite="Metabolite_35" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_218" name="Dx_sin_suc" value="2.43285e-16"/>
+          <Constant key="Parameter_219" name="Dx_sin_suc" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_98">
           <ListOfCallParameters>
@@ -3913,7 +3913,7 @@
           <Product metabolite="Metabolite_39" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_219" name="Dx_sin_suc" value="2.43285e-16"/>
+          <Constant key="Parameter_220" name="Dx_sin_suc" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_99">
           <ListOfCallParameters>
@@ -3937,7 +3937,7 @@
           <Product metabolite="Metabolite_43" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_220" name="Dx_sin_suc" value="2.43285e-16"/>
+          <Constant key="Parameter_221" name="Dx_sin_suc" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_100">
           <ListOfCallParameters>
@@ -3961,7 +3961,7 @@
           <Product metabolite="Metabolite_47" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_221" name="Dx_sin_suc" value="2.43285e-16"/>
+          <Constant key="Parameter_222" name="Dx_sin_suc" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_101">
           <ListOfCallParameters>
@@ -3985,7 +3985,7 @@
           <Product metabolite="Metabolite_33" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_222" name="Dx_dis_suc" value="9.65097e-17"/>
+          <Constant key="Parameter_223" name="Dx_dis_suc" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_102">
           <ListOfCallParameters>
@@ -4009,7 +4009,7 @@
           <Product metabolite="Metabolite_37" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_223" name="Dx_dis_suc" value="9.65097e-17"/>
+          <Constant key="Parameter_224" name="Dx_dis_suc" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_103">
           <ListOfCallParameters>
@@ -4033,7 +4033,7 @@
           <Product metabolite="Metabolite_41" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_224" name="Dx_dis_suc" value="9.65097e-17"/>
+          <Constant key="Parameter_225" name="Dx_dis_suc" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_104">
           <ListOfCallParameters>
@@ -4057,7 +4057,7 @@
           <Product metabolite="Metabolite_45" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_225" name="Dx_dis_suc" value="9.65097e-17"/>
+          <Constant key="Parameter_226" name="Dx_dis_suc" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_105">
           <ListOfCallParameters>
@@ -4081,7 +4081,7 @@
           <Product metabolite="Metabolite_29" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_226" name="Dy_sindis_suc" value="1.3823e-12"/>
+          <Constant key="Parameter_227" name="Dy_sindis_suc" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_106">
           <ListOfCallParameters>
@@ -4105,7 +4105,7 @@
           <Product metabolite="Metabolite_33" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_227" name="Dy_sindis_suc" value="1.3823e-12"/>
+          <Constant key="Parameter_228" name="Dy_sindis_suc" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_107">
           <ListOfCallParameters>
@@ -4129,7 +4129,7 @@
           <Product metabolite="Metabolite_37" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_228" name="Dy_sindis_suc" value="1.3823e-12"/>
+          <Constant key="Parameter_229" name="Dy_sindis_suc" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_108">
           <ListOfCallParameters>
@@ -4153,7 +4153,7 @@
           <Product metabolite="Metabolite_41" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_229" name="Dy_sindis_suc" value="1.3823e-12"/>
+          <Constant key="Parameter_230" name="Dy_sindis_suc" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_109">
           <ListOfCallParameters>
@@ -4177,7 +4177,7 @@
           <Product metabolite="Metabolite_45" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_230" name="Dy_sindis_suc" value="1.3823e-12"/>
+          <Constant key="Parameter_231" name="Dy_sindis_suc" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_110">
           <ListOfCallParameters>
@@ -4201,7 +4201,7 @@
           <Product metabolite="Metabolite_51" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_231" name="Dx_sin_alb" value="6.08212e-17"/>
+          <Constant key="Parameter_232" name="Dx_sin_alb" value="6.08212e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_111">
           <ListOfCallParameters>
@@ -4225,7 +4225,7 @@
           <Product metabolite="Metabolite_55" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_232" name="Dx_sin_alb" value="6.08212e-17"/>
+          <Constant key="Parameter_233" name="Dx_sin_alb" value="6.08212e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_112">
           <ListOfCallParameters>
@@ -4249,7 +4249,7 @@
           <Product metabolite="Metabolite_59" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_233" name="Dx_sin_alb" value="6.08212e-17"/>
+          <Constant key="Parameter_234" name="Dx_sin_alb" value="6.08212e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_113">
           <ListOfCallParameters>
@@ -4273,7 +4273,7 @@
           <Product metabolite="Metabolite_63" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_234" name="Dx_sin_alb" value="6.08212e-17"/>
+          <Constant key="Parameter_235" name="Dx_sin_alb" value="6.08212e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_114">
           <ListOfCallParameters>
@@ -4297,7 +4297,7 @@
           <Product metabolite="Metabolite_67" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_235" name="Dx_sin_alb" value="6.08212e-17"/>
+          <Constant key="Parameter_236" name="Dx_sin_alb" value="6.08212e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_115">
           <ListOfCallParameters>
@@ -4321,7 +4321,7 @@
           <Product metabolite="Metabolite_71" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_236" name="Dx_sin_alb" value="6.08212e-17"/>
+          <Constant key="Parameter_237" name="Dx_sin_alb" value="6.08212e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_116">
           <ListOfCallParameters>
@@ -4345,7 +4345,7 @@
           <Product metabolite="Metabolite_57" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_237" name="Dx_dis_alb" value="2.41274e-17"/>
+          <Constant key="Parameter_238" name="Dx_dis_alb" value="2.41274e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_117">
           <ListOfCallParameters>
@@ -4369,7 +4369,7 @@
           <Product metabolite="Metabolite_61" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_238" name="Dx_dis_alb" value="2.41274e-17"/>
+          <Constant key="Parameter_239" name="Dx_dis_alb" value="2.41274e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_118">
           <ListOfCallParameters>
@@ -4393,7 +4393,7 @@
           <Product metabolite="Metabolite_65" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_239" name="Dx_dis_alb" value="2.41274e-17"/>
+          <Constant key="Parameter_240" name="Dx_dis_alb" value="2.41274e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_119">
           <ListOfCallParameters>
@@ -4417,7 +4417,7 @@
           <Product metabolite="Metabolite_69" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_240" name="Dx_dis_alb" value="2.41274e-17"/>
+          <Constant key="Parameter_241" name="Dx_dis_alb" value="2.41274e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_120">
           <ListOfCallParameters>
@@ -4441,7 +4441,7 @@
           <Product metabolite="Metabolite_53" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_241" name="Dy_sindis_alb" value="3.45575e-13"/>
+          <Constant key="Parameter_242" name="Dy_sindis_alb" value="3.45575e-13"/>
         </ListOfConstants>
         <KineticLaw function="Function_121">
           <ListOfCallParameters>
@@ -4465,7 +4465,7 @@
           <Product metabolite="Metabolite_57" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_242" name="Dy_sindis_alb" value="3.45575e-13"/>
+          <Constant key="Parameter_243" name="Dy_sindis_alb" value="3.45575e-13"/>
         </ListOfConstants>
         <KineticLaw function="Function_122">
           <ListOfCallParameters>
@@ -4489,7 +4489,7 @@
           <Product metabolite="Metabolite_61" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_243" name="Dy_sindis_alb" value="3.45575e-13"/>
+          <Constant key="Parameter_244" name="Dy_sindis_alb" value="3.45575e-13"/>
         </ListOfConstants>
         <KineticLaw function="Function_123">
           <ListOfCallParameters>
@@ -4513,7 +4513,7 @@
           <Product metabolite="Metabolite_65" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_244" name="Dy_sindis_alb" value="3.45575e-13"/>
+          <Constant key="Parameter_245" name="Dy_sindis_alb" value="3.45575e-13"/>
         </ListOfConstants>
         <KineticLaw function="Function_124">
           <ListOfCallParameters>
@@ -4537,7 +4537,7 @@
           <Product metabolite="Metabolite_69" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_245" name="Dy_sindis_alb" value="3.45575e-13"/>
+          <Constant key="Parameter_246" name="Dy_sindis_alb" value="3.45575e-13"/>
         </ListOfConstants>
         <KineticLaw function="Function_125">
           <ListOfCallParameters>
@@ -4561,7 +4561,7 @@
           <Product metabolite="Metabolite_75" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_246" name="Dx_sin_gal" value="2.43285e-16"/>
+          <Constant key="Parameter_247" name="Dx_sin_gal" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_126">
           <ListOfCallParameters>
@@ -4585,7 +4585,7 @@
           <Product metabolite="Metabolite_79" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_247" name="Dx_sin_gal" value="2.43285e-16"/>
+          <Constant key="Parameter_248" name="Dx_sin_gal" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_127">
           <ListOfCallParameters>
@@ -4609,7 +4609,7 @@
           <Product metabolite="Metabolite_83" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_248" name="Dx_sin_gal" value="2.43285e-16"/>
+          <Constant key="Parameter_249" name="Dx_sin_gal" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_128">
           <ListOfCallParameters>
@@ -4633,7 +4633,7 @@
           <Product metabolite="Metabolite_87" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_249" name="Dx_sin_gal" value="2.43285e-16"/>
+          <Constant key="Parameter_250" name="Dx_sin_gal" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_129">
           <ListOfCallParameters>
@@ -4657,7 +4657,7 @@
           <Product metabolite="Metabolite_91" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_250" name="Dx_sin_gal" value="2.43285e-16"/>
+          <Constant key="Parameter_251" name="Dx_sin_gal" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_130">
           <ListOfCallParameters>
@@ -4681,7 +4681,7 @@
           <Product metabolite="Metabolite_95" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_251" name="Dx_sin_gal" value="2.43285e-16"/>
+          <Constant key="Parameter_252" name="Dx_sin_gal" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_131">
           <ListOfCallParameters>
@@ -4705,7 +4705,7 @@
           <Product metabolite="Metabolite_81" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_252" name="Dx_dis_gal" value="9.65097e-17"/>
+          <Constant key="Parameter_253" name="Dx_dis_gal" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_132">
           <ListOfCallParameters>
@@ -4729,7 +4729,7 @@
           <Product metabolite="Metabolite_85" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_253" name="Dx_dis_gal" value="9.65097e-17"/>
+          <Constant key="Parameter_254" name="Dx_dis_gal" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_133">
           <ListOfCallParameters>
@@ -4753,7 +4753,7 @@
           <Product metabolite="Metabolite_89" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_254" name="Dx_dis_gal" value="9.65097e-17"/>
+          <Constant key="Parameter_255" name="Dx_dis_gal" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_134">
           <ListOfCallParameters>
@@ -4777,7 +4777,7 @@
           <Product metabolite="Metabolite_93" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_255" name="Dx_dis_gal" value="9.65097e-17"/>
+          <Constant key="Parameter_256" name="Dx_dis_gal" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_135">
           <ListOfCallParameters>
@@ -4801,7 +4801,7 @@
           <Product metabolite="Metabolite_77" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_256" name="Dy_sindis_gal" value="1.3823e-12"/>
+          <Constant key="Parameter_257" name="Dy_sindis_gal" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_136">
           <ListOfCallParameters>
@@ -4825,7 +4825,7 @@
           <Product metabolite="Metabolite_81" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_257" name="Dy_sindis_gal" value="1.3823e-12"/>
+          <Constant key="Parameter_258" name="Dy_sindis_gal" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_137">
           <ListOfCallParameters>
@@ -4849,7 +4849,7 @@
           <Product metabolite="Metabolite_85" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_258" name="Dy_sindis_gal" value="1.3823e-12"/>
+          <Constant key="Parameter_259" name="Dy_sindis_gal" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_138">
           <ListOfCallParameters>
@@ -4873,7 +4873,7 @@
           <Product metabolite="Metabolite_89" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_259" name="Dy_sindis_gal" value="1.3823e-12"/>
+          <Constant key="Parameter_260" name="Dy_sindis_gal" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_139">
           <ListOfCallParameters>
@@ -4897,7 +4897,7 @@
           <Product metabolite="Metabolite_93" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_260" name="Dy_sindis_gal" value="1.3823e-12"/>
+          <Constant key="Parameter_261" name="Dy_sindis_gal" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_140">
           <ListOfCallParameters>
@@ -4921,7 +4921,7 @@
           <Product metabolite="Metabolite_99" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_261" name="Dx_sin_galM" value="2.43285e-16"/>
+          <Constant key="Parameter_262" name="Dx_sin_galM" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_141">
           <ListOfCallParameters>
@@ -4945,7 +4945,7 @@
           <Product metabolite="Metabolite_103" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_262" name="Dx_sin_galM" value="2.43285e-16"/>
+          <Constant key="Parameter_263" name="Dx_sin_galM" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_142">
           <ListOfCallParameters>
@@ -4969,7 +4969,7 @@
           <Product metabolite="Metabolite_107" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_263" name="Dx_sin_galM" value="2.43285e-16"/>
+          <Constant key="Parameter_264" name="Dx_sin_galM" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_143">
           <ListOfCallParameters>
@@ -4993,7 +4993,7 @@
           <Product metabolite="Metabolite_111" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_264" name="Dx_sin_galM" value="2.43285e-16"/>
+          <Constant key="Parameter_265" name="Dx_sin_galM" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_144">
           <ListOfCallParameters>
@@ -5017,7 +5017,7 @@
           <Product metabolite="Metabolite_115" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_265" name="Dx_sin_galM" value="2.43285e-16"/>
+          <Constant key="Parameter_266" name="Dx_sin_galM" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_145">
           <ListOfCallParameters>
@@ -5041,7 +5041,7 @@
           <Product metabolite="Metabolite_119" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_266" name="Dx_sin_galM" value="2.43285e-16"/>
+          <Constant key="Parameter_267" name="Dx_sin_galM" value="2.43285e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_146">
           <ListOfCallParameters>
@@ -5065,7 +5065,7 @@
           <Product metabolite="Metabolite_105" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_267" name="Dx_dis_galM" value="9.65097e-17"/>
+          <Constant key="Parameter_268" name="Dx_dis_galM" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_147">
           <ListOfCallParameters>
@@ -5089,7 +5089,7 @@
           <Product metabolite="Metabolite_109" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_268" name="Dx_dis_galM" value="9.65097e-17"/>
+          <Constant key="Parameter_269" name="Dx_dis_galM" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_148">
           <ListOfCallParameters>
@@ -5113,7 +5113,7 @@
           <Product metabolite="Metabolite_113" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_269" name="Dx_dis_galM" value="9.65097e-17"/>
+          <Constant key="Parameter_270" name="Dx_dis_galM" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_149">
           <ListOfCallParameters>
@@ -5137,7 +5137,7 @@
           <Product metabolite="Metabolite_117" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_270" name="Dx_dis_galM" value="9.65097e-17"/>
+          <Constant key="Parameter_271" name="Dx_dis_galM" value="9.65097e-17"/>
         </ListOfConstants>
         <KineticLaw function="Function_150">
           <ListOfCallParameters>
@@ -5161,7 +5161,7 @@
           <Product metabolite="Metabolite_101" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_271" name="Dy_sindis_galM" value="1.3823e-12"/>
+          <Constant key="Parameter_272" name="Dy_sindis_galM" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_151">
           <ListOfCallParameters>
@@ -5185,7 +5185,7 @@
           <Product metabolite="Metabolite_105" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_272" name="Dy_sindis_galM" value="1.3823e-12"/>
+          <Constant key="Parameter_273" name="Dy_sindis_galM" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_152">
           <ListOfCallParameters>
@@ -5209,7 +5209,7 @@
           <Product metabolite="Metabolite_109" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_273" name="Dy_sindis_galM" value="1.3823e-12"/>
+          <Constant key="Parameter_274" name="Dy_sindis_galM" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_153">
           <ListOfCallParameters>
@@ -5233,7 +5233,7 @@
           <Product metabolite="Metabolite_113" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_274" name="Dy_sindis_galM" value="1.3823e-12"/>
+          <Constant key="Parameter_275" name="Dy_sindis_galM" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_154">
           <ListOfCallParameters>
@@ -5257,7 +5257,7 @@
           <Product metabolite="Metabolite_117" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_275" name="Dy_sindis_galM" value="1.3823e-12"/>
+          <Constant key="Parameter_276" name="Dy_sindis_galM" value="1.3823e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_155">
           <ListOfCallParameters>
@@ -5281,7 +5281,7 @@
           <Product metabolite="Metabolite_123" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_276" name="Dx_sin_h2oM" value="1.21642e-15"/>
+          <Constant key="Parameter_277" name="Dx_sin_h2oM" value="1.21642e-15"/>
         </ListOfConstants>
         <KineticLaw function="Function_156">
           <ListOfCallParameters>
@@ -5305,7 +5305,7 @@
           <Product metabolite="Metabolite_127" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_277" name="Dx_sin_h2oM" value="1.21642e-15"/>
+          <Constant key="Parameter_278" name="Dx_sin_h2oM" value="1.21642e-15"/>
         </ListOfConstants>
         <KineticLaw function="Function_157">
           <ListOfCallParameters>
@@ -5329,7 +5329,7 @@
           <Product metabolite="Metabolite_131" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_278" name="Dx_sin_h2oM" value="1.21642e-15"/>
+          <Constant key="Parameter_279" name="Dx_sin_h2oM" value="1.21642e-15"/>
         </ListOfConstants>
         <KineticLaw function="Function_158">
           <ListOfCallParameters>
@@ -5353,7 +5353,7 @@
           <Product metabolite="Metabolite_135" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_279" name="Dx_sin_h2oM" value="1.21642e-15"/>
+          <Constant key="Parameter_280" name="Dx_sin_h2oM" value="1.21642e-15"/>
         </ListOfConstants>
         <KineticLaw function="Function_159">
           <ListOfCallParameters>
@@ -5377,7 +5377,7 @@
           <Product metabolite="Metabolite_139" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_280" name="Dx_sin_h2oM" value="1.21642e-15"/>
+          <Constant key="Parameter_281" name="Dx_sin_h2oM" value="1.21642e-15"/>
         </ListOfConstants>
         <KineticLaw function="Function_160">
           <ListOfCallParameters>
@@ -5401,7 +5401,7 @@
           <Product metabolite="Metabolite_143" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_281" name="Dx_sin_h2oM" value="1.21642e-15"/>
+          <Constant key="Parameter_282" name="Dx_sin_h2oM" value="1.21642e-15"/>
         </ListOfConstants>
         <KineticLaw function="Function_161">
           <ListOfCallParameters>
@@ -5425,7 +5425,7 @@
           <Product metabolite="Metabolite_129" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_282" name="Dx_dis_h2oM" value="4.82549e-16"/>
+          <Constant key="Parameter_283" name="Dx_dis_h2oM" value="4.82549e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_162">
           <ListOfCallParameters>
@@ -5449,7 +5449,7 @@
           <Product metabolite="Metabolite_133" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_283" name="Dx_dis_h2oM" value="4.82549e-16"/>
+          <Constant key="Parameter_284" name="Dx_dis_h2oM" value="4.82549e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_163">
           <ListOfCallParameters>
@@ -5473,7 +5473,7 @@
           <Product metabolite="Metabolite_137" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_284" name="Dx_dis_h2oM" value="4.82549e-16"/>
+          <Constant key="Parameter_285" name="Dx_dis_h2oM" value="4.82549e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_164">
           <ListOfCallParameters>
@@ -5497,7 +5497,7 @@
           <Product metabolite="Metabolite_141" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_285" name="Dx_dis_h2oM" value="4.82549e-16"/>
+          <Constant key="Parameter_286" name="Dx_dis_h2oM" value="4.82549e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_165">
           <ListOfCallParameters>
@@ -5521,7 +5521,7 @@
           <Product metabolite="Metabolite_125" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_286" name="Dy_sindis_h2oM" value="6.9115e-12"/>
+          <Constant key="Parameter_287" name="Dy_sindis_h2oM" value="6.9115e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_166">
           <ListOfCallParameters>
@@ -5545,7 +5545,7 @@
           <Product metabolite="Metabolite_129" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_287" name="Dy_sindis_h2oM" value="6.9115e-12"/>
+          <Constant key="Parameter_288" name="Dy_sindis_h2oM" value="6.9115e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_167">
           <ListOfCallParameters>
@@ -5569,7 +5569,7 @@
           <Product metabolite="Metabolite_133" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_288" name="Dy_sindis_h2oM" value="6.9115e-12"/>
+          <Constant key="Parameter_289" name="Dy_sindis_h2oM" value="6.9115e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_168">
           <ListOfCallParameters>
@@ -5593,7 +5593,7 @@
           <Product metabolite="Metabolite_137" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_289" name="Dy_sindis_h2oM" value="6.9115e-12"/>
+          <Constant key="Parameter_290" name="Dy_sindis_h2oM" value="6.9115e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_169">
           <ListOfCallParameters>
@@ -5617,7 +5617,7 @@
           <Product metabolite="Metabolite_141" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_290" name="Dy_sindis_h2oM" value="6.9115e-12"/>
+          <Constant key="Parameter_291" name="Dy_sindis_h2oM" value="6.9115e-12"/>
         </ListOfConstants>
         <KineticLaw function="Function_170">
           <ListOfCallParameters>
@@ -5643,12 +5643,12 @@
           <Product metabolite="Metabolite_165" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_291" name="GALK_k_atp" value="0.034"/>
-          <Constant key="Parameter_292" name="GALK_k_gal" value="0.97"/>
-          <Constant key="Parameter_293" name="GALK_keq" value="50"/>
-          <Constant key="Parameter_294" name="GALK_ki_gal1p" value="5.3"/>
-          <Constant key="Parameter_295" name="H01__GALK_Vmax" value="8.7e-15"/>
-          <Constant key="Parameter_296" name="H01__GALK_dm" value="81.9234"/>
+          <Constant key="Parameter_292" name="GALK_k_atp" value="0.034"/>
+          <Constant key="Parameter_293" name="GALK_k_gal" value="0.97"/>
+          <Constant key="Parameter_294" name="GALK_keq" value="50"/>
+          <Constant key="Parameter_295" name="GALK_ki_gal1p" value="5.3"/>
+          <Constant key="Parameter_296" name="H01__GALK_Vmax" value="8.7e-15"/>
+          <Constant key="Parameter_297" name="H01__GALK_dm" value="81.9234"/>
         </ListOfConstants>
         <KineticLaw function="Function_171">
           <ListOfCallParameters>
@@ -5698,11 +5698,11 @@
           <Product metabolite="Metabolite_165" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_297" name="GALK_k_atp" value="0.034"/>
-          <Constant key="Parameter_298" name="GALK_k_gal" value="0.97"/>
-          <Constant key="Parameter_299" name="GALK_ki_gal1p" value="5.3"/>
-          <Constant key="Parameter_300" name="H01__GALK_Vmax" value="8.7e-15"/>
-          <Constant key="Parameter_301" name="H01__GALK_dm" value="81.9234"/>
+          <Constant key="Parameter_298" name="GALK_k_atp" value="0.034"/>
+          <Constant key="Parameter_299" name="GALK_k_gal" value="0.97"/>
+          <Constant key="Parameter_300" name="GALK_ki_gal1p" value="5.3"/>
+          <Constant key="Parameter_301" name="H01__GALK_Vmax" value="8.7e-15"/>
+          <Constant key="Parameter_302" name="H01__GALK_dm" value="81.9234"/>
         </ListOfConstants>
         <KineticLaw function="Function_172">
           <ListOfCallParameters>
@@ -5745,8 +5745,8 @@
           <Product metabolite="Metabolite_171" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_302" name="H01__IMP_Vmax" value="4.35e-16"/>
-          <Constant key="Parameter_303" name="IMP_k_gal1p" value="0.35"/>
+          <Constant key="Parameter_303" name="H01__IMP_Vmax" value="4.35e-16"/>
+          <Constant key="Parameter_304" name="IMP_k_gal1p" value="0.35"/>
         </ListOfConstants>
         <KineticLaw function="Function_173">
           <ListOfCallParameters>
@@ -5774,11 +5774,11 @@
           <Product metabolite="Metabolite_163" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_304" name="ATPS_k_adp" value="0.1"/>
-          <Constant key="Parameter_305" name="ATPS_k_atp" value="0.5"/>
-          <Constant key="Parameter_306" name="ATPS_k_phos" value="0.1"/>
-          <Constant key="Parameter_307" name="ATPS_keq" value="0.58"/>
-          <Constant key="Parameter_308" name="H01__ATPS_Vmax" value="8.7e-13"/>
+          <Constant key="Parameter_305" name="ATPS_k_adp" value="0.1"/>
+          <Constant key="Parameter_306" name="ATPS_k_atp" value="0.5"/>
+          <Constant key="Parameter_307" name="ATPS_k_phos" value="0.1"/>
+          <Constant key="Parameter_308" name="ATPS_keq" value="0.58"/>
+          <Constant key="Parameter_309" name="H01__ATPS_Vmax" value="8.7e-13"/>
         </ListOfConstants>
         <KineticLaw function="Function_174">
           <ListOfCallParameters>
@@ -5822,12 +5822,12 @@
           <Product metabolite="Metabolite_175" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_309" name="ALDR_k_gal" value="40"/>
-          <Constant key="Parameter_310" name="ALDR_k_galtol" value="40"/>
-          <Constant key="Parameter_311" name="ALDR_k_nadp" value="0.1"/>
-          <Constant key="Parameter_312" name="ALDR_k_nadph" value="0.1"/>
-          <Constant key="Parameter_313" name="ALDR_keq" value="4"/>
-          <Constant key="Parameter_314" name="H01__ALDR_Vmax" value="8.7e-09"/>
+          <Constant key="Parameter_310" name="ALDR_k_gal" value="40"/>
+          <Constant key="Parameter_311" name="ALDR_k_galtol" value="40"/>
+          <Constant key="Parameter_312" name="ALDR_k_nadp" value="0.1"/>
+          <Constant key="Parameter_313" name="ALDR_k_nadph" value="0.1"/>
+          <Constant key="Parameter_314" name="ALDR_keq" value="4"/>
+          <Constant key="Parameter_315" name="H01__ALDR_Vmax" value="8.7e-09"/>
         </ListOfConstants>
         <KineticLaw function="Function_175">
           <ListOfCallParameters>
@@ -5875,10 +5875,10 @@
           <Product metabolite="Metabolite_177" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_315" name="H01__NADPR_Vmax" value="8.7e-19"/>
-          <Constant key="Parameter_316" name="NADPR_k_nadp" value="0.015"/>
-          <Constant key="Parameter_317" name="NADPR_keq" value="1"/>
-          <Constant key="Parameter_318" name="NADPR_ki_nadph" value="0.01"/>
+          <Constant key="Parameter_316" name="H01__NADPR_Vmax" value="8.7e-19"/>
+          <Constant key="Parameter_317" name="NADPR_k_nadp" value="0.015"/>
+          <Constant key="Parameter_318" name="NADPR_keq" value="1"/>
+          <Constant key="Parameter_319" name="NADPR_ki_nadph" value="0.01"/>
         </ListOfConstants>
         <KineticLaw function="Function_176">
           <ListOfCallParameters>
@@ -5920,14 +5920,14 @@
           <Modifier metabolite="Metabolite_167" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_319" name="GALT_k_gal1p" value="1.25"/>
-          <Constant key="Parameter_320" name="GALT_k_glc1p" value="0.37"/>
-          <Constant key="Parameter_321" name="GALT_k_udpgal" value="0.5"/>
-          <Constant key="Parameter_322" name="GALT_k_udpglc" value="0.43"/>
-          <Constant key="Parameter_323" name="GALT_keq" value="1"/>
-          <Constant key="Parameter_324" name="GALT_ki_udp" value="0.35"/>
-          <Constant key="Parameter_325" name="GALT_ki_utp" value="0.13"/>
-          <Constant key="Parameter_326" name="H01__GALT_Vmax" value="6.9948e-14"/>
+          <Constant key="Parameter_320" name="GALT_k_gal1p" value="1.25"/>
+          <Constant key="Parameter_321" name="GALT_k_glc1p" value="0.37"/>
+          <Constant key="Parameter_322" name="GALT_k_udpgal" value="0.5"/>
+          <Constant key="Parameter_323" name="GALT_k_udpglc" value="0.43"/>
+          <Constant key="Parameter_324" name="GALT_keq" value="1"/>
+          <Constant key="Parameter_325" name="GALT_ki_udp" value="0.35"/>
+          <Constant key="Parameter_326" name="GALT_ki_utp" value="0.13"/>
+          <Constant key="Parameter_327" name="H01__GALT_Vmax" value="6.9948e-14"/>
         </ListOfConstants>
         <KineticLaw function="Function_177">
           <ListOfCallParameters>
@@ -5987,10 +5987,10 @@
           <Product metabolite="Metabolite_159" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_327" name="GALE_k_udpgal" value="0.3"/>
-          <Constant key="Parameter_328" name="GALE_k_udpglc" value="0.069"/>
-          <Constant key="Parameter_329" name="GALE_keq" value="0.33"/>
-          <Constant key="Parameter_330" name="H01__GALE_Vmax" value="2.61209e-15"/>
+          <Constant key="Parameter_328" name="GALE_k_udpgal" value="0.3"/>
+          <Constant key="Parameter_329" name="GALE_k_udpglc" value="0.069"/>
+          <Constant key="Parameter_330" name="GALE_keq" value="0.33"/>
+          <Constant key="Parameter_331" name="H01__GALE_Vmax" value="2.61209e-15"/>
         </ListOfConstants>
         <KineticLaw function="Function_178">
           <ListOfCallParameters>
@@ -6028,11 +6028,11 @@
           <Product metabolite="Metabolite_173" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_331" name="H01__UGP_Vmax" value="1.74e-11"/>
-          <Constant key="Parameter_332" name="H01__UGP_dm" value="10.1849"/>
-          <Constant key="Parameter_333" name="UGP_k_glc1p" value="0.172"/>
-          <Constant key="Parameter_334" name="UGP_k_utp" value="0.563"/>
-          <Constant key="Parameter_335" name="UGP_keq" value="0.45"/>
+          <Constant key="Parameter_332" name="H01__UGP_Vmax" value="1.74e-11"/>
+          <Constant key="Parameter_333" name="H01__UGP_dm" value="10.1849"/>
+          <Constant key="Parameter_334" name="UGP_k_glc1p" value="0.172"/>
+          <Constant key="Parameter_335" name="UGP_k_utp" value="0.563"/>
+          <Constant key="Parameter_336" name="UGP_keq" value="0.45"/>
         </ListOfConstants>
         <KineticLaw function="Function_179">
           <ListOfCallParameters>
@@ -6079,12 +6079,12 @@
           <Product metabolite="Metabolite_173" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_336" name="H01__UGP_Vmax" value="1.74e-11"/>
-          <Constant key="Parameter_337" name="H01__UGP_dm" value="10.1849"/>
-          <Constant key="Parameter_338" name="UGALP_f" value="0.01"/>
-          <Constant key="Parameter_339" name="UGP_k_gal1p" value="5"/>
-          <Constant key="Parameter_340" name="UGP_k_utp" value="0.563"/>
-          <Constant key="Parameter_341" name="UGP_keq" value="0.45"/>
+          <Constant key="Parameter_337" name="H01__UGP_Vmax" value="1.74e-11"/>
+          <Constant key="Parameter_338" name="H01__UGP_dm" value="10.1849"/>
+          <Constant key="Parameter_339" name="UGALP_f" value="0.01"/>
+          <Constant key="Parameter_340" name="UGP_k_gal1p" value="5"/>
+          <Constant key="Parameter_341" name="UGP_k_utp" value="0.563"/>
+          <Constant key="Parameter_342" name="UGP_keq" value="0.45"/>
         </ListOfConstants>
         <KineticLaw function="Function_180">
           <ListOfCallParameters>
@@ -6132,9 +6132,9 @@
           <Product metabolite="Metabolite_171" stoichiometry="2"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_342" name="H01__PPASE_Vmax" value="8.7e-13"/>
-          <Constant key="Parameter_343" name="PPASE_k_ppi" value="0.07"/>
-          <Constant key="Parameter_344" name="PPASE_n" value="4"/>
+          <Constant key="Parameter_343" name="H01__PPASE_Vmax" value="8.7e-13"/>
+          <Constant key="Parameter_344" name="PPASE_k_ppi" value="0.07"/>
+          <Constant key="Parameter_345" name="PPASE_n" value="4"/>
         </ListOfConstants>
         <KineticLaw function="Function_181">
           <ListOfCallParameters>
@@ -6166,12 +6166,12 @@
           <Product metabolite="Metabolite_167" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_345" name="H01__NDKU_Vmax" value="3.48e-11"/>
-          <Constant key="Parameter_346" name="NDKU_k_adp" value="0.042"/>
-          <Constant key="Parameter_347" name="NDKU_k_atp" value="1.33"/>
-          <Constant key="Parameter_348" name="NDKU_k_udp" value="0.19"/>
-          <Constant key="Parameter_349" name="NDKU_k_utp" value="27"/>
-          <Constant key="Parameter_350" name="NDKU_keq" value="1"/>
+          <Constant key="Parameter_346" name="H01__NDKU_Vmax" value="3.48e-11"/>
+          <Constant key="Parameter_347" name="NDKU_k_adp" value="0.042"/>
+          <Constant key="Parameter_348" name="NDKU_k_atp" value="1.33"/>
+          <Constant key="Parameter_349" name="NDKU_k_udp" value="0.19"/>
+          <Constant key="Parameter_350" name="NDKU_k_utp" value="27"/>
+          <Constant key="Parameter_351" name="NDKU_keq" value="1"/>
         </ListOfConstants>
         <KineticLaw function="Function_182">
           <ListOfCallParameters>
@@ -6219,10 +6219,10 @@
           <Product metabolite="Metabolite_153" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_351" name="H01__PGM1_Vmax" value="4.35e-13"/>
-          <Constant key="Parameter_352" name="PGM1_k_glc1p" value="0.045"/>
-          <Constant key="Parameter_353" name="PGM1_k_glc6p" value="0.67"/>
-          <Constant key="Parameter_354" name="PGM1_keq" value="10"/>
+          <Constant key="Parameter_352" name="H01__PGM1_Vmax" value="4.35e-13"/>
+          <Constant key="Parameter_353" name="PGM1_k_glc1p" value="0.045"/>
+          <Constant key="Parameter_354" name="PGM1_k_glc6p" value="0.67"/>
+          <Constant key="Parameter_355" name="PGM1_keq" value="10"/>
         </ListOfConstants>
         <KineticLaw function="Function_183">
           <ListOfCallParameters>
@@ -6258,9 +6258,9 @@
           <Product metabolite="Metabolite_171" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_355" name="GLY_k_glc6p" value="0.12"/>
-          <Constant key="Parameter_356" name="GLY_k_p" value="0.2"/>
-          <Constant key="Parameter_357" name="H01__GLY_Vmax" value="4.35e-14"/>
+          <Constant key="Parameter_356" name="GLY_k_glc6p" value="0.12"/>
+          <Constant key="Parameter_357" name="GLY_k_p" value="0.2"/>
+          <Constant key="Parameter_358" name="H01__GLY_Vmax" value="4.35e-14"/>
         </ListOfConstants>
         <KineticLaw function="Function_184">
           <ListOfCallParameters>
@@ -6293,8 +6293,8 @@
           <Product metabolite="Metabolite_169" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_358" name="GTF_k_udpgal" value="0.1"/>
-          <Constant key="Parameter_359" name="H01__GTF_Vmax" value="1.74e-16"/>
+          <Constant key="Parameter_359" name="GTF_k_udpgal" value="0.1"/>
+          <Constant key="Parameter_360" name="H01__GTF_Vmax" value="1.74e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_185">
           <ListOfCallParameters>
@@ -6321,8 +6321,8 @@
           <Product metabolite="Metabolite_169" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_360" name="GTF_k_udpglc" value="0.1"/>
-          <Constant key="Parameter_361" name="H01__GTF_Vmax" value="1.74e-16"/>
+          <Constant key="Parameter_361" name="GTF_k_udpglc" value="0.1"/>
+          <Constant key="Parameter_362" name="H01__GTF_Vmax" value="1.74e-16"/>
         </ListOfConstants>
         <KineticLaw function="Function_186">
           <ListOfCallParameters>
@@ -6349,10 +6349,10 @@
           <Product metabolite="Metabolite_145" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_362" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_363" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_364" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_365" name="Nf" value="5"/>
+          <Constant key="Parameter_363" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_364" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_365" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_366" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_187">
           <ListOfCallParameters>
@@ -6385,10 +6385,10 @@
           <Product metabolite="Metabolite_147" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_366" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_367" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_368" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_369" name="Nf" value="5"/>
+          <Constant key="Parameter_367" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_368" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_369" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_370" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_188">
           <ListOfCallParameters>
@@ -6421,10 +6421,10 @@
           <Product metabolite="Metabolite_145" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_370" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_371" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_372" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_373" name="Nf" value="5"/>
+          <Constant key="Parameter_371" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_372" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_373" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_374" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_189">
           <ListOfCallParameters>
@@ -6457,10 +6457,10 @@
           <Product metabolite="Metabolite_147" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_374" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_375" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_376" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_377" name="Nf" value="5"/>
+          <Constant key="Parameter_375" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_376" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_377" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_378" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_190">
           <ListOfCallParameters>
@@ -6493,10 +6493,10 @@
           <Product metabolite="Metabolite_145" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_378" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_379" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_380" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_381" name="Nf" value="5"/>
+          <Constant key="Parameter_379" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_380" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_381" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_382" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_191">
           <ListOfCallParameters>
@@ -6529,10 +6529,10 @@
           <Product metabolite="Metabolite_147" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_382" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_383" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_384" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_385" name="Nf" value="5"/>
+          <Constant key="Parameter_383" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_384" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_385" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_386" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_192">
           <ListOfCallParameters>
@@ -6565,10 +6565,10 @@
           <Product metabolite="Metabolite_145" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_386" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_387" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_388" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_389" name="Nf" value="5"/>
+          <Constant key="Parameter_387" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_388" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_389" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_390" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_193">
           <ListOfCallParameters>
@@ -6601,10 +6601,10 @@
           <Product metabolite="Metabolite_147" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_390" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_391" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_392" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_393" name="Nf" value="5"/>
+          <Constant key="Parameter_391" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_392" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_393" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_394" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_194">
           <ListOfCallParameters>
@@ -6637,10 +6637,10 @@
           <Product metabolite="Metabolite_145" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_394" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_395" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_396" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_397" name="Nf" value="5"/>
+          <Constant key="Parameter_395" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_396" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_397" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_398" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_195">
           <ListOfCallParameters>
@@ -6673,10 +6673,10 @@
           <Product metabolite="Metabolite_147" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_398" name="GLUT2_k_gal" value="85.5"/>
-          <Constant key="Parameter_399" name="H01__GLUT2_Vmax" value="1e-08"/>
-          <Constant key="Parameter_400" name="H01__GLUT2_dm" value="1"/>
-          <Constant key="Parameter_401" name="Nf" value="5"/>
+          <Constant key="Parameter_399" name="GLUT2_k_gal" value="85.5"/>
+          <Constant key="Parameter_400" name="H01__GLUT2_Vmax" value="1e-08"/>
+          <Constant key="Parameter_401" name="H01__GLUT2_dm" value="1"/>
+          <Constant key="Parameter_402" name="Nf" value="5"/>
         </ListOfConstants>
         <KineticLaw function="Function_196">
           <ListOfCallParameters>

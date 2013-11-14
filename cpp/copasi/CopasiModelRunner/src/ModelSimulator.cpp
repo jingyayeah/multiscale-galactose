@@ -87,8 +87,10 @@ void ModelSimulator::modelInfo(CCopasiDataModel* pDataModel) {
 }
 
 /** Do timecourse simulation and write to file with
- * the given parameter settings for the model. */
-int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters pars) {
+ * the given parameter settings for the model.
+ * TODO: timecourse parameteres TimeCourseParameters tcPars
+ */
+int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters mPars) {
 
 	// initialize the backend library
 	CCopasiRootContainer::init(0, NULL);
@@ -100,8 +102,12 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 
 	try {
 		// load the model without progress report
-		std::cout << "loadCPS\t" << filename << std::endl;
-		pDataModel->loadModel(filename, NULL);
+		std::cout << "loadSBML\t" << filename << std::endl;
+		pDataModel->importSBML(filename, NULL);
+
+		// load the model without progress report
+		//std::cout << "loadCPS\t" << filename << std::endl;
+		//pDataModel->loadModel(filename, NULL);
 
 	} catch (...) {
 		std::cerr << "Error while importing the model from file named \""
@@ -109,11 +115,14 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 		CCopasiRootContainer::destroy();
 		return 1;
 	}
-	modelInfo(pDataModel);
+	//Overview over model -> SBML identifier are available
+	//modelInfo(pDataModel);
 
 
 	CModel* pModel = pDataModel->getModel();
 	assert(pModel != NULL);
+
+	// Here the updating of the values is performed
 
 	// we have to keep a set of all the initial values that are changed during
 	// the model building process
@@ -121,20 +130,19 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	// values are set to the correct initial value
 	std::set<const CCopasiObject*> changedObjects;
 
-	CMetabNameI
-
-	// getting Model values
-	CCopasiVectorN<CModelValue> values = pModel->getModelValues();
-	values[10]->getObjectType();
+	// getting Model values for changing
+	// CCopasiVectorN<CModelValue> values = pModel->getModelValues();
+	// values[10]->getObjectType();
 
 	// CModelValue v = values.getObject
 	// initial values can be set via CModelEntity;
-	CModelEntity entity;
-	entity.setInitialValue(10.0);
-	entity.getSBMLId();
+	// CModelEntity entity;
+	// entity.setInitialValue(10.0);
 
-	CMetab
-	setInitialConcentration(double c);
+	// CMetab metab;
+	// metab.setInitialConcentration(1.0);
+	// entity.getSBMLId();
+
 
 	// Status of entities
 	// FIXED entity is fixed
@@ -238,7 +246,7 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	// set the report for the task
 	pTrajectoryTask->getReport().setReportDefinition(pReport);
 	// set the output filename
-	pTrajectoryTask->getReport().setTarget("example3.txt");
+	pTrajectoryTask->getReport().setTarget("Timecourse_report.txt");
 	// don't append output if the file exists, but overwrite the file
 	pTrajectoryTask->getReport().setAppend(false);
 
@@ -246,6 +254,8 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	CTrajectoryProblem* pProblem =
 			dynamic_cast<CTrajectoryProblem*>(pTrajectoryTask->getProblem());
 
+
+	// TODO: use Timecourse parameters to set the timecourse
 	// simulate 100 steps
 	pProblem->setStepNumber(240);
 	// start at time 0
@@ -260,7 +270,6 @@ int ModelSimulator::doTimeCourseSimulation(std::string filename, ModelParameters
 	CCopasiParameter* pParameter = pMethod->getParameter("Absolute Tolerance");
 	assert(pParameter != NULL);
 	pParameter->setValue(1.0e-06);
-
 	pParameter = pMethod->getParameter("Relative Tolerance");
 	assert(pParameter != NULL);
 	pParameter->setValue(1.0e-06);
