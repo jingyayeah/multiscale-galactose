@@ -26,7 +26,7 @@ class ModelSimulator {
 
   private:
     std::string filename;
-    CCopasiDataModel* pDataModel;
+    //CCopasiDataModel* pDataModel;
     int simulationCounter;
 
 };

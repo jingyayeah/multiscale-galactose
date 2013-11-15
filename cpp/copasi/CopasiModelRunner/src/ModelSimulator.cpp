@@ -40,7 +40,7 @@ ModelSimulator::ModelSimulator(std::string fname){
 	std::cout << "Construct ModelSimulator" << std::endl;
 	filename = fname;
 	simulationCounter = 0;
-	readModel();
+	//readModel();
 }
 
 struct stringbuilder
@@ -62,7 +62,7 @@ int ModelSimulator::readModel(){
 	assert(CCopasiRootContainer::getRoot() != NULL);
 
 	// create a new datamodel
-	pDataModel = CCopasiRootContainer::addDatamodel();
+	CCopasiDataModel* pDataModel = CCopasiRootContainer::addDatamodel();
 	assert(CCopasiRootContainer::getDatamodelList()->size() == 1);
 
 	try {
@@ -87,18 +87,41 @@ int ModelSimulator::readModel(){
 	return 0;
 }
 
-/** CCopasiRootContainer has to be destroyed in the end. */
-void ModelSimulator::destroy(){
-	// clean up the library
-	CCopasiRootContainer::destroy();
-}
 
 /** Do timecourse simulation and write to file with
  * the given parameter settings for the model.
  * Model is loaded once and than all timecourse simulations performed on the model.
  */
 int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCourseParameters tcPars){
-	simulationCounter++;
+
+	// initialize the backend library
+		CCopasiRootContainer::init(0, NULL);
+		assert(CCopasiRootContainer::getRoot() != NULL);
+
+		// create a new datamodel
+		CCopasiDataModel* pDataModel = CCopasiRootContainer::addDatamodel();
+		assert(CCopasiRootContainer::getDatamodelList()->size() == 1);
+
+		try {
+			// load the model without progress report
+			std::cout << "loadSBML\t" << filename << std::endl;
+			pDataModel->importSBML(filename, NULL);
+
+			// load the model without progress report
+			//std::cout << "loadCPS\t" << filename << std::endl;
+			//pDataModel->loadModel(filename, NULL);
+
+		} catch (...) {
+			std::cerr << "Error while importing the model from file named \""
+					<< filename << "\"." << std::endl;
+			CCopasiRootContainer::destroy();
+			return 1;
+		}
+
+		//modelInfo(pDataModel); 	//Overview over model
+		std::cout << "Model read successfully" << std::endl;
+
+
 
 	CCopasiRootContainer::init(0, NULL);
 	assert(CCopasiRootContainer::getRoot() != NULL);
@@ -132,6 +155,7 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 			break;
 		}
 	}
+	/* PEAK
 	// Change Initial concentrations
 	// ! careful with setInitialConcentration & setInitialValue
 	for (size_t i=0; i<pModel->getMetabolites().size(); ++i){
@@ -169,6 +193,7 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 			// Update initial values not necessary
 		}
 	}
+	*/
 
 	std::cout << "Compile model and update initial conditions" << std::endl;
 	// finally compile the model
@@ -200,20 +225,12 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	CReportDefinitionVector* pReports = pDataModel->getReportDefinitionList();
 	// create a new report definition object
 
-	//if (pReports->size() > 0){
-	//	pDataModel->getReportDefinitionList()->remove("Output for timecourse");
-	//}
+
 
 	// TODO: i have to get the report somehow
 	std::cout << "Now creating" << std::endl;
-    CReportDefinition* pReport = pReports->createReportDefinition("Report", "Output for timecourse" + simulationCounter);
+    CReportDefinition* pReport = pReports->createReportDefinition("Report", "Output for timecourse");
 	std::cout << "Creation finished" << std::endl;
-
-	// fucking report definition
-
-	if(pReport == NULL){
-		std::cout << "No fucking report created" << std::endl;
-	}
 
 	// set the task type for the report definition to timecourse
 	pReport->setTaskType(CCopasiTask::timeCourse);
@@ -406,6 +423,7 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 			      << pTimeSeries->getConcentrationData(lastIndex, i) << std::endl;
 	}
 	*/
+	//CCopasiRootContainer::destroy();
 	return 0;
 }
 

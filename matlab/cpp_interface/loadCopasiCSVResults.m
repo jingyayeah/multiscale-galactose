@@ -1,11 +1,12 @@
-function [] = loadCopasiCSVResults()
+% function [] = loadCopasiCSVResults()
 %% Loading simulation results from copasi for visualization
 % Plot the results for the different models.
-% mname = 'Galactose_v3_Nc1_Nf5';
-mname = 'Galactose_v3_Nc5_Nf5';
+clear all; clc;
+mname = 'Galactose_v3_Nc1_Nf5';
+% mname = 'Galactose_v3_Nc5_Nf5';
 
 %% Get simulation files
-clear all; clc;
+
 folder = '~/multiscale-galactose-results/';
 files = dir(folder);
 sim_files = {};
@@ -148,11 +149,11 @@ for k=1: numel(haxes)
     ax = haxes(k);
     set(gcf, 'CurrentAxes', ax)
     
-    ylim=get(gca,'ylim');
-    set(gca, 'ylim', 1.05*ylim)
+    ylim1=get(gca,'ylim');
+    set(gca, 'ylim', 1.05*ylim1)
     
-    xlim=get(gca,'xlim');
-    set(gca, 'xlim', 1.05*xlim)
+    xlim1=get(gca,'xlim');
+    set(gca, 'xlim', 1.05*xlim1)
     % set(get(gca, 'XLabel'), 'String', 'pp < - > pv [�m]');
     
     % set(ax, 'FontWeight', 'bold');
@@ -166,9 +167,9 @@ end
 hline = findobj(gcf, 'type', 'line');
 set(hline, 'LineWidth', lwidth);
 set(fig1, 'PaperPositionMode', 'auto');
-print(fig1, '-dtiff', '-r150', 'Extraction_Nc1_Nf_5.tif'); 
+print(fig1, '-dtiff', '-r150', strcat(mname, '_Extraction.tif')); 
 
 
-end
+%end
 
 
