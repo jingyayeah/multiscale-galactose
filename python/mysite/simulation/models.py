@@ -51,7 +51,15 @@ class Integration(models.Model):
     tstart = models.FloatField(default=0.0)
     abs_tol = models.FloatField(default=1E-6)
     rel_tol = models.FloatField(default=1E-6)
-
+    
+    def __unicode__(self):
+        return "[" + str(self.tstart) + ":" + str(self.tend) + "]" 
+    
+    class Meta:
+        # ordering = ["sbml_id"]
+        verbose_name = "Integration Setting"
+        verbose_name_plural = "Integration Settings"
+    
 
 class Parameter(models.Model):
     UNITS = (
@@ -69,18 +77,26 @@ class Parameter(models.Model):
     class Meta:
         unique_together = ("name", "value")
 
-class ParameterSet(models.Model):
+
+class ParameterCollection(models.Model):
     '''
     Put Parameters of one simulation into a ParameterSet.
     Thereby the ParameterSets can be resused for different
     simulations.
     '''
-    parameter = models.ManyToManyField(Parameter)
+    parameters = models.ManyToManyField(Parameter, related_name='collections')
+    
     class Meta:
         # ordering = ["sbml_id"]
-        verbose_name = "ParameterSet"
-        verbose_name_plural = "ParameterSets"
-
+        verbose_name = "ParameterCollection"
+        verbose_name_plural = "ParameterCollections"
+        
+    def __unicode__(self):
+        return 'PSet [' + str(self.pk) + ']'
+    
+    def count(self):
+        return self.parameters.count()
+        
 
 class Timecourse(models.Model):
     # file = models.FileField(upload_to="~/multiscale-galactose-results/
@@ -126,7 +142,7 @@ class Simulation(models.Model):
                          (DONE, 'done'),
     )
     task = models.ForeignKey(Task)
-    parameters = models.ForeignKey(ParameterSet)
+    parameters = models.ForeignKey(ParameterCollection)
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
     priority = models.IntegerField(default=10)
     create_time = models.DateTimeField()

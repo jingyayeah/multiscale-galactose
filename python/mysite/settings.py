@@ -14,11 +14,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = "/home/mkoenig/multiscale-galactose-results/db/"
+MEDIA_ROOT = "/home/mkoenig/multiscale-galactose-results/django/"
 
 # URL that handles the media served from MEDIA_ROOT, used for managing 
 # stored files. It must end in a slash if set to a non-empty value.
-MEDIA_URL = "multiscale-galactose-results/db/"
+MEDIA_URL = "/home/mkoenig/multiscale-galactose-results/django/"
 
 
 # Quick-start development settings - unsuitable for production

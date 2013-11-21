@@ -8,6 +8,11 @@ SBML file and the parameter settings files
 
 
 '''
+import sys
+import os
+sys.path.append('/home/mkoenig/multiscale-galactose/python')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
 from simulation.models import * 
 from django.core.files import File
 
@@ -17,7 +22,7 @@ def createSimulationTask():
     # file can be given.
     # All the derived fields should be created automatically
     # from the SBML file name.
-    
+
     # Get the SBML file to store in the database
     # Create a Python file object using open()
     f = open('../examples/Galactose_Dilution_v3_Nc5_Nf5.xml', 'r')
@@ -27,24 +32,25 @@ def createSimulationTask():
     model = SBMLModel(sbml_id='Galactose_Dilution_v3_Nc5_Nf5',
                       name='Galactose_Dilution',
                       version=3,
-                      Nc=5,
-                      Nf=5,
+                      nc=5,
+                      nf=5,
                       file=myfile)
     model.save()
     
     print 'name: ' + model.file.name
     print 'path: ' + model.file.path
     print 'url: '  + model.file.url
+    f.closed()
     
-    
-
     # INTEGRATION
-    integration = Integration(tstart=0.0, tend=200.0, tsteps=1000,
+    integration, created = Integration.objects.get_or_create(tstart=0.0, tend=200.0, tsteps=1000,
                               abs_tol=1E-6, rel_tol=1E-6)
     integration.save()
+    if (created):
+        print ('integration created');
     
-    task = Task(sbml_model=model, integration=integration)
-    task.save()
+    # task = Task(sbml_model=model, integration=integration)
+    # task.save()
     
     # SIMULATIONS
     # sim = Simulation(task=task, )
@@ -52,15 +58,22 @@ def createSimulationTask():
     # PARAMETERS
     # Create the necessary parameter sets for the simulations
     # flow, L, y_sin, y_dis, y_cell, PP__gal
-    p = Parameter(name='flow', 60E-6)
-    # pset = ParameterSet();
+    p1, created = Parameter.objects.get_or_create(name='flow', value=60E-6, unit="m/s");
+    p1.save()
+    if (created):
+        print ('p1 created');
+    p2, created = Parameter.objects.get_or_create(name='L', value=500E-6, unit="m");
+    p2.save()
+    if (created):
+        print ('p2 created');
     
+    # Careful with creating objects again and again
+    pset = ParameterCollection();
+    pset.save()
+    pset.parameters.add(p1);
+    pset.parameters.add(p2);
     
-
-
 
 
 if __name__ == "__main__":
-    
-    
     createSimulationTask()
