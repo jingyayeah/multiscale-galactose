@@ -13,6 +13,13 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+MEDIA_ROOT = "/home/mkoenig/multiscale-galactose-results/db/"
+
+# URL that handles the media served from MEDIA_ROOT, used for managing 
+# stored files. It must end in a slash if set to a non-empty value.
+MEDIA_URL = "multiscale-galactose-results/db/"
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
