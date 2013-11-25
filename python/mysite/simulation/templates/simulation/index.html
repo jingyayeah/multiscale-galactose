@@ -1,0 +1,12 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'simulation/style.css' %}" />
+
+{% if latest_model_list %}
+    <ul>
+    {% for model in latest_model_list %}
+        <li><a href="{% url 'polls:detail' poll.id %}">{{ poll.question }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No SBML models are available.</p>
+{% endif %}
