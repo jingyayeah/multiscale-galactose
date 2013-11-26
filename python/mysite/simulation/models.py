@@ -26,6 +26,22 @@ def validate_gt_zero(value):
         raise ValidationError(u'%s is not > 0' % value)
 
 # Create your models here.
+# todo get name via ip dictionary
+class Core(models.Model):
+    ip = models.CharField(max_length=200)
+    cpu = models.IntegerField()
+    time = models.DateTimeField(default=timezone.now);
+    
+    def __unicode__(self):
+        return self.ip + "-cpu-" +str(self.cpu)
+    
+    class Meta:
+        verbose_name = "Core"
+        verbose_name_plural = "Cores"
+        unique_together = ("ip", "cpu")
+
+
+# Create your models here.
 class SBMLModel(models.Model):
     sbml_id = models.CharField(max_length=200, unique=True)
     name = models.CharField(max_length=200)

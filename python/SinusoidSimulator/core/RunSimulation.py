@@ -29,18 +29,19 @@ def createSimulationTask():
     myfile = File(f)
     
     # Create the model Galactose_Dilution_v3_Nc5_Nf5.xml
-    model = SBMLModel(sbml_id='Galactose_Dilution_v3_Nc5_Nf5',
-                      name='Galactose_Dilution',
-                      version=3,
-                      nc=5,
-                      nf=5,
-                      file=myfile)
-    model.save()
     
+    model, created = SBMLModel.objects.get_or_create(sbml_id='Galactose_Dilution_v3_Nc5_Nf5')
+    if (created):
+        model.name = 'Galactose_Dilution'
+        model.version = 3
+        model.nc = 5
+        model.nf = 5
+        model.file = myfile
+        model.save()
     print 'name: ' + model.file.name
     print 'path: ' + model.file.path
     print 'url: '  + model.file.url
-    f.closed()
+    f.close()
     
     # INTEGRATION
     integration, created = Integration.objects.get_or_create(tstart=0.0, tend=200.0, tsteps=1000,

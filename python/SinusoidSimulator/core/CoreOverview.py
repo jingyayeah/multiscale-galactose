@@ -16,6 +16,10 @@ How multiprocessing works, in a nutshell:
 Since these are independent processes, they now have independent Global Interpreter Locks 
 (in CPython) so both can use up to 100% of a CPU on a multi-cpu box, as long as they don't 
 contend for other lower-level (OS) resources. That's the "multiprocessing" part.
+
+
+Database things and setup handled by Django.
+
 '''
 
 import os
@@ -25,10 +29,22 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
 import multiprocessing
-from simulation.models import Integration 
+from simulation.models import Integration, Core
+from random import randrange
 
-database = "events";
-computer = "10.39.32.111"
+from django.utils import timezone
+
+import socket
+import fcntl
+import struct
+
+def get_ip_address(ifname='eth0'):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,  # SIOCGIFADDR
+        struct.pack('256s', ifname[:15])
+    )[20:24])
 
 def info(title):
     print title
@@ -41,9 +57,27 @@ def worker(cpu):
     # Get the integration information
     # integration = Integration.objects.all()[:1]
     info('function worker')
+    ip = get_ip_address('eth0')
+    
     while(True):
-        print 'sim ->', computer, 'cpu:', cpu
-        time.sleep(5)
+        print 'sim ->', ip, 'cpu:', cpu
+        # [1] get data from the database
+        if (Integration.objects.count()>0):
+            for i in Integration.objects.all()[:1]:
+                print i.__unicode__()
+                  
+        
+        # [2] do simulation
+        time.sleep(5 + randrange(10))
+        
+        # [3] store in database
+        core_qset = Core.objects.filter(ip=ip, cpu=cpu)
+        if (len(core_qset) > 0):
+            core = core_qset[0]
+            core.time = timezone.now();
+        else:
+            core = Core(ip=ip, cpu=cpu, time=timezone.now())
+        core.save()
         
 
 if __name__ == "__main__":

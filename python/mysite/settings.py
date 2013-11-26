@@ -68,10 +68,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'events',
+        'NAME': 'multiscale-galactose',
         'USER': 'mkoenig',
-        'PASSWORD': 'xo3Quili',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'test',
+        'HOST': '10.39.32.111',
         'PORT': '5432',
     }
 }
