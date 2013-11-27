@@ -131,7 +131,10 @@ class ParameterCollection(models.Model):
         
 class Task(models.Model):
     sbml_model = models.ForeignKey(SBMLModel)
-    integration = models.ForeignKey(Integration) 
+    integration = models.ForeignKey(Integration)
+    
+    class Meta:
+        unique_together = ("sbml_model", "integration")
 
 
 UNASSIGNED = "UNASSIGNED"

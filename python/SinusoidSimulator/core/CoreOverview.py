@@ -93,6 +93,7 @@ def worker(cpu, lock):
             core = Core(ip=ip, cpu=cpu, time=timezone.now())
         core.save()
         
+        # subprocess opens new process
         # Check on which core it is running
         # Make sure all the cores are really used
         # call(["ls", "-l"])
