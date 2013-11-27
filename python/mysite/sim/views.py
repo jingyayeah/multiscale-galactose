@@ -17,7 +17,7 @@ def cores(request):
     Overview over the CPUs listening in the network for simulations.
     '''
     #return HttpResponse("Overview of simulation cores")
-    cores_list = Core.objects.all()
+    cores_list = Core.objects.order_by("-time")
     template = loader.get_template('sim/cores.html')
     context = RequestContext(request, {
         'cores_list': cores_list,

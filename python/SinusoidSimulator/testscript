@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "testscript called by python"

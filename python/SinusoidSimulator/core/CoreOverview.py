@@ -34,6 +34,7 @@ from random import randrange
 
 from django.utils import timezone
 
+from subprocess import call
 import socket
 import fcntl
 import struct
@@ -53,24 +54,37 @@ def info(title):
         print 'parent process:', os.getppid()
     print 'process id:', os.getpid()
 
-def worker(cpu):
+def worker(cpu, lock):
     # Get the integration information
     # integration = Integration.objects.all()[:1]
     info('function worker')
     ip = get_ip_address('eth0')
     
     while(True):
+        # use global lock for proper printing
+        # Without using the lock output from the 
+        # different processes is liable to get all mixed up.
+        lock.acquire()
         print 'sim ->', ip, 'cpu:', cpu
+        lock.release()
+        
         # [1] get data from the database
         if (Integration.objects.count()>0):
             for i in Integration.objects.all()[:1]:
-                print i.__unicode__()
+                pass
+                # print i.__unicode__()
                   
         
         # [2] do simulation
+        #s = 0
+        #for k in xrange(1000000):
+        #    s *=k
         time.sleep(5 + randrange(10))
+        # run an operating system command
         
-        # [3] store in database
+        
+        
+        # [3] Update the core status for the core
         core_qset = Core.objects.filter(ip=ip, cpu=cpu)
         if (len(core_qset) > 0):
             core = core_qset[0]
@@ -79,20 +93,33 @@ def worker(cpu):
             core = Core(ip=ip, cpu=cpu, time=timezone.now())
         core.save()
         
+        # Check on which core it is running
+        # Make sure all the cores are really used
+        # call(["ls", "-l"])
+        call(["../testscript"])
+        
+        
 
 if __name__ == "__main__":
+    '''
+    Work with the exit codes to start new processes.
+    If processes have terminated restart one of the processes.
+    '''
     # run the process on all cpus
     cpus = multiprocessing.cpu_count()
     print 'Number of CPU: ', cpus 
     
+    # Lock for syncronization between processes (but locks)
+    lock = multiprocessing.Lock()
+    
     # start processes on every cpu
     procs = []
-    for i in range(cpus):
-        p = multiprocessing.Process(target=worker, args=(i+1, ))
+    for cpu in range(cpus):
+        p = multiprocessing.Process(target=worker, args=(cpu, lock))
         procs.append(p)
         p.start()
     
     # wait for all the worker processes to finish
-    for p in procs:
-        p.join()
+    # for p in procs:
+    #     p.join()
     
