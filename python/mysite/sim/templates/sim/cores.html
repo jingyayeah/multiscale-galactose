@@ -1,13 +1,23 @@
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'sim/style.css' %}" />
 
-<h1>Cores Listening for simulation</h1>
+<!-- n = seconds -->
+<meta http-equiv="refresh" content="10" />
+
+<h1>Cores</h1>
+<h2>Currently listening for simulations</h2>
 {% if cores_list %}
-    <ul>
-    {% for core in cores_list %}
-        {{core.id}}<br />
+	<table>
+	{% for core in cores_list %}
+		<tr>
+			<td>{{core.id}}</td>
+			<td>{{core.computer}}</td>
+			<td>{{core.cpu}}</td>
+			<td>{{core.time}}</td>
+		</tr>    
     {% endfor %}
-    </ul>
+    </table>
+    
 {% else %}
     <p>No cores listening for simulation.</p>
 {% endif %}
