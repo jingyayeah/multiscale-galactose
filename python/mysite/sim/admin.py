@@ -1,8 +1,9 @@
 from django.contrib import admin
-from simulation.models import *
+from sim.models import *
 
 class CoreAdmin(admin.ModelAdmin):
-    list_display = ('pk', '__unicode__', 'ip', 'cpu', 'time')
+    list_display = ('pk', 'computer', 'ip', 'cpu', 'time')
+    list_filter = ['time']
 
 class SBMLModelAdmin(admin.ModelAdmin):
     pass

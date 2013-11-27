@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 
 '''
-    TODO: implement admin
     TODO: implement views
     
     TODO: implement write the views
@@ -32,6 +31,12 @@ class Core(models.Model):
     cpu = models.IntegerField()
     time = models.DateTimeField(default=timezone.now);
     
+    computer_names = {'10.39.34.27':'sysbio2',
+                      '10.39.32.189':'sysbio1',
+                      '10.39.32.113':'oldmint',
+                      '10.39.32.106':'mint',
+                      '10.39.32.111':'mkoenig-desktop'}
+        
     def __unicode__(self):
         return self.ip + "-cpu-" +str(self.cpu)
     
@@ -39,6 +44,16 @@ class Core(models.Model):
         verbose_name = "Core"
         verbose_name_plural = "Cores"
         unique_together = ("ip", "cpu")
+        
+
+    def _get_computer_name(self):
+        "Returns the computer name from the IP."
+        if self.computer_names.has_key(self.ip):
+            return self.computer_names.get(self.ip)
+        else:
+            return self.ip 
+        
+    computer = property(_get_computer_name)
 
 
 # Create your models here.
@@ -113,12 +128,7 @@ class ParameterCollection(models.Model):
     def count(self):
         return self.parameters.count()
         
-
-class Timecourse(models.Model):
-    # file = models.FileField(upload_to="~/multiscale-galactose-results/
-    file = models.CharField(max_length=200, unique=True)
-    
-    
+        
 class Task(models.Model):
     sbml_model = models.ForeignKey(SBMLModel)
     integration = models.ForeignKey(Integration) 
@@ -144,14 +154,7 @@ class DoneSimulationManager(models.Manager):
                      self).get_queryset().filter(status=DONE)
 
 
-class Simulation(models.Model): 
-    COMPUTERS = (
-                        ('desktop', 'desktop'),
-                        ('mint', 'mint'),
-                        ('oldmint', 'oldmint'),
-                        ('home', 'home'),
-    )
-    
+class Simulation(models.Model):     
     SIMULATION_STATUS = (
                          (UNASSIGNED, 'unassigned'),
                          (ASSIGNED, 'assigned'),
@@ -161,13 +164,12 @@ class Simulation(models.Model):
     parameters = models.ForeignKey(ParameterCollection)
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
     priority = models.IntegerField(default=10)
-    create_time = models.DateTimeField()
+    time_create = models.DateTimeField()
     
-    assign_time = models.DateTimeField(null=True)
-    computer = models.CharField(max_length=20, choices=COMPUTERS, null=True)
-    simulation_time = models.DateTimeField(null=True)
+    time_assign = models.DateTimeField(null=True)
+    core = models.ForeignKey(Core, null=True)
+    time_sim = models.DateTimeField(null=True)
     duration = models.FloatField(null=True)
-    timecourse = models.ForeignKey(Timecourse, null=True)
     
     objects = models.Manager();
     unassigned_objects = UnassignedSimulationManager()
@@ -181,5 +183,15 @@ class Simulation(models.Model):
     def is_done(self):
         return self.status == self.DONE
 
-
+class Timecourse(models.Model):
+    '''
+    A timecourse belongs to exactly on simulation. If the timecourse
+    is saved changes have to be made to the simulation (mainly the 
+    status).
+    '''
+    simulation = models.OneToOneField(Simulation)
+    # file = models.FileField(upload_to="~/multiscale-galactose-results/
+    file = models.CharField(max_length=200, unique=True)
+    
+    
     

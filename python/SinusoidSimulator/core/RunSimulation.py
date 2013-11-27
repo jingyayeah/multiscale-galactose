@@ -13,7 +13,7 @@ import os
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
-from simulation.models import * 
+from sim.models import * 
 from django.core.files import File
 
 

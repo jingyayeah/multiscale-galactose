@@ -1,10 +1,8 @@
-from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from simulation.models import SBMLModel
+from sim.models import SBMLModel
 
-# Create your views here.
 
 def index(request):
     latest_model_list = SBMLModel.objects.all()[:10]
@@ -13,6 +11,13 @@ def index(request):
         'latest_model_list': latest_model_list,
     })
     return HttpResponse(template.render(context))
+
+def cores(request):
+    '''
+    Overview over the CPUs listening in the network for simulations.
+    '''
+    return HttpResponse("Overview of simulation cores")
+
 
 def model(request, model_id):
     return HttpResponse("You're looking at SBMLmodel %s." % model_id)

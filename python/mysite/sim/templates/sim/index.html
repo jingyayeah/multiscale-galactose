@@ -4,7 +4,7 @@
 {% if latest_model_list %}
     <ul>
     {% for model in latest_model_list %}
-        <li><a href="{% url 'polls:detail' poll.id %}">{{ poll.question }}</a></li>
+        <li><a href="{% url 'sim:model' model.id %}">{{ model.id }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

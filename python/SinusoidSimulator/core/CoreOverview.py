@@ -29,7 +29,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
 import multiprocessing
-from simulation.models import Integration, Core
+from sim.models import Integration, Core
 from random import randrange
 
 from django.utils import timezone

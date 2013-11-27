@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'sim/style.css' %}" />
+
+<h1>Cores Listening for simulation</h1>
+{% if cores_list %}
+    <ul>
+    {% for core in cores_list %}
+        {{core.id}}<br />
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No cores listening for simulation.</p>
+{% endif %}
