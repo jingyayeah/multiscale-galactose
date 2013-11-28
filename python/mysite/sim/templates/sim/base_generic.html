@@ -3,23 +3,22 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" type="text/css" href="{% static 'sim/core.css' %}" />
-	<title>{% block title %}Generic Title{% endblock %}</title>
+	<title>{% block title %}Multiscale-Galactose{% endblock %}</title>
 	<meta http-equiv="refresh" content="10" />
 </head>
 <body>
 
 	<div id="menu">
 		<h1>Multiscale-Galactose</h1>
-		
 		{% block sidebar %}
 		<ul>
-		<hr>
 		<li><a href="/sim/cores/">Cores</a></li>
 		<li><a href="/sim/simulations/">Simulations</a></li>
-		<hr>
+		<li>&nbsp;</li>
 		<li><a href="/admin/">Admin</a></li>
 		</ul>
 		{% endblock %}
+		<img src="{% static 'sim/images/multiscale.png' %}">
 	</div>
 
 	<div id="content">

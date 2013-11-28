@@ -67,6 +67,14 @@ p{
 	text-align:justify;
 }
 
+img{
+	alignment-adjust: central;
+}
+
+ul{
+	list-style-type: none;
+}
+
 th,td {
 	padding-left:10px;
 	padding-right:10px;
