@@ -115,7 +115,7 @@ class ParameterCollection(models.Model):
     Thereby the ParameterSets can be resused for different
     simulations.
     '''
-    parameters = models.ManyToManyField(Parameter, related_name='collections')
+    parameters = models.ManyToManyField(Parameter)
     
     class Meta:
         # ordering = ["sbml_id"]
@@ -123,10 +123,13 @@ class ParameterCollection(models.Model):
         verbose_name_plural = "ParameterCollections"
         
     def __unicode__(self):
-        return 'PSet [' + str(self.pk) + ']'
+        return 'PC%d (%d)' % (self.pk, self.count())
     
     def count(self):
         return self.parameters.count()
+    
+    #def get_collection_for_pararmeters(self, plist):
+    #    pass
         
         
 class Task(models.Model):
@@ -135,6 +138,9 @@ class Task(models.Model):
     
     class Meta:
         unique_together = ("sbml_model", "integration")
+    
+    def __unicode__(self):
+        return "T:%d [%s | Int:%d]" % (self.pk, self.sbml_model, self.integration.pk)
 
 
 UNASSIGNED = "UNASSIGNED"
@@ -167,7 +173,7 @@ class Simulation(models.Model):
     parameters = models.ForeignKey(ParameterCollection)
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
     priority = models.IntegerField(default=10)
-    time_create = models.DateTimeField()
+    time_create = models.DateTimeField(default=timezone.now())
     
     time_assign = models.DateTimeField(null=True)
     core = models.ForeignKey(Core, null=True)
@@ -178,6 +184,12 @@ class Simulation(models.Model):
     unassigned_objects = UnassignedSimulationManager()
     assigned_objects = AssignedSimulationManager()
     done_objects = DoneSimulationManager()
+
+    class Meta:
+        unique_together = ("task", "parameters")
+    
+    def __unicode__(self):
+        return 'Sim:%d' % (self.pk)
     
     def is_unassigned(self):
         return self.status == self.UNASSIGNED

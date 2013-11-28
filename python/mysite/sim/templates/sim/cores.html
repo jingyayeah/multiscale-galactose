@@ -1,9 +1,6 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'sim/style.css' %}" />
+{% extends "sim/base_generic.html" %}
 
-<!-- n = seconds -->
-<meta http-equiv="refresh" content="10" />
-
+{% block content %}
 <h1>Cores</h1>
 <h2>Currently listening for simulations</h2>
 {% if cores_list %}
@@ -16,8 +13,9 @@
 			<td>{{core.time}}</td>
 		</tr>    
     {% endfor %}
-    </table>
-    
+    </table>    
 {% else %}
     <p>No cores listening for simulation.</p>
 {% endif %}
+
+{% endblock %}

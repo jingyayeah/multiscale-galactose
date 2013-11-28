@@ -1,7 +1,8 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from sim.models import SBMLModel, Core
+from sim.models import SBMLModel, Core, Simulation
+from django.shortcuts import render_to_response
 
 
 def index(request):
@@ -24,6 +25,16 @@ def cores(request):
     })
     return HttpResponse(template.render(context))
 
+def simulations(request):
+    '''
+    Overview of simulations in the network.
+    '''
+    sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
+    template = loader.get_template('sim/simulations.html')
+    context = RequestContext(request, {
+        'sim_list': sim_list,
+    })
+    return HttpResponse(template.render(context))
 
 def model(request, model_id):
     return HttpResponse("You're looking at SBMLmodel %s." % model_id)

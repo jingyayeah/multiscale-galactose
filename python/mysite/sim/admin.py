@@ -29,10 +29,10 @@ class TimecourseAdmin(admin.ModelAdmin):
     pass
 
 class SimulationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk', '__unicode__', 'task', 'parameters', 'status', 'time_create')
 
 class TaskAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk', '__unicode__', 'sbml_model', 'integration')
 
 admin.site.register(Core, CoreAdmin)
 admin.site.register(SBMLModel, SBMLModelAdmin)

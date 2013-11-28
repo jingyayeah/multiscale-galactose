@@ -13,9 +13,10 @@ import os
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
-from sim.models import * 
+from sim.models import *
 from django.core.files import File
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count
 
 
 def createSimulationTask():
@@ -60,31 +61,57 @@ def createSimulationTask():
     if (created):
         print ("task created")
         task.save()
+    
 
+    # Careful with creating objects again and again
+    # Get the parameter collection which contains all the parameters in the list
+    # Here every time a new Parameter collection is created
+    pars = (('deficiency', 0, '-'),
+            ('flow', 60E-6, 'm/s'),
+            ('L',   500E-6, 'm'),)
     
     # [4]
     # Create the necessary parameter sets for the simulations
     # flow, L, y_sin, y_dis, y_cell, PP__gal
-    p1, created = Parameter.objects.get_or_create(name='flow', value=60E-6, unit="m/s");
-    if (created):
-        print ('p1 created');
-        p1.save()
-    p2, created = Parameter.objects.get_or_create(name='L', value=500E-6, unit="m");
-    if (created):
-        print ('p2 created');
-        p2.save()
+    # parameters are lists of triples
     
-    # Careful with creating objects again and again
-    # Get the parameter collection which contains all the parameters in the list
-    pset = ParameterCollection();
-    pset.save()
-    pset.parameters.add(p1);
-    pset.parameters.add(p2);
+    # In the simulation definition the parameter sets have to be created.
+    # for every parameterset a simulation is created
+    ps = []
+    for data in pars:
+        name, value, unit = data
+        p, created = Parameter.objects.get_or_create(name=name, value=value, unit=unit);
+        if (created):
+            print name, 'created'
+            p.save()
+        ps.append(p)
     
-    
-    # SIMULATIONS
-    # sim = Simulation(task=task, )
+    # Get the pset for the parameters if it exists
+    # This is necessary to have unique collections regarding the parameters
+    # Reduce the queryset with filters until 
 
+    # Annotate with count first and use than to filter    
+    querySet = ParameterCollection.objects.annotate(num_parameters=Count('parameters')).filter(num_parameters__eq=len(ps))
+    for p in ps:
+        querySet = querySet.filter(parameters = p)
+        
+    if (len(querySet)>0):
+        pset = querySet[0]
+        print 'ParameterSet found already'
+    else:
+        pset = ParameterCollection();
+        pset.parameters.add(ps)
+        pset.save()
+        print "ParameterSet created"
+    
+    # Simulation
+    print task, task.id
+    sim, created = Simulation.objects.get_or_create(task=task, 
+                                                      parameters = pset,
+                                                      status = UNASSIGNED)
+    if (created):
+        print "Simulation created"
+        sim.save()
 
 
 if __name__ == "__main__":

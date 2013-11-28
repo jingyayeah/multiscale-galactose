@@ -1,0 +1,21 @@
+{% extends "sim/base_generic.html" %}
+
+{% block content %}
+<h1>Simulations</h1>
+{% if sim_list %}
+	<table>
+	{% for sim in sim_list %}
+		<tr>
+			<td>{{sim.pk}}</td>
+			<td>{{sim.task}}</td>
+			<td>{{sim.parameters}}</td>
+			<td>{{sim.status}}</td>
+			<td>{{sim.core}}</td>
+		</tr>    
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No Simulations.</p>
+{% endif %}
+
+{% endblock %}

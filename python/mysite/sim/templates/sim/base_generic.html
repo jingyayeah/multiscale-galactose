@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static 'sim/core.css' %}" />
+	<title>{% block title %}Generic Title{% endblock %}</title>
+	<meta http-equiv="refresh" content="10" />
+</head>
+<body>
+
+	<div id="menu">
+		<h1>Multiscale-Galactose</h1>
+		
+		{% block sidebar %}
+		<ul>
+		<hr>
+		<li><a href="/sim/cores/">Cores</a></li>
+		<li><a href="/sim/simulations/">Simulations</a></li>
+		<hr>
+		<li><a href="/admin/">Admin</a></li>
+		</ul>
+		{% endblock %}
+	</div>
+
+	<div id="content">
+		{% block content %}{% endblock %}
+	</div>
+</body>
+</html>
