@@ -96,6 +96,7 @@ class Parameter(models.Model):
     UNITS = (
                         ('m', 'm'),
                         ('m/s', 'm/s'),
+                        ('mM', 'mM'),
                         ('-', '-'),
     )
     name = models.CharField(max_length=200)
