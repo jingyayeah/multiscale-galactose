@@ -4,12 +4,20 @@
 <h1>Simulations</h1>
 {% if sim_list %}
 	<table>
+	<tr>
+		<th>pk</th>
+		<th>task</th>
+		<th>parameters</th>
+		<th>status</th>
+		<th>core</th>
+	</tr>
 	{% for sim in sim_list %}
+		
 		<tr>
 			<td>{{sim.pk}}</td>
 			<td>{{sim.task}}</td>
 			<td>{{sim.parameters}}</td>
-			<td>{{sim.status}}</td>
+			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
 			<td>{{sim.core}}</td>
 		</tr>    
     {% endfor %}
@@ -17,5 +25,4 @@
 {% else %}
     <p>No Simulations.</p>
 {% endif %}
-
 {% endblock %}

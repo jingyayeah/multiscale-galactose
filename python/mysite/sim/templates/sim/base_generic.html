@@ -7,7 +7,6 @@
 	<meta http-equiv="refresh" content="10" />
 </head>
 <body>
-
 	<div id="menu">
 		<h1>Multiscale-Galactose</h1>
 		{% block sidebar %}
@@ -15,12 +14,11 @@
 		<li><a href="/sim/cores/">Cores</a></li>
 		<li><a href="/sim/simulations/">Simulations</a></li>
 		<li>&nbsp;</li>
-		<li><a href="/admin/">Admin</a></li>
+		<li><a href="/admin/" target="_blank">Admin</a></li>
 		</ul>
 		{% endblock %}
 		<img src="{% static 'sim/images/multiscale.png' %}">
 	</div>
-
 	<div id="content">
 		{% block content %}{% endblock %}
 	</div>
