@@ -30,7 +30,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="tstart" COLSPAN="2" ALIGN="LEFT">tstart</TD><TD PORT="tstart.type" ALIGN="LEFT">float8[17,17]</TD></TR>
       <TR><TD PORT="abs_tol" COLSPAN="2" ALIGN="LEFT">abs_tol</TD><TD PORT="abs_tol.type" ALIGN="LEFT">float8[17,17]</TD></TR>
       <TR><TD PORT="rel_tol" COLSPAN="2" ALIGN="LEFT">rel_tol</TD><TD PORT="rel_tol.type" ALIGN="LEFT">float8[17,17]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 row</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
     URL="sim_integration.html"
     tooltip="sim_integration"
@@ -42,7 +42,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="sbml_model_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">sbml_model_id</TD></TR>
       <TR><TD PORT="integration_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">integration_id</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 row</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
     URL="sim_task.html"
     tooltip="sim_task"

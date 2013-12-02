@@ -59,7 +59,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="name" COLSPAN="2" ALIGN="LEFT">name</TD><TD PORT="name.type" ALIGN="LEFT">varchar[100]</TD></TR>
       <TR><TD PORT="app_label" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">app_label</TD><TD PORT="app_label.type" ALIGN="LEFT">varchar[100]</TD></TR>
       <TR><TD PORT="model" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">model</TD><TD PORT="model.type" ALIGN="LEFT">varchar[100]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">25 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">24 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="django_content_type.html"
     tooltip="django_content_type"

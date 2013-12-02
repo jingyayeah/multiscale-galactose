@@ -100,7 +100,9 @@ def createSimulationTask():
         print 'ParameterSet found already'
     else:
         pset = ParameterCollection();
-        pset.parameters.add(ps)
+        pset.save()
+        for p in ps:
+            pset.parameters.add(p)
         pset.save()
         print "ParameterSet created"
     

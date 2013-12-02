@@ -6,6 +6,7 @@ sim_core
 sim_integration
 sim_parameter
 sim_sbmlmodel
+sim_task
 auth_permission
 sim_simulation
 sim_timecourse
@@ -14,5 +15,4 @@ auth_user_groups
 auth_user_user_permissions
 django_admin_log
 sim_parametercollection_parameters
-sim_task
 django_session

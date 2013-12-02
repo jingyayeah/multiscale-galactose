@@ -32,7 +32,7 @@
 <div class='indent'>
 <table width='100%'>
 <tr><td class='container' valign='bottom'><b>
-16 Foreign Key Constraints:</b>
+17 Foreign Key Constraints:</b>
 </td><td class='container' align='right'>
 <table>
   <tr><td class='container' align='right' valign='top'><a href='http://sourceforge.net' target='_blank'><img src='http://sourceforge.net/sflogo.php?group_id=137197&amp;type=1' alt='SourceForge.net' border='0' height='31' width='88'></a></td></tr>
@@ -142,41 +142,48 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
   <tr class='even'>
+  <td class='detail'>sim_simulation_task_id_fkey</td>
+  <td class='detail'><a href='tables/sim_simulation.html'>sim_simulation</a>.task_id</td>
+  <td class='detail'><a href='tables/sim_task.html'>sim_task</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='odd'>
   <td class='detail'>sim_task_integration_id_fkey</td>
   <td class='detail'><a href='tables/sim_task.html'>sim_task</a>.integration_id</td>
   <td class='detail'><a href='tables/sim_integration.html'>sim_integration</a>.id</td>
   <td class='detail'><span title='Restrict delete:
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
-  <tr class='odd'>
+  <tr class='even'>
   <td class='detail'>sim_task_sbml_model_id_fkey</td>
   <td class='detail'><a href='tables/sim_task.html'>sim_task</a>.sbml_model_id</td>
   <td class='detail'><a href='tables/sim_sbmlmodel.html'>sim_sbmlmodel</a>.id</td>
   <td class='detail'><span title='Restrict delete:
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
-  <tr class='even'>
+  <tr class='odd'>
   <td class='detail'>sim_timecourse_simulation_id_fkey</td>
   <td class='detail'><a href='tables/sim_timecourse.html'>sim_timecourse</a>.simulation_id</td>
   <td class='detail'><a href='tables/sim_simulation.html'>sim_simulation</a>.id</td>
   <td class='detail'><span title='Restrict delete:
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
-  <tr class='odd'>
+  <tr class='even'>
   <td class='detail'>user_id_refs_id_40c41112</td>
   <td class='detail'><a href='tables/auth_user_groups.html'>auth_user_groups</a>.user_id</td>
   <td class='detail'><a href='tables/auth_user.html'>auth_user</a>.id</td>
   <td class='detail'><span title='Restrict delete:
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
-  <tr class='even'>
+  <tr class='odd'>
   <td class='detail'>user_id_refs_id_4dc23c39</td>
   <td class='detail'><a href='tables/auth_user_user_permissions.html'>auth_user_user_permissions</a>.user_id</td>
   <td class='detail'><a href='tables/auth_user.html'>auth_user</a>.id</td>
   <td class='detail'><span title='Restrict delete:
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
-  <tr class='odd'>
+  <tr class='even'>
   <td class='detail'>user_id_refs_id_c0d12874</td>
   <td class='detail'><a href='tables/django_admin_log.html'>django_admin_log</a>.user_id</td>
   <td class='detail'><a href='tables/auth_user.html'>auth_user</a>.id</td>

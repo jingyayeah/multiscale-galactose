@@ -123,7 +123,7 @@ class ParameterCollection(models.Model):
         verbose_name_plural = "ParameterCollections"
         
     def __unicode__(self):
-        return 'PC%d (%d)' % (self.pk, self.count())
+        return 'PC%d' % (self.pk)
     
     def count(self):
         return self.parameters.count()
