@@ -1,0 +1,23 @@
+{% extends "sim/base_generic.html" %}
+
+{% block content %}
+<h1>Timecourses</h1>
+{% if tc_list %}
+	<table>
+	<tr>
+		<th>pk</th>
+		<th>sim</th>
+		<th>file</th>
+	</tr>
+	{% for tc in tc_list %}
+		<tr>
+			<td>{{ tc.pk }}</td>
+			<td>{{ tc.simulation }}</td>
+			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
+		</tr>    
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No Timecourses.</p>
+{% endif %}
+{% endblock %}

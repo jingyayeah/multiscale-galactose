@@ -18,7 +18,7 @@ MEDIA_ROOT = "/home/mkoenig/multiscale-galactose-results/django/"
 
 # URL that handles the media served from MEDIA_ROOT, used for managing 
 # stored files. It must end in a slash if set to a non-empty value.
-MEDIA_URL = "/home/mkoenig/multiscale-galactose-results/django/"
+MEDIA_URL = "/media/"
 
 
 # Quick-start development settings - unsuitable for production

@@ -175,11 +175,11 @@ class Simulation(models.Model):
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
     priority = models.IntegerField(default=10)
     time_create = models.DateTimeField(default=timezone.now())
-    
+    # set during assignment
     time_assign = models.DateTimeField(null=True)
     core = models.ForeignKey(Core, null=True)
+    # set after simulation
     time_sim = models.DateTimeField(null=True)
-    duration = models.FloatField(null=True)
     
     objects = models.Manager();
     unassigned_objects = UnassignedSimulationManager()
@@ -198,16 +198,28 @@ class Simulation(models.Model):
         return self.status == self.ASSIGNED
     def is_done(self):
         return self.status == self.DONE
-
+    
+    def _get_duration(self):
+        if (not self.time_assign or not self.time_sim):
+            return None
+        else:
+            return self.time_sim - self.time_assign
+    
+    duration = property(_get_duration)
+    
 class Timecourse(models.Model):
     '''
     A timecourse belongs to exactly on simulation. If the timecourse
     is saved changes have to be made to the simulation (mainly the 
     status).
     '''
-    simulation = models.OneToOneField(Simulation)
+    simulation = models.OneToOneField(Simulation, unique=True)
     # file = models.FileField(upload_to="~/multiscale-galactose-results/
-    file = models.CharField(max_length=200, unique=True)
+    file = models.FileField(upload_to='timecourse/%Y/%m/%d')
+    
+    def __unicode__(self):
+        return 'Tc:%d' % (self.pk)
+    
     
     
     

@@ -29,7 +29,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
 import multiprocessing
-from sim.models import Integration, Core
+from sim.models import Integration, Core, Simulation, UNASSIGNED, ASSIGNED, DONE
 from random import randrange
 
 from django.utils import timezone
@@ -46,6 +46,49 @@ def get_ip_address(ifname='eth0'):
         0x8915,  # SIOCGIFADDR
         struct.pack('256s', ifname[:15])
     )[20:24])
+    
+def get_core_by_ip_and_cpu(ip, cpu):
+    core_qset = Core.objects.filter(ip=ip, cpu=cpu)
+    if (core_qset.exists()):
+        core = core_qset[0]
+        core.time = timezone.now()
+    else:
+        core = Core(ip=ip, cpu=cpu, time=timezone.now())
+        core.save()
+    return core
+
+def assign_simulation(ip, cpu):
+    ''' Gets an unassigned simulation and assignes it to the core. '''
+    unassigned = Simulation.objects.filter(status=UNASSIGNED);
+    if (unassigned.exists()):
+        # Get the first unassigned simulation
+        sim = unassigned[0]
+            
+        # Get the core and update the status for the core
+        core = get_core_by_ip_and_cpu(ip, cpu)
+            
+        sim.time_assign = timezone.now()
+        sim.core = core
+        sim.status = ASSIGNED
+        sim.save();
+        return sim
+    else:
+        return None
+
+def perform_simulation(sim):
+    time.sleep(8 + randrange(10))
+    # run an operating system command
+        
+    # subprocess opens new process
+    # Check on which core it is running
+    # Make sure all the cores are really used
+    # call(["ls", "-l"])
+    call(["../testscript"])
+            
+    # simulation finished
+    sim.time_sim = timezone.now()
+    sim.status = DONE
+    sim.save()
 
 def info(title):
     print title
@@ -68,38 +111,9 @@ def worker(cpu, lock):
         print 'sim ->', ip, 'cpu:', cpu
         lock.release()
         
-        # [1] get data from the database
-        if (Integration.objects.count()>0):
-            for i in Integration.objects.all()[:1]:
-                pass
-                # print i.__unicode__()
-                  
-        
-        # [2] do simulation
-        #s = 0
-        #for k in xrange(1000000):
-        #    s *=k
-        time.sleep(5 + randrange(10))
-        # run an operating system command
-        
-        
-        
-        # [3] Update the core status for the core
-        core_qset = Core.objects.filter(ip=ip, cpu=cpu)
-        if (len(core_qset) > 0):
-            core = core_qset[0]
-            core.time = timezone.now();
-        else:
-            core = Core(ip=ip, cpu=cpu, time=timezone.now())
-        core.save()
-        
-        # subprocess opens new process
-        # Check on which core it is running
-        # Make sure all the cores are really used
-        # call(["ls", "-l"])
-        call(["../testscript"])
-        
-        
+        sim = assign_simulation(ip, cpu)
+        perform_simulation(sim)
+
 
 if __name__ == "__main__":
     '''

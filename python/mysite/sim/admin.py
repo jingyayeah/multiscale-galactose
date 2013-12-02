@@ -26,7 +26,7 @@ class ParameterCollectionAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'count')
 
 class TimecourseAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk', '__unicode__', 'simulation', 'file')
 
 class SimulationAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'task', 'parameters', 'status', 'time_create')

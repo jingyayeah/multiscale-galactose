@@ -66,9 +66,16 @@ def createSimulationForParametersInTask(pars, task):
                                                       status = UNASSIGNED)
     if (created):
         print "Simulation created"
+        try:
+            sim.full_clean()
+        except ValidationError, e:
+            # Do something based on the errors contained in e.message_dict.
+            # Display them to a user, or handle them programatically.
+            pass
         sim.save()
 
 def createSimulationTask():
+    
     # TODO: overwrite the model constructor, so that only the 
     # file can be given.
     # All the derived fields should be created automatically
@@ -139,4 +146,9 @@ def createSimulationTask():
 
 
 if __name__ == "__main__":
+    # remove all simulations
+    print "Deleting all simulations !!!"
+    Simulation.objects.all().delete()
+    
+    
     createSimulationTask()

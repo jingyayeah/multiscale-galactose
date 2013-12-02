@@ -1,7 +1,7 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from sim.models import SBMLModel, Core, Simulation
+from sim.models import SBMLModel, Core, Simulation, Timecourse
 from django.shortcuts import render_to_response
 
 
@@ -33,6 +33,17 @@ def simulations(request):
     template = loader.get_template('sim/simulations.html')
     context = RequestContext(request, {
         'sim_list': sim_list,
+    })
+    return HttpResponse(template.render(context))
+
+def timecourses(request):
+    '''
+    Overview of Timecourses.
+    '''
+    tc_list = Timecourse.objects.all()
+    template = loader.get_template('sim/timecourses.html')
+    context = RequestContext(request, {
+        'tc_list': tc_list,
     })
     return HttpResponse(template.render(context))
 
