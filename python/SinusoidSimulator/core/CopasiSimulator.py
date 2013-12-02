@@ -25,15 +25,25 @@ def perform_copasi_simulation(sim):
     
     # get the sbml (this is on the remote
     # server where the simulations are defined)
+    # TODO: use read?
+    
+    
+    
     print
     print 'sbml'
     sbml = sim.task.sbml_model
+    
+    test = sbml.file.read()
+    
+    print test
+    
     print sbml.pk
     print sbml.file
     print sbml.file.path
-    f = open(sbml.file.path, 'r')
-    for line in f:
-        print line
+    
+    #f = open(sbml.file.path, 'r')
+    #for line in f:
+    #    print line
     
     
     
