@@ -32,7 +32,6 @@
 #include "copasi/trajectory/CTimeSeries.h"
 
 #include "ModelSimulator.h"
-#include "ModelParameters.h"
 #include "TimeCourseParameters.h"
 
 /** Constructor with SBML filename. */

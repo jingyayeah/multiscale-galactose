@@ -34,7 +34,6 @@
 
 #include "ModelSimulator.h"
 #include "MParameter.h"
-#include "ModelParameters.h"
 #include "TimeCourseParameters.h"
 
 /**
