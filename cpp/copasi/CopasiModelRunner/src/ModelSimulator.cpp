@@ -92,7 +92,7 @@ int ModelSimulator::readModel(){
  * the given parameter settings for the model.
  * Model is loaded once and than all timecourse simulations performed on the model.
  */
-int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCourseParameters tcPars){
+int ModelSimulator::doTimeCourseSimulation(std::vector<MParameter> pars, TimeCourseParameters tcPars, std::string reportTarget){
 
 	// initialize the backend library
 		CCopasiRootContainer::init(0, NULL);
@@ -131,7 +131,8 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	CModel* pModel = pDataModel->getModel();
 	assert(pModel != NULL);
 
-	// Reset initial values for repetitive simulations
+	// Reset initial values for repetitive simulations ??
+	// ? how to do repetitive simulations ?
 	//pModel->applyInitialValues();
 
 	// we have to keep a set of all the initial values that are changed during
@@ -140,21 +141,31 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	// values are set to the correct initial value
 	std::set<const CCopasiObject*> changedObjects;
 
-	// Change Model values (flow)
+	// Change initial model values for all given parameters
 	for (size_t i=0; i<pModel->getModelValues().size(); ++i){
 		CModelValue* pModelValue = pModel->getModelValues()[i];
 		const std::string& sbmlId = pModelValue->getSBMLId();
-		if(sbmlId.compare("flow_sin") == 0){
-			std::cout << "flow -> " << mPars.getFlow() << std::endl;
-			pModelValue->setInitialValue(mPars.getFlow());
 
-			// initial value set has to be update
-			const CCopasiObject* pObject = pModelValue->getInitialValueReference();
-			assert(pObject != NULL);
-			changedObjects.insert(pObject);
-			break;
+		// for all global parameter which should be changed
+		for (std::vector<MParameter>::iterator it=pars.begin(); it!=pars.end(); ++it){
+		    MParameter p = *it;
+		    std::string id = p.getId();
+		    double value = p.getValue();
+
+			if(sbmlId.compare(id) == 0){
+				std::cout << id << " -> " << value << std::endl;
+				pModelValue->setInitialValue(value);
+				// initial value set has to be update
+				const CCopasiObject* pObject = pModelValue->getInitialValueReference();
+				assert(pObject != NULL);
+				changedObjects.insert(pObject);
+				break;
+			}
 		}
 	}
+	// TODO: count if all parameters have been set,
+	// 		 if not raise error !
+
 	/* PEAK
 	// Change Initial concentrations
 	// ! careful with setInitialConcentration & setInitialValue
@@ -341,9 +352,6 @@ int ModelSimulator::doTimeCourseSimulation(ModelParameters mPars, TimeCoursePara
 	// set the report for the task
 	pTrajectoryTask->getReport().setReportDefinition(pReport);
 
-	// set the output filename
-	std::string reportTarget = stringbuilder()<< "/home/mkoenig/multiscale-galactose-results/" << pModel->getSBMLId() << "_flow" << mPars.getFlow()
-													<< "_gal" << mPars.getPPGalactose() << ".txt";
 	std::cout<< "Report Target: " << reportTarget << std::endl << std::endl;
 	pTrajectoryTask->getReport().setTarget(reportTarget);
 	// don't append output if the file exists, but overwrite the file

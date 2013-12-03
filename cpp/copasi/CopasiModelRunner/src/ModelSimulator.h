@@ -8,9 +8,9 @@
 #ifndef MODELSIMULATOR_H_
 #define MODELSIMULATOR_H_
 
-#include <iostream>
 #include <string>
-#include "ModelParameters.h"
+#include <vector>
+#include "MParameter.h"
 #include "TimeCourseParameters.h"
 
 class ModelSimulator {
@@ -19,7 +19,7 @@ class ModelSimulator {
     void modelInfo(CCopasiDataModel* pDataModel);
     int readModel();
     int doSimulation(std::string filename);
-    int doTimeCourseSimulation(ModelParameters, TimeCourseParameters);
+    int doTimeCourseSimulation(std::vector<MParameter>, TimeCourseParameters, std::string);
     int SBML2CPS(std::string fnameSBML, std::string fnameCPS);
     int test();
     void destroy();
