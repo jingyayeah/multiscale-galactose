@@ -20,10 +20,9 @@ MParameter::MParameter(std::string id, double value)
 : id_(id), value_(value)
 {}
 
-MParameter::MParameter(const MParameter& pref) {
-	id_ = pref.id_;
-	value_ = pref.value_;
-}
+MParameter::MParameter(const MParameter& p)
+: id_(p.id_), value_(p.value_)
+{}
 
 std::string MParameter::getId() const{
 	return id_;
