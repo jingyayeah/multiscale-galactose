@@ -16,31 +16,20 @@
 #include <iostream>
 #include "MParameter.h"
 
-MParameter::MParameter(std::string sid, double svalue) {
-	id = sid;
-	value = svalue;
-	std::cout << "Parameter created;" << std::endl;
-}
+MParameter::MParameter(std::string id, double value)
+: id_(id), value_(value)
+{}
 
 MParameter::MParameter(const MParameter& pref) {
-	// allocate variables
-	id = pref.id;
-	value = pref.value;
+	id_ = pref.id_;
+	value_ = pref.value_;
 }
 
-std::string MParameter::getId() {
-	return id;
+std::string MParameter::getId() const{
+	return id_;
 }
 
-double MParameter::getValue() {
-	return value;
+double MParameter::getValue() const{
+	return value_;
 }
 
-
-/*
-Parameter::~Parameter(void)
-{
-    delete id;
-    delete value;
-}
-*/

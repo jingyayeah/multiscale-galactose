@@ -32,7 +32,7 @@
 #include "copasi/trajectory/CTimeSeries.h"
 
 #include "ModelSimulator.h"
-#include "TimeCourseParameters.h"
+#include "TimecourseParameters.h"
 
 /** Constructor with SBML filename. */
 ModelSimulator::ModelSimulator(std::string fname){
@@ -91,7 +91,7 @@ int ModelSimulator::readModel(){
  * the given parameter settings for the model.
  * Model is loaded once and than all timecourse simulations performed on the model.
  */
-int ModelSimulator::doTimeCourseSimulation(std::vector<MParameter> pars, TimeCourseParameters tcPars, std::string reportTarget){
+int ModelSimulator::doTimeCourseSimulation(std::vector<MParameter> pars, TimecourseParameters tcPars, std::string reportTarget){
 
 	// initialize the backend library
 		CCopasiRootContainer::init(0, NULL);
@@ -361,7 +361,7 @@ int ModelSimulator::doTimeCourseSimulation(std::vector<MParameter> pars, TimeCou
 			dynamic_cast<CTrajectoryProblem*>(pTrajectoryTask->getProblem());
 
 	// use Timecourse parameters to set the timecourse
-	pProblem->setStepNumber(tcPars.getStepNumber());
+	pProblem->setStepNumber(tcPars.getSteps());
 	// start at time 0
 	pDataModel->getModel()->setInitialTime(tcPars.getInitialTime());
 	// simulate a duration of 10 time units

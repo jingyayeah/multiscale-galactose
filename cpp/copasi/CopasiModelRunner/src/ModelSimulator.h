@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 #include "MParameter.h"
-#include "TimeCourseParameters.h"
+#include "TimecourseParameters.h"
 
 class ModelSimulator {
   public:
@@ -19,7 +19,7 @@ class ModelSimulator {
     void modelInfo(CCopasiDataModel* pDataModel);
     int readModel();
     int doSimulation(std::string filename);
-    int doTimeCourseSimulation(std::vector<MParameter>, TimeCourseParameters, std::string);
+    int doTimeCourseSimulation(std::vector<MParameter>, TimecourseParameters, std::string);
     int SBML2CPS(std::string fnameSBML, std::string fnameCPS);
     int test();
     void destroy();

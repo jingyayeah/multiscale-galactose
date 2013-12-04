@@ -15,12 +15,12 @@ class MParameter {
     MParameter(std::string, double);
     MParameter(const MParameter&);
     // ~Parameter();
-    std::string getId();
-    double getValue();
+    std::string getId() const;
+    double getValue() const;
 
   private:
-    std::string id;
-    double value;
+    std::string id_;
+    double value_;
 };
 
 #endif /* MPARAMETER_H_ */

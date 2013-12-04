@@ -34,7 +34,7 @@
 
 #include "ModelSimulator.h"
 #include "MParameter.h"
-#include "TimeCourseParameters.h"
+#include "TimecourseParameters.h"
 
 /**
  * Main things to do are:
@@ -47,6 +47,12 @@
 
 int main()
 {
+	// in the end it should be possible to call
+	// there should be some folder with simualtion information
+	//name -sbml sbml_file -integration int_file -pars parameter_file
+
+	// Load information from provided files
+
 	std::cout << "CopasiModelRunner::main()\n";
 	// std::string filename = "./results/Galactose_v3_Nc1_Nf5.xml";
 
@@ -64,7 +70,7 @@ int main()
 
 	//TimeCourseParameters tcPars = TimeCourseParameters(0.0, 3000.0, 500, 1.0E-6, 1.0E-6);
 	// read from integration
-	TimeCourseParameters intOptions = TimeCourseParameters(0.0, 240.0, 960, 1.0E-6, 1.0E-6);
+	TimecourseParameters intOptions = TimecourseParameters(0.0, 240.0, 960, 1.0E-6, 1.0E-6);
 
 	//TODO: create a list object of parameters,
 	// 		the initial concentrations are changed based on the names in the integration
@@ -73,6 +79,8 @@ int main()
 	std::string simId = "sim1";
 	std::cout << simId << std::endl;
 
+	// when to init with new ?
+	// what is the difference between MParameter() and new MParameter
 	MParameter p1 = MParameter("flow_sin", 60E-6);
 	std::cout << "p1 generated" << std::endl;
 	MParameter p2 = MParameter("PP__gal", 0.00012);
