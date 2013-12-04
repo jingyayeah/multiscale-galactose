@@ -66,11 +66,11 @@ int main()
 
 	//m.test();
 	//m.SBML2CPS(filename, fnameCPS);
-	ModelSimulator m = ModelSimulator(filename);
+	ModelSimulator m (filename);
 
 	//TimeCourseParameters tcPars = TimeCourseParameters(0.0, 3000.0, 500, 1.0E-6, 1.0E-6);
 	// read from integration
-	TimecourseParameters intOptions = TimecourseParameters(0.0, 240.0, 960, 1.0E-6, 1.0E-6);
+	TimecourseParameters intOptions (0.0, 240.0, 960, 1.0E-6, 1.0E-6);
 
 	//TODO: create a list object of parameters,
 	// 		the initial concentrations are changed based on the names in the integration
@@ -81,9 +81,9 @@ int main()
 
 	// when to init with new ?
 	// what is the difference between MParameter() and new MParameter
-	MParameter p1 = MParameter("flow_sin", 60E-6);
+	MParameter p1 ("flow_sin", 60E-6);
 	std::cout << "p1 generated" << std::endl;
-	MParameter p2 = MParameter("PP__gal", 0.00012);
+	MParameter p2 ("PP__gal", 0.00012);
 	std::cout << "p2 generated" << std::endl;
 
 	std::vector<MParameter> pars;
