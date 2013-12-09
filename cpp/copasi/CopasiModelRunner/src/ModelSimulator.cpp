@@ -91,7 +91,7 @@ int ModelSimulator::readModel(){
  * the given parameter settings for the model.
  * Model is loaded once and than all timecourse simulations performed on the model.
  */
-int ModelSimulator::doTimeCourseSimulation(std::vector<MParameter> pars, TimecourseParameters tcPars, std::string reportTarget){
+int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars, const TimecourseParameters& tcPars, const std::string & reportTarget){
 
 	// initialize the backend library
 		CCopasiRootContainer::init(0, NULL);

@@ -19,7 +19,7 @@ class ModelSimulator {
     void modelInfo(CCopasiDataModel* pDataModel);
     int readModel();
     int doSimulation(std::string filename);
-    int doTimeCourseSimulation(std::vector<MParameter>, TimecourseParameters, std::string);
+    int doTimeCourseSimulation(const std::vector<MParameter> &, const TimecourseParameters &, const std::string &);
     int SBML2CPS(std::string fnameSBML, std::string fnameCPS);
     int test();
     void destroy();
