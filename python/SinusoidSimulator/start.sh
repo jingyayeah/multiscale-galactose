@@ -8,4 +8,4 @@ cd ~/multiscale-galactose
 git pull
 
 cd ~/multiscale-galactose/python/SinusoidSimulator/core
-python CoreOverview.py
+python Simulator.py

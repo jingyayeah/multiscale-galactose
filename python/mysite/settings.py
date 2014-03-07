@@ -63,6 +63,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+# 10.39.32.111
 
 DATABASES = {
     'default': {
@@ -70,7 +71,7 @@ DATABASES = {
         'NAME': 'multiscale-galactose',
         'USER': 'mkoenig',
         'PASSWORD': 'test',
-        'HOST': '10.39.32.111',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
