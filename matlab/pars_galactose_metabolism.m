@@ -4,7 +4,7 @@ function [x_names, x_init, Nx_out, x_neg, x_ind, x_unit, Ddata, x_gal] = pars_ga
 %   x_init: vector of initial conditions
 %   x_units:  vector of 
 
-%   Copyright Matthias Koenig 2013 All Rights Reserved.
+%   Copyright Matthias Koenig 2014 All Rights Reserved.
 
 % TODO: calculate Nx_out based on the named variables.
 Nx_out = 6;

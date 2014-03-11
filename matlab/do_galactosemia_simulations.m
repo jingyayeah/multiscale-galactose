@@ -1,11 +1,12 @@
 %% Simulate normal state and galactosemias
 % set the galactosemia (0 normal , 1:8 GALK, 9:14 GALT, 15:23 GALE)
 %% function [] = do_galactosemia_simulations(p)
-do_galactosemias = false;
-if (do_galactosemias)    
+all_galactosemias = true;
+if (all_galactosemias)    
     def_vector = [1:23 0];
 else
     def_vector = [1 0]; % minimal test
+    warning('Not all galactosemia simulations are performed');
 end
 
 % simulation timepoints

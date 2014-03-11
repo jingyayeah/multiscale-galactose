@@ -1,8 +1,8 @@
 %% Model of sinusoidal unit
 %
-% Sinusoid model consisting of central blood flow within sinusoid, 
-% exchange of metabolites with adjacent space of Disse and hepatocytes
-% able to exchange metabolites with the space of Disse.
+% The model of the sinusoid unit consists of blood flow in the sinusoid, 
+% exchange of metabolites with the adjacent space of Disse. Hepatocytes
+% are able to exchange metabolites with the space of Disse.
 % 
 % The subdivision of the blood compartments and space of Disse is smaller 
 % than the cells, consequently every single cell has Nf 
@@ -44,13 +44,13 @@
 % TODO: handle various tracer profiles [pp] and [pv], one-time, continuous
 %       single/multiple indicator methods.
 % 
-%   Matthias Koenig (2013-11-13)
-%   Copyright Matthias Koenig 2013 All Rights Reserved.
+%   Matthias Koenig (2014-03-11)
+%   Copyright Matthias Koenig 2014 All Rights Reserved.
 % -----------------------------------------------------------------------------
 
 format compact;
-clear all; clc; % close all;
-install;    % installation settings (define include folders)
+clear all; clc;     % close all;
+install;            % installation settings
 
 p.resultsFolder = strcat('../../multiscale-galactose-results/', ...
                               datestr(date, 'yyyy-mm-dd'), '/');
@@ -62,10 +62,12 @@ end
 fprintf('***********************************************\n')
 fprintf('SINGLE SINUSOID MODEL - HEPATIC METABOLISM\n')
 fprintf('***********************************************\n')
-% p.id = 'Dilution';
-% p.id = 'Test';
 
+% Select differential equations to simulate
+% p.name = 'Dilution';
+% p.name = 'Test';
 p.name = 'Galactose'; 
+
 p.version = 3;
 p.Nc = 1;
 p.Nf = 5;
@@ -103,10 +105,8 @@ print_model_overview(p);
 % TODO: call different simulation time courses with the defined model
 % the model can be used to call different simulations on it
 
-% do_galactosemia_simulations;
-do_galactose_timecourse_simulation();
+do_galactosemia_simulations;
+%do_galactose_timecourse_simulation();
 %do_galactose_ss_simulation();
 
 return
-
-

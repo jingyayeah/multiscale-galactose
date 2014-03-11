@@ -5,7 +5,7 @@ function [dxdt, V_names, V] = dydt_galactose_metabolism(t, x, p, ci)
 %       p : model parameters
 %       ci : cell index (cell dependent metabolism 1, ...,  p.Nc)
 %
-%   Copyright Matthias Koenig 2013 All Rights Reserved.
+%   Copyright Matthias Koenig 2014 All Rights Reserved.
 
 Nf = p.Nf;
 
@@ -96,7 +96,7 @@ H2OTM  = sum(H2OTM_dis);      % [mole/s]
 %% [GALKM] Galactokinase (galM + atp -> gal1p + adp)
 %------------------------------------------------------------
 GALK_P = 1;           % [mM]
-GALK_PA = 0.1;          % [mole]
+GALK_PA = 0.1;        % [mole]
 GALK_keq = 50;        % [-] DeltaG ~ 10kJ/mol
 GALK_k_gal1p = 1.5;   % [mM] ? 
 GALK_k_adp   = 0.8;   % [mM] ? 
@@ -304,7 +304,7 @@ NDKU = NDKU_Vmax/NDKU_k_atp/NDKU_k_udp *(atp*udp - adp*utp/NDKU_keq)/...
 %------------------------------------------------------------
 % TODO inhibition glc1p
 PGM1_P = 1;                  % [mM]
-PGM1_f = 50.0;                % [-]
+PGM1_f = 50.0;               % [-]
 PGM1_keq = 10.0;             % [-] ( [glc6p]/[glc1p] ~10-12 [Guynn1974]) DeltaG=-7.1 [kJ/mol] [Koenig2012]
 PGM1_k_glc6p  = 0.67;        % [mM] [Kashiwaya1994]
 PGM1_k_glc1p = 0.045;        % [mM] [Kashiwaya1994, Quick1994]

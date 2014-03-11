@@ -5,7 +5,7 @@ function [dydt] = dydt_sinusoid(t, y, p)
 %   dydt    : returns changes in concentration [mole/m3]
 %   p       : vector of parameters
 %
-%   Copyright Matthias Koenig 2013 All Rights Reserved.
+%   Copyright Matthias Koenig 2014 All Rights Reserved.
 
 dydt = zeros(size(y));
 ofs_cel = p.Nx_out;     % Offset to variables of first cell
