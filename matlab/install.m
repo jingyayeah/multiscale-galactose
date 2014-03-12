@@ -8,7 +8,7 @@ fprintf('Installation Script\n');
 folder = pwd;
 pinfo = {'', 'tools', 'plots', 'parameter_distribution'};
 for kp = 1:numel(pinfo)
-    p = strcat(test, '/', pinfo{kp}); 
+    p = strcat(folder, '/', pinfo{kp}); 
     addpath(p);
     fprintf('\t%s\n', p);
 end

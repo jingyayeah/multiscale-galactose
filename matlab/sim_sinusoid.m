@@ -70,7 +70,7 @@ p.name = 'Galactose';
 
 p.version = 3;
 p.Nc = 1;
-p.Nf = 5;
+p.Nf = 1;
 p.id = strcat(p.name, '_v', num2str(p.version), '_Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));
 
 % set parameters
@@ -79,6 +79,9 @@ p.ext_constant    = false;      % constant blood concentrations
 p.with_cells      = true;       % include cell ode
 p.with_flow       = true;       % include flow ode
 p.with_diffusion  = true;       % include diffusion ode
+
+% which model should be simulated
+p.deficiency = 0;
 
 % ODE model for the sinusoids and the cells
 p.odesin   = @dydt_sinusoid;
@@ -99,12 +102,13 @@ switch(p.name)
         error('ODE definition not available');
 end
 p = init_sinusoid(p);       % Initial conditions and nonnegativities
+p.x_ids = create_sbml_ids(p);
 print_model_overview(p);
 
-% Model definition finished
-% TODO: call different simulation time courses with the defined model
+%% Model definition finished
 % the model can be used to call different simulations on it
 
+do_galactose_reference_simulation;
 %do_galactosemia_simulations;
 %do_galactose_timecourse_simulation();
 %do_galactose_ss_simulation();
