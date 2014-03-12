@@ -1,25 +1,31 @@
 %% Handles the parameter distribution to bride from sinusoidal unit
 %   to organ-scale liver model;
 
-%   Matthias Koenig (2013-10-14)
-%   Copyright © Matthias König 2013 All Rights Reserved.
+%   Matthias Koenig (2014-03-11)
+%   Copyright Matthias Koenig 2014 All Rights Reserved.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Get the mean distribution
-p = pars_layout(false);
+% Get the mean distribution (p has to be defined)
+p.name = 'Galactose'; 
+p.version = 3;
+p.Nc = 1;
+p.Nf = 5;
+p.id = strcat(p.name, '_v', num2str(p.version), '_Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));
 
-% Get random distributions
+p = pars_layout(p, false);
+
+% Create the random distributions
 N = 1000;
-names = {'L_{sinusoid} [µm]'
-        'y_{sinusoid} [µm]'
-        'y_{disse} [µm]'
-        'y_{cell} [µm]'
-        'v_{blood} [µm/s]'};
+names = {'L_{sinusoid} [ï¿½m]'
+        'y_{sinusoid} [ï¿½m]'
+        'y_{disse} [ï¿½m]'
+        'y_{cell} [ï¿½m]'
+        'v_{blood} [ï¿½m/s]'};
 data = zeros(N, length(names));
 
-
+% Creates the random distribution of parameters
 for k=1:N
-    ptmp = pars_layout(true);
+    ptmp = pars_layout(p, true);
     data(k, 1) = ptmp.L;
     data(k, 2) = ptmp.y_sin;
     data(k, 3) = ptmp.y_dis;
@@ -28,17 +34,25 @@ for k=1:N
 end
 data = data * 1E6;
 
-% plot
+% Combining results with certain values based on the parameter
+% distributions
+% Normalize
+data = data;
+
+
+%% plots
 fig1 = figure('Name', 'Parameter Distribution', 'Color', [1 1 1], 'Position', [0 0 1800 700]);
 for k=1:numel(names)
     subplot(1, numel(names), k);
-    hist(data(:, k), 20);
+    hist(data(:, k), 20); 
+    histfit(data(:,k), 20, 'kernel')
     xlabel(names{k}, 'FontWeight', 'bold');
     ylabel('count', 'FontWeight', 'bold'); 
     axis square
 end
 set(fig1, 'PaperPositionMode', 'auto');
-print(fig1, '-dtiff', '-r150', 'organ_scale/parameters_01.tif'); 
+
+print(fig1, '-dtiff', '-r150', 'parameter_distribution_01.tif'); 
 
 fig2 = figure('Name', 'Parameter Distribution 2', 'Color', [1 1 1], 'Position', [0 0 1800 1800]);
 count = 1;
@@ -53,7 +67,7 @@ for k=1:numel(names)
     end
 end
 set(fig2, 'PaperPositionMode', 'auto');
-print(fig2, '-dtiff', '-r150', 'organ_scale/parameters_02.tif'); 
+print(fig2, '-dtiff', '-r150', 'parameter_distribution_02.tif');
 
 
 

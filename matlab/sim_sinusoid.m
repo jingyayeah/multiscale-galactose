@@ -105,7 +105,7 @@ print_model_overview(p);
 % TODO: call different simulation time courses with the defined model
 % the model can be used to call different simulations on it
 
-do_galactosemia_simulations;
+%do_galactosemia_simulations;
 %do_galactose_timecourse_simulation();
 %do_galactose_ss_simulation();
 
