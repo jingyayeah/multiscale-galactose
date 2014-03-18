@@ -16,11 +16,11 @@ p = pars_layout(p, false);
 
 % Create the random distributions
 N = 1000;
-names = {'L_{sinusoid} [�m]'
-        'y_{sinusoid} [�m]'
-        'y_{disse} [�m]'
-        'y_{cell} [�m]'
-        'v_{blood} [�m/s]'};
+names = {'L_{sinusoid} [microm]'
+        'y_{sinusoid} [microm]'
+        'y_{disse} [microm]'
+        'y_{cell} [microm]'
+        'v_{blood} [microm/s]'};
 data = zeros(N, length(names));
 
 % Creates the random distribution of parameters
@@ -52,7 +52,7 @@ for k=1:numel(names)
 end
 set(fig1, 'PaperPositionMode', 'auto');
 
-print(fig1, '-dtiff', '-r150', 'parameter_distribution_01.tif'); 
+print(fig1, '-dtiff', '-r100', 'parameter_distribution_01.tif'); 
 
 fig2 = figure('Name', 'Parameter Distribution 2', 'Color', [1 1 1], 'Position', [0 0 1800 1800]);
 count = 1;
@@ -67,7 +67,7 @@ for k=1:numel(names)
     end
 end
 set(fig2, 'PaperPositionMode', 'auto');
-print(fig2, '-dtiff', '-r150', 'parameter_distribution_02.tif');
+print(fig2, '-dtiff', '-r100', 'parameter_distribution_02.tif');
 
 
 
