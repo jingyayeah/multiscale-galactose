@@ -151,26 +151,21 @@ std::vector<MParameter> createParametersFromMap(
 	return pars;
 }
 
-std::string createSimulationFilenameFromMap(std::map<std::string, std::string> map){
-	std::string fname = "sim_test";
-	// TODO: generate the filename out of the map
-	return fname;
-}
-
 std::string createCopasiFilenameFromSBML(std::string sbml_filename){
 	std::string cps_filename = sbml_filename.substr(0, sbml_filename.size()-3) + "cps";
 	return cps_filename;
 }
 
-std::string createSimulationFilename(std::string sbml_filename, std::map<std::string, std::string>){
-	// TODO: use unique parameter identifier for simulation
-	std::string cps_filename = sbml_filename.substr(0, sbml_filename.size()-3) + "_copasi.csv";
+std::string createSimulationFilename(std::string sbml_filename, std::map<std::string, std::string> map){
+	std::string cps_filename = sbml_filename.substr(0, sbml_filename.size()-4) + "_Sim"
+			+ map["Simulation.Simulation"] + "_copasi.csv";
 	return cps_filename;
 }
 
 
 /** Read the command line information and run the integration
  * with the parsed information.
+ * Generate the Copasi file once and reuse it for the integration (SBML Ids conserved?)
  */
 int main(int argc, const char* argv[])
 {

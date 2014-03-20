@@ -1,8 +1,10 @@
 [Simulation]
+Simulation = 1
 sbml = Dilution
 timecoure_id = tc1234
 pars_id = pars1234
 timestamp = 2014-03-27
+
 
 # Integration Parameters
 [Timecourse]

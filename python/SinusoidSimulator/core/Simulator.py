@@ -102,6 +102,9 @@ def create_config_file(sim):
     PP__gal = 0.00012
     ############################
     '''
+    
+    # TODO: timestamp and author stamp
+    
     # Create config file
     folder = "/home/mkoenig/multiscale-galactose-results/"
     sbml_id = sim.task.sbml_model.sbml_id
@@ -140,8 +143,8 @@ def perform_simulation(sim):
     print sim.task.pk
     print sim.task.sbml_model.sbml_id
     
-    
-    # time.sleep(8 + randrange(10))
+    # TODO: do the recompile via make once !
+    # all simulations have to be performed against the same version
     
     # run an operating system command
         
@@ -154,7 +157,11 @@ def perform_simulation(sim):
     call_command = folder + copasi + " -s " + sbml_file + " -p " + config_file;
     print call_command
     call(shlex.split(call_command))
-            
+    
+    # TODO: store the simulation results
+    # TODO: store the config file
+    
+    
     # simulation finished
     sim.time_sim = timezone.now()
     sim.status = DONE
