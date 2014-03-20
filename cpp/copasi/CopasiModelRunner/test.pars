@@ -15,7 +15,7 @@ aTol = 1E-6
 # Initial Parameters
 [Parameters]
 flow_sin = 60E-6
-PP_gal = 0.00012
+PP__gal = 0.00012
 
 
 

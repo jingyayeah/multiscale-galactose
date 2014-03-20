@@ -74,6 +74,7 @@ namespace pod = boost::program_options::detail;
 /** Reads the config file which contains the settings for the
  * integration timecourse and the parameters which have to be set before
  * integration.
+ * see	http://sektorgaza.blogspot.de/2007/08/how-to-parse-ini-files-with-boost.htmls
  */
 std::map<std::string, std::string> parseConfigFile(std::string filename) {
 	std::ifstream config(filename.c_str());
@@ -83,42 +84,36 @@ std::map<std::string, std::string> parseConfigFile(std::string filename) {
 	options.insert("*");
 	try {
 		for (pod::config_file_iterator i(config, options), e; i != e; ++i) {
-			std::cout << i->string_key << " = " << i->value[0] << std::endl;
+			// std::cout << i->string_key << " = " << i->value[0] << std::endl;
 			parameters[i->string_key] = i->value[0];
 		}
 	} catch (std::exception& e) {
 		std::cerr << "Exception: " << e.what() << std::endl;
 	}
 
-	std::cout << "stored parameters from config file:" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "Config file" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
 	for (std::map<std::string, std::string>::iterator iter = parameters.begin();
 			iter != parameters.end(); ++iter) {
-			std::cout << iter->first << "=" << iter->second << std::endl;
-			std::cout << iter->first << "=" << parameters[iter->first] << std::endl;
+			std::cout << iter->first << " = " << iter->second << std::endl;
 	}
 	return parameters;
 }
 
 
-/** Parse the Timecourse Parameters from the settings file.
- * TODO: values are not taken from map
- */
+/** Parse the Timecourse Parameters from the settings file. */
 TimecourseParameters createTimecourseParametersFromMap(std::map<std::string, std::string> map){
-	double t0, dur, rTol, aTol;
-	int steps;
-	// Check if all the necessary values are in the map
-/*	if( 	(map.find("Timecourse.t0") != map.end() ) &&
-			(map.find("Timecourse.dur") != map.end()) &&
-			(map.find("Timecourse.steps") != map.end()) &&
-			(map.find("Timecourse.rTol") != map.end()) &&
-			(map.find("Timecourse.aTol") != map.end()) ){*/
-	t0 = atof(map["Timecourse.t0"].c_str());
-	dur = atof(map["Timecourse.dur"].c_str());
-	steps = atoi(map["Timecourse.steps"].c_str());
-	rTol = atof(map["Timecourse.rTol"].c_str());
-	aTol = atof(map["Timecourse.aTol"].c_str());
 
+	double t0 = atof(map["Timecourse.t0"].c_str());
+	double dur = atof(map["Timecourse.dur"].c_str());
+	int steps = atoi(map["Timecourse.steps"].c_str());
+	double rTol = atof(map["Timecourse.rTol"].c_str());
+	double aTol = atof(map["Timecourse.aTol"].c_str());
 	TimecourseParameters tcp (t0, dur, steps, rTol, aTol);
+
+	std::cout << std::endl << "Timecourse Settings" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
 	tcp.print();
 	return tcp;
 }
@@ -127,51 +122,39 @@ TimecourseParameters createTimecourseParametersFromMap(std::map<std::string, std
  * TODO: create a list object of parameters,
  * 		the initial concentrations are changed based on the names in the integration
  */
-std::vector<MParameter> createParametersFromMap(std::map<std::string, std::string> map){
-	// [see	http://sektorgaza.blogspot.de/2007/08/how-to-parse-ini-files-with-boost.html]
-	std::vector<MParameter> pars;
+std::vector<MParameter> createParametersFromMap(
+		std::map<std::string, std::string> map) {
 
+	std::vector<MParameter> pars;
 	// Iterate over the map
 	std::map<std::string, std::string>::iterator iter;
 	std::string key;
 	for (iter = map.begin(); iter != map.end(); ++iter) {
 		key = iter->first;
 		// Check if startswith 'Parameters.'
+		// FIXME: bad hack to find value
 		if (key.find("Parameters.") != std::string::npos) {
-			std::string short_key = key.substr(key.find("Parameters."), key.length());
-			std::cout << short_key << " <- " << key << std::endl;
-			MParameter p (short_key, atof(map[key].c_str()));
+			std::string short_key = key.substr(11, key.length());
+			MParameter p(short_key, atof(map[key].c_str()));
 			pars.push_back(p);
+			//std::cout << short_key << " <- " << key << std::endl;
 		}
-
 	}
 
-	// when to init with new ?
-	// what is the difference between MParameter() and new MParameter
-		MParameter p1 ("flow_sin", 60E-6);
-		MParameter p2 ("PP__gal", 0.00012);
-		pars.push_back(p1);
-		pars.push_back(p2);
-
-		for (std::vector<MParameter>::const_iterator it=pars.begin(); it!=pars.end(); ++it){
-		    std::cout << (*it).getId() << " = " << (*it).getValue() << std::endl;
-		    std::cout << '\n';
-		}
-		return pars;
+	std::cout << std::endl << "ODE Parameters" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	for (std::vector<MParameter>::const_iterator it = pars.begin();
+			it != pars.end(); ++it) {
+		std::cout << (*it).getId() << " = " << (*it).getValue() << std::endl;
+	}
+	return pars;
 }
-
 
 std::string createSimulationFilenameFromMap(std::map<std::string, std::string> map){
 	std::string fname = "sim_test";
 	// TODO: generate the filename out of the map
-
-
-
 	return fname;
 }
-
-
-
 
 std::string createCopasiFilenameFromSBML(std::string sbml_filename){
 	std::string cps_filename = sbml_filename.substr(0, sbml_filename.size()-3) + "cps";
@@ -221,7 +204,6 @@ int main(int argc, const char* argv[])
 
 	    if(vm.count("sbml")){
 	    	sbml_filename = vm["sbml"].as<std::string>();
-	    	std::cout << "SBML file: " << sbml_filename << std::endl;
 
 	    } else {
 	    	std::cout << "SBML file missing" << std::endl;
@@ -231,7 +213,7 @@ int main(int argc, const char* argv[])
 
 	    if(vm.count("pars")){
 	    	pars_filename = vm["pars"].as<std::string>();
-	        std::cout << "Parameter file: " << pars_filename << std::endl;
+
 	    } else {
 	    	std::cout << "Parameter file missing" << std::endl;
 	    	std::cout << description;
@@ -244,8 +226,9 @@ int main(int argc, const char* argv[])
 	    }
 
 	////////////////////////////////////////////////////////
-	std::cout << "CopasiModelRunner::main()\n";
-
+	std::cout << "####################################" << std::endl;
+	std::cout << "CopasiModelRunner-v" << version << std::endl;
+	std::cout << "####################################" << std::endl;
 
 	std::map<std::string, std::string> map = parseConfigFile(pars_filename);
 	TimecourseParameters tcPars = createTimecourseParametersFromMap(map);
@@ -254,11 +237,17 @@ int main(int argc, const char* argv[])
 	std::string cps_filename = createCopasiFilenameFromSBML(sbml_filename);
 	std::string report_filename = createSimulationFilename(sbml_filename, map);
 
-	return 0;
+	std::cout << std::endl << "Files" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "SBML   : " << sbml_filename << std::endl;
+	std::cout << "Config : " << pars_filename << std::endl;
+	std::cout << "Copasi : " << cps_filename << std::endl;
+	std::cout << "Report : " << report_filename << std::endl;
+
+	////////////////////////////////////////////////////////
 
 	// Create a new ModelSimulator for the file
-	// ModelSimulator m (sbml_filename);
-	// m.doTimeCourseSimulation(pars, tcPars, report_filename);
-
-	// return 0;
+	ModelSimulator m (sbml_filename);
+	m.doTimeCourseSimulation(pars, tcPars, report_filename);
+	return 0;
 }
