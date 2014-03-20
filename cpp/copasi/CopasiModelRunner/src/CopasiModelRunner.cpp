@@ -91,7 +91,6 @@ std::map<std::string, std::string> parseConfigFile(std::string filename) {
 		std::cerr << "Exception: " << e.what() << std::endl;
 	}
 
-	std::cout << "------------------------------------" << std::endl;
 	std::cout << "Config file" << std::endl;
 	std::cout << "------------------------------------" << std::endl;
 	for (std::map<std::string, std::string>::iterator iter = parameters.begin();
@@ -112,7 +111,8 @@ TimecourseParameters createTimecourseParametersFromMap(std::map<std::string, std
 	double aTol = atof(map["Timecourse.aTol"].c_str());
 	TimecourseParameters tcp (t0, dur, steps, rTol, aTol);
 
-	std::cout << std::endl << "Timecourse Settings" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "Timecourse Settings" << std::endl;
 	std::cout << "------------------------------------" << std::endl;
 	tcp.print();
 	return tcp;
@@ -141,7 +141,8 @@ std::vector<MParameter> createParametersFromMap(
 		}
 	}
 
-	std::cout << std::endl << "ODE Parameters" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "ODE Parameters" << std::endl;
 	std::cout << "------------------------------------" << std::endl;
 	for (std::vector<MParameter>::const_iterator it = pars.begin();
 			it != pars.end(); ++it) {
@@ -237,7 +238,8 @@ int main(int argc, const char* argv[])
 	std::string cps_filename = createCopasiFilenameFromSBML(sbml_filename);
 	std::string report_filename = createSimulationFilename(sbml_filename, map);
 
-	std::cout << std::endl << "Files" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout  << "Files" << std::endl;
 	std::cout << "------------------------------------" << std::endl;
 	std::cout << "SBML   : " << sbml_filename << std::endl;
 	std::cout << "Config : " << pars_filename << std::endl;
@@ -247,6 +249,9 @@ int main(int argc, const char* argv[])
 	////////////////////////////////////////////////////////
 
 	// Create a new ModelSimulator for the file
+	std::cout << "------------------------------------" << std::endl;
+	std::cout  << "Integration" << std::endl;
+	std::cout << "------------------------------------" << std::endl;
 	ModelSimulator m (sbml_filename);
 	m.doTimeCourseSimulation(pars, tcPars, report_filename);
 	return 0;

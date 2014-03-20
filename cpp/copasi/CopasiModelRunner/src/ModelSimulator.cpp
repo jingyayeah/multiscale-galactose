@@ -36,7 +36,6 @@
 
 /** Constructor with SBML filename. */
 ModelSimulator::ModelSimulator(std::string fname){
-	std::cout << "Construct ModelSimulator" << std::endl;
 	filename = fname;
 	simulationCounter = 0;
 	//readModel();
@@ -163,6 +162,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	}
 	// TODO: count if all parameters have been set,
 	// 		 if not raise error !
+	// TODO: double check the parameter settings
 
 	/* PEAK
 	// Change Initial concentrations
