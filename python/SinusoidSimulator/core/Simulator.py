@@ -29,7 +29,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
 import multiprocessing
-from sim.models import Integration, Core, Simulation, UNASSIGNED, ASSIGNED, DONE
+from sim.models import Integration, Core, Simulation, UNASSIGNED, ASSIGNED, DONE,\
+    ParameterCollection
 from random import randrange
 
 from django.utils import timezone
@@ -108,21 +109,23 @@ def create_config_file(sim):
     f.write('Simulation = {}\n'.format(sim.pk) )
     f.write("Task = {}\n".format(sim.task.pk) )
     f.write("SBML = {}\n".format(sim.task.sbml_model.pk))
-    
-    f.write("[Timecourse]")
-    f.write("t0 = 0.0")
-    f.write("dur = 100.0")
-    f.write("steps = 1000")
-    f.write("rTol = 1E-6")
-    f.write("aTol = 1E-6")
-    
-    f.write("[Parameters]")
-    
+    f.write("ParameterCollection = {}\n".format(sim.parameters.pk))
+    f.write("sbml = {}\n".format(sim.task.sbml_model.sbml_id))
+    f.write("\n")
+    f.write("[Timecourse]\n")
+    f.write("t0 = {}\n".format(sim.task.integration.tstart))
+    f.write("dur = {}\n".format(sim.task.integration.tend))
+    f.write("steps = {}\n".format(sim.task.integration.tsteps))
+    f.write("rTol = {}\n".format(sim.task.integration.rel_tol))
+    f.write("aTol = {}\n".format(sim.task.integration.abs_tol))
+    f.write("\n")
+    f.write("[Parameters]\n")
+    pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
+    for p in pc.parameters.all():
+        f.write("{} = {}\n".format(p.name, p.value) )
     
     f.close()
     
-    
-
 
 def perform_simulation(sim):
     '''
