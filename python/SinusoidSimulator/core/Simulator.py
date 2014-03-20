@@ -75,7 +75,65 @@ def assign_simulation(ip, cpu):
     else:
         return None
 
+
+def create_config_file(sim):
+    '''
+    Necessary to generate the Config file consisting of the parameters
+    and the integration settings.
+    
+    ############################
+    [Simulation]
+    sbml = Dilution
+    timecoure_id = tc1234
+    pars_id = pars1234
+    timestamp = 2014-03-27
+
+    [Timecourse]
+    t0 = 0.0
+    dur = 100.0
+    steps = 1000
+    rTol = 1E-6
+    aTol = 1E-6
+
+    [Parameters]
+    flow_sin = 60E-6
+    PP__gal = 0.00012
+    ############################
+    '''
+    # Create config file
+    folder = "/home/mkoenig/multiscale-galactose-results/"
+    sbml_id = sim.task.sbml_model.sbml_id
+    f = open(folder + sbml_id + "_Sim" + str(sim.pk) + '_config.ini', 'w')
+    f.write('[Simulation]\n')
+    f.write('Simulation = {}\n'.format(sim.pk) )
+    f.write("Task = {}\n".format(sim.task.pk) )
+    f.write("SBML = {}\n".format(sim.task.sbml_model.pk))
+    
+    f.write("[Timecourse]")
+    f.write("t0 = 0.0")
+    f.write("dur = 100.0")
+    f.write("steps = 1000")
+    f.write("rTol = 1E-6")
+    f.write("aTol = 1E-6")
+    
+    f.write("[Parameters]")
+    
+    
+    f.close()
+    
+    
+
+
 def perform_simulation(sim):
+    '''
+    Here the integration is performed.
+    '''    
+    create_config_file(sim)
+    
+    print sim.task.pk
+    print sim.task.sbml_model.pk
+    
+    
     time.sleep(8 + randrange(10))
     # run an operating system command
         
@@ -101,7 +159,9 @@ def worker(cpu, lock):
     # Get the integration information
     # integration = Integration.objects.all()[:1]
     info('function worker')
-    ip = get_ip_address('eth0')
+    # TODO: adapt for ips
+    # ip = get_ip_address('eth0')
+    ip = "127.0.0.1"
     
     while(True):
         # use global lock for proper printing
@@ -112,7 +172,12 @@ def worker(cpu, lock):
         lock.release()
         
         sim = assign_simulation(ip, cpu)
-        perform_simulation(sim)
+        if (sim):
+            perform_simulation(sim)
+        else:
+            print "no more simulations";
+            time.sleep(20)
+            
 
 
 if __name__ == "__main__":
@@ -120,6 +185,13 @@ if __name__ == "__main__":
     Work with the exit codes to start new processes.
     If processes have terminated restart one of the processes.
     '''
+    # reset everything to undone
+    #for sim in Simulation.objects.all():
+    #    sim.status = UNASSIGNED
+    #    sim.save()
+    # print('All Simulations unassigned')
+    
+    
     # run the process on all cpus
     cpus = multiprocessing.cpu_count()
     print 'Number of CPU: ', cpus 

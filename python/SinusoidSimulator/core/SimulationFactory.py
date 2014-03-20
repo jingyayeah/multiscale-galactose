@@ -75,6 +75,11 @@ def createSimulationForParametersInTask(pars, task):
             pass
         sim.save()
 
+    def createConfigFile():
+        '''
+        TODO: Necessary to create the config file from the settings for 
+        the integration in copasi.
+        '''
 
 def createDilutionCurvesSimulationTask(sbml_id):
     '''
@@ -114,6 +119,14 @@ def createDilutionCurvesSimulationTask(sbml_id):
             ('flow', 200E-6, 'm/s'),
             ('L',   500E-6, 'm'),)
     createSimulationForParametersInTask(pars, task);
+  
+    flows = np.arange(0.0, 600E-6, 20E-6)
+    for flow in flows:
+        pars = (('deficiency', 0, '-'),
+                    ('flow', flow, 'm/s'),
+                    ('L',   500E-6, 'm'),)
+        createSimulationForParametersInTask(pars, task);
+  
   
     '''
     TODO: Create full range of simulations for different architectures.
