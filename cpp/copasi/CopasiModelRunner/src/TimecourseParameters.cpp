@@ -21,6 +21,6 @@ double TimecourseParameters::getAbsTol() const{
 	return abs_tol_;
 }
 void TimecourseParameters::print() const{
-	std::cout << t0_ << "|" << duration_ << "|" << steps_ << "|" << rel_tol_
+	std::cout << "TimecourseParameters: "<< t0_ << "|" << duration_ << "|" << steps_ << "|" << rel_tol_
 			  << "|" << abs_tol_ << std::endl;
 }

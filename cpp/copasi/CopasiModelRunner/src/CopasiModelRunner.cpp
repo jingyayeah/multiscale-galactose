@@ -86,41 +86,46 @@ std::map<std::string, std::string> parseConfigFile(std::string filename) {
 			std::cout << i->string_key << " = " << i->value[0] << std::endl;
 			parameters[i->string_key] = i->value[0];
 		}
-		std::cout << parameters["StatLogServer.Path"] << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << "Exception: " << e.what() << std::endl;
+	}
+
+	std::cout << "stored parameters from config file:" << std::endl;
+	for (std::map<std::string, std::string>::iterator iter = parameters.begin();
+			iter != parameters.end(); ++iter) {
+			std::cout << iter->first << "=" << iter->second << std::endl;
+			std::cout << iter->first << "=" << parameters[iter->first] << std::endl;
 	}
 	return parameters;
 }
 
 
-/** Parse the Timecourse Parameters from the settings file. */
+/** Parse the Timecourse Parameters from the settings file.
+ * TODO: values are not taken from map
+ */
 TimecourseParameters createTimecourseParametersFromMap(std::map<std::string, std::string> map){
 	double t0, dur, rTol, aTol;
 	int steps;
 	// Check if all the necessary values are in the map
-	if( 	(map.find("Timecourse.t0") != map.end() ) &&
+/*	if( 	(map.find("Timecourse.t0") != map.end() ) &&
 			(map.find("Timecourse.dur") != map.end()) &&
 			(map.find("Timecourse.steps") != map.end()) &&
 			(map.find("Timecourse.rTol") != map.end()) &&
-			(map.find("Timecourse.aTol") != map.end()) ){
-		t0 = atof(map["Timecourse.t0"].c_str());
-		dur = atof(map["Timecourse.dur"].c_str());
-		steps = atoi(map["Timecourse.steps"].c_str());
-		rTol = atof(map["Timecourse.rTol"].c_str());
-		aTol = atof(map["Timecourse.aTol"].c_str());
-	}
+			(map.find("Timecourse.aTol") != map.end()) ){*/
+	t0 = atof(map["Timecourse.t0"].c_str());
+	dur = atof(map["Timecourse.dur"].c_str());
+	steps = atoi(map["Timecourse.steps"].c_str());
+	rTol = atof(map["Timecourse.rTol"].c_str());
+	aTol = atof(map["Timecourse.aTol"].c_str());
+
 	TimecourseParameters tcp (t0, dur, steps, rTol, aTol);
 	tcp.print();
 	return tcp;
 }
 
 /* Create the parameter vector from the parameter file.
- *
- * TODO: read information from parameter file
  * TODO: create a list object of parameters,
  * 		the initial concentrations are changed based on the names in the integration
- * TODO: use a HashMap to get the parameters by name
  */
 std::vector<MParameter> createParametersFromMap(std::map<std::string, std::string> map){
 	// [see	http://sektorgaza.blogspot.de/2007/08/how-to-parse-ini-files-with-boost.html]
@@ -140,7 +145,6 @@ std::vector<MParameter> createParametersFromMap(std::map<std::string, std::strin
 		}
 
 	}
-
 
 	// when to init with new ?
 	// what is the difference between MParameter() and new MParameter
