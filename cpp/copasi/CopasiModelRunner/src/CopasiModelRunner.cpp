@@ -16,7 +16,6 @@
 #include <string>
 #include <list>
 
-
 #define COPASI_MAIN
 
 #include "copasi/copasi.h"
@@ -60,25 +59,12 @@ int main()
 	//std::string filename = "/home/mkoenig/multiscale-galactose-results/Galactose_v3_Nc1_Nf5.xml";
 	//std::string filename = "/home/mkoenig/multiscale-galactose-results/Galactose_v3_Nc5_Nf5.xml";
 
-	/** Dilution indicator studies */
-	std::string filename = "/home/mkoenig/multiscale-galactose-results/Galactose_Dilution_v3_Nc5_Nf5.xml";
+	/** Dilution indicator studies - Model to integrate */
+	//std::string filename = "/home/mkoenig/multiscale-galactose-results/Dilution_Curves_v4_Nc1_Nf1.xml";
+	std::string filename = "/home/mkoenig/multiscale-galactose-results/Dilution_Curves_v4_Nc20_Nf1.xml";
 	std::string fnameCPS = filename.substr(0, filename.size()-3) + "cps";
 
-	//m.test();
-	//m.SBML2CPS(filename, fnameCPS);
-	ModelSimulator m (filename);
-
-	//TimeCourseParameters tcPars = TimeCourseParameters(0.0, 3000.0, 500, 1.0E-6, 1.0E-6);
-	// read from integration
-	TimecourseParameters intOptions (0.0, 240.0, 960, 1.0E-6, 1.0E-6);
-
-	//TODO: create a list object of parameters,
-	// 		the initial concentrations are changed based on the names in the integration
-
-
-	std::string simId = "sim1";
-	std::cout << simId << std::endl;
-
+	// Create the vector of parameters to set
 	// when to init with new ?
 	// what is the difference between MParameter() and new MParameter
 	MParameter p1 ("flow_sin", 60E-6);
@@ -93,13 +79,30 @@ int main()
 	pars.push_back(p2);
 	std::cout << "pars.size() -> " << pars.size() << std::endl;
 
-	for (std::vector<MParameter>::iterator it=pars.begin(); it!=pars.end(); ++it)
+	for (std::vector<MParameter>::const_iterator it=pars.begin(); it!=pars.end(); ++it){
 	    std::cout << (*it).getId() << " = " << (*it).getValue() << std::endl;
-	std::cout << '\n';
+	    std::cout << '\n';
+	}
 
-	std::string reportTarget = "/home/mkoenig/multiscale-galactose-results/" + simId + ".txt";
+
+	//m.test();
+	//m.SBML2CPS(filename, fnameCPS);
+	// Create a new ModelSimulator for the file
+	ModelSimulator m (filename);
+
+	// Create TimeCourseParameters t0, dur, steps, rTol, aTol
+	TimecourseParameters intOptions (0.0, 100.0, 1000, 1.0E-6, 1.0E-6);
+
+	//TODO: create a list object of parameters,
+	// 		the initial concentrations are changed based on the names in the integration
+
+	std::string simId = "sim2";
+	std::cout << simId << std::endl;
+
+
+
+	std::string reportTarget = "/home/mkoenig/multiscale-galactose-results/" + simId + "._copasiSE.csv";
 	m.doTimeCourseSimulation(pars, intOptions, reportTarget);
-
 
 
 	/*

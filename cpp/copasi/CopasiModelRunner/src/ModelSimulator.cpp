@@ -145,11 +145,10 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		CModelValue* pModelValue = pModel->getModelValues()[i];
 		const std::string& sbmlId = pModelValue->getSBMLId();
 
-		// for all global parameter which should be changed
-		for (std::vector<MParameter>::iterator it=pars.begin(); it!=pars.end(); ++it){
-		    MParameter p = *it;
-		    std::string id = p.getId();
-		    double value = p.getValue();
+		for (std::vector<MParameter>::const_iterator it=pars.begin(); it!=pars.end(); ++it){
+		    //MParameter p = *it;
+		    std::string id = (*it).getId();
+		    double value = (*it).getValue();
 
 			if(sbmlId.compare(id) == 0){
 				std::cout << id << " -> " << value << std::endl;
@@ -490,9 +489,10 @@ int ModelSimulator::test(){
 	  // we want seconds as the time unit
 	  // microliter as the volume units
 	  // and nanomole as the substance units
-	  pModel->setTimeUnit(CModel::s);
-	  pModel->setVolumeUnit(CModel::microl);
-	  pModel->setQuantityUnit(CModel::nMol);
+	  // TODO: BUG, why can the units not be set ?
+	  // pModel->setTimeUnit(CModel::s);
+	  // pModel->setVolumeUnit(CModel::microl);
+	  // pModel->setQuantityUnit(CModel::nMol);
 
 	  // we have to keep a set of all the initial values that are changed during
 	  // the model building process
