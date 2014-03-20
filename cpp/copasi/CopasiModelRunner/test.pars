@@ -1,0 +1,19 @@
+# Parameters for model
+sbml	Dilution
+
+# Integration Parameters
+timecoure_id	tc1234
+t0	0.0
+dur	100.0
+steps	1000
+rTol	1E-6
+aTol	1E-6
+
+# Initial Parameters
+pars_id		pars1234
+flow_sin	60E-6
+PP_gal		0.00012
+
+
+
+
