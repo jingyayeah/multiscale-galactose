@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.files import File
 
 '''
     TODO: implement views
@@ -35,7 +36,8 @@ class Core(models.Model):
                       '10.39.32.189':'sysbio1',
                       '10.39.32.113':'oldmint',
                       '10.39.32.106':'mint',
-                      '10.39.32.111':'mkoenig-desktop'}
+                      '10.39.32.111':'mkoenig-desktop',
+                      '127.0.0.1':'mkoenig-zenbook'}
         
     def __unicode__(self):
         return self.ip + "-cpu-" +str(self.cpu)
@@ -74,7 +76,34 @@ class SBMLModel(models.Model):
         # ordering = ["sbml_id"]
         verbose_name = "SBML Model"
         verbose_name_plural = "SBML Models"
-
+    
+    @classmethod
+    def create(cls, sbml_id):
+        '''
+            TODO: Create the model based on the model id.
+            All the information of the SBMLModel can be deduced from the id.
+        '''
+        filename = "/home/mkoenig/multiscale-galactose-results/" + sbml_id + ".xml" 
+        f = open(filename, 'r')
+        myfile = File(f)
+        # ?? TODO: where to close the file
+        # f.close()
+        # Create the SBMLmodel
+        try:
+            model = SBMLModel.objects.get(sbml_id=sbml_id)
+            return model;
+        except ObjectDoesNotExist:
+            print 'model is created'
+            return cls(sbml_id = 'Dilution_Curves_v4_Nc20_Nf1',
+                          name = 'Dilution_Curves',
+                          version = 4,
+                          nc = 20,
+                          nf = 1,
+                          file = myfile)
+    @classmethod
+    def getNameFromId(cls, sbml_id):
+        return sbml_id.split('_')[0]
+    
     
 class Integration(models.Model):
     tend = models.FloatField()

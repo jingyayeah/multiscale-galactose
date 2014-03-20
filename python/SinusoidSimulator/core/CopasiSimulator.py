@@ -3,6 +3,11 @@ Created on Dec 2, 2013
 
 @author: mkoenig
 '''
+import sys
+import os
+sys.path.append('/home/mkoenig/multiscale-galactose/python')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
 import Simulator
 from sim.models import Parameter, Simulation, Timecourse
 from django.core.files import File
@@ -46,9 +51,7 @@ def perform_copasi_simulation(sim):
     #    print line
     
     
-    
-    
-    
+
     # Here the result file is written
     # create timecourse file
     fname = 'timecourse.txt'
@@ -75,9 +78,6 @@ def perform_copasi_simulation(sim):
         print line
     
     
-
-
-
 if __name__ == "__main__":
     ip = Simulator.get_ip_address();
     sim = Simulator.assign_simulation(ip, 0)
