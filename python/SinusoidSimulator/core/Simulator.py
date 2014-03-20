@@ -36,6 +36,7 @@ from random import randrange
 from django.utils import timezone
 
 from subprocess import call
+import shlex
 import socket
 import fcntl
 import struct
@@ -104,7 +105,8 @@ def create_config_file(sim):
     # Create config file
     folder = "/home/mkoenig/multiscale-galactose-results/"
     sbml_id = sim.task.sbml_model.sbml_id
-    f = open(folder + sbml_id + "_Sim" + str(sim.pk) + '_config.ini', 'w')
+    filename = folder + sbml_id + "_Sim" + str(sim.pk) + '_config.ini'
+    f = open(filename, 'w')
     f.write('[Simulation]\n')
     f.write('Simulation = {}\n'.format(sim.pk) )
     f.write("Task = {}\n".format(sim.task.pk) )
@@ -125,26 +127,33 @@ def create_config_file(sim):
         f.write("{} = {}\n".format(p.name, p.value) )
     
     f.close()
-    
+    return filename
 
 def perform_simulation(sim):
     '''
     Here the integration is performed.
     '''    
-    create_config_file(sim)
+    folder = "/home/mkoenig/multiscale-galactose-results/"
+    config_file = create_config_file(sim)
+    sbml_file = folder + sim.task.sbml_model.sbml_id + ".xml"
     
     print sim.task.pk
-    print sim.task.sbml_model.pk
+    print sim.task.sbml_model.sbml_id
     
     
-    time.sleep(8 + randrange(10))
+    # time.sleep(8 + randrange(10))
+    
     # run an operating system command
         
     # subprocess opens new process
     # Check on which core it is running
     # Make sure all the cores are really used
     # call(["ls", "-l"])
-    call(["../testscript"])
+    folder = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/"
+    copasi = "CopasiModelRunner"
+    call_command = folder + copasi + " -s " + sbml_file + " -p " + config_file;
+    print call_command
+    call(shlex.split(call_command))
             
     # simulation finished
     sim.time_sim = timezone.now()
