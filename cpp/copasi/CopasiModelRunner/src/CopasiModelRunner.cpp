@@ -36,28 +36,84 @@
 #include "TimecourseParameters.h"
 
 /**
+ * Main function called with arguments.
+ * ./CopasiModelRunner -sbml sbml_file -parameters pars_file
+ *
+ * The parameters are set in the model and the integration performed.
+ *
  * Main things to do are:
- * 	- [DONE] take a model file and convert it to Copasi format
- * 	- [DONE] change parameters in the model (galactose, blood flow)
- * 	- [DONE] perform time course simulations -> report
- * 	- [DONE] store data in files with SBML identifiers
- * 	- [DONE] read the data into Matlab for analysis.
+ * 	- take a model file and convert it to Copasi format
+ * 	- change parameters in the model (galactose, blood flow)
+ * 	- perform time course simulations
+ * 	- create report of integration & store data in files with SBML identifiers
+ * 	- read the data into Matlab for analysis
+ *
+ * 	TODO: create a makefile
+ * 	TODO: read input arguments (sbml file and parameter file)
  */
 
-int main()
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/parsers.hpp>
+#include <boost/program_options/variables_map.hpp>
+
+namespace po = boost::program_options;
+
+int main(int argc, const char* argv[])
 {
-	// in the end it should be possible to call
-	// there should be some folder with simualtion information
-	//name -sbml sbml_file -integration int_file -pars parameter_file
+	////////////////////////////////////////////////////////
+	std::string author = "Matthias Koenig";
+	std::string version = "0.1";
+	////////////////////////////////////////////////////////
+
+	// Read the information from command line option
+	 po::options_description description("CopasiModelRunner Usage");
+
+	    description.add_options()
+	        ("help,h", "Display this help message")
+	        ("sbml,s", po::value<std::string>(), "SBML file")
+	        ("pars,p", po::value<std::string>(), "Parameter file")
+	        ("version,v", "Display the version number");
+
+	    po::positional_options_description pos;
+	   // pos.add("input-files", -1);
+
+	    po::variables_map vm;
+	    po::store(po::command_line_parser(argc, argv).options(description).positional(pos).run(), vm);
+	    po::notify(vm);
+
+	    // check for options
+	    if(vm.count("help")){
+	        std::cout << description;
+	        std::cout << "CopasiModelRunner Version " << version << std::endl;
+	        std::cout << "Author  " << author << std::endl;
+	        return 0;
+	    }
+
+	    if(vm.count("sbml")){
+	        std::cout << "SBML file: " << vm["sbml"].as<std::string>() << std::endl;
+	    } else {
+	    	std::cout << "SBML file missing" << std::endl;
+	    	std::cout << description;
+	    	return 0;
+	    }
+
+	    if(vm.count("pars")){
+	        std::cout << "Parameter file: " << vm["pars"].as<std::string>() << std::endl;
+	    } else {
+	    	std::cout << "Parameter file missing" << std::endl;
+	    	std::cout << description;
+	    	return 0;
+	    }
+
+	    if(vm.count("version")){
+	        std::cout << "CopasiModelRunner Version " << version << std::endl;
+	        return 0;
+	    }
+	    ////////////////////////////////////////////////////////
 
 	// Load information from provided files
 
 	std::cout << "CopasiModelRunner::main()\n";
-	// std::string filename = "./results/Galactose_v3_Nc1_Nf5.xml";
-
-	/** Galactose Peak studies */
-	//std::string filename = "/home/mkoenig/multiscale-galactose-results/Galactose_v3_Nc1_Nf5.xml";
-	//std::string filename = "/home/mkoenig/multiscale-galactose-results/Galactose_v3_Nc5_Nf5.xml";
 
 	/** Dilution indicator studies - Model to integrate */
 	//std::string filename = "/home/mkoenig/multiscale-galactose-results/Dilution_Curves_v4_Nc1_Nf1.xml";

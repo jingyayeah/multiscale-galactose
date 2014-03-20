@@ -7,4 +7,5 @@ cpp/copasi/CopasiModelRunner/example1.xml
 .metadata
 .project
 .pydevproject
+.cproject
 
