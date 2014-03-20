@@ -19,6 +19,7 @@ class TimecourseParameters {
     int getSteps() const;
     double getRelTol() const;
     double getAbsTol() const;
+    void print() const;
 
   private:
     double t0_;
