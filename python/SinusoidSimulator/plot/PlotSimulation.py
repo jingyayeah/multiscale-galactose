@@ -65,43 +65,39 @@ def getDataFromTimeCourse(tc):
     cols, indexToName = getColumns(open(filename, "rb"), delim=",", header=True)    
     return cols;
     
-
-def plotSimulationData(data):
+    
+def plotSimulationData(x):
     '''
     Plot data for the simulation
     ''' 
-    # TODO create all the variables from the names
+    # Get the time
     time = data['time']
-    PP__gal = data['PP__gal']
-    PV__gal = data['PV__gal']
-    PP__rbcM = data['PP__rbcM']
-    PV__rbcM = data['PV__rbcM']
+    del data['time']
+    
+    
+    PP__gal = x['PP__gal']
+    PV__gal = x['PV__gal']
+    PP__rbcM = x['PP__rbcM']
+    PV__rbcM = x['PV__rbcM']
+    
+    for name, values in data.iteritems():
+        # plot all the PP__ and PV__
+        if (name.startswith("PP__") or name.startswith("PV__")):
+            plt.plot(time, x[name])
     
     # plot all the PP and PV pairs
-    plt.plot(time, PP__gal)
-    plt.plot(time, PV__gal)
-    plt.plot(time, PP__rbcM)
-    plt.plot(time, PV__rbcM)
-    
+    plt.title("Simulation" + "?")
     plt.ylabel('concentration [mM]')
     plt.xlabel('time [s]')
+    plt.xlim([0, 80])
+    plt.ylim([-0.1, 1.1])
     plt.show()
-    
-    X = data['time']
-    Y = data['PV__gal']
-    T = np.arctan2(Y,X)
-
-    # axes([0.025,0.025,0.95,0.95])
     # scatter(X,Y, s=75, c=T, alpha=.5)
 
-    # xlim(-1.5,1.5), xticks([])
-    # ylim(-1.5,1.5), yticks([])
     # savefig('../figures/scatter_ex.png',dpi=48)
     # show()
 
     
-
-
 if __name__ == "__main__":
     sim = Simulation.objects.get(pk=10)
     tc = sim.timecourse
