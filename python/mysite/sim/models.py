@@ -5,7 +5,6 @@ from django.core.files import File
 
 '''
     TODO: implement views
-    
     TODO: implement write the views
     
     TODO: implement example code to generate simulation task
@@ -17,8 +16,6 @@ from django.core.files import File
     set. 
     Simulations change the status to ASSIGNED. After the simulation is 
     performed
-     
-
 '''
 
 def validate_gt_zero(value):
@@ -26,7 +23,7 @@ def validate_gt_zero(value):
         raise ValidationError(u'%s is not > 0' % value)
 
 # Create your models here.
-# todo get name via ip dictionary
+# TODO: get name via ip dictionary
 class Core(models.Model):
     ip = models.CharField(max_length=200)
     cpu = models.IntegerField()
@@ -60,6 +57,11 @@ class Core(models.Model):
 
 # Create your models here.
 class SBMLModel(models.Model):
+    '''
+    Storage of SBMLmodels for the simulation.
+    TODO: generalize the solution, i.e. no storage of problem specific domain
+            like Nc and Nf
+    '''
     sbml_id = models.CharField(max_length=200, unique=True)
     name = models.CharField(max_length=200)
     version = models.IntegerField(validators=[validate_gt_zero])
@@ -78,32 +80,38 @@ class SBMLModel(models.Model):
         verbose_name_plural = "SBML Models"
     
     @classmethod
-    def create(cls, sbml_id):
+    def create(cls, sbml_id, folder):
         '''
-            TODO: Create the model based on the model id.
-            All the information of the SBMLModel can be deduced from the id.
+            Create the model based on the model id.
         '''
-        filename = "/home/mkoenig/multiscale-galactose-results/" + sbml_id + ".xml" 
-        f = open(filename, 'r')
-        myfile = File(f)
-        # ?? TODO: where to close the file
-        # f.close()
-        # Create the SBMLmodel
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
             return model;
         except ObjectDoesNotExist:
             print 'model is created'
-            return cls(sbml_id = 'Dilution_Curves_v4_Nc20_Nf1',
-                          name = 'Dilution_Curves',
-                          version = 4,
-                          nc = 20,
-                          nf = 1,
+            filename = folder + "/" + sbml_id + ".xml" 
+            f = open(filename, 'r')
+            myfile = File(f)
+            # ?? TODO: where to close the file
+            # f.close()
+            # Create the SBMLmodel
+            
+            (name, version, nc, nf) = SBMLModel.getInfoFromId(sbml_id)     
+            return cls(sbml_id = sbml_id,
+                          name = name,
+                          version = version,
+                          nc = nc,
+                          nf = nf,
                           file = myfile)
+            
     @classmethod
-    def getNameFromId(cls, sbml_id):
-        return sbml_id.split('_')[0]
-    
+    def getInfoFromId(cls, sbml_id):
+        '''
+        Parses the information from the sbml_id.
+        Very specific for the problem !
+        '''
+        tokens = sbml_id.split('_')
+        return ("_".join(tokens[0:len(tokens)-3]), tokens[-3][1:], tokens[-2][2:], tokens[-1][2:])    
     
 class Integration(models.Model):
     tend = models.FloatField()

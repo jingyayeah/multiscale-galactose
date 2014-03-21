@@ -29,17 +29,15 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
 import multiprocessing
-from sim.models import Integration, Core, Simulation, UNASSIGNED, ASSIGNED, DONE,\
-    ParameterCollection
-from random import randrange
+from sim.models import Core, Simulation, UNASSIGNED, ASSIGNED, DONE
 
 from django.utils import timezone
-
 from subprocess import call
 import shlex
 import socket
 import fcntl
 import struct
+from ConfigFileFactory import create_config_file_in_folder
 
 def get_ip_address(ifname='eth0'):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -48,6 +46,7 @@ def get_ip_address(ifname='eth0'):
         0x8915,  # SIOCGIFADDR
         struct.pack('256s', ifname[:15])
     )[20:24])
+
     
 def get_core_by_ip_and_cpu(ip, cpu):
     core_qset = Core.objects.filter(ip=ip, cpu=cpu)
@@ -58,6 +57,7 @@ def get_core_by_ip_and_cpu(ip, cpu):
         core = Core(ip=ip, cpu=cpu, time=timezone.now())
         core.save()
     return core
+
 
 def assign_simulation(ip, cpu):
     ''' Gets an unassigned simulation and assignes it to the core. '''
@@ -77,37 +77,28 @@ def assign_simulation(ip, cpu):
     else:
         return None
 
-def perform_simulation(sim):
+
+def perform_simulation(sim, folder):
     '''
-    Here the integration is performed.
+    Run ODE integration with the stored settings for the 
+    simulation.
+    TODO: Make sure the cpp is recompiled (use make file)
     '''    
-    folder = "/home/mkoenig/multiscale-galactose-results/"
-    config_file = create_config_file(sim)
-    sbml_file = folder + sim.task.sbml_model.sbml_id + ".xml"
+    config_file = create_config_file_in_folder(sim, folder)
+    sbml_file = folder + "/" + sim.task.sbml_model.sbml_id + ".xml"
     
-    print sim.task.pk
-    print sim.task.sbml_model.sbml_id
-    
-    # TODO: do the recompile via make once !
     # all simulations have to be performed against the same version
-    
+    copasi = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/CopasiModelRunner"  
     # run an operating system command
-        
-    # subprocess opens new process
-    # Check on which core it is running
-    # Make sure all the cores are really used
     # call(["ls", "-l"])
-    folder = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/"
-    copasi = "CopasiModelRunner"
-    call_command = folder + copasi + " -s " + sbml_file + " -p " + config_file;
+    call_command = copasi + " -s " + sbml_file + " -p " + config_file;
     print call_command
     call(shlex.split(call_command))
     
-    # TODO: store the simulation results
-    # TODO: store the config file
+    # TODO: store the simulation results in database
+    # TODO: store the config file in the database
     
-    
-    # simulation finished
+    # simulation finished (update simulation information and save)
     sim.time_sim = timezone.now()
     sim.status = DONE
     sim.save()
@@ -120,12 +111,12 @@ def info(title):
     print 'process id:', os.getpid()
 
 def worker(cpu, lock):
-    # Get the integration information
-    # integration = Integration.objects.all()[:1]
     info('function worker')
-    # TODO: adapt for ips
-    # ip = get_ip_address('eth0')
-    ip = "127.0.0.1"
+    
+    # TODO: BUG: Problems if no 'eth0' on laptop, fallback solution
+    # ip = "127.0.0.1"
+    ip = get_ip_address('eth0')
+    folder = "/home/mkoenig/multiscale-galactose-results/test"
     
     while(True):
         # use global lock for proper printing
@@ -137,25 +128,16 @@ def worker(cpu, lock):
         
         sim = assign_simulation(ip, cpu)
         if (sim):
-            perform_simulation(sim)
+            perform_simulation(sim, folder)
         else:
             print "no more simulations";
             time.sleep(20)
-            
-
 
 if __name__ == "__main__":
     '''
     Work with the exit codes to start new processes.
     If processes have terminated restart one of the processes.
-    '''
-    # reset everything to undone
-    #for sim in Simulation.objects.all():
-    #    sim.status = UNASSIGNED
-    #    sim.save()
-    # print('All Simulations unassigned')
-    
-    
+    '''    
     # run the process on all cpus
     cpus = multiprocessing.cpu_count()
     print 'Number of CPU: ', cpus 

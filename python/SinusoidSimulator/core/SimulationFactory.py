@@ -5,22 +5,17 @@ Created on March 20, 2014
 Simulations in C++ (CopasiModelSimulator) are called with SBML file
 & file of parameter settings.
 The SimulationFactory generates sets of parameters and simulations.
-Processors are calculating than the free simulations.
 
-
+UNASSIGNED simulations can be taken by processors and be performed.
 '''
+
 import sys
 import os
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-
 import numpy as np
-
 from sim.models import *
-from django.core.files import File
-from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
-
 
 def createSimulationForParametersInTask(pars, task):
     '''
@@ -81,27 +76,29 @@ def createSimulationForParametersInTask(pars, task):
         the integration in copasi.
         '''
 
-def createDilutionCurvesSimulationTask(sbml_id):
+def createDilutionCurvesSimulationTask(sbml_id, folder):
     '''
         Create the SBMLModel and the respective simulations.
+        
     '''
     # Get or create the model
-    model = SBMLModel.create(sbml_id);
+    model = SBMLModel.create(sbml_id, folder);
     model.save();
     print 'name: ' + model.file.name
     print 'path: ' + model.file.path
     print 'url: '  + model.file.url
     
-    
     # Get or create integration
-    integration, created = Integration.objects.get_or_create(tstart=0.0, tend=100.0, tsteps=1000,
-                              abs_tol=1E-6, rel_tol=1E-6)
-    
+    integration, created = Integration.objects.get_or_create(tstart=0.0, 
+                                                             tend=100.0, 
+                                                             tsteps=1000,
+                                                             abs_tol=1E-6,
+                                                             rel_tol=1E-6)
     if (created):
         print ('integration created')
         integration.save()
     
-    # [3] Create task 
+    # Create task 
     task, created = Task.objects.get_or_create(sbml_model=model, integration=integration)
     if (created):
         print ("task created")
@@ -110,37 +107,27 @@ def createDilutionCurvesSimulationTask(sbml_id):
     # Careful with creating objects again and again
     # Get the parameter collection which contains all the parameters in the list
     # Here every time a new Parameter collection is created
+    # TODO: ?? What does this mean, understand
+    '''
     pars = (('deficiency', 0, '-'),
             ('flow', 60E-6, 'm/s'),
             ('L',   500E-6, 'm'),)
     createSimulationForParametersInTask(pars, task);
-  
     pars = (('deficiency', 0, '-'),
-            ('flow', 200E-6, 'm/s'),
-            ('L',   500E-6, 'm'),)
+            ('flow_sin', 200E-6, 'm/s'),
+            ('L',   200E-6, 'm'),)
     createSimulationForParametersInTask(pars, task);
-  
-    flows = np.arange(0.0, 600E-6, 20E-6)
-    for flow in flows:
-        pars = (('deficiency', 0, '-'),
-                    ('flow', flow, 'm/s'),
-                    ('L',   500E-6, 'm'),)
-        createSimulationForParametersInTask(pars, task);
-  
-  
     '''
-    TODO: Create full range of simulations for different architectures.
-    
-    flows = np.arange(0.0, 300E-6, 60E-6)
-    pp_gals = np.arange(0.0, 5.0, 0.5)
-    for flow in flows:
-        for gal in pp_gals:
-            pars = (('deficiency', 0, '-'),
-                    ('flow', flow, 'm/s'),
-                    ('PP__gal', gal, 'mM'),
-                    ('L',   500E-6, 'm'),)
+  
+    # what parameters should be sampled
+    # TODO: write sampler from the distributions
+    flows = np.arange(0.0, 600E-6, 30E-6)
+    lengths = np.arange(200E-6, 600E-6, 200E-6)
+    for flow_sin in flows:
+        for L in lengths: 
+            pars = (('flow_sin', flow_sin, 'm/s'),
+                    ('L',   L, 'm'),)
             createSimulationForParametersInTask(pars, task);
-    '''
 
 
 if __name__ == "__main__":
@@ -149,6 +136,7 @@ if __name__ == "__main__":
     Simulation.objects.all().delete()
     
     # create new simulations for SBML with sbml_id 
+    folder = "/home/mkoenig/multiscale-galactose-results/test"
     sbml_id = "Dilution_Curves_v4_Nc20_Nf1"
-    createDilutionCurvesSimulationTask(sbml_id)
+    createDilutionCurvesSimulationTask(sbml_id, folder)
     
