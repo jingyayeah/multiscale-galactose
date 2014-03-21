@@ -2,7 +2,7 @@
  * ModelSimulator.cpp
  *
  *  Created on: Nov 13, 2013
- *      Author: mkoenig
+ *      Author: Matthias Koenig
  */
 #include <iostream>
 #include <vector>
@@ -34,13 +34,17 @@
 #include "ModelSimulator.h"
 #include "TimecourseParameters.h"
 
-/** Constructor with SBML filename. */
+/** Constructor with SBML filename.
+ * The ModelSimulator is the core class for integration of the model.
+ * Here the model is read into Copasi and the integration performed.
+ */
 ModelSimulator::ModelSimulator(std::string fname){
 	filename = fname;
 	simulationCounter = 0;
 	//readModel();
 }
 
+/* Necessary to generate output information, i.e. concat on output stream. */
 struct stringbuilder
 {
    std::stringstream ss;
@@ -85,62 +89,58 @@ int ModelSimulator::readModel(){
 	return 0;
 }
 
-
-/** Do timecourse simulation and write to file with
+/** Do timecourse simulation and write report file of resulting
+ * ODE integration.
+ * TimeCourseParameter Settings are used for the integration and all
+ * Parameters in the parameter vector have to be set.
  * the given parameter settings for the model.
  * Model is loaded once and than all timecourse simulations performed on the model.
  */
 int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars, const TimecourseParameters& tcPars, const std::string & reportTarget){
-
 	// initialize the backend library
-		CCopasiRootContainer::init(0, NULL);
-		assert(CCopasiRootContainer::getRoot() != NULL);
+	CCopasiRootContainer::init(0, NULL);
+	assert(CCopasiRootContainer::getRoot() != NULL);
 
-		// create a new datamodel
-		CCopasiDataModel* pDataModel = CCopasiRootContainer::addDatamodel();
-		assert(CCopasiRootContainer::getDatamodelList()->size() == 1);
+	// create a new datamodel
+	CCopasiDataModel* pDataModel = CCopasiRootContainer::addDatamodel();
+	assert(CCopasiRootContainer::getDatamodelList()->size() == 1);
 
-		try {
-			// load the model without progress report
-			std::cout << "loadSBML\t" << filename << std::endl;
-			pDataModel->importSBML(filename, NULL);
+	try {
+		// load the model without progress report
+		std::cout << filename << std::endl;
+		pDataModel->importSBML(filename, NULL);
 
-			// load the model without progress report
-			//std::cout << "loadCPS\t" << filename << std::endl;
-			//pDataModel->loadModel(filename, NULL);
+		// load the model without progress report
+		//std::cout << "loadCPS\t" << filename << std::endl;
+		//pDataModel->loadModel(filename, NULL);
 
-		} catch (...) {
-			std::cerr << "Error while importing the model from file named \""
-					<< filename << "\"." << std::endl;
-			CCopasiRootContainer::destroy();
-			return 1;
-		}
+	} catch (...) {
+		std::cerr << "Error while importing the model from file named \""
+				<< filename << "\"." << std::endl;
+		CCopasiRootContainer::destroy();
+		return 1;
+	}
 
-		//modelInfo(pDataModel); 	//Overview over model
-		std::cout << "Model read successfully" << std::endl;
-
-
+	//modelInfo(pDataModel); 	//Overview over model
+	std::cout << "Model read successfully" << std::endl;
 
 	CCopasiRootContainer::init(0, NULL);
 	assert(CCopasiRootContainer::getRoot() != NULL);
 
-	std::cout << "doTimeCourseSimulation" << std::endl;
-
 	CModel* pModel = pDataModel->getModel();
 	assert(pModel != NULL);
 
-	// Reset initial values for repetitive simulations ??
-	// ? how to do repetitive simulations ?
-	//pModel->applyInitialValues();
-
-	// we have to keep a set of all the initial values that are changed during
-	// the model building process
+	// keep track of the set of initial values that are changed during
+	// the model building process.
 	// They are needed after the model has been built to make sure all initial
-	// values are set to the correct initial value
+	// values are set to the correct initial value.
 	std::set<const CCopasiObject*> changedObjects;
 
-	// Change initial model values for all given parameters
+	// PARAMETERS - Change initial value
+	std::cout << "\n# Parameters" << std::endl;
+	unsigned int pSetCounter = 0;
 	for (size_t i=0; i<pModel->getModelValues().size(); ++i){
+		// Iterate over all model values
 		CModelValue* pModelValue = pModel->getModelValues()[i];
 		const std::string& sbmlId = pModelValue->getSBMLId();
 
@@ -150,39 +150,50 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		    double value = (*it).getValue();
 
 			if(sbmlId.compare(id) == 0){
-				std::cout << id << " -> " << value << std::endl;
+				std::cout << "\t" << id << " -> " << value << " [Parameter - InitialValue]" << std::endl;
 				pModelValue->setInitialValue(value);
 				// initial value set has to be update
 				const CCopasiObject* pObject = pModelValue->getInitialValueReference();
 				assert(pObject != NULL);
 				changedObjects.insert(pObject);
+				pSetCounter++;
 				break;
 			}
 		}
 	}
-	// TODO: count if all parameters have been set,
-	// 		 if not raise error !
-	// TODO: double check the parameter settings
 
-	/* PEAK
-	// Change Initial concentrations
+	// SPECIES - Change Initial concentrations
 	// ! careful with setInitialConcentration & setInitialValue
 	for (size_t i=0; i<pModel->getMetabolites().size(); ++i){
 		CMetab* pMetab = pModel->getMetabolites()[i];
 		const std::string& sbmlId = pMetab->getSBMLId();
-		if(sbmlId.compare("PP__gal") == 0){
-			double gal = 0.00012;
-			std::cout << "PP_gal -> " << gal  << std::endl;
-			pMetab->setInitialConcentration(gal);
 
-			// initial value set has to be update
-			const CCopasiObject* pObject = pMetab->getInitialConcentrationReference();
-			assert(pObject != NULL);
-			changedObjects.insert(pObject);
-			break;
+		// find the ids
+		for (std::vector<MParameter>::const_iterator it=pars.begin(); it!=pars.end(); ++it){
+		    //MParameter p = *it;
+		    std::string id = (*it).getId();
+		    double value = (*it).getValue();
+
+			if(sbmlId.compare(id) == 0){
+				std::cout << "\t" << id << " -> " << value << " [Species - InitialConcentration]" << std::endl;
+				pMetab->setInitialConcentration(value);
+
+				// initial value set has to be update
+				const CCopasiObject* pObject = pMetab->getInitialConcentrationReference();
+				assert(pObject != NULL);
+				changedObjects.insert(pObject);
+				pSetCounter++;
+				break;
+			}
 		}
 	}
 
+	if (pSetCounter != pars.size()){
+		// TODO: raise error
+		std::cerr << "ERROR - not all parameters set" << std::endl;
+	}
+
+	/* EVENT CHANGES
 	// Change Event states (for peak)
 	for (size_t i=0; i<pModel->getEvents().size(); ++i){
 		CEvent* pEvent = pModel->getEvents()[i];
@@ -204,7 +215,8 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	}
 	*/
 
-	std::cout << "Compile model and update initial conditions" << std::endl;
+
+	//std::cout << "Compile model and update initial conditions" << std::endl;
 	// finally compile the model
 	// compile needs to be done before updating all initial values for
 	// the model with the refresh sequence
@@ -228,18 +240,15 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	// ODE entity is determined by an ode
 
     // TODO: create report once
-    std::cout << "Create report: only once with updated file target" << std::endl;
+    // std::cout << "Create report: only once with updated file target" << std::endl;
 	// create a report with the correct filename and all the species against
 	// time.
 	CReportDefinitionVector* pReports = pDataModel->getReportDefinitionList();
 	// create a new report definition object
 
 
-
 	// TODO: i have to get the report somehow
-	std::cout << "Now creating" << std::endl;
     CReportDefinition* pReport = pReports->createReportDefinition("Report", "Output for timecourse");
-	std::cout << "Creation finished" << std::endl;
 
 	// set the task type for the report definition to timecourse
 	pReport->setTaskType(CCopasiTask::timeCourse);
@@ -248,7 +257,6 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	// the entries in the output should be seperated by a ", "
 	pReport->setSeparator(CCopasiReportSeparator(", "));
 
-	std::cout << "Define the report information" << std::endl;
 	// we need a handle to the header and the body
 	// the header will display the ids of the metabolites and "time" for
 	// the first column
@@ -263,7 +271,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	pHeader->push_back(pReport->getSeparator().getCN());
 
 	// write all metabolite concentrations
-	std::cout << "CMetab -> pReport" << std::endl;
+	// std::cout << "CMetab -> pReport" << std::endl;
 	size_t i, iMax = pModel->getMetabolites().size();
 	for (i = 0; i < iMax; ++i) {
 		CMetab* pMetab = pModel->getMetabolites()[i];
@@ -282,7 +290,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	}
 
 	// write all reactions
-	std::cout << "CReactions -> pReport" << std::endl;
+	// std::cout << "CReactions -> pReport" << std::endl;
 	iMax = pModel->getReactions().size();
 	for (i = 0; i < iMax; ++i) {
 		CReaction* pReaction = pModel->getReactions()[i];
@@ -313,9 +321,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		}
 	}
 
-
-
-	 std::cout << "Create timecourse trajectory task" << std::endl;
+	 std::cout << "\n# Timecourse" << std::endl;
 	// get the task list
 	CCopasiVectorN<CCopasiTask> & TaskList = *pDataModel->getTaskList();
 
@@ -350,7 +356,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	// set the report for the task
 	pTrajectoryTask->getReport().setReportDefinition(pReport);
 
-	std::cout<< "Report Target: " << reportTarget << std::endl << std::endl;
+	std::cout<< "Report : " << reportTarget << std::endl << std::endl;
 	pTrajectoryTask->getReport().setTarget(reportTarget);
 	// don't append output if the file exists, but overwrite the file
 	pTrajectoryTask->getReport().setAppend(false);
@@ -432,6 +438,8 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	//CCopasiRootContainer::destroy();
 	return 0;
 }
+
+
 
 int ModelSimulator::SBML2CPS(std::string fnameSBML, std::string fnameCPS) {
 	std::cout << "Convert SBML -> CPS: " << fnameSBML << "->" << fnameCPS << std::endl;

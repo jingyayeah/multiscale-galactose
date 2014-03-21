@@ -1,16 +1,6 @@
-// Copyright (C) 2010 - 2013 by Pedro Mendes, Virginia Tech Intellectual
-// Properties, Inc., University of Heidelberg, and The University
-// of Manchester.
+// Copyright (C) 2014 by Matthias Koenig, Charite Berlin
 // All rights reserved.
 
-// Copyright (C) 2009 by Pedro Mendes, Virginia Tech Intellectual
-// Properties, Inc., EML Research, gGmbH, University of Heidelberg,
-// and The University of Manchester.
-// All rights reserved.
-
-/**
- * This is an example on how to build models with the COPASI backend API.
- */
 #include <iostream>
 #include <vector>
 #include <string>
@@ -36,7 +26,7 @@
 #include "TimecourseParameters.h"
 
 /**
- * Main function called with arguments.
+ * The CopasiModelRunner is called in the following way
  * ./CopasiModelRunner -sbml sbml_file -parameters pars_file
  *
  * The parameters are set in the model and the integration performed.
@@ -49,10 +39,9 @@
  * 	- read the data into Matlab for analysis
  *
  * 	TODO: create a makefile
- *
- *  Dilution indicator studies - Model to integrate
- *	std::string filename = "/home/mkoenig/multiscale-galactose-results/Dilution_Curves_v4_Nc1_Nf1.xml";
- *	std::string filename = "/home/mkoenig/multiscale-galactose-results/Dilution_Curves_v4_Nc20_Nf1.xml";
+ * 	TODO: test if all the parameters are set in the simulation !!! This is
+ * 			crucial to guarantee that the right integration is performed.
+ * 	TODO: clarify output of simulation
  */
 
 #include <boost/program_options/options_description.hpp>
@@ -101,14 +90,17 @@ std::map<std::string, std::string> parseConfigFile(std::string filename) {
 }
 
 
-/** Parse the Timecourse Parameters from the settings file. */
+/** Parse the Timecourse Parameters from the settings file.
+ * The Timecourse parameters are stored in the [Timecourse] ini section.
+ * The map are the parsed config file options.
+ */
 TimecourseParameters createTimecourseParametersFromMap(std::map<std::string, std::string> map){
-
-	double t0 = atof(map["Timecourse.t0"].c_str());
-	double dur = atof(map["Timecourse.dur"].c_str());
-	int steps = atoi(map["Timecourse.steps"].c_str());
-	double rTol = atof(map["Timecourse.rTol"].c_str());
-	double aTol = atof(map["Timecourse.aTol"].c_str());
+	std::string section = "Timecourse.";
+	double t0 = atof(map[section + "t0"].c_str());
+	double dur = atof(map[section + "dur"].c_str());
+	int steps = atoi(map[section + "steps"].c_str());
+	double rTol = atof(map[section + "rTol"].c_str());
+	double aTol = atof(map[section + "aTol"].c_str());
 	TimecourseParameters tcp (t0, dur, steps, rTol, aTol);
 
 	std::cout << "------------------------------------" << std::endl;
@@ -118,26 +110,20 @@ TimecourseParameters createTimecourseParametersFromMap(std::map<std::string, std
 	return tcp;
 }
 
-/* Create the parameter vector from the parameter file.
- * TODO: create a list object of parameters,
- * 		the initial concentrations are changed based on the names in the integration
- */
-std::vector<MParameter> createParametersFromMap(
-		std::map<std::string, std::string> map) {
-
+/* Create the parameter vector from the config file by using
+ * information in the respective section. */
+std::vector<MParameter> createParametersFromMap(std::map<std::string, std::string> map) {
+	std::string section = "Parameters.";
 	std::vector<MParameter> pars;
-	// Iterate over the map
-	std::map<std::string, std::string>::iterator iter;
 	std::string key;
-	for (iter = map.begin(); iter != map.end(); ++iter) {
+	for (std::map<std::string, std::string>::iterator iter = map.begin(); iter != map.end(); ++iter) {
 		key = iter->first;
-		// Check if startswith 'Parameters.'
-		// FIXME: bad hack to find value
-		if (key.find("Parameters.") != std::string::npos) {
-			std::string short_key = key.substr(11, key.length());
+		// Check if startswith section
+		if (key.find(section) != std::string::npos) {
+			std::string short_key = key.substr(section.length(), key.length());
 			MParameter p(short_key, atof(map[key].c_str()));
+			// store the parameter in the vector
 			pars.push_back(p);
-			//std::cout << short_key << " <- " << key << std::endl;
 		}
 	}
 
@@ -165,7 +151,7 @@ std::string createSimulationFilename(std::string sbml_filename, std::map<std::st
 
 /** Read the command line information and run the integration
  * with the parsed information.
- * Generate the Copasi file once and reuse it for the integration (SBML Ids conserved?)
+ * TODO: Generate the Copasi file once and reuse it for the integration (SBML Ids conserved?)
  */
 int main(int argc, const char* argv[])
 {
@@ -243,10 +229,10 @@ int main(int argc, const char* argv[])
 
 	////////////////////////////////////////////////////////
 
-	// Create a new ModelSimulator for the file
 	std::cout << "------------------------------------" << std::endl;
 	std::cout  << "Integration" << std::endl;
 	std::cout << "------------------------------------" << std::endl;
+
 	ModelSimulator m (sbml_filename);
 	m.doTimeCourseSimulation(pars, tcPars, report_filename);
 	return 0;
