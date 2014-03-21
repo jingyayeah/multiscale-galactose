@@ -20,6 +20,9 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 
 Database things and setup handled by Django.
 
+
+TODO: handle errors in the integration (ERROR code and storage
+of problems for debugging)
 '''
 
 import os

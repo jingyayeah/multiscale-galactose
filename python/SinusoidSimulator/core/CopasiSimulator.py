@@ -33,7 +33,6 @@ def perform_copasi_simulation(sim):
     # TODO: use read?
     
     
-    
     print
     print 'sbml'
     sbml = sim.task.sbml_model
