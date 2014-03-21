@@ -29,7 +29,7 @@ class TimecourseAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'simulation', 'file')
 
 class SimulationAdmin(admin.ModelAdmin):
-    list_display = ('pk', '__unicode__', 'task', 'parameters', 'status', 'time_create')
+    list_display = ('pk', '__unicode__', 'task', 'parameters', 'status', 'time_create', 'file')
 
 class TaskAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'sbml_model', 'integration')

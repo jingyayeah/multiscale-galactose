@@ -1,7 +1,7 @@
 '''
 Created on Nov 26, 2013
 
-@author: mkoenig
+@author: Matthias Koenig
 
 How multiprocessing works, in a nutshell:
 
@@ -29,9 +29,10 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
 import multiprocessing
-from sim.models import Core, Simulation, UNASSIGNED, ASSIGNED, DONE
+from sim.models import Core, Simulation, UNASSIGNED, ASSIGNED, DONE, Timecourse
 
 from django.utils import timezone
+from django.core.files import File
 from subprocess import call
 import shlex
 import socket
@@ -85,8 +86,13 @@ def perform_simulation(sim, folder):
     TODO: Make sure the cpp is recompiled (use make file)
     '''    
     sbml_file = folder + "/" + sim.task.sbml_model.sbml_id + ".xml"
-    config_file = create_config_file_in_folder(sim, folder)
     timecourse_file = sbml_file[0:-4] + "_Sim" + str(sim.pk) + "_copasi.csv"
+    
+    #Store the config file in the database
+    config_file = create_config_file_in_folder(sim, folder)
+    f = open(config_file, 'r')
+    sim.file = File(f)
+    sim.save()
     
     # all simulations have to be performed against the same version
     copasi = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/CopasiModelRunner"  
@@ -96,15 +102,20 @@ def perform_simulation(sim, folder):
     print call_command
     call(shlex.split(call_command))
     
-    # TODO: store the timecourse results in database
-    # TODO: store the config file in the database
-
-   
+    # Store Timecourse Results
+    f = open(timecourse_file, 'r')
+    myfile = File(f)
+    tc, created = Timecourse.objects.get_or_create(simulation=sim)
+    if (not created):
+        print 'Timecourse already exists and is overwritten!'
+    tc.file = myfile
+    tc.save();
     
     # simulation finished (update simulation information and save)
     sim.time_sim = timezone.now()
     sim.status = DONE
     sim.save()
+
 
 def info(title):
     print title

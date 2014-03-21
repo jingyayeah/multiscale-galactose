@@ -70,11 +70,6 @@ def createSimulationForParametersInTask(pars, task):
             pass
         sim.save()
 
-    def createConfigFile():
-        '''
-        TODO: Necessary to create the config file from the settings for 
-        the integration in copasi.
-        '''
 
 def createDilutionCurvesSimulationTask(sbml_id, folder):
     '''

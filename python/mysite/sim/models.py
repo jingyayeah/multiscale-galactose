@@ -4,12 +4,8 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.files import File
 
 '''
-    TODO: implement views
-    TODO: implement write the views
-    
-    TODO: implement example code to generate simulation task
-    TODO: call simulation with settings (CPP)
-    TODO: write back simulation results 
+    TODO: implement views for the database content
+    TODO: store timecourse files and config files
 
     Pool of simulations is defined with the status 'OPEN'.
     The different computers get unassigned simulations from a simulation
@@ -59,16 +55,8 @@ class Core(models.Model):
 class SBMLModel(models.Model):
     '''
     Storage of SBMLmodels for the simulation.
-    TODO: generalize the solution, i.e. no storage of problem specific domain
-            like Nc and Nf
     '''
     sbml_id = models.CharField(max_length=200, unique=True)
-    name = models.CharField(max_length=200)
-    version = models.IntegerField(validators=[validate_gt_zero])
-    nc = models.IntegerField(validators=[validate_gt_zero])
-    nf = models.IntegerField(validators=[validate_gt_zero])
-    # file = models.CharField(max_length=200, unique=True)
-    # file = models.FileField(upload_to="sbml/%Y/%m/%d")
     file = models.FileField(upload_to="sbml")
     
     def __unicode__(self):
@@ -92,26 +80,11 @@ class SBMLModel(models.Model):
             filename = folder + "/" + sbml_id + ".xml" 
             f = open(filename, 'r')
             myfile = File(f)
-            # ?? TODO: where to close the file
-            # f.close()
+            # ?? TODO: where to close the file [ f.close() ]
             # Create the SBMLmodel
+    
+            return cls(sbml_id = sbml_id, file = myfile)
             
-            (name, version, nc, nf) = SBMLModel.getInfoFromId(sbml_id)     
-            return cls(sbml_id = sbml_id,
-                          name = name,
-                          version = version,
-                          nc = nc,
-                          nf = nf,
-                          file = myfile)
-            
-    @classmethod
-    def getInfoFromId(cls, sbml_id):
-        '''
-        Parses the information from the sbml_id.
-        Very specific for the problem !
-        '''
-        tokens = sbml_id.split('_')
-        return ("_".join(tokens[0:len(tokens)-3]), tokens[-3][1:], tokens[-2][2:], tokens[-1][2:])    
     
 class Integration(models.Model):
     tend = models.FloatField()
@@ -215,6 +188,7 @@ class Simulation(models.Model):
     # set during assignment
     time_assign = models.DateTimeField(null=True)
     core = models.ForeignKey(Core, null=True)
+    file = models.FileField(upload_to='config/%Y/%m/%d', null=True)
     # set after simulation
     time_sim = models.DateTimeField(null=True)
     
