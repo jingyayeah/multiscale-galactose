@@ -39,9 +39,7 @@
  * 	- read the data into Matlab for analysis
  *
  * 	TODO: create a makefile
- * 	TODO: test if all the parameters are set in the simulation !!! This is
- * 			crucial to guarantee that the right integration is performed.
- * 	TODO: clarify output of simulation
+ * 	TODO: Generate the Copasi file once and reuse it for the integration (SBML Ids conserved?)
  */
 
 #include <boost/program_options/options_description.hpp>
@@ -151,7 +149,6 @@ std::string createSimulationFilename(std::string sbml_filename, std::map<std::st
 
 /** Read the command line information and run the integration
  * with the parsed information.
- * TODO: Generate the Copasi file once and reuse it for the integration (SBML Ids conserved?)
  */
 int main(int argc, const char* argv[])
 {

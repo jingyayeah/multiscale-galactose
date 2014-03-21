@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <stdexcept>
 
 #include "copasi/copasi.h"
 #include "copasi/report/CCopasiRootContainer.h"
@@ -189,8 +190,8 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	}
 
 	if (pSetCounter != pars.size()){
-		// TODO: raise error
 		std::cerr << "ERROR - not all parameters set" << std::endl;
+		throw std::runtime_error("Not all parameters set before integration");
 	}
 
 	/* EVENT CHANGES
@@ -239,16 +240,10 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	// 		metabolites)
 	// ODE entity is determined by an ode
 
-    // TODO: create report once
-    // std::cout << "Create report: only once with updated file target" << std::endl;
-	// create a report with the correct filename and all the species against
-	// time.
+
+	// create a report
 	CReportDefinitionVector* pReports = pDataModel->getReportDefinitionList();
-	// create a new report definition object
-
-
-	// TODO: i have to get the report somehow
-    CReportDefinition* pReport = pReports->createReportDefinition("Report", "Output for timecourse");
+	CReportDefinition* pReport = pReports->createReportDefinition("Report", "Output for timecourse");
 
 	// set the task type for the report definition to timecourse
 	pReport->setTaskType(CCopasiTask::timeCourse);
@@ -278,8 +273,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		assert(pMetab != NULL);
 
 		// amount via: "Reference=Amount"
-		pBody->push_back(
-					pMetab->getObject(
+		pBody->push_back(pMetab->getObject(
 							CCopasiObjectName("Reference=Concentration"))->getCN());
 		// after each entry, we need a seperator
 		pBody->push_back(pReport->getSeparator().getCN());
@@ -298,15 +292,14 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		// filter via status
 		// CModelEntity::FIXED; CModelEntity::ODE; CModelEntity::REACTIONS; CModelEntity::ASSIGNMENT;
 		// if (pReaction->getStatus() != CModelEntity::Status::FIXED)
+		pBody->push_back(pReaction->getObject(
+							CCopasiObjectName("Reference=Flux"))->getCN());
+		// after each entry, we need a seperator
+		pBody->push_back(pReport->getSeparator().getCN());
 
-			pBody->push_back(pReaction->getObject(
-								CCopasiObjectName("Reference=Flux"))->getCN());
-			// after each entry, we need a seperator
-			pBody->push_back(pReport->getSeparator().getCN());
-
-			// add the corresponding id to the header and a separator
-			pHeader->push_back(CCopasiStaticString(pReaction->getSBMLId()).getCN());
-			pHeader->push_back(pReport->getSeparator().getCN());
+		// add the corresponding id to the header and a separator
+		pHeader->push_back(CCopasiStaticString(pReaction->getSBMLId()).getCN());
+		pHeader->push_back(pReport->getSeparator().getCN());
 	}
 
 	if (iMax > 0) {
@@ -351,8 +344,6 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	// and passed to CopasiSE
 	pTrajectoryTask->setScheduled(true);
 
-
-	// TODO: change settings of the report
 	// set the report for the task
 	pTrajectoryTask->getReport().setReportDefinition(pReport);
 
@@ -497,7 +488,8 @@ int ModelSimulator::test(){
 	  // we want seconds as the time unit
 	  // microliter as the volume units
 	  // and nanomole as the substance units
-	  // TODO: BUG, why can the units not be set ?
+
+	  // BUG, why can the units not be set ?, only important for the example
 	  // pModel->setTimeUnit(CModel::s);
 	  // pModel->setVolumeUnit(CModel::microl);
 	  // pModel->setQuantityUnit(CModel::nMol);
