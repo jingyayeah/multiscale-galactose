@@ -140,13 +140,6 @@ std::string createCopasiFilenameFromSBML(std::string sbml_filename){
 	return cps_filename;
 }
 
-std::string createSimulationFilename(std::string sbml_filename, std::map<std::string, std::string> map){
-	std::string cps_filename = sbml_filename.substr(0, sbml_filename.size()-4) + "_Sim"
-			+ map["Simulation.Simulation"] + "_copasi.csv";
-	return cps_filename;
-}
-
-
 /** Read the command line information and run the integration
  * with the parsed information.
  */
@@ -155,7 +148,8 @@ int main(int argc, const char* argv[])
 	std::string author = "Matthias Koenig";
 	std::string version = "0.1";
 	std::string sbml_filename;
-	std::string pars_filename;
+	std::string config_filename;
+	std::string timecourse_filename;
 
 	// Read the information from command line option
 	 po::options_description description("CopasiModelRunner Usage");
@@ -163,7 +157,8 @@ int main(int argc, const char* argv[])
 	 description.add_options()
 	        ("help,h", "Display this help message")
 	        ("sbml,s", po::value<std::string>(), "SBML file")
-	        ("pars,p", po::value<std::string>(), "Parameter file")
+	        ("config,c", po::value<std::string>(), "Config file")
+	        ("timecourse,t", po::value<std::string>(), "Timecourse file")
 	        ("version,v", "Display the version number");
 
 	  po::positional_options_description pos;
@@ -190,14 +185,24 @@ int main(int argc, const char* argv[])
 	    	return 0;
 	    }
 
-	    if(vm.count("pars")){
-	    	pars_filename = vm["pars"].as<std::string>();
+	    if(vm.count("config")){
+	    	config_filename = vm["config"].as<std::string>();
 
 	    } else {
-	    	std::cout << "Parameter file missing" << std::endl;
+	    	std::cout << "Config file missing" << std::endl;
 	    	std::cout << description;
 	    	return 0;
 	    }
+
+	    if(vm.count("timecourse")){
+	    	timecourse_filename = vm["timecourse"].as<std::string>();
+
+	    } else {
+	    	std::cout << "Timecourse file missing" << std::endl;
+	    	std::cout << description;
+	    	return 0;
+	    }
+
 
 	    if(vm.count("version")){
 	        std::cout << "CopasiModelRunner Version " << version << std::endl;
@@ -209,20 +214,20 @@ int main(int argc, const char* argv[])
 	std::cout << "CopasiModelRunner-v" << version << std::endl;
 	std::cout << "####################################" << std::endl;
 
-	std::map<std::string, std::string> map = parseConfigFile(pars_filename);
+	std::map<std::string, std::string> map = parseConfigFile(config_filename);
 	TimecourseParameters tcPars = createTimecourseParametersFromMap(map);
 	std::vector<MParameter> pars = createParametersFromMap(map);
 
 	std::string cps_filename = createCopasiFilenameFromSBML(sbml_filename);
-	std::string report_filename = createSimulationFilename(sbml_filename, map);
+	//std::string report_filename = createSimulationFilename(sbml_filename, map);
 
 	std::cout << "------------------------------------" << std::endl;
 	std::cout  << "Files" << std::endl;
 	std::cout << "------------------------------------" << std::endl;
 	std::cout << "SBML   : " << sbml_filename << std::endl;
-	std::cout << "Config : " << pars_filename << std::endl;
+	std::cout << "Config : " << config_filename << std::endl;
 	std::cout << "Copasi : " << cps_filename << std::endl;
-	std::cout << "Report : " << report_filename << std::endl;
+	std::cout << "Timecourse : " << timecourse_filename << std::endl;
 
 	////////////////////////////////////////////////////////
 
@@ -231,6 +236,6 @@ int main(int argc, const char* argv[])
 	std::cout << "------------------------------------" << std::endl;
 
 	ModelSimulator m (sbml_filename);
-	m.doTimeCourseSimulation(pars, tcPars, report_filename);
+	m.doTimeCourseSimulation(pars, tcPars, timecourse_filename);
 	return 0;
 }

@@ -76,7 +76,7 @@ def assign_simulation(ip, cpu):
         return sim
     else:
         return None
-
+    
 
 def perform_simulation(sim, folder):
     '''
@@ -84,19 +84,22 @@ def perform_simulation(sim, folder):
     simulation.
     TODO: Make sure the cpp is recompiled (use make file)
     '''    
-    config_file = create_config_file_in_folder(sim, folder)
     sbml_file = folder + "/" + sim.task.sbml_model.sbml_id + ".xml"
+    config_file = create_config_file_in_folder(sim, folder)
+    timecourse_file = sbml_file[0:-4] + "_Sim" + str(sim.pk) + "_copasi.csv"
     
     # all simulations have to be performed against the same version
     copasi = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/CopasiModelRunner"  
     # run an operating system command
     # call(["ls", "-l"])
-    call_command = copasi + " -s " + sbml_file + " -p " + config_file;
+    call_command = copasi + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
     print call_command
     call(shlex.split(call_command))
     
-    # TODO: store the simulation results in database
+    # TODO: store the timecourse results in database
     # TODO: store the config file in the database
+
+   
     
     # simulation finished (update simulation information and save)
     sim.time_sim = timezone.now()
