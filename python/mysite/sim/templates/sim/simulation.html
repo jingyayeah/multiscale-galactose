@@ -23,13 +23,29 @@
 		</tr>    
     </table>
     
+    <h2>Parameters</h2>    
+    <table>
+	<tr>
+		<th>id</th>
+		<th>value</th>
+		<th>unit</th>
+	</tr>
+	{% for pars in sim.parameters.parameters.all %}
+		<tr>
+			<td>{{pars.name}}</td>
+			<td>{{pars.value}}</td>
+			<td>{{pars.unit}}</td>
+		</tr>
+		{% endfor %}    
+    </table>
+    
     <h2>Plots</h2>
-    {{ sim.timecourse.plot_set.all }}
     {% for plot in sim.timecourse.plot_set.all %}
-    	{{plot.file.name}}<br />
-    	{{plot.file.plot_type}}<br />
-    	<img src="{{plot.file.url}}"></img>Plot {{plot.file.name}} 
+    	<b>name</b>: {{plot.file.name}}<br />
+    	<b>type</b>: {{plot.plot_type}}<br />
+    	<img src="{{plot.file.url}}"></img><br />
     {% endfor %}
+    
     
     {% if sim_previous %}
 		<a href="{% url 'sim:simulation' sim_previous.pk %}">Previous</a>
