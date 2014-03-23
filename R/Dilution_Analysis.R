@@ -68,13 +68,17 @@ save(v, file="T2_Dilution_Data.rdata")
 nrow(pars)
 
 
+name = "PV__rbcM"
 d.PV__rbcM <- matrix(, nrow = nrow(v[[1]]), ncol = nrow(pars))
 for(k in 1:nrow(pars)){
   sim <- row.names(pars)[k]
-  d.PV__rbcM[, k] <-  
+  d.PV__rbcM[, k] <- v[[sim]][, name]
 }
+names(d.PV__rbcM) <- row.names(pars)
+row.names(d.PV__rbcM) <- names(v[[sim]])
 
-d.PV__rbcM = table
+names(v[[sim]])
+head(d.PV__rbcM)
 
 
 
@@ -83,14 +87,22 @@ time = as.numeric(row.names(v[["Sim1"]]))
 count = 1
 for (name in names(v)){
   tmp = v[[name]]
+  compoundName = paste("PV__", compound, sep="")
   if (count == 1){
-    plot(time, tmp[[paste("PV__", compound, sep="")]], 'l')
+    sumtmp = tmp[[compoundName]]
+    plot(time, tmp[[compoundName]], 'l')
   } else {
-    lines(time, tmp[[paste("PV__", compound, sep="")]])
+    sumtmp = sumtmp + tmp[[compoundName]]
+    lines(time, tmp[[compoundName]])
   }
   count = count + 1
+  if (count == 100){
+    lines(time, sumtmp/100, 'b', color='g')
+  }
 }
+
   
+
 plot(row.names(test), test[,])
 for (k in seq(2, length(names(test)))){
   lines(row.names(test), test[,k])
