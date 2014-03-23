@@ -146,12 +146,9 @@ def worker(cpu, lock):
         
         sim = assign_simulation(ip, cpu)
         if (sim):
-            try:
-                perform_simulation(sim, folder)
-            except:
-                # TODO: catch the errors from COPASI and
-                # generate a log file
-                print "ERROR in COPASI integration"
+            # TODO: error management and error handling
+            perform_simulation(sim, folder)
+        
         else:
             print "no more simulations";
             time.sleep(20)

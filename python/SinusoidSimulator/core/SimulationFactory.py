@@ -104,7 +104,7 @@ def createDilutionCurvesSimulationTask(sbml_id, folder):
     # How to create the parameters
     
     # createParametersByManual(task);
-    createParametersBySampling(task, 1000);
+    createParametersBySampling(task, 100);
     
     
 def createParametersByManual(task):
@@ -134,7 +134,7 @@ def createParametersBySampling(task, N=100):
     
     for kn in range(N):
         # create parameters
-        pars = [('deficiency', 0, '-')]
+        pars = []
         for kp in range(len(names)):
             m = means[kp]
             std = stds[kp] 

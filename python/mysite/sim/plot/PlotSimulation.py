@@ -152,7 +152,7 @@ def createPlotPPPV(sim, folder):
     plt.title("Simulation " + str(sim.pk))
     plt.ylabel('concentration [mM]')
     plt.xlabel('time [s]')
-    plt.xlim([7, 25])
+    plt.xlim([7, 80])
     plt.ylim([-0.1, 1.1])
 
     # scatter(X,Y, s=75, c=T, alpha=.5)
