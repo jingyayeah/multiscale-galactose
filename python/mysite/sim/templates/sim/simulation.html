@@ -28,8 +28,15 @@
     {% for plot in sim.timecourse.plot_set.all %}
     	{{plot.file.name}}<br />
     	{{plot.file.plot_type}}<br />
-    	<img src="{{plot.file.url}}">Plot {{plot.file.name}} </img>
+    	<img src="{{plot.file.url}}"></img>Plot {{plot.file.name}} 
     {% endfor %}
     
+    {% if sim_previous %}
+		<a href="{% url 'sim:simulation' sim_previous.pk %}">Previous</a>
+    {% else %} - {% endif %}
+    <b>|</b>
+    {% if sim_next %}
+		<a href="{% url 'sim:simulation' sim_next.pk %}">Next</a>
+    {% else %} - {% endif %}
 
 {% endblock %}

@@ -9,6 +9,8 @@ import sys
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sim.models import Simulation, Timecourse, Plot, TIMECOURSE
 import numpy as np
@@ -80,40 +82,44 @@ def createPlotPPPV(sim, folder):
     time = x['time']
     del x['time']
     
+    fig = plt.figure()
+    fig.set_size_inches(5, 5)
+    
+    # plot all the PP and PV pairs
     # TODO: handle the colors of the plots, unified color schema for
     # ids
-    
     for name, values in x.iteritems():
-        # plot all the PP__ and PV__
         if (name.startswith("PP__") or name.startswith("PV__")):
             plt.plot(time, x[name])
     
-    # plot all the PP and PV pairs
     plt.title("Simulation " + str(sim.pk))
     plt.ylabel('concentration [mM]')
     plt.xlabel('time [s]')
-    plt.xlim([0, 80])
+    plt.xlim([0, 30])
     plt.ylim([-0.1, 1.1])
-    # plt.show()
-    
+
     # scatter(X,Y, s=75, c=T, alpha=.5)
 
-    # 
-    # TODO save the plot in the static file
     filename = folder + "/" + sim.task.sbml_model.sbml_id + "_pppv.png"
     print filename
-    plt.savefig(filename, dpi=48)
+    plt.savefig(filename, dpi=72, bbox_inches='tight')
     print "Figure created"
     
+    f = open(filename, 'rb')
     try:
         plot = Plot.objects.get(timecourse=sim.timecourse.pk)
         print 'Plot already exists'
+        print 'Overwrite picture'
+        plot.plot_type = TIMECOURSE
+        plot.file = File(f)
+        plot.save()
     except ObjectDoesNotExist:
         print 'plot is created'
-        f = open(filename, 'rb')
+        
         plot = Plot(timecourse=sim.timecourse, plot_type=TIMECOURSE, file=File(f))
         plot.save()
-        f.close()
+    
+    f.close()
     # show()
     
 def createSimulationPlots(sim, folder):
