@@ -1,8 +1,9 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from sim.models import SBMLModel, Core, Simulation, Timecourse, Task
-from django.shortcuts import render_to_response
+from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot
+from django.shortcuts import render_to_response, render, get_object_or_404
+from sim.plot import PlotSimulation
 
 
 def index(request):
@@ -50,6 +51,35 @@ def simulations(request):
     })
     return HttpResponse(template.render(context))
 
+def simulation(request, simulation_id):
+    '''
+    Overview of single simulation.
+    '''
+    sim = get_object_or_404(Simulation, pk=simulation_id)
+    try:
+        sim_previous = Simulation.objects.get(pk=(sim.pk-1))
+    except:
+        sim_previous = None
+    try:
+        sim_next = Simulation.objects.get(pk=(sim.pk+1))
+    except:
+        sim_next = None
+    
+    # create the plots for the simulation
+    folder = "/home/mkoenig/multiscale-galactose-results/test"
+    PlotSimulation.createSimulationPlots(sim, folder)
+    
+    template = loader.get_template('sim/simulation.html')
+    context = RequestContext(request, {
+        'sim': sim,
+        'sim_previous': sim_previous,
+        'sim_next': sim_next,
+    })
+    return HttpResponse(template.render(context))
+    
+    # return HttpResponse("You're looking at Simulation %s." % simulation_id)
+
+
 def timecourses(request):
     '''
     Overview of Timecourses.
@@ -60,6 +90,18 @@ def timecourses(request):
         'tc_list': tc_list,
     })
     return HttpResponse(template.render(context))
+
+def plots(request):
+    '''
+    Overview of Plots.
+    '''
+    plots_list = Plot.objects.all()
+    template = loader.get_template('sim/plots.html')
+    context = RequestContext(request, {
+        'plots_list': plots_list,
+    })
+    return HttpResponse(template.render(context))
+
 
 def model(request, model_id):
     return HttpResponse("You're looking at SBMLmodel %s." % model_id)

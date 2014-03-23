@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     # ex: /core/
     url(r'^cores/$', views.cores, name='cores'),
     url(r'^simulations/$', views.simulations, name='simulations'),
+    url(r'^simulation/(?P<simulation_id>\d+)$', views.simulation, name='simulation'),
     url(r'^timecourses/$', views.timecourses, name='timecourses'),
     
     url(r'^model/(?P<model_id>\d+)/$', views.model, name='model'),
@@ -17,5 +18,6 @@ urlpatterns = patterns('',
     
     url(r'^models/$', views.index, name='models'),
     url(r'^tasks/$', views.tasks, name='tasks'),
+    url(r'^plots/$', views.plots, name='plots'),
     url(r'^$', views.index, name='index'),
 )

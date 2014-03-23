@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+TEMPLATE_STRING_IF_INVALID="<invalid>"
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT = "/home/mkoenig/multiscale-galactose-results/django/"

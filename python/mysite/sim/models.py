@@ -230,7 +230,17 @@ class Timecourse(models.Model):
     
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
-    
-    
+
+TIMECOURSE = "TIMECOURSE"
+STEADYSTATE = "STEADYSTATE"
+  
+class Plot(models.Model):
+    PLOT_TYPES = (
+        (TIMECOURSE, 'Timecourse'),
+        (STEADYSTATE, 'SteadyState'),
+    )
+    timecourse = models.ForeignKey(Timecourse)
+    plot_type = models.CharField(max_length=20, choices=PLOT_TYPES, default=TIMECOURSE)
+    file = models.FileField(upload_to="plot/")
     
     

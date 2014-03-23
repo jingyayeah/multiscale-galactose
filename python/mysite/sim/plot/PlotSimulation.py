@@ -1,7 +1,8 @@
 '''
 Created on Mar 21, 2014
+@author: Matthias Koenig
 
-@author: mkoenig
+Class for generating plots from timecourses using matplotlib
 '''
 import os
 import sys
@@ -9,12 +10,11 @@ sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import matplotlib.pyplot as plt
-
-
-
-from sim.models import Simulation, Timecourse
+from sim.models import Simulation, Timecourse, Plot, TIMECOURSE
 import numpy as np
 import csv
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.files import File
 
 def getColumns(inFile, delim="\t", header=True):
     """
@@ -66,40 +66,62 @@ def getDataFromTimeCourse(tc):
     return cols;
     
     
-def plotSimulationData(x):
+def createPlotPPPV(sim, folder):
     '''
-    Plot data for the simulation
-    ''' 
-    # Get the time
-    time = data['time']
-    del data['time']
+    Create the periportal (PP), perivenious (PV) plots.
     
-    
+    Access the data via the x data dictionary via SBML ids.
     PP__gal = x['PP__gal']
     PV__gal = x['PV__gal']
     PP__rbcM = x['PP__rbcM']
     PV__rbcM = x['PV__rbcM']
+    ''' 
+    x = getDataFromTimeCourse(sim.timecourse)
+    time = x['time']
+    del x['time']
     
-    for name, values in data.iteritems():
+    # TODO: handle the colors of the plots, unified color schema for
+    # ids
+    
+    for name, values in x.iteritems():
         # plot all the PP__ and PV__
         if (name.startswith("PP__") or name.startswith("PV__")):
             plt.plot(time, x[name])
     
     # plot all the PP and PV pairs
-    plt.title("Simulation" + "?")
+    plt.title("Simulation " + str(sim.pk))
     plt.ylabel('concentration [mM]')
     plt.xlabel('time [s]')
     plt.xlim([0, 80])
     plt.ylim([-0.1, 1.1])
-    plt.show()
+    # plt.show()
+    
     # scatter(X,Y, s=75, c=T, alpha=.5)
 
-    # savefig('../figures/scatter_ex.png',dpi=48)
+    # 
+    # TODO save the plot in the static file
+    filename = folder + "/" + sim.task.sbml_model.sbml_id + "_pppv.png"
+    print filename
+    plt.savefig(filename, dpi=48)
+    print "Figure created"
+    
+    try:
+        plot = Plot.objects.get(timecourse=sim.timecourse.pk)
+        print 'Plot already exists'
+    except ObjectDoesNotExist:
+        print 'plot is created'
+        f = open(filename, 'rb')
+        plot = Plot(timecourse=sim.timecourse, plot_type=TIMECOURSE, file=File(f))
+        plot.save()
+        f.close()
     # show()
-
+    
+def createSimulationPlots(sim, folder):
+    createPlotPPPV(sim, folder);
+    
     
 if __name__ == "__main__":
-    sim = Simulation.objects.get(pk=10)
-    tc = sim.timecourse
-    data = getDataFromTimeCourse(tc)
-    plotSimulationData(data);
+    folder = "/home/mkoenig/multiscale-galactose-results/test"
+    sim = Simulation.objects.get(pk=40)
+    createSimulationPlots(sim, folder);
+    

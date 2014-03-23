@@ -1,0 +1,10 @@
+    {#
+    {% if sim_previous %}
+    	<b><a href="{% url 'simulation' sim_previous.pk %}">Previous</a></b>
+    {% else %} - {% endif %}
+ 	| 
+ 	{% if sim_next %}
+    	<b><a href="{% url 'simulation' sim_next.pk %}">Next</a></b>
+    {% else % } - {% endif %}
+    #}
+    
