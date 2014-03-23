@@ -15,5 +15,7 @@ urlpatterns = patterns('',
     # ex: /polls/5/vote/
     url(r'^parameters/(?P<pcol_id>\d+)/$', views.parameters, name='vote'),
     
+    url(r'^models/$', views.index, name='models'),
+    url(r'^tasks/$', views.tasks, name='tasks'),
     url(r'^$', views.index, name='index'),
 )

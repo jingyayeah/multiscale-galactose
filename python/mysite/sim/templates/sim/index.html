@@ -1,12 +1,29 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'simulation/style.css' %}" />
+{% extends "sim/base_generic.html" %}
 
-{% if latest_model_list %}
-    <ul>
-    {% for model in latest_model_list %}
-        <li><a href="{% url 'sim:model' model.id %}">{{ model.id }}</a></li>
+{% block content %}
+<h1>Models</h1>
+<h2>SBML models</h2>
+TODO: link to SBML report<br />
+
+{% if model_list %}
+	<table>
+	<tr>
+		<th>pk</th>
+		<th>id</th>
+		<th>sbml</th>
+		<th>report</th>
+	</tr>
+	{% for model in model_list %}
+		<tr>
+			<td>{{model.pk}}</td>
+			<td>{{model.sbml_id}}</td>
+			<td><a href="{{ model.file.url }}" target="_blank">{{model.sbml_id}}.xml</a></td>
+			<td><a href="file:///home/mkoenig/multiscale-galactose-results/{{model.sbml_id}}.html" target="_blank">{{model.sbml_id}}.html</a></td>
+		</tr>    
     {% endfor %}
-    </ul>
+    </table>
+    
 {% else %}
-    <p>No SBML models are available.</p>
+    <p>No SBML models in database.</p>
 {% endif %}
+{% endblock %}

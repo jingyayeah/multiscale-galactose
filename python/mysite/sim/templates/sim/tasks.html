@@ -1,0 +1,30 @@
+{% extends "sim/base_generic.html" %}
+
+{% block content %}
+<h1>Tasks</h1>
+{% if tasks_list %}
+	<table>
+	<tr>
+		<th>pk</th>
+		<th>model</th>
+		<th>integration</th>
+		<th>simulations</th>
+	</tr>
+	{% for task in tasks_list %}
+		
+		<tr>
+			<td>{{task.pk}}</td>
+			<td>{{task.sbml_model}}</td>
+			<td>{{task.integration}}</td>
+			<td>
+				{% for sim in task.simulation_set.all %}
+					<span color="green">{{sim.pk}}</span>
+				{% endfor %}	
+			</td>
+		</tr>    
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No Tasks.</p>
+{% endif %}
+{% endblock %}

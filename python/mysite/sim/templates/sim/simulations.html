@@ -6,19 +6,23 @@
 	<table>
 	<tr>
 		<th>pk</th>
+		<th>model</th>
 		<th>task</th>
 		<th>parameters</th>
 		<th>status</th>
 		<th>core</th>
+		<th>timecourse</th>
 	</tr>
 	{% for sim in sim_list %}
 		
 		<tr>
 			<td>{{sim.pk}}</td>
+			<td>{{sim.task.sbml_model}}</td>
 			<td>{{sim.task}}</td>
 			<td>{{sim.parameters}}</td>
 			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
 			<td>{{sim.core}}</td>
+			<td><a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a></td>
 		</tr>    
     {% endfor %}
     </table>

@@ -1,15 +1,18 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from sim.models import SBMLModel, Core, Simulation, Timecourse
+from sim.models import SBMLModel, Core, Simulation, Timecourse, Task
 from django.shortcuts import render_to_response
 
 
 def index(request):
-    latest_model_list = SBMLModel.objects.all()[:10]
+    '''
+    Homepage and overview over models.
+    '''
+    model_list = SBMLModel.objects.all()
     template = loader.get_template('sim/index.html')
     context = RequestContext(request, {
-        'latest_model_list': latest_model_list,
+        'model_list': model_list,
     })
     return HttpResponse(template.render(context))
 
@@ -22,6 +25,17 @@ def cores(request):
     template = loader.get_template('sim/cores.html')
     context = RequestContext(request, {
         'cores_list': cores_list,
+    })
+    return HttpResponse(template.render(context))
+
+def tasks(request):
+    '''
+    Overview over the Tasks.
+    '''
+    tasks_list = Task.objects.all()
+    template = loader.get_template('sim/tasks.html')
+    context = RequestContext(request, {
+        'tasks_list': tasks_list,
     })
     return HttpResponse(template.render(context))
 
