@@ -12,7 +12,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from sim.models import Simulation, Timecourse, Plot, TIMECOURSE
+from sim.models import Simulation, Timecourse, Plot, TIMECOURSE, DONE
 import numpy as np
 import csv
 from django.core.exceptions import ObjectDoesNotExist
@@ -78,6 +78,11 @@ def createPlotPPPV(sim, folder):
     PP__rbcM = x['PP__rbcM']
     PV__rbcM = x['PV__rbcM']
     ''' 
+    if (sim.status != DONE):
+        print "No timecourse available for simulation"
+        return
+    
+    
     x = getDataFromTimeCourse(sim.timecourse)
     time = x['time']
     del x['time']
@@ -88,14 +93,22 @@ def createPlotPPPV(sim, folder):
     # plot all the PP and PV pairs
     # TODO: handle the colors of the plots, unified color schema for
     # ids
+    compounds = []
     for name, values in x.iteritems():
         if (name.startswith("PP__") or name.startswith("PV__")):
-            plt.plot(time, x[name])
+            sname = name[4:]
+            if sname in compounds:
+                continue
+            compounds.append(sname)
+            plt.plot(time, x['PP__'+sname], color='k')
+            plt.plot(time, x['PV__'+sname], label=name)
+    
+    plt.legend(loc=1)
     
     plt.title("Simulation " + str(sim.pk))
     plt.ylabel('concentration [mM]')
     plt.xlabel('time [s]')
-    plt.xlim([0, 30])
+    plt.xlim([7, 25])
     plt.ylim([-0.1, 1.1])
 
     # scatter(X,Y, s=75, c=T, alpha=.5)

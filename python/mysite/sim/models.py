@@ -94,7 +94,7 @@ class Integration(models.Model):
     rel_tol = models.FloatField(default=1E-6)
     
     def __unicode__(self):
-        return "[" + str(self.tstart) + ":" + str(self.tend) + "]" 
+        return "[{},{}] {} ".format(self.tstart, self.tend, self.tsteps) 
     
     class Meta:
         # ordering = ["sbml_id"]

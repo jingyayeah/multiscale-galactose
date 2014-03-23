@@ -16,6 +16,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import numpy as np
 from sim.models import *
 from django.db.models import Count
+import numpy.random as npr
 
 def createSimulationForParametersInTask(pars, task):
     '''
@@ -85,8 +86,8 @@ def createDilutionCurvesSimulationTask(sbml_id, folder):
     
     # Get or create integration
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=100.0, 
-                                                             tsteps=1000,
+                                                             tend=200.0, 
+                                                             tsteps=2000,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
     if (created):
@@ -99,30 +100,47 @@ def createDilutionCurvesSimulationTask(sbml_id, folder):
         print ("task created")
         task.save()
     
-    # Careful with creating objects again and again
-    # Get the parameter collection which contains all the parameters in the list
-    # Here every time a new Parameter collection is created
-    # TODO: ?? What does this mean, understand
-    '''
-    pars = (('deficiency', 0, '-'),
-            ('flow', 60E-6, 'm/s'),
-            ('L',   500E-6, 'm'),)
-    createSimulationForParametersInTask(pars, task);
-    pars = (('deficiency', 0, '-'),
-            ('flow_sin', 200E-6, 'm/s'),
-            ('L',   200E-6, 'm'),)
-    createSimulationForParametersInTask(pars, task);
-    '''
-  
+    # How to create the parameters
+    
+    # createParametersByManual(task);
+    createParametersBySampling(task, 100);
+    
+    
+def createParametersByManual(task):
     # what parameters should be sampled
-    # TODO: write sampler from the distributions
-    flows = np.arange(0.0, 600E-6, 30E-6)
-    lengths = np.arange(200E-6, 600E-6, 200E-6)
+    flows = np.arange(0.0, 600E-6, 60E-6)
+    lengths = np.arange(400E-6, 600E-6, 100E-6)    
     for flow_sin in flows:
         for L in lengths: 
-            pars = (('flow_sin', flow_sin, 'm/s'),
+            pars = (
+                    ('deficiency', 0, '-'),
+                    ('y_cell', 6.25E-6, 'm'),
+                    ('y_dis', 8.0E-7, 'm'),
+                    ('y_sin', 4.4E-6, 'm'),
+                    ('flow_sin', flow_sin, 'm/s'),
                     ('L',   L, 'm'),)
             createSimulationForParametersInTask(pars, task);
+
+
+def createParametersBySampling(task, N=100):
+    '''
+        Samples N values from lognormal distribution defined by the 
+        given means and standard deviations.
+    '''
+    names = ['L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin']
+    means = [500E-6, 4.4E-6, 0.8E-6, 6.25E-6, 60E-6]
+    stds  = [50E-6, 0.45E-6, 0.3E-6, 6.25E-6, 50E-6]
+    units = ['m', 'm' ,'m', 'm', 'm/s']
+    
+    for kn in range(N):
+        # create parameters
+        pars = [('deficiency', 0, '-')]
+        for kp in range(len(names)): 
+            value = npr.lognormal(means[kp], stds[kp])        
+            pars.append( (names[kp], value, units[kp]) )
+        
+        print pars    
+        createSimulationForParametersInTask(pars, task);
 
 
 if __name__ == "__main__":

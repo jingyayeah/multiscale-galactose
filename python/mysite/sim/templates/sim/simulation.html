@@ -14,12 +14,16 @@
 	</tr>
 		<tr>
 			<td>{{sim.pk}}</td>
-			<td>{{sim.task.sbml_model}}</td>
+			<td><a href="{% url 'sim:simulation' sim.task.sbml_model.file.url}" target="_blank">
+				{{sim.task.sbml_model}}</a></td>
 			<td>{{sim.task}}</td>
 			<td>{{sim.task.integration}}</td>
 			<td>{{sim.parameters}}</td>
 			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
-			<td><a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a></td>
+			<td> {% if sim.status == 'DONE' %}
+				<a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a>
+				{% endif %}
+			</td>
 		</tr>    
     </table>
     
@@ -39,12 +43,17 @@
 		{% endfor %}    
     </table>
     
+    
     <h2>Plots</h2>
+    {% if sim.status == 'DONE' %}
     {% for plot in sim.timecourse.plot_set.all %}
     	<b>name</b>: {{plot.file.name}}<br />
     	<b>type</b>: {{plot.plot_type}}<br />
     	<img src="{{plot.file.url}}"></img><br />
     {% endfor %}
+    {% else %}
+    Simulation not DONE, no timecourse information available.<br />
+    {% endif %}
     
     
     {% if sim_previous %}

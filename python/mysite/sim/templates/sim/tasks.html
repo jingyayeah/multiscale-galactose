@@ -14,11 +14,11 @@
 		
 		<tr>
 			<td>{{task.pk}}</td>
-			<td>{{task.sbml_model}}</td>
+			<td><a href="{{task.sbml_model.file.url}}" target="_blank">{{task.sbml_model}}</a></td>
 			<td>{{task.integration}}</td>
 			<td>
 				{% for sim in task.simulation_set.all %}
-					<span color="green">{{sim.pk}}</span>
+					<a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a>
 				{% endfor %}	
 			</td>
 		</tr>    
