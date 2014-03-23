@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     
     url(r'^models/$', views.index, name='models'),
     url(r'^tasks/$', views.tasks, name='tasks'),
+    url(r'^task/(?P<task_id>\d+)$', views.task, name='task'),
     url(r'^plots/$', views.plots, name='plots'),
     url(r'^$', views.index, name='index'),
 )

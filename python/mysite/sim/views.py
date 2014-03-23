@@ -40,6 +40,25 @@ def tasks(request):
     })
     return HttpResponse(template.render(context))
 
+
+def task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    
+    # TODO solve generic
+    folder = "/home/mkoenig/multiscale-galactose-results/test"
+    
+    # generate histograms
+    # PlotSimulation.createTaskPlots(task, folder)
+    
+    
+    template = loader.get_template('sim/task.html')
+    context = RequestContext(request, {
+        'task': task,
+    })
+    return HttpResponse(template.render(context))
+    
+
+
 def simulations(request):
     '''
     Overview of simulations in the network.

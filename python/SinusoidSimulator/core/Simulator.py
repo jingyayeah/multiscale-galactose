@@ -129,10 +129,11 @@ def info(title):
 
 def worker(cpu, lock):
     info('function worker')
-    
-    # TODO: BUG: Problems if no 'eth0' on laptop, fallback solution
-    # ip = "127.0.0.1"
-    ip = get_ip_address('eth0')
+    try:
+        ip = get_ip_address('eth0')
+    except IOError:
+        ip = "127.0.0.1"
+        print "No 'eth0 found, using 127.0.0.1"
     folder = "/home/mkoenig/multiscale-galactose-results/test"
     
     while(True):
@@ -145,7 +146,12 @@ def worker(cpu, lock):
         
         sim = assign_simulation(ip, cpu)
         if (sim):
-            perform_simulation(sim, folder)
+            try:
+                perform_simulation(sim, folder)
+            except:
+                # TODO: catch the errors from COPASI and
+                # generate a log file
+                print "ERROR in COPASI integration"
         else:
             print "no more simulations";
             time.sleep(20)

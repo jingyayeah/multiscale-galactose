@@ -17,6 +17,7 @@ import numpy as np
 from sim.models import *
 from django.db.models import Count
 import numpy.random as npr
+import math
 
 def createSimulationForParametersInTask(pars, task):
     '''
@@ -103,7 +104,7 @@ def createDilutionCurvesSimulationTask(sbml_id, folder):
     # How to create the parameters
     
     # createParametersByManual(task);
-    createParametersBySampling(task, 100);
+    createParametersBySampling(task, 1000);
     
     
 def createParametersByManual(task):
@@ -113,7 +114,6 @@ def createParametersByManual(task):
     for flow_sin in flows:
         for L in lengths: 
             pars = (
-                    ('deficiency', 0, '-'),
                     ('y_cell', 6.25E-6, 'm'),
                     ('y_dis', 8.0E-7, 'm'),
                     ('y_sin', 4.4E-6, 'm'),
@@ -135,8 +135,13 @@ def createParametersBySampling(task, N=100):
     for kn in range(N):
         # create parameters
         pars = [('deficiency', 0, '-')]
-        for kp in range(len(names)): 
-            value = npr.lognormal(means[kp], stds[kp])        
+        for kp in range(len(names)):
+            m = means[kp]
+            std = stds[kp] 
+            mu = math.log(m**2 / math.sqrt(std**2+m**2));
+            sigma = math.sqrt(math.log(std**2/m**2 + 1));
+            
+            value = npr.lognormal(mu, sigma)        
             pars.append( (names[kp], value, units[kp]) )
         
         print pars    

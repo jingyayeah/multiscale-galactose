@@ -12,8 +12,10 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from sim.models import Simulation, Timecourse, Plot, TIMECOURSE, DONE
+from sim.models import Simulation, Timecourse, Plot, Task, TIMECOURSE, DONE
+import math
 import numpy as np
+import numpy.random as npr
 import csv
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
@@ -66,7 +68,49 @@ def getDataFromTimeCourse(tc):
     filename = tc.file.path
     cols, indexToName = getColumns(open(filename, "rb"), delim=",", header=True)    
     return cols;
+
+
+def createTaskPlots(task, folder):
+    '''
+    Create Histogramm of the Task parameters.
+    '''    
+    # get the parameter data for the task
+    data = dict()
+    for sim in task.simulation_set.all():
+        for p in sim.parameters.parameters.all():
+            if data.has_key(p.name):
+                data[p.name].append(p.value)
+            else:
+                data[p.name] = [p.value]
     
+    # create histogram for every parameter
+    Np = len(data.keys())
+    f, axarr = plt.subplots(1, Np)
+    f.set_size_inches(Np*3, 3)
+    num_bins = 20 
+    for k, key in enumerate(data.keys()):
+        x = data[key]
+        axarr[k].hist(x, num_bins, normed=0, facecolor='green', alpha=0.5)
+        axarr[k].set_title(key)
+    
+    '''
+    m = 10.0;
+    std = 5.0;
+    mu = math.log(m**2 / math.sqrt(std**2+m**2));
+    sigma = math.sqrt(math.log(std**2/m**2 + 1));
+    x = npr.lognormal(mu, sigma, 400)
+    num_bins = 20
+    n, bins, patches = plt.hist(x, num_bins, normed=1, facecolor='green', alpha=0.5)
+    plt.xlabel('Smarts')
+    plt.ylabel('Probability')
+    plt.title(r'Histogram of Task Parameters')
+    '''
+    
+    filename = folder + "/" + task.sbml_model.sbml_id + "_T" + str(task.pk) + ".png"
+    print filename
+    plt.savefig(filename, dpi=720)
+    print "Task Figure created"
+
     
 def createPlotPPPV(sim, folder):
     '''
@@ -137,10 +181,15 @@ def createPlotPPPV(sim, folder):
     
 def createSimulationPlots(sim, folder):
     createPlotPPPV(sim, folder);
-    
+
+
     
 if __name__ == "__main__":
+
     folder = "/home/mkoenig/multiscale-galactose-results/test"
-    sim = Simulation.objects.get(pk=40)
-    createSimulationPlots(sim, folder);
     
+    # sim = Simulation.objects.get(pk=40)
+    # createSimulationPlots(sim, folder);
+    
+    task = Task.objects.get(pk=2)
+    createTaskPlots(task, folder)

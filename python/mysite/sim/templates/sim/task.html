@@ -1,8 +1,7 @@
 {% extends "sim/base_generic.html" %}
 
 {% block content %}
-<h1>Tasks</h1>
-{% if tasks_list %}
+<h1>Task</h1>
 	<table>
 	<tr>
 		<th>pk</th>
@@ -10,10 +9,8 @@
 		<th>integration</th>
 		<th>simulations</th>
 	</tr>
-	{% for task in tasks_list %}
-		
 		<tr>
-			<td><a href="{% url 'sim:task' task.pk %}">{{task.pk}}</a></td>
+			<td>{{task.pk}}</td>
 			<td><a href="{{task.sbml_model.file.url}}" target="_blank">{{task.sbml_model}}</a></td>
 			<td>{{task.integration}}</td>
 			<td>
@@ -21,10 +18,8 @@
 					<a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a>
 				{% endfor %}	
 			</td>
-		</tr>    
-    {% endfor %}
+		</tr>
     </table>
-{% else %}
-    <p>No Tasks.</p>
-{% endif %}
+ <h2>Parameter overview</h2>
+ <img src="file:///home/mkoenig/multiscale-galactose-results/test/{{task.sbml_model.sbml_id}}_T{{task.id}}.png"></img>
 {% endblock %}
