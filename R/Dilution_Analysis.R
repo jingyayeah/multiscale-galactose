@@ -1,5 +1,6 @@
 # Clear all objects
 rm(list=ls())
+setwd("/home/mkoenig/multiscale-galactose-results/dataR_dilution")
 
 ################################################################
 ## Evaluate Galactose Dilution Curves ##
@@ -11,7 +12,7 @@ rm(list=ls())
 modelId <- "Dilution_Curves_v4_Nc20_Nf1"
 task <- "T1"
 
-setwd("/home/mkoenig/multiscale-galactose-results/dataR_dilution")
+
 parsfile <- paste(task, '_parameters.csv', sep="")
 pars <- read.csv(parsfile, header=TRUE)
 names(pars)
@@ -45,18 +46,60 @@ summary(pars)
 ########################################################################
 ### Load the simulation data ###
 
-row.names(pars)
-for (sim in row.names(pars) ){
-  print(sim)
+readDataForSim <- function(sim){
+  tmp <- read.csv(paste("data/", modelId, "_", sim, "_copasi.csv", sep=""))
+  row.names(tmp) <- tmp$time
+  tmp$time <- NULL
+  
+  # reduce data to PP__ and PV__ data
+  pppv.index <- which(grepl("^PP__", names(tmp)) | grepl("^PV__", names(tmp)) )
+  tmp <- tmp[, pppv.index]
 }
 
-# Store as list, only read the time once,
-# reduce data to PP__ and PV__ data
-sim <- "Sim1"
-tmp <- read.csv(paste("data/", modelId, "_", sim, "_copasi.csv", sep=""))
+dilution <- list()
+for (sim in row.names(pars) ){
+  print(paste("Read CSV for:", sim))
+  v[[sim]] = readDataForSim(sim)
+}
+save(v, file="T2_Dilution_Data.rdata")
+
+# make tables for the differnt components
+
+nrow(pars)
 
 
-names(data1)
-plot(data1$time, data1$PV__rbcM)
-plot(data1$time, data1$PP__rbcM)
+d.PV__rbcM <- matrix(, nrow = nrow(v[[1]]), ncol = nrow(pars))
+for(k in 1:nrow(pars)){
+  sim <- row.names(pars)[k]
+  d.PV__rbcM[, k] <-  
+}
+
+d.PV__rbcM = table
+
+
+
+compound = "h2oM"
+time = as.numeric(row.names(v[["Sim1"]]))
+count = 1
+for (name in names(v)){
+  tmp = v[[name]]
+  if (count == 1){
+    plot(time, tmp[[paste("PV__", compound, sep="")]], 'l')
+  } else {
+    lines(time, tmp[[paste("PV__", compound, sep="")]])
+  }
+  count = count + 1
+}
+  
+plot(row.names(test), test[,])
+for (k in seq(2, length(names(test)))){
+  lines(row.names(test), test[,k])
+}
+
+
+# Plot a simulation
+plot(row.names(test), test[,1])
+for (k in seq(2, length(names(test)))){
+  lines(row.names(test), test[,k])
+}
 
