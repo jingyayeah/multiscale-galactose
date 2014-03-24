@@ -1,17 +1,16 @@
-# Clear all objects
-rm(list=ls())
+
+rm(list=ls())   # Clear all objects
 setwd("/home/mkoenig/multiscale-galactose-results/dataR_dilution")
 
 ################################################################
 ## Evaluate Galactose Dilution Curves ##
 ################################################################
 # author: Matthias Koenig
-# date: 2014-03-23
+# date: 2014-03-24
 
 ### Load the parameter file ###
 modelId <- "Dilution_Curves_v4_Nc20_Nf1"
 task <- "T1"
-
 
 parsfile <- paste(task, '_parameters.csv', sep="")
 pars <- read.csv(parsfile, header=TRUE)
@@ -22,11 +21,11 @@ pars$sim <- NULL
 # number of parameters
 Np = length(names(pars))
 
-# Create a function that plots the value of "z" against the "y" value
-plotParameterHist <- function(name){
+# plot paramter histogram
+plotParameterHist <- function(name, breaks=20){
   x <- pars[,name] 
   print(x)
-  hist(x, breaks=20, xlab=name, main=paste("Histogram", name))
+  hist(x, breaks=breaks, xlab=name, main=paste("Histogram", name))
 }
 
 # create the plot
@@ -48,25 +47,32 @@ summary(pars)
 ### Load the simulation data ###
 
 # Load data for single simulation by sim name
-readDataForSim <- function(sim){
+readDataForSim <- function(sim, withTime=F){
   tmp <- read.csv(paste("data/", modelId, "_", sim, "_copasi.csv", sep=""))
   # set time as row names and remove the time vector
   row.names(tmp) <- tmp$time
-  tmp$time <- NULL
-  
+
   # reduce data to PP__ and PV__ data
   pppv.index <- which(grepl("^PP__", names(tmp)) | grepl("^PV__", names(tmp)) )
+  if (withTime==T){
+    pppv.index <- which(grepl("^PP__", names(tmp)) | grepl("^PV__", names(tmp)) |  grepl("^time", names(tmp)))
+  }
   tmp <- tmp[, pppv.index]
 }
 
 # Read the data in a list structure
 # Every element of the list v[[sim]] is the data.frame for the respective simulation sim
+
+
 dilution <- list()
 for (sim in row.names(pars) ){
   print(paste("Read CSV for:", sim))
   v[[sim]] = readDataForSim(sim)
 }
 save(v, file="T2_Dilution_Data.rdata")
+
+load(file="T2_Dilution_Data.rdata")
+
 
 # List of matrixes
 # A better data structure is a matrix for the different components
@@ -77,9 +83,12 @@ ccolors = c('darkred', 'darkgreen', 'darkorange', 'darkblue', 'black')
 #          red,  green, orange, blue,  black
 
 # read one compound matrix
+tmp <- readDataForSim(row.names(pars)[1], withTime=T)
+time <- tmp$time
+rm(tmp)
+
 Ntime = length(time)
 Nsim = length(names(v))
-
 createDataMatrices <- function(){
   mat = list()
   for (prefix in prefixes){
@@ -88,15 +97,15 @@ createDataMatrices <- function(){
       print(name)
       mat[[name]] <- matrix(, nrow = Ntime, ncol = Nsim)
       # copy all the columns
-      for(k in 1:Nsim){
+      for(k in seq(1,Nsim)){
         sim <- names(v)[k]
         mat[[name]][, k] <- v[[sim]][, name]
       }
-      
     }
   }
   mat
 }
+rm(mat)
 mat <- createDataMatrices()
 
 ####################################################################
@@ -104,19 +113,14 @@ mat <- createDataMatrices()
 # Sys.setenv(http_proxy="http://proxy.charite.de:888")
 # install packages from command line via proxy
 # install.packages('matrixStats')
+
+# Plot all data curves and mean curve #
 library('matrixStats')
-
-
-compounds[1]
-length(compounds)
-ccolors
-ccolors[]
-
 png(filename=paste(task, "_Dilution_Curves.png", sep=""),
     width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
+
 par(mfrow=c(1,length(compounds)))
 for (kc in seq(1, length(compounds)) ){
-
   # name = "PV__rbcM"
   name = paste("PV__", compounds[kc], sep="")
   print(name)
@@ -139,7 +143,7 @@ for (kc in seq(1, length(compounds)) ){
 par(mfrow=c(1,1))
 dev.off()
 
-
+## Combined Dilution Curves in one plot ##
 png(filename=paste(task, "_Dilution_Curves_Combined.png", sep=""),
     width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
 par(mfrow=c(1,1))
@@ -165,50 +169,36 @@ par(mfrow=c(1,1))
 dev.off()
 
 
+# calculate the maximum values
+maxtime <- data.frame(tmp=numeric(Nsim))
 
-
-dim(mat[[1]])
-length(time)
-
-
-
-names(v[[sim]])
-head(d.PV__rbcM)
-names(v)
-    
-
-
-compound = "h2oM"
-# compound = "rbcM"
-time = as.numeric(row.names(v[["Sim1"]]))
-count = 1
-for (name in names(v)){
-  tmp = v[[name]]
-  compoundName = paste("PV__", compound, sep="")
-  if (count == 1){
-    sumtmp = tmp[[compoundName]]
-    plot(time, tmp[[compoundName]], 'l')
-  } else {
-    sumtmp = sumtmp + tmp[[compoundName]]
-    lines(time, tmp[[compoundName]])
-  }
-  count = count + 1
-  if (count == 100){
-    lines(time, sumtmp/100, 'b', col='blue')
+for (kc in seq(1, length(compounds)) ){
+  name = paste("PV__", compounds[kc], sep="")
+  print(name)
+  maxtime[[name]] <- numeric(Nsim)    
+  # find the max values for all simulations
+  for (k in seq(1, Nsim)){
+    maxtime[[name]][k] = time[ which.max(mat[[name]][,k]) ]
   }
 }
+maxtime$tmp <- NULL
 
-  
+png(filename=paste(task, "_Boxplot_MaxTimes", sep=""),
+    width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
+boxplot(maxtime, col=ccolors, horizontal=T, xlab="time [s]")
+dev.off()
 
-plot(row.names(test), test[,])
-for (k in seq(2, length(names(test)))){
-  lines(row.names(test), test[,k])
-}
+## Scatterplots of the parameters ##
+library("lattice")
 
 
-# Plot a simulation
-plot(row.names(test), test[,1])
-for (k in seq(2, length(names(test)))){
-  lines(row.names(test), test[,k])
-}
+sortind <- unlist(as.matrix(sort.int(maxtime[["PV__rbcM"]], index.return=TRUE))[2])
+
+maxtime[["PV__rbcM"]][sortind]
+my.colors = colorRampPalette(c("light green", "yellow", "orange", "red"))
+sort.colors <- my.colors(Nsim)[sortind]
+png(filename=paste(task, "_Scatter_Parameters", sep=""),
+    width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
+plot(pars, col=sort.colors)
+dev.off()
 
