@@ -83,6 +83,7 @@ head(d.PV__rbcM)
 
 
 compound = "h2oM"
+# compound = "rbcM"
 time = as.numeric(row.names(v[["Sim1"]]))
 count = 1
 for (name in names(v)){
@@ -97,7 +98,7 @@ for (name in names(v)){
   }
   count = count + 1
   if (count == 100){
-    lines(time, sumtmp/100, 'b', color='g')
+    lines(time, sumtmp/100, 'b', col='blue')
   }
 }
 
