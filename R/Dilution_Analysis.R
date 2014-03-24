@@ -43,11 +43,14 @@ dev.off()
 # Overview of the distribution parameters
 summary(pars)
 
+
 ########################################################################
 ### Load the simulation data ###
 
+# Load data for single simulation by sim name
 readDataForSim <- function(sim){
   tmp <- read.csv(paste("data/", modelId, "_", sim, "_copasi.csv", sep=""))
+  # set time as row names and remove the time vector
   row.names(tmp) <- tmp$time
   tmp$time <- NULL
   
@@ -56,6 +59,8 @@ readDataForSim <- function(sim){
   tmp <- tmp[, pppv.index]
 }
 
+# Read the data in a list structure
+# Every element of the list v[[sim]] is the data.frame for the respective simulation sim
 dilution <- list()
 for (sim in row.names(pars) ){
   print(paste("Read CSV for:", sim))
@@ -63,23 +68,86 @@ for (sim in row.names(pars) ){
 }
 save(v, file="T2_Dilution_Data.rdata")
 
-# make tables for the differnt components
+# List of matrixes
+# A better data structure is a matrix for the different components
+# Matrix size [Ntime x Nsim] for every component
+prefixes = c('PV__')
+compounds = c('rbcM', 'alb', 'suc', 'h2oM', 'gal')
+colors = c(35, 81, 76, 26, 24)
+#          red,  green, orange, blue,  black
 
-nrow(pars)
+# read one compound matrix
+Ntime = length(time)
+Nsim = length(names(v))
 
-
-name = "PV__rbcM"
-d.PV__rbcM <- matrix(, nrow = nrow(v[[1]]), ncol = nrow(pars))
-for(k in 1:nrow(pars)){
-  sim <- row.names(pars)[k]
-  d.PV__rbcM[, k] <- v[[sim]][, name]
+createDataMatrices <- function(){
+  mat = list()
+  for (prefix in prefixes){
+    for (compound in compounds){
+      name = paste(prefix, compound, sep="")
+      print(name)
+      mat[[name]] <- matrix(, nrow = Ntime, ncol = Nsim)
+      # copy all the columns
+      for(k in 1:Nsim){
+        sim <- names(v)[k]
+        mat[[name]][, k] <- v[[sim]][, name]
+      }
+      
+    }
+  }
+  mat
 }
-names(d.PV__rbcM) <- row.names(pars)
-row.names(d.PV__rbcM) <- names(v[[sim]])
+mat <- createDataMatrices()
+
+####################################################################
+## plotting the data ##
+# name = "PV__rbcM"
+compounds[1]
+length(compounds)
+
+par(mfrow=c(1,length(compounds)))
+for k in seq(1, length(compounds)){
+  print(compounds[k])
+  name = paste("PV__", compounds[k], sep="")
+  print(name)
+  # plot one compound
+  tmp <- mat[[name]]
+  for (k in seq(1,Nsim)){
+    if (k == 1){
+      plot(time, tmp[,k], col="gray", 'l', main=name, xlab="time [s]", ylab="c [mM]", ylim=c(0.0, 0.2) )
+    } else {
+      lines(time, tmp[,k], col="gray")
+    }
+  }
+  # plot the mean and variance for time courses
+#   rmean <- rowMeans(tmp)
+#   rstd <- rowSds(tmp)
+#   lines(time, rmean, col=colors(k), lwd=2)
+#   lines(time, rmean+rstd, col=colors(k), lwd=2)
+#   lines(time, rmean-rstd, col=colors(k), lwd=2)
+}
+par(mfrow=c(1,1))
+
+# Sys.setenv(http_proxy="http://proxy.charite.de:888")
+# install packages from command line via proxy
+# install.packages('matrixStats')
+library('matrixStats')
+
+
+
+tmp <- mat[[name]]
+
+
+
+dim(mat[[1]])
+length(time)
+
+
 
 names(v[[sim]])
 head(d.PV__rbcM)
-
+names(v)
+    
 
 
 compound = "h2oM"
