@@ -23,7 +23,13 @@ Database things and setup handled by Django.
 
 TODO: handle errors in the integration (ERROR code and storage
 of problems for debugging)
+TODO: all simulations have to be performed against the same version
+be sure that the version
+TODO: Make sure the cpp is recompiled (use make file)
 '''
+
+SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
+COPASI = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/CopasiModelRunner"  
 
 import os
 import sys
@@ -86,10 +92,10 @@ def perform_simulation(sim, folder):
     '''
     Run ODE integration with the stored settings for the 
     simulation.
-    TODO: Make sure the cpp is recompiled (use make file)
     '''    
-    sbml_file = folder + "/" + sim.task.sbml_model.sbml_id + ".xml"
-    timecourse_file = sbml_file[0:-4] + "_Sim" + str(sim.pk) + "_copasi.csv"
+    sbml_file = sim.file.path
+    sbml_id = sim.task.sbml_model.sbml_id
+    timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_copasi.csv'
     
     #Store the config file in the database
     config_file = create_config_file_in_folder(sim, folder)
@@ -97,11 +103,9 @@ def perform_simulation(sim, folder):
     sim.file = File(f)
     sim.save()
     
-    # all simulations have to be performed against the same version
-    copasi = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/CopasiModelRunner"  
     # run an operating system command
     # call(["ls", "-l"])
-    call_command = copasi + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
+    call_command = COPASI + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
     print call_command
     call(shlex.split(call_command))
     
@@ -134,7 +138,6 @@ def worker(cpu, lock):
     except IOError:
         ip = "127.0.0.1"
         print "No 'eth0 found, using 127.0.0.1"
-    folder = "/home/mkoenig/multiscale-galactose-results/test"
     
     while(True):
         # use global lock for proper printing
@@ -147,7 +150,7 @@ def worker(cpu, lock):
         sim = assign_simulation(ip, cpu)
         if (sim):
             # TODO: error management and error handling
-            perform_simulation(sim, folder)
+            perform_simulation(sim, SIM_FOLDER)
         
         else:
             print "no more simulations";

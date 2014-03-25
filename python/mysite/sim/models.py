@@ -188,7 +188,7 @@ class Simulation(models.Model):
     # set during assignment
     time_assign = models.DateTimeField(null=True)
     core = models.ForeignKey(Core, null=True)
-    file = models.FileField(upload_to='config/%Y/%m/%d', null=True)
+    file = models.FileField(upload_to='timecourse/%Y-%m-%d' , null=True)
     # set after simulation
     time_sim = models.DateTimeField(null=True)
     
@@ -226,7 +226,7 @@ class Timecourse(models.Model):
     '''
     simulation = models.OneToOneField(Simulation, unique=True)
     # file = models.FileField(upload_to="~/multiscale-galactose-results/
-    file = models.FileField(upload_to='timecourse/%Y/%m/%d')
+    file = models.FileField(upload_to='timecourse/%Y-%m-%d')
     
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
@@ -241,6 +241,6 @@ class Plot(models.Model):
     )
     timecourse = models.ForeignKey(Timecourse)
     plot_type = models.CharField(max_length=20, choices=PLOT_TYPES, default=TIMECOURSE)
-    file = models.FileField(upload_to="plot/")
+    file = models.FileField(upload_to="plot/%Y-%m-%d")
     
     
