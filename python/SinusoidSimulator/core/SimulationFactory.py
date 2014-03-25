@@ -9,6 +9,8 @@ The SimulationFactory generates sets of parameters and simulations.
 UNASSIGNED simulations can be taken by processors and be performed.
 '''
 
+SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
+
 import sys
 import os
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
@@ -73,13 +75,14 @@ def createSimulationForParametersInTask(pars, task):
         sim.save()
 
 
-def createDilutionCurvesSimulationTask(sbml_id, folder):
+def createDilutionCurvesSimulationTask(sbml_id, N=10):
     '''
-        Create the SBMLModel and the respective simulations.
-        
+        Create the SBMLModel object and create simulations
+        associated with the object.
     '''
+    # TODO: manage better 
     # Get or create the model
-    model = SBMLModel.create(sbml_id, folder);
+    model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
     print 'name: ' + model.file.name
     print 'path: ' + model.file.path
@@ -101,10 +104,9 @@ def createDilutionCurvesSimulationTask(sbml_id, folder):
         print ("task created")
         task.save()
     
-    # How to create the parameters
-    
+    # Create the parameters
     # createParametersByManual(task);
-    createParametersBySampling(task, 100);
+    createParametersBySampling(task, N);
     
     
 def createParametersByManual(task):
@@ -126,6 +128,7 @@ def createParametersBySampling(task, N=100):
     '''
         Samples N values from lognormal distribution defined by the 
         given means and standard deviations.
+        TODO: create with seed to be sure which random numbers are taken.
     '''
     names = ['L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin']
     means = [500E-6, 4.4E-6, 0.8E-6, 6.25E-6, 60E-6]
@@ -137,24 +140,21 @@ def createParametersBySampling(task, N=100):
         pars = []
         for kp in range(len(names)):
             m = means[kp]
-            std = stds[kp] 
+            std = stds[kp]
+            # parameters are lognormal distributed 
             mu = math.log(m**2 / math.sqrt(std**2+m**2));
             sigma = math.sqrt(math.log(std**2/m**2 + 1));
             
             value = npr.lognormal(mu, sigma)        
             pars.append( (names[kp], value, units[kp]) )
         
-        print pars    
         createSimulationForParametersInTask(pars, task);
 
 
 if __name__ == "__main__":
-    # remove all simulations
-    print "Deleting all simulations !!!"
-    Simulation.objects.all().delete()
-    
+
     # create new simulations for SBML with sbml_id 
-    folder = "/home/mkoenig/multiscale-galactose-results/test"
-    sbml_id = "Dilution_Curves_v4_Nc20_Nf1"
-    createDilutionCurvesSimulationTask(sbml_id, folder)
+    sbml_id = "Dilution_Curves_v5_Nc20_Nf1"
+    N = 100     # number of simulations
+    createDilutionCurvesSimulationTask(sbml_id, N)
     

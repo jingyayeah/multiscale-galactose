@@ -28,7 +28,7 @@ be sure that the version
 TODO: Make sure the cpp is recompiled (use make file)
 '''
 
-SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
+SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim"
 COPASI = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/CopasiModelRunner"  
 
 import os
