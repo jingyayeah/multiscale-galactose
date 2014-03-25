@@ -41,19 +41,19 @@ import os
 import sys
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-
 import time
 import multiprocessing
-from sim.models import Core, Simulation, UNASSIGNED, ASSIGNED, DONE, Timecourse
-
-from django.utils import timezone
-from django.core.files import File
 from subprocess import call
 import shlex
 import socket
 import fcntl
 import struct
+
+from django.utils import timezone
+from django.core.files import File
 from ConfigFileFactory import create_config_file_in_folder
+from sim.models import Core, Simulation, UNASSIGNED, ASSIGNED, DONE, Timecourse
+
 
 def get_ip_address(ifname='eth0'):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -76,7 +76,10 @@ def get_core_by_ip_and_cpu(ip, cpu):
 
 
 def assign_simulation(ip, cpu):
-    ''' Gets an unassigned simulation and assignes it to the core. '''
+    ''' 
+    Gets an unassigned simulation and assignes the core to it.
+    Returns None if no simulation could be assigned 
+    '''
     unassigned = Simulation.objects.filter(status=UNASSIGNED);
     if (unassigned.exists()):
         # Get the first unassigned simulation
@@ -96,8 +99,7 @@ def assign_simulation(ip, cpu):
 
 def perform_simulation(sim, folder):
     '''
-    Run ODE integration with the stored settings for the 
-    simulation.
+    Run ODE integration for the simulation.
     '''    
     # TODO: here problems could occur with the local filesystem storage
     #       of the SBML files.
@@ -130,7 +132,6 @@ def perform_simulation(sim, folder):
     sim.time_sim = timezone.now()
     sim.status = DONE
     sim.save()
-
 
 def info(title):
     print title

@@ -2,6 +2,8 @@
 Created on Mar 21, 2014
 @author: Matthias Koenig
 
+Module for generating simulation config files for Copasi.
+
 Config files are stored in ini format with different sections.
 The set parameters are handeled in the [Parameters] section, 
 the Integration settings in the [Timecourse] section. Additional
@@ -26,6 +28,7 @@ information is stored in the [Simulation] section.
     PP__gal = 0.00012
     ############################
 '''
+
 import os
 import sys
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
@@ -80,7 +83,7 @@ if __name__ == "__main__":
     '''
     folder = "/home/mkoenig/multiscale-galactose-results/test"
     # Get a simulation and write the respective config file
-    sim = Simulation.objects.get(pk=312);
+    sim = Simulation.objects.all()[0];
     create_config_file_in_folder(sim, folder)    
     
     
