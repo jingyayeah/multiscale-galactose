@@ -20,12 +20,18 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 
 Database things and setup handled by Django.
 
+In general only the database information about the files, i.e. 
+location on the local filesystem is stored. Problems can arise depending
+on which computer generates the files locally. This has to be synchronized.
+
 
 TODO: handle errors in the integration (ERROR code and storage
 of problems for debugging)
 TODO: all simulations have to be performed against the same version
 be sure that the version
 TODO: Make sure the cpp is recompiled (use make file)
+TODO: handle all Folders by setting $MULTISCALE_GALACTOSE variable.
+
 '''
 
 SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim"
@@ -93,7 +99,9 @@ def perform_simulation(sim, folder):
     Run ODE integration with the stored settings for the 
     simulation.
     '''    
-    sbml_file = sim.file.path
+    # TODO: here problems could occur with the local filesystem storage
+    #       of the SBML files.
+    sbml_file = sim.task.sbml_model.file.path
     sbml_id = sim.task.sbml_model.sbml_id
     timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_copasi.csv'
     

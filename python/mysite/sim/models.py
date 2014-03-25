@@ -186,11 +186,11 @@ class Simulation(models.Model):
     priority = models.IntegerField(default=10)
     time_create = models.DateTimeField(default=timezone.now())
     # set during assignment
-    time_assign = models.DateTimeField(null=True)
-    core = models.ForeignKey(Core, null=True)
-    file = models.FileField(upload_to='timecourse/%Y-%m-%d' , null=True)
+    time_assign = models.DateTimeField(null=True, blank=True)
+    core = models.ForeignKey(Core, null=True, blank=True)
+    file = models.FileField(upload_to='timecourse/%Y-%m-%d' , null=True, blank=True)
     # set after simulation
-    time_sim = models.DateTimeField(null=True)
+    time_sim = models.DateTimeField(null=True, blank=True)
     
     objects = models.Manager();
     unassigned_objects = UnassignedSimulationManager()
