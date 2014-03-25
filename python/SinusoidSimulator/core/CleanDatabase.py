@@ -43,6 +43,9 @@ def handleUnfinishedSimulations():
             print timezone.now()
             unassignSimulation(sim)
 
+def unassignAllSimulation():
+    for sim in Simulation.objects.all():
+        unassignSimulation(sim);
 
 def unassignSimulation(sim):
     '''
@@ -67,4 +70,8 @@ def unassignSimulation(sim):
     print "Simulation reset: ", sim
     
 if __name__ == "__main__":
-    handleUnfinishedSimulations();
+    # handleUnfinishedSimulations();
+    # ! CAREFUL !
+    # unassignAllSimulation()
+    
+    

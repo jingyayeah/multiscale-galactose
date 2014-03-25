@@ -48,6 +48,7 @@ import shlex
 import socket
 import fcntl
 import struct
+import random
 
 from django.utils import timezone
 from django.core.files import File
@@ -79,12 +80,19 @@ def assign_simulation(ip, cpu):
     ''' 
     Gets an unassigned simulation and assignes the core to it.
     Returns None if no simulation could be assigned 
+    TODO: bug multiple cores can get the same unassigned simulation.
+          better handling via getting a random simulation from the unassigned ones.
     '''
     unassigned = Simulation.objects.filter(status=UNASSIGNED);
     if (unassigned.exists()):
-        # Get the first unassigned simulation
+        # Get random unassigned simulation, removes double assignment as
+        # good as possible
+        # count = unassigned.count()
+        # sim = unassigned[random.randint(0,count)]
+        
+        # should be save via logging assignment
         sim = unassigned[0]
-            
+        
         # Get the core and update the status for the core
         core = get_core_by_ip_and_cpu(ip, cpu)
             
@@ -152,11 +160,18 @@ def worker(cpu, lock):
         # use global lock for proper printing
         # Without using the lock output from the 
         # different processes is liable to get all mixed up.
+        
+        # assign the simulations within a lock to fix the 
+        # multiple assignment bug, i.e. exactly one core should be able to
+        # get one unassigned simulation
         lock.acquire()
+        # ! this could brake the simulations if many cores try to assign simulations
+        # depends on assign time vs. simulation time
+        # TODO check.
         print 'sim ->', ip, 'cpu:', cpu
+        sim = assign_simulation(ip, cpu)
         lock.release()
         
-        sim = assign_simulation(ip, cpu)
         if (sim):
             # TODO: error management and error handling
             perform_simulation(sim, SIM_FOLDER)
