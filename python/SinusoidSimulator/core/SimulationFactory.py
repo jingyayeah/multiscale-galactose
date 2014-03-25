@@ -155,6 +155,6 @@ if __name__ == "__main__":
 
     # create new simulations for SBML with sbml_id 
     sbml_id = "Dilution_Curves_v5_Nc20_Nf1"
-    N = 10     # number of simulations
+    N = 100     # number of simulations
     createDilutionCurvesSimulationTask(sbml_id, N)
     

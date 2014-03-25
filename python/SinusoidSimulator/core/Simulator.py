@@ -87,10 +87,11 @@ def assign_simulation(ip, cpu):
     if (unassigned.exists()):
         # Get random unassigned simulation, removes double assignment as
         # good as possible
+        # problematic, because the length can change of unassigned.
         # count = unassigned.count()
         # sim = unassigned[random.randint(0,count)]
         
-        # should be save via logging assignment
+        # is only save on single computer via logging assignment
         sim = unassigned[0]
         
         # Get the core and update the status for the core
