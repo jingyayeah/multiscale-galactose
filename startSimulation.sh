@@ -10,6 +10,9 @@ export PYTHONPATH=$PYTHONPATH:/home/mkoenig/multiscale-galactose/python/mysite/
 export DJANGO_SETTINGS_MODULE=mysite.settings
 
 # pull the latest code from the repository
+echo "###################################"
+echo "# Pull git source code"
+echo "###################################"
 cd ~/multiscale-galactose
 git pull
 
@@ -17,20 +20,27 @@ git pull
 # TODO
 
 # create the tmp folders for storing intermediate results
+echo "###################################"
+echo "# Create tmp folders #"
+echo "###################################"
 mkdir ~/multiscale-galactose-results/tmp_sbml
 mkdir ~/multiscale-galactose-results/tmp_sim
 
 # build latest CopasiModelSimulator
+echo "###################################"
+echo "# build copasi #"
+echo "###################################"
+rm -r ~/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug
+rm -r ~/multiscale-galactose/cpp/copasi/CopasiModelRunner/build
 mkdir ~/multiscale-galactose/cpp/copasi/CopasiModelRunner/build
 cd ~/multiscale-galactose/cpp/copasi/CopasiModelRunner/build
 cmake ..
 make
 
-
-# run the simulations
+echo "###################################"
+echo "# run simulations #"
+echo "###################################"
 cd ~/multiscale-galactose/python/SinusoidSimulator/core
 python Simulator.py
-
-# TODO how can I kill the whole process
 
 
