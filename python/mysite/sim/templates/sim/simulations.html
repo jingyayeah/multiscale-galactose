@@ -27,10 +27,7 @@
 		</tr>    
     {% endfor %}
     </table>
-{% else %}
-    <p>No Simulations.</p>
-{% endif %}
-<div class="pagination">
+    <div class="pagination">
     <span class="step-links">
         {% if simulations.has_previous %}
             <a href="?page={{ simulations.previous_page_number }}">previous</a>
@@ -46,8 +43,9 @@
            [{{ simulations.number }} of {{ simulations.paginator.num_pages }}]
         </span>
     </span>
-</div>
-
-
+	</div>
+{% else %}
+    <p>No Simulations in database.</p>
+{% endif %}
 
 {% endblock %}

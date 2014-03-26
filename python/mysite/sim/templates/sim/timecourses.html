@@ -17,10 +17,7 @@
 		</tr>    
     {% endfor %}
     </table>
-{% else %}
-    <p>No Timecourses.</p>
-{% endif %}
-<div class="pagination">
+    <div class="pagination">
     <span class="step-links">
         {% if timecourses.has_previous %}
             <a href="?page={{ timecourses.previous_page_number }}">previous</a>
@@ -36,6 +33,10 @@
            [{{ timecourses.number }} of {{ timecourses.paginator.num_pages }}]
         </span>
     </span>
-</div>
+	</div>
+{% else %}
+    <p>No Timecourses in database.</p>
+{% endif %}
+
 
 {% endblock %}

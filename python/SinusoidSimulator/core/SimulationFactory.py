@@ -35,61 +35,11 @@ import numpy.random as npr
 import math
 
 
-def createSimulationsFromParametersInTask(pars, task):
-    ''' 
-    Create the single Parameters, the combined ParameterCollection
-    and the simulation based on the Parametercollection for the
-    iterable pars, which contains triples of (name, value, unit).
+def createGalactoseSimulationTask(model, N=10, deficiencies=range(0,24), gal_range=range(0,8)):
     '''
-    ps = []
-    for data in pars:
-        name, value, unit = data
-        p, tmp = Parameter.objects.get_or_create(name=name, value=value, unit=unit);
-        ps.append(p)
-    
-    # Get the pset for the parameters if it exists
-    # This is necessary to have unique collections regarding the parameters
-    # Reduce the queryset with filters until 
-
-    # Annotate with count first and use than to filter    
-    querySet = ParameterCollection.objects.annotate(num_parameters=Count('parameters')).filter(num_parameters__eq=len(ps))
-    for p in ps:
-        querySet = querySet.filter(parameters = p)
-        
-    if (len(querySet)>0):
-        pset = querySet[0]
-    else:
-        pset = ParameterCollection();
-        pset.save()
-        for p in ps:
-            pset.parameters.add(p)
-        pset.save()
-    
-    # Simulation
-    sim, created = Simulation.objects.get_or_create(task=task, 
-                                                      parameters = pset,
-                                                      status = UNASSIGNED)
-    if (created):
-        print "Simulation created: {}".format(sim)
-        try:
-            sim.full_clean()
-            # Validation check in the creation
-        except ValidationError, e:
-            # Do something based on the errors contained in e.message_dict.
-            # Display them to a user, or handle them programatically.
-            pass
-
-
-def createGalactoseSimulationTask(sbml_id, N=10):
+    Create integration settings, the task and the simulations.
+    Related to the Galactose simulations.
     '''
-        Create the SBMLModel object and create simulations
-        associated with the object.
-    '''
-    # TODO: check if already exists ??
-    # Get or create the model
-    model = SBMLModel.create(sbml_id, SBML_FOLDER);
-    model.save();
-    
     # Get or create integration
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
                                                              tend=2000.0, 
@@ -99,29 +49,30 @@ def createGalactoseSimulationTask(sbml_id, N=10):
     if (created):
         print "Integration created: {}".format(integration)
     
-    # Create task 
-    task, created = Task.objects.get_or_create(sbml_model=model, integration=integration)
-    if (created):
-        print "Task created: {}".format(task)
-    
-    # Create the parameters for all deficiencies
+    # get the parameter sampling (same parameters for all deficiencies)
     all_pars = createParametersBySampling(N);
-    for deficiency in range(0,24):
+    
+    # create task for every deficiency
+    # TODO: not really working due to same model and integration setting
+    for d in deficiencies:
+        task, created = Task.objects.get_or_create(sbml_model=model, integration=integration)
+        if (created):
+            print "Task created: {}".format(task)
+    
+        # Create the parameters for all deficiencies
         for pars in all_pars:
-            pars.append( ('deficiency', deficiency, '-') )
-            createSimulationsFromParametersInTask(pars, task)
+            for galactose in gal_range:
+                # make a copy !
+                p = pars[:]
+                p.append( ('deficiency', d, '-') )
+                p.append( ('PP__gal', galactose, 'mM') )
+                createSimulationsFromParametersInTask(p, task)
     
 
-def createDilutionCurvesSimulationTask(sbml_id, N=10):
+def createDilutionCurvesSimulationTask(model, N=10):
     '''
-        Create the SBMLModel object and create simulations
-        associated with the object.
+    Create integration settings, the task and the simulations.
     '''
-    # TODO: manage better 
-    # Get or create the model
-    model = SBMLModel.create(sbml_id, SBML_FOLDER);
-    model.save();
-    
     # Get or create integration
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
                                                              tend=200.0, 
@@ -185,24 +136,73 @@ def createParametersByManual():
             all_pars.append(p)
     return all_pars
 
-if __name__ == "__main__":
-    # in a first step the models have to be created
-    # TODO: create model separately
+def createSimulationsFromParametersInTask(pars, task):
+    ''' 
+    Create the single Parameters, the combined ParameterCollection
+    and the simulation based on the Parametercollection for the
+    iterable pars, which contains triples of (name, value, unit).
+    '''
+    ps = []
+    for data in pars:
+        name, value, unit = data
+        p, tmp = Parameter.objects.get_or_create(name=name, value=value, unit=unit);
+        ps.append(p)
     
+    # Get the pset for the parameters if it exists
+    # This is necessary to have unique collections regarding the parameters
+    # Reduce the queryset with filters until 
+
+    # Annotate with count first and use than to filter    
+    querySet = ParameterCollection.objects.annotate(num_parameters=Count('parameters')).filter(num_parameters__eq=len(ps))
+    for p in ps:
+        querySet = querySet.filter(parameters = p)
+        
+    if (len(querySet)>0):
+        pset = querySet[0]
+    else:
+        pset = ParameterCollection();
+        pset.save()
+        for p in ps:
+            pset.parameters.add(p)
+        pset.save()
+    
+    # Simulation
+    sim, created = Simulation.objects.get_or_create(task=task, 
+                                                      parameters = pset,
+                                                      status = UNASSIGNED)
+    if (created):
+        print "Simulation created: {}".format(sim)
+        try:
+            sim.full_clean()
+            # Validation check in the creation
+        except ValidationError, e:
+            # Do something based on the errors contained in e.message_dict.
+            # Display them to a user, or handle them programatically.
+            pass
+
+
+
+if __name__ == "__main__":
+    
+    # Create the galactose model in the database
     # call the copySBML script afterwards, to transfer the
     # sbml to the computers.
-     
-    if (0):
-        # create new dilution simulations    
-        sbml_id = "Dilution_Curves_v5_Nc20_Nf1"
-        N = 1000     # number of simulations
-        createDilutionCurvesSimulationTask(sbml_id, N)
     
+    sbml_id = "Galactose_v5_Nc20_Nf1"   
+    model = SBMLModel.create(sbml_id, SBML_FOLDER);
+    model.save();
+
+    sbml_id = "Dilution_Curves_v5_Nc20_Nf1"
+    model = SBMLModel.create(sbml_id, SBML_FOLDER);
+    model.save();
+
     if (1):
         # create the galactose simulations
-        sbml_id = "Galactose_v5_Nc20_Nf1"
-        N = 10     # number of simulations per deficiency
-        createGalactoseSimulationTask(sbml_id, N)
-    
-    
-    
+        N = 5     # number of simulations per deficiency
+        createGalactoseSimulationTask(model, N)
+
+    if (0):
+        # create dilution simulations
+        N = 1000     # number of simulations
+        createDilutionCurvesSimulationTask(model, N)
+        
