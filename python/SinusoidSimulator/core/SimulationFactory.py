@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
     if (1):
         # create the galactose simulations
-        N = 5     # number of simulations per deficiency
+        N = 1     # number of simulations per deficiency
         createGalactoseSimulationTask(model, N)
 
     if (0):

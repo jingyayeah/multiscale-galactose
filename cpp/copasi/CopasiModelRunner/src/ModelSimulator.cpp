@@ -167,7 +167,6 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		}
 	}
 
-
 	// SPECIES - Change Initial concentrations
 	// ! careful with setInitialConcentration & setInitialValue
 	for (size_t i=0; i<pModel->getMetabolites().size(); ++i){
@@ -193,6 +192,30 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 			}
 		}
 	}
+
+	/* TODO MAYOR BUG
+	// DEFICIENCY - which is used in an event
+	for (size_t i=0; i<pModel->getEvents().size(); ++i){
+		CEvent* pEvent = pModel->getEvents()[i];
+		const std::string& sbmlId = pEvent->getSBMLId();
+		if(sbmlId.compare("EGAL_1") == 0){
+			// find the right EventAssignment (only one, so take the first)
+			double galValue = -10.0;
+			std::ostringstream tmp;
+			tmp << galValue;
+			std::string expression = tmp.str();
+
+			bool success = pEvent->getAssignments()[0]->setExpression(expression);
+			std::cout << "EGAL_1 -> " << expression << std::endl;
+			// targetKey of the assignment is already the PP__gal
+			if (!success){
+				std::cout << "The expression could not be set";
+			}
+			// Update initial values not necessary
+		}
+	}
+	*/
+
 
 	if (pSetCounter != pars.size()){
 		std::cerr << "ERROR - not all parameters set" << std::endl;
