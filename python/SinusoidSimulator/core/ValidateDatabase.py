@@ -17,6 +17,10 @@ Created on Mar 25, 2014
     TODO: 
     Check for timecourses which point to unassigned & assigned simulations
     and remove these files.    
+    
+    TODO: 
+    validate the database content. Is everything consistent, are all the files
+    accessible. Run control checks.
 '''
 
 import sys

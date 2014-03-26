@@ -35,7 +35,7 @@ TODO: handle all Folders by setting $MULTISCALE_GALACTOSE variable.
 '''
 
 SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim"
-COPASI = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/Debug/CopasiModelRunner"  
+COPASI = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/build/CopasiModelRunner"  
 
 import os
 import sys
