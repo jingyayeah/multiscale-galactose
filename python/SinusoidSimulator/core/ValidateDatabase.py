@@ -21,6 +21,10 @@ Created on Mar 25, 2014
     TODO: 
     validate the database content. Is everything consistent, are all the files
     accessible. Run control checks.
+    
+    TODO: 
+    clean cores which did not listen for some time.
+    
 '''
 
 import sys

@@ -70,6 +70,7 @@ def get_core_by_ip_and_cpu(ip, cpu):
     if (core_qset.exists()):
         core = core_qset[0]
         core.time = timezone.now()
+        core.save()
     else:
         core = Core(ip=ip, cpu=cpu, time=timezone.now())
         core.save()
