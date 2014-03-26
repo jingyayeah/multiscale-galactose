@@ -187,6 +187,10 @@ def createParametersByManual():
 
 if __name__ == "__main__":
     # in a first step the models have to be created
+    # TODO: create model separately
+    
+    # call the copySBML script afterwards, to transfer the
+    # sbml to the computers.
      
     if (0):
         # create new dilution simulations    

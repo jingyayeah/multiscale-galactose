@@ -79,6 +79,12 @@ def unassignSimulation(sim):
     
 if __name__ == "__main__":
     handleUnfinishedSimulations();
+    
+    # ! CAREFUL !
+    # unassignAllSimulation()
+    
+    
+    
     # ! CAREFUL !
     # unassignAllSimulation()
     
