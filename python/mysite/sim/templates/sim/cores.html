@@ -4,6 +4,12 @@
 <h1>Cores</h1>
 {% if cores_list %}
 	<table>
+	<tr>
+		<th>id</th>
+		<th>computer</th>
+		<th>cpu</th>
+		<th>time</th>
+	</tr>
 	{% for core in cores_list %}
 		<tr>
 			<td>{{core.id}}</td>

@@ -28,10 +28,14 @@
 }
 
 /*********************************/
-html{font-size:x-small;}
-body{
-	font:120%/1.4em Verdana,sans-serif;
-	background: #ffffff;
+html{font-size:normal;}
+body {
+    background: #ffffff;
+    margin: 0;
+    padding: 10px;
+    line-height: 1.4em;
+    font-family: tahoma, arial, sans-serif;
+    font-size: 80%;
 }
 
 a, a:hover{text-decoration:none;}
@@ -44,9 +48,9 @@ h1,h2,h3,h4,h5{
 	}
 
 h1{
-	margin-bottom:5px;
-	margin-top:5px;
-	background-color:#c3c3c3;
+	margin-bottom:0px;
+	margin-top:0px;
+	background-color:#FFFFFF;
 }
 h2{
 	margin-bottom:5px;
@@ -75,11 +79,34 @@ ul{
 	list-style-type: none;
 }
 
-th,td {
-	padding-left:10px;
-	padding-right:10px;
-	text-align: left;
-	vertical-align:top;
+/**** table *********************/
+table {
+    //width: 80%;
+    margin: 0;
+    background: #FFFFFF;
+    border: 1px solid #333333;
+    border-collapse: collapse;
+}
+
+td, th {
+    font-size:smaller;
+    border-bottom: 0px solid #333333;
+    padding: 3px 16px;
+    text-align: left;
+    vertical-align:top;
+}
+
+th {
+    background: #EEEEEE;
+}
+
+caption {
+    background: #E0E0E0;
+    margin: 0;
+    border: 1px solid #333333;
+    border-bottom: none;
+    padding: 6px 16px;
+    font-weight: bold;
 }
 
 
@@ -89,6 +116,7 @@ th,td {
 	padding-right:20px;	
 	text-align:justify;
 }
+
 span.code {
 	font-family:Courier;
 	font-weight:bolder;
@@ -100,24 +128,13 @@ span.UNASSIGNED{
 	font-weight:bolder;
 }
 span.ASSIGNED{
-	color:yellow;
+	color:orange;
 	font-weight:bolder;
 }
 span.DONE{
 	color:green;
 	font-weight:bolder;
 }
-
-
-/* news items */
-.news {
-	font-size:smaller;
-	width:80%;
-}
-.news_heading {
-	font-weight:bolder;
-}
-
 
 /* menu items */
 a.menu {

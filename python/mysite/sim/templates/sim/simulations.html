@@ -3,22 +3,6 @@
 {% block content %}
 <h1>Simulations</h1>
 
-<div class="pagination">
-    <span class="step-links">
-        {% if simulations.has_previous %}
-            <a href="?page={{ simulations.previous_page_number }}">previous</a>
-        {% endif %}
-		 | 
-        {% if simulations.has_next %}
-            <a href="?page={{ simulations.next_page_number }}">next</a>
-        {% endif %}
-        
-        <span class="current">
-           [Page {{ simulations.number }} of {{ simulations.paginator.num_pages }}]
-        </span>
-    </span>
-</div>
-
 {% if simulations %}
 	<table>
 	<tr>
@@ -46,6 +30,23 @@
 {% else %}
     <p>No Simulations.</p>
 {% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if simulations.has_previous %}
+            <a href="?page={{ simulations.previous_page_number }}">previous</a>
+        {% else %}
+         previous
+        {% endif %}
+		 | 
+        {% if simulations.has_next %}
+            <a href="?page={{ simulations.next_page_number }}">next</a>
+        {% endif %}
+        
+        <span class="current">
+           [{{ simulations.number }} of {{ simulations.paginator.num_pages }}]
+        </span>
+    </span>
+</div>
 
 
 

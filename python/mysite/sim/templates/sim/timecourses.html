@@ -2,22 +2,6 @@
 {% block content %}
 
 <h1>Timecourses</h1>
-<div class="pagination">
-    <span class="step-links">
-        {% if timecourses.has_previous %}
-            <a href="?page={{ timecourses.previous_page_number }}">previous</a>
-        {% endif %}
-		 | 
-        {% if timecourses.has_next %}
-            <a href="?page={{ timecourses.next_page_number }}">next</a>
-        {% endif %}
-        
-        <span class="current">
-           [Page {{ timecourses.number }} of {{ timecourses.paginator.num_pages }}]
-        </span>
-    </span>
-</div>
-
 {% if timecourses %}
 	<table>
 	<tr>
@@ -36,4 +20,22 @@
 {% else %}
     <p>No Timecourses.</p>
 {% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if timecourses.has_previous %}
+            <a href="?page={{ timecourses.previous_page_number }}">previous</a>
+        {% else %}
+        previous
+        {% endif %}
+		 | 
+        {% if timecourses.has_next %}
+            <a href="?page={{ timecourses.next_page_number }}">next</a>
+        {% endif %}
+        
+        <span class="current">
+           [{{ timecourses.number }} of {{ timecourses.paginator.num_pages }}]
+        </span>
+    </span>
+</div>
+
 {% endblock %}

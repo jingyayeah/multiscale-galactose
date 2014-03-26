@@ -64,7 +64,7 @@ def simulations(request):
     Simulations are paginated in view.
     '''
     sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
-    paginator = Paginator(sim_list, 30) # Show 25 simulations per page
+    paginator = Paginator(sim_list, 25) # Show 25 simulations per page
     
     page = request.GET.get('page')
     try:
@@ -116,7 +116,7 @@ def simulation(request, simulation_id):
 def timecourses(request):
     ''' Overview of Timecourses. '''
     tc_list = Timecourse.objects.all()
-    paginator = Paginator(tc_list, 30) # Show 25 simulations per page
+    paginator = Paginator(tc_list, 25) # Show 25 simulations per page
     
     page = request.GET.get('page')
     try:

@@ -7,19 +7,18 @@
 		<th>pk</th>
 		<th>model</th>
 		<th>integration</th>
-		<th>simulations [D|A|U]</th>
+		<th>simulations</th>
+		<th>status</th>
 	</tr>
 		<tr>
 			<td>{{task.pk}}</td>
 			<td><a href="{{task.sbml_model.file.url}}" target="_blank">{{task.sbml_model}}</a></td>
 			<td>{{task.integration}}</td>
+			<td>{{task.sim_count}}</td> 
 			<td>
-				{% comment %}
-					{% for sim in task.simulation_set.all %}
-					<a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a>
-					{% endfor %}
-				{% endcomment %}
-				{{ task.sims_count }} [{{task.done_count}}|{{task.assigned_count}}|{{task.unassigned_count}}]
+				<span class="DONE">{{task.done_count}}</span> | 
+				<span class="ASSIGNED">{{task.assigned_count}}</span> | 
+				<span class="UNASSIGNED">{{task.unassigned_count}}</span> 	
 			</td>
 
 		</tr>
