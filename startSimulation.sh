@@ -26,6 +26,8 @@ echo "###################################"
 mkdir ~/multiscale-galactose-results
 mkdir ~/multiscale-galactose-results/tmp_sbml
 mkdir ~/multiscale-galactose-results/tmp_sim
+mkdir ~/multiscale-galactose-results/django
+
 
 # build latest CopasiModelSimulator
 echo "###################################"
