@@ -7,6 +7,10 @@ Simulations in C++ (CopasiModelSimulator) are called with SBML file
 The SimulationFactory generates sets of parameters and simulations.
 
 UNASSIGNED simulations can be taken by processors and be performed.
+
+TODO: after creation of files these have to copied to the server, i.e
+      mainly the sbml files
+
 '''
 
 SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
