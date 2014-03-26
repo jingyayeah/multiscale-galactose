@@ -188,7 +188,7 @@ if __name__ == "__main__":
     # call the copySBML script afterwards, to transfer the
     # sbml to the computers.
     
-    sbml_id = "Galactose_v5_Nc20_Nf1"   
+    sbml_id = "Galactose_v6_Nc20_Nf1"   
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
 

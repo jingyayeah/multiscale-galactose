@@ -135,6 +135,9 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	// the model building process.
 	// They are needed after the model has been built to make sure all initial
 	// values are set to the correct initial value.
+
+	// If values have to be changed via the config, they must be constant=false ! for parameters
+
 	std::set<const CCopasiObject*> changedObjects;
 
 	// PARAMETERS - Change initial value
@@ -145,6 +148,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		CModelValue* pModelValue = pModel->getModelValues()[i];
 		const std::string& sbmlId = pModelValue->getSBMLId();
 
+		// std::cout << sbmlId << std::endl;
 		for (std::vector<MParameter>::const_iterator it=pars.begin(); it!=pars.end(); ++it){
 		    //MParameter p = *it;
 		    std::string id = (*it).getId();
@@ -162,6 +166,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 			}
 		}
 	}
+
 
 	// SPECIES - Change Initial concentrations
 	// ! careful with setInitialConcentration & setInitialValue

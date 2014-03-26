@@ -26,19 +26,17 @@
 #include "TimecourseParameters.h"
 
 /**
- * The CopasiModelRunner is called in the following way
- * ./CopasiModelRunner -sbml sbml_file -parameters pars_file
+ * CopasiModelRunner to integrate SBML models.
+ * ./CopasiModelRunner -s sbml_file -c config_file -r report file
  *
  * The parameters are set in the model and the integration performed.
  *
  * Main things to do are:
- * 	- take a model file and convert it to Copasi format
- * 	- change parameters in the model (galactose, blood flow)
+ * 	- read SBML model into Copasi model
+ * 	- change parameters given in the config file (for instance PP__gal, blood flow)
  * 	- perform time course simulations
- * 	- create report of integration & store data in files with SBML identifiers
- * 	- read the data into Matlab for analysis
+ * 	- write report file of timecourse in csv with SBML identifiers
  *
- * 	TODO: create a makefile
  * 	TODO: Generate the Copasi file once and reuse it for the integration (SBML Ids conserved?)
  */
 
