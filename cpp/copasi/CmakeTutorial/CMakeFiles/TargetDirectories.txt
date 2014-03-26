@@ -1,0 +1,1 @@
+/home/mkoenig/multiscale-galactose/cpp/copasi/CmakeTutorial/CMakeFiles/Tutorial.dir

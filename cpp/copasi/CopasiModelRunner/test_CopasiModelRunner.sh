@@ -6,7 +6,7 @@ rm $freport
 # show config information for integration
 more $fconfig
 
-Debug/CopasiModelRunner -s /home/mkoenig/multiscale-galactose-results/test/Dilution_Curves_v4_Nc20_Nf1.xml -c $fconfig -t $freport
+Debug/CopasiModelRunner -s /home/mkoenig/multiscale-galactose-results/tmp_sbml/Dilution_Curves_v5_Nc20_Nf1.xml -c $fconfig -t $freport
 
 # create plots for data for control
 

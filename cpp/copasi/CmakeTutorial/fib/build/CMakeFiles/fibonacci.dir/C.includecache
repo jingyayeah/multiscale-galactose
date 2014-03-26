@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mkoenig/multiscale-galactose/cpp/copasi/CmakeTutorial/fib/fib.c
+stdio.h
+/home/mkoenig/multiscale-galactose/cpp/copasi/CmakeTutorial/fib/stdio.h
+stdlib.h
+/home/mkoenig/multiscale-galactose/cpp/copasi/CmakeTutorial/fib/stdlib.h
+
