@@ -4,7 +4,7 @@ from django.template import RequestContext, loader
 from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot
 from django.shortcuts import render_to_response, render, get_object_or_404
 from sim.plot import PlotSimulation
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
     '''
@@ -42,14 +42,13 @@ def tasks(request):
 
 
 def task(request, task_id):
+    '''
+    View of single task.
+    
+        # generate histograms
+        # PlotSimulation.createTaskPlots(task, folder)
+    '''
     task = get_object_or_404(Task, pk=task_id)
-    
-    # TODO solve generic
-    folder = "/home/mkoenig/multiscale-galactose-results/test"
-    
-    # generate histograms
-    # PlotSimulation.createTaskPlots(task, folder)
-    
     
     template = loader.get_template('sim/task.html')
     context = RequestContext(request, {
@@ -62,13 +61,27 @@ def task(request, task_id):
 def simulations(request):
     '''
     Overview of simulations in the network.
+    Simulations are paginated in view.
     '''
     sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
+    paginator = Paginator(sim_list, 30) # Show 25 simulations per page
+    
+    page = request.GET.get('page')
+    try:
+        simulations = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        simulations = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        simulations = paginator.page(paginator.num_pages)
+    
     template = loader.get_template('sim/simulations.html')
     context = RequestContext(request, {
-        'sim_list': sim_list,
+        'simulations': simulations,
     })
     return HttpResponse(template.render(context))
+
 
 def simulation(request, simulation_id):
     '''
@@ -85,8 +98,9 @@ def simulation(request, simulation_id):
         sim_next = None
     
     # create the plots for the simulation
-    folder = "/home/mkoenig/multiscale-galactose-results/test"
-    PlotSimulation.createSimulationPlots(sim, folder)
+    # TODO: problem when the files are not available
+    # folder = "/home/mkoenig/multiscale-galactose-results/tmp_plot"
+    # PlotSimulation.createSimulationPlots(sim, folder)
     
     template = loader.get_template('sim/simulation.html')
     context = RequestContext(request, {
@@ -100,13 +114,24 @@ def simulation(request, simulation_id):
 
 
 def timecourses(request):
-    '''
-    Overview of Timecourses.
-    '''
+    ''' Overview of Timecourses. '''
+    tc_list = Timecourse.objects.all()
+    paginator = Paginator(tc_list, 30) # Show 25 simulations per page
+    
+    page = request.GET.get('page')
+    try:
+        timecourses = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        timecourses = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        timecourses = paginator.page(paginator.num_pages)
+    
     tc_list = Timecourse.objects.all()
     template = loader.get_template('sim/timecourses.html')
     context = RequestContext(request, {
-        'tc_list': tc_list,
+        'timecourses': timecourses,
     })
     return HttpResponse(template.render(context))
 

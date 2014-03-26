@@ -151,8 +151,25 @@ class Task(models.Model):
         unique_together = ("sbml_model", "integration")
     
     def __unicode__(self):
-        return "T:%d [%s | Int:%d]" % (self.pk, self.sbml_model, self.integration.pk)
+        return "T%d [Int%d]" % (self.pk, self.integration.pk)
 
+    def sim_count(self):
+        ''' Number of simulations for task. '''
+        return self.simulation_set.count()
+    
+    def done_count(self):
+        ''' Number of done simulations for task. '''
+        return self.simulation_set.filter(status=DONE).count()
+    
+    def assigned_count(self):
+        ''' Number of assigned simulations for task. '''
+        return self.simulation_set.filter(status=ASSIGNED).count()
+    
+    def unassigned_count(self):
+        ''' Number of done simulations for task. '''
+        return self.simulation_set.filter(status=UNASSIGNED).count()
+    
+    
 
 UNASSIGNED = "UNASSIGNED"
 ASSIGNED = "ASSIGNED"

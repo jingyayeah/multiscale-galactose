@@ -157,8 +157,14 @@ def createParametersBySampling(task, N=100):
 
 if __name__ == "__main__":
 
-    # create new simulations for SBML with sbml_id 
-    sbml_id = "Dilution_Curves_v5_Nc20_Nf1"
-    N = 100     # number of simulations
-    createDilutionCurvesSimulationTask(sbml_id, N)
+     
+    if (0):
+        # create new dilution simulations    
+        sbml_id = "Dilution_Curves_v5_Nc20_Nf1"
+        N = 1000     # number of simulations
+        createDilutionCurvesSimulationTask(sbml_id, N)
+    
+    
+    
+    
     

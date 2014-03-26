@@ -2,7 +2,24 @@
 
 {% block content %}
 <h1>Simulations</h1>
-{% if sim_list %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if simulations.has_previous %}
+            <a href="?page={{ simulations.previous_page_number }}">previous</a>
+        {% endif %}
+		 | 
+        {% if simulations.has_next %}
+            <a href="?page={{ simulations.next_page_number }}">next</a>
+        {% endif %}
+        
+        <span class="current">
+           [Page {{ simulations.number }} of {{ simulations.paginator.num_pages }}]
+        </span>
+    </span>
+</div>
+
+{% if simulations %}
 	<table>
 	<tr>
 		<th>pk</th>
@@ -13,7 +30,7 @@
 		<th>core</th>
 		<th>timecourse</th>
 	</tr>
-	{% for sim in sim_list %}
+	{% for sim in simulations %}
 		
 		<tr>
 			<td><a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a></td>
@@ -22,11 +39,14 @@
 			<td>{{sim.parameters}}</td>
 			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
 			<td>{{sim.core}}</td>
-			<td><a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a></td>
+			<td><a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.file.name}}</a></td>
 		</tr>    
     {% endfor %}
     </table>
 {% else %}
     <p>No Simulations.</p>
 {% endif %}
+
+
+
 {% endblock %}

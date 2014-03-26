@@ -1,18 +1,34 @@
 {% extends "sim/base_generic.html" %}
-
 {% block content %}
+
 <h1>Timecourses</h1>
-{% if tc_list %}
+<div class="pagination">
+    <span class="step-links">
+        {% if timecourses.has_previous %}
+            <a href="?page={{ timecourses.previous_page_number }}">previous</a>
+        {% endif %}
+		 | 
+        {% if timecourses.has_next %}
+            <a href="?page={{ timecourses.next_page_number }}">next</a>
+        {% endif %}
+        
+        <span class="current">
+           [Page {{ timecourses.number }} of {{ timecourses.paginator.num_pages }}]
+        </span>
+    </span>
+</div>
+
+{% if timecourses %}
 	<table>
 	<tr>
 		<th>pk</th>
 		<th>sim</th>
 		<th>file</th>
 	</tr>
-	{% for tc in tc_list %}
+	{% for tc in timecourses %}
 		<tr>
 			<td>{{ tc.pk }}</td>
-			<td>{{ tc.simulation }}</td>
+			<td><a href="{% url 'sim:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
 			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
 		</tr>    
     {% endfor %}

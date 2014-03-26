@@ -45,7 +45,7 @@ def handleUnfinishedSimulations():
     assigned = Simulation.objects.filter(status=ASSIGNED)
     for sim in assigned:
         t_assign = sim.time_assign
-        if (timezone.now() >= t_assign + timedelta(minutes=20)):
+        if (timezone.now() >= t_assign + timedelta(minutes=3)):
             print "Simulation assigned for long: ", sim.pk
             print t_assign
             print timezone.now()
@@ -78,8 +78,8 @@ def unassignSimulation(sim):
     print "Simulation reset: ", sim
     
 if __name__ == "__main__":
-    # handleUnfinishedSimulations();
+    handleUnfinishedSimulations();
     # ! CAREFUL !
-    unassignAllSimulation()
+    # unassignAllSimulation()
     
     
