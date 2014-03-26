@@ -20,6 +20,9 @@ def validate_gt_zero(value):
 
 # Create your models here.
 # TODO: get name via ip dictionary
+# TODO: implement the listening features, i.e. finding out 
+# which cpus are really listening for simulations. Use the time field
+# not only reset via simulation, but via trying to get an simulation.
 class Core(models.Model):
     ip = models.CharField(max_length=200)
     cpu = models.IntegerField()
@@ -71,6 +74,7 @@ class SBMLModel(models.Model):
     def create(cls, sbml_id, folder):
         '''
             Create the model based on the model id.
+            TODO: problematic local sbml file.
         '''
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
