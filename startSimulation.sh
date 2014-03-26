@@ -23,6 +23,7 @@ git pull
 echo "###################################"
 echo "# Create tmp folders #"
 echo "###################################"
+mkdir ~/multiscale-galactose-results
 mkdir ~/multiscale-galactose-results/tmp_sbml
 mkdir ~/multiscale-galactose-results/tmp_sim
 
@@ -47,7 +48,7 @@ make
 echo "###################################"
 echo "# run simulations #"
 echo "###################################"
-# cd ~/multiscale-galactose/python/SinusoidSimulator/core
-# python Simulator.py
+cd ~/multiscale-galactose/python/SinusoidSimulator/core
+python Simulator.py
 
 

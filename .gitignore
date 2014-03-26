@@ -2,9 +2,11 @@ cpp/copasi/CopasiModelRunner/InitialDependencies.dot
 cpp/copasi/CopasiModelRunner/SimulationDependencies.dot
 cpp/copasi/CopasiModelRunner/example1.cps
 cpp/copasi/CopasiModelRunner/example1.xml
-cpp/copasi/CopasiModelRunner/build*
+cpp/copasi/CopasiModelRunner/build/*
+cpp/copasi/CopasiModelRunner/Debug/*
 .~*
 *.pyc
+*.dot
 .metadata
 .project
 .pydevproject
