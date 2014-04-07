@@ -21,7 +21,7 @@ pars$sim <- NULL
 # number of parameters
 Np = length(names(pars))
 
-# plot paramter histogram
+# plot parameter histogram
 plotParameterHist <- function(name, breaks=20){
   x <- pars[,name] 
   print(x)
