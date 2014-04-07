@@ -1,4 +1,3 @@
-
 rm(list=ls())   # Clear all objects
 setwd("/home/mkoenig/multiscale-galactose-results/")
 
@@ -8,70 +7,41 @@ setwd("/home/mkoenig/multiscale-galactose-results/")
 # author: Matthias Koenig
 # date: 2014-04-07
 
-# load the experimental data Schirmer1986 from excel
-install.packages("XLConnect")
-library("XLConnect")
-file_Schirmer1986 = "/home/mkoenig/multiscale-galactose/experimental_data/galactose_clearance/Koenig_galactose_clearance.xlsx"
-excel.file <- file.path(file_Schirmer1986)
-elements <- readWorksheetFromFile(excel.file, sheet="Schirmer1986_Fig2")
+# load the experimental data Schirmer1986 from csv
+folder = "/home/mkoenig/multiscale-galactose/experimental_data/galactose_clearance"
+
+# Schirmer_Fig1
+# Galactose  GE
+# [mcg/ml]	[mcg/min/100g]
+fig1 <- read.csv(paste(folder, "/", "Schirmer1986_Fig1.csv", sep=""))
+head(fig1)
+names(fig1)
+plot(fig1$Galactose, fig1$GE)
+
+# Schirmer_Fig2
+# per_Galactose  per_GE
+# [ml/mcg *1E4]	[100g*min/mcg*1E4]
+fig2 <- read.csv(paste(folder, "/", "Schirmer1986_Fig2.csv", sep=""))
+head(fig2)
+names(fig2)
+plot(fig2$per_Galactose, fig2$per_GE)
+
+# Schirmer_Fig4
+# Vmax_per_FKm  ER
+# [-]	[-]
+fig4 <- read.csv(paste(folder, "/", "Schirmer1986_Fig4.csv", sep=""))
+head(fig4)
+names(fig4)
+plot(fig4[,1], fig4[,2])
+
+# Schirmer_Fig6  	
+# Flow	Clearance	ER
+# [ml/min/100gm]	[-]	[-]
+fig6 <- read.csv(paste(folder, "/", "Schirmer1986_Fig6.csv", sep=""))
+head(fig6)
+names(fig6)
+plot(fig6[,1], fig6[,2])
+points(fig6[,1], fig6[,3])
+################################################################
 
 
-
-
-
-
-
-### Load the parameter file ###
-modelId <- "Dilution_Curves_v4_Nc20_Nf1"
-task <- "T1"
-
-parsfile <- paste(task, '_parameters.csv', sep="")
-pars <- read.csv(parsfile, header=TRUE)
-names(pars)
-# set row names
-row.names(pars) <- paste("Sim", pars$sim, sep="")
-pars$sim <- NULL
-# number of parameters
-Np = length(names(pars))
-
-# plot parameter histogram
-plotParameterHist <- function(name, breaks=20){
-  x <- pars[,name] 
-  print(x)
-  hist(x, breaks=breaks, xlab=name, main=paste("Histogram", name))
-}
-
-# create the plot
-png(filename=paste(task, "_parameter_histograms.png", sep=""),
-    width = 1800, height = 500, units = "px", bg = "white",  res = 150)
-par(mfrow=c(1,Np))
-for (k in seq(1,Np)){
-  name <- names(pars)[k]
-  plotParameterHist(name)
-}
-par(mfrow=c(1,1))
-dev.off()
-
-# Overview of the distribution parameters
-summary(pars)
-
-
-########################################################################
-### Load the simulation data ###
-
-# Load data for single simulation by sim name
-readDataForSim <- function(sim, withTime=F){
-  tmp <- read.csv(paste("data/", modelId, "_", sim, "_copasi.csv", sep=""))
-  # set time as row names and remove the time vector
-  row.names(tmp) <- tmp$time
-  
-  # reduce data to PP__ and PV__ data
-  pppv.index <- which(grepl("^PP__", names(tmp)) | grepl("^PV__", names(tmp)) )
-  if (withTime==T){
-    pppv.index <- which(grepl("^PP__", names(tmp)) | grepl("^PV__", names(tmp)) |  grepl("^time", names(tmp)))
-  }
-  tmp <- tmp[, pppv.index]
-}
-
-# Read the data in a list structure
-# Every element of the list v[[sim]] is the data.frame for the respective simulation sim
