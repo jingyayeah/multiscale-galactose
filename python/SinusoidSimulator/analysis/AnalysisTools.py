@@ -4,6 +4,9 @@ Created on Mar 23, 2014
 
 Tools to help analyse series of Simulations, i.e. simulations
 which belong to the same task.
+
+Here simulations are collected from the database and the 
+parameter files written for the simulations.
 '''
 
 import os
@@ -14,12 +17,23 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import csv
 from sim.models import Task
 
+def createParameterFileForSeries(folder, task):
+    '''
+    Write the parameter file for the series. 
+    '''
+    # TODO: implement
+    pass
+
+
 
 def createParameterFileForTask(folder, task):
     '''
-    Write the parameter file for the task
+    Write the parameter file for the task.
+    Simulation Id is stored in collection with the parameters.
+    The problem is that within a task there can be different
+    numbers of parameters set. It has to be guaranteed by the
+    SimulationFactory.
     '''
-    
     # collect the parameters for the simulations
     data = dict()
     data['sim'] = []
@@ -50,6 +64,8 @@ def createParameterFileForTask(folder, task):
         tmp = [data[key][k] for key in header]
         writer.writerows([tmp,])
     f.close()
+    
+    
     
 
 if __name__ == "__main__":

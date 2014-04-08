@@ -12,6 +12,8 @@ from django.core.files import File
     
     TODO: add something like SimulationSeries to collect a list of simulations,
             which can be analysed in a combined fashion.
+            Currently this is guaranteed by the SimulationFactory during generation
+            of the sets of simulations.
     TODO: create integration view
 '''
 
@@ -149,6 +151,10 @@ class ParameterCollection(models.Model):
         
         
 class Task(models.Model):
+    '''
+        Tasks are compatible on their integration setting and the
+        underlying model.
+    '''
     sbml_model = models.ForeignKey(SBMLModel)
     integration = models.ForeignKey(Integration)
     info = models.TextField(null=True, blank=True)
@@ -175,7 +181,14 @@ class Task(models.Model):
         ''' Number of done simulations for task. '''
         return self.simulation_set.filter(status=UNASSIGNED).count()
     
-    
+
+    '''
+    class Series(models.Model):
+        Series are compatible on the model and used integration settings, i.e.
+        the simulations belong to the same task.
+        Furthermore they are compatible on the parameters, i.e. every simulation
+        in the series has the same number of parameters, with the same names.
+    '''
 
 UNASSIGNED = "UNASSIGNED"
 ASSIGNED = "ASSIGNED"

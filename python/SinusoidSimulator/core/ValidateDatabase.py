@@ -34,7 +34,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 from datetime import timedelta
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
-from sim.models import Simulation, Timecourse, UNASSIGNED, ASSIGNED
+from sim.models import Simulation, Timecourse, Task, Parameter, UNASSIGNED, ASSIGNED
 
 
 def handleUnfinishedSimulations():
@@ -77,8 +77,48 @@ def unassignSimulation(sim):
     sim.save();
     print "Simulation reset: ", sim
     
+def addDefaultParametersToTaskSimulations(task, pars):
+    '''
+    The simulations within a task should have the same minimal number of parameters set. 
+    '''
+    print pars
+    
+    # get the simulations
+    for sim in task.simulation_set.all():
+
+        # get parameter collection
+        pc = sim.parameters;
+        
+        for data in pars:
+            name, value, unit = data
+            # get the Parameter
+            p, tmp = Parameter.objects.get_or_create(name=name, value=value, unit=unit);
+            
+            if (pc.parameters.filter(name=name).exists()):
+                continue
+            else:
+                print '-'*20
+                print sim.pk
+                print '-'*20
+                print "Add parameter: ", name
+                pc.parameters.add(p)
+                pc.save();
+                for ptmp in pc.parameters.all():
+                    print ptmp
+
+
+def addDefaultDeficiencyToTaskSimulations(task):
+    pars = [('deficiency', 0, '-')]
+    addDefaultParametersToTaskSimulations(task, pars)
+    
+    
+    
+    
 if __name__ == "__main__":
-    handleUnfinishedSimulations();
+    # task = Task.objects.get(pk=1)
+    # addDefaultDeficiencyToTaskSimulations(task)
+    
+    # handleUnfinishedSimulations();
     
     # ! CAREFUL !
     # unassignAllSimulation()
