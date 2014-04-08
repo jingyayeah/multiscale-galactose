@@ -83,8 +83,6 @@ if __name__ == "__main__":
     # ! CAREFUL !
     # unassignAllSimulation()
     
-    
-    
     # ! CAREFUL !
     # unassignAllSimulation()
     

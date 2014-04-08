@@ -48,8 +48,8 @@ def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencie
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
                                                              tend=5000.0, 
                                                              tsteps=100,
-                                                             abs_tol=1E-8,
-                                                             rel_tol=1E-8)
+                                                             abs_tol=1E-6,
+                                                             rel_tol=1E-6)
     if (created):
         print "Integration created: {}".format(integration)
     
@@ -186,7 +186,7 @@ def createSimulationsFromParametersInTask(pars, task):
 
 
 if __name__ == "__main__":
-    # TODO: fix that model is created every time
+    # TODO: fix that model is created every time (is it ?)
     # Create the galactose model in the database
     # call the copySBML script afterwards, to transfer the
     # sbml to the computers.
@@ -194,10 +194,10 @@ if __name__ == "__main__":
     sbml_id = "Galactose_v6_Nc20_Nf1"   
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
-    if (10):
+    if (1):
         # create the galactose simulations
         # if no deficiencies are set, only the normal case is simulated
-        N = 100     # number of simulations per deficiency and galactose
+        N = 5     # number of simulations per deficiency and galactose
         gal_range = np.arange(0, 8, 1.0)
         # TODO: better range
         createGalactoseSimulationTask(model, N, gal_range)
