@@ -191,14 +191,14 @@ if __name__ == "__main__":
     # call the copySBML script afterwards, to transfer the
     # sbml to the computers.
     
-    sbml_id = "Galactose_v7_Nc20_Nf1"   
+    sbml_id = "Galactose_v8_Nc20_Nf1"   
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
     if (1):
         # create the galactose simulations
         # if no deficiencies are set, only the normal case is simulated
-        N = 95     # number of simulations per deficiency and galactose
-        gal_range = np.arange(0, 8, 1.0)
+        N = 100     # number of simulations per deficiency and galactose
+        gal_range = np.arange(0, 6, 1.0)
         createGalactoseSimulationTask(model, N, gal_range)
     
     if (0):

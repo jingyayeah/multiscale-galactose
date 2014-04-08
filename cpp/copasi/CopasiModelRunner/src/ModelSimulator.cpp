@@ -9,6 +9,7 @@
 #include <string>
 #include <set>
 #include <stdexcept>
+#include <ctime>
 
 #include "copasi/copasi.h"
 #include "copasi/report/CCopasiRootContainer.h"
@@ -154,6 +155,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		    std::string id = (*it).getId();
 		    double value = (*it).getValue();
 
+		    // ! Careful with difference between initial value and concentration !
 			if(sbmlId.compare(id) == 0){
 				std::cout << "\t" << id << " -> " << value << " [Parameter - InitialValue]" << std::endl;
 				pModelValue->setInitialValue(value);
@@ -164,6 +166,9 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 				pSetCounter++;
 				break;
 			}
+			// Handle the things done by initial assignments STATUS ASSIGNMENT
+			// This is probably the soluton for the deficiencies
+
 		}
 	}
 
@@ -193,7 +198,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		}
 	}
 
-	/* TODO MAYOR BUG
+	/* TODO MAYOR BUG - this is not working properly due to its role in an event.
 	// DEFICIENCY - which is used in an event
 	for (size_t i=0; i<pModel->getEvents().size(); ++i){
 		CEvent* pEvent = pModel->getEvents()[i];
@@ -222,28 +227,6 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		throw std::runtime_error("Not all parameters set before integration");
 	}
 
-	/* EVENT CHANGES
-	// Change Event states (for peak)
-	for (size_t i=0; i<pModel->getEvents().size(); ++i){
-		CEvent* pEvent = pModel->getEvents()[i];
-		const std::string& sbmlId = pEvent->getSBMLId();
-		if(sbmlId.compare("EGAL_1") == 0){
-			// find the right EventAssignment (only one, so take the first)
-			double galValue = mPars.getPPGalactose();
-			std::ostringstream tmp;
-			tmp << galValue;
-			std::string expression = tmp.str();
-			bool success = pEvent->getAssignments()[0]->setExpression(expression);
-			std::cout << "EGAL_1 -> " << expression << std::endl;
-			// targetKey of the assignment is already the PP__gal
-			if (!success){
-				std::cout << "The expression could not be set";
-			}
-			// Update initial values not necessary
-		}
-	}
-	*/
-
 
 	//std::cout << "Compile model and update initial conditions" << std::endl;
 	// finally compile the model
@@ -262,12 +245,10 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	}
 
 	// Status of entities
-	// FIXED entity is fixed
-	// ASSIGNMENT entity is determined by an assignment
-	// REACTIONS entity is determined by reactions (only applicable to
-	// 		metabolites)
-	// ODE entity is determined by an ode
-
+	// 		FIXED entity is fixed
+	// 		ASSIGNMENT entity is determined by an assignment
+	// 		REACTIONS entity is determined by reactions (only applicable to metabolites)
+	// 		ODE entity is determined by an ode
 
 	// create a report
 	CReportDefinitionVector* pReports = pDataModel->getReportDefinitionList();
@@ -398,6 +379,7 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 	CCopasiParameter* pParameter = pMethod->getParameter("Absolute Tolerance");
 	assert(pParameter != NULL);
 	pParameter->setValue(tcPars.getAbsTol());
+
 	pParameter = pMethod->getParameter("Relative Tolerance");
 	assert(pParameter != NULL);
 	pParameter->setValue(tcPars.getRelTol());
@@ -411,8 +393,22 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		// If it is OK that the output is only written to file, the output type can
 		// be set to OUTPUT_SE
 		pTrajectoryTask->initialize(CCopasiTask::OUTPUT_UI, pDataModel, NULL);
+
 		// now we run the actual trajectory
+		// TODO: timing of the integration
+		std::cout << "Start integration ... " << std::endl;
+		clock_t begin = clock();
 		pTrajectoryTask->process(true);
+
+		clock_t end = clock();
+		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		std::cout << "... integration finished.  [ " << elapsed_secs << " ] seconds" << std::endl;
+
+		pParameter = pMethod->getParameter("Absolute Tolerance");
+		std::cout << "absTol: " << *(pParameter->getValue().pUDOUBLE) << std::endl;
+		pParameter = pMethod->getParameter("Relative Tolerance");
+		std::cout << "relTol: " << *(pParameter->getValue().pUDOUBLE) << std::endl;
+
 	} catch (...) {
 		std::cerr << "Error. Running the time course simulation failed."
 				<< std::endl;
