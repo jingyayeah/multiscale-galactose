@@ -89,6 +89,9 @@ def createDilutionCurvesSimulationTask(model, N=10):
     task, created = Task.objects.get_or_create(sbml_model=model, integration=integration)
     if (created):
         print "Task created: {}".format(task)
+    info = '''Simulation of tracer peak periportal with resulting dilution curves.'''
+    task.info = info
+    task.save()
     
     # Create the parameters
     # pars = createParametersByManual();
