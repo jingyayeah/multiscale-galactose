@@ -12,6 +12,7 @@
 		<th>parameters</th>
 		<th>status</th>
 		<th>core</th>
+		<th>duration</th>
 		<th>timecourse</th>
 	</tr>
 	{% for sim in simulations %}
@@ -23,6 +24,7 @@
 			<td>{{sim.parameters}}</td>
 			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
 			<td>{{sim.core}}</td>
+			<td>{{sim.duration}}</td>
 			<td><a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.file.name}}</a></td>
 		</tr>    
     {% endfor %}
