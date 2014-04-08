@@ -201,10 +201,10 @@ if __name__ == "__main__":
     if (1):
         # create the galactose simulations
         # if no deficiencies are set, only the normal case is simulated
-        N = 5     # number of simulations per deficiency and galactose
+        N = 45     # number of simulations per deficiency and galactose
         gal_range = np.arange(0, 6, 1.0)
         # createGalactoseSimulationTask(model, N, gal_range, deficiencies=[0])
-        createGalactoseSimulationTask(model, N, gal_range, deficiencies=range(0,24))
+        createGalactoseSimulationTask(model, N, gal_range, deficiencies=range(1,24))
 
     
     if (0):
