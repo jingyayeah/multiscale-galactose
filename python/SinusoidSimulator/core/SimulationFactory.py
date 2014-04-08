@@ -92,8 +92,10 @@ def createDilutionCurvesSimulationTask(model, N=10):
     
     # Create the parameters
     # pars = createParametersByManual();
-    pars = createParametersBySampling(N)
-    createSimulationsFromParametersInTask(pars, task)
+    
+    all_pars = createParametersBySampling(N);
+    for p in all_pars:
+        createSimulationsFromParametersInTask(p, task)
     
     
 def createParametersBySampling(N=100):
@@ -194,19 +196,19 @@ if __name__ == "__main__":
     sbml_id = "Galactose_v8_Nc20_Nf1"   
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
-    if (1):
+    if (0):
         # create the galactose simulations
         # if no deficiencies are set, only the normal case is simulated
         N = 100     # number of simulations per deficiency and galactose
         gal_range = np.arange(0, 6, 1.0)
         createGalactoseSimulationTask(model, N, gal_range)
     
-    if (0):
-        sbml_id = "Dilution_Curves_v5_Nc20_Nf1"
+    if (1):
+        sbml_id = "Dilution_Curves_v8_Nc20_Nf1"
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
-        if (0):
+        if (1):
             # create dilution simulations
-            N = 1000     # number of simulations
+            N = 2000     # number of simulations
             createDilutionCurvesSimulationTask(model, N)
         
