@@ -3,6 +3,23 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" type="text/css" href="{% static 'sim/core.css' %}" />
+	<script type="text/javascript" language="javascript" src="{% static 'sim/jquery.js' %}"></script>
+	<script type="text/javascript" language="javascript" src="{% static 'sim/jquery.dataTables.js' %}"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {			
+    			$('#table_items').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			}); 			
+		} );
+		</script>
+	
+	
+	
 	<title>{% block title %}Multiscale-Galactose{% endblock %}</title>
 	<meta http-equiv="refresh" content="3" />
 </head>
@@ -13,6 +30,7 @@
 		<ul>
 		<li><a href="/sim/models/">Models</a></li>
 		<li><a href="/sim/tasks/">Tasks</a></li>
+		<li><a href="/sim/integrations/">Integrations</a></li>
 		<li><a href="/sim/cores/">Cores</a></li>
 		<li><a href="/sim/simulations/">Simulations</a></li>
 		<li><a href="/sim/timecourses/">Timecourses</a></li>

@@ -1,7 +1,7 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot
+from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot, Integration
 from django.shortcuts import render_to_response, render, get_object_or_404
 from sim.plot import PlotSimulation
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -56,6 +56,26 @@ def task(request, task_id):
     })
     return HttpResponse(template.render(context))
     
+def integrations(request):
+    ''' Overview of integation settings. '''
+    int_list = Integration.objects.all()
+    paginator = Paginator(int_list, 25) # Show 25 simulations per page
+    
+    page = request.GET.get('page')
+    try:
+        integrations = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        integrations = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        integrations = paginator.page(paginator.num_pages)
+    
+    template = loader.get_template('sim/integrations.html')
+    context = RequestContext(request, {
+        'integrations': integrations,
+    })
+    return HttpResponse(template.render(context))
 
 
 def simulations(request):

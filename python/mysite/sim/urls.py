@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     
     url(r'^model/(?P<model_id>\d+)/$', views.model, name='model'),
     # ex: /polls/5/results/
-    url(r'^integration/(?P<integration_id>\d+)/$', views.integration, name='results'),
+    url(r'^integrations/$', views.integrations, name='integrations'),
     # ex: /polls/5/vote/
     url(r'^parameters/(?P<pcol_id>\d+)/$', views.parameters, name='vote'),
     

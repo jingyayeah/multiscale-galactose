@@ -115,6 +115,7 @@ def addDefaultDeficiencyToTaskSimulations(task):
     
     
 if __name__ == "__main__":
+    pass
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
     

@@ -4,7 +4,7 @@
 <h1>Simulations</h1>
 
 {% if simulations %}
-	<table>
+	<table id="table_items"> 
 	<tr>
 		<th>pk</th>
 		<th>model</th>
@@ -16,7 +16,6 @@
 		<th>timecourse</th>
 	</tr>
 	{% for sim in simulations %}
-		
 		<tr>
 			<td><a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a></td>
 			<td>{{sim.task.sbml_model}}</td>

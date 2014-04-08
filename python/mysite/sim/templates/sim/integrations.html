@@ -1,0 +1,48 @@
+{% extends "sim/base_generic.html" %}
+
+{% block content %}
+<h1>Integrations</h1>
+
+{% if integrations %}
+	<table>
+	<tr>
+		<th>pk</th>
+		<th>tstart</th>
+		<th>tend</th>
+		<th>tsteps</th>
+		<th>absTol</th>
+		<th>relTol</th>
+	</tr>
+	{% for item in integrations %}
+		<tr>
+			<td>{{item.pk}}</td>
+			<td>{{item.tstart}}</td>
+			<td>{{item.tend}}</td>
+			<td>{{item.tsteps}}</td>
+			<td>{{item.abs_tol}}</td>
+			<td>{{item.rel_tol}}</td>
+		</tr>    
+    {% endfor %}
+    </table>
+    <div class="pagination">
+    <span class="step-links">
+        {% if integrations.has_previous %}
+            <a href="?page={{ integrations.previous_page_number }}">previous</a>
+        {% else %}
+         previous
+        {% endif %}
+		 | 
+        {% if integrations.has_next %}
+            <a href="?page={{ integrations.next_page_number }}">next</a>
+        {% endif %}
+        
+        <span class="current">
+           [{{ integrations.number }} of {{ integrations.paginator.num_pages }}]
+        </span>
+    </span>
+	</div>
+{% else %}
+    <p>No Integrations in database.</p>
+{% endif %}
+
+{% endblock %}
