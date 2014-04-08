@@ -150,6 +150,7 @@ class ParameterCollection(models.Model):
 class Task(models.Model):
     sbml_model = models.ForeignKey(SBMLModel)
     integration = models.ForeignKey(Integration)
+    info = models.TextField(null=True, blank=True)
     
     class Meta:
         unique_together = ("sbml_model", "integration")

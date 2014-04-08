@@ -10,6 +10,7 @@
 		<th>integration</th>
 		<th>simulations</th>
 		<th>status</th>
+		<th>info</th>
 	</tr>
 	{% for task in tasks_list %}
 		
@@ -23,6 +24,7 @@
 				<span class="ASSIGNED">{{task.assigned_count}}</span> | 
 				<span class="UNASSIGNED">{{task.unassigned_count}}</span> 	
 			</td>
+			<td>{{task.info}}</td>
 		</tr>    
     {% endfor %}
     </table>
