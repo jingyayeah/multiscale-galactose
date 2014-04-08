@@ -36,13 +36,10 @@ import numpy.random as npr
 import math
 
 
-def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencies=range(0,24)):
+def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencies=[0]):
     '''
     Create integration settings, the task and the simulations.
     Related to the Galactose simulations.
-    TODO: fix the handling of the deficiencies 
-        For every deficiency a own task is generated. It can reuse the parameters and
-        integration settings
     '''
     # Get or create integration
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
@@ -63,14 +60,16 @@ def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencie
     task.save()
     
     # get the parameter sets by sampling (same parameters for all galactose settings)
+    # the same parameter sampling is used for all deficiencies
     all_pars = createParametersBySampling(N);
-    for pars in all_pars:
-        for galactose in gal_range:
-            # make a copy !
-            p = pars[:]
-            p.append(('PP__gal', galactose, 'mM'))
-            createSimulationsFromParametersInTask(p, task)
-    
+    for deficiency in deficiencies:
+        for pars in all_pars:
+            for galactose in gal_range:
+                # make a copy !
+                p = pars[:]
+                p.append(('deficiency', deficiency, '-'))
+                p.append(('PP__gal', galactose, 'mM'))
+                createSimulationsFromParametersInTask(p, task)
 
 def createDilutionCurvesSimulationTask(model, N=10):
     '''
@@ -199,14 +198,16 @@ if __name__ == "__main__":
     sbml_id = "Galactose_v8_Nc20_Nf1"   
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
-    if (0):
+    if (1):
         # create the galactose simulations
         # if no deficiencies are set, only the normal case is simulated
-        N = 100     # number of simulations per deficiency and galactose
+        N = 5     # number of simulations per deficiency and galactose
         gal_range = np.arange(0, 6, 1.0)
-        createGalactoseSimulationTask(model, N, gal_range)
+        # createGalactoseSimulationTask(model, N, gal_range, deficiencies=[0])
+        createGalactoseSimulationTask(model, N, gal_range, deficiencies=range(0,24))
+
     
-    if (1):
+    if (0):
         sbml_id = "Dilution_Curves_v8_Nc20_Nf1"
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();

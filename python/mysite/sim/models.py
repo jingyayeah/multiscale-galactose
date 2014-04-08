@@ -4,14 +4,15 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.files import File
 
 '''
-    TODO: implement views for the database content
-    TODO: store timecourse files and config files
-
     Pool of simulations is defined with the status 'OPEN'.
     The different computers get unassigned simulations from a simulation
     set. 
     Simulations change the status to ASSIGNED. After the simulation is 
     performed
+    
+    TODO: add something like SimulationSeries to collect a list of simulations,
+            which can be analysed in a combined fashion.
+    TODO: create integration view
 '''
 
 def validate_gt_zero(value):

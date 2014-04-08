@@ -1,8 +1,6 @@
 ########################################
 # startSimulation.sh                   #
 ########################################
-
-
 # python path settings for django
 export PYTHONPATH=$PYTHONPATH:/home/mkoenig/multiscale-galactose/python
 export PYTHONPATH=$PYTHONPATH:/home/mkoenig/multiscale-galactose/python/mysite/
@@ -14,6 +12,7 @@ echo "###################################"
 echo "# Pull git source code"
 echo "###################################"
 cd ~/multiscale-galactose
+git config --global credential.helper 'cache --timeout 86400'
 git pull
 
 # link folder to the server with database
