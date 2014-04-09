@@ -49,7 +49,7 @@ readPPPVData <- function(max_index=-1){
 }
 
 # Convert list structure into data matrix
-createDataMatrices <- function(datalist, prefixes=c('PV__')){
+createDataMatrices <- function(datalist, compounds, prefixes=c('PV__')){
   time <- readTimeForSimulation(names(pars)[1])
   Ntime = length(time)
   Nsim = length(names(datalist))

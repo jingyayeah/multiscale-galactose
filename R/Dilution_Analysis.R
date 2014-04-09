@@ -38,20 +38,20 @@ dataset1.file <- paste(info.folder, '/', modelId, '_dataset1','.rdata', sep="")
 # dil_list = readPPPVData()
 dil_list = readPPPVData(max_index=5)
 
+compounds = c('rbcM', 'alb', 'suc', 'h2oM', 'gal')
+ccolors = c('darkred', 'darkgreen', 'darkorange', 'darkblue', 'black')
+#          red,  green, orange, blue,  black
+
 # List of matrixes
 # A better data structure is a matrix for the different components
 # Matrix size [Ntime x Nsim] for every component
-dilmat <- createDataMatrices(dil_list)
+dilmat <- createDataMatrices(dil_list, compounds=compounds)
 save.image(file=dataset1.file)
 
 ####################################################################
 ### Load the simulation data  structure ###
 load(file=dataset1.file)
 
-
-compounds = c('rbcM', 'alb', 'suc', 'h2oM', 'gal')
-ccolors = c('darkred', 'darkgreen', 'darkorange', 'darkblue', 'black')
-#          red,  green, orange, blue,  black
 
 ## plotting the data ##
 # Sys.setenv(http_proxy="http://proxy.charite.de:888")

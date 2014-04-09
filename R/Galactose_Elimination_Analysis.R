@@ -34,26 +34,89 @@ dataset_gal.file <- paste(info.folder, '/', modelId, '_gal','.rdata', sep="")
 gal_list = readPPPVData()
 
 # List of matrixes
-galmat <- createDataMatrices(gal_list)
+compounds = c('h2oM', 'gal')
+ccolors = c('darkblue', 'black')
+prefixes = c('PP__', 'PV__')
+
+galmat <- createDataMatrices(gal_list, compounds=compounds, prefixes=prefixes)
 save.image(file=dataset_gal.file)
+tail(galmat)
+
+# Plot the timecourses
+#png(filename=paste(info.folder, '/', task, "_Dilution_Curves.png", sep=""),
+#    width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
+source(paste(code.folder, '/', 'PlotDataFunctions.R', sep=""))
+plotAllTimecourses(galmat, compounds, ylim=c(0,6))
+
+indices = which(pars$deficiency==0)
+hist(pars$deficiency)
+
+length(indices)
+summary(pars[indices,] )
+
+plotTimecourses(galmat[['PV__gal']][,indices], main="PV__gal'", ylim=c(0,6))
+test <- pars[indices,]
+hist(test$PP__gal,breaks=20)
+
+tail(test)
 
 
-###############################################################
+)###############################################################
 # Calculate the clearance parameters 
 ###############################################################
+# Create data frame for calculation
+# extend the pars
 
-# Todo calculate clearance parameter
+get_c_in <- function(){
+  data <- galmat[['PP__gal']]
+  dims <- dim(data)
+  c_in <- data[dims[1],]
+}
 
-# TODO: calculate clearance parameters for all time points to make sure that
-# clearance is in steady state
+get_c_out <- function(){
+  data <- galmat[['PV__gal']]
+  dims <- dim(data)
+  c_in <- data[dims[1],]
+}
 
-# Create table to calculate from 
-F = flow_sin
-c_in = 'PP__gal'[end]
-c_out = 'PP_gal'
-R = F*(c_in - c_out)
-ER = (c_in - c_out)/c_in
-CL = R/c_in
+c_out <- get_c_out()
+c_in <- get_c_in()
+# plot(c_out, c_in)
+
+FL = pars$flow_sin # TODO: recalculate with the actual flow values
+
+parscl <- pars
+
+parscl$FL <- FL   
+parscl$c_in <- c_in
+parscl$c_out <- c_out
+parscl$R <- FL * (c_in - c_out)
+parscl$ER <- (c_in - c_out)/c_in
+parscl$CL <- FL * (c_in - c_out)/c_in
+parscl$GE <- (c_in - c_out)
+
+names(parscl)
+
+hist(parscl$c_in)
+
+# Calculate the clearance parameters
+# F = flow_sin              # [m/sec]
+# c_in = 'PP__gal'[end]     # [mmol/l]
+# c_out = 'PV_gal[end]'          # [mmol/l]
+# R = F*(c_in - c_out)      # [m/sec * mmol/l]
+# ER = (c_in - c_out)/c_in  # [-]
+# CL = R/c_in               # [m/sec]
+# GE = (c_in - c_out) 
+
+#
+ptest <- parscl[which(parscl$deficiency==0),]
+
+par(mfrow=c(2,2))
+plot(ptest$c_in, ptest$GE)
+plot(ptest$FL, ptest$GE)
+plot(ptest$FL, ptest$ER)
+plot(ptest$FL, ptest$CL) 
+par(mfrow=c(1,1))
 
 
 
