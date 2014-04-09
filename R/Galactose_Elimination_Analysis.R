@@ -83,7 +83,7 @@ c_out <- get_c_out()
 c_in <- get_c_in()
 # plot(c_out, c_in)
 
-FL = pars$flow_sin # TODO: recalculate with the actual flow values
+FL = pars$flow_sin * 1E6 # TODO: recalculate with the actual flow values
 
 parscl <- pars
 
@@ -97,25 +97,24 @@ parscl$GE <- (c_in - c_out)
 
 names(parscl)
 
-hist(parscl$c_in)
 
 # Calculate the clearance parameters
-# F = flow_sin              # [m/sec]
+# F = flow_sin              # [µm/sec]
 # c_in = 'PP__gal'[end]     # [mmol/l]
 # c_out = 'PV_gal[end]'          # [mmol/l]
 # R = F*(c_in - c_out)      # [m/sec * mmol/l]
 # ER = (c_in - c_out)/c_in  # [-]
-# CL = R/c_in               # [m/sec]
+# CL = R/c_in               # [µm/sec]
 # GE = (c_in - c_out) 
 
 #
 ptest <- parscl[which(parscl$deficiency==0),]
-
+# Created Figure
 par(mfrow=c(2,2))
-plot(ptest$c_in, ptest$GE)
-plot(ptest$FL, ptest$GE)
-plot(ptest$FL, ptest$ER)
-plot(ptest$FL, ptest$CL) 
+plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
+plot(ptest$FL, ptest$GE, xlab="sinusoidal blood flow [µm/sec]", ylab="Galactose Elimination (GE) [mmol/l]")
+plot(ptest$FL, ptest$ER, xlab="sinusoidal blood flow [µm/sec]", ylab="Extraction Ratio (ER) [-]")
+plot(ptest$FL, ptest$CL, xlab="sinusoidal blood flow [µm/sec]", ylab="Clearance (CL) [µm/sec]") 
 par(mfrow=c(1,1))
 
 
