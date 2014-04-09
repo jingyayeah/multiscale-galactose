@@ -6,9 +6,10 @@ urlpatterns = patterns('',
     
     # ex: /core/
     url(r'^cores/$', views.cores, name='cores'),
+    url(r'^simulations/(?P<status>\w+)$', views.simulations, name='simulations'),
     url(r'^simulations/$', views.simulations, name='simulations'),
-    url(r'^simulation/(?P<simulation_id>\d+)$', views.simulation, name='simulation'),
     url(r'^timecourses/$', views.timecourses, name='timecourses'),
+    url(r'^simulation/(?P<simulation_id>\d+)$', views.simulation, name='simulation'),
     
     url(r'^model/(?P<model_id>\d+)/$', views.model, name='model'),
     # ex: /polls/5/results/

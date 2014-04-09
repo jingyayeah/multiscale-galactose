@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from datetime import timedelta
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.files import File
 
@@ -14,7 +15,6 @@ from django.core.files import File
             which can be analysed in a combined fashion.
             Currently this is guaranteed by the SimulationFactory during generation
             of the sets of simulations.
-    TODO: create integration view
 '''
 
 def validate_gt_zero(value):
@@ -23,9 +23,6 @@ def validate_gt_zero(value):
 
 # Create your models here.
 # TODO: get name via ip dictionary
-# TODO: implement the listening features, i.e. finding out 
-# which cpus are really listening for simulations. Use the time field
-# not only reset via simulation, but via trying to get an simulation.
 class Core(models.Model):
     ip = models.CharField(max_length=200)
     cpu = models.IntegerField()
@@ -40,6 +37,15 @@ class Core(models.Model):
         
     def __unicode__(self):
         return self.ip + "-cpu-" +str(self.cpu)
+    
+    def _is_active(self, cutoff_minutes=20):
+        if not (self.time):
+            return False;
+        else:
+            return (timezone.now() <= self.time+timedelta(minutes=cutoff_minutes))
+    
+    active = property(_is_active)
+    
     
     class Meta:
         verbose_name = "Core"
@@ -252,7 +258,16 @@ class Simulation(models.Model):
         else:
             return self.time_sim - self.time_assign
     
+    def _is_hanging(self, cutoff_minutes=10):
+        ''' Simulation did not finish '''
+        if not (self.time_assign):
+            return False;
+        else:
+            return (timezone.now() >= self.time_assign+timedelta(minutes=cutoff_minutes))
+    
     duration = property(_get_duration)
+    hanging = property(_is_hanging)
+    
     
 class Timecourse(models.Model):
     '''

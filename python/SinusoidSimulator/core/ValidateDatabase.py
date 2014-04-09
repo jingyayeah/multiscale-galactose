@@ -2,18 +2,12 @@
 Created on Mar 25, 2014
 
 @author: Matthias Koenig
+    Database tools for consistency checks and database cleaning in case
+    things went wrong, for instance some simulations are hanging.
 
     # TODO: Somehow the database has to be checked for consistency.
     # Perform db validation routines and cleanup on the database.
-    
-    
-    # remove all simulations
-    # print "Deleting all simulations !!!"
-    # Simulation.objects.all().delete()
-    
-    TODO: 
-    check for Simulations which have status assigned, but never finished.
-    
+
     TODO: 
     Check for timecourses which point to unassigned & assigned simulations
     and remove these files.    
@@ -24,34 +18,32 @@ Created on Mar 25, 2014
     
     TODO: 
     clean cores which did not listen for some time.
-    
 '''
 
 import sys
 import os
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-from datetime import timedelta
-from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
-from sim.models import Simulation, Timecourse, Task, Parameter, UNASSIGNED, ASSIGNED
+from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED
 
 
-def handleUnfinishedSimulations():
+def handleHangingAssignedSimulations(cutoff_minutes=10):
     '''
-    Gets assigned simulations which did not finish for a long time.
+    Looks for unfinished simulations, i.e. they were assigned, but
+    never finished. The simulations are reset to the UNASSIGNED status.
+    And the necessary database updates are made.
     '''
     # get all assigned simulations
     assigned = Simulation.objects.filter(status=ASSIGNED)
     for sim in assigned:
-        t_assign = sim.time_assign
-        if (timezone.now() >= t_assign + timedelta(minutes=3)):
-            print "Simulation assigned for long: ", sim.pk
-            print t_assign
-            print timezone.now()
+        if (sim._is_hanging(cutoff_minutes)):
             unassignSimulation(sim)
 
 def unassignAllSimulation():
+    '''
+    ! Be very careful ! Know what are you doing.
+    '''
     for sim in Simulation.objects.all():
         unassignSimulation(sim);
 
@@ -112,14 +104,12 @@ def addDefaultDeficiencyToTaskSimulations(task):
     addDefaultParametersToTaskSimulations(task, pars)
     
     
-    
-    
 if __name__ == "__main__":
     pass
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
+    handleHangingAssignedSimulations();
     
-    # handleUnfinishedSimulations();
     
     # ! CAREFUL !
     # unassignAllSimulation()

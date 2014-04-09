@@ -1,7 +1,8 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot, Integration
+from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot, Integration,\
+    UNASSIGNED
 from django.shortcuts import render_to_response, render, get_object_or_404
 from sim.plot import PlotSimulation
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -78,12 +79,16 @@ def integrations(request):
     return HttpResponse(template.render(context))
 
 
-def simulations(request):
+def simulations(request, status='ALL'):
     '''
     Overview of simulations in the network.
     Simulations are paginated in view.
     '''
-    sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
+    if (status == 'ALL'):
+        sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
+    else:
+        sim_list = Simulation.objects.filter(status=status).order_by("-time_assign", "-time_create")
+        
     paginator = Paginator(sim_list, 25) # Show 25 simulations per page
     
     page = request.GET.get('page')

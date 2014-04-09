@@ -123,7 +123,7 @@ span.code {
 	padding-left:10px;
 	padding-right:10px;	
 }
-span.UNASSIGNED{
+span.UNASSIGNED, span.BAD{
 	color:red;
 	font-weight:bolder;
 }
@@ -131,10 +131,12 @@ span.ASSIGNED{
 	color:orange;
 	font-weight:bolder;
 }
-span.DONE{
+span.DONE, span.GOOD{
 	color:green;
 	font-weight:bolder;
 }
+
+
 
 /* menu items */
 a.menu {

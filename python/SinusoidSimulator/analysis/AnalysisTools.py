@@ -34,11 +34,18 @@ def createParameterFileForTask(folder, task):
     numbers of parameters set. It has to be guaranteed by the
     SimulationFactory.
     '''
+    print "Create parameter file: ", task
     # collect the parameters for the simulations
     data = dict()
     data['sim'] = []
+    data['status'] = []
+    data['core'] = []
+    data['duration'] = []
     for sim in task.simulation_set.all():
         data['sim'].append(sim.pk)
+        data['status'].append(sim.status)
+        data['core'].append(sim.core)
+        data['duration'].append(sim.duration)
         for p in sim.parameters.parameters.all():
             if data.has_key(p.name):
                 data[p.name].append(p.value)
@@ -52,7 +59,8 @@ def createParameterFileForTask(folder, task):
             print 'ERROR - wrong number of parameters'
         
     # create csv writer
-    fname = folder + "/T" + str(task.pk) + "_parameters.csv" 
+    mname = task.sbml_model.sbml_id
+    fname = folder + "/T" + str(task.pk) + "_" + mname + "_parameters.csv" 
     f = file(fname, 'w')
     writer = csv.writer(f, delimiter=",", quotechar='"')
     
