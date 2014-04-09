@@ -7,6 +7,8 @@ from django.shortcuts import render_to_response, render, get_object_or_404
 from sim.plot import PlotSimulation
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+PAGINATE_ENTRIES = 30
+
 def index(request):
     '''
     Homepage and overview over models.
@@ -60,7 +62,7 @@ def task(request, task_id):
 def integrations(request):
     ''' Overview of integation settings. '''
     int_list = Integration.objects.all()
-    paginator = Paginator(int_list, 25) # Show 25 simulations per page
+    paginator = Paginator(int_list, PAGINATE_ENTRIES) # Show 25 simulations per page
     
     page = request.GET.get('page')
     try:
@@ -89,7 +91,7 @@ def simulations(request, status='ALL'):
     else:
         sim_list = Simulation.objects.filter(status=status).order_by("-time_assign", "-time_create")
         
-    paginator = Paginator(sim_list, 25) # Show 25 simulations per page
+    paginator = Paginator(sim_list, PAGINATE_ENTRIES)
     
     page = request.GET.get('page')
     try:
@@ -109,9 +111,7 @@ def simulations(request, status='ALL'):
 
 
 def simulation(request, simulation_id):
-    '''
-    Overview of single simulation.
-    '''
+    ''' Overview of single simulation. '''
     sim = get_object_or_404(Simulation, pk=simulation_id)
     try:
         sim_previous = Simulation.objects.get(pk=(sim.pk-1))
@@ -134,14 +134,12 @@ def simulation(request, simulation_id):
         'sim_next': sim_next,
     })
     return HttpResponse(template.render(context))
-    
-    # return HttpResponse("You're looking at Simulation %s." % simulation_id)
 
 
 def timecourses(request):
     ''' Overview of Timecourses. '''
     tc_list = Timecourse.objects.all()
-    paginator = Paginator(tc_list, 25) # Show 25 simulations per page
+    paginator = Paginator(tc_list, PAGINATE_ENTRIES)
     
     page = request.GET.get('page')
     try:
@@ -159,6 +157,7 @@ def timecourses(request):
         'timecourses': timecourses,
     })
     return HttpResponse(template.render(context))
+
 
 def plots(request):
     '''

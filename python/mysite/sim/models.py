@@ -261,7 +261,9 @@ class Simulation(models.Model):
     def _is_hanging(self, cutoff_minutes=10):
         ''' Simulation did not finish '''
         if not (self.time_assign):
-            return False;
+            return False
+        elif (self.status != ASSIGNED):
+            return False
         else:
             return (timezone.now() >= self.time_assign+timedelta(minutes=cutoff_minutes))
     
