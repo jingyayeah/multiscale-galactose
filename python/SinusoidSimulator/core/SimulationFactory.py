@@ -104,11 +104,19 @@ def createParametersBySampling(N=100):
     '''
     Samples N values from lognormal distribution defined by the 
     given means and standard deviations.
+    Here the data is generated.
+    ! Here the experimental data has to be hardcoded !
     To set the seed of the random generator use: numpy.random.seed(42)
+    
+    L        500µm    125µm
+    y_sin    4.4µm    0.45µm
+    y_dis    0.8µm    0.3µm
+    y_cell   6.9µm    1.25µm
+    flow_sin    200µm/s    50µm/s
     '''
     names = ['L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin']
-    means = [500E-6, 4.4E-6, 0.8E-6, 6.25E-6, 60E-6]
-    stds  = [50E-6, 0.45E-6, 0.3E-6, 6.25E-6, 50E-6]
+    means = [500E-6, 4.4E-6, 0.8E-6, 6.9E-6, 200E-6]
+    stds  = [125E-6, 0.45E-6, 0.3E-6, 1.25E-6, 50E-6]
     units = ['m', 'm' ,'m', 'm', 'm/s']
     
     all_pars = [];
