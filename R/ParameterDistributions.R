@@ -20,7 +20,7 @@ rm(list=ls())
 ################################################################
 results.folder <- "/home/mkoenig/multiscale-galactose-results"
 code.folder    <- "/home/mkoenig/multiscale-galactose/R" 
-data.folder    <- "/home/mkoenig/multiscale-galactose/experimental_data/parameter_distributions/"
+data.folder    <- "/home/mkoenig/multiscale-galactose/experimental_data/parameter_distributions"
 
 setwd(results.folder)
 
@@ -97,7 +97,7 @@ for (kp in seq(Np)){
   # points(x_scale, yn/max(yn) , col="red", type='l', lty=1, lwd=2)
   
   
-  # plot the mean line and std lines
+  # plot the mean line and std lines (experimental data ranges)
   lcolor = "gray"
   abline(v=mean_scale, lty=2, col=lcolor, lwd=2)
   abline(v=mean_scale+std_scale, lty=2, col=lcolor, lwd=1)
@@ -107,8 +107,6 @@ for (kp in seq(Np)){
   
 }
 par(mfrow=c(1,1))
-
-
 
 
 # basic tests
@@ -124,8 +122,22 @@ exp(0.1)
 ###############################################################
 # Load experimental data
 ###############################################################
+# load Koo1975
+vnames = c('branching', 'interconnecting', 'direct')
+v.branching <- read.csv(paste(data.folder, "/", "Koo1975_Fig1_branching.csv", sep=""), sep="\t")
+v.inter <- read.csv(paste(data.folder, "/", "Koo1975_Fig1_interconnecting.csv", sep=""), sep="\t")
+v.direct <- read.csv(paste(data.folder, "/", "Koo1975_Fig1_direct.csv", sep=""), sep="\t")
 
+v.all = rbind(t(v.branching$count), t(v.inter$count), t(v.direct$count))
+colnames(v.all) <- v.branching$velocity
+rownames(v.all)<-vnames
 
+# R stacked bar plot
+barcol <- gray.colors(length(vnames))
+barplot(v.all, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", barcol)
+legend("topright",  legend = vnames, fill=barcol)
+
+# load Puhl
 
 
 
