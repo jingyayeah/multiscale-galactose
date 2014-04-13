@@ -22,16 +22,13 @@ setwd(results.folder)
 
 task <- "T3"
 modelId <- "Dilution_Test"
-info.folder <- '2014-04-13_Dilution_Curves'
+info.folder <- "/home/mkoenig/multiscale-galactose-results" #'2014-04-13_Dilution_Curves'
 data.folder <- 'django/timecourse/2014-04-08'
 
-setwd(results.folder)
 ###############################################################
 # Load the parameter file & create histogramm of parameters
 source(paste(code.folder, '/', 'ParameterFile.R', sep=""))
-pars
-
-
+head(pars)
 
 ###############################################################
 # parameter distribution generators
@@ -63,6 +60,8 @@ p.gen <- data.frame(name, mean, std, unit, meanlog, stdlog, scale_fac, scale_uni
 rownames(p.gen) <- name
 p.gen$name <- as.character(p.gen$name)
 
+rm(name, mean, std, unit, scale_fac, scale_unit, meanlog, stdlog)
+
 # Set fitted data (see below for fit)
 p.gen['y_sin', 'meanlog'] = 1.465
 p.gen['y_sin', 'stdlog']  = 0.1017
@@ -70,17 +69,16 @@ p.gen['y_cell', 'meanlog'] = 2.030
 p.gen['y_cell', 'stdlog'] = 0.1320
 p.gen['flow_sin', 'meanlog'] = 5.457
 p.gen['flow_sin', 'stdlog'] = 0.6188
-
 p.gen
 
-
-# log normal distribution
-Np = length(name) 
+###############################################################
+# log normal distribution from parameters
+Np = nrow(p.gen) 
 png(filename=paste("Parameter_Distributions.png", sep=""),
-     width = 800, height = 2500, units = "px", bg = "white",  res = 150)
+     width = 800, height = 2000, units = "px", bg = "white",  res = 150)
 par(mfrow=c(Np,2))
 for (kp in seq(Np)){
-  
+  name <- p.gen$name[kp]
   mean <- p.gen$mean[kp]
   std  <- p.gen$std[kp]
   fac <- p.gen$scale_fac[kp]
@@ -93,18 +91,30 @@ for (kp in seq(Np)){
   # plot the histogramm (frequencies)
   xdata <- rlnorm(2000, meanlog=meanlog, sdlog=stdlog)
   xdata <- xdata[xdata <= 2*mean*fac]
-  
-  # hist(xdata_scale[xdata_scale<=2*mean_scale], breaks=15, plot=FALSE)
-  hist(xdata, breaks=15, plot=TRUE, 
-       freq=TRUE, xlim=c(0, 2*mean*fac), main=name, xlab=xlab_scale)
+  # not used
   
   # plot distribution
   x <- seq(from=1E-12, to=2*mean*fac, length.out=1000)
   y <- dlnorm(x, meanlog=meanlog, sdlog=stdlog, log = FALSE)
+  
+  # use the parameters data
+  xdata <- pars[[name]]*fac
+  
+  hdata <- hist(xdata, breaks=15, plot=FALSE)
+  hdata$counts <- hdata$counts/max(hdata$count)
+  hdata
+  plot(hdata, xlim=c(0, 2*mean*fac), main=name, xlab=xlab_scale)
+  # hist(xdata, breaks=15, plot=TRUE, freq=TRUE, xlim=c(0, 2*mean*fac), main=name, xlab=xlab_scale)
+  lcolor = "blue"
+  abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
+  abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
+  abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
+  points(x, y/max(y), xlab=xlab_scale, type='l', lty=1, lwd=2, main=p.gen$name[kp])
+  
+ 
   plot(x, y/max(y), xlab=xlab_scale, type='l', lty=1, lwd=2, main=p.gen$name[kp])
     
   # plot the mean line and std lines (experimental data ranges)
-  lcolor = "blue"
   abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
   abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
   abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)

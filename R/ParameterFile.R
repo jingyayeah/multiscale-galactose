@@ -34,4 +34,5 @@ rm(k)
 par(mfrow=c(1,1))
 dev.off()
 
+rm(keywords, Np, pnames, phist_file)
 #########################################
