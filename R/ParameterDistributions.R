@@ -127,7 +127,7 @@ exp(0.1)
 ###############################################################
 # Load experimental data
 ###############################################################
-# load Koo1975
+# Koo1975 #
 Koo1975.names = c('branching', 'interconnecting', 'direct')
 Koo1975.branching <- read.csv(paste(data.folder, "/", "Koo1975_Fig1_branching.csv", sep=""), sep="\t")
 Koo1975.inter <- read.csv(paste(data.folder, "/", "Koo1975_Fig1_interconnecting.csv", sep=""), sep="\t")
@@ -146,25 +146,39 @@ barplot(Koo1975.all, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab
 legend("topright",  legend = Koo1975.names, fill=barcol)
 #dev.off()
 
-# Fit log normal distributions to the loaded data
-library(MASS)
-Koo1975.all
+
+### Histogramm helper functions ###
 # generate data vector from histogramm (this is ugly, but individual data is not
 # available, so generate individual data in the middle of the bin for the count number)
-data <- data.frame(flow=numeric(0))
-for (kr in seq(1, nrow(Koo1975.all)) ){
-  for (kc in seq(1, ncol(Koo1975.all)) ){
-    count = Koo1975.all[kr, kc]
-    value = as.numeric( colnames(Koo1975.all)[kc])
-    tmp <- data.frame(flow=rep(value, count))
-    print(tmp)
-    
-    data <- rbind(data, tmp)
+createDataFromHistogramm <- function(dset) {
+  data <- data.frame(x=numeric(0))
+  for (kr in seq(1, nrow(dset)) ){
+    for (kc in seq(1, ncol(dset)) ){
+      count = dset[kr, kc]
+      value = as.numeric( colnames(dset)[kc])
+      tmp <- data.frame(x=rep(value, count))
+      print(tmp)
+      data <- rbind(data, tmp)
+    }
   }
+  data
 }
 
-hist(data$flow)              
-fit <- fitdistr(data$flow, "lognormal")
+# Calculate the breakpoints if the histogram data is given via equidistant
+# midpoints
+getBreakPointsFromMidpoints <- function(midpoints){
+  breaklength = (midpoints[2]-midpoints[1])
+  breaks = seq(from=midpoints[1]-0.5*breaklength, 
+               to=midpoints[length(midpoints)]+0.5*breaklength, 
+               length.out=length(midpoints)+1)
+}
+
+
+
+library(MASS)
+data <- createDataFromHistogramm(Koo1975.all)
+hist(data$x)              
+fit <- fitdistr(data$x, "lognormal")
 fit
 # meanlog       sdlog   
 # 5.45720754   0.61782097 
@@ -177,19 +191,21 @@ x <- seq(from=1E-12, to=2000, length.out=1000)
 y <- dlnorm(x, meanlog=5.45720754, sdlog=0.61782097, log = FALSE)
 points(x,y, lty=1, type="l")
 
-png(filename=paste("Koo1975_velocity_distribution_fit.png", sep=""),
-    width = 800, height = 800, units = "px", bg = "white",  res = 150)
-hist(data$flow, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", freq=FALSE)
-points(x,y, lty=1, type="l")
-dev.off()
+#png(filename=paste("Koo1975_velocity_distribution_fit.png", sep=""),
+#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
+  midpoints = as.numeric(colnames(Koo1975.all))
+  hist(data$x, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", freq=FALSE, 
+     breaks=getBreakPointsFromMidpoints(midpoints))
+  points(x,y, lty=1, type="l")
+#dev.off()
 
 
 # TODO: analyse with QQplot if fits to the distribution
 
 
-
 ###############################################################
-# load Puhl
+# Puhl2003 #
+
 # velocity [mm/s], [%]
 Puhl2003.fig2 <- read.csv(paste(data.folder, "/", "Puhl2003_Fig2.csv", sep=""), sep="\t", colClasses="numeric")
 # fsd [1/cm], [%]
@@ -209,48 +225,12 @@ barplot(p.fsd, main="FSD distribution", xlab="FSD [1/cm]", ylab="[%]")
 
 # cell layer [µm]
 p.y_cell <- p.fsd
+p.y_cell
 tmp <- 1E4/(2*Puhl2003.fig4$FSD) -1E6*(p.gen["y_sin", "mean"] + p.gen["y_dis", "mean"]) 
 colnames(p.y_cell) <- t(tmp)
 tmp
 p.y_cell
 barplot(p.y_cell, main="y_cell distribution", xlab="y_cell [µm]", ylab="[%]")
-
-
-#### FIT y_cell ###
-# generate data vector from histogramm (this is ugly, but individual data is not
-# available, so generate individual data in the middle of the bin for the count number)
-data <- data.frame(flow=numeric(0))
-for (kr in seq(1, nrow(p.y_cell)) ){
-  for (kc in seq(1, ncol(p.y_cell)) ){
-    count = p.y_cell[kr, kc]
-    value = as.numeric( colnames(p.y_cell)[kc])
-    tmp <- data.frame(flow=rep(value, count))
-    print(tmp)
-    data <- rbind(data, tmp)
-  }
-}
-data
-
-hist(data$flow)              
-fit <- fitdistr(data$flow, "lognormal")
-fit
-# meanlog       sdlog   
-# 5.963793114   0.079014201 
-# (0.007981640) (0.005643871)
-
-x <- seq(from=1E-12, to=2000, length.out=1000)
-y <- dlnorm(x, meanlog=5.963793114, sdlog=0.079014201, log = FALSE)
-points(x,y, lty=1, type="l")
-
-#png(filename=paste("Koo1975_velocity_distribution_fit.png", sep=""),
-#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
-p.y_cell
-hist(data$flow, main="y_cell", xlab="y_cell [µm]", ylab="count", freq=FALSE, breaks=)
-points(x,y, lty=1, type="l")
-#dev.off()
-
-
-
 
 # diameter [µm]
 p.dia <- rbind(t(Puhl2003.fig3$percent))
@@ -262,12 +242,50 @@ colnames(p.y_sin) <- Puhl2003.fig3$diameter/2
 p.y_sin
 barplot(p.y_sin, main="Sinusoid diameter distribution", xlab="sinusoid diameter [µm]", ylab="[%]")
 
-# Fit log normal distributions to the loaded data
+
+#### FIT y_cell ###
+data <- createDataFromHistogramm(p.y_cell)
+fit <- fitdistr(data$x, "lognormal")
+fit
+# meanlog        sdlog   
+# 1.465273310   0.101714488 
+# (0.010274715) (0.007265321)
+
+#png(filename=paste("Koo1975_y_sin_fit.png", sep=""),
+#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
+# histogramm
+midpoints = as.numeric(colnames(dset))
+hist(data$x, main="y_sin", xlab="y_sin [µm]", freq=FALSE, 
+     breaks=getBreakPointsFromMidpoints(midpoints), 
+     ylim=c(0,1))
+# distribution
+x <- seq(from=1E-12, to=3*max(data), length.out=1000)
+y <- dlnorm(x, meanlog=fit$estimate["meanlog"], sdlog=fit$estimate["sdlog"], log = FALSE)
+points(x,y, lty=1, type="l")
+# dev.off()
 
 
 
+#### FIT y_sin ###
+data <- createDataFromHistogramm(p.y_sin)
+fit <- fitdistr(data$x, "lognormal")
+fit
+# meanlog        sdlog   
+# 1.465273310   0.101714488 
+# (0.010274715) (0.007265321)
 
-
+#png(filename=paste("Koo1975_y_sin_fit.png", sep=""),
+#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
+  # histogramm
+  midpoints = as.numeric(colnames(dset))
+  hist(data$x, main="y_sin", xlab="y_sin [µm]", freq=FALSE, 
+     breaks=getBreakPointsFromMidpoints(midpoints), 
+     ylim=c(0,1))
+  # distribution
+  x <- seq(from=1E-12, to=3*max(data), length.out=1000)
+  y <- dlnorm(x, meanlog=fit$estimate["meanlog"], sdlog=fit$estimate["sdlog"], log = FALSE)
+  points(x,y, lty=1, type="l")
+# dev.off()
 
 ###############################################################
 # Load the simulated parameter distribution
