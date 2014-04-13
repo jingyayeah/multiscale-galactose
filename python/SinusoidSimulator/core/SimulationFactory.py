@@ -34,6 +34,7 @@ from sim.models import *
 from django.db.models import Count
 import numpy.random as npr
 import math
+from analysis.AnalysisTools import createParameterFileForTask
 
 
 def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencies=[0]):
@@ -98,6 +99,8 @@ def createDilutionCurvesSimulationTask(model, N=10):
     all_pars = createParametersBySampling(N);
     for p in all_pars:
         createSimulationsFromParametersInTask(p, task)
+        
+    return task;
     
     
 def createParametersBySampling(N=100):
@@ -108,15 +111,16 @@ def createParametersBySampling(N=100):
     ! Here the experimental data has to be hardcoded !
     To set the seed of the random generator use: numpy.random.seed(42)
     
-    L        500µm    125µm
-    y_sin    4.4µm    0.45µm
-    y_dis    0.8µm    0.3µm
-    y_cell   6.9µm    1.25µm
-    flow_sin    200µm/s    50µm/s
+                name     mean      std unit    meanlog    stdlog scale_fac scale_unit
+L               L 5.00e-04 1.25e-04    m  6.1842958 0.2462207     1e+06         mum
+y_sin       y_sin 4.40e-06 4.50e-07    m  1.4650000 0.1017000     1e+06         mum
+y_dis       y_dis 8.10e-07 3.00e-07    m -0.2749942 0.3585337     1e+06         mum
+y_cell     y_cell 7.58e-06 1.25e-06    m  2.0300000 0.1320000     1e+06         mum
+flow_sin flow_sin 2.70e-04 5.80e-05  m/s  5.4570000 0.6188000     1e+06       mum/s
     '''
     names = ['L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin']
-    means = [500E-6, 4.4E-6, 0.8E-6, 6.9E-6, 200E-6]
-    stds  = [125E-6, 0.45E-6, 0.3E-6, 1.25E-6, 50E-6]
+    meanlog = [6.1842958 , 1.4650000, -0.2749942, 2.0300000, 5.4570000]
+    stdlog  = [0.2462207, 0.1017000, 0.3585337, 0.1320000 , 0.6188000]
     units = ['m', 'm' ,'m', 'm', 'm/s']
     
     all_pars = [];
@@ -124,11 +128,13 @@ def createParametersBySampling(N=100):
         # create parameters
         pars = []
         for kp in range(len(names)):
-            m = means[kp]
-            std = stds[kp]
+            # m = means[kp]
+            # std = stds[kp]
             # parameters are lognormal distributed 
-            mu = math.log(m**2 / math.sqrt(std**2+m**2));
-            sigma = math.sqrt(math.log(std**2/m**2 + 1));
+            # mu = math.log(m**2 / math.sqrt(std**2+m**2));
+            # sigma = math.sqrt(math.log(std**2/m**2 + 1));
+            mu = meanlog[kp]
+            sigma = stdlog[kp]
             value = npr.lognormal(mu, sigma)  
             pars.append( (names[kp], value, units[kp]) )
             
@@ -206,7 +212,7 @@ if __name__ == "__main__":
     sbml_id = "Galactose_v8_Nc20_Nf1"   
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
-    if (1):
+    if (0):
         # create the galactose simulations
         # if no deficiencies are set, only the normal case is simulated
         N = 45     # number of simulations per deficiency and galactose
@@ -215,12 +221,16 @@ if __name__ == "__main__":
         createGalactoseSimulationTask(model, N, gal_range, deficiencies=range(1,24))
 
     
-    if (0):
-        sbml_id = "Dilution_Curves_v8_Nc20_Nf1"
+    if (1):
+        # sbml_id = "Dilution_Curves_v8_Nc20_Nf1"
+        sbml_id = "Dilution_Test"
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
         if (1):
             # create dilution simulations
             N = 2000     # number of simulations
-            createDilutionCurvesSimulationTask(model, N)
+            task = createDilutionCurvesSimulationTask(model, N)
+            # create the parameter file
+            folder = "/home/mkoenig/multiscale-galactose-results"
+            createParameterFileForTask(folder, task);
         
