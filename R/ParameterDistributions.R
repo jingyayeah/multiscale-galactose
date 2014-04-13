@@ -43,72 +43,58 @@ scale_fac = c(1E6, 1E6, 1E6, 1E6, 1E6)
 scale_unit = c('µm', 'µm' ,'µm', 'µm', 'µm/s')
 
 # Calcualte based on transformation formulas
+# All meanlogs and meanstds refer to the scaled variables!
 meanlog = meanlog(mean*scale_fac, std*scale_fac)
 stdlog   = stdlog(mean*scale_fac, std*scale_fac)
 p.gen <- data.frame(name, mean, std, unit, meanlog, stdlog, scale_fac, scale_unit)
 rownames(p.gen) <- name
+p.gen$name <- as.character(p.gen$name)
 
 # Set fitted data (see below for fit)
 p.gen['y_sin', 'meanlog'] = 1.465
-p.gen'y_sin', 'stdlog']  = 0.1017
+p.gen['y_sin', 'stdlog']  = 0.1017
 p.gen['y_cell', 'meanlog'] = 2.030
-p.gen'y_cell', 'stdlog'] = 0.1320
-p.gen'flow_sin', 'meanlog'] = 5.457
-p.gen'flow_sin', 'stdlog'] = 0.6188
+p.gen['y_cell', 'stdlog'] = 0.1320
+p.gen['flow_sin', 'meanlog'] = 5.457
+p.gen['flow_sin', 'stdlog'] = 0.6188
 
 p.gen
-
-
-
 
 
 # log normal distribution
 Np = length(name) 
 png(filename=paste("Parameter_Distributions.png", sep=""),
-    width = 800, height = 2500, units = "px", bg = "white",  res = 150)
+     width = 800, height = 2500, units = "px", bg = "white",  res = 150)
 par(mfrow=c(Np,2))
 for (kp in seq(Np)){
-  mean <- p.gen$mean[kp]
-  std <- p.gen$std[kp]
-  meanlog <- p.gen$meanlog[kp]
-  stdlog <- p.gen$stdlog[kp]
   
-  x <- seq(from=1E-12, to=2*mean, length.out=1000)
-  y <- dlnorm(x, meanlog=meanlog, sdlog=stdlog, log = FALSE)
-  xlab <- paste(p.gen$name[kp], ' [', p.gen$unit[kp]  ,']', sep="")
+  mean <- p.gen$mean[kp]
+  std  <- p.gen$std[kp]
+  fac <- p.gen$scale_fac[kp]
+  meanlog <- p.gen$meanlog[kp]
+  stdlog  <- p.gen$stdlog[kp]
   
   # scale to check the values are correct
-  fac <- p.gen$scale_fac[kp]
   xlab_scale <- paste(p.gen$name[kp], ' [', p.gen$scale_unit[kp]  ,']', sep="")
-  x_scale <- x*fac
-  mean_scale <- mean*fac
-  std_scale <- std*fac
   
   # plot the histogramm (frequencies)
   xdata <- rlnorm(2000, meanlog=meanlog, sdlog=stdlog)
-  xdata_scale <- xdata*fac
-  hist(xdata_scale[xdata_scale<=2*mean_scale], breaks=15, plot=FALSE)
-  hist(xdata_scale[xdata_scale<=2*mean_scale], breaks=15, plot=TRUE, freq=TRUE, xlim=c(0, 2*mean_scale), main=p.gen$name[kp], xlab=xlab_scale)
+  xdata <- xdata[xdata <= 2*mean*fac]
+  
+  # hist(xdata_scale[xdata_scale<=2*mean_scale], breaks=15, plot=FALSE)
+  hist(xdata, breaks=15, plot=TRUE, 
+       freq=TRUE, xlim=c(0, 2*mean*fac), main=name, xlab=xlab_scale)
   
   # plot distribution
-  plot(x_scale, y/max(y), xlab=xlab_scale, type='l', lty=1, lwd=2, main=p.gen$name[kp])
-  
-  # TODO: check the normal distribution of log(x) ??? why not
-  # TODO: check the stds and means
-  # if random variable X is log-normally distributed than y = log(x) has a normal
-  # distribution
-  # yn = (log(y)-meanlog)/stdlog
-  yn = log(y)
-  # points(x_scale, yn/max(yn) , col="red", type='l', lty=1, lwd=2)
-  
-  
+  x <- seq(from=1E-12, to=2*mean*fac, length.out=1000)
+  y <- dlnorm(x, meanlog=meanlog, sdlog=stdlog, log = FALSE)
+  plot(x, y/max(y), xlab=xlab_scale, type='l', lty=1, lwd=2, main=p.gen$name[kp])
+    
   # plot the mean line and std lines (experimental data ranges)
   lcolor = "blue"
-  abline(v=mean_scale, lty=2, col=lcolor, lwd=2)
-  abline(v=mean_scale+std_scale, lty=2, col=lcolor, lwd=1)
-  abline(v=mean_scale-std_scale, lty=2, col=lcolor, lwd=1)
-  
-  # abline(v=mean, lty=2, col=lcolor, lwd=1)
+  abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
+  abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
+  abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
   
 }
 par(mfrow=c(1,1))
