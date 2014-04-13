@@ -37,14 +37,12 @@ setwd(results.folder)
 
 # parameters are lognormal distributed 
 stdlog <- function(m, std){
-  # stdlog <- sqrt( exp(std^2 - 1)*exp(2*m + std^2))
   stdlog <- sqrt(log(1 + std^2/m^2))
-  # stdlog <- log(std)
 } 
 meanlog <- function(m, std){
   stdlog <- stdlog(m, std)
-  meanlog <- log(m) - stdlog^2/2
-  # meanlog <- log(m)
+  # meanlog <- log(m) - stdlog^2/2
+  meanlog <- log(m^2/sqrt(std^2+m^2))
 }
 
 # Create data frame for the theoretical distributions
@@ -63,7 +61,7 @@ rownames(p.gen) <- name
 
 # log normal distribution
 Np = length(name) 
-par(mfrow=c(1,Np))
+par(mfrow=c(Np,2))
 for (kp in seq(Np)){
   mean <- p.gen$mean[kp]
   std <- p.gen$std[kp]
@@ -81,14 +79,23 @@ for (kp in seq(Np)){
   mean_scale <- mean*fac
   std_scale <- std*fac
   
-  # plot distribution
-  plot(x_scale, y/max(y), xlab=xlab_scale, main=p.gen$name[kp], type='l', lty=1, lwd=2, ylim=c(-3,3))
+  # plot the histogramm (frequencies)
+  xdata <- rlnorm(2000, meanlog=meanlog, sdlog=stdlog)
+  xdata_scale <- xdata*fac
+  hist(xdata_scale[xdata_scale<=2*mean_scale], breaks=15, plot=FALSE, freq=TRUE)
+  hist(xdata_scale[xdata_scale<=2*mean_scale], breaks=15, plot=TRUE, freq=TRUE, xlim=c(0, 2*mean_scale), main=p.gen$name[kp], xlab=xlab_scale)
   
+  # plot distribution
+  plot(x_scale, y/max(y), xlab=xlab_scale, type='l', lty=1, lwd=2, main=p.gen$name[kp])
+  
+  # TODO: check the normal distribution of log(x) ??? why not
+  # TODO: check the stds and means
   # if random variable X is log-normally distributed than y = log(x) has a normal
   # distribution
   # yn = (log(y)-meanlog)/stdlog
   yn = log(y)
-  points(x_scale, yn/max(yn) , col="red", type='l', lty=1, lwd=2)
+  # points(x_scale, yn/max(yn) , col="red", type='l', lty=1, lwd=2)
+  
   
   # plot the mean line and std lines
   lcolor = "gray"
@@ -96,8 +103,12 @@ for (kp in seq(Np)){
   abline(v=mean_scale+std_scale, lty=2, col=lcolor, lwd=1)
   abline(v=mean_scale-std_scale, lty=2, col=lcolor, lwd=1)
   
+  # abline(v=mean, lty=2, col=lcolor, lwd=1)
+  
 }
 par(mfrow=c(1,1))
+
+
 
 
 # basic tests
