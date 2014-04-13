@@ -26,7 +26,7 @@ sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 from django.core.exceptions import ObjectDoesNotExist
 from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED
-
+from sim.models import Task
 
 def handleHangingAssignedSimulations(cutoff_minutes=10):
     '''
@@ -103,12 +103,29 @@ def addDefaultDeficiencyToTaskSimulations(task):
     pars = [('deficiency', 0, '-')]
     addDefaultParametersToTaskSimulations(task, pars)
     
+def removeSimulationsForTask(task):
+    '''
+    Removes all simulations associated with a task.
+    No cleaning of dependent database objects is perfomed.
+    TODO: clean the timecourses and other model components
+        which depend on the simulations.
+    '''
+    sims = Simulation.objects.filter(task=task);
+    for sim in sims:
+        print "remove Simulation: ", sim.pk
+        sim.delete()
+    
     
 if __name__ == "__main__":
     pass
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
-    handleHangingAssignedSimulations();
+    # handleHangingAssignedSimulations();
+    
+    
+    # Remove simulations for task
+    # task = Task.objects.get(pk=3)
+    # removeSimulationsForTask(task)
     
     
     # ! CAREFUL !

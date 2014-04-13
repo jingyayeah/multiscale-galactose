@@ -12,10 +12,13 @@ setwd("/home/mkoenig/multiscale-galactose-results/")
 ###############################################################
 results.folder <- "/home/mkoenig/multiscale-galactose-results"
 code.folder    <- "/home/mkoenig/multiscale-galactose/R" 
-task <- "T2"
-modelId <- "Dilution_Curves_v8_Nc20_Nf1"
+task <- "T3"
+modelId <- "Dilution_Test"
+# modelId <- "Dilution_Curves_v8_Nc20_Nf1"
+
 # here the parameter files are stored
-info.folder <- '2014-04-08'
+# info.folder <- '2014-04-08'
+info.folder <- '2014-04-13_Dilution_Curves'
 # here the ini & csv of the integrations are stored
 data.folder <- 'django/timecourse/2014-04-08'
 

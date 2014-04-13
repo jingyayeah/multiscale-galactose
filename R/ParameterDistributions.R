@@ -20,6 +20,19 @@ code.folder    <- "/home/mkoenig/multiscale-galactose/R"
 data.folder    <- "/home/mkoenig/multiscale-galactose/experimental_data/parameter_distributions"
 setwd(results.folder)
 
+task <- "T3"
+modelId <- "Dilution_Test"
+info.folder <- '2014-04-13_Dilution_Curves'
+data.folder <- 'django/timecourse/2014-04-08'
+
+setwd(results.folder)
+###############################################################
+# Load the parameter file & create histogramm of parameters
+source(paste(code.folder, '/', 'ParameterFile.R', sep=""))
+pars
+
+
+
 ###############################################################
 # parameter distribution generators
 ###############################################################

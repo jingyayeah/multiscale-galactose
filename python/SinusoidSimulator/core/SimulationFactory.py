@@ -135,7 +135,9 @@ flow_sin flow_sin 2.70e-04 5.80e-05  m/s  5.4570000 0.6188000     1e+06       mu
             # sigma = math.sqrt(math.log(std**2/m**2 + 1));
             mu = meanlog[kp]
             sigma = stdlog[kp]
-            value = npr.lognormal(mu, sigma)  
+            # The fit parameter are for mum and mum/s, but parameters for the 
+            # ode have to be provided in m and m/s.
+            value = npr.lognormal(mu, sigma) * 1E-6   
             pars.append( (names[kp], value, units[kp]) )
             
         all_pars.append(pars)
@@ -228,7 +230,7 @@ if __name__ == "__main__":
         model.save();
         if (1):
             # create dilution simulations
-            N = 2000     # number of simulations
+            N = 1000     # number of simulations
             task = createDilutionCurvesSimulationTask(model, N)
             # create the parameter file
             folder = "/home/mkoenig/multiscale-galactose-results"
