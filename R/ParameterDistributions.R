@@ -139,12 +139,54 @@ rownames(Koo1975.all)<-Koo1975.names
 Koo1975.all
 
 # R stacked bar plot
-png(filename=paste("Koo1975_velocity_distribution.png", sep=""),
-    width = 800, height = 800, units = "px", bg = "white",  res = 150)
+#png(filename=paste("Koo1975_velocity_distribution.png", sep=""),
+#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
 barcol <- gray.colors(length(Koo1975.names))
 barplot(Koo1975.all, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", col=barcol)
 legend("topright",  legend = Koo1975.names, fill=barcol)
+#dev.off()
+
+# Fit log normal distributions to the loaded data
+library(MASS)
+Koo1975.all
+# generate data vector from histogramm (this is ugly, but individual data is not
+# available, so generate individual data in the middle of the bin for the count number)
+data <- data.frame(flow=numeric(0))
+for (kr in seq(1, nrow(Koo1975.all)) ){
+  for (kc in seq(1, ncol(Koo1975.all)) ){
+    count = Koo1975.all[kr, kc]
+    value = as.numeric( colnames(Koo1975.all)[kc])
+    tmp <- data.frame(flow=rep(value, count))
+    print(tmp)
+    
+    data <- rbind(data, tmp)
+  }
+}
+
+hist(data$flow)              
+fit <- fitdistr(data$flow, "lognormal")
+fit
+# meanlog       sdlog   
+# 5.45720754   0.61782097 
+# (0.02673573) (0.01890501)
+
+sum(Koo1975.all)
+barplot(Koo1975.all/sum(Koo1975.all)/100, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", col=barcol)
+legend("topright",  legend = Koo1975.names, fill=barcol)
+x <- seq(from=1E-12, to=2000, length.out=1000)
+y <- dlnorm(x, meanlog=5.45720754, sdlog=0.61782097, log = FALSE)
+points(x,y, lty=1, type="l")
+
+png(filename=paste("Koo1975_velocity_distribution_fit.png", sep=""),
+    width = 800, height = 800, units = "px", bg = "white",  res = 150)
+hist(data$flow, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", freq=FALSE)
+points(x,y, lty=1, type="l")
 dev.off()
+
+
+# TODO: analyse with QQplot if fits to the distribution
+
+
 
 ###############################################################
 # load Puhl
@@ -155,21 +197,60 @@ Puhl2003.fig4 <- read.csv(paste(data.folder, "/", "Puhl2003_Fig4.csv", sep=""), 
 # diameter [µm]
 Puhl2003.fig3 <- read.csv(paste(data.folder, "/", "Puhl2003_Fig3.csv", sep=""), sep="\t", colClasses="numeric")
 
-
+# RBC velocity in [µm/s]
 p.vel <- rbind(t(Puhl2003.fig2$percent))
 colnames(p.vel) <- Puhl2003.fig2$velocity*1000    # [µm/s]
 barplot(p.vel, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="[%]")
 
+# fsd in [1/cm], means in [µm]
 p.fsd <- rbind(t(Puhl2003.fig4$percent))
 colnames(p.fsd) <- Puhl2003.fig4$FSD    # [1/cm]
 barplot(p.fsd, main="FSD distribution", xlab="FSD [1/cm]", ylab="[%]")
 
-# fsd in [1/cm], means in [µm]
+# cell layer [µm]
 p.y_cell <- p.fsd
 tmp <- 1E4/(2*Puhl2003.fig4$FSD) -1E6*(p.gen["y_sin", "mean"] + p.gen["y_dis", "mean"]) 
-colnames(p.y_cell) <- tmp
+colnames(p.y_cell) <- t(tmp)
+tmp
 p.y_cell
 barplot(p.y_cell, main="y_cell distribution", xlab="y_cell [µm]", ylab="[%]")
+
+
+#### FIT y_cell ###
+# generate data vector from histogramm (this is ugly, but individual data is not
+# available, so generate individual data in the middle of the bin for the count number)
+data <- data.frame(flow=numeric(0))
+for (kr in seq(1, nrow(p.y_cell)) ){
+  for (kc in seq(1, ncol(p.y_cell)) ){
+    count = p.y_cell[kr, kc]
+    value = as.numeric( colnames(p.y_cell)[kc])
+    tmp <- data.frame(flow=rep(value, count))
+    print(tmp)
+    data <- rbind(data, tmp)
+  }
+}
+data
+
+hist(data$flow)              
+fit <- fitdistr(data$flow, "lognormal")
+fit
+# meanlog       sdlog   
+# 5.963793114   0.079014201 
+# (0.007981640) (0.005643871)
+
+x <- seq(from=1E-12, to=2000, length.out=1000)
+y <- dlnorm(x, meanlog=5.963793114, sdlog=0.079014201, log = FALSE)
+points(x,y, lty=1, type="l")
+
+#png(filename=paste("Koo1975_velocity_distribution_fit.png", sep=""),
+#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
+p.y_cell
+hist(data$flow, main="y_cell", xlab="y_cell [µm]", ylab="count", freq=FALSE, breaks=)
+points(x,y, lty=1, type="l")
+#dev.off()
+
+
+
 
 # diameter [µm]
 p.dia <- rbind(t(Puhl2003.fig3$percent))
