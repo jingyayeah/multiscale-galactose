@@ -26,7 +26,12 @@ setwd(results.folder)
 ###############################################################
 # Load the parameter file & create histogramm of parameters
 source(paste(code.folder, '/', 'ParameterFile.R', sep=""))
-pars
+head(pars)
+summary(pars)
+
+# Reduce the parameters to the finished simulations
+pars <- pars[pars$status=="DONE", ]
+summary(pars)
 
 ########################################################################
 ### Create simulation data structure ###
@@ -36,10 +41,6 @@ pars
 
 # Load functions to read data
 source(paste(code.folder, '/', 'ReadDataFunctions.R', sep=""))
-
-# Reduce the parameters to the finished simulations
-pars <- pars[pars$status=="DONE", ]
-
 
 # File for storage
 dataset1.file <- paste(info.folder, '/', modelId, '_dataset1','.rdata', sep="")
