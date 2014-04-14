@@ -45,7 +45,7 @@ source(paste(code.folder, '/', 'ReadDataFunctions.R', sep=""))
 # File for storage
 dataset1.file <- paste(info.folder, '/', modelId, '_dataset1','.rdata', sep="")
 
-# dil_list = readPPPVData()
+dil_list = readPPPVData()
 # dil_list = readPPPVData(max_index=5)     # read the first 5 simulations
 # pars <- pars[1:5, ]
 Nsim = nrow(pars)
@@ -72,8 +72,8 @@ load(file=dataset1.file)
 # Plot all data curves and mean curve #
 library('matrixStats')
 
-png(filename=paste(info.folder, '/', task, "_Dilution_Curves.png", sep=""),
-    width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
+#png(filename=paste(info.folder, '/', task, "_Dilution_Curves.png", sep=""),
+#    width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
 time <- readTimeForSimulation(rownames(pars)[1])
 par(mfrow=c(1,length(compounds)))
 for (kc in seq(1, length(compounds)) ){
@@ -97,7 +97,7 @@ for (kc in seq(1, length(compounds)) ){
   lines(time, rmean-rstd, col=ccolors[kc], lwd=2, lty=2)
 }
 par(mfrow=c(1,1))
-dev.off()
+# dev.off()
 
 ## Combined Dilution Curves in one plot ##
 png(filename=paste(info.folder, '/', task, "_Dilution_Curves_Combined.png", sep=""),
@@ -137,13 +137,13 @@ for (kc in seq(1, length(compounds)) ){
   }
 }
 maxtime$tmp <- NULL
-rmean()
 colMeans(maxtime-10)
 
 png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
     width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
-boxplot(maxtime, col=ccolors, horizontal=T, xlab="time [s]")
+boxplot(maxtime-10, col=ccolors, horizontal=T, xlab="time [s]")
 dev.off()
+summary(maxtime-10)
 
 ## Scatterplots of the parameters ##
 library("lattice")
