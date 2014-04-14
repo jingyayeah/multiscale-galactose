@@ -12,8 +12,6 @@ p.opt = odeset('AbsTol', 1E-6, 'relTol', 1E-6);
 fname = 'test_galactose.CSV'
 writeCSVResult(fname, t, x, p);
 
-
-
 % Evaluate simulation
 
 %% Analysis
