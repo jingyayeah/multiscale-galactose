@@ -53,11 +53,11 @@ data
 % Diffusion coefficients [µm^2/s] -> [m^2/s]
 Ddata = [             
            0       % [1] RBCM
-         400       % [2] suc
-         100       % [3] albuminM
-         400       % [4] gal
-         400       % [5] galM
-        2000       % [6] h20M
+         720       % [2] suc
+         90        % [3] albuminM
+         910       % [4] gal
+         910       % [5] galM
+        2200       % [6] h20M
 ]*1E-12;
 
 
