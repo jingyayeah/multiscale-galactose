@@ -9,25 +9,29 @@ rm(list=ls())
 # Density, distribution function, quantile function and random generation 
 # for the log normal distribution whose logarithm has mean equal to meanlog 
 # and standard deviation equal to sdlog.
+# Log-normal distributions are fitted to the experimental histogramm data.
 # 
 #   dlnorm(x, meanlog = 0, sdlog = 1, log = FALSE)
 #   plnorm(q, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE) (cumulative distribution)
 #   qlnorm(p, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE)
 #   rlnorm(n, meanlog = 0, sdlog = 1)
 ################################################################
-results.folder <- "/home/mkoenig/multiscale-galactose-results"
-code.folder    <- "/home/mkoenig/multiscale-galactose/R" 
-data.folder    <- "/home/mkoenig/multiscale-galactose/experimental_data/parameter_distributions"
-setwd(results.folder)
+folder.results <- "/home/mkoenig/multiscale-galactose-results"
+folder.code    <- "/home/mkoenig/multiscale-galactose/R" 
+folder.expdata    <- "/home/mkoenig/multiscale-galactose/experimental_data/parameter_distributions"
+folder.simdata <- paste(folder.results, '/', '2014-04-13_Dilution_Curves', sep="")
 
-task <- "T3"
-modelId <- "Dilution_Test"
-info.folder <- "/home/mkoenig/multiscale-galactose-results" #'2014-04-13_Dilution_Curves'
-data.folder <- 'django/timecourse/2014-04-08'
+setwd(folder.results)
 
 ###############################################################
 # Load the parameter file & create histogramm of parameters
-source(paste(code.folder, '/', 'ParameterFile.R', sep=""))
+source(paste(folder.code, '/', 'ParameterFile.R', sep=""))
+task <- 'T3'
+modelId <- 'Dilution_Test'
+pars <- loadParsFile(folder.simdata, task, modelId)
+
+pars.histfile <-paste(folder.results, '/', task, "_parameter_histograms.png", sep="") 
+plotFullParameterHist(pars, pars.histfile)
 head(pars)
 
 ###############################################################
@@ -46,8 +50,8 @@ meanlog <- function(m, std){
 # TODO: Update the python simulation scripts to generate the proper datasets
 # TODO: write the table with the meanlog and stdlog
 name = c('L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin')
-mean = c(500E-6, 4.4E-6, 0.81E-6, 7.58E-6, 270E-6)
-std  = c(125E-6, 0.45E-6, 0.3E-6, 1.25E-6, 58E-6)
+mean = c(500E-6, 4.4E-6, 1.2E-6, 7.58E-6, 270E-6)
+std  = c(125E-6, 0.45E-6, 0.4E-6, 1.25E-6, 58E-6)
 unit = c('m', 'm' ,'m', 'm', 'm/s')
 scale_fac = c(1E6, 1E6, 1E6, 1E6, 1E6)
 scale_unit = c('µm', 'µm' ,'µm', 'µm', 'µm/s')

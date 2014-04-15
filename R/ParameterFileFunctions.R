@@ -1,0 +1,66 @@
+###########################################################################################
+# Function set handling parameter files
+###########################################################################################
+# Parameter files are created directly from the database for the tasks. 
+# They contain additional columns providing information about the 
+# simulations, i.e. certain keyword columns are not parameters.
+
+# reserved keywords which are not parameters
+pars.keywords <- c('status', 'duration', 'core', 'sim')
+
+# Loading the parameter file
+loadParsFile <- function(folder, task, modelId){
+  parsfile <- paste(folder, '/', task, '_', modelId, '_parameters.csv', sep="")
+  print(parsfile)
+  pars <- read.csv(parsfile, header=TRUE)
+  
+  # set row names
+  row.names(pars) <- paste("Sim", pars$sim, sep="")
+  pars
+}
+
+# Get parameter names, i.e columns which are not keywords
+getParsNames <- function(pars){
+  pnames <- setdiff(names(pars), pars.keywords) 
+}
+
+# plot parameter histogram
+plotParameterHist <- function(pars, name, breaks=40){
+  x <- pars[,name] 
+  hist(x, breaks=breaks, xlab=name, main=paste("Histogram", name))
+}
+
+# histogramm of all parameters
+plotFullParameterHist <- function(pars, file){
+  pnames <- getParsNames(pars)
+  Np <- length(pnames)
+  
+  png(filename=file,
+      width = 1800, height = 500, units = "px", bg = "white",  res = 150)
+  par(mfrow=c(1,Np))
+  for (k in seq(Np)){
+    plotParameterHist(pnames[k])
+  }
+  par(mfrow=c(1,1))
+  dev.off()  
+} 
+
+###########################################################################################
+# Usage
+###########################################################################################
+test <- FALSE
+if (test == TRUE){
+ print('TESTING ParameterFile')
+ folder.results <- 
+ folder.simdata <- paste(folder.results, '/', '2014-04-13_Dilution_Curves', sep="")
+ task <- 'T3'
+ modelId <- 'Dilution_Test'
+ pars <- loadParsFile(folder.simdata, task, modelId)
+ pars.histfile <-paste(folder.results, '/', task, "_parameter_histograms.png", sep="") 
+ plotFullParameterHist(pars, pars.histfile)
+ 
+  
+}
+rm(test)
+
+
