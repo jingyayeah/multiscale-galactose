@@ -2,7 +2,7 @@
 \alias{readTimeForSimulation}
 \title{Reads the time vector from simulation identifier}
 \usage{
-readTimeForSimulation(simId)
+readTimeForSimulation(dir, simId)
 }
 \arguments{
   \item{sim}{simulation identifier}

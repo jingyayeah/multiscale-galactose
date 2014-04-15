@@ -1,9 +1,10 @@
 \name{readPPPVData}
 \alias{readPPPVData}
-\title{Read the data in a list structure
-Parameter data pars has to be available in environment.}
+\title{Read all PP__ and PV__ components in a list structure.
+Parameter data pars has to be available in environment. For all simulations
+the csv ode solutions are loaded and the necessary components extracted.}
 \usage{
-readPPPVData(max_index = -1)
+readPPPVData(dir, max_index = -1)
 }
 \arguments{
   \item{max_index}{maximal index until which data is read}
@@ -12,7 +13,9 @@ readPPPVData(max_index = -1)
 list of PPPV data matrices
 }
 \description{
-Read the data in a list structure Parameter data pars has
-to be available in environment.
+Read all PP__ and PV__ components in a list structure.
+Parameter data pars has to be available in environment. For
+all simulations the csv ode solutions are loaded and the
+necessary components extracted.
 }
 

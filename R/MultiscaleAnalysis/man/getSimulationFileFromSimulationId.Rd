@@ -2,7 +2,7 @@
 \alias{getSimulationFileFromSimulationId}
 \title{Get integration timecourse file for simulation id.}
 \usage{
-getSimulationFileFromSimulationId(simId)
+getSimulationFileFromSimulationId(dir, simId)
 }
 \arguments{
   \item{simId}{simulation identifier}

@@ -6,9 +6,8 @@
 #'@param simId simulation identifier
 #'@return filename for the integration file
 #'@export
-getSimulationFileFromSimulationId <- function(simId){
-  # TODO with cat
-  fname <- paste(ma.settings$dir.simdata, '/', modelId, "_", sim, "_copasi.csv", sep="")
+getSimulationFileFromSimulationId <- function(dir, simId){
+  fname <- paste(dir, '/', modelId, "_", simId, "_copasi.csv", sep="")
 }
 
 #' Load the PP and PV data for single simulation by sim name
@@ -18,10 +17,10 @@ getSimulationFileFromSimulationId <- function(simId){
 #' @param withTime keeps the time column
 #' @return PPPV data
 #' @export
-readPPPVDataForSimulation <- function(simId, withTime=F){
+readPPPVDataForSimulation <- function(dir, simId, withTime=F){
   # load simulation data
-  fname <- getSimulationFileFromSimulationId(simId)
-  data <- read.csv()
+  fname <- getSimulationFileFromSimulationId(dir, simId)
+  data <- read.csv(file=fname)
   
   # set time as row names and remove the time vector
   row.names(data) <- data$time
@@ -38,17 +37,18 @@ readPPPVDataForSimulation <- function(simId, withTime=F){
 #' @param sim simulation identifier
 #' @return time vector
 #' @export
-readTimeForSimulation <- function(simId){
-  tmp <- readPPPVDataForSimulation(simId, withTime=T)
+readTimeForSimulation <- function(dir, simId){
+  tmp <- readPPPVDataForSimulation(dir, simId, withTime=T)
   time <- tmp$time
 }
 
-#' Read the data in a list structure
-#' Parameter data pars has to be available in environment.
+#' Read all PP__ and PV__ components in a list structure.
+#' Parameter data pars has to be available in environment. For all simulations
+#' the csv ode solutions are loaded and the necessary components extracted.
 #' @param max_index maximal index until which data is read
 #' @return list of PPPV data matrices
 #' @export
-readPPPVData <- function(max_index=-1){
+readPPPVData <- function(dir, max_index=-1){
   data <- list()
   if (max_index<1){
     simulations <- row.names(pars)  
@@ -58,11 +58,10 @@ readPPPVData <- function(max_index=-1){
   Nsim <- length(simulations)
   for (k in seq(1,Nsim)){
     simId <- simulations[[k]]
-    print(paste(sim, ' [', k/Nsim*100, ']'))
+    print(paste(simId, ' [', k/Nsim*100, ']'))
     status = pars[simId,]$status
-    
     if (length(status)==0 || status == 'DONE'){
-      data[[simId]] = readPPPVDataForSimulation(simId)
+      data[[simId]] = readPPPVDataForSimulation(dir, simId)
     } else {
       print(paste('simulation -> ', status))
     }
@@ -76,8 +75,8 @@ readPPPVData <- function(max_index=-1){
 #' @prefixes which prefixes to take
 #' @return matrix of pppv data
 #' @export
-createDataMatrices <- function(datalist, compounds, prefixes=c('PV__')){
-  time <- readTimeForSimulation(names(pars)[1])
+createDataMatrices <- function(dir, datalist, compounds, prefixes=c('PV__')){
+  time <- readTimeForSimulation(dir, rownames(pars)[1])
   Ntime = length(time)
   Nsim = length(names(datalist))
   

@@ -4,7 +4,7 @@
 The timecourse for the data should exists. This can be checked with
 via the simulation status in the parameter files.}
 \usage{
-readPPPVDataForSimulation(simId, withTime = F)
+readPPPVDataForSimulation(dir, simId, withTime = F)
 }
 \arguments{
   \item{sim}{simulation identifier}
