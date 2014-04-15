@@ -78,7 +78,7 @@ legend("topright",  legend = Koo1975.names, fill=barcol)
 name = 'flow_sin'
 data <- createDataFromHistogramm(Koo1975.all)             
 fit <- fitdistr(data$x, "lognormal")
-storeFitData(fit, name)
+p.gen <- storeFitData(p.gen, fit, name)
 fit
 
 # Figure #
@@ -88,15 +88,18 @@ if (create_plot_files == TRUE){
 }
 
   plot(numeric(0), numeric(0),  main="RBC velocity distribution", 
-     xlab=xlabByName(p.gen, name), ylabByName(p.gen, name),
+     xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
      xlim=c(0, max(data$x)), ylim=c(0, 0.004))
+
   plotHistWithFit(p.gen, name, data=data, 
                 midpoints=as.numeric(colnames(Koo1975.all)),
                 fit=fit, histc=histc)
-  # add the parameter hist
-  hpars <- hist(pars[, name]*p.gen[name, 'scale_fac'],
-              plot=FALSE, breaks=20)
+  
+# add the parameter hist
+  data <- pars[, name] *p.gen[name, 'scale_fac']
+  hpars <- hist(data, plot=FALSE, breaks=20)
   plot(hpars, col=histcp, freq=FALSE, add=T)
+
   legend("topright",  legend = c('Data Koo1975', 'Simulation'), fill=c(histc, histcp))
 
 if (create_plot_files){
@@ -151,8 +154,7 @@ barplot(p.y_sin, main="Sinusoid radius distribution", xlab="sinusoid radius [µm
 name = 'y_cell'
 data <- createDataFromHistogramm(p.y_cell)
 fit <- fitdistr(data$x, "lognormal")
-storeFitData(fit, name)
-fit
+p.gen <- storeFitData(p.gen, fit, name)
 
 # Figure #
 if (create_plot_files == TRUE){
@@ -161,8 +163,8 @@ if (create_plot_files == TRUE){
 }
 
   plot(numeric(0), numeric(0),  main="y_cell distribution", 
-     xlab=xlabByName(p.gen, name), ylabByName(p.gen, name),
-     xlim=c(4, 12), ylim=c(0, 1))
+     xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
+     xlim=c(4, 12), ylim=c(0, 0.8))
   plotHistWithFit(p.gen, name, data, 
                 midpoints=as.numeric(colnames(p.y_cell)), 
                 fit, histc)
@@ -182,9 +184,8 @@ if (create_plot_files){
 name = 'y_sin'
 data <- createDataFromHistogramm(p.y_sin)
 fit <- fitdistr(data$x, "lognormal")
-storeFitData(fit, name)
+p.gen <- storeFitData(p.gen, fit, name)
 fit
-
 
 # Figure #
 if (create_plot_files == TRUE){
@@ -193,7 +194,7 @@ if (create_plot_files == TRUE){
 }
 
   plot(numeric(0), numeric(0),  main="Sinusoidal radius", 
-     xlab=xlabByName(p.gen, name), ylabByName(p.gen, name),
+     xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
      xlim=c(2, 7), ylim=c(0, 1))
   plotHistWithFit(p.gen, name, data, 
                 midpoints = as.numeric(colnames(p.y_sin)),
@@ -226,9 +227,7 @@ if (create_plot_files == TRUE){
   data <- pars[, name] *p.gen[name, 'scale_fac']
   hpars <- hist(data, plot=FALSE, breaks=20)
   plot(hpars, col=histcp, freq=FALSE, add=T)
-
-  # fit distribution
-  plotDistribution(p.gen, name, maxvalue=2*max(data))
+  plotLogNormalDistribution(p.gen, name, maxvalue=2*max(data))
 
   legend("topright",  legend = c('Simulation'), fill=c(histcp))
 
@@ -245,7 +244,7 @@ if (create_plot_files == TRUE){
   png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
 }
 
-  plot(numeric(0), numeric(0),  main="Sinusoid length", 
+  plot(numeric(0), numeric(0),  main="Sinusoidal length", 
      xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
      xlim=c(0, 1000), ylim=c(0, 0.005))
   # add the parameter hist  
@@ -253,7 +252,7 @@ if (create_plot_files == TRUE){
   hpars <- hist(data, plot=FALSE, breaks=20)
   plot(hpars, col=histcp, freq=FALSE, add=T)
   # add distribution
-  plotDistribution(p.gen, name, maxvalue=2*max(data))
+  plotLogNormalDistribution(p.gen, name, maxvalue=2*max(data))
   legend("topright",  legend = c('Simulation'), fill=c(histcp))
 
 if (create_plot_files){

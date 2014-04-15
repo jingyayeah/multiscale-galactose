@@ -2,8 +2,7 @@
 \alias{plotHistWithFit}
 \title{Plot the histogramm of the data with the fit.}
 \usage{
-plotHistWithFit(p.gen, name, data, midpoints, fit, histc = rgb(1, 0, 0, 0.25),
-  lcolor = "blue")
+plotHistWithFit(p.gen, name, data, midpoints, fit, histc = rgb(1, 0, 0, 0.25))
 }
 \arguments{
   \item{p.gen}{information about the parameters}

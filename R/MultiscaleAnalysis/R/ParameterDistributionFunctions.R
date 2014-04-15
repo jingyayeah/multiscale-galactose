@@ -78,23 +78,13 @@ getBreakPointsFromMidpoints <- function(midpoints){
 #' @param data data underlying the histogram
 #' @param fit lognormal fit estimates from fitdistr
 #' @export
-plotHistWithFit <- function(p.gen, name, data, midpoints, fit, histc=rgb(1.0, 0.0, 0.0, 0.25), lcolor='blue'){
-  mean <- p.gen[name, "mean"]
-  std <- p.gen[name, "std"]
-  fac <- p.gen[name, "scale_fac"]
-  print(mean)
-  
+plotHistWithFit <- function(p.gen, name, data, midpoints, fit, histc=rgb(1.0, 0.0, 0.0, 0.25)){  
   # plot the fit distribution
-  plotDistribution(p.gen, name, 2*max(data$x))
+  plotLogNormalDistribution(p.gen, name, 2*max(data$x))
   
   # plot the histogram
   h <- hist(data$x, breaks=getBreakPointsFromMidpoints(midpoints), plot=FALSE)
   plot(h, col=histc, freq=FALSE, add=T)
-  
-  # plot the mean and std lines
-  abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
-  abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
-  abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
 }
 
 #' Plot the density distribution.
@@ -102,13 +92,21 @@ plotHistWithFit <- function(p.gen, name, data, midpoints, fit, histc=rgb(1.0, 0.
 #' @param name of the parameter
 #' @param maxvalue for calculation of distribution
 #' @export
-plotDistribution <- function(p.gen, name, maxvalue, N=1000){
+plotLogNormalDistribution <- function(p.gen, name, maxvalue, N=1000, lcolor='blue'){
   x <- seq(from=1E-12, to=maxvalue, length.out=N)
   y <- dlnorm(x, 
               meanlog=p.gen[name, 'meanlog'], 
               sdlog=p.gen[name, 'sdlog'], 
               log = FALSE)
   points(x,y, lty=1, type="l", lwd=3)
+  
+  # plot the mean and std lines
+  mean <- p.gen[name, "mean"]
+  std <- p.gen[name, "std"]
+  fac <- p.gen[name, "scale_fac"]
+  abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
+  abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
+  abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
 }
 
 #' Get the axis label.
@@ -133,9 +131,10 @@ ylabByName <-function(p.gen, name){
 #' @param name of the parameter
 #' @param fit fit results
 #' @export
-storeFitData <- function(fit, name){
+storeFitData <- function(p.gen, fit, name){
   p.gen[name, 'meanlog'] = fit$estimate['meanlog']
   p.gen[name, 'sdlog'] = fit$estimate['sdlog']
   p.gen[name, 'meanlog_error'] = fit$sd['meanlog']
   p.gen[name, 'sdlog_error'] = fit$sd['sdlog']
+  p.gen;
 }
