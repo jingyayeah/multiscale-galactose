@@ -5,10 +5,13 @@
 # They contain additional columns providing information about the 
 # simulations, i.e. certain keyword columns are not parameters.
 
-# reserved keywords which are not parameters
+#' Reserved keywords which are not parameters
+#' @export
 pars.keywords <- c('status', 'duration', 'core', 'sim')
 
-# Loading the parameter file
+#'  Takes folder, task and modelID
+#'  @return Parameter data.frame
+#'  @export  
 loadParsFile <- function(folder, task, modelId){
   parsfile <- paste(folder, '/', task, '_', modelId, '_parameters.csv', sep="")
   print(parsfile)
@@ -19,18 +22,27 @@ loadParsFile <- function(folder, task, modelId){
   pars
 }
 
-# Get parameter names, i.e columns which are not keywords
+#' Get parameter names, i.e columns which are not keywords
+#' @return vector of parameter names
+#' @export
 getParsNames <- function(pars){
   pnames <- setdiff(names(pars), pars.keywords) 
 }
 
-# plot parameter histogram
+#' Plot parameter histogram
+#' @param pars Parameter data frame
+#' @param name of parameter
+#' @return hist information
+#' @export
 plotParameterHist <- function(pars, name, breaks=40){
   x <- pars[,name] 
-  hist(x, breaks=breaks, xlab=name, main=paste("Histogram", name))
+  h <- hist(x, breaks=breaks, xlab=name, main=paste("Histogram", name))
 }
 
-# histogramm of all parameters
+
+#' Histogramm for all parameters
+#' @param pars Parameter data frame
+#' @param file File where to save the histogramm
 plotFullParameterHist <- function(pars, file){
   pnames <- getParsNames(pars)
   Np <- length(pnames)
@@ -44,6 +56,7 @@ plotFullParameterHist <- function(pars, file){
   par(mfrow=c(1,1))
   dev.off()  
 } 
+
 
 ###########################################################################################
 # Usage
@@ -59,8 +72,5 @@ if (test == TRUE){
  pars.histfile <-paste(folder.results, '/', task, "_parameter_histograms.png", sep="") 
  plotFullParameterHist(pars, pars.histfile)
  
-  
 }
 rm(test)
-
-

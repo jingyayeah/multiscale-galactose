@@ -1,0 +1,68 @@
+* using log directory ‘/home/mkoenig/multiscale-galactose/R/MultiscaleAnalysis.Rcheck’
+* using R version 3.1.0 (2014-04-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘MultiscaleAnalysis/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘MultiscaleAnalysis’ version ‘0.1’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘MultiscaleAnalysis’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: /home/mkoenig/multiscale-galactose/R/MultiscaleAnalysis.Rcheck/00_pkg_src/MultiscaleAnalysis/man/MultiscaleAnalysis-package.Rd:32: All text must be in a section
+See ‘/home/mkoenig/multiscale-galactose/R/MultiscaleAnalysis.Rcheck/00install.out’ for details.
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... WARNING
+prepare_Rd: MultiscaleAnalysis-package.Rd:32: All text must be in a section
+* checking Rd metadata ... OK
+* checking Rd cross-references ... WARNING
+Unknown package ‘<pkg>’ in Rd xrefs
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... WARNING
+Warning: parse error in file 'MultiscaleAnalysis-Ex.R':
+20:11: unexpected symbol
+19: 
+20: ~~ simple examples
+              ^
+* checking examples ... ERROR
+Running examples in ‘MultiscaleAnalysis-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: MultiscaleAnalysis-package
+> ### Title: What the package does (short line) ~~ package title ~~
+> ### Aliases: MultiscaleAnalysis-package MultiscaleAnalysis
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> ~~ simple examples of the most important functions ~~
+Error: unexpected symbol in "~~ simple examples"
+Execution halted
