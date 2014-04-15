@@ -1,0 +1,18 @@
+\name{xlabByName}
+\alias{xlabByName}
+\title{Get the axis label.}
+\usage{
+xlabByName(p.gen, name)
+}
+\arguments{
+  \item{p.gen}{information about the parameters}
+
+  \item{name}{of the parameter}
+}
+\value{
+axis label
+}
+\description{
+Get the axis label.
+}
+

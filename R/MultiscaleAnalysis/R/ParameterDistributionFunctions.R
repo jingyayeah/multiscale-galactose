@@ -85,21 +85,57 @@ plotHistWithFit <- function(p.gen, name, data, midpoints, fit, histc=rgb(1.0, 0.
   print(mean)
   
   # plot the fit distribution
-  x <- seq(from=1E-12, to=2*max(data$x), length.out=1000)
-  y <- dlnorm(x, 
-              meanlog=fit$estimate['meanlog'], 
-              sdlog=fit$estimate['sdlog'], 
-              log = FALSE)
-  points(x,y, lty=1, type="l", lwd=3)
+  plotDistribution(p.gen, name, 2*max(data$x))
   
   # plot the histogram
-
   h <- hist(data$x, breaks=getBreakPointsFromMidpoints(midpoints), plot=FALSE)
   plot(h, col=histc, freq=FALSE, add=T)
-  points(x,y, lty=1, type="l")
   
+  # plot the mean and std lines
   abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
   abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
   abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
-  
+}
+
+#' Plot the density distribution.
+#' @param p.gen information about the parameters
+#' @param name of the parameter
+#' @param maxvalue for calculation of distribution
+#' @export
+plotDistribution <- function(p.gen, name, maxvalue, N=1000){
+  x <- seq(from=1E-12, to=maxvalue, length.out=N)
+  y <- dlnorm(x, 
+              meanlog=p.gen[name, 'meanlog'], 
+              sdlog=p.gen[name, 'sdlog'], 
+              log = FALSE)
+  points(x,y, lty=1, type="l", lwd=3)
+}
+
+#' Get the axis label.
+#' @param p.gen information about the parameters
+#' @param name of the parameter
+#' @return axis label
+#' @export
+xlabByName <-function(p.gen, name){
+  label <- paste(name, ' [', p.gen[name, 'scale_unit'], ']', sep="")
+}
+
+#' Get the axis label.
+#' @param p.gen information about the parameters
+#' @param name of the parameter
+#' @return axis label
+#' @export
+ylabByName <-function(p.gen, name){
+  label <- paste('density', ' [1/(', p.gen[name, 'scale_unit'], ')]', sep="")
+}
+
+#' Writes the fit parameter to the global parameter object.
+#' @param name of the parameter
+#' @param fit fit results
+#' @export
+storeFitData <- function(fit, name){
+  p.gen[name, 'meanlog'] = fit$estimate['meanlog']
+  p.gen[name, 'sdlog'] = fit$estimate['sdlog']
+  p.gen[name, 'meanlog_error'] = fit$sd['meanlog']
+  p.gen[name, 'sdlog_error'] = fit$sd['sdlog']
 }

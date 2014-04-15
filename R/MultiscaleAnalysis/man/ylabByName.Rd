@@ -1,0 +1,18 @@
+\name{ylabByName}
+\alias{ylabByName}
+\title{Get the axis label.}
+\usage{
+ylabByName(p.gen, name)
+}
+\arguments{
+  \item{p.gen}{information about the parameters}
+
+  \item{name}{of the parameter}
+}
+\value{
+axis label
+}
+\description{
+Get the axis label.
+}
+

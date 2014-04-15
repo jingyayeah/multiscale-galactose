@@ -15,12 +15,22 @@ rm(list=ls())
 #   plnorm(q, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE) (cumulative distribution)
 #   qlnorm(p, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE)
 #   rlnorm(n, meanlog = 0, sdlog = 1)
+#
+# TODO: analyse fits with QQplot
 ################################################################
+# Settings for plots
+create_plot_files = TRUE
+histc = rgb(1.0, 0.0, 0.0, 0.25)
+histcp = rgb(0.0, 0.0, 1.0, 0.25)
+plot.width = 800 
+plot.height = 800
+plot.units= "px"
+plot.bg = "white"
+plot.res = 150
 
 library(MultiscaleAnalysis)
 library(MASS)
 setwd(ma.settings$dir.results)
-histc = rgb(1.0, 0.0, 0.0, 0.25)
 
 ###############################################################
 # parameter values used in simulations
@@ -36,6 +46,7 @@ task <- 'T3'
 modelId <- 'Dilution_Test'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, dname)
 pars <- loadParsFile(ma.settings$dir.simdata, task=task, modelId=modelId)
+pars <- pars[pars$status=='DONE', ]
 head(pars)
 
 ###############################################################
@@ -62,31 +73,35 @@ barplot(Koo1975.all, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab
 legend("topright",  legend = Koo1975.names, fill=barcol)
 #dev.off()
 
+
 ### FIT flow_sin #################################################################################
 name = 'flow_sin'
 data <- createDataFromHistogramm(Koo1975.all)             
 fit <- fitdistr(data$x, "lognormal")
+storeFitData(fit, name)
 fit
-# Store fit parameter
-p.gen[name, 'meanlog'] = fit$estimate['meanlog']
-p.gen[name, 'sdlog'] = fit$estimate['sdlog']
-p.gen[name, 'meanlog_error'] = fit$sd['meanlog']
-p.gen[name, 'sdlog_error'] = fit$sd['sdlog']
-p.gen
-fit$sd['sdlog']
 
-plot(numeric(0), numeric(0),  main="RBC velocity distribution", 
-     xlab="vRBC [µm/s]", ylab="count", 
-     xlim=c(0, max(data$x)), ylim=c(0, 0.004),
-     col=barcol)
-midpoints = as.numeric(colnames(Koo1975.all))
-plotHistWithFit(p.gen, name, data=data, midpoints=midpoints,
+# Figure #
+if (create_plot_files == TRUE){
+  fname <- paste('distribution_', name, '.png', sep="")
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
+}
+
+  plot(numeric(0), numeric(0),  main="RBC velocity distribution", 
+     xlab=xlabByName(p.gen, name), ylabByName(p.gen, name),
+     xlim=c(0, max(data$x)), ylim=c(0, 0.004))
+  plotHistWithFit(p.gen, name, data=data, 
+                midpoints=as.numeric(colnames(Koo1975.all)),
                 fit=fit, histc=histc)
-# add the parameter hist
+  # add the parameter hist
+  hpars <- hist(pars[, name]*p.gen[name, 'scale_fac'],
+              plot=FALSE, breaks=20)
+  plot(hpars, col=histcp, freq=FALSE, add=T)
+  legend("topright",  legend = c('Data Koo1975', 'Simulation'), fill=c(histc, histcp))
 
-
-legend("topright",  legend = c('Koo1975'), fill=histc)
-
+if (create_plot_files){
+  dev.off()
+}
 
 ###############################################################
 # Puhl2003 #
@@ -136,99 +151,111 @@ barplot(p.y_sin, main="Sinusoid radius distribution", xlab="sinusoid radius [µm
 name = 'y_cell'
 data <- createDataFromHistogramm(p.y_cell)
 fit <- fitdistr(data$x, "lognormal")
+storeFitData(fit, name)
 fit
-p.gen[name, 'meanlog'] = fit$estimate['meanlog']
-p.gen[name, 'sdlog'] = fit$estimate['sdlog']
-p.gen[name, 'meanlog_error'] = fit$sd['meanlog']
-p.gen[name, 'sdlog_error'] = fit$sd['sdlog']
 
-# png(filename=paste("Puhl2003_y_cell_fit.png", sep=""),
-#     width = 800, height = 800, units = "px", bg = "white",  res = 150)
-plot(numeric(0), numeric(0),  main="y_cell distribution", 
-     xlab="y_cell [µm]", ylab="frequency",
-     xlim=c(4, 12), ylim=c(0, 1),
-     col=barcol)
-midpoints = as.numeric(colnames(p.y_cell))
-plotHistWithFit(p.gen, name, data, midpoints, fit, histc)
-legend("topright",  legend = c('Puhl2003'), fill=histc)
-# dev.off()
+# Figure #
+if (create_plot_files == TRUE){
+  fname <- paste('distribution_', name, '.png', sep="")
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
+}
+
+  plot(numeric(0), numeric(0),  main="y_cell distribution", 
+     xlab=xlabByName(p.gen, name), ylabByName(p.gen, name),
+     xlim=c(4, 12), ylim=c(0, 1))
+  plotHistWithFit(p.gen, name, data, 
+                midpoints=as.numeric(colnames(p.y_cell)), 
+                fit, histc)
+  legend("topright",  legend = c('Puhl2003'), fill=histc)
+
+  # add the parameter hist
+  hpars <- hist(pars[, name]*p.gen[name, 'scale_fac'],
+              plot=FALSE, breaks=20)
+  plot(hpars, col=histcp, freq=FALSE, add=T)
+  legend("topright",  legend = c('Data Puhl2003', 'Simulation'), fill=c(histc, histcp))
+
+if (create_plot_files){
+  dev.off()
+}
 
 #### FIT y_sin #################################################################################
 name = 'y_sin'
 data <- createDataFromHistogramm(p.y_sin)
 fit <- fitdistr(data$x, "lognormal")
+storeFitData(fit, name)
 fit
-p.gen[name, 'meanlog'] = fit$estimate['meanlog']
-p.gen[name, 'sdlog'] = fit$estimate['sdlog']
-p.gen[name, 'meanlog_error'] = fit$sd['meanlog']
-p.gen[name, 'sdlog_error'] = fit$sd['sdlog']
-
-#png(filename=paste("Puhl2003_y_sin_fit.png", sep=""),
-#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
-plot(numeric(0), numeric(0),  main="sinusoid radius distribution", 
-     xlab="y_sin [µm]", ylab="frequency",
-     xlim=c(2, 7), ylim=c(0, 1),
-     col=barcol)
-midpoints = as.numeric(colnames(p.y_sin))
-plotHistWithFit(p.gen, name, data, midpoints, fit, histc)
-legend("topright",  legend = c('Puhl2003'), fill=histc)
-# dev.off()
-
-p.gen
-
-# TODO: analyse with QQplot if fits to the distribution
 
 
-###############################################################
-# Here everything comes together
-# log normal distribution from given parameters
-# This is the check if parameters were fitted properly.
-# TODO: plot all the data in one image (parameters, exp data and distribution)
-Np = nrow(p.gen) 
-png(filename=paste("Parameter_Distributions.png", sep=""),
-     width = 800, height = 2000, units = "px", bg = "white",  res = 150)
-par(mfrow=c(Np,2))
-for (kp in seq(Np)){
-  name <- p.gen$name[kp]
-  mean <- p.gen$mean[kp]
-  std  <- p.gen$std[kp]
-  fac <- p.gen$scale_fac[kp]
-  meanlog <- p.gen$meanlog[kp]
-  stdlog  <- p.gen$stdlog[kp]
-  
-  # scale to check the values are correct
-  xlab_scale <- paste(p.gen$name[kp], ' [', p.gen$scale_unit[kp]  ,']', sep="")
-  
-  # plot the histogramm (frequencies)
-  xdata <- rlnorm(2000, meanlog=meanlog, sdlog=stdlog)
-  xdata <- xdata[xdata <= 2*mean*fac]
-  # not used
-  
-  # plot distribution
-  x <- seq(from=1E-12, to=2*mean*fac, length.out=1000)
-  y <- dlnorm(x, meanlog=meanlog, sdlog=stdlog, log = FALSE)
-  
-  # use the parameters data
-  xdata <- pars[[name]]*fac
-  
-  hdata <- hist(xdata, breaks=15, plot=FALSE)
-  hdata$counts <- hdata$counts/max(hdata$count)
-  hdata
-  plot(hdata, xlim=c(0, 2*mean*fac), main=name, xlab=xlab_scale)
-  # hist(xdata, breaks=15, plot=TRUE, freq=TRUE, xlim=c(0, 2*mean*fac), main=name, xlab=xlab_scale)
-  lcolor = "blue"
-  abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
-  abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
-  abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
-  points(x, y/max(y), xlab=xlab_scale, type='l', lty=1, lwd=2, main=p.gen$name[kp])
-  
-  plot(x, y/max(y), xlab=xlab_scale, type='l', lty=1, lwd=2, main=p.gen$name[kp])
-    
-  # plot the mean line and std lines (experimental data ranges)
-  abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
-  abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
-  abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
+# Figure #
+if (create_plot_files == TRUE){
+  fname <- paste('distribution_', name, '.png', sep="")
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
 }
-par(mfrow=c(1,1))
-dev.off()
-###############################################################
+
+  plot(numeric(0), numeric(0),  main="Sinusoidal radius", 
+     xlab=xlabByName(p.gen, name), ylabByName(p.gen, name),
+     xlim=c(2, 7), ylim=c(0, 1))
+  plotHistWithFit(p.gen, name, data, 
+                midpoints = as.numeric(colnames(p.y_sin)),
+                fit, histc)
+  legend("topright",  legend = c('Puhl2003'), fill=histc)
+
+  # add the parameter hist
+  hpars <- hist(pars[, name]*p.gen[name, 'scale_fac'], plot=FALSE, breaks=20)
+  plot(hpars, col=histcp, freq=FALSE, add=T)
+  legend("topright",  legend = c('Data Puhl2003', 'Simulation'), fill=c(histc, histcp))
+
+if (create_plot_files){
+  dev.off()
+}
+
+#### Sim y_dis  #################################################################################
+name = 'y_dis'
+
+# Figure #
+if (create_plot_files == TRUE){
+  fname <- paste('distribution_', name, '.png', sep="")
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
+}
+
+  plot(numeric(0), numeric(0),  main="Width space of Disse", 
+     xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
+     xlim=c(0, 3), ylim=c(0, 2.0))
+
+  # add the parameter hist  
+  data <- pars[, name] *p.gen[name, 'scale_fac']
+  hpars <- hist(data, plot=FALSE, breaks=20)
+  plot(hpars, col=histcp, freq=FALSE, add=T)
+
+  # fit distribution
+  plotDistribution(p.gen, name, maxvalue=2*max(data))
+
+  legend("topright",  legend = c('Simulation'), fill=c(histcp))
+
+if (create_plot_files){
+  dev.off()
+}
+
+#### Sim L  #################################################################################
+name = 'L'
+
+# Figure #
+if (create_plot_files == TRUE){
+  fname <- paste('distribution_', name, '.png', sep="")
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
+}
+
+  plot(numeric(0), numeric(0),  main="Sinusoid length", 
+     xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
+     xlim=c(0, 1000), ylim=c(0, 0.005))
+  # add the parameter hist  
+  data <- pars[, name] *p.gen[name, 'scale_fac']
+  hpars <- hist(data, plot=FALSE, breaks=20)
+  plot(hpars, col=histcp, freq=FALSE, add=T)
+  # add distribution
+  plotDistribution(p.gen, name, maxvalue=2*max(data))
+  legend("topright",  legend = c('Simulation'), fill=c(histcp))
+
+if (create_plot_files){
+  dev.off()
+}
