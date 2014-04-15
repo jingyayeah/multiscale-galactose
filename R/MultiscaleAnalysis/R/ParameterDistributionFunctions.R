@@ -1,3 +1,31 @@
+
+#' Generates the standard parameters for meanlog and stdlog based on mean and std.
+#' @return data.frame of standard parameters
+#' @export
+generateLogStandardParameters <- function(){
+
+  name = c('L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin')
+  mean = c(500E-6, 4.4E-6, 1.2E-6, 7.58E-6, 270E-6)
+  std  = c(125E-6, 0.45E-6, 0.4E-6, 1.25E-6, 58E-6)
+  unit = c('m', 'm' ,'m', 'm', 'm/s')
+  scale_fac = c(1E6, 1E6, 1E6, 1E6, 1E6)
+  scale_unit = c('µm', 'µm' ,'µm', 'µm', 'µm/s')
+  
+  # meanlog and meanstd are for the scaled variables, i.e. in scale_units
+  meanlog = meanlog(mean*scale_fac, std*scale_fac)
+  sdlog   = stdlog(mean*scale_fac, std*scale_fac)
+  
+  meanlog_error = rep(NA, length(meanlog))
+  sdlog_error = rep(NA, length(sdlog))
+  
+  p.gen <- data.frame(name, mean, std, unit, meanlog, meanlog_error, sdlog, sdlog_error, scale_fac, scale_unit)
+  rownames(p.gen) <- name
+  p.gen$name <- as.character(p.gen$name)
+  
+  p.gen
+}
+
+
 #' Calculate the stdlog for log-normal distribution from given mean and std
 #' @param m mean
 #' @param std standard deviation
@@ -38,10 +66,40 @@ createDataFromHistogramm <- function(dset) {
 #' @param midpoints vector of midpoints of bins
 #' @return vector of breakpoints
 #' @export
-
 getBreakPointsFromMidpoints <- function(midpoints){
   breaklength = (midpoints[2]-midpoints[1])
   breaks = seq(from=midpoints[1]-0.5*breaklength, 
                to=midpoints[length(midpoints)]+0.5*breaklength, 
                length.out=length(midpoints)+1)
+}
+
+#' Plot the histogramm of the data with the fit.
+#' @param p.gen information about the parameters
+#' @param data data underlying the histogram
+#' @param fit lognormal fit estimates from fitdistr
+#' @export
+plotHistWithFit <- function(p.gen, name, data, midpoints, fit, histc=rgb(1.0, 0.0, 0.0, 0.25), lcolor='blue'){
+  mean <- p.gen[name, "mean"]
+  std <- p.gen[name, "std"]
+  fac <- p.gen[name, "scale_fac"]
+  print(mean)
+  
+  # plot the fit distribution
+  x <- seq(from=1E-12, to=2*max(data$x), length.out=1000)
+  y <- dlnorm(x, 
+              meanlog=fit$estimate['meanlog'], 
+              sdlog=fit$estimate['sdlog'], 
+              log = FALSE)
+  points(x,y, lty=1, type="l", lwd=3)
+  
+  # plot the histogram
+
+  h <- hist(data$x, breaks=getBreakPointsFromMidpoints(midpoints), plot=FALSE)
+  plot(h, col=histc, freq=FALSE, add=T)
+  points(x,y, lty=1, type="l")
+  
+  abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
+  abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
+  abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
+  
 }

@@ -18,60 +18,38 @@ rm(list=ls())
 ################################################################
 
 library(MultiscaleAnalysis)
+library(MASS)
+setwd(ma.settings$dir.results)
+histc = rgb(1.0, 0.0, 0.0, 0.25)
 
+###############################################################
+# parameter values used in simulations
+###############################################################
+p.gen <- generateLogStandardParameters()
+p.gen
+
+###############################################################
+# load simulated parameters
+###############################################################
 dname <-'2014-04-13_Dilution_Curves' 
 task <- 'T3'
 modelId <- 'Dilution_Test'
-
-# Set the folders
-setwd(ma.settings$dir.results)
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, dname)
-
-# load the parameter file
 pars <- loadParsFile(ma.settings$dir.simdata, task=task, modelId=modelId)
 head(pars)
-
-###############################################################
-# parameter distribution generators
-###############################################################
-# TODO: Update the python simulation scripts to generate the proper datasets
-
-# Create data frame for the theoretical distributions
-name = c('L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin')
-mean = c(500E-6, 4.4E-6, 1.2E-6, 7.58E-6, 270E-6)
-std  = c(125E-6, 0.45E-6, 0.4E-6, 1.25E-6, 58E-6)
-unit = c('m', 'm' ,'m', 'm', 'm/s')
-scale_fac = c(1E6, 1E6, 1E6, 1E6, 1E6)
-scale_unit = c('µm', 'µm' ,'µm', 'µm', 'µm/s')
-
-# meanlog and meanstd are for the scaled variables, i.e. in scale_units
-meanlog = meanlog(mean*scale_fac, std*scale_fac)
-stdlog   = stdlog(mean*scale_fac, std*scale_fac)
-p.gen <- data.frame(name, mean, std, unit, meanlog, stdlog, scale_fac, scale_unit)
-rownames(p.gen) <- name
-p.gen$name <- as.character(p.gen$name)
-rm(name, mean, std, unit, scale_fac, scale_unit, meanlog, stdlog)
-
-# TODO: write the table with the meanlog and stdlog
-# Set fitted data (see below for fit)
-p.gen['y_sin', 'meanlog'] = 1.465
-p.gen['y_sin', 'stdlog']  = 0.1017
-p.gen['y_cell', 'meanlog'] = 2.030
-p.gen['y_cell', 'stdlog'] = 0.1320
-p.gen['flow_sin', 'meanlog'] = 5.457
-p.gen['flow_sin', 'stdlog'] = 0.6188
-p.gen
 
 ###############################################################
 # Load experimental data
 ###############################################################
 # Koo1975 #
 Koo1975.names = c('branching', 'interconnecting', 'direct')
-Koo1975.branching <- read.csv(paste(data.folder, "/", "Koo1975_Fig1_branching.csv", sep=""), sep="\t")
-Koo1975.inter <- read.csv(paste(data.folder, "/", "Koo1975_Fig1_interconnecting.csv", sep=""), sep="\t")
-Koo1975.direct <- read.csv(paste(data.folder, "/", "Koo1975_Fig1_direct.csv", sep=""), sep="\t")
-
-Koo1975.all = rbind(t(Koo1975.branching$count), t(Koo1975.inter$count), t(Koo1975.direct$count))
+for (name in Koo1975.names){
+  varname <- paste("Koo1975.", name, sep="");
+  csvname <- file.path(ma.settings$dir.expdata, 'parameter_distributions', paste('Koo1975_Fig1_', name,'.csv', sep=''))
+  data <- read.csv(csvname, sep= '\t')
+  assign(varname, data)   
+}
+Koo1975.all = rbind(t(Koo1975.branching$count), t(Koo1975.interconnecting$count), t(Koo1975.direct$count))
 colnames(Koo1975.all) <- Koo1975.branching$velocity
 rownames(Koo1975.all)<-Koo1975.names
 Koo1975.all
@@ -84,37 +62,30 @@ barplot(Koo1975.all, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab
 legend("topright",  legend = Koo1975.names, fill=barcol)
 #dev.off()
 
-
 ### FIT flow_sin #################################################################################
-library(MASS)
-data <- createDataFromHistogramm(Koo1975.all)
-hist(data$x)              
+name = 'flow_sin'
+data <- createDataFromHistogramm(Koo1975.all)             
 fit <- fitdistr(data$x, "lognormal")
 fit
-# meanlog       sdlog   
-# 5.45720754   0.61782097 
-# (0.02673573) (0.01890501)
-barplot(Koo1975.all/sum(Koo1975.all)/100, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", col=barcol)
-legend("topright",  legend = Koo1975.names, fill=barcol)
-x <- seq(from=1E-12, to=2000, length.out=1000)
-y <- dlnorm(x, meanlog=5.45720754, sdlog=0.61782097, log = FALSE)
-points(x,y, lty=1, type="l")
+# Store fit parameter
+p.gen[name, 'meanlog'] = fit$estimate['meanlog']
+p.gen[name, 'sdlog'] = fit$estimate['sdlog']
+p.gen[name, 'meanlog_error'] = fit$sd['meanlog']
+p.gen[name, 'sdlog_error'] = fit$sd['sdlog']
+p.gen
+fit$sd['sdlog']
 
-#png(filename=paste("Koo1975_flow_sin_distribution_fit.png", sep=""),
-#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
-name = 'flow_sin'
+plot(numeric(0), numeric(0),  main="RBC velocity distribution", 
+     xlab="vRBC [µm/s]", ylab="count", 
+     xlim=c(0, max(data$x)), ylim=c(0, 0.004),
+     col=barcol)
 midpoints = as.numeric(colnames(Koo1975.all))
-hist(data$x, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", freq=FALSE, 
-     breaks=getBreakPointsFromMidpoints(midpoints))
-points(x,y, lty=1, type="l")
-mean <- p.gen[name, "mean"]
-std <- p.gen[name, "std"]
-fac <- p.gen[name, "scale_fac"]
+plotHistWithFit(p.gen, name, data=data, midpoints=midpoints,
+                fit=fit, histc=histc)
+# add the parameter hist
 
-abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
-abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
-abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
-#dev.off()
+
+legend("topright",  legend = c('Koo1975'), fill=histc)
 
 
 ###############################################################
@@ -122,11 +93,16 @@ abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
 ###############################################################
 library(MASS)
 # velocity [mm/s], [%]
-Puhl2003.fig2 <- read.csv(paste(data.folder, "/", "Puhl2003_Fig2.csv", sep=""), sep="\t", colClasses="numeric")
+csvname <- file.path(ma.settings$dir.expdata, 'parameter_distributions', paste('Puhl2003_Fig2.csv', sep=''))
+Puhl2003.fig2 <- read.csv(csvname, sep="\t", colClasses="numeric")
+
 # fsd [1/cm], [%]
-Puhl2003.fig4 <- read.csv(paste(data.folder, "/", "Puhl2003_Fig4.csv", sep=""), sep="\t", colClasses="numeric")
+csvname <- file.path(ma.settings$dir.expdata, 'parameter_distributions', paste('Puhl2003_Fig4.csv', sep=''))
+Puhl2003.fig4 <- read.csv(csvname, sep="\t", colClasses="numeric")
+
 # diameter [µm]
-Puhl2003.fig3 <- read.csv(paste(data.folder, "/", "Puhl2003_Fig3.csv", sep=""), sep="\t", colClasses="numeric")
+csvname <- file.path(ma.settings$dir.expdata, 'parameter_distributions', paste('Puhl2003_Fig3.csv', sep=''))
+Puhl2003.fig3 <- read.csv(csvname, sep="\t", colClasses="numeric")
 
 # RBC velocity in [µm/s]
 p.vel <- rbind(t(Puhl2003.fig2$percent))
@@ -157,63 +133,48 @@ barplot(p.y_sin, main="Sinusoid radius distribution", xlab="sinusoid radius [µm
 
 
 ### FIT y_cell #################################################################################
+name = 'y_cell'
 data <- createDataFromHistogramm(p.y_cell)
 fit <- fitdistr(data$x, "lognormal")
 fit
-# meanlog        sdlog   
-# 2.029971370   0.131976775 
-# (0.013331668) (0.009426912)
-lcolor = "blue"
-png(filename=paste("Puhl2003_y_cell_fit.png", sep=""),
-    width = 800, height = 800, units = "px", bg = "white",  res = 150)
-name = 'y_cell';
-# histogramm
-midpoints = as.numeric(colnames(p.y_cell))
-hist(data$x, main=name, xlab="y_cell [µm]", freq=FALSE, 
-     breaks=getBreakPointsFromMidpoints(midpoints), 
-     ylim=c(0,1), xlim=c(4,12))
-# distribution
-x <- seq(from=1E-12, to=3*max(data), length.out=1000)
-y <- dlnorm(x, meanlog=fit$estimate["meanlog"], sdlog=fit$estimate["sdlog"], log = FALSE)
-points(x,y, lty=1, type="l")
-# plot the mean line and std lines (experimental data ranges)
-mean <- p.gen[name, "mean"]
-std <- p.gen[name, "std"]
-fac <- p.gen[name, "scale_fac"]
+p.gen[name, 'meanlog'] = fit$estimate['meanlog']
+p.gen[name, 'sdlog'] = fit$estimate['sdlog']
+p.gen[name, 'meanlog_error'] = fit$sd['meanlog']
+p.gen[name, 'sdlog_error'] = fit$sd['sdlog']
 
-abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
-abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
-abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
-dev.off()
+# png(filename=paste("Puhl2003_y_cell_fit.png", sep=""),
+#     width = 800, height = 800, units = "px", bg = "white",  res = 150)
+plot(numeric(0), numeric(0),  main="y_cell distribution", 
+     xlab="y_cell [µm]", ylab="frequency",
+     xlim=c(4, 12), ylim=c(0, 1),
+     col=barcol)
+midpoints = as.numeric(colnames(p.y_cell))
+plotHistWithFit(p.gen, name, data, midpoints, fit, histc)
+legend("topright",  legend = c('Puhl2003'), fill=histc)
+# dev.off()
 
 #### FIT y_sin #################################################################################
+name = 'y_sin'
 data <- createDataFromHistogramm(p.y_sin)
 fit <- fitdistr(data$x, "lognormal")
 fit
-# meanlog        sdlog   
-# 1.465273310   0.101714488 
-# (0.010274715) (0.007265321)
-png(filename=paste("Puhl2003_y_sin_fit.png", sep=""),
-    width = 800, height = 800, units = "px", bg = "white",  res = 150)
-name = 'y_sin'
-# histogramm
-midpoints = as.numeric(colnames(p.y_sin))
-hist(data$x, main="y_sin", xlab="y_sin [µm]", freq=FALSE, 
-     breaks=getBreakPointsFromMidpoints(midpoints), 
-     ylim=c(0,1))
-# distribution
-x <- seq(from=1E-12, to=3*max(data), length.out=1000)
-y <- dlnorm(x, meanlog=fit$estimate["meanlog"], sdlog=fit$estimate["sdlog"], log = FALSE)
-points(x,y, lty=1, type="l")
-# plot the mean line and std lines (experimental data ranges)
-mean <- p.gen[name, "mean"]
-std <- p.gen[name, "std"]
-fac <- p.gen[name, "scale_fac"]
+p.gen[name, 'meanlog'] = fit$estimate['meanlog']
+p.gen[name, 'sdlog'] = fit$estimate['sdlog']
+p.gen[name, 'meanlog_error'] = fit$sd['meanlog']
+p.gen[name, 'sdlog_error'] = fit$sd['sdlog']
 
-abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
-abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
-abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
-dev.off()
+#png(filename=paste("Puhl2003_y_sin_fit.png", sep=""),
+#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
+plot(numeric(0), numeric(0),  main="sinusoid radius distribution", 
+     xlab="y_sin [µm]", ylab="frequency",
+     xlim=c(2, 7), ylim=c(0, 1),
+     col=barcol)
+midpoints = as.numeric(colnames(p.y_sin))
+plotHistWithFit(p.gen, name, data, midpoints, fit, histc)
+legend("topright",  legend = c('Puhl2003'), fill=histc)
+# dev.off()
+
+p.gen
 
 # TODO: analyse with QQplot if fits to the distribution
 

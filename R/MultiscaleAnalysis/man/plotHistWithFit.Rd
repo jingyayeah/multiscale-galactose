@@ -1,0 +1,18 @@
+\name{plotHistWithFit}
+\alias{plotHistWithFit}
+\title{Plot the histogramm of the data with the fit.}
+\usage{
+plotHistWithFit(p.gen, name, data, midpoints, fit, histc = rgb(1, 0, 0, 0.25),
+  lcolor = "blue")
+}
+\arguments{
+  \item{p.gen}{information about the parameters}
+
+  \item{data}{data underlying the histogram}
+
+  \item{fit}{lognormal fit estimates from fitdistr}
+}
+\description{
+Plot the histogramm of the data with the fit.
+}
+
