@@ -30,7 +30,10 @@
 			<td>{{sim.core}}</td>
 			<td>{{sim.duration}}</td>
 			<td> {% if sim.hanging %}<span class="BAD">{{sim.hanging}}</span>{% endif %}</td>
-			<td><a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.file.name}}</a></td>
+			<td>{% if sim.status == 'DONE' %}
+				<a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.file.name}}</a>
+				{% endif %}
+			</td>
 		</tr>    
     {% endfor %}
     </table>

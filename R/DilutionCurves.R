@@ -7,29 +7,19 @@
 # TODO: create plots on console and copy to images
 
 rm(list=ls())   # Clear all objects
-setwd("/home/mkoenig/multiscale-galactose-results/")
+library(MultiscaleAnalysis)
+library(MASS)
+setwd(ma.settings$dir.results)
 
 ###############################################################
 results.folder <- "/home/mkoenig/multiscale-galactose-results"
 code.folder    <- "/home/mkoenig/multiscale-galactose/R" 
-task <- "T3"
-modelId <- "Dilution_Test"
-# modelId <- "Dilution_Curves_v8_Nc20_Nf1"
 
-# here the parameter files are stored
-# info.folder <- '2014-04-08'
-info.folder <- '2014-04-13_Dilution_Curves'
-# here the ini & csv of the integrations are stored
-data.folder <- 'django/timecourse/2014-04-13'
+task <- "T4"
+modelId <- "Dilution_Curves_v9_Nc20_Nf1"
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, 'django/timecourse/2014-04-15')
 
-setwd(results.folder)
-###############################################################
-# Load the parameter file & create histogramm of parameters
-source(paste(code.folder, '/', 'ParameterFile.R', sep=""))
-head(pars)
-summary(pars)
-
-# Reduce the parameters to the finished simulations
+pars <- loadParsFile(ma.settings$dir.results, task=task, modelId=modelId)
 pars <- pars[pars$status=="DONE", ]
 summary(pars)
 
@@ -39,16 +29,9 @@ summary(pars)
 # timecourse data for the individual simulations and do the analysis with
 # the data.
 
-# Load functions to read data
-source(paste(code.folder, '/', 'ReadDataFunctions.R', sep=""))
-
 # File for storage
 dataset1.file <- paste(info.folder, '/', modelId, '_dataset1','.rdata', sep="")
-
 dil_list = readPPPVData()
-# dil_list = readPPPVData(max_index=5)     # read the first 5 simulations
-# pars <- pars[1:5, ]
-Nsim = nrow(pars)
 
 compounds = c('rbcM', 'alb', 'suc', 'h2oM', 'gal')
 ccolors = c('darkred', 'darkgreen', 'darkorange', 'darkblue', 'black')
@@ -59,6 +42,8 @@ ccolors = c('darkred', 'darkgreen', 'darkorange', 'darkblue', 'black')
 # Matrix size [Ntime x Nsim] for every component
 dilmat <- createDataMatrices(dil_list, compounds=compounds)
 save.image(file=dataset1.file)
+
+
 
 ####################################################################
 ### Load the simulation data  structure ###
