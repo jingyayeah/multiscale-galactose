@@ -1,4 +1,8 @@
 rm(list=ls())
+script.dir <- dirname(sys.frame(1)$ofile)
+script.dir
+source('Settings.R')
+
 ################################################################
 ## Parameter Distributions ##
 ################################################################
@@ -16,9 +20,7 @@ rm(list=ls())
 #   qlnorm(p, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE)
 #   rlnorm(n, meanlog = 0, sdlog = 1)
 ################################################################
-folder.results <- "/home/mkoenig/multiscale-galactose-results"
-folder.code    <- "/home/mkoenig/multiscale-galactose/R" 
-folder.expdata    <- "/home/mkoenig/multiscale-galactose/experimental_data/parameter_distributions"
+
 folder.simdata <- paste(folder.results, '/', '2014-04-13_Dilution_Curves', sep="")
 
 setwd(folder.results)
