@@ -5,6 +5,11 @@
 # They contain additional columns providing information about the 
 # simulations, i.e. certain keyword columns are not parameters.
 
+# Trick:
+# a good way is to pack output in a list
+#list(coefficients=coef, vcov=vcov, ...)
+
+
 #' Reserved keywords which are not parameters
 #' @export
 pars.keywords <- c('status', 'duration', 'core', 'sim')
