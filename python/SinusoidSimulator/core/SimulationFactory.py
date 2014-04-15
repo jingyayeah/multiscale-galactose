@@ -111,16 +111,17 @@ def createParametersBySampling(N=100):
     ! Here the experimental data has to be hardcoded !
     To set the seed of the random generator use: numpy.random.seed(42)
     
-                name     mean      std unit    meanlog    stdlog scale_fac scale_unit
-L               L 5.00e-04 1.25e-04    m  6.1842958 0.2462207     1e+06         mum
-y_sin       y_sin 4.40e-06 4.50e-07    m  1.4650000 0.1017000     1e+06         mum
-y_dis       y_dis 8.10e-07 3.00e-07    m -0.2749942 0.3585337     1e+06         mum
-y_cell     y_cell 7.58e-06 1.25e-06    m  2.0300000 0.1320000     1e+06         mum
-flow_sin flow_sin 2.70e-04 5.80e-05  m/s  5.4570000 0.6188000     1e+06       mum/s
+
+            name     mean      std unit   meanlog meanlog_error     sdlog sdlog_error scale_fac scale_unit
+L               L 5.00e-04 1.25e-04    m 6.1842958            NA 0.2462207          NA     1e+06         mum
+y_sin       y_sin 4.40e-06 4.50e-07    m 1.4652733    0.01027471 0.1017145 0.007265321     1e+06         mum
+y_dis       y_dis 1.20e-06 4.00e-07    m 0.1296413            NA 0.3245928          NA     1e+06         mum
+y_cell     y_cell 7.58e-06 1.25e-06    m 1.9769003    0.01404165 0.1390052 0.009928946     1e+06         mum
+flow_sin flow_sin 2.70e-04 5.80e-05  m/s 5.4572075    0.02673573 0.6178210 0.018905015     1e+06       mum/s
     '''
     names = ['L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin']
-    meanlog = [6.1842958 , 1.4650000, -0.2749942, 2.0300000, 5.4570000]
-    stdlog  = [0.2462207, 0.1017000, 0.3585337, 0.1320000 , 0.6188000]
+    meanlog = [6.1842958 , 1.4652733, 0.1296413, 1.9769003, 5.4572075 ]
+    stdlog  = [0.2462207, 0.1017145, 0.3245928, 0.1390052 , 0.6178210]
     units = ['m', 'm' ,'m', 'm', 'm/s']
     
     all_pars = [];
@@ -144,6 +145,9 @@ flow_sin flow_sin 2.70e-04 5.80e-05  m/s  5.4570000 0.6188000     1e+06       mu
     return all_pars
 
 def createParametersByManual():
+    ''' Manual parameter creation.
+        TODO: parameters are hard coded ! change to one global position
+    '''
     all_pars = []
     # what parameters should be sampled
     flows = np.arange(0.0, 600E-6, 60E-6)
@@ -151,8 +155,8 @@ def createParametersByManual():
     for flow_sin in flows:
         for L in lengths: 
             p = (
-                    ('y_cell', 6.25E-6, 'm'),
-                    ('y_dis', 8.0E-7, 'm'),
+                    ('y_cell', 7.58E-6, 'm'),
+                    ('y_dis', 1.2E-6, 'm'),
                     ('y_sin', 4.4E-6, 'm'),
                     ('flow_sin', flow_sin, 'm/s'),
                     ('L',   L, 'm'),)
@@ -225,12 +229,12 @@ if __name__ == "__main__":
     
     if (1):
         # sbml_id = "Dilution_Curves_v8_Nc20_Nf1"
-        sbml_id = "Dilution_Test"
+        sbml_id = "Dilution_Curves_v9_Nc20_Nf1"
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
         if (1):
             # create dilution simulations
-            N = 1000     # number of simulations
+            N = 100     # number of simulations
             task = createDilutionCurvesSimulationTask(model, N)
             # create the parameter file
             folder = "/home/mkoenig/multiscale-galactose-results"

@@ -124,8 +124,8 @@ if __name__ == "__main__":
     
     
     # Remove simulations for task
-    # task = Task.objects.get(pk=3)
-    # removeSimulationsForTask(task)
+    task = Task.objects.get(pk=4)
+    removeSimulationsForTask(task)
     
     
     # ! CAREFUL !

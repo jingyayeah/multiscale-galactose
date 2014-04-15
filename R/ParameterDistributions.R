@@ -42,11 +42,11 @@ p.gen
 # load simulated parameters
 ###############################################################
 dname <-'2014-04-13_Dilution_Curves' 
-task <- 'T3'
-modelId <- 'Dilution_Test'
+task <- 'T4'
+modelId <- 'Dilution_Curves_v9_Nc20_Nf1'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, dname)
-pars <- loadParsFile(ma.settings$dir.simdata, task=task, modelId=modelId)
-pars <- pars[pars$status=='DONE', ]
+pars <- loadParsFile(ma.settings$dir.results, task=task, modelId=modelId)
+# pars <- pars[pars$status=='DONE', ]
 head(pars)
 
 ###############################################################
@@ -258,3 +258,8 @@ if (create_plot_files == TRUE){
 if (create_plot_files){
   dev.off()
 }
+
+#### Store fit parameter ##############################################
+p.gen
+fname <- 'distribution_fit_data.csv'
+write.csv(file=fname, p.gen)
