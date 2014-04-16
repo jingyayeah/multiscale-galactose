@@ -138,8 +138,6 @@ pars <- pars[pars$status=="DONE", ]
 summary(pars)
 
 ## Combined Dilution Curves in one plot ##
-png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves_Combined.png", sep=""),
-    width = 2000, height = 1000, units = "px", bg = "white",  res = 150)
 
 time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1]) -10.0
 compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
@@ -153,10 +151,45 @@ summary(gor1973)
 gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
 summary(gor1983)
 
+# Maxtime boxplots
+# calculate the maximum values
+maxtime <- data.frame(tmp=numeric(nrow(pars)))
+
+for (kc in seq(1, length(compounds)) ){  
+  name = paste("PV__", compounds[kc], sep="")
+  print(name)
+  maxtime[[name]] <- numeric(nrow(pars))    
+  # find the max values for all simulations
+  for (k in seq(1, nrow(pars))){
+    maxtime[[name]][k] = time[ which.max(dilmat[[name]][,k]) ]
+  }
+}
+maxtime$tmp <- NULL
+colMeans(maxtime)
+
+png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves_Combined.png", sep=""),
+    width = 1400, height = 1400, units = "px", bg = "white",  res = 150)
+# dev.off()
+# par(mfrow=c(2,1), omi=c(0.5,0.3,0,0), plt=c(0.1,0.9,0,0.7))
+par(mfrow=c(2,1))
+
+#png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
+#     width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
+
+boxplot(maxtime, col=ccolors, horizontal=T,  ylim=c(0,20),
+        xaxt="n", # suppress the default x axis
+        yaxt="n", # suppress the default y axis
+        frame="f" # suppress the plotting frame
+        )
+summary(maxtime)
+
+# Plot curves
 plot(numeric(0), numeric(0), 
      xlim=c(0,20), ylim=c(0,16), 
-     xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973 & 1983")
-par(mfrow=c(1,1))
+     # frame="f", # suppress the plotting frame
+     box="false",
+     xlab="time [s]", ylab="10^3 x outflow fraction/ml")
+
 for (kc in seq(1, length(compounds)) ){
   f_scale=70
   
@@ -184,9 +217,8 @@ plotDilutionData(gor1983, compounds=expcompounds, ccolors=expcolors, correctTime
 plotDilutionData(gor1973[gor1973$condition=="A",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
 plotDilutionData(gor1973[gor1973$condition=="B",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
 plotDilutionData(gor1973[gor1973$condition=="C",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
-par(mfrow=c(1,1))
 legend("topright",  legend = expcompounds, fill=expcolors)
-
+par(mfrow=c(1,1))
 dev.off()
 
 
