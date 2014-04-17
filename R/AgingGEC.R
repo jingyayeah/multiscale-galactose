@@ -13,6 +13,7 @@ setwd(ma.settings$dir.results)
 # Load experimental data 
 ###############################################################
 ## Marchesini1988 ##
+###############################################################
 # Units: age [years], GEC (galactose elimination capacity) [mmol/min],
 #  HPI (hepatic volumetric index) [units]
 mar1988 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Marchesini1988_Fig.csv"), sep="\t")
@@ -65,10 +66,70 @@ points(mar1988$HPI, mar1988$GEC, col=mcol, pch=15)
 par(mfrow=c(1,1))
 dev.off()
 
-
 # Load the table information
 # age [years]  body weight [kg]	body weight [kg] SD	body height [cm]	body height [cm] SD	albumin level [gm/dl]	albumin level [gm/dl] SD	cholesterol level [mmoles/liter]	cholesterol level [mmoles/liter] SD	prothrombin activity [%]	prothrombin activity [%] SD	total bilirubin [µmoles/liter]	total bilirubin [µmoles/liter] SD	volume of the liver [unit]	volume of the liver [unit] SD	GEC [mmoles/min]	GEC [mmoles/min] SD	Volume of distribution [liters]	Volume of distribution [liters] SD	Concentration 0 min [mmoles/liter]	Concentration 0 min [mmoles/liter] SD	Concentration 45 min [mmoles/liter]	Concentration 45 min [mmoles/liter] SD	Galactose elimination/unit of volume [µmoles/minxunit]	Galactose elimination/unit of volume [µmoles/minxunit] SD
 # age	bodyweight	bodyweightSD	bodyheight	bodyheightSD	albumin	albuminSD	cholesterol	cholesterolSD	prothrombin	prothrombinSD	bilirubin	bilirubinSD	volLiver	volLiverSD	GEC	GECSD	volDist	volDistSD	gal0	gal0SD	gal45	gal45SD	galVol	galVolSD
 mar1988.tab <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Marchesini1988_Tab.csv"), sep="\t")
 head(mar1988.tab)
+
+###############################################################
+## Schnegg1986 ##
+###############################################################
+sch1986.tab1 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Schnegg1986_Tab1.csv"), sep="\t")
+head(sch1986.tab1)
+
+sch1986.tab3 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Schnegg1986_Tab3.csv"), sep="\t")
+sch1986.tab3
+
+sch1986.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Schnegg1986_Fig1.csv"), sep="\t")
+head(sch1986.fig1)
+sch1986.fig2 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Schnegg1986_Fig2.csv"), sep="\t")
+head(sch1986.fig2)
+sch1986.fig3 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Schnegg1986_Fig3.csv"), sep="\t")
+head(sch1986.fig3)
+
+# Linear Regression of the data sets
+sch1986.lm1 <- lm(sch1986.fig1$GEC ~ sch1986.fig1$age)
+sch1986.lm2 <- lm(sch1986.fig2$Caf ~ sch1986.fig2$age)
+sch1986.lm3 <- lm(sch1986.fig3$AP ~ sch1986.fig3$age)
+
+
+
+# Create the figure with the fit
+create_plots=TRUE
+if (create_plots==TRUE){
+  png(filename=file.path(ma.settings$dir.results, 'Schnegg1986.png'),
+    width = 800, height = 2000, units = "px", bg = "white",  res = 150)
+}
+par(mfrow=c(3,1))
+mcol = 'black';
+
+plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,10), 
+     main="Schnegg1986 - Fig1",
+     xlab="Age [years]", ylab="Galactose Elimination [mg/min/kg]")
+abline(sch1986.lm1)
+fit.label <- sprintf("y = %2.3f %+2.3f x", coef(sch1986.lm1)[1], coef(sch1986.lm1)[2])
+text(60,2, labels=fit.label)
+points(sch1986.fig1$age, sch1986.fig1$GEC, col=mcol, pch=15)
+
+plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,2.5), 
+     main="Schnegg1986 - Fig2",
+     xlab="Age [years]", ylab="Caffeine Clearance [ml/min/kg]")
+abline(sch1986.lm2)
+fit.label <- sprintf("y = %2.3f %+2.3f x", coef(sch1986.lm2)[1], coef(sch1986.lm2)[2])
+text(20,2.2, labels=fit.label)
+points(sch1986.fig2$age, sch1986.fig2$Caf, col=mcol, pch=15)
+
+plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0.0,1.2), 
+     main="Schngg1986 - Fig3",
+     xlab="Age [years]", ylab="Aminopyrine breath test [%dose kg mmol/CO2]")
+abline(sch1986.lm3)
+fit.label <- sprintf("y = %2.3f %+2.3f x", coef(sch1986.lm3)[1], coef(sch1986.lm3)[2])
+text(20,0.2, labels=fit.label)
+points(sch1986.fig3$age, sch1986.fig3$AP, col=mcol, pch=15)
+par(mfrow=c(1,1))
+if (create_plots==TRUE){
+  dev.off()
+}
+
 
