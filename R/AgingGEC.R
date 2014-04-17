@@ -34,7 +34,6 @@ lm.fig3 <- lm(mar1988$GEC ~ mar1988$HPI)
 # Evaluation of the fit
 plot(lm.fig1)
 
-
 # Create the figure with the fit
 png(filename=file.path(ma.settings$dir.results, 'Marchesini1988.png'),
     width = 800, height = 2000, units = "px", bg = "white",  res = 150)
@@ -67,4 +66,9 @@ par(mfrow=c(1,1))
 dev.off()
 
 
+# Load the table information
+# age [years]  body weight [kg]	body weight [kg] SD	body height [cm]	body height [cm] SD	albumin level [gm/dl]	albumin level [gm/dl] SD	cholesterol level [mmoles/liter]	cholesterol level [mmoles/liter] SD	prothrombin activity [%]	prothrombin activity [%] SD	total bilirubin [µmoles/liter]	total bilirubin [µmoles/liter] SD	volume of the liver [unit]	volume of the liver [unit] SD	GEC [mmoles/min]	GEC [mmoles/min] SD	Volume of distribution [liters]	Volume of distribution [liters] SD	Concentration 0 min [mmoles/liter]	Concentration 0 min [mmoles/liter] SD	Concentration 45 min [mmoles/liter]	Concentration 45 min [mmoles/liter] SD	Galactose elimination/unit of volume [µmoles/minxunit]	Galactose elimination/unit of volume [µmoles/minxunit] SD
+# age	bodyweight	bodyweightSD	bodyheight	bodyheightSD	albumin	albuminSD	cholesterol	cholesterolSD	prothrombin	prothrombinSD	bilirubin	bilirubinSD	volLiver	volLiverSD	GEC	GECSD	volDist	volDistSD	gal0	gal0SD	gal45	gal45SD	galVol	galVolSD
+mar1988.tab <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Marchesini1988_Tab.csv"), sep="\t")
+head(mar1988.tab)
 
