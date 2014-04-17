@@ -93,8 +93,6 @@ sch1986.lm1 <- lm(sch1986.fig1$GEC ~ sch1986.fig1$age)
 sch1986.lm2 <- lm(sch1986.fig2$Caf ~ sch1986.fig2$age)
 sch1986.lm3 <- lm(sch1986.fig3$AP ~ sch1986.fig3$age)
 
-
-
 # Create the figure with the fit
 create_plots=TRUE
 if (create_plots==TRUE){
@@ -132,4 +130,27 @@ if (create_plots==TRUE){
   dev.off()
 }
 
+###############################################################
+## Lange2011 ##
+###############################################################
+lan2011.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Lange2011_Fig1.csv"), sep="\t")
+head(lan2011.fig1)
+summary(lan2011.fig1)
 
+create_plots=TRUE
+if (create_plots==TRUE){
+  png(filename=file.path(ma.settings$dir.results, 'Lange2011.png'),
+      width = 800, height = 800, units = "px", bg = "white",  res = 150)
+}
+
+plot(numeric(0), numeric(0), xlim=c(0,18), ylim=c(0,100), 
+     main="Lange2011 - Fig1",
+     xlab="Age [years]", ylab="Galactose Elimination [µmol/min/kgbw]")
+lan2011.healthy = lan2011.fig1[lan2011.fig1$status=="healthy", ]
+lan2011.disease = lan2011.fig1[lan2011.fig1$status=="liver disease", ]
+points(lan2011.healthy$age, lan2011.healthy$GEC, col=mcol, pch=15)
+points(lan2011.disease$age, lan2011.disease$GEC, col="darkorange", pch=17)
+
+if (create_plots==TRUE){
+  dev.off()
+}
