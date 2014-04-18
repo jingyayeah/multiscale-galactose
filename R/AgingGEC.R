@@ -165,7 +165,7 @@ wyn1989.fig3b <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne
 wyn1989.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig4.csv"), sep="\t")
 
 # Plotting function
-printGenderPoints <- function(data, 
+printCategoryPoints <- function(data, 
                               cats = c("male", "female"),
                               gcols = c(mcol, "darkorange"),
                               gpch = c(15, 17)  ){
