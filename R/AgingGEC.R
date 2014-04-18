@@ -154,3 +154,64 @@ points(lan2011.disease$age, lan2011.disease$GEC, col="darkorange", pch=17)
 if (create_plots==TRUE){
   dev.off()
 }
+
+###############################################################
+## Wynne1989 ##
+###############################################################
+wyn1989.fig2a <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig2A.csv"), sep="\t")
+wyn1989.fig2b <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig2B.csv"), sep="\t")
+wyn1989.fig3a <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig3A.csv"), sep="\t")
+wyn1989.fig3b <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig3B.csv"), sep="\t")
+wyn1989.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig4.csv"), sep="\t")
+
+# Plotting function
+printGenderPoints <- function(data, 
+                              cats = c("male", "female"),
+                              gcols = c(mcol, "darkorange"),
+                              gpch = c(15, 17)  ){
+  for (k in seq(length(cats))){
+    print(cats[k])
+    x <- data[data[1] == cats[k], 2]
+    y <- data[data[1] == cats[k], 3]
+    points(x, y, col=gcols[k], pch=gpch[k])  
+  }
+}
+
+# Create the data plot
+create_plots = TRUE
+if (create_plots == TRUE){
+  png(filename=file.path(ma.settings$dir.results, 'Wynne1989.png'),
+      width = 800, height = 1200, units = "px", bg = "white",  res = 150)
+}
+par(mfrow=c(3,2))
+
+plot(numeric(0), numeric(0), xlim=c(0,95), ylim=c(0,2000), 
+     main="Wynne1989 - Fig2A",
+     xlab="Age [years]", ylab="Liver volume [ml]")
+printGenderPoints(wyn1989.fig2a)
+
+plot(numeric(0), numeric(0), xlim=c(0,95), ylim=c(0,30), 
+     main="Wynne1989 - Fig2B",
+     xlab="Age [years]", ylab="Liver volume per unit bodyweight [ml/kgbw]")
+printGenderPoints(wyn1989.fig2b)
+
+plot(numeric(0), numeric(0), xlim=c(0,95), ylim=c(0,2500), 
+     main="Wynne1989 - Fig3A",
+     xlab="Age [years]", ylab="Liver blood flow [ml/min]")
+printGenderPoints(wyn1989.fig3a)
+
+plot(numeric(0), numeric(0), xlim=c(0,95), ylim=c(0,35), 
+     main="Wynne1989 - Fig3B",
+     xlab="Age [years]", ylab="Blood flow per unit bodyweight [ml/min/kgbw]")
+printGenderPoints(wyn1989.fig3b)
+
+plot(numeric(0), numeric(0), xlim=c(0,95), ylim=c(0,1.7), 
+     main="Wynne1989 - Fig4",
+     xlab="Age [years]", ylab="Perfusion [ml/min/ml]")
+printGenderPoints(wyn1989.fig4)
+
+par(mfrow=c(1,1))
+if (create_plots==TRUE){
+  dev.off()
+}
+###############################################################
