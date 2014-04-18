@@ -10,25 +10,49 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 ###############################################################
+## Winkler1965 ##
+###############################################################
+win1965 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Winkler1965.csv"), sep="\t")
+head(win1965)
+summary(win1965)
+
+## figure ##
+create_plots = FALSE
+if (create_plots == TRUE){
+  png(filename=file.path(ma.settings$dir.results, 'Winkler1965.png'),
+      width = 800, height = 800, units = "px", bg = "white",  res = 150)
+}
+par(mfrow=c(2,1))
+plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,5), 
+     main="Winkler1965",
+     xlab="Age [years]", ylab="Galactose Elimination [mmol/min]")
+
+points(win1965$age, win1965$GEC, col=ccols[1], pch=cpch[1])  
+legend("topright",  legend = c('healthy'), fill=ccols[1])
+
+
+plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,5), 
+     main="Winkler1965",
+     xlab="Age [years]", ylab="Galactose Elimination [mmol/min]")
+
+points(win1965$age, win1965$GEC, col=ccols[1], pch=cpch[1])  
+legend("topright",  legend = c('healthy'), fill=ccols[1])
+
+
+par(mfrow=c(1,1))
+if (create_plots==TRUE){
+  dev.off()
+}
+
+
+###############################################################
 ## Tygstrup1962 ##
 ###############################################################
 tyg1962 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Tygstrup1962.csv"), sep="\t")
 head(tyg1962)
 summary(tyg1962)
 
-printCategoryPoints <- function(data, 
-                                cats = c("male", "female"),
-                                gcols = c(mcol, "darkorange"),
-                                gpch = c(15, 17)  ){
-  for (k in seq(length(cats))){
-    print(cats[k])
-    x <- data[data[1] == cats[k], 2]
-    y <- data[data[1] == cats[k], 3]
-    points(x, y, col=gcols[k], pch=gpch[k])  
-  }
-}
-
-# Create the figure with the fit
+## figure ##
 create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Tygstrup1962.png'),
@@ -49,11 +73,46 @@ for (k in 1:length(cats)){
   inds <- which(tyg1962$state == cats[k])
   points(tyg1962$age[inds], tyg1962$GEC[inds], col=ccols[k], pch=cpch[k])  
 }
+points(win1965$age, win1965$GEC, col="blue", pch=3)  
 
 legend("topright",  legend = cats, fill=ccols)
-
 
 par(mfrow=c(1,1))
 if (create_plots==TRUE){
   dev.off()
 }
+
+###############################################################
+## Tygstrup1957 ##
+###############################################################
+tyg1957 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Tygstrup1957.csv"), sep="\t")
+head(tyg1957)
+summary(tyg1957)
+
+## figure ##
+create_plots = TRUE
+if (create_plots == TRUE){
+  png(filename=file.path(ma.settings$dir.results, 'Tygstrup1957.png'),
+      width = 800, height = 800, units = "px", bg = "white",  res = 150)
+}
+par(mfrow=c(1,1))
+
+cats = c('healthy', 'cirrhosis', 'hepatitis', 'alcohol')
+ccols = c("black", "darkorange", 'red', 'blue')
+cpch = c(15, 17, 17, 17)
+plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,2600), 
+     main="Tygstrup1957",
+     xlab="Age [years]", ylab="Galactose Blood Clearance [ml/min]")
+
+for (k in 1:length(cats)){
+  k
+  inds <- which(tyg1957$state == cats[k])
+  points(tyg1957$age[inds], tyg1957$galclearance[inds], col=ccols[k], pch=cpch[k])  
+}
+legend("topright",  legend = cats, fill=ccols)
+
+par(mfrow=c(1,1))
+if (create_plots==TRUE){
+  dev.off()
+}
+
