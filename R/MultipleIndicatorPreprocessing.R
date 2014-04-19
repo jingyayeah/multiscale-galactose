@@ -16,12 +16,15 @@ results.folder <- "/home/mkoenig/multiscale-galactose-results"
 code.folder    <- "/home/mkoenig/multiscale-galactose/R" 
 
 tasks <- c('T1', 'T2', 'T3', 'T4', 'T5')
-modelIds <- "Dilution_Curves_v9_Nc20_Nf1"
 
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, 'django/timecourse/2014-04-15')
-ma.settings$dir.simdata
-
-pars <- loadParsFile(ma.settings$dir.results, task=task, modelId=modelId)
+task <- 'T1'
+modelId <- 'MultipleIndicator_P00_v10_Nc20_Nf1'
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, 
+                                     '2014-04-19_MultipleIndicator', 'data')
+parsfile <- file.path(ma.settings$dir.results, '2014-04-19_MultipleIndicator', 
+                paste(task, '_', modelId, '_parameters.csv', sep=""))
+pars <- loadParsFile(parsfile)
+head(pars)
 pars <- pars[pars$status=="DONE", ]
 summary(pars)
 
@@ -37,10 +40,10 @@ ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue' )
 # the data.
 
 # File for storage
-dataset1.file <- paste(ma.settings$dir.results, '/', modelId, '_dataset1','.rdata', sep="")
+out.file <- paste(parsfile, '.rdata', sep="")
 dil_list = readPPPVData(ma.settings$dir.simdata)
 
 # A better data structure is a matrix for the different components
 # Matrix size [Ntime x Nsim] for every component
 dilmat <- createDataMatrices(ma.settings$dir.simdata, dil_list, compounds=compounds)
-save.image(file=dataset1.file)
+save.image(file=out.file)

@@ -15,13 +15,12 @@
 pars.keywords <- c('status', 'duration', 'core', 'sim')
 
 #'  Takes folder, task and modelID
-#'  @return Parameter data.frame
+#'  @param file parameter file to load
+#'  @return parameter data.frame
 #'  @export  
-loadParsFile <- function(folder, task, modelId){
-  parsfile <- paste(folder, '/', task, '_', modelId, '_parameters.csv', sep="")
+loadParsFile <- function(file){
   print(parsfile)
   pars <- read.csv(parsfile, header=TRUE)
-  
   # set row names
   row.names(pars) <- paste("Sim", pars$sim, sep="")
   pars
