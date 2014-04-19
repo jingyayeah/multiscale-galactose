@@ -1,0 +1,16 @@
+subject	state	trained	age	height	weight	VO2max	GECmgbw	GEC	KICG	kp	Cltot	kb
+H.R.	normal	trained	20	170	64	78	7.8	2.77	23	55	8.2	26
+G.F.	normal	trained	26	172	60	73.5	6.9	2.30	15	34	4.2	19
+U.R.	normal	trained	27	177	68	67.5	6.2	2.34	16	34	4.5	18
+K.B	normal	trained	22	175	67	65.8	6	2.23	21	33	4.2	14
+F.N.	normal	trained	22	183	73	65.8	7.4	3.00	19	39	6	22
+R.H	normal	trained	20	179	64	65.7	10	3.56	19	30	5	19
+F.W.	normal	trained	27	180	68	63.7	6.4	2.42	16	45	6.5	27
+R.R.	normal	trained	20	174	59	56.6	NA	NA	NA	39	6.1	21
+B.M.	normal	untrained	23	168	60	51.4	8.1	2.70	22	36	0.8	20
+K.H.	normal	untrained	23	185	70	50.9	6.1	2.37	19	39	5.6	20
+R.L.	normal	untrained	31	186	72	46.1	7.8	3.12	19	40	7	21
+G.O.	normal	untrained	26	182	70	45.9	6.5	2.53	21	64	8.3	23
+Z.M.	normal	untrained	24	174	59	42.8	6.6	2.16	21	31	6.7	24
+H.C.	normal	untrained	29	191	88	42.7	7.6	3.72	21	27	3.3	15
+

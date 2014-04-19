@@ -82,6 +82,71 @@ if (create_plots==TRUE){
   dev.off()
 }
 
+
+###############################################################
+## Dafour2005 ##
+###############################################################
+duf2005 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Dufour2005_Tab1.csv"), sep="\t")
+head(duf2005)
+summary(duf2005)
+
+## figure ##
+cats = c('normal', 'cirrhosis')
+ccols = c("black", "darkorange")
+cpch = c(15, 17)
+
+create_plots = TRUE
+if (create_plots == TRUE){
+  png(filename=file.path(ma.settings$dir.results, 'Dufour2005.png'),
+      width = 800, height = 800, units = "px", bg = "white",  res = 150)
+}
+par(mfrow=c(1,1))
+plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,5), 
+     main="Dufour2005",
+     xlab="Age [years]", ylab="Galactose Elimination Capacity [mmol/min]")
+
+data <- duf2005
+for (k in 1:length(cats)){
+  k
+  inds <- which(data$state == cats[k])
+  points(data$age[inds], data$GEC[inds], col=ccols[k], pch=cpch[k])  
+}
+legend("topright",  legend = cats, fill=ccols)
+
+par(mfrow=c(1,1))
+if (create_plots==TRUE){
+  dev.off()
+}
+
+###############################################################
+## Ducry1979 ##
+###############################################################
+duc1979 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Ducry1979_Tab1.csv"), sep="\t")
+head(duc1979)
+summary(duc1979)
+data <- duc1979
+
+create_plots = FALSE
+if (create_plots == TRUE){
+  png(filename=file.path(ma.settings$dir.results, 'Ducry1979.png'),
+      width = 800, height = 800, units = "px", bg = "white",  res = 150)
+}
+par(mfrow=c(1,1))
+plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,5), 
+     main="Ducry1979",
+     xlab="Age [years]", ylab="Galactose Elimination Capacity [mmol/min]")
+for (k in 1:length(cats)){
+  k
+  inds <- which(data$state == cats[k])
+  points(data$age[inds], data$GEC[inds], col=ccols[k], pch=cpch[k])  
+}
+legend("topright",  legend = cats, fill=ccols)
+
+par(mfrow=c(1,1))
+if (create_plots==TRUE){
+  dev.off()
+}
+
 ###############################################################
 ## Tygstrup1957 ##
 ###############################################################
