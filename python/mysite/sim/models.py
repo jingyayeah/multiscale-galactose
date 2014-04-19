@@ -89,7 +89,7 @@ class SBMLModel(models.Model):
             model = SBMLModel.objects.get(sbml_id=sbml_id)
             return model;
         except ObjectDoesNotExist:
-            print 'model is created'
+            print 'Create model: ', sbml_id
             filename = folder + "/" + sbml_id + ".xml" 
             f = open(filename, 'r')
             myfile = File(f)

@@ -27,13 +27,14 @@ SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
 
 import sys
 import os
+from subprocess import call
+import shlex
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import numpy as np
 from sim.models import *
 from django.db.models import Count
 import numpy.random as npr
-import math
 from analysis.AnalysisTools import createParameterFileForTask
 
 
@@ -210,9 +211,12 @@ def createSimulationsFromParametersInTask(pars, task):
 
 
 if __name__ == "__main__":
+    # TODO: automatically call the shell script
     # After new models are generated this have to be copied 
     # to the target machines = > call the copySBML script before 
     # starting the cores to listen
+    results_dir = "/home/mkoenig/multiscale-galactose-results"
+    code_dir = "/home/mkoenig/multiscale-galactose"
    
     if (1):
     # Generate the MultipleIndicator Simulations
@@ -226,8 +230,8 @@ if __name__ == "__main__":
                 N = 100     # number of simulations
                 task = createMultipleIndicatorSimulationTask(model, N)
                 # create the parameter file
-                folder = "/home/mkoenig/multiscale-galactose-results"
-                createParameterFileForTask(folder, task);
+                
+                createParameterFileForTask(results_dir, task);
    
     if (0):
         # Create the galactose model
@@ -241,6 +245,12 @@ if __name__ == "__main__":
         # createGalactoseSimulationTask(model, N, gal_range, deficiencies=[0])
         createGalactoseSimulationTask(model, N, gal_range, deficiencies=range(1,24))
 
-    
+    # run an operating system command
+    # call(["ls", "-l"])
+
+    call_command = [code_dir + '/' + "copySBML.sh"]
+    print call_command
+    call(call_command)
+
 
         
