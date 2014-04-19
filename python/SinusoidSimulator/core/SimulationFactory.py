@@ -247,10 +247,9 @@ if __name__ == "__main__":
 
     # run an operating system command
     # call(["ls", "-l"])
-
-    call_command = [code_dir + '/' + "copySBML.sh"]
-    print call_command
-    call(call_command)
+    # call_command = [code_dir + '/' + "copySBML.sh"]
+    # print call_command
+    # call(call_command)
 
 
         

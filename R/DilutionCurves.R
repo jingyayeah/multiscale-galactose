@@ -41,6 +41,8 @@ dil_list = readPPPVData(ma.settings$dir.simdata)
 dilmat <- createDataMatrices(ma.settings$dir.simdata, dil_list, compounds=compounds)
 save.image(file=dataset1.file)
 
+
+
 ####################################################################
 ### Load the simulation data  structure ###
 load(file=dataset1.file)
