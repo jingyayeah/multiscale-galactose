@@ -120,12 +120,13 @@ if __name__ == "__main__":
     pass
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
-    # handleHangingAssignedSimulations();
+    
+    handleHangingAssignedSimulations();
     
     
     # Remove simulations for task
-    task = Task.objects.get(pk=3)
-    removeSimulationsForTask(task)
+    #task = Task.objects.get(pk=3)
+    #removeSimulationsForTask(task)
     
     
     # ! CAREFUL !

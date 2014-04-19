@@ -225,9 +225,9 @@ if __name__ == "__main__":
             sbml_id = "MultipleIndicator_P%02d_v10_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
-            if (0):
+            if (1):
                 # create dilution simulations
-                N = 100     # number of simulations
+                N = 900     # number of simulations
                 task = createMultipleIndicatorSimulationTask(model, N)
                 # create the parameter file
                 
