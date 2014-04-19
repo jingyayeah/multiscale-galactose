@@ -72,13 +72,13 @@ def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencie
                 p.append(('PP__gal', galactose, 'mM'))
                 createSimulationsFromParametersInTask(p, task)
 
-def createDilutionCurvesSimulationTask(model, N=10):
+def createMultipleIndicatorSimulationTask(model, N=10):
     '''
     Create integration settings, the task and the simulations.
     '''
     # Get or create integration
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=200.0, 
+                                                             tend=500.0, 
                                                              tsteps=2000,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
@@ -210,15 +210,30 @@ def createSimulationsFromParametersInTask(pars, task):
 
 
 if __name__ == "__main__":
-    # TODO: fix that model is created every time (is it ?)
-    # Create the galactose model in the database
-    # call the copySBML script afterwards, to transfer the
-    # sbml to the computers.
-    
-    sbml_id = "Galactose_v8_Nc20_Nf1"   
-    model = SBMLModel.create(sbml_id, SBML_FOLDER);
-    model.save();
+    # After new models are generated this have to be copied 
+    # to the target machines = > call the copySBML script before 
+    # starting the cores to listen
+   
+    if (1):
+    # Generate the MultipleIndicator Simulations
+    # for the different peak length of the tracer
+        for kp in range(0,5):
+            sbml_id = "MultipleIndicator_P%02d_v10_Nc20_Nf1" % kp
+            model = SBMLModel.create(sbml_id, SBML_FOLDER);
+            model.save();
+            if (0):
+                # create dilution simulations
+                N = 100     # number of simulations
+                task = createMultipleIndicatorSimulationTask(model, N)
+                # create the parameter file
+                folder = "/home/mkoenig/multiscale-galactose-results"
+                createParameterFileForTask(folder, task);
+   
     if (0):
+        # Create the galactose model
+        sbml_id = "Galactose_v8_Nc20_Nf1"   
+        model = SBMLModel.create(sbml_id, SBML_FOLDER);
+        model.save();
         # create the galactose simulations
         # if no deficiencies are set, only the normal case is simulated
         N = 45     # number of simulations per deficiency and galactose
@@ -227,16 +242,5 @@ if __name__ == "__main__":
         createGalactoseSimulationTask(model, N, gal_range, deficiencies=range(1,24))
 
     
-    if (1):
-        # sbml_id = "Dilution_Curves_v8_Nc20_Nf1"
-        sbml_id = "Dilution_Curves_v9_Nc20_Nf1"
-        model = SBMLModel.create(sbml_id, SBML_FOLDER);
-        model.save();
-        if (1):
-            # create dilution simulations
-            N = 100     # number of simulations
-            task = createDilutionCurvesSimulationTask(model, N)
-            # create the parameter file
-            folder = "/home/mkoenig/multiscale-galactose-results"
-            createParameterFileForTask(folder, task);
+
         
