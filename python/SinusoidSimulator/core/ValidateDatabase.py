@@ -47,6 +47,17 @@ def unassignAllSimulation():
     for sim in Simulation.objects.all():
         unassignSimulation(sim);
 
+def unassignSimulationsByPk(pks):
+    '''
+    Sometimes simulations finish but something went wrong writing the 
+    files. 
+    TODO: find BUG empty parameter files and simulations
+    '''
+    for pk in pks:
+        sim = Simulation.objects.get(pk=pk)
+        unassignSimulation(sim);
+
+
 def unassignSimulation(sim):
     '''
     Removes the corresponding Timecourse if exists and resets the
@@ -121,8 +132,13 @@ if __name__ == "__main__":
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
     
-    handleHangingAssignedSimulations();
+    # handleHangingAssignedSimulations();
+    import itertools
     
+    pks = range(100, 123)
+    pks.append(166)
+    print(pks)
+    unassignSimulationsByPk(pks)
     
     # Remove simulations for task
     #task = Task.objects.get(pk=3)
