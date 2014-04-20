@@ -1,0 +1,16 @@
+\name{trim.leading}
+\alias{trim.leading}
+\title{Returns string w/o leading whitespace}
+\usage{
+trim.leading(x)
+}
+\arguments{
+  \item{x}{string to strip whitspaces}
+}
+\value{
+stripped string
+}
+\description{
+Returns string w/o leading whitespace
+}
+

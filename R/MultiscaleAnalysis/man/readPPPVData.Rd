@@ -4,7 +4,7 @@
 Parameter data pars has to be available in environment. For all simulations
 the csv ode solutions are loaded and the necessary components extracted.}
 \usage{
-readPPPVData(dir, max_index = -1)
+readPPPVData(pars, dir, max_index = -1)
 }
 \arguments{
   \item{max_index}{maximal index until which data is read}

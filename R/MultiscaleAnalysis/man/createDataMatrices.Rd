@@ -2,7 +2,7 @@
 \alias{createDataMatrices}
 \title{Convert list structure into data matrix}
 \usage{
-createDataMatrices(dir, datalist, compounds, prefixes = c("PV__"))
+createDataMatrices(dir, datalist)
 }
 \arguments{
   \item{datalist}{list of data matrices}

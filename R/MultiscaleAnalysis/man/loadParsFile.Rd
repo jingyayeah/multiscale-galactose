@@ -2,10 +2,13 @@
 \alias{loadParsFile}
 \title{Takes folder, task and modelID}
 \usage{
-loadParsFile(folder, task, modelId)
+loadParsFile(file)
+}
+\arguments{
+  \item{file}{parameter file to load}
 }
 \value{
-Parameter data.frame
+parameter data.frame
 }
 \description{
 Takes folder, task and modelID
