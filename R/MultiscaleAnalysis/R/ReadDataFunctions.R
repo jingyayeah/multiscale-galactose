@@ -31,7 +31,7 @@ readPPPVData <- function(pars, dir, max_index=-1){
   for (k in seq(1,Nsim)){
     simId <- simulations[[k]]
     print(paste(simId, ' [', k/Nsim*100, ']'))
-    data[[k]] = readPPPVDataForSimulation(dir, simId)
+    data[[k]] = readPPPVDataForSimulation(dir=dir, simId=simId)
   }
   data
 }

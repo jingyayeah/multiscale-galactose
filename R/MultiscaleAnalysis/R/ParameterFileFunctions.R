@@ -21,7 +21,6 @@ pars.keywords <- c('status', 'duration', 'core', 'sim')
 loadParsFile <- function(file){
   print(parsfile)
   pars <- read.csv(parsfile, header=TRUE)
-  # set row names
   row.names(pars) <- paste("Sim", pars$sim, sep="")
   pars
 }
