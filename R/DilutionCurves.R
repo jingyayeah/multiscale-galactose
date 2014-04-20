@@ -26,21 +26,19 @@ peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 summary(pars)
 
 compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
-pv_compounds = paste('PV__', compounds, sep='')
 ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+pv_compounds = paste('PV__', compounds, sep='')
 names(ccolors) <- pv_compounds
-ccolors
-#            red,  green, orange, blue,  black
 
 ####################################################################
 
 library('matrixStats')
 
 # Plot the single curves with the mean
-plotCompound <- function(time, data, name, col="black"){
+plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30)){
   # plot the single curves
   plot(numeric(0), numeric(0), 'l', main=name,
-       xlab="time [s]", ylab="c [mM]", ylim=c(0.0, 0.2), xlim=c(0, 30))
+       xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
   
   Nsim <- ncol(data)
   for (ks in seq(Nsim)){
@@ -56,15 +54,60 @@ plotCompound <- function(time, data, name, col="black"){
   lines(time, rmean-rstd, col=col, lwd=2, lty=2)
 }
 
+# Make a scatter plot
+plotCompoundScatter <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30)){
+  # plot the single curves
+  plot(numeric(0), numeric(0), 'l', main=name,
+       xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
+  
+  Nsim <- ncol(data)
+  for (ks in seq(Nsim)){
+    points(time,data[,ks], col=rgb(0,100,0,25,maxColorValue=255), pch=16)
+    #lines(time, data[,ks], col="gray")
+  }
+  
+  # plot the mean and variance for time courses
+  # TODO how to better calculate -> what error measurment to use
+  rmean <- rowMeans(data)
+  rstd <- rowSds(data)
+  lines(time, rmean, col=col, lwd=2)
+  lines(time, rmean+rstd, col=col, lwd=2, lty=2)
+  lines(time, rmean-rstd, col=col, lwd=2, lty=2)
+}
+
+plot2Ddensity <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30)){
+  
+  library('KernSmooth')
+  # prepare data
+  Nsim <- ncol(data)
+  tmax_ind <- length(which(time<100))
+  Nt <- length(time[1:tmax_ind])
+  x <- matrix(NA, nrow=Nsim*Nt, ncol=2)
+  for (ks in seq(Nsim)){
+    indices <- ((ks-1)*Nt+1):(ks*Nt)  
+    tmp <- cbind(time[1:tmax_ind], data[1:tmax_ind, ks])
+    x[indices,] <- tmp
+  }
+  est <- bkde2D(x, bandwidth=c(2, 0.02), gridsize=c(100,200), range.x=list(c(0,100), c(0,0.5)) )
+  contour(est$x1, est$x2, est$fhat)
+  # plot the mean and variance for time courses
+  # TODO how to better calculate -> what error measurment to use
+  for (ks in seq(Nsim)){
+    points(time,data[,ks], col=rgb(0,100,0,20,maxColorValue=255), pch=16)
+    #lines(time, data[,ks], col="gray")
+  }
+  rmean <- rowMeans(data)
+  rstd <- rowSds(data)
+  lines(time, rmean, col=col, lwd=2)
+  lines(time, rmean+rstd, col=col, lwd=2, lty=2)
+  lines(time, rmean-rstd, col=col, lwd=2, lty=2)
+
+}
+name="PV__alb"
+plot2Ddensity(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
+
 time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1]) -10.0
 Nc <- length(pv_compounds)
-name = "PV__rbcM"
-plotCompound(time, MI.mat[[name]], name, col=ccolors[name])
-
-head(MI.mat[['PV__rbcM']])
-plot(MI.mat[['PV__rbcM']][,1])
-summary(MI.mat[['PV__rbcM']])
-
 
 create_plot_files = FALSE
 if (create_plot_files == TRUE){
@@ -79,8 +122,12 @@ par(mfrow=c(1,1))
 if (create_plot_files == TRUE){
   dev.off()
 }
+dev.off()
 
-
+name="PV__alb"
+plotCompound(time, MI.mat[[name]][,1:200], name, col=ccolors[name], ylim=c(0,0.8))
+plotCompoundScatter(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
+plot2Ddensity(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
 
 ## Combined Dilution Curves in one plot ##
 png(filename=paste(info.folder, '/', task, "_Dilution_Curves_Combined.png", sep=""),
