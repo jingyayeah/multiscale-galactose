@@ -11,7 +11,7 @@ rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-sname <- '2014-04-19_MultipleIndicator'
+sname <- '2014-04-20_MultipleIndicator'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
 tasks <- c('T1', 'T2', 'T3', 'T4', 'T5')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')

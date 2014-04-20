@@ -3,7 +3,7 @@
 #' @param parsfile Parameter file
 #' @return storage filename
 #' @export
-outfileFromParsfile <- function(parsfile){
+outfileFromParsFile <- function(parsfile){
   out.file <- paste(parsfile, '.rdata', sep="")
 }
 
