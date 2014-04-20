@@ -26,40 +26,61 @@ peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 summary(pars)
 
 compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
-ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue' )
+pv_compounds = paste('PV__', compounds, sep='')
+ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+names(ccolors) <- pv_compounds
+ccolors
 #            red,  green, orange, blue,  black
 
 ####################################################################
 
-# Plot all data curves and mean curve #
 library('matrixStats')
-png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves.png", sep=""),
-    width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
-time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1]) -10.0
-par(mfrow=c(1,length(compounds)))
-for (kc in seq(length(compounds)) ){
-  # name = "PV__rbcM"
-  name = paste("PV__", compounds[kc], sep="")
-  print(name)
-  # plot one compound
-  tmp <- dilmat[[name]]
-  for (ks in seq(nrow(pars))){
-    if (ks == 1){
-      plot(time, tmp[,ks], col="gray", 'l', main=name, xlab="time [s]", ylab="c [mM]", ylim=c(0.0, 0.2), xlim=c(0, 30) )
-    } else {
-      lines(time, tmp[,ks], col="gray")
-    }
+
+# Plot the single curves with the mean
+plotCompound <- function(time, data, name, col="black"){
+  # plot the single curves
+  plot(numeric(0), numeric(0), 'l', main=name,
+       xlab="time [s]", ylab="c [mM]", ylim=c(0.0, 0.2), xlim=c(0, 30))
+  
+  Nsim <- ncol(data)
+  for (ks in seq(Nsim)){
+      lines(time, data[,ks], col="gray")
   }
+  
   # plot the mean and variance for time courses
-  rmean <- rowMeans(tmp)
-  rstd <- rowSds(tmp)
-  lines(time, rmean, col=ccolors[kc], lwd=2)
-  lines(time, rmean+rstd, col=ccolors[kc], lwd=2, lty=2)
-  lines(time, rmean-rstd, col=ccolors[kc], lwd=2, lty=2)
+  # TODO how to better calculate -> what error measurment to use
+  rmean <- rowMeans(data)
+  rstd <- rowSds(data)
+  lines(time, rmean, col=col, lwd=2)
+  lines(time, rmean+rstd, col=col, lwd=2, lty=2)
+  lines(time, rmean-rstd, col=col, lwd=2, lty=2)
+}
+
+time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1]) -10.0
+Nc <- length(pv_compounds)
+name = "PV__rbcM"
+plotCompound(time, MI.mat[[name]], name, col=ccolors[name])
+
+head(MI.mat[['PV__rbcM']])
+plot(MI.mat[['PV__rbcM']][,1])
+summary(MI.mat[['PV__rbcM']])
+
+
+create_plot_files = FALSE
+if (create_plot_files == TRUE){
+  png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves.png", sep=""),
+    width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
+}
+par(mfrow=c(1,Nc))
+for (name in pv_compounds){
+  plotCompound(time, MI.mat[[name]], name, col=ccolors[name])
 }
 par(mfrow=c(1,1))
-dev.off()
-nrow(pars)
+if (create_plot_files == TRUE){
+  dev.off()
+}
+
+
 
 ## Combined Dilution Curves in one plot ##
 png(filename=paste(info.folder, '/', task, "_Dilution_Curves_Combined.png", sep=""),
@@ -107,6 +128,11 @@ png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
 boxplot(maxtime-10, col=ccolors, horizontal=T, xlab="time [s]")
 dev.off()
 summary(maxtime-10)
+
+
+
+
+
 
 ###################################################################################
 # Dilution curves with experimental data
