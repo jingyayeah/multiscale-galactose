@@ -1,0 +1,11 @@
+\name{plot2Ddensity}
+\alias{plot2Ddensity}
+\title{Make a 2D Kernel estimation.}
+\usage{
+plot2Ddensity(time, data, name, col = "black", ylim = c(0, 0.2),
+  xlim = c(0, 30))
+}
+\description{
+Make a 2D Kernel estimation.
+}
+

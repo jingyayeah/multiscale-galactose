@@ -1,13 +1,20 @@
-# copy the resulting timecourses to 10.39.32.111
+# copies the sbml to the different computers to perform simulations
+# TODO: make more general
+
+mkdir ~/multiscale-galactose-results/2014-04-20  
+cd ~/multiscale-galactose-results/2014-04-20
+echo
+echo "*** 10.39.32.106 ***"
+scp mkoenig@10.39.32.106:~/multiscale-galactose-results/django/timecourse/2014-04-20/*.* .
 
 echo
-echo "*** 10.39.32.111 ***" 
-# from -> to
-# scp -r mkoenig@10.39.32.106:~/multiscale-galactose-results/django/timecourse ~/multiscale-galactose-results/django/
-
 echo "*** 10.39.32.189 ***"
-scp -r mkoenig@10.39.32.189:~/multiscale-galactose-results/django/timecourse ~/multiscale-galactose-results/django/
+scp mkoenig@10.39.32.189:~/multiscale-galactose-results/django/timecourse/2014-04-20/*.* .
 
+
+echo
 echo "*** 10.39.34.27 ***"
-scp -r mkoenig@10.39.34.27:~/multiscale-galactose-results/django/timecourse ~/multiscale-galactose-results/django/
+scp mkoenig@10.39.34.27:~/multiscale-galactose-results/django/timecourse/2014-04-20/*.* .
+
+
 
