@@ -1,0 +1,11 @@
+\name{plotCompoundScatter}
+\alias{plotCompoundScatter}
+\title{Create scatter plot of the dilution curve data}
+\usage{
+plotCompoundScatter(time, data, name, col = "black", ylim = c(0, 0.2),
+  xlim = c(0, 30))
+}
+\description{
+Create scatter plot of the dilution curve data
+}
+
