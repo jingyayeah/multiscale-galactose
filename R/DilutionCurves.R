@@ -59,6 +59,31 @@ createMeanPlot <- function(create_plot_files=F){
 }
 
 
+# calculate the maximum values
+maxTimes <- function(data){
+  Nsim = ncol(data)
+  maxtime <- data.frame(tmp=numeric(Nsim))
+  for (kc in seq(1, length(compounds)) ){
+    name = paste("PV__", compounds[kc], sep="")
+    print(name)
+    maxtime[[name]] <- numeric(Nsim)    
+    # find the max values for all simulations
+    for (k in seq(1, Nsim)){
+      maxtime[[name]][k] = time[ which.max(dilmat[[name]][,k]) ]
+    }
+  }
+
+}
+
+
+# Boxplot of the maxtimes
+png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
+    width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
+boxplot(maxtime-10, col=ccolors, horizontal=T, xlab="time [s]")
+dev.off()
+summary(maxtime-10)
+
+
 ## Load the preprocessed data ##
 sname <- '2014-04-20_MultipleIndicator'
 version <- 'v11'
@@ -77,7 +102,7 @@ for (kt in seq(length(tasks))){
   summary(pars)
   
   # Create the plots
-  # createAllPlot(create_plot_files=TRUE)
+  createAllPlot(create_plot_files=TRUE)
   createMeanPlot(create_plot_files=TRUE)
 }
 
@@ -101,28 +126,6 @@ plot2Ddensity(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
 
 
 
-# calculate the maximum values
-maxtime <- data.frame(tmp=numeric(Nsim))
-for (kc in seq(1, length(compounds)) ){
-  name = paste("PV__", compounds[kc], sep="")
-  print(name)
-  maxtime[[name]] <- numeric(Nsim)    
-  # find the max values for all simulations
-  for (k in seq(1, Nsim)){
-    maxtime[[name]][k] = time[ which.max(dilmat[[name]][,k]) ]
-  }
-}
-maxtime$tmp <- NULL
-colMeans(maxtime-10)
-
-png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
-    width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
-boxplot(maxtime-10, col=ccolors, horizontal=T, xlab="time [s]")
-dev.off()
-summary(maxtime-10)
-
-
-
 
 
 
@@ -132,34 +135,49 @@ summary(maxtime-10)
 library('matrixStats')
 library('MultiscaleAnalysis')
 
-task <- "T4"
-modelId <- "Dilution_Curves_v9_Nc20_Nf1"
-dataset1.file <- paste(ma.settings$dir.results, '/', modelId, '_dataset1','.rdata', sep="")
-load(file=dataset1.file)
-pars <- loadParsFile(ma.settings$dir.results, task=task, modelId=modelId)
-pars <- pars[pars$status=="DONE", ]
-summary(pars)
-
-## Combined Dilution Curves in one plot ##
-
-time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1]) -10.0
-compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
-ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue' )
-compounds = c( 'rbcM', 'alb', 'suc', 'h2oM')
-ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue' )
-
+# Load the experimental data
 gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
 summary(gor1973)
 # Units: time [s], compound: 1000*outflow fraction/ml
 gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
 summary(gor1983)
 
+
+# Load the preprocessed simulations data
+sname <- '2014-04-20_MultipleIndicator'
+version <- 'v11'
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
+tasks <- paste('T', seq(6,10), sep='')
+peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
+
+for (kt in seq(length(tasks))){
+  task <- tasks[kt]
+  peak <- peaks[kt]
+  modelId <- paste('MultipleIndicator_', peak, '_', version, '_Nc20_Nf1', sep='')
+  parsfile <- file.path(ma.settings$dir.results, sname, 
+                        paste(task, '_', modelId, '_parameters.csv', sep=""))
+  # Load the data
+  load(file=outfileFromParsFile(parsfile))
+  summary(pars)
+  
+  # Create the plots
+  createExpPlot(create_plot_files=TRUE)
+  
+}
+
+## Combined Dilution Curves in one plot ##
+time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1]) -10.0
+compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
+ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue' )
+compounds = c( 'rbcM', 'alb', 'suc', 'h2oM')
+ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue' )
+
 # Maxtime boxplots
 # calculate the maximum values
 maxtime <- data.frame(tmp=numeric(nrow(pars)))
 
 for (kc in seq(1, length(compounds)) ){  
-  name = paste("PV__", compounds[kc], sep="")
+  name = pv_compounds[kc]
   print(name)
   maxtime[[name]] <- numeric(nrow(pars))    
   # find the max values for all simulations
@@ -167,8 +185,7 @@ for (kc in seq(1, length(compounds)) ){
     maxtime[[name]][k] = time[ which.max(dilmat[[name]][,k]) ]
   }
 }
-maxtime$tmp <- NULL
-colMeans(maxtime)
+
 
 png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves_Combined.png", sep=""),
     width = 1400, height = 1400, units = "px", bg = "white",  res = 150)
