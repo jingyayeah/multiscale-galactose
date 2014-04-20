@@ -1,0 +1,16 @@
+\name{trim}
+\alias{trim}
+\title{Returns string w/o leading or trailing whitespace}
+\usage{
+trim(x)
+}
+\arguments{
+  \item{x}{string to strip whitspaces}
+}
+\value{
+stripped string
+}
+\description{
+Returns string w/o leading or trailing whitespace
+}
+
