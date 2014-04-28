@@ -1,6 +1,8 @@
 ################################################################
 ## GEC data
 ################################################################
+# General GEC data for model fitting. 
+# Especially GEC in cirrhosis
 # author: Matthias Koenig
 # date: 2014-04-19
 
@@ -9,41 +11,8 @@ rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-###############################################################
-## Winkler1965 ##
-###############################################################
-win1965 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Winkler1965.csv"), sep="\t")
-head(win1965)
-summary(win1965)
-
-## figure ##
-create_plots = FALSE
-if (create_plots == TRUE){
-  png(filename=file.path(ma.settings$dir.results, 'Winkler1965.png'),
-      width = 800, height = 800, units = "px", bg = "white",  res = 150)
-}
-par(mfrow=c(2,1))
-plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,5), 
-     main="Winkler1965",
-     xlab="Age [years]", ylab="Galactose Elimination [mmol/min]")
-
-points(win1965$age, win1965$GEC, col=ccols[1], pch=cpch[1])  
-legend("topright",  legend = c('healthy'), fill=ccols[1])
-
-
-plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,5), 
-     main="Winkler1965",
-     xlab="Age [years]", ylab="Galactose Elimination [mmol/min]")
-
-points(win1965$age, win1965$GEC, col=ccols[1], pch=cpch[1])  
-legend("topright",  legend = c('healthy'), fill=ccols[1])
-
-
-par(mfrow=c(1,1))
-if (create_plots==TRUE){
-  dev.off()
-}
-
+ccols = c("black", "darkorange")
+cpch = c(15, 17)
 
 ###############################################################
 ## Tygstrup1962 ##
@@ -73,8 +42,6 @@ for (k in 1:length(cats)){
   inds <- which(tyg1962$state == cats[k])
   points(tyg1962$age[inds], tyg1962$GEC[inds], col=ccols[k], pch=cpch[k])  
 }
-points(win1965$age, win1965$GEC, col="blue", pch=3)  
-
 legend("topright",  legend = cats, fill=ccols)
 
 par(mfrow=c(1,1))
@@ -95,7 +62,7 @@ cats = c('normal', 'cirrhosis')
 ccols = c("black", "darkorange")
 cpch = c(15, 17)
 
-create_plots = TRUE
+create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Dufour2005.png'),
       width = 800, height = 800, units = "px", bg = "white",  res = 150)
@@ -155,7 +122,7 @@ head(tyg1957)
 summary(tyg1957)
 
 ## figure ##
-create_plots = TRUE
+create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Tygstrup1957.png'),
       width = 800, height = 800, units = "px", bg = "white",  res = 150)
