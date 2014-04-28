@@ -198,6 +198,11 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		}
 	}
 
+    // Iterate over the events
+	// much faster
+	// use **
+	CCopasiVector< CEvent >::iterator itEvent = pModel->getEvents();
+
 	/* TODO MAYOR BUG - this is not working properly due to its role in an event.
 	// DEFICIENCY - which is used in an event
 	for (size_t i=0; i<pModel->getEvents().size(); ++i){
@@ -220,6 +225,9 @@ int ModelSimulator::doTimeCourseSimulation(const std::vector<MParameter> & pars,
 		}
 	}
 	*/
+
+	// reset via saving the parameterset and restoring afterwards
+    // latest source
 
 
 	if (pSetCounter != pars.size()){
