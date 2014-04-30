@@ -222,12 +222,12 @@ if __name__ == "__main__":
     # Generate the MultipleIndicator Simulations
     # for the different peak length of the tracer
         for kp in range(0,5):
-            sbml_id = "MultipleIndicator_P%02d_v11_Nc20_Nf1" % kp
+            sbml_id = "MultipleIndicator_P%02d_v13_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
             if (1):
                 # create dilution simulations
-                N = 900     # number of simulations
+                N = 20     # number of simulations
                 task = createMultipleIndicatorSimulationTask(model, N)
                 # create the parameter file
                 
