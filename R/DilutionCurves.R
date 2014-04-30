@@ -75,7 +75,6 @@ maxTimes <- function(data){
 
 }
 
-
 # Boxplot of the maxtimes
 png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
     width = 1000, height = 1000, units = "px", bg = "white",  res = 150)

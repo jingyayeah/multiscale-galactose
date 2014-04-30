@@ -68,7 +68,7 @@ fprintf('***********************************************\n')
 % p.name = 'Test';
 p.name = 'Galactose'; 
 
-p.version = 4;
+p.version = 13;
 p.Nc = 1;
 p.Nf = 1;
 p.id = strcat(p.name, '_v', num2str(p.version), '_Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));
@@ -108,9 +108,9 @@ print_model_overview(p);
 %% Model definition finished
 % the model can be used to call different simulations on it
 
-do_galactose_reference_simulation;
+%do_galactose_reference_simulation;
 %do_galactosemia_simulations;
-%do_galactose_timecourse_simulation();
+do_galactose_timecourse_simulation();
 %do_galactose_ss_simulation();
 
 return
