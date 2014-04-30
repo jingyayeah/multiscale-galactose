@@ -19,10 +19,9 @@
 # author: Matthias Koenig
 # date: 2014-04-29
 
+# Load the parameter samples (here the parameters which are changing are defined)
 
-# Load the parameter samples (additional variables have to be written)
-
-
+# Get the additional parameters from the SBML file directly 
 
 
 # Load the corresponding simulation results of interest

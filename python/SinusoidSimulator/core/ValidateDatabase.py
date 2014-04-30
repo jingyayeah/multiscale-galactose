@@ -28,7 +28,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED
 from sim.models import Task
 
-def handleHangingAssignedSimulations(cutoff_minutes=10):
+def unassignHangingAssignedSimulations(cutoff_minutes=10):
     '''
     Looks for unfinished simulations, i.e. they were assigned, but
     never finished. The simulations are reset to the UNASSIGNED status.
@@ -128,17 +128,16 @@ def removeSimulationsForTask(task):
     
     
 if __name__ == "__main__":
-    pass
+    
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
     
-    # handleHangingAssignedSimulations();
-    import itertools
+    unassignHangingAssignedSimulations();
     
-    pks = range(100, 123)
-    pks.append(166)
-    print(pks)
-    unassignSimulationsByPk(pks)
+    #pks = range(100, 123)
+    #pks.append(166)
+    #print(pks)
+    #unassignSimulationsByPk(pks)
     
     # Remove simulations for task
     #task = Task.objects.get(pk=3)
@@ -147,8 +146,4 @@ if __name__ == "__main__":
     
     # ! CAREFUL !
     # unassignAllSimulation()
-    
-    # ! CAREFUL !
-    # unassignAllSimulation()
-    
     
