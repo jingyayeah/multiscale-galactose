@@ -47,6 +47,9 @@ hist(pars$y_cell)
 # Get the additional parameters from the SBML file directly necessary for scaling, i.e 
 # calculate from the formulas
 # i.e. evalutate the AST nodes
+# What is needed ?
+# The Volumes ?
+
 
 # Load the corresponding simulation results of interest
 

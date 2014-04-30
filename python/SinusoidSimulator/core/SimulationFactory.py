@@ -227,7 +227,7 @@ if __name__ == "__main__":
             model.save();
             if (1):
                 # create dilution simulations
-                N = 20     # number of simulations
+                N = 480     # number of simulations
                 task = createMultipleIndicatorSimulationTask(model, N)
                 # create the parameter file
                 

@@ -1,6 +1,6 @@
 # 
-# @file    echoSBML.R
-# @brief   Echos (and pretty prints) an SBML model.
+# @file    readSBML.R
+# @brief   Similar to validateSBML, but without the validation
 # @author  Frank Bergmann
 # 
 # <!--------------------------------------------------------------------------
@@ -38,23 +38,20 @@
 # ------------------------------------------------------------------------ -->
 # 
 #
-# Usage: R --slave -f echoSBML.R --args <full path to input file> <full path to output file> 
+# Usage: R --slave -f readSBML.R --args <full path to sbml file> 
 #
 #
 
-rm(list=ls())   # Clear all objects
 library(libSBML)
 
-args <- commandArgs(trailingOnly = TRUE)
-if (length(args) != 2)
-{
-  stop("Usage: echoSBML input-filename output-filename\n");
-}
+filename <- '/home/mkoenig/multiscale-galactose-results/tmp_sbml/Galactose_v13_Nc20_Nf1.xml'
+d <- readSBML(filename)
+errors  <- SBMLDocument_getNumErrors(d)
 
-doc = readSBML(args[1]);
+size <- file.info(filename)[["size"]]
 
-if (SBMLDocument_getNumErrors(doc) > 0) {
-  SBMLDocument_printErrors(doc);
-} else {
-  writeSBML(doc, args[2]);
-}
+cat( "        filename: ", filename, "\n" )
+cat( "       file size: ", size    , "\n" )
+cat( "        error(s): ", errors  , "\n" )
+
+if (errors > 0) SBMLDocument_printErrors(d)
