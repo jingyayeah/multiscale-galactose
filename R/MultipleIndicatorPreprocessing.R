@@ -8,22 +8,23 @@
 # Run from terminal via -> Rscript MultipleIndicatorPreprocessing.R
 #
 # author: Matthias Koenig
-# date: 2014-04-19
+# date: 2014-04-29
+# install.packages('data.table')
 
 rm(list=ls())   # Clear all objects
+library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-sname <- '2014-04-20_MultipleIndicator'
+sname <- '2014-04-30_MultipleIndicator'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-
-tasks <- paste('T', seq(6,10), sep='')
+tasks <- paste('T', seq(11,15), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 
 for (kt in seq(length(tasks))){
   task <- tasks[kt]
   peak <- peaks[kt]
-  modelId <- paste('MultipleIndicator_', peak, '_v11_Nc20_Nf1', sep='')
+  modelId <- paste('MultipleIndicator_', peak, '_v13_Nc20_Nf1', sep='')
   parsfile <- file.path(ma.settings$dir.results, sname, 
                         paste(task, '_', modelId, '_parameters.csv', sep=""))
 
@@ -32,3 +33,4 @@ for (kt in seq(length(tasks))){
   #            outFile='test.out', max_index=2)
   preprocess(parsfile, ma.settings$dir.simdata)
 }
+rm(peak, task, kt)
