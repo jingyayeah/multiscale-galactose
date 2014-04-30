@@ -108,9 +108,9 @@ print_model_overview(p);
 %% Model definition finished
 % the model can be used to call different simulations on it
 
-do_galactose_reference_simulation;
+%do_galactose_reference_simulation;
 %do_galactosemia_simulations;
-%do_galactose_timecourse_simulation();
+do_galactose_timecourse_simulation();
 %do_galactose_ss_simulation();
 
 return

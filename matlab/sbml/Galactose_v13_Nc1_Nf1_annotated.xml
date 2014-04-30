@@ -1,7 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
-  <model id="Galactose_Dilution_v3_Nc1_Nf1" areaUnits="m2" timeUnits="s" lengthUnits="m" extentUnits="mole" substanceUnits="mole" volumeUnits="m3">
-    <listOfUnitDefinitions>
+  <model id="Galactose_v13_Nc1_Nf1_annotated" areaUnits="m2" name="Galactose" metaid="_04b607ed-0e0a-4d65-9311-70e44552f3b2" timeUnits="s" lengthUnits="m" extentUnits="mole" substanceUnits="mole" volumeUnits="m3">
+    <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+	<rdf:Description rdf:about="#_04b607ed-0e0a-4d65-9311-70e44552f3b2">
+	<dc:creator>
+	<rdf:Bag>
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Koenig</vCard:Family>
+	<vCard:Given>Matthias</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>matthias.koenig@charite.de</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>Charite Berlin</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	</rdf:Bag>
+	</dc:creator>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+      <listOfUnitDefinitions>
       <unitDefinition id="s">
         <listOfUnits>
           <unit scale="0" exponent="1" multiplier="1" kind="second"/>
@@ -71,25 +91,13 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="PP" constant="false" spatialDimensions="3" name="PP" units="m3"/>
-      <compartment id="S001" constant="false" spatialDimensions="3" name="S001" units="m3"/>
-      <compartment id="D001" constant="false" spatialDimensions="3" name="D001" units="m3"/>
-      <compartment id="PV" constant="false" spatialDimensions="3" name="PV" units="m3"/>
-      <compartment id="H01" constant="false" spatialDimensions="3" name="H01" units="m3"/>
+      <compartment id="PP" constant="true" spatialDimensions="3" name="[PP] periportal" units="m3"/>
+      <compartment id="S001" constant="true" spatialDimensions="3" name="[S001] Sinusoid Space 1" units="m3"/>
+      <compartment id="D001" constant="true" spatialDimensions="3" name="[D001] Disse Space 1" units="m3"/>
+      <compartment id="PV" constant="true" spatialDimensions="3" name="[PV] perivenious" units="m3"/>
+      <compartment id="H01" constant="true" spatialDimensions="3" name="[H01] Hepatocyte 1" units="m3"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="PP__rbcM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="rbcM" boundaryCondition="true" substanceUnits="mole" compartment="PP"/>
-      <species id="S001__rbcM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="rbcM" boundaryCondition="false" substanceUnits="mole" compartment="S001"/>
-      <species id="D001__rbcM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="rbcM" boundaryCondition="false" substanceUnits="mole" compartment="D001"/>
-      <species id="PV__rbcM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="rbcM" boundaryCondition="false" substanceUnits="mole" compartment="PV"/>
-      <species id="PP__suc" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="suc" boundaryCondition="true" substanceUnits="mole" compartment="PP"/>
-      <species id="S001__suc" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="suc" boundaryCondition="false" substanceUnits="mole" compartment="S001"/>
-      <species id="D001__suc" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="suc" boundaryCondition="false" substanceUnits="mole" compartment="D001"/>
-      <species id="PV__suc" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="suc" boundaryCondition="false" substanceUnits="mole" compartment="PV"/>
-      <species id="PP__alb" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="alb" boundaryCondition="true" substanceUnits="mole" compartment="PP"/>
-      <species id="S001__alb" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="alb" boundaryCondition="false" substanceUnits="mole" compartment="S001"/>
-      <species id="D001__alb" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="alb" boundaryCondition="false" substanceUnits="mole" compartment="D001"/>
-      <species id="PV__alb" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="alb" boundaryCondition="false" substanceUnits="mole" compartment="PV"/>
       <species id="PP__gal" initialConcentration="0.00012" constant="false" hasOnlySubstanceUnits="false" name="gal" boundaryCondition="true" substanceUnits="mole" compartment="PP"/>
       <species id="S001__gal" initialConcentration="0.00012" constant="false" hasOnlySubstanceUnits="false" name="gal" boundaryCondition="false" substanceUnits="mole" compartment="S001"/>
       <species id="D001__gal" initialConcentration="0.00012" constant="false" hasOnlySubstanceUnits="false" name="gal" boundaryCondition="false" substanceUnits="mole" compartment="D001"/>
@@ -102,187 +110,581 @@
       <species id="S001__h2oM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="h2oM" boundaryCondition="false" substanceUnits="mole" compartment="S001"/>
       <species id="D001__h2oM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="h2oM" boundaryCondition="false" substanceUnits="mole" compartment="D001"/>
       <species id="PV__h2oM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="h2oM" boundaryCondition="false" substanceUnits="mole" compartment="PV"/>
-      <species id="H01__gal" initialConcentration="0.00012" constant="false" hasOnlySubstanceUnits="false" name="D-galactose" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__galM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="D-galactose M" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
+      <species id="H01__gal" initialConcentration="0.00012" constant="false" hasOnlySubstanceUnits="false" name="D-galactose" metaid="_122ddf77-ba2c-4baa-bee0-47068cec31b9" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_122ddf77-ba2c-4baa-bee0-47068cec31b9">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A4139"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00124"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__galM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="D-galactose M" metaid="_201e5231-532e-4886-9cf6-4a357f684b55" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_201e5231-532e-4886-9cf6-4a357f684b55">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A4139"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00124"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
       <species id="H01__h2oM" initialConcentration="0" constant="false" hasOnlySubstanceUnits="false" name="H2O M" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__glc1p" initialConcentration="0.012" constant="false" hasOnlySubstanceUnits="false" name="D-glucose-1-phosphate" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__glc6p" initialConcentration="0.12" constant="false" hasOnlySubstanceUnits="false" name="D-glucose-6-phosphate" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__gal1p" initialConcentration="0.001" constant="false" hasOnlySubstanceUnits="false" name="D-galactose-1-phosphate" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__udpglc" initialConcentration="0.34" constant="false" hasOnlySubstanceUnits="false" name="UDP-D-glucose" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__udpgal" initialConcentration="0.11" constant="false" hasOnlySubstanceUnits="false" name="UDP-D-galactose" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__galtol" initialConcentration="0.001" constant="false" hasOnlySubstanceUnits="false" name="D-galactitol" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__atp" initialConcentration="2.7" constant="false" hasOnlySubstanceUnits="false" name="ATP" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__adp" initialConcentration="1.2" constant="false" hasOnlySubstanceUnits="false" name="ADP" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__utp" initialConcentration="0.27" constant="false" hasOnlySubstanceUnits="false" name="UTP" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__udp" initialConcentration="0.09" constant="false" hasOnlySubstanceUnits="false" name="UDP" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__phos" initialConcentration="5" constant="false" hasOnlySubstanceUnits="false" name="Phosphate" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__ppi" initialConcentration="0.008" constant="false" hasOnlySubstanceUnits="false" name="Pyrophosphate" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__nadp" initialConcentration="0.1" constant="false" hasOnlySubstanceUnits="false" name="NADP" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
-      <species id="H01__nadph" initialConcentration="0.1" constant="false" hasOnlySubstanceUnits="false" name="NADPH" boundaryCondition="false" substanceUnits="mole" compartment="H01"/>
+      <species id="H01__glc1p" initialConcentration="0.012" constant="false" hasOnlySubstanceUnits="false" name="D-glucose-1-phosphate" metaid="e5de5c9e-63b0-4f28-a574-28387e2c3704" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#e5de5c9e-63b0-4f28-a574-28387e2c3704">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A58601"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00103"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__glc6p" initialConcentration="0.12" constant="false" hasOnlySubstanceUnits="false" name="D-glucose-6-phosphate" metaid="_9358b99c-1b81-415c-a66a-aa073fb7d732" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_9358b99c-1b81-415c-a66a-aa073fb7d732">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A58225"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00668"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__gal1p" initialConcentration="0.001" constant="false" hasOnlySubstanceUnits="false" name="D-galactose-1-phosphate" metaid="_788dc038-f21e-407f-a332-ca41626869d0" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_788dc038-f21e-407f-a332-ca41626869d0">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A58336"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00446"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__udpglc" initialConcentration="0.34" constant="false" hasOnlySubstanceUnits="false" name="UDP-D-glucose" metaid="_645c9442-28ce-49aa-9f97-2b18a4fddb53" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_645c9442-28ce-49aa-9f97-2b18a4fddb53">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A58885"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00029"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__udpgal" initialConcentration="0.11" constant="false" hasOnlySubstanceUnits="false" name="UDP-D-galactose" metaid="c724e44c-f970-4896-b9c1-85c64badb68a" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#c724e44c-f970-4896-b9c1-85c64badb68a">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A66914"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00052"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__galtol" initialConcentration="0.001" constant="false" hasOnlySubstanceUnits="false" name="D-galactitol" metaid="_95b2a935-34d2-4174-b07d-82b0960611ec" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_95b2a935-34d2-4174-b07d-82b0960611ec">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A456216"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C01697"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__atp" initialConcentration="2.7" constant="false" hasOnlySubstanceUnits="false" name="ATP" metaid="_74162dc3-3e95-4f77-b4c1-8fcd3f64c482" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_74162dc3-3e95-4f77-b4c1-8fcd3f64c482">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A30616"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00002"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__adp" initialConcentration="1.2" constant="false" hasOnlySubstanceUnits="false" name="ADP" metaid="_5feb4874-8389-49f8-b2fd-978976f8ac9c" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_5feb4874-8389-49f8-b2fd-978976f8ac9c">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A456216"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00008"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__utp" initialConcentration="0.27" constant="false" hasOnlySubstanceUnits="false" name="UTP" metaid="b337e615-c0f3-4b54-b8d2-880cd76a4c42" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#b337e615-c0f3-4b54-b8d2-880cd76a4c42">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A46398"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00075"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__udp" initialConcentration="0.09" constant="false" hasOnlySubstanceUnits="false" name="UDP" metaid="_885d5ac8-62cc-4b63-be2a-fa1856196b69" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_885d5ac8-62cc-4b63-be2a-fa1856196b69">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A58223"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00015"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__phos" initialConcentration="5" constant="false" hasOnlySubstanceUnits="false" name="Phosphate" metaid="_99089ae4-35c1-4188-9651-875cd1d6294f" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_99089ae4-35c1-4188-9651-875cd1d6294f">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A33019"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00009"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__ppi" initialConcentration="0.008" constant="false" hasOnlySubstanceUnits="false" name="Pyrophosphate" metaid="cb203403-ce1e-4034-859c-5ad6f8da12ea" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#cb203403-ce1e-4034-859c-5ad6f8da12ea">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A33019"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00013"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__nadp" initialConcentration="0.1" constant="false" hasOnlySubstanceUnits="false" name="NADP" metaid="_162006c0-a430-4eec-882f-69ecf2bff586" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_162006c0-a430-4eec-882f-69ecf2bff586">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A58349"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00006"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H01__nadph" initialConcentration="0.1" constant="false" hasOnlySubstanceUnits="false" name="NADPH" metaid="db175670-e4d2-4f5b-a080-08337877482e" boundaryCondition="false" substanceUnits="mole" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#db175670-e4d2-4f5b-a080-08337877482e">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:obo.chebi:CHEBI%3A57783"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.compound:C00005"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="L" constant="true" value="0.0005" units="m"/>
       <parameter id="y_sin" constant="true" value="4.4E-6" units="m"/>
-      <parameter id="y_dis" constant="true" value="8E-7" units="m"/>
-      <parameter id="y_cell" constant="true" value="6.25E-6" units="m"/>
-      <parameter id="flow_sin" constant="true" value="6E-5" units="m_per_s"/>
+      <parameter id="y_dis" constant="true" value="1.2E-6" units="m"/>
+      <parameter id="y_cell" constant="true" value="7.58E-6" units="m"/>
+      <parameter id="flow_sin" constant="true" value="0.00018" units="m_per_s"/>
+      <parameter id="f_fen" constant="true" value="0.09" units="dimensionless"/>
       <parameter id="Nc" constant="true" value="1" units="dimensionless"/>
       <parameter id="Nf" constant="true" value="1" units="dimensionless"/>
-      <parameter id="Nb" constant="false" units="dimensionless"/>
-      <parameter id="x_cell" constant="false" units="m"/>
-      <parameter id="x_sin" constant="false" units="m"/>
-      <parameter id="A_sin" constant="false" units="m2"/>
-      <parameter id="A_dis" constant="false" units="m2"/>
-      <parameter id="A_sindis" constant="false" units="m2"/>
-      <parameter id="Vol_sin" constant="false" units="m3"/>
-      <parameter id="Vol_dis" constant="false" units="m3"/>
-      <parameter id="Vol_cell" constant="false" units="m3"/>
-      <parameter id="Vol_pp" constant="false" units="m3"/>
-      <parameter id="Vol_pv" constant="false" units="m3"/>
-      <parameter id="DrbcM" constant="true" value="0" units="m2_per_s"/>
-      <parameter id="Dx_sin_rbcM" constant="false" units="m3_per_s"/>
-      <parameter id="Dx_dis_rbcM" constant="false" units="m3_per_s"/>
-      <parameter id="Dy_sindis_rbcM" constant="false" units="m3_per_s"/>
-      <parameter id="Dsuc" constant="true" value="4E-10" units="m2_per_s"/>
-      <parameter id="Dx_sin_suc" constant="false" units="m3_per_s"/>
-      <parameter id="Dx_dis_suc" constant="false" units="m3_per_s"/>
-      <parameter id="Dy_sindis_suc" constant="false" units="m3_per_s"/>
-      <parameter id="Dalb" constant="true" value="1E-10" units="m2_per_s"/>
-      <parameter id="Dx_sin_alb" constant="false" units="m3_per_s"/>
-      <parameter id="Dx_dis_alb" constant="false" units="m3_per_s"/>
-      <parameter id="Dy_sindis_alb" constant="false" units="m3_per_s"/>
-      <parameter id="Dgal" constant="true" value="4E-10" units="m2_per_s"/>
-      <parameter id="Dx_sin_gal" constant="false" units="m3_per_s"/>
-      <parameter id="Dx_dis_gal" constant="false" units="m3_per_s"/>
-      <parameter id="Dy_sindis_gal" constant="false" units="m3_per_s"/>
-      <parameter id="DgalM" constant="true" value="4E-10" units="m2_per_s"/>
-      <parameter id="Dx_sin_galM" constant="false" units="m3_per_s"/>
-      <parameter id="Dx_dis_galM" constant="false" units="m3_per_s"/>
-      <parameter id="Dy_sindis_galM" constant="false" units="m3_per_s"/>
-      <parameter id="Dh2oM" constant="true" value="2E-9" units="m2_per_s"/>
-      <parameter id="Dx_sin_h2oM" constant="false" units="m3_per_s"/>
-      <parameter id="Dx_dis_h2oM" constant="false" units="m3_per_s"/>
-      <parameter id="Dy_sindis_h2oM" constant="false" units="m3_per_s"/>
-      <parameter id="scale_f" constant="true" value="1E-14" units="dimensionless"/>
-      <parameter id="scale" constant="false" units="dimensionless"/>
-      <parameter id="REF_P" constant="true" value="1" units="mM"/>
-      <parameter id="deficiency" constant="true" value="0" units="dimensionless"/>
-      <parameter id="H01__nadp_tot" constant="false" units="mole_per_m3"/>
-      <parameter id="H01__adp_tot" constant="false" units="mole_per_m3"/>
-      <parameter id="H01__udp_tot" constant="false" units="mole_per_m3"/>
-      <parameter id="H01__phos_tot" constant="false" units="mole_per_m3"/>
-      <parameter id="GALK_PA" constant="true" value="0.1" units="mole"/>
-      <parameter id="GALK_keq" constant="true" value="50" units="dimensionless"/>
-      <parameter id="GALK_k_gal1p" constant="true" value="1.5" units="mM"/>
-      <parameter id="GALK_k_adp" constant="true" value="0.8" units="mM"/>
-      <parameter id="GALK_ki_gal1p" constant="true" value="5.3" units="mM"/>
-      <parameter id="GALK_kcat" constant="false" value="8.7" units="per_s"/>
-      <parameter id="GALK_k_gal" constant="false" value="0.97" units="mM"/>
-      <parameter id="GALK_k_atp" constant="false" value="0.034" units="mM"/>
-      <parameter id="H01__GALK_P" constant="true" value="1" units="mM"/>
+      <parameter id="Nb" constant="true" units="dimensionless"/>
+      <parameter id="x_cell" constant="true" units="m"/>
+      <parameter id="x_sin" constant="true" units="m"/>
+      <parameter id="A_sin" constant="true" units="m2"/>
+      <parameter id="A_dis" constant="true" units="m2"/>
+      <parameter id="A_sindis" constant="true" units="m2"/>
+      <parameter id="Vol_sin" constant="true" units="m3"/>
+      <parameter id="Vol_dis" constant="true" units="m3"/>
+      <parameter id="Vol_cell" constant="true" units="m3"/>
+      <parameter id="Vol_pp" constant="true" units="m3"/>
+      <parameter id="Vol_pv" constant="true" units="m3"/>
+      <parameter id="Dgal" constant="true" value="9.1E-10" units="m2_per_s"/>
+      <parameter id="Dx_sin_gal" constant="true" units="m3_per_s"/>
+      <parameter id="Dx_dis_gal" constant="true" units="m3_per_s"/>
+      <parameter id="Dy_sindis_gal" constant="true" units="m3_per_s"/>
+      <parameter id="DgalM" constant="true" value="9.1E-10" units="m2_per_s"/>
+      <parameter id="Dx_sin_galM" constant="true" units="m3_per_s"/>
+      <parameter id="Dx_dis_galM" constant="true" units="m3_per_s"/>
+      <parameter id="Dy_sindis_galM" constant="true" units="m3_per_s"/>
+      <parameter id="Dh2oM" constant="true" value="2.2E-9" units="m2_per_s"/>
+      <parameter id="Dx_sin_h2oM" constant="true" units="m3_per_s"/>
+      <parameter id="Dx_dis_h2oM" constant="true" units="m3_per_s"/>
+      <parameter id="Dy_sindis_h2oM" constant="true" units="m3_per_s"/>
+      <parameter id="scale_f" constant="false" value="1E-14" units="dimensionless"/>
+      <parameter id="scale" constant="true" units="dimensionless"/>
+      <parameter id="REF_P" constant="false" value="1" units="mM"/>
+      <parameter id="deficiency" constant="false" value="0" units="dimensionless"/>
+      <parameter id="H01__nadp_tot" constant="true" units="mole_per_m3"/>
+      <parameter id="H01__adp_tot" constant="true" units="mole_per_m3"/>
+      <parameter id="H01__udp_tot" constant="true" units="mole_per_m3"/>
+      <parameter id="H01__phos_tot" constant="true" units="mole_per_m3"/>
+      <parameter id="GALK_PA" constant="false" value="0.1" units="mole"/>
+      <parameter id="GALK_keq" constant="false" value="50" units="dimensionless"/>
+      <parameter id="GALK_k_gal1p" constant="false" value="1.5" units="mM"/>
+      <parameter id="GALK_k_adp" constant="false" value="0.8" units="mM"/>
+      <parameter id="GALK_ki_gal1p" constant="false" value="5.3" units="mM"/>
+      <parameter id="GALK_kcat" constant="false" metaid="_9ed58510-ac75-4c8a-9fbd-5f3962824ca0" value="8.7" units="per_s">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_9ed58510-ac75-4c8a-9fbd-5f3962824ca0">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:14785"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:pubmed:12694189"/>
+	</rdf:Bag>
+	</bqbiol:isDescribedBy>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </parameter>
+      <parameter id="GALK_k_gal" constant="false" metaid="_318f88de-353f-46f0-a4ec-68c472c03c51" value="0.97" units="mM">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_318f88de-353f-46f0-a4ec-68c472c03c51">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:14785"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:pubmed:12694189"/>
+	</rdf:Bag>
+	</bqbiol:isDescribedBy>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:45367"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:pubmed:15024738"/>
+	</rdf:Bag>
+	</bqbiol:isDescribedBy>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </parameter>
+      <parameter id="GALK_k_atp" constant="false" metaid="_0b878485-8658-4348-9114-3404e7984636" value="0.034" units="mM">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_0b878485-8658-4348-9114-3404e7984636">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:14792"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:pubmed:12694189"/>
+	</rdf:Bag>
+	</bqbiol:isDescribedBy>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </parameter>
+      <parameter id="H01__GALK_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__GALK_Vmax" constant="false" units="mole_per_s"/>
       <parameter id="H01__GALK_dm" constant="false" units="DIMENSIONLESS"/>
-      <parameter id="IMP_f" constant="true" value="0.05" units="dimensionless"/>
-      <parameter id="IMP_k_gal1p" constant="true" value="0.35" units="mM"/>
-      <parameter id="H01__IMP_P" constant="true" value="1" units="mM"/>
+      <parameter id="IMP_f" constant="false" value="0.05" units="dimensionless"/>
+      <parameter id="IMP_k_gal1p" constant="false" value="0.35" units="mM"/>
+      <parameter id="H01__IMP_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__IMP_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="ATPS_f" constant="true" value="100" units="dimensionless"/>
-      <parameter id="ATPS_keq" constant="true" value="0.58" units="per_mM"/>
-      <parameter id="ATPS_k_adp" constant="true" value="0.1" units="mM"/>
-      <parameter id="ATPS_k_atp" constant="true" value="0.5" units="mM"/>
-      <parameter id="ATPS_k_phos" constant="true" value="0.1" units="mM"/>
-      <parameter id="H01__ATPS_P" constant="true" value="1" units="mM"/>
+      <parameter id="ATPS_f" constant="false" value="100" units="dimensionless"/>
+      <parameter id="ATPS_keq" constant="false" value="0.58" units="per_mM"/>
+      <parameter id="ATPS_k_adp" constant="false" value="0.1" units="mM"/>
+      <parameter id="ATPS_k_atp" constant="false" value="0.5" units="mM"/>
+      <parameter id="ATPS_k_phos" constant="false" value="0.1" units="mM"/>
+      <parameter id="H01__ATPS_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__ATPS_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="ALDR_f" constant="true" value="1000000" units="dimensionless"/>
-      <parameter id="ALDR_keq" constant="true" value="4" units="dimensionless"/>
-      <parameter id="ALDR_k_gal" constant="true" value="40" units="mM"/>
-      <parameter id="ALDR_k_galtol" constant="true" value="40" units="mM"/>
-      <parameter id="ALDR_k_nadp" constant="true" value="0.1" units="mM"/>
-      <parameter id="ALDR_k_nadph" constant="true" value="0.1" units="mM"/>
-      <parameter id="H01__ALDR_P" constant="true" value="1" units="mM"/>
+      <parameter id="ALDR_f" constant="false" value="1000000" units="dimensionless"/>
+      <parameter id="ALDR_keq" constant="false" value="4" units="dimensionless"/>
+      <parameter id="ALDR_k_gal" constant="false" metaid="_6a2bb267-bc75-4cbc-9b18-568d34e73312" value="40" units="mM">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_6a2bb267-bc75-4cbc-9b18-568d34e73312">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:22893"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:15695"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </parameter>
+      <parameter id="ALDR_k_galtol" constant="false" value="40" units="mM"/>
+      <parameter id="ALDR_k_nadp" constant="false" value="0.1" units="mM"/>
+      <parameter id="ALDR_k_nadph" constant="false" value="0.1" units="mM"/>
+      <parameter id="H01__ALDR_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__ALDR_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="NADPR_f" constant="true" value="1E-10" units="dimensionless"/>
-      <parameter id="NADPR_keq" constant="true" value="1" units="dimensionless"/>
-      <parameter id="NADPR_k_nadp" constant="true" value="0.015" units="mM"/>
-      <parameter id="NADPR_ki_nadph" constant="true" value="0.01" units="mM"/>
-      <parameter id="H01__NADPR_P" constant="true" value="1" units="mM"/>
+      <parameter id="NADPR_f" constant="false" value="1E-10" units="dimensionless"/>
+      <parameter id="NADPR_keq" constant="false" value="1" units="dimensionless"/>
+      <parameter id="NADPR_k_nadp" constant="false" value="0.015" units="mM"/>
+      <parameter id="NADPR_ki_nadph" constant="false" value="0.01" units="mM"/>
+      <parameter id="H01__NADPR_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__NADPR_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="GALT_f" constant="true" value="0.01" units="dimensionless"/>
-      <parameter id="GALT_keq" constant="true" value="1" units="dimensionless"/>
-      <parameter id="GALT_k_glc1p" constant="true" value="0.37" units="mM"/>
-      <parameter id="GALT_k_udpgal" constant="true" value="0.5" units="mM"/>
-      <parameter id="GALT_ki_utp" constant="true" value="0.13" units="mM"/>
-      <parameter id="GALT_ki_udp" constant="true" value="0.35" units="mM"/>
+      <parameter id="GALT_f" constant="false" value="0.01" units="dimensionless"/>
+      <parameter id="GALT_keq" constant="false" value="1" units="dimensionless"/>
+      <parameter id="GALT_k_glc1p" constant="false" value="0.37" units="mM"/>
+      <parameter id="GALT_k_udpgal" constant="false" value="0.5" units="mM"/>
+      <parameter id="GALT_ki_utp" constant="false" value="0.13" units="mM"/>
+      <parameter id="GALT_ki_udp" constant="false" value="0.35" units="mM"/>
       <parameter id="GALT_vm" constant="false" value="804" units="dimensionless"/>
       <parameter id="GALT_k_gal1p" constant="false" value="1.25" units="mM"/>
       <parameter id="GALT_k_udpglc" constant="false" value="0.43" units="mM"/>
-      <parameter id="H01__GALT_P" constant="true" value="1" units="mM"/>
+      <parameter id="H01__GALT_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__GALT_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="GALE_f" constant="true" value="0.3" units="dimensionless"/>
-      <parameter id="GALE_PA" constant="true" value="0.0278" units="s"/>
-      <parameter id="GALE_kcat" constant="false" value="36" units="per_s"/>
-      <parameter id="GALE_keq" constant="true" value="0.33" units="dimensionless"/>
+      <parameter id="GALE_f" constant="false" value="0.3" units="dimensionless"/>
+      <parameter id="GALE_PA" constant="false" value="0.0278" units="s"/>
+      <parameter id="GALE_kcat" constant="false" metaid="ecede454-191f-4c7b-aaba-065a8a8cc6f8" value="36" units="per_s">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#ecede454-191f-4c7b-aaba-065a8a8cc6f8">
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:16222"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </parameter>
+      <parameter id="GALE_keq" constant="false" value="0.33" units="dimensionless"/>
       <parameter id="GALE_k_udpglc" constant="false" value="0.069" units="mM"/>
-      <parameter id="GALE_k_udpgal" constant="true" value="0.3" units="mM"/>
-      <parameter id="H01__GALE_P" constant="true" value="1" units="mM"/>
+      <parameter id="GALE_k_udpgal" constant="false" metaid="_9b6fad29-e8e5-4f79-9eeb-550dcbcab134" value="0.3" units="mM">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_9b6fad29-e8e5-4f79-9eeb-550dcbcab134">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:19823"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:46260"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:sabiork.kineticrecord:46263"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </parameter>
+      <parameter id="H01__GALE_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__GALE_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="UGP_f" constant="true" value="2000" units="dimensionless"/>
-      <parameter id="UGALP_f" constant="true" value="0.01" units="dimensionless"/>
-      <parameter id="UGP_keq" constant="true" value="0.45" units="dimensionless"/>
-      <parameter id="UGP_k_utp" constant="true" value="0.563" units="mM"/>
-      <parameter id="UGP_k_glc1p" constant="true" value="0.172" units="mM"/>
-      <parameter id="UGP_k_udpglc" constant="true" value="0.049" units="mM"/>
-      <parameter id="UGP_k_ppi" constant="true" value="0.166" units="mM"/>
-      <parameter id="UGP_k_gal1p" constant="true" value="5" units="mM"/>
-      <parameter id="UGP_k_udpgal" constant="true" value="0.42" units="mM"/>
-      <parameter id="UGP_ki_utp" constant="true" value="0.643" units="mM"/>
-      <parameter id="UGP_ki_udpglc" constant="true" value="0.643" units="mM"/>
-      <parameter id="H01__UGP_P" constant="true" value="1" units="mM"/>
+      <parameter id="UGP_f" constant="false" value="2000" units="dimensionless"/>
+      <parameter id="UGALP_f" constant="false" value="0.01" units="dimensionless"/>
+      <parameter id="UGP_keq" constant="false" value="0.45" units="dimensionless"/>
+      <parameter id="UGP_k_utp" constant="false" value="0.563" units="mM"/>
+      <parameter id="UGP_k_glc1p" constant="false" value="0.172" units="mM"/>
+      <parameter id="UGP_k_udpglc" constant="false" value="0.049" units="mM"/>
+      <parameter id="UGP_k_ppi" constant="false" value="0.166" units="mM"/>
+      <parameter id="UGP_k_gal1p" constant="false" value="5" units="mM"/>
+      <parameter id="UGP_k_udpgal" constant="false" value="0.42" units="mM"/>
+      <parameter id="UGP_ki_utp" constant="false" value="0.643" units="mM"/>
+      <parameter id="UGP_ki_udpglc" constant="false" value="0.643" units="mM"/>
+      <parameter id="H01__UGP_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__UGP_Vmax" constant="false" units="mole_per_s"/>
       <parameter id="H01__UGP_dm" constant="false" units="DIMENSIONLESS"/>
-      <parameter id="PPASE_f" constant="true" value="0.05" units="dimensionless"/>
-      <parameter id="PPASE_k_ppi" constant="true" value="0.07" units="mM"/>
-      <parameter id="PPASE_n" constant="true" value="4" units="dimensionless"/>
-      <parameter id="H01__PPASE_P" constant="true" value="1" units="mM"/>
+      <parameter id="PPASE_f" constant="false" value="0.05" units="dimensionless"/>
+      <parameter id="PPASE_k_ppi" constant="false" value="0.07" units="mM"/>
+      <parameter id="PPASE_n" constant="false" value="4" units="dimensionless"/>
+      <parameter id="H01__PPASE_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__PPASE_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="NDKU_f" constant="true" value="2" units="dimensionless"/>
-      <parameter id="NDKU_keq" constant="true" value="1" units="dimensionless"/>
-      <parameter id="NDKU_k_atp" constant="true" value="1.33" units="mM"/>
-      <parameter id="NDKU_k_adp" constant="true" value="0.042" units="mM"/>
-      <parameter id="NDKU_k_utp" constant="true" value="27" units="mM"/>
-      <parameter id="NDKU_k_udp" constant="true" value="0.19" units="mM"/>
-      <parameter id="H01__NDKU_P" constant="true" value="1" units="mM"/>
+      <parameter id="NDKU_f" constant="false" value="2" units="dimensionless"/>
+      <parameter id="NDKU_keq" constant="false" value="1" units="dimensionless"/>
+      <parameter id="NDKU_k_atp" constant="false" value="1.33" units="mM"/>
+      <parameter id="NDKU_k_adp" constant="false" value="0.042" units="mM"/>
+      <parameter id="NDKU_k_utp" constant="false" value="27" units="mM"/>
+      <parameter id="NDKU_k_udp" constant="false" value="0.19" units="mM"/>
+      <parameter id="H01__NDKU_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__NDKU_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="PGM1_f" constant="true" value="50" units="dimensionless"/>
-      <parameter id="PGM1_keq" constant="true" value="10" units="dimensionless"/>
-      <parameter id="PGM1_k_glc6p" constant="true" value="0.67" units="mM"/>
-      <parameter id="PGM1_k_glc1p" constant="true" value="0.045" units="mM"/>
-      <parameter id="H01__PGM1_P" constant="true" value="1" units="mM"/>
+      <parameter id="PGM1_f" constant="false" value="50" units="dimensionless"/>
+      <parameter id="PGM1_keq" constant="false" value="10" units="dimensionless"/>
+      <parameter id="PGM1_k_glc6p" constant="false" value="0.67" units="mM"/>
+      <parameter id="PGM1_k_glc1p" constant="false" value="0.045" units="mM"/>
+      <parameter id="H01__PGM1_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__PGM1_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="GLY_f" constant="true" value="0.1" units="dimensionless"/>
-      <parameter id="GLY_k_glc6p" constant="true" value="0.12" units="mM"/>
-      <parameter id="GLY_k_p" constant="true" value="0.2" units="mM"/>
-      <parameter id="H01__GLY_P" constant="true" value="1" units="mM"/>
+      <parameter id="GLY_f" constant="false" value="0.1" units="dimensionless"/>
+      <parameter id="GLY_k_glc6p" constant="false" value="0.12" units="mM"/>
+      <parameter id="GLY_k_p" constant="false" value="0.2" units="mM"/>
+      <parameter id="H01__GLY_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__GLY_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="GTF_f" constant="true" value="0.02" units="dimensionless"/>
-      <parameter id="GTF_k_udpgal" constant="true" value="0.1" units="mM"/>
-      <parameter id="GTF_k_udpglc" constant="true" value="0.1" units="mM"/>
-      <parameter id="H01__GTF_P" constant="true" value="1" units="mM"/>
+      <parameter id="GTF_f" constant="false" value="0.02" units="dimensionless"/>
+      <parameter id="GTF_k_udpgal" constant="false" value="0.1" units="mM"/>
+      <parameter id="GTF_k_udpglc" constant="false" value="0.1" units="mM"/>
+      <parameter id="H01__GTF_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__GTF_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="GLUT2_f" constant="true" value="1000000" units="dimensionless"/>
-      <parameter id="GLUT2_k_gal" constant="true" value="85.5" units="mM"/>
-      <parameter id="H01__GLUT2_P" constant="true" value="1" units="mM"/>
+      <parameter id="GLUT2_f" constant="false" value="1000000" units="dimensionless"/>
+      <parameter id="GLUT2_k_gal" constant="false" value="85.5" units="mM"/>
+      <parameter id="H01__GLUT2_P" constant="false" value="1" units="mM"/>
       <parameter id="H01__GLUT2_Vmax" constant="false" units="mole_per_s"/>
       <parameter id="H01__GLUT2_dm" constant="false" units="DIMENSIONLESS"/>
-      <parameter id="H2OT_f" constant="true" value="10" units="mole_per_s"/>
-      <parameter id="H2OT_k" constant="true" value="1" units="mM"/>
+      <parameter id="H2OT_f" constant="false" value="10" units="mole_per_s"/>
+      <parameter id="H2OT_k" constant="false" value="1" units="mM"/>
       <parameter id="H01__H2OT_Vmax" constant="false" units="mole_per_s"/>
-      <parameter id="H01__H2OTM" constant="false" units="mole_per_m3"/>
-      <parameter id="H01__GLUT2_GAL" constant="false" units="mole_per_m3"/>
-      <parameter id="H01__GLUT2_GALM" constant="false" units="mole_per_m3"/>
+      <parameter id="H01__H2OTM" constant="true" units="mole_per_m3"/>
+      <parameter id="H01__GLUT2_GAL" constant="true" units="mole_per_m3"/>
+      <parameter id="H01__GLUT2_GALM" constant="true" units="mole_per_m3"/>
     </listOfParameters>
-    <listOfRules>
-      <assignmentRule variable="Nb">
+    <listOfInitialAssignments>
+      <initialAssignment symbol="Nb">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -290,8 +692,8 @@
             <ci> Nc </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="x_cell">
+            </initialAssignment>
+      <initialAssignment symbol="x_cell">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <divide/>
@@ -299,8 +701,8 @@
             <ci> Nc </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="x_sin">
+            </initialAssignment>
+      <initialAssignment symbol="x_sin">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <divide/>
@@ -308,8 +710,8 @@
             <ci> Nf </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="A_sin">
+            </initialAssignment>
+      <initialAssignment symbol="A_sin">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -321,8 +723,8 @@
             </apply>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="A_dis">
+            </initialAssignment>
+      <initialAssignment symbol="A_dis">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <minus/>
@@ -342,8 +744,8 @@
             <ci> A_sin </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="A_sindis">
+            </initialAssignment>
+      <initialAssignment symbol="A_sindis">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -359,8 +761,8 @@
             <ci> x_sin </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Vol_sin">
+            </initialAssignment>
+      <initialAssignment symbol="Vol_sin">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -368,8 +770,8 @@
             <ci> x_sin </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Vol_dis">
+            </initialAssignment>
+      <initialAssignment symbol="Vol_dis">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -377,8 +779,8 @@
             <ci> x_sin </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Vol_cell">
+            </initialAssignment>
+      <initialAssignment symbol="Vol_cell">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <minus/>
@@ -422,159 +824,38 @@
             </apply>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Vol_pp">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <cn type="integer"> 10 </cn>
-            <ci> Vol_sin </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Vol_pv">
+            </initialAssignment>
+      <initialAssignment symbol="Vol_pp">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <ci> Vol_sin </ci>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="PP">
+            </initialAssignment>
+      <initialAssignment symbol="Vol_pv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> Vol_sin </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="PP">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <ci> Vol_pp </ci>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="S001">
+            </initialAssignment>
+      <initialAssignment symbol="S001">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <ci> Vol_sin </ci>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="D001">
+            </initialAssignment>
+      <initialAssignment symbol="D001">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <ci> Vol_dis </ci>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="PV">
+            </initialAssignment>
+      <initialAssignment symbol="PV">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <ci> Vol_pv </ci>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_sin_rbcM">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> DrbcM </ci>
-              <ci> x_sin </ci>
-            </apply>
-            <ci> A_sin </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_dis_rbcM">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> DrbcM </ci>
-              <ci> x_sin </ci>
-            </apply>
-            <ci> A_dis </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dy_sindis_rbcM">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> DrbcM </ci>
-              <ci> y_dis </ci>
-            </apply>
-            <ci> A_sindis </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_sin_suc">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Dsuc </ci>
-              <ci> x_sin </ci>
-            </apply>
-            <ci> A_sin </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_dis_suc">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Dsuc </ci>
-              <ci> x_sin </ci>
-            </apply>
-            <ci> A_dis </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dy_sindis_suc">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Dsuc </ci>
-              <ci> y_dis </ci>
-            </apply>
-            <ci> A_sindis </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_sin_alb">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Dalb </ci>
-              <ci> x_sin </ci>
-            </apply>
-            <ci> A_sin </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_dis_alb">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Dalb </ci>
-              <ci> x_sin </ci>
-            </apply>
-            <ci> A_dis </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dy_sindis_alb">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Dalb </ci>
-              <ci> y_dis </ci>
-            </apply>
-            <ci> A_sindis </ci>
-          </apply>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_sin_gal">
+            </initialAssignment>
+      <initialAssignment symbol="Dx_sin_gal">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -586,8 +867,8 @@
             <ci> A_sin </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_dis_gal">
+            </initialAssignment>
+      <initialAssignment symbol="Dx_dis_gal">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -599,21 +880,25 @@
             <ci> A_dis </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dy_sindis_gal">
+            </initialAssignment>
+      <initialAssignment symbol="Dy_sindis_gal">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
             <apply>
-              <divide/>
-              <ci> Dgal </ci>
-              <ci> y_dis </ci>
+              <times/>
+              <apply>
+                <divide/>
+                <ci> Dgal </ci>
+                <ci> y_dis </ci>
+              </apply>
+              <ci> f_fen </ci>
             </apply>
             <ci> A_sindis </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_sin_galM">
+            </initialAssignment>
+      <initialAssignment symbol="Dx_sin_galM">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -625,8 +910,8 @@
             <ci> A_sin </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_dis_galM">
+            </initialAssignment>
+      <initialAssignment symbol="Dx_dis_galM">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -638,21 +923,25 @@
             <ci> A_dis </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dy_sindis_galM">
+            </initialAssignment>
+      <initialAssignment symbol="Dy_sindis_galM">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
             <apply>
-              <divide/>
-              <ci> DgalM </ci>
-              <ci> y_dis </ci>
+              <times/>
+              <apply>
+                <divide/>
+                <ci> DgalM </ci>
+                <ci> y_dis </ci>
+              </apply>
+              <ci> f_fen </ci>
             </apply>
             <ci> A_sindis </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_sin_h2oM">
+            </initialAssignment>
+      <initialAssignment symbol="Dx_sin_h2oM">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -664,8 +953,8 @@
             <ci> A_sin </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dx_dis_h2oM">
+            </initialAssignment>
+      <initialAssignment symbol="Dx_dis_h2oM">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
@@ -677,31 +966,35 @@
             <ci> A_dis </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="Dy_sindis_h2oM">
+            </initialAssignment>
+      <initialAssignment symbol="Dy_sindis_h2oM">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <times/>
             <apply>
-              <divide/>
-              <ci> Dh2oM </ci>
-              <ci> y_dis </ci>
+              <times/>
+              <apply>
+                <divide/>
+                <ci> Dh2oM </ci>
+                <ci> y_dis </ci>
+              </apply>
+              <ci> f_fen </ci>
             </apply>
             <ci> A_sindis </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="H01">
+            </initialAssignment>
+      <initialAssignment symbol="H01">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <ci> Vol_cell </ci>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="scale">
+            </initialAssignment>
+      <initialAssignment symbol="scale">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <ci> scale_f </ci>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="H01__nadp_tot">
+            </initialAssignment>
+      <initialAssignment symbol="H01__nadp_tot">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <plus/>
@@ -709,8 +1002,8 @@
             <ci> H01__nadph </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="H01__adp_tot">
+            </initialAssignment>
+      <initialAssignment symbol="H01__adp_tot">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <plus/>
@@ -718,8 +1011,8 @@
             <ci> H01__adp </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="H01__udp_tot">
+            </initialAssignment>
+      <initialAssignment symbol="H01__udp_tot">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <plus/>
@@ -735,8 +1028,8 @@
             <ci> H01__udpgal </ci>
           </apply>
         </math>
-            </assignmentRule>
-      <assignmentRule variable="H01__phos_tot">
+            </initialAssignment>
+      <initialAssignment symbol="H01__phos_tot">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
             <plus/>
@@ -808,7 +1101,24 @@
             </apply>
           </apply>
         </math>
-            </assignmentRule>
+            </initialAssignment>
+      <initialAssignment symbol="H01__H2OTM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> D001__H2OTM </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="H01__GLUT2_GAL">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> D001__GLUT2_GAL </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="H01__GLUT2_GALM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> D001__GLUT2_GALM </ci>
+        </math>
+            </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
       <assignmentRule variable="H01__GALK_Vmax">
         <math xmlns="http://www.w3.org/1998/Math/MathML">        
           <apply>
@@ -1243,203 +1553,8 @@
           </apply>
         </math>
             </assignmentRule>
-      <assignmentRule variable="H01__H2OTM">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <ci> D001__H2OTM </ci>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="H01__GLUT2_GAL">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <ci> D001__GLUT2_GAL </ci>
-        </math>
-            </assignmentRule>
-      <assignmentRule variable="H01__GLUT2_GALM">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">        
-          <ci> D001__GLUT2_GALM </ci>
-        </math>
-            </assignmentRule>
     </listOfRules>
     <listOfReactions>
-      <reaction id="FlowPPS001_rbcM" name="FlowPPS001_rbcM" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PP__rbcM" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="S001__rbcM" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> PP__rbcM </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="FlowS001PV_rbcM" name="FlowS001PV_rbcM" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__rbcM" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="PV__rbcM" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> S001__rbcM </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="FlowPVNULL_rbcM" name="FlowPVNULL_rbcM" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PV__rbcM" stoichiometry="1"/>
-        </listOfReactants>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> PV__rbcM </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="FlowPPS001_suc" name="FlowPPS001_suc" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PP__suc" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="S001__suc" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> PP__suc </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="FlowS001PV_suc" name="FlowS001PV_suc" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__suc" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="PV__suc" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> S001__suc </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="FlowPVNULL_suc" name="FlowPVNULL_suc" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PV__suc" stoichiometry="1"/>
-        </listOfReactants>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> PV__suc </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="FlowPPS001_alb" name="FlowPPS001_alb" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PP__alb" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="S001__alb" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> PP__alb </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="FlowS001PV_alb" name="FlowS001PV_alb" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__alb" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="PV__alb" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> S001__alb </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="FlowPVNULL_alb" name="FlowPVNULL_alb" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PV__alb" stoichiometry="1"/>
-        </listOfReactants>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <apply>
-                <times/>
-                <ci> flow_sin </ci>
-                <ci> PV__alb </ci>
-              </apply>
-              <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
       <reaction id="FlowPPS001_gal" name="FlowPPS001_gal" reversible="true" fast="false">
         <listOfReactants>
           <speciesReference constant="true" species="PP__gal" stoichiometry="1"/>
@@ -1616,195 +1731,6 @@
                 <ci> PV__h2oM </ci>
               </apply>
               <ci> A_sin </ci>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffPPS001_rbcM" name="DiffPPS001_rbcM" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PP__rbcM" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="S001__rbcM" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dx_sin_rbcM </ci>
-              <apply>
-                <minus/>
-                <ci> PP__rbcM </ci>
-                <ci> S001__rbcM </ci>
-              </apply>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffS001PV_rbcM" name="DiffS001PV_rbcM" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__rbcM" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="PV__rbcM" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dx_sin_rbcM </ci>
-              <apply>
-                <minus/>
-                <ci> S001__rbcM </ci>
-                <ci> PV__rbcM </ci>
-              </apply>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffS001D001_rbcM" name="DiffS001D001_rbcM" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__rbcM" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="D001__rbcM" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dy_sindis_rbcM </ci>
-              <apply>
-                <minus/>
-                <ci> S001__rbcM </ci>
-                <ci> D001__rbcM </ci>
-              </apply>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffPPS001_suc" name="DiffPPS001_suc" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PP__suc" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="S001__suc" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dx_sin_suc </ci>
-              <apply>
-                <minus/>
-                <ci> PP__suc </ci>
-                <ci> S001__suc </ci>
-              </apply>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffS001PV_suc" name="DiffS001PV_suc" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__suc" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="PV__suc" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dx_sin_suc </ci>
-              <apply>
-                <minus/>
-                <ci> S001__suc </ci>
-                <ci> PV__suc </ci>
-              </apply>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffS001D001_suc" name="DiffS001D001_suc" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__suc" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="D001__suc" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dy_sindis_suc </ci>
-              <apply>
-                <minus/>
-                <ci> S001__suc </ci>
-                <ci> D001__suc </ci>
-              </apply>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffPPS001_alb" name="DiffPPS001_alb" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="PP__alb" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="S001__alb" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dx_sin_alb </ci>
-              <apply>
-                <minus/>
-                <ci> PP__alb </ci>
-                <ci> S001__alb </ci>
-              </apply>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffS001PV_alb" name="DiffS001PV_alb" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__alb" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="PV__alb" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dx_sin_alb </ci>
-              <apply>
-                <minus/>
-                <ci> S001__alb </ci>
-                <ci> PV__alb </ci>
-              </apply>
-            </apply>
-          </math>
-                </kineticLaw>
-      </reaction>
-      <reaction id="DiffS001D001_alb" name="DiffS001D001_alb" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference constant="true" species="S001__alb" stoichiometry="1"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference constant="true" species="D001__alb" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <times/>
-              <ci> Dy_sindis_alb </ci>
-              <apply>
-                <minus/>
-                <ci> S001__alb </ci>
-                <ci> D001__alb </ci>
-              </apply>
             </apply>
           </math>
                 </kineticLaw>
@@ -1998,8 +1924,45 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__GALK" name="Galactokinase (H01)" reversible="true" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__GALK" name="Galactokinase (H01)" metaid="a0585089-51e6-46d7-892f-03cc53e4ae9e" reversible="true" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#a0585089-51e6-46d7-892f-03cc53e4ae9e">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:2.7.1.6"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P51570"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R01092"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:13556"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:omim:230200"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:pubmed:12694189"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__gal" stoichiometry="1"/>
           <speciesReference constant="true" species="H01__atp" stoichiometry="1"/>
         </listOfReactants>
@@ -2061,8 +2024,45 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__GALKM" name="Galactokinase (H01)" reversible="false" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__GALKM" name="Galactokinase (H01)" metaid="_8d12cc11-5e08-4c48-8198-5fe43663be1f" reversible="false" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_8d12cc11-5e08-4c48-8198-5fe43663be1f">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:2.7.1.6"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P51570"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R01092"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:13556"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:omim:230200"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:pubmed:12694189"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__galM" stoichiometry="1"/>
           <speciesReference constant="true" species="H01__atp" stoichiometry="1"/>
         </listOfReactants>
@@ -2112,8 +2112,25 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__IMP" name="Inositol monophosphatase (H01)" reversible="false" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__IMP" name="Inositol monophosphatase (H01)" metaid="cd629b93-a04c-4c7f-bd40-b168bd98b73a" reversible="false" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#cd629b93-a04c-4c7f-bd40-b168bd98b73a">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:3.1.3.25"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P29218"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__gal1p" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
@@ -2216,8 +2233,35 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__ALDR" name="Aldose reductase (H01)" reversible="true" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__ALDR" name="Aldose reductase (H01)" metaid="c681ba06-18f3-4ea0-bc51-ad8762a5a36d" reversible="true" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#c681ba06-18f3-4ea0-bc51-ad8762a5a36d">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:1.1.1.21"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:12792"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R01095"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P15121"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__gal" stoichiometry="1"/>
           <speciesReference constant="true" species="H01__nadph" stoichiometry="1"/>
         </listOfReactants>
@@ -2311,8 +2355,35 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__NADPR" name="NADP Reductase (H01)" reversible="false" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__NADPR" name="NADP Reductase (H01)" metaid="_395d4a0a-5ba4-4e4f-b309-1b2aee371f8a" reversible="false" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_395d4a0a-5ba4-4e4f-b309-1b2aee371f8a">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:1.1.1.49"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:15844"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R00835"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P11413"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__nadp" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
@@ -2360,8 +2431,40 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__GALT" name="Galactose-1-phosphate uridyl transferase (H01)" reversible="true" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__GALT" name="Galactose-1-phosphate uridyl transferase (H01)" metaid="f7fa566c-7a78-45d9-bc95-b5c16689316a" reversible="true" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#f7fa566c-7a78-45d9-bc95-b5c16689316a">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:2.7.7.12"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P07902"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:13992"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R00955"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:omim:230400"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__gal1p" stoichiometry="1"/>
           <speciesReference constant="true" species="H01__udpglc" stoichiometry="1"/>
         </listOfReactants>
@@ -2475,8 +2578,40 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__GALE" name="UDP-glucose 4-epimerase (H01)" reversible="true" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__GALE" name="UDP-glucose 4-epimerase (H01)" metaid="b642b846-a213-44e3-a94a-66f5c4912d96" reversible="true" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#b642b846-a213-44e3-a94a-66f5c4912d96">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:5.1.3.2"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:Q14376"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:22171"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R00291"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:omim:230350"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__udpglc" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
@@ -2524,8 +2659,35 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__UGP" name="UDP-glucose pyrophosphorylase (H01)" reversible="true" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__UGP" name="UDP-glucose pyrophosphorylase (H01)" metaid="_8290c545-3bd2-4ab4-af3c-59da58cd9896" reversible="true" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_8290c545-3bd2-4ab4-af3c-59da58cd9896">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:2.7.7.9"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:19892"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R00289"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:Q16851"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__glc1p" stoichiometry="1"/>
           <speciesReference constant="true" species="H01__utp" stoichiometry="1"/>
         </listOfReactants>
@@ -2571,8 +2733,35 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__UGALP" name="UDP-galactose pyrophosphorylase (H01)" reversible="true" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__UGALP" name="UDP-galactose pyrophosphorylase (H01)" metaid="_97b7abb7-b55d-478b-bf0b-1d41267f6dd1" reversible="true" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_97b7abb7-b55d-478b-bf0b-1d41267f6dd1">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:2.7.7.10"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:14212"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R00502"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:Q16851"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__gal1p" stoichiometry="1"/>
           <speciesReference constant="true" species="H01__utp" stoichiometry="1"/>
         </listOfReactants>
@@ -2622,8 +2811,35 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__PPASE" name="Pyrophosphatase (H01)" reversible="false" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__PPASE" name="Pyrophosphatase (H01)" metaid="_89b8dd7c-03f0-41ad-82ca-fb19e277e6f3" reversible="false" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_89b8dd7c-03f0-41ad-82ca-fb19e277e6f3">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:3.6.1.1"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:24579"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R00004"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:Q15181"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__ppi" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
@@ -2659,8 +2875,30 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__NDKU" name="ATP:UDP phosphotransferase (H01)" reversible="true" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__NDKU" name="ATP:UDP phosphotransferase (H01)" metaid="_502238b1-4690-4e57-a36d-5d839b8a9666" reversible="true" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_502238b1-4690-4e57-a36d-5d839b8a9666">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:2.7.4.6"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:25101"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R00156"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__atp" stoichiometry="1"/>
           <speciesReference constant="true" species="H01__udp" stoichiometry="1"/>
         </listOfReactants>
@@ -2754,8 +2992,45 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="H01__PGM1" name="Phosphoglucomutase-1 (H01)" reversible="true" fast="false" compartment="H01">
-        <listOfReactants>
+      <reaction id="H01__PGM1" name="Phosphoglucomutase-1 (H01)" metaid="d071d0fb-d6be-418c-abb0-4c4e1013b92b" reversible="true" fast="false" compartment="H01">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#d071d0fb-d6be-418c-abb0-4c4e1013b92b">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:ec-code:5.4.2.2"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:rhea:23539"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:kegg.reaction:R00959"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P36871"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:omim:612934"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:omim:614921"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="H01__glc1p" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
@@ -2894,8 +3169,30 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="D001__GLUT2_GAL" name="galactose transport" reversible="true" fast="false">
-        <listOfReactants>
+      <reaction id="D001__GLUT2_GAL" name="galactose transport" metaid="_5cdeb783-e0e9-4a02-8214-fb7369497852" reversible="true" fast="false">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_5cdeb783-e0e9-4a02-8214-fb7369497852">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P11168"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:omim:227810"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	
+	<bqbiol:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:pubmed:227810"/>
+	</rdf:Bag>
+	</bqbiol:isDescribedBy>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="D001__gal" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
@@ -2927,8 +3224,30 @@
           </math>
                 </kineticLaw>
       </reaction>
-      <reaction id="D001__GLUT2_GALM" name="galactose transport" reversible="true" fast="false">
-        <listOfReactants>
+      <reaction id="D001__GLUT2_GALM" name="galactose transport" metaid="e815bad8-80b2-44e0-9ab9-cdbacd52ddd5" reversible="true" fast="false">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#e815bad8-80b2-44e0-9ab9-cdbacd52ddd5">
+              <bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:uniprot:P11168"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:omim:227810"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	
+	<bqbiol:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="urn:miriam:pubmed:227810"/>
+	</rdf:Bag>
+	</bqbiol:isDescribedBy>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
           <speciesReference constant="true" species="D001__galM" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
@@ -3831,82 +4150,6 @@
           <eventAssignment variable="GALE_k_udpglc">
             <math xmlns="http://www.w3.org/1998/Math/MathML">            
               <cn> 0.099 </cn>
-            </math>
-                    </eventAssignment>
-        </listOfEventAssignments>
-      </event>
-      <event id="EDIL_1" useValuesFromTriggerTime="true">
-        <trigger persistent="true" initialValue="true">
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <eq/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              <cn type="integer"> 20 </cn>
-            </apply>
-          </math>
-                </trigger>
-        <listOfEventAssignments>
-          <eventAssignment variable="PP__gal">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 1 </cn>
-            </math>
-                    </eventAssignment>
-          <eventAssignment variable="PP__rbcM">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 1 </cn>
-            </math>
-                    </eventAssignment>
-          <eventAssignment variable="PP__alb">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 1 </cn>
-            </math>
-                    </eventAssignment>
-          <eventAssignment variable="PP__h2oM">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 1 </cn>
-            </math>
-                    </eventAssignment>
-          <eventAssignment variable="PP__suc">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 1 </cn>
-            </math>
-                    </eventAssignment>
-        </listOfEventAssignments>
-      </event>
-      <event id="EDIL_2" useValuesFromTriggerTime="true">
-        <trigger persistent="true" initialValue="true">
-          <math xmlns="http://www.w3.org/1998/Math/MathML">          
-            <apply>
-              <eq/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              <cn type="integer"> 25 </cn>
-            </apply>
-          </math>
-                </trigger>
-        <listOfEventAssignments>
-          <eventAssignment variable="PP__gal">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 0.00012 </cn>
-            </math>
-                    </eventAssignment>
-          <eventAssignment variable="PP__rbcM">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 0 </cn>
-            </math>
-                    </eventAssignment>
-          <eventAssignment variable="PP__alb">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 0 </cn>
-            </math>
-                    </eventAssignment>
-          <eventAssignment variable="PP__h2oM">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 0 </cn>
-            </math>
-                    </eventAssignment>
-          <eventAssignment variable="PP__suc">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">            
-              <cn> 0 </cn>
             </math>
                     </eventAssignment>
         </listOfEventAssignments>

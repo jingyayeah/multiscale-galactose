@@ -1,0 +1,4171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by COPASI version 4.12.65 (Source) on 2014-04-29 22:04 with libSBML version 5.10.0. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:render="http://www.sbml.org/sbml/level3/version1/render/version1" level="3" version="1" layout:required="false" render:required="false">
+  <model metaid="_04b607ed-0e0a-4d65-9311-70e44552f3b2" id="Galactose_v13_Nc1_Nf1" name="Galactose" substanceUnits="substance" timeUnits="time" volumeUnits="volume" areaUnits="area" lengthUnits="length" extentUnits="substance">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+        <rdf:Description rdf:about="#_04b607ed-0e0a-4d65-9311-70e44552f3b2">
+          <dc:creator>
+            <rdf:Bag>
+              <rdf:li rdf:parseType="Resource">
+                <vCard:N rdf:parseType="Resource">
+                  <vCard:Family>Koenig</vCard:Family>
+                  <vCard:Given>Matthias</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL>matthias.koenig@charite.de</vCard:EMAIL>
+                <vCard:ORG rdf:parseType="Resource">
+                  <vCard:Orgname>Charite Berlin</vCard:Orgname>
+                </vCard:ORG>
+              </rdf:li>
+            </rdf:Bag>
+          </dc:creator>
+        </rdf:Description>
+      </rdf:RDF>
+      <COPASI xmlns="http://www.copasi.org/static/sbml">
+        <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+          <rdf:Description rdf:about="#_04b607ed-0e0a-4d65-9311-70e44552f3b2">
+            <dcterms:created>
+              <rdf:Description>
+                <dcterms:W3CDTF>2014-04-29T22:03:09Z</dcterms:W3CDTF>
+              </rdf:Description>
+            </dcterms:created>
+            <dcterms:creator>
+              <rdf:Bag>
+                <rdf:li>
+                  <rdf:Description>
+                    <vCard:EMAIL>matthias.koenig@charite.de</vCard:EMAIL>
+                    <vCard:N>
+                      <rdf:Description>
+                        <vCard:Family>Koenig</vCard:Family>
+                        <vCard:Given>Matthias</vCard:Given>
+                      </rdf:Description>
+                    </vCard:N>
+                    <vCard:ORG>
+                      <rdf:Description>
+                        <vCard:Orgname>Charite Berlin</vCard:Orgname>
+                      </rdf:Description>
+                    </vCard:ORG>
+                  </rdf:Description>
+                </rdf:li>
+              </rdf:Bag>
+            </dcterms:creator>
+          </rdf:Description>
+        </rdf:RDF>
+      </COPASI>
+    </annotation>
+    <listOfFunctionDefinitions>
+      <functionDefinition metaid="COPASI219" id="Function_for_FlowPPS001_gal" name="Function for FlowPPS001_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> PP__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> flow_sin </ci>
+              <ci> PP__gal </ci>
+              <ci> A_sin </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI220" id="Function_for_FlowS001PV_gal" name="Function for FlowS001PV_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> flow_sin </ci>
+              <ci> S001__gal </ci>
+              <ci> A_sin </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI221" id="Function_for_FlowPVNULL_gal" name="Function for FlowPVNULL_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> PV </ci>
+            </bvar>
+            <bvar>
+              <ci> PV__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> flow_sin </ci>
+                <ci> PV__gal </ci>
+                <ci> A_sin </ci>
+              </apply>
+              <ci> PV </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI222" id="Function_for_FlowPPS001_galM" name="Function for FlowPPS001_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> PP__galM </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> flow_sin </ci>
+              <ci> PP__galM </ci>
+              <ci> A_sin </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI223" id="Function_for_FlowS001PV_galM" name="Function for FlowS001PV_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__galM </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> flow_sin </ci>
+              <ci> S001__galM </ci>
+              <ci> A_sin </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI224" id="Function_for_FlowPVNULL_galM" name="Function for FlowPVNULL_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> PV </ci>
+            </bvar>
+            <bvar>
+              <ci> PV__galM </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> flow_sin </ci>
+                <ci> PV__galM </ci>
+                <ci> A_sin </ci>
+              </apply>
+              <ci> PV </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI225" id="Function_for_FlowPPS001_h2oM" name="Function for FlowPPS001_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> PP__h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> flow_sin </ci>
+              <ci> PP__h2oM </ci>
+              <ci> A_sin </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI226" id="Function_for_FlowS001PV_h2oM" name="Function for FlowS001PV_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> flow_sin </ci>
+              <ci> S001__h2oM </ci>
+              <ci> A_sin </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI227" id="Function_for_FlowPVNULL_h2oM" name="Function for FlowPVNULL_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> A_sin </ci>
+            </bvar>
+            <bvar>
+              <ci> PV </ci>
+            </bvar>
+            <bvar>
+              <ci> PV__h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> flow_sin </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> flow_sin </ci>
+                <ci> PV__h2oM </ci>
+                <ci> A_sin </ci>
+              </apply>
+              <ci> PV </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI228" id="Function_for_DiffPPS001_gal" name="Function for DiffPPS001_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> Dx_sin_gal </ci>
+            </bvar>
+            <bvar>
+              <ci> PP__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__gal </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dx_sin_gal </ci>
+              <apply>
+                <minus/>
+                <ci> PP__gal </ci>
+                <ci> S001__gal </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI229" id="Function_for_DiffS001PV_gal" name="Function for DiffS001PV_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> Dx_sin_gal </ci>
+            </bvar>
+            <bvar>
+              <ci> PV__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__gal </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dx_sin_gal </ci>
+              <apply>
+                <minus/>
+                <ci> S001__gal </ci>
+                <ci> PV__gal </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI230" id="Function_for_DiffS001D001_gal" name="Function for DiffS001D001_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> D001__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> Dy_sindis_gal </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__gal </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dy_sindis_gal </ci>
+              <apply>
+                <minus/>
+                <ci> S001__gal </ci>
+                <ci> D001__gal </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI231" id="Function_for_DiffPPS001_galM" name="Function for DiffPPS001_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> Dx_sin_galM </ci>
+            </bvar>
+            <bvar>
+              <ci> PP__galM </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__galM </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dx_sin_galM </ci>
+              <apply>
+                <minus/>
+                <ci> PP__galM </ci>
+                <ci> S001__galM </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI232" id="Function_for_DiffS001PV_galM" name="Function for DiffS001PV_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> Dx_sin_galM </ci>
+            </bvar>
+            <bvar>
+              <ci> PV__galM </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__galM </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dx_sin_galM </ci>
+              <apply>
+                <minus/>
+                <ci> S001__galM </ci>
+                <ci> PV__galM </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI233" id="Function_for_DiffS001D001_galM" name="Function for DiffS001D001_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> D001__galM </ci>
+            </bvar>
+            <bvar>
+              <ci> Dy_sindis_galM </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__galM </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dy_sindis_galM </ci>
+              <apply>
+                <minus/>
+                <ci> S001__galM </ci>
+                <ci> D001__galM </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI234" id="Function_for_DiffPPS001_h2oM" name="Function for DiffPPS001_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> Dx_sin_h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> PP__h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__h2oM </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dx_sin_h2oM </ci>
+              <apply>
+                <minus/>
+                <ci> PP__h2oM </ci>
+                <ci> S001__h2oM </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI235" id="Function_for_DiffS001PV_h2oM" name="Function for DiffS001PV_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> Dx_sin_h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> PV__h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__h2oM </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dx_sin_h2oM </ci>
+              <apply>
+                <minus/>
+                <ci> S001__h2oM </ci>
+                <ci> PV__h2oM </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI236" id="Function_for_DiffS001D001_h2oM" name="Function for DiffS001D001_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> D001__h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> Dy_sindis_h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> S001__h2oM </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Dy_sindis_h2oM </ci>
+              <apply>
+                <minus/>
+                <ci> S001__h2oM </ci>
+                <ci> D001__h2oM </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI237" id="Function_for_Galactokinase__H01" name="Function for Galactokinase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> GALK_k_atp </ci>
+            </bvar>
+            <bvar>
+              <ci> GALK_k_gal </ci>
+            </bvar>
+            <bvar>
+              <ci> GALK_keq </ci>
+            </bvar>
+            <bvar>
+              <ci> GALK_ki_gal1p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GALK_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GALK_dm </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__adp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__atp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__gal1p </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <divide/>
+                        <ci> H01__GALK_Vmax </ci>
+                        <apply>
+                          <times/>
+                          <ci> GALK_k_gal </ci>
+                          <ci> GALK_k_atp </ci>
+                        </apply>
+                      </apply>
+                      <cn type="integer"> 1 </cn>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <divide/>
+                        <ci> H01__gal1p </ci>
+                        <ci> GALK_ki_gal1p </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> H01__gal </ci>
+                      <ci> H01__atp </ci>
+                    </apply>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <times/>
+                        <ci> H01__gal1p </ci>
+                        <ci> H01__adp </ci>
+                      </apply>
+                      <ci> GALK_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <ci> H01__GALK_dm </ci>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI238" id="Function_for_Galactokinase__H01__2" name="Function for Galactokinase (H01)_2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> GALK_k_atp </ci>
+            </bvar>
+            <bvar>
+              <ci> GALK_k_gal </ci>
+            </bvar>
+            <bvar>
+              <ci> GALK_ki_gal1p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GALK_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GALK_dm </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__atp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__gal1p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__galM </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <divide/>
+                        <ci> H01__GALK_Vmax </ci>
+                        <apply>
+                          <times/>
+                          <ci> GALK_k_gal </ci>
+                          <ci> GALK_k_atp </ci>
+                        </apply>
+                      </apply>
+                      <cn type="integer"> 1 </cn>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <divide/>
+                        <ci> H01__gal1p </ci>
+                        <ci> GALK_ki_gal1p </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <ci> H01__galM </ci>
+                  <ci> H01__atp </ci>
+                </apply>
+                <ci> H01__GALK_dm </ci>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI239" id="Function_for_Inositol_monophosphatase__H01" name="Function for Inositol monophosphatase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__IMP_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__gal1p </ci>
+            </bvar>
+            <bvar>
+              <ci> IMP_k_gal1p </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> H01__IMP_Vmax </ci>
+                    <ci> IMP_k_gal1p </ci>
+                  </apply>
+                  <ci> H01__gal1p </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> H01__gal1p </ci>
+                    <ci> IMP_k_gal1p </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI240" id="Function_for_ATP_synthase__H01" name="Function for ATP synthase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> ATPS_k_adp </ci>
+            </bvar>
+            <bvar>
+              <ci> ATPS_k_atp </ci>
+            </bvar>
+            <bvar>
+              <ci> ATPS_k_phos </ci>
+            </bvar>
+            <bvar>
+              <ci> ATPS_keq </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__ATPS_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__adp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__atp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__phos </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> H01__ATPS_Vmax </ci>
+                    <apply>
+                      <times/>
+                      <ci> ATPS_k_adp </ci>
+                      <ci> ATPS_k_phos </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> H01__adp </ci>
+                      <ci> H01__phos </ci>
+                    </apply>
+                    <apply>
+                      <divide/>
+                      <ci> H01__atp </ci>
+                      <ci> ATPS_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <divide/>
+                        <ci> H01__adp </ci>
+                        <ci> ATPS_k_adp </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <divide/>
+                        <ci> H01__phos </ci>
+                        <ci> ATPS_k_phos </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> H01__atp </ci>
+                    <ci> ATPS_k_atp </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI241" id="Function_for_Aldose_reductase__H01" name="Function for Aldose reductase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> ALDR_k_gal </ci>
+            </bvar>
+            <bvar>
+              <ci> ALDR_k_galtol </ci>
+            </bvar>
+            <bvar>
+              <ci> ALDR_k_nadp </ci>
+            </bvar>
+            <bvar>
+              <ci> ALDR_k_nadph </ci>
+            </bvar>
+            <bvar>
+              <ci> ALDR_keq </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__ALDR_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__galtol </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__nadp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__nadph </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> H01__ALDR_Vmax </ci>
+                    <apply>
+                      <times/>
+                      <ci> ALDR_k_gal </ci>
+                      <ci> ALDR_k_nadp </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> H01__gal </ci>
+                      <ci> H01__nadph </ci>
+                    </apply>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <times/>
+                        <ci> H01__galtol </ci>
+                        <ci> H01__nadp </ci>
+                      </apply>
+                      <ci> ALDR_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__gal </ci>
+                          <ci> ALDR_k_gal </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__nadph </ci>
+                          <ci> ALDR_k_nadph </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__galtol </ci>
+                          <ci> ALDR_k_galtol </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__nadp </ci>
+                          <ci> ALDR_k_nadp </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <cn type="integer"> 1 </cn>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI242" id="Function_for_NADP_Reductase__H01" name="Function for NADP Reductase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__NADPR_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__nadp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__nadph </ci>
+            </bvar>
+            <bvar>
+              <ci> NADPR_k_nadp </ci>
+            </bvar>
+            <bvar>
+              <ci> NADPR_keq </ci>
+            </bvar>
+            <bvar>
+              <ci> NADPR_ki_nadph </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> H01__NADPR_Vmax </ci>
+                    <ci> NADPR_k_nadp </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> H01__nadp </ci>
+                    <apply>
+                      <divide/>
+                      <ci> H01__nadph </ci>
+                      <ci> NADPR_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> H01__nadp </ci>
+                    <ci> NADPR_k_nadp </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> H01__nadph </ci>
+                    <ci> NADPR_ki_nadph </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI243" id="Function_for_Galactose_1_phosphate_uridyl_transferase__H01" name="Function for Galactose-1-phosphate uridyl transferase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> GALT_k_gal1p </ci>
+            </bvar>
+            <bvar>
+              <ci> GALT_k_glc1p </ci>
+            </bvar>
+            <bvar>
+              <ci> GALT_k_udpgal </ci>
+            </bvar>
+            <bvar>
+              <ci> GALT_k_udpglc </ci>
+            </bvar>
+            <bvar>
+              <ci> GALT_keq </ci>
+            </bvar>
+            <bvar>
+              <ci> GALT_ki_udp </ci>
+            </bvar>
+            <bvar>
+              <ci> GALT_ki_utp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GALT_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__gal1p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__glc1p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udpgal </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udpglc </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__utp </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> H01__GALT_Vmax </ci>
+                    <apply>
+                      <times/>
+                      <ci> GALT_k_gal1p </ci>
+                      <ci> GALT_k_udpglc </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> H01__gal1p </ci>
+                      <ci> H01__udpglc </ci>
+                    </apply>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <times/>
+                        <ci> H01__glc1p </ci>
+                        <ci> H01__udpgal </ci>
+                      </apply>
+                      <ci> GALT_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__gal1p </ci>
+                          <ci> GALT_k_gal1p </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__udpglc </ci>
+                          <ci> GALT_k_udpglc </ci>
+                        </apply>
+                        <apply>
+                          <divide/>
+                          <ci> H01__udp </ci>
+                          <ci> GALT_ki_udp </ci>
+                        </apply>
+                        <apply>
+                          <divide/>
+                          <ci> H01__utp </ci>
+                          <ci> GALT_ki_utp </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__glc1p </ci>
+                          <ci> GALT_k_glc1p </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__udpgal </ci>
+                          <ci> GALT_k_udpgal </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <cn type="integer"> 1 </cn>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI244" id="Function_for_UDP_glucose_4_epimerase__H01" name="Function for UDP-glucose 4-epimerase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> GALE_k_udpgal </ci>
+            </bvar>
+            <bvar>
+              <ci> GALE_k_udpglc </ci>
+            </bvar>
+            <bvar>
+              <ci> GALE_keq </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GALE_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udpgal </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udpglc </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> H01__GALE_Vmax </ci>
+                    <ci> GALE_k_udpglc </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> H01__udpglc </ci>
+                    <apply>
+                      <divide/>
+                      <ci> H01__udpgal </ci>
+                      <ci> GALE_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> H01__udpglc </ci>
+                    <ci> GALE_k_udpglc </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> H01__udpgal </ci>
+                    <ci> GALE_k_udpgal </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI245" id="Function_for_UDP_glucose_pyrophosphorylase__H01" name="Function for UDP-glucose pyrophosphorylase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__UGP_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__UGP_dm </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__glc1p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__ppi </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udpglc </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__utp </ci>
+            </bvar>
+            <bvar>
+              <ci> UGP_k_glc1p </ci>
+            </bvar>
+            <bvar>
+              <ci> UGP_k_utp </ci>
+            </bvar>
+            <bvar>
+              <ci> UGP_keq </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> H01__UGP_Vmax </ci>
+                    <apply>
+                      <times/>
+                      <ci> UGP_k_utp </ci>
+                      <ci> UGP_k_glc1p </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> H01__glc1p </ci>
+                      <ci> H01__utp </ci>
+                    </apply>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <times/>
+                        <ci> H01__udpglc </ci>
+                        <ci> H01__ppi </ci>
+                      </apply>
+                      <ci> UGP_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <ci> H01__UGP_dm </ci>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI246" id="Function_for_UDP_galactose_pyrophosphorylase__H01" name="Function for UDP-galactose pyrophosphorylase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__UGP_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__UGP_dm </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__gal1p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__ppi </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udpgal </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__utp </ci>
+            </bvar>
+            <bvar>
+              <ci> UGALP_f </ci>
+            </bvar>
+            <bvar>
+              <ci> UGP_k_gal1p </ci>
+            </bvar>
+            <bvar>
+              <ci> UGP_k_utp </ci>
+            </bvar>
+            <bvar>
+              <ci> UGP_keq </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> UGALP_f </ci>
+                      <ci> H01__UGP_Vmax </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> UGP_k_utp </ci>
+                      <ci> UGP_k_gal1p </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> H01__gal1p </ci>
+                      <ci> H01__utp </ci>
+                    </apply>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <times/>
+                        <ci> H01__udpgal </ci>
+                        <ci> H01__ppi </ci>
+                      </apply>
+                      <ci> UGP_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <ci> H01__UGP_dm </ci>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI247" id="Function_for_Pyrophosphatase__H01" name="Function for Pyrophosphatase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__PPASE_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__ppi </ci>
+            </bvar>
+            <bvar>
+              <ci> PPASE_k_ppi </ci>
+            </bvar>
+            <bvar>
+              <ci> PPASE_n </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> H01__PPASE_Vmax </ci>
+                  <apply>
+                    <power/>
+                    <ci> H01__ppi </ci>
+                    <ci> PPASE_n </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <ci> H01__ppi </ci>
+                    <ci> PPASE_n </ci>
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> PPASE_k_ppi </ci>
+                    <ci> PPASE_n </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI248" id="Function_for_ATP_UDP_phosphotransferase__H01" name="Function for ATP:UDP phosphotransferase (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__NDKU_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__adp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__atp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udp </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__utp </ci>
+            </bvar>
+            <bvar>
+              <ci> NDKU_k_adp </ci>
+            </bvar>
+            <bvar>
+              <ci> NDKU_k_atp </ci>
+            </bvar>
+            <bvar>
+              <ci> NDKU_k_udp </ci>
+            </bvar>
+            <bvar>
+              <ci> NDKU_k_utp </ci>
+            </bvar>
+            <bvar>
+              <ci> NDKU_keq </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__NDKU_Vmax </ci>
+                      <ci> NDKU_k_atp </ci>
+                    </apply>
+                    <ci> NDKU_k_udp </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> H01__atp </ci>
+                      <ci> H01__udp </ci>
+                    </apply>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <times/>
+                        <ci> H01__adp </ci>
+                        <ci> H01__utp </ci>
+                      </apply>
+                      <ci> NDKU_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__atp </ci>
+                          <ci> NDKU_k_atp </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__udp </ci>
+                          <ci> NDKU_k_udp </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__adp </ci>
+                          <ci> NDKU_k_adp </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 1 </cn>
+                        <apply>
+                          <divide/>
+                          <ci> H01__utp </ci>
+                          <ci> NDKU_k_utp </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <cn type="integer"> 1 </cn>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI249" id="Function_for_Phosphoglucomutase_1__H01" name="Function for Phosphoglucomutase-1 (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__PGM1_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__glc1p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__glc6p </ci>
+            </bvar>
+            <bvar>
+              <ci> PGM1_k_glc1p </ci>
+            </bvar>
+            <bvar>
+              <ci> PGM1_k_glc6p </ci>
+            </bvar>
+            <bvar>
+              <ci> PGM1_keq </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> H01__PGM1_Vmax </ci>
+                    <ci> PGM1_k_glc1p </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> H01__glc1p </ci>
+                    <apply>
+                      <divide/>
+                      <ci> H01__glc6p </ci>
+                      <ci> PGM1_keq </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> H01__glc1p </ci>
+                    <ci> PGM1_k_glc1p </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> H01__glc6p </ci>
+                    <ci> PGM1_k_glc6p </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI250" id="Function_for_Glycolysis__H01" name="Function for Glycolysis (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> GLY_k_glc6p </ci>
+            </bvar>
+            <bvar>
+              <ci> GLY_k_p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GLY_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__glc6p </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__phos </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> H01__GLY_Vmax </ci>
+                      <apply>
+                        <minus/>
+                        <ci> H01__glc6p </ci>
+                        <ci> GLY_k_glc6p </ci>
+                      </apply>
+                    </apply>
+                    <ci> GLY_k_glc6p </ci>
+                  </apply>
+                  <ci> H01__phos </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> H01__phos </ci>
+                  <ci> GLY_k_p </ci>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI251" id="Function_for_Glycosyltransferase_galactose__H01" name="Function for Glycosyltransferase galactose (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> GTF_k_udpgal </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GTF_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udpgal </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> H01__GTF_Vmax </ci>
+                  <ci> H01__udpgal </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> H01__udpgal </ci>
+                  <ci> GTF_k_udpgal </ci>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI252" id="Function_for_Glycosyltransferase_glucose__H01" name="Function for Glycosyltransferase glucose (H01)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> GTF_k_udpglc </ci>
+            </bvar>
+            <bvar>
+              <ci> H01 </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GTF_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__udpglc </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <cn> 0 </cn>
+                  <ci> H01__GTF_Vmax </ci>
+                  <ci> H01__udpglc </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> H01__udpglc </ci>
+                  <ci> GTF_k_udpglc </ci>
+                </apply>
+              </apply>
+              <ci> H01 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI253" id="Function_for_galactose_transport" name="Function for galactose transport">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> D001__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> GLUT2_k_gal </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GLUT2_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GLUT2_dm </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__gal </ci>
+            </bvar>
+            <bvar>
+              <ci> Nf </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <ci> H01__GLUT2_Vmax </ci>
+                  <apply>
+                    <times/>
+                    <ci> GLUT2_k_gal </ci>
+                    <ci> Nf </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> D001__gal </ci>
+                  <ci> H01__gal </ci>
+                </apply>
+              </apply>
+              <ci> H01__GLUT2_dm </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI254" id="Function_for_galactose_transport_2" name="Function for galactose transport_2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> D001__galM </ci>
+            </bvar>
+            <bvar>
+              <ci> GLUT2_k_gal </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GLUT2_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__GLUT2_dm </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__galM </ci>
+            </bvar>
+            <bvar>
+              <ci> Nf </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <ci> H01__GLUT2_Vmax </ci>
+                  <apply>
+                    <times/>
+                    <ci> GLUT2_k_gal </ci>
+                    <ci> Nf </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> D001__galM </ci>
+                  <ci> H01__galM </ci>
+                </apply>
+              </apply>
+              <ci> H01__GLUT2_dm </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition metaid="COPASI255" id="Function_for_H2O_M_transport" name="Function for H2O M transport">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> D001__h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__H2OT_Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> H01__h2oM </ci>
+            </bvar>
+            <bvar>
+              <ci> H2OT_k </ci>
+            </bvar>
+            <bvar>
+              <ci> Nf </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <divide/>
+                  <ci> H01__H2OT_Vmax </ci>
+                  <ci> H2OT_k </ci>
+                </apply>
+                <ci> Nf </ci>
+              </apply>
+              <apply>
+                <minus/>
+                <ci> D001__h2oM </ci>
+                <ci> H01__h2oM </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="s">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m2">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m3">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mole_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m2_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m3_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mole_per_m3">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="length" name="length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="area" name="area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="volume" name="volume">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="time" name="time">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="substance" name="substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment metaid="COPASI0" id="PP" name="[PP] periportal" spatialDimensions="3" size="3.04106168867492e-14" units="litre" constant="true"/>
+      <compartment metaid="COPASI1" id="S001" name="[S001] Sinusoid Space 1" spatialDimensions="3" size="3.04106168867492e-14" units="litre" constant="true"/>
+      <compartment metaid="COPASI2" id="D001" name="[D001] Disse Space 1" spatialDimensions="3" size="1.88495559215388e-14" units="litre" constant="true">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI2">
+                <dcterms:created>
+                  <rdf:Description>
+                    <dcterms:W3CDTF>2014-04-29T22:04:14Z</dcterms:W3CDTF>
+                  </rdf:Description>
+                </dcterms:created>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+      </compartment>
+      <compartment metaid="COPASI3" id="PV" name="[PV] perivenious" spatialDimensions="3" size="3.04106168867492e-14" units="litre" constant="true"/>
+      <compartment metaid="COPASI4" id="H01" name="[H01] Hepatocyte 1" spatialDimensions="3" size="2.23606627030438e-13" units="litre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="COPASI5" id="PP__gal" name="gal" compartment="PP" initialAmount="3.6492740264099e-18" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="COPASI8" id="S001__gal" name="gal" compartment="S001" initialAmount="3.6492740264099e-18" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI11" id="D001__gal" name="gal" compartment="D001" initialAmount="2.26194671058465e-18" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI14" id="PV__gal" name="gal" compartment="PV" initialAmount="3.6492740264099e-18" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI6" id="PP__galM" name="galM" compartment="PP" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="COPASI9" id="S001__galM" name="galM" compartment="S001" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI12" id="D001__galM" name="galM" compartment="D001" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI15" id="PV__galM" name="galM" compartment="PV" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI7" id="PP__h2oM" name="h2oM" compartment="PP" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="COPASI10" id="S001__h2oM" name="h2oM" compartment="S001" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI13" id="D001__h2oM" name="h2oM" compartment="D001" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI16" id="PV__h2oM" name="h2oM" compartment="PV" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI17" id="H01__gal" name="D-galactose" compartment="H01" initialAmount="2.68327952436525e-17" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI18" id="H01__galM" name="D-galactose M" compartment="H01" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI19" id="H01__h2oM" name="H2O M" compartment="H01" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI20" id="H01__glc1p" name="D-glucose-1-phosphate" compartment="H01" initialAmount="2.68327952436525e-15" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI21" id="H01__glc6p" name="D-glucose-6-phosphate" compartment="H01" initialAmount="2.68327952436525e-14" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI22" id="H01__gal1p" name="D-galactose-1-phosphate" compartment="H01" initialAmount="2.23606627030438e-16" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI23" id="H01__udpglc" name="UDP-D-glucose" compartment="H01" initialAmount="7.60262531903489e-14" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI24" id="H01__udpgal" name="UDP-D-galactose" compartment="H01" initialAmount="2.45967289733482e-14" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI25" id="H01__galtol" name="D-galactitol" compartment="H01" initialAmount="2.23606627030438e-16" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI26" id="H01__atp" name="ATP" compartment="H01" initialAmount="6.03737892982182e-13" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI27" id="H01__adp" name="ADP" compartment="H01" initialAmount="2.68327952436525e-13" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI28" id="H01__utp" name="UTP" compartment="H01" initialAmount="6.03737892982182e-14" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI29" id="H01__udp" name="UDP" compartment="H01" initialAmount="2.01245964327394e-14" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI30" id="H01__phos" name="Phosphate" compartment="H01" initialAmount="1.11803313515219e-12" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI31" id="H01__ppi" name="Pyrophosphate" compartment="H01" initialAmount="1.7888530162435e-15" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI32" id="H01__nadp" name="NADP" compartment="H01" initialAmount="2.23606627030438e-14" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI33" id="H01__nadph" name="NADPH" compartment="H01" initialAmount="2.23606627030438e-14" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter metaid="COPASI34" id="L" name="L" value="0.0005" constant="true"/>
+      <parameter metaid="COPASI35" id="y_sin" name="y_sin" value="4.4e-06" constant="true"/>
+      <parameter metaid="COPASI36" id="y_dis" name="y_dis" value="1.2e-06" constant="true"/>
+      <parameter metaid="COPASI37" id="y_cell" name="y_cell" value="7.58e-06" constant="true"/>
+      <parameter metaid="COPASI38" id="flow_sin" name="flow_sin" value="0.00018" constant="true"/>
+      <parameter metaid="COPASI39" id="f_fen" name="f_fen" value="0.09" constant="true"/>
+      <parameter metaid="COPASI40" id="Nc" name="Nc" value="1" constant="true"/>
+      <parameter metaid="COPASI41" id="Nf" name="Nf" value="1" constant="true"/>
+      <parameter metaid="COPASI42" id="Nb" name="Nb" value="1" constant="true"/>
+      <parameter metaid="COPASI43" id="x_cell" name="x_cell" value="0.0005" constant="true"/>
+      <parameter metaid="COPASI44" id="x_sin" name="x_sin" value="0.0005" constant="true"/>
+      <parameter metaid="COPASI45" id="A_sin" name="A_sin" value="6.08212337734984e-11" constant="true"/>
+      <parameter metaid="COPASI46" id="A_dis" name="A_dis" value="3.76991118430775e-11" constant="true"/>
+      <parameter metaid="COPASI47" id="A_sindis" name="A_sindis" value="1.38230076757951e-08" constant="true"/>
+      <parameter metaid="COPASI48" id="Vol_sin" name="Vol_sin" value="3.04106168867492e-14" constant="true"/>
+      <parameter metaid="COPASI49" id="Vol_dis" name="Vol_dis" value="1.88495559215388e-14" constant="true"/>
+      <parameter metaid="COPASI50" id="Vol_cell" name="Vol_cell" value="2.23606627030438e-13" constant="true"/>
+      <parameter metaid="COPASI51" id="Vol_pp" name="Vol_pp" value="3.04106168867492e-14" constant="true"/>
+      <parameter metaid="COPASI52" id="Vol_pv" name="Vol_pv" value="3.04106168867492e-14" constant="true"/>
+      <parameter metaid="COPASI53" id="Dgal" name="Dgal" value="9.1e-10" constant="true"/>
+      <parameter metaid="COPASI54" id="Dx_sin_gal" name="Dx_sin_gal" value="1.10694645467767e-16" constant="true"/>
+      <parameter metaid="COPASI55" id="Dx_dis_gal" name="Dx_dis_gal" value="6.86123835544011e-17" constant="true"/>
+      <parameter metaid="COPASI56" id="Dy_sindis_gal" name="Dy_sindis_gal" value="9.43420273873015e-13" constant="true"/>
+      <parameter metaid="COPASI57" id="DgalM" name="DgalM" value="9.1e-10" constant="true"/>
+      <parameter metaid="COPASI58" id="Dx_sin_galM" name="Dx_sin_galM" value="1.10694645467767e-16" constant="true"/>
+      <parameter metaid="COPASI59" id="Dx_dis_galM" name="Dx_dis_galM" value="6.86123835544011e-17" constant="true"/>
+      <parameter metaid="COPASI60" id="Dy_sindis_galM" name="Dy_sindis_galM" value="9.43420273873015e-13" constant="true"/>
+      <parameter metaid="COPASI61" id="Dh2oM" name="Dh2oM" value="2.2e-09" constant="true"/>
+      <parameter metaid="COPASI62" id="Dx_sin_h2oM" name="Dx_sin_h2oM" value="2.67613428603393e-16" constant="true"/>
+      <parameter metaid="COPASI63" id="Dx_dis_h2oM" name="Dx_dis_h2oM" value="1.65876092109541e-16" constant="true"/>
+      <parameter metaid="COPASI64" id="Dy_sindis_h2oM" name="Dy_sindis_h2oM" value="2.28079626650619e-12" constant="true"/>
+      <parameter metaid="COPASI65" id="scale_f" name="scale_f" value="1e-14" constant="true"/>
+      <parameter metaid="COPASI66" id="scale" name="scale" value="1e-14" constant="true"/>
+      <parameter metaid="COPASI67" id="REF_P" name="REF_P" value="1" constant="true"/>
+      <parameter metaid="COPASI68" id="deficiency" name="deficiency" value="0" constant="true"/>
+      <parameter metaid="COPASI69" id="H01__nadp_tot" name="H01__nadp_tot" value="0.2" constant="true"/>
+      <parameter metaid="COPASI70" id="H01__adp_tot" name="H01__adp_tot" value="3.9" constant="true"/>
+      <parameter metaid="COPASI71" id="H01__udp_tot" name="H01__udp_tot" value="0.81" constant="true"/>
+      <parameter metaid="COPASI72" id="H01__phos_tot" name="H01__phos_tot" value="17.539" constant="true"/>
+      <parameter metaid="COPASI73" id="GALK_PA" name="GALK_PA" value="0.1" constant="true"/>
+      <parameter metaid="COPASI74" id="GALK_keq" name="GALK_keq" value="50" constant="true"/>
+      <parameter metaid="COPASI75" id="GALK_k_gal1p" name="GALK_k_gal1p" value="1.5" constant="true"/>
+      <parameter metaid="COPASI76" id="GALK_k_adp" name="GALK_k_adp" value="0.8" constant="true"/>
+      <parameter metaid="COPASI77" id="GALK_ki_gal1p" name="GALK_ki_gal1p" value="5.3" constant="true"/>
+      <parameter metaid="COPASI78" id="GALK_kcat" name="GALK_kcat" value="8.7" constant="true"/>
+      <parameter metaid="COPASI79" id="GALK_k_gal" name="GALK_k_gal" value="0.97" constant="true"/>
+      <parameter metaid="COPASI80" id="GALK_k_atp" name="GALK_k_atp" value="0.034" constant="true"/>
+      <parameter metaid="COPASI81" id="H01__GALK_P" name="H01__GALK_P" value="1" constant="true"/>
+      <parameter metaid="COPASI82" id="H01__GALK_Vmax" name="H01__GALK_Vmax" value="8.7e-15" constant="false"/>
+      <parameter metaid="COPASI83" id="H01__GALK_dm" name="H01__GALK_dm" value="81.9233792197291" constant="false"/>
+      <parameter metaid="COPASI84" id="IMP_f" name="IMP_f" value="0.05" constant="true"/>
+      <parameter metaid="COPASI85" id="IMP_k_gal1p" name="IMP_k_gal1p" value="0.35" constant="true"/>
+      <parameter metaid="COPASI86" id="H01__IMP_P" name="H01__IMP_P" value="1" constant="true"/>
+      <parameter metaid="COPASI87" id="H01__IMP_Vmax" name="H01__IMP_Vmax" value="4.35e-16" constant="false"/>
+      <parameter metaid="COPASI88" id="ATPS_f" name="ATPS_f" value="100" constant="true"/>
+      <parameter metaid="COPASI89" id="ATPS_keq" name="ATPS_keq" value="0.58" constant="true"/>
+      <parameter metaid="COPASI90" id="ATPS_k_adp" name="ATPS_k_adp" value="0.1" constant="true"/>
+      <parameter metaid="COPASI91" id="ATPS_k_atp" name="ATPS_k_atp" value="0.5" constant="true"/>
+      <parameter metaid="COPASI92" id="ATPS_k_phos" name="ATPS_k_phos" value="0.1" constant="true"/>
+      <parameter metaid="COPASI93" id="H01__ATPS_P" name="H01__ATPS_P" value="1" constant="true"/>
+      <parameter metaid="COPASI94" id="H01__ATPS_Vmax" name="H01__ATPS_Vmax" value="8.7e-13" constant="false"/>
+      <parameter metaid="COPASI95" id="ALDR_f" name="ALDR_f" value="1000000" constant="true"/>
+      <parameter metaid="COPASI96" id="ALDR_keq" name="ALDR_keq" value="4" constant="true"/>
+      <parameter metaid="COPASI97" id="ALDR_k_gal" name="ALDR_k_gal" value="40" constant="true"/>
+      <parameter metaid="COPASI98" id="ALDR_k_galtol" name="ALDR_k_galtol" value="40" constant="true"/>
+      <parameter metaid="COPASI99" id="ALDR_k_nadp" name="ALDR_k_nadp" value="0.1" constant="true"/>
+      <parameter metaid="COPASI100" id="ALDR_k_nadph" name="ALDR_k_nadph" value="0.1" constant="true"/>
+      <parameter metaid="COPASI101" id="H01__ALDR_P" name="H01__ALDR_P" value="1" constant="true"/>
+      <parameter metaid="COPASI102" id="H01__ALDR_Vmax" name="H01__ALDR_Vmax" value="8.7e-09" constant="false"/>
+      <parameter metaid="COPASI103" id="NADPR_f" name="NADPR_f" value="1e-10" constant="true"/>
+      <parameter metaid="COPASI104" id="NADPR_keq" name="NADPR_keq" value="1" constant="true"/>
+      <parameter metaid="COPASI105" id="NADPR_k_nadp" name="NADPR_k_nadp" value="0.015" constant="true"/>
+      <parameter metaid="COPASI106" id="NADPR_ki_nadph" name="NADPR_ki_nadph" value="0.01" constant="true"/>
+      <parameter metaid="COPASI107" id="H01__NADPR_P" name="H01__NADPR_P" value="1" constant="true"/>
+      <parameter metaid="COPASI108" id="H01__NADPR_Vmax" name="H01__NADPR_Vmax" value="8.7e-19" constant="false"/>
+      <parameter metaid="COPASI109" id="GALT_f" name="GALT_f" value="0.01" constant="true"/>
+      <parameter metaid="COPASI110" id="GALT_keq" name="GALT_keq" value="1" constant="true"/>
+      <parameter metaid="COPASI111" id="GALT_k_glc1p" name="GALT_k_glc1p" value="0.37" constant="true"/>
+      <parameter metaid="COPASI112" id="GALT_k_udpgal" name="GALT_k_udpgal" value="0.5" constant="true"/>
+      <parameter metaid="COPASI113" id="GALT_ki_utp" name="GALT_ki_utp" value="0.13" constant="true"/>
+      <parameter metaid="COPASI114" id="GALT_ki_udp" name="GALT_ki_udp" value="0.35" constant="true"/>
+      <parameter metaid="COPASI115" id="GALT_vm" name="GALT_vm" value="804" constant="true"/>
+      <parameter metaid="COPASI116" id="GALT_k_gal1p" name="GALT_k_gal1p" value="1.25" constant="true"/>
+      <parameter metaid="COPASI117" id="GALT_k_udpglc" name="GALT_k_udpglc" value="0.43" constant="true"/>
+      <parameter metaid="COPASI118" id="H01__GALT_P" name="H01__GALT_P" value="1" constant="true"/>
+      <parameter metaid="COPASI119" id="H01__GALT_Vmax" name="H01__GALT_Vmax" value="6.9948e-14" constant="false"/>
+      <parameter metaid="COPASI120" id="GALE_f" name="GALE_f" value="0.3" constant="true"/>
+      <parameter metaid="COPASI121" id="GALE_PA" name="GALE_PA" value="0.0278" constant="true"/>
+      <parameter metaid="COPASI122" id="GALE_kcat" name="GALE_kcat" value="36" constant="true"/>
+      <parameter metaid="COPASI123" id="GALE_keq" name="GALE_keq" value="0.33" constant="true"/>
+      <parameter metaid="COPASI124" id="GALE_k_udpglc" name="GALE_k_udpglc" value="0.069" constant="true"/>
+      <parameter metaid="COPASI125" id="GALE_k_udpgal" name="GALE_k_udpgal" value="0.3" constant="true"/>
+      <parameter metaid="COPASI126" id="H01__GALE_P" name="H01__GALE_P" value="1" constant="true"/>
+      <parameter metaid="COPASI127" id="H01__GALE_Vmax" name="H01__GALE_Vmax" value="2.612088e-15" constant="false"/>
+      <parameter metaid="COPASI128" id="UGP_f" name="UGP_f" value="2000" constant="true"/>
+      <parameter metaid="COPASI129" id="UGALP_f" name="UGALP_f" value="0.01" constant="true"/>
+      <parameter metaid="COPASI130" id="UGP_keq" name="UGP_keq" value="0.45" constant="true"/>
+      <parameter metaid="COPASI131" id="UGP_k_utp" name="UGP_k_utp" value="0.563" constant="true"/>
+      <parameter metaid="COPASI132" id="UGP_k_glc1p" name="UGP_k_glc1p" value="0.172" constant="true"/>
+      <parameter metaid="COPASI133" id="UGP_k_udpglc" name="UGP_k_udpglc" value="0.049" constant="true"/>
+      <parameter metaid="COPASI134" id="UGP_k_ppi" name="UGP_k_ppi" value="0.166" constant="true"/>
+      <parameter metaid="COPASI135" id="UGP_k_gal1p" name="UGP_k_gal1p" value="5" constant="true"/>
+      <parameter metaid="COPASI136" id="UGP_k_udpgal" name="UGP_k_udpgal" value="0.42" constant="true"/>
+      <parameter metaid="COPASI137" id="UGP_ki_utp" name="UGP_ki_utp" value="0.643" constant="true"/>
+      <parameter metaid="COPASI138" id="UGP_ki_udpglc" name="UGP_ki_udpglc" value="0.643" constant="true"/>
+      <parameter metaid="COPASI139" id="H01__UGP_P" name="H01__UGP_P" value="1" constant="true"/>
+      <parameter metaid="COPASI140" id="H01__UGP_Vmax" name="H01__UGP_Vmax" value="1.74e-11" constant="false"/>
+      <parameter metaid="COPASI141" id="H01__UGP_dm" name="H01__UGP_dm" value="10.1849007986242" constant="false"/>
+      <parameter metaid="COPASI142" id="PPASE_f" name="PPASE_f" value="0.05" constant="true"/>
+      <parameter metaid="COPASI143" id="PPASE_k_ppi" name="PPASE_k_ppi" value="0.07" constant="true"/>
+      <parameter metaid="COPASI144" id="PPASE_n" name="PPASE_n" value="4" constant="true"/>
+      <parameter metaid="COPASI145" id="H01__PPASE_P" name="H01__PPASE_P" value="1" constant="true"/>
+      <parameter metaid="COPASI146" id="H01__PPASE_Vmax" name="H01__PPASE_Vmax" value="8.7e-13" constant="false"/>
+      <parameter metaid="COPASI147" id="NDKU_f" name="NDKU_f" value="2" constant="true"/>
+      <parameter metaid="COPASI148" id="NDKU_keq" name="NDKU_keq" value="1" constant="true"/>
+      <parameter metaid="COPASI149" id="NDKU_k_atp" name="NDKU_k_atp" value="1.33" constant="true"/>
+      <parameter metaid="COPASI150" id="NDKU_k_adp" name="NDKU_k_adp" value="0.042" constant="true"/>
+      <parameter metaid="COPASI151" id="NDKU_k_utp" name="NDKU_k_utp" value="27" constant="true"/>
+      <parameter metaid="COPASI152" id="NDKU_k_udp" name="NDKU_k_udp" value="0.19" constant="true"/>
+      <parameter metaid="COPASI153" id="H01__NDKU_P" name="H01__NDKU_P" value="1" constant="true"/>
+      <parameter metaid="COPASI154" id="H01__NDKU_Vmax" name="H01__NDKU_Vmax" value="3.48e-11" constant="false"/>
+      <parameter metaid="COPASI155" id="PGM1_f" name="PGM1_f" value="50" constant="true"/>
+      <parameter metaid="COPASI156" id="PGM1_keq" name="PGM1_keq" value="10" constant="true"/>
+      <parameter metaid="COPASI157" id="PGM1_k_glc6p" name="PGM1_k_glc6p" value="0.67" constant="true"/>
+      <parameter metaid="COPASI158" id="PGM1_k_glc1p" name="PGM1_k_glc1p" value="0.045" constant="true"/>
+      <parameter metaid="COPASI159" id="H01__PGM1_P" name="H01__PGM1_P" value="1" constant="true"/>
+      <parameter metaid="COPASI160" id="H01__PGM1_Vmax" name="H01__PGM1_Vmax" value="4.35e-13" constant="false"/>
+      <parameter metaid="COPASI161" id="GLY_f" name="GLY_f" value="0.1" constant="true"/>
+      <parameter metaid="COPASI162" id="GLY_k_glc6p" name="GLY_k_glc6p" value="0.12" constant="true"/>
+      <parameter metaid="COPASI163" id="GLY_k_p" name="GLY_k_p" value="0.2" constant="true"/>
+      <parameter metaid="COPASI164" id="H01__GLY_P" name="H01__GLY_P" value="1" constant="true"/>
+      <parameter metaid="COPASI165" id="H01__GLY_Vmax" name="H01__GLY_Vmax" value="4.35e-14" constant="false"/>
+      <parameter metaid="COPASI166" id="GTF_f" name="GTF_f" value="0.02" constant="true"/>
+      <parameter metaid="COPASI167" id="GTF_k_udpgal" name="GTF_k_udpgal" value="0.1" constant="true"/>
+      <parameter metaid="COPASI168" id="GTF_k_udpglc" name="GTF_k_udpglc" value="0.1" constant="true"/>
+      <parameter metaid="COPASI169" id="H01__GTF_P" name="H01__GTF_P" value="1" constant="true"/>
+      <parameter metaid="COPASI170" id="H01__GTF_Vmax" name="H01__GTF_Vmax" value="1.74e-16" constant="false"/>
+      <parameter metaid="COPASI171" id="GLUT2_f" name="GLUT2_f" value="1000000" constant="true"/>
+      <parameter metaid="COPASI172" id="GLUT2_k_gal" name="GLUT2_k_gal" value="85.5" constant="true"/>
+      <parameter metaid="COPASI173" id="H01__GLUT2_P" name="H01__GLUT2_P" value="1" constant="true"/>
+      <parameter metaid="COPASI174" id="H01__GLUT2_Vmax" name="H01__GLUT2_Vmax" value="1e-08" constant="false"/>
+      <parameter metaid="COPASI175" id="H01__GLUT2_dm" name="H01__GLUT2_dm" value="1.00000280701754" constant="false"/>
+      <parameter metaid="COPASI176" id="H2OT_f" name="H2OT_f" value="10" constant="true"/>
+      <parameter metaid="COPASI177" id="H2OT_k" name="H2OT_k" value="1" constant="true"/>
+      <parameter metaid="COPASI178" id="H01__H2OT_Vmax" name="H01__H2OT_Vmax" value="1e-13" constant="false"/>
+      <parameter metaid="COPASI179" id="H01__H2OTM" name="H01__H2OTM" value="0" constant="true"/>
+      <parameter metaid="COPASI180" id="H01__GLUT2_GAL" name="H01__GLUT2_GAL" value="0" constant="true"/>
+      <parameter metaid="COPASI181" id="H01__GLUT2_GALM" name="H01__GLUT2_GALM" value="0" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="Nb">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> Nf </ci>
+            <ci> Nc </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="x_cell">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> L </ci>
+            <ci> Nc </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="x_sin">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> x_cell </ci>
+            <ci> Nf </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="A_sin">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <pi/>
+            <apply>
+              <power/>
+              <ci> y_sin </ci>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="A_dis">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <pi/>
+              <apply>
+                <power/>
+                <apply>
+                  <plus/>
+                  <ci> y_sin </ci>
+                  <ci> y_dis </ci>
+                </apply>
+                <cn type="integer"> 2 </cn>
+              </apply>
+            </apply>
+            <ci> A_sin </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="A_sindis">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> 2 </cn>
+            <pi/>
+            <ci> y_sin </ci>
+            <ci> x_sin </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vol_sin">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> A_sin </ci>
+            <ci> x_sin </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vol_dis">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> A_dis </ci>
+            <ci> x_sin </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vol_cell">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <pi/>
+              <apply>
+                <power/>
+                <apply>
+                  <plus/>
+                  <ci> y_sin </ci>
+                  <ci> y_dis </ci>
+                  <ci> y_cell </ci>
+                </apply>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <ci> x_cell </ci>
+            </apply>
+            <apply>
+              <times/>
+              <pi/>
+              <apply>
+                <power/>
+                <apply>
+                  <plus/>
+                  <ci> y_sin </ci>
+                  <ci> y_dis </ci>
+                </apply>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <ci> x_cell </ci>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vol_pp">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_sin </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vol_pv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_sin </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="PP">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_pp </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="S001">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_sin </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="D001">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_dis </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="PV">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_pv </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dx_sin_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> Dgal </ci>
+              <ci> x_sin </ci>
+            </apply>
+            <ci> A_sin </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dx_dis_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> Dgal </ci>
+              <ci> x_sin </ci>
+            </apply>
+            <ci> A_dis </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dy_sindis_gal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> Dgal </ci>
+              <ci> y_dis </ci>
+            </apply>
+            <ci> f_fen </ci>
+            <ci> A_sindis </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dx_sin_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> DgalM </ci>
+              <ci> x_sin </ci>
+            </apply>
+            <ci> A_sin </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dx_dis_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> DgalM </ci>
+              <ci> x_sin </ci>
+            </apply>
+            <ci> A_dis </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dy_sindis_galM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> DgalM </ci>
+              <ci> y_dis </ci>
+            </apply>
+            <ci> f_fen </ci>
+            <ci> A_sindis </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dx_sin_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> Dh2oM </ci>
+              <ci> x_sin </ci>
+            </apply>
+            <ci> A_sin </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dx_dis_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> Dh2oM </ci>
+              <ci> x_sin </ci>
+            </apply>
+            <ci> A_dis </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Dy_sindis_h2oM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> Dh2oM </ci>
+              <ci> y_dis </ci>
+            </apply>
+            <ci> f_fen </ci>
+            <ci> A_sindis </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H01">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_cell </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="scale">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> scale_f </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H01__nadp_tot">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <divide/>
+              <ci> H01__nadp </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__nadph </ci>
+              <ci> H01 </ci>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H01__adp_tot">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <divide/>
+              <ci> H01__atp </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__adp </ci>
+              <ci> H01 </ci>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H01__udp_tot">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <divide/>
+              <ci> H01__utp </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__udp </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__udpglc </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__udpgal </ci>
+              <ci> H01 </ci>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H01__phos_tot">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn type="integer"> 3 </cn>
+              <apply>
+                <divide/>
+                <ci> H01__atp </ci>
+                <ci> H01 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn type="integer"> 2 </cn>
+              <apply>
+                <divide/>
+                <ci> H01__adp </ci>
+                <ci> H01 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn type="integer"> 3 </cn>
+              <apply>
+                <divide/>
+                <ci> H01__utp </ci>
+                <ci> H01 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn type="integer"> 2 </cn>
+              <apply>
+                <divide/>
+                <ci> H01__udp </ci>
+                <ci> H01 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__phos </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn type="integer"> 2 </cn>
+              <apply>
+                <divide/>
+                <ci> H01__ppi </ci>
+                <ci> H01 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__glc1p </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__glc6p </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> H01__gal1p </ci>
+              <ci> H01 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn type="integer"> 2 </cn>
+              <apply>
+                <divide/>
+                <ci> H01__udpglc </ci>
+                <ci> H01 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn type="integer"> 2 </cn>
+              <apply>
+                <divide/>
+                <ci> H01__udpgal </ci>
+                <ci> H01 </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H01__H2OTM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> D001__H2OTM </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H01__GLUT2_GAL">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> D001__GLUT2_GAL </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H01__GLUT2_GALM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> D001__GLUT2_GALM </ci>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule variable="H01__GALK_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> scale </ci>
+              <ci> GALK_PA </ci>
+              <ci> GALK_kcat </ci>
+              <ci> H01__GALK_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__GALK_dm">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <divide/>
+                        <ci> H01__gal </ci>
+                        <ci> H01 </ci>
+                      </apply>
+                      <apply>
+                        <divide/>
+                        <ci> H01__galM </ci>
+                        <ci> H01 </ci>
+                      </apply>
+                    </apply>
+                    <ci> GALK_k_gal </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__atp </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> GALK_k_atp </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__gal1p </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> GALK_k_gal1p </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__adp </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> GALK_k_adp </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <cn> 1 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__IMP_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> IMP_f </ci>
+              <ci> H01__GALK_Vmax </ci>
+              <ci> H01__IMP_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__ATPS_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> ATPS_f </ci>
+              <ci> H01__GALK_Vmax </ci>
+              <ci> H01__ATPS_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__ALDR_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> ALDR_f </ci>
+              <ci> H01__GALK_Vmax </ci>
+              <ci> H01__ALDR_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__NADPR_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> NADPR_f </ci>
+              <ci> H01__ALDR_Vmax </ci>
+              <ci> H01__NADPR_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__GALT_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <ci> H01__GALT_P </ci>
+              <ci> REF_P </ci>
+            </apply>
+            <ci> GALT_f </ci>
+            <ci> H01__GALK_Vmax </ci>
+            <ci> GALT_vm </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__GALE_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> GALE_f </ci>
+              <ci> H01__GALK_Vmax </ci>
+              <ci> GALE_PA </ci>
+              <ci> GALE_kcat </ci>
+              <ci> H01__GALE_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__UGP_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> UGP_f </ci>
+              <ci> H01__GALK_Vmax </ci>
+              <ci> H01__UGP_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__UGP_dm">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__utp </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> UGP_k_utp </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__udpglc </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> UGP_ki_udpglc </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__glc1p </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> UGP_k_glc1p </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__gal1p </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> UGP_k_gal1p </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__udpglc </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> UGP_k_udpglc </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__udpgal </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> UGP_k_udpgal </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__utp </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> UGP_ki_utp </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <divide/>
+                      <ci> H01__ppi </ci>
+                      <ci> H01 </ci>
+                    </apply>
+                    <ci> UGP_k_ppi </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <cn> 1 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__PPASE_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> PPASE_f </ci>
+              <ci> H01__UGP_Vmax </ci>
+              <ci> H01__PPASE_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__NDKU_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> NDKU_f </ci>
+              <ci> H01__UGP_Vmax </ci>
+              <ci> H01__NDKU_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__PGM1_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> PGM1_f </ci>
+              <ci> H01__GALK_Vmax </ci>
+              <ci> H01__PGM1_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__GLY_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> GLY_f </ci>
+              <ci> H01__PGM1_Vmax </ci>
+              <ci> H01__GLY_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__GTF_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> GTF_f </ci>
+              <ci> H01__GALK_Vmax </ci>
+              <ci> H01__GTF_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__GLUT2_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> GLUT2_f </ci>
+              <ci> scale </ci>
+              <ci> H01__GLUT2_P </ci>
+            </apply>
+            <ci> REF_P </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__GLUT2_dm">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <cn> 1 </cn>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <divide/>
+                  <ci> D001__gal </ci>
+                  <ci> D001 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> D001__galM </ci>
+                  <ci> D001 </ci>
+                </apply>
+              </apply>
+              <ci> GLUT2_k_gal </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <divide/>
+                  <ci> H01__gal </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__galM </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+              <ci> GLUT2_k_gal </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01__H2OT_Vmax">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> H2OT_f </ci>
+            <ci> scale </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction metaid="COPASI182" id="FlowPPS001_gal" name="FlowPPS001_gal" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PP__gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S001__gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_FlowPPS001_gal </ci>
+              <ci> A_sin </ci>
+              <apply>
+                <divide/>
+                <ci> PP__gal </ci>
+                <ci> PP </ci>
+              </apply>
+              <ci> flow_sin </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI183" id="FlowS001PV_gal" name="FlowS001PV_gal" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="PV__gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_FlowS001PV_gal </ci>
+              <ci> A_sin </ci>
+              <apply>
+                <divide/>
+                <ci> S001__gal </ci>
+                <ci> S001 </ci>
+              </apply>
+              <ci> flow_sin </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI184" id="FlowPVNULL_gal" name="FlowPVNULL_gal" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PV__gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> PV </ci>
+              <apply>
+                <ci> Function_for_FlowPVNULL_gal </ci>
+                <ci> A_sin </ci>
+                <ci> PV </ci>
+                <apply>
+                  <divide/>
+                  <ci> PV__gal </ci>
+                  <ci> PV </ci>
+                </apply>
+                <ci> flow_sin </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI185" id="FlowPPS001_galM" name="FlowPPS001_galM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PP__galM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S001__galM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_FlowPPS001_galM </ci>
+              <ci> A_sin </ci>
+              <apply>
+                <divide/>
+                <ci> PP__galM </ci>
+                <ci> PP </ci>
+              </apply>
+              <ci> flow_sin </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI186" id="FlowS001PV_galM" name="FlowS001PV_galM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__galM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="PV__galM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_FlowS001PV_galM </ci>
+              <ci> A_sin </ci>
+              <apply>
+                <divide/>
+                <ci> S001__galM </ci>
+                <ci> S001 </ci>
+              </apply>
+              <ci> flow_sin </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI187" id="FlowPVNULL_galM" name="FlowPVNULL_galM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PV__galM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> PV </ci>
+              <apply>
+                <ci> Function_for_FlowPVNULL_galM </ci>
+                <ci> A_sin </ci>
+                <ci> PV </ci>
+                <apply>
+                  <divide/>
+                  <ci> PV__galM </ci>
+                  <ci> PV </ci>
+                </apply>
+                <ci> flow_sin </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI188" id="FlowPPS001_h2oM" name="FlowPPS001_h2oM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PP__h2oM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S001__h2oM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_FlowPPS001_h2oM </ci>
+              <ci> A_sin </ci>
+              <apply>
+                <divide/>
+                <ci> PP__h2oM </ci>
+                <ci> PP </ci>
+              </apply>
+              <ci> flow_sin </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI189" id="FlowS001PV_h2oM" name="FlowS001PV_h2oM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__h2oM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="PV__h2oM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_FlowS001PV_h2oM </ci>
+              <ci> A_sin </ci>
+              <apply>
+                <divide/>
+                <ci> S001__h2oM </ci>
+                <ci> S001 </ci>
+              </apply>
+              <ci> flow_sin </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI190" id="FlowPVNULL_h2oM" name="FlowPVNULL_h2oM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PV__h2oM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> PV </ci>
+              <apply>
+                <ci> Function_for_FlowPVNULL_h2oM </ci>
+                <ci> A_sin </ci>
+                <ci> PV </ci>
+                <apply>
+                  <divide/>
+                  <ci> PV__h2oM </ci>
+                  <ci> PV </ci>
+                </apply>
+                <ci> flow_sin </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI191" id="DiffPPS001_gal" name="DiffPPS001_gal" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PP__gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S001__gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffPPS001_gal </ci>
+              <ci> Dx_sin_gal </ci>
+              <apply>
+                <divide/>
+                <ci> PP__gal </ci>
+                <ci> PP </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> S001__gal </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI192" id="DiffS001PV_gal" name="DiffS001PV_gal" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="PV__gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffS001PV_gal </ci>
+              <ci> Dx_sin_gal </ci>
+              <apply>
+                <divide/>
+                <ci> PV__gal </ci>
+                <ci> PV </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> S001__gal </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI193" id="DiffS001D001_gal" name="DiffS001D001_gal" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="D001__gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffS001D001_gal </ci>
+              <apply>
+                <divide/>
+                <ci> D001__gal </ci>
+                <ci> D001 </ci>
+              </apply>
+              <ci> Dy_sindis_gal </ci>
+              <apply>
+                <divide/>
+                <ci> S001__gal </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI194" id="DiffPPS001_galM" name="DiffPPS001_galM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PP__galM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S001__galM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffPPS001_galM </ci>
+              <ci> Dx_sin_galM </ci>
+              <apply>
+                <divide/>
+                <ci> PP__galM </ci>
+                <ci> PP </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> S001__galM </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI195" id="DiffS001PV_galM" name="DiffS001PV_galM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__galM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="PV__galM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffS001PV_galM </ci>
+              <ci> Dx_sin_galM </ci>
+              <apply>
+                <divide/>
+                <ci> PV__galM </ci>
+                <ci> PV </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> S001__galM </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI196" id="DiffS001D001_galM" name="DiffS001D001_galM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__galM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="D001__galM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffS001D001_galM </ci>
+              <apply>
+                <divide/>
+                <ci> D001__galM </ci>
+                <ci> D001 </ci>
+              </apply>
+              <ci> Dy_sindis_galM </ci>
+              <apply>
+                <divide/>
+                <ci> S001__galM </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI197" id="DiffPPS001_h2oM" name="DiffPPS001_h2oM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="PP__h2oM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S001__h2oM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffPPS001_h2oM </ci>
+              <ci> Dx_sin_h2oM </ci>
+              <apply>
+                <divide/>
+                <ci> PP__h2oM </ci>
+                <ci> PP </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> S001__h2oM </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI198" id="DiffS001PV_h2oM" name="DiffS001PV_h2oM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__h2oM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="PV__h2oM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffS001PV_h2oM </ci>
+              <ci> Dx_sin_h2oM </ci>
+              <apply>
+                <divide/>
+                <ci> PV__h2oM </ci>
+                <ci> PV </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> S001__h2oM </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI199" id="DiffS001D001_h2oM" name="DiffS001D001_h2oM" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S001__h2oM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="D001__h2oM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_DiffS001D001_h2oM </ci>
+              <apply>
+                <divide/>
+                <ci> D001__h2oM </ci>
+                <ci> D001 </ci>
+              </apply>
+              <ci> Dy_sindis_h2oM </ci>
+              <apply>
+                <divide/>
+                <ci> S001__h2oM </ci>
+                <ci> S001 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI200" id="H01__GALK" name="Galactokinase (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__gal" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__atp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__gal1p" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__adp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Galactokinase__H01 </ci>
+                <ci> GALK_k_atp </ci>
+                <ci> GALK_k_gal </ci>
+                <ci> GALK_keq </ci>
+                <ci> GALK_ki_gal1p </ci>
+                <ci> H01 </ci>
+                <ci> H01__GALK_Vmax </ci>
+                <ci> H01__GALK_dm </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__adp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__atp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__gal </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__gal1p </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI201" id="H01__GALKM" name="Galactokinase (H01)_2" reversible="false" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__galM" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__atp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__gal1p" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__adp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Galactokinase__H01__2 </ci>
+                <ci> GALK_k_atp </ci>
+                <ci> GALK_k_gal </ci>
+                <ci> GALK_ki_gal1p </ci>
+                <ci> H01 </ci>
+                <ci> H01__GALK_Vmax </ci>
+                <ci> H01__GALK_dm </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__atp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__gal1p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__galM </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI202" id="H01__IMP" name="Inositol monophosphatase (H01)" reversible="false" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__gal1p" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__gal" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__phos" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Inositol_monophosphatase__H01 </ci>
+                <ci> H01 </ci>
+                <ci> H01__IMP_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__gal1p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <ci> IMP_k_gal1p </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI203" id="H01__ATPS" name="ATP synthase (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__adp" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__phos" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__atp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_ATP_synthase__H01 </ci>
+                <ci> ATPS_k_adp </ci>
+                <ci> ATPS_k_atp </ci>
+                <ci> ATPS_k_phos </ci>
+                <ci> ATPS_keq </ci>
+                <ci> H01 </ci>
+                <ci> H01__ATPS_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__adp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__atp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__phos </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI204" id="H01__ALDR" name="Aldose reductase (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__gal" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__nadph" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__galtol" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__nadp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Aldose_reductase__H01 </ci>
+                <ci> ALDR_k_gal </ci>
+                <ci> ALDR_k_galtol </ci>
+                <ci> ALDR_k_nadp </ci>
+                <ci> ALDR_k_nadph </ci>
+                <ci> ALDR_keq </ci>
+                <ci> H01 </ci>
+                <ci> H01__ALDR_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__gal </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__galtol </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__nadp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__nadph </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI205" id="H01__NADPR" name="NADP Reductase (H01)" reversible="false" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__nadp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__nadph" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_NADP_Reductase__H01 </ci>
+                <ci> H01 </ci>
+                <ci> H01__NADPR_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__nadp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__nadph </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <ci> NADPR_k_nadp </ci>
+                <ci> NADPR_keq </ci>
+                <ci> NADPR_ki_nadph </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI206" id="H01__GALT" name="Galactose-1-phosphate uridyl transferase (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__gal1p" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__udpglc" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__glc1p" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__udpgal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="H01__udp"/>
+          <modifierSpeciesReference species="H01__utp"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Galactose_1_phosphate_uridyl_transferase__H01 </ci>
+                <ci> GALT_k_gal1p </ci>
+                <ci> GALT_k_glc1p </ci>
+                <ci> GALT_k_udpgal </ci>
+                <ci> GALT_k_udpglc </ci>
+                <ci> GALT_keq </ci>
+                <ci> GALT_ki_udp </ci>
+                <ci> GALT_ki_utp </ci>
+                <ci> H01 </ci>
+                <ci> H01__GALT_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__gal1p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__glc1p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__udp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__udpgal </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__udpglc </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__utp </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI207" id="H01__GALE" name="UDP-glucose 4-epimerase (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__udpglc" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__udpgal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_UDP_glucose_4_epimerase__H01 </ci>
+                <ci> GALE_k_udpgal </ci>
+                <ci> GALE_k_udpglc </ci>
+                <ci> GALE_keq </ci>
+                <ci> H01 </ci>
+                <ci> H01__GALE_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__udpgal </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__udpglc </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI208" id="H01__UGP" name="UDP-glucose pyrophosphorylase (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__glc1p" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__utp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__udpglc" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__ppi" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_UDP_glucose_pyrophosphorylase__H01 </ci>
+                <ci> H01 </ci>
+                <ci> H01__UGP_Vmax </ci>
+                <ci> H01__UGP_dm </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__glc1p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__ppi </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__udpglc </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__utp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <ci> UGP_k_glc1p </ci>
+                <ci> UGP_k_utp </ci>
+                <ci> UGP_keq </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI209" id="H01__UGALP" name="UDP-galactose pyrophosphorylase (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__gal1p" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__utp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__udpgal" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__ppi" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_UDP_galactose_pyrophosphorylase__H01 </ci>
+                <ci> H01 </ci>
+                <ci> H01__UGP_Vmax </ci>
+                <ci> H01__UGP_dm </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__gal1p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__ppi </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__udpgal </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__utp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <ci> UGALP_f </ci>
+                <ci> UGP_k_gal1p </ci>
+                <ci> UGP_k_utp </ci>
+                <ci> UGP_keq </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI210" id="H01__PPASE" name="Pyrophosphatase (H01)" reversible="false" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__ppi" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__phos" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Pyrophosphatase__H01 </ci>
+                <ci> H01 </ci>
+                <ci> H01__PPASE_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__ppi </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <ci> PPASE_k_ppi </ci>
+                <ci> PPASE_n </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI211" id="H01__NDKU" name="ATP:UDP phosphotransferase (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__atp" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__udp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__adp" stoichiometry="1" constant="true"/>
+          <speciesReference species="H01__utp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_ATP_UDP_phosphotransferase__H01 </ci>
+                <ci> H01 </ci>
+                <ci> H01__NDKU_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__adp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__atp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__udp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__utp </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <ci> NDKU_k_adp </ci>
+                <ci> NDKU_k_atp </ci>
+                <ci> NDKU_k_udp </ci>
+                <ci> NDKU_k_utp </ci>
+                <ci> NDKU_keq </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI212" id="H01__PGM1" name="Phosphoglucomutase-1 (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__glc1p" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__glc6p" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Phosphoglucomutase_1__H01 </ci>
+                <ci> H01 </ci>
+                <ci> H01__PGM1_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__glc1p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__glc6p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <ci> PGM1_k_glc1p </ci>
+                <ci> PGM1_k_glc6p </ci>
+                <ci> PGM1_keq </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI213" id="H01__GLY" name="Glycolysis (H01)" reversible="true" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__glc6p" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__phos" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Glycolysis__H01 </ci>
+                <ci> GLY_k_glc6p </ci>
+                <ci> GLY_k_p </ci>
+                <ci> H01 </ci>
+                <ci> H01__GLY_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__glc6p </ci>
+                  <ci> H01 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> H01__phos </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI214" id="H01__GTFGAL" name="Glycosyltransferase galactose (H01)" reversible="false" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__udpgal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__udp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Glycosyltransferase_galactose__H01 </ci>
+                <ci> GTF_k_udpgal </ci>
+                <ci> H01 </ci>
+                <ci> H01__GTF_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__udpgal </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI215" id="H01__GTFGLC" name="Glycosyltransferase glucose (H01)" reversible="false" fast="false" compartment="H01">
+        <listOfReactants>
+          <speciesReference species="H01__udpglc" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__udp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> H01 </ci>
+              <apply>
+                <ci> Function_for_Glycosyltransferase_glucose__H01 </ci>
+                <ci> GTF_k_udpglc </ci>
+                <ci> H01 </ci>
+                <ci> H01__GTF_Vmax </ci>
+                <apply>
+                  <divide/>
+                  <ci> H01__udpglc </ci>
+                  <ci> H01 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI216" id="D001__GLUT2_GAL" name="galactose transport" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="D001__gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_galactose_transport </ci>
+              <apply>
+                <divide/>
+                <ci> D001__gal </ci>
+                <ci> D001 </ci>
+              </apply>
+              <ci> GLUT2_k_gal </ci>
+              <ci> H01__GLUT2_Vmax </ci>
+              <ci> H01__GLUT2_dm </ci>
+              <apply>
+                <divide/>
+                <ci> H01__gal </ci>
+                <ci> H01 </ci>
+              </apply>
+              <ci> Nf </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI217" id="D001__GLUT2_GALM" name="galactose transport_2" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="D001__galM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__galM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_galactose_transport_2 </ci>
+              <apply>
+                <divide/>
+                <ci> D001__galM </ci>
+                <ci> D001 </ci>
+              </apply>
+              <ci> GLUT2_k_gal </ci>
+              <ci> H01__GLUT2_Vmax </ci>
+              <ci> H01__GLUT2_dm </ci>
+              <apply>
+                <divide/>
+                <ci> H01__galM </ci>
+                <ci> H01 </ci>
+              </apply>
+              <ci> Nf </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI218" id="D001__H2OTM" name="H2O M transport" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="D001__h2oM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H01__h2oM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_H2O_M_transport </ci>
+              <apply>
+                <divide/>
+                <ci> D001__h2oM </ci>
+                <ci> D001 </ci>
+              </apply>
+              <ci> H01__H2OT_Vmax </ci>
+              <apply>
+                <divide/>
+                <ci> H01__h2oM </ci>
+                <ci> H01 </ci>
+              </apply>
+              <ci> H2OT_k </ci>
+              <ci> Nf </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
