@@ -37,20 +37,16 @@
 %
 % TODO: negative values for v_blood have to be possible (simulation of 
 %       retrograde and anterograde perfusion)
-% TODO: architecture must be coupled with arbitrary cell metabolic models
-%       for testing 
 % TODO: flow in the Disse space should be implemented via v_dis (to test 
 %       possible effects)
-% TODO: handle various tracer profiles [pp] and [pv], one-time, continuous
-%       single/multiple indicator methods.
 % 
-%   Matthias Koenig (2014-04-14)
+%   Matthias Koenig (2014-04-30)
 %   Copyright Matthias Koenig 2014 All Rights Reserved.
 % -----------------------------------------------------------------------------
 
 format compact;
-clear all; clc;     % close all;
-install;            % installation settings
+clear all; clc; 
+install_multiscale_galactose; % set paths
 
 p.resultsFolder = strcat('../../multiscale-galactose-results/', ...
                               datestr(date, 'yyyy-mm-dd'), '/');

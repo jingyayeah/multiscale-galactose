@@ -34,15 +34,22 @@ p.Vol_sin    = p.A_sin * p.x_sin;      % [m^3] cylindrical geometry
 p.Vol_dis    = p.A_dis * p.x_sin;      % [m^3] cylindrical geometry
 p.Vol_cell   = pi*(p.y_sin+p.y_dis+p.y_cell)^2*p.x_cell .... % [m^3] cylindrical geometry (cell layer)
              - pi*(p.y_sin+p.y_dis)^2*p.x_cell;
-p.Vol_pp =    p.Vol_sin;
-p.Vol_pv =    p.Vol_sin;
+p.Vol_pp =    p.Vol_sin;               % [m^3]
+p.Vol_pv =    p.Vol_sin;               % [m^3]
 
-p.Vol_sinunit = p.L*pi*(p.y_sin + p.y_dis + p.y_cell)^2;
-p.Q_sinunit = pi*p.y_sin^2*p.flow_sin;
+p.f_sin = p.Vol_sin/(p.Vol_sin + p.Vol_dis + p.Vol_cell); % [-]
+p.f_dis = p.Vol_dis/(p.Vol_sin + p.Vol_dis + p.Vol_cell); % [-]
+p.f_cell = p.Vol_cell/(p.Vol_sin + p.Vol_dis + p.Vol_cell); % [-]
+% [15, 6, 79]%
+
+p.Vol_sinunit = p.L*pi*(p.y_sin + p.y_dis + p.y_cell)^2; % [m^3]
+p.Q_sinunit = pi*p.y_sin^2*p.flow_sin;                   % [m^3/s]
          
-% Calculate the volume fractions
-p.Vol_total = p.Vol_cell*p.Nc + p.Vol_dis*p.Nb + p.Vol_sin*p.Nb;
-p.Vol_f = [p.Vol_cell*p.Nc, p.Vol_dis*p.Nb, p.Vol_sin*p.Nb]/p.Vol_total*100;
-% [79, 6, 15]%
+Vol_liv = 1.5E-3;         % [m^3] liver volume
+rho_liv = 1.1E3;          % [kg/m^3] 
+Q_liv   = 1.750E-3/60;      % [m^3/s]
+
+m_liv = rho_liv * Vol_liv;  % [kg]
+q_liv = Q_liv/m_liv;        % [m^3/s/kg]
 
 end
