@@ -76,6 +76,7 @@ for (kt in seq(1)){
   load(file=outfileFromParsFile(parsfile))
   print(summary(pars))
 }
+rm(kt, peak, task)
 names(pars)
 
 # - sample results for the given parameter samples
@@ -83,88 +84,113 @@ names(pars)
 #    derived geometrical parameters, and simulation results like timecourse 
 #    simulations)
 
-# Get the additional parameters from the SBML file directly necessary for scaling, i.e 
-# calculate from the formulas
-# i.e. evalutate the AST nodes
-# What is needed ?
-# The Volumes ?
+# Get additional information from the SBML file
+# showClass("_p_Parameter")
+# showMethods("_p_Parameter")
+
 library('libSBML')
 filename = filename <- '/home/mkoenig/multiscale-galactose-results/tmp_sbml/Galactose_v14_Nc20_Nf1.xml'
 doc        = readSBML(filename);
 errors   = SBMLDocument_getNumErrors(doc);
 SBMLDocument_printErrors(doc);
 model = SBMLDocument_getModel(doc);
+rm(errors)
 
-# Get parameters from SBML or parameters and calculate rest from it
-# Nf, Nc, L, x_cell, y_sin, y_dis, y_cell, flow_sin
-names = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen')
-# All names which are not in pars
-var_names = setdiff(names, getParsNames(pars)) 
-print(var_names)
-
-# Get all parameter names
+# Get all parameter names from model
 lofp <- Model_getListOfParameters(model)
 Np <- ListOf_size(lofp)
-p_names <- character(Np)
-for (k in seq(0, (Np-1))){  
-    p <- ListOfParameters_get(lofp, k)
-    p_names[k+1] <- Parameter_getId(p)
+model_pids <- character(Np)
+for (kp in seq(0, (Np-1))){  
+    p <- ListOfParameters_get(lofp, kp)
+    model_pids[kp+1] <- Parameter_getId(p)
 }
+rm(lofp, Np, p, kp)
 
-for (name in var_names){
-    if (name %in% p_names){
-        p <- Model_getParameter(model, name)
-        print(Parameter_getId(p))    
-    } else {
-      cat('parameter not in model:', name, '\n')    
+# Get the following parameters from SBML or the parameters file to calculate
+# the derived variables.
+names = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen', 
+          'rho_liv', 'Q_liv', 'Vol_liv')
+
+# Create extended data frame with the calculated values
+extendPars <- function(pars, names){
+    X <- pars
+    Nsim <- nrow(pars)
+    # All parameters which are fixed in the model
+    fixed_ps = setdiff(names, getParsNames(pars))
+    print(fixed_ps)
+    
+    # the fixed parameters in model
+    for (pid in fixed_ps){
+        if (pid %in% model_pids){
+            p <- Model_getParameter(model, pid)
+            value <- Parameter_getValue(p)
+            # create a variable with the name
+            X[[pid]] <- rep(value, Nsim)
+        } else {
+            cat('parameter not in model:', name, '\n')    
+        }
     }
+    
+    # the derived variables in model
+    # All parameters which are varied, i.e. depend on sample
+    var_ps = setdiff(names, fixed_ps)
+    print(var_ps)
+    
+    attach(X)
+    Nb   =     Nf*Nc 		
+    x_cell 	= 	L/Nc
+    x_sin 	= 	x_cell/Nf
+    A_sin 	= 	pi*y_sin^2 		
+    A_dis 	= 	pi*(y_sin+y_dis)^2-A_sin 		
+    A_sindis 	= 	2*pi*y_sin*x_sin 		
+    Vol_sin 	= 	A_sin*x_sin 		
+    Vol_dis 	= 	A_dis*x_sin 		
+    Vol_cell 	= 	pi*(y_sin+y_dis+y_cell)^2*x_cell-pi*(y_sin+y_dis)^2*x_cell 		
+    Vol_pp 	= 	Vol_sin 		
+    Vol_pv 	= 	Vol_sin
+    f_sin   = 	Vol_sin/(Vol_sin+Vol_dis+Vol_cell) 		
+    f_dis 	= 	Vol_dis/(Vol_sin+Vol_dis+Vol_cell) 		
+    f_cell 	= 	Vol_cell/(Vol_sin+Vol_dis+Vol_cell) 		
+    Vol_sinunit 	= 	L*pi*(y_sin+y_dis+y_cell)^2 		
+    Q_sinunit 	= 	pi*y_sin^2*flow_sin 		
+    m_liv 	= 	rho_liv*Vol_liv 		
+    q_liv 	= 	Q_liv/m_liv
+    
+    X$Nb = Nb  	
+    X$x_cell = x_cell
+    X$x_sin = x_sin
+    X$A_sin = A_sin
+    X$A_dis = A_dis
+    X$A_sindis = A_sindis
+    X$Vol_sin = Vol_sin
+    X$Vol_dis = Vol_dis
+    X$Vol_cell = Vol_cell
+    X$Vol_pp = Vol_pp 		
+    X$Vol_pv = Vol_pv
+    X$f_sin = f_sin
+    X$f_dis = f_dis
+    X$f_cell = f_cell
+    X$Vol_sinunit = Vol_sinunit
+    X$Q_sinunit = Q_sinunit
+    X$m_liv = m_liv
+    X$q_liv = q_liv
+    detach(X)
+    X
 }
-
-# showClass("_p_Parameter")
-# showMethods("_p_Parameter")
-
-
-# Create a data <- frame of the calculated values
-
-# 
-
-sb <- Model_getElementBySId(model, "test")
-sb
-
-f_fen
-
-# Calculate derived values
-Nb   = 	Nf*Nc 		
-x_cell 	= 	L/Nc 		
-x_sin 	= 	x_cell/Nf 		
-A_sin 	= 	pi*y_sin^2 		
-A_dis 	= 	pi*(y_sin+y_dis)^2-A_sin 		
-A_sindis 	= 	2*pi*y_sin*x_sin 		
-Vol_sin 	= 	A_sin*x_sin 		
-Vol_dis 	= 	A_dis*x_sin 		
-Vol_cell 	= 	pi*(y_sin+y_dis+y_cell)^2*x_cell-pi*(y_sin+y_dis)^2*x_cell 		
-Vol_pp 	= 	Vol_sin 		
-Vol_pv 	= 	Vol_sin
-f_sin   = 	Vol_sin/(Vol_sin+Vol_dis+Vol_cell) 		
-f_dis 	= 	Vol_dis/(Vol_sin+Vol_dis+Vol_cell) 		
-f_cell 	= 	Vol_cell/(Vol_sin+Vol_dis+Vol_cell) 		
-Vol_sinunit 	= 	L*pi*(y_sin+y_dis+y_cell)^2 		
-Q_sinunit 	= 	pi*y_sin^2*flow_sin 		
-m_liv 	= 	rho_liv*Vol_liv 		
-q_liv 	= 	Q_liv/m_liv
- 
+pars.new <- extendPars(pars, names)
+head(pars.new)
+hist(pars.new$Vol_sinunit, xlim=c(0, 6E-13), breaks=10)
+hist(pars.new$Q_sinunit, xlim=c(0, 1E-13), breaks=10)
 
 # The two conversion factors have to be the same
 # But they have to be calculated over the distribution of geometries
-# => this is postprocessing
 # N_Q = Q_liv/Q_sinunit;
 # N_Vol = N_Q
 # f_tissue = 1/N_Q * Vol_liv/Vol_sinunit
 
+
 # All of the values have calculated distributions, which can be compared with
 # the experimental values
-
-
 
 
 
