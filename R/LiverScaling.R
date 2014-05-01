@@ -88,22 +88,30 @@ errors   = SBMLDocument_getNumErrors(doc);
 SBMLDocument_printErrors(doc);
 model = SBMLDocument_getModel(doc);
 
+p <- Model_getParameter(model, 'id_not_in_parameters')
+id <- Parameter_getId(p)
+value <- Parameter_getValue(p)
+print(id)
+print(value)
+
 
 # Get parameters from SBML or parameters and calculate rest from it
 # Nf, Nc, L, x_cell, y_sin, y_dis, y_cell, flow_sin
-names = c('Nc', 'Nf', 'L', 'x_cell', 'y_sin', 'y_dis', 'y_cell', 'flow_sin')
+names = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 
+          'Dalb', 'Dgal', 'Dh2oM', 'DrbcM', 'Dsuc', 'f_fen')
 # All names which are not in pars
-var_names = setdiff(names(pars), getParsNames(pars)) 
+var_names = setdiff(names, getParsNames(pars)) 
+print(var_names)
+
 for (name in var_names){
   p <- Model_getParameter(model, name)
   id <- Parameter_getId(p)
   value <- Parameter_getValue(p)
-  print(id, value)
+  print(id)
+  print(value)
 }
 
-
 # Create a data <- frame of the calculated values
-
 
 Dalb	
 Dgal
