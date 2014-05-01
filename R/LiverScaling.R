@@ -122,7 +122,6 @@ print(fixed_ps)
 var_ps = setdiff(names, fixed_ps)
 print(var_ps)
 
-
 # Create extended data frame with the calculated values
 extendPars <- function(pars, fixed_ps){
     X <- pars
@@ -181,10 +180,9 @@ extendPars <- function(pars, fixed_ps){
     detach(X)
     X
 }
-pars.new <- extendPars(pars, names)
-head(pars.new)
-hist(pars.new$Vol_sinunit, xlim=c(0, 6E-13), breaks=10)
-hist(pars.new$Q_sinunit, xlim=c(0, 1E-13), breaks=10)
+pars <- extendPars(pars, fixed_ps)
+head(pars)
+hist(pars$Vol_sinunit, xlim=c(0, 6E-13), breaks=20)
 
 ###########################################################################
 # Define distributions of parameters which should be used for the calculation.
@@ -213,6 +211,7 @@ getProbabilitiesForSamples <- function(pars, p.gen, name){
     mpoints <- c(0, mpoints, 10*max(mpoints))
     
     # Calculate the cumulative probability associated with every sample
+    # Scaling so that the values fit to the parameter distributions
     c_sample <- plnorm(mpoints*p.gen[name, 'scale_fac'], 
                     meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], 
                     log = FALSE)
@@ -237,16 +236,26 @@ for (name in var_ps){
     pars[[p_name]] <- p_data
     
     # statistical independence assumed (multiply the probabilities)
+    # ??? this is strange - make sure it is valid
     p_sample = p_sample * p_data
 }
 # Normalize p_sample
 pars$p_sample <- p_sample/sum(p_sample)
+sum(pars$p_sample)
 plot(pars$p_sample)
 plot(pars$p_y_cell)
+plot(pars$y_cell, pars$p_y_cell)
 
-rm(name, p_data, p_name)
+# weight samples with their probability i.e. get the probability for every
+# varied parameter and 
+calculateWeightedValue <- function(pars, name){
+    m <- sum(pars$p_sample * pars[[name]])
+}
+m_L <- calculateWeightedValue(pars, 'L')
+m_L
+m_L2 <-  sum(pars$p_L * pars$L)
+m_L2
 head(pars)
-
 
 # calculate the combined probability based on the parameter probabilities
 name="y_cell"
@@ -256,10 +265,6 @@ plot(x, y)
 help(dlnorm)
 plot(sort(pars$L), seq(1, length(pars$L)))
 
-
-
-# weight samples with their probability i.e. get the probability for every
-# varied parameter and 
 
 
 
