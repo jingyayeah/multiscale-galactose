@@ -1,59 +1,63 @@
 ################################################################
 ## Scaling to whole-liver
 ################################################################
-# This is a crucial part of the model. The results for the 
-# specific condition & person have to be generated based on the
-# set of simulations for a broad range of conditions.
-#
-# Use the person/condition specific simulation parameters to scale
-# the sample of simulation to the actual result.
+# Whole liver function is calculated based on a sample of 
+# configurations of sinusoidal units. To calculate the total liver 
+# function these have to be weighted with their relative contribution
+# based on the underlying probability distribution of sinusoidal 
+# unit configurations. 
+# Total scaling in addition depends on the global paramters of the
+# person, i.e. global blood flow and liver volume. The distribution
+# of sinusoidal units is scaled according to these global variables.
 
 # Given: 
-# - sample of parameters
+# - sample of sinusoidal unit configurations 
+#   (from proper sampling over the range of the underlying configurations, i.e. 
+#   parameter space) -> random sampling, better latin hypercube sampling for
+#   faster convergence and better sampling of hypercube)
+#
 # - sample results for the given parameter samples
-# - distribution of parameters for the given condition/person 
-#   - these can result from whole liver data, i.e. different flow distribution from total 
-#     liver flow
-# - whole liver volume/mass for scaling. 
-
-
-# Latin Hypercube sampling
-# This
-# ‘‘multi-start’’ approach facilitates a broad coverage of the
+#   (for every sample configuration results are calculated, consisting of 
+#    derived geometrical parameters, and simulation results like timecourse 
+#    simulations)
+#
+# - assumed distribution of parameters for the given condition/person 
+#   (these are the actual distributions of the parameters for the sinusoidal 
+#    units. These can result from whole liver data, i.e. different flow distribution from total 
+#    liver flow. Depending on the simulated conditions these can vary)
+#
+# - whole liver volume/mass for scaling to organ & whole body level
+#   (even with the same underlying distributions within the liver, there is still 
+#    person to person variance in liver volume)
+#
+## Latin Hypercube sampling ##
+# This 'multi-start' approach facilitates a broad coverage of the
 # parameter search space in order to find the global optimum.
 # Latin hypercube sampling [17] of the initial parameter guesses
 # can be used to guarantee that each parameter estimation run
 # starts in a different region in the high-dimensional parameter
 # space. This method prohibits that randomly selected starting
-# points are accidentally close to each other (Materials and
-#                                              Methods: Latin hypercube sampling).
-# 
-# For the generation of the initial parameter guesses purely
-# random sampling or Latin hypercube sampling [17] can be used
-# (Figure 10a,b). Drawing N Latin hypercube samples in 2D can be
-# illustrated by dividing the space into N2 boxes. For the first
-# sample, one box in the first row is selected and then drawn from
-# within this box randomly. For the second sample, one box in the
-# second row is selected, except of the columns that have previously
-# already been drawn from, and then drawn from within this box
-# randomly.
-# Latin hypercube sampling is favorable compared to purely
-# random generation because Latin hypercube sampling prohibits
-# two randomly selected starting points from being accidentally close
-# to each other (Figure 10c,d). In contrast, for a random generation
-# samples are sometimes very close to each other. Therefore, Latin
+# points are accidentally close to each other. Therefore, Latin
 # hypercube sampling provides a better coverage of the space.
+#
+#  @author: Matthias Koenig
+#  @date: 2014-05-01
+################################################################
 
-
-
-# author: Matthias Koenig
-# date: 2014-04-29
+# TODO: support the Latin Hypercube Sampling
 
 # Load the parameter samples (here the parameters which are changing are defined)
+# - sample of sinusoidal unit configurations 
+#   (from proper sampling over the range of the underlying configurations, i.e. 
+#   parameter space) -> random sampling, better latin hypercube sampling for
+#   faster convergence and better sampling of hypercube)
+
 rm(list=ls())   # Clear all objects
 library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
+
+# TODO : only define the settings once here
 
 sname <- '2014-04-30_MultipleIndicator'
 tasks <- paste('T', seq(11,15), sep='')
@@ -72,9 +76,12 @@ for (kt in seq(1)){
   load(file=outfileFromParsFile(parsfile))
   print(summary(pars))
 }
-hist(pars$y_cell)
 names(pars)
 
+# - sample results for the given parameter samples
+#   (for every sample configuration results are calculated, consisting of 
+#    derived geometrical parameters, and simulation results like timecourse 
+#    simulations)
 
 # Get the additional parameters from the SBML file directly necessary for scaling, i.e 
 # calculate from the formulas
@@ -88,36 +95,42 @@ errors   = SBMLDocument_getNumErrors(doc);
 SBMLDocument_printErrors(doc);
 model = SBMLDocument_getModel(doc);
 
-p <- Model_getParameter(model, 'id_not_in_parameters')
-id <- Parameter_getId(p)
-value <- Parameter_getValue(p)
-print(id)
-print(value)
-
-
 # Get parameters from SBML or parameters and calculate rest from it
 # Nf, Nc, L, x_cell, y_sin, y_dis, y_cell, flow_sin
-names = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 
-          'Dalb', 'Dgal', 'Dh2oM', 'DrbcM', 'Dsuc', 'f_fen')
+names = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen')
 # All names which are not in pars
 var_names = setdiff(names, getParsNames(pars)) 
 print(var_names)
 
-for (name in var_names){
-  p <- Model_getParameter(model, name)
-  id <- Parameter_getId(p)
-  value <- Parameter_getValue(p)
-  print(id)
-  print(value)
+# Get all parameter names
+lofp <- Model_getListOfParameters(model)
+Np <- ListOf_size(lofp)
+p_names <- character(Np)
+for (k in seq(0, (Np-1))){  
+    p <- ListOfParameters_get(lofp, k)
+    p_names[k+1] <- Parameter_getId(p)
 }
+
+for (name in var_names){
+    if (name %in% p_names){
+        p <- Model_getParameter(model, name)
+        print(Parameter_getId(p))    
+    } else {
+      cat('parameter not in model:', name, '\n')    
+    }
+}
+
+# showClass("_p_Parameter")
+# showMethods("_p_Parameter")
+
 
 # Create a data <- frame of the calculated values
 
-Dalb	
-Dgal
-Dh2oM
-DrbcM
-Dsuc
+# 
+
+sb <- Model_getElementBySId(model, "test")
+sb
+
 f_fen
 
 # Calculate derived values
@@ -171,7 +184,8 @@ q_liv 	= 	Q_liv/m_liv
 
 # Scale to whole liver function
 
-
+# TODO: evaluate the convergence of the method depending on the number of 
+#       drawn samples.
 
 
 
