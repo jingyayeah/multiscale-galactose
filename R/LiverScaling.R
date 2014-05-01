@@ -44,6 +44,9 @@
 #  @date: 2014-05-01
 ################################################################
 
+# IMPORTANT: All of the values have calculated distributions, which can be compared with
+# the experimental values
+
 # TODO: support the Latin Hypercube Sampling
 
 # Load the parameter samples (here the parameters which are changing are defined)
@@ -111,13 +114,19 @@ rm(lofp, Np, p, kp)
 names = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen', 
           'rho_liv', 'Q_liv', 'Vol_liv')
 
+# All parameters which are fixed in the model
+fixed_ps = setdiff(names, getParsNames(pars))
+print(fixed_ps)
+
+# All parameters which are varied, i.e. depend on sample
+var_ps = setdiff(names, fixed_ps)
+print(var_ps)
+
+
 # Create extended data frame with the calculated values
-extendPars <- function(pars, names){
+extendPars <- function(pars, fixed_ps){
     X <- pars
     Nsim <- nrow(pars)
-    # All parameters which are fixed in the model
-    fixed_ps = setdiff(names, getParsNames(pars))
-    print(fixed_ps)
     
     # the fixed parameters in model
     for (pid in fixed_ps){
@@ -130,11 +139,6 @@ extendPars <- function(pars, names){
             cat('parameter not in model:', name, '\n')    
         }
     }
-    
-    # the derived variables in model
-    # All parameters which are varied, i.e. depend on sample
-    var_ps = setdiff(names, fixed_ps)
-    print(var_ps)
     
     attach(X)
     Nb   =     Nf*Nc 		
@@ -182,37 +186,35 @@ head(pars.new)
 hist(pars.new$Vol_sinunit, xlim=c(0, 6E-13), breaks=10)
 hist(pars.new$Q_sinunit, xlim=c(0, 1E-13), breaks=10)
 
-# The two conversion factors have to be the same
+###########################################################################
+# Define distributions of parameters which should be used for the calculation.
+# If no weighting distribution exists for parameter ?? what than ??
+
+
+
+
+###########################################################################
+# Calculate values based on the distribution weighted samples:
+
+# The conversion factor via flux and via volume have to be the same.
+# They are calculated based on the weighted distributions of the parameters. 
 # But they have to be calculated over the distribution of geometries
 # N_Q = Q_liv/Q_sinunit;
 # N_Vol = N_Q
 # f_tissue = 1/N_Q * Vol_liv/Vol_sinunit
 
+# calculate conversion factors
+calculateConversionFactors(pars.new){
+    Nsim <- nrow(pars.new)
+}
 
-# All of the values have calculated distributions, which can be compared with
-# the experimental values
-
-
-
-# Here formulas which have to correspond to the total formulas
-
-
+# the mean/std results based on the integration over the parameter distribution
+# the mean/std for the sample variables for control
 
 
-# Load the corresponding simulation results of interest
+# Scale to whole liver function based on the conversion factors
 
-
-# Define distributions of parameters which should be used for the calculation
-
-
-
-# Calculate the mean/std results based on the integration over the parameter distribution
-
-# Scale to whole liver function
 
 # TODO: evaluate the convergence of the method depending on the number of 
 #       drawn samples.
-
-
-
 
