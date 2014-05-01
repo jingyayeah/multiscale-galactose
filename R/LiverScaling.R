@@ -193,42 +193,68 @@ hist(pars.new$Q_sinunit, xlim=c(0, 1E-13), breaks=10)
 # Distributions are loaded via
 fname <- file.path(ma.settings$dir.results, 'distribution_fit_data.csv')
 p.gen <- read.csv(file=fname)
-p.gen
 rownames(p.gen) <- p.gen$name
 p.gen
 
+
 # In which units is it coming out (transformed units)
-name = 'L'
+# ! Important to keep track of the units !
+# TODO: do the fit for unscaled data in basis units
+getProbabilitiesForSamples <- function(pars, p.gen, name){
+    Nsim = nrow(pars)
+    
+    # sort the data
+    d <- sort(pars[[name]])  
+
+    # get the mean points
+    mpoints <- 0.5*(d[1:(Nsim-1)] + d[2:Nsim])
+    
+    # Add the boundary points
+    mpoints <- c(0, mpoints, 10*max(mpoints))
+    
+    # Calculate the cumulative probability associated with every sample
+    c_sample <- plnorm(mpoints*p.gen[name, 'scale_fac'], 
+                    meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], 
+                    log = FALSE)
+    
+    print(summary(c_sample))
+    # get the probability associated with the interval
+    p_sample = c_sample[2:(Nsim+1)] - c_sample[1:Nsim]
+    # plot(p_sample)
+    print(sum(p_sample))
+
+    p_sample
+}
+
+# For every var_ps a distribution has to exist
+print(var_ps)
+Nsim <- nrow(pars)
+p_sample <- rep(1, Nsim)
+for (name in var_ps){
+    print(name)
+    p_name = paste('p_', name, sep='')
+    p_data <- getProbabilitiesForSamples(pars, p.gen, name)
+    pars[[p_name]] <- p_data
+    
+    # statistical independence assumed (multiply the probabilities)
+    p_sample = p_sample * p_data
+}
+# Normalize p_sample
+pars$p_sample <- p_sample/sum(p_sample)
+plot(pars$p_sample)
+plot(pars$p_y_cell)
+
+rm(name, p_data, p_name)
+head(pars)
+
+
+# calculate the combined probability based on the parameter probabilities
+name="y_cell"
 x <- seq(from=0, to=1000, length.out=1000)
 y <- dlnorm(x, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)
 plot(x, y)
 help(dlnorm)
-
 plot(sort(pars$L), seq(1, length(pars$L)))
-
-# sort the data
-tmp <- sort(pars$L)  
-Ntmp = length(tmp)
-# get the mean points
-mpoints <- 0.5*(tmp[1:(Ntmp-1)] + tmp[2:Ntmp])
-# Add the 2 additional points for calculation
-mpoints <- c(0, mpoints, 10*max(mpoints))
-stripchart(tmp)
-plot(tmp)
-stripchart(mpoints, col='blue')
-
-# Calculate the probability associated with every sample
-p_mpoints <- plnorm(mpoints*p.gen[name, 'scale_fac'], 
-                    meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], 
-                    log = FALSE)
-plot(p_mpoints)
-summary(p_mpoints)
-length(p_mpoints)
-p_sample = p_mpoints[2:(Ntmp+1)] - p_mpoints[1:Ntmp]
-length(p_sample)
-plot(p_sample)
-sum(p_sample)
-# here the weighting factors are achieved
 
 
 

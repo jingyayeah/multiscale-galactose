@@ -136,7 +136,7 @@ head(pars)
 
 
 # Settings for plots
-create_plot_files = FALSE
+create_plot_files = TRUE
 histc = rgb(1.0, 0.0, 0.0, 0.25)
 histcp = rgb(0.0, 0.0, 1.0, 0.25)
 plot.width = 800 
