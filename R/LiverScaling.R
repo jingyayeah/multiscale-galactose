@@ -190,6 +190,75 @@ hist(pars.new$Q_sinunit, xlim=c(0, 1E-13), breaks=10)
 # Define distributions of parameters which should be used for the calculation.
 # If no weighting distribution exists for parameter ?? what than ??
 
+# Distributions are loaded via
+fname <- file.path(ma.settings$dir.results, 'distribution_fit_data.csv')
+p.gen <- read.csv(file=fname)
+p.gen
+rownames(p.gen) <- p.gen$name
+p.gen
+
+# In which units is it coming out (transformed units)
+name = 'L'
+x <- seq(from=0, to=1000, length.out=1000)
+y <- dlnorm(x, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)
+plot(x, y)
+help(dlnorm)
+
+plot(sort(pars$L), seq(1, length(pars$L)))
+
+# sort the data
+tmp <- sort(pars$L)  
+Ntmp = length(tmp)
+# get the mean points
+mpoints <- 0.5*(tmp[1:(Ntmp-1)] + tmp[2:Ntmp])
+# Add the 2 additional points for calculation
+mpoints <- c(0, mpoints, 10*max(mpoints))
+stripchart(tmp)
+plot(tmp)
+stripchart(mpoints, col='blue')
+
+# Calculate the probability associated with every sample
+p_mpoints <- plnorm(mpoints*p.gen[name, 'scale_fac'], 
+                    meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], 
+                    log = FALSE)
+plot(p_mpoints)
+summary(p_mpoints)
+length(p_mpoints)
+p_sample = p_mpoints[2:(Ntmp+1)] - p_mpoints[1:Ntmp]
+length(p_sample)
+plot(p_sample)
+sum(p_sample)
+# here the weighting factors are achieved
+
+
+
+# weight samples with their probability i.e. get the probability for every
+# varied parameter and 
+
+
+
+# Density, distribution function, quantile function
+# dlnorm, plnorm, qlnorm
+
+# TODO: create arbitrary destribution function
+# create a density, distribution and quantile function from data
+
+
+# Create a density estimate
+y1 <- rlnorm(10000, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+y2 <- rlnorm(10000, meanlog=0.5*p.gen[name, 'meanlog'], sdlog=4*p.gen[name, 'sdlog'])
+ytest <- c(y1, y2)
+plot(ytest)
+hist(ytest, breaks=40)
+ytest
+dtest <- density(ytest, from=0, to=max(ytest), bw=20)
+summary(ytest)
+plot(dtest)
+
+# Empircal Distribution Functions
+# Multivariate Empirical Cumulative Distribution Functions
+# ecdf
+
 
 
 
@@ -218,3 +287,7 @@ calculateConversionFactors(pars.new){
 # TODO: evaluate the convergence of the method depending on the number of 
 #       drawn samples.
 
+# Resampling ( https://en.wikipedia.org/wiki/Resampling_%28statistics%29 )
+# Estimating the precision of sample statistics (medians, variances, percentiles) by using subsets of available data (jackknifing) or drawing randomly with replacement from a set of data points (bootstrapping)
+# Validating models by using random subsets (bootstrapping, cross validation)
+# approximate permutation test, Monte Carlo permutation tests or random permutation tests
