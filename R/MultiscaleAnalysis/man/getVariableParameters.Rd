@@ -1,0 +1,15 @@
+\name{getVariableParameters}
+\alias{getVariableParameters}
+\title{All parameters which are varied, i.e. depend on sample}
+\usage{
+getVariableParameters(pars, all_ps)
+}
+\arguments{
+  \item{pars}{parameter structure}
+
+  \item{all_ps}{parameters in model}
+}
+\description{
+All parameters which are varied, i.e. depend on sample
+}
+

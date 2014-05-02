@@ -78,15 +78,14 @@ getProbabilitiesForSamples <- function(pars, p.gen, name){
   
   # TODO: make the calculations via the ecdf than general input data can be used.
   cat('# ec_sample #\n')
-  d_sample <- dlnorm(mpoints*p.gen[name, 'scale_fac'], 
-                     meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], 
-                     log = FALSE)
-  f.ecdf <- ecdf(d_sample)
+  y1 <- rlnorm(25000, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+  f.ecdf <- ecdf(y1)
   ec_sample <- f.ecdf(mpoints*p.gen[name, 'scale_fac'])
   cat(ec_sample, '\n')
+  cat(ec_sample-c_sample, '\n')
   
-  print(summary(c_sample))
-  print(summary(ec_sample))
+  cat(summary(c_sample), '\n')
+  cat(summary(ec_sample), '\n')
   
   # get the probability associated with the interval
   p_sample = c_sample[2:(Nsim+1)] - c_sample[1:Nsim]

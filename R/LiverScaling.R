@@ -61,7 +61,6 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 # TODO : only define the settings once here
-
 sname <- '2014-04-30_MultipleIndicator'
 tasks <- paste('T', seq(11,15), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
@@ -87,101 +86,26 @@ names(pars)
 #    derived geometrical parameters, and simulation results like timecourse 
 #    simulations)
 
-# Get additional information from the SBML file
-# showClass("_p_Parameter")
-# showMethods("_p_Parameter")
-
-library('libSBML')
-filename = filename <- '/home/mkoenig/multiscale-galactose-results/tmp_sbml/Galactose_v14_Nc20_Nf1.xml'
-doc        = readSBML(filename);
-errors   = SBMLDocument_getNumErrors(doc);
-SBMLDocument_printErrors(doc);
-model = SBMLDocument_getModel(doc);
-rm(errors)
-
-# Get all parameter names from model
-lofp <- Model_getListOfParameters(model)
-Np <- ListOf_size(lofp)
-model_pids <- character(Np)
-for (kp in seq(0, (Np-1))){  
-    p <- ListOfParameters_get(lofp, kp)
-    model_pids[kp+1] <- Parameter_getId(p)
-}
-rm(lofp, Np, p, kp)
-
-# Get the following parameters from SBML or the parameters file to calculate
-# the derived variables.
-names = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen', 
+# Get parameters from SBML or parameter structure and calculate the derived
+# variables.
+all_ps = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen', 
           'rho_liv', 'Q_liv', 'Vol_liv')
-
-# All parameters which are fixed in the model
-fixed_ps = setdiff(names, getParsNames(pars))
+fixed_ps <- getFixedParameters(pars=pars, all_ps=all_ps)
+var_ps <- getVariableParameters(pars=pars, all_ps=all_ps)
+print(all_ps)
 print(fixed_ps)
-
-# All parameters which are varied, i.e. depend on sample
-var_ps = setdiff(names, fixed_ps)
 print(var_ps)
 
-# Create extended data frame with the calculated values
-extendPars <- function(pars, fixed_ps){
-    X <- pars
-    Nsim <- nrow(pars)
-    
-    # the fixed parameters in model
-    for (pid in fixed_ps){
-        if (pid %in% model_pids){
-            p <- Model_getParameter(model, pid)
-            value <- Parameter_getValue(p)
-            # create a variable with the name
-            X[[pid]] <- rep(value, Nsim)
-        } else {
-            cat('parameter not in model:', name, '\n')    
-        }
-    }
-    
-    attach(X)
-    Nb   =     Nf*Nc 		
-    x_cell 	= 	L/Nc
-    x_sin 	= 	x_cell/Nf
-    A_sin 	= 	pi*y_sin^2 		
-    A_dis 	= 	pi*(y_sin+y_dis)^2-A_sin 		
-    A_sindis 	= 	2*pi*y_sin*x_sin 		
-    Vol_sin 	= 	A_sin*x_sin 		
-    Vol_dis 	= 	A_dis*x_sin 		
-    Vol_cell 	= 	pi*(y_sin+y_dis+y_cell)^2*x_cell-pi*(y_sin+y_dis)^2*x_cell 		
-    Vol_pp 	= 	Vol_sin 		
-    Vol_pv 	= 	Vol_sin
-    f_sin   = 	Vol_sin/(Vol_sin+Vol_dis+Vol_cell) 		
-    f_dis 	= 	Vol_dis/(Vol_sin+Vol_dis+Vol_cell) 		
-    f_cell 	= 	Vol_cell/(Vol_sin+Vol_dis+Vol_cell) 		
-    Vol_sinunit 	= 	L*pi*(y_sin+y_dis+y_cell)^2 		
-    Q_sinunit 	= 	pi*y_sin^2*flow_sin 		
-    m_liv 	= 	rho_liv*Vol_liv 		
-    q_liv 	= 	Q_liv/m_liv
-    
-    X$Nb = Nb  	
-    X$x_cell = x_cell
-    X$x_sin = x_sin
-    X$A_sin = A_sin
-    X$A_dis = A_dis
-    X$A_sindis = A_sindis
-    X$Vol_sin = Vol_sin
-    X$Vol_dis = Vol_dis
-    X$Vol_cell = Vol_cell
-    X$Vol_pp = Vol_pp 		
-    X$Vol_pv = Vol_pv
-    X$f_sin = f_sin
-    X$f_dis = f_dis
-    X$f_cell = f_cell
-    X$Vol_sinunit = Vol_sinunit
-    X$Q_sinunit = Q_sinunit
-    X$m_liv = m_liv
-    X$q_liv = q_liv
-    detach(X)
-    X
-}
-pars <- extendPars(pars, fixed_ps)
+# Extend the parameters with the SBML parameters and calculated parameters
+# showClass("_p_Parameter")
+# showMethods("_p_Parameter")
+library('libSBML')
+filename = filename <- '/home/mkoenig/multiscale-galactose-results/tmp_sbml/Galactose_v14_Nc20_Nf1.xml'
+model <- loadSBMLModel(filename)
+pars <- extendParameterStructure(pars=pars, fixed_ps=fixed_ps, model=model)
 head(pars)
+
+# Now the full information about the samples is available
 hist(pars$Vol_sinunit, xlim=c(0, 6E-13), breaks=20)
 
 ###########################################################################
@@ -194,9 +118,60 @@ p.gen <- read.csv(file=fname)
 rownames(p.gen) <- p.gen$name
 p.gen
 
+## create arbitrary distribution function
+# create a density, distribution and quantile function from data
+# Density, distribution function, quantile function
+# dlnorm, plnorm, qlnorm
+# -> use arbitrary distribution function to calculate the derived values
+
+# Create a density estimate
+# ! Possible problems with outliers in density estimation
+name = 'flow_sin'
+Npoints = 1000
+y1 <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+y2 <- rlnorm(Npoints, meanlog=1.3*p.gen[name, 'meanlog'], sdlog=0.4*p.gen[name, 'sdlog'])
+ytest <- c(y1, y2)
+
+
+y1 <- rlnorm(10000, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+ecdf.tmp1 <- ecdf(y1)
+plot(ecdf.tmp1)
+
+
+# Empirical cumulative distribution function) is a step function with jumps i/n at observation values, 
+# where i is the number of tied observations at that value
+# Multivariate Empirical Cumulative Distribution Functions
+# ecdf
+ecdf.tmp <- ecdf(ytest)
+plot(ecdf.tmp)
+ecdf.tmp
+# The quantile(obj, ...) method computes the same quantiles as quantile(x, ...) would where x is the original sample
+
+
+summary(ytest)
+lb = 0.0;
+ub = 10 * mean(ytest); 
+plot(ytest)
+hist(ytest, breaks=30, xlim=c(lb, ub))
+dtest <- density(ytest, from=lb, to=ub, bw=100)
+plot(dtest, xlim=c(lb, ub))
+
+
+
+# use the density to calculate the p_sample
+# Now we have density and samples -> get the new p_sample values
+# needed is a distribution function (cumulative) or empirical cumulative 
+# distribution function
+
+p_test <- getProbabilitiesForSamples(pars=pars, p.gen=p.gen, name=name)
+
+
+
+
+
+
 # For every var_ps a distribution has to exist
-# !Make sure that over all the probabilities is integrated
-# !This 
+# TODO: Make sure that over all the probabilities is integrated
 print(var_ps)
 Nsim <- nrow(pars)
 p_sample <- rep(1, Nsim)
@@ -205,7 +180,6 @@ for (name in var_ps){
     p_name = paste('p_', name, sep='')
     p_data <- getProbabilitiesForSamples(pars, p.gen, name)
     pars[[p_name]] <- p_data
-
     # calculate the combined probability based on the parameter probabilities
     # statistical independence assumed (multiply the probabilities)
     # ??? this is strange - make sure it is valid
@@ -225,7 +199,6 @@ plot(pars$y_cell, pars$p_y_cell)
 
 # Calculate weighted values based on the probabilities for sample
 # Weighted mean, variance and standard deviation calculations
-
 head(pars)
 name='Q_sinunit'
 wmean <- wt.mean(pars[[name]], pars$p_sample)
@@ -246,55 +219,6 @@ for (name in var_ps){
     plotWeighted(pars, p.gen, name)
     dev.off()
 }
-
-
-
-# create arbitrary destribution function
-# create a density, distribution and quantile function from data
-# Density, distribution function, quantile function
-# dlnorm, plnorm, qlnorm
-# -> use arbitrary distribution function to calculate the derived values
-
-
-# Create a density estimate
-# ! Possible problems with outliers in density estimation
-
-
-
-name = 'flow_sin'
-Npoints = 100
-y1 <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
-y2 <- rlnorm(Npoints, meanlog=1.3*p.gen[name, 'meanlog'], sdlog=0.4*p.gen[name, 'sdlog'])
-ytest <- c(y1, y2)
-summary(ytest)
-
-lb = 0.0;
-ub = 10 * mean(ytest); 
-
-plot(ytest)
-hist(ytest, breaks=30, xlim=c(lb, ub))
-dtest <- density(ytest, from=lb, to=ub, bw=100)
-plot(dtest, xlim=c(lb, ub))
-
-# use the density to calculate the p_sample
-# Now we have density and samples -> get the new p_sample values
-# needed is a distribution function (cumulative) or empirical cumulative 
-# distribution function
-
-p_test <- getProbabilitiesForSamples(pars=pars, p.gen=p.gen, name=name)
-
-
-
-
-# Empirical cumulative distribution function) is a step function with jumps i/n at observation values, 
-# where i is the number of tied observations at that value
-# Multivariate Empirical Cumulative Distribution Functions
-# ecdf
-ecdf.tmp <- ecdf(ytest)
-plot(ecdf.tmp)
-ecdf.tmp
-
-
 
 
 ###########################################################################
