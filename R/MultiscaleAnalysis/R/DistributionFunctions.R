@@ -34,7 +34,7 @@ wt.mean <- function(x, wt){
 wt.var <- function(x, wt){
   y <- as.matrix(x)
   c <- cov.wt(y, wt)
-  c$cov
+  c$cov[1,1]
 }
 
 #' Weighted unbiased standard deviation
@@ -87,8 +87,8 @@ getProbabilitiesForSamples <- function(pars, f.ecdf, name){
 plotWeighted <- function (pars, p.gen, name) {
   data = pars[[name]]
   wt = pars$p_sample
-  # TODO: carful
-  # wt = pars[[paste('p_', name, sep="")]]
+  
+  # calculate the weighted values
   wmean <- wt.mean(data, wt)
   wvar <- wt.var(data, wt)
   wsd <- wt.sd(data, wt)
@@ -97,15 +97,17 @@ plotWeighted <- function (pars, p.gen, name) {
   cols = c('gray', 'black', 'red', 'blue')
   lwd = rep(2,4)
   type = rep('l',4)
-  cutoff = 0.9; lb = (1-cutoff)*min(data); ub = (1+cutoff)*max(data)
-  Np = 1000;
+  cutoff = 0.9; 
+  lb = (1-cutoff) * min(data)
+  ub = (1+cutoff) * max(data)
+  Npoints = 1000
   
   # histogramm of samples
   hist(data, freq=FALSE, breaks=20, xlim=c(lb, ub), 
        main=paste(name, ' [', p.gen[name, 'unit'], ']', sep=""), 
        col=cols[1])
   
-  x <- seq(from=lb, to=ub, length.out=Np)
+  x <- seq(from=lb, to=ub, length.out=Npoints)
   # Here also log normal distributions have to be used, so 
   # transformation of mean and std has to be applied
   # y <- dnorm(x, mean=mean, sd=sd)
@@ -124,16 +126,16 @@ plotWeighted <- function (pars, p.gen, name) {
   y <- dlnorm(x, meanlog=wmeanlog, sdlog=wsdlog)
   points(x, y, col=cols[3], type=type[3], lwd=lwd[3])
   
-  # real distribution
-  scale_fac = p.gen[name, 'scale_fac'] 
-  xr <- seq(from=lb, to=ub*scale_fac, length.out=Np)
-  yr <- dlnorm(xr, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)
-  xr <- xr/scale_fac
-  yr <- yr*scale_fac
-  points(xr, yr, col=cols[4], type=type[4], lwd=lwd[4])
+  # real distribution if existing
+  if (!is.na(p.gen[name, 'meanlog'])){
+    scale_fac = p.gen[name, 'scale_fac']
   
+    xr <- seq(from=lb, to=ub*scale_fac, length.out=Npoints)
+    yr <- dlnorm(xr, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)
+    xr <- xr/scale_fac
+    yr <- yr*scale_fac
+    points(xr, yr, col=cols[4], type=type[4], lwd=lwd[4])
+  }
   legend("topright", legend=c("samples", "samples dist", "weighted samples dist", "real dist"),
-         col=cols, lwd=lwd, cex=0.4)
+         col=cols, lwd=lwd, cex=0.9)
 }
-
-

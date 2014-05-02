@@ -101,13 +101,13 @@ names(pars)
 
 # Get parameters from SBML or parameter structure and calculate the derived
 # variables.
-all_ps = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen', 
+ps.all = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen', 
           'rho_liv', 'Q_liv', 'Vol_liv')
-fixed_ps <- getFixedParameters(pars=pars, all_ps=all_ps)
-var_ps <- getVariableParameters(pars=pars, all_ps=all_ps)
-print(all_ps)
-print(fixed_ps)
-print(var_ps)
+ps.fixed <- getFixedParameters(pars=pars, all_ps=ps.all)
+ps.var <- getVariableParameters(pars=pars, all_ps=ps.all)
+print(ps.all)
+print(ps.fixed)
+print(ps.var)
 
 # Extend the parameters with the SBML parameters and calculated parameters
 # showClass("_p_Parameter")
@@ -115,7 +115,7 @@ print(var_ps)
 library('libSBML')
 filename = filename <- '/home/mkoenig/multiscale-galactose-results/tmp_sbml/Galactose_v14_Nc20_Nf1.xml'
 model <- loadSBMLModel(filename)
-pars <- extendParameterStructure(pars=pars, fixed_ps=fixed_ps, model=model)
+pars <- extendParameterStructure(pars=pars, fixed_ps=ps.fixed, model=model)
 head(pars)
 
 ###########################################################################
@@ -125,18 +125,21 @@ head(pars)
 fname <- file.path(ma.settings$dir.results, 'distribution_fit_data.csv')
 p.gen <- read.csv(file=fname)
 rownames(p.gen) <- p.gen$name
-p.gen
+print(p.gen)
 
 # Calculated ECDFs for standard distributions
-ecdf.list <- list()
-Npoints <- 25000;
-for (name in var_ps){
-  # create ecdf by random sampling
-  y <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
-  f.ecdf <- ecdf(y)
-  ecdf.list[[name]] <- f.ecdf 
+createListOfStandardECDF <- function (p.gen, ps.var, Npoints=25000) {
+  # Create the ECDFs via random sampling from log-normal distribution
+  ecdf.list <- list()
+  for (name in ps.var){
+    # create ecdf by random sampling
+    y <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+    f.ecdf <- ecdf(y)
+    ecdf.list[[name]] <- f.ecdf 
+  }
+  ecdf.list
 }
-rm(Npoints)
+ecdf.list <- createListOfStandardECDF(p.gen, ps.var)
 
 # Calculate the single variable probabilies based on ECDF, i.e p(x1), p(x2), ...
 # for x1, x2, ... being the parameters varied.
@@ -155,20 +158,28 @@ calculateVariableProbabilitiesForSamples <- function (pars, ecdf.list) {
 }
 pars <- calculateVariableProbabilitiesForSamples(pars, ecdf.list)
 
+
 # Multidimensional ECDF ?
 # Calculate the overall probability of the sample under the assumption
 # of statistical independence
 # TODO: ??? this is strange - make sure it is valid
 # This is the main trick and should be valid
 # TODO: fix
-Nsim <- nrow(pars)
-p_sample <- rep(1, Nsim)
-for (name in var_ps){
-  p_sample = p_sample * p_data
+calculateSampleProbability <- function (pars, ps.var) {
+  Nsim <- nrow(pars)
+  p_sample <- rep(1, Nsim)
+  for (name in ps.var){
+    p_name <- paste('p_', name, sep='')
+    p_sample = p_sample * pars[[p_name]]
+  }
+  # Normalize p_sample
+  pars$p_sample <- p_sample/sum(p_sample)
+  print(sum(pars$p_sample))
+  pars
 }
-# Normalize p_sample
-pars$p_sample <- p_sample/sum(p_sample)
-sum(pars$p_sample)
+pars <- calculateSampleProbability(pars, ps.var)
+pars
+
 
 plot(pars$p_sample)
 plot(pars$p_y_cell)
@@ -215,17 +226,18 @@ plot(pars$y_cell, pars$p_y_cell)
 # plot(density(x))
 # p_test <- getProbabilitiesForSamples(pars=pars, p.gen=p.gen, name=name)
 
-
 ###########################################################################
 # Calculate weighted derived values
 ###########################################################################
 # Calculate weighted values based on the probabilities for sample
 # Weighted mean, variance and standard deviation calculations
-head(pars)
 name='Q_sinunit'
 wmean <- wt.mean(pars[[name]], pars$p_sample)
+wmean
 wvar <- wt.var(pars[[name]], pars$p_sample)
+wvar
 wsd <- wt.sd(pars[[name]], pars$p_sample)
+wsd
 plotWeighted(pars, p.gen, name)
 
 # Generate plots
@@ -234,7 +246,7 @@ plot.height = 800
 plot.units= "px"
 plot.bg = "white"
 plot.res = 150
-for (name in var_ps){
+for (name in ps.var){
   fname = paste('test_distribution_', name, '.png', sep="") 
   print(fname)
   png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
@@ -242,20 +254,72 @@ for (name in var_ps){
   dev.off()
 }
 
-
 ###########################################################################
 # Scale to whole-liver
 ###########################################################################
-
 # The conversion factor via flux and via volume have to be the same.
 # They are calculated based on the weighted distributions of the parameters. 
 # But they have to be calculated over the distribution of geometries
 # N_Q = Q_liv/Q_sinunit;
 # N_Vol = N_Q
-# f_tissue = 1/N_Q * Vol_liv/Vol_sinunit
+# N_Vol = f_tissue*Vol_liv/Vol_sinunit  => f_tissue = N_Vol * Vol_sinunit/Vol_liv
+
+# -20% large vessels
 
 # calculate conversion factors
-# TODO
-calculateConversionFactors(pars.new){
-    Nsim <- nrow(pars.new)
+calculateConversionFactors <- function(pars){
+    res <- list()
+  
+    # varies depending on parameters
+    Q_sinunit.wmean <- wt.mean(pars[['Q_sinunit']], pars$p_sample)
+    Q_sinunit.wsd <- wt.sd(pars[['Q_sinunit']], pars$p_sample)
+    Vol_sinunit.wmean <- wt.mean(pars[['Vol_sinunit']], pars$p_sample)
+    Vol_sinunit.wsd <- wt.sd(pars[['Vol_sinunit']], pars$p_sample)
+    
+    # constant normal value
+    Q_liv.wmean <- wt.mean(pars[['Q_liv']], pars$p_sample)
+    Q_liv.wsd <- wt.sd(pars[['Q_liv']], pars$p_sample)
+    Vol_liv.wmean <- wt.mean(pars[['Vol_liv']], pars$p_sample)
+    Vol_liv.wsd <- wt.sd(pars[['Vol_liv']], pars$p_sample)
+        
+    f_Q = Q_liv.wmean/Q_sinunit.wmean
+    f_Vol = Vol_liv.wmean/Vol_sinunit.wmean
+    cat('f_Q: ', f_Q, '\n')
+    cat('f_Vol: ', f_Vol, '\n')
+    cat('f_Vol/f_Q: ', f_Vol/f_Q, '\n')
+    
+    N_Q = Q_liv.wmean/Q_sinunit.wmean
+    # propagation of uncertainty ???
+    N_Q.sd = Q_liv.wmean/Q_sinunit.wsd
+    print(N_Q.sd)
+    cat('N_Q: ', N_Q, '\n')
+    N_Vol = N_Q
+    f_tissue = N_Vol * Vol_sinunit.wmean/Vol_liv.wmean
+    f_tissue.sd = N_Q.sd * Vol_sinunit.wsd/Vol_liv.wmean
+    cat('f_tissue: ', f_tissue, '+-', f_tissue.sd, '\n')
+    
+    res$N_Q <- N_Q
+    res$N_Q.sd <- N_Q.sd
+    res$f_tissue <- f_tissue
+    res$f_tissue.sd <- f_tissue.sd
+    res
 }
+res <- calculateConversionFactors(pars)
+names(res)
+
+###########################################################################
+# Scale things to whole liver
+###########################################################################
+# How do changes in liver size and blood flow change the results
+# [A] liver size -> different conversion factor with
+# N_Vol.new = N_Vol.alt * Vol_liv.new/Vol_liv.ref 
+# => parameters are scaled linearly with the liver volume (i.e. smaller or bigger liver
+#     with same constitution)
+
+# [B] changes in global blood flow
+# N_Q.new = f_tissue * N_Vol.new
+# -> new meanstd & variance for local blood flow
+# Q_liv.wmean.new = Q_liv.wmean * N_Q.new/N_Q
+# i.e. if the blood flow goes down, than the mean velocity through the sinusoids goes down
+
+
