@@ -1,9 +1,8 @@
-
 #' Generates the standard parameters for meanlog and stdlog based on mean and std.
 #' @return data.frame of standard parameters
 #' @export
 generateLogStandardParameters <- function(){
-
+  
   name = c('L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin')
   mean = c(500E-6, 4.4E-6, 1.2E-6, 7.58E-6, 270E-6)
   std  = c(125E-6, 0.45E-6, 0.4E-6, 1.25E-6, 58E-6)
@@ -25,26 +24,8 @@ generateLogStandardParameters <- function(){
   p.gen
 }
 
-
-#' Calculate the stdlog for log-normal distribution from given mean and std
-#' @param m mean
-#' @param std standard deviation
-#' @return stdlog for corresponding log-normal distribution
-#' @export
-stdlog <- function(m, std){
-  stdlog <- sqrt(log(1 + std^2/m^2))
-}
-
-#' Calculate the meanlog for log-normal distribution from given mean and std
-#' @param m mean
-#' @param std standard deviation
-#' @return meanlog for corresponding log-normal distribution
-#' @export
-meanlog <- function(m, std){
-  meanlog <- log(m^2/sqrt(std^2+m^2))
-}
-
-#' Generate data vector from histogramm.
+#' Generates a possible data vector from given histogramm.
+#' Necessary for fitting distributions to histogramm data.
 #' Count data points are generated in the middle of every bin.
 #' @param dset histogram dataset
 #' @return data frame with x as data
@@ -87,7 +68,7 @@ plotHistWithFit <- function(p.gen, name, data, midpoints, fit, histc=rgb(1.0, 0.
   plot(h, col=histc, freq=FALSE, add=T)
 }
 
-#' Plot the density distribution.
+#' Plot the log normal density distribution.
 #' @param p.gen information about the parameters
 #' @param name of the parameter
 #' @param maxvalue for calculation of distribution
@@ -128,7 +109,7 @@ ylabByName <-function(p.gen, name){
 }
 
 #' Writes the fit parameter to the global parameter object.
-#' @param name of the parameter
+#' @param name name of the parameter
 #' @param fit fit results
 #' @export
 storeFitData <- function(p.gen, fit, name){

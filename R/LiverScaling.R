@@ -194,37 +194,6 @@ p.gen <- read.csv(file=fname)
 rownames(p.gen) <- p.gen$name
 p.gen
 
-
-# In which units is it coming out (transformed units)
-# ! Important to keep track of the units !
-# TODO: do the fit for unscaled data in basis units
-getProbabilitiesForSamples <- function(pars, p.gen, name){
-    Nsim = nrow(pars)
-    
-    # sort the data
-    d <- sort(pars[[name]])  
-
-    # get the mean points
-    mpoints <- 0.5*(d[1:(Nsim-1)] + d[2:Nsim])
-    
-    # Add the boundary points
-    mpoints <- c(0, mpoints, 10*max(mpoints))
-    
-    # Calculate the cumulative probability associated with every sample
-    # Scaling so that the values fit to the parameter distributions
-    c_sample <- plnorm(mpoints*p.gen[name, 'scale_fac'], 
-                    meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], 
-                    log = FALSE)
-    
-    print(summary(c_sample))
-    # get the probability associated with the interval
-    p_sample = c_sample[2:(Nsim+1)] - c_sample[1:Nsim]
-    # plot(p_sample)
-    print(sum(p_sample))
-
-    p_sample
-}
-
 # For every var_ps a distribution has to exist
 # !Make sure that over all the probabilities is integrated
 # !This 
@@ -236,9 +205,12 @@ for (name in var_ps){
     p_name = paste('p_', name, sep='')
     p_data <- getProbabilitiesForSamples(pars, p.gen, name)
     pars[[p_name]] <- p_data
-    
+
+    # calculate the combined probability based on the parameter probabilities
     # statistical independence assumed (multiply the probabilities)
     # ??? this is strange - make sure it is valid
+    # This is the main trick and should be valid
+    # TODO: fix
     p_sample = p_sample * p_data
 }
 # Normalize p_sample
@@ -254,78 +226,11 @@ plot(pars$y_cell, pars$p_y_cell)
 # Calculate weighted values based on the probabilities for sample
 # Weighted mean, variance and standard deviation calculations
 
-# x and wt have to be of same length
-# wt.mean <- sum(wt*x)/sum(wt)
-wt.mean <- function(x, wt){
- weighted.mean(x, wt)
-}
-# unbiased variance, i.e. (N-1)
-wt.var <- function(x, wt){
-    y <- as.matrix(x)
-    c <- cov.wt(y, wt)
-    c$cov
-}
-# unbiased standard deviation
-wt.sd <- function(x, wt){
-    var <- wt.var(x, wt)
-    sqrt(var)
-}
-
-# Test the weighted values
-plotWeighted <- function (pars, p.gen, name) {
-  data = pars[[name]]
-  wt = pars$p_sample
-  # TODO: carful
-  # wt = pars[[paste('p_', name, sep="")]]
-  wmean <- wt.mean(data, wt)
-  wvar <- wt.var(data, wt)
-  wsd <- wt.sd(data, wt)
-  
-  # figure
-  cols = c('gray', 'black', 'red', 'blue')
-  lwd = rep(2,4)
-  type = rep('l',4)
-  cutoff = 0.9; lb = (1-cutoff)*min(data); ub = (1+cutoff)*max(data)
-  Np = 1000;
-  
-  # histogramm of samples
-  hist(data, freq=FALSE, breaks=20, xlim=c(lb, ub), 
-       main=paste(name, ' [', p.gen[name, 'unit'], ']', sep=""), 
-       col=cols[1])
-  
-  x <- seq(from=lb, to=ub, length.out=Np)
-  # Here also log normal distributions have to be used, so 
-  # transformation of mean and std has to be applied
-  # y <- dnorm(x, mean=mean, sd=sd)
-  # calculated distribution based on samples
-  mean <- mean(data)
-  sd <- sd(data)
-  meanlog = meanlog(mean, sd)
-  sdlog   = stdlog(mean, sd)
-  y <- dlnorm(x, meanlog=meanlog, sdlog=sdlog)
-  points(x, y, col=cols[2], type=type[2], lwd=lwd[2])
-  
-  # calculated distribution based on weighted samples with probabilies
-  #y <- dnorm(x, mean=wmean, sd=wsd)
-  wmeanlog = meanlog(wmean, wsd)
-  wsdlog   = stdlog(wmean, wsd)
-  y <- dlnorm(x, meanlog=wmeanlog, sdlog=wsdlog)
-  points(x, y, col=cols[3], type=type[3], lwd=lwd[3])
-  
-  # real distribution
-  scale_fac = p.gen[name, 'scale_fac'] 
-  xr <- seq(from=lb, to=ub*scale_fac, length.out=Np)
-  yr <- dlnorm(xr, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)
-  xr <- xr/scale_fac
-  yr <- yr*scale_fac
-  points(xr, yr, col=cols[4], type=type[4], lwd=lwd[4])
-  
-  legend("topright", legend=c("samples", "samples dist", "weighted samples dist", "real dist"),
-         col=cols, lwd=lwd, cex=0.4)
-}
-
-var_ps
-name='flow_sin'
+head(pars)
+name='Q_sinunit'
+wmean <- wt.mean(pars[[name]], pars$p_sample)
+wvar <- wt.var(pars[[name]], pars$p_sample)
+wsd <- wt.sd(pars[[name]], pars$p_sample)
 plotWeighted(pars, p.gen, name)
 
 # Generate plots
@@ -344,32 +249,50 @@ for (name in var_ps){
 
 
 
-# calculate the combined probability based on the parameter probabilities
-
-
-
-
+# create arbitrary destribution function
+# create a density, distribution and quantile function from data
 # Density, distribution function, quantile function
 # dlnorm, plnorm, qlnorm
-
-# TODO: create arbitrary destribution function
-# create a density, distribution and quantile function from data
+# -> use arbitrary distribution function to calculate the derived values
 
 
 # Create a density estimate
-y1 <- rlnorm(10000, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
-y2 <- rlnorm(10000, meanlog=0.5*p.gen[name, 'meanlog'], sdlog=4*p.gen[name, 'sdlog'])
-ytest <- c(y1, y2)
-plot(ytest)
-hist(ytest, breaks=40)
-ytest
-dtest <- density(ytest, from=0, to=max(ytest), bw=20)
-summary(ytest)
-plot(dtest)
+# ! Possible problems with outliers in density estimation
 
-# Empircal Distribution Functions
+
+
+name = 'flow_sin'
+Npoints = 100
+y1 <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+y2 <- rlnorm(Npoints, meanlog=1.3*p.gen[name, 'meanlog'], sdlog=0.4*p.gen[name, 'sdlog'])
+ytest <- c(y1, y2)
+summary(ytest)
+
+lb = 0.0;
+ub = 10 * mean(ytest); 
+
+plot(ytest)
+hist(ytest, breaks=30, xlim=c(lb, ub))
+dtest <- density(ytest, from=lb, to=ub, bw=100)
+plot(dtest, xlim=c(lb, ub))
+
+# use the density to calculate the p_sample
+# Now we have density and samples -> get the new p_sample values
+# needed is a distribution function (cumulative) or empirical cumulative 
+# distribution function
+
+p_test <- getProbabilitiesForSamples(pars=pars, p.gen=p.gen, name=name)
+
+
+
+
+# Empirical cumulative distribution function) is a step function with jumps i/n at observation values, 
+# where i is the number of tied observations at that value
 # Multivariate Empirical Cumulative Distribution Functions
 # ecdf
+ecdf.tmp <- ecdf(ytest)
+plot(ecdf.tmp)
+ecdf.tmp
 
 
 

@@ -1,6 +1,7 @@
 \name{createDataFromHistogramm}
 \alias{createDataFromHistogramm}
-\title{Generate data vector from histogramm.
+\title{Generates a possible data vector from given histogramm.
+Necessary for fitting distributions to histogramm data.
 Count data points are generated in the middle of every bin.}
 \usage{
 createDataFromHistogramm(dset)
@@ -12,7 +13,8 @@ createDataFromHistogramm(dset)
 data frame with x as data
 }
 \description{
-Generate data vector from histogramm. Count data points are
-generated in the middle of every bin.
+Generates a possible data vector from given histogramm.
+Necessary for fitting distributions to histogramm data.
+Count data points are generated in the middle of every bin.
 }
 

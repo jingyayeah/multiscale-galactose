@@ -1,6 +1,6 @@
 \name{stdlog}
 \alias{stdlog}
-\title{Calculate the stdlog for log-normal distribution from given mean and std}
+\title{Calculate the stdlog for log-normal distribution from given mean and std.}
 \usage{
 stdlog(m, std)
 }
@@ -14,6 +14,6 @@ stdlog for corresponding log-normal distribution
 }
 \description{
 Calculate the stdlog for log-normal distribution from given
-mean and std
+mean and std.
 }
 

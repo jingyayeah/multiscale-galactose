@@ -1,6 +1,6 @@
 \name{plotLogNormalDistribution}
 \alias{plotLogNormalDistribution}
-\title{Plot the density distribution.}
+\title{Plot the log normal density distribution.}
 \usage{
 plotLogNormalDistribution(p.gen, name, maxvalue, N = 1000, lcolor = "blue")
 }
@@ -12,6 +12,6 @@ plotLogNormalDistribution(p.gen, name, maxvalue, N = 1000, lcolor = "blue")
   \item{maxvalue}{for calculation of distribution}
 }
 \description{
-Plot the density distribution.
+Plot the log normal density distribution.
 }
 

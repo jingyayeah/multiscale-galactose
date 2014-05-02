@@ -5,7 +5,7 @@
 storeFitData(p.gen, fit, name)
 }
 \arguments{
-  \item{name}{of the parameter}
+  \item{name}{name of the parameter}
 
   \item{fit}{fit results}
 }
