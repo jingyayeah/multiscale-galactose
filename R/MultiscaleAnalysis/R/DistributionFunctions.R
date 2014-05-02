@@ -52,13 +52,14 @@ wt.sd <- function(x, wt){
 #' 
 #' In which units is it coming out (transformed units)
 #' ! Important to keep track of the units !
-#' TODO: do the fit for unscaled data in basis units
+#' TODO: do the fit for unscaled data in basis units - scaling is generating
+#' lots of problems throughout
 #' TODO: generalize to arbitrary distributions of parameters
 #' @param pars parameter structure
 #' @param p.gen distribution generator functions
 #' @param name name of parameter 
 #' @export
-getProbabilitiesForSamples <- function(pars, p.gen, name){
+getProbabilitiesForSamples <- function(pars, f.ecdf, name){
   Nsim = nrow(pars)
   d <- sort(pars[[name]]) 
   
@@ -68,24 +69,8 @@ getProbabilitiesForSamples <- function(pars, p.gen, name){
   mpoints <- c(0, mpoints, 10*max(mpoints))
   
   # Calculate the cumulative probability associated with every sample
-  # Scaling so that the values fit to the parameter distributions
-  c_sample <- plnorm(mpoints*p.gen[name, 'scale_fac'], 
-                     meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], 
-                     log = FALSE)
-  
-  cat('# c_sample #\n')
-  cat(c_sample, '\n')
-  
-  # TODO: make the calculations via the ecdf than general input data can be used.
-  cat('# ec_sample #\n')
-  y1 <- rlnorm(25000, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
-  f.ecdf <- ecdf(y1)
-  ec_sample <- f.ecdf(mpoints*p.gen[name, 'scale_fac'])
-  cat(ec_sample, '\n')
-  cat(ec_sample-c_sample, '\n')
-  
+  c_sample <- f.ecdf(mpoints*p.gen[name, 'scale_fac'])
   cat(summary(c_sample), '\n')
-  cat(summary(ec_sample), '\n')
   
   # get the probability associated with the interval
   p_sample = c_sample[2:(Nsim+1)] - c_sample[1:Nsim]

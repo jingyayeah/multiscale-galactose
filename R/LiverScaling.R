@@ -40,25 +40,31 @@
 # points are accidentally close to each other. Therefore, Latin
 # hypercube sampling provides a better coverage of the space.
 #
+# Resampling ( https://en.wikipedia.org/wiki/Resampling_%28statistics%29 )
+# Estimating the precision of sample statistics (medians, variances, percentiles) 
+# by using subsets of available data (jackknifing) or drawing randomly with 
+# replacement from a set of data points (bootstrapping).
+# Validating models by using random subsets (bootstrapping, cross validation)
+# approximate permutation test, Monte Carlo permutation tests or random permutation tests
+#
+# TODO: support Latin Hypercube Sampling (LHS)
+# TODO: evaluate result convergence with sample size 
+#
 #  @author: Matthias Koenig
 #  @date: 2014-05-01
-################################################################
 
-# IMPORTANT: All of the values have calculated distributions, which can be compared with
-# the experimental values
-
-# TODO: support the Latin Hypercube Sampling
-
-# Load the parameter samples (here the parameters which are changing are defined)
-# - sample of sinusoidal unit configurations 
-#   (from proper sampling over the range of the underlying configurations, i.e. 
-#   parameter space) -> random sampling, better latin hypercube sampling for
-#   faster convergence and better sampling of hypercube)
-
-rm(list=ls())   # Clear all objects
+rm(list=ls())
 library(data.table)
 library(MultiscaleAnalysis)
+
 setwd(ma.settings$dir.results)
+
+###########################################################################
+# Load parameters for samples
+###########################################################################
+# definition of changing parameters, with a single sample 
+# corresponding to a sinusoidal unit configuration
+# samples are based on random sampling of multidimensional parameter space
 
 # TODO : only define the settings once here
 sname <- '2014-04-30_MultipleIndicator'
@@ -81,10 +87,17 @@ for (kt in seq(1)){
 rm(kt, peak, task)
 names(pars)
 
-# - sample results for the given parameter samples
-#   (for every sample configuration results are calculated, consisting of 
-#    derived geometrical parameters, and simulation results like timecourse 
-#    simulations)
+###########################################################################
+# Get calculated values & simulation results for samples
+###########################################################################
+# For every sample results are calculated, consisting of 
+# derived geometrical parameters, and simulation results like timecourse 
+# simulations.
+# To get the distributions of these derived values from the sample, the 
+# weighted means and sds based on the probabilities for the respective 
+# samples have to be calculated.
+# IMPORTANT: The calculated distributions, can be be compared 
+#            to the experimental values
 
 # Get parameters from SBML or parameter structure and calculate the derived
 # variables.
@@ -105,98 +118,107 @@ model <- loadSBMLModel(filename)
 pars <- extendParameterStructure(pars=pars, fixed_ps=fixed_ps, model=model)
 head(pars)
 
-# Now the full information about the samples is available
-hist(pars$Vol_sinunit, xlim=c(0, 6E-13), breaks=20)
-
 ###########################################################################
-# Define distributions of parameters which should be used for the calculation.
-# If no weighting distribution exists for parameter ?? what than ??
-
-# Distributions are loaded via
+# Probabilites of parameters & samples based on ECDFs 
+###########################################################################
+# Standard distributions for normal case
 fname <- file.path(ma.settings$dir.results, 'distribution_fit_data.csv')
 p.gen <- read.csv(file=fname)
 rownames(p.gen) <- p.gen$name
 p.gen
 
-## create arbitrary distribution function
-# create a density, distribution and quantile function from data
-# Density, distribution function, quantile function
-# dlnorm, plnorm, qlnorm
-# -> use arbitrary distribution function to calculate the derived values
+# Calculated ECDFs for standard distributions
+ecdf.list <- list()
+Npoints <- 25000;
+for (name in var_ps){
+  # create ecdf by random sampling
+  y <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+  f.ecdf <- ecdf(y)
+  ecdf.list[[name]] <- f.ecdf 
+}
+rm(Npoints)
 
-# Create a density estimate
-# ! Possible problems with outliers in density estimation
-name = 'flow_sin'
-Npoints = 1000
-y1 <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
-y2 <- rlnorm(Npoints, meanlog=1.3*p.gen[name, 'meanlog'], sdlog=0.4*p.gen[name, 'sdlog'])
-ytest <- c(y1, y2)
+# Calculate the single variable probabilies based on ECDF, i.e p(x1), p(x2), ...
+# for x1, x2, ... being the parameters varied.
+calculateVariableProbabilitiesForSamples <- function (pars, ecdf.list) {
+  var_ps <- names(ecdf.list)
+  print(var_ps)
+  for (name in var_ps){
+      f.ecdf <- ecdf.list[[name]]
+      print(f.ecdf)
+      p_data <- getProbabilitiesForSamples(pars, f.ecdf, name)
+      print(p_data)
+      p_name <- paste('p_', name, sep='')
+      pars[[p_name]] <- p_data
+  }
+  pars
+}
+pars <- calculateVariableProbabilitiesForSamples(pars, ecdf.list)
 
-
-y1 <- rlnorm(10000, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
-ecdf.tmp1 <- ecdf(y1)
-plot(ecdf.tmp1)
-
-
-# Empirical cumulative distribution function) is a step function with jumps i/n at observation values, 
-# where i is the number of tied observations at that value
-# Multivariate Empirical Cumulative Distribution Functions
-# ecdf
-ecdf.tmp <- ecdf(ytest)
-plot(ecdf.tmp)
-ecdf.tmp
-# The quantile(obj, ...) method computes the same quantiles as quantile(x, ...) would where x is the original sample
-
-
-summary(ytest)
-lb = 0.0;
-ub = 10 * mean(ytest); 
-plot(ytest)
-hist(ytest, breaks=30, xlim=c(lb, ub))
-dtest <- density(ytest, from=lb, to=ub, bw=100)
-plot(dtest, xlim=c(lb, ub))
-
-
-
-# use the density to calculate the p_sample
-# Now we have density and samples -> get the new p_sample values
-# needed is a distribution function (cumulative) or empirical cumulative 
-# distribution function
-
-p_test <- getProbabilitiesForSamples(pars=pars, p.gen=p.gen, name=name)
-
-
-
-
-
-
-# For every var_ps a distribution has to exist
-# TODO: Make sure that over all the probabilities is integrated
-print(var_ps)
+# Multidimensional ECDF ?
+# Calculate the overall probability of the sample under the assumption
+# of statistical independence
+# TODO: ??? this is strange - make sure it is valid
+# This is the main trick and should be valid
+# TODO: fix
 Nsim <- nrow(pars)
 p_sample <- rep(1, Nsim)
 for (name in var_ps){
-    print(name)
-    p_name = paste('p_', name, sep='')
-    p_data <- getProbabilitiesForSamples(pars, p.gen, name)
-    pars[[p_name]] <- p_data
-    # calculate the combined probability based on the parameter probabilities
-    # statistical independence assumed (multiply the probabilities)
-    # ??? this is strange - make sure it is valid
-    # This is the main trick and should be valid
-    # TODO: fix
-    p_sample = p_sample * p_data
+  p_sample = p_sample * p_data
 }
 # Normalize p_sample
 pars$p_sample <- p_sample/sum(p_sample)
 sum(pars$p_sample)
+
 plot(pars$p_sample)
 plot(pars$p_y_cell)
 plot(pars$y_cell, pars$p_y_cell)
 
-# weight samples with their probability i.e. get the probability for every
-# varied parameter and 
+###########################################################################
+# Arbitrary parameter ECDFs
+###########################################################################
+# # Create a density estimate
+# # ! Possible problems with outliers in density estimation !
+# name = 'flow_sin'
+# Npoints = 1000
+# y1 <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+# y2 <- rlnorm(Npoints, meanlog=1.3*p.gen[name, 'meanlog'], sdlog=0.4*p.gen[name, 'sdlog'])
+# ytest <- c(y1, y2)
+# 
+# # Empirical cumulative distribution function) is a step function with jumps i/n at observation values, 
+# # where i is the number of tied observations at that value
+# # Multivariate Empirical Cumulative Distribution Functions
+# # ecdf
+# ecdf.tmp <- ecdf(ytest)
+# plot(ecdf.tmp)
+# 
+# ecdf.tmp
+# # The quantile(obj, ...) method computes the same quantiles as quantile(x, ...) would where x is the original sample
+# summary(ytest)
+# lb = 0.0;
+# ub = 10 * mean(ytest); 
+# plot(ytest)
+# hist(ytest, breaks=30, xlim=c(lb, ub), freq=FALSE, col='gray')
+# dtest <- density(ytest, from=lb, to=ub, bw=100)
+# points(dtest, xlim=c(lb, ub), type='l', col='blue', lwd=2)
+# f.density <- approxfun(dtest)  
+# xtest <- seq(lb, ub, length.out=100)
+# xtest
+# # here the density function
+# f.density(xtest)
+# f.ecdf <- ecdf(f.density(xtest))
+# plot(f.ecdf(xtest))
+# 
+# # Get an approx function
+# x <- log(rgamma(150,5))
+# df <- approxfun(density(x))
+# plot(density(x))
+# p_test <- getProbabilitiesForSamples(pars=pars, p.gen=p.gen, name=name)
 
+
+###########################################################################
+# Calculate weighted derived values
+###########################################################################
 # Calculate weighted values based on the probabilities for sample
 # Weighted mean, variance and standard deviation calculations
 head(pars)
@@ -213,16 +235,17 @@ plot.units= "px"
 plot.bg = "white"
 plot.res = 150
 for (name in var_ps){
-    fname = paste('test_distribution_', name, '.png', sep="") 
-    print(fname)
-    png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
-    plotWeighted(pars, p.gen, name)
-    dev.off()
+  fname = paste('test_distribution_', name, '.png', sep="") 
+  print(fname)
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
+  plotWeighted(pars, p.gen, name)
+  dev.off()
 }
 
 
 ###########################################################################
-# Calculate values based on the distribution weighted samples:
+# Scale to whole-liver
+###########################################################################
 
 # The conversion factor via flux and via volume have to be the same.
 # They are calculated based on the weighted distributions of the parameters. 
@@ -232,21 +255,7 @@ for (name in var_ps){
 # f_tissue = 1/N_Q * Vol_liv/Vol_sinunit
 
 # calculate conversion factors
+# TODO
 calculateConversionFactors(pars.new){
     Nsim <- nrow(pars.new)
 }
-
-# the mean/std results based on the integration over the parameter distribution
-# the mean/std for the sample variables for control
-
-
-# Scale to whole liver function based on the conversion factors
-
-
-# TODO: evaluate the convergence of the method depending on the number of 
-#       drawn samples.
-
-# Resampling ( https://en.wikipedia.org/wiki/Resampling_%28statistics%29 )
-# Estimating the precision of sample statistics (medians, variances, percentiles) by using subsets of available data (jackknifing) or drawing randomly with replacement from a set of data points (bootstrapping)
-# Validating models by using random subsets (bootstrapping, cross validation)
-# approximate permutation test, Monte Carlo permutation tests or random permutation tests

@@ -3,7 +3,7 @@
 \title{Calculates the probability associated with the sample based on the
 underlying distribution.}
 \usage{
-getProbabilitiesForSamples(pars, p.gen, name)
+getProbabilitiesForSamples(pars, f.ecdf, name)
 }
 \arguments{
   \item{pars}{parameter structure}
@@ -15,7 +15,8 @@ getProbabilitiesForSamples(pars, p.gen, name)
 \description{
 In which units is it coming out (transformed units) !
 Important to keep track of the units ! TODO: do the fit for
-unscaled data in basis units TODO: generalize to arbitrary
+unscaled data in basis units - scaling is generating lots
+of problems throughout TODO: generalize to arbitrary
 distributions of parameters
 }
 
