@@ -166,11 +166,22 @@ pars <- calculateProbabilitiesForVariables(pars, ecdf.list)
 plotProbabilitiesForVariable <- function (x, f.ecdf) {
   ptmp <- getProbabilitiesForData(x, f.ecdf)
   ord <- order(x)
+  par(mfrow=c(2,1))
+  # probability
   plot(x, ptmp$p)
   points(x[ord], ptmp$p[ord], type="l", lwd=2)
   for (mp in ptmp$midpoints){
     abline(v=mp, col=rgb(0,0,1,0.5))
   }
+  abline(h=0.0, col='black')
+  # ecdf
+  plot(x[ord], f.ecdf(x[ord]), type="l", lwd=2)
+  for (mp in ptmp$midpoints){
+    abline(v=mp, col=rgb(0,0,1,0.5))
+  }
+  abline(h=0.0, col='black')
+  abline(h=1.0, col='black')
+  par(mfrow=c(1,1))
 }
 
 # Generate control plots
