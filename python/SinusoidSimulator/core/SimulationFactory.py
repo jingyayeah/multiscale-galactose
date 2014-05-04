@@ -177,7 +177,7 @@ if __name__ == "__main__":
             model.save();
             if (1):
                 # create dilution simulations
-                task = createMultipleIndicatorSimulationTask(model, N=200, sampling="distribution") 
+                task = createMultipleIndicatorSimulationTask(model, N=100, sampling="LHS") 
                 createParameterFileForTask(results_dir, task);
    
     if (0):
