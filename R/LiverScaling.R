@@ -217,10 +217,7 @@ calculateSampleProbability <- function (pars, ps.var) {
 pars <- calculateSampleProbability(pars, ps.var)
 
 plot(pars$p_sample)
-
-length(pars$p_sample[pars$p_sample > 0.0000001])
-
-
+plot(ecdf(sort(pars$p_sample)))
 plot(pars$p_sample[pars$p_sample<0.1])
 hist(pars$p_sample)
 plot(pars$p_y_cell)
