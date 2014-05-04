@@ -1,23 +1,29 @@
 #!/bin/bash
-# copies the sbml to the different computers to perform simulations
 
-
+# copies the simulation results from servers to proper data directory
+# for preprocessing
 DATE=2014-05-04
+STYPE=MultipleIndicator
+IPS=(10.39.32.106 10.39.32.189 10.39.34.27)
 
-mkdir ~/multiscale-galactose-results/$DATE  
-cd ~/multiscale-galactose-results/$DATE
-echo
-echo "*** 10.39.32.106 ***"
-scp mkoenig@10.39.32.106:~/multiscale-galactose-results/django/timecourse/$DATE/*.* .
+DATA_DIR=~/multiscale-galactose-results/${DATE}_${STYPE}
+mkdir $DATA_DIR 
+mkdir $DATA_DIR/data
+cd $DATA_DIR/data
 
-echo
-# echo "*** 10.39.32.189 ***"
-# scp mkoenig@10.39.32.189:~/multiscale-galactose-results/django/timecourse/$DATE/*.* .
+for i in ${IPS[@]}; do
+    echo "*** ${i} ***"
+    
+    scp mkoenig@${i}:~/multiscale-galactose-results/django/timecourse/$DATE/*.* .
+done
+
+# copy SBML files
+
+# create parameter files and copy
+
+# do the preprocessing
 
 
-echo
-# echo "*** 10.39.34.27 ***"
-# scp mkoenig@10.39.34.27:~/multiscale-galactose-results/django/timecourse/$DATE/*.* .
 
 
 
