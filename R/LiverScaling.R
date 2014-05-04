@@ -9,7 +9,7 @@
 # Total scaling in addition depends on the global paramters of the
 # person, i.e. global blood flow and liver volume. The distribution
 # of sinusoidal units is scaled according to these global variables.
-
+#
 # Given: 
 # - sample of sinusoidal unit configurations 
 #   (from proper sampling over the range of the underlying configurations, i.e. 
@@ -30,24 +30,6 @@
 #   (even with the same underlying distributions within the liver, there is still 
 #    person to person variance in liver volume)
 #
-## Latin Hypercube sampling ##
-# This 'multi-start' approach facilitates a broad coverage of the
-# parameter search space in order to find the global optimum.
-# Latin hypercube sampling [17] of the initial parameter guesses
-# can be used to guarantee that each parameter estimation run
-# starts in a different region in the high-dimensional parameter
-# space. This method prohibits that randomly selected starting
-# points are accidentally close to each other. Therefore, Latin
-# hypercube sampling provides a better coverage of the space.
-#
-# Resampling ( https://en.wikipedia.org/wiki/Resampling_%28statistics%29 )
-# Estimating the precision of sample statistics (medians, variances, percentiles) 
-# by using subsets of available data (jackknifing) or drawing randomly with 
-# replacement from a set of data points (bootstrapping).
-# Validating models by using random subsets (bootstrapping, cross validation)
-# approximate permutation test, Monte Carlo permutation tests or random permutation tests
-#
-# TODO: support Latin Hypercube Sampling (LHS)
 # TODO: evaluate result convergence with sample size 
 #
 #  @author: Matthias Koenig
@@ -55,6 +37,7 @@
 
 rm(list=ls())
 library(data.table)
+library(libSBML)
 library(MultiscaleAnalysis)
 
 setwd(ma.settings$dir.results)
@@ -67,25 +50,49 @@ setwd(ma.settings$dir.results)
 # samples are based on random sampling of multidimensional parameter space
 
 # TODO : only define the settings once here
-sname <- '2014-04-30_MultipleIndicator'
-tasks <- paste('T', seq(11,15), sep='')
+# sname <- '2014-04-30_MultipleIndicator'
+# tasks <- paste('T', seq(11,15), sep='')
+sname <- '2014-05-04_MultipleIndicator'
+modelVersion <- 'v14_Nc20_Nf1'
+tasks <- paste('T', seq(16,20), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
+load_with_sims = FALSE;
 
 # for (kt in seq(length(tasks))){
 for (kt in seq(1)){
   task <- tasks[kt]
   peak <- peaks[kt]
-  modelId <- paste('MultipleIndicator_', peak, '_', 'v13_Nc20_Nf1', sep='')
+  modelId <- paste('MultipleIndicator_', peak, '_', modelVersion, sep='')
   parsfile <- file.path(ma.settings$dir.results, sname, 
                         paste(task, '_', modelId, '_parameters.csv', sep=""))
   # Load the data
-  print(parsfile)
-  load(file=outfileFromParsFile(parsfile))
+  if (load_with_sims == FALSE){
+    # only load the parameters:
+    pars <- loadParameterFile(parsfile)
+  } else {
+    # preprocessing necessary for loading the data with the parameters
+    load(file=outfileFromParsFile(parsfile))
+  }
   print(summary(pars))
 }
 rm(kt, peak, task)
 names(pars)
+plotParameterHistogramFull(pars=pars)
+
+# Plot the order of parameters to check for shuffling effects
+library(RColorBrewer)
+# brewer.pal(n, name)
+# display.brewer.pal(n, name)
+display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
+colpal <- brewer.pal(9, 'YlOrRd')
+
+Nsim = nrow(pars)
+ccols <- colorRampPalette(colpal)(Nsim) # exend the color palette
+pnames <- getParameterNames(pars)
+plot(pars[, pnames], col=ccols, pch=15)
+
+head(pars[, pnames])
 
 ###########################################################################
 # Get calculated values & simulation results for samples
@@ -112,9 +119,9 @@ print(ps.var)
 # Extend the parameters with the SBML parameters and calculated parameters
 # showClass("_p_Parameter")
 # showMethods("_p_Parameter")
-library('libSBML')
-filename = filename <- '/home/mkoenig/multiscale-galactose-results/tmp_sbml/Galactose_v14_Nc20_Nf1.xml'
-model <- loadSBMLModel(filename)
+
+fname <- file.path(ma.settings$dir.results, sname, paste(modelId, '.xml', sep=''))
+model <- loadSBMLModel(fname)
 pars <- extendParameterStructure(pars=pars, fixed_ps=ps.fixed, model=model)
 head(pars)
 
@@ -143,6 +150,7 @@ ecdf.list <- createListOfStandardECDF(p.gen, ps.var)
 
 # Calculate the single variable probabilies based on ECDF, i.e p(x1), p(x2), ...
 # for x1, x2, ... being the parameters varied.
+# TODO: major bug in application probabilities to right sample
 calculateVariableProbabilitiesForSamples <- function (pars, ecdf.list) {
   var_ps <- names(ecdf.list)
   print(var_ps)
@@ -157,7 +165,7 @@ calculateVariableProbabilitiesForSamples <- function (pars, ecdf.list) {
   pars
 }
 pars <- calculateVariableProbabilitiesForSamples(pars, ecdf.list)
-
+summary(pars$p_L)
 
 # Multidimensional ECDF ?
 # Calculate the overall probability of the sample under the assumption

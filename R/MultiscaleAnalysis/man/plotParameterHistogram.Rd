@@ -1,0 +1,18 @@
+\name{plotParameterHistogram}
+\alias{plotParameterHistogram}
+\title{Plot parameter histogram}
+\usage{
+plotParameterHistogram(pars, name, breaks = 40)
+}
+\arguments{
+  \item{pars}{Parameter data frame}
+
+  \item{name}{of parameter}
+}
+\value{
+hist information
+}
+\description{
+Plot parameter histogram
+}
+

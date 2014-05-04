@@ -45,19 +45,18 @@ def tasks(request):
 
 
 def task(request, task_id):
-    '''
-    View of single task.
-    
-        # generate histograms
-        # PlotSimulation.createTaskPlots(task, folder)
-    '''
+    ''' View of single task. '''    
     task = get_object_or_404(Task, pk=task_id)
-    
+    # generate histograms
+    # folder = "/home/mkoenig/multiscale-galactose-results"
+    # PlotSimulation.createTaskPlots(task, folder)
+    # render template
     template = loader.get_template('sim/task.html')
     context = RequestContext(request, {
         'task': task,
     })
     return HttpResponse(template.render(context))
+    
     
 def integrations(request):
     ''' Overview of integation settings. '''

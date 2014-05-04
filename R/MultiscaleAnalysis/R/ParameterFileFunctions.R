@@ -14,51 +14,60 @@
 #' @export
 pars.keywords <- c('status', 'duration', 'core', 'sim')
 
-#'  Takes folder, task and modelID
-#'  @param file parameter file to load
-#'  @return parameter data.frame
+#'  Reads the stored parameter file as data.frame.
+#'  
+#'  This function reads the parameter file in CSV format into a data.frame.
+#'  To load the associated data for the simulations do the preprocessing and
+#'  use the load functions.
+#'  @param file parameter csv file for loading
+#'  @return data.frame of parameters
 #'  @export  
-loadParsFile <- function(file){
+loadParameterFile <- function(file){
   print(parsfile)
   pars <- read.csv(parsfile, header=TRUE)
   row.names(pars) <- paste("Sim", pars$sim, sep="")
   pars
 }
 
-#' Get parameter names, i.e columns which are not keywords
+#' Get parameter names, i.e columns which are not keywords.
+#' 
+#' Uses the defined pars.keywords to see which names are parameters and
+#' which are keywords.
 #' @return vector of parameter names
 #' @export
-getParsNames <- function(pars){
+getParameterNames <- function(pars){
   pnames <- setdiff(names(pars), pars.keywords) 
 }
+
+#' Creates histogram for all parameters.
+#' 
+#' This function generates all the histograms for the parameters in the
+#' given parameter structure.
+#' @param pars parameter data structure.
+#' @export
+plotParameterHistogramFull <- function(pars, all_pars=FALSE){
+  if (all_pars == TRUE){
+    pnames = names(pars)
+  }else{
+    pnames <- getParameterNames(pars)
+  }
+  Np <- length(pnames)
+  par(mfrow=c(1,Np))
+  for (k in seq(Np)){
+    plotParameterHistogram(pars, name=pnames[k])
+  }
+  par(mfrow=c(1,1))
+} 
 
 #' Plot parameter histogram
 #' @param pars Parameter data frame
 #' @param name of parameter
 #' @return hist information
 #' @export
-plotParameterHist <- function(pars, name, breaks=40){
+plotParameterHistogram <- function(pars, name, breaks=40){
   x <- pars[,name] 
   h <- hist(x, breaks=breaks, xlab=name, main=paste("Histogram", name))
 }
-
-
-#' Histogramm for all parameters
-#' @param pars Parameter data frame
-#' @param file File where to save the histogramm
-plotFullParameterHist <- function(pars, file){
-  pnames <- getParsNames(pars)
-  Np <- length(pnames)
-  
-  png(filename=file,
-      width = 1800, height = 500, units = "px", bg = "white",  res = 150)
-  par(mfrow=c(1,Np))
-  for (k in seq(Np)){
-    plotParameterHist(pnames[k])
-  }
-  par(mfrow=c(1,1))
-  dev.off()  
-} 
 
 
 ###########################################################################################

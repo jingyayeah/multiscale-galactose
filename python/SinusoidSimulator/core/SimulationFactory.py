@@ -36,7 +36,7 @@ from sim.models import *
 from django.db.models import Count
 import numpy.random as npr
 from analysis.AnalysisTools import createParameterFileForTask
-from RandomSampling import createSamplesByDistribution
+from RandomSampling import createSamplesByDistribution, createSamplesByLHS
 
 
 def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencies=[0], sampling='LHS'):
@@ -113,6 +113,9 @@ def createSimulationForParameterSample(task, sample):
     Create the single Parameters, the combined ParameterCollection
     and the simulation based on the Parametercollection for the
     iterable sample, which contains triples of (name, value, unit).
+    # TODO: write a whole set of simulations at once. 
+    # TODO: This part is very inefficient and not completely clear what
+    #        is happening here.
     '''
     ps = []
     for data in sample:
@@ -165,15 +168,12 @@ if __name__ == "__main__":
     # Generate the MultipleIndicator Simulations
     # for the different peak length of the tracer
         for kp in range(0,5):
-            sbml_id = "MultipleIndicator_P%02d_v13_Nc20_Nf1" % kp
+            sbml_id = "MultipleIndicator_P%02d_v14_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
             if (1):
                 # create dilution simulations
-                N = 480     # number of simulations
-                task = createMultipleIndicatorSimulationTask(model, N)
-                # create the parameter file
-                
+                task = createMultipleIndicatorSimulationTask(model, N=100) 
                 createParameterFileForTask(results_dir, task);
    
     if (0):

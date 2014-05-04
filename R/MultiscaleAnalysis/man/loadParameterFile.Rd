@@ -1,8 +1,8 @@
-\name{loadParsFile}
-\alias{loadParsFile}
+\name{loadParameterFile}
+\alias{loadParameterFile}
 \title{Reads the stored parameter file as data.frame.}
 \usage{
-loadParsFile(file)
+loadParameterFile(file)
 }
 \arguments{
   \item{file}{parameter csv file for loading}

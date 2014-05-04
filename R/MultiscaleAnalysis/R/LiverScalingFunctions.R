@@ -3,7 +3,7 @@
 #' @param all_ps parameters in model
 #' @export
 getFixedParameters <- function (pars, all_ps) {
-  fixed_ps = setdiff(all_ps, getParsNames(pars))
+  fixed_ps = setdiff(all_ps, getParameterNames(pars))
 }
 
 #' All parameters which are varied, i.e. depend on sample
