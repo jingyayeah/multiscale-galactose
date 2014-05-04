@@ -11,6 +11,7 @@ getSimulationFileFromSimulationId(dir, simId)
 filename for the integration file
 }
 \description{
-Get integration timecourse file for simulation id.
+TODO: this is not working any more with the multiple
+simulations
 }
 

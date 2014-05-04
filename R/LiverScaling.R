@@ -43,7 +43,7 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 # Settings for plots
-create_plot_files = TRUE
+create_plot_files = FALSE
 plot.width = 800 
 plot.height = 800
 plot.units= "px"
@@ -116,106 +116,37 @@ if (create_plot_files == TRUE){
 }
 
 ###########################################################################
-# Get calculated values & simulation results for samples
+# Do the parameters preprocessing & use
+# Probabilites of parameters & samples based on ECDFs 
 ###########################################################################
-# For every sample results are calculated, consisting of 
-# derived geometrical parameters, and simulation results like timecourse 
-# simulations.
-# To get the distributions of these derived values from the sample, the 
-# weighted means and sds based on the probabilities for the respective 
-# samples have to be calculated.
-# IMPORTANT: The calculated distributions, can be be compared 
-#            to the experimental values
-
-# Get parameters from SBML or parameter structure and calculate the derived
-# variables.
-ps.all = c('Nc', 'Nf', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen', 
-          'rho_liv', 'Q_liv', 'Vol_liv')
-ps.fixed <- getFixedParameters(pars=pars, all_ps=ps.all)
-ps.var <- getVariableParameters(pars=pars, all_ps=ps.all)
-print(ps.all)
-print(ps.fixed)
-print(ps.var)
+ps <- getParameterTypes(pars=pars)
 
 # Extend the parameters with the SBML parameters and calculated parameters
-# showClass("_p_Parameter")
-# showMethods("_p_Parameter")
+fsbml <- file.path(ma.settings$dir.results, sname, paste(modelId, '.xml', sep=''))
+model <- loadSBMLModel(fsbml)
+pars <- extendParameterStructure(pars=pars, fixed_ps=ps$fixed, model=model)
+head(pars)
 
-fname <- file.path(ma.settings$dir.results, sname, paste(modelId, '.xml', sep=''))
-model <- loadSBMLModel(fname)
-pars <- extendParameterStructure(pars=pars, fixed_ps=ps.fixed, model=model)
+# Standard distributions for normal case
+p.gen <- loadStandardDistributions()
+print(p.gen)
+
+# ECDFs for standard distributions
+ecdf.list <- createListOfStandardECDF(p.gen, ps$var)
+
+# Calculate the probabilites for single variables
+pars <- calculateProbabilitiesForVariables(pars, ecdf.list)
+# And the overall probability per sample
+pars <- calculateSampleProbability(pars, ps$var)
 head(pars)
 
 ###########################################################################
-# Probabilites of parameters & samples based on ECDFs 
-###########################################################################
-# Standard distributions for normal case
-fname <- file.path(ma.settings$dir.results, 'distribution_fit_data.csv')
-p.gen <- read.csv(file=fname)
-rownames(p.gen) <- p.gen$name
-print(p.gen)
-
-# Calculated ECDFs for standard distributions
-createListOfStandardECDF <- function (p.gen, ps.var, Npoints=25000) {
-  # Create the ECDFs via random sampling from log-normal distribution
-  ecdf.list <- list()
-  for (name in ps.var){
-    # create ecdf by random sampling
-    y <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
-    y <- y/p.gen[name, 'scale_fac']
-    f.ecdf <- ecdf(y)
-    ecdf.list[[name]] <- f.ecdf 
-  }
-  ecdf.list
-}
-ecdf.list <- createListOfStandardECDF(p.gen, ps.var)
-
-# Calculate the single variable probabilies based on ECDF
-calculateProbabilitiesForVariables <- function (pars, ecdf.list) {
-  var_ps <- names(ecdf.list)
-  print(var_ps)
-  for (name in var_ps){
-      f.ecdf <- ecdf.list[[name]]
-      x <- pars[[name]];
-      p_sample <- getProbabilitiesForData(x, f.ecdf)
-      p_name <- paste('p_', name, sep='')
-      pars[[p_name]] <- p_sample$p
-  }
-  pars
-}
-pars <- calculateProbabilitiesForVariables(pars, ecdf.list)
-
-# Plot probabilities with associated midpoints as horizontal lines
-plotProbabilitiesForVariable <- function (x, f.ecdf, xlab) {
-  ptmp <- getProbabilitiesForData(x, f.ecdf)
-  ord <- order(x)
-  par(mfrow=c(2,1))
-  # probability
-  plot(x, ptmp$p, xlab=xlab, main="probability")
-  points(x[ord], ptmp$p[ord], type="l", lwd=2)
-  for (mp in ptmp$midpoints){
-    abline(v=mp, col=rgb(0,0,1,0.5))
-  }
-  abline(h=0.0, col='black')
-  # ecdf
-  plot(x[ord], f.ecdf(x[ord]), type="l", lwd=2, xlab=xlab, main="ECDF")
-  for (mp in ptmp$midpoints){
-    abline(v=mp, col=rgb(0,0,1,0.5))
-  }
-  abline(h=0.0, col='black')
-  abline(h=1.0, col='black')
-  par(mfrow=c(1,1))
-}
-
-create_plot_files = TRUE
-
 # Generate control plots
 var_ps <- names(ecdf.list)
 for (name in var_ps){
     f.ecdf <- ecdf.list[[name]]
     x <- pars[[name]];
     head(x)
-    
     if (create_plot_files == TRUE){
       fname <- file.path(ma.settings$dir.results, sname, 
                          paste(task, '_', modelId, '_samples_', name, '.png', sep=""))
@@ -230,26 +161,6 @@ for (name in var_ps){
       dev.off()
     }
 }
-
-
-# Multidimensional ECDF ?
-# Calculate the overall probability of the sample under the assumption
-# of statistical independence
-# TODO: ??? this is strange - make sure it is valid
-# This is the main trick and should be valid
-# TODO: fix
-calculateSampleProbability <- function (pars, ps.var) {
-  Nsim <- nrow(pars)
-  p_sample <- rep(1, Nsim)
-  for (name in ps.var){
-    p_name <- paste('p_', name, sep='')
-    p_sample = p_sample * pars[[p_name]]
-  }
-  # Normalize p_sample
-  pars$p_sample <- p_sample/sum(p_sample)
-  pars
-}
-pars <- calculateSampleProbability(pars, ps.var)
 
 # Plot the sample probability
 if (create_plot_files == TRUE){

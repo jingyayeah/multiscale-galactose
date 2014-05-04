@@ -4,6 +4,8 @@
 # preprocessing of the data has to be done before.
 # see MultipleIndicatorPreprocessing.R
 #
+# TODO 
+#
 # author: Matthias Koenig
 # date: 2014-04-20
 ################################################################
@@ -12,14 +14,9 @@ library('MultiscaleAnalysis')
 library('matrixStats')
 setwd(ma.settings$dir.results)
 
-compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
-ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
-pv_compounds = paste('PV__', compounds, sep='')
-names(ccolors) <- pv_compounds
-
 # Plot all the single curves with mean and std
-createAllPlot <- function(create_plot_files=F){
-  time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1])-10.0
+# They have to be weighted with the actual probability assicociated with the samples.
+plotMultipleIndicatorCurves <- function(time, weights, create_plot_files=F){
   Nc <- length(pv_compounds)
   
   # Create the plot
@@ -27,19 +24,22 @@ createAllPlot <- function(create_plot_files=F){
     png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves.png", sep=""),
         width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
   }
+  
   par(mfrow=c(1,Nc))
   for (name in pv_compounds){
-    plotCompound(time, MI.mat[[name]], name, col=ccolors[name], xlim=c(0,15), ylim=c(0,2.5))
+    plotCompound(time, MI.mat[[name]], name, col=ccolors[name], xlim=c(0,15), ylim=c(0,2.5), weights)
   }
+  
   par(mfrow=c(1,1))
   if (create_plot_files == TRUE){
     dev.off()
   }
 }
+plotMultipleIndicatorCurves(time, pars$p_sample)
+
 
 ## Combined Dilution Curves in one plot ##
-createMeanPlot <- function(create_plot_files=F){
-  time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1])-10.0
+plotMultipleIndicatorMean <- function(time, create_plot_files=F){
   Nc <- length(pv_compounds)
   
   if (create_plot_files == TRUE){
@@ -58,7 +58,6 @@ createMeanPlot <- function(create_plot_files=F){
   dev.off()
 }
 
-
 # calculate the maximum values
 maxTimes <- function(data){
   Nsim = ncol(data)
@@ -72,26 +71,26 @@ maxTimes <- function(data){
       maxtime[[name]][k] = time[ which.max(dilmat[[name]][,k]) ]
     }
   }
-
 }
-
-# Boxplot of the maxtimes
-png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
-    width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
-boxplot(maxtime-10, col=ccolors, horizontal=T, xlab="time [s]")
-dev.off()
-summary(maxtime-10)
 
 
 ####################################################################
+library(RColorBrewer)
+# display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
+compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
+ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+pv_compounds = paste('PV__', compounds, sep='')
+names(ccolors) <- pv_compounds
+
 ## Load the preprocessed data ##
-sname <- '2014-04-20_MultipleIndicator'
-version <- 'v11'
+sname <- '2014-05-04_MultipleIndicator'
+version <- 'v14'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-tasks <- paste('T', seq(6,10), sep='')
+tasks <- paste('T', seq(16,20), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 
-for (kt in seq(length(tasks))){
+# for (kt in seq(length(tasks))){
+for (kt in seq(1)){
   task <- tasks[kt]
   peak <- peaks[kt]
   modelId <- paste('MultipleIndicator_', peak, '_', version, '_Nc20_Nf1', sep='')
@@ -99,16 +98,70 @@ for (kt in seq(length(tasks))){
                         paste(task, '_', modelId, '_parameters.csv', sep=""))
   # Load the data
   load(file=outfileFromParsFile(parsfile))
-  summary(pars)
+  
+  # Parameter processing
+  ps <- getParameterTypes(pars=pars)
+  
+  # Extend the parameters with the SBML parameters and calculated parameters
+  fsbml <- file.path(ma.settings$dir.results, sname, paste(modelId, '.xml', sep=''))
+  model <- loadSBMLModel(fsbml)
+  pars <- extendParameterStructure(pars=pars, fixed_ps=ps$fixed, model=model)
+  head(pars)
+  
+  # Standard distributions for normal case
+  p.gen <- loadStandardDistributions()
+  print(p.gen)
+  
+  # ECDFs for standard distributions
+  ecdf.list <- createListOfStandardECDF(p.gen, ps$var)
+  
+  # Calculate the probabilites for single variables
+  pars <- calculateProbabilitiesForVariables(pars, ecdf.list)
+  # And the overall probability per sample
+  pars <- calculateSampleProbability(pars, ps$var)
+  head(pars)
+  
+  # Get the time for the plot
+  time = getTimeFromMIMAT(MI.mat) -10.0
   
   # Create the plots
-  createAllPlot(create_plot_files=TRUE)
-  createMeanPlot(create_plot_files=TRUE)
+  # Here the unweighted simulation results are obtained
+  plotMultipleIndicatorCurves(time=time, weights=pars$p_sample, create_plot_files=FALSE)
+  
+  # createMeanPlot(time, create_plot_files=TRUE)
+  
+  
 }
 
+###########################################################################
+# Calculate weighted derived values
+###########################################################################
+# Calculate weighted values based on the probabilities for sample
+# Weighted mean, variance and standard deviation calculations
+name='Q_sinunit'
+wmean <- wt.mean(x, pars$p_sample)
+wvar <- wt.var(x, pars$p_sample)
+wsd <- wt.sd(x, pars$p_sample)
+wsd
+
+# Generate plots
+plot.width = 800 
+plot.height = 800
+plot.units= "px"
+plot.bg = "white"
+plot.res = 150
+for (name in ps.var){
+  fname = paste('test_distribution_', name, '.png', sep="") 
+  print(fname)
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
+  plotWeighted(pars, p.gen, name)
+  dev.off()
+}
+
+
+
+
 ####################################################################
-
-
 
 name="PV__rbcM"
 time <- readTimeForSimulation(ma.settings$dir.simdata, rownames(pars)[1])-10.0
@@ -121,12 +174,6 @@ plot2Ddensity(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
 
 plotCompoundScatter(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
 plot2Ddensity(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
-
-
-
-
-
-
 
 
 ###################################################################################
@@ -242,4 +289,9 @@ par(mfrow=c(1,1))
 dev.off()
 
 
-
+# Boxplot of the maxtimes
+png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
+    width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
+boxplot(maxtime-10, col=ccolors, horizontal=T, xlab="time [s]")
+dev.off()
+summary(maxtime-10)

@@ -140,8 +140,8 @@ if __name__ == "__main__":
     #unassignSimulationsByPk(pks)
     
     # Remove simulations for task
-    task = Task.objects.get(pk=16)
-    removeSimulationsForTask(task)
+    # task = Task.objects.get(pk=16)
+    # removeSimulationsForTask(task)
     
     
     # ! CAREFUL !

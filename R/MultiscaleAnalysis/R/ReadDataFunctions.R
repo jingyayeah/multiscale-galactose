@@ -3,6 +3,8 @@
 ##########################################################
 
 #' Get integration timecourse file for simulation id.
+#' 
+#' TODO: this is not working any more with the multiple simulations
 #'@param simId simulation identifier
 #'@return filename for the integration file
 #'@export
@@ -103,4 +105,13 @@ readPPPVDataForSimulation <- function(dir, simId, withTime=F){
 readTimeForSimulation <- function(dir, simId){
   tmp <- readPPPVDataForSimulation(dir, simId, withTime=T)
   time <- tmp$time
+}
+
+#' Reads the time vector from the simulation matrix list.
+#' @param MI.mat List of simulation matrixes
+#' @return time vector
+#' @export
+getTimeFromMIMAT <- function(MI.mat){
+  names <- rownames(MI.mat[[1]])
+  as.numeric(names) 
 }

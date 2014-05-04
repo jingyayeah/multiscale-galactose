@@ -1,40 +1,54 @@
 #' Plot the single curves
 #' @export
-plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), meanData=TRUE){
+plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), weights=NULL, meanData=TRUE){
   plot(numeric(0), numeric(0), 'l', main=name,
        xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
   
+  ccol = 'gray'
+  if (!is.null(weights)){
+    # TODO: get the proper colors by the weights
+    # colpal <- brewer.pal(9, 'OrRd')
+    # Nsim = nrow(pars)
+    # ccols <- colorRampPalette(colpal)(Nsim) # exend the color palette
+  }
+  
   Nsim <- ncol(data)
   for (ks in seq(Nsim)){
-    lines(time, data[,ks], col="gray")
+    # TODO: color by weights
+     
+    lines(time, data[,ks], col=ccol)
   }
   
   if (meanData){
-    plotCompoundMean(time, data, col)
+    plotCompoundMean(time, data, weights, col)
   }
-  
 }
 
 #' Plot the mean data.
+#' 
+#' Plots the mean and variance for time courses. Uses weighted calculation
+#' if the weights are provided.
+
 #' @export
-plotCompoundMean <- function(time, data, col){
-  # plot the mean and variance for time courses
-  # TODO how to better calculate -> what error measurment to use
-  rMeans <- rowMeans(data)
-  rSds <- rowSds(data)
+plotCompoundMean <- function(time, data, weights, col){
+  if (is.null(weights)){
+    rMeans <- rowMeans(data)
+    rSds <- rowSds(data)
+  }else{
+    Nt = length(time)
+    rMeans = numeric(Nt)
+    rSds = numeric(Nt)
+    for (k in seq(Nt)){
+      rMeans[k] = wt.mean(data[k, ], weights) 
+      rSds[k] = wt.sd(data[k, ], weights)
+    }
+  }
   rMeansUp <- rMeans+rSds
   rMeansDown <- rMeans-rSds
   rMeansDown[rMeansDown<0] = 0;
-  
-  rMedians <- rowMedians(data)
-  
   lines(time, rMeans, col=col, lwd=2)
   lines(time, rMeansUp, col=col, lwd=2, lty=2)
   lines(time, rMeansDown, col=col, lwd=2, lty=2)
-  
-  lines(time, rMedians, col=col, lwd=1, lty=3)
-  # lines(time, rowQuantiles(data, 0.25), col=col, lwd=3)
-  # lines(time, rowQuantiles(data, 0.75), col=col, lwd=3)
 }
 
 

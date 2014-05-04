@@ -1,0 +1,10 @@
+\name{createListOfStandardECDF}
+\alias{createListOfStandardECDF}
+\title{Calculated ECDFs for standard distributions.}
+\usage{
+createListOfStandardECDF(p.gen, ps.var, Npoints = 25000)
+}
+\description{
+Calculated ECDFs for standard distributions.
+}
+

@@ -2,9 +2,10 @@
 \alias{plotCompoundMean}
 \title{Plot the mean data.}
 \usage{
-plotCompoundMean(time, data, col)
+plotCompoundMean(time, data, weights, col)
 }
 \description{
-Plot the mean data.
+Plots the mean and variance for time courses. Uses weighted
+calculation if the weights are provided.
 }
 
