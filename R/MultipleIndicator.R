@@ -16,7 +16,7 @@ setwd(ma.settings$dir.results)
 
 # Plot all the single curves with mean and std
 # They have to be weighted with the actual probability assicociated with the samples.
-plotMultipleIndicatorCurves <- function(time, weights, create_plot_files=F){
+plotMultipleIndicatorCurves <- function(time, weights, ccols, create_plot_files=F){
   Nc <- length(pv_compounds)
   
   # Create the plot
@@ -27,7 +27,7 @@ plotMultipleIndicatorCurves <- function(time, weights, create_plot_files=F){
   
   par(mfrow=c(1,Nc))
   for (name in pv_compounds){
-    plotCompound(time, MI.mat[[name]], name, col=ccolors[name], xlim=c(0,15), ylim=c(0,2.5), weights)
+    plotCompound(time, MI.mat[[name]], name, col=ccolors[name], xlim=c(0,20), ylim=c(0,2.5), weights, ccols)
   }
   
   par(mfrow=c(1,1))
@@ -35,7 +35,36 @@ plotMultipleIndicatorCurves <- function(time, weights, create_plot_files=F){
     dev.off()
   }
 }
-plotMultipleIndicatorCurves(time, pars$p_sample)
+
+
+
+# Get colors for probability weights
+library(RColorBrewer)
+col2rgb_alpha <- function(col, alpha){
+  rgb <- rgb(col2rgb(col)[[1]]/256,col2rgb(col)[[2]]/256,col2rgb(col)[[3]]/256, alpha)
+}
+
+display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
+ccol = 'gray'
+Nsim = nrow(pars)
+Ncol = 7
+colpal <- brewer.pal(Ncol+2, 'Greys')
+ccols = rep(colpal[1], Nsim)
+maxValue = max(pars$p_sample) 
+bw = maxValue/Ncol
+for (k in seq(Ncol)){
+ ind <- which( (pars$p_sample>((k-1)*bw)) & (pars$p_sample <= (k*bw)))
+ ccols[ind] = colpal[k+2]
+ ccols[ind] = col2rgb_alpha(colpal[k+2], 0.7) 
+}
+plot(pars$p_sample, col=ccols, pch=15)
+summary(ccols)
+tail(ccols)
+
+
+plotMultipleIndicatorCurves(time, pars$p_sample, ccols=ccols, create_plot_files=T)
+
+
 
 
 ## Combined Dilution Curves in one plot ##

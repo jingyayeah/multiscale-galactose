@@ -1,22 +1,18 @@
 #' Plot the single curves
 #' @export
-plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), weights=NULL, meanData=TRUE){
+plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), weights=NULL, ccols=NULL, meanData=TRUE){
   plot(numeric(0), numeric(0), 'l', main=name,
        xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
   
-  ccol = 'gray'
-  if (!is.null(weights)){
-    # TODO: get the proper colors by the weights
-    # colpal <- brewer.pal(9, 'OrRd')
-    # Nsim = nrow(pars)
-    # ccols <- colorRampPalette(colpal)(Nsim) # exend the color palette
+  Nsim = ncol(data)
+  if (is.null(weights) || is.null(ccols)){
+    ccols = rep('gray', Nsim)
   }
   
-  Nsim <- ncol(data)
+  ord = order(weights)
   for (ks in seq(Nsim)){
-    # TODO: color by weights
-     
-    lines(time, data[,ks], col=ccol)
+    
+    lines(time, data[,ord[ks]], col=ccols[ord[ks]])
   }
   
   if (meanData){

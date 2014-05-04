@@ -3,7 +3,7 @@
 \title{Plot the single curves}
 \usage{
 plotCompound(time, data, name, col = "black", ylim = c(0, 0.2),
-  xlim = c(0, 30), weights = NULL, meanData = TRUE)
+  xlim = c(0, 30), weights = NULL, ccols = NULL, meanData = TRUE)
 }
 \description{
 Plot the single curves
