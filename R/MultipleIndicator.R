@@ -26,61 +26,38 @@ plotMultipleIndicatorCurves <- function(time, weights, ccols, create_plot_files=
   }
   
   par(mfrow=c(1,Nc))
+  xlim=c(0,20)
+  ylim=c(0,2.5)
   for (name in pv_compounds){
-    plotCompound(time, MI.mat[[name]], name, col=ccolors[name], xlim=c(0,20), ylim=c(0,2.5), weights, ccols)
+    inds <- which((time<=xlim[2]))
+    data <- MI.mat[[name]]
+    plotCompound(time[inds], data[inds, ] , name, col=ccolors[name], 
+                 xlim=xlim, ylim=ylim, weights, ccols)
   }
-  
   par(mfrow=c(1,1))
   if (create_plot_files == TRUE){
     dev.off()
   }
 }
 
-
-
-# Get colors for probability weights
-library(RColorBrewer)
-col2rgb_alpha <- function(col, alpha){
-  rgb <- rgb(col2rgb(col)[[1]]/256,col2rgb(col)[[2]]/256,col2rgb(col)[[3]]/256, alpha)
-}
-
-display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
-ccol = 'gray'
-Nsim = nrow(pars)
-Ncol = 7
-colpal <- brewer.pal(Ncol+2, 'Greys')
-ccols = rep(colpal[1], Nsim)
-maxValue = max(pars$p_sample) 
-bw = maxValue/Ncol
-for (k in seq(Ncol)){
- ind <- which( (pars$p_sample>((k-1)*bw)) & (pars$p_sample <= (k*bw)))
- ccols[ind] = colpal[k+2]
- ccols[ind] = col2rgb_alpha(colpal[k+2], 0.7) 
-}
-plot(pars$p_sample, col=ccols, pch=15)
-summary(ccols)
-tail(ccols)
-
-
-plotMultipleIndicatorCurves(time, pars$p_sample, ccols=ccols, create_plot_files=T)
-
-
-
-
 ## Combined Dilution Curves in one plot ##
-plotMultipleIndicatorMean <- function(time, create_plot_files=F){
+plotMultipleIndicatorMean <- function(time, weights, create_plot_files=F){
   Nc <- length(pv_compounds)
   
   if (create_plot_files == TRUE){
     png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves_Combined.png", sep=""),
-        width = 1000, height = 1000, units = "px", bg = "white")
+        width = 800, height = 800, units = "px", bg = "white")
   }
   par(mfrow=c(1,1))
+  xlim=c(0,20)
+  ylim=c(0,1.5)
   plot(numeric(0), numeric(0), 'l', 
-       xlab="time [s]", ylab="c [mM]", xlim=c(0,30), ylim=c(0,1.5))
+       xlab="time [s]", ylab="c [mM]", xlim=xlim, ylim=ylim)
   for (kc in seq(1, length(compounds)) ){
     for (name in pv_compounds){
-      plotCompoundMean(time, MI.mat[[name]], col=ccolors[name])
+      inds <- which((time<=xlim[2]))
+      data <- MI.mat[[name]]
+      plotCompoundMean(time[inds], data[inds, ], weights, col=ccolors[name])
     }
   }
   par(mfrow=c(1,1))
@@ -118,8 +95,16 @@ ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
 tasks <- paste('T', seq(16,20), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 
-# for (kt in seq(length(tasks))){
-for (kt in seq(1)){
+# Get colors for probability weights
+library(RColorBrewer)
+col2rgb_alpha <- function(col, alpha){
+  rgb <- rgb(col2rgb(col)[[1]]/256,col2rgb(col)[[2]]/256,col2rgb(col)[[3]]/256, alpha)
+}
+#display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
+
+
+for (kt in seq(length(tasks))){
+#for (kt in seq(1)){
   task <- tasks[kt]
   peak <- peaks[kt]
   modelId <- paste('MultipleIndicator_', peak, '_', version, '_Nc20_Nf1', sep='')
@@ -150,16 +135,28 @@ for (kt in seq(1)){
   pars <- calculateSampleProbability(pars, ps$var)
   head(pars)
   
+  # Color definition based on probabilities
+  ccol = 'gray'
+  Nsim = nrow(pars)
+  Ncol = 7
+  colpal <- brewer.pal(Ncol+2, 'Greys')
+  ccols = rep(colpal[1], Nsim)
+  maxValue = max(pars$p_sample) 
+  bw = maxValue/Ncol
+  for (k in seq(Ncol)){
+    ind <- which( (pars$p_sample>((k-1)*bw)) & (pars$p_sample <= (k*bw)))
+    ccols[ind] = colpal[k+2]
+    ccols[ind] = col2rgb_alpha(colpal[k+2], 0.7) 
+  }
+  # plot(pars$p_sample, col=ccols, pch=15)
+  
   # Get the time for the plot
   time = getTimeFromMIMAT(MI.mat) -10.0
   
   # Create the plots
   # Here the unweighted simulation results are obtained
-  plotMultipleIndicatorCurves(time=time, weights=pars$p_sample, create_plot_files=FALSE)
-  
-  # createMeanPlot(time, create_plot_files=TRUE)
-  
-  
+  plotMultipleIndicatorCurves(time, weights=pars$p_sample, ccols=ccols, create_plot_files=T)
+  plotMultipleIndicatorMean(time, weights=pars$p_sample, create_plot_files=T)
 }
 
 ###########################################################################

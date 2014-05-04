@@ -79,7 +79,7 @@ def createParameterFileForTask(folder, task):
 if __name__ == "__main__":
     folder = "/home/mkoenig/multiscale-galactose-results/2014-05-04_MultipleIndicator/"
 
-    ids = range(16,21)
+    ids = range(21,26)
     for task_id in ids:    
         task = Task.objects.get(pk=task_id);
         createParameterFileForTask(folder, task);

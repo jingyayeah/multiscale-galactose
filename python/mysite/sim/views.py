@@ -36,7 +36,7 @@ def tasks(request):
     '''
     Overview over the Tasks.
     '''
-    tasks_list = Task.objects.all()
+    tasks_list = Task.objects.order_by('pk').reverse()
     template = loader.get_template('sim/tasks.html')
     context = RequestContext(request, {
         'tasks_list': tasks_list,

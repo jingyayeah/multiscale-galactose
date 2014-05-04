@@ -78,8 +78,8 @@ def createMultipleIndicatorSimulationTask(model, N=10, sampling="LHS"):
     ''' Create integration settings, the task and the simulations. '''
     # integration
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=500.0, 
-                                                             tsteps=2000,
+                                                             tend=100.0, 
+                                                             tsteps=4000,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
     if (created):
@@ -106,8 +106,9 @@ def createParametersBySampling(N, sampling):
     elif (sampling == "LHS"):
         samples = createSamplesByLHS(N);
     elif (sampling == "mixed"):
-        samples = createSamplesByDistribution(N/2);
-        samples = createSamplesByLHS(N/2);
+        samples1 = createSamplesByDistribution(N/2);
+        samples2 = createSamplesByLHS(N/2);
+        samples = samples1 + samples2
     
     return samples
 
