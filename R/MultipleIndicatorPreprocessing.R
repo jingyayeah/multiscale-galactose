@@ -16,15 +16,15 @@ library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-sname <- '2014-04-30_MultipleIndicator'
+sname <- '2014-05-04_MultipleIndicator'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-tasks <- paste('T', seq(11,15), sep='')
+tasks <- paste('T', seq(16,20), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 
 for (kt in seq(length(tasks))){
   task <- tasks[kt]
   peak <- peaks[kt]
-  modelId <- paste('MultipleIndicator_', peak, '_v13_Nc20_Nf1', sep='')
+  modelId <- paste('MultipleIndicator_', peak, '_v14_Nc20_Nf1', sep='')
   parsfile <- file.path(ma.settings$dir.results, sname, 
                         paste(task, '_', modelId, '_parameters.csv', sep=""))
 
