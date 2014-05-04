@@ -42,6 +42,14 @@ library(MultiscaleAnalysis)
 
 setwd(ma.settings$dir.results)
 
+# Settings for plots
+create_plot_files = TRUE
+plot.width = 800 
+plot.height = 800
+plot.units= "px"
+plot.bg = "white"
+plot.res = 150
+
 ###########################################################################
 # Load parameters for samples
 ###########################################################################
@@ -49,9 +57,6 @@ setwd(ma.settings$dir.results)
 # corresponding to a sinusoidal unit configuration
 # samples are based on random sampling of multidimensional parameter space
 
-# TODO : only define the settings once here
-# sname <- '2014-04-30_MultipleIndicator'
-# tasks <- paste('T', seq(11,15), sep='')
 sname <- '2014-05-04_MultipleIndicator'
 modelVersion <- 'v14_Nc20_Nf1'
 tasks <- paste('T', seq(16,20), sep='')
@@ -76,21 +81,39 @@ for (kt in seq(1)){
   }
   print(summary(pars))
 }
-rm(kt, peak, task)
+rm(kt)
 names(pars)
+
+
+if (create_plot_files == TRUE){
+  fname <- file.path(ma.settings$dir.results, sname, 
+                     paste(task, '_', modelId, '_plotParameterHistogramFull.png', sep=""))
+  png(filename=fname, width=1400, height=400, units=plot.units, bg=plot.bg, res=plot.res)
+}
 plotParameterHistogramFull(pars=pars)
+if (create_plot_files == TRUE){
+  dev.off()
+}
 
 # Plot the order of parameters to check for shuffling effects
-library(RColorBrewer)
 # brewer.pal(n, name)
 # display.brewer.pal(n, name)
 #display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
+library(RColorBrewer)
 colpal <- brewer.pal(9, 'YlOrRd')
-
 Nsim = nrow(pars)
 ccols <- colorRampPalette(colpal)(Nsim) # exend the color palette
 pnames <- getParameterNames(pars)
-plot(pars[, pnames], col=ccols, pch=15)
+
+if (create_plot_files == TRUE){
+  fname <- file.path(ma.settings$dir.results, sname, 
+                     paste(task, '_', modelId, '_plotParameterScatterFull.png', sep=""))
+  png(filename=fname, width=1200, height=1200, units=plot.units, bg=plot.bg, res=plot.res)
+}
+  plot(pars[, pnames], col=ccols, pch=15)
+if (create_plot_files == TRUE){
+  dev.off()
+}
 
 ###########################################################################
 # Get calculated values & simulation results for samples
@@ -163,19 +186,19 @@ calculateProbabilitiesForVariables <- function (pars, ecdf.list) {
 pars <- calculateProbabilitiesForVariables(pars, ecdf.list)
 
 # Plot probabilities with associated midpoints as horizontal lines
-plotProbabilitiesForVariable <- function (x, f.ecdf) {
+plotProbabilitiesForVariable <- function (x, f.ecdf, xlab) {
   ptmp <- getProbabilitiesForData(x, f.ecdf)
   ord <- order(x)
   par(mfrow=c(2,1))
   # probability
-  plot(x, ptmp$p)
+  plot(x, ptmp$p, xlab=xlab, main="probability")
   points(x[ord], ptmp$p[ord], type="l", lwd=2)
   for (mp in ptmp$midpoints){
     abline(v=mp, col=rgb(0,0,1,0.5))
   }
   abline(h=0.0, col='black')
   # ecdf
-  plot(x[ord], f.ecdf(x[ord]), type="l", lwd=2)
+  plot(x[ord], f.ecdf(x[ord]), type="l", lwd=2, xlab=xlab, main="ECDF")
   for (mp in ptmp$midpoints){
     abline(v=mp, col=rgb(0,0,1,0.5))
   }
@@ -184,6 +207,7 @@ plotProbabilitiesForVariable <- function (x, f.ecdf) {
   par(mfrow=c(1,1))
 }
 
+create_plot_files = TRUE
 
 # Generate control plots
 var_ps <- names(ecdf.list)
@@ -191,10 +215,21 @@ for (name in var_ps){
     f.ecdf <- ecdf.list[[name]]
     x <- pars[[name]];
     head(x)
-    plotProbabilitiesForVariable(x, f.ecdf);
-    par(ask=TRUE)
+    
+    if (create_plot_files == TRUE){
+      fname <- file.path(ma.settings$dir.results, sname, 
+                         paste(task, '_', modelId, '_samples_', name, '.png', sep=""))
+      png(filename=fname, width=1000, height=1400, units=plot.units, bg=plot.bg, res=plot.res)
+    }
+
+    xlab = paste(name, ' [', p.gen[name, 'unit'], ']', sep="")
+    plotProbabilitiesForVariable(x, f.ecdf, xlab=xlab);
+    # par(ask=TRUE)
+    
+    if (create_plot_files == TRUE){
+      dev.off()
+    }
 }
-par(ask=FALSE)
 
 
 # Multidimensional ECDF ?
@@ -216,11 +251,29 @@ calculateSampleProbability <- function (pars, ps.var) {
 }
 pars <- calculateSampleProbability(pars, ps.var)
 
-plot(pars$p_sample)
-plot(ecdf(sort(pars$p_sample)))
-plot(pars$p_sample[pars$p_sample<0.1])
-hist(pars$p_sample)
-plot(pars$p_y_cell)
+# Plot the sample probability
+if (create_plot_files == TRUE){
+  fname <- file.path(ma.settings$dir.results, sname, 
+                     paste(task, '_', modelId, '_p_sample' , '.png', sep=""))
+  png(filename=fname, width=1400, height=800, units=plot.units, bg=plot.bg, res=plot.res)
+}
+par(mfrow=c(1,2))
+# probability
+plot(sort(pars$p_sample, decreasing=TRUE), ylab="p(x1)*p(x1) ... p(xN)", main="probability")
+abline(h=0.0, col='black')
+abline(v=0.0, col='black')
+
+# ecdf
+plot(ecdf(sort(pars$p_sample, decreasing=TRUE)), main="ECDF")
+abline(h=0.0, col='black')
+abline(h=1.0, col='black')
+abline(v=0.0, col='black')
+par(mfrow=c(1,1))
+
+if (create_plot_files == TRUE){
+  dev.off()
+}
+
 
 ###########################################################################
 # Arbitrary parameter ECDFs

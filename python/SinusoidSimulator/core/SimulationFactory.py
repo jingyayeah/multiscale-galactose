@@ -171,7 +171,7 @@ if __name__ == "__main__":
     if (1):
     # Generate the MultipleIndicator Simulations
     # for the different peak length of the tracer
-        for kp in range(0,6):
+        for kp in range(0,5):
             sbml_id = "MultipleIndicator_P%02d_v14_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
