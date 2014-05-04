@@ -47,36 +47,48 @@ wt.sd <- function(x, wt){
   sqrt(var)
 }
 
-#' Calculates the probability associated with the sample based on the
-#' underlying distribution.
+#' Calculates probability for sample based ECDFs.
 #' 
-#' In which units is it coming out (transformed units)
-#' ! Important to keep track of the units !
-#' TODO: do the fit for unscaled data in basis units - scaling is generating
-#' lots of problems throughout
-#' TODO: generalize to arbitrary distributions of parameters
-#' @param pars parameter structure
-#' @param p.gen distribution generator functions
-#' @param name name of parameter 
+#' Uses the given ECDF to get the associated probabilities for the data points.
+#' 
+#' @param x data to calculate probabilities for
+#' @param f.ecdf underlying empirical cumulative distribution function
+#' @return list with fields p (probabilites) and mpoints (used midpoints) 
 #' @export
-getProbabilitiesForSamples <- function(pars, f.ecdf, name){
-  Nsim = nrow(pars)
-  d <- sort(pars[[name]]) 
+getProbabilitiesForData <- function(x, f.ecdf, lb=0, ub=10*max(x)){
+  res <- list()
   
-  # get the mean points
-  mpoints <- 0.5*(d[1:(Nsim-1)] + d[2:Nsim])
-  # Add the boundary points
-  mpoints <- c(0, mpoints, 10*max(mpoints))
+  # use the order to sort and unsort
+  ord <- order(x)
+  x.sorted <- x[ord] #same as sort(d) 
+  
+  # calculate midpoints
+  Nsim = nrow(pars)
+  midpoints <- 0.5*(x.sorted[1:(Nsim-1)] + x.sorted[2:Nsim])
+  
+  # Add the boundary points (high upper value which should collect the
+  # remaining probability for the last data point)
+  if (lb > min(x)){
+    lb = min(x)
+    warning('problems with lower bound')
+  }
+  if (ub < max(x)){
+    ub = max(x)
+    warning('problems with upper bound')
+  }
+  res$midpoints <- c(lb, midpoints, ub)
   
   # Calculate the cumulative probability associated with every sample
-  c_sample <- f.ecdf(mpoints*p.gen[name, 'scale_fac'])
-  cat(summary(c_sample), '\n')
-  
+  c_sample <- f.ecdf(res$midpoints)
   # get the probability associated with the interval
-  p_sample = c_sample[2:(Nsim+1)] - c_sample[1:Nsim]
+  p.sorted = c_sample[2:(Nsim+1)] - c_sample[1:Nsim]
   
-  print(sum(p_sample))
-  p_sample
+  # do the unsorting with the order
+  #do stuff, then revert
+  res$p <- p.sorted[order(ord)]
+  print(sum(res$p))
+
+  res
 }
 
 #' Plot the weighted parameter values with underlying distribution.

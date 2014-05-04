@@ -92,8 +92,6 @@ ccols <- colorRampPalette(colpal)(Nsim) # exend the color palette
 pnames <- getParameterNames(pars)
 plot(pars[, pnames], col=ccols, pch=15)
 
-head(pars[, pnames])
-
 ###########################################################################
 # Get calculated values & simulation results for samples
 ###########################################################################
@@ -141,6 +139,7 @@ createListOfStandardECDF <- function (p.gen, ps.var, Npoints=25000) {
   for (name in ps.var){
     # create ecdf by random sampling
     y <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
+    y <- y/p.gen[name, 'scale_fac']
     f.ecdf <- ecdf(y)
     ecdf.list[[name]] <- f.ecdf 
   }
@@ -148,24 +147,45 @@ createListOfStandardECDF <- function (p.gen, ps.var, Npoints=25000) {
 }
 ecdf.list <- createListOfStandardECDF(p.gen, ps.var)
 
-# Calculate the single variable probabilies based on ECDF, i.e p(x1), p(x2), ...
-# for x1, x2, ... being the parameters varied.
-# TODO: major bug in application probabilities to right sample
-calculateVariableProbabilitiesForSamples <- function (pars, ecdf.list) {
+# Calculate the single variable probabilies based on ECDF
+calculateProbabilitiesForVariables <- function (pars, ecdf.list) {
   var_ps <- names(ecdf.list)
   print(var_ps)
   for (name in var_ps){
       f.ecdf <- ecdf.list[[name]]
-      print(f.ecdf)
-      p_data <- getProbabilitiesForSamples(pars, f.ecdf, name)
-      print(p_data)
+      x <- pars[[name]];
+      p_sample <- getProbabilitiesForData(x, f.ecdf)
       p_name <- paste('p_', name, sep='')
-      pars[[p_name]] <- p_data
+      pars[[p_name]] <- p_sample$p
   }
   pars
 }
-pars <- calculateVariableProbabilitiesForSamples(pars, ecdf.list)
-summary(pars$p_L)
+pars <- calculateProbabilitiesForVariables(pars, ecdf.list)
+
+# Plot probabilities with associated midpoints as horizontal lines
+plotProbabilitiesForVariable <- function (x, f.ecdf) {
+  ptmp <- getProbabilitiesForData(x, f.ecdf)
+  ord <- order(x)
+  plot(x, ptmp$p)
+  points(x[ord], ptmp$p[ord], type="l", lwd=2)
+  for (mp in ptmp$midpoints){
+    abline(v=mp, col=rgb(0,0,1,0.5))
+  }
+}
+
+# Generate control plots
+var_ps <- names(ecdf.list)
+for (name in var_ps){
+    f.ecdf <- ecdf.list[[name]]
+    x <- pars[[name]];
+    head(x)
+    plotProbabilitiesForVariable(x, f.ecdf);
+    par(ask=TRUE)
+}
+par(ask=FALSE)
+
+
+
 
 # Multidimensional ECDF ?
 # Calculate the overall probability of the sample under the assumption
@@ -191,7 +211,7 @@ pars
 
 plot(pars$p_sample)
 plot(pars$p_y_cell)
-plot(pars$y_cell, pars$p_y_cell)
+
 
 ###########################################################################
 # Arbitrary parameter ECDFs

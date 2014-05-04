@@ -2,6 +2,23 @@
 Sampling of parameter distributions and generation of random 
 samples for parameters (via LHS).
 
+## Latin Hypercube sampling ##
+# This 'multi-start' approach facilitates a broad coverage of the
+# parameter search space in order to find the global optimum.
+# Latin hypercube sampling [17] of the initial parameter guesses
+# can be used to guarantee that each parameter estimation run
+# starts in a different region in the high-dimensional parameter
+# space. This method prohibits that randomly selected starting
+# points are accidentally close to each other. Therefore, Latin
+# hypercube sampling provides a better coverage of the space.
+#
+# Resampling ( https://en.wikipedia.org/wiki/Resampling_%28statistics%29 )
+# Estimating the precision of sample statistics (medians, variances, percentiles) 
+# by using subsets of available data (jackknifing) or drawing randomly with 
+# replacement from a set of data points (bootstrapping).
+# Validating models by using random subsets (bootstrapping, cross validation)
+# approximate permutation test, Monte Carlo permutation tests or random permutation tests
+
 
 Created on May 4, 2014
 @author: Matthias Koenig
@@ -82,7 +99,7 @@ def createSamplesByLHS(N=10):
     for pid in data.keys():
         dtmp = data[pid]
         minLHS = 0.0;               # always sample down to zero
-        maxLHS = 3 * dtmp['mean'];  # save bet, but depends on the abnormal conditions
+        maxLHS = 5 * dtmp['mean'];  # save bet, but depends on the abnormal conditions
         pointValues = calculatePointsByLHS(N, minLHS, maxLHS)
         random.shuffle(pointValues)
         pointsLHS[pid] = pointValues
