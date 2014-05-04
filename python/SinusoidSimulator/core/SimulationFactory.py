@@ -105,6 +105,10 @@ def createParametersBySampling(N, sampling):
         samples = createSamplesByDistribution(N);
     elif (sampling == "LHS"):
         samples = createSamplesByLHS(N);
+    elif (sampling == "mixed"):
+        samples = createSamplesByDistribution(N/2);
+        samples = createSamplesByLHS(N/2);
+    
     return samples
 
 
@@ -167,13 +171,13 @@ if __name__ == "__main__":
     if (1):
     # Generate the MultipleIndicator Simulations
     # for the different peak length of the tracer
-        for kp in range(0,5):
+        for kp in range(0,1):
             sbml_id = "MultipleIndicator_P%02d_v14_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
             if (1):
                 # create dilution simulations
-                task = createMultipleIndicatorSimulationTask(model, N=100) 
+                task = createMultipleIndicatorSimulationTask(model, N=200, sampling="distribution") 
                 createParameterFileForTask(results_dir, task);
    
     if (0):

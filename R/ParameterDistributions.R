@@ -116,7 +116,17 @@ fit[[name]] <- fitdistr(data[[name]]$x, "lognormal")
 p.gen <- storeFitData(p.gen, fit[[name]], name)
 
 #### Store fit parameter ##############################################
+# Calculate additional parameters for LHS scanning of probabilities
+# lower and upper bounds at 0.01 percentile and 0.99 percentile, respectively.
+# qvalues = c(0.01, 0.05, 0.5, 0.95, 0.99)
+for (name in rownames(p.gen)){
+  p.gen[name, "llb"] <- qlnorm(0.01, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)/p.gen[name, 'scale_fac']
+  p.gen[name, "lb"] <- qlnorm(0.05, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)/p.gen[name, 'scale_fac']
+  p.gen[name, "ub"] <- qlnorm(0.95, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)/p.gen[name, 'scale_fac']
+  p.gen[name, "uub"] <- qlnorm(0.99, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'], log = FALSE)/p.gen[name, 'scale_fac']
+}
 p.gen
+
 fname <- file.path(ma.settings$dir.results, 'distribution_fit_data.csv')
 write.csv(file=fname, p.gen)
 

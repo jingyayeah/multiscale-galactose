@@ -84,7 +84,7 @@ plotParameterHistogramFull(pars=pars)
 library(RColorBrewer)
 # brewer.pal(n, name)
 # display.brewer.pal(n, name)
-display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
+#display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
 colpal <- brewer.pal(9, 'YlOrRd')
 
 Nsim = nrow(pars)
@@ -184,6 +184,7 @@ plotProbabilitiesForVariable <- function (x, f.ecdf) {
   par(mfrow=c(1,1))
 }
 
+
 # Generate control plots
 var_ps <- names(ecdf.list)
 for (name in var_ps){
@@ -194,8 +195,6 @@ for (name in var_ps){
     par(ask=TRUE)
 }
 par(ask=FALSE)
-
-
 
 
 # Multidimensional ECDF ?
@@ -213,16 +212,18 @@ calculateSampleProbability <- function (pars, ps.var) {
   }
   # Normalize p_sample
   pars$p_sample <- p_sample/sum(p_sample)
-  print(sum(pars$p_sample))
   pars
 }
 pars <- calculateSampleProbability(pars, ps.var)
-pars
-
 
 plot(pars$p_sample)
-plot(pars$p_y_cell)
 
+length(pars$p_sample[pars$p_sample > 0.0000001])
+
+
+plot(pars$p_sample[pars$p_sample<0.1])
+hist(pars$p_sample)
+plot(pars$p_y_cell)
 
 ###########################################################################
 # Arbitrary parameter ECDFs

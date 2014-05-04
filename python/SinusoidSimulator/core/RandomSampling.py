@@ -91,6 +91,7 @@ def createSamplesByLHS(N=10):
     '''
     Returns the parameter samples via LHS sampling.
     The boundaries of the samples are defined via the given distributions for the normal state.
+    The lower and upper bounds have to account for the ranges with nonzero probability.
     '''
     # Get the LHS boundaries for all parameter dimensions and get
     # the values (always sample down to zero, the upper sample boundary
