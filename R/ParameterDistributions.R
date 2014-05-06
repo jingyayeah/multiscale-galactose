@@ -47,12 +47,12 @@ Koo1975.all
 rm(name, varname)
 
 # R stacked bar plot
-#png(filename=paste("Koo1975_velocity_distribution.png", sep=""),
-#    width = 800, height = 800, units = "px", bg = "white",  res = 150)
+png(filename=paste("Koo1975_velocity_distribution.png", sep=""),
+    width = 800, height = 800, units = "px", bg = "white",  res = 150)
 barcol <- gray.colors(length(Koo1975.names))
 barplot(Koo1975.all, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", col=barcol)
 legend("topright",  legend = Koo1975.names, fill=barcol)
-#dev.off()
+dev.off()
 
 ###  fit  ###
 name = 'flow_sin'

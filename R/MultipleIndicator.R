@@ -40,6 +40,15 @@ plotMultipleIndicatorCurves <- function(time, weights, ccols, create_plot_files=
   }
 }
 
+xlim=c(0,20)
+ylim=c(0,2.5)
+inds <- which((time<=xlim[2]))
+data <- MI.mat[["PV__rbcM"]]
+plotCompound(time[inds], data[inds, ], "PV_rbcM", col=ccolors[name], 
+               xlim=xlim, ylim=ylim, weights, ccols)
+
+
+
 ## Combined Dilution Curves in one plot ##
 plotMultipleIndicatorMean <- function(time, weights, create_plot_files=F){
   Nc <- length(pv_compounds)
@@ -92,7 +101,7 @@ names(ccolors) <- pv_compounds
 sname <- '2014-05-04_MultipleIndicator'
 version <- 'v14'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-tasks <- paste('T', seq(16,20), sep='')
+tasks <- paste('T', seq(21,25), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 
 # Get colors for probability weights
@@ -217,10 +226,10 @@ summary(gor1983)
 
 
 # Load the preprocessed simulations data
-sname <- '2014-04-20_MultipleIndicator'
-version <- 'v11'
+sname <- '2014-05-05_MultipleIndicator'
+version <- 'v14'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-tasks <- paste('T', seq(6,10), sep='')
+tasks <- paste('T', seq(21,25), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 
 for (kt in seq(length(tasks))){

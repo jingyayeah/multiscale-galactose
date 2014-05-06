@@ -51,6 +51,7 @@ h1{
 	margin-bottom:0px;
 	margin-top:0px;
 	background-color:#FFFFFF;
+	font-size: 160%;
 }
 h2{
 	margin-bottom:5px;
@@ -63,6 +64,7 @@ h3{
 	margin-top:10px;
 	background-color:#d6d6d6;
 }
+
 a:link, a:visited{
 	color:#00009b;
 }
@@ -137,9 +139,9 @@ span.DONE, span.GOOD{
 }
 
 
-
 /* menu items */
-a.menu {
-	padding-left:50px;
-	padding-right:10px;
+menu.a {
+	padding-left:0px;
+	padding-right:0px;
+	color:#333333;
 }

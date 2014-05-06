@@ -9,12 +9,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 PAGINATE_ENTRIES = 30
 
-def index(request):
+def models(request):
     '''
-    Homepage and overview over models.
+    Home of the project and providing overview over models
     '''
-    model_list = SBMLModel.objects.all()
-    template = loader.get_template('sim/index.html')
+    model_list = SBMLModel.objects.order_by("-pk")
+    template = loader.get_template('sim/models.html')
     context = RequestContext(request, {
         'model_list': model_list,
     })

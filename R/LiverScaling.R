@@ -59,10 +59,11 @@ plot.res = 150
 
 sname <- '2014-05-04_MultipleIndicator'
 modelVersion <- 'v14_Nc20_Nf1'
-tasks <- paste('T', seq(16,20), sep='')
+tasks <- paste('T', seq(21,25), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
 load_with_sims = FALSE;
+create_plot_files = TRUE;
 
 # for (kt in seq(length(tasks))){
 for (kt in seq(1)){
@@ -108,7 +109,7 @@ pnames <- getParameterNames(pars)
 if (create_plot_files == TRUE){
   fname <- file.path(ma.settings$dir.results, sname, 
                      paste(task, '_', modelId, '_plotParameterScatterFull.png', sep=""))
-  png(filename=fname, width=1200, height=1200, units=plot.units, bg=plot.bg, res=plot.res)
+  png(filename=fname, width=1400, height=1400, units=plot.units, bg=plot.bg, res=120)
 }
   plot(pars[, pnames], col=ccols, pch=15)
 if (create_plot_files == TRUE){

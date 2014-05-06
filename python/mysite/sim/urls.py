@@ -17,9 +17,9 @@ urlpatterns = patterns('',
     # ex: /polls/5/vote/
     url(r'^parameters/(?P<pcol_id>\d+)/$', views.parameters, name='vote'),
     
-    url(r'^models/$', views.index, name='models'),
+    url(r'^models/$', views.models, name='models'),
     url(r'^tasks/$', views.tasks, name='tasks'),
     url(r'^task/(?P<task_id>\d+)$', views.task, name='task'),
     url(r'^plots/$', views.plots, name='plots'),
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.models, name='index'),
 )
