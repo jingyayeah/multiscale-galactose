@@ -1,4 +1,4 @@
-{% extends "sim/base_generic.html" %}
+{% extends "sim/base_generic.html" %} {% load staticfiles %}
 
 {% block content %}
 <h1>Simulation {{sim}}</h1>
@@ -27,6 +27,28 @@
 		</tr>    
     </table>
     
+    <h2>Model</h2>
+    <table id="table">
+    <thead>
+	<tr>
+		<th>pk</th>
+		<th>id</th>
+		<th>sbml</th>
+		<th>report</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>{{sim.task.sbml_model.pk}}</td>
+			<td>{{sim.task.sbml_model.sbml_id}}</td>
+			<td><a href="{{ sim.task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="file:///home/mkoenig/multiscale-galactose-results/tmp_sbml/{{sim.task.sbml_model.sbml_id}}.html" target="_blank">
+				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+		</tr>    
+    </tbody>
+    </table>
+    
+    
     <h2>Parameters</h2>    
     <table>
 	<tr>
@@ -43,16 +65,36 @@
 		{% endfor %}    
     </table>
     
+    {% if sim.status == 'DONE' %}
+    <h2>Timecourse</h2>
+    <table>
+    <thead>
+	<tr>
+		<th>pk</th>
+		<th>sim</th>
+		<th>csv</th>
+		<th>file</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>{{ sim.timecourse.pk }}</td>
+			<td><a href="{% url 'sim:simulation' sim.pk %}">{{ sim }}</a></td>
+			<td><a href="{{ sim.timecourse.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15"></img></a></td>
+			<td><a href="{{ sim.timecourse.file.url }}">{{ sim.timecourse.file.name }}</a></td>
+		</tr>    
+    </tbody>
+    </table>
     
     <h2>Plots</h2>
-    {% if sim.status == 'DONE' %}
     {% for plot in sim.timecourse.plot_set.all %}
     	<b>name</b>: {{plot.file.name}}<br />
     	<b>type</b>: {{plot.plot_type}}<br />
     	<img src="{{plot.file.url}}"></img><br />
     {% endfor %}
+    
     {% else %}
-    Simulation not DONE, no timecourse information available.<br />
+    Simulation not DONE, no timecourse and plots available.<br />
     {% endif %}
     
     
