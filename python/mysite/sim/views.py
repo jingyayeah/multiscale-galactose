@@ -60,22 +60,10 @@ def task(request, task_id):
     
 def integrations(request):
     ''' Overview of integation settings. '''
-    int_list = Integration.objects.all()
-    paginator = Paginator(int_list, PAGINATE_ENTRIES) # Show 25 simulations per page
-    
-    page = request.GET.get('page')
-    try:
-        integrations = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        integrations = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        integrations = paginator.page(paginator.num_pages)
-    
+    integrations_list = Integration.objects.order_by("pk")
     template = loader.get_template('sim/integrations.html')
     context = RequestContext(request, {
-        'integrations': integrations,
+        'integrations_list': integrations_list,
     })
     return HttpResponse(template.render(context))
 
@@ -105,6 +93,7 @@ def simulations(request, status='ALL'):
     template = loader.get_template('sim/simulations.html')
     context = RequestContext(request, {
         'simulations': simulations,
+        'status': status,
     })
     return HttpResponse(template.render(context))
 
@@ -169,13 +158,12 @@ def plots(request):
     })
     return HttpResponse(template.render(context))
 
-
-def model(request, model_id):
-    return HttpResponse("You're looking at SBMLmodel %s." % model_id)
-
-def integration(request, integration_id):
-    response = "You're looking at integration parameters %s."
-    return HttpResponse(response % integration_id)
-
-def parameters(request, pcol_id):
-    return HttpResponse("You're looking at parameter collection %s." % pcol_id)
+def documentation(request):
+    '''
+    Documentation page.
+    '''
+    template = loader.get_template('sim/documentation.html')
+    context = RequestContext(request, {
+        
+    })
+    return HttpResponse(template.render(context))

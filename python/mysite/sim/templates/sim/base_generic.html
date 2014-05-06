@@ -1,10 +1,41 @@
 <!DOCTYPE html>{% load staticfiles %}
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <html lang="en">
 <head>
-	<link rel="stylesheet" type="text/css" href="{% static 'sim/core.css' %}" />
-	<!-- TODO: fix the table java script -->
-	<script type="text/javascript" language="javascript" src="{% static 'sim/jquery.js' %}"></script>
-	<script type="text/javascript" language="javascript" src="{% static 'sim/jquery.dataTables.js' %}"></script>
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>{% block title %}Multiscale-Galactose{% endblock %}</title>
+	<meta name="description" content="Database for multiscale-model of hepatic metabolism">
+	<meta name="author" content="Matthias Koenig">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="{% static 'sim/stylesheets/base.css' %}">
+	<link rel="stylesheet" href="{% static 'sim/stylesheets/skeleton.css' %}">
+	<link rel="stylesheet" href="{% static 'sim/stylesheets/layout.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'sim/stylesheets/mysite.css' %}" />
+	
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="{% static 'sim/images/favicon.ico' %}">
+	<!-- Table javascript
+	================================================== -->
+	<!-- TODO: bug in sorting of pks : 1, 10 sorting -->
+	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.js' %}"></script>
+	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.dataTables.js' %}"></script>
 	<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {			
     			$('#table_items').dataTable( {
@@ -18,31 +49,52 @@
 		} );
 	</script>
 	
-	<title>{% block title %}Multiscale-Galactose{% endblock %}</title>
 	<!-- <meta http-equiv="refresh" content="3" /> -->
 </head>
 
 <body>
-<div id="menu">
-	<h1><a href="/">Multiscale-Galactose</a></h1>
 	{% block sidebar %}
-		<ul>
+	<nav>
+	<hr />
+	<h3 id="logo">Multiscale-Galactose</h3>
+	<hr />
+	<ul>
 			<li><a href="/sim/models/">Models</a></li>
 			<li><a href="/sim/tasks/">Tasks</a></li>
-			<li><a href="/sim/integrations/">Integrations</a></li>
-			<li><a href="/sim/cores/">Cores</a></li>
 			<li><a href="/sim/simulations/">Simulations</a></li>
 			<li><a href="/sim/timecourses/">Timecourses</a></li>
-			<li><a href="/sim/plots/">Plots</a></li>
+			<li><a href="/sim/integrations/">Integrations</a></li>
+			<li><a href="/sim/cores/">Cores</a></li>
+			<!-- <li><a href="/sim/plots/">Plots</a></li> -->
+			<li><a href="/sim/documentation/">Docs &amp; Support</a></li>
 			<li>&nbsp;</li>
 			<li><a href="/admin/" target="_blank">Admin</a></li>
-		</ul>
+	</ul>
+	&nbsp;
+	
+	<hr />
+	<div id="footer">
+		Contact <a href="http://www.charite.de/sysbio/people/koenig/" target="_blank">Matthias Koenig</a>
+		<hr />
+		<a href="http://www.virtual-liver.de" target="_blank">
+			<img src="{% static 'sim/images/vln.png' %}" height="30" alt="Virtual Liver Network VLN"></img></a>
+		</br>
+		<a href="http://www.charite.de" target="_blank">
+			<img src="{% static 'sim/images/charite.png' %}" height="30"  alt="Charite Berlin"></img>
+			</a>
+		</br>
+		<a href="http://seek.virtuelle-leber.de/investigations/88" target="_blank">
+			<img src="{% static 'sim/images/seek.png' %}" height="30" alt="SEEK Virtual Liver"></img>
+			</a>
+		</br>
+	</div>
+	
+	</nav>
 	{% endblock %}
-	<img src="{% static 'sim/images/multiscale.png' %}">
-</div>
 
-<div id="content">
-{% block content %}{% endblock %}
-</div>
+
+	<div id="content">{% block content %}{% endblock %}</div>
+
+	
 </body>
 </html>

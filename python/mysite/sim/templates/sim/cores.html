@@ -1,9 +1,12 @@
 {% extends "sim/base_generic.html" %}
 
 {% block content %}
-<h1>Cores</h1>
+
 {% if cores_list %}
-	<table>
+
+	<table id="table_items">
+	<caption>Cores [{{cores_list.count}}]</caption>
+    <thead>
 	<tr>
 		<th>id</th>
 		<th>computer</th>
@@ -11,6 +14,8 @@
 		<th>time</th>
 		<th>is active</th>
 	</tr>
+	</thead>
+	<tbody>
 	{% for core in cores_list %}
 		<tr>
 			<td>{{core.id}}</td>
@@ -20,8 +25,10 @@
 			<td><span class="{% if core.active %}GOOD{% else %}BAD{% endif %}">{{core.active}}</span></td>
 		</tr>    
     {% endfor %}
+    </tbody>
     </table>    
 {% else %}
+	<h1>Cores</h1>
     <p>No cores listening for simulation.</p>
 {% endif %}
 

@@ -1,25 +1,32 @@
-{% extends "sim/base_generic.html" %}
+{% extends "sim/base_generic.html" %} {% load staticfiles %}
 
 {% block content %}
-<h1>Simulations</h1>
-
 {% if simulations %}
-<a href="{% url 'sim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
-<a href="{% url 'sim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
-<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> 
 
-	<table id="table_items"> 
+
+	<table id="table_items">
+	<caption>Simulations [
+		<a href="{% url 'sim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
+		<a href="{% url 'sim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
+		<a href="{% url 'sim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
+		<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a>
+		] 
+		</caption>
+	<thead>
 	<tr>
 		<th>pk</th>
 		<th>model</th>
 		<th>task</th>
 		<th>parameters</th>
 		<th>status</th>
-		<th>core</th>
-		<th>duration</th>
-		<th>hanging</th>
 		<th>timecourse</th>
+		<th>duration</th>
+		<th>core</th>
+		<th>hanging</th>
+		
 	</tr>
+	</thead>
+	<tbody>
 	{% for sim in simulations %}
 		<tr>
 			<td><a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a></td>
@@ -27,15 +34,17 @@
 			<td>{{sim.task}}</td>
 			<td>{{sim.parameters}}</td>
 			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
-			<td>{{sim.core}}</td>
-			<td>{{sim.duration}}</td>
-			<td> {% if sim.hanging %}<span class="BAD">{{sim.hanging}}</span>{% endif %}</td>
 			<td>{% if sim.status == 'DONE' %}
-				<a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.file.name}}</a>
+				<a href="{{ sim.timecourse.file.url }}" target="_blank"><img src="{% static 'sim/images/csv.png' %}" height="15"></img></a>
 				{% endif %}
 			</td>
+			<td>{{sim.duration}}</td>
+			<td>{{sim.core}}</td>
+			<td> {% if sim.hanging %}<span class="BAD">{{sim.hanging}}</span>{% endif %}</td>
+	
 		</tr>    
     {% endfor %}
+    </tbody>
     </table>
     <div class="pagination">
     <span class="step-links">
@@ -55,7 +64,15 @@
     </span>
 	</div>
 {% else %}
-    <p>No Simulations in database.</p>
+	<h1>Simulations</h1>
+    <p>No Simulations for status <span class="{{ status }}">{{ status }}</span> in database.</p>
+    <hr />
+    	<a href="{% url 'sim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
+    	<a href="{% url 'sim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
+		<a href="{% url 'sim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
+		<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a>
+		] 
+    
 {% endif %}
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "sim/base_generic.html" %}
 
 {% block content %}
-<h1>Plots</h1>
+
 {% if plots_list %}
 	<table>
 	<tr>
@@ -20,6 +20,7 @@
     {% endfor %}
     </table>
 {% else %}
-    <p>No Plots.</p>
+	<h1>Plots</h1>
+    <p>No Plots in database</p>
 {% endif %}
 {% endblock %}

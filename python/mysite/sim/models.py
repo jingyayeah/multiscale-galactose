@@ -243,7 +243,7 @@ class Simulation(models.Model):
         unique_together = ("task", "parameters")
     
     def __unicode__(self):
-        return 'Sim:%d' % (self.pk)
+        return 'Sim%d' % (self.pk)
     
     def is_unassigned(self):
         return self.status == self.UNASSIGNED

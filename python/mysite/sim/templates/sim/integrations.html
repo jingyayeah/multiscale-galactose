@@ -1,10 +1,10 @@
 {% extends "sim/base_generic.html" %}
 
 {% block content %}
-<h1>Integrations</h1>
-
-{% if integrations %}
-	<table>
+{% if integrations_list %}
+	<table id="table_items">
+	<caption>Integrations [{{integrations_list.count}}]</caption>
+	<thead>
 	<tr>
 		<th>pk</th>
 		<th>tstart</th>
@@ -13,7 +13,9 @@
 		<th>absTol</th>
 		<th>relTol</th>
 	</tr>
-	{% for item in integrations %}
+	</thead>
+	<tbody>
+	{% for item in integrations_list %}
 		<tr>
 			<td>{{item.pk}}</td>
 			<td>{{item.tstart}}</td>
@@ -23,25 +25,10 @@
 			<td>{{item.rel_tol}}</td>
 		</tr>    
     {% endfor %}
+    </tbody>
     </table>
-    <div class="pagination">
-    <span class="step-links">
-        {% if integrations.has_previous %}
-            <a href="?page={{ integrations.previous_page_number }}">previous</a>
-        {% else %}
-         previous
-        {% endif %}
-		 | 
-        {% if integrations.has_next %}
-            <a href="?page={{ integrations.next_page_number }}">next</a>
-        {% endif %}
-        
-        <span class="current">
-           [{{ integrations.number }} of {{ integrations.paginator.num_pages }}]
-        </span>
-    </span>
-	</div>
 {% else %}
+	<h1>Integrations</h1>
     <p>No Integrations in database.</p>
 {% endif %}
 

@@ -1,22 +1,29 @@
-{% extends "sim/base_generic.html" %}
+{% extends "sim/base_generic.html" %} {% load staticfiles %}
 {% block content %}
 
-<h1>Timecourses</h1>
 {% if timecourses %}
-	<table>
+	<table id="table_items">
+	<caption>Timecourses</caption>
+	<thead>
 	<tr>
 		<th>pk</th>
 		<th>sim</th>
+		<th>csv</th>
 		<th>file</th>
 	</tr>
+	</thead>
+	<tbody>
 	{% for tc in timecourses %}
 		<tr>
 			<td>{{ tc.pk }}</td>
 			<td><a href="{% url 'sim:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
+			<td><a href="{{ tc.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15"></img></a></td>
 			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
 		</tr>    
     {% endfor %}
+    </tbody>
     </table>
+ 
     <div class="pagination">
     <span class="step-links">
         {% if timecourses.has_previous %}
@@ -35,6 +42,7 @@
     </span>
 	</div>
 {% else %}
+	<h1>Timecourses</h1>
     <p>No Timecourses in database.</p>
 {% endif %}
 

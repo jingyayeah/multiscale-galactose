@@ -1,32 +1,35 @@
-{% extends "sim/base_generic.html" %}
-
+{% extends "sim/base_generic.html" %} {% load staticfiles %}
 {% block content %}
-<h1>Tasks</h1>
 {% if tasks_list %}
-	<table>
+	<table id="table_items">
+	<caption>Tasks [{{tasks_list.count}}]</caption>
+    <thead>
 	<tr>
 		<th>pk</th>
+		<th>status</th>
+		<th>sbml</th>
 		<th>model</th>
 		<th>integration</th>
-		<th>simulations</th>
-		<th>status</th>
 		<th>info</th>
 	</tr>
+	</thead>
+	<tbody>
 	{% for task in tasks_list %}
-		
 		<tr>
 			<td><a href="{% url 'sim:task' task.pk %}">{{task.pk}}</a></td>
-			<td><a href="{{task.sbml_model.file.url}}" target="_blank">{{task.sbml_model}}</a></td>
-			<td>{{task.integration}}</td>
-			<td>{{task.sim_count}}</td> 
 			<td>
+				<b>{{task.sim_count}} [ </b>
 				<span class="DONE">{{task.done_count}}</span> | 
 				<span class="ASSIGNED">{{task.assigned_count}}</span> | 
-				<span class="UNASSIGNED">{{task.unassigned_count}}</span> 	
+				<span class="UNASSIGNED">{{task.unassigned_count}}</span> ] 	
 			</td>
+			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td>{{task.sbml_model}} </td>
+			<td>{{task.integration}}</td>
 			<td>{{task.info}}</td>
 		</tr>    
     {% endfor %}
+    </tbody>
     </table>
 {% else %}
     <p>No Tasks in database.</p>
