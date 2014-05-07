@@ -59,14 +59,14 @@
 	<h3 id="logo">Multiscale-Galactose</h3>
 	<hr />
 	<ul>
-			<li><a href="/sim/models/">Models</a></li>
-			<li><a href="/sim/tasks/">Tasks</a></li>
-			<li><a href="/sim/simulations/">Simulations</a></li>
-			<li><a href="/sim/timecourses/">Timecourses</a></li>
-			<li><a href="/sim/integrations/">Integrations</a></li>
-			<li><a href="/sim/cores/">Cores</a></li>
-			<!-- <li><a href="/sim/plots/">Plots</a></li> -->
-			<li><a href="/sim/documentation/">Docs &amp; Support</a></li>
+			<li><a href="{% url 'sim:models'%}">Models</a></li>
+			<li><a href="{% url 'sim:tasks'%}">Tasks</a></li>
+			<li><a href="{% url 'sim:simulations'%}">Simulations</a></li>
+			<li><a href="{% url 'sim:timecourses'%}">Timecourses</a></li>
+			<li><a href="{% url 'sim:integrations'%}">Integrations</a></li>
+			<li><a href="{% url 'sim:cores'%}">Cores</a></li>
+			<!-- <li><a href="{% url 'sim:plots'%}">Plots</a></li> -->
+			<li><a href="{% url 'sim:documentation'%}">Docs &amp; Support</a></li>
 			<li>&nbsp;</li>
 			<li><a href="/admin/" target="_blank">Admin</a></li>
 	</ul>
@@ -77,24 +77,22 @@
 		Contact <a href="http://www.charite.de/sysbio/people/koenig/" target="_blank">Matthias Koenig</a>
 		<hr />
 		<a href="http://www.virtual-liver.de" target="_blank">
-			<img src="{% static 'sim/images/vln.png' %}" height="30" alt="Virtual Liver Network VLN"></img></a>
-		</br>
+			<img src="{% static 'sim/images/vln.png' %}" height="30" alt="Virtual Liver Network VLN" />
+		</a>
+		<br />
 		<a href="http://www.charite.de" target="_blank">
-			<img src="{% static 'sim/images/charite.png' %}" height="30"  alt="Charite Berlin"></img>
-			</a>
-		</br>
+			<img src="{% static 'sim/images/charite.png' %}" height="30"  alt="Charite Berlin" />
+		</a>
+		<br />
 		<a href="http://seek.virtuelle-leber.de/investigations/88" target="_blank">
-			<img src="{% static 'sim/images/seek.png' %}" height="30" alt="SEEK Virtual Liver"></img>
-			</a>
-		</br>
+			<img src="{% static 'sim/images/seek.png' %}" height="30" alt="SEEK Virtual Liver" />
+		</a>
+		<br />
 	</div>
 	
 	</nav>
 	{% endblock %}
 
-
-	<div id="content">{% block content %}{% endblock %}</div>
-
-	
+	<div id="content">{% block content %}{% endblock %}</div>	
 </body>
 </html>
