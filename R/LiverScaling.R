@@ -44,7 +44,7 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 # Settings for plots
-create_plot_files = FALSE
+create_plot_files = TRUE
 plot.width = 800 
 plot.height = 800
 plot.units= "px"
@@ -64,9 +64,9 @@ tasks <- paste('T', seq(1,5), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
 load_with_sims = FALSE;
-create_plot_files = FALSE;
 
 # for (kt in seq(length(tasks))){
+# ? all the things are only applied to the first component of the solution
 for (kt in seq(1)){
   task <- tasks[kt]
   peak <- peaks[kt]
@@ -120,6 +120,9 @@ if (create_plot_files == TRUE){
 # Do the parameters preprocessing & use
 # Probabilites of parameters & samples based on ECDFs 
 ###########################################################################
+# TODO: definitely some problem with the weighting of the parameter samples
+#       with the given probability, especially if it is already sampled from
+#       gven distributions -> fix 
 ps <- getParameterTypes(pars=pars)
 
 # Extend the parameters with the SBML parameters and calculated parameters
@@ -185,7 +188,6 @@ if (create_plot_files == TRUE){
   dev.off()
 }
 
-
 ###########################################################################
 # Arbitrary parameter ECDFs
 ###########################################################################
@@ -232,7 +234,7 @@ if (create_plot_files == TRUE){
 ###########################################################################
 # Calculate weighted values based on the probabilities for sample
 # Weighted mean, variance and standard deviation calculations
-name='Q_sinunit'
+name='flow_sin'
 wmean <- wt.mean(pars[[name]], pars$p_sample)
 wmean
 wvar <- wt.var(pars[[name]], pars$p_sample)
@@ -322,5 +324,4 @@ names(res)
 # -> new meanstd & variance for local blood flow
 # Q_liv.wmean.new = Q_liv.wmean * N_Q.new/N_Q
 # i.e. if the blood flow goes down, than the mean velocity through the sinusoids goes down
-
 

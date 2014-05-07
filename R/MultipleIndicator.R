@@ -1,10 +1,14 @@
 ################################################################
 ## Evaluation of MultipleIndicator Dilution Curves ##
 ################################################################
-# preprocessing of the data has to be done before.
-# see MultipleIndicatorPreprocessing.R
+# The workflow for analysis is:
+# [1] preprocessing of timecourse data
+# [2] analysis of the parameter samples & probability distributions
+#     and weighting of the data
+# [3] apply the weighting to the time course simulations. 
 #
-# Here the data for the 
+# Data is read from the preprocessed timecourse samples (TODO: arbitrary 
+# preprocessing to get the necessary components out of he solution CSV).
 #
 # author: Matthias Koenig
 # date: 2014-04-20
@@ -40,77 +44,49 @@ plotMultipleIndicatorCurves <- function(time, weights, ccols, create_plot_files=
   }
 }
 
-xlim=c(0,20)
-ylim=c(0,2.5)
-inds <- which((time<=xlim[2]))
-data <- MI.mat[["PV__rbcM"]]
-plotCompound(time[inds], data[inds, ], "PV_rbcM", col=ccolors[name], 
-               xlim=xlim, ylim=ylim, weights, ccols)
-
-
-
-## Combined Dilution Curves in one plot ##
-plotMultipleIndicatorMean <- function(time, weights, create_plot_files=F){
-  Nc <- length(pv_compounds)
-  
+# All MultipleIndicator curves in one plot
+plotMultipleIndicatorMean <- function(time, weights, create_plot_files=F, 
+                                      xlim=c(0,20), ylim=c(0,1.5)){
+  plot_name <- "_Dilution_Curves_Combined.png"
   if (create_plot_files == TRUE){
-    png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves_Combined.png", sep=""),
+    png(filename=paste(ma.settings$dir.results, '/', task, plot_name, sep=""),
         width = 800, height = 800, units = "px", bg = "white")
   }
-  par(mfrow=c(1,1))
-  xlim=c(0,20)
-  ylim=c(0,1.5)
-  plot(numeric(0), numeric(0), 'l', 
+    par(mfrow=c(1,1))
+    # only plot subset of data
+    plot(numeric(0), numeric(0), 'l', 
        xlab="time [s]", ylab="c [mM]", xlim=xlim, ylim=ylim)
-  for (kc in seq(1, length(compounds)) ){
     for (name in pv_compounds){
       inds <- which((time<=xlim[2]))
       data <- MI.mat[[name]]
       plotCompoundMean(time[inds], data[inds, ], weights, col=ccolors[name])
     }
-  }
   par(mfrow=c(1,1))
   dev.off()
 }
 
-# calculate the maximum values
-maxTimes <- function(data){
-  Nsim = ncol(data)
-  maxtime <- data.frame(tmp=numeric(Nsim))
-  for (kc in seq(1, length(compounds)) ){
-    name = paste("PV__", compounds[kc], sep="")
-    print(name)
-    maxtime[[name]] <- numeric(Nsim)    
-    # find the max values for all simulations
-    for (k in seq(1, Nsim)){
-      maxtime[[name]][k] = time[ which.max(dilmat[[name]][,k]) ]
-    }
-  }
-}
-
-
 ####################################################################
+
 library(RColorBrewer)
-# display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
+
+#Load the preprocessed data
+sname <- '2014-05-07_MultipleIndicator'
+version <- 'v14'
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
+tasks <- paste('T', seq(1,5), sep='')
+peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
+
+# Additional information
 compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 pv_compounds = paste('PV__', compounds, sep='')
 names(ccolors) <- pv_compounds
 
-## Load the preprocessed data ##
-sname <- '2014-05-04_MultipleIndicator'
-version <- 'v14'
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-tasks <- paste('T', seq(21,25), sep='')
-peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 
-# Get colors for probability weights
-library(RColorBrewer)
+# Colors for probability weights
 col2rgb_alpha <- function(col, alpha){
   rgb <- rgb(col2rgb(col)[[1]]/256,col2rgb(col)[[2]]/256,col2rgb(col)[[3]]/256, alpha)
 }
-#display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
-
 
 for (kt in seq(length(tasks))){
 #for (kt in seq(1)){
@@ -168,34 +144,6 @@ for (kt in seq(length(tasks))){
   plotMultipleIndicatorMean(time, weights=pars$p_sample, create_plot_files=T)
 }
 
-###########################################################################
-# Calculate weighted derived values
-###########################################################################
-# Calculate weighted values based on the probabilities for sample
-# Weighted mean, variance and standard deviation calculations
-name='Q_sinunit'
-wmean <- wt.mean(x, pars$p_sample)
-wvar <- wt.var(x, pars$p_sample)
-wsd <- wt.sd(x, pars$p_sample)
-wsd
-
-# Generate plots
-plot.width = 800 
-plot.height = 800
-plot.units= "px"
-plot.bg = "white"
-plot.res = 150
-for (name in ps.var){
-  fname = paste('test_distribution_', name, '.png', sep="") 
-  print(fname)
-  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
-  plotWeighted(pars, p.gen, name)
-  dev.off()
-}
-
-
-
-
 ####################################################################
 
 name="PV__rbcM"
@@ -214,8 +162,24 @@ plot2Ddensity(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
 ###################################################################################
 # Dilution curves with experimental data
 ###################################################################################
+# TODO: clear up this part
+
+# calculate the maximum values
+maxTimes <- function(data){
+  Nsim = ncol(data)
+  maxtime <- data.frame(tmp=numeric(Nsim))
+  for (kc in seq(1, length(compounds)) ){
+    name = paste("PV__", compounds[kc], sep="")
+    print(name)
+    maxtime[[name]] <- numeric(Nsim)    
+    # find the max values for all simulations
+    for (k in seq(1, Nsim)){
+      maxtime[[name]][k] = time[ which.max(dilmat[[name]][,k]) ]
+    }
+  }
+}
+
 library('matrixStats')
-library('MultiscaleAnalysis')
 
 # Load the experimental data
 gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
