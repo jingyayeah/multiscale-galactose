@@ -13,10 +13,23 @@ TODO: implement
 '''
 
 
+import libsbml
+# TODO: fix the pythonpath
+
 def createSBMLReport():
     '''
     Creates the SBML report by rendering a Django view.
     '''
+    
+    # Read the sbml data structure
+    
+    cores_list = Core.objects.order_by("-time")
+    template = loader.get_template('sim/cores.html')
+    context = RequestContext(request, {
+        'cores_list': cores_list,
+    })
+    return HttpResponse(template.render(context))
+
     print 'Not Implemented!'
     pass
 
