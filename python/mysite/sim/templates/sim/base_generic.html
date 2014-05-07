@@ -28,11 +28,9 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	<!-- Favicons
-	================================================== -->
+	
 	<link rel="shortcut icon" href="{% static 'sim/images/favicon.ico' %}">
-	<!-- Table javascript
-	================================================== -->
+	
 	<!-- TODO: bug in sorting of pks : 1, 10 sorting -->
 	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.js' %}"></script>
 	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.dataTables.js' %}"></script>
@@ -68,7 +66,7 @@
 			<!-- <li><a href="{% url 'sim:plots'%}">Plots</a></li> -->
 			<li><a href="{% url 'sim:documentation'%}">Docs &amp; Support</a></li>
 			<li>&nbsp;</li>
-			<li><a href="/admin/" target="_blank">Admin</a></li>
+			<li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
 	</ul>
 	&nbsp;
 	

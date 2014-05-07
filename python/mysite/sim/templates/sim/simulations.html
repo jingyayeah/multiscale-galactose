@@ -1,9 +1,6 @@
 {% extends "sim/base_generic.html" %} {% load staticfiles %}
-
 {% block content %}
 {% if simulations %}
-
-
 	<table id="table_items">
 	<caption>Simulations [
 		<a href="{% url 'sim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 

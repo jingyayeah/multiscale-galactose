@@ -1,7 +1,7 @@
 {% extends "sim/base_generic.html" %} {% load staticfiles %}
 
 {% block content %}
-<h1>Simulation {{sim}}</h1>
+<h2>Simulation [{{sim}}]</h2>
 	<table>
 	<tr>
 		<th>pk</th>
@@ -14,8 +14,7 @@
 	</tr>
 		<tr>
 			<td>{{sim.pk}}</td>
-			<td><a href="{% url 'sim:simulation' sim.task.sbml_model.file.url}" target="_blank">
-				{{sim.task.sbml_model}}</a></td>
+			<td>{{sim.task.sbml_model.sbml_id}}</td>
 			<td>{{sim.task}}</td>
 			<td>{{sim.task.integration}}</td>
 			<td>{{sim.parameters}}</td>
@@ -42,7 +41,7 @@
 			<td>{{sim.task.sbml_model.pk}}</td>
 			<td>{{sim.task.sbml_model.sbml_id}}</td>
 			<td><a href="{{ sim.task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
-			<td><a href="file:///home/mkoenig/multiscale-galactose-results/tmp_sbml/{{sim.task.sbml_model.sbml_id}}.html" target="_blank">
+			<td><a href="{% url 'sim:report' sim.task.sbml_model.pk %}" target="_blank">
 				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
 		</tr>    
     </tbody>
@@ -79,31 +78,24 @@
 	<tbody>
 		<tr>
 			<td>{{ sim.timecourse.pk }}</td>
-			<td><a href="{% url 'sim:simulation' sim.pk %}">{{ sim }}</a></td>
-			<td><a href="{{ sim.timecourse.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15"></img></a></td>
+			<td>{{ sim }}</td>
+			<td><a href="{{ sim.timecourse.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15"/></a></td>
 			<td><a href="{{ sim.timecourse.file.url }}">{{ sim.timecourse.file.name }}</a></td>
 		</tr>    
     </tbody>
     </table>
     
+    {% if sim.timecourse.plot_set.all %}
     <h2>Plots</h2>
     {% for plot in sim.timecourse.plot_set.all %}
     	<b>name</b>: {{plot.file.name}}<br />
     	<b>type</b>: {{plot.plot_type}}<br />
-    	<img src="{{plot.file.url}}"></img><br />
+    	<img src="{{plot.file.url}}" /><br />
     {% endfor %}
-    
-    {% else %}
-    Simulation not DONE, no timecourse and plots available.<br />
     {% endif %}
     
+    {% else %}
+    	Simulation not DONE, no timecourse and plots available.<br />
+    {% endif %}
     
-    {% if sim_previous %}
-		<a href="{% url 'sim:simulation' sim_previous.pk %}">Previous</a>
-    {% else %} - {% endif %}
-    <b>|</b>
-    {% if sim_next %}
-		<a href="{% url 'sim:simulation' sim_next.pk %}">Next</a>
-    {% else %} - {% endif %}
-
 {% endblock %}

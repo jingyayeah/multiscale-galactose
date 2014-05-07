@@ -1,6 +1,5 @@
 {% extends "sim/base_generic.html" %} {% load staticfiles %}
 {% block content %}
-
 {% if timecourses %}
 	<table id="table_items">
 	<caption>Timecourses</caption>
@@ -17,7 +16,7 @@
 		<tr>
 			<td>{{ tc.pk }}</td>
 			<td><a href="{% url 'sim:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
-			<td><a href="{{ tc.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15"></img></a></td>
+			<td><a href="{{ tc.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15" /></a></td>
 			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
 		</tr>    
     {% endfor %}
@@ -45,6 +44,5 @@
 	<h1>Timecourses</h1>
     <p>No Timecourses in database.</p>
 {% endif %}
-
 
 {% endblock %}
