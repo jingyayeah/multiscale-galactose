@@ -1,0 +1,520 @@
+## SBML Report template for java velocity
+## author: Matthias Koenig
+<!doctype html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="report.css" />
+		<script type="text/javascript" language="javascript" src="jquery.js"></script>
+		<script type="text/javascript" language="javascript" src="jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+			  $('#table_units').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+			
+			  $('#table_compartments').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+			
+				$('#table_species').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+    			
+    			$('#table_parameters').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+    			
+    			$('#table_reactions').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			}); 			
+		} );
+		</script>
+	<title>SBML Report: $model.id</title>
+</head>
+
+<body>
+
+<div id="menu">
+<table>
+<tr>
+
+<td><h1>$model.id</h1>
+<a href="${model.id}.xml" target="_blank">SBML file</a>
+</td>
+
+<td><ul>
+	#if ($model.isSetListOfFunctionDefinitions())
+		<li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>
+	#end
+	#if ($model.isSetListOfUnitDefinitions())
+		<li><a href="#UnitDefinitions">UnitDefinitions</a></li>
+	#end
+	#if ($model.isSetListOfCompartments())
+		<li><a href="#Compartments">Compartments</a></li>
+	#end
+	#if ($model.isSetListOfSpecies())
+		<li><a href="#Species">Species</a></li>
+	#end
+	#if ($model.isSetListOfParameters())
+		<li><a href="#Parameters">Parameters</a></li>
+	#end
+<ul></td>
+
+<td><ul>
+	#if ($model.isSetListOfInitialAssignments())
+		<li><a href="#InitialAssignments">InitialAssignments</a></li>
+	#end
+	#if ($model.isSetListOfRules())
+		<li><a href="#Rules">Rules</a></li>
+	#end
+	#if ($model.isSetListOfConstraints())
+		<li><a href="#Constraints">Constraints</a></li>
+	#end
+	#if ($model.isSetListOfReactions())	
+		<li><a href="#Reactions">Reactions</a></li>
+	#end
+	#if ($model.isSetListOfEvents())
+		<li><a href="#Events">Events</a></li>
+	#end
+</ul></td>
+
+<td><img src="sbml.gif" height=40></img></td>
+</tr>
+</table>
+</div>
+
+
+<div id="content">
+###########################################################
+<span id="Model">
+	<table id="table_model" summary="Model">
+    <caption>Model</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">SBML</th>
+            <th scope="col">time</th>
+            <th scope="col">substance</th>
+            <th scope="col">volume</th>
+            <th scope="col">area</th>
+            <th scope="col">length</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<td>$model.id</td>
+		<td>$model.getName()</td>
+		<td>L${model.level}V${model.version}</td>
+		<td>$model.getTimeUnits()</td>
+		<td>$model.getSubstanceUnits()</td>
+		<td>$model.getVolumeUnits()</td>
+		<td>$model.getAreaUnits()</td>
+		<td>$model.getLengthUnits()</td>
+	</tbody>
+	</table>
+	$model.getNotesString()
+	<pre>$esc.html($model.getAnnotationString())</pre>
+	
+</span>
+
+###########################################################
+#if ($model.isSetListOfFunctionDefinitions())
+<span id="FunctionDefinitions">
+<h1>FunctionDefinitions [${model.getFunctionDefinitionCount()}]</h1>
+<table id="table_functions">
+	<caption>FunctionDefinitions</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">math</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $fd in $model.getListOfFunctionDefinitions() )
+    		<tr>
+    			<td>$fd.id</td>
+				<td>$fd.name</td>
+				<td>$fd.formula</td>
+				<td>$fac.getInfo($fd)</td>
+				<td>#if ($fd.isSetSBOTerm()) $fd.getSBOTerm() #end</td>
+			</tr>
+		#end
+	</tbody>
+</table>
+</span>
+#end
+###########################################################
+#if ($model.isSetListOfUnitDefinitions())
+<span id="UnitDefinitions">
+<h1>UnitDefinitions [${model.getUnitDefinitionCount()}]</h1>
+<table id="table_units">
+	<caption>UnitDefinitions</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">units</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+            ##<th scope="col">annotation</th>            
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $ud in $model.getListOfUnitDefinitions() )
+    		<tr>
+    			<td>$ud.id</td>
+				<td>$ud.name</td>
+				<td>$ud.toString()</td>
+				<td>$fac.getInfo($ud)</td>
+				<td>#if ($ud.isSetSBOTerm()) $ud.getSBOTerm() #end</td>
+				##<td><pre>$esc.html($ud.getAnnotationString())</pre></td>
+			</tr>
+		#end
+	</tbody>
+</table>
+</span>
+#end
+###########################################################
+#if ($model.isSetListOfCompartments())
+<span id="Compartments">
+<h1>Compartments [${model.getCompartmentCount()}]</h1>
+<table id="table_compartments">
+	<caption>Compartments</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">size</th>
+            <th scope="col">constant</th>
+            <th scope="col">spatialDimensions</th>
+            <th scope="col">unit</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+            ##<th scope="col">annotation</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $comp in $model.getListOfCompartments() )
+    		<tr>
+    			<td>$comp.id</td>
+				<td>$comp.name</td>
+				<td class="
+					#if ($comp.isSetSize() )   #else  FALSE  #end
+					">$comp.size</td>
+				<td class="
+					#if ($comp.isConstant() ) TRUE  #else  FALSE  #end
+					">$comp.constant</td>	
+				<td>$comp.spatialDimensions</td>
+				<td>$comp.units</td>
+				<td>$fac.getInfo($comp)</td>
+				<td>#if ($comp.isSetSBOTerm()) $comp.getSBOTerm() #end</td>
+				##<td><pre>$esc.html($comp.getAnnotationString())</pre></td>
+			</tr>
+		#end
+	</tbody>
+</table>
+<span>
+#end
+###########################################################
+#if ($model.isSetListOfSpecies())
+<span id="Species">
+<h1>Species [${model.getSpeciesCount()}]</h1>
+<table id="table_species">
+	<caption>Species</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">compartment</th>
+            <th scope="col">boundaryCondition</th>
+            <th scope="col">constant</th>
+            <th scope="col">initialAmount</th>
+            <th scope="col">initialConcentration</th>
+            <th scope="col">substanceUnits</th>
+            <th scope="col">hasOnlySubstanceUnits</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+           ## <th scope="col">annotation</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $s in $model.getListOfSpecies() )
+    		<tr>
+    			<td>$s.id</td>
+				<td>$s.name</td>
+				<td>$s.compartment</td>
+				<td class="
+					#if ($s.boundaryCondition ) TRUE  #else  FALSE  #end
+					">$s.boundaryCondition</td>
+				<td class="
+					#if ($s.constant ) TRUE  #else  FALSE  #end
+					">$s.constant</td>	
+				<td> #if ($s.isSetInitialAmount()) $s.initialAmount #end </td>
+				<td> #if ($s.isSetInitialConcentration()) $s.initialConcentration #end </td>
+				<td>$s.substanceUnits</td>
+				<td class="
+					#if ($s.hasOnlySubstanceUnits ) TRUE  #else  FALSE  #end
+					">$s.hasOnlySubstanceUnits</td>				
+				<td>$fac.getInfo($s)</td>
+				<td>#if ($s.isSetSBOTerm()) $s.getSBOTerm() #end</td>
+				## <td><pre>$esc.html($s.getAnnotationString())</pre></td>
+			</tr>
+		#end
+	</tbody>
+</table>
+</span>
+#end
+###########################################################
+#if ($model.isSetListOfParameters())
+<span id="Parameters">
+<h1>Parameters [$model.getParameterCount()]</h1>
+<table id="table_parameters">
+	<caption>Parameters</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">value</th>
+            <th scope="col">unit</th>
+            <th scope="col">constant</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+            <th scope="col">annotation</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $p in $model.getListOfParameters() )
+    		<tr>
+    			<td>$p.id</td>
+    			<td>$p.name</td>
+    			<td class="
+					#if ($p.isSetValue() )   #else  FALSE  #end
+					">$p.value</td>
+				<td>$p.units</td>
+				<td class="
+					#if ($p.isConstant() ) TRUE  #else  FALSE  #end
+					">$p.isConstant()</td>
+				<td>$fac.getInfo($p)</td>
+				<td>#if ($p.isSetSBOTerm()) $p.getSBOTerm() #end</td>					
+				<td><pre>$esc.html($p.getAnnotationString())</pre></td>
+			</tr>
+		#end
+	</tbody>
+</table>
+</span>
+#end
+###########################################################
+<span id="InitialAssignments">
+#if ($model.isSetListOfInitialAssignments())
+<h1>InitialAssignments [${model.getInitialAssignmentCount()}]</h1>
+<table id="table_assignments">
+	<caption>InitialAssignments</caption>
+    <thead>
+        <tr>
+            <th scope="col">symbol</th>
+            <th scope="col"></th>
+            <th scope="col">assignment</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+            ## <th scope="col">annotation</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $ia in $model.getListOfInitialAssignments() )
+    		<tr>
+    			<td>$ia.variable</td>
+    			<td>=</td>
+    			<td>$ia.formula</td>
+				<td>$fac.getInfo($ia)</td>
+				<td>#if ($ia.isSetSBOTerm()) $ia.getSBOTerm() #end</td>	
+    			## <td><pre>$esc.html($ia.getAnnotationString())</pre></td>
+			</tr>
+		#end
+	</tbody>
+</table>
+#end
+</span>
+###########################################################
+#if ($model.isSetListOfRules())
+<span id="Rules">
+<h1>Rules [${model.getRuleCount()}]</h1>
+<table id="table_rules">
+	<caption>Rules</caption>
+    <thead>
+        <tr>
+            <th scope="col">variable</th>
+            <th scope="col"></th>
+            <th scope="col">assignment</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+            ## <th scope="col">annotation</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $r in $model.getListOfRules() )
+    		<tr>
+    			<td>$r.variable</td>
+    			<td>=</td>
+    			<td>$r.formula</td>
+    			<td>$fac.getInfo($r)</td>
+				<td>#if ($r.isSetSBOTerm()) $r.getSBOTerm() #end</td>	
+    			## <td><pre>$esc.html($r.getAnnotationString())</pre></td>
+			</tr>
+		#end
+	</tbody>
+</table>
+</span>
+#end
+###########################################################
+#if ($model.isSetListOfConstraints())
+<span id="Constraints">
+<h1>Constraints [${model.getConstraintCount()}]</h1>
+<table id="table_constraints">
+	<caption>Constraints</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">constraint</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+            ## <th scope="col">annotation</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $c in $model.getListOfConstraints() )
+    		<tr>
+    			<td>$c.id</td>
+    			<td>$c.getFormula()</td>
+     			<td>$fac.getInfo($c)</td>
+				<td>#if ($c.isSetSBOTerm()) $c.getSBOTerm() #end</td>	
+    			## <td><pre>$esc.html($c.getAnnotationString())</pre></td>	
+			</tr>
+		#end
+	</tbody>
+</table>
+</span>
+#end
+###########################################################
+#if ($model.isSetListOfReactions())
+<span id="Reactions">
+<h1>Reactions [${model.getReactionCount()}]</h1>
+<table id="table_reactions">
+    <caption>Reactions</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">reversible</th>
+            <th scope="col">equation</th>
+            <th scope="col">modifiers</th>
+            <th scope="col">derived units</th>
+            <th scope="col">formula</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+            ## <th scope="col">annotation</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $r in $model.getListOfReactions() )
+    		<tr>
+    			<td>$r.id</td>
+				<td>$r.name</td>
+				<td class="
+					#if ($r.isReversible() ) TRUE  #else  FALSE  #end
+					">$r.isReversible()</td>
+				<td>#set($eq = $eqtools.getEquation($r) ) $eq.toHTMLString()</td>
+				<td>#foreach ($mod in $r.getListOfModifiers() )
+					$mod<br />
+					#end
+				</td>
+				<td>$r.getDerivedUnits()</td>
+				<td>$r.getKineticLaw().getFormula()</td>
+     			<td>$fac.getInfo($r)</td>
+				<td>#if ($r.isSetSBOTerm()) $r.getSBOTerm() #end</td>	
+				## <td><pre>$esc.html($r.getAnnotationString())</pre></td>	
+			</tr>
+		#end
+	</tbody>
+</table>
+</span>
+#end
+###########################################################
+#if ($model.isSetListOfEvents())
+<span id="Events">
+<h1>Events [${model.getEventCount()}]</h1>
+<table id="table_events">
+	<caption>Events</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">trigger</th>
+            <th scope="col">priority</th>
+            <th scope="col">delay</th>
+            <th scope="col">assignments</th>
+            <th scope="col">links</th>
+            <th scope="col">sbo</th>
+            ## <th scope="col">annotation</th>
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach( $ev in $model.getListOfEvents() )
+    		<tr>
+    			<td>$ev.id</td>
+    			<td>$ev.name</td>
+    			<td>
+    				$ev.trigger.formula<br />
+    				initialValue = $ev.trigger.initialValue<br />
+    				persistent = $ev.trigger.persistent<br />
+    			</td>
+    			<td>$ev.priority</td>
+    			<td>$ev.delay</td>
+    			<td>#foreach ($eva in $ev.getListOfEventAssignments() )
+    				$eva.variable = $eva.formula<br />
+    			#end
+    			</td>
+    			<td>$fac.getInfo($ev)</td>
+				<td>#if ($ev.isSetSBOTerm()) $ev.getSBOTerm() #end</td>
+    			## <td><pre>$esc.html($ev.getAnnotationString())</pre></td>	
+			</tr>
+		#end
+	</tbody>
+</table>
+</span>
+#end
+###########################################################
+<br />
+SBMLReport: <a href="http://www.charite.de/sysbio/people/koenig/" target="_blank">Matthias K&ouml;nig</a> (matthias.koenig[at]charite.de)
+</div>
+
+</body>
+</html>
+

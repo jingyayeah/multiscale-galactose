@@ -1,0 +1,148 @@
+<!doctype html> 
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="/static/sim/stylesheets/report.css" />
+	<script type="text/javascript" language="javascript" src="/static/sim/js/jquery.js"></script>
+	<script type="text/javascript" language="javascript" src="/static/sim/js/jquery.dataTables.js"></script>
+	
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+			  $('#table_units').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+			
+			  $('#table_compartments').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+			
+				$('#table_species').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+    			
+    			$('#table_parameters').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+    			
+    			$('#table_reactions').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			}); 			
+		} );
+		</script>
+	<title>SBML Report: $model.id</title>
+</head>
+
+<body>
+
+<div id="menu">
+	# TOOD: set the static links to the javascript libraries
+	# TODO: test access to the model structure
+
+<table>
+<tr>
+
+<td><h1>$model.id</h1>
+<a href="${model.id}.xml" target="_blank">SBML file</a>
+</td>
+
+<td><ul>
+	#if ($model.isSetListOfFunctionDefinitions())
+		<li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>
+	#end
+	#if ($model.isSetListOfUnitDefinitions())
+		<li><a href="#UnitDefinitions">UnitDefinitions</a></li>
+	#end
+	#if ($model.isSetListOfCompartments())
+		<li><a href="#Compartments">Compartments</a></li>
+	#end
+	#if ($model.isSetListOfSpecies())
+		<li><a href="#Species">Species</a></li>
+	#end
+	#if ($model.isSetListOfParameters())
+		<li><a href="#Parameters">Parameters</a></li>
+	#end
+<ul></td>
+
+<td><ul>
+	#if ($model.isSetListOfInitialAssignments())
+		<li><a href="#InitialAssignments">InitialAssignments</a></li>
+	#end
+	#if ($model.isSetListOfRules())
+		<li><a href="#Rules">Rules</a></li>
+	#end
+	#if ($model.isSetListOfConstraints())
+		<li><a href="#Constraints">Constraints</a></li>
+	#end
+	#if ($model.isSetListOfReactions())	
+		<li><a href="#Reactions">Reactions</a></li>
+	#end
+	#if ($model.isSetListOfEvents())
+		<li><a href="#Events">Events</a></li>
+	#end
+</ul></td>
+
+<td><img src="sbml.gif" height=40></img></td>
+</tr>
+</table>
+</div>
+
+
+<div id="content">
+###########################################################
+<span id="Model">
+	<table id="table_model" summary="Model">
+    <caption>Model</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">SBML</th>
+            <th scope="col">time</th>
+            <th scope="col">substance</th>
+            <th scope="col">volume</th>
+            <th scope="col">area</th>
+            <th scope="col">length</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<td>$model.id</td>
+		<td>$model.getName()</td>
+		<td>L${model.level}V${model.version}</td>
+		<td>$model.getTimeUnits()</td>
+		<td>$model.getSubstanceUnits()</td>
+		<td>$model.getVolumeUnits()</td>
+		<td>$model.getAreaUnits()</td>
+		<td>$model.getLengthUnits()</td>
+	</tbody>
+	</table>
+	$model.getNotesString()
+	<pre>$esc.html($model.getAnnotationString())</pre>
+	
+</span>
+</div>
+</body>
+</html>
