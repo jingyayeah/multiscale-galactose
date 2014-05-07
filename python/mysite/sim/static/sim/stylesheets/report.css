@@ -29,12 +29,7 @@
 
 html{font-size:normal;}
 body {
-	background: #ffffff;
-	margin: 0;
-	padding: 10px;
-	line-height: 1.4em;
-	font-family: tahoma, arial, sans-serif;
-	font-size: 80%;
+    font-size: 70%
 }
 
 a, a:hover{text-decoration:none;}

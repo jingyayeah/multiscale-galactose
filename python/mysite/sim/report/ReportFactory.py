@@ -5,46 +5,46 @@ The original prototype was developed in Java with JSBML based on a
 different template language but the underlying idea of rendering the
 template with the given SBML structure remains the same.
 
-
 @author: Matthias Koenig
 @date: 2014-05-07
 '''
 
 import os
 import sys
+from libsbml import SBMLDocument
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
+from sim.models import SBMLModel
 from django.http.response import HttpResponse
-from django.template import loader, Context
+from django.shortcuts import get_object_or_404
+from django.template import loader, RequestContext
 import libsbml
 
 
-def createSBMLReport(sbml_file, report_file):
+def report(request, model_pk):
     '''
-    Creates the SBML report by rendering a Django view.
+    Writes a detailed SBML report for the given database object.
+        TODO: convert the full java template to python
+        TODO: update the report CSS
+        TODO: backup solution to query via the id vs. pk
     '''
-    # TODO: convert the full java template to python
-    # TODO: update the report CSS
-    # TODO: create a proper database view
+    # Get the database model
+    sbmlmodel = get_object_or_404(SBMLModel, pk=model_pk)
     
+    # sbml_file = sbmlmodel.file.url # this is the local link
+    sbml_path = sbmlmodel.file.path # this is the absolute path in filesystem
+    # print sbml_file
     
-    # Read the sbml data structure
-    print sbml_file
-    doc = libsbml.readSBMLFromFile(sbml_file)
+    # Read the sbml model with libSBML
+    # doc = libsbml.readSBMLFromFile(sbml_file)
+    doc = libsbml.readSBMLFromFile(str(sbml_path))
     model = doc.getModel()
-    print model.getId()
-    
-    lofFD = model.getListOfFunctionDefinitions()
-    print lofFD
-    print lofFD.size()
-    
-    # TODO: pack the Django model in additon to provide full access
-    #        to the database information
-    
-    # All python objects can be packed in the HTML context
+
+    # Render the template with the data
     template = loader.get_template('report/SBMLReport.html')
-    context = Context({
+    context = RequestContext(request, {
+        'sbmlmodel' : sbmlmodel,
         'model': model,
         'unitDefinitions' : model.getListOfUnitDefinitions(),
         'compartments' : model.getListOfCompartments(),
@@ -57,18 +57,5 @@ def createSBMLReport(sbml_file, report_file):
         'constraints' : model.getListOfConstraints(),
         'events' : model.getListOfEvents(),
     })
-    # Render the html template with the sbml context
-    rtemp = template.render(context)
-    
-    # Write the HTML report
-    f = open(report_file, "w")
-    f.write(rtemp)
-    
-    
+    return HttpResponse(template.render(context))
 
-
-if __name__ == "__main__":
-    sbml_file = "/home/mkoenig/multiscale-galactose-results/tmp_sbml/Galactose_v14_Nc1_Nf1.xml"
-    report_file = "/home/mkoenig/tmp/test.html"
-    createSBMLReport(sbml_file, report_file)
-    print "DONE"

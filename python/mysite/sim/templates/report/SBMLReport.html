@@ -6,8 +6,8 @@
 	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.dataTables.js' %}"></script>
 	
 		<script type="text/javascript" charset="utf-8">
-			$(document).ready(function() {
-			  $('#table_units').dataTable( {
+			{{(document).ready(function() {
+			  {{('#table_units').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -16,7 +16,7 @@
         			"bAutoWidth": false
     			});
 			
-			  $('#table_compartments').dataTable( {
+			  {{('#table_compartments').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -25,7 +25,7 @@
         			"bAutoWidth": false
     			});
 			
-				$('#table_species').dataTable( {
+				{{('#table_species').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -34,7 +34,7 @@
         			"bAutoWidth": false
     			});
     			
-    			$('#table_parameters').dataTable( {
+    			{{('#table_parameters').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -43,7 +43,7 @@
         			"bAutoWidth": false
     			});
     			
-    			$('#table_reactions').dataTable( {
+    			{{('#table_reactions').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -53,7 +53,7 @@
     			}); 			
 		} );
 		</script>
-		<meta http-equiv="refresh" content="4" />
+		<meta http-equiv="refresh" content="1" />
 	<title>SBML Report: {{ model.getId }}</title>
 </head>
 <body>
@@ -63,7 +63,7 @@
 <tr>
 
 <td><h1>{{ model.getId }}</h1>
-<a href="${model.id}.xml" target="_blank">SBML file</a>
+<a href="{{ sbml_model.file.url}}" target="_blank">SBML file</a>
 </td>
 
 <td><ul>
@@ -102,14 +102,14 @@
 	{% endif %}
 </ul></td>
 
-<td><img src="{% static 'sim/imaages/sbml.gif' %}" height=40></img></td>
+<td><img src="{% static 'sim/images/sbml.gif' %}" height=40></img></td>
 </tr>
 </table>
 </div>
 
 
 <div id="content">
-###########################################################
+
 <span id="Model">
 	<table id="table_model" summary="Model">
     <caption>Model</caption>
@@ -126,20 +126,20 @@
         </tr>
     </thead>
     <tbody>
-    	<td>$model.id</td>
-		<td>$model.getName()</td>
-		<td>L${model.level}V${model.version}</td>
-		<td>$model.getTimeUnits()</td>
-		<td>$model.getSubstanceUnits()</td>
-		<td>$model.getVolumeUnits()</td>
-		<td>$model.getAreaUnits()</td>
-		<td>$model.getLengthUnits()</td>
+    	<td>{{model.getId}}</td>
+		<td>{{model.getName}}</td>
+		<td>L{{model.getLevel}}V{{model.getVersion}}</td>
+		<td>{{model.getTimeUnits}}</td>
+		<td>{{model.getSubstanceUnits}}</td>
+		<td>{{model.getVolumeUnits}}</td>
+		<td>{{model.getAreaUnits}}</td>
+		<td>{{model.getLengthUnits}}</td>
 	</tbody>
 	</table>
-	$model.getNotesString()
-	<pre>$esc.html($model.getAnnotationString())</pre>
-	
+	{{model.getNotesString}}
+	<pre>{{model.getAnnotationString}}</pre>
 </span>
+
 </div>
 </body>
 </html>

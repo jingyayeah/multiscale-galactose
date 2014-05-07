@@ -17,7 +17,7 @@
 			<td>{{model.pk}}</td>
 			<td>{{model.sbml_id}}</td>
 			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
-			<td><a href="file:///home/mkoenig/multiscale-galactose-results/tmp_sbml/{{model.sbml_id}}.html" target="_blank">
+			<td><a href="{% url 'sim:report' model.pk %}" target="_blank">
 				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
 		</tr>    
     {% endfor %}
