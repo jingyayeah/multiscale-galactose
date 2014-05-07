@@ -19,7 +19,7 @@ preprocess <- function(parsfile, sim.dir, outFile=NULL, max_index=-1){
   }
   
   # Read pars file
-  pars <- loadParsFile(parsfile)
+  pars <- loadParameterFile(parsfile)
   if (any(pars$status != 'DONE')){
     pars <- pars[pars$status=="DONE", ]  
     warning("Not all simulations have status: DONE")

@@ -1,6 +1,7 @@
 ################################################################
-## Scaling to whole-liver
+## Analysis of Sampling Distributon & Scaling to whole-liver
 ################################################################
+#
 # Whole liver function is calculated based on a sample of 
 # configurations of sinusoidal units. To calculate the total liver 
 # function these have to be weighted with their relative contribution
@@ -57,13 +58,13 @@ plot.res = 150
 # corresponding to a sinusoidal unit configuration
 # samples are based on random sampling of multidimensional parameter space
 
-sname <- '2014-05-04_MultipleIndicator'
+sname <- '2014-05-07_MultipleIndicator'
 modelVersion <- 'v14_Nc20_Nf1'
-tasks <- paste('T', seq(21,25), sep='')
+tasks <- paste('T', seq(1,5), sep='')
 peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
 load_with_sims = FALSE;
-create_plot_files = TRUE;
+create_plot_files = FALSE;
 
 # for (kt in seq(length(tasks))){
 for (kt in seq(1)){
@@ -85,7 +86,8 @@ for (kt in seq(1)){
 rm(kt)
 names(pars)
 
-
+# Plot all parameter histogramm
+# overview of distribution in single dimension
 if (create_plot_files == TRUE){
   fname <- file.path(ma.settings$dir.results, sname, 
                      paste(task, '_', modelId, '_plotParameterHistogramFull.png', sep=""))
@@ -96,10 +98,8 @@ if (create_plot_files == TRUE){
   dev.off()
 }
 
-# Plot the order of parameters to check for shuffling effects
-# brewer.pal(n, name)
-# display.brewer.pal(n, name)
-#display.brewer.all(n=NULL, type="all", select=NULL, exact.n=TRUE)
+# Plot scatterplot of parameters
+# the index of parameters is encoded as color to test for shuffling effects
 library(RColorBrewer)
 colpal <- brewer.pal(9, 'YlOrRd')
 Nsim = nrow(pars)
@@ -163,25 +163,24 @@ for (name in var_ps){
     }
 }
 
-# Plot the sample probability
+# Plot sample probability with ECDF
 if (create_plot_files == TRUE){
   fname <- file.path(ma.settings$dir.results, sname, 
                      paste(task, '_', modelId, '_p_sample' , '.png', sep=""))
   png(filename=fname, width=1400, height=800, units=plot.units, bg=plot.bg, res=plot.res)
 }
-par(mfrow=c(1,2))
-# probability
-plot(sort(pars$p_sample, decreasing=TRUE), ylab="p(x1)*p(x1) ... p(xN)", main="probability")
-abline(h=0.0, col='black')
-abline(v=0.0, col='black')
+  par(mfrow=c(1,2))
+  # probability
+  plot(sort(pars$p_sample, decreasing=TRUE), ylab="p(x1)*p(x1) ... p(xN)", main="probability")
+  abline(h=0.0, col='black')
+  abline(v=0.0, col='black')
 
-# ecdf
-plot(ecdf(sort(pars$p_sample, decreasing=TRUE)), main="ECDF")
-abline(h=0.0, col='black')
-abline(h=1.0, col='black')
-abline(v=0.0, col='black')
-par(mfrow=c(1,1))
-
+  # ecdf
+  plot(ecdf(sort(pars$p_sample, decreasing=TRUE)), main="ECDF")
+  abline(h=0.0, col='black')
+  abline(h=1.0, col='black')
+  abline(v=0.0, col='black')
+  par(mfrow=c(1,1))
 if (create_plot_files == TRUE){
   dev.off()
 }

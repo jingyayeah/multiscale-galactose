@@ -15,6 +15,15 @@ from django.core.files import File
             which can be analysed in a combined fashion.
             Currently this is guaranteed by the SimulationFactory during generation
             of the sets of simulations.
+            
+    TODO: handle the plots properly, namely do differen subtypes of plots 
+    depending on the data dependencies of the plots. In most of the cases
+    these are timecourse plots, parameter plots (for a simulation) or 
+    multiple simulation based plots. 
+    
+    All the plot generation & data analysis has to be directly done based
+    on data in the database. 
+    
 '''
 
 def validate_gt_zero(value):

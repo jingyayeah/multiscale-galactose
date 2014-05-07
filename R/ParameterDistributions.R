@@ -1,9 +1,12 @@
 ################################################################
 ## Parameter Distributions ##
 ################################################################
+# Definition and fitting of the parameter distributions for the
+# model.
 # author: Matthias Koenig
 # date: 2014-04-13
 #
+# 
 # Distributions are assumed to be lognormal distributed
 # Density, distribution function, quantile function and random generation 
 # for the log normal distribution whose logarithm has mean equal to meanlog 

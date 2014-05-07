@@ -4,7 +4,7 @@
 # preprocessing of the data has to be done before.
 # see MultipleIndicatorPreprocessing.R
 #
-# TODO 
+# Here the data for the 
 #
 # author: Matthias Koenig
 # date: 2014-04-20
