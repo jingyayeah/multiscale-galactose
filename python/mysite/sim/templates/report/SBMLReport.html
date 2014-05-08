@@ -141,6 +141,7 @@
 	<pre>{{model.getAnnotationString}}</pre>
 </span>
 
+<!-- FunctionDefinitions -->
 {% if functions %}
 <span id="FunctionDefinitions">
 <h1>FunctionDefinitions [{{functions_size}}]</h1>
@@ -170,7 +171,7 @@
 </span>
 {% endif %}
 
-
+<!-- UnitDefinition -->
 {% if units %}
 <span id="UnitDefinitions">
 <h1>UnitDefinitions [{{ units_size }}] </h1>
@@ -204,7 +205,7 @@
 </span>
 {% endif %}
 
-
+<!-- Compartments -->
 {% if compartments %}
 <span id="Compartments">
 <h1>Compartments [{{compartments_size}}]</h1>
@@ -246,7 +247,7 @@
 </span>
 {% endif %}
 
-<!-- species -->
+<!-- Species -->
 {% if species %}
 <span id="Species">
 <h1>Species [{{species_size}}]</h1>
@@ -294,7 +295,7 @@
 </span>
 {% endif %}
 
-<!-- parameters -->
+<!-- Parameters -->
 {% if parameters %}
 <span id="Parameters">
 <h1>Parameters [{{parameters_size}}]</h1>
@@ -331,37 +332,41 @@
 </table>
 </span>
 {% endif %}
-###########################################################
+
+<!-- InitialAssignments -->
+{% load SBML_filters %}
+
+{% if assignments %}
 <span id="InitialAssignments">
-#if ($model.isSetListOfInitialAssignments())
-<h1>InitialAssignments [${model.getInitialAssignmentCount()}]</h1>
+<h1>InitialAssignments [{{assignments_size}}]</h1>
 <table id="table_assignments">
 	<caption>InitialAssignments</caption>
     <thead>
         <tr>
             <th scope="col">symbol</th>
-            <th scope="col"></th>
+            <th scope="col">&nbsp;</th>
             <th scope="col">assignment</th>
+            <th scope="col">derived units</th>
             <th scope="col">links</th>
             <th scope="col">sbo</th>
-            ## <th scope="col">annotation</th>
         </tr>
     </thead>
     <tbody>
-    	#foreach( $ia in $model.getListOfInitialAssignments() )
+    {% for item in assignments %}
     		<tr>
-    			<td>$ia.variable</td>
+    			<td>{{item.getId}}</td>
     			<td>=</td>
-    			<td>$ia.formula</td>
+    			<td>{{item.getMath}} {{ item.getMath|SBML_formulaToString }}</td>
+    			<td>{{item.getDerivedUnitDefinition}}</td>
 				<td>$fac.getInfo($ia)</td>
-				<td>#if ($ia.isSetSBOTerm()) $ia.getSBOTerm() #end</td>	
-    			## <td><pre>$esc.html($ia.getAnnotationString())</pre></td>
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>	
 			</tr>
-		#end
+	 {% endfor %}
 	</tbody>
 </table>
-#end
 </span>
+{% endif %}
+
 ###########################################################
 #if ($model.isSetListOfRules())
 <span id="Rules">

@@ -9,12 +9,26 @@ TODO: send additional information to the report view, namely the
       parsed annotation links & naming for units
 
 
+Calling functions from the Django template via custom template filters.
+
+
+@register.filter
+def related_deltas(obj, epk):
+    return obj.get_related_deltas(epk)
+    
+{% for i in channel_status_list %}
+  {{ i|related_deltas:3 }}
+{% endfor %}
+
+
+
 @author: Matthias Koenig
 @date: 2014-05-07
 '''
 
 import os
 import sys
+from libsbml import SBMLDocument
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
@@ -77,9 +91,11 @@ def report(request, model_pk):
     return HttpResponse(template.render(context))
 
 def test():
-    from libsbml import Parameter, Compartment, Species
+    from libsbml import Parameter, Compartment, Species, InitialAssignment, UnitDefinition, Model
     # Parameter.getC
     # Parameter.isSetV
-    
-    
+    # InitialAssignment.getDerivedUnitDefinition(self);
+    #UnitDefinition.
+    #M
+    libsbml.formulaToString()
     
