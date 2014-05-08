@@ -14,3 +14,4 @@ R/MultiscaleAnalysis/.RData
 .cproject
 database/multiscale-galactose.2014*
 .Rproj.user
+*.pg_dump

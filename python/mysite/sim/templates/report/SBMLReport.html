@@ -172,7 +172,7 @@
 
 {% if units %}
 <span id="UnitDefinitions">
-<h1>UnitDefinitions [ {{ units_size }} ] </h1>
+<h1>UnitDefinitions [{{ units_size }}] </h1>
 <table id="table_units">
 	<caption>UnitDefinitions</caption>
     <thead>
@@ -191,7 +191,7 @@
 				<td>{{item.getName}}</td>
 				<td>{{item}}
 				{% for u in item.getUnits %}
-					{{u}}</br>
+					{{ u }}<br />
 				{% endfor %}	
 				</td>
 				<td>$fac.getInfo($ud)</td>
@@ -245,10 +245,9 @@
 </span>
 {% endif %}
 
-###########################################################
-#if ($model.isSetListOfSpecies())
+{% if species %}
 <span id="Species">
-<h1>Species [${model.getSpeciesCount()}]</h1>
+<h1>Species [{{species_size}}]</h1>
 <table id="table_species">
 	<caption>Species</caption>
     <thead>
@@ -264,36 +263,36 @@
             <th scope="col">hasOnlySubstanceUnits</th>
             <th scope="col">links</th>
             <th scope="col">sbo</th>
-           ## <th scope="col">annotation</th>
         </tr>
     </thead>
     <tbody>
-    	#foreach( $s in $model.getListOfSpecies() )
+    	{% for item in species %}
     		<tr>
-    			<td>$s.id</td>
-				<td>$s.name</td>
-				<td>$s.compartment</td>
+    			<td>{{item.getId}}</td>
+				<td>{{item.getName}}</td>
+				<td>{{item.getCompartment}}</td>
 				<td class="
-					#if ($s.boundaryCondition ) TRUE  #else  FALSE  #end
-					">$s.boundaryCondition</td>
+					{% if item.getBoundaryCondition %} TRUE {% else %}  FALSE  {% endif %}
+					">{{item.getBoundaryCondition}}</td>
 				<td class="
-					#if ($s.constant ) TRUE  #else  FALSE  #end
-					">$s.constant</td>	
-				<td> #if ($s.isSetInitialAmount()) $s.initialAmount #end </td>
-				<td> #if ($s.isSetInitialConcentration()) $s.initialConcentration #end </td>
-				<td>$s.substanceUnits</td>
+					{% if item.getConstant %} TRUE  {% else %}  FALSE  {% endif %}
+					">{{ item.getConstant }}</td>	
+				<td>{% if item.isSetInitialAmount %} {{item.getInitialAmount}} {% endif %}</td>
+				<td> {% if item.isSetInitialConcentration %} {{item.getInitialConcentration}} {% endif %} </td>
+				<td>{{ item.getSubstanceUnits }}</td>
 				<td class="
-					#if ($s.hasOnlySubstanceUnits ) TRUE  #else  FALSE  #end
-					">$s.hasOnlySubstanceUnits</td>				
+					{% if item.hasOnlySubstanceUnits %} TRUE {% else %} FALSE {% endif %}
+					">{{item.hasOnlySubstanceUnits}}</td>
 				<td>$fac.getInfo($s)</td>
-				<td>#if ($s.isSetSBOTerm()) $s.getSBOTerm() #end</td>
-				## <td><pre>$esc.html($s.getAnnotationString())</pre></td>
+				<td>{% if item.isSetSBOTerm %}{{item.getSBOTerm}}{% endif %}</td>
 			</tr>
-		#end
+		{% endfor %}
 	</tbody>
 </table>
 </span>
-#end
+{% endif %}
+
+
 ###########################################################
 #if ($model.isSetListOfParameters())
 <span id="Parameters">
