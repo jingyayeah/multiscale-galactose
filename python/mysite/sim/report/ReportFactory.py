@@ -91,11 +91,12 @@ def report(request, model_pk):
     return HttpResponse(template.render(context))
 
 def test():
-    from libsbml import Parameter, Compartment, Species, InitialAssignment, UnitDefinition, Model
+    from libsbml import Reaction, KineticLaw
     # Parameter.getC
     # Parameter.isSetV
     # InitialAssignment.getDerivedUnitDefinition(self);
     #UnitDefinition.
     #M
     libsbml.formulaToString()
-    
+    Reaction.getKineticLaw()
+    KineticLaw.getMath()

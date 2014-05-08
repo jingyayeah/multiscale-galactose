@@ -1,13 +1,13 @@
 <!doctype html> {% load staticfiles %}
+{% load SBML_filters %}
 <html lang="en">
 <head>
 	<link rel="stylesheet" type="text/css" href="{% static 'sim/stylesheets/report.css' %}" />
-	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.js' %}"></script>
-	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.dataTables.js' %}"></script>
-	
-		<script type="text/javascript" charset="utf-8">
-			{{(document).ready(function() {
-			  {{('#table_units').dataTable( {
+	<script type="text/javascript" src="{% static 'sim/js/jquery.js' %}"></script>
+	<script type="text/javascript" src="{% static 'sim/js/jquery.dataTables.js' %}"></script>
+	<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+			  $('#table_units').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -16,7 +16,7 @@
         			"bAutoWidth": false
     			});
 			
-			  {{('#table_compartments').dataTable( {
+			  $('#table_compartments').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -25,7 +25,7 @@
         			"bAutoWidth": false
     			});
 			
-				{{('#table_species').dataTable( {
+				$('#table_species').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -34,7 +34,7 @@
         			"bAutoWidth": false
     			});
     			
-    			{{('#table_parameters').dataTable( {
+    			$('#table_assignments').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -43,7 +43,16 @@
         			"bAutoWidth": false
     			});
     			
-    			{{('#table_reactions').dataTable( {
+    			$('#table_parameters').dataTable( {
+        			"bPaginate": false,
+        			"bLengthChange": false,
+       				"bFilter": true,
+        			"bSort": true,
+        			"bInfo": false,
+        			"bAutoWidth": false
+    			});
+    			
+    			$('#table_reactions').dataTable( {
         			"bPaginate": false,
         			"bLengthChange": false,
        				"bFilter": true,
@@ -66,7 +75,6 @@
 <td><h1>{{ model.getId }}</h1>
 <a href="{{ sbml_model.file.url}}" target="_blank">SBML file</a>
 </td>
-
 <td><ul>
 	{% if functions %} 
 		<li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>
@@ -83,7 +91,7 @@
 	{% if parameters %}
 		<li><a href="#Parameters">Parameters</a></li>
 	{% endif %}
-<ul></td>
+</ul></td>
 
 <td><ul>
 	{% if assignments %}
@@ -103,16 +111,15 @@
 	{% endif %}
 </ul></td>
 
-<td><img src="{% static 'sim/images/sbml.gif' %}" height=40></img></td>
+<td><img src="{% static 'sim/images/sbml.gif' %}" height=40 /></td>
 </tr>
 </table>
 </div>
 
-
 <div id="content">
-
+<!-- model -->
 <span id="Model">
-	<table id="table_model" summary="Model">
+	<table id="table_model">
     <caption>Model</caption>
     <thead>
         <tr>
@@ -318,7 +325,7 @@
     		<tr>
     			<td>{{item.getId}}</td>
     			<td>{{item.getName}}</td>
-    			<td {% if not item.isSetValue %} class="FALSE" {% endif %}>{{item.getValue}}</td>
+    			{% if not item.isSetValue %} <td class="FALSE">{% else %}<td>{% endif %}>{{item.getValue}}</td>
 				<td>{{item.getUnits}}</td>
 				<td class="
 					{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}
@@ -334,8 +341,6 @@
 {% endif %}
 
 <!-- InitialAssignments -->
-{% load SBML_filters %}
-
 {% if assignments %}
 <span id="InitialAssignments">
 <h1>InitialAssignments [{{assignments_size}}]</h1>
@@ -356,7 +361,7 @@
     		<tr>
     			<td>{{item.getId}}</td>
     			<td>=</td>
-    			<td>{{item.getMath}} {{ item.getMath|SBML_formulaToString }}</td>
+    			<td>{{ item.getMath|SBML_formulaToString }}</td>
     			<td>{{item.getDerivedUnitDefinition}}</td>
 				<td>$fac.getInfo($ia)</td>
 				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>	
@@ -367,41 +372,40 @@
 </span>
 {% endif %}
 
-###########################################################
-#if ($model.isSetListOfRules())
+<!-- Rules -->
+{% if rules %}
 <span id="Rules">
-<h1>Rules [${model.getRuleCount()}]</h1>
+<h1>Rules [{{ rules_size }}]</h1>
 <table id="table_rules">
 	<caption>Rules</caption>
     <thead>
         <tr>
             <th scope="col">variable</th>
-            <th scope="col"></th>
+            <th scope="col">&nbsp;</th>
             <th scope="col">assignment</th>
             <th scope="col">links</th>
             <th scope="col">sbo</th>
-            ## <th scope="col">annotation</th>
         </tr>
     </thead>
     <tbody>
-    	#foreach( $r in $model.getListOfRules() )
+    	{% for item in rules %}
     		<tr>
-    			<td>$r.variable</td>
+    			<td>{{item.getId}}</td>
     			<td>=</td>
-    			<td>$r.formula</td>
+    			<td>{{item.getMath|SBML_formulaToString}}</td>
     			<td>$fac.getInfo($r)</td>
-				<td>#if ($r.isSetSBOTerm()) $r.getSBOTerm() #end</td>	
-    			## <td><pre>$esc.html($r.getAnnotationString())</pre></td>
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>		
 			</tr>
-		#end
+		{% endfor %}
 	</tbody>
 </table>
 </span>
-#end
-###########################################################
-#if ($model.isSetListOfConstraints())
+{% endif %}
+
+<!-- Constraints -->
+{% if constraints %}
 <span id="Constraints">
-<h1>Constraints [${model.getConstraintCount()}]</h1>
+<h1>Constraints [{{constraints_size}}]</h1>
 <table id="table_constraints">
 	<caption>Constraints</caption>
     <thead>
@@ -410,27 +414,26 @@
             <th scope="col">constraint</th>
             <th scope="col">links</th>
             <th scope="col">sbo</th>
-            ## <th scope="col">annotation</th>
         </tr>
     </thead>
     <tbody>
-    	#foreach( $c in $model.getListOfConstraints() )
+    	{% for item in constraints %}
     		<tr>
-    			<td>$c.id</td>
-    			<td>$c.getFormula()</td>
+    			<td>{{item.getId}}</td>
+    			<td>{{item.getMath|SBML_formulaToString}}</td>
      			<td>$fac.getInfo($c)</td>
-				<td>#if ($c.isSetSBOTerm()) $c.getSBOTerm() #end</td>	
-    			## <td><pre>$esc.html($c.getAnnotationString())</pre></td>	
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>			
 			</tr>
-		#end
+		{% endfor %}
 	</tbody>
 </table>
 </span>
-#end
-###########################################################
-#if ($model.isSetListOfReactions())
+{% endif %}
+
+<!-- Reactions -->
+{% if reactions %}
 <span id="Reactions">
-<h1>Reactions [${model.getReactionCount()}]</h1>
+<h1>Reactions [{{reactions_size}}]</h1>
 <table id="table_reactions">
     <caption>Reactions</caption>
     <thead>
@@ -444,37 +447,36 @@
             <th scope="col">formula</th>
             <th scope="col">links</th>
             <th scope="col">sbo</th>
-            ## <th scope="col">annotation</th>
         </tr>
     </thead>
     <tbody>
-    	#foreach( $r in $model.getListOfReactions() )
+    	{% for item in reactions %}
     		<tr>
-    			<td>$r.id</td>
-				<td>$r.name</td>
+    			<td>{{item.getId}}</td>
+				<td>{{item.getName}}</td>
 				<td class="
-					#if ($r.isReversible() ) TRUE  #else  FALSE  #end
-					">$r.isReversible()</td>
-				<td>#set($eq = $eqtools.getEquation($r) ) $eq.toHTMLString()</td>
-				<td>#foreach ($mod in $r.getListOfModifiers() )
-					$mod<br />
-					#end
+					{% if item.getReversible %} TRUE  {% else %}  FALSE  {% endif %}
+					">{{ item.getReversible }}</td>
+				<td>#eq.toHTMLString()</td>
+				<td>{% for mod in item.getListOfModifiers %}
+						{{mod}}<br />
+					{% endfor %}
 				</td>
-				<td>$r.getDerivedUnits()</td>
-				<td>$r.getKineticLaw().getFormula()</td>
+				<td>{{item.getDerivedUnitDefinition}}</td>
+				<td>{{item.getKineticLaw.getMath|SBML_formulaToString}}</td>
      			<td>$fac.getInfo($r)</td>
-				<td>#if ($r.isSetSBOTerm()) $r.getSBOTerm() #end</td>	
-				## <td><pre>$esc.html($r.getAnnotationString())</pre></td>	
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>	
 			</tr>
-		#end
+		{% endfor %}
 	</tbody>
 </table>
 </span>
-#end
-###########################################################
-#if ($model.isSetListOfEvents())
+{% endif %}
+
+<!-- Events -->
+{% if events %}
 <span id="Events">
-<h1>Events [${model.getEventCount()}]</h1>
+<h1>Events [{{events_size}}]</h1>
 <table id="table_events">
 	<caption>Events</caption>
     <thead>
@@ -487,35 +489,32 @@
             <th scope="col">assignments</th>
             <th scope="col">links</th>
             <th scope="col">sbo</th>
-            ## <th scope="col">annotation</th>
         </tr>
     </thead>
     <tbody>
-    	#foreach( $ev in $model.getListOfEvents() )
+    	{% for item in events %}
     		<tr>
-    			<td>$ev.id</td>
-    			<td>$ev.name</td>
+    			<td>{{item.getVariable}}</td>
+    			<td>{{item.getName}}</td>
     			<td>
-    				$ev.trigger.formula<br />
-    				initialValue = $ev.trigger.initialValue<br />
-    				persistent = $ev.trigger.persistent<br />
+    				{{item.getTrigger.getMath|SBML_formulaToString}}<br />
+    				initialValue = {{item.getTrigger.getInitialValue}}<br />
+    				persistent = {{item.getTrigger.getPersistent}}<br />
     			</td>
-    			<td>$ev.priority</td>
-    			<td>$ev.delay</td>
-    			<td>#foreach ($eva in $ev.getListOfEventAssignments() )
-    				$eva.variable = $eva.formula<br />
-    			#end
+    			<td>{{item.getPriority}}</td>
+    			<td>{{item.getDelay}}</td>
+    			<td>{% for eva in item.getListOfEventAssignments %}
+    					{{eva.getId}} = {{eva.getMath|SBML_formulaToString}}<br />
+    				{% endfor %}
     			</td>
     			<td>$fac.getInfo($ev)</td>
-				<td>#if ($ev.isSetSBOTerm()) $ev.getSBOTerm() #end</td>
-    			## <td><pre>$esc.html($ev.getAnnotationString())</pre></td>	
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
 			</tr>
-		#end
+		{% endfor %}
 	</tbody>
 </table>
 </span>
-#end
-###########################################################
+{% endif %}
 
 <br />
 SBMLReport: <a href="http://www.charite.de/sysbio/people/koenig/" target="_blank">Matthias K&ouml;nig</a> (matthias.koenig[at]charite.de)
