@@ -8,6 +8,7 @@
 		<th>pk</th>
 		<th>status</th>
 		<th>sbml</th>
+		<th>report</th>
 		<th>model</th>
 		<th>integration</th>
 		<th>info</th>
@@ -24,6 +25,8 @@
 				<span class="UNASSIGNED">{{task.unassigned_count}}</span> ] 	
 			</td>
 			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{% url 'sim:report' task.sbml_model.pk %}" target="_blank">
+				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
 			<td>{{task.sbml_model}} </td>
 			<td>{{task.integration}}</td>
 			<td>{{task.info}}</td>
