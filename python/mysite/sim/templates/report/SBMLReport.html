@@ -162,7 +162,7 @@
 				<td>{{item.getName}}</td>
 				<td>{{item.getFormula}}</td>
 				<td>$fac.getInfo($fd)</td>
-				<td>{% if item.isSetSBOTerm %}{{item.getSBOTerm}}{% endif %}</td>
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
 			</tr>
 		{% endfor %}
 	</tbody>
@@ -196,7 +196,7 @@
 				{% endfor %}	
 				</td>
 				<td>$fac.getInfo($ud)</td>
-				<td>{% if item.isSetSBOTerm %}{{item.getSBOTerm}}{% endif %}</td>
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
 			</tr>
 			{% endfor %}
 	</tbody>
@@ -237,7 +237,7 @@
 				<td>{{item.getSpatialDimensions}}</td>
 				<td>{{item.getUnits}}</td>
 				<td>$fac.getInfo($comp)</td>
-				<td>{% if item.isSetSBOTerm %}{{item.getSBOTerm}}{% endif %}</td>
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
 				<td><pre>{{item.getAnnotationString}}</pre></td>
 			</tr>
 		{% endfor %}
@@ -246,6 +246,7 @@
 </span>
 {% endif %}
 
+<!-- species -->
 {% if species %}
 <span id="Species">
 <h1>Species [{{species_size}}]</h1>
@@ -285,7 +286,7 @@
 					{% if item.hasOnlySubstanceUnits %} TRUE {% else %} FALSE {% endif %}
 					">{{item.hasOnlySubstanceUnits}}</td>
 				<td>$fac.getInfo($s)</td>
-				<td>{% if item.isSetSBOTerm %}{{item.getSBOTerm}}{% endif %}</td>
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
 			</tr>
 		{% endfor %}
 	</tbody>
@@ -293,11 +294,10 @@
 </span>
 {% endif %}
 
-
-###########################################################
-#if ($model.isSetListOfParameters())
+<!-- parameters -->
+{% if parameters %}
 <span id="Parameters">
-<h1>Parameters [$model.getParameterCount()]</h1>
+<h1>Parameters [{{parameters_size}}]</h1>
 <table id="table_parameters">
 	<caption>Parameters</caption>
     <thead>
@@ -313,26 +313,24 @@
         </tr>
     </thead>
     <tbody>
-    	#foreach( $p in $model.getListOfParameters() )
+    	{% for item in parameters %}
     		<tr>
-    			<td>$p.id</td>
-    			<td>$p.name</td>
-    			<td class="
-					#if ($p.isSetValue() )   #else  FALSE  #end
-					">$p.value</td>
-				<td>$p.units</td>
+    			<td>{{item.getId}}</td>
+    			<td>{{item.getName}}</td>
+    			<td {% if not item.isSetValue %} class="FALSE" {% endif %}>{{item.getValue}}</td>
+				<td>{{item.getUnits}}</td>
 				<td class="
-					#if ($p.isConstant() ) TRUE  #else  FALSE  #end
-					">$p.isConstant()</td>
+					{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}
+					">{{item.getConstant}}</td>
 				<td>$fac.getInfo($p)</td>
-				<td>#if ($p.isSetSBOTerm()) $p.getSBOTerm() #end</td>					
-				<td><pre>$esc.html($p.getAnnotationString())</pre></td>
+				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>					
+				<td><pre>{{item.getAnnotationString}}</pre></td>
 			</tr>
-		#end
+		{% endfor %}
 	</tbody>
 </table>
 </span>
-#end
+{% endif %}
 ###########################################################
 <span id="InitialAssignments">
 #if ($model.isSetListOfInitialAssignments())

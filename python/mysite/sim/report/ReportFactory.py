@@ -15,7 +15,6 @@ TODO: send additional information to the report view, namely the
 
 import os
 import sys
-from libsbml import SBMLDocument, ListOfUnitDefinitions, ListOf, UnitDefinition
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
@@ -78,7 +77,9 @@ def report(request, model_pk):
     return HttpResponse(template.render(context))
 
 def test():
-    ListOfUnitDefinitions.size()
+    from libsbml import Parameter, Compartment, Species
+    # Parameter.getC
+    # Parameter.isSetV
     
     
     
