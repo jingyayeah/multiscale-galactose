@@ -11,6 +11,7 @@ MEDIA_TAR="${MYHOME}/multiscale-galactose-results/multiscale-galactose_media.tar
 # [1] do a local database dump & put database on the production server
 # As long as the database is not too large this can be done via the git management
 # stored in /multiscale-galactose/database/dumps/multiscale-galactose_latest.dmp
+# Additional conversion of database to different postgres version can be necessary (9.1 -> 8.4)
 cd ${PROJECT}
 ./backupDatabase.sh
 
@@ -40,8 +41,9 @@ git pull
 DBNAME="multiscale-galactose" 
 DBDUMP="${PROJECT}/database/dumps/${DBNAME}_latest.dmp"
 su - postgres
-psql ${DBNAME} < ${DBDUMP}
-exit
+# psql ${DBNAME} < ${DBDUMP}
+pg_restore --dbname={$DBNAME} --data-only ${DBDUMP}
+
 
 # [3] Collect the static files on the production server
 rm -rf STATIC_DIR
