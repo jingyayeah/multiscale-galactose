@@ -1,0 +1,35 @@
+SBMC2014 TODO
+
+####################################
+Visualization in the network context
+####################################
+SUNDAY
+- Show one video of the whole system (galactose)
+- Create the CyFluxViz file format in python (CyFluxViz exporter)
+- handeling of the cofactor nodes
+
+####################################
+Galactose simulations setup & run
+####################################
+MONDAY
+- Scaling of metabolic networks to properly describe the 
+	blood flow and clearance data;
+- Clearance depending on blood flow
+- Clearance depending on age
+TUESDAY
+- Cirrhosis predictions
+- Galactosemias
+
+####################################
+Slides
+####################################
+TUESDAY
+- do the presentation slides
+
+####################################
+Contact cooperation partners
+####################################
+- send Marchesini & Vilstrup with the simulation results
+and the presentation of the SBMC
+
+
