@@ -38,6 +38,7 @@ git pull
 
 # [2] put the latest database dump on the production server database
 # The database dump is in
+# do it properly via the pg_restore in case of the <
 DBNAME="multiscale-galactose" 
 DBDUMP="${PROJECT}/database/dumps/${DBNAME}_latest.dmp"
 su - postgres

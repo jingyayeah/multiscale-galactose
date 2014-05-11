@@ -4,7 +4,6 @@ from django.template import RequestContext, loader
 from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot, Integration,\
     UNASSIGNED
 from django.shortcuts import render_to_response, render, get_object_or_404
-from sim.plot import PlotSimulation
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 PAGINATE_ENTRIES = 30

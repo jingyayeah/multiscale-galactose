@@ -100,3 +100,4 @@ def test():
     libsbml.formulaToString()
     Reaction.getKineticLaw()
     KineticLaw.getMath()
+    Event.getVar
