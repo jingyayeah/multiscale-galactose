@@ -1,12 +1,14 @@
 SBMC2014 TODO
+****************************************************
 
 ####################################
 Visualization in the network context
 ####################################
 SUNDAY
-- Show one video of the whole system (galactose)
 - Create the CyFluxViz file format in python (CyFluxViz exporter)
-- handeling of the cofactor nodes
+- handeling of the cofactor nodes in CyFluxViz properly (node splitting)
+- Show one video of the whole system (galactose) -> visuale style for CSV data (use CSV for median 
+	and SD simulations)
 
 ####################################
 Galactose simulations setup & run
@@ -32,4 +34,12 @@ Contact cooperation partners
 - send Marchesini & Vilstrup with the simulation results
 and the presentation of the SBMC
 
+
+****************************************************
+Mails
+- send mail Ricken (possible on Wednesday)
+- send Jana revision
+- send mail to ask for portal
+- send question for access to the Bayer PK software (and ask for teaching rescources)
+- create overview server setup & send to Martin & Wolfgang
 

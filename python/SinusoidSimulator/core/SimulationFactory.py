@@ -34,9 +34,10 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import numpy as np
 from sim.models import *
 from django.db.models import Count
-import numpy.random as npr
 from analysis.AnalysisTools import createParameterFileForTask
+
 from RandomSampling import createSamplesByDistribution, createSamplesByLHS
+from Distributions import getMultipleIndicatorDistributions, getDemoDistributions
 
 
 def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencies=[0], sampling='LHS'):
@@ -64,7 +65,8 @@ def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencie
     
     # get the parameter sets by sampling (same parameters for all galactose settings)
     # the same parameter sampling is used for all deficiencies
-    samples = createParametersBySampling(N, sampling);
+    dist_data = getMultipleIndicatorDistributions()
+    samples = createParametersBySampling(dist_data, N, sampling);
     for deficiency in deficiencies:
         for s in samples:
             for galactose in gal_range:
@@ -73,6 +75,7 @@ def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencie
                 snew.append(('deficiency', deficiency, '-'))
                 snew.append(('PP__gal', galactose, 'mM'))
                 createSimulationForParameterSample(task, sample=snew)
+
 
 def createMultipleIndicatorSimulationTask(model, N=10, sampling="LHS"):
     ''' Create integration settings, the task and the simulations. '''
@@ -94,22 +97,22 @@ def createMultipleIndicatorSimulationTask(model, N=10, sampling="LHS"):
     task.save()
     
     # simulations
-    samples = createParametersBySampling(N, sampling);
+    dist_data = getMultipleIndicatorDistributions()
+    samples = createParametersBySampling(dist_data, N, sampling);
     for s in samples:
         createSimulationForParameterSample(task=task, sample=s)
         
     return task;
 
-def createParametersBySampling(N, sampling):
+def createParametersBySampling(dist_data, N, sampling):
     if (sampling == "distribution"):
-        samples = createSamplesByDistribution(N);
+        samples = createSamplesByDistribution(dist_data, N);
     elif (sampling == "LHS"):
-        samples = createSamplesByLHS(N);
+        samples = createSamplesByLHS(dist_data, N);
     elif (sampling == "mixed"):
-        samples1 = createSamplesByDistribution(N/2);
-        samples2 = createSamplesByLHS(N/2);
+        samples1 = createSamplesByDistribution(dist_data, N/2);
+        samples2 = createSamplesByLHS(dist_data, N/2);
         samples = samples1 + samples2
-    
     return samples
 
 
@@ -161,6 +164,38 @@ def createSimulationForParameterSample(task, sample):
             pass
 
 
+def createDemoTask(model, N=10, sampling='distribution'):
+    '''
+    Creates simple demo simulation to test the network visualization.
+    '''
+    # Get or create integration
+    integration, created = Integration.objects.get_or_create(tstart=0.0, 
+                                                             tend=20.0, 
+                                                             tsteps=100,
+                                                             abs_tol=1E-6,
+                                                             rel_tol=1E-6)
+    if (created):
+        print "Integration created: {}".format(integration)
+    
+    # Create the task
+    task, created = Task.objects.get_or_create(sbml_model=model, integration=integration)
+    if (created):
+        print "Task created: {}".format(task)
+    info = '''Simulation of the demo network for visualization.'''
+    task.info = info
+    task.save()
+    
+    # get the parameter sets by sampling (same parameters for all galactose settings)
+    # the same parameter sampling is used for all deficiencies
+    dist_data = getDemoDistributions()
+    samples = createParametersBySampling(dist_data, N, sampling);
+    for s in samples:
+        createSimulationForParameterSample(task, sample=s)
+    return task
+
+
+
+###################################################################################
 if __name__ == "__main__":
     # TODO: automatically call the shell script
     # After new models are generated this have to be copied 
@@ -170,6 +205,17 @@ if __name__ == "__main__":
     code_dir = "/home/mkoenig/multiscale-galactose"
    
     if (1):
+    # Generate demo network for visualization
+        sbml_id = "Koenig2013_demo_kinetic_v3" 
+        model = SBMLModel.create(sbml_id, SBML_FOLDER);
+        model.save();
+        if (1):
+            # create dilution simulations
+            task = createDemoTask(model, N=20, sampling="distribution") 
+            createParameterFileForTask(results_dir, task);
+   
+   
+    if (0):
     # Generate the MultipleIndicator Simulations
     # for the different peak length of the tracer
         for kp in range(0,5):

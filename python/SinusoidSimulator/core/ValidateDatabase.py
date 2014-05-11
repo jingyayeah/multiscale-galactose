@@ -132,7 +132,7 @@ if __name__ == "__main__":
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
     
-    unassignHangingAssignedSimulations();
+    # unassignHangingAssignedSimulations();
     
     #pks = range(100, 123)
     #pks.append(166)
@@ -140,8 +140,10 @@ if __name__ == "__main__":
     #unassignSimulationsByPk(pks)
     
     # Remove simulations for task
-    # task = Task.objects.get(pk=16)
-    # removeSimulationsForTask(task)
+    task_pks = (6, 7, 8)
+    for pk in task_pks:
+        task = Task.objects.get(pk=pk)
+        removeSimulationsForTask(task)
     
     
     # ! CAREFUL !

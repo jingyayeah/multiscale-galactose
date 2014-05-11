@@ -325,7 +325,7 @@
     		<tr>
     			<td>{{item.getId}}</td>
     			<td>{{item.getName}}</td>
-    			{% if not item.isSetValue %} <td class="FALSE">{% else %}<td>{% endif %}>{{item.getValue}}</td>
+    			{% if not item.isSetValue %} <td class="FALSE">{% else %}<td>{% endif %}{{item.getValue}}</td>
 				<td>{{item.getUnits}}</td>
 				<td class="
 					{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}
