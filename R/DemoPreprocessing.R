@@ -35,19 +35,22 @@ load(outFile)
 # do the plots
 # TODO: problems with the units
 
-create_plot_files = FALSE
+create_plot_files = T
 
 # Plot all the single curves with mean and std
 # They have to be weighted with the actual probability assicociated with the samples.
-plotCurve <- function(preprocess.mat, name){
+plotCurve <- function(preprocess.mat, name, sim.indices=NULL){
   Nsim <- nrow(data) 
   time <- preprocess.mat[['time']][,1]
   print(time)
   data <- preprocess.mat[[name]]
-  xlim=c(0,100)
+  if (!is.null(sim.indices)){
+    data <- as.matrix(data[,sim.indices])
+  }
+  
+  xlim=c(0,25)
   ylim=c(min(data), max(data))
-  print(ylim)
-  plotCompound(time, data, name=name, xlim=xlim, ylim=ylim, weights=NULL, col=rgb(1,1,1, 0.2))
+  plotCompound(time, data, name=name, xlim=xlim, ylim=ylim, weights=NULL, col="black")
   plotCompoundMean(time, data, weights=NULL, col="red")
 }
 
@@ -58,17 +61,22 @@ pnames <- getParameterNames(pars=pars)
 cnames <- names(preprocess.mat)
 print(cnames)
 
+# plot single simulation
+# sim.indices = seq(1, nrow(pars))
+# sim.indices = which(rownames(pars)=="Sim568")
+# sim.indices
+
 # Create the plot
 if (create_plot_files == TRUE){
-  png(filename=paste(ma.settings$dir.results, '/', 'Demo_' , name, ".png", sep=""),
-      width = 800, height = 800, units = "px", bg = "white",  res = 200)
+  png(filename=paste(ma.settings$dir.results, '/', 'Demo_results' , ".png", sep=""),
+      width = 1200, height = 1200, units = "px", bg = "white",  res = 100)
 }
 Np = ceiling(sqrt(length(cnames)))
 par(mfrow=c(Np,Np))
 for (name in cnames){
   print(name)
   if (name != 'time'){
-    plotCurve(preprocess.mat, name)
+    plotCurve(preprocess.mat, name, sim.indices=NULL)
   }
 }
 par(mfrow=c(1,1))

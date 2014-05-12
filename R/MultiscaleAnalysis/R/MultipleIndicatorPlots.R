@@ -2,11 +2,11 @@
 #' @export
 plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), weights=NULL, ccols=NULL, meanData=TRUE){
   plot(numeric(0), numeric(0), 'l', main=name,
-       xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
+       xlab="time [s]", ylab="value [unit]", ylim=ylim, xlim=xlim)
   
-  Nsim = ncol(data)
   if (is.null(weights) || is.null(ccols)){
-    ccols = rep('gray', Nsim)
+    # ccols = c(rgb(0.5,0.5,0.5,alpha=0.8) )
+    ccols = rep("gray", ncol(data))
   }
   
   if (is.null(weights)){
@@ -15,7 +15,11 @@ plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c
     ord = order(weights)
   }
   
-  for (ks in seq(Nsim)){
+  print('columns')
+  print(ncol(data))
+  
+  for (ks in seq(ncol(data))){
+    print('printing line')
     lines(time, data[,ord[ks]], col=ccols[ord[ks]])
   }
   
