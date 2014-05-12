@@ -198,10 +198,8 @@
     		<tr>
     			<td>{{item.getId}}</td>
 				<td>{{item.getName}}</td>
-				<td>{{item}}
-				{% for u in item.getUnits %}
-					{{ u }}<br />
-				{% endfor %}	
+				<td>
+				{{ item|UnitDefinition_printUnits }}	
 				</td>
 				<td>$fac.getInfo($ud)</td>
 				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>

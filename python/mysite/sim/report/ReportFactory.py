@@ -28,7 +28,7 @@ def related_deltas(obj, epk):
 
 import os
 import sys
-from libsbml import SBMLDocument
+from libsbml import SBMLDocument, UnitDefinition, UnitDefinition_printUnits
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
@@ -91,7 +91,7 @@ def report(request, model_pk):
     return HttpResponse(template.render(context))
 
 def test():
-    from libsbml import Reaction, KineticLaw
+    from libsbml import Reaction, KineticLaw, Unit, UnitDefinition
     # Parameter.getC
     # Parameter.isSetV
     # InitialAssignment.getDerivedUnitDefinition(self);
@@ -100,4 +100,7 @@ def test():
     libsbml.formulaToString()
     Reaction.getKineticLaw()
     KineticLaw.getMath()
-    Event.getVar
+    # UnitDefinition.getUnit(self)
+    # UnitDefinition.getNumUnits(self)
+    # getKind getScale getMultiplier
+    

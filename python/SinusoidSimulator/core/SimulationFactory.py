@@ -164,19 +164,10 @@ def createSimulationForParameterSample(task, sample):
             pass
 
 
-def createDemoTask(model, N=10, sampling='distribution'):
+def createDemoTask(model, integration, N=10, sampling='distribution'):
     '''
     Creates simple demo simulation to test the network visualization.
-    '''
-    # Get or create integration
-    integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=20.0, 
-                                                             tsteps=100,
-                                                             abs_tol=1E-6,
-                                                             rel_tol=1E-6)
-    if (created):
-        print "Integration created: {}".format(integration)
-    
+    '''    
     # Create the task
     task, created = Task.objects.get_or_create(sbml_model=model, integration=integration)
     if (created):
@@ -206,12 +197,18 @@ if __name__ == "__main__":
    
     if (1):
     # Generate demo network for visualization
-        sbml_id = "Koenig2013_demo_kinetic_v3" 
+        sbml_id = "Koenig2014_demo_kinetic_v7" 
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
+        # Get or create integration
+        integration, created = Integration.objects.get_or_create(tstart=0.0, 
+                                                             tend=100.0, 
+                                                             tsteps=2000,
+                                                             abs_tol=1E-6,
+                                                             rel_tol=1E-6)
         if (1):
             # create dilution simulations
-            task = createDemoTask(model, N=20, sampling="distribution") 
+            task = createDemoTask(model, integration, N=50, sampling="distribution") 
             createParameterFileForTask(results_dir, task);
    
    

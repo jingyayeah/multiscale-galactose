@@ -18,7 +18,23 @@ getSimulationFileFromSimulationId <- function(dir, simId){
 #' @param max_index maximal index until which data is read
 #' @return list of PPPV data matrices
 #' @export
-readPPPVData <- function(pars, dir, max_index=-1){
+readPPPVData <- function(pars, dir, max_index=-1, withTime=F){
+  col.indices <- which(grepl("^PP__", colnames(data)) | grepl("^PV__", colnames(data)) )
+  
+  if (withTime==T){
+    pppv.index <- which(grepl("^PP__", colnames(data)) | grepl("^PV__", colnames(data)) |  grepl("^time", colnames(data)))
+  
+  readColumnData(pars, dir, col.indices, max_index)
+} 
+
+
+#' Read all col.indices components in a list structure.
+#' Parameter data pars has to be available in environment. For all simulations
+#' the csv ode solutions are loaded and the necessary components extracted.
+#' @param max_index maximal index until which data is read
+#' @return list of matrices
+#' @export
+readColumnData <- function(pars, dir, col.indices, max_index=-1){
   # Get the done simulations
   simulations <- row.names(pars)[pars$status == "DONE"]  
   Nsim <- length(simulations)
@@ -33,10 +49,34 @@ readPPPVData <- function(pars, dir, max_index=-1){
   for (k in seq(1,Nsim)){
     simId <- simulations[[k]]
     print(paste(simId, ' [', k/Nsim*100, ']'))
-    data[[k]] = readPPPVDataForSimulation(dir=dir, simId=simId)
+    data[[k]] = readDataForSimulation(dir=dir, simId=simId, col.indices)
   }
   data
 }
+
+#' Load the column data for single simulation by sim name
+#' 
+#' @param sim simulation identifier
+#' @param withTime keeps the time column
+#' @return column data
+#' @export
+readDataForSimulation <- function(dir, simId, col.indices){
+  fname <- getSimulationFileFromSimulationId(dir, simId)
+  # much faster solution than read.csv
+  # data <- read.csv(file=fname)
+  # ! careful data is not striped with fread
+  data <- fread(fname, header=T, sep=',')
+  
+  # necessary to trim
+  setnames(data, trim(colnames(data)))
+  
+  # fix strange behavior via cast
+  data <- as.data.frame(data)
+  
+  # reduce data col.indices
+  data <- data[, col.indices]
+}
+
 
 #' Convert list structure into data matrix
 #' @param datalist list of data matrices
@@ -68,34 +108,6 @@ createDataMatrices <- function(dir, datalist){
     mat[[kc]] <- tmp;
   }
   mat
-}
-
-#' Load the PP and PV data for single simulation by sim name
-#' The timecourse for the data should exists. This can be checked with
-#' via the simulation status in the parameter files.
-#' @param sim simulation identifier
-#' @param withTime keeps the time column
-#' @return PPPV data
-#' @export
-readPPPVDataForSimulation <- function(dir, simId, withTime=F){
-  # load simulation data
-  fname <- getSimulationFileFromSimulationId(dir, simId)
-  # much faster solution than read.csv
-  # data <- read.csv(file=fname)
-  # ! careful data is not striped with fread
-  data <- fread(fname, header=T, sep=',')
-  # necessary to trim
-  setnames(data, trim(colnames(data)))
-  # somehow craziness for the class is happening
-  # fix this strange behavior via
-  data <- as.data.frame(data)
-  
-  # reduce data to PP__ and PV__ data
-  pppv.index <- which(grepl("^PP__", colnames(data)) | grepl("^PV__", colnames(data)) )
-  if (withTime==T){
-     pppv.index <- which(grepl("^PP__", colnames(data)) | grepl("^PV__", colnames(data)) |  grepl("^time", colnames(data)))
-  } 
-  data <- data[, pppv.index]
 }
 
 #' Reads the time vector from simulation identifier
