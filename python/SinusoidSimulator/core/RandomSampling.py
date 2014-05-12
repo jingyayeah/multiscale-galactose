@@ -35,7 +35,7 @@ def createSamplesByDistribution(dist_data, N=10):
     '''
     samples = [];
     for kn in xrange(N):
-        s = []
+        s = dict()
         for pid in dist_data.keys():
             dtmp = dist_data[pid]
             # m = means[kp]
@@ -50,22 +50,20 @@ def createSamplesByDistribution(dist_data, N=10):
             # TODO: fix this -> the parameter have to be fitted to the actual values, 
             # no transformation which will break generality
             value = npr.lognormal(mu, sigma) * 1E-6   
-            s.append( ( pid, value, dtmp['unit']) )
+            s[pid] = ( pid, value, dtmp['unit'])
         
         samples.append(s)
     return samples
 
 def createSamplesByMean(dist_data, N=1):
-    '''
-    Returns the mean parameters for the given distribution data.
-    '''
+    ''' Returns the mean parameters for the given distribution data. '''
     samples = [];
     for kn in xrange(N):
-        s = []
+        s = dict()
         for pid in dist_data.keys():
             dtmp = dist_data[pid]
-            value = dtmp['mean'] * 1E-6   
-            s.append( ( pid, value, dtmp['unit']) )
+            value = dtmp['mean'] 
+            s[pid] = (pid, value, dtmp['unit'])
         samples.append(s)
     return samples
 
@@ -91,11 +89,11 @@ def createSamplesByLHS(dist_data, N=10):
     # put the LHS dimensions together
     samples = []
     for ks in xrange(N):
-        s = []
+        s = dict()
         for pid in dist_data.keys():
             pointValues = pointsLHS[pid]
             value = pointValues[ks]
-            s.append( ( pid, value, dtmp['unit']) )
+            s[pid] = (pid, value, dtmp['unit'])
         samples.append(s)
     
     return samples
@@ -134,10 +132,9 @@ def calculatePointsByLHS(N, variableMax, variableMin):
         pointValues.append(pointValue)
     return pointValues
 
+
 def createSamplesByManual(dist_data):
-    '''
-    Manual parameter creation. Only sample L and flow_sin.
-    '''
+    ''' Manual parameter creation. Only sample L and flow_sin. '''
     samples = []
     # what parameters should be sampled
     flows = np.arange(0.0, 600E-6, 60E-6)
@@ -149,8 +146,7 @@ def createSamplesByManual(dist_data):
                 dtmp = dist_data[pid];
                 s.append( (dtmp['name'], dtmp['mean'],dtmp['unit']) )
             s.append( ('flow_sin', flow_sin, 'm/s') )
-            s.append( ('L', L, 'm') )
-                    
+            s.append( ('L', L, 'm') )                    
             samples.append(s)
     return samples
 

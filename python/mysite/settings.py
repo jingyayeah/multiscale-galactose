@@ -73,7 +73,7 @@ DATABASES = {
         'NAME': 'multiscale-galactose',
         'USER': 'mkoenig',
         'PASSWORD': 'test',
-        'HOST': '127.0.0.1',
+        'HOST': '10.39.32.111',
         'PORT': '5432',
     }
 }
