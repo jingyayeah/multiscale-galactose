@@ -1,18 +1,25 @@
 \name{preprocess}
 \alias{preprocess}
-\title{Get the data storage filename from the parameter file name.}
+\title{Preprocess the CSV simulation data for given parameter file.}
 \usage{
-preprocess(parsfile, sim.dir, outFile = NULL, max_index = -1)
+preprocess(parsfile, sim.dir, outFile = NULL, sim.indices = NULL,
+  col.indices_f = NULL)
 }
 \arguments{
   \item{parsfile}{Parameter file}
 
   \item{sim.dir}{directory with simulation data}
+
+  \item{sim.indices}{which simulations to take}
+
+  \item{col.indices_f}{function to get column indices to
+  take}
 }
 \value{
-storage filename
+outFile file with the saved data
 }
 \description{
-Get the data storage filename from the parameter file name.
+Preprocess the CSV simulation data for given parameter
+file.
 }
 

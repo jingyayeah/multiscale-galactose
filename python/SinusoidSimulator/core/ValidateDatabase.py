@@ -140,10 +140,11 @@ if __name__ == "__main__":
     #unassignSimulationsByPk(pks)
     
     # Remove simulations for task
-    task_pks = (6, 7, 8, 9, 10, 11)
+    task_pks = (6, 7, 8, 9, 10, 11, 12)
     for pk in task_pks:
         task = Task.objects.get(pk=pk)
         removeSimulationsForTask(task)
+    # TODO: also clean the tmp files and local files after removing simulations
     
     
     # ! CAREFUL !

@@ -47,6 +47,8 @@ def createSamplesByDistribution(dist_data, N=10):
             sigma = dtmp['sdlog']
             # The fit parameter are for mum and mum/s, but parameters for the 
             # ode have to be provided in m and m/s.
+            # TODO: fix this -> the parameter have to be fitted to the actual values, 
+            # no transformation which will break generality
             value = npr.lognormal(mu, sigma) * 1E-6   
             s.append( ( pid, value, dtmp['unit']) )
         

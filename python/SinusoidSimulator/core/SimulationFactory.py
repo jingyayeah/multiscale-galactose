@@ -34,7 +34,6 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import numpy as np
 from sim.models import *
 from django.db.models import Count
-from analysis.AnalysisTools import createParameterFileForTask
 
 from RandomSampling import createSamplesByDistribution, createSamplesByLHS
 from Distributions import getMultipleIndicatorDistributions, getDemoDistributions
@@ -195,8 +194,8 @@ if __name__ == "__main__":
     results_dir = "/home/mkoenig/multiscale-galactose-results"
     code_dir = "/home/mkoenig/multiscale-galactose"
    
+    # Generate demo network & simulations for visualization
     if (1):
-    # Generate demo network for visualization
         sbml_id = "Koenig2014_demo_kinetic_v7" 
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
@@ -207,10 +206,8 @@ if __name__ == "__main__":
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
         if (1):
-            # create dilution simulations
-            task = createDemoTask(model, integration, N=50, sampling="distribution") 
-            createParameterFileForTask(results_dir, task);
-   
+            task = createDemoTask(model, integration, N=200, sampling="distribution") 
+
    
     if (0):
     # Generate the MultipleIndicator Simulations
@@ -222,7 +219,6 @@ if __name__ == "__main__":
             if (1):
                 # create dilution simulations
                 task = createMultipleIndicatorSimulationTask(model, N=20, sampling="distribution") 
-                createParameterFileForTask(results_dir, task);
    
     if (0):
         # Create the galactose model

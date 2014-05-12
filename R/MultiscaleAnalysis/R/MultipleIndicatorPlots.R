@@ -9,9 +9,13 @@ plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c
     ccols = rep('gray', Nsim)
   }
   
-  ord = order(weights)
+  if (is.null(weights)){
+    ord <- seq(1, ncol(data)) 
+  }else{
+    ord = order(weights)
+  }
+  
   for (ks in seq(Nsim)){
-    
     lines(time, data[,ord[ks]], col=ccols[ord[ks]])
   }
   
@@ -41,7 +45,7 @@ plotCompoundMean <- function(time, data, weights, col){
   }
   rMeansUp <- rMeans+rSds
   rMeansDown <- rMeans-rSds
-  rMeansDown[rMeansDown<0] = 0;
+  # rMeansDown[rMeansDown<0] = 0;
   lines(time, rMeans, col=col, lwd=2)
   lines(time, rMeansUp, col=col, lwd=2, lty=2)
   lines(time, rMeansDown, col=col, lwd=2, lty=2)

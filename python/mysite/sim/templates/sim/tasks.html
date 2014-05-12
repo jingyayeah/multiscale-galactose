@@ -1,4 +1,5 @@
 {% extends "sim/base_generic.html" %} {% load staticfiles %}
+{% load Parameter_filters %}
 {% block content %}
 {% if tasks_list %}
 	<table id="table_items">
@@ -9,6 +10,7 @@
 		<th>status</th>
 		<th>sbml</th>
 		<th>report</th>
+		<th>parameter</th>
 		<th>model</th>
 		<th>integration</th>
 		<th>info</th>
@@ -27,6 +29,7 @@
 			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
 			<td><a href="{% url 'sim:report' task.sbml_model.pk %}" target="_blank">
 				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+			<td><a href="{{ task|Parameter_file }}" target="_blank"><img height="12" src="{% static 'sim/images/params_small.png' %}"></a></td>
 			<td>{{task.sbml_model}} </td>
 			<td>{{task.integration}}</td>
 			<td>{{task.info}}</td>

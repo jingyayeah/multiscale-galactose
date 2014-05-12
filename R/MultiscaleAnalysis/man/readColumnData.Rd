@@ -1,0 +1,21 @@
+\name{readColumnData}
+\alias{readColumnData}
+\title{Read all col.indices components in a list structure.
+Parameter data pars has to be available in environment. For all simulations
+the csv ode solutions are loaded and the necessary components extracted.}
+\usage{
+readColumnData(pars, dir, col.indices_f)
+}
+\arguments{
+  \item{max_index}{maximal index until which data is read}
+}
+\value{
+list of matrices
+}
+\description{
+Read all col.indices components in a list structure.
+Parameter data pars has to be available in environment. For
+all simulations the csv ode solutions are loaded and the
+necessary components extracted.
+}
+

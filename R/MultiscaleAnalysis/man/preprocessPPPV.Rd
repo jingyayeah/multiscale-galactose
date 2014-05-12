@@ -1,0 +1,22 @@
+\name{preprocessPPPV}
+\alias{preprocessPPPV}
+\title{Do the PPPV preprocessing, i.e. only the PPPV data.}
+\usage{
+preprocessPPPV(parsfile, sim.dir, outFile = NULL, sim.indices = NULL)
+}
+\arguments{
+  \item{parsfile}{Parameter file}
+
+  \item{sim.dir}{directory with simulation data}
+
+  \item{outFile}{filename to store Rdata}
+
+  \item{sim.indices}{which simulations to take}
+}
+\value{
+the preprocessed data
+}
+\description{
+Do the PPPV preprocessing, i.e. only the PPPV data.
+}
+

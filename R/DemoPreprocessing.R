@@ -3,31 +3,78 @@
 ################################################################
 # Read the timecourse data and create optimized data structures
 # for query.
-# Selection of the values is necessary.
+# The optimized structures are generated with a selection of columns.
+#
 # author: Matthias Koenig
 # date: 2014-05-11
 # install.packages('data.table')
 
 rm(list=ls())   # Clear all objects
 library(data.table)
+library('matrixStats')
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-sname <- '2014-05-07_MultipleIndicator'
+sname <- '2014-05-12_Demo'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-tasks <- paste('T', seq(1,5), sep='')
-peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
-
-for (kt in seq(length(tasks))){
-  task <- tasks[kt]
-  peak <- peaks[kt]
-  modelId <- paste('MultipleIndicator_', peak, '_v14_Nc20_Nf1', sep='')
-  parsfile <- file.path(ma.settings$dir.results, sname, 
+task <- 'T12'
+modelId <- paste('Koenig2014_demo_kinetic_v7')
+parsfile <- file.path(ma.settings$dir.results, sname, 
                         paste(task, '_', modelId, '_parameters.csv', sep=""))
-  
-  # Do the preprocessing
-  # preprocess(parsfile=parsfile, sim.dir=ma.settings$dir.simdata, 
-  #            outFile='test.out', max_index=2)
-  preprocess(parsfile, ma.settings$dir.simdata)
+pars <- loadParameterFile(file=parsfile)
+plotParameterHistogramFull(pars)
+
+# do the preprocessing (here all columns)
+# what is written in the CSV?
+outFile <- preprocess(parsfile, ma.settings$dir.simdata)
+
+# load the preprocessed data
+load(outFile)
+
+################################################################
+# do the plots
+# TODO: problems with the units
+
+create_plot_files = FALSE
+
+# Plot all the single curves with mean and std
+# They have to be weighted with the actual probability assicociated with the samples.
+plotCurve <- function(preprocess.mat, name){
+  Nsim <- nrow(data) 
+  time <- preprocess.mat[['time']][,1]
+  print(time)
+  data <- preprocess.mat[[name]]
+  xlim=c(0,100)
+  ylim=c(min(data), max(data))
+  print(ylim)
+  plotCompound(time, data, name=name, xlim=xlim, ylim=ylim, weights=NULL, col=rgb(1,1,1, 0.2))
+  plotCompoundMean(time, data, weights=NULL, col="red")
 }
-rm(peak, task, kt)
+
+# Varied parameters
+pnames <- getParameterNames(pars=pars)
+
+# Available columns
+cnames <- names(preprocess.mat)
+print(cnames)
+
+# Create the plot
+if (create_plot_files == TRUE){
+  png(filename=paste(ma.settings$dir.results, '/', 'Demo_' , name, ".png", sep=""),
+      width = 800, height = 800, units = "px", bg = "white",  res = 200)
+}
+Np = ceiling(sqrt(length(cnames)))
+par(mfrow=c(Np,Np))
+for (name in cnames){
+  print(name)
+  if (name != 'time'){
+    plotCurve(preprocess.mat, name)
+  }
+}
+par(mfrow=c(1,1))
+if (create_plot_files == TRUE){
+  dev.off()
+}
+
+plotCurve(preprocess.mat, "A_in")
+

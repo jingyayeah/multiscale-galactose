@@ -57,16 +57,19 @@ def getDemoDistributions():
     cnames = ("name", "mean", "std", "unit")
     data = dict()
     
+    # TODO: fix this problems due to fitting of parameters (no conversions)
+    fac = 1E6
+    
     key = 'Vmax_b1'
     data[key] = createDictFromKeysAndValues(cnames, 
-        (key,  5.0, 0.5, "mole_per_s"))
+        (key,  5.0*fac, 0.5*fac, "mole_per_s"))
     # add the meanlog and stdlog data calculated from normal distribution
     data[key]["meanlog"] = getMeanLog(data[key]["mean"], data[key]["std"])
     data[key]["sdlog"] = getSdLog(data[key]["mean"], data[key]["std"])
     
     key = 'Vmax_b2'
     data[key] = createDictFromKeysAndValues(cnames, 
-        (key,  2.0, 0.4, "mole_per_s"))
+        (key,  2.0*fac, 0.4*fac, "mole_per_s"))
     # add the meanlog and stdlog data calculated from normal distribution
     data[key]["meanlog"] = getMeanLog(data[key]["mean"], data[key]["std"])
     data[key]["sdlog"] = getSdLog(data[key]["mean"], data[key]["std"])

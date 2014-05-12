@@ -1,6 +1,6 @@
 \name{createDataMatrices}
 \alias{createDataMatrices}
-\title{Convert list structure into data matrix}
+\title{Convert timecourse list structure into data matrix.}
 \usage{
 createDataMatrices(dir, datalist)
 }
@@ -13,6 +13,6 @@ createDataMatrices(dir, datalist)
 matrix of pppv data
 }
 \description{
-Convert list structure into data matrix
+Convert timecourse list structure into data matrix.
 }
 

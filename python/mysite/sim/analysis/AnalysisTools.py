@@ -17,14 +17,6 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import csv
 from sim.models import Task
 
-def createParameterFileForSeries(folder, task):
-    '''
-    Write the parameter file for the series. 
-    '''
-    # TODO: implement
-    pass
-
-
 
 def createParameterFileForTask(folder, task):
     '''
@@ -74,8 +66,6 @@ def createParameterFileForTask(folder, task):
     f.close()
     
     
-    
-
 if __name__ == "__main__":
     folder = "/home/mkoenig/multiscale-galactose-results/"
     # ids = range(12)
