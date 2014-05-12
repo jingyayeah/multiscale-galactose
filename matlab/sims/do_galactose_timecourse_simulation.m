@@ -3,7 +3,7 @@ fprintf('\n# Simulation time course #\n')
 
 % [gal_pp]  tend def  store
 tend = 600;
-sim_type = 'peak';
+sim_type = 'stepwise';
 %sim_type = 'stepwise';
 
 switch sim_type
@@ -24,10 +24,6 @@ switch sim_type
            [4.0]     tend 0  true
            [5.0]     tend 0  true
            [6.0]     tend 0  true
-           %[7.0]     tend 0  true
-           %[8.0]     tend 0  true
-           %[9.0]     tend 0  true
-           %[10.0]    tend 0  true
            [0.00012] tend 0  true
         };
 end
@@ -92,4 +88,7 @@ end
 %% Analysis
 create_named_variables;
 plots
+
+figure()
+plot(t, pp.gal_sin-pv.gal_sin, 'ko')
 

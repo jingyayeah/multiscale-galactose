@@ -55,6 +55,21 @@ def createSamplesByDistribution(dist_data, N=10):
         samples.append(s)
     return samples
 
+def createSamplesByMean(dist_data, N=1):
+    '''
+    Returns the mean parameters for the given distribution data.
+    '''
+    samples = [];
+    for kn in xrange(N):
+        s = []
+        for pid in dist_data.keys():
+            dtmp = dist_data[pid]
+            value = dtmp['mean'] * 1E-6   
+            s.append( ( pid, value, dtmp['unit']) )
+        samples.append(s)
+    return samples
+
+
 def createSamplesByLHS(dist_data, N=10):
     '''
     Returns the parameter samples via LHS sampling.

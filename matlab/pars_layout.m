@@ -9,7 +9,8 @@ if (~isfield(p, {'id', 'version', 'Nc', 'Nf'}))
 end
 
 % Geometrical parameter
-p.L     = 500E-6;           % [m] sinusoid length
+
+p.L     = 500E-6*p.Nc/20;   % [m] sinusoid length
 p.y_sin = 4.4E-6;           % [m] radius sinusoid
 p.y_dis = 1.20E-6;          % [m] diameter Disse space
 p.y_cell = 7.58E-6;         % [m] hepatocyte sheet thickness
@@ -27,7 +28,6 @@ p.x_sin      = p.x_cell/p.Nf;   % [m] length blood/disse compartment in x
 p.A_sin = pi*p.y_sin^2;                     % [m^2] cylindrical geometry
 p.A_dis = pi*(p.y_sin+p.y_dis)^2 - p.A_sin; % [m^2] cylindrical geometry
 p.A_sindis = 2*pi*p.y_sin * p.x_sin;
-
 
 % Volumes of the compartments
 p.Vol_sin    = p.A_sin * p.x_sin;      % [m^3] cylindrical geometry

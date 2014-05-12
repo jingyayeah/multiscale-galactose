@@ -96,7 +96,7 @@ H2OTM  = sum(H2OTM_dis);      % [mole/s]
 %% [GALKM] Galactokinase (galM + atp -> gal1p + adp)
 %------------------------------------------------------------
 GALK_P = 1;           % [mM]
-GALK_PA = 0.1;        % [mole]
+GALK_PA = 0.05;        % [mole]
 GALK_keq = 50;        % [-] DeltaG ~ 10kJ/mol
 GALK_k_gal1p = 1.5;   % [mM] ? 
 GALK_k_adp   = 0.8;   % [mM] ? 

@@ -97,7 +97,6 @@ parscl$GE <- (c_in - c_out)
 
 names(parscl)
 
-
 # Calculate the clearance parameters
 # F = flow_sin              # [µm/sec]
 # c_in = 'PP__gal'[end]     # [mmol/l]
@@ -106,6 +105,10 @@ names(parscl)
 # ER = (c_in - c_out)/c_in  # [-]
 # CL = R/c_in               # [µm/sec]
 # GE = (c_in - c_out) 
+
+# This parameters have to be scaled to the total liver
+
+
 
 #
 ptest <- parscl[which(parscl$deficiency==0),]

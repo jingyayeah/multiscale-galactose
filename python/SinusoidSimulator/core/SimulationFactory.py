@@ -35,11 +35,11 @@ import numpy as np
 from sim.models import *
 from django.db.models import Count
 
-from RandomSampling import createSamplesByDistribution, createSamplesByLHS
+from RandomSampling import *
 from Distributions import getMultipleIndicatorDistributions, getDemoDistributions
 
 
-def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencies=[0], sampling='LHS'):
+def createGalactoseSimulationTask(model, N=5, gal_range=range(0,8), deficiencies=[0], sampling='mean'):
     '''
     Create integration settings, the task and the simulations.
     Related to the Galactose simulations.
@@ -50,15 +50,9 @@ def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencie
                                                              tsteps=100,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
-    if (created):
-        print "Integration created: {}".format(integration)
-    
     # Create the task
     task, created = Task.objects.get_or_create(sbml_model=model, integration=integration)
-    if (created):
-        print "Task created: {}".format(task)
-    info = '''Simulation of varying galactose concentrations periportal
-     to steady state.'''
+    info = '''Simulation of varying galactose concentrations periportal to steady state.'''
     task.info = info
     task.save()
     
@@ -66,6 +60,7 @@ def createGalactoseSimulationTask(model, N=10, gal_range=range(0,8), deficiencie
     # the same parameter sampling is used for all deficiencies
     dist_data = getMultipleIndicatorDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
+    
     for deficiency in deficiencies:
         for s in samples:
             for galactose in gal_range:
@@ -108,6 +103,8 @@ def createParametersBySampling(dist_data, N, sampling):
         samples = createSamplesByDistribution(dist_data, N);
     elif (sampling == "LHS"):
         samples = createSamplesByLHS(dist_data, N);
+    elif (sampling == "mean"):
+        samples = createSamplesByMean(dist_data, N);
     elif (sampling == "mixed"):
         samples1 = createSamplesByDistribution(dist_data, N/2);
         samples2 = createSamplesByLHS(dist_data, N/2);
@@ -195,7 +192,7 @@ if __name__ == "__main__":
     code_dir = "/home/mkoenig/multiscale-galactose"
    
     # Generate demo network & simulations for visualization
-    if (1):
+    if (0):
         sbml_id = "Koenig2014_demo_kinetic_v7" 
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
@@ -205,7 +202,7 @@ if __name__ == "__main__":
                                                              tsteps=2000,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
-        if (1):
+        if (0):
             task = createDemoTask(model, integration, N=200, sampling="distribution") 
 
    
@@ -220,17 +217,17 @@ if __name__ == "__main__":
                 # create dilution simulations
                 task = createMultipleIndicatorSimulationTask(model, N=20, sampling="distribution") 
    
-    if (0):
+    if (1):
         # Create the galactose model
-        sbml_id = "Galactose_v11_Nc20_Nf1"   
+        sbml_id = "Galactose_v16_Nc20_Nf1"   
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
         # create the galactose simulations
         # if no deficiencies are set, only the normal case is simulated
-        N = 45     # number of simulations per deficiency and galactose
-        gal_range = np.arange(0, 6, 1.0)
+        N = 1     # number of simulations per deficiency and galactose
+        gal_range = np.arange(0, 6, 0.5)
         # createGalactoseSimulationTask(model, N, gal_range, deficiencies=[0])
-        createGalactoseSimulationTask(model, N, gal_range, deficiencies=range(1,24))
+        createGalactoseSimulationTask(model, N, gal_range)
 
     # run an operating system command
     # call(["ls", "-l"])

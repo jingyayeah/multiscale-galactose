@@ -64,7 +64,7 @@ fprintf('***********************************************\n')
 % p.name = 'Test';
 p.name = 'Galactose'; 
 
-p.version = 13;
+p.version = 15;
 p.Nc = 1;
 p.Nf = 1;
 p.id = strcat(p.name, '_v', num2str(p.version), '_Nc', num2str(p.Nc), '_Nf', num2str(p.Nf));
