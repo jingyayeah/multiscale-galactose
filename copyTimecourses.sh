@@ -2,8 +2,8 @@
 
 # copies the simulation results from servers to proper data directory
 # for preprocessing
-DATE=2014-05-04
-STYPE=MultipleIndicator
+DATE=2014-05-12
+STYPE=Galactose
 IPS=(10.39.32.106 10.39.32.189 10.39.34.27)
 # IPS=(10.39.32.106)
 

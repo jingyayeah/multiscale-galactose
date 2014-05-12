@@ -106,34 +106,19 @@ def createSimulationForParameterSample(task, sample):
     Create the single Parameters, the combined ParameterCollection
     and the simulation based on the Parametercollection for the
     iterable sample, which contains triples of (name, value, unit).
-    # TODO: write a whole set of simulations at once. 
-    # TODO: This part is very inefficient and not completely clear what
-    #        is happening here.
-    sample is a dictionary
     '''
+    # Create the parameters
     ps = []
     for data in sample.values():
         name, value, unit = data
         p, created = Parameter.objects.get_or_create(name=name, value=value, unit=unit);
         ps.append(p)
-    
-    # Get the pset for the parameters if it exists
-    # This is necessary to have unique collections regarding the parameters
-    # Reduce the queryset with filters until 
-
-    # Annotate with count first and use than to filter    
-    querySet = ParameterCollection.objects.annotate(num_parameters=Count('parameters')).filter(num_parameters__eq=len(ps))
+    # create the parameter collection
+    pset = ParameterCollection();
+    pset.save()
     for p in ps:
-        querySet = querySet.filter(parameters = p)
-        
-    if (len(querySet)>0):
-        pset = querySet[0]
-    else:
-        pset = ParameterCollection();
-        pset.save()
-        for p in ps:
-            pset.parameters.add(p)
-        pset.save()
+        pset.parameters.add(p)
+    pset.save()
     
     # Simulation
     sim, created = Simulation.objects.get_or_create(task=task, 
@@ -141,13 +126,6 @@ def createSimulationForParameterSample(task, sample):
                                                       status = UNASSIGNED)
     if (created):
         print "Simulation created: {}".format(sim)
-        try:
-            sim.full_clean()
-            # Validation check in the creation
-        except ValidationError, e:
-            # TODO: Do something based on the errors contained in e.message_dict.
-            # Display them to a user, or deal with them properly.
-            pass
 
 
 def createDemoTask(model, integration, N=10, sampling='distribution'):
