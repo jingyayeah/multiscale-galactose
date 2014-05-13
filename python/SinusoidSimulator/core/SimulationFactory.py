@@ -174,18 +174,21 @@ if __name__ == "__main__":
             task = createDemoTask(model, integration, N=200, sampling="distribution") 
 
    
-    if (0):
+    if (1):
     # Generate the MultipleIndicator Simulations
     # for the different peak length of the tracer
-        for kp in range(0,5):
-            sbml_id = "MultipleIndicator_P%02d_v14_Nc20_Nf1" % kp
+        peaks = range(0,4)
+        for kp in peaks:
+            sbml_id = "MultipleIndicator_P%02d_v17_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
-            if (1):
+        # TODO: copy the SBML to the servers
+        if (1):
+            for kp in peaks:            
                 # create dilution simulations
-                task = createMultipleIndicatorSimulationTask(model, N=20, sampling="distribution") 
+                task = createMultipleIndicatorSimulationTask(model, N=1000, sampling="distribution") 
    
-    if (1):
+    if (0):
         # Create the galactose model
         sbml_id = "Galactose_v16_Nc20_Nf1"   
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
@@ -195,6 +198,7 @@ if __name__ == "__main__":
             flow_range = np.arange(0, 1000E-6, 200E-6)
             createGalactoseSimulationTask(model, gal_range, flow_range, N=1, deficiencies=[0,])
 
+    # TODO
     # run an operating system command
     # call(["ls", "-l"])
     # call_command = [code_dir + '/' + "copySBML.sh"]

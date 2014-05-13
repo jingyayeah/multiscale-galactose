@@ -1,93 +1,68 @@
-rm(list=ls())
-
 ################################################################
 ## Galactose Clearance & Elimination Curves ##
 ################################################################
+# Analysis of the galactose elimination simulations with varying
+# galactose and varying blood flow
+#
 # author: Matthias Koenig
-# date: 2014-04-07
+# date: 2014-05-11
 ################################################################
-results.folder <- "/home/mkoenig/multiscale-galactose-results"
-code.folder    <- "/home/mkoenig/multiscale-galactose/R" 
-task <- "T1"
-modelId <- "Galactose_v8_Nc20_Nf1"
-# here the parameter files are stored
-info.folder <- '2014-04-08'
-# here the ini & csv of the integrations are stored
-data.folder <- 'django/timecourse/2014-04-08'
+rm(list=ls())
+library(data.table)
+library(libSBML)
+library(MultiscaleAnalysis)
+setwd(ma.settings$dir.results)
 
-setwd(results.folder)
+###########################################################################
+# load parameters
+###########################################################################
+sname <- '2014-05-12_Galactose'
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
+load_with_sims = FALSE;
+task = 'T26'
+modelId <- 'Galactose_v16_Nc20_Nf1'
+parsfile <- file.path(ma.settings$dir.results, sname, 
+                      paste(task, '_', modelId, '_parameters.csv', sep=""))
 
-###############################################################
-# Load data
-###############################################################
-
-# Load the parameter file & create histogramm of parameters
-source(paste(code.folder, '/', 'ParameterFile.R', sep=""))
-# Overview of the distribution parameters
+pars <- loadParameterFile(parsfile)
+print(summary(pars))
+names(pars)
 summary(pars)
+plotParameterHistogramFull(pars)
+
+###############################################################
+# preprocess data
+###############################################################
+# preprocess all columns
+outFile <- preprocess(parsfile, ma.settings$dir.simdata)
+# load the preprocessed data
+load(outFile)
 
 
-# Load the pp and pv data
-source(paste(code.folder, '/', 'ReadDataFunctions.R', sep=""))
-
-dataset_gal.file <- paste(info.folder, '/', modelId, '_gal','.rdata', sep="")
-gal_list = readPPPVData()
-
-# List of matrixes
-compounds = c('h2oM', 'gal')
-ccolors = c('darkblue', 'black')
-prefixes = c('PP__', 'PV__')
-
-galmat <- createDataMatrices(gal_list, compounds=compounds, prefixes=prefixes)
-save.image(file=dataset_gal.file)
-tail(galmat)
-
-# Plot the timecourses
-#png(filename=paste(info.folder, '/', task, "_Dilution_Curves.png", sep=""),
-#    width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
-source(paste(code.folder, '/', 'PlotDataFunctions.R', sep=""))
-plotAllTimecourses(galmat, compounds, ylim=c(0,6))
-
-indices = which(pars$deficiency==0)
-hist(pars$deficiency)
-
-length(indices)
-summary(pars[indices,] )
-
-plotTimecourses(galmat[['PV__gal']][,indices], main="PV__gal'", ylim=c(0,6))
-test <- pars[indices,]
-hist(test$PP__gal,breaks=20)
-
-tail(test)
-
-
-)###############################################################
+###############################################################
 # Calculate the clearance parameters 
 ###############################################################
-# Create data frame for calculation
-# extend the pars
+# F = flow_sin              # [µm/sec]
+# c_in = 'PP__gal'[end]     # [mmol/l]
+# c_out = 'PV_gal[end]'          # [mmol/l]
+# R = F*(c_in - c_out)      # [m/sec * mmol/l]
+# ER = (c_in - c_out)/c_in  # [-]
+# CL = R/c_in               # [µm/sec]
+# GE = (c_in - c_out) 
 
-get_c_in <- function(){
-  data <- galmat[['PP__gal']]
+# get the last timepoint of the component
+get_last_timepoint <- function(name){
+  data <- preprocess.mat[[name]]
   dims <- dim(data)
-  c_in <- data[dims[1],]
+  res <- data[dims[1],]
 }
 
-get_c_out <- function(){
-  data <- galmat[['PV__gal']]
-  dims <- dim(data)
-  c_in <- data[dims[1],]
-}
-
-c_out <- get_c_out()
-c_in <- get_c_in()
-# plot(c_out, c_in)
-
-FL = pars$flow_sin * 1E6 # TODO: recalculate with the actual flow values
+c_in <- get_last_timepoint('PP__gal')
+c_out <- get_last_timepoint('PV__gal')
+FL <- pars$flow_sin # TODO: use correct volume flow
 
 parscl <- pars
-
-parscl$FL <- FL   
+parscl$FL <- FL
 parscl$c_in <- c_in
 parscl$c_out <- c_out
 parscl$R <- FL * (c_in - c_out)
@@ -97,42 +72,49 @@ parscl$GE <- (c_in - c_out)
 
 names(parscl)
 
-# Calculate the clearance parameters
-# F = flow_sin              # [µm/sec]
-# c_in = 'PP__gal'[end]     # [mmol/l]
-# c_out = 'PV_gal[end]'          # [mmol/l]
-# R = F*(c_in - c_out)      # [m/sec * mmol/l]
-# ER = (c_in - c_out)/c_in  # [-]
-# CL = R/c_in               # [µm/sec]
-# GE = (c_in - c_out) 
-
 # This parameters have to be scaled to the total liver
 
-
-
-#
 ptest <- parscl[which(parscl$deficiency==0),]
+head(pars)
+pars$flow_sin <- factor(pars$flow_sin)
+levels(pars$flow_sin)
+pars$flow_sin
+
 # Created Figure
 par(mfrow=c(2,2))
-plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
-plot(ptest$FL, ptest$GE, xlab="sinusoidal blood flow [µm/sec]", ylab="Galactose Elimination (GE) [mmol/l]")
-plot(ptest$FL, ptest$ER, xlab="sinusoidal blood flow [µm/sec]", ylab="Extraction Ratio (ER) [-]")
-plot(ptest$FL, ptest$CL, xlab="sinusoidal blood flow [µm/sec]", ylab="Clearance (CL) [µm/sec]") 
+  plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
+  plot(ptest$flow_sin, ptest$GE, xlab="sinusoidal blood flow [µm/sec]", ylab="Galactose Elimination (GE) [mmol/l]")
+  plot(ptest$FL, ptest$ER, xlab="sinusoidal blood flow [µm/sec]", ylab="Extraction Ratio (ER) [-]")
+  plot(ptest$FL, ptest$CL, xlab="sinusoidal blood flow [µm/sec]", ylab="Clearance (CL) [µm/sec]") 
 par(mfrow=c(1,1))
+
+
+######################################
+plot(pars$flow_sin, (c_in-c_out)/c_in)
+
+index = which( abs(pars$flow_sin-200E-6)<1E-10)
+index
+pars[index, ]
+plot(c_in[index], c_in[index]-c_out[index])
+plot(pars$flow_sin[index], (c_in[index]-c_out[index])/c_in[index])
+summary(pars$flow_sin)
 
 
 
 ###############################################################
-
 # Experimental data (Schirmer1986) #
 # TODO: [mcg/ml] -> [mmole/L]
 
+create_plot_files = T
+
 # load the experimental data Schirmer1986 from csv
-folder = "/home/mkoenig/multiscale-galactose/experimental_data/galactose_clearance"
+folder = "/home/mkoenig/multiscale-galactose/experimental_data/GEC"
 names = c("Fig1", "Fig2", "Fig4", "Fig6")
 
-png(filename=paste("Galactose_Extraction.png", sep=""),
+if (create_plot_files == T){
+  png(filename=paste("Galactose_Extraction.png", sep=""),
     width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
+}
 par(mfrow=c(2,2))
 
 # Galactose  GE
@@ -157,10 +139,7 @@ plot(fig6[,1], fig6[,2], col="blue", xlab="Flow [ml/min/100gm]", ylab="Clearance
 points(fig6[,1], fig6[,3], col="red")
 
 par(mfrow=c(1,1))
-dev.off()
-
+if (create_plot_files == T){
+  dev.off()
+}
 ###############################################################
-
-
-
-
