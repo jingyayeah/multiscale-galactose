@@ -72,7 +72,7 @@ deficiency = p.deficiency;  % [-] which Galactosemia
 %% [GLUT2_GALM] galactoseM transport (galM_dis <-> galM)
 %------------------------------------------------------------
 GLUT2_P = 1;              % [mM]
-GLUT2_f = 1E6;            % [-]
+GLUT2_f = 0.5E6;            % [-]
 GLUT2_k_gal = 85.5;       % [mM] [Colville1993, Arbuckle1996]
 GLUT2_Vmax = GLUT2_f * scale * GLUT2_P/REF_P;  % [mole/s]
 GLUT2_dm = (1 + (gal_dis+galM_dis)/GLUT2_k_gal + (gal+galM)/GLUT2_k_gal); % [-]
@@ -96,7 +96,7 @@ H2OTM  = sum(H2OTM_dis);      % [mole/s]
 %% [GALKM] Galactokinase (galM + atp -> gal1p + adp)
 %------------------------------------------------------------
 GALK_P = 1;           % [mM]
-GALK_PA = 0.05;        % [mole]
+GALK_PA = 0.02;        % [mole]
 GALK_keq = 50;        % [-] DeltaG ~ 10kJ/mol
 GALK_k_gal1p = 1.5;   % [mM] ? 
 GALK_k_adp   = 0.8;   % [mM] ? 

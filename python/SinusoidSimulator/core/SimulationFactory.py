@@ -148,6 +148,14 @@ def createDemoTask(model, integration, N=10, sampling='distribution'):
         createSimulationForParameterSample(task, sample=s)
     return task
 
+###################################################################################
+def copySBML():
+    from subprocess import call
+    # run an operating system command
+    # call(["ls", "-l"])
+    call_command = [code_dir + '/' + "copySBML.sh"]
+    print call_command
+    call(call_command)
 
 
 ###################################################################################
@@ -174,7 +182,7 @@ if __name__ == "__main__":
             task = createDemoTask(model, integration, N=200, sampling="distribution") 
 
    
-    if (1):
+    if (0):
     # Generate the MultipleIndicator Simulations
     # for the different peak length of the tracer
         peaks = range(0,4)
@@ -188,19 +196,19 @@ if __name__ == "__main__":
                 # create dilution simulations
                 task = createMultipleIndicatorSimulationTask(model, N=1000, sampling="distribution") 
    
-    if (0):
+    if (1):
         # Create the galactose model
-        sbml_id = "Galactose_v16_Nc20_Nf1"   
+        sbml_id = "Galactose_v18_Nc20_Nf1"   
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
-        if (1):
+        # TODO: copy the SBML to the servers
+        copySBML()
+        if (0):
             gal_range = np.arange(0, 6, 0.5)
-            flow_range = np.arange(0, 1000E-6, 200E-6)
-            createGalactoseSimulationTask(model, gal_range, flow_range, N=1, deficiencies=[0,])
+            flow_range = np.arange(0, 1000E-6, 50E-6)
+            
+            createGalactoseSimulationTask(model, gal_range, flow_range, N=1, deficiencies=[0,], sampling='mean')
+            createGalactoseSimulationTask(model, gal_range, flow_range, N=5, deficiencies=[0,], sampling='mean')
+            
 
-    # TODO
-    # run an operating system command
-    # call(["ls", "-l"])
-    # call_command = [code_dir + '/' + "copySBML.sh"]
-    # print call_command
-    # call(call_command)
+
