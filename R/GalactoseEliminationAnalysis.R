@@ -73,7 +73,6 @@ parscl$GE <- (c_in - c_out)
 names(parscl)
 
 # This parameters have to be scaled to the total liver
-
 ptest <- parscl[which(parscl$deficiency==0),]
 head(pars)
 pars$flow_sin <- factor(pars$flow_sin)
@@ -88,6 +87,14 @@ par(mfrow=c(2,2))
   plot(ptest$FL, ptest$CL, xlab="sinusoidal blood flow [µm/sec]", ylab="Clearance (CL) [µm/sec]") 
 par(mfrow=c(1,1))
 
+plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
+# plot the ones connected which are similar
+
+
+inds <- which(pars$flow_sin==2e-04)
+inds
+points(ptest$c_in[inds], ptest$GE[inds], col='blue')
+head(pars)
 
 ######################################
 plot(pars$flow_sin, (c_in-c_out)/c_in)

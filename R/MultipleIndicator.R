@@ -25,9 +25,9 @@ setwd(ma.settings$dir.results)
 
 #------------------------------------------------------------------------------#
 sname <- '2014-05-13_MultipleIndicator'
-version <- 'v17'
+version <- 'v18'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-task.offset <- 27
+task.offset <- 31
 task.seq <- seq(0,2)
 tasks <- paste('T', task.offset+task.seq, sep='')
 peaks <- paste('P0', task.seq, sep='')
@@ -151,7 +151,7 @@ head(tmp)
 summary(tmp)
 
 # Create the boxplots with the mean curves
-createFullPlot <- function (maxtime, ccolors, time.offset) {
+createFullPlot <- function (maxtime, ccolors, time.offset, scale_f) {
   if (create_plot_files){
     png(filename=paste(ma.settings$dir.results, '/', task, "_MultipleIndicator_with_experimental_data.png", sep=""),
         width = 1400, height = 1400, units = "px", bg = "white",  res = 150)
@@ -166,7 +166,7 @@ createFullPlot <- function (maxtime, ccolors, time.offset) {
   plot(numeric(0), numeric(0), xlim=c(0,20), ylim=c(0,20),
        xlab="time [s]", ylab="10^3 x outflow fraction/ml")
   
-  f_scale=40
+  
   for (kc in seq(1, length(compounds)) ){
     name = paste("PV__", compounds[kc], sep="")
     data <- preprocess.mat[[name]]  #+1E-06 fix for logscale
@@ -218,6 +218,11 @@ summary(gor1973)
 gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
 summary(gor1983)
 
+f_maxima = getMaximaFromDilutionData(gor1983)
+
+head(gor1983$RBC)
+
+  
 for (kt in seq(Ntask)){
   task <- tasks[kt]
   peak <- peaks[kt]

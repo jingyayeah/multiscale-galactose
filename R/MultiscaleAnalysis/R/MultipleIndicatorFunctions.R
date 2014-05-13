@@ -1,7 +1,8 @@
 
-#' Plot one multiple-dilution indicator dataset
+#' Plot single multiple-dilution indicator dataset.
+#' 
 #' @param data dataset to be plotted
-#' @param correctTime should the time be corrected
+#' @param correctTime set TRUE if the time should be corrected
 #' @export 
 plotDilutionData <- function(data, compounds=compounds, ccolors=ccolors, correctTime=FALSE){
   Nc = length(compounds)
@@ -21,8 +22,24 @@ plotDilutionData <- function(data, compounds=compounds, ccolors=ccolors, correct
   }
 }
 
+#' Get the maximal values of the dilution data
+#' 
+#' @param data experimental dataset
+#' @param correctTime should the time be corrected
+#' @export 
+getDilutionDataMaxima <- function(data, compounds=compounds){
+  Nc = length(compounds)
+  maxima <- numeric(Nc)
+  for (kc in seq(Nc)){
+    compound <- compounds[kc]
+    cdata = data[data$compound==compound,]
+    maxima(kc) <- max(cdata)
+  }
+  maxima
+}
 
 #' Corrects the dilution times, so that zero timepoint is first datapoint.
+#' 
 #' @param data data to be corrected
 #' @return new data with corrected times
 #' @export
