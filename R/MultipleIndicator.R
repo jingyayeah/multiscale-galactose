@@ -11,34 +11,44 @@
 # preprocessing to get the necessary components out of he solution CSV).
 #
 # author: Matthias Koenig
-# date: 2014-04-20
+# date: 2014-05-13
 ################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
 library('matrixStats')
+library('RColorBrewer')
 setwd(ma.settings$dir.results)
+
+#------------------------------------------------------------------------------#
+sname <- '2014-05-13_MultipleIndicator'
+version <- 'v17'
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
+task.offset <- 27
+task.seq <- seq(0,2)
+tasks <- paste('T', task.offset+task.seq, sep='')
+peaks <- paste('P0', task.seq, sep='')
+#------------------------------------------------------------------------------#
 
 # Plot all the single curves with mean and std
 # They have to be weighted with the actual probability assicociated with the samples.
 plotMultipleIndicatorCurves <- function(time, weights, ccols, create_plot_files=F){
   Nc <- length(pv_compounds)
-  
+
   # Create the plot
   if (create_plot_files == TRUE){
     png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves.png", sep=""),
         width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
-  }
-  
-  par(mfrow=c(1,Nc))
-  xlim=c(0,20)
-  ylim=c(0,2.5)
-  for (name in pv_compounds){
-    inds <- which((time<=xlim[2]))
-    data <- MI.mat[[name]]
-    plotCompound(time[inds], data[inds, ] , name, col=ccolors[name], 
+  }  
+    par(mfrow=c(1,Nc))
+    xlim=c(0,20)
+    ylim=c(0,2.5)
+    for (name in pv_compounds){
+      inds <- which((time<=xlim[2]))
+      data <- MI.mat[[name]]
+      plotCompound(time[inds], data[inds, ] , name, col=ccolors[name], 
                  xlim=xlim, ylim=ylim, weights, ccols)
-  }
-  par(mfrow=c(1,1))
+    }
+    par(mfrow=c(1,1))
   if (create_plot_files == TRUE){
     dev.off()
   }
@@ -65,23 +75,11 @@ plotMultipleIndicatorMean <- function(time, weights, create_plot_files=F,
   dev.off()
 }
 
-####################################################################
-
-library(RColorBrewer)
-
-#Load the preprocessed data
-sname <- '2014-05-07_MultipleIndicator'
-version <- 'v14'
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-tasks <- paste('T', seq(1,5), sep='')
-peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
-
 # Additional information
 compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 pv_compounds = paste('PV__', compounds, sep='')
 names(ccolors) <- pv_compounds
-
 
 # Colors for probability weights
 col2rgb_alpha <- function(col, alpha){
@@ -162,7 +160,7 @@ plot2Ddensity(time, MI.mat[[name]][,], name, col=ccolors[name], ylim=c(0,0.8))
 ###################################################################################
 # Dilution curves with experimental data
 ###################################################################################
-# TODO: clear up this part
+# TODO: clear up this part and make it work
 
 # calculate the maximum values
 maxTimes <- function(data){

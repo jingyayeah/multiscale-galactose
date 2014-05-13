@@ -15,7 +15,7 @@ rm(list=ls())   # Clear all objects
 library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
-
+#------------------------------------------------------------------------------#
 sname <- '2014-05-13_MultipleIndicator'
 version <- 'v17'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
@@ -23,7 +23,7 @@ task.offset <- 27
 task.seq <- seq(0,2)
 tasks <- paste('T', task.offset+task.seq, sep='')
 peaks <- paste('P0', task.seq, sep='')
-
+#------------------------------------------------------------------------------#
 for (kt in seq(length(tasks))){
   task <- tasks[kt]
   peak <- peaks[kt]
