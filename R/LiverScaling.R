@@ -40,11 +40,19 @@ rm(list=ls())
 library(data.table)
 library(libSBML)
 library(MultiscaleAnalysis)
-
 setwd(ma.settings$dir.results)
+#------------------------------------------------------------------------------#
+sname <- '2014-05-13_MultipleIndicator'
+version <- 'v18'
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
+task.offset <- 31
+task.seq <- seq(0,2)
+tasks <- paste('T', task.offset+task.seq, sep='')
+peaks <- paste('P0', task.seq, sep='')
+#------------------------------------------------------------------------------#
 
 # Settings for plots
-create_plot_files = TRUE
+create_plot_files = FALSE
 plot.width = 800 
 plot.height = 800
 plot.units= "px"
@@ -54,33 +62,17 @@ plot.res = 150
 ###########################################################################
 # Load parameters for samples
 ###########################################################################
-# definition of changing parameters, with a single sample 
-# corresponding to a sinusoidal unit configuration
-# samples are based on random sampling of multidimensional parameter space
-
-sname <- '2014-05-07_MultipleIndicator'
-modelVersion <- 'v14_Nc20_Nf1'
-tasks <- paste('T', seq(1,5), sep='')
-peaks <- c('P00', 'P01', 'P02', 'P03', 'P04')
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-load_with_sims = FALSE;
 
 # for (kt in seq(length(tasks))){
 # ? all the things are only applied to the first component of the solution
 for (kt in seq(1)){
   task <- tasks[kt]
   peak <- peaks[kt]
-  modelId <- paste('MultipleIndicator_', peak, '_', modelVersion, sep='')
+  modelId <- paste('MultipleIndicator_', peak, '_', version, '_Nc20_Nf1', sep='')
   parsfile <- file.path(ma.settings$dir.results, sname, 
                         paste(task, '_', modelId, '_parameters.csv', sep=""))
   # Load the data
-  if (load_with_sims == FALSE){
-    # only load the parameters:
-    pars <- loadParameterFile(parsfile)
-  } else {
-    # preprocessing necessary for loading the data with the parameters
-    load(file=outfileFromParsFile(parsfile))
-  }
+  pars <- loadParameterFile(parsfile)
   print(summary(pars))
 }
 rm(kt)
@@ -191,43 +183,7 @@ if (create_plot_files == TRUE){
 ###########################################################################
 # Arbitrary parameter ECDFs
 ###########################################################################
-# # Create a density estimate
-# # ! Possible problems with outliers in density estimation !
-# name = 'flow_sin'
-# Npoints = 1000
-# y1 <- rlnorm(Npoints, meanlog=p.gen[name, 'meanlog'], sdlog=p.gen[name, 'sdlog'])
-# y2 <- rlnorm(Npoints, meanlog=1.3*p.gen[name, 'meanlog'], sdlog=0.4*p.gen[name, 'sdlog'])
-# ytest <- c(y1, y2)
-# 
-# # Empirical cumulative distribution function) is a step function with jumps i/n at observation values, 
-# # where i is the number of tied observations at that value
-# # Multivariate Empirical Cumulative Distribution Functions
-# # ecdf
-# ecdf.tmp <- ecdf(ytest)
-# plot(ecdf.tmp)
-# 
-# ecdf.tmp
-# # The quantile(obj, ...) method computes the same quantiles as quantile(x, ...) would where x is the original sample
-# summary(ytest)
-# lb = 0.0;
-# ub = 10 * mean(ytest); 
-# plot(ytest)
-# hist(ytest, breaks=30, xlim=c(lb, ub), freq=FALSE, col='gray')
-# dtest <- density(ytest, from=lb, to=ub, bw=100)
-# points(dtest, xlim=c(lb, ub), type='l', col='blue', lwd=2)
-# f.density <- approxfun(dtest)  
-# xtest <- seq(lb, ub, length.out=100)
-# xtest
-# # here the density function
-# f.density(xtest)
-# f.ecdf <- ecdf(f.density(xtest))
-# plot(f.ecdf(xtest))
-# 
-# # Get an approx function
-# x <- log(rgamma(150,5))
-# df <- approxfun(density(x))
-# plot(density(x))
-# p_test <- getProbabilitiesForSamples(pars=pars, p.gen=p.gen, name=name)
+# TODO
 
 ###########################################################################
 # Calculate weighted derived values
@@ -249,7 +205,7 @@ plot.height = 800
 plot.units= "px"
 plot.bg = "white"
 plot.res = 150
-for (name in ps.var){
+for (name in ps$var){
   fname = paste('test_distribution_', name, '.png', sep="") 
   print(fname)
   png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
@@ -266,13 +222,13 @@ for (name in ps.var){
 # N_Q = Q_liv/Q_sinunit;
 # N_Vol = N_Q
 # N_Vol = f_tissue*Vol_liv/Vol_sinunit  => f_tissue = N_Vol * Vol_sinunit/Vol_liv
-
 # -20% large vessels
 
 # calculate conversion factors
 calculateConversionFactors <- function(pars){
     res <- list()
-  
+    f_tissue = 0.75;
+    
     # varies depending on parameters
     Q_sinunit.wmean <- wt.mean(pars[['Q_sinunit']], pars$p_sample)
     Q_sinunit.wsd <- wt.sd(pars[['Q_sinunit']], pars$p_sample)
@@ -284,27 +240,21 @@ calculateConversionFactors <- function(pars){
     Q_liv.wsd <- wt.sd(pars[['Q_liv']], pars$p_sample)
     Vol_liv.wmean <- wt.mean(pars[['Vol_liv']], pars$p_sample)
     Vol_liv.wsd <- wt.sd(pars[['Vol_liv']], pars$p_sample)
-        
-    f_Q = Q_liv.wmean/Q_sinunit.wmean
-    f_Vol = Vol_liv.wmean/Vol_sinunit.wmean
-    cat('f_Q: ', f_Q, '\n')
-    cat('f_Vol: ', f_Vol, '\n')
-    cat('f_Vol/f_Q: ', f_Vol/f_Q, '\n')
+    N_Vol = f_tissue*Vol_liv.wmean/Vol_sinunit.wmean
+    N_Q1 = Q_liv.wmean/Q_sinunit.wmean
+    f_flow = N_Q1/N_Vol
+    N_Q = N_Q1/f_flow
     
-    N_Q = Q_liv.wmean/Q_sinunit.wmean
-    # propagation of uncertainty ???
-    N_Q.sd = Q_liv.wmean/Q_sinunit.wsd
-    print(N_Q.sd)
     cat('N_Q: ', N_Q, '\n')
-    N_Vol = N_Q
-    f_tissue = N_Vol * Vol_sinunit.wmean/Vol_liv.wmean
-    f_tissue.sd = N_Q.sd * Vol_sinunit.wsd/Vol_liv.wmean
-    cat('f_tissue: ', f_tissue, '+-', f_tissue.sd, '\n')
+    cat('N_Vol: ', N_Vol, '\n')
+    cat('N_Vol/N_Q1: ', N_Vol/N_Q1, '\n')
+    cat('N_Vol/N_Q: ',  N_Vol/N_Q, '\n')
+    cat('f_flow: ', f_flow, '\n')
     
     res$N_Q <- N_Q
-    res$N_Q.sd <- N_Q.sd
+    res$N_Vol <- N_Vol
     res$f_tissue <- f_tissue
-    res$f_tissue.sd <- f_tissue.sd
+    res$f_flow <- f_flow
     res
 }
 res <- calculateConversionFactors(pars)

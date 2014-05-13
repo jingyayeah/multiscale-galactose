@@ -38,6 +38,19 @@ def createParametersBySampling(dist_data, N, sampling):
         samples1 = createSamplesByDistribution(dist_data, N/2);
         samples2 = createSamplesByLHS(dist_data, N/2);
         samples = samples1 + samples2
+        
+    # TODO: adapt flow of samples
+    samples = adaptFlowInSamples(samples)
+    return samples
+
+def adaptFlowInSamples(samples):
+    # flow is adapted due to scaling to full liver architecture
+    # TODO: make this consistent
+    f_flow = 0.47
+    for s in samples:
+        if (s.has_key("flow_sin")):
+            name, value, unit = s["flow_sin"];
+            s["flow_sin"] = (name, value*f_flow, unit)
     return samples
 
 

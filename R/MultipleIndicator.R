@@ -25,9 +25,9 @@ setwd(ma.settings$dir.results)
 
 #------------------------------------------------------------------------------#
 sname <- '2014-05-13_MultipleIndicator'
-version <- 'v17'
+version <- 'v18'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-task.offset <- 27
+task.offset <- 31
 task.seq <- seq(0,2)
 tasks <- paste('T', task.offset+task.seq, sep='')
 peaks <- paste('P0', task.seq, sep='')
@@ -129,26 +129,33 @@ gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Go
 summary(gor1983)
 
 ## Combined Dilution Curves in one plot ##
-compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
-ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue' )
+compounds = c('rbcM', 'alb', 'suc', 'h2oM')
+ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
 
-# calculate the maximum values
-maxTimes <- function(preprocess.mat){
+# calculate the max times
+calculateMaxTimes <- function(preprocess.mat, compounds){
   Nsim = ncol(preprocess.mat[[1]])
-  print(Nsim)
   maxtime <- data.frame(tmp=numeric(Nsim))
   for (kc in seq(1, length(compounds)) ){
-    name = paste("PV__", compounds[kc], sep="")
-    print(name)
+    name = paste("PV__", compounds[kc], sep="")      
+    data <- preprocess.mat[[name]]
     maxtime[[name]] <- numeric(Nsim)    
     # find the max values for all simulations
     for (k in seq(1, Nsim)){
-      maxtime[[name]][k] = time[ which.max(preprocess.mat[[name]][,k]) ]
+      maxtime[[name]][k] = time[ which.max(data[,k]) ]
     }
   }
+  maxtime$tmp <- NULL
   maxtime
 }
-maxtime <- maxTimes(preprocess.mat) 
+maxtime <- calculateMaxTimes(preprocess.mat, compounds) 
+summary(maxtime)
+
+
+# weighting with flux
+head(pars)
+
+
 
 png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves_Combined.png", sep=""),
     width = 1400, height = 1400, units = "px", bg = "white",  res = 150)
@@ -165,32 +172,35 @@ boxplot(maxtime, col=ccolors, horizontal=T,  ylim=c(0,20),
         )
 summary(maxtime)
 
+rbind.rep <- function(x, times) matrix(x, times, length(x), byrow = TRUE)
+cbind.rep <- function(x, times) matrix(x, length(x), times, byrow = FALSE)
+
 # Plot curves
 plot(numeric(0), numeric(0), 
-     xlim=c(0,20), ylim=c(0,16), 
+     xlim=c(0,40), ylim=c(1E-3,20), log="y",
      # frame="f", # suppress the plotting frame
-     box="false",
      xlab="time [s]", ylab="10^3 x outflow fraction/ml")
 
+f_scale=40
 for (kc in seq(1, length(compounds)) ){
-  f_scale=70
-  
-  # name = "PV__rbcM"
   name = paste("PV__", compounds[kc], sep="")
-  # plot one compound
-  tmp <- dilmat[[name]]
+  data <- preprocess.mat[[name]] + 1E-06
+  
+  # weighted with the actual flow
+  # Q_sinunit = rbind.rep(pars$Q_sinunit, nrow(data))
+  # tmp = data*Q_sinunit
+  # rmean2 <- rowMeans(tmp)
+  # rmean2 <- rmean2/max(rmean2)*10
   
   # plot the mean and std for time courses
-  rmean <- rowMeans(tmp)
-  rstd <- rowSds(tmp)
+  summary(data)
+  rmean <- rowMeans(data)
+  rstd <- rowSds(data)
   lines(time, rmean*f_scale, col=ccolors[kc], lwd=4)
+  # lines(time, rmean2, col=ccolors[kc], lwd=4, lty=2)
   #lines(time, (rmean+rstd)*f_scale, col=ccolors[kc], lwd=1, lty=2)
   #lines(time, (rmean-rstd)*f_scale, col=ccolors[kc], lwd=1, lty=2)
 }
-
-#          red,  green, orange, blue,  black, gray
-# expcompounds = c('RBC', 'albumin', 'Na', 'sucrose', 'water', 'galactose')
-# expcolors = c('red', 'darkgreen', 'gray', 'darkorange', 'darkblue', 'black')
 expcompounds = c('RBC', 'albumin', 'sucrose', 'water')
 expcolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
 
@@ -208,4 +218,3 @@ png(filename=paste(info.folder, '/', task, "_Boxplot_MaxTimes", sep=""),
     width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
 boxplot(maxtime-10, col=ccolors, horizontal=T, xlab="time [s]")
 dev.off()
-summary(maxtime-10)

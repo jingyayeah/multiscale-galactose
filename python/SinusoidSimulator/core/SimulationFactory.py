@@ -131,28 +131,29 @@ if __name__ == "__main__":
         task = createTask(model, integration, info)
         createDemoSimulations(task, N=200, sampling="distribution") 
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         print '*** MULTIPLE INDICATOR ***'
         # MultipleIndicator Simulations with variable tracer peak duration
-        info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal)'''
+        info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).
+        Flow adapted via the liver scaling factor after sampling!'''
         # integration
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
                                                              tend=100.0, 
                                                              tsteps=4000,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
-        peaks = range(0,4)
+        peaks = range(0,3)
         for kp in peaks:
             # model
-            sbml_id = "MultipleIndicator_P%02d_v17_Nc20_Nf1" % kp
+            sbml_id = "MultipleIndicator_P%02d_v18_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
             copySBML()
             # Simulations
             task = createTask(model, integration, info);
-            createMultipleIndicatorSimulationTask(task, N=1000, sampling="distribution") 
+            createMultipleIndicatorSimulationTask(task, N=900, sampling="distribution") 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print '*** GALACTOSE SIMULATIONS ***'
         # Create the galactose model
         sbml_id = "Galactose_v18_Nc20_Nf1"   
