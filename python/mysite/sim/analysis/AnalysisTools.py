@@ -75,4 +75,3 @@ if __name__ == "__main__":
         task = Task.objects.get(pk=task_id);
         createParameterFileForTask(folder, task);
     
-    

@@ -10,6 +10,9 @@
 # Data is read from the preprocessed timecourse samples (TODO: arbitrary 
 # preprocessing to get the necessary components out of he solution CSV).
 #
+# TODO: create proper with experimental data
+# TODO: create the log plot
+# 
 # author: Matthias Koenig
 # date: 2014-05-13
 ################################################################
@@ -178,6 +181,7 @@ maxTimes <- function(data){
 }
 
 library('matrixStats')
+
 
 # Load the experimental data
 gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
