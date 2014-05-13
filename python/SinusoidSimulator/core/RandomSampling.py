@@ -27,6 +27,19 @@ import random
 import numpy as np
 import numpy.random as npr
 
+def createParametersBySampling(dist_data, N, sampling):
+    if (sampling == "distribution"):
+        samples = createSamplesByDistribution(dist_data, N);
+    elif (sampling == "LHS"):
+        samples = createSamplesByLHS(dist_data, N);
+    elif (sampling == "mean"):
+        samples = createSamplesByMean(dist_data, N);
+    elif (sampling == "mixed"):
+        samples1 = createSamplesByDistribution(dist_data, N/2);
+        samples2 = createSamplesByLHS(dist_data, N/2);
+        samples = samples1 + samples2
+    return samples
+
 
 def createSamplesByDistribution(dist_data, N=10):
     '''
