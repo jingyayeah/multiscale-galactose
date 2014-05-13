@@ -132,12 +132,11 @@ if __name__ == "__main__":
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
     
-    # unassignHangingAssignedSimulations();
+    unassignHangingAssignedSimulations();
     
-    pks = range(24921, 24949)
-    
-    print(pks)
-    unassignSimulationsByPk(pks)
+    #pks = range(24921, 24949)
+    # print(pks)
+    # unassignSimulationsByPk(pks)
     
     # Remove simulations for task
     #task_pks = (26,)
