@@ -2,11 +2,11 @@
 #' @export
 plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), weights=NULL, ccols=NULL, meanData=TRUE){
   plot(numeric(0), numeric(0), 'l', main=name,
-       xlab="time [s]", ylab="value [unit]", ylim=ylim, xlim=xlim)
+       xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
   
   if (is.null(weights) || is.null(ccols)){
     # ccols = c(rgb(0.5,0.5,0.5,alpha=0.8) )
-    ccols = rep(rgb(0.5,0.5,0.5, alpha=0.8), ncol(data))
+    ccols = rep(rgb(0.5,0.5,0.5, alpha=0.5), ncol(data))
   }
   
   if (is.null(weights)){
@@ -14,11 +14,7 @@ plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c
   }else{
     ord = order(weights)
   }
-  print('ord')
-  print(ord)
-  print(summary(ord))
-  print(dim(data))
-  
+    
   for (ks in seq(ncol(data))){
     lines(time, data[,ord[ks]], col=ccols[ord[ks]])
   }
@@ -121,11 +117,11 @@ plotMultipleIndicatorCurves <- function(time, preprocess.mat, weights, ccols, cr
   }  
   par(mfrow=c(1,Nc))
   xlim=c(0,20)
-  ylim=c(0,2.5)
+  ylim=c(0,1.8)
   for (name in pv_compounds){
     inds <- which((time<=xlim[2]))
     data <- preprocess.mat[[name]]
-    plotCompound(time[inds], data[inds, ] , name, col=ccolors[name], 
+    plotCompound(time[inds], data[inds, ], name, col=ccolors[name], 
                  xlim=xlim, ylim=ylim, weights, ccols)
   }
   par(mfrow=c(1,1))

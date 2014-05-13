@@ -22,17 +22,20 @@ plotDilutionData <- function(data, compounds=compounds, ccolors=ccolors, correct
   }
 }
 
-#' Get the maximal values of the dilution data
+#' Get the maximal values of the dilution data.
 #' 
 #' @param data experimental dataset
 #' @param correctTime should the time be corrected
 #' @export 
-getDilutionDataMaxima <- function(data, compounds=compounds){
+getDilutionDataMaxima <- function(data, compounds){
+  print('getDilutionDataMaxima')
   Nc = length(compounds)
   maxima <- numeric(Nc)
   for (kc in seq(Nc)){
     compound <- compounds[kc]
     cdata = data[data$compound==compound,]
+    print(head(cdata))
+    
     maxima(kc) <- max(cdata)
   }
   maxima
@@ -45,6 +48,7 @@ getDilutionDataMaxima <- function(data, compounds=compounds){
 #' @export
 correctDilutionTimes <- function(data){
   dnew <- data;
-  dnew$time <- dnew$time - min(data$time)
+  # TODO: properly extrapolate to zero
+  dnew$time <- dnew$time - min(data$time) + 1.0
   dnew
 }

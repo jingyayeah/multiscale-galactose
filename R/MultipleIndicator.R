@@ -106,12 +106,15 @@ for (kt in seq(Ntask)){
   }
   
   # Create the plots
+  print('weigths:')
+  weights
   time = getTimeFromPreprocessMatrix(preprocess.mat)-10.0
-  plotMultipleIndicatorCurves(time, preprocess.mat, weights=weights, ccols=ccols, create_plot_files=T)
-  plotMultipleIndicatorMean(time, preprocess.mat, weights=weights, create_plot_files=T)
+  plotMultipleIndicatorCurves(time, preprocess.mat, weights=NULL, ccols=ccols, create_plot_files=T)
+  plotMultipleIndicatorMean(time, preprocess.mat, weights=NULL, create_plot_files=T)
 }
 
 # some example plots
+rm(preprocess.mat)
 name="PV__rbcM"
 time <- getTimeFromPreprocessMatrix(preprocess.mat) - 10.0
 plotCompound(time, preprocess.mat[[name]], name, col=ccolors[name], ylim=c(0,1.2))
@@ -166,7 +169,7 @@ createFullPlot <- function (maxtime, ccolors, time.offset, scale_f) {
   plot(numeric(0), numeric(0), xlim=c(0,20), ylim=c(0,20),
        xlab="time [s]", ylab="10^3 x outflow fraction/ml")
   
-  
+  # plot the mean and std for time courses
   for (kc in seq(1, length(compounds)) ){
     name = paste("PV__", compounds[kc], sep="")
     data <- preprocess.mat[[name]]  #+1E-06 fix for logscale
@@ -175,9 +178,9 @@ createFullPlot <- function (maxtime, ccolors, time.offset, scale_f) {
     # plot the mean and std for time courses
     rmean <- rowMeans(data)
     rstd <- rowSds(data)
-    lines(time, rmean*f_scale, col=ccolors[kc], lwd=4)
-    lines(time, (rmean+rstd)*f_scale, col=ccolors[kc], lwd=1, lty=2)
-    lines(time, (rmean-rstd)*f_scale, col=ccolors[kc], lwd=1, lty=2)
+    lines(time, rmean*scale_f, col=ccolors[kc], lwd=4)
+    lines(time, (rmean+rstd)*scale_f, col=ccolors[kc], lwd=1, lty=2)
+    lines(time, (rmean-rstd)*scale_f, col=ccolors[kc], lwd=1, lty=2)
   }
   
   ## Add the experimental data from Goresky1983 & 1973 ##
@@ -218,11 +221,17 @@ summary(gor1973)
 gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
 summary(gor1983)
 
-f_maxima = getMaximaFromDilutionData(gor1983)
+m1 = max(gor1983$outflow)
+m2 = max(gor1973[gor1973$condition=="A",'outflow'])
+m3 = max(gor1973[gor1973$condition=="B",'outflow'])
+m4 = max(gor1973[gor1973$condition=="C",'outflow'])
+scale_f = (m1+m2+m3+m4)/4;
+data <-   #+1E-06 fix for logscale
 
-head(gor1983$RBC)
+rmean_rbc <- rowMeans(preprocess.mat[['PV__rbcM']])
+scale_f <- scale_f/max(rmean_rbc);
+scale_f
 
-  
 for (kt in seq(Ntask)){
   task <- tasks[kt]
   peak <- peaks[kt]
@@ -234,6 +243,6 @@ for (kt in seq(Ntask)){
   # Calculate the max times
   maxtime <- calculateMaxTimes(preprocess.mat, compounds, time.offset) 
   print(summary(maxtime))
-  createFullPlot(maxtime, ccolors, time.offset=time.offset)
+  createFullPlot(maxtime, ccolors, time.offset=time.offset, scale_f)
   # createBoxPlot(maxtime, ccolors, time.offset=time.offset)
 }

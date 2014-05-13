@@ -1,0 +1,15 @@
+\name{getDilutionDataMaxima}
+\alias{getDilutionDataMaxima}
+\title{Get the maximal values of the dilution data.}
+\usage{
+getDilutionDataMaxima(data, compounds)
+}
+\arguments{
+  \item{data}{experimental dataset}
+
+  \item{correctTime}{should the time be corrected}
+}
+\description{
+Get the maximal values of the dilution data.
+}
+
