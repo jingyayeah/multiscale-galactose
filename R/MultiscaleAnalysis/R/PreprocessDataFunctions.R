@@ -23,7 +23,9 @@ outfileFromParsFile <- function(parsfile){
 #' @return the column indices which should be used
 #' @export
 getColumnIndicesPPPV <- function(data){
-  col.indices <- which(grepl("^PP__", colnames(data)) | grepl("^PV__", colnames(data)) )
+  col.indices <- which(grepl("time", colnames(data))  | 
+                       grepl("^PP__", colnames(data)) | 
+                       grepl("^PV__", colnames(data)) )
 }
 
 #' Do the PPPV preprocessing, i.e. only the PPPV data.
@@ -48,6 +50,11 @@ preprocessPPPV <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL){
 #' @return outFile file with the saved data
 #' @export
 preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.indices_f=NULL){
+  print('sim.indices:')
+  print(sim.indices)
+  print('col.indices_f:')
+  print(col.indices_f)
+  
   pars <- loadParameterFile(parsfile)
   
   # Reduce pars to the simulations which should be taken
@@ -64,7 +71,7 @@ preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.in
   }  
   
   # Read simulations
-  preprocess.list = readColumnData(pars=pars, dir=sim.dir, col.indices_f)
+  preprocess.list = readColumnData(pars=pars.sim, dir=sim.dir, col.indices_f)
   preprocess.mat <- createDataMatrices(dir=sim.dir, datalist=preprocess.list)
   
   # Store
@@ -122,7 +129,6 @@ readDataForSimulation <- function(dir, simId, col.indices_f){
     col.indices <- col.indices_f(data)
     data <- data[, col.indices]
   }
-  
   data
 }
 
@@ -143,9 +149,9 @@ getTimeFromPPMAT <- function(preprocess.mat){
 #' @return matrix of pppv data
 #' @export
 createDataMatrices <- function(dir, datalist){
-  time <- datalist[[1]][,'time']
-  print(time)
+  time <- as.numeric(rownames(datalist[[1]]))
   Ntime = length(time)
+  
   simulations <- names(datalist)
   Nsim = length(simulations)
   
