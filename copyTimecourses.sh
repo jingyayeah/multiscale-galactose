@@ -10,18 +10,17 @@
 # @date: 2014-05-13
 ############################################################
 
-DATE=2014-05-12
-STYPE=Galactose
+DATE=2014-05-13
+SIMTYPE=MultipleIndicator
 
 IPS=(10.39.32.106 10.39.32.189 10.39.34.27)
-DATA_DIR=~/multiscale-galactose-results/${DATE}_${STYPE}
+DATA_DIR=~/multiscale-galactose-results/${DATE}_${SIMTYPE}
 mkdir $DATA_DIR 
 mkdir $DATA_DIR/data
 cd $DATA_DIR/data
 
 for i in ${IPS[@]}; do
     echo "*** ${i} ***"
-    
     scp mkoenig@${i}:~/multiscale-galactose-results/django/timecourse/$DATE/*.* .
 done
 
