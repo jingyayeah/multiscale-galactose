@@ -136,7 +136,7 @@ readDataForSimulation <- function(dir, simId, col.indices_f){
 #' @param MI.mat List of simulation matrixes
 #' @return time vector
 #' @export
-getTimeFromPPMAT <- function(preprocess.mat){
+getTimeFromPreprocessMatrix <- function(preprocess.mat){
   names <- rownames(preprocess.mat[[1]])
   as.numeric(names) 
 }

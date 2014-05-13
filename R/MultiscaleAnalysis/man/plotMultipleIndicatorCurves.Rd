@@ -1,0 +1,14 @@
+\name{plotMultipleIndicatorCurves}
+\alias{plotMultipleIndicatorCurves}
+\title{Plot all the single curves with mean and std
+They have to be weighted with the actual probability assicociated with the samples.}
+\usage{
+plotMultipleIndicatorCurves(time, preprocess.mat, weights, ccols,
+  create_plot_files = F)
+}
+\description{
+Plot all the single curves with mean and std They have to
+be weighted with the actual probability assicociated with
+the samples.
+}
+

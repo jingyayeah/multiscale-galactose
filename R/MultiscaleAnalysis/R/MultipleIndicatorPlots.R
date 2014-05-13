@@ -6,7 +6,7 @@ plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c
   
   if (is.null(weights) || is.null(ccols)){
     # ccols = c(rgb(0.5,0.5,0.5,alpha=0.8) )
-    ccols = rep("gray", ncol(data))
+    ccols = rep(rgb(0.5,0.5,0.5, alpha=0.8), ncol(data))
   }
   
   if (is.null(weights)){
@@ -14,12 +14,12 @@ plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c
   }else{
     ord = order(weights)
   }
-  
-  print('columns')
-  print(ncol(data))
+  print('ord')
+  print(ord)
+  print(summary(ord))
+  print(dim(data))
   
   for (ks in seq(ncol(data))){
-    print('printing line')
     lines(time, data[,ord[ks]], col=ccols[ord[ks]])
   }
   
@@ -105,4 +105,54 @@ plot2Ddensity <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=
   lines(time, rmean, col=col, lwd=2)
   lines(time, rmean+rstd, col=col, lwd=2, lty=2)
   lines(time, rmean-rstd, col=col, lwd=2, lty=2)
+}
+
+#' Plot all the single curves with mean and std
+#' They have to be weighted with the actual probability assicociated with the samples.
+#'
+#'@export
+plotMultipleIndicatorCurves <- function(time, preprocess.mat, weights, ccols, create_plot_files=F){
+  Nc <- length(pv_compounds)
+  
+  # Create the plot
+  if (create_plot_files == TRUE){
+    png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves.png", sep=""),
+        width = 4000, height = 1000, units = "px", bg = "white",  res = 200)
+  }  
+  par(mfrow=c(1,Nc))
+  xlim=c(0,20)
+  ylim=c(0,2.5)
+  for (name in pv_compounds){
+    inds <- which((time<=xlim[2]))
+    data <- preprocess.mat[[name]]
+    plotCompound(time[inds], data[inds, ] , name, col=ccolors[name], 
+                 xlim=xlim, ylim=ylim, weights, ccols)
+  }
+  par(mfrow=c(1,1))
+  if (create_plot_files == TRUE){
+    dev.off()
+  }
+}
+
+#' All MultipleIndicator curves in one plot
+#'
+#'@export
+plotMultipleIndicatorMean <- function(time, preprocess.mat, weights, create_plot_files=F, 
+                                      xlim=c(0,20), ylim=c(0,1.5)){
+  plot_name <- "_Dilution_Curves_Combined.png"
+  if (create_plot_files == TRUE){
+    png(filename=paste(ma.settings$dir.results, '/', task, plot_name, sep=""),
+        width = 800, height = 800, units = "px", bg = "white")
+  }
+  par(mfrow=c(1,1))
+  # only plot subset of data
+  plot(numeric(0), numeric(0), 'l', 
+       xlab="time [s]", ylab="c [mM]", xlim=xlim, ylim=ylim)
+  for (name in pv_compounds){
+    inds <- which((time<=xlim[2]))
+    data <- preprocess.mat[[name]]
+    plotCompoundMean(time[inds], data[inds, ], weights, col=ccolors[name])
+  }
+  par(mfrow=c(1,1))
+  dev.off()
 }

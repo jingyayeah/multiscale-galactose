@@ -1,0 +1,11 @@
+\name{plotMultipleIndicatorMean}
+\alias{plotMultipleIndicatorMean}
+\title{All MultipleIndicator curves in one plot}
+\usage{
+plotMultipleIndicatorMean(time, preprocess.mat, weights,
+  create_plot_files = F, xlim = c(0, 20), ylim = c(0, 1.5))
+}
+\description{
+All MultipleIndicator curves in one plot
+}
+
