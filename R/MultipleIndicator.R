@@ -31,6 +31,7 @@ task.offset <- 27
 task.seq <- seq(0,2)
 tasks <- paste('T', task.offset+task.seq, sep='')
 peaks <- paste('P0', task.seq, sep='')
+Ntask = length(tasks)
 #------------------------------------------------------------------------------#
 
 compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
@@ -63,7 +64,7 @@ getColorsForWeights <- function (weights) {
 }
 
 # Preprocess the parameters for scaling
-Ntask = length(tasks)
+
 for (kt in seq(Ntask)){
   task <- tasks[kt]
   peak <- peaks[kt]
@@ -127,54 +128,56 @@ plotCompound(time, preprocess.mat[[name]], name, col=ccolors[name], ylim=c(0,1.2
 # rmean2 <- rmean2/max(rmean2)*10
 
 # calculate the max times
-calculateMaxTimes <- function(preprocess.mat, compounds){
+calculateMaxTimes <- function(preprocess.mat, compounds, time.offset){
   Nsim = ncol(preprocess.mat[[1]])
   maxtime <- data.frame(tmp=numeric(Nsim))
   for (kc in seq(1, length(compounds)) ){
     name = paste("PV__", compounds[kc], sep="")
-    time = as.numeric(rownames(data))
+    print(name)
     data <- preprocess.mat[[name]]
+    time = as.numeric(rownames(data))
     maxtime[[name]] <- numeric(Nsim)    
     # find the max values for all simulations
     for (k in seq(1, Nsim)){
-      maxtime[[name]][k] = time[ which.max(data[,k]) ]
+      maxtime[[name]][k] = time[ which.max(data[,k]) ]- time.offset
     }
   }
   maxtime$tmp <- NULL
   maxtime
 }
 
+tmp <- calculateMaxTimes(preprocess.mat, compounds, 10.0)
+head(tmp)
+summary(tmp)
+
 # Create the boxplots with the mean curves
-createFullPlot <- function () {
+createFullPlot <- function (maxtime, ccolors, time.offset) {
   if (create_plot_files){
-    png(filename=paste(ma.settings$dir.results, '/', task, "_Dilution_Curves_Combined.png", sep=""),
+    png(filename=paste(ma.settings$dir.results, '/', task, "_MultipleIndicator_with_experimental_data.png", sep=""),
         width = 1400, height = 1400, units = "px", bg = "white",  res = 150)
   }
   par(mfrow=c(2,1))
-  boxplot(maxtime, col=ccolors, horizontal=T,  ylim=c(0,20),
-          xaxt="n", # suppress the default x axis
-          yaxt="n", # suppress the default y axis
-          frame="f" # suppress the plotting frame
-  )
+    boxplot(maxtime, col=ccolors, horizontal=T,  ylim=c(0,20),
+            xaxt="n", # suppress the default x axis
+            yaxt="n", # suppress the default y axis
+            bty="n") # suppress the plotting frame
+  
   # Plot curves
-  plot(numeric(0), numeric(0), 
-       xlim=c(0,20), ylim=c(0,20),
-       # xlim=c(0,40), ylim=c(1E-3,20), log="y",
-       # frame="f", # suppress the plotting frame
+  plot(numeric(0), numeric(0), xlim=c(0,20), ylim=c(0,20),
        xlab="time [s]", ylab="10^3 x outflow fraction/ml")
   
   f_scale=40
   for (kc in seq(1, length(compounds)) ){
     name = paste("PV__", compounds[kc], sep="")
-    data <- preprocess.mat[[name]] + 1E-06
+    data <- preprocess.mat[[name]]  #+1E-06 fix for logscale
+    time <- as.numeric(rownames(data))-time.offset
     
     # plot the mean and std for time courses
     rmean <- rowMeans(data)
     rstd <- rowSds(data)
     lines(time, rmean*f_scale, col=ccolors[kc], lwd=4)
-    # lines(time, rmean2, col=ccolors[kc], lwd=4, lty=2)
-    # lines(time, (rmean+rstd)*f_scale, col=ccolors[kc], lwd=1, lty=2)
-    # lines(time, (rmean-rstd)*f_scale, col=ccolors[kc], lwd=1, lty=2)
+    lines(time, (rmean+rstd)*f_scale, col=ccolors[kc], lwd=1, lty=2)
+    lines(time, (rmean-rstd)*f_scale, col=ccolors[kc], lwd=1, lty=2)
   }
   
   ## Add the experimental data from Goresky1983 & 1973 ##
@@ -182,20 +185,20 @@ createFullPlot <- function () {
   plotDilutionData(gor1973[gor1973$condition=="A",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
   plotDilutionData(gor1973[gor1973$condition=="B",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
   plotDilutionData(gor1973[gor1973$condition=="C",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
-  legend("topright",  legend = expcompounds, fill=expcolors)
+  legend("topright",  legend = expcompounds, fill=expcolors) 
   par(mfrow=c(1,1))
   if (create_plot_files){
     dev.off()
   }
 }
 
-createBoxPlot <- function () {
+createBoxPlot <- function (maxtime, ccolors, time.offset) {
   # Boxplot of the maxtimes
   if (create_plot_files){
     png(filename=paste(ma.settings$dir.results, '/', task, "_Boxplot_MaxTimes", sep=""),
         width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
   }
-  boxplot(maxtime-10, col=ccolors, horizontal=T, xlab="time [s]")
+  boxplot(maxtime-time.offset, col=ccolors, horizontal=T, xlab="time [s]")
   if (create_plot_files){
     dev.off()
   }
@@ -205,6 +208,7 @@ createBoxPlot <- function () {
 create_plot_files = TRUE
 compounds = c('rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
+time.offset = 10.0  # peak start of input
 
 expcompounds = c('RBC', 'albumin', 'sucrose', 'water')
 expcolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
@@ -223,8 +227,8 @@ for (kt in seq(Ntask)){
   # Load the data
   load(file=outfileFromParsFile(parsfile))
   # Calculate the max times
-  maxtime <- calculateMaxTimes(preprocess.mat, compounds) 
+  maxtime <- calculateMaxTimes(preprocess.mat, compounds, time.offset) 
   print(summary(maxtime))
-  createFullPlot()
-  createBoxPlot()
+  createFullPlot(maxtime, ccolors, time.offset=time.offset)
+  # createBoxPlot(maxtime, ccolors, time.offset=time.offset)
 }
