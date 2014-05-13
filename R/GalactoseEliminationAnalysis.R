@@ -5,7 +5,7 @@
 # galactose and varying blood flow
 #
 # author: Matthias Koenig
-# date: 2014-05-11
+# date: 2014-05-13
 ################################################################
 rm(list=ls())
 library(data.table)
@@ -16,11 +16,11 @@ setwd(ma.settings$dir.results)
 ###########################################################################
 # load parameters
 ###########################################################################
-sname <- '2014-05-12_Galactose'
+sname <- '2014-05-13_Galactose'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
 load_with_sims = FALSE;
-task = 'T26'
-modelId <- 'Galactose_v16_Nc20_Nf1'
+task = 'T30'
+modelId <- 'Galactose_v18_Nc20_Nf1'
 parsfile <- file.path(ma.settings$dir.results, sname, 
                       paste(task, '_', modelId, '_parameters.csv', sep=""))
 

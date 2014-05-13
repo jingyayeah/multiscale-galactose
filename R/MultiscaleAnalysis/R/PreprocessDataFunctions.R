@@ -71,6 +71,14 @@ preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.in
   }  
   
   # Read simulations
+  missing <- findMissingTimecourses(pars=pars, dir=sim.dir)
+  if (length(missing) > 0){
+    for (name in names(missing)){
+      warning(name)
+    }
+    stop()
+  }
+  
   preprocess.list = readColumnData(pars=pars.sim, dir=sim.dir, col.indices_f)
   preprocess.mat <- createDataMatrices(dir=sim.dir, datalist=preprocess.list)
   
@@ -82,6 +90,20 @@ preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.in
   outFile
 }
 
+#' Find missing timecourse files.
+#' @export
+findMissingTimecourses <- function(pars, dir){
+  # check if all the files are available
+  simulations <- row.names(pars)
+  missing <- list()
+  for (simId in simulations){
+    fname <- getSimulationFileFromSimulationId(dir, simId)
+    if (!file.exists(fname)){
+      missing[[fname]] <- fname
+    }
+  }
+  missing
+}
 
 #' Read all col.indices components in a list structure.
 #' Parameter data pars has to be available in environment. For all simulations
@@ -112,6 +134,7 @@ readColumnData <- function(pars, dir, col.indices_f){
 #' @export
 readDataForSimulation <- function(dir, simId, col.indices_f){
   fname <- getSimulationFileFromSimulationId(dir, simId)
+  
   # much faster solution than read.csv
   # data <- read.csv(file=fname)
   # ! careful data is not striped with fread

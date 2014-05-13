@@ -11,7 +11,7 @@
 ############################################################
 
 DATE=2014-05-13
-SIMTYPE=MultipleIndicator
+SIMTYPE=Galactose
 
 IPS=(10.39.32.106 10.39.32.189 10.39.34.27)
 DATA_DIR=~/multiscale-galactose-results/${DATE}_${SIMTYPE}

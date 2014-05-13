@@ -77,6 +77,7 @@ def unassignSimulation(sim):
     sim.core = None
     sim.file = None
     sim.time_assign = None
+    sim.time_sim = None
     sim.save();
     print "Simulation reset: ", sim
     
@@ -134,9 +135,9 @@ if __name__ == "__main__":
     
     unassignHangingAssignedSimulations();
     
-    #pks = range(24921, 24949)
-    # print(pks)
-    # unassignSimulationsByPk(pks)
+    pks = (26985, )
+    print(pks)
+    unassignSimulationsByPk(pks)
     
     # Remove simulations for task
     #task_pks = (26,)
