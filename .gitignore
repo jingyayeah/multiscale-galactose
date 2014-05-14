@@ -5,6 +5,8 @@ cpp/copasi/CopasiModelRunner/example1.xml
 cpp/copasi/CopasiModelRunner/build/*
 cpp/copasi/CopasiModelRunner/Debug/*
 R/MultiscaleAnalysis/.RData
+R/MultiscaleAnalysis/.Rhistory
+
 .~*
 *.pyc
 *.dot

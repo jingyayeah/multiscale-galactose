@@ -81,6 +81,11 @@ pars$flow_sin <- factor(pars$flow_sin)
 levels(pars$flow_sin)
 pars$flow_sin
 
+# Get the additional information for the parameters
+names(pars)
+
+
+
 # Created Figure
 par(mfrow=c(2,2))
   plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
@@ -89,22 +94,34 @@ par(mfrow=c(2,2))
   plot(ptest$FL, ptest$CL, xlab="sinusoidal blood flow [µm/sec]", ylab="Clearance (CL) [µm/sec]") 
 par(mfrow=c(1,1))
 
+par(mfrow=c(1,2))
+plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
+plot(ptest$flow_sin, ptest$GE, xlab="sinusoidal blood flow [µm/sec]", ylab="Galactose Elimination (GE) [mmol/l]")
+par(mfrow=c(1,1))
+
+par(mfrow=c(1,2))
+plot(ptest$FL, ptest$ER, xlab="sinusoidal blood flow [µm/sec]", ylab="Extraction Ratio (ER) [-]")
+plot(ptest$FL, ptest$CL, xlab="sinusoidal blood flow [µm/sec]", ylab="Clearance (CL) [µm/sec]") 
+par(mfrow=c(1,1))
+
+
 plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
 # plot the ones connected which are similar
 
-install.packages("scatterplot3d")
-library('scatterplot3d')
-scatterplot3d(x = ptest$c_in, y = ptest$flow_sin, z = ptest$GE)
-install.packages('lattice')
 
+install.packages('lattice')
 data <- list()
 data$x = ptest$c_in
 data$y = ptest$flow_sin
 data$z = ptest$GE
+# data$z = ptest$ER
+# data$z <- ptest$CL
+zlab <- 'GE'
+
 library(lattice)
 wireframe(z ~ x * y, data=data, xlab="PP galactose [mM]", ylab="blood flow",
           zlab="GE")
-p <- wireframe(z ~ x * y, data=data, xlab="PP galactose [mM]", ylab="blood flow",zlab="GE")
+p <- wireframe(z ~ x * y, data=data, xlab="PP galactose [mM]", ylab="blood flow",zlab=zlab)
 npanel <- c(4, 2)
 rotx <- c(-50, -80)
 rotz <- seq(30, 300, length = npanel[1]+1)
@@ -113,6 +130,7 @@ update(p[rep(1, prod(npanel))], layout = npanel,
          panel.wireframe(..., screen = list(z = rotz[current.column()],
                                             x = rotx[current.row()]))
        })
+
 
 
 inds <- which(pars$flow_sin==2e-04)

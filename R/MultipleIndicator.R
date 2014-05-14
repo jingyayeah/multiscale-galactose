@@ -65,7 +65,8 @@ getColorsForWeights <- function (weights) {
 
 # Preprocess the parameters for scaling
 
-for (kt in seq(Ntask)){
+# for (kt in seq(Ntask)){
+for (kt in seq(1)){
   task <- tasks[kt]
   peak <- peaks[kt]
   modelId <- paste('MultipleIndicator_', peak, '_', version, '_Nc20_Nf1', sep='')
@@ -113,11 +114,19 @@ for (kt in seq(Ntask)){
   plotMultipleIndicatorMean(time, preprocess.mat, weights=NULL, create_plot_files=T)
 }
 
+max(preprocess.mat[["PP__alb"]])
 # some example plots
-rm(preprocess.mat)
-name="PV__rbcM"
+name="PP__alb"
+create_plot_files = TRUE
+if (create_plot_files){
+  png(filename=paste(ma.settings$dir.results, '/', task, "_test_", name, sep=""),
+      width = 500, height = 500, units = "px", bg = "white",  res = 72)
+}
 time <- getTimeFromPreprocessMatrix(preprocess.mat) - 10.0
-plotCompound(time, preprocess.mat[[name]], name, col=ccolors[name], ylim=c(0,1.2))
+plotCompound(time, preprocess.mat[[name]], name, col=ccolors[name], ylim=c(0,2.1))
+if (create_plot_files){
+  dev.off()
+}
 
 ###################################################################################
 # Dilution curves with experimental data
