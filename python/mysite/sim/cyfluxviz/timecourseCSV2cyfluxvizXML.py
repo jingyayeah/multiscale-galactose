@@ -62,7 +62,10 @@ CONCENTRATION_TYPE_NODE = 'nodeConcentration';
 ###################################################
 
 def csv2xml(csvfile, xmlfile, model, sep=",", comment="#"):
-    ''' Converts csv with given SBML model to the xml. '''
+    ''' Converts csv with given SBML model to the xml. 
+        TODO: very crude way to read the csv, no handling
+              empty lines and comments.
+    '''
     # get species and reactions dictionaries
     species = getSpeciesDictFromModel(model);
     reactions = getReactionsDictFromModel(model);
@@ -70,6 +73,20 @@ def csv2xml(csvfile, xmlfile, model, sep=",", comment="#"):
     # Create core xml
     root = et.Element(FD_COLLECTION)
     fdListElement = et.SubElement(root, FD_LIST)
+
+    # get the maximum count
+    count_max = 0
+    f_csv = open(csvfile, 'r')
+    for line in f_csv:
+        count_max = count_max + 1
+    f_csv.close()
+
+    # create the xml file
+    xmlstring = prettyXML(root)
+    print xmlfile
+    f = open(xmlfile, 'w')
+    f.write(xmlstring)
+    f.close
 
     # get header and items
     count = 0
@@ -84,7 +101,7 @@ def csv2xml(csvfile, xmlfile, model, sep=",", comment="#"):
             items_dict = dict()
             for k in xrange(len(header)):
                 items_dict[header[k]] = items[k]
-            createFluxDistribution(fdListElement, items_dict, model, reactions, species);
+            createFluxDistribution(1.0*count/count_max, fdListElement, items_dict, model, reactions, species);
         count = count + 1
 
     xmlstring = prettyXML(root)
@@ -93,11 +110,11 @@ def csv2xml(csvfile, xmlfile, model, sep=",", comment="#"):
     f.write(xmlstring)
     f.close
 
-def createFluxDistribution(fdListElement, items_dict, model, reactions, species):
+def createFluxDistribution(count_rel, fdListElement, items_dict, model, reactions, species):
     ''' Writes single flux distribution in the xml '''
     modelId = model.getId()
     time = str(items_dict['time'])
-    simId = 'time_' + time
+    simId = str(count_rel) + 'time_' + time
     
     #Create the FD Element and set the attributes
     fdElement = et.SubElement(fdListElement, FD)
@@ -138,7 +155,7 @@ if __name__ == "__main__":
     print 'Test: timecourse2cyfluxviz'
     from sim.models import Simulation
     
-    sim = Simulation.objects.get(pk=568)
+    sim = Simulation.objects.get(pk=780)
     
     csvfile = str(sim.timecourse.file.path)
     print csvfile

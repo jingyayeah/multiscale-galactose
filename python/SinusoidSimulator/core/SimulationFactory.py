@@ -134,15 +134,23 @@ if __name__ == "__main__":
     if (1):
         print '*** MULTIPLE INDICATOR ***'
         # MultipleIndicator Simulations with variable tracer peak duration
+        # The peak time definition is done in the model generation.
+        # -> adapt the simulations 
         info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).
         Flow adapted via the liver scaling factor after sampling!'''
         # integration
+        #integration, created = Integration.objects.get_or_create(tstart=0.0, 
+        #                                                     tend=100.0, 
+        #                                                     tsteps=4000,
+        #                                                     abs_tol=1E-6,
+        #                                                     rel_tol=1E-6)
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=100.0, 
-                                                             tsteps=4000,
+                                                             tend=30.0, 
+                                                             tsteps=120,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
-        peaks = range(0,3)
+        # peaks = range(0,3)
+        peaks = range(0,1)
         for kp in peaks:
             # model
             sbml_id = "MultipleIndicator_P%02d_v18_Nc20_Nf1" % kp
@@ -151,7 +159,7 @@ if __name__ == "__main__":
             copySBML()
             # Simulations
             task = createTask(model, integration, info);
-            createMultipleIndicatorSimulationTask(task, N=900, sampling="distribution") 
+            createMultipleIndicatorSimulationTask(task, N=1, sampling="mean") 
     #----------------------------------------------------------------------#
     if (0):
         print '*** GALACTOSE SIMULATIONS ***'

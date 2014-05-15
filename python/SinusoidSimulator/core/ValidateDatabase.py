@@ -135,15 +135,15 @@ if __name__ == "__main__":
     
     unassignHangingAssignedSimulations();
     
-    pks = (26985, )
-    print(pks)
-    unassignSimulationsByPk(pks)
+    #pks = (26985, )
+    #print(pks)
+    # unassignSimulationsByPk(pks)
     
     # Remove simulations for task
-    #task_pks = (26,)
-    #for pk in task_pks:
-    #    task = Task.objects.get(pk=pk)
-    #    removeSimulationsForTask(task)
+    task_pks = (14,)
+    for pk in task_pks:
+        task = Task.objects.get(pk=pk)
+        removeSimulationsForTask(task)
     # TODO: also clean the tmp files and local files after removing simulations
     
     
