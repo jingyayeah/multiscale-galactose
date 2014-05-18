@@ -1,3 +1,6 @@
+# install dependencies
+sudo apt-get install git cmake g++ libgl1-mesa-dev libglu1-mesa-dev libqt4-dev libxml2-dev zlib1g-dev byacc flex
+
 # building copasi from scratch
 rm -rf ~/copasi
 mkdir ~/copasi
