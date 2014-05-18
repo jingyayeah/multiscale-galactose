@@ -139,17 +139,17 @@ if __name__ == "__main__":
         info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).
         Flow adapted via the liver scaling factor after sampling!'''
         # integration
-        #integration, created = Integration.objects.get_or_create(tstart=0.0, 
-        #                                                     tend=100.0, 
-        #                                                     tsteps=4000,
-        #                                                     abs_tol=1E-6,
-        #                                                     rel_tol=1E-6)
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=30.0, 
-                                                             tsteps=120,
+                                                             tend=100.0, 
+                                                             tsteps=4000,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
-        # peaks = range(0,3)
+#         integration, created = Integration.objects.get_or_create(tstart=0.0, 
+#                                                              tend=30.0, 
+#                                                              tsteps=120,
+#                                                              abs_tol=1E-6,
+#                                                              rel_tol=1E-6)
+#         # peaks = range(0,3)
         peaks = range(0,1)
         for kp in peaks:
             # model
@@ -159,7 +159,8 @@ if __name__ == "__main__":
             copySBML()
             # Simulations
             task = createTask(model, integration, info);
-            createMultipleIndicatorSimulationTask(task, N=1, sampling="mean") 
+            createMultipleIndicatorSimulationTask(task, N=100, sampling="distribution")
+            # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
     if (0):
         print '*** GALACTOSE SIMULATIONS ***'
