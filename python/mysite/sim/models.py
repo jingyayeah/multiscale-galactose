@@ -37,11 +37,10 @@ class Core(models.Model):
     cpu = models.IntegerField()
     time = models.DateTimeField(default=timezone.now);
     
-    computer_names = {'10.39.34.27':'sysbio2',
+    computer_names = {'10.39.34.27':'core',
                       '10.39.32.189':'sysbio1',
-                      '10.39.32.113':'oldmint',
                       '10.39.32.106':'mint',
-                      '10.39.32.111':'mkoenig-desktop',
+                      '10.39.32.111':'sysbio2',
                       '127.0.0.1':'mkoenig-zenbook'}
         
     def __unicode__(self):

@@ -105,6 +105,11 @@ def perform_simulation(sim, folder):
     sim.file = File(f)
     sim.save()
     
+    # TODO: try/catch and unassign the simulations if some errors occur
+    # will save lots of problems - what is the best strategy
+    # - do not waste cores in unassigned state, but assign ERROR
+    
+    
     # run an operating system command
     # call(["ls", "-l"])
     call_command = COPASI + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
@@ -156,6 +161,9 @@ def worker(cpu, lock):
             time.sleep(20)
 
 if __name__ == "__main__": 
+    # TODO: listening cores should be updated in the cores
+    
+    
     # run the process on all cpus
     cpus = multiprocessing.cpu_count()
     print 'Number of CPU: ', cpus 
