@@ -36,6 +36,7 @@ import os
 import sys
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+import traceback
 import time
 import multiprocessing
 from subprocess import call
@@ -47,7 +48,8 @@ import struct
 from django.utils import timezone
 from django.core.files import File
 from ConfigFileFactory import create_config_file_in_folder
-from sim.models import Core, Simulation, UNASSIGNED, ASSIGNED, DONE, Timecourse
+from sim.models import Core, Simulation, Timecourse
+from sim.models import UNASSIGNED, ASSIGNED, DONE, ERROR
 
 
 def get_ip_address(ifname='eth0'):
@@ -98,42 +100,47 @@ def assign_simulation(core):
 def perform_simulation(sim, folder):
     ''' 
     Run ODE integration for the simulation. 
+    Error handling is done via try/except 
+    Cores are not hanging, but simulations are put into an ERROR state.
+    Mainly problems if files are not available.
     '''
-    sbml_file = sim.task.sbml_model.file.path
-    sbml_id = sim.task.sbml_model.sbml_id
-    config_file = create_config_file_in_folder(sim, folder)
-    timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_copasi.csv'
+    try:
+        sbml_file = sim.task.sbml_model.file.path
+        sbml_id = sim.task.sbml_model.sbml_id
+        config_file = create_config_file_in_folder(sim, folder)
+        timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_copasi.csv'
     
-    #Store the config file in the database
-    f = open(config_file, 'r')
-    sim.file = File(f)
-    sim.save()
+        #Store the config file in the database
+        f = open(config_file, 'r')
+        sim.file = File(f)
+        sim.save()
     
-    # TODO: try/catch and unassign the simulations if some errors occur
-    # will save lots of problems - what is the best strategy
-    # - do not waste cores in unassigned state, but assign ERROR
+        # run an operating system command
+        # call(["ls", "-l"])
+        call_command = COPASI + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
+        print call_command
+        call(shlex.split(call_command))
     
+        # Store Timecourse Results
+        f = open(timecourse_file, 'r')
+        myfile = File(f)
+        tc, created = Timecourse.objects.get_or_create(simulation=sim)
+        if (not created):
+            print 'Timecourse already exists and is overwritten!'
+        tc.file = myfile
+        tc.save();
     
-    # run an operating system command
-    # call(["ls", "-l"])
-    call_command = COPASI + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
-    print call_command
-    call(shlex.split(call_command))
-    
-    # Store Timecourse Results
-    f = open(timecourse_file, 'r')
-    myfile = File(f)
-    tc, created = Timecourse.objects.get_or_create(simulation=sim)
-    if (not created):
-        print 'Timecourse already exists and is overwritten!'
-    tc.file = myfile
-    tc.save();
-    
-    # simulation finished (update simulation information and save)
-    sim.time_sim = timezone.now()
-    sim.status = DONE
-    sim.save()
-    
+        # simulation finished (update simulation information and save)
+        sim.time_sim = timezone.now()
+        sim.status = DONE
+        sim.save()
+    except Exception:
+        print "Exception in multiscale-galactose:"
+        print '-'*60
+        traceback.print_exc(file=sys.stdout)
+        print '-'*60
+        sim.status = ERROR
+        sim.save()
 
 def info(title):
     print title

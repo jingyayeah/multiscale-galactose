@@ -207,6 +207,7 @@ class Task(models.Model):
 UNASSIGNED = "UNASSIGNED"
 ASSIGNED = "ASSIGNED"
 DONE = "DONE"
+ERROR = "ERROR"
 
 class UnassignedSimulationManager(models.Manager):
     def get_queryset(self):
@@ -228,6 +229,7 @@ class Simulation(models.Model):
     SIMULATION_STATUS = (
                          (UNASSIGNED, 'unassigned'),
                          (ASSIGNED, 'assigned'),
+                         (ERROR, 'error'),
                          (DONE, 'done'),
     )
     task = models.ForeignKey(Task)
