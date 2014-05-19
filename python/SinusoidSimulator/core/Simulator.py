@@ -160,7 +160,7 @@ def worker(cpu, lock):
     while(True):
         # Update the time for the core
         core = get_core_by_ip_and_cpu(ip, cpu)
-        print core
+        
         
         # Assign simulation
         lock.acquire()
@@ -172,7 +172,7 @@ def worker(cpu, lock):
         if (sim):
             perform_simulation(sim, SIM_FOLDER)
         else:
-            print "... no unassigned simulations ...";
+            print core, "... no unassigned simulations ...";
             time.sleep(20)
 
 if __name__ == "__main__": 
