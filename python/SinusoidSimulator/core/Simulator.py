@@ -60,6 +60,11 @@ def get_ip_address(ifname='eth0'):
 
     
 def get_core_by_ip_and_cpu(ip, cpu):
+    '''
+    Gets the core from the ip and cpu information and updates the time.
+    The time is the last time the core was requested, i.e. it was tried to use
+    the core for simulations.
+    '''
     core_qset = Core.objects.filter(ip=ip, cpu=cpu)
     if (core_qset.exists()):
         core = core_qset[0]
@@ -71,7 +76,7 @@ def get_core_by_ip_and_cpu(ip, cpu):
     return core
 
 
-def assign_simulation(ip, cpu):
+def assign_simulation(core):
     ''' 
     Gets an unassigned simulation and assigns the core to it.
     Returns None if no simulation could be assigned 
@@ -79,11 +84,8 @@ def assign_simulation(ip, cpu):
     '''
     unassigned = Simulation.objects.filter(status=UNASSIGNED);
     if (unassigned.exists()):
-        # is only save on single computer via logging assig
+        # assign the first unassigned simulation
         sim = unassigned[0]
-        
-        # Get the core and update the status for the core
-        core = get_core_by_ip_and_cpu(ip, cpu)
         sim.time_assign = timezone.now()
         sim.core = core
         sim.status = ASSIGNED
@@ -94,7 +96,9 @@ def assign_simulation(ip, cpu):
     
 
 def perform_simulation(sim, folder):
-    ''' Run ODE integration for the simulation. '''
+    ''' 
+    Run ODE integration for the simulation. 
+    '''
     sbml_file = sim.task.sbml_model.file.path
     sbml_id = sim.task.sbml_model.sbml_id
     config_file = create_config_file_in_folder(sim, folder)
@@ -129,6 +133,7 @@ def perform_simulation(sim, folder):
     sim.time_sim = timezone.now()
     sim.status = DONE
     sim.save()
+    
 
 def info(title):
     print title
@@ -146,27 +151,28 @@ def worker(cpu, lock):
         print "No 'eth0 found, using 127.0.0.1"
     
     while(True):
+        # Update the time for the core
+        core = get_core_by_ip_and_cpu(ip, cpu)
+        print core
+        
+        # Assign simulation
+        lock.acquire()
         # assign the simulations within a lock so every simulation is only assigned
         # to one core (otherwise multiple assignment bugs will arise)
-        lock.acquire()
-        sim = assign_simulation(ip, cpu)
+        sim = assign_simulation(core)
         lock.release()
         
-        print 'ip:cpu ->', ip, ':', cpu
         if (sim):
-            # TODO: error management and error handling
             perform_simulation(sim, SIM_FOLDER)
         else:
-            print "no more simulations";
+            print "... no unassigned simulations ...";
             time.sleep(20)
 
 if __name__ == "__main__": 
-    # TODO: listening cores should be updated in the cores
+    # TODO: provide options to not run on all cpus
     
-    
-    # run the process on all cpus
     cpus = multiprocessing.cpu_count()
-    print 'Number of CPU: ', cpus 
+    print 'Number of used CPUs: ', cpus 
     
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()

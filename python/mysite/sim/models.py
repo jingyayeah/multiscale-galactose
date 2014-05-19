@@ -30,8 +30,7 @@ def validate_gt_zero(value):
     if value < 0:
         raise ValidationError(u'%s is not > 0' % value)
 
-# Create your models here.
-# TODO: get name via ip dictionary
+
 class Core(models.Model):
     ip = models.CharField(max_length=200)
     cpu = models.IntegerField()
@@ -41,12 +40,13 @@ class Core(models.Model):
                       '10.39.32.189':'sysbio1',
                       '10.39.32.106':'mint',
                       '10.39.32.111':'sysbio2',
-                      '127.0.0.1':'mkoenig-zenbook'}
+                      '10.39.32.236':'zenbook',
+                      '127.0.0.1':'localhost'}
         
     def __unicode__(self):
         return self.ip + "-cpu-" +str(self.cpu)
     
-    def _is_active(self, cutoff_minutes=20):
+    def _is_active(self, cutoff_minutes=5):
         if not (self.time):
             return False;
         else:
