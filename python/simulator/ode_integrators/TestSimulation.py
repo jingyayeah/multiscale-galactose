@@ -11,7 +11,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
  
 import time
  
-from sim.models import Simulation, Timecourse, ROADRUNNER, DONE
+from sim.models import Simulation, Timecourse, ParameterCollection 
+from sim.models import ROADRUNNER, DONE
 from django.utils import timezone
 from django.core.files import File
 
@@ -22,7 +23,6 @@ def do_simulation(sim, folder):
     sbml_id = sim.task.sbml_model.sbml_id
     config_file = create_config_file_in_folder(sim, folder)
      
-     
     #Store the config file in the database
     f = open(config_file, 'r')
     sim.file = File(f)
@@ -32,36 +32,40 @@ def do_simulation(sim, folder):
     simulator = sim.simulator
      
     if (simulator == ROADRUNNER):
-        timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_roadrunner.csv'
-         
-        print sbml_file
-        print config_file
-        print timecourse_file
         print roadrunner.__version__
-     
-        print 'load model'
         rr = roadrunner.RoadRunner(sbml_file)
         
-        # TODO: make the changes from the config file
+        rr.model
         
-     
+        # make the changes to the model
+        pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
+        for p in pc.parameters.all():
+            print p.name, '=', p.value
+            # sel = rr.createSelection(p.name)
+            setattr(rr.model, p.name, p.value)
+            print getattr(rr.model, p.name)
+    
         print 'simulate'
         start = time.clock()
-        rr.simulate(0, 500, steps=2000, absolute=1E-6, relative=1E-6, stiff=True)
+        opts = sim.task.integration
+        s = rr.simulate(opts.tstart, opts.tend, steps=opts.tsteps, 
+                    absolute=opts.abs_tol, relative=opts.rel_tol, stiff=True)
         elapsed = (time.clock()- start)    
         print 'Time:', elapsed
          
-         
-        # Store Timecourse Results
-        
-#         f = open(timecourse_file, 'r')
-#         myfile = File(f)
-#         tc, created = Timecourse.objects.get_or_create(simulation=sim)
-#         if (not created):
-#             print 'Timecourse already exists and is overwritten!'
-#         tc.file = myfile
-#         tc.save();
-#      
+        # Store Timecourse Results    
+        import numpy as n
+        timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_roadrunner.csv'
+        n.savetxt(timecourse_file, s, header=", ".join(rr.selections))
+            
+        f = open(timecourse_file, 'r')
+        myfile = File(f)
+        tc, created = Timecourse.objects.get_or_create(simulation=sim)
+        if (not created):
+            print 'Timecourse already exists and is overwritten!'
+        tc.file = myfile
+        tc.save();
+      
         # simulation finished (update simulation information and save)
         sim.time_sim = timezone.now()
         sim.status = DONE
