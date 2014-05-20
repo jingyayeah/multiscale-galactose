@@ -150,7 +150,7 @@ if __name__ == "__main__":
 #                                                              abs_tol=1E-6,
 #                                                              rel_tol=1E-6)
 #         # peaks = range(0,3)
-        peaks = range(0,1)
+        peaks = range(0,3)
         for kp in peaks:
             # model
             sbml_id = "MultipleIndicator_P%02d_v18_Nc20_Nf1" % kp
@@ -159,7 +159,7 @@ if __name__ == "__main__":
             copySBML()
             # Simulations
             task = createTask(model, integration, info);
-            createMultipleIndicatorSimulationTask(task, N=100, sampling="distribution")
+            createMultipleIndicatorSimulationTask(task, N=1000, sampling="distribution")
             # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
     if (0):
