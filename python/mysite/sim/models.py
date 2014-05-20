@@ -150,7 +150,6 @@ class ParameterCollection(models.Model):
     parameters = models.ManyToManyField(Parameter)
     
     class Meta:
-        # ordering = ["sbml_id"]
         verbose_name = "ParameterCollection"
         verbose_name_plural = "ParameterCollections"
         
@@ -160,9 +159,7 @@ class ParameterCollection(models.Model):
     def count(self):
         return self.parameters.count()
     
-    #def get_collection_for_pararmeters(self, plist):
-    #    pass
-        
+
         
 class Task(models.Model):
     '''
@@ -180,29 +177,20 @@ class Task(models.Model):
         return "T%d [Int%d]" % (self.pk, self.integration.pk)
 
     def sim_count(self):
-        ''' Number of simulations for task. '''
         return self.simulation_set.count()
     
     def done_count(self):
-        ''' Number of done simulations for task. '''
         return self.simulation_set.filter(status=DONE).count()
     
     def assigned_count(self):
-        ''' Number of assigned simulations for task. '''
         return self.simulation_set.filter(status=ASSIGNED).count()
     
     def unassigned_count(self):
-        ''' Number of done simulations for task. '''
         return self.simulation_set.filter(status=UNASSIGNED).count()
     
+    def error_count(self):
+        return self.simulation_set.filter(status=ERROR).count()
 
-    '''
-    class Series(models.Model):
-        Series are compatible on the model and used integration settings, i.e.
-        the simulations belong to the same task.
-        Furthermore they are compatible on the parameters, i.e. every simulation
-        in the series has the same number of parameters, with the same names.
-    '''
 
 UNASSIGNED = "UNASSIGNED"
 ASSIGNED = "ASSIGNED"
@@ -211,6 +199,11 @@ ERROR = "ERROR"
 
 COPASI = "COPASI"
 ROADRUNNER = "ROADRUNNER"
+
+class ErrorSimulationManager(models.Manager):
+    def get_queryset(self):
+        return super(ErrorSimulationManager, 
+                     self).get_queryset().filter(status=ERROR)
 
 class UnassignedSimulationManager(models.Manager):
     def get_queryset(self):
@@ -256,6 +249,7 @@ class Simulation(models.Model):
     time_sim = models.DateTimeField(null=True, blank=True)
     
     objects = models.Manager();
+    error_objects = ErrorSimulationManager()
     unassigned_objects = UnassignedSimulationManager()
     assigned_objects = AssignedSimulationManager()
     done_objects = DoneSimulationManager()
@@ -266,6 +260,8 @@ class Simulation(models.Model):
     def __unicode__(self):
         return 'Sim%d' % (self.pk)
     
+    def is_error(self):
+        return self.status == self.ERROR
     def is_unassigned(self):
         return self.status == self.UNASSIGNED
     def is_assigned(self):

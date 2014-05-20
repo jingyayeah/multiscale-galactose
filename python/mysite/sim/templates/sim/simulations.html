@@ -6,7 +6,8 @@
 		<a href="{% url 'sim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
 		<a href="{% url 'sim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
 		<a href="{% url 'sim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
-		<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a>
+		<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> | 
+		<a href="{% url 'sim:simulations' 'ERROR'%}"><span class="ERROR">ERROR</span></a>
 		] 
 		</caption>
 	<thead>
@@ -71,7 +72,8 @@
     	<a href="{% url 'sim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
     	<a href="{% url 'sim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
 		<a href="{% url 'sim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
-		<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a>
+		<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> | 
+		<a href="{% url 'sim:simulations' 'ERROR'%}"><span class="ERROR">ERROR</span></a>
 		] 
     
 {% endif %}

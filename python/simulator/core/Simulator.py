@@ -188,24 +188,25 @@ def worker(cpu, lock):
 
 if __name__ == "__main__": 
     # TODO: provide options to not run on all cpus
-    # TODO: manage the integrators
+    # TODO: implement RoadRunner
     
-    # TODO: read the command line arguments and adapt the integration
     from optparse import OptionParser
     import math
+    
     parser = OptionParser()
     parser.add_option("-c", "--cpu", dest="cpu_load",
                   help="CPU load between 0 and 1, i.e. 0.5 uses half the cpus")
     (options, args) = parser.parse_args()
     
     print '#'*60
-    print '# Simulator: '
+    print '# Simulator '
     print '#'*60
-    
     cpus = multiprocessing.cpu_count()
-    print 'Number of used CPUs: ', cpus 
+    print 'CPUs: ', cpus 
     if (options.cpu_load):
-        cpus = math.floor(options.cpu_load*cpus)
+        cpus = int(math.floor(float(options.cpu_load)*cpus))
+    print 'Used CPUs: ', cpus
+    print '#'*60
     
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()

@@ -171,12 +171,16 @@ span.ALL{
     font-weight:bolder;
 }
 
-span.UNASSIGNED, span.BAD{
+span.ERROR, span.BAD{
 	color:red;
 	font-weight:bolder;
 }
-span.ASSIGNED{
+span.UNASSIGNED, span.BAD{
 	color:orange;
+	font-weight:bolder;
+}
+span.ASSIGNED{
+	color:blue;
 	font-weight:bolder;
 }
 span.DONE, span.GOOD{
