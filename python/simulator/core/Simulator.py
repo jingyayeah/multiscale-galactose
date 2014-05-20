@@ -33,7 +33,7 @@ TODO: handle simulation priorities.
 '''
 
 SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim"
-COPASI = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/build/CopasiModelRunner"  
+COPASI_EXEC = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/build/CopasiModelRunner"  
 
 import os
 import sys
@@ -52,7 +52,7 @@ from django.utils import timezone
 from django.core.files import File
 from ConfigFileFactory import create_config_file_in_folder
 from sim.models import Core, Simulation, Timecourse
-from sim.models import UNASSIGNED, ASSIGNED, DONE, ERROR
+from sim.models import UNASSIGNED, ASSIGNED, DONE, ERROR, COPASI, ROADRUNNER
 
 
 def get_ip_address(ifname='eth0'):
@@ -86,8 +86,9 @@ def assign_simulation(core):
     Gets an unassigned simulation and assigns the core to it.
     Returns None if no simulation could be assigned 
     Is performed in a lock so that multiple cores do not get the same unassigned simulation.
+    Ordered by priority
     '''
-    unassigned = Simulation.objects.filter(status=UNASSIGNED);
+    unassigned = Simulation.objects.filter(status=UNASSIGNED).order_by('priority');
     if (unassigned.exists()):
         # assign the first unassigned simulation
         sim = unassigned[0]
@@ -117,12 +118,19 @@ def perform_simulation(sim, folder):
         f = open(config_file, 'r')
         sim.file = File(f)
         sim.save()
+        
+        # Choose simulator
+        simulator = sim.simulator
     
-        # run an operating system command
-        # call(["ls", "-l"])
-        call_command = COPASI + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
-        print call_command
-        call(shlex.split(call_command))
+        if (simulator == COPASI):
+            # run an operating system command
+            # call(["ls", "-l"])
+            call_command = COPASI_EXEC + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
+            print call_command
+            call(shlex.split(call_command))
+        elif (simulator == ROADRUNNER):
+            print 'Roadrunner not supported yes'
+        
     
         # Store Timecourse Results
         f = open(timecourse_file, 'r')
@@ -180,9 +188,24 @@ def worker(cpu, lock):
 
 if __name__ == "__main__": 
     # TODO: provide options to not run on all cpus
+    # TODO: manage the integrators
+    
+    # TODO: read the command line arguments and adapt the integration
+    from optparse import OptionParser
+    import math
+    parser = OptionParser()
+    parser.add_option("-c", "--cpu", dest="cpu_load",
+                  help="CPU load between 0 and 1, i.e. 0.5 uses half the cpus")
+    (options, args) = parser.parse_args()
+    
+    print '#'*60
+    print '# Simulator: '
+    print '#'*60
     
     cpus = multiprocessing.cpu_count()
     print 'Number of used CPUs: ', cpus 
+    if (options.cpu_load):
+        cpus = math.floor(options.cpu_load*cpus)
     
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()

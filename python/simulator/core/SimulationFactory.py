@@ -152,7 +152,7 @@ if __name__ == "__main__":
 #                                                              abs_tol=1E-6,
 #                                                              rel_tol=1E-6)
 
-        simulator = COPASI        
+        simulator = ROADRUNNER        
         peaks = range(0,3)
         for kp in peaks:
             # model
@@ -162,7 +162,7 @@ if __name__ == "__main__":
             copySBML()
             # Simulations
             task = createTask(model, integration, info);
-            createMultipleIndicatorSimulationTask(task, simulator, N=100, sampling="distribution")
+            createMultipleIndicatorSimulationTask(task, simulator, N=10, sampling="distribution")
             # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
     if (0):
