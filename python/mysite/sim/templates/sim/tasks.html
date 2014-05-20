@@ -1,7 +1,6 @@
 {% extends "sim/base_generic.html" %} {% load staticfiles %}
 {% load Parameter_filters %}
 {% block content %}
-{% if tasks_list %}
 	<table id="table_items">
 	<caption>Tasks [{{tasks_list.count}}]</caption>
     <thead>
@@ -38,7 +37,4 @@
     {% endfor %}
     </tbody>
     </table>
-{% else %}
-    <p>No Tasks in database.</p>
-{% endif %}
 {% endblock %}

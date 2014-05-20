@@ -1,6 +1,5 @@
 {% extends "sim/base_generic.html" %} {% load staticfiles %}
 {% block content %}
-{% if timecourses %}
 	<table id="table_items">
 	<caption>Timecourses</caption>
 	<thead>
@@ -40,9 +39,5 @@
         </span>
     </span>
 	</div>
-{% else %}
-	<h1>Timecourses</h1>
-    <p>No Timecourses in database.</p>
-{% endif %}
 
 {% endblock %}

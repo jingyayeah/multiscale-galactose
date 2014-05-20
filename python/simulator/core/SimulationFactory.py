@@ -159,7 +159,7 @@ if __name__ == "__main__":
             sbml_id = "MultipleIndicator_P%02d_v18_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
-            copySBML()
+            # copySBML()
             # Simulations
             task = createTask(model, integration, info);
             createMultipleIndicatorSimulationTask(task, simulator, N=10, sampling="distribution")

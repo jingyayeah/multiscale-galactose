@@ -1,6 +1,6 @@
 {% extends "sim/base_generic.html" %} {% load staticfiles %}
 {% block content %}
-{% if model_list %}
+
 	<table id="table_items">
 	<caption>Models [{{model_list.count}}]</caption>
     <thead>
@@ -23,7 +23,4 @@
     {% endfor %}
     </tbody>
     </table>
-{% else %}
-    <p>No models in database.</p>
-{% endif %}
 {% endblock %}
