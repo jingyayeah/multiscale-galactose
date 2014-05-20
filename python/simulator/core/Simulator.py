@@ -27,6 +27,9 @@ on which computer generates the files locally. This has to be synchronized.
 TODO: handle errors in the integration (ERROR code and storage
 of problems for debugging)
 TODO: handle all Folders by setting $MULTISCALE_GALACTOSE variable and bash variables
+
+TODO: switch the simulators depening on the simulator.
+TODO: handle simulation priorities.
 '''
 
 SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim"

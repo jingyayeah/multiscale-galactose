@@ -44,12 +44,12 @@ def createDemoSimulations(task, N=10, sampling='distribution'):
     return task
 
 
-def createMultipleIndicatorSimulationTask(task, N=10, sampling="distribution"):
+def createMultipleIndicatorSimulationTask(task, simulator, N=10, sampling="distribution"):
     ''' MulitpleIndicator simulations '''
     dist_data = getMultipleIndicatorDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
     for s in samples:
-        createSimulationForParameterSample(task=task, sample=s)
+        createSimulationForParameterSample(task=task, simulator=simulator, sample=s)
         
 
 def createGalactoseSimulations(task, gal_range, flow_range, N=1, deficiencies=[0], sampling='mean'):
@@ -71,7 +71,7 @@ def createGalactoseSimulations(task, gal_range, flow_range, N=1, deficiencies=[0
                     createSimulationForParameterSample(task, sample=snew)
 
 
-def createSimulationForParameterSample(task, sample):
+def createSimulationForParameterSample(task, simulator, sample):
     ''' 
     Create the single Parameters, the combined ParameterCollection
     and the simulation based on the Parametercollection for the
@@ -93,7 +93,8 @@ def createSimulationForParameterSample(task, sample):
     # Simulation
     sim, created = Simulation.objects.get_or_create(task=task, 
                                                       parameters = pset,
-                                                      status = UNASSIGNED)
+                                                      status = UNASSIGNED,
+                                                      simulator = simulator)
     if (created):
         print "Simulation created: {}".format(sim)
 
@@ -136,6 +137,7 @@ if __name__ == "__main__":
         # MultipleIndicator Simulations with variable tracer peak duration
         # The peak time definition is done in the model generation.
         # -> adapt the simulations 
+        
         info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).
         Flow adapted via the liver scaling factor after sampling!'''
         # integration
@@ -149,7 +151,8 @@ if __name__ == "__main__":
 #                                                              tsteps=120,
 #                                                              abs_tol=1E-6,
 #                                                              rel_tol=1E-6)
-#         # peaks = range(0,3)
+
+        simulator = COPASI        
         peaks = range(0,3)
         for kp in peaks:
             # model
@@ -159,7 +162,7 @@ if __name__ == "__main__":
             copySBML()
             # Simulations
             task = createTask(model, integration, info);
-            createMultipleIndicatorSimulationTask(task, N=1000, sampling="distribution")
+            createMultipleIndicatorSimulationTask(task, simulator, N=100, sampling="distribution")
             # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
     if (0):

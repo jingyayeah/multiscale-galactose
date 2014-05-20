@@ -17,6 +17,8 @@
 		<th>parameters</th>
 		<th>status</th>
 		<th>timecourse</th>
+		<th>simulator</th>
+		<th>priority</th>
 		<th>duration</th>
 		<th>core</th>
 		<th>hanging</th>
@@ -35,6 +37,8 @@
 				<a href="{{ sim.timecourse.file.url }}" target="_blank"><img src="{% static 'sim/images/csv.png' %}" height="15"></img></a>
 				{% endif %}
 			</td>
+		    <td>{{sim.simulator}}</td>
+			<td>{{sim.priority}}</td>
 			<td>{{sim.duration}}</td>
 			<td>{{sim.core}}</td>
 			<td> {% if sim.hanging %}<span class="BAD">{{sim.hanging}}</span>{% endif %}</td>

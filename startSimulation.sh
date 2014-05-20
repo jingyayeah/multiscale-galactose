@@ -41,7 +41,6 @@ cp ~/copasi/build_copasi/copasi/libCOPASISE.a $COPASI_PROJECT
 cp ~/copasi/copasi-dependencies/bin/lib/*.a $COPASI_PROJECT
 cp ~/copasi/copasi-dependencies/bin/lib/*.la $COPASI_PROJECT
 
-
 rm -r ${COPASI_PROJECT}/Debug
 rm -r ${COPASI_PROJECT}/build
 mkdir ${COPASI_PROJECT}/build
@@ -53,7 +52,7 @@ make
 echo "###################################"
 echo "# run simulations #"
 echo "###################################"
-cd ~/multiscale-galactose/python/SinusoidSimulator/core
+cd ~/multiscale-galactose/python/simulator/core
 python Simulator.py
 
 
