@@ -36,6 +36,8 @@ def do_simulation(sim, folder):
     if (simulator == ROADRUNNER):
         print roadrunner.__version__
         rr = roadrunner.RoadRunner(sbml_file)
+        print os.getcwd()
+        rr = roadrunner.RoadRunner("../examples/MultipleIndicator2.xml")
         
         # make the changes to the model
         pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
