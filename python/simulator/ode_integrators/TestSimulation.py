@@ -19,6 +19,8 @@ from django.core.files import File
 from core.ConfigFileFactory import create_config_file_in_folder
 
 def do_simulation(sim, folder):
+    sim.time_assign = timezone.now()
+    
     sbml_file = str(sim.task.sbml_model.file.path)
     sbml_id = sim.task.sbml_model.sbml_id
     config_file = create_config_file_in_folder(sim, folder)
@@ -35,23 +37,21 @@ def do_simulation(sim, folder):
         print roadrunner.__version__
         rr = roadrunner.RoadRunner(sbml_file)
         
-        rr.model
-        
         # make the changes to the model
         pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
         for p in pc.parameters.all():
-            print p.name, '=', p.value
-            # sel = rr.createSelection(p.name)
             setattr(rr.model, p.name, p.value)
-            print getattr(rr.model, p.name)
+            # print p.name, '=', p.value
+            # print getattr(rr.model, p.name)
     
         print 'simulate'
         start = time.clock()
         opts = sim.task.integration
         s = rr.simulate(opts.tstart, opts.tend, steps=opts.tsteps, 
-                    absolute=opts.abs_tol, relative=opts.rel_tol, stiff=True)
+                    absolute=opts.abs_tol, relative=opts.rel_tol, stiff=True, maximumTimeStep=0.1)
         elapsed = (time.clock()- start)    
         print 'Time:', elapsed
+        print(rr)
          
         # Store Timecourse Results    
         import numpy as n
@@ -71,6 +71,7 @@ def do_simulation(sim, folder):
         sim.status = DONE
         sim.save()
 
+        print 'Total time:', sim.duration
     
 if __name__ == "__main__":
     from core.Simulator import SIM_FOLDER

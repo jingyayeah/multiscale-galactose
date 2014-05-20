@@ -492,7 +492,7 @@
     <tbody>
     	{% for item in events %}
     		<tr>
-    			<td>{{item.getVariable}}</td>
+    			<td>{{item.getId}}</td>
     			<td>{{item.getName}}</td>
     			<td>
     				{{item.getTrigger.getMath|SBML_formulaToString}}<br />
