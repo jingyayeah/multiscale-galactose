@@ -10,6 +10,7 @@ sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
  
 import time
+import numpy
  
 from sim.models import Simulation, Timecourse, ParameterCollection 
 from sim.models import ROADRUNNER, DONE
@@ -55,11 +56,12 @@ def do_simulation(sim, folder):
         print 'Time:', elapsed
         print(rr)
          
-        # Store Timecourse Results    
-        import numpy as n
+        # Store Timecourse Results
+        # TODO: proper file format for analysis
         timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_roadrunner.csv'
-        n.savetxt(timecourse_file, s, header=", ".join(rr.selections))
-            
+        numpy.savetxt(timecourse_file, s, header=" ".join(rr.selections))
+        
+        # Store in database
         f = open(timecourse_file, 'r')
         myfile = File(f)
         tc, created = Timecourse.objects.get_or_create(simulation=sim)
