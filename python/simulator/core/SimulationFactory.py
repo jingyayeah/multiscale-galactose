@@ -133,7 +133,7 @@ if __name__ == "__main__":
         task = createTask(model, integration, info)
         createDemoSimulations(task, N=200, sampling="distribution") 
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         print '*** MULTIPLE INDICATOR ***'
         # MultipleIndicator Simulations with variable tracer peak duration
         # The peak time definition is done in the model generation.
@@ -156,7 +156,7 @@ if __name__ == "__main__":
         priorities = [10 + item*10 for item in peaks]
         for kp in peaks:
             # model
-            sbml_id = "MultipleIndicator_P%02d_v18_Nc20_Nf1" % kp
+            sbml_id = "MultipleIndicator_P%02d_v19_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
             # copySBML()
@@ -169,7 +169,7 @@ if __name__ == "__main__":
     if (1):
         print '*** GALACTOSE SIMULATIONS ***'
         # Create the galactose model
-        sbml_id = "Galactose_v18_Nc20_Nf1"   
+        sbml_id = "Galactose_v19_Nc20_Nf1"   
         info = '''Simulation of varying galactose concentrations periportal to steady state.'''
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
