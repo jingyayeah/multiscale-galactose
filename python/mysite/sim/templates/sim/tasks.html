@@ -7,6 +7,7 @@
 	<tr>
 		<th>pk</th>
 		<th>status</th>
+		<th>priority</th>
 		<th>sbml</th>
 		<th>report</th>
 		<th>parameter</th>
@@ -26,6 +27,7 @@
 				<span class="UNASSIGNED">{{task.unassigned_count}}</span> | 
 				<span class="UNASSIGNED">{{task.error_count}}</span> ] 	
 			</td>
+			<td>{{task.priority}}</td>
 			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
 			<td><a href="{% url 'sim:report' task.sbml_model.pk %}" target="_blank">
 				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>

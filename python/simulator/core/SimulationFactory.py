@@ -23,9 +23,10 @@ from RandomSampling import createParametersBySampling
 # here the local sbml files are located
 SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
 
-def createTask(model, integration, info):
+def createTask(model, integration, info, priority=0):
     ''' Creates the task from given information. '''
-    task, created = Task.objects.get_or_create(sbml_model=model, integration=integration)
+    task, created = Task.objects.get_or_create(sbml_model=model, 
+                                               integration=integration, priority=priority)
     if (created):
         print "Task created: {}".format(task)
     task.info = info
@@ -151,9 +152,8 @@ if __name__ == "__main__":
 #                                                              tsteps=120,
 #                                                              abs_tol=1E-6,
 #                                                              rel_tol=1E-6)
-
-        simulator = ROADRUNNER        
         peaks = range(0,3)
+        priorities = [10 + item*10 for item in peaks]
         for kp in peaks:
             # model
             sbml_id = "MultipleIndicator_P%02d_v18_Nc20_Nf1" % kp
@@ -161,8 +161,9 @@ if __name__ == "__main__":
             model.save();
             # copySBML()
             # Simulations
-            task = createTask(model, integration, info);
-            createMultipleIndicatorSimulationTask(task, simulator, N=10, sampling="distribution")
+            task = createTask(model=model, integration=integration, 
+                              info=info, priority=priorities[kp]);
+            createMultipleIndicatorSimulationTask(task, simulator=ROADRUNNER, N=10, sampling="distribution")
             # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
     if (0):

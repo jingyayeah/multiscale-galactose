@@ -3,6 +3,7 @@
 ########################################
 # TODO: offline simulations without the pull from github.
 # TODO: general settings for the path
+# TODO: use options to not use all CPUS on target computer
 
 # python path settings for django
 export PYTHONPATH=$PYTHONPATH:/home/mkoenig/multiscale-galactose/python
@@ -18,7 +19,7 @@ git config --global credential.helper 'cache --timeout 86400'
 git pull
 
 # link folder to the server with database
-# TODO
+# TODO use proper variables $MULTISCALE_GALACTOSE
 
 # create the tmp folders for storing intermediate results
 echo "###################################"

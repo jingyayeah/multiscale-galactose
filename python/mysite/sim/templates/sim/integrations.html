@@ -1,6 +1,5 @@
 {% extends "sim/base_generic.html" %}
 {% block content %}
-{% if integrations_list %}
 	<table id="table_items">
 	<caption>Integrations [{{integrations_list.count}}]</caption>
 	<thead>
@@ -26,8 +25,4 @@
     {% endfor %}
     </tbody>
     </table>
-{% else %}
-	<h1>Integrations</h1>
-    <p>No Integrations in database.</p>
-{% endif %}
 {% endblock %}

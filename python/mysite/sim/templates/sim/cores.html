@@ -1,6 +1,5 @@
 {% extends "sim/base_generic.html" %}
 {% block content %}
-{% if cores_list %}
 	<table id="table_items">
 	<caption>Cores [{{cores_list.count}}]</caption>
     <thead>
@@ -24,8 +23,4 @@
     {% endfor %}
     </tbody>
     </table>    
-{% else %}
-	<h1>Cores</h1>
-    <p>No cores listening for simulation.</p>
-{% endif %}
 {% endblock %}

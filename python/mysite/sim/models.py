@@ -168,6 +168,7 @@ class Task(models.Model):
     '''
     sbml_model = models.ForeignKey(SBMLModel)
     integration = models.ForeignKey(Integration)
+    priority = models.IntegerField(default=0)
     info = models.TextField(null=True, blank=True)
     
     class Meta:
@@ -237,7 +238,6 @@ class Simulation(models.Model):
     task = models.ForeignKey(Task)
     parameters = models.ForeignKey(ParameterCollection)
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
-    priority = models.IntegerField(default=10)
     time_create = models.DateTimeField(default=timezone.now())
     simulator = models.CharField(max_length=20, choices=SIMULATOR, default=COPASI)
     

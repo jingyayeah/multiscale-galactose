@@ -38,6 +38,7 @@ def createParameterFileForTask(folder, task):
         data['status'].append(sim.status)
         data['core'].append(sim.core)
         data['duration'].append(sim.duration)
+        # add all the parameters
         for p in sim.parameters.parameters.all():
             if data.has_key(p.name):
                 data[p.name].append(p.value)

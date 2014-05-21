@@ -168,23 +168,18 @@ code {
 
 span.ALL{
     color:black;
-    font-weight:bolder;
 }
 
 span.ERROR, span.BAD{
 	color:red;
-	font-weight:bolder;
 }
 span.UNASSIGNED, span.BAD{
 	color:orange;
-	font-weight:bolder;
 }
 span.ASSIGNED{
 	color:blue;
-	font-weight:bolder;
 }
 span.DONE, span.GOOD{
 	color:green;
-	font-weight:bolder;
 }
 

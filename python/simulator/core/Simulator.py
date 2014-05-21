@@ -27,8 +27,6 @@ on which computer generates the files locally. This has to be synchronized.
 TODO: handle errors in the integration (ERROR code and storage
 of problems for debugging)
 TODO: handle all Folders by setting $MULTISCALE_GALACTOSE variable and bash variables
-
-TODO: switch the simulators depening on the simulator.
 TODO: handle simulation priorities.
 '''
 
@@ -86,9 +84,9 @@ def assign_simulation(core):
     Gets an unassigned simulation and assigns the core to it.
     Returns None if no simulation could be assigned 
     Is performed in a lock so that multiple cores do not get the same unassigned simulation.
-    Ordered by priority
+    TODO: order by task priority
     '''
-    unassigned = Simulation.objects.filter(status=UNASSIGNED).order_by('priority');
+    unassigned = Simulation.objects.filter(status=UNASSIGNED).order_by('time_create');
     if (unassigned.exists()):
         # assign the first unassigned simulation
         sim = unassigned[0]
@@ -187,7 +185,6 @@ def worker(cpu, lock):
             time.sleep(20)
 
 if __name__ == "__main__": 
-    # TODO: provide options to not run on all cpus
     # TODO: implement RoadRunner
     
     from optparse import OptionParser
