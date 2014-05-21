@@ -55,8 +55,7 @@ def do_simulation(sim, folder):
         print(rr)
 
         # Store Timecourse Results
-        # TODO: proper file format for analysis (header ?)
-        
+        # TODO: proper file format for analysis (header ?) -> use all ids of the sbml
         
         tc_file = "".join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
         numpy.savetxt(tc_file, s, header=", ".join(rr.selections), delimiter=",")

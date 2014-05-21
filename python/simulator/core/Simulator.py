@@ -29,7 +29,7 @@ of problems for debugging)
 TODO: handle all Folders by setting $MULTISCALE_GALACTOSE variable and bash variables
 TODO: handle simulation priorities.
 '''
-from ode_integrators import ODE_Integration
+from integration import ODE_Integration
 
 SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim" 
 

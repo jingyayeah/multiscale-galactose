@@ -4,6 +4,7 @@ Created on May 21, 2014
 @author: mkoenig
 '''
 import sys
+import time
 import traceback
 from subprocess import call
 import shlex
@@ -55,8 +56,11 @@ def integrate(sim, folder, simulator):
                 setattr(rr.model, p.name, p.value)
     
             opts = sim.task.integration
+            start = time.clock()
             s = rr.simulate(opts.tstart, opts.tend, steps=opts.tsteps, 
                     absolute=opts.abs_tol, relative=opts.rel_tol, stiff=True)
+            elapsed = (time.clock()- start)    
+            print 'Time:', elapsed
         
             # Store Timecourse Results
             # TODO: proper file format for analysis (header ?)
