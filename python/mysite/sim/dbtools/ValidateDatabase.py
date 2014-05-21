@@ -1,13 +1,12 @@
 '''
-Created on Mar 25, 2014
-
-@author: Matthias Koenig
     Database tools for consistency checks and database cleaning in case
     things went wrong, for instance some simulations are hanging.
+    This is the only class removing entries from the database.
+    The Creator classes are the SimulationFactory.
+
 
     # TODO: Somehow the database has to be checked for consistency.
     # Perform db validation routines and cleanup on the database.
-
     TODO: 
     Check for timecourses which point to unassigned & assigned simulations
     and remove these files.    
@@ -18,6 +17,11 @@ Created on Mar 25, 2014
     
     TODO: 
     clean cores which did not listen for some time.
+    
+    TODO: setup cron jobs for backup of the database and the the general informaton.
+    
+    Created on Mar 25, 2014
+    @author: Matthias Koenig
 '''
 
 import sys
@@ -129,24 +133,40 @@ def removeSimulationsForTask(task):
     
     
 if __name__ == "__main__":
-    
     # task = Task.objects.get(pk=1)
     # addDefaultDeficiencyToTaskSimulations(task)
     
-    unassignHangingAssignedSimulations();
+    #-----------------------------------------------
+    #     Unassign hanging simulations
+    #-----------------------------------------------
+    # unassignHangingAssignedSimulations();
     
+    #-----------------------------------------------
+    #     Unassign simulations by pk
+    #-----------------------------------------------
     #pks = (26985, )
     #print(pks)
     # unassignSimulationsByPk(pks)
     
-    # Remove simulations for task
-    # task_pks = (14,)
-    # for pk in task_pks:
-    #     task = Task.objects.get(pk=pk)
-    #    removeSimulationsForTask(task)
+    #-----------------------------------------------
+    #     Remove tasks
+    #-----------------------------------------------
+    # TODO: implement
+    
+    
+    #-----------------------------------------------
+    #     Remove simulations for tasks
+    #-----------------------------------------------
     # TODO: also clean the tmp files and local files after removing simulations
+     
+    task_pks = (1, 2, 3, 4)
+    for pk in task_pks:
+        task = Task.objects.get(pk=pk)
+        removeSimulationsForTask(task)
     
-    
-    # ! CAREFUL !
+    #-----------------------------------------------
+    #     Unassign all simulations
+    #-----------------------------------------------
+    # ! CAREFUL - KNOW WHAT YOU ARE DOING !
     # unassignAllSimulation()
     

@@ -29,28 +29,25 @@ of problems for debugging)
 TODO: handle all Folders by setting $MULTISCALE_GALACTOSE variable and bash variables
 TODO: handle simulation priorities.
 '''
+from ode_integrators import ODE_Integration
 
-SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim"
-COPASI_EXEC = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/build/CopasiModelRunner"  
+SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim" 
 
 import os
 import sys
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-import traceback
+
 import time
 import multiprocessing
-from subprocess import call
-import shlex
+
 import socket
 import fcntl
 import struct
 
 from django.utils import timezone
-from django.core.files import File
-from ConfigFileFactory import create_config_file_in_folder
-from sim.models import Core, Simulation, Timecourse
-from sim.models import UNASSIGNED, ASSIGNED, DONE, ERROR, COPASI, ROADRUNNER
+from sim.models import Core, Simulation
+from sim.models import UNASSIGNED, ASSIGNED
 
 
 def get_ip_address(ifname='eth0'):
@@ -100,56 +97,7 @@ def assign_simulation(core):
     
 
 def perform_simulation(sim, folder):
-    ''' 
-    Run ODE integration for the simulation. 
-    Error handling is done via try/except 
-    Cores are not hanging, but simulations are put into an ERROR state.
-    Mainly problems if files are not available.
-    '''
-    try:
-        sbml_file = sim.task.sbml_model.file.path
-        sbml_id = sim.task.sbml_model.sbml_id
-        config_file = create_config_file_in_folder(sim, folder)
-        timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_copasi.csv'
-    
-        #Store the config file in the database
-        f = open(config_file, 'r')
-        sim.file = File(f)
-        sim.save()
-        
-        # Choose simulator
-        simulator = sim.simulator
-    
-        if (simulator == COPASI):
-            # run an operating system command
-            # call(["ls", "-l"])
-            call_command = COPASI_EXEC + " -s " + sbml_file + " -c " + config_file + " -t " + timecourse_file;
-            print call_command
-            call(shlex.split(call_command))
-        elif (simulator == ROADRUNNER):
-            print 'Roadrunner not supported yes'
-        
-    
-        # Store Timecourse Results
-        f = open(timecourse_file, 'r')
-        myfile = File(f)
-        tc, created = Timecourse.objects.get_or_create(simulation=sim)
-        if (not created):
-            print 'Timecourse already exists and is overwritten!'
-        tc.file = myfile
-        tc.save();
-    
-        # simulation finished (update simulation information and save)
-        sim.time_sim = timezone.now()
-        sim.status = DONE
-        sim.save()
-    except Exception:
-        print "Exception in multiscale-galactose:"
-        print '-'*60
-        traceback.print_exc(file=sys.stdout)
-        print '-'*60
-        sim.status = ERROR
-        sim.save()
+    ODE_Integration.integrate(sim, folder, simulator=sim.simulator)
 
 def info(title):
     print title

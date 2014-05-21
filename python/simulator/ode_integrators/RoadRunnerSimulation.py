@@ -21,10 +21,13 @@ from core.ConfigFileFactory import create_config_file_in_folder
 
 def do_simulation(sim, folder):
     sim.time_assign = timezone.now()
-    
     sbml_file = str(sim.task.sbml_model.file.path)
     sbml_id = sim.task.sbml_model.sbml_id
+    print sbml_file
+    
+    # create config file
     config_file = create_config_file_in_folder(sim, folder)
+    print config_file
      
     #Store the config file in the database
     f = open(config_file, 'r')
@@ -33,40 +36,35 @@ def do_simulation(sim, folder):
          
     # Choose simulator
     simulator = sim.simulator
-     
     if (simulator == ROADRUNNER):
-        print roadrunner.__version__
+        # read SBML
         rr = roadrunner.RoadRunner(sbml_file)
-        print os.getcwd()
-        rr = roadrunner.RoadRunner("../examples/MultipleIndicator2.xml")
         
-        # make the changes to the model
+        # set all parameters in the model
         pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
         for p in pc.parameters.all():
             setattr(rr.model, p.name, p.value)
-            # print p.name, '=', p.value
-            # print getattr(rr.model, p.name)
     
         print 'simulate'
         start = time.clock()
         opts = sim.task.integration
         s = rr.simulate(opts.tstart, opts.tend, steps=opts.tsteps, 
-                    absolute=opts.abs_tol, relative=opts.rel_tol, stiff=True, maximumTimeStep=0.1)
+                    absolute=opts.abs_tol, relative=opts.rel_tol, stiff=True)
         elapsed = (time.clock()- start)    
         print 'Time:', elapsed
         print(rr)
-         
+
         # Store Timecourse Results
-        # TODO: proper file format for analysis
-        timecourse_file = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_roadrunner.csv'
-        numpy.savetxt(timecourse_file, s, header=" ".join(rr.selections))
+        # TODO: proper file format for analysis (header ?)
+        
+        
+        tc_file = "".join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
+        numpy.savetxt(tc_file, s, header=", ".join(rr.selections), delimiter=",")
         
         # Store in database
-        f = open(timecourse_file, 'r')
+        f = open(tc_file, 'r')
         myfile = File(f)
         tc, created = Timecourse.objects.get_or_create(simulation=sim)
-        if (not created):
-            print 'Timecourse already exists and is overwritten!'
         tc.file = myfile
         tc.save();
       
@@ -78,13 +76,14 @@ def do_simulation(sim, folder):
         print 'Total time:', sim.duration
     
 if __name__ == "__main__":
+    
     from core.Simulator import SIM_FOLDER
     import roadrunner
     print roadrunner.__version__
     
-    sims = Simulation.objects.all()[0:2]
-    for sim in sims:
-        do_simulation(sim, SIM_FOLDER)
+    sim = Simulation.objects.all()[0]
+    #for sim in sims:
+    do_simulation(sim, SIM_FOLDER)
 
     
     

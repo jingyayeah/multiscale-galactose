@@ -21,11 +21,8 @@
 		<tr>
 			<td><a href="{% url 'sim:task' task.pk %}">{{task.pk}}</a></td>
 			<td>
-				<b>{{task.sim_count}} [ </b>
-				<span class="DONE">{{task.done_count}}</span> | 
-				<span class="ASSIGNED">{{task.assigned_count}}</span> | 
-				<span class="UNASSIGNED">{{task.unassigned_count}}</span> | 
-				<span class="UNASSIGNED">{{task.error_count}}</span> ] 	
+				<b>{{task.sim_count}}</b>
+				[<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>] 	
 			</td>
 			<td>{{task.priority}}</td>
 			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>

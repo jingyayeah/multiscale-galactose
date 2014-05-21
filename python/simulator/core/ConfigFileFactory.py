@@ -1,8 +1,5 @@
 '''
-Created on Mar 21, 2014
-@author: Matthias Koenig
-
-Module for generating simulation config files for Copasi.
+Module for generating simulation config files for COPASI.
 
 Config files are stored in ini format with different sections.
 The set parameters are handeled in the [Parameters] section, 
@@ -27,6 +24,9 @@ information is stored in the [Simulation] section.
     flow_sin = 60E-6
     PP__gal = 0.00012
     ############################
+    
+Created on Mar 21, 2014
+@author: Matthias Koenig
 '''
 
 import os
@@ -45,45 +45,46 @@ def create_config_file_in_folder(sim, folder):
     the linked tables in the database.
     '''
     sbml_id = sim.task.sbml_model.sbml_id
-    filename = folder + "/" + sbml_id + "_Sim" + str(sim.pk) + '_config.ini'
-    f = open(filename, 'w')
-    
+    task = sim.task
+    integration = sim.task.integration
+
     timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    lines = []
+    lines += ['[Simulation]\n']
+    lines += ["sbml = {}\n".format(task.sbml_model.sbml_id)]
+    lines += ["author = Matthias Koenig\n"]
+    lines += ["time = {}\n".format(timestamp)]
+    lines += ['Simulation = {}\n'.format(sim.pk)]
+    lines += ["Task = {}\n".format(task.pk)]
+    lines += ["SBML = {}\n".format(task.sbml_model.pk)]
+    lines += ["ParameterCollection = {}\n".format(sim.parameters.pk)]
+    lines += ["\n"]
     
-    f.write('[Simulation]\n')
-    f.write("sbml = {}\n".format(sim.task.sbml_model.sbml_id))
-    f.write("author = Matthias Koenig\n")
-    f.write("time = {}\n".format(timestamp))
-    f.write('Simulation = {}\n'.format(sim.pk) )
-    f.write("Task = {}\n".format(sim.task.pk) )
-    f.write("SBML = {}\n".format(sim.task.sbml_model.pk))
-    f.write("ParameterCollection = {}\n".format(sim.parameters.pk))
-    f.write("\n")
+    lines += ["[Timecourse]\n"]
+    lines += ["t0 = {}\n".format(integration.tstart)]
+    lines += ["dur = {}\n".format(integration.tend)]
+    lines += ["steps = {}\n".format(integration.tsteps)]
+    lines += ["rTol = {}\n".format(integration.rel_tol)]
+    lines += ["aTol = {}\n".format(integration.abs_tol)]
+    lines += ["\n"]
     
-    f.write("[Timecourse]\n")
-    f.write("t0 = {}\n".format(sim.task.integration.tstart))
-    f.write("dur = {}\n".format(sim.task.integration.tend))
-    f.write("steps = {}\n".format(sim.task.integration.tsteps))
-    f.write("rTol = {}\n".format(sim.task.integration.rel_tol))
-    f.write("aTol = {}\n".format(sim.task.integration.abs_tol))
-    f.write("\n")
-    
-    f.write("[Parameters]\n")
+    lines += "[Parameters]\n"
     pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
     for p in pc.parameters.all():
-        f.write("{} = {}\n".format(p.name, p.value) )
+        lines += ["{} = {}\n".format(p.name, p.value)]
     
+    filename = ''.join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_config.ini'])
+    with open(filename, 'w') as f:
+        f.writelines(lines)
     f.close()
     return filename
 
 
 if __name__ == "__main__":
-    '''
-    Test the creation of config files for defined simulations.
-    '''
-    folder = "/home/mkoenig/multiscale-galactose-results/test"
+    ''' Test the creation of config files for defined simulations. '''
+    from core.Simulator import SIM_FOLDER
+    
     # Get a simulation and write the respective config file
     sim = Simulation.objects.all()[0];
-    create_config_file_in_folder(sim, folder)    
-    
+    create_config_file_in_folder(sim, SIM_FOLDER)    
     
