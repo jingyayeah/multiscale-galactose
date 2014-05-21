@@ -88,10 +88,11 @@ def integrate(sim, folder, simulator):
         
 if __name__ == "__main__":
     from core.Simulator import SIM_FOLDER
-    from sim.models import Simulation
+    from sim.models import Simulation, Task
     print roadrunner.__version__
     
-    sim = Simulation.objects.all()[0]
+    task = Tas
+    sim = Simulation.objects.filter()[0]
     #for sim in sims:
     integrate(sim, SIM_FOLDER, simulator=ROADRUNNER)
     integrate(sim, SIM_FOLDER, simulator=COPASI)
