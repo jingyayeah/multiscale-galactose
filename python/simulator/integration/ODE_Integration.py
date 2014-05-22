@@ -91,8 +91,7 @@ if __name__ == "__main__":
     from sim.models import Simulation, Task
     print roadrunner.__version__
     
-    task = Tas
-    sim = Simulation.objects.filter()[0]
+    sim = Simulation.objects.filter(task__pk=8)[0]
     #for sim in sims:
     integrate(sim, SIM_FOLDER, simulator=ROADRUNNER)
     integrate(sim, SIM_FOLDER, simulator=COPASI)
