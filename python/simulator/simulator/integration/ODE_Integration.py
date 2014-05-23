@@ -13,7 +13,7 @@ from subprocess import call
 import shlex
 
 from django.core.files import File
-from core.ConfigFileFactory import create_config_file_in_folder
+from ConfigFileFactory import create_config_file_in_folder
 
 from django.utils import timezone
 from sim.models import Timecourse, ParameterCollection

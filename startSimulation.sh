@@ -1,47 +1,45 @@
-########################################
-# startSimulation.sh                   #
-########################################
-# TODO: offline simulations without the pull from github.
-# TODO: general settings for the path
+#!/bin/bash
+############################################################
+# starts the ode simulations (simulator get information from
+# database and than run the simulations.
+#
+# @author: Matthias Koenig
+# @date: 2014-05-23
 # TODO: use options to not use all CPUS on target computer
+# TODO: handle copying of results files better
+############################################################
+MULTISCALE_GALACTOSE=~/multiscale-galactose
+MULTISCALE_GALACTOSE_RESULTS=~/multiscale-galactose-results
 
-# python path settings for django
-export PYTHONPATH=$PYTHONPATH:/home/mkoenig/multiscale-galactose/python
-export PYTHONPATH=$PYTHONPATH:/home/mkoenig/multiscale-galactose/python/mysite/
+export PYTHONPATH=${PYTHONPATH}:${MULTISCALE_GALACTOSE}/python
+export PYTHONPATH=${PYTHONPATH}:${MULTISCALE_GALACTOSE}/python/mysite/
 export DJANGO_SETTINGS_MODULE=mysite.settings
 
-# pull the latest code from the repository
 echo "###################################"
 echo "# Pull git source code"
 echo "###################################"
-cd ~/multiscale-galactose
+cd ${MULTISCALE_GALACTOSE}
 git config --global credential.helper 'cache --timeout 86400'
 git pull
 
-# link folder to the server with database
-# TODO use proper variables $MULTISCALE_GALACTOSE
+echo "###################################"
+echo "# Create folders"
+echo "###################################"
+mkdir ${MULTISCALE_GALACTOSE_RESULTS}
+mkdir ${MULTISCALE_GALACTOSE_RESULTS}/tmp_sbml
+mkdir ${MULTISCALE_GALACTOSE_RESULTS}/tmp_sim
+mkdir ${MULTISCALE_GALACTOSE_RESULTS}/django
+mkdir ${MULTISCALE_GALACTOSE_RESULTS}/django/sbml
+mkdir ${MULTISCALE_GALACTOSE_RESULTS}/django/timecourse
 
-# create the tmp folders for storing intermediate results
 echo "###################################"
-echo "# Create tmp folders #"
+echo "# Build copasi #"
 echo "###################################"
-mkdir ~/multiscale-galactose-results
-mkdir ~/multiscale-galactose-results/tmp_sbml
-mkdir ~/multiscale-galactose-results/tmp_sim
-mkdir ~/multiscale-galactose-results/django
-mkdir ~/multiscale-galactose-results/django/sbml
-mkdir ~/multiscale-galactose-results/django/timecourse
-
-# build latest CopasiModelSimulator
-echo "###################################"
-echo "# build copasi #"
-echo "###################################"
-# copy all the libraries to link
+# copy libraries
 export COPASI_PROJECT=~/multiscale-galactose/cpp/copasi/CopasiModelRunner
 cp ~/copasi/build_copasi/copasi/libCOPASISE.a $COPASI_PROJECT
 cp ~/copasi/copasi-dependencies/bin/lib/*.a $COPASI_PROJECT
 cp ~/copasi/copasi-dependencies/bin/lib/*.la $COPASI_PROJECT
-
 rm -r ${COPASI_PROJECT}/Debug
 rm -r ${COPASI_PROJECT}/build
 mkdir ${COPASI_PROJECT}/build
@@ -49,11 +47,10 @@ cd ${COPASI_PROJECT}/build
 cmake ..
 make
 
-
 echo "###################################"
 echo "# run simulations #"
 echo "###################################"
-cd ~/multiscale-galactose/python/simulator/core
+cd ${MULTISCALE_GALACTOSE}/python/simulator/simulator
 python Simulator.py
 
 
