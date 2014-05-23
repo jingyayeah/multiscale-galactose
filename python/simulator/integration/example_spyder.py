@@ -16,17 +16,18 @@ sbml_file = "".join([folder, 'Galactose_v19_Nc20_Nf1.xml'])
 rr = roadrunner.RoadRunner(sbml_file)
 
 # small selection
-sel = ['time', '[PP__gal]', '[PV__gal]']
+sel1 = ['time', '[PP__gal]', '[PV__gal]']
 
 # full selection
-sel = ['time']
-sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
-sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
-sel += rr.model.getReactionIds()
+sel2 = ['time']
+sel2 += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
+sel2 += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
+sel2 += rr.model.getReactionIds()
 
-rr.selections = sel
-header = ",".join(sel)
+rr.selections = sel1
+header = ",".join(sel1)
 
+absTol = 1E-6 * min(rr.model.getCompartmentVolumes())
 
 for gal in xrange(0,5):
     changes = dict()
@@ -44,7 +45,7 @@ for gal in xrange(0,5):
     print '*** simulate ***'    
     start = time.clock()
     # s = rr.simulate(0, 100, absolute=1E-6, relative=1E-6, variableStep=True, stiff=True, sel=sel)
-    s = rr.simulate(0, 5000, absolute=1E-20, relative=1E-6, variableStep=True, stiff=True, plot=True)
+    s = rr.simulate(0, 5000, absolute=absTol, relative=1E-6, variableStep=True, stiff=True, plot=True)
 
     elapsed = (time.clock()- start)    
     print 'Time:', elapsed

@@ -46,25 +46,59 @@ def integrate(sim, folder, simulator):
             call(shlex.split(call_command))
     
         elif (simulator == ROADRUNNER):
-            tc_file = "".join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
+            '''
+            Here the complete RoadRunner simulation logic is performed.
+            Make sure the model is not reloaded
+            '''
+
             # read SBML
             rr = roadrunner.RoadRunner(sbml_file)
         
-            # set all parameters in the model
+            # set the selection
+            sel = ['time']
+            sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
+            sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
+            sel += rr.model.getReactionIds()
+            
+            rr.selections = sel
+            header = ",".join(sel)
+        
+            from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
+        
+            # set all parameters in the model and store the changes for revert
+            changes = dict()
             pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
             for p in pc.parameters.all():
-                setattr(rr.model, p.name, p.value)
-    
-            opts = sim.task.integration
+                name = p.name
+                if (p.ptype == GLOBAL_PARAMETER):
+                    pass
+                elif (p.ptype == BOUNDERY_INIT):
+                    name = "".join(['[', name, ']'])
+                elif (p.ptype == FLOATING_INIT):
+                    name = "".join(['init([', name, '])'])
+                
+                # now set the value for the correct name
+                changes[name] = rr.model[name]
+                rr.model[name] = p.value
+
+            # use the integration settings (adapt absTol to amounts)
+            odeset = sim.task.integration
+            absTol = odeset.abs_tol * min(rr.model.getCompartmentVolumes())
+                       
             start = time.clock()
-            s = rr.simulate(opts.tstart, opts.tend, steps=opts.tsteps, 
-                    absolute=opts.abs_tol, relative=opts.rel_tol, stiff=True)
+            s = rr.simulate(odeset.tstart, odeset.tend, 
+                    absolute=absTol, relative=odeset.rel_tol, variableStep=True, stiff=True)
             elapsed = (time.clock()- start)    
             print 'Time:', elapsed
         
             # Store Timecourse Results
-            # TODO: proper file format for analysis (header ?)
-            numpy.savetxt(tc_file, s, header=", ".join(rr.selections), delimiter=",")
+            tc_file = "".join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
+            numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.6E')
+
+            # reset
+            rr.reset()
+            for key, value in changes.iteritems():
+                rr.model[key] = value    
         
     
         # Store Timecourse Results

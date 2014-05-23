@@ -108,6 +108,14 @@ class SBMLModel(models.Model):
             
     
 class Integration(models.Model):
+    '''
+    Integration settings. Depending on the solver these are handled
+    differently, i.e.
+    -> in RoadRunner the absTol is on the amounts, with the smallest
+        compartments the absTol on the concentrations has to be calculated
+    -> RoadRunner performs variable step size integration (even if the steps
+        are set.
+    '''
     tend = models.FloatField()
     tsteps = models.IntegerField()
     tstart = models.FloatField(default=0.0)
@@ -123,6 +131,10 @@ class Integration(models.Model):
         verbose_name_plural = "Integration Settings"
     
 
+GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
+BOUNDERY_INIT = 'BOUNDERY_INIT'
+FLOATING_INIT = 'FLOATING_INIT'
+
 class Parameter(models.Model):
     UNITS = (
                         ('m', 'm'),
@@ -130,9 +142,16 @@ class Parameter(models.Model):
                         ('mM', 'mM'),
                         ('-', '-'),
     )
+    PARAMETER_TYPE = (
+                         (GLOBAL_PARAMETER, GLOBAL_PARAMETER,),
+                         (BOUNDERY_INIT, BOUNDERY_INIT),
+                         (FLOATING_INIT, FLOATING_INIT),
+    )
+    
     name = models.CharField(max_length=200)
     value = models.FloatField()
     unit = models.CharField(max_length=10, choices=UNITS)
+    ptype = models.CharField(max_length=20, choices=PARAMETER_TYPE)
     
     def __unicode__(self):
         return self.name + " = " + str(self.value) + " ["+ self.unit +"]"

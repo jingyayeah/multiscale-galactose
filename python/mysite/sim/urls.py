@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
 from sim import views
-from report import ReportFactory
+from sbml.report import ReportFactory
 
 urlpatterns = patterns('',
     
