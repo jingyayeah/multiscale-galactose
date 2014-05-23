@@ -1,7 +1,13 @@
 '''
-Created on Nov 26, 2013
-@author: Matthias Koenig
+Main module to run simulations.
+This module takes car of starting the intergration processes on the available
+processors.
 
+In general only the database information about the files, i.e. 
+location on the local filesystem is stored. Problems can arise depending
+on which computer generates the files locally. This has to be synchronized.
+
+-------------------------------------------------------------------------------------
 How multiprocessing works, in a nutshell:
 
     Process() spawns (fork or similar on Unix-like systems) a copy of the 
@@ -15,23 +21,18 @@ How multiprocessing works, in a nutshell:
 Since these are independent processes, they now have independent Global Interpreter Locks 
 (in CPython) so both can use up to 100% of a CPU on a multi-cpu box, as long as they don't 
 contend for other lower-level (OS) resources. That's the "multiprocessing" part.
+-------------------------------------------------------------------------------------
 
+@author: Matthias Koenig
+@date: 2013-11-06
 
-Database things and setup handled by Django.
-
-In general only the database information about the files, i.e. 
-location on the local filesystem is stored. Problems can arise depending
-on which computer generates the files locally. This has to be synchronized.
-
-
-TODO: handle errors in the integration (ERROR code and storage
-of problems for debugging)
 TODO: handle all Folders by setting $MULTISCALE_GALACTOSE variable and bash variables
-TODO: handle simulation priorities.
+TODO: support simulation priorities.
 '''
-from integration import ODE_Integration
 
+from integration import ODE_Integration
 SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim" 
+
 
 import os
 import sys
@@ -118,7 +119,6 @@ def worker(cpu, lock):
         # Update the time for the core
         core = get_core_by_ip_and_cpu(ip, cpu)
         
-        
         # Assign simulation
         lock.acquire()
         # assign the simulations within a lock so every simulation is only assigned
@@ -132,9 +132,7 @@ def worker(cpu, lock):
             print core, "... no unassigned simulations ...";
             time.sleep(20)
 
-if __name__ == "__main__": 
-    # TODO: implement RoadRunner
-    
+if __name__ == "__main__":     
     from optparse import OptionParser
     import math
     

@@ -27,6 +27,8 @@ import random
 import numpy as np
 import numpy.random as npr
 
+from sim.models import GLOBAL_PARAMETER
+
 def createParametersBySampling(dist_data, N, sampling):
     if (sampling == "distribution"):
         samples = createSamplesByDistribution(dist_data, N);
@@ -43,14 +45,17 @@ def createParametersBySampling(dist_data, N, sampling):
     samples = adaptFlowInSamples(samples)
     return samples
 
+
 def adaptFlowInSamples(samples):
     # flow is adapted due to scaling to full liver architecture
-    # TODO: make this consistent
+    # TODO: make this consistent, this is not good and seems like dirty fix
+    # TODO: make a class for the parameters
+    print 'flow adaptation'
     f_flow = 0.47
     for s in samples:
         if (s.has_key("flow_sin")):
-            name, value, unit = s["flow_sin"];
-            s["flow_sin"] = (name, value*f_flow, unit)
+            name, value, unit, ptype = s["flow_sin"];
+            s["flow_sin"] = (name, value*f_flow, unit, ptype)
     return samples
 
 
@@ -76,7 +81,7 @@ def createSamplesByDistribution(dist_data, N=10):
             # TODO: fix this -> the parameter have to be fitted to the actual values, 
             # no transformation which will break generality
             value = npr.lognormal(mu, sigma) * 1E-6   
-            s[pid] = ( pid, value, dtmp['unit'])
+            s[pid] = ( pid, value, dtmp['unit'], GLOBAL_PARAMETER)
         
         samples.append(s)
     return samples
@@ -89,7 +94,7 @@ def createSamplesByMean(dist_data, N=1):
         for pid in dist_data.keys():
             dtmp = dist_data[pid]
             value = dtmp['mean'] 
-            s[pid] = (pid, value, dtmp['unit'])
+            s[pid] = (pid, value, dtmp['unit'], GLOBAL_PARAMETER)
         samples.append(s)
     return samples
 
@@ -119,7 +124,7 @@ def createSamplesByLHS(dist_data, N=10):
         for pid in dist_data.keys():
             pointValues = pointsLHS[pid]
             value = pointValues[ks]
-            s[pid] = (pid, value, dtmp['unit'])
+            s[pid] = (pid, value, dtmp['unit'], GLOBAL_PARAMETER)
         samples.append(s)
     
     return samples
@@ -170,9 +175,9 @@ def createSamplesByManual(dist_data):
             s = []
             for pid in ("y_cell", "y_dis", "y_sin"):
                 dtmp = dist_data[pid];
-                s.append( (dtmp['name'], dtmp['mean'],dtmp['unit']) )
-            s.append( ('flow_sin', flow_sin, 'm/s') )
-            s.append( ('L', L, 'm') )                    
+                s.append( (dtmp['name'], dtmp['mean'],dtmp['unit']), GLOBAL_PARAMETER)
+            s.append( ('flow_sin', flow_sin, 'm/s') , GLOBAL_PARAMETER)
+            s.append( ('L', L, 'm'), GLOBAL_PARAMETER)                    
             samples.append(s)
     return samples
 

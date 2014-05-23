@@ -1,7 +1,10 @@
 '''
-Created on May 21, 2014
+Here the actual ode integration is performed for the given simulations.
 
 @author: mkoenig
+@date: 2014-05-11
+
+TODO: simulate bunch of simulations with the same model.
 '''
 import sys
 import time
@@ -26,6 +29,7 @@ def integrate(sim, folder, simulator):
     Error handling is done via try/except 
     Cores are not hanging, but simulations are put into an ERROR state.
     Mainly problems if files are not available.
+    
     '''
     try:
         sbml_file = str(sim.task.sbml_model.file.path)
@@ -50,7 +54,6 @@ def integrate(sim, folder, simulator):
             Here the complete RoadRunner simulation logic is performed.
             Make sure the model is not reloaded
             '''
-
             # read SBML
             rr = roadrunner.RoadRunner(sbml_file)
         
@@ -76,8 +79,10 @@ def integrate(sim, folder, simulator):
                     name = "".join(['[', name, ']'])
                 elif (p.ptype == FLOATING_INIT):
                     name = "".join(['init([', name, '])'])
+                name = str(name)
                 
                 # now set the value for the correct name
+                print name
                 changes[name] = rr.model[name]
                 rr.model[name] = p.value
 
@@ -125,7 +130,7 @@ if __name__ == "__main__":
     from sim.models import Simulation, Task
     print roadrunner.__version__
     
-    sim = Simulation.objects.filter(task__pk=8)[0]
+    sim = Simulation.objects.filter(task__pk=1)[0]
     #for sim in sims:
     integrate(sim, SIM_FOLDER, simulator=ROADRUNNER)
     integrate(sim, SIM_FOLDER, simulator=COPASI)

@@ -34,14 +34,14 @@ def createTask(model, integration, info, priority=0):
     return task
 
 
-def createDemoSimulations(task, N=10, sampling='distribution'):
+def createDemoSimulations(task, simulator, N=10, sampling='distribution'):
     ''' Creates simple demo simulation to test the network visualization. '''    
     # get the parameter sets by sampling (same parameters for all galactose settings)
     # the same parameter sampling is used for all deficiencies
     dist_data = getDemoDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
     for s in samples:
-        createSimulationForParameterSample(task, sample=s)
+        createSimulationForParameterSample(task, simulator=simulator, sample=s)
     return task
 
 
@@ -51,7 +51,7 @@ def createMultipleIndicatorSimulationTask(task, simulator, N=10, sampling="distr
     samples = createParametersBySampling(dist_data, N, sampling);
     for s in samples:
         createSimulationForParameterSample(task=task, simulator=simulator, sample=s)
-        
+
 
 def createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, deficiencies=[0], sampling='mean'):
     ''' Galactose simulations '''
@@ -66,9 +66,9 @@ def createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, defi
                     # make a copy of the dictionary
                     snew = s.copy()
                     # add information
-                    snew['deficiency'] = ('deficiency', deficiency, '-')
-                    snew['PP_gal'] = ('PP__gal', galactose, 'mM')
-                    snew['flow_sin'] = ('flow_sin', flow, 'm/s')
+                    snew['deficiency'] = ('deficiency', deficiency, '-', GLOBAL_PARAMETER)
+                    snew['PP_gal'] = ('PP__gal', galactose, 'mM', BOUNDERY_INIT)
+                    snew['flow_sin'] = ('flow_sin', flow, 'm/s', GLOBAL_PARAMETER)
                     createSimulationForParameterSample(task, simulator, sample=snew)
 
 
@@ -81,8 +81,8 @@ def createSimulationForParameterSample(task, simulator, sample):
     # Parameters
     ps = []
     for data in sample.values():
-        name, value, unit = data
-        p, created = Parameter.objects.get_or_create(name=name, value=value, unit=unit);
+        name, value, unit, ptype = data
+        p, created = Parameter.objects.get_or_create(name=name, value=value, unit=unit, ptype=ptype);
         ps.append(p)
     # ParameterCollection
     pset = ParameterCollection();
@@ -114,13 +114,14 @@ if __name__ == "__main__":
     results_dir = "/home/mkoenig/multiscale-galactose-results"
     code_dir = "/home/mkoenig/multiscale-galactose"
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         print '*** DEMO ***'
         # Generate demo network & simulations for visualization
         sbml_id = "Koenig2014_demo_kinetic_v7"
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
-        copySBML()
+        # copySBML()
+        
         # integration
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
                                                              tend=100.0, 
@@ -131,9 +132,10 @@ if __name__ == "__main__":
         info = '''Simulation of the demo network for visualization.'''
         # simulation
         task = createTask(model, integration, info)
-        createDemoSimulations(task, N=200, sampling="distribution") 
+        createDemoSimulations(task, simulator=ROADRUNNER, N=2000, sampling="distribution") 
+        createDemoSimulations(task, simulator=COPASI, N=2000, sampling="distribution")
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print '*** MULTIPLE INDICATOR ***'
         # MultipleIndicator Simulations with variable tracer peak duration
         # The peak time definition is done in the model generation.
@@ -166,7 +168,7 @@ if __name__ == "__main__":
             createMultipleIndicatorSimulationTask(task, simulator=ROADRUNNER, N=10, sampling="distribution")
             # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print '*** GALACTOSE SIMULATIONS ***'
         # Create the galactose model
         sbml_id = "Galactose_v19_Nc20_Nf1"   
@@ -190,4 +192,4 @@ if __name__ == "__main__":
         createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, deficiencies=[0,], sampling='mean')
         # create from distribution
         createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, deficiencies=[0,], sampling='distribution')
-     #----------------------------------------------------------------------#        
+        #----------------------------------------------------------------------#        

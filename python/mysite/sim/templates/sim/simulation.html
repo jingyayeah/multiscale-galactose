@@ -9,6 +9,7 @@
 		<th>task</th>
 		<th>integration</th>
 		<th>parameters</th>
+		<th>simulator</th>
 		<th>status</th>
 		<th>timecourse</th>
 	</tr>
@@ -54,6 +55,7 @@
 		<th>id</th>
 		<th>value</th>
 		<th>unit</th>
+		<th>type</th>
 	</tr>
 	{% for pars in sim.parameters.parameters.all %}
 		<tr>
@@ -96,7 +98,11 @@
     {% endif %}
     
     {% else %}
-    	Simulation not DONE, no timecourse and plots available.<br />
+    <p>
+    	<br />
+    	Simulation status <span class="{{sim.status}}">{{sim.status}}</span>, 
+    	no timecourse and plots available.<br />
+    </p>
     {% endif %}
     
 {% endblock %}

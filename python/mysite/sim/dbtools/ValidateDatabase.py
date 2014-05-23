@@ -159,7 +159,7 @@ if __name__ == "__main__":
     #-----------------------------------------------
     # TODO: also clean the tmp files and local files after removing simulations
      
-    task_pks = (1, 2, 3, 4)
+    task_pks = (1,)
     for pk in task_pks:
         task = Task.objects.get(pk=pk)
         removeSimulationsForTask(task)
