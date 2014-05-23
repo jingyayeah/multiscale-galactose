@@ -37,13 +37,20 @@ def do_simulation(sim, folder):
     # Choose simulator
     simulator = sim.simulator
     if (simulator == ROADRUNNER):
+        
         # read SBML
         rr = roadrunner.RoadRunner(sbml_file)
+        
+        # Do the selection once
+        # TODO
         
         # set all parameters in the model
         pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
         for p in pc.parameters.all():
             setattr(rr.model, p.name, p.value)
+    
+        # now do the full series of simulations for the model
+        
     
         print 'simulate'
         start = time.clock()

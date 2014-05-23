@@ -7,7 +7,8 @@ template with the given SBML structure remains the same.
 
 TODO: send additional information to the report view, namely the
       parsed annotation links & naming for units
-
+      
+TODO: create report from provided SBML
 
 Calling functions from the Django template via custom template filters.
 

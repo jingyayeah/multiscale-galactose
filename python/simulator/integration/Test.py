@@ -19,28 +19,30 @@ print roadrunner.__version__
 
 
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sim/'
-sbml_file = "".join([folder, 'MultipleIndicator_P00_v19_Nc20_Nf1.xml'])
+sbml_file = "".join([folder, 'Galactose_v19_Nc20_Nf1.xml'])
 
 rr = roadrunner.RoadRunner(sbml_file)
-
-
+Vol_dis = rr.model.Vol_dis
+absTol = 1E-6*Vol_dis
 
 print 'simulate'
-start = time.clock()
-#s = rr.simulate(0, 100, steps=4000, 
-#                    absolute=1E-6, relative=1E-6, stiff=True)
-# Logger.setLevel(Logger.LOG_TRACE)
-s = rr.simulate(0, 1, steps=1, 
-                    absolute=1E-6, relative=1E-6, stiff=True)                    
-# Logger.setLevel(Logger.LOG_WARNING)
+for d in xrange(0,24):
+    # Set parameters
+    rr.model.deficiency = d
+    start = time.clock()
+    #s = rr.simulate(0, 100, steps=4000, 
+    #                    absolute=1E-6, relative=1E-6, stiff=True)
+    # Logger.setLevel(Logger.LOG_TRACE)
+    
+    s = rr.simulate(0, 1000, 
+                    absolute=absTol, relative=1E-6, stiff=True, variableStep=True)                    
+    # Logger.setLevel(Logger.LOG_WARNING)
 
-elapsed = (time.clock()- start)    
-print 'Time:', elapsed
-print(rr)
+    elapsed = (time.clock()- start)    
+    print 'Time:', elapsed
+    rr.reset()
 
-print rr.model.items()
 
-print type(s)
 # <type 'numpy.ndarray'>
 # print rr.selections
 
