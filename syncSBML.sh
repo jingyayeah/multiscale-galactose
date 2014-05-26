@@ -1,6 +1,8 @@
 #!/bin/bash
 ############################################################
-# Copies all SBML files to the specified servers
+# Syncronizes the tmp_sbml files to the target servers
+#
+# Local:  rsync [OPTION...] SRC... [DEST]
 #
 # @author: Matthias Koenig
 # @date: 2014-05-13
@@ -16,7 +18,7 @@
 
 DATA=/home/mkoenig/multiscale-galactose-results/tmp_sbml/
 
-SOURCE=10.39.32.236
+# TARGETS=(10.39.34.27)
 TARGETS=(10.39.32.106 10.39.32.189 10.39.32.111 10.39.34.27)
 
 # -r recursively
@@ -27,7 +29,7 @@ TARGETS=(10.39.32.106 10.39.32.189 10.39.32.111 10.39.34.27)
 
 for i in ${TARGETS[@]}; do
     echo "*** ${i} ***"
-    rsync -ravzX --delete mkoenig@${i}:${DATA} mkoenig@${SOURCE}:${DATA}
+    rsync -rvz --delete ${DATA} mkoenig@${i}:${DATA}
 done
 
 
