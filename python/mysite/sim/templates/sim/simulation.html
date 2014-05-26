@@ -11,6 +11,8 @@
 		<th>parameters</th>
 		<th>simulator</th>
 		<th>status</th>
+		<th>duration</th>
+		<th>core</th>
 		<th>timecourse</th>
 	</tr>
 		<tr>
@@ -19,7 +21,10 @@
 			<td>{{sim.task}}</td>
 			<td>{{sim.task.integration}}</td>
 			<td>{{sim.parameters}}</td>
+		    <td>{{sim.simulator}}</td>
 			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
+			<td>{{sim.duration}}</td>
+			<td>{{sim.core}}</td>
 			<td> {% if sim.status == 'DONE' %}
 				<a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a>
 				{% endif %}

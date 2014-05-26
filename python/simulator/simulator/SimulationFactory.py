@@ -137,7 +137,7 @@ if __name__ == "__main__":
         createDemoSimulations(task, simulator=ROADRUNNER, N=2000, sampling="distribution") 
         createDemoSimulations(task, simulator=COPASI, N=2000, sampling="distribution")
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print '*** MULTIPLE INDICATOR ***'
         # MultipleIndicator Simulations with variable tracer peak duration
         # The peak time definition is done in the model generation.
@@ -160,20 +160,20 @@ if __name__ == "__main__":
         priorities = [10 + item*10 for item in peaks]
         for kp in peaks:
             # model
-            sbml_id = "MultipleIndicator_P%02d_v19_Nc20_Nf1" % kp
+            sbml_id = "MultipleIndicator_P%02d_v20_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
             syncDjangoSBML()
             # Simulations
             task = createTask(model=model, integration=integration, 
                               info=info, priority=priorities[kp]);
-            createMultipleIndicatorSimulationTask(task, simulator=ROADRUNNER, N=10, sampling="distribution")
+            createMultipleIndicatorSimulationTask(task, simulator=ROADRUNNER, N=990, sampling="distribution")
             # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         print '*** GALACTOSE SIMULATIONS ***'
         # Create the galactose model
-        sbml_id = "Galactose_v19_Nc20_Nf1"   
+        sbml_id = "Galactose_v20_Nc20_Nf1"   
         info = '''Simulation of varying galactose concentrations periportal to steady state.'''
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
@@ -181,17 +181,19 @@ if __name__ == "__main__":
         
         # integration
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=200.0, 
+                                                             tend=2000.0, 
                                                              tsteps=400,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
         # simulation
         simulator = ROADRUNNER
-        gal_range = np.arange(0, 6, 0.5)
-        flow_range = np.arange(0, 1000E-6, 50E-6)
+        gal_range = np.arange(0, 6, 1.0)
+        flow_range = np.arange(0, 1000E-6, 100E-6)
         task = createTask(model, integration, info, priority=100)
         # create mean
-        createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, deficiencies=[0,], sampling='mean')
+        createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, 
+                                   deficiencies=range(0,24), sampling='mean')
         # create from distribution
-        createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, deficiencies=[0,], sampling='distribution')
+        createGalactoseSimulations(task, simulator, gal_range, flow_range, N=10, 
+                                   deficiencies=range(0,24), sampling='distribution')
         #----------------------------------------------------------------------#        
