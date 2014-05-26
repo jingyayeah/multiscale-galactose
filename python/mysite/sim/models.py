@@ -194,7 +194,7 @@ class Task(models.Model):
         unique_together = ("sbml_model", "integration")
     
     def __unicode__(self):
-        return "T%d [Int%d]" % (self.pk, self.integration.pk)
+        return "T%d" % (self.pk)
 
     def sim_count(self):
         return self.simulation_set.count()
@@ -306,7 +306,9 @@ class Simulation(models.Model):
     duration = property(_get_duration)
     hanging = property(_is_hanging)
     
-    
+def timecourse_filename(instance, filename):
+    return '/'.join(['timecourse', str(instance.task), filename])
+
 class Timecourse(models.Model):
     '''
     A timecourse belongs to exactly on simulation. If the timecourse
@@ -315,7 +317,7 @@ class Timecourse(models.Model):
     '''
     simulation = models.OneToOneField(Simulation, unique=True)
     # file = models.FileField(upload_to="~/multiscale-galactose-results/
-    file = models.FileField(upload_to='timecourse/%Y-%m-%d')
+    file = models.FileField(upload_to=timecourse_filename)
     
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
