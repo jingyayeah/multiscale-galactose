@@ -101,12 +101,12 @@ def createSimulationForParameterSample(task, simulator, sample):
         print "Simulation created: {}".format(sim)
 
 ###################################################################################
-def copySBML():
+def syncDjangoSBML():
     ''' Copy all the SBML files to the server '''
     from subprocess import call
     # run an operating system command
     # call(["ls", "-l"])
-    call_command = [code_dir + '/' + "copySBML.sh"]
+    call_command = [code_dir + '/' + "syncDjangoSBML.sh"]
     print call_command
     call(call_command)
 
@@ -114,6 +114,7 @@ def copySBML():
 if __name__ == "__main__":
     results_dir = "/home/mkoenig/multiscale-galactose-results"
     code_dir = "/home/mkoenig/multiscale-galactose"
+    
     #----------------------------------------------------------------------#
     if (0):
         print '*** DEMO ***'
@@ -121,7 +122,7 @@ if __name__ == "__main__":
         sbml_id = "Koenig2014_demo_kinetic_v7"
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
-        # copySBML()
+        syncDjangoSBML()
         
         # integration
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
@@ -146,7 +147,7 @@ if __name__ == "__main__":
         Flow adapted via the liver scaling factor after sampling!'''
         # integration
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=100.0, 
+                                                             tend=500.0, 
                                                              tsteps=4000,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
@@ -162,11 +163,11 @@ if __name__ == "__main__":
             sbml_id = "MultipleIndicator_P%02d_v19_Nc20_Nf1" % kp
             model = SBMLModel.create(sbml_id, SBML_FOLDER);
             model.save();
-            # copySBML()
+            syncDjangoSBML()
             # Simulations
             task = createTask(model=model, integration=integration, 
                               info=info, priority=priorities[kp]);
-            createMultipleIndicatorSimulationTask(task, simulator=ROADRUNNER, N=100, sampling="distribution")
+            createMultipleIndicatorSimulationTask(task, simulator=ROADRUNNER, N=10, sampling="distribution")
             # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
     if (0):
@@ -176,7 +177,7 @@ if __name__ == "__main__":
         info = '''Simulation of varying galactose concentrations periportal to steady state.'''
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
-        #copySBML()
+        syncDjangoSBML()
         
         # integration
         integration, created = Integration.objects.get_or_create(tstart=0.0, 

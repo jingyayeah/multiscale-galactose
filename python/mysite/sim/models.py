@@ -307,7 +307,7 @@ class Simulation(models.Model):
     hanging = property(_is_hanging)
     
 def timecourse_filename(instance, filename):
-    return '/'.join(['timecourse', str(instance.task), filename])
+    return '/'.join(['timecourse', str(instance.simulation.task), filename])
 
 class Timecourse(models.Model):
     '''
@@ -317,7 +317,7 @@ class Timecourse(models.Model):
     '''
     simulation = models.OneToOneField(Simulation, unique=True)
     # file = models.FileField(upload_to="~/multiscale-galactose-results/
-    file = models.FileField(upload_to=timecourse_filename)
+    file = models.FileField(upload_to=timecourse_filename, max_length=200)
     
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)

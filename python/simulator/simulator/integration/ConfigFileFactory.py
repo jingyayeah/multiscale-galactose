@@ -82,7 +82,7 @@ def create_config_file_in_folder(sim, folder):
 
 if __name__ == "__main__":
     ''' Test the creation of config files for defined simulations. '''
-    from core.Simulator import SIM_FOLDER
+    from simulator.Simulator import SIM_FOLDER
     
     # Get a simulation and write the respective config file
     sim = Simulation.objects.all()[0];

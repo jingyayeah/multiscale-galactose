@@ -18,6 +18,7 @@ from ConfigFileFactory import create_config_file_in_folder
 from django.utils import timezone
 from sim.models import Timecourse, ParameterCollection
 from sim.models import DONE, ERROR, COPASI, ROADRUNNER
+from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
 import numpy
 import roadrunner
@@ -62,12 +63,12 @@ def integrate(sim, folder, simulator):
             sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
             sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
             sel += rr.model.getReactionIds()
+            # For testing store the parameters (make sure that reset is working)
+            sel += rr.model.getGlobalParameterIds()
             
             rr.selections = sel
             header = ",".join(sel)
-        
-            from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
-        
+
             # set all parameters in the model and store the changes for revert
             changes = dict()
             pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
@@ -82,19 +83,19 @@ def integrate(sim, folder, simulator):
                 name = str(name)
                 
                 # now set the value for the correct name
-                print name
                 changes[name] = rr.model[name]
                 rr.model[name] = p.value
 
             # use the integration settings (adapt absTol to amounts)
             odeset = sim.task.integration
             absTol = odeset.abs_tol * min(rr.model.getCompartmentVolumes())
-                       
+            
             start = time.clock()
             s = rr.simulate(odeset.tstart, odeset.tend, 
                     absolute=absTol, relative=odeset.rel_tol, variableStep=True, stiff=True)
             elapsed = (time.clock()- start)    
             print 'Time:', elapsed
+            print(rr)
         
             # Store Timecourse Results
             tc_file = "".join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
@@ -126,8 +127,8 @@ def integrate(sim, folder, simulator):
         sim.save()
         
 if __name__ == "__main__":
-    from core.Simulator import SIM_FOLDER
-    from sim.models import Simulation, Task
+    from simulator.Simulator import SIM_FOLDER
+    from sim.models import Simulation
     print roadrunner.__version__
     
     sim = Simulation.objects.filter(task__pk=1)[0]
