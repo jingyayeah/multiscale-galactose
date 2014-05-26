@@ -133,6 +133,10 @@ def worker(cpu, lock):
             time.sleep(20)
 
 if __name__ == "__main__":     
+    '''
+    Call with --cpu option if not using 100% resources
+    '''
+    
     from optparse import OptionParser
     import math
     

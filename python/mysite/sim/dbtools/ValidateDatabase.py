@@ -29,20 +29,24 @@ import os
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 from django.core.exceptions import ObjectDoesNotExist
-from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED
+from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED, ERROR
 from sim.models import Task
 
-def unassignHangingAssignedSimulations(cutoff_minutes=10):
-    '''
-    Looks for unfinished simulations, i.e. they were assigned, but
-    never finished. The simulations are reset to the UNASSIGNED status.
-    And the necessary database updates are made.
-    '''
-    # get all assigned simulations
-    assigned = Simulation.objects.filter(status=ASSIGNED)
-    for sim in assigned:
-        if (sim._is_hanging(cutoff_minutes)):
+def unassignAssignedHangingSimulations(cutoff_minutes=10):
+    unassignHangingSimulationsWithStatus(ASSIGNED, cutoff_minutes)
+    
+def unassignErrorHangingSimulations(cutoff_minutes=10):
+    unassignHangingSimulationsWithStatus(ERROR, cutoff_minutes)
+            
+def unassignHangingSimulationsWithStatus(status, cutoff_minutes=10):
+    sims = Simulation.objects.filter(status=status)
+    for sim in sims:
+        if (cutoff_minutes >= 0):
+            if (sim._is_hanging(cutoff_minutes)):
+                unassignSimulation(sim)
+        else:
             unassignSimulation(sim)
+            
 
 def unassignAllSimulation():
     '''
@@ -139,7 +143,8 @@ if __name__ == "__main__":
     #-----------------------------------------------
     #     Unassign hanging simulations
     #-----------------------------------------------
-    # unassignHangingAssignedSimulations();
+    # unassignAssignedHangingSimulations();
+    unassignErrorHangingSimulations(cutoff_minutes=-1);
     
     #-----------------------------------------------
     #     Unassign simulations by pk
@@ -158,11 +163,10 @@ if __name__ == "__main__":
     #     Remove simulations for tasks
     #-----------------------------------------------
     # TODO: also clean the tmp files and local files after removing simulations
-     
-    task_pks = (4,5,6)
-    for pk in task_pks:
-        task = Task.objects.get(pk=pk)
-        removeSimulationsForTask(task)
+    # task_pks = (4,5,6)
+    # for pk in task_pks:
+    #    task = Task.objects.get(pk=pk)
+    #    removeSimulationsForTask(task)
     
     #-----------------------------------------------
     #     Unassign all simulations
