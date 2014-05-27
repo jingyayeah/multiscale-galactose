@@ -19,6 +19,7 @@
 		<th>status</th>
 		<th>timecourse</th>
 		<th>simulator</th>
+		<th>assigned</th>
 		<th>duration</th>
 		<th>core</th>
 		<th>hanging</th>
@@ -38,6 +39,7 @@
 				{% endif %}
 			</td>
 		    <td>{{sim.simulator}}</td>
+		    <td>{{sim.time_assign}}</td>
 			<td>{{sim.duration}}</td>
 			<td>{{sim.core}}</td>
 			<td> {% if sim.hanging %}<span class="BAD">{{sim.hanging}}</span>{% endif %}</td>
