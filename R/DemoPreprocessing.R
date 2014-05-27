@@ -4,24 +4,29 @@
 # Read the timecourse data and create optimized data structures
 # for query.
 # The optimized structures are generated with a selection of columns.
+# The timecourses for the different simulations have varying timepoints
+# due to the variable step integration.
 #
 # author: Matthias Koenig
 # date: 2014-05-11
 # install.packages('data.table')
 
-rm(list=ls())   # Clear all objects
+rm(list=ls())
 library(data.table)
 library('matrixStats')
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-sname <- '2014-05-12_Demo'
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-task <- 'T12'
+sname <- '2014-05-27_Demo'
 modelId <- paste('Koenig2014_demo_kinetic_v7')
+task <- 'T1'
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, task)
+
+
 parsfile <- file.path(ma.settings$dir.results, sname, 
                         paste(task, '_', modelId, '_parameters.csv', sep=""))
 pars <- loadParameterFile(file=parsfile)
+head(pars)
 plotParameterHistogramFull(pars)
 
 # do the preprocessing (here all columns)
@@ -30,6 +35,8 @@ outFile <- preprocess(parsfile, ma.settings$dir.simdata)
 
 # load the preprocessed data
 load(outFile)
+tmp <- head(preprocess.list[[1]])
+plot(tmp$time, tmp$A_in)
 
 ################################################################
 # do the plots

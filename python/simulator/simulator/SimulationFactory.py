@@ -9,6 +9,10 @@ Parameters are lists of triples, consisting of name, value and unit.
     
 @author: Matthias Koenig
 @date: 2014-03-14
+
+TODO: Create the simulations in bulk -> much faster than the individual
+    database commit for every simulation.
+
 '''
 import sys
 import os
@@ -129,7 +133,7 @@ if __name__ == "__main__":
         task = createTask(model, integration, simulator=ROADRUNNER, 
                           info='Simulation of the demo network for visualization.')
         
-        createDemoSimulations(task, N=1000, sampling="distribution") 
+        createDemoSimulations(task, N=2000, sampling="distribution") 
         
     #----------------------------------------------------------------------#
     if (0):

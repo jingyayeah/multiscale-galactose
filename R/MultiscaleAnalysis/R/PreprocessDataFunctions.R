@@ -5,7 +5,12 @@
 #'@return filename for the integration file
 #'@export
 getSimulationFileFromSimulationId <- function(dir, simId){
-  fname <- paste(dir, '/', modelId, "_", simId, "_copasi.csv", sep="")
+  if (ma.settings$simulator == 'COPASI'){
+    fname <- paste(dir, '/', modelId, "_", simId, "_copasi.csv", sep="")  
+  } else if (ma.settings$simulator == 'ROADRUNNER'){
+    fname <- paste(dir, '/', modelId, "_", simId, "_roadrunner.csv", sep="")  
+  }
+  fname
 }
 
 #' Get the data storage filename from the parameter file name.
@@ -79,8 +84,19 @@ preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.in
     stop()
   }
   
+  print('Create preprocess list')
   preprocess.list = readColumnData(pars=pars.sim, dir=sim.dir, col.indices_f)
-  preprocess.mat <- createDataMatrices(dir=sim.dir, datalist=preprocess.list)
+  print('Create preprocess matrix')
+  if (ma.settings$simulator == 'COPASI'){
+    # Fixed step size in the timecourse => easy to put in matrix
+    preprocess.mat <- createDataMatrices(dir=sim.dir, datalist=preprocess.list)  
+  }else if (ma.settings$simulator == 'ROADRUNNER'){
+    # Variable stepsize with different step size for every integration
+    # necessary to unify the timesteps
+    # preprocess.mat <- createVariableStepDataMatrices(dir=sim.dir, datalist=preprocess.list)
+    preprocess.mat <- NULL
+  }
+  
   
   # Store
   if (is.null(outFile)){
@@ -139,6 +155,12 @@ readDataForSimulation <- function(dir, simId, col.indices_f){
   # data <- read.csv(file=fname)
   # ! careful data is not striped with fread
   data <- fread(fname, header=T, sep=',')
+  
+  # replace 'X..' if header given via '# '
+  names(data) <- gsub('X..', '', names(data))
+  names(data) <- gsub('#', '', names(data))
+  names(data) <- gsub('\[', '', names(data))
+  names(data) <- gsub('\]', '', names(data))
   
   # necessary to trim
   setnames(data, trim(colnames(data)))
