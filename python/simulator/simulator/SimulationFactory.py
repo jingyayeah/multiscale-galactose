@@ -52,7 +52,7 @@ def createMultipleIndicatorSimulationTask(task, simulator, N=10, sampling="distr
         createSimulationForParameterSample(task=task, simulator=simulator, sample=s)
 
 
-def createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, deficiencies=[0], sampling='mean'):
+def createGalactoseSimulations(task, gal_range, flow_range, N=1, deficiencies=[0], sampling='mean'):
     ''' Galactose simulations '''
     # get the parameter sets by sampling (same parameters for all galactose settings)
     # the same parameter sampling is used for all deficiencies
@@ -68,7 +68,7 @@ def createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, defi
                     snew['deficiency'] = ('deficiency', deficiency, '-', GLOBAL_PARAMETER)
                     snew['PP_gal'] = ('PP__gal', galactose, 'mM', BOUNDERY_INIT)
                     snew['flow_sin'] = ('flow_sin', flow, 'm/s', GLOBAL_PARAMETER)
-                    createSimulationForParameterSample(task, simulator, sample=snew)
+                    createSimulationForParameterSample(task, sample=snew)
 
 
 def createSimulationForParameterSample(task, sample):
@@ -184,11 +184,11 @@ if __name__ == "__main__":
         simulator = ROADRUNNER
         gal_range = np.arange(0, 6, 1.0)
         flow_range = np.arange(0, 1000E-6, 100E-6)
-        task = createTask(model, integration, info, priority=100)
+        task = createTask(model, integration, simulator, info, priority=100)
         # create mean
-        createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, 
+        createGalactoseSimulations(task, gal_range, flow_range, N=1, 
                                    deficiencies=range(0,24), sampling='mean')
         # create from distribution
-        createGalactoseSimulations(task, simulator, gal_range, flow_range, N=10, 
-                                   deficiencies=range(0,24), sampling='distribution')
+        #createGalactoseSimulations(task, gal_range, flow_range, N=10, 
+        #                           deficiencies=range(0,24), sampling='distribution')
         #----------------------------------------------------------------------#        

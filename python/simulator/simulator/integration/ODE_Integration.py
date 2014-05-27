@@ -59,6 +59,7 @@ def integrate_copasi(sims, folder):
     sbml_id = sims[0].task.sbml_model.sbml_id
     for sim in sims:  
         try:
+            sim.time_assign = timezone.now() # correction due to bulk assignment
             config_file = storeConfigFile(sim, folder)
             tc_file = "".join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
 
@@ -100,6 +101,8 @@ def integrate_roadrunner(sims, folder):
             
         for sim in sims:
         # set all parameters in the model and store the changes for revert
+            tstart = time.clock()
+            sim.time_assign = timezone.now() # correction due to bulk assignment
             changes = dict()
             pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
             for p in pc.parameters.all():
@@ -117,11 +120,11 @@ def integrate_roadrunner(sims, folder):
                 rr.model[name] = p.value
 
             
-            start = time.clock()
+            tstart_int = time.clock()
             s = rr.simulate(odeset.tstart, odeset.tend, 
                     absolute=absTol, relative=odeset.rel_tol, variableStep=True, stiff=True)
-            elapsed = (time.clock()- start)    
-            print 'Time:', elapsed
+              
+            print 'Integration Time:', (time.clock()- tstart_int)
             # print(rr)
         
             # Store Timecourse Results
@@ -134,6 +137,8 @@ def integrate_roadrunner(sims, folder):
                 rr.model[key] = value
                     
             storeTimecourseResults(sim, tc_file)
+            print 'Full Time:', (time.clock()-tstart)
+            
     except Exception:
         integration_exception(sim)
     

@@ -28,6 +28,9 @@ TODO: support simulation priorities.
 
 import os
 import sys
+sys.path.append("/".join([os.getenv('MULTISCALE_GALACTOSE'), 'python']))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
 import time
 import multiprocessing
 import socket
@@ -37,12 +40,10 @@ import struct
 from django.utils import timezone
 from sim.models import Core, Simulation
 from sim.models import UNASSIGNED, ASSIGNED
-
 from integration import ODE_Integration
 
-SIM_FOLDER = "/".join(os.getenv('MULTISCALE_GALACTOSE_RESULTS'), 'tmp_sim')
-sys.path.append("/".join(os.getenv('MULTISCALE_GALACTOSE'), 'python'))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+SIM_FOLDER = "/".join([os.getenv('MULTISCALE_GALACTOSE_RESULTS'), 'tmp_sim'])
+
 
 
 def get_ip_address(ifname='eth0'):
@@ -85,7 +86,7 @@ def assign_simulations(core, Nsim=1):
             # assign the first unassigned simulation
             sims = [unassigned[0],]
         else:            
-            Nsim = max(Nsim, unassigned.count)
+            Nsim = min(Nsim, unassigned.count())
             sims = unassigned[0:Nsim]
         # set the assignment status
         assign_and_save_in_bulk(sims, core)
@@ -122,6 +123,7 @@ def worker(cpu, lock, Nsim):
     while(True):
         # Update the time for the core
         core = get_core_by_ip_and_cpu(ip, cpu)
+        print core, 'wants simulations'
         
         # Assign simulation
         lock.acquire()
@@ -129,6 +131,8 @@ def worker(cpu, lock, Nsim):
         # to one core (otherwise multiple assignment bugs will arise)
         sims = assign_simulations(core, Nsim)
         lock.release()
+        
+        print sims
         
         if (sims):
             ODE_Integration.integrate(sims, SIM_FOLDER)
@@ -159,7 +163,7 @@ if __name__ == "__main__":
     print 'Used CPUs: ', cpus
     print '#'*60
     
-    Nsim = 20;
+    Nsim = 25;
     
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()

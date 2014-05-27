@@ -305,7 +305,8 @@ class Simulation(models.Model):
     hanging = property(_is_hanging)
     
 def timecourse_filename(instance, filename):
-    return '/'.join(['timecourse', str(instance.simulation.task), filename])
+    name = filename.split("/")[-1]
+    return '/'.join(['timecourse', str(instance.simulation.task), name])
 
 class Timecourse(models.Model):
     '''

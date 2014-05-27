@@ -43,6 +43,7 @@
     </table>
     
 {% if sim.status == 'DONE' %}
+{% with tc=sim.timecourse %}
 <h2>Timecourse</h2>
 <table>
 <thead>
@@ -56,6 +57,7 @@
 	</tr>    
 </tbody>
 </table>
+{% endwith %}
     
 {% if sim.timecourse.plot_set.all %}
 <h2>Plots</h2>
