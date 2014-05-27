@@ -1,43 +1,25 @@
-{% extends "sim/base_generic.html" %} {% load staticfiles %}
+{% extends "sim/base_generic.html" %}
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
+
 {% block content %}
 	<table id="table_items">
 	<caption>Timecourses</caption>
 	<thead>
 	<tr>
-		<th>pk</th>
-		<th>sim</th>
-		<th>csv</th>
-		<th>file</th>
+		{% usekwacro timecourse_header %}
 	</tr>
 	</thead>
 	<tbody>
 	{% for tc in timecourses %}
 		<tr>
-			<td>{{ tc.pk }}</td>
-			<td><a href="{% url 'sim:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
-			<td><a href="{{ tc.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15" /></a></td>
-			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
+			{% usekwacro timecourse_content %}
 		</tr>    
     {% endfor %}
     </tbody>
     </table>
  
-    <div class="pagination">
-    <span class="step-links">
-        {% if timecourses.has_previous %}
-            <a href="?page={{ timecourses.previous_page_number }}">previous</a>
-        {% else %}
-        previous
-        {% endif %}
-		 | 
-        {% if timecourses.has_next %}
-            <a href="?page={{ timecourses.next_page_number }}">next</a>
-        {% endif %}
-        
-        <span class="current">
-           [{{ timecourses.number }} of {{ timecourses.paginator.num_pages }}]
-        </span>
-    </span>
-	</div>
-
+    {% with items=timecourses %}
+  		{% usekwacro pagination %}
+	{% endwith %}
 {% endblock %}

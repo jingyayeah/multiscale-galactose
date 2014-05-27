@@ -5,6 +5,7 @@ from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot, Inte
     UNASSIGNED
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from sim.analysis.AnalysisTools import createParameterInfoForTask
 
 PAGINATE_ENTRIES = 30
 
@@ -55,6 +56,19 @@ def task(request, task_id):
         'task': task,
     })
     return HttpResponse(template.render(context))
+    
+    
+def task_parameters(request, task_id):
+    from sim.analysis.AnalysisTools import createParameterFileForTask, getParameterFilenameForTask
+    task = get_object_or_404(Task, pk=task_id)
+    
+    content = createParameterInfoForTask(task)
+    f = file(getParameterFilenameForTask(task), 'w')
+    f.write(content)
+    f.close()
+    
+    createParameterFileForTask(task)
+    return HttpResponse(content, content_type='text/plain')
     
     
 def integrations(request):

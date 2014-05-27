@@ -1,108 +1,80 @@
-{% extends "sim/base_generic.html" %} {% load staticfiles %}
+{% extends "sim/base_generic.html" %}
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
 
 {% block content %}
 <h2>Simulation [{{sim}}]</h2>
 	<table>
 	<tr>
-		<th>pk</th>
-		<th>model</th>
-		<th>task</th>
-		<th>integration</th>
-		<th>parameters</th>
-		<th>simulator</th>
-		<th>status</th>
-		<th>timecourse</th>
+		{% usekwacro simulation_header %}
 	</tr>
 		<tr>
-			<td>{{sim.pk}}</td>
-			<td>{{sim.task.sbml_model.sbml_id}}</td>
-			<td>{{sim.task}}</td>
-			<td>{{sim.task.integration}}</td>
-			<td>{{sim.parameters}}</td>
-			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
-			<td> {% if sim.status == 'DONE' %}
-				<a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a>
-				{% endif %}
-			</td>
+			{% usekwacro simulation_content %}
 		</tr>    
     </table>
     
-    <h2>Model</h2>
-    <table id="table">
-    <thead>
+    
+<h2>Model</h2>
+{% with model=sim.task.sbml_model %}
+<table id="table">
+<thead>
+<tr>
+	{% usekwacro model_header %}
+</tr>
+</thead>
+<tbody>
 	<tr>
-		<th>pk</th>
-		<th>id</th>
-		<th>sbml</th>
-		<th>report</th>
-	</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>{{sim.task.sbml_model.pk}}</td>
-			<td>{{sim.task.sbml_model.sbml_id}}</td>
-			<td><a href="{{ sim.task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
-			<td><a href="{% url 'sim:report' sim.task.sbml_model.pk %}" target="_blank">
-				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
-		</tr>    
-    </tbody>
-    </table>
-    
-    
+		{% usekwacro model_content %}
+	</tr>    
+</tbody>
+</table>
+{% endwith %}
+
     <h2>Parameters</h2>    
     <table>
 	<tr>
-		<th>id</th>
-		<th>value</th>
-		<th>unit</th>
-		<th>type</th>
+		{% usekwacro parameter_header %}
 	</tr>
 	{% for pars in sim.parameters.parameters.all %}
 		<tr>
-			<td>{{pars.name}}</td>
-			<td>{{pars.value}}</td>
-			<td>{{pars.unit}}</td>
-			<td>{{pars.ptype}}</td>
+			{% usekwacro parameter_content %}
 		</tr>
 		{% endfor %}    
     </table>
     
-    {% if sim.status == 'DONE' %}
-    <h2>Timecourse</h2>
-    <table>
-    <thead>
+{% if sim.status == 'DONE' %}
+{% with tc=sim.timecourse %}
+<h2>Timecourse</h2>
+<table>
+<thead>
+<tr>
+	{% usekwacro timecourse_header %}
+</tr>
+</thead>
+<tbody>
 	<tr>
-		<th>pk</th>
-		<th>sim</th>
-		<th>csv</th>
-		<th>file</th>
-	</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>{{ sim.timecourse.pk }}</td>
-			<td>{{ sim }}</td>
-			<td><a href="{{ sim.timecourse.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15"/></a></td>
-			<td><a href="{{ sim.timecourse.file.url }}">{{ sim.timecourse.file.name }}</a></td>
-		</tr>    
-    </tbody>
-    </table>
+		{% usekwacro timecourse_content %}
+	</tr>    
+</tbody>
+</table>
+{% endwith %}
     
-    {% if sim.timecourse.plot_set.all %}
-    <h2>Plots</h2>
-    {% for plot in sim.timecourse.plot_set.all %}
-    	<b>name</b>: {{plot.file.name}}<br />
-    	<b>type</b>: {{plot.plot_type}}<br />
-    	<img src="{{plot.file.url}}" /><br />
-    {% endfor %}
-    {% endif %}
-    
-    {% else %}
-    <p>
-    	<br />
-    	Simulation status <span class="{{sim.status}}">{{sim.status}}</span>, 
-    	no timecourse and plots available.<br />
-    </p>
-    {% endif %}
+{% if sim.timecourse.plot_set.all %}
+<h2>Plots</h2>
+	{% for plot in sim.timecourse.plot_set.all %}
+		<b>name</b>: {{plot.file.name}}<br />
+ 		<b>type</b>: {{plot.plot_type}}<br />
+ 		<img src="{{plot.file.url}}" /><br />
+	{% endfor %}
+{% endif %}
+	
+{% else %}
+<p>
+    <br />
+    Simulation status <span class="{{sim.status}}">{{sim.status}}</span>, 
+    no timecourse and plots available.<br />
+</p>
+{% endif %}
+
     
 {% endblock %}

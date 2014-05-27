@@ -1,26 +1,15 @@
-{% extends "sim/base_generic.html" %}
+{% extends "sim/base_generic.html" %} 
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
 
 {% block content %}
 <h1>Task</h1>
 	<table id="table_items">
 	<tr>
-		<th>pk</th>
-		<th>model</th>
-		<th>integration</th>
-		<th>simulations</th>
-		<th>status</th>
-		<th>info</th>
+		{% usekwacro task_header %}
 	</tr>
-		<tr>
-			<td>{{task.pk}}</td>
-			<td><a href="{{task.sbml_model.file.url}}" target="_blank">{{task.sbml_model}}</a></td>
-			<td>{{task.integration}}</td>
-			<td>{{task.sim_count}}</td> 
-			<td>
-				<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>
-			</td>
-			<td>{{task.info}}</td>
-		</tr>
+	<tr>
+		{% usekwacro task_content %}
+	</tr>
     </table> 
-    
 {% endblock %}

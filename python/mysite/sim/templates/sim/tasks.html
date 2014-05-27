@@ -1,37 +1,19 @@
-{% extends "sim/base_generic.html" %} {% load staticfiles %}
-{% load Parameter_filters %}
+{% extends "sim/base_generic.html" %}
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
+
 {% block content %}
 	<table id="table_items">
 	<caption>Tasks [{{tasks_list.count}}]</caption>
     <thead>
 	<tr>
-		<th>pk</th>
-		<th>status</th>
-		<th>priority</th>
-		<th>sbml</th>
-		<th>report</th>
-		<th>parameter</th>
-		<th>model</th>
-		<th>integration</th>
-		<th>info</th>
+		{% usekwacro task_header %}
 	</tr>
 	</thead>
 	<tbody>
 	{% for task in tasks_list %}
 		<tr>
-			<td><a href="{% url 'sim:task' task.pk %}">{{task.pk}}</a></td>
-			<td>
-				<b>{{task.sim_count}}</b>
-				[<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>] 	
-			</td>
-			<td>{{task.priority}}</td>
-			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
-			<td><a href="{% url 'sim:report' task.sbml_model.pk %}" target="_blank">
-				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
-			<td><a href="{{ task }}" target="_blank"><img height="12" src="{% static 'sim/images/params_small.png' %}"></a></td>
-			<td>{{task.sbml_model}} </td>
-			<td>{{task.integration}}</td>
-			<td width="400px">{{task.info}}</td>
+			{% usekwacro task_content %}
 		</tr>    
     {% endfor %}
     </tbody>

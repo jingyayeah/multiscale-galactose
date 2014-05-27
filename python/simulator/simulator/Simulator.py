@@ -1,11 +1,8 @@
 '''
 Main module to run simulations.
-This module takes car of starting the intergration processes on the available
-processors.
-
-In general only the database information about the files, i.e. 
-location on the local filesystem is stored. Problems can arise depending
-on which computer generates the files locally. This has to be synchronized.
+Manages the assigning of simulation to available CPUs and the 
+integration process. Depending on the simulation definition different
+ODE integrators will be used.
 
 -------------------------------------------------------------------------------------
 How multiprocessing works, in a nutshell:
@@ -26,22 +23,16 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 @author: Matthias Koenig
 @date: 2013-11-06
 
-TODO: handle all Folders by setting $MULTISCALE_GALACTOSE variable and bash variables
 TODO: support simulation priorities.
 '''
 
-from integration import ODE_Integration
-SIM_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sim" 
-
-
 import os
 import sys
-sys.path.append('/home/mkoenig/multiscale-galactose/python')
+sys.path.append("/".join([os.getenv('MULTISCALE_GALACTOSE'), 'python']))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
 import multiprocessing
-
 import socket
 import fcntl
 import struct
@@ -49,6 +40,10 @@ import struct
 from django.utils import timezone
 from sim.models import Core, Simulation
 from sim.models import UNASSIGNED, ASSIGNED
+from integration import ODE_Integration
+
+SIM_FOLDER = "/".join([os.getenv('MULTISCALE_GALACTOSE_RESULTS'), 'tmp_sim'])
+
 
 
 def get_ip_address(ifname='eth0'):
@@ -76,29 +71,39 @@ def get_core_by_ip_and_cpu(ip, cpu):
         core.save()
     return core
 
-
-def assign_simulation(core):
+def assign_simulations(core, Nsim=1):
     ''' 
     Gets an unassigned simulation and assigns the core to it.
     Returns None if no simulation could be assigned 
     Is performed in a lock so that multiple cores do not get the same unassigned simulation.
-    TODO: order by task priority
     '''
-    unassigned = Simulation.objects.filter(status=UNASSIGNED).order_by('time_create');
-    if (unassigned.exists()):
-        # assign the first unassigned simulation
-        sim = unassigned[0]
+    # Get a task with unassigned simulations
+    unassigned_query = Simulation.objects.filter(status=UNASSIGNED);
+    if (unassigned_query.exists()):
+        # all simulations have to belong to same task
+        unassigned = Simulation.objects.filter(task=unassigned_query[0].task, status=UNASSIGNED);
+        if (Nsim == 1):
+            # assign the first unassigned simulation
+            sims = [unassigned[0],]
+        else:            
+            Nsim = min(Nsim, unassigned.count())
+            sims = unassigned[0:Nsim]
+        # set the assignment status
+        assign_and_save_in_bulk(sims, core)
+        return sims
+    else:
+        return None
+
+from django.db.transaction import commit_on_success
+@commit_on_success
+def assign_and_save_in_bulk(simulations, core):
+    ''' Huge speed increase doing in bulk. '''
+    for sim in simulations:
         sim.time_assign = timezone.now()
         sim.core = core
         sim.status = ASSIGNED
         sim.save();
-        return sim
-    else:
-        return None
-    
 
-def perform_simulation(sim, folder):
-    ODE_Integration.integrate(sim, folder, simulator=sim.simulator)
 
 def info(title):
     print title
@@ -107,7 +112,7 @@ def info(title):
         print 'parent process:', os.getppid()
     print 'process id:', os.getpid()
 
-def worker(cpu, lock):
+def worker(cpu, lock, Nsim):
     info('function worker')
     try:
         ip = get_ip_address('eth0')
@@ -118,24 +123,31 @@ def worker(cpu, lock):
     while(True):
         # Update the time for the core
         core = get_core_by_ip_and_cpu(ip, cpu)
+        print core, 'wants simulations'
         
         # Assign simulation
         lock.acquire()
         # assign the simulations within a lock so every simulation is only assigned
         # to one core (otherwise multiple assignment bugs will arise)
-        sim = assign_simulation(core)
+        sims = assign_simulations(core, Nsim)
         lock.release()
         
-        if (sim):
-            perform_simulation(sim, SIM_FOLDER)
+        print sims
+        
+        if (sims):
+            ODE_Integration.integrate(sims, SIM_FOLDER)
         else:
             print core, "... no unassigned simulations ...";
             time.sleep(20)
 
+#####################################################################################
 if __name__ == "__main__":     
+    '''
+    Starting the simulation on the local computer.
+    Call with --cpu option if not using 100% resources
+    '''
     from optparse import OptionParser
     import math
-    
     parser = OptionParser()
     parser.add_option("-c", "--cpu", dest="cpu_load",
                   help="CPU load between 0 and 1, i.e. 0.5 uses half the cpus")
@@ -151,12 +163,14 @@ if __name__ == "__main__":
     print 'Used CPUs: ', cpus
     print '#'*60
     
+    Nsim = 25;
+    
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()
     # start processes on every cpu
     procs = []
     for cpu in range(cpus):
-        p = multiprocessing.Process(target=worker, args=(cpu, lock))
+        p = multiprocessing.Process(target=worker, args=(cpu, lock, Nsim))
         procs.append(p)
         p.start()
     

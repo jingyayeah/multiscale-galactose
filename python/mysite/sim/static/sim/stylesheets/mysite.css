@@ -10,20 +10,9 @@
 }
 
 
-/**************** main *****************/
-
-#content {
-    top: 20px;
-	background:#ffffff; 	
-	position: relative;
-	z-index:80;
-	width:1000px;
-	left: 240px;
-}
-
 
 /*********************************/
-html{font-size:normal;}
+html{font-size:90%;}
 body {
     background: #ffffff;
     line-height: 1.4em;
@@ -50,8 +39,7 @@ h2{
 	color:#a6a3a3;
 	/*background-color:#a6a3a3;*/
 }
-h3{}
-h5{}
+
 
 a:link, a:visited{
 	color:#00009b;
@@ -69,16 +57,32 @@ ul{
 	list-style-type: none;
 }
 
-/* Documentation Styles
-================================================== */
+
+
+/**************** main *****************/
+
+#content {
+    top: 20px;
+	background:#ffffff; 	
+	position: relative;
+	z-index:80;
+	width:72%;
+	left: 230px;
+	right: 4%;
+}
+
+
+/* navigation */
+
     div.container {
         padding-top: 20px; }
 
     /* Doc nav */
     nav {
         position: fixed;
-        width: 200px;
-        margin-left: 20px;
+        width: 220px;
+        max-width: 220px;
+        margin-left: 0%;
         }
     #logo {
         margin-bottom: 0px;
@@ -120,15 +124,14 @@ ul{
     .hidden-code>div {
         display: none; }
 
-
 /**** table *********************/
 table {
-    //width: 80%;
-    font-size: 80%;
+    font-size: 100%;
     margin: 0;
     background: #FFFFFF;
     border: 1px solid #333333;
     border-collapse: collapse;
+    min-width: 50%;
 }
 
 td, th {
@@ -182,4 +185,4 @@ span.ASSIGNED{
 span.DONE, span.GOOD{
 	color:green;
 }
-
+/*************************/

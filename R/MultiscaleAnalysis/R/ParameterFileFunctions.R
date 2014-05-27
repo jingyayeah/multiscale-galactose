@@ -26,6 +26,9 @@ loadParameterFile <- function(file){
   print(parsfile)
   pars <- read.csv(parsfile, header=TRUE)
   row.names(pars) <- paste("Sim", pars$sim, sep="")
+  
+  # replace 'X..' if header given via '# '
+  names(pars) <- gsub('X..', '', names(pars))
   pars
 }
 

@@ -14,11 +14,26 @@ import sys
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
-import csv
+import time
+
 from sim.models import Task
 
+def getParameterFilenameForTask(task, folder=None):
+    '''TODO: proper general paths'''
+    if (not folder):
+        folder = "/home/mkoenig/multiscale-galactose-results/"
 
-def createParameterFileForTask(folder, task):
+    mname = task.sbml_model.sbml_id
+    return ''.join([folder, "/", str(task), "_", mname, "_parameters.csv"])
+
+def createParameterFileForTask(task, folder=None):
+    fname = getParameterFilenameForTask(task, folder=folder)
+    f = file(fname, 'w')
+    f.write(createParameterInfoForTask(task))
+    f.close()
+    return fname
+
+def createParameterInfoForTask(task):
     '''
     Write the parameter file for the task.
     Simulation Id is stored in collection with the parameters.
@@ -26,13 +41,16 @@ def createParameterFileForTask(folder, task):
     numbers of parameters set. It has to be guaranteed by the
     SimulationFactory.
     '''
-    print "Create parameter file: ", task
+    print 'Create Parameter File for: ', str(task)
+    start = time.clock()
     # collect the parameters for the simulations
     data = dict()
     data['sim'] = []
     data['status'] = []
     data['core'] = []
     data['duration'] = []
+    
+    # TODO: make this faster by getting the related information
     for sim in task.simulation_set.all():
         data['sim'].append(sim.pk)
         data['status'].append(sim.status)
@@ -50,29 +68,23 @@ def createParameterFileForTask(folder, task):
     for key in data.iterkeys():
         if ( len(data[key]) != len(data['sim']) ):
             print 'ERROR - wrong number of parameters'
-        
-    # create csv writer
-    mname = task.sbml_model.sbml_id
-    fname = folder + "/T" + str(task.pk) + "_" + mname + "_parameters.csv" 
-    f = file(fname, 'w')
-    writer = csv.writer(f, delimiter=",", quotechar='"')
     
-    # write the csv
-    header = data.keys();
-    print header
-    writer.writerows([header,])
+    # create the content
+    header = data.keys()
+    lines = ['# ' + ", ".join(header)]
     for k in xrange(len(data['sim'])):
-        tmp = [data[key][k] for key in header]
-        writer.writerows([tmp,])
-    f.close()
+        lines +=  [", ".join([str(data[key][k]) for key in header])]
     
+    print 'time: ', (time.clock() - start)
+    return "\n".join(lines)
+        
     
 if __name__ == "__main__":
     folder = "/home/mkoenig/multiscale-galactose-results/"
     # ids = range(12)
-    ids = (30, 31, 32, 33)
+    ids = (1, )
     print ids
     for task_id in ids:    
         task = Task.objects.get(pk=task_id);
-        createParameterFileForTask(folder, task);
+        createParameterFileForTask(task, folder);
     

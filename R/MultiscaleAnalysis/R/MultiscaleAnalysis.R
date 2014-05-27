@@ -18,6 +18,7 @@ dir.expdata <- file.path(dir.base, 'experimental_data')
 dir.results <- '/home/mkoenig/multiscale-galactose-results'
 dir.simdata <- '/home/mkoenig/multiscale-galactose-results'
 
+simulator = "ROADRUNNER" # COPASI
 ################################################################
 #' Available settings for the MultiscaleAnalysis package
 #' @export
@@ -25,5 +26,6 @@ ma.settings <- list(dir.base=dir.base,
                     dir.code=dir.code,
                     dir.expdata=dir.expdata,
                     dir.simdata=dir.simdata,
-                    dir.results=dir.results)
+                    dir.results=dir.results,
+                    simulator=simulator)
 ################################################################

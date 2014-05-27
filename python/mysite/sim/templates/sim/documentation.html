@@ -1,23 +1,49 @@
 {% extends "sim/base_generic.html" %}
+{% load staticfiles %}
+
 {% block content %}
-<h1 class="remove-bottom" style="margin-top: 40px">Docs &amp; Support</h1>
+<h1>Docs &amp; Support</h1>
 <hr />
 
 <h3>Methods</h3>
-<p>The detailed methods for modelling are available in the coming publication
-	"Multi-scale modelling of hepatic liver metabolism".
+<p>Methods and models are described in the upcoming publication
+	"Multi-scale modelling of hepatic liver galactose metabolism".
 	<br />
 	If you have any questions, thoughts, concerns or feedback,
 	please don't hesitate to email me at <a href="mailto:matthias.koenig@charite.de">matthias.koenig[at]charite.de</a>.
 </p>
 
-<h3>Data Management</h3>
-<p>
-	The project is available from the SEEK virtual liver data managment at
-</p>
-
 <h3>Code</h3>
-<p>The model can be checked out from github via 
-	<code>here code</code>
+<p>All project code is available at<br />
+	<a href="https://github.com/matthiaskoenig/multiscale-galactose"><code>https://github.com/matthiaskoenig/multiscale-galactose</code></a>
+</p>
+<h3>Support</h3>
+<p>
+	<table>
+		<tr>
+			<td><a href="http://www.virtual-liver.de" target="_blank">
+			<img src="{% static 'sim/images/vln.png' %}" height="30" alt="Virtual Liver Network VLN" />
+		</a></td>
+			<td>Funded by the Virtual Liver Network VLN.</td>
+		</tr>
+		<tr>
+			<td><a href="http://www.charite.de" target="_blank">
+			<img src="{% static 'sim/images/charite.png' %}" height="30"  alt="Charite Berlin" />
+		</a></td>
+			<td>Funded by the Charite Berlin.</td>
+		</tr>
+		<tr>
+			<td><a href="http://seek.virtuelle-leber.de/investigations/88" target="_blank">
+			<img src="{% static 'sim/images/seek.png' %}" height="30" alt="SEEK Virtual Liver" />
+		</a></td>
+			<td>Supported by the Virtual Liver SEEK data management.</td>
+		</tr>
+	</table>
+		
+		<br />
+		
+		<br />
+		
+		<br />
 </p>
 {% endblock %}
