@@ -70,18 +70,21 @@ def get_core_by_ip_and_cpu(ip, cpu):
         core.save()
     return core
 
-def assign_simulation(core, Nsim=1):
+def assign_simulations(core, Nsim=1):
     ''' 
     Gets an unassigned simulation and assigns the core to it.
     Returns None if no simulation could be assigned 
     Is performed in a lock so that multiple cores do not get the same unassigned simulation.
     '''
-    unassigned = Simulation.objects.filter(status=UNASSIGNED);
-    if (unassigned.exists()):
+    # Get a task with unassigned simulations
+    unassigned_query = Simulation.objects.filter(status=UNASSIGNED);
+    if (unassigned_query.exists()):
+        # all simulations have to belong to same task
+        unassigned = Simulation.objects.filter(task=unassigned_query[0].task, status=UNASSIGNED);
         if (Nsim == 1):
             # assign the first unassigned simulation
             sims = [unassigned[0],]
-        else:
+        else:            
             Nsim = max(Nsim, unassigned.count)
             sims = unassigned[0:Nsim]
         # set the assignment status
@@ -100,8 +103,6 @@ def assign_and_save_in_bulk(simulations, core):
         sim.status = ASSIGNED
         sim.save();
 
-def perform_simulations(sims, folder):
-    ODE_Integration.integrate(sims, folder, simulator=sim.simulator)
 
 def info(title):
     print title
@@ -126,12 +127,11 @@ def worker(cpu, lock, Nsim):
         lock.acquire()
         # assign the simulations within a lock so every simulation is only assigned
         # to one core (otherwise multiple assignment bugs will arise)
-        sims = assign_simulation(core, Nsim)
+        sims = assign_simulations(core, Nsim)
         lock.release()
         
         if (sims):
-            simulator = sims[0].simulator
-            perform_simulation(sims, SIM_FOLDER)
+            ODE_Integration.integrate(sims, SIM_FOLDER)
         else:
             print core, "... no unassigned simulations ...";
             time.sleep(20)
@@ -159,12 +159,14 @@ if __name__ == "__main__":
     print 'Used CPUs: ', cpus
     print '#'*60
     
+    Nsim = 20;
+    
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()
     # start processes on every cpu
     procs = []
     for cpu in range(cpus):
-        p = multiprocessing.Process(target=worker, args=(cpu, lock))
+        p = multiprocessing.Process(target=worker, args=(cpu, lock, Nsim))
         procs.append(p)
         p.start()
     

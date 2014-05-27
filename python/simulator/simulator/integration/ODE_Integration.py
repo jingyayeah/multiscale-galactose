@@ -24,52 +24,82 @@ import numpy
 import roadrunner
 COPASI_EXEC = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/build/CopasiModelRunner"
 
-def integrate(sim, folder, simulator):
-    ''' 
-    Run ODE integration for the simulation. 
-    Error handling is done via try/except 
-    Cores are not hanging, but simulations are put into an ERROR state.
-    Mainly problems if files are not available.
+def storeConfigFile(sim, folder):
+    #Store the config file in the database
+    config_file = create_config_file_in_folder(sim, folder)
+    f = open(config_file, 'r')
+    sim.file = File(f)
+    sim.save()
+    return config_file;
+
+def storeTimecourseResults(sim, tc_file):
+    # Store Timecourse Results
+    f = open(tc_file, 'r')
+    myfile = File(f)
+    tc, created = Timecourse.objects.get_or_create(simulation=sim)
+    tc.file = myfile
+    tc.save();
     
-    '''
-    try:
-        sbml_file = str(sim.task.sbml_model.file.path)
-        sbml_id = sim.task.sbml_model.sbml_id
-        config_file = create_config_file_in_folder(sim, folder)
-    
-        #Store the config file in the database
-        f = open(config_file, 'r')
-        sim.file = File(f)
-        sim.save()
-        
-        if (simulator == COPASI):
+    # simulation finished (update simulation information and save)
+    sim.time_sim = timezone.now()
+    sim.status = DONE
+    sim.save()
+            
+
+def integration_exception(sim):
+    print "Exception in integration"
+    print '-'*60
+    traceback.print_exc(file=sys.stdout)
+    print '-'*60
+    sim.status = ERROR
+    sim.save()
+
+def integrate_copasi(sims, folder):
+    sbml_file = str(sims[0].task.sbml_model.file.path)
+    sbml_id = sims[0].task.sbml_model.sbml_id
+    for sim in sims:  
+        try:
+            config_file = storeConfigFile(sim, folder)
             tc_file = "".join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
+
             # run an operating system command
             # call(["ls", "-l"])
             call_command = COPASI_EXEC + " -s " + sbml_file + " -c " + config_file + " -t " + tc_file;
             print call_command
             call(shlex.split(call_command))
-    
-        elif (simulator == ROADRUNNER):
-            '''
-            Here the complete RoadRunner simulation logic is performed.
-            Make sure the model is not reloaded
-            '''
-            # read SBML
-            rr = roadrunner.RoadRunner(sbml_file)
-        
-            # set the selection
-            sel = ['time']
-            sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
-            sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
-            sel += rr.model.getReactionIds()
-            # For testing store the parameters (make sure that reset is working)
-            sel += rr.model.getGlobalParameterIds()
+                
+            storeTimecourseResults(sim, tc_file)
+        except Exception:
+            integration_exception(sim)
             
-            rr.selections = sel
-            header = ",".join(sel)
+        
+def integrate_roadrunner(sims, folder):
+    '''
+    Here the complete RoadRunner simulation logic is performed.
+    '''
+    try:
+        sbml_file = str(sims[0].task.sbml_model.file.path)
+        sbml_id = sims[0].task.sbml_model.sbml_id
+        # read SBML
+        rr = roadrunner.RoadRunner(sbml_file)
+        
+        # set the selection
+        sel = ['time']
+        sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
+        sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
+        sel += rr.model.getReactionIds()
+        # For testing store the parameters (make sure that reset is working)
+        sel += rr.model.getGlobalParameterIds()
+            
+        rr.selections = sel
+        header = ",".join(sel)
 
-            # set all parameters in the model and store the changes for revert
+        # use the integration settings (adapt absTol to amounts)
+        odeset = sims[0].task.integration
+        absTol = odeset.abs_tol * min(rr.model.getCompartmentVolumes())
+            
+        for sim in sims:
+        # set all parameters in the model and store the changes for revert
             changes = dict()
             pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
             for p in pc.parameters.all():
@@ -86,16 +116,13 @@ def integrate(sim, folder, simulator):
                 changes[name] = rr.model[name]
                 rr.model[name] = p.value
 
-            # use the integration settings (adapt absTol to amounts)
-            odeset = sim.task.integration
-            absTol = odeset.abs_tol * min(rr.model.getCompartmentVolumes())
             
             start = time.clock()
             s = rr.simulate(odeset.tstart, odeset.tend, 
                     absolute=absTol, relative=odeset.rel_tol, variableStep=True, stiff=True)
             elapsed = (time.clock()- start)    
             print 'Time:', elapsed
-            print(rr)
+            # print(rr)
         
             # Store Timecourse Results
             tc_file = "".join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
@@ -104,34 +131,35 @@ def integrate(sim, folder, simulator):
             # reset
             rr.reset()
             for key, value in changes.iteritems():
-                rr.model[key] = value    
-        
-    
-        # Store Timecourse Results
-        f = open(tc_file, 'r')
-        myfile = File(f)
-        tc, created = Timecourse.objects.get_or_create(simulation=sim)
-        tc.file = myfile
-        tc.save();
-    
-        # simulation finished (update simulation information and save)
-        sim.time_sim = timezone.now()
-        sim.status = DONE
-        sim.save()
+                rr.model[key] = value
+                    
+            storeTimecourseResults(sim, tc_file)
     except Exception:
-        print "Exception in multiscale-galactose:"
-        print '-'*60
-        traceback.print_exc(file=sys.stdout)
-        print '-'*60
-        sim.status = ERROR
-        sim.save()
+        integration_exception(sim)
+    
+
+def integrate(sims, folder):
+    ''' 
+    Run ODE integration for the simulation. 
+    Error handling is done via try/except 
+    Cores are not hanging, but simulations are put into an ERROR state.
+    Mainly problems if files are not available.
+    
+    '''
+    simulator = sims[0].task.simulator
+    if (simulator == COPASI):
+        integrate_copasi(sims, folder);
+    elif (simulator == ROADRUNNER):
+        integrate_roadrunner(sims, folder);
+
+
         
 if __name__ == "__main__":
     from simulator.Simulator import SIM_FOLDER
     from sim.models import Simulation
     print roadrunner.__version__
     
-    sim = Simulation.objects.filter(task__pk=1)[0]
+    sims = [Simulation.objects.filter(task__pk=1)[0], ]
     #for sim in sims:
-    integrate(sim, SIM_FOLDER, simulator=ROADRUNNER)
-    integrate(sim, SIM_FOLDER, simulator=COPASI)
+    integrate(sims, SIM_FOLDER, simulator=ROADRUNNER)
+    integrate(sims, SIM_FOLDER, simulator=COPASI)
