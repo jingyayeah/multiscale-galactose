@@ -24,25 +24,23 @@ from distribution.RandomSampling import createParametersBySampling
 # here the local sbml files are located
 SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
 
-def createTask(model, integration, info, priority=0):
+def createTask(model, integration, simulator, info='', priority=0):
     ''' Creates the task from given information. '''
-    task, created = Task.objects.get_or_create(sbml_model=model, 
-                                               integration=integration, priority=priority)
+    task, created = Task.objects.get_or_create(sbml_model=model, integration=integration, 
+                                               simulator=simulator, info=info, priority=priority)
     if (created):
         print "Task created: {}".format(task)
-    task.info = info
-    task.save()
     return task
 
 
-def createDemoSimulations(task, simulator, N=10, sampling='distribution'):
+def createDemoSimulations(task, N=10, sampling='distribution'):
     ''' Creates simple demo simulation to test the network visualization. '''    
     # get the parameter sets by sampling (same parameters for all galactose settings)
     # the same parameter sampling is used for all deficiencies
     dist_data = getDemoDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
     for s in samples:
-        createSimulationForParameterSample(task, simulator=simulator, sample=s)
+        createSimulationForParameterSample(task, sample=s)
     return task
 
 
@@ -73,7 +71,7 @@ def createGalactoseSimulations(task, simulator, gal_range, flow_range, N=1, defi
                     createSimulationForParameterSample(task, simulator, sample=snew)
 
 
-def createSimulationForParameterSample(task, simulator, sample):
+def createSimulationForParameterSample(task, sample):
     ''' 
     Create the single Parameters, the combined ParameterCollection
     and the simulation based on the Parametercollection for the
@@ -92,11 +90,9 @@ def createSimulationForParameterSample(task, simulator, sample):
         pset.parameters.add(p)
     pset.save()
     
-    # Simulation
     sim, created = Simulation.objects.get_or_create(task=task, 
                                                       parameters = pset,
-                                                      status = UNASSIGNED,
-                                                      simulator = simulator)
+                                                      status = UNASSIGNED)
     if (created):
         print "Simulation created: {}".format(sim)
 
@@ -116,26 +112,25 @@ if __name__ == "__main__":
     code_dir = "/home/mkoenig/multiscale-galactose"
     
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         print '*** DEMO ***'
-        # Generate demo network & simulations for visualization
+
         sbml_id = "Koenig2014_demo_kinetic_v7"
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
         syncDjangoSBML()
         
-        # integration
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
                                                              tend=100.0, 
                                                              tsteps=2000,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)
-        # info
-        info = '''Simulation of the demo network for visualization.'''
-        # simulation
-        task = createTask(model, integration, info)
-        createDemoSimulations(task, simulator=ROADRUNNER, N=2000, sampling="distribution") 
-        createDemoSimulations(task, simulator=COPASI, N=2000, sampling="distribution")
+
+        task = createTask(model, integration, simulator=ROADRUNNER, 
+                          info='Simulation of the demo network for visualization.')
+        
+        createDemoSimulations(task, N=1000, sampling="distribution") 
+        
     #----------------------------------------------------------------------#
     if (0):
         print '*** MULTIPLE INDICATOR ***'
@@ -170,7 +165,7 @@ if __name__ == "__main__":
             createMultipleIndicatorSimulationTask(task, simulator=ROADRUNNER, N=990, sampling="distribution")
             # createMultipleIndicatorSimulationTask(task, N=100, sampling="mean") 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print '*** GALACTOSE SIMULATIONS ***'
         # Create the galactose model
         sbml_id = "Galactose_v20_Nc20_Nf1"   

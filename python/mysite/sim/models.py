@@ -179,19 +179,26 @@ class ParameterCollection(models.Model):
         return self.parameters.count()
     
 
-        
+COPASI = "COPASI"
+ROADRUNNER = "ROADRUNNER"
+       
 class Task(models.Model):
     '''
         Tasks are compatible on their integration setting and the
         underlying model.
     '''
+    SIMULATOR = (
+                         (COPASI, 'copasi'),
+                         (ROADRUNNER, 'roadrunner'),
+    )
     sbml_model = models.ForeignKey(SBMLModel)
     integration = models.ForeignKey(Integration)
+    simulator = models.CharField(max_length=20, choices=SIMULATOR, default=COPASI)
     priority = models.IntegerField(default=0)
     info = models.TextField(null=True, blank=True)
     
     class Meta:
-        unique_together = ("sbml_model", "integration")
+        unique_together = ("sbml_model", "integration", "simulator")
     
     def __unicode__(self):
         return "T%d" % (self.pk)
@@ -216,9 +223,6 @@ UNASSIGNED = "UNASSIGNED"
 ASSIGNED = "ASSIGNED"
 DONE = "DONE"
 ERROR = "ERROR"
-
-COPASI = "COPASI"
-ROADRUNNER = "ROADRUNNER"
 
 class ErrorSimulationManager(models.Manager):
     def get_queryset(self):
@@ -248,17 +252,11 @@ class Simulation(models.Model):
                          (ERROR, 'error'),
                          (DONE, 'done'),
     )
-    SIMULATOR = (
-                         (COPASI, 'copasi'),
-                         (ROADRUNNER, 'roadrunner'),
-    )
-    
     
     task = models.ForeignKey(Task)
     parameters = models.ForeignKey(ParameterCollection)
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
     time_create = models.DateTimeField(default=timezone.now())
-    simulator = models.CharField(max_length=20, choices=SIMULATOR, default=COPASI)
     
     # set during assignment
     time_assign = models.DateTimeField(null=True, blank=True)

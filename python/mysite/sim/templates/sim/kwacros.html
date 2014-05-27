@@ -1,0 +1,152 @@
+{% load staticfiles %}
+{% load kwacros %}
+<!------------------------------------------------------->
+<!--  SIMULATION 									   -->
+<!------------------------------------------------------->
+{% kwacro simulation_header %}
+		<th>pk</th>
+		<th>model</th>
+		<th>task</th>
+		<th>integration</th>
+		<th>parameters</th>
+		<th>status</th>
+		<th>duration</th>
+		<th>core</th>
+		<th>timecourse</th>
+{% endkwacro %}
+{% kwacro simulation_content %}
+			<td><a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a></td>
+			<td>{{sim.task.sbml_model.sbml_id}}</td>
+			<td>{{sim.task}}</td>
+			<td>{{sim.task.integration}}</td>
+			<td>{{sim.parameters}}</td>
+			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
+			<td>{{sim.duration}}</td>
+			<td>{{sim.core}}</td>
+			<td> {% if sim.status == 'DONE' %}
+				<a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a>
+				{% endif %}
+			</td>
+{% endkwacro %}
+
+<!------------------------------------------------------->
+<!--  PARAMETER 									   -->
+<!------------------------------------------------------->
+{% kwacro parameter_header %}
+		<th>id</th>
+		<th>value</th>
+		<th>unit</th>
+		<th>type</th>
+{% endkwacro %}
+{% kwacro parameter_content %}
+			<td>{{pars.name}}</td>
+			<td>{{pars.value}}</td>
+			<td>{{pars.unit}}</td>
+			<td>{{pars.ptype}}</td>
+{% endkwacro %}
+
+<!------------------------------------------------------->
+<!--  MODEL											   -->
+<!------------------------------------------------------->
+{% kwacro model_header %}
+		<th>pk</th>
+		<th>id</th>
+		<th>sbml</th>
+		<th>report</th>
+{% endkwacro %}
+{% kwacro model_content %}
+			<td>{{model.pk}}</td>
+			<td>{{model.sbml_id}}</td>
+			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{% url 'sim:report' model.pk %}" target="_blank">
+				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+{% endkwacro %}
+
+<!------------------------------------------------------->
+<!--  TASK 											   -->
+<!------------------------------------------------------->
+{% kwacro task_header %}
+		<th>pk</th>
+		<th>status</th>
+		<th>simulator</th>
+		<th>priority</th>
+		<th>sbml</th>
+		<th>report</th>
+		<th>parameter</th>
+		<th>model</th>
+		<th>integration</th>
+		<th>info</th>
+{% endkwacro %}
+{% kwacro task_content %}
+			<td><a href="{% url 'sim:task' task.pk %}">{{task.pk}}</a></td>
+			<td>
+				<b>{{task.sim_count}}</b>
+				[<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>] 	
+			</td>
+			<td>{{task.simulator}}</td>
+			<td>{{task.priority}}</td>
+			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{% url 'sim:report' task.sbml_model.pk %}" target="_blank">
+				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+			<td><a href="{{ task }}" target="_blank"><img height="12" src="{% static 'sim/images/params_small.png' %}"></a></td>
+			<td>{{task.sbml_model}} </td>
+			<td>{{task.integration}}</td>
+			<td width="400px">{{task.info}}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  TIMECOURSE									   -->
+<!------------------------------------------------------->
+{% kwacro timecourse_header %}
+		<th>pk</th>
+		<th>sim</th>
+		<th>csv</th>
+		<th>file</th>
+{% endkwacro %}
+		
+{% kwacro timecourse_content %}
+			<td>{{ tc.pk }}</td>
+			<td><a href="{% url 'sim:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
+			<td><a href="{{ tc.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15" /></a></td>
+			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
+{% endkwacro %}
+
+<!------------------------------------------------------->
+<!--  INTEGRATION  									   -->
+<!------------------------------------------------------->
+{% kwacro integration_header %}
+		<th>pk</th>
+		<th>tstart</th>
+		<th>tend</th>
+		<th>tsteps</th>
+		<th>absTol</th>
+		<th>relTol</th>
+{% endkwacro %}
+		
+{% kwacro integration_content %}
+			<td>{{item.pk}}</td>
+			<td>{{item.tstart}}</td>
+			<td>{{item.tend}}</td>
+			<td>{{item.tsteps}}</td>
+			<td>{{item.abs_tol}}</td>
+			<td>{{item.rel_tol}}</td>
+{% endkwacro %}
+
+<!------------------------------------------------------->
+<!--  CORE      									   -->
+<!------------------------------------------------------->
+{% kwacro core_header %}
+		<th>id</th>
+		<th>computer</th>
+		<th>cpu</th>
+		<th>time</th>
+		<th>is active</th>
+{% endkwacro %}
+		
+{% kwacro core_content %}
+<td>{{core.id}}</td>
+			<td>{{core.computer}}</td>
+			<td>{{core.cpu}}</td>
+			<td>{{core.time}}</td>
+			<td><span class="{% if core.active %}GOOD{% else %}BAD{% endif %}">{{core.active}}</span></td>
+{% endkwacro %}
+<!------------------------------------------------------->

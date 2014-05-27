@@ -1,26 +1,18 @@
 {% extends "sim/base_generic.html" %}
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
 {% block content %}
 	<table id="table_items">
 	<caption>Integrations [{{integrations_list.count}}]</caption>
 	<thead>
 	<tr>
-		<th>pk</th>
-		<th>tstart</th>
-		<th>tend</th>
-		<th>tsteps</th>
-		<th>absTol</th>
-		<th>relTol</th>
+		{% usekwacro integration_header %}
 	</tr>
 	</thead>
 	<tbody>
 	{% for item in integrations_list %}
 		<tr>
-			<td>{{item.pk}}</td>
-			<td>{{item.tstart}}</td>
-			<td>{{item.tend}}</td>
-			<td>{{item.tsteps}}</td>
-			<td>{{item.abs_tol}}</td>
-			<td>{{item.rel_tol}}</td>
+			{% usekwacro integration_content %}
 		</tr>    
     {% endfor %}
     </tbody>

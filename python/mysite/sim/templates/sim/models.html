@@ -1,24 +1,19 @@
-{% extends "sim/base_generic.html" %} {% load staticfiles %}
-{% block content %}
+{% extends "sim/base_generic.html" %}
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
 
+{% block content %}
 	<table id="table_items">
 	<caption>Models [{{model_list.count}}]</caption>
     <thead>
 	<tr>
-		<th>pk</th>
-		<th>id</th>
-		<th>sbml</th>
-		<th>report</th>
+		{% usekwacro model_header %}
 	</tr>
 	</thead>
 	<tbody>
 	{% for model in model_list %}
 		<tr>
-			<td>{{model.pk}}</td>
-			<td>{{model.sbml_id}}</td>
-			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
-			<td><a href="{% url 'sim:report' model.pk %}" target="_blank">
-				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+		{% usekwacro model_content %}
 		</tr>    
     {% endfor %}
     </tbody>
