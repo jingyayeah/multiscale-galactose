@@ -149,4 +149,28 @@
 			<td>{{core.time}}</td>
 			<td><span class="{% if core.active %}GOOD{% else %}BAD{% endif %}">{{core.active}}</span></td>
 {% endkwacro %}
+
+<!------------------------------------------------------->
+<!--  PAGINATION  									   -->
+<!------------------------------------------------------->
+{% kwacro pagination %}
+  <div class="pagination">
+    <span class="step-links">
+        {% if items.has_previous %}
+            <a href="?page={{ items.previous_page_number }}">previous</a>
+        {% else %}
+         previous
+        {% endif %}
+		 | 
+        {% if items.has_next %}
+            <a href="?page={{ items.next_page_number }}">next</a>
+        {% endif %}
+        
+        <span class="current">
+           [{{ items.number }} of {{ items.paginator.num_pages }}]
+        </span>
+    </span>
+	</div>
+{% endkwacro %}
+
 <!------------------------------------------------------->

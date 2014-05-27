@@ -3,14 +3,16 @@
 {% loadkwacros "sim/kwacros.html" %}
 
 {% block content %}
-	<table id="table_items">
-	<caption>Simulations [
+[
 		<a href="{% url 'sim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
 		<a href="{% url 'sim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
 		<a href="{% url 'sim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
 		<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> | 
 		<a href="{% url 'sim:simulations' 'ERROR'%}"><span class="ERROR">ERROR</span></a>
 		] 
+	<hr />
+	<table id="table_items">
+	<caption>Simulations 
 		</caption>
 	<thead>
 	<tr>
@@ -26,22 +28,8 @@
     </tbody>
     </table>
     
-    <div class="pagination">
-    <span class="step-links">
-        {% if simulations.has_previous %}
-            <a href="?page={{ simulations.previous_page_number }}">previous</a>
-        {% else %}
-         previous
-        {% endif %}
-		 | 
-        {% if simulations.has_next %}
-            <a href="?page={{ simulations.next_page_number }}">next</a>
-        {% endif %}
-        
-        <span class="current">
-           [{{ simulations.number }} of {{ simulations.paginator.num_pages }}]
-        </span>
-    </span>
-	</div>
+    {% with items=simulations %}
+  		{% usekwacro pagination %}
+	{% endwith %}
 
 {% endblock %}

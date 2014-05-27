@@ -18,10 +18,6 @@
 
 	<!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="{% static 'sim/stylesheets/base.css' %}">
-	<link rel="stylesheet" href="{% static 'sim/stylesheets/skeleton.css' %}">
-	<link rel="stylesheet" href="{% static 'sim/stylesheets/layout.css' %}">
-
 	<link rel="stylesheet" type="text/css" href="{% static 'sim/stylesheets/mysite.css' %}" />
 	
 	<!--[if lt IE 9]>
@@ -51,6 +47,7 @@
 </head>
 
 <body>
+	
 	{% block sidebar %}
 	<nav>
 	<hr />
@@ -65,30 +62,15 @@
 			<li><a href="{% url 'sim:cores'%}">Cores</a></li>
 			<!-- <li><a href="{% url 'sim:plots'%}">Plots</a></li> -->
 			<li><a href="{% url 'sim:documentation'%}">Docs &amp; Support</a></li>
-			<li>&nbsp;</li>
+	</ul>
+
+	<ul>
 			<li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
 	</ul>
-	&nbsp;
-	
-	<hr />
-	<div id="footer">
-		Contact <a href="http://www.charite.de/sysbio/people/koenig/" target="_blank">Matthias Koenig</a>
-		<hr />
-		<a href="http://www.virtual-liver.de" target="_blank">
-			<img src="{% static 'sim/images/vln.png' %}" height="30" alt="Virtual Liver Network VLN" />
-		</a>
-		<br />
-		<a href="http://www.charite.de" target="_blank">
-			<img src="{% static 'sim/images/charite.png' %}" height="30"  alt="Charite Berlin" />
-		</a>
-		<br />
-		<a href="http://seek.virtuelle-leber.de/investigations/88" target="_blank">
-			<img src="{% static 'sim/images/seek.png' %}" height="30" alt="SEEK Virtual Liver" />
-		</a>
-		<br />
-	</div>
-	
 	</nav>
+	
+	
+	
 	{% endblock %}
 
 	<div id="content">{% block content %}{% endblock %}</div>	
