@@ -47,7 +47,6 @@ def report(request, model_pk):
         TODO: update the report CSS
         TODO: backup solution to query via the id vs. pk
         TODO: how to call functions from within the Django template
-        
         TODO: write some additional methods for the SBase to display the annotations.
         
     '''

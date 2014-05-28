@@ -1,0 +1,130 @@
+{% load staticfiles %}
+{% load SBML_filters %}
+{% load kwacros %}
+
+
+{% kwacro sbo_term %}
+	{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}
+{% endkwacro %}
+
+{% kwacro annotation %}
+	[Annotation(item)]
+{% endkwacro %}
+
+{% kwacro annotation_xml %}
+	<pre>{{item.getAnnotationString}}</pre>
+{% endkwacro %}
+
+<!------------------------------------------------------->
+<!--  MODEL 									   -->
+<!------------------------------------------------------->
+{% kwacro model_header %}
+	<th scope="col">id</th>
+	<th scope="col">name</th>
+	<th scope="col">SBML</th>
+	<th scope="col">time</th>
+	<th scope="col">substance</th>
+	<th scope="col">volume</th>
+	<th scope="col">area</th>
+	<th scope="col">length</th>
+{% endkwacro %}
+{% kwacro model_content %}
+	<td>{{model.getId}}</td>
+	<td>{{model.getName}}</td>
+	<td>L{{model.getLevel}}V{{model.getVersion}}</td>
+	<td>{{model.getTimeUnits}}</td>
+	<td>{{model.getSubstanceUnits}}</td>
+	<td>{{model.getVolumeUnits}}</td>
+	<td>{{model.getAreaUnits}}</td>
+	<td>{{model.getLengthUnits}}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  FUNCTION DEFINITIONS   						   -->
+<!------------------------------------------------------->
+{% kwacro function_header %}
+	<th scope="col">id</th>
+	<th scope="col">name</th>
+	<th scope="col">math</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+{% endkwacro %}
+{% kwacro function_content %}
+ 	<td>{{item.getId}}</td>
+	<td>{{item.getName}}</td>
+	<td>{{item.getMath|SBML_formulaToString}}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  UNIT DEFINITIONS       						   -->
+<!------------------------------------------------------->
+{% kwacro unit_header %}
+	<th scope="col">id</th>
+	<th scope="col">name</th>
+	<th scope="col">units</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>   
+{% endkwacro %}
+{% kwacro unit_content %}
+	<td>{{item.getId}}</td>
+	<td>{{item.getName}}</td>
+	<td width="200px">{{ item|UnitDefinition_printUnits }}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  COMPARTMENTS          						   -->
+<!------------------------------------------------------->
+{% kwacro compartment_header %}
+	<th scope="col">id</th>
+	<th scope="col">name</th>
+	<th scope="col">size</th>
+	<th scope="col">constant</th>
+	<th scope="col">spatialDimensions</th>
+	<th scope="col">unit</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+	<th scope="col">annotation</th>
+{% endkwacro %}
+{% kwacro compartment_content %}
+	<td>{{item.getId}}</td>
+	<td>{{item.getName}}</td>
+	<td class="{% if item.isSetSize %}TRUE{% else %}FALSE{% endif %}">{{item.getSize}}</td>
+	<td class="{% if item.isConstant %}TRUE{% else %}FALSE{% endif %}">{{item.getConstant}}</td>	
+	<td>{{item.getSpatialDimensions}}</td>
+	<td>{{item.getUnits}}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
+	<td>{% usekwacro annotation_xml %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  SPECIES                						   -->
+<!------------------------------------------------------->
+{% kwacro species_header %}
+	<th scope="col">id</th>
+	<th scope="col">name</th>
+	<th scope="col">compartment</th>
+	<th scope="col">boundaryCondition</th>
+	<th scope="col">constant</th>
+	<th scope="col">initialAmount</th>
+	<th scope="col">initialConcentration</th>
+	<th scope="col">substanceUnits</th>
+	<th scope="col">hasOnlySubstanceUnits</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+	<th scope="col">annotation</th>
+{% endkwacro %}
+{% kwacro species_content %}
+	<td>{{item.getId}}</td>
+	<td>{{item.getName}}</td>
+	<td>{{item.getCompartment}}</td>
+	<td class="{% if item.getBoundaryCondition %} TRUE {% else %}  FALSE  {% endif %}">{{item.getBoundaryCondition}}</td>
+	<td class="{% if item.getConstant %} TRUE  {% else %}  FALSE  {% endif %}">{{ item.getConstant }}</td>	
+	<td>{% if item.isSetInitialAmount %} {{item.getInitialAmount}} {% endif %}</td>
+	<td>{% if item.isSetInitialConcentration %} {{item.getInitialConcentration}} {% endif %} </td>
+	<td>{{ item.getSubstanceUnits }}</td>
+	<td class="{% if item.hasOnlySubstanceUnits %} TRUE {% else %} FALSE {% endif %}">{{item.hasOnlySubstanceUnits}}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
+	<td>{% usekwacro annotation_xml %}</td>
+{% endkwacro %}

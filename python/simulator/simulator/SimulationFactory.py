@@ -116,7 +116,7 @@ if __name__ == "__main__":
     code_dir = "/home/mkoenig/multiscale-galactose"
     
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print '*** DEMO ***'
 
         sbml_id = "Koenig2014_demo_kinetic_v7"
@@ -136,6 +136,26 @@ if __name__ == "__main__":
         createDemoSimulations(task, N=2000, sampling="distribution") 
         
     #----------------------------------------------------------------------#
+    if (1):
+        print '*** Hepatic Glucose Metabolism ***'
+        sbml_id = "Koenig2014_Hepatic_Glucose_Model_annotated"
+        model = SBMLModel.create(sbml_id, SBML_FOLDER);
+        model.save();
+        # syncDjangoSBML()
+        
+        # integration, created = Integration.objects.get_or_create(tstart=0.0, 
+        #                                                     tend=100.0, 
+        #                                                     tsteps=2000,
+        #                                                     abs_tol=1E-6,
+        #                                                     rel_tol=1E-6)
+
+        # task = createTask(model, integration, simulator=ROADRUNNER, 
+        #                  info='Simulation of the demo network for visualization.')
+        
+        # createDemoSimulations(task, N=2000, sampling="distribution") 
+        
+    #----------------------------------------------------------------------#
+    
     if (0):
         print '*** MULTIPLE INDICATOR ***'
         # MultipleIndicator Simulations with variable tracer peak duration

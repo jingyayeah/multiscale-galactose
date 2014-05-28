@@ -1,4 +1,6 @@
 <!doctype html> {% load staticfiles %}
+{% load kwacros %}
+{% loadkwacros "report/kwacros.html" %}
 {% load SBML_filters %}
 <html lang="en">
 <head>
@@ -116,191 +118,102 @@
 </table>
 </div>
 
-<div id="content">
-<!-- model -->
+<div id="content">	
+<!--------------------------------------------------->
+<!-- Model -->
+<!--------------------------------------------------->
 <span id="Model">
 	<table id="table_model">
     <caption>Model</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">SBML</th>
-            <th scope="col">time</th>
-            <th scope="col">substance</th>
-            <th scope="col">volume</th>
-            <th scope="col">area</th>
-            <th scope="col">length</th>
-        </tr>
+        <tr>{% usekwacro model_header %}</tr>
     </thead>
     <tbody>
-    	<td>{{model.getId}}</td>
-		<td>{{model.getName}}</td>
-		<td>L{{model.getLevel}}V{{model.getVersion}}</td>
-		<td>{{model.getTimeUnits}}</td>
-		<td>{{model.getSubstanceUnits}}</td>
-		<td>{{model.getVolumeUnits}}</td>
-		<td>{{model.getAreaUnits}}</td>
-		<td>{{model.getLengthUnits}}</td>
+    	<tr>{% usekwacro model_content %}</tr>
 	</tbody>
 	</table>
 	{{model.getNotesString}}
 	<pre>{{model.getAnnotationString}}</pre>
 </span>
-
+<!--------------------------------------------------->
 <!-- FunctionDefinitions -->
+<!--------------------------------------------------->
 {% if functions %}
 <span id="FunctionDefinitions">
 <h1>FunctionDefinitions [{{functions_size}}]</h1>
 <table id="table_functions">
 	<caption>FunctionDefinitions</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">math</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-        </tr>
+        <tr>{% usekwacro function_header %}</tr>
     </thead>
     <tbody>
-    	{% for item in functions %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-				<td>{{item.getName}}</td>
-				<td>{{item.getFormula}}</td>
-				<td>$fac.getInfo($fd)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
-			</tr>
-		{% endfor %}
+    {% for item in functions %}
+    	<tr>{% usekwacro function_content %}</tr>
+	{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
-<!-- UnitDefinition -->
+<!--------------------------------------------------->
+<!-- UnitDefinitions -->
+<!--------------------------------------------------->
 {% if units %}
 <span id="UnitDefinitions">
-<h1>UnitDefinitions [{{ units_size }}] </h1>
+<h1>UnitDefinitions [{{ units_size }}]</h1>
 <table id="table_units">
 	<caption>UnitDefinitions</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">units</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>          
-        </tr>
+        <tr>{% usekwacro unit_header %}</tr>
     </thead>
     <tbody>
-    		{% for item in units %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-				<td>{{item.getName}}</td>
-				<td>
-				{{ item|UnitDefinition_printUnits }}	
-				</td>
-				<td>$fac.getInfo($ud)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
-			</tr>
-			{% endfor %}
+    {% for item in units %}
+    	<tr>{% usekwacro unit_content %}</tr>
+	{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
+<!--------------------------------------------------->
 <!-- Compartments -->
+<!--------------------------------------------------->
 {% if compartments %}
 <span id="Compartments">
 <h1>Compartments [{{compartments_size}}]</h1>
 <table id="table_compartments">
 	<caption>Compartments</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">size</th>
-            <th scope="col">constant</th>
-            <th scope="col">spatialDimensions</th>
-            <th scope="col">unit</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-            <th scope="col">annotation</th>
-        </tr>
+        <tr>{% usekwacro compartment_header %}</tr>
     </thead>
     <tbody>
-    	{% for item in compartments %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-				<td>{{item.getName}}</td>
-				<td class="
-					{% if item.isSetSize %}TRUE{% else %}FALSE{% endif %}
-					">{{item.getSize}}</td>
-				<td class="
-					{% if item.isConstant %}TRUE{% else %}FALSE{% endif %}
-					">{{item.getConstant}}</td>	
-				<td>{{item.getSpatialDimensions}}</td>
-				<td>{{item.getUnits}}</td>
-				<td>$fac.getInfo($comp)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
-				<td><pre>{{item.getAnnotationString}}</pre></td>
-			</tr>
-		{% endfor %}
+    {% for item in compartments %}
+		<tr>{% usekwacro compartment_content %}</tr>
+	{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
+<!--------------------------------------------------->
 <!-- Species -->
+<!--------------------------------------------------->
 {% if species %}
 <span id="Species">
 <h1>Species [{{species_size}}]</h1>
 <table id="table_species">
 	<caption>Species</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">compartment</th>
-            <th scope="col">boundaryCondition</th>
-            <th scope="col">constant</th>
-            <th scope="col">initialAmount</th>
-            <th scope="col">initialConcentration</th>
-            <th scope="col">substanceUnits</th>
-            <th scope="col">hasOnlySubstanceUnits</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-        </tr>
+        <tr>{% usekwacro species_header %}</tr>
     </thead>
     <tbody>
-    	{% for item in species %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-				<td>{{item.getName}}</td>
-				<td>{{item.getCompartment}}</td>
-				<td class="
-					{% if item.getBoundaryCondition %} TRUE {% else %}  FALSE  {% endif %}
-					">{{item.getBoundaryCondition}}</td>
-				<td class="
-					{% if item.getConstant %} TRUE  {% else %}  FALSE  {% endif %}
-					">{{ item.getConstant }}</td>	
-				<td>{% if item.isSetInitialAmount %} {{item.getInitialAmount}} {% endif %}</td>
-				<td> {% if item.isSetInitialConcentration %} {{item.getInitialConcentration}} {% endif %} </td>
-				<td>{{ item.getSubstanceUnits }}</td>
-				<td class="
-					{% if item.hasOnlySubstanceUnits %} TRUE {% else %} FALSE {% endif %}
-					">{{item.hasOnlySubstanceUnits}}</td>
-				<td>$fac.getInfo($s)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
-			</tr>
-		{% endfor %}
+    {% for item in species %}
+		<tr>{% usekwacro species_content %}</tr>
+	{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
+<!--------------------------------------------------->
 <!-- Parameters -->
+<!--------------------------------------------------->
 {% if parameters %}
 <span id="Parameters">
 <h1>Parameters [{{parameters_size}}]</h1>

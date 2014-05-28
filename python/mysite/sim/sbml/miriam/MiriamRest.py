@@ -26,6 +26,7 @@ from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import SubElement
 import xml.dom.minidom as minidom
 import requests, json
+import pickle
 
 MIRIAM_REST = 'http://www.ebi.ac.uk/miriamws/main/rest/'
 
@@ -53,39 +54,47 @@ def getMiriamDatatypes():
         datatypes[dt_id] = name
     return datatypes
 
+def createMiriamURNpickle(file):  
+    datatypes = getMiriamDatatypes()
+    res_dict, uri_dict = getMiriamResourcesForDatatypes(datatypes.keys())
+    with open(file, 'wb') as handle:
+        pickle.dump(uri_dict, handle)
 
-def getMiriamResourcesForDatatypes(ids):
+def getMiriamResourcesForDatatypes(ids, debug=False):
     '''
     Get resources for given datatypes
     '''
     res_dict = dict()
     uri_dict = dict()
     for key in ids:
-        resources, uris = getMiriamResourcesForDatatype(key)
+        resources, uris = getMiriamResourcesForDatatype(key, debug)
         res_dict[key] = resources
         for uri in uris:
             uri_dict[uri] = resources 
     return res_dict, uri_dict
 
 
-def getMiriamResourcesForDatatype(dt_id):
+def getMiriamResourcesForDatatype(dt_id, debug=False):
     '''
     Returns dictionary of resources for the given datatype.
     '''
     r = requests.get(MIRIAM_REST + 'datatypes/' +dt_id + '/')
     doc = ElementTree.fromstring(r.text)
-    print prettyXML(doc)
+    if debug:
+        print prettyXML(doc)
     resources = []
     for n in doc.iter( 'resource' ):
         resource = dict()
         resource['id'] = n.attrib['id']
         resource['dataEntry'] = n.find('dataEntry').text
         resources.append(resource)
+    # select all uris of type URN
     uris = []
     for n in doc.iter( 'uri' ):
-        uris.append(n.text)
+        
+        if (n.attrib['type'] == 'URN'):
+            uris.append(n.text)
     return resources, uris
-
 
 def test():
     url = "http://www.ebi.ac.uk/miriamws/main/rest/"
@@ -122,12 +131,17 @@ if __name__ == '__main__':
     print '#'*60
     
     ids = datatypes.keys()[0:5]
-    res_dict, uri_dict = getMiriamResourcesForDatatypes(ids)
+    res_dict, uri_dict = getMiriamResourcesForDatatypes(ids, debug=True)
     for key, value in res_dict.iteritems():
         print key, ':', value
     print '#'*60
     for key, value in uri_dict.iteritems():
         print key, ':', value
 
+    print '#'*60
+    # Store everything in simple NOSQL database / pickle
+    filename = 'data/miriam.pickle'
+    createMiriamURNpickle(filename)
     
-    # Store everything in simple NOSQL database
+    
+    
