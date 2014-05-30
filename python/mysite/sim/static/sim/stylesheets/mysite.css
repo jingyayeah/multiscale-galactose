@@ -67,7 +67,7 @@ ul{
 	position: relative;
 	z-index:80;
 	width:72%;
-	left: 230px;
+	left: 240px;
 	right: 4%;
 }
 
@@ -80,8 +80,8 @@ ul{
     /* Doc nav */
     nav {
         position: fixed;
-        width: 220px;
-        max-width: 220px;
+        width: 200px;
+        max-width: 200px;
         margin-left: 0%;
         }
     #logo {
@@ -115,8 +115,6 @@ ul{
         height: 8px;
         background: #ebebeb;
         margin: 0px 0; }
-    div.doc-section {
-        margin: 30px 0; }
 
     .hidden-code a {
         font-size: 12px;
