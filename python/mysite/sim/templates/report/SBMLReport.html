@@ -71,41 +71,35 @@
 <body>
 
 <div id="menu">
-<table>
-<tr><td><h3>{{ model.getId }}</h3>
+<h3>{{ model.getId }}</h3>
 <a href="{{ sbml_model.file.url }}" target="_blank">SBML file</a>
-</td>
-<td><ul>
+<nav>
+<ul>
+<li><a href="#Model">Model</a></li>
+{% if units %}<li><a href="#UnitDefinitions">UnitDefinitions</a></li>{% endif %}
 {% if functions %}<li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>{% endif %}
 {% if unitDefinitions %}<li><a href="#UnitDefinitions">UnitDefinitions</a></li>{% endif %}
 {% if compartments %}<li><a href="#Compartments">Compartments</a></li>{% endif %}
 {% if species %}<li><a href="#Species">Species</a></li>{% endif %}
 {% if parameters %}<li><a href="#Parameters">Parameters</a></li>{% endif %}
-</ul></td>
-<td><ul>
 {% if assignments %}<li><a href="#InitialAssignments">InitialAssignments</a></li>{% endif %}
 {% if rules %}<li><a href="#Rules">Rules</a></li>{% endif %}
 {% if constraints %}<li><a href="#Constraints">Constraints</a></li>{% endif %}
 {% if reactions %}<li><a href="#Reactions">Reactions</a></li>{% endif %}
 {% if events %}<li><a href="#Events">Events</a></li>{% endif %}
-</ul></td>
-<td><img src="{% static 'sim/images/sbml.gif' %}" height=40 /></td>
-</tr>
-</table>
+</ul>
+</nav>
 </div>
 
-<div id="content">	
+<div id="content">
 <!--------------------------------------------------->
 <!-- Model -->
 <!--------------------------------------------------->
 <span id="Model">
 	<table id="table_model">
     <caption>Model</caption>
-    <thead>
-        <tr>{% usekwacro model_header %}</tr>
-    </thead>
     <tbody>
-    	<tr>{% usekwacro model_content %}</tr>
+    	<tr>{% usekwacro model %}</tr>
 	</tbody>
 	</table>
 	{{model.getNotesString}}

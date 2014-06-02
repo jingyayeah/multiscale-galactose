@@ -18,26 +18,17 @@
 <!------------------------------------------------------->
 <!--  MODEL 									   -->
 <!------------------------------------------------------->
-{% kwacro model_header %}
-	<th scope="col">id</th>
-	<th scope="col">name</th>
-	<th scope="col">SBML</th>
-	<th scope="col">time</th>
-	<th scope="col">substance</th>
-	<th scope="col">volume</th>
-	<th scope="col">area</th>
-	<th scope="col">length</th>
+{% kwacro model %}
+	<tr><td>id</td><td>{{model.getId}}</td></tr>
+	<tr><td>name</td><td>{{model.getName}}</td></tr>
+	<tr><td>SBML</td><td>L{{model.getLevel}}V{{model.getVersion}}</td></tr>
+	<tr><td>time</td><td>{{model.getTimeUnits}}</td></tr>
+	<tr><td>substance</td><td>{{model.getSubstanceUnits}}</td></tr>
+	<tr><td>volume</td><td>{{model.getVolumeUnits}}</td></tr>
+	<tr><td>area</td><td>{{model.getAreaUnits}}</td></tr>
+	<tr><td>length</td><td>{{model.getLengthUnits}}</td></tr>
 {% endkwacro %}
-{% kwacro model_content %}
-	<td>{{model.getId}}</td>
-	<td>{{model.getName}}</td>
-	<td>L{{model.getLevel}}V{{model.getVersion}}</td>
-	<td>{{model.getTimeUnits}}</td>
-	<td>{{model.getSubstanceUnits}}</td>
-	<td>{{model.getVolumeUnits}}</td>
-	<td>{{model.getAreaUnits}}</td>
-	<td>{{model.getLengthUnits}}</td>
-{% endkwacro %}
+
 <!------------------------------------------------------->
 <!--  FUNCTION DEFINITIONS   						   -->
 <!------------------------------------------------------->
