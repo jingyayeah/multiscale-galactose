@@ -115,10 +115,10 @@
 <!-- FunctionDefinitions -->
 <!--------------------------------------------------->
 {% if functions %}
+<hr />
 <span id="FunctionDefinitions">
-<h1>FunctionDefinitions [{{functions_size}}]</h1>
 <table id="table_functions">
-	<caption>FunctionDefinitions</caption>
+	<caption>FunctionDefinitions [{{functions_size}}]</caption>
     <thead>
         <tr>{% usekwacro function_header %}</tr>
     </thead>
@@ -134,10 +134,10 @@
 <!-- UnitDefinitions -->
 <!--------------------------------------------------->
 {% if units %}
+<hr />
 <span id="UnitDefinitions">
-<h1>UnitDefinitions [{{ units_size }}]</h1>
 <table id="table_units">
-	<caption>UnitDefinitions</caption>
+	<caption>UnitDefinitions [{{ units_size }}]</caption>
     <thead>
         <tr>{% usekwacro unit_header %}</tr>
     </thead>
@@ -153,10 +153,10 @@
 <!-- Compartments -->
 <!--------------------------------------------------->
 {% if compartments %}
+<hr />
 <span id="Compartments">
-<h1>Compartments [{{compartments_size}}]</h1>
 <table id="table_compartments">
-	<caption>Compartments</caption>
+	<caption>Compartments [{{compartments_size}}]</caption>
     <thead>
         <tr>{% usekwacro compartment_header %}</tr>
     </thead>
@@ -172,10 +172,10 @@
 <!-- Species -->
 <!--------------------------------------------------->
 {% if species %}
+<hr />
 <span id="Species">
-<h1>Species [{{species_size}}]</h1>
 <table id="table_species">
-	<caption>Species</caption>
+	<caption>Species [{{species_size}}]</caption>
     <thead>
         <tr>{% usekwacro species_header %}</tr>
     </thead>
@@ -191,10 +191,10 @@
 <!-- Parameters -->
 <!--------------------------------------------------->
 {% if parameters %}
+<hr />
 <span id="Parameters">
-<h1>Parameters [{{parameters_size}}]</h1>
 <table id="table_parameters">
-	<caption>Parameters</caption>
+	<caption>Parameters [{{parameters_size}}]</caption>
     <thead>
 		<tr>{% usekwacro parameter_header %}</tr>
     </thead>
@@ -210,10 +210,10 @@
 <!-- InitialAssignments -->
 <!--------------------------------------------------->
 {% if assignments %}
+<hr />
 <span id="InitialAssignments">
-<h1>InitialAssignments [{{assignments_size}}]</h1>
 <table id="table_assignments">
-	<caption>InitialAssignments</caption>
+	<caption>InitialAssignments [{{assignments_size}}]</caption>
     <thead>
 		<tr>{% usekwacro assignment_header %}</tr>
     </thead>
@@ -229,10 +229,10 @@
 <!-- Rules -->
 <!--------------------------------------------------->
 {% if rules %}
+<hr />
 <span id="Rules">
-<h1>Rules [{{ rules_size }}]</h1>
 <table id="table_rules">
-	<caption>Rules</caption>
+	<caption>Rules [{{rules_size}}]</caption>
     <thead>
 		<tr>{% usekwacro rule_header %}</tr>
     </thead>
@@ -248,10 +248,10 @@
 <!-- Constraints -->
 <!--------------------------------------------------->
 {% if constraints %}
+<hr />
 <span id="Constraints">
-<h1>Constraints [{{constraints_size}}]</h1>
 <table id="table_constraints">
-	<caption>Constraints</caption>
+	<caption>Constraints [{{constraints_size}}]</caption>
     <thead>
 		<tr>{% usekwacro constraint_header %}</tr>
     </thead>
@@ -267,84 +267,35 @@
 <!-- Reactions -->
 <!--------------------------------------------------->
 {% if reactions %}
+<hr />
 <span id="Reactions">
-<h1>Reactions [{{reactions_size}}]</h1>
 <table id="table_reactions">
-    <caption>Reactions</caption>
+    <caption>Reactions [{{reactions_size}}]</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">reversible</th>
-            <th scope="col">equation</th>
-            <th scope="col">modifiers</th>
-            <th scope="col">derived units</th>
-            <th scope="col">formula</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-        </tr>
+		<tr>{% usekwacro reaction_header %}</tr>
     </thead>
     <tbody>
     	{% for item in reactions %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-				<td>{{item.getName}}</td>
-				<td class="
-					{% if item.getReversible %} TRUE  {% else %}  FALSE  {% endif %}
-					">{{ item.getReversible }}</td>
-				<td>#eq.toHTMLString()</td>
-				<td>{% for mod in item.getListOfModifiers %}
-						{{mod}}<br />
-					{% endfor %}
-				</td>
-				<td>{{item.getDerivedUnitDefinition}}</td>
-				<td>{{item.getKineticLaw.getMath|SBML_formulaToString}}</td>
-     			<td>$fac.getInfo($r)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>	
-			</tr>
+		<tr>{% usekwacro reaction_content %}</tr>	
 		{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
+<!--------------------------------------------------->
 <!-- Events -->
+<!--------------------------------------------------->
 {% if events %}
+<hr />
 <span id="Events">
-<h1>Events [{{events_size}}]</h1>
 <table id="table_events">
-	<caption>Events</caption>
+	<caption>Events [{{events_size}}]</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">trigger</th>
-            <th scope="col">priority</th>
-            <th scope="col">delay</th>
-            <th scope="col">assignments</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-        </tr>
+		<tr>{% usekwacro event_header %}</tr>
     </thead>
     <tbody>
     	{% for item in events %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-    			<td>{{item.getName}}</td>
-    			<td>
-    				{{item.getTrigger.getMath|SBML_formulaToString}}<br />
-    				initialValue = {{item.getTrigger.getInitialValue}}<br />
-    				persistent = {{item.getTrigger.getPersistent}}<br />
-    			</td>
-    			<td>{{item.getPriority}}</td>
-    			<td>{{item.getDelay}}</td>
-    			<td>{% for eva in item.getListOfEventAssignments %}
-    					{{eva.getId}} = {{eva.getMath|SBML_formulaToString}}<br />
-    				{% endfor %}
-    			</td>
-    			<td>$fac.getInfo($ev)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
-			</tr>
+		<tr>{% usekwacro event_content %}</tr>	    	
 		{% endfor %}
 	</tbody>
 </table>

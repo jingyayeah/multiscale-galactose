@@ -188,7 +188,7 @@
 	<td>{% usekwacro sbo_term %}</td>
 {% endkwacro %}
 <!------------------------------------------------------->
-<!--  CONSTRAINT			   						   -->
+<!--  CONSTRAINTS			   						   -->
 <!------------------------------------------------------->
 {% kwacro constraint_header %}
 	<th scope="col">id</th>
@@ -201,4 +201,60 @@
 	<td>{{item.getMath|SBML_formulaToString}}</td>
 	<td>{% usekwacro annotation %}</td>
 	<td>{% usekwacro sbo_term %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  REACTIONS 			   						   -->
+<!------------------------------------------------------->
+{% kwacro reaction_header %}
+	<th scope="col">id</th>
+	<th scope="col">name</th>
+	<th scope="col">reversible</th>
+	<th scope="col">equation</th>
+	<th scope="col">modifiers</th>
+	<th scope="col">derived units</th>
+	<th scope="col">formula</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+{% endkwacro %}
+{% kwacro reaction_content %}
+	<td>{{item.getId}}</td>
+	<td>{{item.getName}}</td>
+	<td class="{% if item.getReversible %}TRUE{% else %}FALSE{% endif %}">{{ item.getReversible }}</td>
+	<td>#eq.toHTMLString()</td>
+	<td>{% for mod in item.getListOfModifiers %}
+						{{mod}}<br />
+		 {% endfor %}</td>
+	<td>{{item.getDerivedUnitDefinition}}</td>
+	<td>{{item.getKineticLaw.getMath|SBML_formulaToString}}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  EVENTS     			   						   -->
+<!------------------------------------------------------->
+{% kwacro event_header %}
+	<th scope="col">id</th>
+	<th scope="col">name</th>
+	<th scope="col">trigger</th>
+	<th scope="col">priority</th>
+	<th scope="col">delay</th>
+	<th scope="col">assignments</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+{% endkwacro %}
+{% kwacro event_content %}
+	<td>{{item.getId}}</td>
+	<td>{{item.getName}}</td>
+	<td>
+	{{item.getTrigger.getMath|SBML_formulaToString}}<br />
+	initialValue = {{item.getTrigger.getInitialValue}}<br />
+	persistent = {{item.getTrigger.getPersistent}}<br />
+	</td>
+	<td>{{item.getPriority}}</td>
+	<td>{{item.getDelay}}</td>
+	<td>{% for eva in item.getListOfEventAssignments %}
+    		{{eva.getId}} = {{eva.getMath|SBML_formulaToString}}<br />
+    	{% endfor %}</td>
+	<td>$fac.getInfo($ev)</td>
+	<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>
 {% endkwacro %}
