@@ -65,54 +65,30 @@
 		} );
 		</script>
 		
-		<!-- <meta http-equiv="refresh" content="20" /> -->
+	<!-- <meta http-equiv="refresh" content="20" /> -->
 	<title>SBML Report: {{ model.getId }}</title>
 </head>
 <body>
 
 <div id="menu">
 <table>
-<tr>
-
-<td><h1>{{ model.getId }}</h1>
-<a href="{{ sbmlmodel.file.url }}" target="_blank">SBML file</a>
+<tr><td><h3>{{ model.getId }}</h3>
+<a href="{{ sbml_model.file.url }}" target="_blank">SBML file</a>
 </td>
 <td><ul>
-	{% if functions %} 
-		<li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>
-	{% endif %}
-	{% if unitDefinitions %}
-		<li><a href="#UnitDefinitions">UnitDefinitions</a></li>
-	{% endif %}
-	{% if compartments %}
-		<li><a href="#Compartments">Compartments</a></li>
-	{% endif %}
-	{% if species %}
-		<li><a href="#Species">Species</a></li>
-	{% endif %}
-	{% if parameters %}
-		<li><a href="#Parameters">Parameters</a></li>
-	{% endif %}
+{% if functions %}<li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>{% endif %}
+{% if unitDefinitions %}<li><a href="#UnitDefinitions">UnitDefinitions</a></li>{% endif %}
+{% if compartments %}<li><a href="#Compartments">Compartments</a></li>{% endif %}
+{% if species %}<li><a href="#Species">Species</a></li>{% endif %}
+{% if parameters %}<li><a href="#Parameters">Parameters</a></li>{% endif %}
 </ul></td>
-
 <td><ul>
-	{% if assignments %}
-		<li><a href="#InitialAssignments">InitialAssignments</a></li>
-	{% endif %}
-	{% if rules %}
-		<li><a href="#Rules">Rules</a></li>
-	{% endif %}
-	{% if constraints %}
-		<li><a href="#Constraints">Constraints</a></li>
-	{% endif %}
-	{% if reactions %}	
-		<li><a href="#Reactions">Reactions</a></li>
-	{% endif %}
-	{% if events %}
-		<li><a href="#Events">Events</a></li>
-	{% endif %}
+{% if assignments %}<li><a href="#InitialAssignments">InitialAssignments</a></li>{% endif %}
+{% if rules %}<li><a href="#Rules">Rules</a></li>{% endif %}
+{% if constraints %}<li><a href="#Constraints">Constraints</a></li>{% endif %}
+{% if reactions %}<li><a href="#Reactions">Reactions</a></li>{% endif %}
+{% if events %}<li><a href="#Events">Events</a></li>{% endif %}
 </ul></td>
-
 <td><img src="{% static 'sim/images/sbml.gif' %}" height=40 /></td>
 </tr>
 </table>
@@ -220,128 +196,76 @@
 <table id="table_parameters">
 	<caption>Parameters</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">value</th>
-            <th scope="col">unit</th>
-            <th scope="col">constant</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-            <th scope="col">annotation</th>
-        </tr>
+		<tr>{% usekwacro parameter_header %}</tr>
     </thead>
     <tbody>
     	{% for item in parameters %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-    			<td>{{item.getName}}</td>
-    			{% if not item.isSetValue %} <td class="FALSE">{% else %}<td>{% endif %}{{item.getValue}}</td>
-				<td>{{item.getUnits}}</td>
-				<td class="
-					{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}
-					">{{item.getConstant}}</td>
-				<td>$fac.getInfo($p)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>					
-				<td><pre>{{item.getAnnotationString}}</pre></td>
-			</tr>
+			<tr>{% usekwacro parameter_content %}</tr>
 		{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
+<!--------------------------------------------------->
 <!-- InitialAssignments -->
+<!--------------------------------------------------->
 {% if assignments %}
 <span id="InitialAssignments">
 <h1>InitialAssignments [{{assignments_size}}]</h1>
 <table id="table_assignments">
 	<caption>InitialAssignments</caption>
     <thead>
-        <tr>
-            <th scope="col">symbol</th>
-            <th scope="col">&nbsp;</th>
-            <th scope="col">assignment</th>
-            <th scope="col">derived units</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-        </tr>
+		<tr>{% usekwacro assignment_header %}</tr>
     </thead>
     <tbody>
     {% for item in assignments %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-    			<td>=</td>
-    			<td>{{ item.getMath|SBML_formulaToString }}</td>
-    			<td>{{item.getDerivedUnitDefinition}}</td>
-				<td>$fac.getInfo($ia)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>	
-			</tr>
-	 {% endfor %}
+		<tr>{% usekwacro assignment_content %}</tr>
+	{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
+<!--------------------------------------------------->
 <!-- Rules -->
+<!--------------------------------------------------->
 {% if rules %}
 <span id="Rules">
 <h1>Rules [{{ rules_size }}]</h1>
 <table id="table_rules">
 	<caption>Rules</caption>
     <thead>
-        <tr>
-            <th scope="col">variable</th>
-            <th scope="col">&nbsp;</th>
-            <th scope="col">assignment</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-        </tr>
+		<tr>{% usekwacro rule_header %}</tr>
     </thead>
     <tbody>
     	{% for item in rules %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-    			<td>=</td>
-    			<td>{{item.getMath|SBML_formulaToString}}</td>
-    			<td>$fac.getInfo($r)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>		
-			</tr>
+		<tr>{% usekwacro rule_content %}</tr>		
 		{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
+<!--------------------------------------------------->
 <!-- Constraints -->
+<!--------------------------------------------------->
 {% if constraints %}
 <span id="Constraints">
 <h1>Constraints [{{constraints_size}}]</h1>
 <table id="table_constraints">
 	<caption>Constraints</caption>
     <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">constraint</th>
-            <th scope="col">links</th>
-            <th scope="col">sbo</th>
-        </tr>
+		<tr>{% usekwacro constraint_header %}</tr>
     </thead>
     <tbody>
     	{% for item in constraints %}
-    		<tr>
-    			<td>{{item.getId}}</td>
-    			<td>{{item.getMath|SBML_formulaToString}}</td>
-     			<td>$fac.getInfo($c)</td>
-				<td>{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}</td>			
-			</tr>
+		<tr>{% usekwacro constraint_content %}</tr>				
 		{% endfor %}
 	</tbody>
 </table>
 </span>
 {% endif %}
-
+<!--------------------------------------------------->
 <!-- Reactions -->
+<!--------------------------------------------------->
 {% if reactions %}
 <span id="Reactions">
 <h1>Reactions [{{reactions_size}}]</h1>

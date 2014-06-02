@@ -4,15 +4,15 @@
 
 
 {% kwacro sbo_term %}
-	{% if item.getSBOTerm != -1 %}{{item.getSBOTerm}}{% endif %}
+{% if item.getSBOTerm != -1 %}<a href="http://identifiers.org/biomodels.sbo/{{item.getSBOTermID}}" target="_blank">{{item.getSBOTermID}}</a>{% endif %}
 {% endkwacro %}
 
 {% kwacro annotation %}
-	[Annotation(item)]
+[Annotation(item)]
 {% endkwacro %}
 
 {% kwacro annotation_xml %}
-	<pre>{{item.getAnnotationString}}</pre>
+<pre>{{item.getAnnotationString}}</pre>
 {% endkwacro %}
 
 <!------------------------------------------------------->
@@ -127,4 +127,78 @@
 	<td>{% usekwacro annotation %}</td>
 	<td>{% usekwacro sbo_term %}</td>
 	<td>{% usekwacro annotation_xml %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  PARAMETERS             						   -->
+<!------------------------------------------------------->
+{% kwacro parameter_header %}
+	<th scope="col">id</th>
+	<th scope="col">name</th>
+	<th scope="col">value</th>
+	<th scope="col">unit</th>
+	<th scope="col">constant</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+	<th scope="col">annotation</th>
+{% endkwacro %}
+{% kwacro parameter_content %}
+	<td>{{item.getId}}</td>
+	<td>{{item.getName}}</td>
+    {% if not item.isSetValue %} <td class="FALSE">{% else %}<td>{% endif %}{{item.getValue}}</td>
+	<td>{{item.getUnits}}</td>
+	<td class="{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}">{{item.getConstant}}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
+	<td>{% usekwacro annotation_xml %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  INITIAL ASSIGNMENTS   						   -->
+<!------------------------------------------------------->
+{% kwacro assignment_header %}
+	<th scope="col">symbol</th>
+	<th scope="col">&nbsp;</th>
+	<th scope="col">assignment</th>
+	<th scope="col">derived units</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+{% endkwacro %}
+{% kwacro assignment_content %}
+	<td>{{item.getId}}</td>
+	<td>=</td>
+	<td>{{ item.getMath|SBML_formulaToString }}</td>
+	<td>{{item.getDerivedUnitDefinition}}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  RULES  				   						   -->
+<!------------------------------------------------------->
+{% kwacro rule_header %}
+	<th scope="col">variable</th>
+	<th scope="col">&nbsp;</th>
+	<th scope="col">assignment</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+{% endkwacro %}
+{% kwacro rule_content %}
+	<td>{{item.getId}}</td>
+	<td>=</td>
+	<td>{{item.getMath|SBML_formulaToString}}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
+{% endkwacro %}
+<!------------------------------------------------------->
+<!--  CONSTRAINT			   						   -->
+<!------------------------------------------------------->
+{% kwacro constraint_header %}
+	<th scope="col">id</th>
+	<th scope="col">constraint</th>
+	<th scope="col">links</th>
+	<th scope="col">sbo</th>
+{% endkwacro %}
+{% kwacro constraint_content %}
+	<td>{{item.getId}}</td>
+	<td>{{item.getMath|SBML_formulaToString}}</td>
+	<td>{% usekwacro annotation %}</td>
+	<td>{% usekwacro sbo_term %}</td>
 {% endkwacro %}

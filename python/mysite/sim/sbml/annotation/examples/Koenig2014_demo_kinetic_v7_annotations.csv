@@ -9,5 +9,8 @@ id	sbml_type	annotation_type	qualifier	collection	entity
 					
 					
 ^Vmax_(.)+$	parameter	SBO			11
+^Vmax_(.)+$	parameter	RDF	BQB_IS	biomodels.sbo	SBO:0000011
 ^Km_(.)+$	parameter	SBO			12
+^Km_(.)+$	parameter	RDF	BQB_IS	biomodels.sbo	SBO:0000012
 ^Keq_(.)+$	parameter	SBO			13
+^Keq_(.)+$	parameter	RDF	BQB_IS	biomodels.sbo	SBO:0000013

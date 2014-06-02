@@ -1,27 +1,12 @@
 '''
-The Report factory generates the SBML report based on the underlying SBML
-using the Django template language. 
-The original prototype was developed in Java with JSBML based on a 
-different template language but the underlying idea of rendering the
-template with the given SBML structure remains the same.
+ReportFactory creates html report from the SBML.
+The model is implemented via the Django template language which is
+rendered with the SBML information.
+The template is rendered with the listOf and model information.
 
-TODO: send additional information to the report view, namely the
-      parsed annotation links & naming for units
-      
-TODO: create report from provided SBML
-
-Calling functions from the Django template via custom template filters.
-
-
-@register.filter
-def related_deltas(obj, epk):
-    return obj.get_related_deltas(epk)
-    
-{% for i in channel_status_list %}
-  {{ i|related_deltas:3 }}
-{% endfor %}
-
-
+TODO: finish the kwakros
+TODO: handle annotation information 
+TODO: update report CSS
 
 @author: Matthias Koenig
 @date: 2014-05-07
@@ -29,43 +14,30 @@ def related_deltas(obj, epk):
 
 import os
 import sys
-
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
-from sim.models import SBMLModel
+import libsbml
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader, RequestContext
-import libsbml
-
+from sim.models import SBMLModel
 
 def report(request, model_pk):
     '''
-    Writes a detailed SBML report for the given database object.
-        TODO: convert the full java template to python
-        TODO: update the report CSS
-        TODO: backup solution to query via the id vs. pk
-        TODO: how to call functions from within the Django template
-        TODO: write some additional methods for the SBase to display the annotations.
-        
-    '''
-    # Get the database model
-    sbmlmodel = get_object_or_404(SBMLModel, pk=model_pk)
+    Creates the report view for the given SBML model.
+    SBML has to be in the database.
+    '''    
+    sbml_model = get_object_or_404(SBMLModel, pk=model_pk)
+    sbml_path = sbml_model.file.path     # this is the absolute path in filesystem
     
-    # sbml_file = sbmlmodel.file.url # this is the local link
-    sbml_path = sbmlmodel.file.path # this is the absolute path in filesystem
-    # print sbml_file
-    
-    # Read the sbml model with libSBML
-    # doc = libsbml.readSBMLFromFile(sbml_file)
     doc = libsbml.readSBMLFromFile(str(sbml_path))
     model = doc.getModel()
     
     # Render the template with the data
     template = loader.get_template('report/SBMLReport.html')
     context = RequestContext(request, {
-        'sbmlmodel' : sbmlmodel,
+        'sbml_model' : sbml_model,
         'model': model,
         'units' : model.getListOfUnitDefinitions(),
         'units_size' : model.getListOfUnitDefinitions().size(),
@@ -90,17 +62,3 @@ def report(request, model_pk):
     })
     return HttpResponse(template.render(context))
 
-def test():
-    from libsbml import Reaction, KineticLaw
-    # Parameter.getC
-    # Parameter.isSetV
-    # InitialAssignment.getDerivedUnitDefinition(self);
-    #UnitDefinition.
-    #M
-    libsbml.formulaToString()
-    Reaction.getKineticLaw()
-    KineticLaw.getMath()
-    # UnitDefinition.getUnit(self)
-    # UnitDefinition.getNumUnits(self)
-    # getKind getScale getMultiplier
-    
