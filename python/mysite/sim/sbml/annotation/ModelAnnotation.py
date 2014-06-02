@@ -1,23 +1,15 @@
 '''
 Annotating SBML models.
 
- ModelHistory * h = new ModelHistory();
-ModelCreator *c = new ModelCreator();
-c->setFamilyName("Keating");
-c->setGivenName("Sarah");
-c->setEmail("sbml-team@caltech.edu");
-c->setOrganization("University of Hertfordshire");
-int status = h->addCreator(c);
-printStatus("Status for addCreator: ", status);
-Date * date = new Date("1999-11-13T06:54:32");
-Date * date2 = new Date("2007-11-30T06:54:00-02:00");
-status = h->setCreatedDate(date);
-printStatus("Set created date: ", status);
-status = h->setModifiedDate(date2);
-printStatus("Set modified date: ", status);
-status = d->getModel()->setModelHistory(h);
-printStatus("Set model history: ", status);
+Handle the XML annotations and notes for SBML and SEDML.
+A general problem is annotate all the objects in the SBML and SEDML file.
 
+Provide an easy format to handle the problem.
+
+define annotation for XPath (RDF or SBO)
+get SBase(s) for XPath, i.e. get all the sbml ids related to the XPath and get the SBase objects via the ids
+write annotations to SBase objects
+Do the same for notes.
 
 
 
@@ -25,8 +17,10 @@ printStatus("Set model history: ", status);
 @date: 2014-05-30
 '''
 import libsbml
+import uuid
+import datetime
 
-class Annotation(object):
+class ModelAnnotation(object):
     
     def __init__(self, d):
         self.id = d['id'];
@@ -41,7 +35,7 @@ class Annotation(object):
                                   self.qualifier, self.collection, self.entity)
 
 
-class Annotator(object):
+class ModelAnnotator(object):
     
     def __init__(self, model, annotations):
         self.model = model
@@ -54,7 +48,7 @@ class Annotator(object):
         '''
         id_dict = dict()
         id_dict['model'] = [ self.model.getId() ]
-    
+        
         lof = self.model.getListOfCompartments()
         if (lof):
             id_dict['compartment'] = [item.getId() for item in lof]
@@ -77,23 +71,36 @@ class Annotator(object):
             
         return id_dict
 
+    def createHistory(self):
+        '''
+        Write the model history.
+        '''
+        h = libsbml.ModelHistory();
+        c = libsbml.ModelCreator();
+        c.setFamilyName("Koenig");
+        c.setGivenName("Matthias");
+        c.setEmail("konigmatt@googlemail.com");
+        c.setOrganization("Charite Berlin");
+        status = h.addCreator(c);
+        date_str = str(datetime.datetime.now())
+        date = libsbml.Date(date_str)
+        
+        status = h.setCreatedDate(date);
+        status = h.setModifiedDate(date);
+        status = self.model.setModelHistory(h);
+
     def annotateModel(self):
         '''
         Annotates the model with the given annotations.
-        Returns the annotated model.
         '''
-        for a in annotations:
+        for a in self.annotations:
             pattern = a.id
             ids = self.id_dict[a.sbml_type]
             mids = getMatchingIds(ids, pattern)
             self.annotateComponents(mids, a)
-        return self.model
 
     def annotateComponents(self, mids, a):
-        '''
-        Annotate components 
-        '''
-        print '-'*60
+        '''Annotate components. '''
         for mid in mids:
             element = self.model.getElementBySId(mid)
             if (element == None):
@@ -111,29 +118,48 @@ class Annotator(object):
                 print 'RDF:', mid, element
             else:
                 print 'Annotation type not supported: ', a.annotation_type
-        print '-'*60
+        print ''
 
 def addRDFAnnotationToElement(element, qualifier, collection, entity):
-    cvterm = libsbml.CVTerm()
+    cv = libsbml.CVTerm()
+
     if (qualifier.startswith('BQB')):
-        cvterm.setBiologicalQualifierType(qualifier)
+        cv.setQualifierType(libsbml.BIOLOGICAL_QUALIFIER);
+        sbml_qualifier = getSBMLQualifier(qualifier)
+        cv.setBiologicalQualifierType(sbml_qualifier)
     elif (qualifier.startswith('BQM')):
-        cvterm.setModelQualifierType(qualifier)
+        print cv.setQualifierType(libsbml.MODEL_QUALIFIER);
+        sbml_qualifier = getSBMLQualifier(qualifier)
+        cv.setModelQualifierType(sbml_qualifier)
     else:
         print "Unsupported qualifier:", qualifier
-    
+    # Use the identifiers.org solution
     resource = ''.join(['http://identifiers.org/', collection, '/', entity])
-    cvterm.addResource(resource)
+    cv.addResource(resource)
     
-    # metaid has to be set
-    # libsbml.Model.setMetaId(self)
-    
-    element.addCVTerm(cvterm)
+    # meta id has to be set
+    if not element.isSetMetaId():
+        meta_id = createMetaId()
+        element.setMetaId(meta_id)
+
+    cv.setQualifierType(libsbml.BIOLOGICAL_QUALIFIER);
+    success = element.addCVTerm(cv);
+        
+    if (success != 0):
+        print "Warning, RDF not written: ", success
+        print libsbml.OperationReturnValue_toString(success)
+   
+      
+def getSBMLQualifier(string):
+    return libsbml.__dict__.get(string)
+
+
+def createMetaId():
+    meta_id = uuid.uuid4()
+    return 'mid_' + str(meta_id.hex)
 
 def readAnnotationsFromFile(filename, sep='\t'):
-    '''
-    Reads the annotations into an iteratable annotation data structure.
-    '''
+    ''' Reads the annotations into an iteratable annotation data structure. '''
     res = []
     count = 0;
     with open(filename, 'r') as f:
@@ -147,13 +173,12 @@ def readAnnotationsFromFile(filename, sep='\t'):
                     print 'wrong number of items'
                     continue
                 elif (items[0].startswith('#') | len(items[0]) == 0):
-                    print 'empty line'
                     continue
                 else:
                     d = dict()
                     for k in xrange(len(items)):
                         d[header[k]] = items[k].strip()
-                    a = Annotation(d)
+                    a = ModelAnnotation(d)
                     if a:
                         res.append(a)    
             count = count + 1
@@ -170,63 +195,41 @@ def getMatchingIds(ids, pattern):
     for string in ids:
         match = re.match(pattern, string)
         if (match):
-            print 'Match: ', pattern, '<->', string
+            # print 'Match: ', pattern, '<->', string
             mids.append(string)
     return mids
-    
-    
 
-
-if __name__ == "__main__":
+def annotateModel(f_sbml, f_annotations, f_sbml_annotated):
     # read SBML model
-    
-    sbml = 'examples/Koenig2014_demo_kinetic_v7.xml'
-    doc = libsbml.readSBML(sbml)
+    doc = libsbml.readSBML(f_sbml)
     model = doc.getModel()
-    print model
-    print model.getId()
     
     # Read annotation file
-    afile = 'examples/Koenig2014_demo_kinetic_v7_annotations.csv'
-    
-    annotations = readAnnotationsFromFile(afile)
-    print '*' * 60
-    print(annotations)
+    annotations = readAnnotationsFromFile(f_annotations)
+    print '*' * 120
+    print ' Annotations'
+    print '*' * 120
     for a in annotations:
         a.printAnnotation()
+    print '*'*120
     
-    res = model.getElementBySId(model.getId())
-    print res
-
-    
-    # Annotate the model
-    print '#'*60
-    ar = Annotator(model, annotations)
+    # Annotate
+    ar = ModelAnnotator(model, annotations)
     ar.annotateModel()
+    ar.createHistory()
     
+    # Update id
+    mid = model.getId() + "_annotated"
+    model.setId(mid)
     
-    # model.setSBOTerm(11)
-    cv1 = libsbml.CVTerm();
-    cv1.setQualifierType(libsbml.BIOLOGICAL_QUALIFIER);
-    cv1.setBiologicalQualifierType(libsbml.BQB_IS_VERSION_OF);
-    cv1.addResource("http://www.ebi.ac.uk/interpro/#IPR002394");
-    model.addCVTerm(cv1);
-    
-    
-    
-    
-    # c = model.getCompartment('outside')
-    # c.setSBOTerm(12)
-    # c2 = model.getElementBySId('inside')
-    # c2.setSBOTerm(13)
-    xml = libsbml.writeSBMLToFile(doc, 'test_annotated.xml')
-    # hashlib.sha1(str(a)).hexdigest()
-    
-    
-    
-    
-    # xml = libsbml.writeSBMLToString(doc)
-    # print xml
-    # Write the annotated model
-    
-    
+    # Save
+    libsbml.writeSBMLToFile(doc, f_sbml_annotated)
+
+###############################################################################
+if __name__ == "__main__":
+
+    f_sbml = 'examples/Koenig2014_demo_kinetic_v7.xml'
+    f_annotations = 'examples/Koenig2014_demo_kinetic_v7_annotations.csv'
+    f_sbml_annotated = 'examples/Koenig2014_demo_kinetic_v7_annotated.xml'
+    annotateModel(f_sbml, f_annotations, f_sbml_annotated)
+###############################################################################
