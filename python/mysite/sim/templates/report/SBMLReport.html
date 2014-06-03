@@ -65,14 +65,16 @@
 		} );
 		</script>
 		
-	<!-- <meta http-equiv="refresh" content="20" /> -->
+    <meta http-equiv="refresh" content="5" />
 	<title>SBML Report: {{ model.getId }}</title>
 </head>
 <body>
 
 <div id="menu">
-<h3>{{ model.getId }}</h3>
-<a href="{{ sbml_model.file.url }}" target="_blank">SBML file</a>
+<h3><textarea style="word-wrap:break-word;">
+{{ model.getId }}
+</textarea></h3>
+<h4><a href="{{ sbml_model.file.url }}" target="_blank">SBML file</a></h4>
 <nav>
 <ul>
 <li><a href="#Model">Model</a></li>
@@ -96,14 +98,22 @@
 <!-- Model -->
 <!--------------------------------------------------->
 <span id="Model">
+	<table>
+	<tr><td>
 	<table id="table_model">
     <caption>Model</caption>
     <tbody>
     	<tr>{% usekwacro model %}</tr>
 	</tbody>
-	</table>
-	{{model.getNotesString}}
+	</table></td>
+	<td>
+	
 	<pre>{{model.getAnnotationString}}</pre>
+	{% with model as item %}
+	{% usekwacro annotation %}
+	{% endwith %}
+	</td></tr>
+	</table>
 </span>
 <!--------------------------------------------------->
 <!-- FunctionDefinitions -->
@@ -128,7 +138,7 @@
 <!-- UnitDefinitions -->
 <!--------------------------------------------------->
 {% if units %}
-<hr />
+<br />
 <span id="UnitDefinitions">
 <table id="table_units">
 	<caption>UnitDefinitions [{{ units_size }}]</caption>
@@ -147,7 +157,7 @@
 <!-- Compartments -->
 <!--------------------------------------------------->
 {% if compartments %}
-<hr />
+<br />
 <span id="Compartments">
 <table id="table_compartments">
 	<caption>Compartments [{{compartments_size}}]</caption>
@@ -166,7 +176,7 @@
 <!-- Species -->
 <!--------------------------------------------------->
 {% if species %}
-<hr />
+<br />
 <span id="Species">
 <table id="table_species">
 	<caption>Species [{{species_size}}]</caption>
@@ -185,7 +195,7 @@
 <!-- Parameters -->
 <!--------------------------------------------------->
 {% if parameters %}
-<hr />
+<br />
 <span id="Parameters">
 <table id="table_parameters">
 	<caption>Parameters [{{parameters_size}}]</caption>
@@ -204,7 +214,7 @@
 <!-- InitialAssignments -->
 <!--------------------------------------------------->
 {% if assignments %}
-<hr />
+<br />
 <span id="InitialAssignments">
 <table id="table_assignments">
 	<caption>InitialAssignments [{{assignments_size}}]</caption>
@@ -223,7 +233,7 @@
 <!-- Rules -->
 <!--------------------------------------------------->
 {% if rules %}
-<hr />
+<br />
 <span id="Rules">
 <table id="table_rules">
 	<caption>Rules [{{rules_size}}]</caption>
@@ -242,7 +252,7 @@
 <!-- Constraints -->
 <!--------------------------------------------------->
 {% if constraints %}
-<hr />
+<br />
 <span id="Constraints">
 <table id="table_constraints">
 	<caption>Constraints [{{constraints_size}}]</caption>
@@ -261,7 +271,7 @@
 <!-- Reactions -->
 <!--------------------------------------------------->
 {% if reactions %}
-<hr />
+<br />
 <span id="Reactions">
 <table id="table_reactions">
     <caption>Reactions [{{reactions_size}}]</caption>
@@ -280,7 +290,7 @@
 <!-- Events -->
 <!--------------------------------------------------->
 {% if events %}
-<hr />
+<br />
 <span id="Events">
 <table id="table_events">
 	<caption>Events [{{events_size}}]</caption>

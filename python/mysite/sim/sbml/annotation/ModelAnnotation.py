@@ -226,6 +226,50 @@ def annotateModel(f_sbml, f_annotations, f_sbml_annotated):
     libsbml.writeSBMLToFile(doc, f_sbml_annotated)
 
 ###############################################################################
+BQM = dict()
+BQM[0] = "is"
+BQM[1] = "isDescribedBy"
+BQM[2] = "isDerivedFrom"
+
+BQB = dict()
+BQB[0] = "is"
+BQB[1] = "hasPart"
+BQB[2] = "isPartOf"
+BQB[3] = "isVersionOf"
+BQB[4] = "hasVersion"
+BQB[5] = "isHomologTo"
+BQB[6] = "isDescribedBy"
+BQB[7] = "isEncodedBy"
+BQB[8] = "encodes"
+BQB[9] = "occursIn"
+BQB[10] = "hasProperty"
+BQB[11] = "isPropertyOf"  
+ 
+ 
+def annotationToHTML(item):
+    '''
+    Renders HTML representation of given annotation.
+    '''
+    items = []
+    for kcv in xrange(item.getNumCVTerms()):
+        cv = item.getCVTerm(kcv)
+        q_type = cv.getQualifierType()
+        if (q_type == 0):
+            qualifier = BQM[cv.getModelQualifierType()]
+        elif (q_type == 1):
+            qualifier = BQB[cv.getBiologicalQualifierType()]
+        items.append(''.join(['<b>', qualifier, '</b>']  ))
+        
+        for k in xrange(cv.getNumResources()):
+            uri = cv.getResourceURI(k)
+            link = ''.join(['<a href="', uri, '" target="_blank">', uri, '</a>'])
+            items.append(link)
+    
+    res = "<br />".join(items)
+    return res
+    
+
+###############################################################################
 if __name__ == "__main__":
 
     f_sbml = 'examples/Koenig2014_demo_kinetic_v7.xml'
