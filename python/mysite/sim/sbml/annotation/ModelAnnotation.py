@@ -128,7 +128,7 @@ def addRDFAnnotationToElement(element, qualifier, collection, entity):
         sbml_qualifier = getSBMLQualifier(qualifier)
         cv.setBiologicalQualifierType(sbml_qualifier)
     elif (qualifier.startswith('BQM')):
-        print cv.setQualifierType(libsbml.MODEL_QUALIFIER);
+        cv.setQualifierType(libsbml.MODEL_QUALIFIER);
         sbml_qualifier = getSBMLQualifier(qualifier)
         cv.setModelQualifierType(sbml_qualifier)
     else:
@@ -149,7 +149,9 @@ def addRDFAnnotationToElement(element, qualifier, collection, entity):
         print "Warning, RDF not written: ", success
         print libsbml.OperationReturnValue_toString(success)
    
-      
+
+
+     
 def getSBMLQualifier(string):
     return libsbml.__dict__.get(string)
 
@@ -223,6 +225,8 @@ def annotateModel(f_sbml, f_annotations, f_sbml_annotated):
     model.setId(mid)
     
     # Save
+    print doc
+    print f_sbml_annotated
     libsbml.writeSBMLToFile(doc, f_sbml_annotated)
 
 ###############################################################################
