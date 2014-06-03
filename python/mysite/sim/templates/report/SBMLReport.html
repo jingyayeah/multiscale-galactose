@@ -108,7 +108,7 @@
 	</table></td>
 	<td>
 	
-	<pre>{{model.getAnnotationString}}</pre>
+	{% autoescape off %}{{model.getModelHistory | SBML_modelHistoryToString}}{% endautoescape %}
 	{% with model as item %}
 	{% usekwacro annotation %}
 	{% endwith %}
