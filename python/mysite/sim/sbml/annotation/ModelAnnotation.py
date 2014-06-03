@@ -111,8 +111,11 @@ class ModelAnnotator(object):
                     continue
             
             if (a.annotation_type == 'SBO'):
-                print 'SBO:', mid, element
-                element.setSBOTerm(int(a.entity))
+                print 'SBO:', a.entity, mid, element
+                if a.entity.startswith('SBO'):
+                    element.setSBOTerm(a.entity) 
+                else:
+                    element.setSBOTerm(int(a.entity))
             elif (a.annotation_type == 'RDF'):
                 addRDFAnnotationToElement(element, a.qualifier, a.collection, a.entity)
                 print 'RDF:', mid, element

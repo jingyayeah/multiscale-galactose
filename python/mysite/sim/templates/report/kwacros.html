@@ -156,7 +156,7 @@
 	<td>{% usekwacro id %}</td>
 	<td>=</td>
 	<td>{% usekwacro math %}</td>
-	<td>{{ item.getDerivedUnitDefinition }}</td>
+	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
 	<td>{% usekwacro sbo_term %}</td>
 	<td>{% usekwacro annotation %}</td>
 {% endkwacro %}

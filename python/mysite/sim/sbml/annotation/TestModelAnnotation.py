@@ -35,12 +35,11 @@ if __name__ == "__main__":
     sbml_id = 'Galactose_v20_Nc1_Nf1'
     f_sbml = 'examples/' + sbml_id + '.xml'
     f_annotations = 'examples/Galactose_annotations.csv'
-    f_sbml_annotated = SBML_FOLDER + '/' + sbml_id + '_annotated_v2.xml'
+    f_sbml_annotated = SBML_FOLDER + '/' + sbml_id + '_annotated_v7.xml'
     annotateModel(f_sbml, f_annotations, f_sbml_annotated)
     
     
-    model = SBMLModel.create(sbml_id + '_annotated_v2', SBML_FOLDER);
+    model = SBMLModel.create(sbml_id + '_annotated_v7', SBML_FOLDER);
     model.save();
     
-
 ###############################################################################
