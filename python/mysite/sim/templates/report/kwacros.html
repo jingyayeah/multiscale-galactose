@@ -198,7 +198,7 @@
 {% kwacro reaction_header %}
 	<th scope="col">id</th>
 	<th scope="col">name</th>
-	<th scope="col">reversible</th>
+	<th scope="col">reversibility</th>
 	<th scope="col">equation</th>
 	<th scope="col">modifiers</th>
 	<th scope="col">derived units</th>
@@ -209,8 +209,9 @@
 {% kwacro reaction_content %}
 	<td>{% usekwacro id %}</td>
 	<td>{% usekwacro name %}</td>
-	<td class="{% if item.getReversible %}TRUE{% else %}FALSE{% endif %}">{{ item.getReversible }}</td>
-	<td>#eq.toHTMLString()</td>
+	{% if item.getReversible %}<td class="TRUE">&lt;=&gt;</td>{% else %}
+	<td class="FALSE">&nbsp;=&gt;</td>{% endif %}
+	<td>{{item | SBML_reactionToString}}</td>
 	<td>{% for mod in item.getListOfModifiers %}
 						{{mod}}<br />
 		 {% endfor %}</td>

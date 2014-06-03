@@ -27,6 +27,36 @@ def SBML_unitDefinitionToString(ud):
 def SBML_modelHistoryToString(mhistory):
     return modelHistoryToString(mhistory)
 
+@register.filter
+def SBML_reactionToString(reaction):
+    return equationStringFromReaction(reaction)
+
+
+def equationStringFromReaction(reaction):
+    items = []
+    items.append(halfEquation(reaction.getListOfReactants()))
+    if reaction.getReversible():
+        items.append('<=>')
+    else:
+        items.append('=>')
+    items.append(halfEquation(reaction.getListOfProducts())) 
+    return " ".join(items)
+
+def halfEquation(speciesList):
+    items = []
+    for sr in speciesList:
+        stoichiometry = sr.getStoichiometry()
+        species = sr.getSpecies()
+        if abs(stoichiometry-1.0)<1E-8:
+            sd = '{}'.format(species)
+        elif abs(stoichiometry+1.0)<1E-8:
+            sd = '-{}'.format(species)
+        elif (stoichiometry > 0):
+            sd = '{} {}'.format(stoichiometry, species)
+        elif (stoichiometry < 0):  
+            sd = '-{} {}'.format(stoichiometry, species)
+        items.append(sd)
+    return ' '.join(items)
 
 def modelHistoryToString(mhistory):
     '''
