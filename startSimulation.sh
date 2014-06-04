@@ -8,8 +8,8 @@
 # TODO: use options to not use all CPUS on target computer
 # TODO: handle copying of results files better
 ############################################################
-MULTISCALE_GALACTOSE=~/multiscale-galactose
-MULTISCALE_GALACTOSE_RESULTS=~/multiscale-galactose-results
+export MULTISCALE_GALACTOSE=~/multiscale-galactose
+export MULTISCALE_GALACTOSE_RESULTS=~/multiscale-galactose-results
 
 export PYTHONPATH=${PYTHONPATH}:${MULTISCALE_GALACTOSE}/python
 export PYTHONPATH=${PYTHONPATH}:${MULTISCALE_GALACTOSE}/python/mysite/
