@@ -2,12 +2,13 @@
 \name{ma.settings}
 \alias{ma.settings}
 \title{Available settings for the MultiscaleAnalysis package}
-\format{\preformatted{List of 5
+\format{\preformatted{List of 6
  $ dir.base   : chr "/home/mkoenig/multiscale-galactose"
  $ dir.code   : chr "/home/mkoenig/multiscale-galactose/R"
  $ dir.expdata: chr "/home/mkoenig/multiscale-galactose/experimental_data"
  $ dir.simdata: chr "/home/mkoenig/multiscale-galactose-results"
  $ dir.results: chr "/home/mkoenig/multiscale-galactose-results"
+ $ simulator  : chr "ROADRUNNER"
 }}
 \usage{
 ma.settings

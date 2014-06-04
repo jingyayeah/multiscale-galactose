@@ -54,7 +54,7 @@ preprocessPPPV <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL){
 #' @param col.indices_f function to get column indices to take
 #' @return outFile file with the saved data
 #' @export
-preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.indices_f=NULL){
+preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.indices_f=NULL, time=NULL){
   print('sim.indices:')
   print(sim.indices)
   print('col.indices_f:')
@@ -94,7 +94,7 @@ preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.in
     # Variable stepsize with different step size for every integration
     # necessary to unify the timesteps
     # preprocess.mat <- createVariableStepDataMatrices(dir=sim.dir, datalist=preprocess.list)
-    preprocess.mat <- NULL
+    preprocess.mat <- createDataMatricesVarSteps(dir=sim.dir, datalist=preprocess.list, time) 
   }
   
   
@@ -194,9 +194,6 @@ getTimeFromPreprocessMatrix <- function(preprocess.mat){
 #' @return matrix of pppv data
 #' @export
 createDataMatrices <- function(dir, datalist){
-  time <- as.numeric(rownames(datalist[[1]]))
-  Ntime = length(time)
-  
   simulations <- names(datalist)
   Nsim = length(simulations)
   
@@ -207,6 +204,10 @@ createDataMatrices <- function(dir, datalist){
   # create empty matrix first
   mat = vector('list', Nc)
   names(mat) <- compounds
+  
+  time <- as.numeric(rownames(datalist[[1]]))
+  Ntime = length(time)
+  
   for (kc in seq(Nc)){
     tmp <- matrix(data=NA, nrow = Ntime, ncol = Nsim)
     colnames(tmp) <- simulations
@@ -219,3 +220,42 @@ createDataMatrices <- function(dir, datalist){
   }
   mat
 }
+
+
+#' Convert timecourse list structure into data matrix.
+#' 
+#' @param datalist list of data matrices
+#' @param compounds which compounds to take
+#' @time time for interpolation
+#' @prefixes which prefixes to take
+#' @return matrix of pppv data
+#' @export
+createDataMatricesVarSteps <- function(dir, datalist, time){
+  simulations <- names(datalist)
+  Nsim = length(simulations)
+  
+  # compund names
+  compounds <- colnames(datalist[[1]])
+  Nc <- length(compounds)
+  
+  # create empty matrix first
+  mat = vector('list', Nc)
+  names(mat) <- compounds
+  
+  Ntime = length(time)
+  
+  for (kc in seq(Nc)){
+    tmp <- matrix(data=NA, nrow = Ntime, ncol = Nsim)
+    colnames(tmp) <- simulations
+    rownames(tmp) <- time
+    
+    for(ks in seq(Nsim)){
+      data.approx <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, kc], xout=time, method="linear")
+      tmp[, ks] <- data.approx[[2]]
+    }
+    mat[[kc]] <- tmp;
+  }
+  mat
+}
+
+

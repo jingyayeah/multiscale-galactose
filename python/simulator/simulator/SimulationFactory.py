@@ -223,7 +223,7 @@ if __name__ == "__main__":
         info = '''Simulation of varying galactose concentrations periportal to steady state.'''
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
-        syncDjangoSBML()
+        # syncDjangoSBML()
         
         # integration
         integration, created = Integration.objects.get_or_create(tstart=0.0, 
@@ -240,6 +240,6 @@ if __name__ == "__main__":
         createGalactoseSimulations(task, gal_range, flow_range, N=1, 
                                    deficiencies=range(0,24), sampling='mean')
         # create from distribution
-        createGalactoseSimulations(task, gal_range, flow_range, N=49, 
+        createGalactoseSimulations(task, gal_range, flow_range, N=9, 
                                    deficiencies=range(0,24), sampling='distribution')
         #----------------------------------------------------------------------#    
