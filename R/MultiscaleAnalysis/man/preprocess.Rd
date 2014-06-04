@@ -2,7 +2,7 @@
 \alias{preprocess}
 \title{Preprocess the CSV simulation data for given parameter file.}
 \usage{
-preprocess(parsfile, sim.dir, outFile = NULL, sim.indices = NULL,
+preprocess(pars, sim.dir, outFile = NULL, sim.indices = NULL,
   col.indices_f = NULL, time = NULL)
 }
 \arguments{

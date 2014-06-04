@@ -54,14 +54,12 @@ preprocessPPPV <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL){
 #' @param col.indices_f function to get column indices to take
 #' @return outFile file with the saved data
 #' @export
-preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.indices_f=NULL, time=NULL){
+preprocess <- function(pars, sim.dir, outFile=NULL, sim.indices=NULL, col.indices_f=NULL, time=NULL){
   print('sim.indices:')
   print(sim.indices)
   print('col.indices_f:')
   print(col.indices_f)
-  
-  pars <- loadParameterFile(parsfile)
-  
+    
   # Reduce pars to the simulations which should be taken
   if (is.null(sim.indices)){
      pars.sim <- pars
@@ -96,7 +94,6 @@ preprocess <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL, col.in
     # preprocess.mat <- createVariableStepDataMatrices(dir=sim.dir, datalist=preprocess.list)
     preprocess.mat <- createDataMatricesVarSteps(dir=sim.dir, datalist=preprocess.list, time) 
   }
-  
   
   # Store
   if (is.null(outFile)){
