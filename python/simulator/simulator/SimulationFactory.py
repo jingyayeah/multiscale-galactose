@@ -136,7 +136,7 @@ if __name__ == "__main__":
         createDemoSimulations(task, N=2000, sampling="distribution") 
         
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print '*** Hepatic Glucose Metabolism ***'
         sbml_id = "Koenig2014_Hepatic_Glucose_Model_annotated"
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
@@ -216,3 +216,30 @@ if __name__ == "__main__":
         #createGalactoseSimulations(task, gal_range, flow_range, N=10, 
         #                           deficiencies=range(0,24), sampling='distribution')
         #----------------------------------------------------------------------#        
+    if (1):
+        print '*** SINGLE CELL GALACTOSE SIMULATIONS ***'
+        
+        sbml_id = "Galactose_v20_Nc1_Nf1"   
+        info = '''Simulation of varying galactose concentrations periportal to steady state.'''
+        model = SBMLModel.create(sbml_id, SBML_FOLDER);
+        model.save();
+        syncDjangoSBML()
+        
+        # integration
+        integration, created = Integration.objects.get_or_create(tstart=0.0, 
+                                                             tend=5000.0, 
+                                                             tsteps=100,
+                                                             abs_tol=1E-6,
+                                                             rel_tol=1E-6)
+        # simulation
+        simulator = ROADRUNNER
+        gal_range = np.arange(0, 6, 0.5)
+        flow_range = (10E-6, )
+        task = createTask(model, integration, simulator, info, priority=100)
+        # create mean
+        createGalactoseSimulations(task, gal_range, flow_range, N=1, 
+                                   deficiencies=range(0,24), sampling='mean')
+        # create from distribution
+        createGalactoseSimulations(task, gal_range, flow_range, N=49, 
+                                   deficiencies=range(0,24), sampling='distribution')
+        #----------------------------------------------------------------------#    
