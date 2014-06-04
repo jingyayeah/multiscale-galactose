@@ -30,8 +30,21 @@ head(pars)
 plotParameterHistogramFull(pars)
 
 # do the preprocessing (here all columns)
-# what is written in the CSV?
+# time series consists of non-equidistant time points
 outFile <- preprocess(parsfile, ma.settings$dir.simdata)
+# TODO: only the preprocess list generated so far
+tmp <- preprocess.list[[1]]
+head(tmp)
+# TODO: interpolate for equidistant steps
+plot(tmp$time, tmp$A_in)
+
+t.new <- seq(from=0, to=100, by=0.1)
+A_in.new <- approx(t.new)
+
+
+approx   (x, y = NULL, xout, method = "linear", n = 50,
+          yleft, yright, rule = 1, f = 0, ties = mean)
+
 
 # load the preprocessed data
 load(outFile)

@@ -159,8 +159,8 @@ readDataForSimulation <- function(dir, simId, col.indices_f){
   # replace 'X..' if header given via '# '
   names(data) <- gsub('X..', '', names(data))
   names(data) <- gsub('#', '', names(data))
-  names(data) <- gsub('\[', '', names(data))
-  names(data) <- gsub('\]', '', names(data))
+  names(data) <- gsub('\\[', '', names(data))
+  names(data) <- gsub('\\]', '', names(data))
   
   # necessary to trim
   setnames(data, trim(colnames(data)))
