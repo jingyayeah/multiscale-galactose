@@ -7,7 +7,6 @@
 # author: Matthias Koenig
 # date: 2014-05-11
 ################################################################
-
 rm(list=ls())
 library(data.table)
 library(libSBML)
@@ -20,8 +19,7 @@ setwd(ma.settings$dir.results)
 # definition of changing parameters, with a single sample 
 # corresponding to a sinusoidal unit configuration
 # samples are based on random sampling of multidimensional parameter space
-
-sname <- '2014-05-11_Demo'
+sname <- '2014-05-_Demo'
 modelVersion <- 'v14_Nc20_Nf1'
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
 load_with_sims = FALSE;

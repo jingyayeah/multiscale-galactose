@@ -21,7 +21,7 @@ IPS=(10.39.32.106 10.39.32.189 10.39.32.111)
 
 for i in ${IPS[@]}; do
     echo "*** ${i} ***"
-    rsync -ravzX --delete mkoenig@${i}:${DATA} mkoenig@${TARGET}:${DATA}
+    rsync -ravzX --delete mkoenig@${i}:${DATA} ${DATA}
 done
 
 
