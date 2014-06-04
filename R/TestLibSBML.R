@@ -11,15 +11,17 @@ p <- ListOfParameters_get(lofp, 'asfasf')
 res <- tryCatch(SBase_getId(p), error = function(e) e)
 print(res)
 print(class(res))
+is.null(p)
 
 # exists
 p <- ListOfParameters_get(lofp, 'HGP')
 res <- tryCatch(SBase_getId(p), error = function(e) e)
 print(res)
 print(class(res))
+is.null(p)
 
 # direct way
-p$ref
+# p$ref
 
 
 
