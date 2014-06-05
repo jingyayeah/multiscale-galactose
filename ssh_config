@@ -1,0 +1,25 @@
+Host zen
+    HostName 10.39.32.236
+    Port 22
+    User mkoenig
+
+Host core
+    HostName 10.39.34.27
+    Port 22
+    User mkoenig
+
+Host mint
+    HostName 10.39.32.106
+    Port 22
+    User mkoenig
+
+Host sysbio1
+    HostName 10.39.32.189
+    Port 22
+    User mkoenig
+
+Host sysbio2
+    HostName 10.39.32.111
+    Port 22
+    User mkoenig
+
