@@ -66,7 +66,7 @@ def createSimulationForSample(task, sample):
     sim.save()
     sim.parameters.add(*parameters)
     
-    print "Simulation created: {}".format(sim)        
+    print "{}".format(sim)        
         
 
 def createDemoSamples(N, sampling):

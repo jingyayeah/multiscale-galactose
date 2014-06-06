@@ -43,15 +43,30 @@ def storeTimecourseResults(sim, tc_file):
     sim.status = DONE
     sim.save()
             
+def integrate(sims, folder, simulator):
+    ''' 
+    Run ODE integration for the simulation. 
+    Error handling is done via try/except 
+    Cores are not hanging, but simulations are put into an ERROR state.
+    Mainly problems if files are not available.
+    
+    '''
+    if (simulator == COPASI):
+        status = integrate_copasi(sims, folder);
+    elif (simulator == ROADRUNNER):
+        status = integrate_roadrunner(sims, folder);
+    return status
 
 def integration_exception(sim):
     print "Exception in integration"
     print '-'*60
     traceback.print_exc(file=sys.stdout)
-    traceback.print_exc(file='/home/mkoenig/multiscale-galactose-results/ERROR_' + str(sim.pk) + '.log')
+    f_err = open('/home/mkoenig/multiscale-galactose-results/ERROR_' + str(sim.pk) + '.log', 'w')
+    traceback.print_exc(file=f_err)
     print '-'*60
     sim.status = ERROR
     sim.save()
+
 
 def integrate_copasi(sims, folder):
     sbml_file = str(sims[0].task.sbml_model.file.path)
@@ -142,19 +157,7 @@ def integrate_roadrunner(sims, folder):
             integration_exception(sim)
     
 
-def integrate(sims, folder, simulator):
-    ''' 
-    Run ODE integration for the simulation. 
-    Error handling is done via try/except 
-    Cores are not hanging, but simulations are put into an ERROR state.
-    Mainly problems if files are not available.
-    
-    '''
-    if (simulator == COPASI):
-        status = integrate_copasi(sims, folder);
-    elif (simulator == ROADRUNNER):
-        status = integrate_roadrunner(sims, folder);
-    return status
+
 
 
         
