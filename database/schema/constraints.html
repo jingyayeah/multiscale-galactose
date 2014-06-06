@@ -114,20 +114,6 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
   <tr class='even'>
-  <td class='detail'>parametercollection_id_refs_id_3e4129e9</td>
-  <td class='detail'><a href='tables/sim_parametercollection_parameters.html'>sim_parametercollection_parameters</a>.parametercollection_id</td>
-  <td class='detail'><a href='tables/sim_parametercollection.html'>sim_parametercollection</a>.id</td>
-  <td class='detail'><span title='Restrict delete:
- Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
- </tr>
-  <tr class='odd'>
-  <td class='detail'>sim_parametercollection_parameters_parameter_id_fkey</td>
-  <td class='detail'><a href='tables/sim_parametercollection_parameters.html'>sim_parametercollection_parameters</a>.parameter_id</td>
-  <td class='detail'><a href='tables/sim_parameter.html'>sim_parameter</a>.id</td>
-  <td class='detail'><span title='Restrict delete:
- Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
- </tr>
-  <tr class='even'>
   <td class='detail'>sim_plot_timecourse_id_fkey</td>
   <td class='detail'><a href='tables/sim_plot.html'>sim_plot</a>.timecourse_id</td>
   <td class='detail'><a href='tables/sim_timecourse.html'>sim_timecourse</a>.id</td>
@@ -142,9 +128,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
   <tr class='even'>
-  <td class='detail'>sim_simulation_parameters_id_fkey</td>
-  <td class='detail'><a href='tables/sim_simulation.html'>sim_simulation</a>.parameters_id</td>
-  <td class='detail'><a href='tables/sim_parametercollection.html'>sim_parametercollection</a>.id</td>
+  <td class='detail'>sim_simulation_parameters_parameter_id_fkey</td>
+  <td class='detail'><a href='tables/sim_simulation_parameters.html'>sim_simulation_parameters</a>.parameter_id</td>
+  <td class='detail'><a href='tables/sim_parameter.html'>sim_parameter</a>.id</td>
   <td class='detail'><span title='Restrict delete:
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
@@ -170,8 +156,22 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
   <tr class='even'>
+  <td class='detail'>sim_task_subtask_id_fkey</td>
+  <td class='detail'><a href='tables/sim_task.html'>sim_task</a>.subtask_id</td>
+  <td class='detail'><a href='tables/sim_subtask.html'>sim_subtask</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='odd'>
   <td class='detail'>sim_timecourse_simulation_id_fkey</td>
   <td class='detail'><a href='tables/sim_timecourse.html'>sim_timecourse</a>.simulation_id</td>
+  <td class='detail'><a href='tables/sim_simulation.html'>sim_simulation</a>.id</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='even'>
+  <td class='detail'>simulation_id_refs_id_ee1ca093</td>
+  <td class='detail'><a href='tables/sim_simulation_parameters.html'>sim_simulation_parameters</a>.simulation_id</td>
   <td class='detail'><a href='tables/sim_simulation.html'>sim_simulation</a>.id</td>
   <td class='detail'><span title='Restrict delete:
  Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>

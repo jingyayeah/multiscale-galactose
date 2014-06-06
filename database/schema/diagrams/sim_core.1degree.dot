@@ -28,7 +28,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="ip" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">ip</TD><TD PORT="ip.type" ALIGN="LEFT">varchar[200]</TD></TR>
       <TR><TD PORT="cpu" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">cpu</TD><TD PORT="cpu.type" ALIGN="LEFT">int4[10]</TD></TR>
       <TR><TD PORT="time" COLSPAN="2" ALIGN="LEFT">time</TD><TD PORT="time.type" ALIGN="LEFT">timestamptz[35,6]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">40 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
     URL="sim_core.html"
     tooltip="sim_core"
@@ -39,15 +39,13 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_simulation</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="task_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">task_id</TD></TR>
-      <TR><TD PORT="parameters_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">parameters_id</TD></TR>
       <TR><TD PORT="status" COLSPAN="3" ALIGN="LEFT">status</TD></TR>
-      <TR><TD PORT="priority" COLSPAN="3" ALIGN="LEFT">priority</TD></TR>
       <TR><TD PORT="time_create" COLSPAN="3" ALIGN="LEFT">time_create</TD></TR>
       <TR><TD PORT="time_assign" COLSPAN="3" ALIGN="LEFT">time_assign</TD></TR>
       <TR><TD PORT="core_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">core_id</TD></TR>
       <TR><TD PORT="file" COLSPAN="3" ALIGN="LEFT">file</TD></TR>
       <TR><TD PORT="time_sim" COLSPAN="3" ALIGN="LEFT">time_sim</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 3</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">100 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">10,800 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="sim_simulation.html"
     tooltip="sim_simulation"
