@@ -48,6 +48,7 @@ def integration_exception(sim):
     print "Exception in integration"
     print '-'*60
     traceback.print_exc(file=sys.stdout)
+    traceback.print_exc(file='/home/mkoenig/multiscale-galactose-results/ERROR_' + str(sim.pk) + '.log')
     print '-'*60
     sim.status = ERROR
     sim.save()
@@ -76,29 +77,30 @@ def integrate_roadrunner(sims, folder):
     '''
     Here the complete RoadRunner simulation logic is performed.
     '''
-    try:
-        sbml_file = str(sims[0].task.sbml_model.file.path)
-        sbml_id = sims[0].task.sbml_model.sbml_id
-        # read SBML
-        rr = roadrunner.RoadRunner(sbml_file)
+    sbml_file = str(sims[0].task.sbml_model.file.path)
+    sbml_id = sims[0].task.sbml_model.sbml_id
+    
+    # read SBML
+    rr = roadrunner.RoadRunner(sbml_file)
         
-        # set the selection
-        sel = ['time']
-        sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
-        sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
-        sel += rr.model.getReactionIds()
-        # For testing store the parameters (make sure that reset is working)
-        sel += rr.model.getGlobalParameterIds()
+    # set the selection
+    sel = ['time']
+    sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
+    sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
+    sel += rr.model.getReactionIds()
+    # For testing store the parameters (make sure that reset is working)
+    sel += rr.model.getGlobalParameterIds()
             
-        rr.selections = sel
-        header = ",".join(sel)
+    rr.selections = sel
+    header = ",".join(sel)
 
-        # use the integration settings (adapt absTol to amounts)
-        odeset = sims[0].task.integration
-        absTol = odeset.abs_tol * min(rr.model.getCompartmentVolumes())
+    # use the integration settings (adapt absTol to amounts)
+    odeset = sims[0].task.integration
+    absTol = odeset.abs_tol * min(rr.model.getCompartmentVolumes())
             
-        for sim in sims:
-        # set all parameters in the model and store the changes for revert
+    for sim in sims:
+        try:
+            # set all parameters in the model and store the changes for revert
             tstart = time.clock()
             sim.time_assign = timezone.now() # correction due to bulk assignment
             changes = dict()
@@ -134,13 +136,13 @@ def integrate_roadrunner(sims, folder):
                 rr.model[key] = value
                     
             storeTimecourseResults(sim, tc_file)
-            print 'Full Time:', (time.clock()-tstart)
+            # print 'Full Time:', (time.clock()-tstart)
             
-    except Exception:
-        integration_exception(sim)
+        except Exception:
+            integration_exception(sim)
     
 
-def integrate(sims, folder):
+def integrate(sims, folder, simulator):
     ''' 
     Run ODE integration for the simulation. 
     Error handling is done via try/except 
@@ -148,11 +150,11 @@ def integrate(sims, folder):
     Mainly problems if files are not available.
     
     '''
-    simulator = sims[0].task.simulator
     if (simulator == COPASI):
-        integrate_copasi(sims, folder);
+        status = integrate_copasi(sims, folder);
     elif (simulator == ROADRUNNER):
-        integrate_roadrunner(sims, folder);
+        status = integrate_roadrunner(sims, folder);
+    return status
 
 
         

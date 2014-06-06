@@ -46,7 +46,7 @@ class Core(models.Model):
     def __unicode__(self):
         return self.ip + "-cpu-" +str(self.cpu)
     
-    def _is_active(self, cutoff_minutes=5):
+    def _is_active(self, cutoff_minutes=10):
         if not (self.time):
             return False;
         else:

@@ -98,6 +98,8 @@ from django.db.transaction import commit_on_success
 @commit_on_success
 def assign_and_save_in_bulk(simulations, core):
     ''' Huge speed increase doing in bulk. '''
+    core.time = timezone.now()
+    core.save()
     for sim in simulations:
         sim.time_assign = timezone.now()
         sim.core = core
@@ -123,7 +125,7 @@ def worker(cpu, lock, Nsim):
     while(True):
         # Update the time for the core
         core = get_core_by_ip_and_cpu(ip, cpu)
-        print core, 'wants simulations'
+        print core
         
         # Assign simulation
         lock.acquire()
@@ -135,10 +137,11 @@ def worker(cpu, lock, Nsim):
         print sims
         
         if (sims):
-            ODE_Integration.integrate(sims, SIM_FOLDER)
+            simulator = sims[0].task.simulator
+            ODE_Integration.integrate(sims, SIM_FOLDER, simulator)
         else:
             print core, "... no unassigned simulations ...";
-            time.sleep(20)
+            time.sleep(10)
 
 #####################################################################################
 if __name__ == "__main__":     
@@ -163,7 +166,7 @@ if __name__ == "__main__":
     print 'Used CPUs: ', cpus
     print '#'*60
     
-    Nsim = 25;
+    Nsim = 20;
     
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()

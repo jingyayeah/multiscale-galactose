@@ -234,13 +234,13 @@ def makeMultiscaleGalactose(N, singleCell=False):
 if __name__ == "__main__":
 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         makeDemo(N=1000)
     #----------------------------------------------------------------------#
     if (0):
         makeGlucose()
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         # Create the normal case for 1 cell or all cells
         singleCell = False
         [task, samples] = makeMultiscaleGalactose(N=100, singleCell=singleCell)
