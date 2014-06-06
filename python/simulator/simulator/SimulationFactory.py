@@ -45,13 +45,11 @@ def createTask(model, integration, subtask, simulator, info='', priority=0):
 def createSimulationsForSamples(task, samples):
     '''
     Creates the simulations in the database. 
-    TODO: do in bulk
     '''
     for s in samples:
-        createSimulationForParameterSample(task, sample=s)
-     
+        createSimulationForSample(task, sample=s)
         
-def createSimulationForParameterSample(task, sample):
+def createSimulationForSample(task, sample):
     ''' 
     Create the single Parameters, the combined ParameterCollection
     and the simulation based on the Parametercollection for the
@@ -63,13 +61,12 @@ def createSimulationForParameterSample(task, sample):
         name, value, unit, ptype = data
         p, created = Parameter.objects.get_or_create(name=name, value=value, unit=unit, ptype=ptype);
         parameters.append(p)
-        
+
     sim = Simulation(task=task, status = UNASSIGNED)
     sim.save()
     sim.parameters.add(*parameters)
     
-    if (created):
-        print "Simulation created: {}".format(sim)        
+    print "Simulation created: {}".format(sim)        
         
 
 def createDemoSamples(N, sampling):
@@ -238,7 +235,7 @@ if __name__ == "__main__":
 
     #----------------------------------------------------------------------#
     if (1):
-        makeDemo(N=10)
+        makeDemo(N=1000)
     #----------------------------------------------------------------------#
     if (0):
         makeGlucose()
