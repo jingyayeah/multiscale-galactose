@@ -84,7 +84,6 @@ def createMultipleIndicatorSamples(N, sampling):
     dist_data = getMultipleIndicatorDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
     samples = adaptFlowInSamples(samples)
-    samples = setDeficiencyInSamples(samples)
     return samples
 
 
@@ -97,6 +96,7 @@ def createGalactoseSamples(gal_range, N=1, sampling='mean'):
     TODO: make more general with a given id and range. 
     '''
     raw_samples = createMultipleIndicatorSamples(N, sampling) 
+    raw_samples = setDeficiencyInSamples(raw_samples)
     samples = []
     for s in raw_samples:
         for galactose in gal_range:
@@ -178,7 +178,6 @@ def makeMultipleIndicator(N):
     '''
     print '*** MULTIPLE INDICATOR ***'
     info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).'''
-    
     
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
                                                              tend=5000.0, 

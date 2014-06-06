@@ -60,9 +60,12 @@ def integrate(sims, folder, simulator):
 def integration_exception(sim):
     print "Exception in integration"
     print '-'*60
+    fname = '/home/mkoenig/multiscale-galactose-results/ERROR_' + str(sim.pk) + '.log'
+    print fname
+    with open(fname, 'a') as f_err:
+        traceback.print_exc(file=f_err)
+    
     traceback.print_exc(file=sys.stdout)
-    f_err = open('/home/mkoenig/multiscale-galactose-results/ERROR_' + str(sim.pk) + '.log', 'w')
-    traceback.print_exc(file=f_err)
     print '-'*60
     sim.status = ERROR
     sim.save()

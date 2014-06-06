@@ -16,7 +16,7 @@
     accessible. Run control checks.
     
     TODO: 
-    clean cores which did not listen for some time.
+    remove hanging objects, i.e. parameters which are not used in any simulations
     
     TODO: setup cron jobs for backup of the database and the the general informaton.
     
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     #-----------------------------------------------
     #     Unassign hanging simulations
     #-----------------------------------------------
-    # unassignAssignedHangingSimulations(cutoff_minutes=-1);
+    unassignAssignedHangingSimulations(cutoff_minutes=-1);
     # unassignErrorHangingSimulations(cutoff_minutes=-1);
     
     #-----------------------------------------------
@@ -162,10 +162,10 @@ if __name__ == "__main__":
     #     Remove simulations for tasks
     #-----------------------------------------------
     # TODO: also clean the tmp files and local files after removing simulations
-    task_pks = (1,)
-    for pk in task_pks:
-        task = Task.objects.get(pk=pk)
-        removeSimulationsForTask(task)
+    # task_pks = (1,)
+    # for pk in task_pks:
+    #    task = Task.objects.get(pk=pk)
+    #    removeSimulationsForTask(task)
     
     #-----------------------------------------------
     #     Unassign all simulations
