@@ -20,8 +20,8 @@ samples for parameters (via LHS).
 # approximate permutation test, Monte Carlo permutation tests or random permutation tests
 
 
-Created on May 4, 2014
-@author: Matthias Koenig
+@author:   Matthias Koenig
+@date:     2014-05-04
 '''
 import random
 import numpy as np
@@ -30,36 +30,24 @@ import numpy.random as npr
 from sim.models import GLOBAL_PARAMETER
 
 def createParametersBySampling(dist_data, N, sampling):
+    '''
+    Master function which creates the samples. 
+    Only function which should be called from the outside.
+    '''
     if (sampling == "distribution"):
-        samples = createSamplesByDistribution(dist_data, N);
+        samples = _createSamplesByDistribution(dist_data, N);
     elif (sampling == "LHS"):
-        samples = createSamplesByLHS(dist_data, N);
+        samples = _createSamplesByLHS(dist_data, N);
     elif (sampling == "mean"):
-        samples = createSamplesByMean(dist_data, N);
+        samples = _createSamplesByMean(dist_data, N);
     elif (sampling == "mixed"):
-        samples1 = createSamplesByDistribution(dist_data, N/2);
-        samples2 = createSamplesByLHS(dist_data, N/2);
+        samples1 = _createSamplesByDistribution(dist_data, N/2);
+        samples2 = _createSamplesByLHS(dist_data, N/2);
         samples = samples1 + samples2
-        
-    # TODO: adapt flow of samples
-    samples = adaptFlowInSamples(samples)
+            
     return samples
 
-
-def adaptFlowInSamples(samples):
-    # flow is adapted due to scaling to full liver architecture
-    # TODO: make this consistent, this is not good and seems like dirty fix
-    # TODO: make a class for the parameters
-    print 'flow adaptation'
-    f_flow = 0.47
-    for s in samples:
-        if (s.has_key("flow_sin")):
-            name, value, unit, ptype = s["flow_sin"];
-            s["flow_sin"] = (name, value*f_flow, unit, ptype)
-    return samples
-
-
-def createSamplesByDistribution(dist_data, N=10):
+def _createSamplesByDistribution(dist_data, N=10):
     '''
     Returns the parameter samples from the log-normal distributions.
     The generation of the database objects is performed in the SimulationFactory.
@@ -86,7 +74,7 @@ def createSamplesByDistribution(dist_data, N=10):
         samples.append(s)
     return samples
 
-def createSamplesByMean(dist_data, N=1):
+def _createSamplesByMean(dist_data, N=1):
     ''' Returns the mean parameters for the given distribution data. '''
     samples = [];
     for kn in xrange(N):
@@ -98,8 +86,24 @@ def createSamplesByMean(dist_data, N=1):
         samples.append(s)
     return samples
 
+def _createSamplesByManual(dist_data):
+    ''' Manual parameter creation. Only sample L and flow_sin. '''
+    samples = []
+    # what parameters should be sampled
+    flows = np.arange(0.0, 600E-6, 60E-6)
+    lengths = np.arange(400E-6, 600E-6, 100E-6)
+    for flow_sin in flows:
+        for L in lengths: 
+            s = []
+            for pid in ("y_cell", "y_dis", "y_sin"):
+                dtmp = dist_data[pid];
+                s.append( (dtmp['name'], dtmp['mean'],dtmp['unit']), GLOBAL_PARAMETER)
+            s.append( ('flow_sin', flow_sin, 'm/s') , GLOBAL_PARAMETER)
+            s.append( ('L', L, 'm'), GLOBAL_PARAMETER)                    
+            samples.append(s)
+    return samples
 
-def createSamplesByLHS(dist_data, N=10):
+def _createSamplesByLHS(dist_data, N=10):
     '''
     Returns the parameter samples via LHS sampling.
     The boundaries of the samples are defined via the given distributions for the normal state.
@@ -164,47 +168,30 @@ def calculatePointsByLHS(N, variableMax, variableMin):
     return pointValues
 
 
-def createSamplesByManual(dist_data):
-    ''' Manual parameter creation. Only sample L and flow_sin. '''
-    samples = []
-    # what parameters should be sampled
-    flows = np.arange(0.0, 600E-6, 60E-6)
-    lengths = np.arange(400E-6, 600E-6, 100E-6)
-    for flow_sin in flows:
-        for L in lengths: 
-            s = []
-            for pid in ("y_cell", "y_dis", "y_sin"):
-                dtmp = dist_data[pid];
-                s.append( (dtmp['name'], dtmp['mean'],dtmp['unit']), GLOBAL_PARAMETER)
-            s.append( ('flow_sin', flow_sin, 'm/s') , GLOBAL_PARAMETER)
-            s.append( ('L', L, 'm'), GLOBAL_PARAMETER)                    
-            samples.append(s)
-    return samples
-
+##########################################################################################
 
 if __name__ == "__main__":
     # TODO: visualize the sampling for control
-    # Use the general scripts for that.
     from Distributions import getMultipleIndicatorDistributions
     dist_data = getMultipleIndicatorDistributions();
-    samples = createSamplesByManual(dist_data)
+    samples = _createSamplesByManual(dist_data)
     for s in samples:
         print s
     
     print '-' * 40
-    samples = createSamplesByDistribution(dist_data, N=5)
+    samples = _createSamplesByDistribution(dist_data, N=5)
     for s in samples:
         print s
         
     print '-' * 40
-    samples = createSamplesByLHS(dist_data, N=5)
+    samples = _createSamplesByLHS(dist_data, N=5)
     for s in samples:
         print s
         
     print '#' * 40    
     from Distributions import getDemoDistributions
     dist_data = getDemoDistributions()
-    samples = createSamplesByDistribution(dist_data, N=10)
+    samples = _createSamplesByDistribution(dist_data, N=10)
     for s in samples:
         print s
     

@@ -179,9 +179,19 @@ class ParameterCollection(models.Model):
         return self.parameters.count()
     
 
+class Subtask(models.Model):
+    '''
+        Different set of tasks.
+    '''
+    name = models.TextField(max_length=25)
+    
+    def __unicode__(self):
+        return "<%s>" % (self.name)
+
+
 COPASI = "COPASI"
 ROADRUNNER = "ROADRUNNER"
-       
+
 class Task(models.Model):
     '''
         Tasks are compatible on their integration setting and the
@@ -193,12 +203,13 @@ class Task(models.Model):
     )
     sbml_model = models.ForeignKey(SBMLModel)
     integration = models.ForeignKey(Integration)
+    subtask = models.ForeignKey(Subtask)
     simulator = models.CharField(max_length=20, choices=SIMULATOR, default=COPASI)
     priority = models.IntegerField(default=0)
     info = models.TextField(null=True, blank=True)
     
     class Meta:
-        unique_together = ("sbml_model", "integration", "simulator")
+        unique_together = ("sbml_model", "integration", "subtask", "simulator")
     
     def __unicode__(self):
         return "T%d" % (self.pk)
