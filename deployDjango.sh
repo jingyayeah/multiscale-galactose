@@ -1,3 +1,4 @@
+# Documentation for the server setup
 # The basic folders have to exist on the development as well as on the
 # production server
 
