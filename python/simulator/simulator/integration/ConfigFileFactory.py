@@ -36,7 +36,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import datetime
 import time
-from sim.models import ParameterCollection, Simulation
+from sim.models import Simulation
 
 def create_config_file_in_folder(sim, folder):
     '''
@@ -69,8 +69,7 @@ def create_config_file_in_folder(sim, folder):
     lines += ["\n"]
     
     lines += "[Parameters]\n"
-    pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
-    for p in pc.parameters.all():
+    for p in sim.parameters.all():
         lines += ["{} = {}\n".format(p.name, p.value)]
     
     filename = ''.join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_config.ini'])

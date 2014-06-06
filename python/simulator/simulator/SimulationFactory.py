@@ -240,10 +240,10 @@ if __name__ == "__main__":
     if (0):
         makeGlucose()
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         # Create the normal case for 1 cell or all cells
         singleCell = False
-        [task, samples] = makeMultiscaleGalactose(N=10, singleCell=singleCell)
+        [task, samples] = makeMultiscaleGalactose(N=100, singleCell=singleCell)
     
         # Use the samples to create deficiencies
         deficiencies = range(1,4)
@@ -261,8 +261,8 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (0):
-        makeMultipleIndicator(N=100)
+    if (1):
+        makeMultipleIndicator(N=1000)
     
     
 ####################################################################################

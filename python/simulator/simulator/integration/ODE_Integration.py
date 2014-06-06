@@ -3,8 +3,6 @@ Here the actual ode integration is performed for the given simulations.
 
 @author: mkoenig
 @date: 2014-05-11
-
-TODO: simulate bunch of simulations with the same model.
 '''
 import sys
 import time
@@ -16,7 +14,7 @@ from django.core.files import File
 from ConfigFileFactory import create_config_file_in_folder
 
 from django.utils import timezone
-from sim.models import Timecourse, ParameterCollection
+from sim.models import Timecourse
 from sim.models import DONE, ERROR, COPASI, ROADRUNNER
 from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
@@ -104,8 +102,7 @@ def integrate_roadrunner(sims, folder):
             tstart = time.clock()
             sim.time_assign = timezone.now() # correction due to bulk assignment
             changes = dict()
-            pc = ParameterCollection.objects.get(pk=sim.parameters.pk)
-            for p in pc.parameters.all():
+            for p in sim.parameters.all():
                 name = p.name
                 if (p.ptype == GLOBAL_PARAMETER):
                     pass

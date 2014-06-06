@@ -9,7 +9,7 @@ import sys
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
  
-from sim.models import Simulation, ROADRUNNER
+from sim.models import Simulation
 from ODE_Integration import integrate
 
 if __name__ == "__main__":    
@@ -17,9 +17,9 @@ if __name__ == "__main__":
     import roadrunner
     print roadrunner.__version__
     
-    sim = Simulation.objects.all()[0]
+    sims = Simulation.objects.all()[0],
     #for sim in sims:
-    integrate(sim, SIM_FOLDER, ROADRUNNER)
+    integrate(sims, SIM_FOLDER)
 
     
     
