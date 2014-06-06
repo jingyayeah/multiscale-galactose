@@ -58,25 +58,19 @@ def createSimulationForParameterSample(task, sample):
     iterable sample, which contains triples of (name, value, unit).
     '''
     # Parameters are generated in a unique way
-    ps = []
+    parameters = []
     for data in sample.values():
         name, value, unit, ptype = data
         p, created = Parameter.objects.get_or_create(name=name, value=value, unit=unit, ptype=ptype);
-        ps.append(p)
+        parameters.append(p)
         
-    # ParameterCollections
-    # TODO: make sure that also unique
-    pset = ParameterCollection();
-    for p in ps:
-        pset.parameters.add(p)
-    pset.save()
+    sim = Simulation(task=task, status = UNASSIGNED)
+    sim.save()
+    sim.parameters.add(*parameters)
     
-    sim, created = Simulation.objects.get_or_create(task=task, 
-                                                      parameters = pset,
-                                                      status = UNASSIGNED)
     if (created):
         print "Simulation created: {}".format(sim)        
-
+        
 
 def createDemoSamples(N, sampling):
     ''' 
@@ -152,8 +146,8 @@ def makeDemo(N):
     syncDjangoSBML()
     
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=100.0, 
-                                                             tsteps=2000,
+                                                             tend=500.0, 
+                                                             tsteps=100,
                                                              abs_tol=1E-6,
                                                              rel_tol=1E-6)    
     subtask, created = Subtask.objects.get_or_create(name='normal')
@@ -243,8 +237,8 @@ def makeMultiscaleGalactose(N, singleCell=False):
 if __name__ == "__main__":
 
     #----------------------------------------------------------------------#
-    if (0):
-        makeDemo(N=100)
+    if (1):
+        makeDemo(N=10)
     #----------------------------------------------------------------------#
     if (0):
         makeGlucose()
@@ -270,7 +264,7 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         makeMultipleIndicator(N=100)
     
     

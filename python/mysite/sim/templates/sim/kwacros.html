@@ -19,7 +19,7 @@
 			<td>{{sim.task.sbml_model.sbml_id}}</td>
 			<td>{{sim.task}}</td>
 			<td>{{sim.task.integration}}</td>
-			<td>{{sim.parameters}}</td>
+			<td>{% for p in sim.parameters.all %}{{ p }}<br />{% endfor %}</td>
 			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
 			<td>{{sim.duration}}</td>
 			<td>{{sim.core}}</td>

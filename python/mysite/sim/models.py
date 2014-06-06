@@ -140,6 +140,7 @@ class Parameter(models.Model):
                         ('m', 'm'),
                         ('m/s', 'm/s'),
                         ('mM', 'mM'),
+                        ('mole_per_s', 'mole_per_s'),
                         ('-', '-'),
     )
     PARAMETER_TYPE = (
@@ -159,25 +160,6 @@ class Parameter(models.Model):
     class Meta:
         unique_together = ("name", "value")
 
-
-class ParameterCollection(models.Model):
-    '''
-    Put Parameters of one simulation into a ParameterSet.
-    Thereby the ParameterSets can be resused for different
-    simulations.
-    '''
-    parameters = models.ManyToManyField(Parameter)
-    
-    class Meta:
-        verbose_name = "ParameterCollection"
-        verbose_name_plural = "ParameterCollections"
-        
-    def __unicode__(self):
-        return 'PC%d' % (self.pk)
-    
-    def count(self):
-        return self.parameters.count()
-    
 
 class Subtask(models.Model):
     '''
@@ -265,7 +247,7 @@ class Simulation(models.Model):
     )
     
     task = models.ForeignKey(Task)
-    parameters = models.ForeignKey(ParameterCollection)
+    parameters = models.ManyToManyField(Parameter)
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
     time_create = models.DateTimeField(default=timezone.now())
     
@@ -281,9 +263,6 @@ class Simulation(models.Model):
     unassigned_objects = UnassignedSimulationManager()
     assigned_objects = AssignedSimulationManager()
     done_objects = DoneSimulationManager()
-
-    class Meta:
-        unique_together = ("task", "parameters")
     
     def __unicode__(self):
         return 'Sim%d' % (self.pk)
