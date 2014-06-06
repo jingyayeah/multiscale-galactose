@@ -254,7 +254,6 @@ class Simulation(models.Model):
     # set during assignment
     time_assign = models.DateTimeField(null=True, blank=True)
     core = models.ForeignKey(Core, null=True, blank=True)
-    file = models.FileField(upload_to='timecourse/%Y-%m-%d' , null=True, blank=True)
     # set after simulation
     time_sim = models.DateTimeField(null=True, blank=True)
     
@@ -310,6 +309,8 @@ class Timecourse(models.Model):
     
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
+    
+    
 
 TIMECOURSE = "TIMECOURSE"
 STEADYSTATE = "STEADYSTATE"

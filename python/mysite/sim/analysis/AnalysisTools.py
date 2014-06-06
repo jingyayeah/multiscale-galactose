@@ -57,7 +57,7 @@ def createParameterInfoForTask(task):
         data['core'].append(sim.core)
         data['duration'].append(sim.duration)
         # add all the parameters
-        for p in sim.parameters.parameters.all():
+        for p in sim.parameters.all():
             if data.has_key(p.name):
                 data[p.name].append(p.value)
             else:

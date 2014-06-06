@@ -6,6 +6,11 @@ from the provided parameter distributions for the models.
      
 @author: Matthias Koenig
 @date: 2014-03-14
+
+TODO: overwrite models/files with identical name ! (general the problem if the file already 
+    exists)
+
+
 '''
 import sys
 import os

@@ -15,6 +15,10 @@
     validate the database content. Is everything consistent, are all the files
     accessible. Run control checks.
     
+    TODO: remove temporary files which are not represented in the database, namely
+        in the tmp_sim folder and the timecourse subfolder,
+        cleaning the local content on the computers
+    
     TODO: 
     remove hanging objects, i.e. parameters which are not used in any simulations
     

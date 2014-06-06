@@ -31,6 +31,8 @@ import sys
 sys.path.append("/".join([os.getenv('MULTISCALE_GALACTOSE'), 'python']))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
+SIM_FOLDER = "/".join([os.getenv('MULTISCALE_GALACTOSE_RESULTS'), 'tmp_sim'])
+
 import time
 import multiprocessing
 import socket
@@ -41,9 +43,6 @@ from django.utils import timezone
 from sim.models import Core, Simulation
 from sim.models import UNASSIGNED, ASSIGNED
 from integration import ODE_Integration
-
-SIM_FOLDER = "/".join([os.getenv('MULTISCALE_GALACTOSE_RESULTS'), 'tmp_sim'])
-
 
 
 def get_ip_address(ifname='eth0'):
@@ -138,7 +137,7 @@ def worker(cpu, lock, Nsim):
         
         if (sims):
             simulator = sims[0].task.simulator
-            ODE_Integration.integrate(sims, SIM_FOLDER, simulator)
+            ODE_Integration.integrate(sims, simulator)
         else:
             print core, "... no unassigned simulations ...";
             time.sleep(10)
@@ -150,6 +149,7 @@ if __name__ == "__main__":
     Call with --cpu option if not using 100% resources
     
     TODO: error management => unassign simulations which did not finish
+    
     '''
     from optparse import OptionParser
     import math
