@@ -5,6 +5,7 @@ Here the actual ode integration is performed for the given simulations.
 @date: 2014-05-11
 '''
 import sys
+import os
 import time
 import traceback
 from subprocess import call
@@ -52,6 +53,10 @@ def integrate(sims, simulator):
     Cores are not hanging, but simulations are put into an ERROR state.
     Mainly problems if files are not available.
     '''
+    directory = ''.join([SIM_FOLDER, "/", str(sims[0].task)])
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
     if (simulator == COPASI):
         integrate_copasi(sims);
     elif (simulator == ROADRUNNER):
@@ -83,7 +88,7 @@ def integrate_copasi(sims):
         try:
             sim.time_assign = timezone.now() # correction due to bulk assignment
             config_file = storeConfigFile(sim, SIM_FOLDER)
-            tc_file = "".join([SIM_FOLDER, "/", sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
+            tc_file = "".join([SIM_FOLDER, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
 
             # run an operating system command
             # call(["ls", "-l"])
@@ -147,7 +152,7 @@ def integrate_roadrunner(sims):
             print 'Integration Time:', (time.clock()- tstart_int)
         
             # Store Timecourse Results
-            tc_file = "".join([SIM_FOLDER, "/", sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
+            tc_file = "".join([SIM_FOLDER, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
             numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.6E')
 
             # reset

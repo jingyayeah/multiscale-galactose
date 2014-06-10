@@ -121,15 +121,16 @@ def getUniprotsFromSBML(filename):
         rdf_str = etree.tostring(rdf_tree)
     
         
-        import rdflib
-        graph = rdflib.Graph()
-        print rdf_str
-        graph.parse(data=rdf_str)
+        # TODO: handle the RDF properly
+        #import rdflib
+        #graph = rdflib.Graph()
+        #print rdf_str
+        #graph.parse(data=rdf_str)
 
-        for s, p, o in graph:
-            print s, p, o
+        #for s, p, o in graph:
+        #    print s, p, o
 
-        return uniprots
+        #return uniprots
     
 
 

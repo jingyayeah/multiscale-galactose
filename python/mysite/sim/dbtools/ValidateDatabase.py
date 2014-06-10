@@ -148,7 +148,7 @@ if __name__ == "__main__":
     #     Unassign hanging simulations
     #-----------------------------------------------
     unassignAssignedHangingSimulations(cutoff_minutes=-1);
-    # unassignErrorHangingSimulations(cutoff_minutes=-1);
+    unassignErrorHangingSimulations(cutoff_minutes=-1);
     
     #-----------------------------------------------
     #     Unassign simulations by pk

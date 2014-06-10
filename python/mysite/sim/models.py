@@ -4,6 +4,7 @@ from datetime import timedelta
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.files import File
 
+from sim.storage import OverwriteStorage
 '''
     Pool of simulations is defined with the status 'OPEN'.
     The different computers get unassigned simulations from a simulation
@@ -77,7 +78,7 @@ class SBMLModel(models.Model):
     Storage of SBMLmodels for the simulation.
     '''
     sbml_id = models.CharField(max_length=200, unique=True)
-    file = models.FileField(upload_to="sbml")
+    file = models.FileField(upload_to="sbml", max_length=200, storage=OverwriteStorage())
     
     def __unicode__(self):
         return self.sbml_id
@@ -292,10 +293,12 @@ class Simulation(models.Model):
     
     duration = property(_get_duration)
     hanging = property(_is_hanging)
+
     
 def timecourse_filename(instance, filename):
     name = filename.split("/")[-1]
     return '/'.join(['timecourse', str(instance.simulation.task), name])
+
 
 class Timecourse(models.Model):
     '''
@@ -304,18 +307,20 @@ class Timecourse(models.Model):
     status).
     '''
     simulation = models.OneToOneField(Simulation, unique=True)
-    # file = models.FileField(upload_to="~/multiscale-galactose-results/
-    file = models.FileField(upload_to=timecourse_filename, max_length=200)
+    file = models.FileField(upload_to=timecourse_filename, max_length=200, storage=OverwriteStorage())
     
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
     
-    
 
+  
 TIMECOURSE = "TIMECOURSE"
 STEADYSTATE = "STEADYSTATE"
   
 class Plot(models.Model):
+    '''
+    TODO: implement properly
+    '''
     PLOT_TYPES = (
         (TIMECOURSE, 'Timecourse'),
         (STEADYSTATE, 'SteadyState'),

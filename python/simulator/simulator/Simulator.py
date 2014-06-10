@@ -146,10 +146,7 @@ def worker(cpu, lock, Nsim):
 if __name__ == "__main__":     
     '''
     Starting the simulation on the local computer.
-    Call with --cpu option if not using 100% resources
-    
-    TODO: error management => unassign simulations which did not finish
-    
+    Call with --cpu option if not using 100% resources    
     '''
     from optparse import OptionParser
     import math
