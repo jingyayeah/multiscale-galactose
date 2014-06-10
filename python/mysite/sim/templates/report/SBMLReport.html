@@ -107,11 +107,10 @@
 	</tbody>
 	</table></td>
 	<td>
-	
+	{% if model.getModelHistory %} 
 	{% autoescape off %}{{model.getModelHistory | SBML_modelHistoryToString}}{% endautoescape %}
-	{% with model as item %}
-	{% usekwacro annotation %}
-	{% endwith %}
+	{% endif %}
+	{% with model as item %}{% usekwacro annotation %}{% endwith %}
 	</td></tr>
 	</table>
 </span>
