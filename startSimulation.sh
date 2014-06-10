@@ -13,6 +13,7 @@ export MULTISCALE_GALACTOSE_RESULTS=~/multiscale-galactose-results
 
 export PYTHONPATH=${PYTHONPATH}:${MULTISCALE_GALACTOSE}/python
 export PYTHONPATH=${PYTHONPATH}:${MULTISCALE_GALACTOSE}/python/mysite/
+export PYTHONPATH=${PYTHONPATH}:${MULTISCALE_GALACTOSE}/python/simulator/
 export DJANGO_SETTINGS_MODULE=mysite.settings
 
 echo "###################################"
