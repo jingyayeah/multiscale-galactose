@@ -29,7 +29,7 @@ TARGETS=(10.39.32.106 10.39.32.189 10.39.32.111 10.39.34.27)
 
 for i in ${TARGETS[@]}; do
     echo "*** ${i} ***"
-    rsync -rvz --delete ${DATA} mkoenig@${i}:${DATA}
+    rsync -rvz ${DATA} mkoenig@${i}:${DATA}
 done
 
 

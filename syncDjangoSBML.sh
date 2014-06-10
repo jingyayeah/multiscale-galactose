@@ -19,7 +19,7 @@
 DATA=/home/mkoenig/multiscale-galactose-results/django/sbml/
 
 # TARGETS=(10.39.34.27)
-TARGETS=(10.39.32.106 10.39.32.189 10.39.32.111)
+TARGETS=(10.39.32.106 10.39.32.189 10.39.32.111 10.39.34.27)
 
 # -r recursively
 # -a archive option
@@ -29,5 +29,5 @@ TARGETS=(10.39.32.106 10.39.32.189 10.39.32.111)
 
 for i in ${TARGETS[@]}; do
     echo "*** ${i} ***"
-    rsync -rvz --delete ${DATA} mkoenig@${i}:${DATA}
+    rsync -rvz ${DATA} mkoenig@${i}:${DATA}
 done
