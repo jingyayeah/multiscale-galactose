@@ -19,8 +19,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 from sim.models import *
 import numpy as np
-from distribution.Distributions import getMultipleIndicatorDistributions, getDemoDistributions
-from distribution.RandomSampling import createParametersBySampling
+from simulation.distribution.Distributions import getMultipleIndicatorDistributions, getDemoDistributions
+from simulation.distribution.RandomSampling import createParametersBySampling
 
 SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
 MULTISCALE_GALACTOSE = "/home/mkoenig/multiscale-galactose"

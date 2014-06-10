@@ -13,7 +13,7 @@ from sim.models import Simulation
 from ODE_Integration import integrate
 
 if __name__ == "__main__":    
-    from simulator.Simulator import SIM_FOLDER
+    from simulation.Simulator import SIM_FOLDER
     import roadrunner
     print roadrunner.__version__
     

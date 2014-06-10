@@ -19,7 +19,7 @@ from sim.models import Timecourse
 from sim.models import DONE, ERROR, COPASI, ROADRUNNER
 from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
-from simulator.Simulator import SIM_FOLDER
+from simulation.Simulator import SIM_FOLDER
 
 import numpy
 import roadrunner
