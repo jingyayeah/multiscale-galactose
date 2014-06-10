@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
 Module for preparing all data and files for given task for the 
 analysis.
@@ -84,9 +85,40 @@ def exists_remote(host, path):
 
 #############################################################################   
 if __name__ == '__main__':
+    '''
+    Preparing data for analysis
+    '''
+    from optparse import OptionParser
+    from datetime import date
+    parser = OptionParser()
+    parser.add_option("-t", "--task", dest="task_pk",
+                  help="Provide task pk for analysis")
+    parser.add_option("-d", "--directory", dest="directory",
+                  help="Folder where the data should be prepared")
     
-    task = Task.objects.get(pk=3)
-    folder = "/home/mkoenig/multiscale-galactose-results/2014-06-10_" + str(task) 
- 
-    prepareDataForAnalysis(task, folder)
+    (options, args) = parser.parse_args()
+     
+    if (options.task_pk):
+        task_pk = int(options.task_pk)
+        print '#'*60
+        print '# Prepare data T ', task_pk
+        print '#'*60
+    else:
+        return
+    task = Task.objects.get(pk=task_pk)
+    if (task == None):
+        print 'Task does not exist'
+        return
+    
+    if (options.directory):
+        directory = options.directory
+        if not os.path.exists(directory):
+            print directory, 'does not exist'
+            return
+    else:    
+        date_str = "{}-{}-{}".format(date.year, date.month, date.day)
+        print date_str 
+        directory = '/home/mkoenig/multiscale-galactose-results/' + date_str + '_' + str(task)
+                
+    # prepareDataForAnalysis(task, directory)
     

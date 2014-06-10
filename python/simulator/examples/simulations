@@ -1,9 +1,0 @@
-model	Galactose_Dilution_v3_Nc5_Nf5.xml
-
-flow	0E-6, 10E-6, 20E-6, 40E-6, 60E-6, 80E-6, 100E-6, 160E-6
-galactose	0, 0.5, 1, 1.5, 2
-
-length 
-y_sin
-y_dis
-y_cell
