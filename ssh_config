@@ -2,34 +2,39 @@ Host zen
     HostName 10.39.32.236
     Port 22
     User mkoenig
+    ForwardX11 yes
 
 Host core
     HostName 10.39.34.27
     Port 22
     User mkoenig
+    ForwardX11 yes
 
 Host mint
     HostName 10.39.32.106
     Port 22
     User mkoenig
-
+    ForwardX11 yes
 Host sysbio1
     HostName 10.39.32.189
     Port 22
     User mkoenig
+    ForwardX11 yes
 
 Host sysbio2
     HostName 10.39.32.111
     Port 22
     User mkoenig
+    ForwardX11 yes
 
 Host home
     HostName 192.168.1.100
     Port 22
     User mkoenig
+    ForwardX11 yes
 
 Host zenhome
     HostName 192.168.1.99
     Port 22
     User mkoenig
-
+    ForwardX11 yes
