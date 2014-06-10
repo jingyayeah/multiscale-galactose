@@ -17,11 +17,10 @@ library('matrixStats')
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-sname <- '2014-05-27_Demo'
+task <- 'T2'
+sname <- paste('2014-06-10_', task, sep='')
 modelId <- paste('Koenig2014_demo_kinetic_v7')
-task <- 'T1'
 t.approx <- seq(from=0, to=100, by=0.1)
-
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, task)
 parsfile <- file.path(ma.settings$dir.results, sname, 
                         paste(task, '_', modelId, '_parameters.csv', sep=""))
@@ -35,10 +34,9 @@ plotParameterHistogramFull(pars)
 # ! the time vector has to be consistent with the fastest dynamics of interest
 
 # data.approx <- approx(tmp$time, tmp$A_in, xout=t.approx, method="linear")
-outFile <- preprocess(parsfile, ma.settings$dir.simdata, time=t.approx)
+outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
 load(outFile)
-# load the preprocessed data
-load(outFile)
+
 
 ################################################################
 # do the plots
@@ -50,7 +48,6 @@ create_plot_files = F
 plotCurve <- function(preprocess.mat, name, sim.indices=NULL){
   Nsim <- nrow(data) 
   time <- preprocess.mat[['time']][,1]
-  print(time)
   data <- preprocess.mat[[name]]
   if (!is.null(sim.indices)){
     data <- as.matrix(data[,sim.indices])

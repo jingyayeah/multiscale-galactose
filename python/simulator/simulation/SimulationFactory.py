@@ -265,7 +265,7 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         makeMultipleIndicator(N=1000)
     
     
