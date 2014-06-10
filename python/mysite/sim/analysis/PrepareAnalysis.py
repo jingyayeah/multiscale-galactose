@@ -22,8 +22,8 @@ import subprocess
 import pipes
 from sh import rsync
 
-IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
-
+# IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
+IPS = ('192.168.1.99', )
 
 def prepareDataForAnalysis(task, directory):
     if not os.path.exists(directory):
@@ -89,7 +89,6 @@ if __name__ == '__main__':
     Preparing data for analysis
     '''
     from optparse import OptionParser
-    from datetime import date
     parser = OptionParser()
     parser.add_option("-t", "--task", dest="task_pk",
                   help="Provide task pk for analysis")
@@ -101,24 +100,27 @@ if __name__ == '__main__':
     if (options.task_pk):
         task_pk = int(options.task_pk)
         print '#'*60
-        print '# Prepare data T ', task_pk
+        print '# Prepare data T', task_pk
         print '#'*60
     else:
-        return
+        sys.exit()
     task = Task.objects.get(pk=task_pk)
     if (task == None):
         print 'Task does not exist'
-        return
+        sys.exit()
     
     if (options.directory):
         directory = options.directory
         if not os.path.exists(directory):
             print directory, 'does not exist'
-            return
+            sys.exit()
     else:    
-        date_str = "{}-{}-{}".format(date.year, date.month, date.day)
+        import time
+        date_str = time.strftime("%Y-%m-%d")
         print date_str 
         directory = '/home/mkoenig/multiscale-galactose-results/' + date_str + '_' + str(task)
-                
-    # prepareDataForAnalysis(task, directory)
+        print directory
+    
+    prepareDataForAnalysis(task, directory)
+    sys.exit()
     
