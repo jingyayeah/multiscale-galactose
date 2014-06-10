@@ -50,7 +50,7 @@ make
 echo "###################################"
 echo "# run simulations #"
 echo "###################################"
-cd ${MULTISCALE_GALACTOSE}/python/simulation/simulator
+cd ${MULTISCALE_GALACTOSE}/python/simulator/simulation
 python Simulator.py
 
 
