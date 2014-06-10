@@ -192,7 +192,7 @@ def makeMultipleIndicator(N):
     peaks = range(0,3)
     priorities = [10 + item*10 for item in peaks]
     for kp in peaks:
-        sbml_id = "MultipleIndicator_P%02d_v20_Nc20_Nf1" % kp
+        sbml_id = "GalactoseComplete_P%02d_v21_Nc20_Nf1" % kp
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
         syncDjangoSBML()
@@ -209,9 +209,9 @@ def makeMultipleIndicator(N):
 def makeMultiscaleGalactose(N, singleCell=False):
     print '*** MULTISCALE_GALACTOSE_SIMULATIONS ***'
     if singleCell:
-        sbml_id = "Galactose_v20_Nc1_Nf1"
+        sbml_id = "GalactoseComplete_v21_Nc1_Nf1"
     else:
-        sbml_id = "Galactose_v20_Nc20_Nf1"
+        sbml_id = "GalactoseComplete_v21_Nc20_Nf1"
             
     info = '''Simulation of varying galactose concentrations periportal to steady state.'''
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
@@ -239,19 +239,19 @@ if __name__ == "__main__":
 
     #----------------------------------------------------------------------#
     if (0):
-        makeDemo(N=1000)
+        makeDemo(N=2000)
     #----------------------------------------------------------------------#
     if (0):
         makeGlucose()
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         # Create the normal case for 1 cell or all cells
         singleCell = False
-        [task, samples] = makeMultiscaleGalactose(N=1000, singleCell=singleCell)
+        [task, samples] = makeMultiscaleGalactose(N=100, singleCell=singleCell)
     
         # Use the samples to create deficiencies
-        deficiencies = ()
-        # deficiencies = range(1,4)
+        # deficiencies = ()
+        deficiencies = range(1,4)
         # TODO: What happens if the simulations already exist?
         for d in deficiencies:
             name = 'GDEF_' + str(d)
@@ -267,7 +267,7 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         makeMultipleIndicator(N=1000)
     
     
