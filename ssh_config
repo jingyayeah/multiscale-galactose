@@ -23,3 +23,13 @@ Host sysbio2
     Port 22
     User mkoenig
 
+Host home
+    HostName 192.168.1.100
+    Port 22
+    User mkoenig
+
+Host zenhome
+    HostName 192.168.1.99
+    Port 22
+    User mkoenig
+
