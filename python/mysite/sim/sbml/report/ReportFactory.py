@@ -21,6 +21,7 @@ import libsbml
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader, RequestContext
+from django.shortcuts import Http404
 from sim.models import SBMLModel
 
 def report(request, model_pk):
@@ -33,6 +34,9 @@ def report(request, model_pk):
     
     doc = libsbml.readSBMLFromFile(str(sbml_path))
     model = doc.getModel()
+    if not model:
+        print 'Model could not be read.'
+        raise Http404
     
     # Render the template with the data
     template = loader.get_template('report/SBMLReport.html')
