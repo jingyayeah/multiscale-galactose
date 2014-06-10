@@ -59,8 +59,7 @@ def rsyncTimecoursesForTask(task):
         if exists_remote(host, to_path): 
             print 'rsync : ', from_path, '->', to_path      
             #rsync -ravzX --delete mkoenig@ip:directory directory
-            rsync("-ravzX", "--delete", from_path, to_path)
-
+            rsync("-ravzX", from_path, to_path)
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -86,14 +85,8 @@ def exists_remote(host, path):
 #############################################################################   
 if __name__ == '__main__':
     
-    task = Task.objects.get(pk=2)
+    task = Task.objects.get(pk=3)
     folder = "/home/mkoenig/multiscale-galactose-results/2014-06-10_" + str(task) 
  
     prepareDataForAnalysis(task, folder)
-    
-    
-    
-    
-    
-    
     

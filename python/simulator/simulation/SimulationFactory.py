@@ -238,7 +238,7 @@ def makeMultiscaleGalactose(N, singleCell=False):
 if __name__ == "__main__":
 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         makeDemo(N=1000)
     #----------------------------------------------------------------------#
     if (0):
@@ -265,7 +265,7 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         makeMultipleIndicator(N=1000)
     
     
