@@ -1,5 +1,8 @@
 '''
-
+Module for preparing all data and files for given task for the 
+analysis.
+First step is creating a folder for analysis, creating the parameter
+file and copying the used model for the simulations.
 
 @author: Matthias Koenig
 @date:   2014-06-06
@@ -14,20 +17,12 @@ from settings import MEDIA_ROOT
 
 from sim.models import Task
 from AnalysisTools import createParameterFileForTask
-
-
+import subprocess
+import pipes
 from sh import rsync
-IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111')
 
+IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
 
-def getTimecourseDirectory(task):
-    return '/'.join([MEDIA_ROOT, 'timecourse', str(task)])
-
-def rsyncTimecoursesForTask(task):
-    directory = getTimecourseDirectory() + "/"
-    for ip in IPS:
-        pass
-        #rsync -ravzX --delete mkoenig@ip:directory directory
 
 def prepareDataForAnalysis(task, directory):
     if not os.path.exists(directory):
@@ -41,27 +36,59 @@ def prepareDataForAnalysis(task, directory):
     # create Parameter File
     createParameterFileForTask(task, directory)
     
-    # collect all the timecourses on 10.39.34.27
-    
-    
-    
-    # TODO full rsync
-    
+    # collect all the timecourses on localhost    
+    rsyncTimecoursesForTask(task)
     
     # copy timecourses to target folder
-    
-    tc_target_dir = '/'.join([directory, str(task)])
-    
-    # shutil.copy2(sbml_file, directory)
-    shutil.copy2(tc_dir, tc_target_dir)
-    
+    source_dir = getTimecourseDirectory(task) + '/'
+    target_dir = directory + '/' + str(task) + '/'
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+    print 'copy', source_dir,'->', target_dir
+    copytree(source_dir, target_dir)
+
+def rsyncTimecoursesForTask(task):
+    directory = getTimecourseDirectory(task)
+    to_path = directory + '/'
+    if not os.path.exists(to_path):
+        os.makedirs(to_path)
+    for ip in IPS:
+        host = 'mkoenig@' + ip
+        from_path = host + ":" + directory + '/'
+        print host        
+        if exists_remote(host, to_path): 
+            print 'rsync : ', from_path, '->', to_path      
+            #rsync -ravzX --delete mkoenig@ip:directory directory
+            rsync("-ravzX", "--delete", from_path, to_path)
+
+
+
+def copytree(src, dst, symlinks=False, ignore=None):
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d, symlinks, ignore)
+        else:
+            shutil.copy2(s, d)
+
+def getTimecourseDirectory(task):
+    return MEDIA_ROOT + 'timecourse' + '/' + str(task)
+
+def exists_remote(host, path):
+    '''
+    Test if directory/file exists on remote host.
+    '''
+    resp = subprocess.call(
+        ['ssh', host, 'test -e %s' % pipes.quote(path)])
+    return resp == 0
+
+#############################################################################   
 if __name__ == '__main__':
     
-    task = Task.objects.get(pk=1)
+    task = Task.objects.get(pk=2)
     folder = "/home/mkoenig/multiscale-galactose-results/2014-06-10_" + str(task) 
-    
-    print task.pk, task.simulator
-    print folder
+ 
     prepareDataForAnalysis(task, folder)
     
     
