@@ -22,8 +22,8 @@ import subprocess
 import pipes
 from sh import rsync
 
-# IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
-IPS = ('192.168.1.99', )
+IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
+# IPS = ('192.168.1.99', )
 
 def prepareDataForAnalysis(task, directory):
     if not os.path.exists(directory):
@@ -37,7 +37,8 @@ def prepareDataForAnalysis(task, directory):
     # create Parameter File
     createParameterFileForTask(task, directory)
     
-    # collect all the timecourses on localhost    
+    # collect all the timecourses on localhost
+    print '* Collect timecourses'  
     rsyncTimecoursesForTask(task)
     
     # copy timecourses to target folder

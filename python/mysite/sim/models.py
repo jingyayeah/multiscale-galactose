@@ -135,6 +135,7 @@ class Integration(models.Model):
 GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
 BOUNDERY_INIT = 'BOUNDERY_INIT'
 FLOATING_INIT = 'FLOATING_INIT'
+INTEGRATION_PARAMETER = 'INTEGRATION_PARAMETER'
 
 class Parameter(models.Model):
     UNITS = (
@@ -148,6 +149,7 @@ class Parameter(models.Model):
                          (GLOBAL_PARAMETER, GLOBAL_PARAMETER,),
                          (BOUNDERY_INIT, BOUNDERY_INIT),
                          (FLOATING_INIT, FLOATING_INIT),
+                         (INTEGRATION_PARAMETER, INTEGRATION_PARAMETER),
     )
     
     name = models.CharField(max_length=200)

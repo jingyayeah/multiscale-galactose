@@ -23,6 +23,7 @@ from simulation.Simulator import SIM_FOLDER
 
 import numpy
 import roadrunner
+from matplotlib.pyplot import step
 COPASI_EXEC = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/build/CopasiModelRunner"
 
 def storeConfigFile(sim, folder):
@@ -101,7 +102,7 @@ def integrate_copasi(sims):
             integration_exception(sim)
             
         
-def integrate_roadrunner(sims):
+def integrate_roadrunner(sims, varSteps=False):
     ''' Integrate simulations with RoadRunner.'''
     sbml_file = str(sims[0].task.sbml_model.file.path)
     sbml_id = sims[0].task.sbml_model.sbml_id
@@ -146,9 +147,14 @@ def integrate_roadrunner(sims):
 
             
             tstart_int = time.clock()
-            s = rr.simulate(odeset.tstart, odeset.tend, 
+            if varSteps:
+                # variable step size integration 
+                s = rr.simulate(odeset.tstart, odeset.tend, 
                     absolute=absTol, relative=odeset.rel_tol, variableStep=True, stiff=True)
-              
+            else:
+                s = rr.simulate(odeset.tstart, odeset.tend, steps=1,
+                    absolute=absTol, relative=odeset.rel_tol, variableStep=False, stiff=True)
+            
             print 'Integration Time:', (time.clock()- tstart_int)
         
             # Store Timecourse Results

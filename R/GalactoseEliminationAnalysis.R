@@ -5,19 +5,31 @@
 # galactose and varying blood flow
 #
 # author: Matthias Koenig
-# date: 2014-05-13
+# date: 2014-06-11
 ################################################################
 rm(list=ls())
 library(data.table)
 library(libSBML)
+library(matrixStats)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 ###########################################################################
 # load parameters
 ###########################################################################
-sname <- '2014-05-13_Galactose'
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
+task <- 'T2'
+sname <- paste('2014-06-11_', task, sep='')
+modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
+t.approx <- seq(from=0, to=2000, by=2.0)
+
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, task)
+parsfile <- file.path(ma.settings$dir.results, sname, 
+                      paste(task, '_', modelId, '_parameters.csv', sep=""))
+pars <- loadParameterFile(file=parsfile)
+head(pars)
+plotParameterHistogramFull(pars)                      
+                      
+                      
 load_with_sims = FALSE;
 task = 'T30'
 modelId <- 'Galactose_v18_Nc20_Nf1'
@@ -33,13 +45,8 @@ plotParameterHistogramFull(pars)
 ###############################################################
 # preprocess data
 ###############################################################
-# preprocess all columns
-outFile <- preprocess(parsfile, ma.settings$dir.simdata)
-
-# load the preprocessed data
-outFile <- outfileFromParsFile(parsfile)
+outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
 load(outFile)
-
 
 ###############################################################
 # Calculate the clearance parameters 

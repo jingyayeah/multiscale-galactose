@@ -7,10 +7,9 @@ from the provided parameter distributions for the models.
 @author: Matthias Koenig
 @date: 2014-03-14
 
-TODO: overwrite models/files with identical name ! (general the problem if the file already 
-    exists)
-
-
+TODO: generate integration parameters and general parameters.
+      provide a list of integration parameters which is used by the
+      integration routine.
 '''
 import sys
 import os
@@ -247,11 +246,11 @@ if __name__ == "__main__":
     if (1):
         # Create the normal case for 1 cell or all cells
         singleCell = False
-        [task, samples] = makeMultiscaleGalactose(N=500, singleCell=singleCell)
+        [task, samples] = makeMultiscaleGalactose(N=100, singleCell=singleCell)
     
         # Use the samples to create deficiencies
         # deficiencies = ()
-        deficiencies = range(1,4)
+        deficiencies = range(1,24)
         # TODO: What happens if the simulations already exist?
         for d in deficiencies:
             name = 'GDEF_' + str(d)
@@ -267,7 +266,7 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         makeMultipleIndicator(N=100)
     
     
