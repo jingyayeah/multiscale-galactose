@@ -85,6 +85,7 @@ preprocess <- function(pars, sim.dir, outFile=NULL, sim.indices=NULL, col.indice
   print('Create preprocess list')
   preprocess.list = readColumnData(pars=pars.sim, dir=sim.dir, col.indices_f)
   print('Create preprocess matrix')
+  print(ma.settings$simulator)
   if (ma.settings$simulator == 'COPASI' || ma.settings$simulator == 'ROADRUNNER_STEPS'){
     # Fixed step size in the timecourse => easy to put in matrix
     preprocess.mat <- createDataMatrices(dir=sim.dir, datalist=preprocess.list)  

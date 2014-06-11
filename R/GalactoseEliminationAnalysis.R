@@ -18,7 +18,7 @@ ma.settings$simulator <- 'ROADRUNNER_STEPS'
 ###########################################################################
 # load parameters
 ###########################################################################
-task <- 'T1'
+task <- 'T2'
 sname <- paste('2014-06-11_', task, sep='')
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
 t.approx <- seq(from=0, to=10000, by=10000)
