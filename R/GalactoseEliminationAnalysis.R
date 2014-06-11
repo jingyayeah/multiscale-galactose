@@ -13,6 +13,7 @@ library(libSBML)
 library(matrixStats)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
+ma.settings$simulator <- 'ROADRUNNER_STEPS'
 
 ###########################################################################
 # load parameters
@@ -20,27 +21,15 @@ setwd(ma.settings$dir.results)
 task <- 'T2'
 sname <- paste('2014-06-11_', task, sep='')
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
-t.approx <- seq(from=0, to=2000, by=2.0)
+t.approx <- seq(from=0, to=10000, by=10000)
 
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, task)
 parsfile <- file.path(ma.settings$dir.results, sname, 
                       paste(task, '_', modelId, '_parameters.csv', sep=""))
 pars <- loadParameterFile(file=parsfile)
 head(pars)
-plotParameterHistogramFull(pars)                      
-                      
-                      
-load_with_sims = FALSE;
-task = 'T30'
-modelId <- 'Galactose_v18_Nc20_Nf1'
-parsfile <- file.path(ma.settings$dir.results, sname, 
-                      paste(task, '_', modelId, '_parameters.csv', sep=""))
-
-pars <- loadParameterFile(parsfile)
-print(summary(pars))
 names(pars)
-summary(pars)
-plotParameterHistogramFull(pars)
+plotParameterHistogramFull(pars)                      
 
 ###############################################################
 # preprocess data
@@ -68,6 +57,8 @@ get_last_timepoint <- function(name){
 
 c_in <- get_last_timepoint('PP__gal')
 c_out <- get_last_timepoint('PV__gal')
+
+
 FL <- pars$flow_sin # TODO: use correct volume flow
 
 parscl <- pars
@@ -78,7 +69,6 @@ parscl$R <- FL * (c_in - c_out)
 parscl$ER <- (c_in - c_out)/c_in
 parscl$CL <- FL * (c_in - c_out)/c_in
 parscl$GE <- (c_in - c_out)
-
 names(parscl)
 
 # This parameters have to be scaled to the total liver
@@ -90,7 +80,6 @@ pars$flow_sin
 
 # Get the additional information for the parameters
 names(pars)
-
 
 
 # Created Figure
@@ -156,11 +145,9 @@ plot(pars$flow_sin[index], (c_in[index]-c_out[index])/c_in[index])
 summary(pars$flow_sin)
 
 
-
 ###############################################################
 # Experimental data (Schirmer1986) #
 # TODO: [mcg/ml] -> [mmole/L]
-
 create_plot_files = T
 
 # load the experimental data Schirmer1986 from csv

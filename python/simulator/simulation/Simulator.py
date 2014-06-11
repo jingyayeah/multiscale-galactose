@@ -24,7 +24,8 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 @author: Matthias Koenig
 @date: 2013-11-06
 
-TODO: support simulation priorities.
+TODO: support simulation priorities; use the simulation priorities !!!
+TODO: provide a set of simulations from the task view
 '''
 
 import os

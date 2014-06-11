@@ -36,14 +36,17 @@ from django.core.exceptions import ObjectDoesNotExist
 from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED, ERROR
 from sim.models import Task
 
-def unassignAssignedHangingSimulations(cutoff_minutes=10):
-    unassignHangingSimulationsWithStatus(ASSIGNED, cutoff_minutes)
+def unassignAssignedHangingSimulations(task=None, cutoff_minutes=10):
+    unassignHangingSimulationsWithStatus(ASSIGNED, task, cutoff_minutes)
     
-def unassignErrorHangingSimulations(cutoff_minutes=10):
-    unassignHangingSimulationsWithStatus(ERROR, cutoff_minutes)
+def unassignErrorHangingSimulations(task=None, cutoff_minutes=10):
+    unassignHangingSimulationsWithStatus(ERROR, task, cutoff_minutes)
             
-def unassignHangingSimulationsWithStatus(status, cutoff_minutes=10):
-    sims = Simulation.objects.filter(status=status)
+def unassignHangingSimulationsWithStatus(status, task=None, cutoff_minutes=10):
+    if not task:
+        sims = Simulation.objects.filter(status=status)
+    else:
+        sims = Simulation.objects.filter(task=task, status=status)
     for sim in sims:
         if (cutoff_minutes >= 0):
             if (sim._is_hanging(cutoff_minutes)):
@@ -147,7 +150,8 @@ if __name__ == "__main__":
     #-----------------------------------------------
     #     Unassign hanging simulations
     #-----------------------------------------------
-    unassignAssignedHangingSimulations(cutoff_minutes=3);
+    task = Task.objects.get(pk=1)
+    unassignAssignedHangingSimulations(task=task, cutoff_minutes=3);
     # unassignErrorHangingSimulations(cutoff_minutes=-1);
     
     #-----------------------------------------------
