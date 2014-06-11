@@ -145,7 +145,7 @@ def makeDemo(N):
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
     
-    syncDjangoSBML()
+    # syncDjangoSBML()
     
     integration, created = Integration.objects.get_or_create(tstart=0.0, 
                                                              tend=500.0, 
@@ -239,7 +239,7 @@ if __name__ == "__main__":
 
     #----------------------------------------------------------------------#
     if (0):
-        makeDemo(N=2000)
+        makeDemo(N=1000)
     #----------------------------------------------------------------------#
     if (0):
         makeGlucose()
@@ -268,7 +268,7 @@ if __name__ == "__main__":
             
     #----------------------------------------------------------------------#
     if (1):
-        makeMultipleIndicator(N=1000)
+        makeMultipleIndicator(N=100)
     
     
 ####################################################################################

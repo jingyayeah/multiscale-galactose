@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
 Module for preparing all data and files for given task for the 
 analysis.
@@ -21,8 +22,8 @@ import subprocess
 import pipes
 from sh import rsync
 
-IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
-
+# IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
+IPS = ('192.168.1.99', )
 
 def prepareDataForAnalysis(task, directory):
     if not os.path.exists(directory):
@@ -84,9 +85,42 @@ def exists_remote(host, path):
 
 #############################################################################   
 if __name__ == '__main__':
+    '''
+    Preparing data for analysis
+    '''
+    from optparse import OptionParser
+    parser = OptionParser()
+    parser.add_option("-t", "--task", dest="task_pk",
+                  help="Provide task pk for analysis")
+    parser.add_option("-d", "--directory", dest="directory",
+                  help="Folder where the data should be prepared")
     
-    task = Task.objects.get(pk=3)
-    folder = "/home/mkoenig/multiscale-galactose-results/2014-06-10_" + str(task) 
- 
-    prepareDataForAnalysis(task, folder)
+    (options, args) = parser.parse_args()
+     
+    if (options.task_pk):
+        task_pk = int(options.task_pk)
+        print '#'*60
+        print '# Prepare data T', task_pk
+        print '#'*60
+    else:
+        sys.exit()
+    task = Task.objects.get(pk=task_pk)
+    if (task == None):
+        print 'Task does not exist'
+        sys.exit()
+    
+    if (options.directory):
+        directory = options.directory
+        if not os.path.exists(directory):
+            print directory, 'does not exist'
+            sys.exit()
+    else:    
+        import time
+        date_str = time.strftime("%Y-%m-%d")
+        print date_str 
+        directory = '/home/mkoenig/multiscale-galactose-results/' + date_str + '_' + str(task)
+        print directory
+    
+    prepareDataForAnalysis(task, directory)
+    sys.exit()
     

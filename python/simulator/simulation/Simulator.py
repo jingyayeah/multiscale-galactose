@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
 Main module to run simulations.
 Manages the assigning of simulation to available CPUs and the 
