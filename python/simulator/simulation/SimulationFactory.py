@@ -10,6 +10,11 @@ from the provided parameter distributions for the models.
 TODO: generate integration parameters and general parameters.
       provide a list of integration parameters which is used by the
       integration routine.
+      Necessary to provide proper set of parameters/settings.
+      Integration settings comprises not only the step sizes but also which solver
+      with which additional settings.
+TODO: put the integrator in the settings
+      
 '''
 import sys
 import os
@@ -243,7 +248,7 @@ if __name__ == "__main__":
     if (0):
         makeGlucose()
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         # Create the normal case for 1 cell or all cells
         singleCell = False
         [task, samples] = makeMultiscaleGalactose(N=100, singleCell=singleCell)
@@ -268,6 +273,45 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     if (0):
         makeMultipleIndicator(N=100)
+    #----------------------------------------------------------------------#
+    # Create example integration
     
+
+    
+    from sim.models import Setting, Integration, datatypes
+    settings = []
+    sdata =   [ ('integrator', 'ROADRUNNER'),
+                ('varSteps', True),
+                ('tstart', 0.0),
+                ('tend', 10000.0),
+                ('steps', 100),
+                ('absTol', 1E-6),
+                ('relTol', 1E-6),
+              ]
+    for d in sdata:
+        (name, value) = d[0:2]
+        s, created = Setting.objects.get_or_create(name=name, value=str(value), 
+                                                   datatype=datatypes[name])
+        settings.append(s)
+    
+    # TOOD: problem of uniqueness of integration settings
+    # make uniqueness search
+    integration = Integration()
+    print 'Integration created'
+    integration.save()
+    integration.settings.add(*settings)
+        
     
 ####################################################################################
+def get_or_create_integration(settings):
+    '''
+     
+    '''
+    
+    pass
+
+    # Test if an integration with all this settings already exists
+    
+    
+    
+

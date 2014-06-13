@@ -5,6 +5,23 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.files import File
 
 from sim.storage import OverwriteStorage
+
+DT_STRING = 'string'
+DT_BOOLEAN = 'boolean'
+DT_DOUBLE = 'double'
+DT_INT = 'int'
+    
+datatypes = dict()
+datatypes['integrator'] = DT_STRING
+datatypes['varSteps'] = DT_BOOLEAN
+datatypes['tstart'] = DT_DOUBLE
+datatypes['tend'] = DT_DOUBLE
+datatypes['steps'] = DT_INT
+datatypes['absTol'] = DT_DOUBLE
+datatypes['relTol'] = DT_DOUBLE
+
+
+
 '''
     Pool of simulations is defined with the status 'OPEN'.
     The different computers get unassigned simulations from a simulation
@@ -107,24 +124,49 @@ class SBMLModel(models.Model):
     
             return cls(sbml_id = sbml_id, file = myfile)
             
+class Setting(models.Model):
+    '''
+    Store all settings for algorithm in general framework.
+    Special settings are collected in 
+    '''
+    NAMES = (
+                        ('integrator', 'integrator'),
+                        ('tstart', 'tstart'),
+                        ('tend', 'tend'),
+                        ('steps', 'steps'),
+                        ('absTol', 'absTol'),
+                        ('relTol', 'relTol'),
+                        ('varSteps', 'varSteps'),
+                        
+    )
+    DATATYPES = (
+                        ('string', 'string'),
+                        ('double', 'double'),
+                        ('int', 'int'),
+                        ('boolean', 'boolean'),
+    )
+    name = models.CharField(max_length=20, choices=NAMES)
+    datatype = models.CharField(max_length=10, choices=DATATYPES)
+    value = models.CharField(max_length=20)
+    
     
 class Integration(models.Model):
     '''
-    Integration settings. Depending on the solver these are handled
-    differently, i.e.
+    Integration settings are managed via a collection of settings.
+    - tolerances
+    Depending on the solver the meaning of the settings can vary.
     -> in RoadRunner the absTol is on the amounts, with the smallest
         compartments the absTol on the concentrations has to be calculated
-    -> RoadRunner performs variable step size integration (even if the steps
-        are set.
+    -> if varSteps is set RoadRunner performs variable step size integration
+        even with available defined steps
+        
+    ! Only create integrations via special interface to make sure 
+      the integrations are unique in respect to the available settings.
     '''
-    tend = models.FloatField()
-    tsteps = models.IntegerField()
-    tstart = models.FloatField(default=0.0)
-    abs_tol = models.FloatField(default=1E-6)
-    rel_tol = models.FloatField(default=1E-6)
-    
+    settings = models.ManyToManyField(Setting)
+
     def __unicode__(self):
-        return "[{},{}] {} ".format(self.tstart, self.tend, self.tsteps) 
+        return "I{}".format(self.pk) 
     
     class Meta:
         # ordering = ["sbml_id"]
@@ -132,10 +174,10 @@ class Integration(models.Model):
         verbose_name_plural = "Integration Settings"
     
 
+
 GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
 BOUNDERY_INIT = 'BOUNDERY_INIT'
 FLOATING_INIT = 'FLOATING_INIT'
-INTEGRATION_PARAMETER = 'INTEGRATION_PARAMETER'
 
 class Parameter(models.Model):
     UNITS = (
@@ -149,7 +191,6 @@ class Parameter(models.Model):
                          (GLOBAL_PARAMETER, GLOBAL_PARAMETER,),
                          (BOUNDERY_INIT, BOUNDERY_INIT),
                          (FLOATING_INIT, FLOATING_INIT),
-                         (INTEGRATION_PARAMETER, INTEGRATION_PARAMETER),
     )
     
     name = models.CharField(max_length=200)

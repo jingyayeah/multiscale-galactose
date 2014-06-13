@@ -111,6 +111,12 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
    <tr class='relative even' valign='top'>
+    <td class='relatedTable detail' title="sim_integration_settings.integration_id refs sim_integration.id via integration_id_refs_id_faa3e2b1"><a href='sim_integration_settings.html'>sim_integration_settings</a><span class='relatedKey'>.integration_id</span>
+    </td>
+    <td class='constraint detail'>integration_id_refs_id_faa3e2b1<span title='Restrict delete:
+ Parent cannot be deleted if children exist'>&nbsp;R</span></td>
+   </tr>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="sim_task.integration_id refs sim_integration.id via sim_task_integration_id_fkey"><a href='sim_task.html'>sim_task</a><span class='relatedKey'>.integration_id</span>
     </td>
     <td class='constraint detail'>sim_task_integration_id_fkey<span title='Restrict delete:
@@ -121,63 +127,8 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
- <td class='detail'>tend</td>
- <td class='detail'>float8</td>
- <td class='detail' align='right'>17,17</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='center'></td>
- <td class='detail'></td>
- <td class='detail'></td>
- <td class='detail'> </td>
- <td class='comment detail'></td>
-</tr>
-<tr class='even'>
- <td class='detail'>tsteps</td>
- <td class='detail'>int4</td>
- <td class='detail' align='right'>10</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='center'></td>
- <td class='detail'></td>
- <td class='detail'></td>
- <td class='detail'> </td>
- <td class='comment detail'></td>
-</tr>
-<tr class='odd'>
- <td class='detail'>tstart</td>
- <td class='detail'>float8</td>
- <td class='detail' align='right'>17,17</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='center'></td>
- <td class='detail'></td>
- <td class='detail'></td>
- <td class='detail'> </td>
- <td class='comment detail'></td>
-</tr>
-<tr class='even'>
- <td class='detail'>abs_tol</td>
- <td class='detail'>float8</td>
- <td class='detail' align='right'>17,17</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='center'></td>
- <td class='detail'></td>
- <td class='detail'></td>
- <td class='detail'> </td>
- <td class='comment detail'></td>
-</tr>
-<tr class='odd'>
- <td class='detail'>rel_tol</td>
- <td class='detail'>float8</td>
- <td class='detail' align='right'>17,17</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='center'></td>
- <td class='detail'></td>
- <td class='detail'></td>
- <td class='detail'> </td>
- <td class='comment detail'></td>
-</tr>
 </table>
-<p title='6 columns'>Table contained 4 rows at Fri Jun 06 16:53 CEST 2014<p/>
+<p title='1 columns'>Table contained 0 rows at Thu Jun 12 09:44 CEST 2014<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -203,16 +154,19 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from sim_integration'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="sim_task.html" title="sim_task" alt="" coords="255,5,401,221">
-<area shape="rect" id="node3" href="sim_integration.html" title="sim_integration" alt="" coords="7,47,209,246">
+<area shape="rect" id="node1" href="sim_integration_settings.html" title="sim_integration_settings" alt="" coords="233,5,420,131">
+<area shape="rect" id="node3" href="sim_integration.html" title="sim_integration" alt="" coords="7,108,188,193">
+<area shape="rect" id="node4" href="sim_task.html" title="sim_task" alt="" coords="253,148,400,364">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/sim_integration.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="sim_simulation.html" title="sim_simulation" alt="" coords="447,59,625,139">
-<area shape="rect" id="node3" href="sim_task.html" title="sim_task" alt="" coords="255,60,401,276">
-<area shape="rect" id="node5" href="sim_integration.html" title="sim_integration" alt="" coords="7,102,209,301">
-<area shape="rect" id="node7" href="sim_sbmlmodel.html" title="sim_sbmlmodel" alt="" coords="35,5,181,85">
-<area shape="rect" id="node9" href="sim_subtask.html" title="sim_subtask" alt="" coords="41,317,175,397">
+<area shape="rect" id="node1" href="sim_integration_settings.html" title="sim_integration_settings" alt="" coords="233,265,420,391">
+<area shape="rect" id="node3" href="sim_integration.html" title="sim_integration" alt="" coords="7,205,188,291">
+<area shape="rect" id="node5" href="sim_setting.html" title="sim_setting" alt="" coords="32,311,163,391">
+<area shape="rect" id="node6" href="sim_simulation.html" title="sim_simulation" alt="" coords="464,31,608,111">
+<area shape="rect" id="node8" href="sim_task.html" title="sim_task" alt="" coords="253,32,400,248">
+<area shape="rect" id="node11" href="sim_sbmlmodel.html" title="sim_sbmlmodel" alt="" coords="24,5,171,85">
+<area shape="rect" id="node13" href="sim_subtask.html" title="sim_subtask" alt="" coords="31,103,164,183">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/sim_integration.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

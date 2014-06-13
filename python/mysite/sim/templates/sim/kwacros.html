@@ -117,20 +117,12 @@
 <!------------------------------------------------------->
 {% kwacro integration_header %}
 		<th>pk</th>
-		<th>tstart</th>
-		<th>tend</th>
-		<th>tsteps</th>
-		<th>absTol</th>
-		<th>relTol</th>
+		<th>settings</th>
 {% endkwacro %}
 		
 {% kwacro integration_content %}
 			<td>{{item.pk}}</td>
-			<td>{{item.tstart}}</td>
-			<td>{{item.tend}}</td>
-			<td>{{item.tsteps}}</td>
-			<td>{{item.abs_tol}}</td>
-			<td>{{item.rel_tol}}</td>
+			<td>{% for s in item.settings.all %}{{ s.name }} = {{s.value}} [{{s.datatype}}] <br />{% endfor %}</td>
 {% endkwacro %}
 
 <!------------------------------------------------------->

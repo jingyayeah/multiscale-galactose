@@ -101,7 +101,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>id</td>
  <td class='detail'>serial</td>
  <td class='detail' align='right'>10</td>
@@ -110,13 +110,13 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail' align='right'>nextval('django_content_type_id_seq'::regclass)</td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="auth_permission.content_type_id refs django_content_type.id via content_type_id_refs_id_d043b34a"><a href='auth_permission.html'>auth_permission</a><span class='relatedKey'>.content_type_id</span>
     </td>
     <td class='constraint detail'>content_type_id_refs_id_d043b34a<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="django_admin_log.content_type_id refs django_content_type.id via content_type_id_refs_id_93d2d1f8"><a href='django_admin_log.html'>django_admin_log</a><span class='relatedKey'>.content_type_id</span>
     </td>
     <td class='constraint detail'>content_type_id_refs_id_93d2d1f8<span title='Restrict delete:
@@ -127,7 +127,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>name</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>100</td>
@@ -138,7 +138,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>app_label</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>100</td>
@@ -149,7 +149,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='indexedColumn' title='Indexed'>model</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>100</td>
@@ -161,7 +161,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='4 columns'>Table contained 15 rows at Fri Jun 06 16:53 CEST 2014<p/>
+<p title='4 columns'>Table contained 16 rows at Thu Jun 12 09:44 CEST 2014<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -185,6 +185,12 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <td class='indexedColumn'>app_label + model</td>
   <td class='detail'>Must be unique</td>
   <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
+  <td class='constraint' style='text-align:left;'>django_content_type_app_label_key</td>
+ </tr>
+ <tr>
+  <td class='indexedColumn'>app_label + model</td>
+  <td class='detail'>Must be unique</td>
+  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
   <td class='constraint' style='text-align:left;'>django_content_type_app_label_model_key</td>
  </tr>
 </table>
@@ -193,9 +199,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from django_content_type'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="auth_permission.html" title="auth_permission" alt="" coords="276,5,436,153">
+<area shape="rect" id="node1" href="auth_permission.html" title="auth_permission" alt="" coords="284,5,444,153">
 <area shape="rect" id="node3" href="django_content_type.html" title="django_content_type" alt="" coords="7,142,231,295">
-<area shape="rect" id="node4" href="django_admin_log.html" title="django_admin_log" alt="" coords="276,169,436,407">
+<area shape="rect" id="node4" href="django_admin_log.html" title="django_admin_log" alt="" coords="276,169,452,407">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/django_content_type.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
@@ -204,7 +210,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <area shape="rect" id="node5" href="django_content_type.html" title="django_content_type" alt="" coords="7,173,231,326">
 <area shape="rect" id="node6" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="480,103,699,183">
 <area shape="rect" id="node9" href="auth_user.html" title="auth_user" alt="" coords="295,201,417,281">
-<area shape="rect" id="node10" href="django_admin_log.html" title="django_admin_log" alt="" coords="509,199,669,438">
+<area shape="rect" id="node10" href="django_admin_log.html" title="django_admin_log" alt="" coords="501,199,677,438">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/django_content_type.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

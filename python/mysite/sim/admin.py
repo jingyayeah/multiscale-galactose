@@ -8,8 +8,6 @@ class CoreAdmin(admin.ModelAdmin):
 class SBMLModelAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'sbml_id', 'file')
 
-class IntegrationAdmin(admin.ModelAdmin):
-    list_display = ('pk', '__unicode__',  'tstart', 'tend', 'tsteps', 'abs_tol', 'rel_tol')
 
 class ParameterAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'name', 'value', 'unit', 'ptype')
@@ -25,7 +23,6 @@ class TaskAdmin(admin.ModelAdmin):
 
 admin.site.register(Core, CoreAdmin)
 admin.site.register(SBMLModel, SBMLModelAdmin)
-admin.site.register(Integration, IntegrationAdmin)
 admin.site.register(Parameter, ParameterAdmin)
 admin.site.register(Timecourse, TimecourseAdmin)
 admin.site.register(Simulation, SimulationAdmin)

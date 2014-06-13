@@ -1,10 +1,11 @@
 auth_user
 auth_group
 django_content_type
-sim_core
 sim_integration
+sim_core
 sim_parameter
 sim_sbmlmodel
+sim_setting
 sim_subtask
 sim_task
 sim_simulation
@@ -15,5 +16,6 @@ auth_group_permissions
 auth_user_groups
 auth_user_user_permissions
 django_admin_log
+sim_integration_settings
 sim_simulation_parameters
 django_session
