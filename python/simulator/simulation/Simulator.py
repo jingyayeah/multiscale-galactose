@@ -126,7 +126,6 @@ def worker(cpu, lock, Nsim):
     while(True):
         # Update the time for the core
         core = get_core_by_ip_and_cpu(ip, cpu)
-        print core
         
         # Assign simulation
         lock.acquire()
@@ -134,12 +133,10 @@ def worker(cpu, lock, Nsim):
         # to one core (otherwise multiple assignment bugs will arise)
         sims = assign_simulations(core, Nsim)
         lock.release()
-        
-        print sims
-        
+        print core, ' -> ', sims
         if (sims):
-            simulator = sims[0].task.simulator
-            ODE_Integration.integrate(sims, simulator)
+            integration = sims[0].task.integration
+            ODE_Integration.integrate(sims, integration.integrator)
         else:
             print core, "... no unassigned simulations ...";
             time.sleep(10)

@@ -102,7 +102,7 @@ def integrate_copasi(sims):
             integration_exception(sim)
             
         
-def integrate_roadrunner(sims, varSteps=False):
+def integrate_roadrunner(sims):
     ''' Integrate simulations with RoadRunner.'''
     sbml_file = str(sims[0].task.sbml_model.file.path)
     sbml_id = sims[0].task.sbml_model.sbml_id
@@ -122,9 +122,11 @@ def integrate_roadrunner(sims, varSteps=False):
     header = ",".join(sel)
 
     # use the integration settings (adapt absTol to amounts)
-    odeset = sims[0].task.integration
-    absTol = odeset.abs_tol * min(rr.model.getCompartmentVolumes())
-            
+    sdict = sims[0].task.integration.get_settings_dict()
+    absTol = sdict['absTol'] * min(rr.model.getCompartmentVolumes())
+    relTol = sdict['relTol']
+    varSteps = sdict['varSteps']
+    
     for sim in sims:
         try:
             # set all parameters in the model and store the changes for revert
@@ -145,15 +147,19 @@ def integrate_roadrunner(sims, varSteps=False):
                 changes[name] = rr.model[name]
                 rr.model[name] = p.value
 
-            
             tstart_int = time.clock()
+                        
             if varSteps:
                 # variable step size integration 
-                s = rr.simulate(odeset.tstart, odeset.tend, 
-                    absolute=absTol, relative=odeset.rel_tol, variableStep=True, stiff=True)
+                s = rr.simulate(sdict['tstart'], sdict['tend'], 
+                    absolute=absTol, relative=relTol,
+                    variableStep=True, stiff=True)
             else:
-                s = rr.simulate(odeset.tstart, odeset.tend, steps=1,
-                    absolute=absTol, relative=odeset.rel_tol, variableStep=False, stiff=True)
+                # fixed steps
+                s = rr.simulate(sdict['tstart'], sdict['tend'], steps=sdict['steps'],
+                                absolute=absTol, 
+                                relative=relTol,
+                                variableStep=False, stiff=True)
             
             print 'Integration Time:', (time.clock()- tstart_int)
         

@@ -151,7 +151,7 @@ if __name__ == "__main__":
     #     Unassign hanging simulations
     #-----------------------------------------------
     task = Task.objects.get(pk=1)
-    unassignAssignedHangingSimulations(task=task, cutoff_minutes=3);
+    unassignAssignedHangingSimulations(task=task, cutoff_minutes=-1);
     # unassignErrorHangingSimulations(cutoff_minutes=-1);
     
     #-----------------------------------------------

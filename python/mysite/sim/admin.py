@@ -19,7 +19,7 @@ class SimulationAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'task', 'status', 'time_create', 'time_assign', 'core')
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('pk', '__unicode__', 'sbml_model', 'integration', 'subtask', 'simulator', 'priority', 'info')
+    list_display = ('pk', '__unicode__', 'sbml_model', 'integration', 'priority', 'info')
 
 admin.site.register(Core, CoreAdmin)
 admin.site.register(SBMLModel, SBMLModelAdmin)

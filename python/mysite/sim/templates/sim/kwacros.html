@@ -18,7 +18,7 @@
 			<td><a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a></td>
 			<td>{{sim.task.sbml_model.sbml_id}}</td>
 			<td>{{sim.task}}</td>
-			<td>{{sim.task.integration}}</td>
+			<td>{% for s in sim.task.integration.settings.all %}{{ s }}<br />{% endfor %}</td>
 			<td>{% for p in sim.parameters.all %}{{ p }}<br />{% endfor %}</td>
 			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
 			<td>{{sim.duration}}</td>
@@ -68,14 +68,14 @@
 {% kwacro task_header %}
 		<th>pk</th>
 		<th>status</th>
-		<th>simulator</th>
 		<th>priority</th>
 		<th>sbml</th>
 		<th>report</th>
 		<th>parameters</th>
 		<th>model</th>
-		<th>subtask</th>
 		<th>integration</th>
+		<th>integrator</th>
+		<th>condition</th>
 		<th>info</th>
 {% endkwacro %}
 {% kwacro task_content %}
@@ -84,15 +84,16 @@
 				<b>{{task.sim_count}}</b>
 				[<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>] 	
 			</td>
-			<td>{{task.simulator}}</td>
 			<td>{{task.priority}}</td>
 			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
 			<td><a href="{% url 'sim:report' task.sbml_model.pk %}" target="_blank">
 				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
 			<td><a href="{% url 'sim:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'sim/images/params_small.png' %}"></a></td>
 			<td>{{task.sbml_model}} </td>
-			<td>{{task.subtask}} </td>
 			<td>{{task.integration}}</td>
+			<td>{{task.integration.integrator}} </td>
+			<td>{{task.integration.condition}}</td>
+			
 			<td width="400px">{{task.info}}</td>
 {% endkwacro %}
 <!------------------------------------------------------->

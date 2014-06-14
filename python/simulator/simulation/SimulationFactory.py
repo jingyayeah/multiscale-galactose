@@ -6,23 +6,15 @@ from the provided parameter distributions for the models.
      
 @author: Matthias Koenig
 @date: 2014-03-14
-
-TODO: generate integration parameters and general parameters.
-      provide a list of integration parameters which is used by the
-      integration routine.
-      Necessary to provide proper set of parameters/settings.
-      Integration settings comprises not only the step sizes but also which solver
-      with which additional settings.
-TODO: put the integrator in the settings
-      
 '''
+
 import sys
 import os
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+import numpy as np
 
 from sim.models import *
-import numpy as np
 from simulation.distribution.Distributions import getMultipleIndicatorDistributions, getDemoDistributions
 from simulation.distribution.RandomSampling import createParametersBySampling
 
@@ -42,21 +34,18 @@ def syncDjangoSBML():
     call(call_command)
 
 
-def createTask(model, integration, subtask, simulator, info='', priority=0):
-    ''' 
-    Creates the task from given information. '''
-    task, created = Task.objects.get_or_create(sbml_model=model, integration=integration, subtask=subtask, 
-                                               simulator=simulator, info=info, priority=priority)
+def createTask(model, integration, info='', priority=0):
+    task, created = Task.objects.get_or_create(sbml_model=model, integration=integration, 
+                                               info=info, priority=priority)
     if (created):
         print "Task created: {}".format(task)
     return task
 
+
 def createSimulationsForSamples(task, samples):
-    '''
-    Creates the simulations in the database. 
-    '''
     for s in samples:
         createSimulationForSample(task, sample=s)
+        
         
 def createSimulationForSample(task, sample):
     ''' 
@@ -74,22 +63,16 @@ def createSimulationForSample(task, sample):
     sim = Simulation(task=task, status = UNASSIGNED)
     sim.save()
     sim.parameters.add(*parameters)
-    
     print "{}".format(sim)        
         
 
 def createDemoSamples(N, sampling):
-    ''' 
-    Creates simple demo simulation to test the network visualization. 
-    '''    
     dist_data = getDemoDistributions()
     return createParametersBySampling(dist_data, N, sampling);
 
 
 def createMultipleIndicatorSamples(N, sampling):
-    ''' 
-    MulitpleIndicator simulations.
-    '''
+    ''' MulitpleIndicator simulations. '''
     dist_data = getMultipleIndicatorDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
     samples = adaptFlowInSamples(samples)
@@ -142,43 +125,29 @@ def adaptFlowInSamples(samples):
 def makeDemo(N):
     print '*** DEMO ***'
     
-    sbml_id = "Koenig2014_demo_kinetic_v7"
-    
-    # TODO: handle the model creation properly,
-    # i.e. not multiple SBML files in django subfolder
-    model = SBMLModel.create(sbml_id, SBML_FOLDER);
+    model = SBMLModel.create('Koenig2014_demo_kinetic_v7', SBML_FOLDER);
     model.save();
-    
     # syncDjangoSBML()
     
-    integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=500.0, 
-                                                             tsteps=100,
-                                                             abs_tol=1E-6,
-                                                             rel_tol=1E-6)    
-    subtask, created = Subtask.objects.get_or_create(name='normal')
+    sdict = dict(default_settings)
+    sdict['tstart'] = 0.0;
+    sdict['tend']  = 500.0;
+    sdict['steps'] = 100;
+    settings = Setting.get_settings_for_dict(sdict)
+    integration = Integration.get_or_create_integration(settings)
+        
     task = createTask(model, integration, 
-                      subtask=subtask, simulator=ROADRUNNER, 
                       info='Simulation of the demo network for visualization.')
     samples = createDemoSamples(N=N, sampling="distribution")
     createSimulationsForSamples(task, samples)
 #----------------------------------------------------------------------#
 def makeGlucose():
     print '*** Hepatic Glucose Metabolism ***'
-    sbml_id = "Koenig2014_Hepatic_Glucose_Model_annotated"
-    
-    # TODO: handle the model creation properly,
-    # i.e. not multiple SBML files in django subfolder
-    model = SBMLModel.create(sbml_id, SBML_FOLDER);
+    model = SBMLModel.create("Koenig2014_Hepatic_Glucose_Model_annotated", 
+                             SBML_FOLDER);
     model.save();
-    
     syncDjangoSBML()
     
-    integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=100.0, 
-                                                             tsteps=2000,
-                                                             abs_tol=1E-6,
-                                                             rel_tol=1E-6)
 #----------------------------------------------------------------------#
 def makeMultipleIndicator(N):
     '''
@@ -188,24 +157,21 @@ def makeMultipleIndicator(N):
     print '*** MULTIPLE INDICATOR ***'
     info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).'''
     
-    integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=5000.0, 
-                                                             tsteps=100,
-                                                             abs_tol=1E-6,
-                                                             rel_tol=1E-6)
+    sdict = dict(default_settings)
+    sdict['tstart'] = 0.0;
+    sdict['tend']  = 5000.0;
+    sdict['steps'] = 100;
+    settings = Setting.get_settings_for_dict(sdict)
+    integration = Integration.get_or_create_integration(settings)
+    
     peaks = range(0,3)
-    priorities = [10 + item*10 for item in peaks]
     for kp in peaks:
         sbml_id = "GalactoseComplete_P%02d_v21_Nc20_Nf1" % kp
         model = SBMLModel.create(sbml_id, SBML_FOLDER);
         model.save();
         syncDjangoSBML()
             
-        # Simulations
-        priority=priorities[kp]
-        subtask, created = Subtask.objects.get_or_create(name='normal')
-        task = createTask(model, integration, 
-                          subtask=subtask, simulator=ROADRUNNER, info=info) 
+        task = createTask(model, integration, info=info) 
         samples = createMultipleIndicatorSamples(N=N, sampling="distribution")
         createSimulationsForSamples(task, samples)
 
@@ -220,23 +186,23 @@ def makeMultiscaleGalactose(N, singleCell=False):
     info = '''Simulation of varying galactose concentrations periportal to steady state.'''
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
-    syncDjangoSBML()
+    # syncDjangoSBML()
+    
     # integration
-    integration, created = Integration.objects.get_or_create(tstart=0.0, 
-                                                             tend=10000.0, 
-                                                             tsteps=100,
-                                                             abs_tol=1E-6,
-                                                             rel_tol=1E-6)
+    sdict = dict(default_settings)
+    sdict['tstart'] = 0.0;
+    sdict['tend']  = 10000.0;
+    sdict['steps'] = 100;
+    settings = Setting.get_settings_for_dict(sdict)
+    integration = Integration.get_or_create_integration(settings)
+    
+    # simulations
+    task = createTask(model, integration, info=info)
     gal_range = np.arange(0, 6, 0.5)
-    subtask, created = Subtask.objects.get_or_create(name='normal')
-    task = createTask(model, integration, 
-                      subtask=subtask, simulator=ROADRUNNER, 
-                      info=info)
     samples = createGalactoseSamples(gal_range, N=N, sampling="distribution")
     createSimulationsForSamples(task, samples)
     
     return (task, samples)
-    
 
 ####################################################################################
 if __name__ == "__main__":
@@ -248,24 +214,20 @@ if __name__ == "__main__":
     if (0):
         makeGlucose()
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         # Create the normal case for 1 cell or all cells
         singleCell = False
-        [task, samples] = makeMultiscaleGalactose(N=100, singleCell=singleCell)
+        [task, samples] = makeMultiscaleGalactose(N=10, singleCell=singleCell)
     
         # Use the samples to create deficiencies
-        # deficiencies = ()
-        deficiencies = range(1,24)
-        # TODO: What happens if the simulations already exist?
+        deficiencies = range(1,4)
         for d in deficiencies:
-            name = 'GDEF_' + str(d)
-            # create the task
-            subtask, created = Subtask.objects.get_or_create(name=name)
+            sdict = task.integration.get_settings_dict()
+            sdict['condition'] = 'GDEF_' + str(d)
+            settings = Setting.get_settings_for_dict(sdict)
+            integration = Integration.get_or_create_integration(settings)
             
-            
-            task_d = createTask(task.sbml_model, task.integration, 
-                      subtask=subtask, simulator=task.simulator, 
-                      info=task.info)
+            task_d = createTask(task.sbml_model, integration, info=task.info)
             # create the simulations
             samples = setDeficiencyInSamples(samples, deficiency=d)
             createSimulationsForSamples(task_d, samples)
@@ -274,45 +236,20 @@ if __name__ == "__main__":
     if (0):
         makeMultipleIndicator(N=100)
     #----------------------------------------------------------------------#
-    # Create example integration
-    # datatypes have to be defined pre-simulation
+
+    # extend the default settings
+    sdict = dict(default_settings)
+    sdict['tstart'] = 0.0;
+    sdict['tend']  = 10000.0;
+    sdict['steps'] = 100.0;
+    settings = Setting.get_settings_for_dict(sdict)
+    integration = Integration.get_or_create_integration(settings)
     
-    # default settings
-    keys = ['integrator', 'varSteps', 'absTol', 'relTol']
-    values = ['ROADRUNNER', True, 1E-6, 1E-6]
-    default_settings = dict(zip(keys, values))
-    
-    
-    from sim.models import Setting, Integration, datatypes
-    s_keys = ['tstart', 'tend', 'steps']
-    s_values = [0.0, 10000.0, 100]
-    
-    s_dict = dict(zip(keys, values))
-    for d in sdata:
-        (name, value) = d[0:2]
-        s, created = Setting.objects.get_or_create(name=name, value=str(value), 
-                                                   datatype=datatypes[name])
-        settings.append(s)
-    
-    # TOOD: problem of uniqueness of integration settings
-    # make uniqueness search
-    integration = Integration()
-    print 'Integration created'
-    integration.save()
-    integration.settings.add(*settings)
-        
+    print integration
+    for s in integration.settings.all():
+        print s
+    print '-'*20
+    print integration.get_setting('integrator')
     
 ####################################################################################
-def get_or_create_integration(settings):
-    '''
-    Check if the integration is already defined (i.e. the 
-    unique combination of 
-    '''
-    
-    pass
-
-    # Test if an integration with all this settings already exists
-    
-    
-    
 

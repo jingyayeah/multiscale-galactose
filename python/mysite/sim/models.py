@@ -1,3 +1,10 @@
+'''
+    Definition of the database model.
+    
+    @author: Matthias Koenig
+    @date: 2014-06-14
+    
+'''
 from django.db import models
 from django.utils import timezone
 from datetime import timedelta
@@ -6,43 +13,36 @@ from django.core.files import File
 
 from sim.storage import OverwriteStorage
 
+###################################################################################
+# General definitions of datatypes and settings
 DT_STRING = 'string'
 DT_BOOLEAN = 'boolean'
 DT_DOUBLE = 'double'
 DT_INT = 'int'
-    
-datatypes = dict()
-datatypes['integrator'] = DT_STRING
-datatypes['varSteps'] = DT_BOOLEAN
-datatypes['tstart'] = DT_DOUBLE
-datatypes['tend'] = DT_DOUBLE
-datatypes['steps'] = DT_INT
-datatypes['absTol'] = DT_DOUBLE
-datatypes['relTol'] = DT_DOUBLE
 
+datatypes = dict(zip( 
+            ['condition', 'integrator', 'varSteps', 'tstart', 'tend', 'steps', 'absTol', 'relTol'],
+            [DT_STRING, DT_STRING, DT_BOOLEAN, DT_DOUBLE, DT_DOUBLE, DT_INT, DT_DOUBLE, DT_DOUBLE]
+))
 
+def cast_value(key, value):
+    '''
+    Casts the value to the correct datatype.
+    '''
+    dtype = datatypes[key]
+    if dtype == DT_STRING:
+        return str(value)
+    elif dtype == DT_INT:
+        return int(value)
+    elif dtype == DT_DOUBLE:
+        return float(value)
+    elif dtype == DT_BOOLEAN:
+        return bool(value)
 
-'''
-    Pool of simulations is defined with the status 'OPEN'.
-    The different computers get unassigned simulations from a simulation
-    set. 
-    Simulations change the status to ASSIGNED. After the simulation is 
-    performed
-    
-    TODO: add something like SimulationSeries to collect a list of simulations,
-            which can be analysed in a combined fashion.
-            Currently this is guaranteed by the SimulationFactory during generation
-            of the sets of simulations.
-            
-    TODO: handle the plots properly, namely do differen subtypes of plots 
-    depending on the data dependencies of the plots. In most of the cases
-    these are timecourse plots, parameter plots (for a simulation) or 
-    multiple simulation based plots. 
-    
-    All the plot generation & data analysis has to be directly done based
-    on data in the database. 
-    
-'''
+# integrators
+COPASI = "COPASI"
+ROADRUNNER = "ROADRUNNER"
+###################################################################################
 
 def validate_gt_zero(value):
     if value < 0:
@@ -59,6 +59,8 @@ class Core(models.Model):
                       '10.39.32.106':'mint',
                       '10.39.32.111':'sysbio2',
                       '10.39.32.236':'zenbook',
+                      '192.168.1.100':'home',
+                      '192.168.1.99':'zenbook',
                       '127.0.0.1':'localhost'}
         
     def __unicode__(self):
@@ -71,7 +73,6 @@ class Core(models.Model):
             return (timezone.now() <= self.time+timedelta(minutes=cutoff_minutes))
     
     active = property(_is_active)
-    
     
     class Meta:
         verbose_name = "Core"
@@ -89,11 +90,8 @@ class Core(models.Model):
     computer = property(_get_computer_name)
 
 
-# Create your models here.
 class SBMLModel(models.Model):
-    '''
-    Storage of SBMLmodels for the simulation.
-    '''
+    ''' Storage of SBMLmodels. '''
     sbml_id = models.CharField(max_length=200, unique=True)
     file = models.FileField(upload_to="sbml", max_length=200, storage=OverwriteStorage())
     
@@ -101,16 +99,12 @@ class SBMLModel(models.Model):
         return self.sbml_id
     
     class Meta:
-        # ordering = ["sbml_id"]
         verbose_name = "SBML Model"
         verbose_name_plural = "SBML Models"
     
     @classmethod
     def create(cls, sbml_id, folder):
-        '''
-            Create the model based on the model id.
-            TODO: problematic local sbml file.
-        '''
+        ''' Create the model based on the model id.'''
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
             return model;
@@ -119,37 +113,43 @@ class SBMLModel(models.Model):
             filename = folder + "/" + sbml_id + ".xml" 
             f = open(filename, 'r')
             myfile = File(f)
-            # ?? TODO: where to close the file [ f.close() ]
-            # Create the SBMLmodel
-    
             return cls(sbml_id = sbml_id, file = myfile)
-            
+
+    
+
+default_settings = dict(zip(['condition', 'integrator', 'varSteps', 'absTol', 'relTol'], 
+                            ['normal', ROADRUNNER, True, 1E-6, 1E-6]))
+       
 class Setting(models.Model):
     '''
     Store all settings for algorithm in general framework.
     Special settings are collected in 
     '''
-    NAMES = (
-                        ('integrator', 'integrator'),
-                        ('tstart', 'tstart'),
-                        ('tend', 'tend'),
-                        ('steps', 'steps'),
-                        ('absTol', 'absTol'),
-                        ('relTol', 'relTol'),
-                        ('varSteps', 'varSteps'),
-                        
-    )
+    NAMES = zip(datatypes.keys(), datatypes.keys())
     DATATYPES = (
-                        ('string', 'string'),
-                        ('double', 'double'),
-                        ('int', 'int'),
-                        ('boolean', 'boolean'),
+                        (DT_STRING, 'string'),
+                        (DT_DOUBLE, 'double'),
+                        (DT_INT, 'int'),
+                        (DT_BOOLEAN, 'boolean'),
     )
     name = models.CharField(max_length=20, choices=NAMES)
     datatype = models.CharField(max_length=10, choices=DATATYPES)
     value = models.CharField(max_length=20)
-    
-    
+
+    def __unicode__(self):
+        return "{}={}".format(self.name, self.value) 
+
+    @staticmethod
+    def get_settings_for_dict(sdict):
+        # get all settings objects from db
+        settings = []
+        for key, value in sdict.iteritems():
+            value = cast_value(key, value)        
+            s, created = Setting.objects.get_or_create(name=key, value=str(value), 
+                                                   datatype=datatypes[key])
+            settings.append(s)
+        return settings
+
 class Integration(models.Model):
     '''
     Integration settings are managed via a collection of settings.
@@ -169,10 +169,42 @@ class Integration(models.Model):
         return "I{}".format(self.pk) 
     
     class Meta:
-        # ordering = ["sbml_id"]
         verbose_name = "Integration Setting"
         verbose_name_plural = "Integration Settings"
+        
+    def get_settings_dict(self):
+        sdict = dict()
+        for s in self.settings.all():
+            sdict[s.name] = cast_value(s.name, s.value)
+        return sdict
     
+    def get_setting(self, key):
+        s = self.settings.get(name=key)
+        return cast_value(key, s.value)
+        
+    def _get_integrator(self):
+        return self.get_setting('integrator')
+    def _get_condition(self):
+        return self.get_setting('condition') 
+    integrator = property(_get_integrator)
+    condition = property(_get_condition)    
+        
+    @staticmethod
+    def get_or_create_integration(settings):
+        ''' Check if the settings combination is already used in some other integration. '''
+        settings_set = frozenset(settings)
+    
+        integration = None
+        for int_test in Integration.objects.all():
+            if settings_set==frozenset(int_test.settings.all()):
+                integration = int_test
+                break
+        if not integration:
+            integration = Integration()
+            integration.save()
+            integration.settings.add(*settings)
+            
+        return integration
 
 
 GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
@@ -205,37 +237,18 @@ class Parameter(models.Model):
         unique_together = ("name", "value")
 
 
-class Subtask(models.Model):
-    '''
-        Different set of tasks.
-    '''
-    name = models.TextField(max_length=25)
-    
-    def __unicode__(self):
-        return "<%s>" % (self.name)
-
-
-COPASI = "COPASI"
-ROADRUNNER = "ROADRUNNER"
-
 class Task(models.Model):
     '''
         Tasks are compatible on their integration setting and the
         underlying model.
     '''
-    SIMULATOR = (
-                         (COPASI, 'copasi'),
-                         (ROADRUNNER, 'roadrunner'),
-    )
     sbml_model = models.ForeignKey(SBMLModel)
     integration = models.ForeignKey(Integration)
-    subtask = models.ForeignKey(Subtask)
-    simulator = models.CharField(max_length=20, choices=SIMULATOR, default=COPASI)
     priority = models.IntegerField(default=0)
     info = models.TextField(null=True, blank=True)
     
     class Meta:
-        unique_together = ("sbml_model", "integration", "subtask", "simulator")
+        unique_together = ("sbml_model", "integration")
     
     def __unicode__(self):
         return "T%d" % (self.pk)
@@ -289,7 +302,6 @@ class Simulation(models.Model):
                          (ERROR, 'error'),
                          (DONE, 'done'),
     )
-    
     task = models.ForeignKey(Task)
     parameters = models.ManyToManyField(Parameter)
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
@@ -356,14 +368,15 @@ class Timecourse(models.Model):
         return 'Tc:%d' % (self.pk)
     
 
-  
-TIMECOURSE = "TIMECOURSE"
-STEADYSTATE = "STEADYSTATE"
-  
+
 class Plot(models.Model):
     '''
     TODO: implement properly
+    do plots based on content in database
     '''
+    TIMECOURSE = "TIMECOURSE"
+    STEADYSTATE = "STEADYSTATE"
+  
     PLOT_TYPES = (
         (TIMECOURSE, 'Timecourse'),
         (STEADYSTATE, 'SteadyState'),

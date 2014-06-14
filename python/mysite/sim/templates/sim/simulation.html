@@ -30,18 +30,21 @@
 </table>
 {% endwith %}
 
-    <h2>Parameters</h2>    
-    <table>
+<h2>Parameters</h2>    
+<table>
+<thead>
 	<tr>
 		{% usekwacro parameter_header %}
 	</tr>
-	{% for pars in sim.parameters.parameters.all %}
+</thead>
+<tbody>
+	{% for pars in sim.parameters.all %}
 		<tr>
 			{% usekwacro parameter_content %}
 		</tr>
 		{% endfor %}    
-    </table>
-    
+</tbody>
+</table>
 {% if sim.status == 'DONE' %}
 {% with tc=sim.timecourse %}
 <h2>Timecourse</h2>
