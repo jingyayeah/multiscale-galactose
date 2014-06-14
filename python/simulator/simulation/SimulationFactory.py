@@ -275,19 +275,19 @@ if __name__ == "__main__":
         makeMultipleIndicator(N=100)
     #----------------------------------------------------------------------#
     # Create example integration
+    # datatypes have to be defined pre-simulation
     
-
+    # default settings
+    keys = ['integrator', 'varSteps', 'absTol', 'relTol']
+    values = ['ROADRUNNER', True, 1E-6, 1E-6]
+    default_settings = dict(zip(keys, values))
+    
     
     from sim.models import Setting, Integration, datatypes
-    settings = []
-    sdata =   [ ('integrator', 'ROADRUNNER'),
-                ('varSteps', True),
-                ('tstart', 0.0),
-                ('tend', 10000.0),
-                ('steps', 100),
-                ('absTol', 1E-6),
-                ('relTol', 1E-6),
-              ]
+    s_keys = ['tstart', 'tend', 'steps']
+    s_values = [0.0, 10000.0, 100]
+    
+    s_dict = dict(zip(keys, values))
     for d in sdata:
         (name, value) = d[0:2]
         s, created = Setting.objects.get_or_create(name=name, value=str(value), 
@@ -305,7 +305,8 @@ if __name__ == "__main__":
 ####################################################################################
 def get_or_create_integration(settings):
     '''
-     
+    Check if the integration is already defined (i.e. the 
+    unique combination of 
     '''
     
     pass
