@@ -186,7 +186,7 @@ def makeMultiscaleGalactose(N, singleCell=False):
     info = '''Simulation of varying galactose concentrations periportal to steady state.'''
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
-    # syncDjangoSBML()
+    syncDjangoSBML()
     
     # integration
     sdict = dict(default_settings)
@@ -214,7 +214,7 @@ if __name__ == "__main__":
     if (0):
         makeGlucose()
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         # Create the normal case for 1 cell or all cells
         singleCell = False
         [task, samples] = makeMultiscaleGalactose(N=10, singleCell=singleCell)
@@ -233,8 +233,8 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (0):
-        makeMultipleIndicator(N=100)
+    if (1):
+        makeMultipleIndicator(N=1000)
     #----------------------------------------------------------------------#
 
     # extend the default settings
