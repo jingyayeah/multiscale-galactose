@@ -57,13 +57,9 @@ class MetabolicModel(object):
 class GalactoseModel(MetabolicModel):
     version = 21
     
-    def __init__(self, Nc):
-        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, Nc)  
-        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
-        self.model = self.doc.createModel(self.id)
-        self.model.setName(self.id)
-    
+    #########################################################################
     # Units
+    ##########################################################################
     main_units = dict()
     main_units['time'] = 's'
     main_units['extent'] = UNIT_KIND_MOLE
@@ -96,6 +92,31 @@ class GalactoseModel(MetabolicModel):
     units['m3_per_skg']   = [(UNIT_KIND_METER, 3.0, 0), 
                     (UNIT_KIND_KILOGRAM, -1.0, 0), (UNIT_KIND_SECOND, -1.0, 0)]
 
+    #########################################################################
+    # Compartments
+    ##########################################################################
+    # id, name, spatialDimension, unit, constant
+    comps = dict()
+    comps['PP'] = ('[PP] periportal', 3, 'm3', True)
+    comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
+    # sinusoid
+    for k in range(1, Nc+1):
+        comps['S{:0>2d}'.format(k) ] = ('[S{:0>2d}] sinusoid'.format(k), 3, 'm3', True)
+    # disse
+    for k in range(1, Nc+1):
+        comps['D{:0>2d}'.format(k) ] = ('[D{:0>2d}] disse'.format(k), 3, 'm3', True)
+    # hepatocyte
+    for k in range(1, Nc+1):
+        comps['H{:0>2d}'.format(k) ] = ('[H{:0>2d}] hepatocyte'.format(k), 3, 'm3', True)
+    print comps
+    ##########################################################################
+
+    def __init__(self, Nc):
+        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, Nc)  
+        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
+        self.model = self.doc.createModel(self.id)
+        self.model.setName(self.id)
+        
     def createUnits(self):
         for key, value in self.units.iteritems():
             self._createUnitDefinition(key, value)
@@ -136,6 +157,18 @@ class GalactoseModel(MetabolicModel):
     def createCompartments(self):
         print 'Create compartments'
         
+        
+        for cid in sorted(self.comps):
+            # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
+            data = self.comps[cid]
+            c = self.model.createCompartment()
+            c.setId(cid)
+            c.setName(data[0])
+            c.setSpatialDimensions(data[1])            
+            c.setUnits(data[2])
+            c.setConstant(data[3])
+        
+        
     def createSpecies(self):
         print 'Create species'
     
@@ -153,13 +186,11 @@ class GalactoseModel(MetabolicModel):
 
 if __name__ == "__main__":
     
-    test = UNIT_KIND_KILOGRAM
-    print UnitKind_toString(test)
-    print type(test)
-    
     gal_model = GalactoseModel(Nc=20)
     print gal_model.id
     gal_model.createUnits()
+    gal_model.createCompartments()
+    
     writer = SBMLWriter()
     sbml = writer.writeSBMLToString(gal_model.doc)
     print '*' * 20
@@ -183,15 +214,7 @@ Q_liv = 1.750E-3/60;
     
 
 
-################
-# Compartments #
-################
 
-comps_unit = 'm3'
-comps = dict()
-['PP', 'PV']
-'D01', ... 'D20',
-'H01', ... 'H20',
 
 ###########
 # Species #
