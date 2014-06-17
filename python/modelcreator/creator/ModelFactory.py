@@ -47,7 +47,7 @@ import libsbml
 
 SBML_LEVEL = 3
 SBML_VERSION = 1
-Nc = 20;    
+Nc = 4;    
 
 class MetabolicModel(object):
     pass;
@@ -108,9 +108,79 @@ class GalactoseModel(MetabolicModel):
     # hepatocyte
     for k in range(1, Nc+1):
         comps['H{:0>2d}'.format(k) ] = ('[H{:0>2d}] hepatocyte'.format(k), 3, 'm3', True)
-    print comps
+    
     ##########################################################################
+    # Species
+    ##########################################################################
+    # names dictionary
+    names = dict()
+    names['rbcM'] = 'red blood cells M*'
+    names['suc'] = 'sucrose'
+    names['alb'] = 'albumin'
+    names['h2oM'] = 'water M*'
+    names['glc'] = 'D-glucose'
+    names['gal'] = 'D-galactose'
+    names['galM'] = 'D-galactose M*'
+    names['glc'] = 'D-glucose'
+    names['glc1p'] = 'D-glucose 1-phophate'
+    names['glc6p'] = 'D-glucose 6-phosphate'
+    names['gal1p'] = 'D-galactose 1-phosphate'
+    names['udpglc'] = 'UDP-D-glucose'
+    names['udpgal'] = 'UDP-D-galactose'
+    names['galtol'] = 'D-galactitol'
+    names['atp'] = 'ATP'
+    names['adp'] = 'ADP'
+    names['utp'] = 'UTP'
+    names['udp'] = 'UDP'
+    names['phos'] = 'phosphate'
+    names['ppi'] = 'pyrophosphate'
+    names['nadp'] = 'NADP'
+    names['nadph'] = 'NADPH'
 
+    sin = [
+           ('rbcM', 0.0, '-'),
+           ('suc',  0.0, 'mM'),
+           ('alb',  0.0, 'mM'),
+           ('gal',  0.00012, 'mM'),
+           ('galM', 0.0, 'mM'),
+           ('h2oM', 0.0, 'mM'),
+           ]
+    
+    cell = [
+            ('gal',             0.00012, 'mM'),
+            ('galM',            0.0,     'mM'),
+            ('h2oM',            0.0,     'mM'),
+            ('glc1p',           0.012,   'mM'),
+            ('glc6p',           0.12,    'mM'),
+            ('gal1p',           0.001,   'mM'),
+            ('udpglc',          0.34,    'mM'),
+            ('udpgal',          0.11,    'mM'),
+            ('galtol',          0.001,   'mM'),
+    
+            ('atp',              2.7,    'mM'),
+            ('adp',              1.2,    'mM'),
+            ('utp',              0.27,   'mM'),
+            ('udp',              0.09,   'mM'),
+            ('phos',             5.0,    'mM'),
+            ('ppi',              0.008,  'mM'),
+            ('nadp',             0.1,    'mM'),
+            ('nadph',            0.1,    'mM'),
+    ]
+    # Create the full species
+    sdict = dict()
+    # dis = sin, pp = sin, pv = sin
+    # pp, pv, sin and disse are initialized identically
+    for data in sin:
+        sdict['PP__{}'.format(k, data[0])] = (names[data[0]]+' [PP]', data[1], data[2])
+        sdict['PV__{}'.format(k, data[0])] = (names[data[0]]+' [PV]', data[1], data[2])
+        for k in range(1, Nc+1): 
+            sdict['S{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [S{:0>2d}]'.format(k), data[1], data[2])
+            sdict['D{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [D{:0>2d}]'.format(k), data[1], data[2])
+    for data in cell:
+        for k in range(1, Nc+1):
+            sdict['H{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [H{:0>2d}]'.format(k), data[1], data[2])
+            
+            
     def __init__(self, Nc):
         self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, Nc)  
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
@@ -155,9 +225,6 @@ class GalactoseModel(MetabolicModel):
                 self.model.setVolumeUnits(unit)
         
     def createCompartments(self):
-        print 'Create compartments'
-        
-        
         for cid in sorted(self.comps):
             # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
             data = self.comps[cid]
@@ -170,7 +237,16 @@ class GalactoseModel(MetabolicModel):
         
         
     def createSpecies(self):
-        print 'Create species'
+        for sid in sorted(self.sdict):
+            # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
+            data = self.sdict[sid]
+            s = self.model.createSpecies()
+            s.setId(sid)
+            s.setName(data[0])
+            s.setInitialConcentration(data[1])
+            s.setUnits(data[2])
+            s.setConstant(False)
+            s.setBoundaryCondition(False)
     
     def createInitialAssignments(self):
         print 'Create initial assignments'
@@ -182,7 +258,7 @@ class GalactoseModel(MetabolicModel):
         print 'create events'
     
 
-        
+
 
 if __name__ == "__main__":
     
@@ -190,6 +266,7 @@ if __name__ == "__main__":
     print gal_model.id
     gal_model.createUnits()
     gal_model.createCompartments()
+    gal_model.createSpecies()
     
     writer = SBMLWriter()
     sbml = writer.writeSBMLToString(gal_model.doc)
@@ -219,37 +296,7 @@ Q_liv = 1.750E-3/60;
 ###########
 # Species #
 ###########
-sin = [
-    'rbcM', 0.0, '-'
-    'suc',  0.0, 'mM'
-    'alb',  0.0, 'mM'
-    'gal',  0.00012, 'mM'
-    'galM', 0.0, 'mM'
-    'h2oM', 0.0, 'mM'
-]
-dis = sin
-pp = sin
-pv = sin
-cell = [
-    'gal',             0.00012, 'mM'
-    'galM',            0.0,     'mM'
-    'h2oM',            0.0,     'mM'
-    'glc1p',           0.012,   'mM'
-    'glc6p',           0.12,    'mM'
-    'gal1p',           0.001,   'mM'
-    'udpglc',          0.34,    'mM'
-    'udpgal',          0.11,    'mM'
-    'galtol',          0.001,   'mM'
-    
-    'atp',              2.7,    'mM'
-    'adp',              1.2,    'mM'
-    'utp',              0.27,   'mM'
-    'udp',              0.09,   'mM'
-    'phos',             5.0,    'mM'
-    'ppi',              0.008,  'mM'
-    'nadp',             0.1,    'mM'
-    'nadph',            0.1,    'mM'
-]
+
 # [m^2/s]
 Ddata = [ 
     'rbcM',  0E-12
@@ -260,26 +307,7 @@ Ddata = [
     'h2oM', 2200E-12
 ]
 
-names = [
-'glc', 'D-glucose'
-'gal', 'D-galactose';
-'galM', 'D-galactose M*'
-'glc', 'D-glucose'
-'glc1p', 'D-glucose 1-phophate'
-'glc6p', 'D-glucose 6-phosphate'
-'gal1p', 'D-galactose 1-phosphate'
-'udpglc', 'UDP-D-glucose'
-'udpgal', 'UDP-D-galactose'
-'galtol', 'D-galactitol'
-'atp', 'ATP'
-'adp', 'ADP'
-'utp', 'UTP'
-'udp', 'UDP'
-'phos', 'phosphate'
-'ppi', 'pyrophosphate'
-'nadp', 'NADP'
-'nadph','NADPH'
-]
+
 
 # Reactions
 
