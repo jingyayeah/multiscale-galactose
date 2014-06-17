@@ -234,22 +234,9 @@ if __name__ == "__main__":
             
     #----------------------------------------------------------------------#
     if (1):
-        makeMultipleIndicator(N=1000)
+        makeMultipleIndicator(N=100)
     #----------------------------------------------------------------------#
 
-    # extend the default settings
-    sdict = dict(default_settings)
-    sdict['tstart'] = 0.0;
-    sdict['tend']  = 10000.0;
-    sdict['steps'] = 100.0;
-    settings = Setting.get_settings_for_dict(sdict)
-    integration = Integration.get_or_create_integration(settings)
-    
-    print integration
-    for s in integration.settings.all():
-        print s
-    print '-'*20
-    print integration.get_setting('integrator')
     
 ####################################################################################
 
