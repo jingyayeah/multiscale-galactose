@@ -22,7 +22,7 @@ from MetabolicModel import MetabolicModel, SBML_LEVEL, SBML_VERSION
 
 
 class GalactoseModel(MetabolicModel):
-    version = 21
+    version = 22
     Nc = 4
     
     def __init__(self, Nc):
@@ -167,12 +167,27 @@ class GalactoseModel(MetabolicModel):
     comps['PP'] = ('[PP] periportal', 3, 'm3', True, 'Vol_pp')
     # sinusoid
     for k in range(1, Nc+1):
+        cid = 
         comps['S{:0>2d}'.format(k) ] = ('[S{:0>2d}] sinusoid'.format(k), 3, 'm3', True, 'Vol_sin')
     # disse
     for k in range(1, Nc+1):
         comps['D{:0>2d}'.format(k) ] = ('[D{:0>2d}] disse'.format(k), 3, 'm3', True, 'Vol_dis')
     comps['PV'] = ('[PV] perivenious', 3, 'm3', True, 'Vol_pv')
     
+    
+    def getPPCompartment(self, k):
+        return 'PP'
+    def getPVCompartment(self, k):
+        return 'PV'
+    
+    
+    def getSinusoidCompartment(self, k):
+        return 'S{:0>2d}'.format(k)
+    
+    def getDisseCompartment(self, k):
+        return 'D{:0>2d}'.format(k)
+    
+     
     ##########################################################################
     # External Species
     ##########################################################################
@@ -190,9 +205,13 @@ class GalactoseModel(MetabolicModel):
     for data in sin:
         sdict['PP'] = (names[data[0]]+' [PP]', data[1], data[2])
         sdict['PV'] = (names[data[0]]+' [PV]', data[1], data[2])
-        for k in range(1, Nc+1): 
-            sdict['S{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [S{:0>2d}]'.format(k), data[1], data[2])
-            sdict['D{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [D{:0>2d}]'.format(k), data[1], data[2])
+        for k in range(1, Nc+1):
+             
+            cid = 'S{:0>2d}'.format(k)
+            sdict['{}__{}'.format(cid, data[0])] = ('{} [{}]'.format(names[data[0]], cid), data[1], data[2], cid)
+            
+            cid = 'D{:0>2d}'.format(k) 
+            sdict['{}__{}'.format(cid, data[0])] = (names[data[0]]+' [D{:0>2d}]'.format(k), data[1], data[2], cid)
     
     ##########################################################################
 

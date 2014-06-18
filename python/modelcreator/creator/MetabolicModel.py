@@ -90,12 +90,13 @@ class MetabolicModel(object):
         else:
             c.setValue(value)
     
-    def _createSpecies(self, sid, name, init, units):
+    def _createSpecies(self, sid, name, init, units, compartment):
         s = self.model.createSpecies()
         s.setId(sid)
         if name:
             s.setName(name)
         s.setInitialConcentration(init)
         s.setUnits(units)
+        s.setCompartment(compartment)
         s.setConstant(False)
         s.setBoundaryCondition(False)
