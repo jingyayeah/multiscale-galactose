@@ -16,10 +16,19 @@ class MetabolicModel(object):
         ''' Creates the defined unit definitions. '''
         unitdef = self.model.createUnitDefinition()
         unitdef.setId(uid)
-        for utuple in units:
-            unit = unitdef.createUnit()
-            unit.setKind(utuple[0])
-            unit.setExponent(utuple[1])
+        print 'uid:', uid
+        for data in units:
+            kind = data[0]
+            print 'kind', kind
+            exponent = data[1]
+            self._createUnit(unitdef, kind, exponent)
+             
+    def _createUnit(self, unitdef, kind, exponent, scale=0, multiplier=1.0):
+        unit = unitdef.createUnit()
+        unit.setKind(kind)
+        unit.setExponent(exponent)
+        unit.setScale(scale)
+        unit.setMultiplier(multiplier)
             
     def _setMainUnits(self):
         ''' 

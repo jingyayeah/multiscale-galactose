@@ -107,6 +107,7 @@ class SBMLModel(models.Model):
         ''' Create the model based on the model id.'''
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
+            print 'Model already exists! - model is not saved'
             return model;
         except ObjectDoesNotExist:
             print 'Create model: ', sbml_id

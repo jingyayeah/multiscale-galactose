@@ -14,8 +14,8 @@ Easy to write and fast changeable model definition.
 @date: 2014-06-17  
 '''
 
-from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE, UNIT_KIND_METER,\
-    UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
+from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
+    UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
     
 
 from MetabolicModel import MetabolicModel, SBML_LEVEL, SBML_VERSION
@@ -71,25 +71,25 @@ class GalactoseModel(MetabolicModel):
     units = dict()
     units['s'] = [(UNIT_KIND_SECOND, 1.0, 0)]
     units['kg'] = [(UNIT_KIND_KILOGRAM, 1.0, 0)]
-    units['m'] = [(UNIT_KIND_METER, 1.0, 0)]
-    units['m2'] = [(UNIT_KIND_METER, 2.0, 0)]
-    units['m3'] = [(UNIT_KIND_METER, 3.0, 0)]
+    units['m'] = [(UNIT_KIND_METRE, 1.0, 0)]
+    units['m2'] = [(UNIT_KIND_METRE, 2.0, 0)]
+    units['m3'] = [(UNIT_KIND_METRE, 3.0, 0)]
     units['per_s'] = [(UNIT_KIND_SECOND, -1.0, 0)]
     units['mole_per_s'] = [(UNIT_KIND_MOLE, 1.0, 0), 
                        (UNIT_KIND_SECOND, -1.0, 0)]
-    units['m_per_s'] = [(UNIT_KIND_METER, 1.0, 0), 
+    units['m_per_s'] = [(UNIT_KIND_METRE, 1.0, 0), 
                     (UNIT_KIND_SECOND, -1.0, 0)]
-    units['m2_per_s'] = [(UNIT_KIND_METER, 2.0, 0), 
+    units['m2_per_s'] = [(UNIT_KIND_METRE, 2.0, 0), 
                     (UNIT_KIND_SECOND, -1.0, 0)]
-    units['m3_per_s'] = [(UNIT_KIND_METER, 3.0, 0), 
+    units['m3_per_s'] = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_SECOND, -1.0, 0)]
     units['mM']       = [(UNIT_KIND_MOLE, 1.0, 0), 
-                    (UNIT_KIND_METER, -3.0, 0)]
-    units['per_mM']   = [(UNIT_KIND_METER, 3.0, 0), 
+                    (UNIT_KIND_METRE, -3.0, 0)]
+    units['per_mM']   = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_MOLE, -1.0, 0)]
     units['kg_per_m3']   = [(UNIT_KIND_KILOGRAM, 1.0, 0), 
-                    (UNIT_KIND_METER, -3.0, 0)]
-    units['m3_per_skg']   = [(UNIT_KIND_METER, 3.0, 0), 
+                    (UNIT_KIND_METRE, -3.0, 0)]
+    units['m3_per_skg']   = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_KILOGRAM, -1.0, 0), (UNIT_KIND_SECOND, -1.0, 0)]
 
     ##########################################################################
@@ -279,6 +279,8 @@ class GalactoseModel(MetabolicModel):
 
 if __name__ == "__main__":
     
+    
+    
     gal_model = GalactoseModel(Nc=20)
     gal_model.createModel()
     print gal_model.id
@@ -301,6 +303,8 @@ if __name__ == "__main__":
     os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
     
     from sim.models import SBMLModel
+    # TODO: problems if the model already exists
+    
     model = SBMLModel.create(gal_model.id, folder);
     model.save();
     
