@@ -41,13 +41,20 @@ Core model generation class.
 @author: mkoenig
 '''
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE, UNIT_KIND_METER,\
-    UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter, UnitKind_toString
+    UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter, UnitKind_toString,\
+    UNIT_KIND_DIMENSIONLESS
 
 import libsbml
 
 SBML_LEVEL = 3
 SBML_VERSION = 1
 Nc = 4;    
+
+def enum(**enums):
+    return type('Enum', (object,), enums)
+ 
+ParsAssignment = enum(VALUE=1, INITIAL_ASSIGNMENT=2, ASSIGNMENT_RULE=3)
+
 
 class MetabolicModel(object):
     pass;
@@ -180,7 +187,60 @@ class GalactoseModel(MetabolicModel):
         for k in range(1, Nc+1):
             sdict['H{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [H{:0>2d}]'.format(k), data[1], data[2])
             
+    ##########################################################################
+    # Parameters
+    ##########################################################################
+    # Parameters can have a value or an initial assignment or an assignment rule
+
+    pars = [
+            # id, value, unit, constant
+            ('L',           500E-6,   'm',      True),
+            ('y_sin',       4.4E-6,   'm',      True),
+            ('y_dis',       1.2E-6,   'm',      True),
+            ('y_cell',      7.58E-6,  'm',      True),
+            ('flow_sin',    180E-6,   'm_per_s',True),
+            ('f_fen',       0.09,     '-',      True),
+            ('Vol_liv',     1.5E-3,   'm3',     True),
+            ('rho_liv',     1.1E3,    'kg_per_m3', True), 
+            ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
+            ('Nc',              Nc,     '-',     True),       
             
+    ]
+    names['L'] = 'sinusoidal length'
+    names['y_sin'] = 'sinusoidal radius'
+    names['y_dis'] = 'width space of disse'
+    names['y_cell'] = 'width hepatocyte'
+    names['flow_sin'] = 'sinusoidal flow velocity'
+    names['f_fen'] = 'fenestraetion fraction'
+    names['Vol_liv'] = 'liver reference volume'
+    names['rho_liv'] = 'liver density'
+    names['Q_liv'] = 'liver reference blood flow'
+    names['Nc'] = 'hepatocytes in sinusoid'
+    
+    ##########################################################################
+    # InitialAssignments
+    ##########################################################################
+    initialAssignments = [
+            # id, assignment, unit
+            ('x_cell', 'L/Nc', 'm'),
+            "x_sin",  "m", "x_cell/Nf"
+            "A_sin",  "m2", "pi*y_sin^2"
+            "A_dis",  "m2", "pi*(y_sin+y_dis)^2 - A_sin"
+            "A_sindis",  "m2", "2*pi*y_sin*x_sin"
+            "Vol_sin",  "m3", "A_sin*x_sin"
+            "Vol_dis",  "m3", "A_dis*x_sin"
+            "Vol_cell", "m3", "pi*(y_sin+y_dis+y_cell)^2 *x_cell- pi*(y_sin+y_dis)^2*x_cell"
+            "Vol_pp",  "m3", "Vol_sin"
+            "Vol_pv",  "m3", "Vol_sin"
+            "f_sin", Kind.DIMENSIONLESS.getName(), "Vol_sin/(Vol_sin + Vol_dis + Vol_cell)"
+            "f_dis", Kind.DIMENSIONLESS.getName(), "Vol_dis/(Vol_sin + Vol_dis + Vol_cell)"
+            "f_cell", Kind.DIMENSIONLESS.getName(), "Vol_cell/(Vol_sin + Vol_dis + Vol_cell)"
+            "Vol_sinunit",  "m3", "L*pi*(y_sin + y_dis + y_cell)^2"
+             "Q_sinunit",  "m3_per_s", "pi*y_sin^2*flow_sin"
+             "m_liv",  "kg", "rho_liv * Vol_liv"
+             "q_liv",  "m3_per_skg", "Q_liv/m_liv"
+    ]
+         
     def __init__(self, Nc):
         self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, Nc)  
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
@@ -248,15 +308,58 @@ class GalactoseModel(MetabolicModel):
             s.setConstant(False)
             s.setBoundaryCondition(False)
     
+    def createParameters(self):
+        for pdata in (self.pars):
+            # id, value, unit, constant
+            p = self.model.createParameter()
+            pid = pdata[0]
+            p.setId(pid)
+            p.setName(self.names[pid])
+            p.setValue(pdata[1])
+            unit = pdata[2]
+            if unit == '-':
+                unit = UnitKind_toString(UNIT_KIND_DIMENSIONLESS)
+            p.setUnits(unit)
+            p.setConstant(pdata[3])
+    
+    
     def createInitialAssignments(self):
         print 'Create initial assignments'
+        
+        InitialAssignment assignment = model.createInitialAssignment();
+        assignment.setMath(ASTNode.parseFormula(formula));
+        assignment.setVariable(id);
+        
+        
+        # if parameter not available, create it
+        if (model.getCompartment(id) == null &&  model.getParameter(id) == null){
+            System.out.println(id + " : " + units);
+            ParameterFactory.createParameter(model, id, units, true);
+        }
+        return createInitialAssignment(model, id, formula);
+        
+        
+    def createAssignmentRule(self):
+        AssignmentRule rule = model.createAssignmentRule();
+        rule.setMath(ASTNode.parseFormula(formula));
+        rule.setVariable(id);
+            
     
-    def createReactions(self):
-        print 'Create reactions'
+    def createFlowReactions(self):
+        print 'Create Flow reactions'
+    
+    def createDiffusionReactions(self):
+        print 'Create Diffusion reactions'
+    
+    
+    def createCellReactions(self):
+        print 'Create Cell reactions'
         
     def createEvents(self):
-        print 'create events'
+        print 'create Events'
     
+    def createBoundaryConditions(self):
+        print 'create boundary conditions'
 
 
 
@@ -267,6 +370,7 @@ if __name__ == "__main__":
     gal_model.createUnits()
     gal_model.createCompartments()
     gal_model.createSpecies()
+    gal_model.createParameters()
     
     writer = SBMLWriter()
     sbml = writer.writeSBMLToString(gal_model.doc)
@@ -279,15 +383,7 @@ if __name__ == "__main__":
 ##############################
 # Parameters                 #
 ##############################
-L =  500E-6;
-y_sin = 4.4E-6;
-y_dis = 1.2E-6;
-y_cell = 7.58E-6;
-flow_sin = 180E-6;
-f_fen = 0.09;
-Vol_liv = 1.5E-3;         
-rho_liv = 1.1E3; 
-Q_liv = 1.750E-3/60;
+
     
 
 
