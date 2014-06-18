@@ -1,68 +1,61 @@
 '''
-Created on Jun 17, 2014
-
-What is the generall idea to best create the models:
+Core model factory to create the SBML model.
+Based on basic information the SBML model is generated which than can be simulated.
 
 What do you want?
-Easy to write and fast changeable model definition: i.e. antimony strings
+- important to have fast turnover cycle in modeling, i.e.
+  fast definition of the model structure and kinetics.
 
-
-units:
-unit substance = 1e-3 mole;
-
-
-compartments:
-
-compartment disse = 0.2 litre;
-compartment hepatocyte = 1 litre;
-compartment protein = 1 litre;
-
-species:
-
-
-
-
-
-
+Easy to write and fast changeable model definition.
 1. define objects (units, species, reactions, transporters, compartments, ....)
-
 3. translate to SBML
 
-
-Core model generation class. 
- * Here the core models for DilutionIndicator studies and the galactose variations are
- * created.
- * 
- *    @author: Matthias Koenig
- *  @date: 2015-06-26  
- */
-
-
-@author: mkoenig
+@author: Matthias Koenig
+@date: 2014-06-17  
 '''
+
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE, UNIT_KIND_METER,\
-    UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter, UnitKind_toString,\
-    UNIT_KIND_DIMENSIONLESS
+    UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
+    
 
-import libsbml
-
-SBML_LEVEL = 3
-SBML_VERSION = 1
-Nc = 4;    
-
-def enum(**enums):
-    return type('Enum', (object,), enums)
- 
-ParsAssignment = enum(VALUE=1, INITIAL_ASSIGNMENT=2, ASSIGNMENT_RULE=3)
-
-
-class MetabolicModel(object):
-    pass;
-     
+from MetabolicModel import MetabolicModel, SBML_LEVEL, SBML_VERSION
 
 
 class GalactoseModel(MetabolicModel):
     version = 21
+    Nc = 4
+    
+    def __init__(self, Nc):
+        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, Nc)  
+        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
+        self.model = self.doc.createModel(self.id)
+        self.model.setName(self.id)
+        self.Nc = Nc
+    
+    #########################################################################
+    names = dict()
+    names['rbcM'] = 'red blood cells M*'
+    names['suc'] = 'sucrose'
+    names['alb'] = 'albumin'
+    names['h2oM'] = 'water M*'
+    names['glc'] = 'D-glucose'
+    names['gal'] = 'D-galactose'
+    names['galM'] = 'D-galactose M*'
+    names['glc'] = 'D-glucose'
+    names['glc1p'] = 'D-glucose 1-phophate'
+    names['glc6p'] = 'D-glucose 6-phosphate'
+    names['gal1p'] = 'D-galactose 1-phosphate'
+    names['udpglc'] = 'UDP-D-glucose'
+    names['udpgal'] = 'UDP-D-galactose'
+    names['galtol'] = 'D-galactitol'
+    names['atp'] = 'ATP'
+    names['adp'] = 'ADP'
+    names['utp'] = 'UTP'
+    names['udp'] = 'UDP'
+    names['phos'] = 'phosphate'
+    names['ppi'] = 'pyrophosphate'
+    names['nadp'] = 'NADP'
+    names['nadph'] = 'NADPH'
     
     #########################################################################
     # Units
@@ -99,99 +92,9 @@ class GalactoseModel(MetabolicModel):
     units['m3_per_skg']   = [(UNIT_KIND_METER, 3.0, 0), 
                     (UNIT_KIND_KILOGRAM, -1.0, 0), (UNIT_KIND_SECOND, -1.0, 0)]
 
-    #########################################################################
-    # Compartments
-    ##########################################################################
-    # id, name, spatialDimension, unit, constant
-    comps = dict()
-    comps['PP'] = ('[PP] periportal', 3, 'm3', True)
-    comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
-    # sinusoid
-    for k in range(1, Nc+1):
-        comps['S{:0>2d}'.format(k) ] = ('[S{:0>2d}] sinusoid'.format(k), 3, 'm3', True)
-    # disse
-    for k in range(1, Nc+1):
-        comps['D{:0>2d}'.format(k) ] = ('[D{:0>2d}] disse'.format(k), 3, 'm3', True)
-    # hepatocyte
-    for k in range(1, Nc+1):
-        comps['H{:0>2d}'.format(k) ] = ('[H{:0>2d}] hepatocyte'.format(k), 3, 'm3', True)
-    
-    ##########################################################################
-    # Species
-    ##########################################################################
-    # names dictionary
-    names = dict()
-    names['rbcM'] = 'red blood cells M*'
-    names['suc'] = 'sucrose'
-    names['alb'] = 'albumin'
-    names['h2oM'] = 'water M*'
-    names['glc'] = 'D-glucose'
-    names['gal'] = 'D-galactose'
-    names['galM'] = 'D-galactose M*'
-    names['glc'] = 'D-glucose'
-    names['glc1p'] = 'D-glucose 1-phophate'
-    names['glc6p'] = 'D-glucose 6-phosphate'
-    names['gal1p'] = 'D-galactose 1-phosphate'
-    names['udpglc'] = 'UDP-D-glucose'
-    names['udpgal'] = 'UDP-D-galactose'
-    names['galtol'] = 'D-galactitol'
-    names['atp'] = 'ATP'
-    names['adp'] = 'ADP'
-    names['utp'] = 'UTP'
-    names['udp'] = 'UDP'
-    names['phos'] = 'phosphate'
-    names['ppi'] = 'pyrophosphate'
-    names['nadp'] = 'NADP'
-    names['nadph'] = 'NADPH'
-
-    sin = [
-           ('rbcM', 0.0, '-'),
-           ('suc',  0.0, 'mM'),
-           ('alb',  0.0, 'mM'),
-           ('gal',  0.00012, 'mM'),
-           ('galM', 0.0, 'mM'),
-           ('h2oM', 0.0, 'mM'),
-           ]
-    
-    cell = [
-            ('gal',             0.00012, 'mM'),
-            ('galM',            0.0,     'mM'),
-            ('h2oM',            0.0,     'mM'),
-            ('glc1p',           0.012,   'mM'),
-            ('glc6p',           0.12,    'mM'),
-            ('gal1p',           0.001,   'mM'),
-            ('udpglc',          0.34,    'mM'),
-            ('udpgal',          0.11,    'mM'),
-            ('galtol',          0.001,   'mM'),
-    
-            ('atp',              2.7,    'mM'),
-            ('adp',              1.2,    'mM'),
-            ('utp',              0.27,   'mM'),
-            ('udp',              0.09,   'mM'),
-            ('phos',             5.0,    'mM'),
-            ('ppi',              0.008,  'mM'),
-            ('nadp',             0.1,    'mM'),
-            ('nadph',            0.1,    'mM'),
-    ]
-    # Create the full species
-    sdict = dict()
-    # dis = sin, pp = sin, pv = sin
-    # pp, pv, sin and disse are initialized identically
-    for data in sin:
-        sdict['PP__{}'.format(k, data[0])] = (names[data[0]]+' [PP]', data[1], data[2])
-        sdict['PV__{}'.format(k, data[0])] = (names[data[0]]+' [PV]', data[1], data[2])
-        for k in range(1, Nc+1): 
-            sdict['S{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [S{:0>2d}]'.format(k), data[1], data[2])
-            sdict['D{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [D{:0>2d}]'.format(k), data[1], data[2])
-    for data in cell:
-        for k in range(1, Nc+1):
-            sdict['H{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [H{:0>2d}]'.format(k), data[1], data[2])
-            
     ##########################################################################
     # Parameters
     ##########################################################################
-    # Parameters can have a value or an initial assignment or an assignment rule
-
     pars = [
             # id, value, unit, constant
             ('L',           500E-6,   'm',      True),
@@ -203,9 +106,16 @@ class GalactoseModel(MetabolicModel):
             ('Vol_liv',     1.5E-3,   'm3',     True),
             ('rho_liv',     1.1E3,    'kg_per_m3', True), 
             ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
-            ('Nc',              Nc,     '-',     True),       
-            
-    ]
+            ('Nc',             Nc,     '-',     True),       
+            ('Nf',              1,     '-',     True),
+            # diffusion [m^2/s]
+            ('DrbcM',  0E-12, 'm2_per_s', 'True'),
+            ('Dsuc',   720E-12, 'm2_per_s', 'True'),
+            ('Dalb',    90E-12, 'm2_per_s', 'True'),
+            ('Dgal',   910E-12, 'm2_per_s', 'True'),
+            ('DgalM',  910E-12, 'm2_per_s', 'True'),
+            ('Dh2oM', 2200E-12, 'm2_per_s', 'True'),
+    ]    
     names['L'] = 'sinusoidal length'
     names['y_sin'] = 'sinusoidal radius'
     names['y_dis'] = 'width space of disse'
@@ -216,6 +126,14 @@ class GalactoseModel(MetabolicModel):
     names['rho_liv'] = 'liver density'
     names['Q_liv'] = 'liver reference blood flow'
     names['Nc'] = 'hepatocytes in sinusoid'
+    names['Nf'] = 'sinusoid volumes per cell'
+    
+    names['DrbcM'] = 'diffusion constant rbc'
+    names['Dsuc'] = 'diffusion constant sucrose'
+    names['Dalb'] = 'diffusion constant albumin'
+    names['Dgal'] = 'diffusion constant galactose'
+    names['DgalM'] = 'diffusion constant galactose M*'
+    names['Dh2oM'] = 'diffusion constant water M*'
     
     ##########################################################################
     # InitialAssignments
@@ -223,127 +141,123 @@ class GalactoseModel(MetabolicModel):
     initialAssignments = [
             # id, assignment, unit
             ('x_cell', 'L/Nc', 'm'),
-            "x_sin",  "m", "x_cell/Nf"
-            "A_sin",  "m2", "pi*y_sin^2"
-            "A_dis",  "m2", "pi*(y_sin+y_dis)^2 - A_sin"
-            "A_sindis",  "m2", "2*pi*y_sin*x_sin"
-            "Vol_sin",  "m3", "A_sin*x_sin"
-            "Vol_dis",  "m3", "A_dis*x_sin"
-            "Vol_cell", "m3", "pi*(y_sin+y_dis+y_cell)^2 *x_cell- pi*(y_sin+y_dis)^2*x_cell"
-            "Vol_pp",  "m3", "Vol_sin"
-            "Vol_pv",  "m3", "Vol_sin"
-            "f_sin", Kind.DIMENSIONLESS.getName(), "Vol_sin/(Vol_sin + Vol_dis + Vol_cell)"
-            "f_dis", Kind.DIMENSIONLESS.getName(), "Vol_dis/(Vol_sin + Vol_dis + Vol_cell)"
-            "f_cell", Kind.DIMENSIONLESS.getName(), "Vol_cell/(Vol_sin + Vol_dis + Vol_cell)"
-            "Vol_sinunit",  "m3", "L*pi*(y_sin + y_dis + y_cell)^2"
-             "Q_sinunit",  "m3_per_s", "pi*y_sin^2*flow_sin"
-             "m_liv",  "kg", "rho_liv * Vol_liv"
-             "q_liv",  "m3_per_skg", "Q_liv/m_liv"
+            ('x_sin',  "x_cell/Nf", "m"),
+            ("A_sin", "pi*y_sin^2",  "m2"),
+            ("A_dis", "pi*(y_sin+y_dis)^2 - A_sin",  "m2"),
+            ("A_sindis", "2*pi*y_sin*x_sin",  "m2"),
+            ("Vol_sin", "A_sin*x_sin",  "m3"),
+            ("Vol_dis", "A_dis*x_sin",  "m3"),
+            ("Vol_cell", "pi*(y_sin+y_dis+y_cell)^2 *x_cell- pi*(y_sin+y_dis)^2*x_cell", "m3"),
+            ("Vol_pp", "Vol_sin", "m3"),
+            ("Vol_pv", "Vol_sin", "m3"),
+            ("f_sin",  "Vol_sin/(Vol_sin + Vol_dis + Vol_cell)", '-'),
+            ("f_dis", "Vol_dis/(Vol_sin + Vol_dis + Vol_cell)", '-'),
+            ("f_cell", "Vol_cell/(Vol_sin + Vol_dis + Vol_cell)", '-'),
+            ("Vol_sinunit", "L*pi*(y_sin + y_dis + y_cell)^2", "m3"),
+            ("Q_sinunit", "pi*y_sin^2*flow_sin", "m3_per_s"),
+            ("m_liv", "rho_liv * Vol_liv", "kg"),
+            ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
     ]
-         
-    def __init__(self, Nc):
-        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, Nc)  
-        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
-        self.model = self.doc.createModel(self.id)
-        self.model.setName(self.id)
-        
+
+    #########################################################################
+    # External Compartments
+    ##########################################################################
+    # id, name, spatialDimension, unit, constant, assignment/value
+    comps = dict()
+    comps['PP'] = ('[PP] periportal', 3, 'm3', True, 'Vol_pp')
+    # sinusoid
+    for k in range(1, Nc+1):
+        comps['S{:0>2d}'.format(k) ] = ('[S{:0>2d}] sinusoid'.format(k), 3, 'm3', True, 'Vol_sin')
+    # disse
+    for k in range(1, Nc+1):
+        comps['D{:0>2d}'.format(k) ] = ('[D{:0>2d}] disse'.format(k), 3, 'm3', True, 'Vol_dis')
+    comps['PV'] = ('[PV] perivenious', 3, 'm3', True, 'Vol_pv')
+    
+    ##########################################################################
+    # External Species
+    ##########################################################################
+    sin = [
+           ('rbcM', 0.0, '-'),
+           ('suc',  0.0, 'mM'),
+           ('alb',  0.0, 'mM'),
+           ('gal',  0.00012, 'mM'),
+           ('galM', 0.0, 'mM'),
+           ('h2oM', 0.0, 'mM'),
+           ]
+    sdict = dict()
+    # dis = sin, pp = sin, pv = sin
+    # pp, pv, sin and disse are initialized identically
+    for data in sin:
+        sdict['PP'] = (names[data[0]]+' [PP]', data[1], data[2])
+        sdict['PV'] = (names[data[0]]+' [PV]', data[1], data[2])
+        for k in range(1, Nc+1): 
+            sdict['S{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [S{:0>2d}]'.format(k), data[1], data[2])
+            sdict['D{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [D{:0>2d}]'.format(k), data[1], data[2])
+    
+    ##########################################################################
+
+    def createModel(self):
+        self.createUnits()
+        self.createParameters()
+        self.createInitialAssignments()
+        self.createExternalCompartments()
+        self.createExternalSpecies()
+
     def createUnits(self):
         for key, value in self.units.iteritems():
             self._createUnitDefinition(key, value)
         self._setMainUnits()
     
-    def _createUnitDefinition(self, uid, units):
-        ''' Creates the defined unit definitions. '''
-        unitdef = self.model.createUnitDefinition()
-        unitdef.setId(uid)
-        for utuple in units:
-            unit = unitdef.createUnit()
-            unit.setKind(utuple[0])
-            unit.setExponent(utuple[1])
-            
-    def _setMainUnits(self):
-        ''' 
-        Sets the main units for the model. 
-        '''
-        for key in ('time', 'extent', 'substance', 'length', 'area', 'volume'):
-            unit = self.main_units[key]
-            # get string if unit code
-            if type(unit) is int:
-                unit = UnitKind_toString(self.main_units[key])
-            # set the values
-            if key == 'time':
-                self.model.setTimeUnits(unit)
-            elif key == 'extent':
-                self.model.setExtentUnits(unit)
-            elif key == 'substance':
-                self.model.setSubstanceUnits(unit)
-            elif key == 'length':
-                self.model.setLengthUnits(unit)
-            elif key == 'area':
-                self.model.setAreaUnits(unit)
-            elif key == 'volume':
-                self.model.setVolumeUnits(unit)
         
-    def createCompartments(self):
+    def createExternalCompartments(self):
         for cid in sorted(self.comps):
-            # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
+            # comps['PV'] = ('[PV] perivenious', 3, 'm3', True, 'value)
             data = self.comps[cid]
-            c = self.model.createCompartment()
-            c.setId(cid)
-            c.setName(data[0])
-            c.setSpatialDimensions(data[1])            
-            c.setUnits(data[2])
-            c.setConstant(data[3])
+            name = data[0]
+            dims = data[1]
+            units = data[2]
+            constant = data[3]
+            value = data[4]
+            self._createCompartment(cid, name, dims, units, constant, value)
+    
+    def createCellCompartments(self):
+        pass
         
-        
-    def createSpecies(self):
+    def createExternalSpecies(self):
         for sid in sorted(self.sdict):
             # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
             data = self.sdict[sid]
-            s = self.model.createSpecies()
-            s.setId(sid)
-            s.setName(data[0])
-            s.setInitialConcentration(data[1])
-            s.setUnits(data[2])
-            s.setConstant(False)
-            s.setBoundaryCondition(False)
+            name = data[0]
+            init = data[1]
+            units = data[2]
+            self._createSpecies(sid, name, init, units)
     
     def createParameters(self):
         for pdata in (self.pars):
             # id, value, unit, constant
-            p = self.model.createParameter()
             pid = pdata[0]
-            p.setId(pid)
-            p.setName(self.names[pid])
-            p.setValue(pdata[1])
-            unit = pdata[2]
-            if unit == '-':
-                unit = UnitKind_toString(UNIT_KIND_DIMENSIONLESS)
-            p.setUnits(unit)
-            p.setConstant(pdata[3])
-    
-    
+            name = self.names.get(pid, None)
+            value = pdata[1]
+            unit = self.getUnitString(pdata[2])
+            p = self._createParameter(pid=pid, unit=unit, name=name, value=value, constant=pdata[3])
+
+        
     def createInitialAssignments(self):
-        print 'Create initial assignments'
-        
-        InitialAssignment assignment = model.createInitialAssignment();
-        assignment.setMath(ASTNode.parseFormula(formula));
-        assignment.setVariable(id);
-        
-        
-        # if parameter not available, create it
-        if (model.getCompartment(id) == null &&  model.getParameter(id) == null){
-            System.out.println(id + " : " + units);
-            ParameterFactory.createParameter(model, id, units, true);
-        }
-        return createInitialAssignment(model, id, formula);
-        
-        
+        for data in self.initialAssignments:
+            # id, assignment, unit
+            pid = data[0]
+            unit = self.getUnitString(data[2])
+            # Create parameter if not existing
+            if not self.model.getParameter(pid):
+                self._createParameter(pid, unit, name=None, value=None, constant=True)
+            self._createInitialAssignment(sid=pid, formula=data[1])
+
+         
     def createAssignmentRule(self):
-        AssignmentRule rule = model.createAssignmentRule();
-        rule.setMath(ASTNode.parseFormula(formula));
-        rule.setVariable(id);
-            
+        # AssignmentRule rule = model.createAssignmentRule();
+        # rule.setMath(ASTNode.parseFormula(formula));
+        # rule.setVariable(id);
+        pass  
     
     def createFlowReactions(self):
         print 'Create Flow reactions'
@@ -366,18 +280,33 @@ class GalactoseModel(MetabolicModel):
 if __name__ == "__main__":
     
     gal_model = GalactoseModel(Nc=20)
+    gal_model.createModel()
     print gal_model.id
-    gal_model.createUnits()
-    gal_model.createCompartments()
-    gal_model.createSpecies()
-    gal_model.createParameters()
+   
     
     writer = SBMLWriter()
     sbml = writer.writeSBMLToString(gal_model.doc)
     print '*' * 20
     print sbml
     print '*' * 20
+    
+    folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
+    file = folder + gal_model.id + '.xml'
+    writer.writeSBMLToFile(gal_model.doc, file)
+    
+    # store in database
+    import sys
+    import os
+    sys.path.append('/home/mkoenig/multiscale-galactose/python')
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+    
+    from sim.models import SBMLModel
+    model = SBMLModel.create(gal_model.id, folder);
+    model.save();
+    
+    
 
+    
 '''
 
 ##############################
@@ -385,23 +314,37 @@ if __name__ == "__main__":
 ##############################
 
     
+        cell = [
+            ('gal',             0.00012, 'mM'),
+            ('galM',            0.0,     'mM'),
+            ('h2oM',            0.0,     'mM'),
+            ('glc1p',           0.012,   'mM'),
+            ('glc6p',           0.12,    'mM'),
+            ('gal1p',           0.001,   'mM'),
+            ('udpglc',          0.34,    'mM'),
+            ('udpgal',          0.11,    'mM'),
+            ('galtol',          0.001,   'mM'),
+    
+            ('atp',              2.7,    'mM'),
+            ('adp',              1.2,    'mM'),
+            ('utp',              0.27,   'mM'),
+            ('udp',              0.09,   'mM'),
+            ('phos',             5.0,    'mM'),
+            ('ppi',              0.008,  'mM'),
+            ('nadp',             0.1,    'mM'),
+            ('nadph',            0.1,    'mM'),
+    ]
 
-
+    for data in cell:
+        for k in range(1, Nc+1):
+            sdict['H{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [H{:0>2d}]'.format(k), data[1], data[2])
 
 
 ###########
 # Species #
 ###########
 
-# [m^2/s]
-Ddata = [ 
-    'rbcM',  0E-12
-    'suc',   720E-12
-    'alb',    90E-12
-    'gal',   910E-12
-    'galM',  910E-12
-    'h2oM', 2200E-12
-]
+
 
 
 

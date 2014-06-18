@@ -1,0 +1,92 @@
+'''
+Created on Jun 18, 2014
+
+@author: mkoenig
+'''
+import libsbml
+from libsbml import UNIT_KIND_DIMENSIONLESS, UnitKind_toString
+
+
+SBML_LEVEL = 3
+SBML_VERSION = 1
+  
+class MetabolicModel(object):
+  
+    def _createUnitDefinition(self, uid, units):
+        ''' Creates the defined unit definitions. '''
+        unitdef = self.model.createUnitDefinition()
+        unitdef.setId(uid)
+        for utuple in units:
+            unit = unitdef.createUnit()
+            unit.setKind(utuple[0])
+            unit.setExponent(utuple[1])
+            
+    def _setMainUnits(self):
+        ''' 
+        Sets the main units for the model. 
+        '''
+        for key in ('time', 'extent', 'substance', 'length', 'area', 'volume'):
+            unit = self.main_units[key]
+            unit = self.getUnitString(unit)
+            # set the values
+            if key == 'time':
+                self.model.setTimeUnits(unit)
+            elif key == 'extent':
+                self.model.setExtentUnits(unit)
+            elif key == 'substance':
+                self.model.setSubstanceUnits(unit)
+            elif key == 'length':
+                self.model.setLengthUnits(unit)
+            elif key == 'area':
+                self.model.setAreaUnits(unit)
+            elif key == 'volume':
+                self.model.setVolumeUnits(unit)
+    
+    def getUnitString(self, unit):
+        # get string if unit code
+        if type(unit) is int:
+            unit = UnitKind_toString(unit)
+        if unit == '-':
+            unit = UnitKind_toString(UNIT_KIND_DIMENSIONLESS)
+        return unit
+    
+    def _createParameter(self, pid, unit, name=None, value=None, constant=True):
+        p = self.model.createParameter()
+        p.setId(pid)
+        p.setUnits(unit)
+        if name:
+            p.setName(name)
+        if value:
+            p.setValue(value)
+        p.setConstant(constant)
+        return p
+    
+    def _createInitialAssignment(self, sid, formula):
+        assignment = self.model.createInitialAssignment();
+        assignment.setSymbol(sid);
+        astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
+        assignment.setMath(astnode);   
+    
+               
+    def _createCompartment(self, cid, name, dims, units, constant, value):
+        c = self.model.createCompartment()
+        c.setId(cid)
+        if name:
+            c.setName(name)
+        c.setSpatialDimensions(dims)            
+        c.setUnits(units)
+        c.setConstant(constant)
+        if type(value) is str:
+            self._createInitialAssignment(sid=cid, formula=value)
+        else:
+            c.setValue(value)
+    
+    def _createSpecies(self, sid, name, init, units):
+        s = self.model.createSpecies()
+        s.setId(sid)
+        if name:
+            s.setName(name)
+        s.setInitialConcentration(init)
+        s.setUnits(units)
+        s.setConstant(False)
+        s.setBoundaryCondition(False)
