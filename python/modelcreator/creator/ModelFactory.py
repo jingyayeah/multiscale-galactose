@@ -17,13 +17,15 @@ Easy to write and fast changeable model definition.
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
     
-
+from Naming import *
 from MetabolicModel import MetabolicModel, SBML_LEVEL, SBML_VERSION
 
 
 class GalactoseModel(MetabolicModel):
-    version = 22
+    version = 28
     Nc = 4
+    
+    cell_range = range(1, Nc+1)
     
     def __init__(self, Nc):
         self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, Nc)  
@@ -109,7 +111,7 @@ class GalactoseModel(MetabolicModel):
             ('Nc',             Nc,     '-',     True),       
             ('Nf',              1,     '-',     True),
             # diffusion [m^2/s]
-            ('DrbcM',  0E-12, 'm2_per_s', 'True'),
+            ('DrbcM',  0.0E-12, 'm2_per_s', 'True'),
             ('Dsuc',   720E-12, 'm2_per_s', 'True'),
             ('Dalb',    90E-12, 'm2_per_s', 'True'),
             ('Dgal',   910E-12, 'm2_per_s', 'True'),
@@ -128,7 +130,7 @@ class GalactoseModel(MetabolicModel):
     names['Nc'] = 'hepatocytes in sinusoid'
     names['Nf'] = 'sinusoid volumes per cell'
     
-    names['DrbcM'] = 'diffusion constant rbc'
+    names['DrbcM'] = 'diffusion constant rbc M*'
     names['Dsuc'] = 'diffusion constant sucrose'
     names['Dalb'] = 'diffusion constant albumin'
     names['Dgal'] = 'diffusion constant galactose'
@@ -163,35 +165,24 @@ class GalactoseModel(MetabolicModel):
     # External Compartments
     ##########################################################################
     # id, name, spatialDimension, unit, constant, assignment/value
-    comps = dict()
-    comps['PP'] = ('[PP] periportal', 3, 'm3', True, 'Vol_pp')
-    # sinusoid
-    for k in range(1, Nc+1):
-        cid = 
-        comps['S{:0>2d}'.format(k) ] = ('[S{:0>2d}] sinusoid'.format(k), 3, 'm3', True, 'Vol_sin')
-    # disse
-    for k in range(1, Nc+1):
-        comps['D{:0>2d}'.format(k) ] = ('[D{:0>2d}] disse'.format(k), 3, 'm3', True, 'Vol_dis')
-    comps['PV'] = ('[PV] perivenious', 3, 'm3', True, 'Vol_pv')
-    
-    
-    def getPPCompartment(self, k):
-        return 'PP'
-    def getPVCompartment(self, k):
-        return 'PV'
-    
-    
-    def getSinusoidCompartment(self, k):
-        return 'S{:0>2d}'.format(k)
-    
-    def getDisseCompartment(self, k):
-        return 'D{:0>2d}'.format(k)
-    
-     
+    def createExternalCompartmentsDict(self):
+        comps = dict()
+        # periportal
+        comps[getPPId()] = (getPPName(), 3, 'm3', True, 'Vol_pp')
+        # sinusoid
+        for k in GalactoseModel.cell_range:
+            comps[getSinusoidId(k)] = (getSinusoidName(k), 3, 'm3', True, 'Vol_sin')
+        # disse
+        for k in GalactoseModel.cell_range:
+            comps[getDisseId(k)] = (getDisseName(k), 3, 'm3', True, 'Vol_dis')
+        # perivenious
+        comps[getPVId()] = (getPVName(), 3, 'm3', True, 'Vol_pv')
+        return comps
+
     ##########################################################################
     # External Species
     ##########################################################################
-    sin = [
+    external = [
            ('rbcM', 0.0, '-'),
            ('suc',  0.0, 'mM'),
            ('alb',  0.0, 'mM'),
@@ -199,20 +190,20 @@ class GalactoseModel(MetabolicModel):
            ('galM', 0.0, 'mM'),
            ('h2oM', 0.0, 'mM'),
            ]
-    sdict = dict()
-    # dis = sin, pp = sin, pv = sin
-    # pp, pv, sin and disse are initialized identically
-    for data in sin:
-        sdict['PP'] = (names[data[0]]+' [PP]', data[1], data[2])
-        sdict['PV'] = (names[data[0]]+' [PV]', data[1], data[2])
-        for k in range(1, Nc+1):
-             
-            cid = 'S{:0>2d}'.format(k)
-            sdict['{}__{}'.format(cid, data[0])] = ('{} [{}]'.format(names[data[0]], cid), data[1], data[2], cid)
-            
-            cid = 'D{:0>2d}'.format(k) 
-            sdict['{}__{}'.format(cid, data[0])] = (names[data[0]]+' [D{:0>2d}]'.format(k), data[1], data[2], cid)
     
+    def createExternalSpeciesDict(self):
+        sdict = dict()
+        # dis = sin, pp = sin, pv = sin
+        # pp, pv, sin and disse are initialized identically
+        for data in GalactoseModel.external:
+            sid, init, units = data[0], data[1], data[2]
+            name = GalactoseModel.names[sid]
+            sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId())
+            for k in GalactoseModel.cell_range:
+                sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k))
+                sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k))
+            sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId())    
+        return sdict
     ##########################################################################
 
     def createModel(self):
@@ -221,17 +212,19 @@ class GalactoseModel(MetabolicModel):
         self.createInitialAssignments()
         self.createExternalCompartments()
         self.createExternalSpecies()
+        self.createFlowReactions()
 
     def createUnits(self):
         for key, value in self.units.iteritems():
             self._createUnitDefinition(key, value)
         self._setMainUnits()
     
-        
     def createExternalCompartments(self):
-        for cid in sorted(self.comps):
+        comps = self.createExternalCompartmentsDict()
+        
+        for cid in sorted(comps):
             # comps['PV'] = ('[PV] perivenious', 3, 'm3', True, 'value)
-            data = self.comps[cid]
+            data = comps[cid]
             name = data[0]
             dims = data[1]
             units = data[2]
@@ -243,13 +236,15 @@ class GalactoseModel(MetabolicModel):
         pass
         
     def createExternalSpecies(self):
-        for sid in sorted(self.sdict):
+        sdict = self.createExternalSpeciesDict()
+        for sid in sorted(sdict):
             # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
-            data = self.sdict[sid]
+            data = sdict[sid]
             name = data[0]
             init = data[1]
             units = data[2]
-            self._createSpecies(sid, name, init, units)
+            compartment = data[3]
+            self._createSpecies(sid, name, init, units, compartment)
     
     def createParameters(self):
         for pdata in (self.pars):
@@ -279,7 +274,18 @@ class GalactoseModel(MetabolicModel):
         pass  
     
     def createFlowReactions(self):
-        print 'Create Flow reactions'
+        from ReactionFactory import createFlowReaction
+        for data in GalactoseModel.external:
+            sid = data[0]    
+            # flow PP -> S01 
+            createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1))
+            # flow S[k] -> S[k+1] 
+            for k in self.cell_range:
+                createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getSinusoidId(k+1))
+            # flow S[Nc] -> PV
+            createFlowReaction(self.model, sid, c_from=getSinusoidId(self.Nc), c_to=getPVId())
+            # flow PV ->
+            createFlowReaction(self.model, sid, c_from=getPVId(), c_to="NULL");
     
     def createDiffusionReactions(self):
         print 'Create Diffusion reactions'
@@ -297,9 +303,6 @@ class GalactoseModel(MetabolicModel):
 
 
 if __name__ == "__main__":
-    
-    
-    
     gal_model = GalactoseModel(Nc=20)
     gal_model.createModel()
     print gal_model.id
@@ -326,17 +329,8 @@ if __name__ == "__main__":
     
     model = SBMLModel.create(gal_model.id, folder);
     model.save();
-    
-    
 
-    
-'''
-
-##############################
-# Parameters                 #
-##############################
-
-    
+'''    
         cell = [
             ('gal',             0.00012, 'mM'),
             ('galM',            0.0,     'mM'),
@@ -361,14 +355,6 @@ if __name__ == "__main__":
     for data in cell:
         for k in range(1, Nc+1):
             sdict['H{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [H{:0>2d}]'.format(k), data[1], data[2])
-
-
-###########
-# Species #
-###########
-
-
-
 
 
 # Reactions

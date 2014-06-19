@@ -98,5 +98,8 @@ class MetabolicModel(object):
         s.setInitialConcentration(init)
         s.setUnits(units)
         s.setCompartment(compartment)
+        
+        s.setSubstanceUnits(self.model.getSubstanceUnits());
+        s.setHasOnlySubstanceUnits(False);
         s.setConstant(False)
         s.setBoundaryCondition(False)
