@@ -18,21 +18,22 @@ from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
     
 from Naming import *
+from ReactionFactory import *
 from MetabolicModel import MetabolicModel, SBML_LEVEL, SBML_VERSION
+from creator.SBMLValidator import SBMLValidator
 
 
 class GalactoseModel(MetabolicModel):
-    version = 28
-    Nc = 4
-    
+    version = 31
+    Nc = 5
     cell_range = range(1, Nc+1)
     
-    def __init__(self, Nc):
-        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, Nc)  
+    def __init__(self):
+        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, GalactoseModel.Nc)  
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
         self.model = self.doc.createModel(self.id)
         self.model.setName(self.id)
-        self.Nc = Nc
+        
     
     #########################################################################
     names = dict()
@@ -110,13 +111,6 @@ class GalactoseModel(MetabolicModel):
             ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
             ('Nc',             Nc,     '-',     True),       
             ('Nf',              1,     '-',     True),
-            # diffusion [m^2/s]
-            ('DrbcM',  0.0E-12, 'm2_per_s', 'True'),
-            ('Dsuc',   720E-12, 'm2_per_s', 'True'),
-            ('Dalb',    90E-12, 'm2_per_s', 'True'),
-            ('Dgal',   910E-12, 'm2_per_s', 'True'),
-            ('DgalM',  910E-12, 'm2_per_s', 'True'),
-            ('Dh2oM', 2200E-12, 'm2_per_s', 'True'),
     ]    
     names['L'] = 'sinusoidal length'
     names['y_sin'] = 'sinusoidal radius'
@@ -129,14 +123,7 @@ class GalactoseModel(MetabolicModel):
     names['Q_liv'] = 'liver reference blood flow'
     names['Nc'] = 'hepatocytes in sinusoid'
     names['Nf'] = 'sinusoid volumes per cell'
-    
-    names['DrbcM'] = 'diffusion constant rbc M*'
-    names['Dsuc'] = 'diffusion constant sucrose'
-    names['Dalb'] = 'diffusion constant albumin'
-    names['Dgal'] = 'diffusion constant galactose'
-    names['DgalM'] = 'diffusion constant galactose M*'
-    names['Dh2oM'] = 'diffusion constant water M*'
-    
+        
     ##########################################################################
     # InitialAssignments
     ##########################################################################
@@ -204,6 +191,36 @@ class GalactoseModel(MetabolicModel):
                 sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k))
             sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId())    
         return sdict
+    
+    ##########################################################################
+    # External Transport
+    ##########################################################################
+    # Diffusion
+    pars.extend(
+            # diffusion constants [m^2/s]
+            [('DrbcM',  0.0E-12, 'm2_per_s', 'True'),
+            ('Dsuc',   720E-12, 'm2_per_s', 'True'),
+            ('Dalb',    90E-12, 'm2_per_s', 'True'),
+            ('Dgal',   910E-12, 'm2_per_s', 'True'),
+            ('DgalM',  910E-12, 'm2_per_s', 'True'),
+            ('Dh2oM', 2200E-12, 'm2_per_s', 'True'),
+            ])
+    names['DrbcM'] = 'diffusion constant rbc M*'
+    names['Dsuc'] = 'diffusion constant sucrose'
+    names['Dalb'] = 'diffusion constant albumin'
+    names['Dgal'] = 'diffusion constant galactose'
+    names['DgalM'] = 'diffusion constant galactose M*'
+    names['Dh2oM'] = 'diffusion constant water M*'
+    
+    # geometrical diffusion constants
+    for data in external:
+        sid = data[0]
+        # id, assignment, unit
+        initialAssignments.extend([
+            ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
+            ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
+            ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
+        ])
     ##########################################################################
 
     def createModel(self):
@@ -213,6 +230,7 @@ class GalactoseModel(MetabolicModel):
         self.createExternalCompartments()
         self.createExternalSpecies()
         self.createFlowReactions()
+        self.createDiffusionReactions()
 
     def createUnits(self):
         for key, value in self.units.iteritems():
@@ -274,21 +292,39 @@ class GalactoseModel(MetabolicModel):
         pass  
     
     def createFlowReactions(self):
-        from ReactionFactory import createFlowReaction
+        flow = 'flow_sin * A_sin'     # [m3/s] volume flow
         for data in GalactoseModel.external:
             sid = data[0]    
             # flow PP -> S01 
-            createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1))
+            createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), flow=flow)
             # flow S[k] -> S[k+1] 
-            for k in self.cell_range:
-                createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getSinusoidId(k+1))
+            for k in range(1, self.Nc):
+                createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getSinusoidId(k+1), flow=flow)
             # flow S[Nc] -> PV
-            createFlowReaction(self.model, sid, c_from=getSinusoidId(self.Nc), c_to=getPVId())
+            createFlowReaction(self.model, sid, c_from=getSinusoidId(self.Nc), c_to=getPVId(), flow=flow)
             # flow PV ->
-            createFlowReaction(self.model, sid, c_from=getPVId(), c_to="NULL");
+            createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=flow);
     
-    def createDiffusionReactions(self):
-        print 'Create Diffusion reactions'
+    def createDiffusionReactions(self):        
+        for data in GalactoseModel.external:
+            sid = data[0]    
+            # [1] sinusoid diffusion
+            Dx_sin = 'Dx_sin_{}'.format(sid)
+            
+            createDiffusionReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), D=Dx_sin)
+            for k in range(1, self.Nc):
+                createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getSinusoidId(k+1), D=Dx_sin)
+            createDiffusionReaction(self.model, sid, c_from=getSinusoidId(self.Nc), c_to=getPVId(), D=Dx_sin)
+            
+            # [2] disse diffusion
+            Dx_dis = 'Dx_dis_{}'.format(sid)
+            for k in range(1, self.Nc):
+                createDiffusionReaction(self.model, sid, c_from=getDisseId(k), c_to=getDisseId(k+1), D=Dx_dis)
+            
+            # [3] sinusoid - disse diffusion
+            Dy_sindis = 'Dy_sindis_{}'.format(sid)
+            for k in range(1, self.Nc+1):
+                createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
     
     
     def createCellReactions(self):
@@ -301,13 +337,12 @@ class GalactoseModel(MetabolicModel):
         print 'create boundary conditions'
 
 
-
+##########################################################################
 if __name__ == "__main__":
-    gal_model = GalactoseModel(Nc=20)
+    gal_model = GalactoseModel()
     gal_model.createModel()
     print gal_model.id
    
-    
     writer = SBMLWriter()
     sbml = writer.writeSBMLToString(gal_model.doc)
     print '*' * 20
@@ -317,6 +352,14 @@ if __name__ == "__main__":
     folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
     file = folder + gal_model.id + '.xml'
     writer.writeSBMLToFile(gal_model.doc, file)
+    
+    # validate the model
+    validator = SBMLValidator(ucheck=False)
+    val_string = validator.validate(file)
+   
+    # make some example simulations
+    
+    
     
     # store in database
     import sys
@@ -329,7 +372,7 @@ if __name__ == "__main__":
     
     model = SBMLModel.create(gal_model.id, folder);
     model.save();
-
+##########################################################################
 '''    
         cell = [
             ('gal',             0.00012, 'mM'),

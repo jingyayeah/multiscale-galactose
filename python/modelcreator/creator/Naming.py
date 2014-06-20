@@ -30,6 +30,7 @@ def getHepatocyteName(k):
 
 # Species
 SEPARATOR = "__"
+NONE_ID = 'NONE'
 
 def getPPSpeciesId(sid):
     return createLocalizedId(getPPId(), sid)
@@ -61,10 +62,14 @@ def createFlowId(c_from, c_to, sid):
     return 'Flow{}{}_{}'.format(c_from, c_to, sid)
 
 def createFlowName(c_from, c_to, sid):
+    if c_to == NONE_ID:
+        c_to = ''
     return '[{} -> {}] convection {}'.format(c_from, c_to, sid)
 
 def createDiffusionId(c_from, c_to, sid):
     return 'Diff{}{}_{}'.format(c_from, c_to, sid)
 
 def createDiffusionName(c_from, c_to, sid):
+    if c_to == NONE_ID:
+        c_to = ''
     return '[{} <-> {}] diffusion {}'.format(c_from, c_to, sid)
