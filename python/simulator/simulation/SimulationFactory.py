@@ -217,7 +217,7 @@ if __name__ == "__main__":
     if (1):
         # Create the normal case for 1 cell or all cells
         singleCell = False
-        [task, samples] = makeMultiscaleGalactose(N=20, singleCell=singleCell)
+        [task, samples] = makeMultiscaleGalactose(N=10, singleCell=singleCell)
     
         # Use the samples to create deficiencies
         # deficiencies = range(1,4)
