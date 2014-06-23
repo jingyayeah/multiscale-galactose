@@ -15,7 +15,7 @@ from PrepareAnalysis import prepareDataForAnalysis
 
 if __name__ == "__main__":
     date_str = time.strftime("%Y-%m-%d")
-    task_pks = (1, )
+    task_pks = (1,2,3, )
     for pk in task_pks:
         task = Task.objects.get(pk=pk)
         directory = '/home/mkoenig/multiscale-galactose-results/' + date_str + '_' + str(task)
