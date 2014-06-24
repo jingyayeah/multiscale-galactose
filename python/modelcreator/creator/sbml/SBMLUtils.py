@@ -7,7 +7,6 @@ Created on Jun 17, 2014
 from libsbml import SBMLDocument, SBMLWriter
 
 
-
 def createSBMLFileNameFromModelId(modelId, folder):
     return folder + '/' + modelId + '.xml'
     

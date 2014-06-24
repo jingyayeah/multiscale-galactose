@@ -17,23 +17,24 @@ Easy to write and fast changeable model definition.
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
     
-from Naming import *
-from ReactionFactory import *
-from MetabolicModel import MetabolicModel, SBML_LEVEL, SBML_VERSION
-from creator.SBMLValidator import SBMLValidator
+from tools.Naming import *
+from tools.ReactionFactory import *
+from MetabolicModel import MetabolicModel
+from creator.sbml.SBMLValidator import SBMLValidator
 
 
-class GalactoseModel(MetabolicModel):
-    version = 32
-    Nc = 5
-    cell_range = range(1, Nc+1)
-    
+class TissueModel(MetabolicModel):
+    Nc = None
+    version = None
+        
     def __init__(self):
-        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, GalactoseModel.Nc)  
-        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
+        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, TissueModel.Nc)  
+        self.doc = SBMLDocument(MetabolicModel.SBML_LEVEL, MetabolicModel.SBML_VERSION)
         self.model = self.doc.createModel(self.id)
         self.model.setName(self.id)
-        
+    
+    def cell_range(self):
+        return range(1, TissueModel.Nc+1)
     
     #########################################################################
     names = dict()
@@ -157,10 +158,10 @@ class GalactoseModel(MetabolicModel):
         # periportal
         comps[getPPId()] = (getPPName(), 3, 'm3', True, 'Vol_pp')
         # sinusoid
-        for k in GalactoseModel.cell_range:
+        for k in self.cell_range():
             comps[getSinusoidId(k)] = (getSinusoidName(k), 3, 'm3', True, 'Vol_sin')
         # disse
-        for k in GalactoseModel.cell_range:
+        for k in self.cell_range:
             comps[getDisseId(k)] = (getDisseName(k), 3, 'm3', True, 'Vol_dis')
         # perivenious
         comps[getPVId()] = (getPVName(), 3, 'm3', True, 'Vol_pv')
@@ -182,11 +183,11 @@ class GalactoseModel(MetabolicModel):
         sdict = dict()
         # dis = sin, pp = sin, pv = sin
         # pp, pv, sin and disse are initialized identically
-        for data in GalactoseModel.external:
+        for data in TissueModel.external:
             sid, init, units = data[0], data[1], data[2]
-            name = GalactoseModel.names[sid]
+            name = TissueModel.names[sid]
             sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId())
-            for k in GalactoseModel.cell_range:
+            for k in self.cell_range():
                 sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k))
                 sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k))
             sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId())    
@@ -223,15 +224,7 @@ class GalactoseModel(MetabolicModel):
             ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
         ])
         
-    ##########################################################################
-    # Galactose cell model
-    ##########################################################################
-    def createCellCompartmentsDict(self):
-        comps = dict()
-        # hepatocyte compartments
-        for k in GalactoseModel.cell_range:
-            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', True, 'Vol_cell')
-        return comps
+
     
 
     def createModel(self):
@@ -301,7 +294,7 @@ class GalactoseModel(MetabolicModel):
     
     def createFlowReactions(self):
         flow = 'flow_sin * A_sin'     # [m3/s] volume flow
-        for data in GalactoseModel.external:
+        for data in TissueModel.external:
             sid = data[0]    
             # flow PP -> S01 
             createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), flow=flow)
@@ -314,7 +307,7 @@ class GalactoseModel(MetabolicModel):
             createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=flow);
     
     def createDiffusionReactions(self):        
-        for data in GalactoseModel.external:
+        for data in TissueModel.external:
             sid = data[0]    
             # [1] sinusoid diffusion
             Dx_sin = 'Dx_sin_{}'.format(sid)
@@ -343,23 +336,29 @@ class GalactoseModel(MetabolicModel):
     
     def createBoundaryConditions(self):
         print 'create boundary conditions'
+    
 
 
 ##########################################################################
 if __name__ == "__main__":
-    gal_model = GalactoseModel()
-    gal_model.createModel()
-    print gal_model.id
-   
-    writer = SBMLWriter()
-    sbml = writer.writeSBMLToString(gal_model.doc)
+    ###################
+    gm = TissueModel()
+    gm.Nc = 5
+    gm.version = 33
+    gm.createModel()
+    ###################
+    
+    print gm.id
+    
     print '*' * 20
+    writer = SBMLWriter()
+    sbml = writer.writeSBMLToString(gm.doc)
     print sbml
     print '*' * 20
     
     folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-    file = folder + gal_model.id + '.xml'
-    writer.writeSBMLToFile(gal_model.doc, file)
+    file = folder + gm.id + '.xml'
+    writer.writeSBMLToFile(gm.doc, file)
     
     # validate the model
     validator = SBMLValidator(ucheck=False)
@@ -377,66 +376,8 @@ if __name__ == "__main__":
     from sim.models import SBMLModel
     # TODO: problems if the model already exists
     
-    model = SBMLModel.create(gal_model.id, folder);
+    model = SBMLModel.create(gm.id, folder);
     model.save();
-##########################################################################
-'''    
-        cell = [
-            ('gal',             0.00012, 'mM'),
-            ('galM',            0.0,     'mM'),
-            ('h2oM',            0.0,     'mM'),
-            ('glc1p',           0.012,   'mM'),
-            ('glc6p',           0.12,    'mM'),
-            ('gal1p',           0.001,   'mM'),
-            ('udpglc',          0.34,    'mM'),
-            ('udpgal',          0.11,    'mM'),
-            ('galtol',          0.001,   'mM'),
-    
-            ('atp',              2.7,    'mM'),
-            ('adp',              1.2,    'mM'),
-            ('utp',              0.27,   'mM'),
-            ('udp',              0.09,   'mM'),
-            ('phos',             5.0,    'mM'),
-            ('ppi',              0.008,  'mM'),
-            ('nadp',             0.1,    'mM'),
-            ('nadph',            0.1,    'mM'),
-    ]
 
-    for data in cell:
-        for k in range(1, Nc+1):
-            sdict['H{:0>2d}__{}'.format(k, data[0])] = (names[data[0]]+' [H{:0>2d}]'.format(k), data[1], data[2])
-
-
-# Reactions
-
-# general definition
-%% [GLUT2_GAL] galactose transport (gal_dis <-> gal)
-%% [GLUT2_GALM] galactoseM transport (galM_dis <-> galM)
-
-%------------------------------------------------------------
-class GLUT2_GAL():
-    id = 'GLUT2_GAL'
-    name = 'galactose transport (gal_dis <-> gal)'
-    equation = 'gal_dis <-> gal'
-    unit = 'mole/s'
-    
-    parameters = [
-        (GLUT2_P, 1.0, 'mM')
-        (GLUT2_f, 0.5E6, '-')
-        (GLUT2_k_gal, 85.5, 'mM')
-    ]
-
-    # assignments / initial assignment
-    GLUT2_Vmax = GLUT2_f * scale * GLUT2_P/REF_P;  % [mole/s]
-    GLUT2_dm = (1 + (gal_dis+galM_dis)/GLUT2_k_gal + (gal+galM)/GLUT2_k_gal); % [-]
-
-    GLUT2_GAL_dis  = GLUT2_Vmax/(GLUT2_k_gal*Nf) * (gal_dis - gal*onevec)./GLUT2_dm;    % [mole/s]
-    GLUT2_GALM_dis = GLUT2_Vmax/(GLUT2_k_gal*Nf) * (galM_dis - galM*onevec)./GLUT2_dm;  % [mole/s]
-
-    GLUT2_GAL  = sum(GLUT2_GAL_dis);    % [mole/s]
-    GLUT2_GALM = sum(GLUT2_GALM_dis);   % [mole/s]
-
-
-'''
 
 

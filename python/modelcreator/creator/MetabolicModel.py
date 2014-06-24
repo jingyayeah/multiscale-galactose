@@ -7,10 +7,13 @@ import libsbml
 from libsbml import UNIT_KIND_DIMENSIONLESS, UnitKind_toString
 
 
-SBML_LEVEL = 3
-SBML_VERSION = 1
-  
+
 class MetabolicModel(object):
+    '''
+    Main functionality to create objects in the SBML.
+    '''
+    SBML_LEVEL = 3
+    SBML_VERSION = 1
   
     def _createUnitDefinition(self, uid, units):
         ''' Creates the defined unit definitions. '''

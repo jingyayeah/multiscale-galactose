@@ -1,5 +1,6 @@
 '''
-Definition of compartment and species names.
+Definition of ids and names for objects
+in the metabolic networks.
 
 Created on Jun 19, 2014
 @author: mkoenig
