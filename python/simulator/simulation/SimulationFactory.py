@@ -214,13 +214,14 @@ if __name__ == "__main__":
     if (0):
         makeGlucose()
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         # Create the normal case for 1 cell or all cells
         singleCell = False
         [task, samples] = makeMultiscaleGalactose(N=10, singleCell=singleCell)
     
         # Use the samples to create deficiencies
-        deficiencies = range(1,4)
+        # deficiencies = range(1,4)
+        deficiencies = range(1, 24)
         for d in deficiencies:
             sdict = task.integration.get_settings_dict()
             sdict['condition'] = 'GDEF_' + str(d)
@@ -233,8 +234,8 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (1):
-        makeMultipleIndicator(N=100)
+    if (0):
+        makeMultipleIndicator(N=900)
     #----------------------------------------------------------------------#
 
     

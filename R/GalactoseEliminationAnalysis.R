@@ -13,12 +13,12 @@ library(libSBML)
 library(matrixStats)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
-ma.settings$simulator <- 'ROADRUNNER_STEPS'
+ma.settings$simulator <- 'ROADRUNNER'
 
 ###########################################################################
 # load parameters
 ###########################################################################
-task <- 'T2'
+task <- 'T1'
 sname <- paste('2014-06-11_', task, sep='')
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
 t.approx <- seq(from=0, to=10000, by=10000)
@@ -34,7 +34,9 @@ plotParameterHistogramFull(pars)
 ###############################################################
 # preprocess data
 ###############################################################
-outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
+# outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
+
+outFile <- outfileFromParsFile(parsfile)
 load(outFile)
 
 ###############################################################
@@ -54,15 +56,13 @@ get_last_timepoint <- function(name){
   dims <- dim(data)
   res <- data[dims[1],]
 }
-
 c_in <- get_last_timepoint('PP__gal')
 c_out <- get_last_timepoint('PV__gal')
 
+parscl <- pars[pars$c_in>0.0, ]
+head(pars)
 
-FL <- pars$flow_sin # TODO: use correct volume flow
-
-parscl <- pars
-parscl$FL <- FL
+parscl$FL <- parscl$flow_sin
 parscl$c_in <- c_in
 parscl$c_out <- c_out
 parscl$R <- FL * (c_in - c_out)
@@ -70,18 +70,18 @@ parscl$ER <- (c_in - c_out)/c_in
 parscl$CL <- FL * (c_in - c_out)/c_in
 parscl$GE <- (c_in - c_out)
 names(parscl)
+summary(parscl)
 
-# This parameters have to be scaled to the total liver
-ptest <- parscl[which(parscl$deficiency==0),]
-head(pars)
-pars$flow_sin <- factor(pars$flow_sin)
-levels(pars$flow_sin)
-pars$flow_sin
-
-# Get the additional information for the parameters
-names(pars)
+plot(factor(c_in), c_in-c_out, xlim=c(0,6), ylim=c(0,6))
+points(factor(c_out), c_in-c_out, xlim=c(0,6), ylim=c(0,6), col="red")
+grid()
+library('ggplot2')
+qplot(flow_sin, c_out, data = , colour = clarity)
 
 
+
+
+ptest <- parscl
 # Created Figure
 par(mfrow=c(2,2))
   plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
@@ -89,6 +89,10 @@ par(mfrow=c(2,2))
   plot(ptest$FL, ptest$ER, xlab="sinusoidal blood flow [µm/sec]", ylab="Extraction Ratio (ER) [-]")
   plot(ptest$FL, ptest$CL, xlab="sinusoidal blood flow [µm/sec]", ylab="Clearance (CL) [µm/sec]") 
 par(mfrow=c(1,1))
+
+plot(ptest$CL)
+summary(ptest$CL)
+
 
 par(mfrow=c(1,2))
 plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose Elimination (GE) [mmol/l]")
@@ -105,7 +109,8 @@ plot(ptest$c_in, ptest$GE, xlab="periportal galactose [mmol/l]", ylab="Galactose
 # plot the ones connected which are similar
 
 
-install.packages('lattice')
+
+#install.packages('lattice')
 data <- list()
 data$x = ptest$c_in
 data$y = ptest$flow_sin

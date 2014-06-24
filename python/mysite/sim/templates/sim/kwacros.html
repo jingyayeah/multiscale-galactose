@@ -132,6 +132,7 @@
 {% kwacro core_header %}
 		<th>id</th>
 		<th>computer</th>
+		<th>ip</th>
 		<th>cpu</th>
 		<th>time</th>
 		<th>is active</th>
@@ -140,6 +141,7 @@
 {% kwacro core_content %}
 <td>{{core.id}}</td>
 			<td>{{core.computer}}</td>
+			<td>{{core.ip}}</td>
 			<td>{{core.cpu}}</td>
 			<td>{{core.time}}</td>
 			<td><span class="{% if core.active %}GOOD{% else %}BAD{% endif %}">{{core.active}}</span></td>

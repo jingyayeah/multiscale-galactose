@@ -116,7 +116,7 @@ def integrate_roadrunner(sims):
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
     sel += rr.model.getReactionIds()
     # For testing store the parameters (make sure that reset is working)
-    sel += rr.model.getGlobalParameterIds()
+    # sel += rr.model.getGlobalParameterIds()
             
     rr.selections = sel
     header = ",".join(sel)
