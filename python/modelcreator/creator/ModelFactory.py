@@ -24,7 +24,7 @@ from creator.SBMLValidator import SBMLValidator
 
 
 class GalactoseModel(MetabolicModel):
-    version = 31
+    version = 32
     Nc = 5
     cell_range = range(1, Nc+1)
     
@@ -222,9 +222,20 @@ class GalactoseModel(MetabolicModel):
             ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
             ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
         ])
+        
     ##########################################################################
+    # Galactose cell model
+    ##########################################################################
+    def createCellCompartmentsDict(self):
+        comps = dict()
+        # hepatocyte compartments
+        for k in GalactoseModel.cell_range:
+            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', True, 'Vol_cell')
+        return comps
+    
 
     def createModel(self):
+        # sinusoidal unit model
         self.createUnits()
         self.createParameters()
         self.createInitialAssignments()
@@ -232,6 +243,9 @@ class GalactoseModel(MetabolicModel):
         self.createExternalSpecies()
         self.createFlowReactions()
         self.createDiffusionReactions()
+        # cell model
+        self.createCellCompartments()
+        
 
     def createUnits(self):
         for key, value in self.units.iteritems():
@@ -240,19 +254,12 @@ class GalactoseModel(MetabolicModel):
     
     def createExternalCompartments(self):
         comps = self.createExternalCompartmentsDict()
+        self._createCompartments(comps)
         
-        for cid in sorted(comps):
-            # comps['PV'] = ('[PV] perivenious', 3, 'm3', True, 'value)
-            data = comps[cid]
-            name = data[0]
-            dims = data[1]
-            units = data[2]
-            constant = data[3]
-            value = data[4]
-            self._createCompartment(cid, name, dims, units, constant, value)
-    
     def createCellCompartments(self):
-        pass
+        comps = self.createCellCompartmentsDict()
+        self._createCompartments(comps)
+    
         
     def createExternalSpecies(self):
         sdict = self.createExternalSpeciesDict()

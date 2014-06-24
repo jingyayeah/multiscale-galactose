@@ -76,7 +76,18 @@ class MetabolicModel(object):
         astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
         assignment.setMath(astnode);   
     
-               
+    
+    def _createCompartments(self, comps):
+        for cid in sorted(comps):
+            # comps['PV'] = ('[PV] perivenious', 3, 'm3', True, 'value)
+            data = comps[cid]
+            name = data[0]
+            dims = data[1]
+            units = data[2]
+            constant = data[3]
+            value = data[4]
+            self._createCompartment(cid, name, dims, units, constant, value)
+           
     def _createCompartment(self, cid, name, dims, units, constant, value):
         c = self.model.createCompartment()
         c.setId(cid)
