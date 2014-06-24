@@ -98,15 +98,28 @@ g <- ggplot(df, aes(c_in, c_in-c_out))
 summary(g)
 
 g1 <- g + geom_abline(intercept=0, slope=1, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~task) + xlab("Galactose (periportal) [mM]") + ylab("Galactose (periportal-perivenious) [mM]") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
-plot(g1)
+plot(g1 + scale_color_brewer())
 svg("/home/mkoenig/tmp/test.svg", width=8, height=4)
 plot(g1)
 dev.off()
+
+ppi <- 150
+# Calculate the height and width (in pixels) for a 4x4-inch image at 300 ppi
+png("/home/mkoenig/tmp/test.png", width=8*ppi, height=4*ppi, res=ppi)
+plot(g1)
+dev.off()
+
+
 
 g <- ggplot(df, aes(c_in, ER))
 g1 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~task) + xlab("Galactose (periportal) [mM]") + ylab("Elimination Ratio (ER)") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
 plot(g1)
 svg("/home/mkoenig/tmp/test2.svg", width=8, height=4)
+plot(g1)
+dev.off()
+ppi <- 150
+# Calculate the height and width (in pixels) for a 4x4-inch image at 300 ppi
+png("/home/mkoenig/tmp/test2.png", width=8*ppi, height=4*ppi, res=ppi)
 plot(g1)
 dev.off()
 

@@ -14,8 +14,8 @@ library(matrixStats)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-ma.settings$simulator <- 'ROADRUNNER'
-tasks = seq(2,23)
+ma.settings$simulator <- 'ROADRUNNER_STEP'
+tasks = seq(9,23)
 date = '2014-06-11'
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
 t.approx <- seq(from=0, to=10000, by=10000)
@@ -36,7 +36,7 @@ for (k in tasks){
   names(pars)
   plotParameterHistogramFull(pars)     
   
-  # outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
+  outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
 }
 ###############################################################
 # create figures
