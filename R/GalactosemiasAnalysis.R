@@ -20,6 +20,9 @@ date = '2014-06-11'
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
 t.approx <- seq(from=0, to=10000, by=10000)
 
+###############################################################
+# preprocess data
+###############################################################
 for (k in tasks){
   task <- paste('T', k, sep='')
   sname <- paste(date, '_', task, sep='')
@@ -33,8 +36,20 @@ for (k in tasks){
   names(pars)
   plotParameterHistogramFull(pars)     
   
-  ###############################################################
-  # preprocess data
-  ###############################################################
-  outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
+  # outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
+}
+###############################################################
+# create figures
+###############################################################
+
+for (k in seq(1,2)){
+  task <- paste('T', k, sep='')
+  sname <- paste(date, '_', task, sep='')
+  print(sname)
+  ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, task)
+  parsfile <- file.path(ma.settings$dir.results, sname, 
+                        paste(task, '_', modelId, '_parameters.csv', sep=""))
+  outfile <- outfileFromParsFile(parsfile)
+  load(outfile)
+
 }

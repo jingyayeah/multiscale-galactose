@@ -24,9 +24,18 @@ qplot(x = weight, y = health, data = hw, size = height, colour = I("steelblue"))
 # plot with linear regression and confidence intervals
 qplot(x = weight, y = health, data = hw) + geom_smooth(method = lm)
 
+# plot with residuals and other information
 fit <- lm(health ~ weight, data = hw)
 hii <- hatvalues(fit)  #leverages
 res <- fit$res  #residuals
 
 qplot(x = weight, y = health, data = hw, size = hii, colour = abs(res)) + geom_abline(intercept = fit$coeff[1], 
                                                                                       slope = fit$coeff[2])  #regression line
+
+# we can store layers as variables to reuse them later:
+# We can reuse the same plot object, modifying only the data
+p1 <- ggplot(diamonds, aes(x = carat, y = price)) + geom_point()
+p1
+
+diamonds1 <- transform(diamonds, carat = log(carat), price = log(price))
+p1 %+% diamonds1  #update the data
