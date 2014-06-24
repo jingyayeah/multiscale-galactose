@@ -198,7 +198,8 @@ class GalactoseModel(MetabolicModel):
     # Diffusion
     pars.extend(
             # diffusion constants [m^2/s]
-            [('DrbcM',  0.0E-12, 'm2_per_s', 'True'),
+            [
+            ('DrbcM',  0.0E-12, 'm2_per_s', 'True'),
             ('Dsuc',   720E-12, 'm2_per_s', 'True'),
             ('Dalb',    90E-12, 'm2_per_s', 'True'),
             ('Dgal',   910E-12, 'm2_per_s', 'True'),
@@ -358,7 +359,6 @@ if __name__ == "__main__":
     val_string = validator.validate(file)
    
     # make some example simulations
-    
     
     
     # store in database

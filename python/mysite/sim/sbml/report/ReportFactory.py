@@ -38,11 +38,16 @@ def report(request, model_pk):
         print 'Model could not be read.'
         raise Http404
     
+    # Create the value_dictionary
+    values = createValueDictionary(model)
+    
+    
     # Render the template with the data
     template = loader.get_template('report/SBMLReport.html')
     context = RequestContext(request, {
         'sbml_model' : sbml_model,
         'model': model,
+        'values': values, 
         'units' : model.getListOfUnitDefinitions(),
         'units_size' : model.getListOfUnitDefinitions().size(),
         'compartments' : model.getListOfCompartments(),
@@ -65,4 +70,34 @@ def report(request, model_pk):
         'events_size' : model.getListOfEvents().size(),
     })
     return HttpResponse(template.render(context))
+
+
+def createValueDictionary(model):
+    values = dict()
+    # parse all the initial assignments
+    for assignment in model.getListOfInitialAssignments():
+        print assignment
+
+        sid = assignment.getId()
+        math = ' = ' + libsbml.formulaToString(assignment.getMath())
+        values[sid] = math
+    
+    # parse all the rules
+    # TODO
+    return values
+
+if __name__ == "__main__":
+    import libsbml
+    model_pk = 17 
+    sbml_model = get_object_or_404(SBMLModel, pk=model_pk)
+    sbml_path = sbml_model.file.path
+    doc = libsbml.readSBMLFromFile(str(sbml_path))
+    model = doc.getModel()
+    if not model:
+        print 'Model could not be read.'
+        raise Http404
+    
+    createValueDictionary(model)
+    
+
 

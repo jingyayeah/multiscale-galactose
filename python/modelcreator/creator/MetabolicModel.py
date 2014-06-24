@@ -63,9 +63,9 @@ class MetabolicModel(object):
         p = self.model.createParameter()
         p.setId(pid)
         p.setUnits(unit)
-        if name:
+        if name != None:
             p.setName(name)
-        if value:
+        if value != None:
             p.setValue(value)
         p.setConstant(constant)
         return p

@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load SBML_filters %}
+{% load Lookup_filters %}
 {% load kwacros %}
 
 
@@ -85,7 +86,8 @@
 {% kwacro compartment_content %}
 	<td>{% usekwacro id %}</td>
 	<td>{% usekwacro name %}</td>
-	<td>{{item.getSize}}</td>
+	<td>{% if item.isSetSize %}<b>{{item.getSize}}</b>{% else %}
+	                              {{values|get_item:item.getId}}{% endif %}</td>
 	<td class="{% if item.getConstant %}TRUE{% else %}FALSE{% endif %}">{{item.getConstant}}</td>	
 	<td>{{item.getSpatialDimensions}}</td>
 	<td>{{item.getUnits}}</td>
@@ -136,7 +138,9 @@
 {% kwacro parameter_content %}
 	<td>{% usekwacro id %}</td>
 	<td>{% usekwacro name %}</td>
-    {% if not item.isSetValue %} <td class="FALSE">{% else %}<td>{% endif %}{{item.getValue}}</td>
+	<td>{% if item.isSetValue %}<b>{{item.getValue}}</b>{% else %}
+								   {{values|get_item:item.getId}}{% endif %}</td>
+	
 	<td>{{item.getUnits}}</td>
 	<td class="{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}">{{item.getConstant}}</td>
 	<td>{% usekwacro sbo_term %}</td>
