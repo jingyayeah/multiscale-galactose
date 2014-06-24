@@ -61,7 +61,7 @@ createClearanceDataFrame <- function(task, pars, parsfile){
 ###########################################################################
 date = '2014-06-11'
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
-tasks <- seq(1,2)
+tasks <- c(1,4)
 
 clearance <- list()
 for (k in tasks){
@@ -84,10 +84,9 @@ head(clearance[[1]])
 df <- rbind.fill(clearance)
 summary(df)
 df$task <- factor(df$task,
-                  levels = c('T1','T2'),
-                  labels = c("normal", "GALK Deficiency (H44Y)"))
+                  levels = c('T1','T2','T3'),
+                  labels = c("normal", "GALK Deficiency (H44Y)", "GALK Deficiency (?)"))
 summary(df)
-
 
 
 library('ggplot2')
@@ -98,7 +97,8 @@ g <- ggplot(df, aes(c_in, c_in-c_out))
 summary(g)
 
 g1 <- g + geom_abline(intercept=0, slope=1, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~task) + xlab("Galactose (periportal) [mM]") + ylab("Galactose (periportal-perivenious) [mM]") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
-plot(g1 + scale_color_brewer())
+plot(g1)
+
 svg("/home/mkoenig/tmp/test.svg", width=8, height=4)
 plot(g1)
 dev.off()
@@ -108,7 +108,6 @@ ppi <- 150
 png("/home/mkoenig/tmp/test.png", width=8*ppi, height=4*ppi, res=ppi)
 plot(g1)
 dev.off()
-
 
 
 g <- ggplot(df, aes(c_in, ER))
