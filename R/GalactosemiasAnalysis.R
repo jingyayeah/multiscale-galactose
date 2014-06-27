@@ -14,11 +14,11 @@ library(matrixStats)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-ma.settings$simulator <- 'ROADRUNNER_STEP'
-tasks = seq(9,23)
-date = '2014-06-11'
+ma.settings$simulator <- 'ROADRUNNER'
+tasks = seq(5,6)
+date = '2014-06-23'
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
-t.approx <- seq(from=0, to=10000, by=10000)
+t.approx <- seq(from=0, to=10000, by=10)
 
 ###############################################################
 # preprocess data

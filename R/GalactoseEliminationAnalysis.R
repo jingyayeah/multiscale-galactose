@@ -56,13 +56,13 @@ createClearanceDataFrame <- function(task, pars, parsfile){
 }
 
 ###########################################################################
-# Create the clearance data
-# - preprocessing has to be finished at this timepoint
+# Create the clearance figures
 ###########################################################################
 date = '2014-06-11'
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
-tasks <- c(1,4)
+tasks <- c(1)
 
+# combine the clearance data
 clearance <- list()
 for (k in tasks){
   task <- paste('T', k, sep='')
@@ -76,28 +76,46 @@ for (k in tasks){
   clearance[[task]] <- df
 }
 
-install.packages('plyr')
+# Merge the data frames for the galactosemias
 library('plyr')
-
-head(clearance[[1]])
-# merge the 2 data frames 
 df <- rbind.fill(clearance)
-summary(df)
-df$task <- factor(df$task,
-                  levels = c('T1','T2','T3'),
-                  labels = c("normal", "GALK Deficiency (H44Y)", "GALK Deficiency (?)"))
-summary(df)
-
+def_names = c("[0] normal",
+              "[1] GALK Deficiency (H44Y)",
+              "[2] GALK Deficiency (R68C)",
+              "[3] GALK Deficiency (A198V)",
+              "[4] GALK Deficiency (G346S)",
+              "[5] GALK Deficiency (G347S)",
+              "[6] GALK Deficiency (G349S)",
+              "[7] GALK Deficiency (E43A)",
+              "[8] GALK Deficiency (E43G)",
+              "[9] GALT Deficiency (R201C)",
+              "[10] GALT Deficiency (E220K)",
+              "[11] GALT Deficiency (R223S)",
+              "[12] GALT Deficiency (I278N)",
+              "[13] GALT Deficiency (L289F)",
+              "[14] GALT Deficiency (E291V)",
+              "[15] GALE Deficiency (N34S)",
+              "[16] GALE Deficiency (G90E)",
+              "[17] GALE Deficiency (V94M)",
+              "[18] GALE Deficiency (D103G)",
+              "[19] GALE Deficiency (L183P)",
+              "[20] GALE Deficiency (K257R)",
+              "[21] GALE Deficiency (L313M)",
+              "[22] GALE Deficiency (G319E)",
+              "[23] GALE Deficiency (R335H)")
+df$deficiency <- factor(df$deficiency,
+                  levels = seq(0,23),
+                  labels = def_names)
 
 library('ggplot2')
-qplot(c_in, c_in-c_out, data=df, color=flow_sin, geom=c("point", "smooth"), facets=.~task, 
-      xlab='Galactose (periportal) [mM]', ylab='Galactose (periportal-perivenious) [mM]')
-# plot the line
-g <- ggplot(df, aes(c_in, c_in-c_out))
-summary(g)
 
-g1 <- g + geom_abline(intercept=0, slope=1, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~task) + xlab("Galactose (periportal) [mM]") + ylab("Galactose (periportal-perivenious) [mM]") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
+g <- ggplot(df, aes(c_in, c_in-c_out))
+g1 <- g + geom_abline(intercept=0, slope=1, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (periportal) [mM]") + ylab("Galactose (periportal-perivenious) [mM]") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
 plot(g1)
+
+ggplot(df, aes(x=interaction(c_in, c_in), y=c_in-c_out)) + geom_boxplot()
+g2 <- g + geom_boxplot()
+plot(g2)
 
 svg("/home/mkoenig/tmp/test.svg", width=8, height=4)
 plot(g1)
