@@ -56,7 +56,7 @@ def getSinusoidSpeciesName(name, k):
 def getDisseSpeciesName(name, k):
     return '[{}] {}'.format(getDisseId(k), name)
 def getHepatocyteSpeciesName(name, k):
-    return createLocalizedId(getHepatocyteId(k), name)
+    return '[{}] {}'.format(getHepatocyteId(k), name)
 
 # Reactions
 def createFlowId(c_from, c_to, sid):

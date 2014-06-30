@@ -52,10 +52,10 @@ class GalactoseModel(MetabolicModel):
     
     rules = [
             # id, rule, unit
-            ('c__nadp_tot', 'c__nadp + c__nadph', 'mole_per_m3'),
-            ('c__adp_tot', 'c__atp + c__adp', 'mole_per_m3'),
-            ('c__udp_tot', 'c__utp + c__udp + c__udpglc + c__udpgal', 'mole_per_m3'),
-            ('c__phos_tot', '3*c__atp + 2*c__adp + 3*c__utp + 2*c__udp + c__phos + 2*c__ppi + c__glc1p + c__glc6p + c__gal1p + 2* c__udpglc + 2*c__udpgal', 'mole_per_m3'),
+            ('c__nadp_tot', 'c__nadp + c__nadph', 'mM'),
+            ('c__adp_tot', 'c__atp + c__adp', 'mM'),
+            ('c__udp_tot', 'c__utp + c__udp + c__udpglc + c__udpgal', 'mM'),
+            ('c__phos_tot', '3*c__atp + 2*c__adp + 3*c__utp + 2*c__udp + c__phos + 2*c__ppi + c__glc1p + c__glc6p + c__gal1p + 2* c__udpglc + 2*c__udpgal', 'mM'),
     ]
     
     # collect the reactions

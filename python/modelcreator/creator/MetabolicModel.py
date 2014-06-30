@@ -71,11 +71,7 @@ class MetabolicModel(object):
         p.setConstant(constant)
         return p
     
-    def _createInitialAssignment(self, sid, formula):
-        assignment = self.model.createInitialAssignment();
-        assignment.setSymbol(sid);
-        astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
-        assignment.setMath(astnode);   
+
     
     
     def _createCompartments(self, comps):
@@ -102,7 +98,17 @@ class MetabolicModel(object):
         else:
             c.setValue(value)
     
-    def _createSpecies(self, sid, name, init, units, compartment):
+    def _createSpecies(self, sdict):
+        for sid in sorted(sdict):
+            # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
+            data = sdict[sid]
+            name = data[0]
+            init = data[1]
+            units = data[2]
+            compartment = data[3]
+            self._createSpecie(sid, name, init, units, compartment)
+    
+    def _createSpecie(self, sid, name, init, units, compartment):
         s = self.model.createSpecies()
         s.setId(sid)
         if name:
@@ -115,3 +121,36 @@ class MetabolicModel(object):
         s.setHasOnlySubstanceUnits(False);
         s.setConstant(False)
         s.setBoundaryCondition(False)
+        
+    def _createInitialAssignments(self, assignments):
+        for data in assignments:
+            # id, assignment, unit
+            pid = data[0]
+            unit = self.getUnitString(data[2])
+            # Create parameter if not existing
+            if not self.model.getParameter(pid):
+                self._createParameter(pid, unit, name=None, value=None, constant=True)
+            self._createInitialAssignment(sid=pid, formula=data[1])
+    
+    def _createInitialAssignment(self, sid, formula):
+        assignment = self.model.createInitialAssignment();
+        assignment.setSymbol(sid);
+        astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
+        assignment.setMath(astnode);   
+         
+    def _createAssignmentRules(self, rules):
+        for data in rules:
+            # id, rule, unit
+            pid = data[0]
+            unit = self.getUnitString(data[2])
+            # Create parameter if not existing
+            if not self.model.getParameter(pid):
+                self._createParameter(pid, unit, name=None, value=None, constant=False)
+            self._createAssignmentRule(sid=pid, formula=data[1])
+            
+    def _createAssignmentRule(self, sid, formula):
+        rule = self.model.createAssignmentRule();
+        rule.setVariable(sid);
+        astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
+        rule.setMath(astnode);   
+    

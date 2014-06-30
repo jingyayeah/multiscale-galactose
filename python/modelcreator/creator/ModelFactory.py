@@ -21,6 +21,7 @@ from tools.Naming import *
 from tools.ReactionFactory import *
 from MetabolicModel import MetabolicModel
 from creator.sbml.SBMLValidator import SBMLValidator
+from numpy.core.defchararray import startswith
 
 
 class TissueModel(MetabolicModel):
@@ -132,7 +133,7 @@ class TissueModel(MetabolicModel):
     ##########################################################################
     # InitialAssignments
     ##########################################################################
-    initialAssignments = [
+    assignments = [
             # id, assignment, unit
             ('x_cell', 'L/Nc', 'm'),
             ('x_sin',  "x_cell/Nf", "m"),
@@ -152,6 +153,10 @@ class TissueModel(MetabolicModel):
             ("m_liv", "rho_liv * Vol_liv", "kg"),
             ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
     ]
+    ##########################################################################
+    # AssignmentRules
+    ##########################################################################
+    rules = []
 
     #########################################################################
     # External Compartments
@@ -207,6 +212,21 @@ class TissueModel(MetabolicModel):
             sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId())    
         return sdict
     
+    def createCellSpeciesDict(self):
+        sdict = dict()
+        for data in self.cellModel.species:     
+            full_id, init, units = data[0], data[1], data[2]
+            tokens = full_id.split('__')
+            sid = tokens[1]
+            name = TissueModel.names[sid]
+            for k in self.cell_range():
+                if full_id.startswith('e__'):
+                    # should already be created 
+                    pass
+                elif full_id.startswith('c__'):
+                    sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units, getHepatocyteId(k))    
+        return sdict
+    
     ##########################################################################
     # External Transport
     ##########################################################################
@@ -232,14 +252,12 @@ class TissueModel(MetabolicModel):
     for data in external:
         sid = data[0]
         # id, assignment, unit
-        initialAssignments.extend([
+        assignments.extend([
             ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
             ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
             ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
         ])
         
-
-    
 
     def createModel(self):
         # sinusoidal unit model
@@ -253,8 +271,8 @@ class TissueModel(MetabolicModel):
         
         # cell model
         self.createCellCompartments()
-        # self.createCellSpecies()
-        # self.createCellRules()
+        self.createCellSpecies()
+        self.createCellAssignmentRules()
         # self.createCellReactions()
         # self.createCellEvents()
         
@@ -272,17 +290,13 @@ class TissueModel(MetabolicModel):
         comps = self.createCellCompartmentsDict()
         self._createCompartments(comps)
     
-        
     def createExternalSpecies(self):
         sdict = self.createExternalSpeciesDict()
-        for sid in sorted(sdict):
-            # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
-            data = sdict[sid]
-            name = data[0]
-            init = data[1]
-            units = data[2]
-            compartment = data[3]
-            self._createSpecies(sid, name, init, units, compartment)
+        self._createSpecies(sdict)
+            
+    def createCellSpecies(self):
+        sdict = self.createCellSpeciesDict()
+        self._createSpecies(sdict)
     
     def createParameters(self):
         for pdata in (self.pars):
@@ -295,21 +309,24 @@ class TissueModel(MetabolicModel):
 
         
     def createInitialAssignments(self):
-        for data in self.initialAssignments:
-            # id, assignment, unit
-            pid = data[0]
-            unit = self.getUnitString(data[2])
-            # Create parameter if not existing
-            if not self.model.getParameter(pid):
-                self._createParameter(pid, unit, name=None, value=None, constant=True)
-            self._createInitialAssignment(sid=pid, formula=data[1])
-
+        self._createInitialAssignments(self.assignments)
          
-    def createAssignmentRule(self):
-        # AssignmentRule rule = model.createAssignmentRule();
-        # rule.setMath(ASTNode.parseFormula(formula));
-        # rule.setVariable(id);
-        pass  
+    def createAssignmentRules(self):
+        self._createAssignmentRules(self.rules)
+
+    def createCellAssignmentRules(self):
+        rules = []
+        for rule in self.cellModel.rules:
+            for k in self.cell_range():
+                r_new = rule[:]
+                # 'make the replacements'
+                e_comp = getDisseId(k) + '__'
+                c_comp = getHepatocyteId(k) + '__'
+                r_new = [item.replace('c__', c_comp) for item in r_new]
+                r_new = [item.replace('e__', e_comp) for item in r_new]
+                rules.append(r_new)
+        self._createAssignmentRules(rules)
+
     
     def createFlowReactions(self):
         flow = 'flow_sin * A_sin'     # [m3/s] volume flow
@@ -363,7 +380,7 @@ if __name__ == "__main__":
     cm = GalactoseModel()
     
     TissueModel.Nc = 5
-    TissueModel.version = 34
+    TissueModel.version = 38
     gm = TissueModel(cm)
     gm.createModel()
     ###################
@@ -398,6 +415,3 @@ if __name__ == "__main__":
     
     model = SBMLModel.create(gm.id, folder);
     model.save();
-
-
-
