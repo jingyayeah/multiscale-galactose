@@ -58,6 +58,8 @@ createClearanceDataFrame <- function(task, pars, parsfile){
 ###########################################################################
 # Create the clearance figures
 ###########################################################################
+# The preprocessing of the data has to be already finished at this point.
+# Here only the combined graphs are generated.
 date = '2014-06-11'
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
 tasks <- c(1)
@@ -77,6 +79,12 @@ for (k in tasks){
 }
 
 # Merge the data frames for the galactosemias
+# and create the factors to plot depending on the galactosemia class
+# [0] normal
+# [1-8] GALK D
+# [9-14] GALT D
+# [15-23] GALE D
+#def_type <- c('normal', rep('GALK DEF')
 library('plyr')
 df <- rbind.fill(clearance)
 def_names = c("[0] normal",
@@ -106,6 +114,8 @@ def_names = c("[0] normal",
 df$deficiency <- factor(df$deficiency,
                   levels = seq(0,23),
                   labels = def_names)
+# bind the def types to the dataframe 
+df$def_type <- factor(
 
 library('ggplot2')
 
