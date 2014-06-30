@@ -74,21 +74,22 @@ def report(request, model_pk):
 
 def createValueDictionary(model):
     values = dict()
+    
     # parse all the initial assignments
     for assignment in model.getListOfInitialAssignments():
-        print assignment
-
         sid = assignment.getId()
         math = ' = ' + libsbml.formulaToString(assignment.getMath())
         values[sid] = math
-    
-    # parse all the rules
-    # TODO
+    # rules
+    for rule in model.getListOfRules():
+        sid = rule.getVariable()
+        math = ' = ' + libsbml.formulaToString(rule.getMath())
+        values[sid] = math
     return values
 
 if __name__ == "__main__":
     import libsbml
-    model_pk = 17 
+    model_pk = 24 
     sbml_model = get_object_or_404(SBMLModel, pk=model_pk)
     sbml_path = sbml_model.file.path
     doc = libsbml.readSBMLFromFile(str(sbml_path))
@@ -98,6 +99,7 @@ if __name__ == "__main__":
         raise Http404
     
     createValueDictionary(model)
-    
 
+    
+    
 
