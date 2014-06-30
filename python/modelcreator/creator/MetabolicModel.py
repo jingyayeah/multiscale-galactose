@@ -19,10 +19,8 @@ class MetabolicModel(object):
         ''' Creates the defined unit definitions. '''
         unitdef = self.model.createUnitDefinition()
         unitdef.setId(uid)
-        print 'uid:', uid
         for data in units:
             kind = data[0]
-            print 'kind', kind
             exponent = data[1]
             self._createUnit(unitdef, kind, exponent)
              

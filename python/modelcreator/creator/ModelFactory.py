@@ -27,11 +27,15 @@ class TissueModel(MetabolicModel):
     Nc = None
     version = None
         
-    def __init__(self):
+    def __init__(self, cellModel):
+        print '*'*40
+        print '* Create TissueModel'
+        print '*'*40
         self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, TissueModel.Nc)  
         self.doc = SBMLDocument(MetabolicModel.SBML_LEVEL, MetabolicModel.SBML_VERSION)
         self.model = self.doc.createModel(self.id)
         self.model.setName(self.id)
+        self.cellModel = cellModel
     
     def cell_range(self):
         return range(1, TissueModel.Nc+1)
@@ -161,10 +165,20 @@ class TissueModel(MetabolicModel):
         for k in self.cell_range():
             comps[getSinusoidId(k)] = (getSinusoidName(k), 3, 'm3', True, 'Vol_sin')
         # disse
-        for k in self.cell_range:
+        for k in self.cell_range():
             comps[getDisseId(k)] = (getDisseName(k), 3, 'm3', True, 'Vol_dis')
         # perivenious
         comps[getPVId()] = (getPVName(), 3, 'm3', True, 'Vol_pv')
+        return comps
+
+    ##########################################################################
+    # Cell compartments 
+    ##########################################################################
+    def createCellCompartmentsDict(self):
+        comps = dict()
+        # hepatocyte compartments
+        for k in self.cell_range():
+            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', True, 'Vol_cell')
         return comps
 
     ##########################################################################
@@ -236,8 +250,13 @@ class TissueModel(MetabolicModel):
         self.createExternalSpecies()
         self.createFlowReactions()
         self.createDiffusionReactions()
+        
         # cell model
         self.createCellCompartments()
+        # self.createCellSpecies()
+        # self.createCellRules()
+        # self.createCellReactions()
+        # self.createCellEvents()
         
 
     def createUnits(self):
@@ -337,14 +356,15 @@ class TissueModel(MetabolicModel):
     def createBoundaryConditions(self):
         print 'create boundary conditions'
     
-
-
 ##########################################################################
 if __name__ == "__main__":
     ###################
-    gm = TissueModel()
-    gm.Nc = 5
-    gm.version = 33
+    from CellModel import GalactoseModel
+    cm = GalactoseModel()
+    
+    TissueModel.Nc = 5
+    TissueModel.version = 34
+    gm = TissueModel(cm)
     gm.createModel()
     ###################
     
