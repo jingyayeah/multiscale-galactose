@@ -297,7 +297,7 @@ class TissueModel(MetabolicModel):
     def createCellSpecies(self):
         sdict = self.createCellSpeciesDict()
         self._createSpecies(sdict)
-    
+   
     def createParameters(self):
         for pdata in (self.pars):
             # id, value, unit, constant
@@ -327,6 +327,18 @@ class TissueModel(MetabolicModel):
                 rules.append(r_new)
         self._createAssignmentRules(rules)
 
+    def createCellReactions(self):
+        for r in self.cellModel.reactions:
+            for k in self.cell_range():
+                # create the localiced reactions
+                
+                # 'make the replacements'
+                e_comp = getDisseId(k) + '__'
+                c_comp = getHepatocyteId(k) + '__'
+                r_new = [item.replace('c__', c_comp) for item in r_new]
+                r_new = [item.replace('e__', e_comp) for item in r_new]
+    
+    
     
     def createFlowReactions(self):
         flow = 'flow_sin * A_sin'     # [m3/s] volume flow

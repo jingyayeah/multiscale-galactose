@@ -5,12 +5,15 @@ Created on Jun 19, 2014
 '''
 import libsbml
 from Naming import *
+from Reaction import Reaction, Equation
 
 ########################################################
-class IMP(object):
-    id = 'c__IMP'
+
+
+class IMP(Reaction):
+    rid = 'c__IMP'
     name = 'Inositol monophosphatase [c__]'
-    equation = 'c__gal1p -> c__gal + c__phos'
+    equation = 'c__gal1p => c__gal + c__phos'
     pars = [
             ('IMP_f', 0.05, '-'),
             ('IMP_k_gal1p', 0.35, 'mM'),
@@ -22,7 +25,7 @@ class IMP(object):
     formula = ('c__IMP', 'c__IMP_Vmax/IMP_k_gal1p * c__gal1p/(1 + c__gal1p/IMP_k_gal1p)', 'mole_per_s')
     
 class H2OTM(object):
-    id = 'c__H2OM'
+    rid = 'c__H2OM'
     name = 'H2O M transport [c__]'
     equation = 'e__h2oM <-> c__h2oM'
     pars = [
@@ -34,6 +37,7 @@ class H2OTM(object):
     ]
     formula = ('c__H2OM', 'c__H2OT_Vmax/H2OT_k/Nf * (e__h2oM - c__h2oM)', 'mole_per_s')
     
+
  
 ########################################################
 
