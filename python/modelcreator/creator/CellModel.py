@@ -7,8 +7,8 @@ As well as species.
 Created on Jun 24, 2014
 @author: mkoenig
 '''
-
 from creator.processes.GalactoseReactions import *
+
 class GalactoseModel(object):
     species = [
             # id, value, unit
@@ -51,8 +51,6 @@ class GalactoseModel(object):
             ('c__udp_tot', 'c__utp + c__udp + c__udpglc + c__udpgal', 'mM'),
             ('c__phos_tot', '3*c__atp + 2*c__adp + 3*c__utp + 2*c__udp + c__phos + 2*c__ppi + c__glc1p + c__glc6p + c__gal1p + 2* c__udpglc + 2*c__udpgal', 'mM'),
     ]
-    
-    # collect the reactions
     reactions = (GALK, GALKM,
                  IMP, 
                  ATPS, 
@@ -60,8 +58,12 @@ class GalactoseModel(object):
                  NADPR, 
                  H2OTM)
     
+    # metabolic deficiencies
     def_events = {
-        0 : {'GALK_kcat':8.7, 'GALK_k_gal':0.97, 'GALK_k_atp':0.034},  
+        0 : {'GALK_kcat':8.7, 'GALK_k_gal':0.97, 'GALK_k_atp':0.034,
+             'GALT_vm':  804,  'GALT_k_gal1p':1.25, 'GALT_k_udpglc':0.95,
+             'GALE_kcat': 36,  'GALE_k_udpglc':0.069
+             },  
         1 : {'GALK_kcat':2.0, 'GALK_k_gal':7.7, 'GALK_k_atp':0.130},  
         2 : {'GALK_kcat':3.9, 'GALK_k_gal':0.43, 'GALK_k_atp':0.110}, 
         3 : {'GALK_kcat':5.9, 'GALK_k_gal':0.66, 'GALK_k_atp':0.026},  
@@ -69,6 +71,21 @@ class GalactoseModel(object):
         5 : {'GALK_kcat':1.1, 'GALK_k_gal':13.0, 'GALK_k_atp':0.089},  
         6 : {'GALK_kcat':1.8, 'GALK_k_gal':1.70, 'GALK_k_atp':0.039},  
         7 : {'GALK_kcat':6.7, 'GALK_k_gal':1.90, 'GALK_k_atp':0.035},  
-        8 : {'GALK_kcat':0.9, 'GALK_k_gal':0.14, 'GALK_k_atp':0.0039},  
-        }
+        8 : {'GALK_kcat':0.9, 'GALK_k_gal':0.14, 'GALK_k_atp':0.0039}, 
+        9 : {'GALT_vm':  396,  'GALT_k_gal1p':1.89, 'GALT_k_udpglc':0.58},
+       10 : {'GALT_vm':  253,  'GALT_k_gal1p':2.34, 'GALT_k_udpglc':0.69},
+       11 : {'GALT_vm':  297,  'GALT_k_gal1p':1.12, 'GALT_k_udpglc':0.76},
+       12 : {'GALT_vm':  45,  'GALT_k_gal1p':1.98, 'GALT_k_udpglc':1.23},
+       13 : {'GALT_vm':  306,  'GALT_k_gal1p':2.14, 'GALT_k_udpglc':0.48},
+       14 : {'GALT_vm':  385,  'GALT_k_gal1p':2.68, 'GALT_k_udpglc':0.95}, 
+       15 : {'GALE_kcat': 32,  'GALE_k_udpglc':0.082}, 
+       16 : {'GALE_kcat': 0.046,  'GALE_k_udpglc':0.093},
+       17 : {'GALE_kcat': 1.1,  'GALE_k_udpglc':0.160},
+       18 : {'GALE_kcat': 5.0,  'GALE_k_udpglc':0.140},
+       19 : {'GALE_kcat': 11,  'GALE_k_udpglc':0.097},
+       20 : {'GALE_kcat': 5.1,  'GALE_k_udpglc':0.066},
+       21 : {'GALE_kcat': 5.8,  'GALE_k_udpglc':0.035},
+       22 : {'GALE_kcat': 30,  'GALE_k_udpglc':0.078},
+       23 : {'GALE_kcat': 15,  'GALE_k_udpglc':0.099}      
+    }
 

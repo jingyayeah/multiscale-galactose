@@ -81,8 +81,13 @@ class ReactionTemplate(object):
         formula = initString(self.formula[0], initDict)
         setKineticLaw(model, r, formula) 
         
-        r = model.getReaction(rid)
-        udef = r.getKineticLaw().getDerivedUnitDefinition()
+        # TODO: fix -> something is strange here
+        
+        print r
+        law = r.getKineticLaw()
+        print law
+        udef = law.getDerivedUnitDefinition()
+        print udef
         print '{} -> [{}]'.format(rid, libsbml.UnitDefinition_printUnits(udef))
 
         return r;
