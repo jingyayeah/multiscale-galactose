@@ -57,7 +57,9 @@ class GalactoseModel(object):
                  ALDR, 
                  NADPR,
                  GALT,
-                 GALE, 
+                 GALE,
+                 UGP,
+                 UGALP, 
                  H2OTM)
     
     # metabolic deficiencies

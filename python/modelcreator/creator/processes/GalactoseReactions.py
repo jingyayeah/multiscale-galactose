@@ -168,3 +168,39 @@ GALE = ReactionTemplate(
     ],
     formula = ("c__GALE_Vmax/GALE_k_udpglc *(c__udpglc -c__udpgal/GALE_keq) /(1 +c__udpglc/GALE_k_udpglc +c__udpgal/GALE_k_udpgal)", 'mole_per_s')
 )
+#############################################################################################
+UGP = ReactionTemplate(
+    'c__UGP',
+    'UDP-glucose pyrophosphorylase [c__]',
+    'c__glc1p + c__utp <-> c__udpglc + c__ppi',
+    pars = [
+            ('UGP_f',    2000,     '-'),
+            ('UGP_keq',   0.45,    '-'),
+            ('UGP_k_utp', 0.563,   'mM'),
+            ('UGP_k_glc1p', 0.172, 'mM'),
+            ('UGP_k_udpglc', 0.049,'mM'),
+            ('UGP_k_ppi',    0.166, 'mM'),
+            ('UGP_k_gal1p',  5.0,   'mM'),
+            ('UGP_k_udpgal', 0.42,  'mM'),
+            ('UGP_ki_utp',    0.643, 'mM'),
+            ('UGP_ki_udpglc', 0.643,  'mM'),
+            ('c__UGP_P',     1.0,     'mM'),
+    ],
+    rules = [ # id, rule, unit
+            ('c__UGP_Vmax', 'UGP_f * c__GALK_Vmax*c__UGP_P/REF_P', 'mole_per_s'),
+            ('c__UGP_dm', '((1 +c__utp/UGP_k_utp +c__udpglc/UGP_ki_udpglc)*(1 +c__glc1p/UGP_k_glc1p +c__gal1p/UGP_k_gal1p) + (1 +c__udpglc/UGP_k_udpglc +c__udpgal/UGP_k_udpgal +c__utp/UGP_ki_utp)*(1 +c__ppi/UGP_k_ppi) -1)', 'mole_per_s'),
+    ],
+    formula = ("c__UGP_Vmax/(UGP_k_utp*UGP_k_glc1p) *(c__glc1p*c__utp - c__udpglc*c__ppi/UGP_keq)/c__UGP_dm", 'mole_per_s')
+)
+#############################################################################################
+UGALP = ReactionTemplate(
+    'c__UGALP',
+    'UDP-galactose pyrophosphorylase [c__]',
+    'c__gal1p + c__utp <-> c__udpgal + c__ppi',
+    pars = [
+            ('UGALP_f',  0.01,   '-'),
+    ],
+    rules = [],
+    formula = ("UGALP_f*c__UGP_Vmax/(UGP_k_utp*UGP_k_gal1p) *(c__gal1p*c__utp - c__udpgal*c__ppi/UGP_keq)/c__UGP_dm", 'mole_per_s')
+)
+#############################################################################################
