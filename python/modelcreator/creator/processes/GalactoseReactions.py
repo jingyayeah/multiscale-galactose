@@ -204,3 +204,72 @@ UGALP = ReactionTemplate(
     formula = ("UGALP_f*c__UGP_Vmax/(UGP_k_utp*UGP_k_gal1p) *(c__gal1p*c__utp - c__udpgal*c__ppi/UGP_keq)/c__UGP_dm", 'mole_per_s')
 )
 #############################################################################################
+PPASE = ReactionTemplate(
+    'c__PPASE',
+    'Pyrophosphatase [c__]',
+    'c__ppi -> 2 c__phos',
+    pars = [
+            ('PPASE_f',   0.05,  '-'),
+            ('PPASE_k_ppi', 0.07, 'mM'),
+            ('PPASE_n',     4,   '-'),
+            ('PPASE_P',     1,   'mM'),
+    ],
+    rules = [ # id, rule, unit
+            ('c__PPASE_Vmax', 'PPASE_f*c__UGP_Vmax *c__PPASE_P/REF_P', 'mole_per_s'),
+    ],
+    formula = ("c__PPASE_Vmax * c__ppi^PPASE_n/(c__ppi^PPASE_n + PPASE_k_ppi^PPASE_n)", 'mole_per_s')
+)
+#############################################################################################
+NDKU = ReactionTemplate(
+    'c__NDKU',
+    'ATP:UDP phosphotransferase [c__]',
+    'c__atp + c__udp <-> c__adp + c__utp',
+    pars = [
+            ('NDKU_f',    2,     '-'),
+            ('NDKU_keq',  1,     '-'),
+            ('NDKU_k_atp', 1.33, 'mM'),
+            ('NDKU_k_adp', 0.042,'mM'),
+            ('NDKU_k_utp', 27,   'mM'),
+            ('NDKU_k_udp', 0.19, 'mM'),
+            ('c__NDKU_P',  1.0,  'mM'),
+    ],
+    rules = [ # id, rule, unit
+            ('c__NDKU_Vmax', 'NDKU_f * c__UGP_Vmax * c__NDKU_P/REF_P', 'mole_per_s'),
+    ],
+    formula = ("c__NDKU_Vmax/NDKU_k_atp/NDKU_k_udp *(c__atp*c__udp - c__adp*c__utp/NDKU_keq)/" +
+                        "((1+c__atp/NDKU_k_atp)*(1+c__udp/NDKU_k_udp) + (1+c__adp/NDKU_k_adp)*(1+c__utp/NDKU_k_utp) -1)", 'mole_per_s')
+)
+#############################################################################################
+PGM1 = ReactionTemplate(
+    'c__PGM1',
+    'Phosphoglucomutase-1 [c__]',
+    'c__glc1p <-> c__glc6p',
+    pars = [
+            ('PGM1_f',   50.0,   '-'),
+            ('PGM1_keq', 10.0,   '-'),
+            ('PGM1_k_glc6p', 0.67, 'mM'),
+            ('PGM1_k_glc1p', 0.045,'mM'),
+            ('c__PGM1_P',    1.0,  'mM'),
+    ],
+    rules = [ 
+            ('c__PGM1_Vmax', 'PGM1_f * c__GALK_Vmax*c__PGM1_P/REF_P', 'mole_per_s'),
+    ],
+    formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1p - c__glc6p/PGM1_keq)/(1+c__glc1p/PGM1_k_glc1p+c__glc6p/PGM1_k_glc6p)", 'mole_per_s')
+)
+#############################################################################################
+PGM1 = ReactionTemplate(
+    'c__PGM1',
+    'Phosphoglucomutase-1 [c__]',
+    'c__glc1p <-> c__glc6p',
+    pars = [
+            ('PGM1_f',   50.0,   '-'),
+            ('PGM1_keq', 10.0,   '-'),
+            ('PGM1_k_glc6p', 0.67, 'mM'),
+            ('PGM1_k_glc1p', 0.045,'mM'),
+            ('c__PGM1_P',    1.0,  'mM'),
+    ],
+    rules = [ 
+            ('c__PGM1_Vmax', 'PGM1_f * c__GALK_Vmax*c__PGM1_P/REF_P', 'mole_per_s'),
+    ],
+    formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1p - c__glc6p/PGM1_keq)/(1+c__glc1p/PGM1_k_glc1p+c__glc6p/PGM1_k_glc6p)", 'mole_per_s')
+)

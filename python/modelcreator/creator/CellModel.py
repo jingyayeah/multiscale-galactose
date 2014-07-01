@@ -59,7 +59,9 @@ class GalactoseModel(object):
                  GALT,
                  GALE,
                  UGP,
-                 UGALP, 
+                 UGALP,
+                 PPASE,
+                 NDKU, 
                  H2OTM)
     
     # metabolic deficiencies
