@@ -8,21 +8,14 @@ in the sinusoidal model geometry.
 Cell models consist of reactions and transporters.
 As well as species.  
 '''
-from creator.MetabolicModel import MetabolicModel
-from creator.tools.ReactionFactory import IMP, H2OTM
+from creator.processes.GalactoseReactions import IMP, H2OTM
 
-class GalactoseModel(MetabolicModel):
+class GalactoseModel(object):
     '''
     Class defining metabolic model to include in sinusoid geometry.
     Necessary to define generic compartments which are used in the full model
     creation process by the sinusoid model.
     '''
-    ##########################################################################
-    # Compartments
-    ##########################################################################
-    compartments = [
-        ('e__', 'c__')
-    ]
     ##########################################################################
     # Species
     ##########################################################################
@@ -59,5 +52,5 @@ class GalactoseModel(MetabolicModel):
     ]
     
     # collect the reactions
-    reactions = (H2OTM, IMP)
+    reactions = (IMP, )
 

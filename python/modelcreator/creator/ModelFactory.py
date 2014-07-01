@@ -16,15 +16,14 @@ Easy to write and fast changeable model definition.
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
-    
-from tools.Naming import *
-from tools.ReactionFactory import *
-from MetabolicModel import MetabolicModel
+        
+from creator.tools.Naming import *
+from creator.processes.ReactionFactory import *
 from creator.sbml.SBMLValidator import SBMLValidator
-from numpy.core.defchararray import startswith
 
+from MetabolicModel import *
 
-class TissueModel(MetabolicModel):
+class TissueModel(object):
     Nc = None
     version = None
         
@@ -33,7 +32,7 @@ class TissueModel(MetabolicModel):
         print '* Create TissueModel'
         print '*'*40
         self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, TissueModel.Nc)  
-        self.doc = SBMLDocument(MetabolicModel.SBML_LEVEL, MetabolicModel.SBML_VERSION)
+        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
         self.model = self.doc.createModel(self.id)
         self.model.setName(self.id)
         self.cellModel = cellModel
@@ -273,30 +272,30 @@ class TissueModel(MetabolicModel):
         self.createCellCompartments()
         self.createCellSpecies()
         self.createCellAssignmentRules()
-        # self.createCellReactions()
+        self.createCellReactions()
         # self.createCellEvents()
         
 
     def createUnits(self):
         for key, value in self.units.iteritems():
-            self._createUnitDefinition(key, value)
-        self._setMainUnits()
+            createUnitDefinition(self.model, key, value)
+        setMainUnits(self.model, self.main_units)
     
     def createExternalCompartments(self):
         comps = self.createExternalCompartmentsDict()
-        self._createCompartments(comps)
+        createCompartments(self.model, comps)
         
     def createCellCompartments(self):
         comps = self.createCellCompartmentsDict()
-        self._createCompartments(comps)
+        createCompartments(self.model, comps)
     
     def createExternalSpecies(self):
         sdict = self.createExternalSpeciesDict()
-        self._createSpecies(sdict)
+        createSpecies(self.model, sdict)
             
     def createCellSpecies(self):
         sdict = self.createCellSpeciesDict()
-        self._createSpecies(sdict)
+        createSpecies(self.model, sdict)
    
     def createParameters(self):
         for pdata in (self.pars):
@@ -304,41 +303,39 @@ class TissueModel(MetabolicModel):
             pid = pdata[0]
             name = self.names.get(pid, None)
             value = pdata[1]
-            unit = self.getUnitString(pdata[2])
-            p = self._createParameter(pid=pid, unit=unit, name=name, value=value, constant=pdata[3])
-
+            unit = getUnitString(pdata[2])
+            createParameter(self.model, pid=pid, unit=unit, name=name, value=value, constant=pdata[3])
         
     def createInitialAssignments(self):
-        self._createInitialAssignments(self.assignments)
+        createInitialAssignments(self.model, self.assignments)
          
     def createAssignmentRules(self):
-        self._createAssignmentRules(self.rules)
+        createAssignmentRules(self.model, self.rules)
 
+    def createCellInitData(self):
+        initData = []
+        for k in self.cell_range():
+            d = dict()
+            d['c__'] = getHepatocyteId(k) + '__'
+            d['e__'] = getDisseId(k) + '__'
+            initData.append(d)
+        return initData
+    
     def createCellAssignmentRules(self):
         rules = []
+        initData = self.createCellInitData()
         for rule in self.cellModel.rules:
-            for k in self.cell_range():
-                r_new = rule[:]
-                # 'make the replacements'
-                e_comp = getDisseId(k) + '__'
-                c_comp = getHepatocyteId(k) + '__'
-                r_new = [item.replace('c__', c_comp) for item in r_new]
-                r_new = [item.replace('e__', e_comp) for item in r_new]
+            for initDict in initData:
+                r_new = [initString(rpart, initDict) for rpart in rule]
                 rules.append(r_new)
-        self._createAssignmentRules(rules)
+        createAssignmentRules(self.model, rules)
+
 
     def createCellReactions(self):
+        initData = self.createCellInitData()
         for r in self.cellModel.reactions:
-            for k in self.cell_range():
-                # create the localiced reactions
+            r.createReactions(self.model, initData)
                 
-                # 'make the replacements'
-                e_comp = getDisseId(k) + '__'
-                c_comp = getHepatocyteId(k) + '__'
-                r_new = [item.replace('c__', c_comp) for item in r_new]
-                r_new = [item.replace('e__', e_comp) for item in r_new]
-    
-    
     
     def createFlowReactions(self):
         flow = 'flow_sin * A_sin'     # [m3/s] volume flow
@@ -376,8 +373,6 @@ class TissueModel(MetabolicModel):
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
     
     
-    def createCellReactions(self):
-        print 'Create Cell reactions'
         
     def createEvents(self):
         print 'create Events'
@@ -389,10 +384,10 @@ class TissueModel(MetabolicModel):
 if __name__ == "__main__":
     ###################
     from CellModel import GalactoseModel
-    cm = GalactoseModel()
     
+    cm = GalactoseModel()
     TissueModel.Nc = 5
-    TissueModel.version = 38
+    TissueModel.version = 40
     gm = TissueModel(cm)
     gm.createModel()
     ###################

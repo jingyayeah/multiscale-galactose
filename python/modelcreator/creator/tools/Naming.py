@@ -6,6 +6,17 @@ Created on Jun 19, 2014
 @author: mkoenig
 '''
 
+def initString(string, initDict):
+    ''' Initializes the string with the given data dictionary. 
+        Makes a copy to allow multiple initializations with 
+        differing data.
+    '''
+    res = string[:]
+    for key, value in initDict.iteritems():
+        res = res.replace(key, value)
+    return res
+
+
 # Compartments
 def getPPId():
     return 'PP'
@@ -60,7 +71,7 @@ def getHepatocyteSpeciesName(name, k):
 
 # Reactions
 def createFlowId(c_from, c_to, sid):
-    return 'Flow{}{}_{}'.format(c_from, c_to, sid)
+    return 'F_{}{}_{}'.format(c_from, c_to, sid)
 
 def createFlowName(c_from, c_to, sid):
     if c_to == NONE_ID:
@@ -68,7 +79,7 @@ def createFlowName(c_from, c_to, sid):
     return '[{} -> {}] convection {}'.format(c_from, c_to, sid)
 
 def createDiffusionId(c_from, c_to, sid):
-    return 'Diff{}{}_{}'.format(c_from, c_to, sid)
+    return 'D_{}{}_{}'.format(c_from, c_to, sid)
 
 def createDiffusionName(c_from, c_to, sid):
     if c_to == NONE_ID:
