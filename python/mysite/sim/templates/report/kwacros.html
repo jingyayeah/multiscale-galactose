@@ -176,6 +176,7 @@
 	<th scope="col">variable</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
+	<th scope="col">derived units</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
 {% endkwacro %}
@@ -183,6 +184,7 @@
 	<td>{% usekwacro id %}</td>
 	<td>=</td>
 	<td>{% usekwacro math %}</td>
+	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
 	<td>{% usekwacro sbo_term %}</td>
 	<td>{% usekwacro annotation %}</td>
 {% endkwacro %}

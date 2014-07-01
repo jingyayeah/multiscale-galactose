@@ -23,6 +23,7 @@ from creator.sbml.SBMLValidator import SBMLValidator
 
 from MetabolicModel import *
 from creator.processes.ReactionTemplate import ReactionTemplate
+from creator.MetabolicModel import createDeficiencyEvent
 
 class TissueModel(object):
     Nc = None
@@ -285,7 +286,7 @@ class TissueModel(object):
         self.createCellInitialAssignments()
         self.createCellAssignmentRules()
         self.createCellReactions()
-        # self.createCellEvents()
+        self.createCellEvents()
         # self.createBoundaryConditions()
 
     def createUnits(self):
@@ -391,10 +392,18 @@ class TissueModel(object):
             for k in range(1, self.Nc+1):
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
     
-    
-        
-    def createEvents(self):
-        print 'create Events'
+    def createCellEvents(self):
+        for deficiency, data in self.cellModel.def_events.iteritems():
+            e = createDeficiencyEvent(self.model, deficiency)
+            # create all the event assignments for the event
+            for key, value in data.iteritems():
+                p = self.model.getParameter(key)
+                p.setConstant(False)
+                astnode = libsbml.parseL3FormulaWithModel(str(value), self.model)
+                ea = e.createEventAssignment()
+                ea.setVariable(key)
+                ea.setMath(astnode)
+           
     
     def createBoundaryConditions(self):
         print 'create boundary conditions'
@@ -406,7 +415,7 @@ if __name__ == "__main__":
     
     cm = GalactoseModel()
     TissueModel.Nc = 2
-    TissueModel.version = 2
+    TissueModel.version = 6
     gm = TissueModel(cm)
     gm.createModel()
     ###################

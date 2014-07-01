@@ -53,5 +53,22 @@ class GalactoseModel(object):
     ]
     
     # collect the reactions
-    reactions = (IMP, H2OTM, ATPS)
+    reactions = (GALK, GALKM,
+                 IMP, 
+                 ATPS, 
+                 ALDR, 
+                 NADPR, 
+                 H2OTM)
+    
+    def_events = {
+        0 : {'GALK_kcat':8.7, 'GALK_k_gal':0.97, 'GALK_k_atp':0.034},  
+        1 : {'GALK_kcat':2.0, 'GALK_k_gal':7.7, 'GALK_k_atp':0.130},  
+        2 : {'GALK_kcat':3.9, 'GALK_k_gal':0.43, 'GALK_k_atp':0.110}, 
+        3 : {'GALK_kcat':5.9, 'GALK_k_gal':0.66, 'GALK_k_atp':0.026},  
+        4 : {'GALK_kcat':0.4, 'GALK_k_gal':1.1, 'GALK_k_atp':0.005},  
+        5 : {'GALK_kcat':1.1, 'GALK_k_gal':13.0, 'GALK_k_atp':0.089},  
+        6 : {'GALK_kcat':1.8, 'GALK_k_gal':1.70, 'GALK_k_atp':0.039},  
+        7 : {'GALK_kcat':6.7, 'GALK_k_gal':1.90, 'GALK_k_atp':0.035},  
+        8 : {'GALK_kcat':0.9, 'GALK_k_gal':0.14, 'GALK_k_atp':0.0039},  
+        }
 

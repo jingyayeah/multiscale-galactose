@@ -152,4 +152,27 @@ def _createAssignmentRule(model, sid, formula):
     rule.setVariable(sid);
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
     rule.setMath(astnode);   
+
+#################################
+# Deficiency Events
+#################################
+
+
+def getDeficiencyEventId(deficiency):
+    return 'EDEF_{:0>2d}'.format(deficiency)
+    
+def createDeficiencyEvent(model, deficiency):
+    eid = getDeficiencyEventId(deficiency)
+    e = model.createEvent();
+    e.setId(eid);
+    e.setUseValuesFromTriggerTime(True);
+    initialValue = False # ! not supported by Copasi -> lame fix via time
+    persistent = True    # ! not supported by Copasi -> careful with usage
+    t = e.createTrigger();
+    t.setInitialValue(initialValue)
+    t.setPersistent(persistent)
+    formula = '(time>0) && (deficiency=={:d})'.format(deficiency);
+    astnode = libsbml.parseL3FormulaWithModel(formula, model)
+    t.setMath(astnode);
+    return e;
     
