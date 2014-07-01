@@ -212,7 +212,7 @@ PPASE = ReactionTemplate(
             ('PPASE_f',   0.05,  '-'),
             ('PPASE_k_ppi', 0.07, 'mM'),
             ('PPASE_n',     4,   '-'),
-            ('PPASE_P',     1,   'mM'),
+            ('c__PPASE_P',     1,   'mM'),
     ],
     rules = [ # id, rule, unit
             ('c__PPASE_Vmax', 'PPASE_f*c__UGP_Vmax *c__PPASE_P/REF_P', 'mole_per_s'),
@@ -257,19 +257,47 @@ PGM1 = ReactionTemplate(
     formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1p - c__glc6p/PGM1_keq)/(1+c__glc1p/PGM1_k_glc1p+c__glc6p/PGM1_k_glc6p)", 'mole_per_s')
 )
 #############################################################################################
-PGM1 = ReactionTemplate(
-    'c__PGM1',
-    'Phosphoglucomutase-1 [c__]',
-    'c__glc1p <-> c__glc6p',
+GLY = ReactionTemplate(
+    'c__GLY',
+    'Glycolysis [c__]',
+    'c__glc6p <-> c__phos',
     pars = [
             ('PGM1_f',   50.0,   '-'),
-            ('PGM1_keq', 10.0,   '-'),
-            ('PGM1_k_glc6p', 0.67, 'mM'),
-            ('PGM1_k_glc1p', 0.045,'mM'),
-            ('c__PGM1_P',    1.0,  'mM'),
+            ('GLY_f',    0.1,    '-'),
+            ('GLY_k_glc6p', 0.12, 'mM'),
+            ('GLY_k_p',   0.2,    'mM'),
+            ('c__GLY_P',     1.0,    'mM'),
     ],
     rules = [ 
-            ('c__PGM1_Vmax', 'PGM1_f * c__GALK_Vmax*c__PGM1_P/REF_P', 'mole_per_s'),
+            ('c__GLY_Vmax', 'GLY_f * c__PGM1_Vmax*c__GLY_P/REF_P', 'mole_per_s'),
     ],
-    formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1p - c__glc6p/PGM1_keq)/(1+c__glc1p/PGM1_k_glc1p+c__glc6p/PGM1_k_glc6p)", 'mole_per_s')
+    formula = ("c__GLY_Vmax*(c__glc6p - GLY_k_glc6p)/GLY_k_glc6p * c__phos/(c__phos + GLY_k_p)", 'mole_per_s')
 )
+#############################################################################################
+GTFGAL = ReactionTemplate(
+    'c__GTFGAL',
+    'Glycosyltransferase galactose [c__]',
+    'c__udpgal -> c__udp',
+    pars = [
+            ('PGM1_f',   50.0,   '-'),
+            ('GTF_f',    2E-2,   '-'),
+            ('GTF_k_udpgal', 0.1, 'mM'),
+            ('c__GTF_P',     1.0,    'mM'),
+    ],
+    rules = [ 
+            ('c__GTF_Vmax', 'GTF_f * c__GALK_Vmax * c__GTF_P/REF_P', 'mole_per_s'),
+    ],
+    formula = ("c__GTF_Vmax * c__udpgal/(c__udpgal + GTF_k_udpgal)", 'mole_per_s')
+)
+#############################################################################################
+GTFGLC = ReactionTemplate(
+    'c__GTFGLC',
+    'Glycosyltransferase glucose [c__]',
+    'c__udpglc -> c__udp',
+    pars = [
+            ('GTF_k_udpglc', 0.1, 'mM'),
+    ],
+    rules = [],
+    formula = ("0.0* c__GTF_Vmax * c__udpglc/(c__udpglc + GTF_k_udpglc)", 'mole_per_s')
+)
+
