@@ -1,6 +1,8 @@
 '''
 Reactions of Galactose metabolism based on ReactionTemplate.
 
+# TODO: encode the modifiers
+
 Created on Jul 1, 2014
 @author: mkoenig
 '''
@@ -124,4 +126,45 @@ NADPR = ReactionTemplate(
     ],
     formula = ('c__NADPR_Vmax/NADPR_k_nadp *(c__nadp - c__nadph/NADPR_keq)/(1 +c__nadp/NADPR_k_nadp +c__nadph/NADPR_ki_nadph)', 'mole_per_s')
 )
-
+#############################################################################################
+GALT = ReactionTemplate(
+    'c__GALT',
+    'Galactose-1-phosphate uridyl transferase [c__]',
+    'c__gal1p + c__udpglc <-> c__glc1p + c__udpgal [c__utp, c__udp]',
+    pars = [
+            ('GALT_f',        0.01,  '-'),
+            ('GALT_keq',      1.0,   '-'),
+            ('GALT_k_glc1p',  0.37,  'mM'),
+            ('GALT_k_udpgal', 0.5,  'mM'),
+            ('GALT_ki_utp',   0.13, 'mM'),
+            ('GALT_ki_udp',   0.35, 'mM'),
+            ('GALT_vm',     804,     '-'),
+            ('GALT_k_gal1p',  1.25,  'mM'),
+            ('GALT_k_udpglc', 0.43,  'mM'),
+            ('c__GALT_P',     1.0,   'mM'),
+    ],
+    rules = [ # id, rule, unit
+            ('c__GALT_Vmax', 'c__GALT_P/REF_P * GALT_f*c__GALK_Vmax*GALT_vm', 'mole_per_s'),
+    ],
+    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1p*c__udpglc - c__glc1p*c__udpgal/GALT_keq) / " +
+                    "((1+c__gal1p/GALT_k_gal1p)*(1+c__udpglc/GALT_k_udpglc + c__udp/GALT_ki_udp + c__utp/GALT_ki_utp) + (1+c__glc1p/GALT_k_glc1p)*(1+c__udpgal/GALT_k_udpgal) - 1)", 'mole_per_s')
+)
+#############################################################################################
+GALE = ReactionTemplate(
+    'c__GALE',
+    'UDP-glucose 4-epimerase [c__]',
+    'c__udpglc <-> c__udpgal',
+    pars = [
+            ('GALE_f',    0.3,   '-'),
+            ('GALE_PA',   0.0278, 's'),
+            ('GALE_kcat', 36,     'per_s'),
+            ('GALE_keq',  0.33,   '-'), 
+            ('GALE_k_udpglc', 0.069, 'mM'),
+            ('GALE_k_udpgal', 0.3,   'mM'),
+            ('c__GALE_P', 1.0,        'mM'),
+    ],
+    rules = [ # id, rule, unit
+            ('c__GALE_Vmax', 'GALE_f*c__GALK_Vmax*GALE_PA*GALE_kcat*c__GALE_P/REF_P', 'mole_per_s'),
+    ],
+    formula = ("c__GALE_Vmax/GALE_k_udpglc *(c__udpglc -c__udpgal/GALE_keq) /(1 +c__udpglc/GALE_k_udpglc +c__udpgal/GALE_k_udpgal)", 'mole_per_s')
+)

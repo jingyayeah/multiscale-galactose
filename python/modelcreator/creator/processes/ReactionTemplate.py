@@ -76,20 +76,23 @@ class ReactionTemplate(object):
             sref.setSpecies(initString(product[1], initDict))
             sref.setStoichiometry(product[0]);
             sref.setConstant(True);
+        for modifier in self.equation.modifiers:
+            sref = r.createModifier();
+            sref.setSpecies(initString(modifier, initDict))        
     
         # kinetics
         formula = initString(self.formula[0], initDict)
         setKineticLaw(model, r, formula) 
-        
-        # TODO: fix -> something is strange here
-        
+
+        '''
+        # TODO: fix -> something is strange here (not possible to get the 
+        # derivedUnits for all reactions ??? 
         print r
         law = r.getKineticLaw()
         print law
         udef = law.getDerivedUnitDefinition()
         print udef
         print '{} -> [{}]'.format(rid, libsbml.UnitDefinition_printUnits(udef))
-
+        '''
         return r;
-    
     

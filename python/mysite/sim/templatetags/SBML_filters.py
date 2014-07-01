@@ -72,7 +72,20 @@ def equationStringFromReaction(reaction):
     else:
         sep = '=>' 
     return " ".join([left, sep, right])
+    '''
+    mods = modifierEquation(reaction.getListOfModifiers())
+    if mods == None:
+        return " ".join([left, sep, right])
+    else:
+        return " ".join([left, sep, right, mods])
+    '''
 
+def modifierEquation(modifierList):
+    if len(modifierList) == 0:
+        return None
+    mids = [m.getSpecies() for m in modifierList]
+    return '[' + ', '.join(mids) + ']' 
+    
 def halfEquation(speciesList):
     items = []
     for sr in speciesList:

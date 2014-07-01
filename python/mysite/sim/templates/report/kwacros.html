@@ -224,7 +224,7 @@
 	<td class="FALSE">&nbsp;=&gt;</td>{% endif %}
 	<td>{{item | SBML_reactionToString}}</td>
 	<td>{% for mod in item.getListOfModifiers %}
-						{{mod}}<br />
+						{{mod.getSpecies}}<br />
 		 {% endfor %}</td>
 	<td>{{item.getKineticLaw.getDerivedUnitDefinition|SBML_unitDefinitionToString}}</td>
 	<td>{{item.getKineticLaw.getMath|SBML_astnodeToString}}</td>

@@ -55,7 +55,9 @@ class GalactoseModel(object):
                  IMP, 
                  ATPS, 
                  ALDR, 
-                 NADPR, 
+                 NADPR,
+                 GALT,
+                 GALE, 
                  H2OTM)
     
     # metabolic deficiencies
