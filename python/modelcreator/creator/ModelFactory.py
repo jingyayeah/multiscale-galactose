@@ -405,8 +405,8 @@ if __name__ == "__main__":
     from CellModel import GalactoseModel
     
     cm = GalactoseModel()
-    TissueModel.Nc = 4
-    TissueModel.version = 5
+    TissueModel.Nc = 2
+    TissueModel.version = 1
     gm = TissueModel(cm)
     gm.createModel()
     ###################
@@ -415,9 +415,9 @@ if __name__ == "__main__":
     
     print '*' * 20
     writer = SBMLWriter()
-    sbml = writer.writeSBMLToString(gm.doc)
-    print sbml
-    print '*' * 20
+    # sbml = writer.writeSBMLToString(gm.doc)
+    # print sbml
+    # print '*' * 20
     
     folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
     file = folder + gm.id + '.xml'

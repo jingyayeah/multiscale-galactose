@@ -20,8 +20,41 @@ def SBML_annotationToString(annotation):
     return annotationToHTML(annotation)
 
 @register.filter
-def SBML_unitDefinitionToString(ud):
+def SBML_unitDefinitionToString1(ud):
     return libsbml.UnitDefinition_printUnits(ud)
+
+unit_dict = dict()
+unit_dict['kilogram'] = 'kg'
+unit_dict['meter'] = 'm'
+unit_dict['metre'] = 'm'
+unit_dict['second'] = 's'
+
+@register.filter
+def SBML_unitDefinitionToString(udef):
+    ''' Proper formating of the units. '''
+    libsbml.UnitDefinition_reorder(udef)
+    items = []
+    for u in udef.getListOfUnits():
+        # multiplier
+        m = u.getMultiplier()
+        if (abs(m-1.0) < 1E-10):
+            m = ''
+        else:
+            m = str(m) + '*'
+        s = u.getScale()
+        e = u.getExponent()
+        k = libsbml.UnitKind_toString(u.getKind())
+        k = unit_dict.get(k, k)
+        
+        # (multiplier * 10^scale *ukind)^exponent
+        if (s == 0 and e == 1):
+            string = '{}{}'.format(m, k)
+        elif (s == 0) and (m == ''):
+            string = '{}^{}'.format(k,e)
+        else:
+            string = '({}10^{}*{})^{}'.format(m, s, k, e)
+        items.append(string)
+    return ' * '.join(items)
 
 @register.filter
 def SBML_modelHistoryToString(mhistory):
@@ -31,16 +64,14 @@ def SBML_modelHistoryToString(mhistory):
 def SBML_reactionToString(reaction):
     return equationStringFromReaction(reaction)
 
-
 def equationStringFromReaction(reaction):
-    items = []
-    items.append(halfEquation(reaction.getListOfReactants()))
+    left = halfEquation(reaction.getListOfReactants())
+    right = halfEquation(reaction.getListOfProducts())
     if reaction.getReversible():
-        items.append('<=>')
+        sep = '<=>'
     else:
-        items.append('=>')
-    items.append(halfEquation(reaction.getListOfProducts())) 
-    return " ".join(items)
+        sep = '=>' 
+    return " ".join([left, sep, right])
 
 def halfEquation(speciesList):
     items = []
@@ -56,7 +87,7 @@ def halfEquation(speciesList):
         elif (stoichiometry < 0):  
             sd = '-{} {}'.format(stoichiometry, species)
         items.append(sd)
-    return ' '.join(items)
+    return ' + '.join(items)
 
 def modelHistoryToString(mhistory):
     '''

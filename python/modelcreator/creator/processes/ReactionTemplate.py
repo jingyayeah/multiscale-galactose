@@ -57,8 +57,9 @@ class ReactionTemplate(object):
         self._createRules(initDict)
         
         # reaction
+        rid = initString(self.rid, initDict)
         r = model.createReaction()
-        r.setId(initString(self.rid, initDict))
+        r.setId(rid)
         r.setName(initString(self.name, initDict))
         r.setReversible(self.equation.reversible)
         r.setFast(False);
@@ -77,7 +78,11 @@ class ReactionTemplate(object):
     
         # kinetics
         formula = initString(self.formula[0], initDict)
-        setKineticLaw(model, r, formula) 
+        law = setKineticLaw(model, r, formula) 
+        
+        udef = law.getDerivedUnitDefinition()
+        print '{} -> [{}]'.format(rid, libsbml.UnitDefinition_printUnits(udef))
 
         return r;
+    
     

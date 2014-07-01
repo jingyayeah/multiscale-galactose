@@ -80,6 +80,7 @@
 	<th scope="col">constant</th>
 	<th scope="col">spatial dimensions</th>
 	<th scope="col">unit</th>
+	<th scope="col">derived unit</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
 {% endkwacro %}
@@ -91,6 +92,7 @@
 	<td class="{% if item.getConstant %}TRUE{% else %}FALSE{% endif %}">{{item.getConstant}}</td>	
 	<td>{{item.getSpatialDimensions}}</td>
 	<td>{{item.getUnits}}</td>
+	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
 	<td>{% usekwacro sbo_term %}</td>
 	<td>{% usekwacro annotation %}</td>
 {% endkwacro %}
@@ -131,6 +133,7 @@
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
+	<th scope="col">derived unit</th>
 	<th scope="col">constant</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
@@ -142,6 +145,7 @@
 								   {{values|get_item:item.getId}}{% endif %}</td>
 	
 	<td>{{item.getUnits}}</td>
+	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
 	<td class="{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}">{{item.getConstant}}</td>
 	<td>{% usekwacro sbo_term %}</td>
 	<td>{% usekwacro annotation %}</td>
@@ -220,7 +224,7 @@
 	<td>{% for mod in item.getListOfModifiers %}
 						{{mod}}<br />
 		 {% endfor %}</td>
-	<td>{{item.getDerivedUnitDefinition}}</td>
+	<td>{{item.getKineticLaw.getDerivedUnitDefinition|SBML_unitDefinitionToString}}</td>
 	<td>{{item.getKineticLaw.getMath|SBML_astnodeToString}}</td>
 	<td>{% usekwacro sbo_term %}</td>
 	<td>{% usekwacro annotation %}</td>

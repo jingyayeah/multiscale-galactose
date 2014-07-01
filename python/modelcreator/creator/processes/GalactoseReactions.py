@@ -40,4 +40,39 @@ H2OTM = ReactionTemplate(
     formula = ('c__H2OT_Vmax/H2OT_k/Nf * (e__h2oM - c__h2oM)', 'mole_per_s')
 )
 ########################################################
-
+ATPS = ReactionTemplate(
+    'c__ATPS',
+    'ATP synthase [c__]',
+    'c__adp + c__phos <-> c__atp',
+    pars = [
+            ('ATPS_f', 100.0,  '-'),
+            ('ATPS_keq', 0.58, 'per_mM'),
+            ('ATPS_k_adp', 0.1, 'mM'),
+            ('ATPS_k_atp', 0.5, 'mM'),
+            ('ATPS_k_phos', 0.1, 'mM'),
+            ('c__ATPS_P', 1, 'mM'),
+    ],
+    rules = [ # id, rule, unit
+            ('c__ATPS_Vmax', 'ATPS_f* c__GALK_Vmax * c__ATPS_P/REF_P', 'mole_per_s'),
+    ],
+    formula = ('c__ATPS_Vmax/(ATPS_k_adp*ATPS_k_phos) *(c__adp*c__phos-c__atp/ATPS_keq)/((1+c__adp/ATPS_k_adp)*(1+c__phos/ATPS_k_phos) + c__atp/ATPS_k_atp)', 'mole_per_s')
+)
+########################################################
+ATPS = ReactionTemplate(
+    'c__ATPS',
+    'ATP synthase [c__]',
+    'c__adp + c__phos <-> c__atp',
+    pars = [
+            ('ATPS_f', 100.0,  '-'),
+            ('ATPS_keq', 0.58, 'per_mM'),
+            ('ATPS_k_adp', 0.1, 'mM'),
+            ('ATPS_k_atp', 0.5, 'mM'),
+            ('ATPS_k_phos', 0.1, 'mM'),
+            ('c__ATPS_P', 1, 'mM'),
+    ],
+    rules = [ # id, rule, unit
+            ('c__ATPS_Vmax', 'ATPS_f* c__GALK_Vmax * c__ATPS_P/REF_P', 'mole_per_s'),
+    ],
+    formula = ('c__ATPS_Vmax/(ATPS_k_adp*ATPS_k_phos) *(c__adp*c__phos-c__atp/ATPS_keq)/((1+c__adp/ATPS_k_adp)*(1+c__phos/ATPS_k_phos) + c__atp/ATPS_k_atp)', 'mole_per_s')
+)
+########################################################

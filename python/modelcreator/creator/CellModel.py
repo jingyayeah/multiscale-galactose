@@ -8,8 +8,7 @@ Created on Jun 24, 2014
 @author: mkoenig
 '''
 
-from creator.processes.GalactoseReactions import IMP, H2OTM
-
+from creator.processes.GalactoseReactions import *
 class GalactoseModel(object):
     species = [
             # id, value, unit
@@ -54,5 +53,5 @@ class GalactoseModel(object):
     ]
     
     # collect the reactions
-    reactions = (IMP, H2OTM)
+    reactions = (IMP, H2OTM, ATPS)
 
