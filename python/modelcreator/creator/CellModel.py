@@ -1,25 +1,18 @@
 '''
-Created on Jun 24, 2014
-
-@author: mkoenig
-
 The important part is to be able to put various metabolic models
 in the sinusoidal model geometry.
 Cell models consist of reactions and transporters.
 As well as species.  
+
+Created on Jun 24, 2014
+@author: mkoenig
 '''
+
 from creator.processes.GalactoseReactions import IMP, H2OTM
 
 class GalactoseModel(object):
-    '''
-    Class defining metabolic model to include in sinusoid geometry.
-    Necessary to define generic compartments which are used in the full model
-    creation process by the sinusoid model.
-    '''
-    ##########################################################################
-    # Species
-    ##########################################################################
     species = [
+            # id, value, unit
             ('e__gal',  0.00012, 'mM'),
             ('e__galM', 0.0, 'mM'),
             ('e__h2oM', 0.0, 'mM'),
@@ -42,7 +35,16 @@ class GalactoseModel(object):
             ('c__nadp',             0.1,    'mM'),
             ('c__nadph',            0.1,    'mM'),
     ]
-    
+    pars = [
+            # id, value, unit, constant
+            ('scale_f',   10E-15,   '-',    True),
+            ('REF_P',     1.0,      'mM',   True),
+            ('deficiency',  0,      '-',    True),
+    ]  
+    assignments = [
+            # id, assignment, unit
+            ('scale', 'scale_f', '-'),               
+    ]
     rules = [
             # id, rule, unit
             ('c__nadp_tot', 'c__nadp + c__nadph', 'mM'),
@@ -52,5 +54,5 @@ class GalactoseModel(object):
     ]
     
     # collect the reactions
-    reactions = (IMP, )
+    reactions = (IMP, H2OTM)
 

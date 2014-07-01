@@ -50,7 +50,17 @@ def getUnitString(unit):
     if unit == '-':
         unit = UnitKind_toString(UNIT_KIND_DIMENSIONLESS)
     return unit
-    
+
+def createParameters(model, pdict):
+    for pdata in pdict.values():
+        # id, name, value, unit, constant
+        pid = pdata[0]
+        name = pdata[1]
+        value = pdata[2]
+        unit = getUnitString(pdata[3])
+        createParameter(model, pid=pid, unit=unit, name=name, value=value, constant=pdata[3])
+        
+
 def createParameter(model, pid, unit, name=None, value=None, constant=True):
     p = model.createParameter()
     p.setId(pid)

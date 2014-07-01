@@ -22,6 +22,7 @@ from creator.processes.ReactionFactory import *
 from creator.sbml.SBMLValidator import SBMLValidator
 
 from MetabolicModel import *
+from creator.processes.ReactionTemplate import ReactionTemplate
 
 class TissueModel(object):
     Nc = None
@@ -256,12 +257,21 @@ class TissueModel(object):
             ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
             ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
         ])
-        
+    
+    def createParametersDict(self, pars):
+        pdict = dict()
+        for pdata in pars:
+            pid = pdata[0]
+            # id, name, value, unit, constant
+            pdict[pid] = [pid, self.names.get(pid, None), 
+                          pdata[1], pdata[2], pdata[3]]
+        return pdict
+    
 
     def createModel(self):
         # sinusoidal unit model
         self.createUnits()
-        self.createParameters()
+        self.createExternalParameters()
         self.createInitialAssignments()
         self.createExternalCompartments()
         self.createExternalSpecies()
@@ -271,10 +281,12 @@ class TissueModel(object):
         # cell model
         self.createCellCompartments()
         self.createCellSpecies()
+        self.createCellParameters()
+        self.createCellInitialAssignments()
         self.createCellAssignmentRules()
         self.createCellReactions()
         # self.createCellEvents()
-        
+        # self.createBoundaryConditions()
 
     def createUnits(self):
         for key, value in self.units.iteritems():
@@ -297,17 +309,21 @@ class TissueModel(object):
         sdict = self.createCellSpeciesDict()
         createSpecies(self.model, sdict)
    
-    def createParameters(self):
-        for pdata in (self.pars):
-            # id, value, unit, constant
-            pid = pdata[0]
-            name = self.names.get(pid, None)
-            value = pdata[1]
-            unit = getUnitString(pdata[2])
-            createParameter(self.model, pid=pid, unit=unit, name=name, value=value, constant=pdata[3])
-        
+    def createExternalParameters(self):
+        pdict = self.createParametersDict(self.pars)
+        createParameters(self.model, pdict)
+ 
+    def createCellParameters(self):
+        pdict = self.createParametersDict(self.cellModel.pars)
+        createParameters(self.model, pdict)
+ 
+ 
     def createInitialAssignments(self):
         createInitialAssignments(self.model, self.assignments)
+    
+    def createCellInitialAssignments(self):
+        createInitialAssignments(self.model, self.cellModel.assignments)
+    
          
     def createAssignmentRules(self):
         createAssignmentRules(self.model, self.rules)
@@ -332,6 +348,9 @@ class TissueModel(object):
 
 
     def createCellReactions(self):
+        # set the model for the template
+        ReactionTemplate.model = self.model
+        
         initData = self.createCellInitData()
         for r in self.cellModel.reactions:
             r.createReactions(self.model, initData)
@@ -386,8 +405,8 @@ if __name__ == "__main__":
     from CellModel import GalactoseModel
     
     cm = GalactoseModel()
-    TissueModel.Nc = 5
-    TissueModel.version = 40
+    TissueModel.Nc = 4
+    TissueModel.version = 5
     gm = TissueModel(cm)
     gm.createModel()
     ###################

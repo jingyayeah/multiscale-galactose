@@ -11,6 +11,9 @@ def initString(string, initDict):
         Makes a copy to allow multiple initializations with 
         differing data.
     '''
+    if not isinstance(string, str):
+        return string
+    
     res = string[:]
     for key, value in initDict.iteritems():
         res = res.replace(key, value)
