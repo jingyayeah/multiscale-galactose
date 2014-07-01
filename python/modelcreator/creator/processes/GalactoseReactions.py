@@ -31,7 +31,7 @@ H2OTM = ReactionTemplate(
     'H2O M transport [c__]',
     'e__h2oM <-> c__h2oM',
     pars = [
-            ('H2OT_f', 10.0, 'mole/s'),
+            ('H2OT_f', 10.0, 'mole_per_s'),
             ('H2OT_k',  1.0, 'mM'),
     ],
     rules = [ # id, rule, unit

@@ -10,7 +10,8 @@ from creator.tools.Naming import initString
 from ReactionFactory import setKineticLaw
 from creator.tools.Equation import Equation
 
-from creator.MetabolicModel import createParameter, createAssignmentRules
+from creator.MetabolicModel import createParameter, createAssignmentRules,\
+    getUnitString
 
 class ReactionTemplate(object):
     '''
@@ -36,7 +37,7 @@ class ReactionTemplate(object):
         ''' Parameters have to be initialized. '''
         for pdata in self.pars:
             p_new = [initString(part, initDict) for part in pdata]
-            pid, value, unit = p_new[0], p_new[1], p_new[2]
+            pid, value, unit = p_new[0], p_new[1], getUnitString(p_new[2])
             
             if not self.model.getParameter(pid):
                 createParameter(self.model, pid, unit, name=None, value=value, constant=True)

@@ -406,7 +406,7 @@ if __name__ == "__main__":
     
     cm = GalactoseModel()
     TissueModel.Nc = 2
-    TissueModel.version = 1
+    TissueModel.version = 2
     gm = TissueModel(cm)
     gm.createModel()
     ###################
