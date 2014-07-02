@@ -53,9 +53,7 @@ class Equation(object):
         s = s.replace(']', '')
         s = s.strip()
         tokens = re.split('[,;]', s)
-        tokens = [t.strip() for t in tokens]
-        print tokens
-        self.modifiers = tokens
+        self.modifiers = [t.strip() for t in tokens]
 
     def parseHalfEquation(self, string):
         ''' Only '+ supported in equation !, do not use negative

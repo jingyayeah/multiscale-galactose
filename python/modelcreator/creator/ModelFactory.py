@@ -116,8 +116,7 @@ class TissueModel(object):
             ('Vol_liv',     1.5E-3,   'm3',     True),
             ('rho_liv',     1.1E3,    'kg_per_m3', True), 
             ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
-            ('Nc',             Nc,     '-',     True),       
-            ('Nf',              1,     '-',     True),
+            ('Nc',             Nc,     '-',     True),
     ]    
     names['L'] = 'sinusoidal length'
     names['y_sin'] = 'sinusoidal radius'
@@ -137,10 +136,10 @@ class TissueModel(object):
     assignments = [
             # id, assignment, unit
             ('x_cell', 'L/Nc', 'm'),
-            ('x_sin',  "x_cell/Nf", "m"),
+            ('x_sin',  "x_cell", "m"),
             ("A_sin", "pi*y_sin^2",  "m2"),
             ("A_dis", "pi*(y_sin+y_dis)^2 - A_sin",  "m2"),
-            ("A_sindis", "2*pi*y_sin*x_sin",  "m2"),
+            ("A_sindis", "2 dimensionless *pi*y_sin*x_sin",  "m2"),
             ("Vol_sin", "A_sin*x_sin",  "m3"),
             ("Vol_dis", "A_dis*x_sin",  "m3"),
             ("Vol_cell", "pi*(y_sin+y_dis+y_cell)^2 *x_cell- pi*(y_sin+y_dis)^2*x_cell", "m3"),
@@ -393,13 +392,26 @@ class TissueModel(object):
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
     
     def createCellEvents(self):
+        units = {
+                 'GALK_kcat':'per_s',
+                 'GALK_k_gal':'mM',
+                 'GALK_k_atp':'mM',
+                 'GALT_vm': 'dimensionless',
+                 'GALT_k_gal1p': 'mM', 
+                 'GALT_k_udpglc': 'mM',
+                 'GALE_kcat': 'per_s',
+                 'GALE_k_udpglc':'mM',
+                 }
+        
         for deficiency, data in self.cellModel.def_events.iteritems():
             e = createDeficiencyEvent(self.model, deficiency)
             # create all the event assignments for the event
             for key, value in data.iteritems():
                 p = self.model.getParameter(key)
                 p.setConstant(False)
-                astnode = libsbml.parseL3FormulaWithModel(str(value), self.model)
+                
+                formula = '{} {}'.format(value, units[key])        
+                astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
                 ea = e.createEventAssignment()
                 ea.setVariable(key)
                 ea.setMath(astnode)
@@ -414,8 +426,8 @@ if __name__ == "__main__":
     from CellModel import GalactoseModel
     
     cm = GalactoseModel()
-    TissueModel.Nc = 2
-    TissueModel.version = 11
+    TissueModel.Nc = 1
+    TissueModel.version = 5
     gm = TissueModel(cm)
     gm.createModel()
     ###################
@@ -432,12 +444,9 @@ if __name__ == "__main__":
     file = folder + gm.id + '.xml'
     writer.writeSBMLToFile(gm.doc, file)
     
-    # validate the model
-    validator = SBMLValidator(ucheck=False)
+    # validate the model with units
+    validator = SBMLValidator(ucheck=True)
     val_string = validator.validate(file)
-   
-    # make some example simulations
-    
     
     # store in database
     import sys
