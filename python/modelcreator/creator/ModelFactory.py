@@ -277,6 +277,7 @@ class TissueModel(object):
         self.createExternalSpecies()
         self.createFlowReactions()
         self.createDiffusionReactions()
+        self.createBoundaryConditions()
         
         # cell model
         self.createCellCompartments()
@@ -285,8 +286,11 @@ class TissueModel(object):
         self.createCellInitialAssignments()
         self.createCellAssignmentRules()
         self.createCellReactions()
+        
+        
         self.createCellEvents()
-        # self.createBoundaryConditions()
+        self.createSimulationEvents()
+        
 
     def createUnits(self):
         for key, value in self.units.iteritems():
@@ -317,7 +321,6 @@ class TissueModel(object):
         pdict = self.createParametersDict(self.cellModel.pars)
         createParameters(self.model, pdict)
  
- 
     def createInitialAssignments(self):
         createInitialAssignments(self.model, self.assignments)
     
@@ -346,6 +349,13 @@ class TissueModel(object):
                 rules.append(r_new)
         createAssignmentRules(self.model, rules)
 
+    def createBoundaryConditions(self):
+        ''' Set constant in periportal. '''
+        sdict = self.createExternalSpeciesDict()
+        for key in sdict.keys():
+            if isPPSpeciesId(key):
+                s = self.model.getSpecies(key)
+                s.setBoundaryCondition(True)
 
     def createCellReactions(self):
         # set the model for the template
@@ -402,23 +412,36 @@ class TissueModel(object):
                  'GALE_kcat': 'per_s',
                  'GALE_k_udpglc':'mM',
                  }
-        
         for deficiency, data in self.cellModel.def_events.iteritems():
             e = createDeficiencyEvent(self.model, deficiency)
             # create all the event assignments for the event
             for key, value in data.iteritems():
                 p = self.model.getParameter(key)
                 p.setConstant(False)
-                
                 formula = '{} {}'.format(value, units[key])        
                 astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
                 ea = e.createEventAssignment()
                 ea.setVariable(key)
                 ea.setMath(astnode)
-           
-    
-    def createBoundaryConditions(self):
-        print 'create boundary conditions'
+                
+    def createSimulationEvents(self):
+        ''' Create the simulation timecourse events based on the 
+            event data.
+        '''
+        e = self.model.createEvent();
+        # e.setId(eid)
+        '''
+        e.setName(eData.getName());
+        e.setUseValuesFromTriggerTime(true);
+        Trigger t = e.createTrigger(true, true);
+        t.setMath(ASTNode.parseFormula(eData.getTrigger()));
+        HashMap<String, String> assignments = eData.getAssignments();
+        for (String key : assignments.keySet()){
+            String a = assignments.get(key);
+            e.createEventAssignment(key, ASTNode.parseFormula(a));    
+        }
+        '''
+        return e;   
     
 ##########################################################################
 if __name__ == "__main__":
@@ -427,7 +450,7 @@ if __name__ == "__main__":
     
     cm = GalactoseModel()
     TissueModel.Nc = 1
-    TissueModel.version = 5
+    TissueModel.version = 6
     gm = TissueModel(cm)
     gm.createModel()
     ###################

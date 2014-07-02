@@ -61,6 +61,12 @@ def getHepatocyteSpeciesId(sid, k):
 def createLocalizedId(cid, sid):
     return SEPARATOR.join([cid, sid])
 
+def isPPSpeciesId(sid):
+    return sid.startswith(getPPId() + SEPARATOR)
+def isPVSpeciesId(sid):
+    return sid.startswith(getPVId() + SEPARATOR)
+
+
 def getPPSpeciesName(name):
     return '[{}] {}'.format(getPPId(), name)
 def getPVSpeciesName(name):
