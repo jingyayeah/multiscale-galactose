@@ -20,7 +20,7 @@ def createDictFromKeysAndValues(keys, values):
     return d
 
 
-def getMultipleIndicatorDistributions():
+def getGalactoseDistributions():
     '''
     Galactose model.
     Samples N values from lognormal distribution defined by the 

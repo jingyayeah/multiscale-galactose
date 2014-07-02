@@ -208,9 +208,11 @@ class Integration(models.Model):
         return integration
 
 
+
 GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
 BOUNDERY_INIT = 'BOUNDERY_INIT'
 FLOATING_INIT = 'FLOATING_INIT'
+PTYPES = (GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT)
 
 class Parameter(models.Model):
     UNITS = (
@@ -220,11 +222,12 @@ class Parameter(models.Model):
                         ('mole_per_s', 'mole_per_s'),
                         ('-', '-'),
     )
-    PARAMETER_TYPE = (
-                         (GLOBAL_PARAMETER, GLOBAL_PARAMETER,),
-                         (BOUNDERY_INIT, BOUNDERY_INIT),
-                         (FLOATING_INIT, FLOATING_INIT),
-    )
+    PARAMETER_TYPE = zip(PTYPES, PTYPES)
+    #PARAMETER_TYPE = (
+    #                     (GLOBAL_PARAMETER, GLOBAL_PARAMETER,),
+    #                     (BOUNDERY_INIT, BOUNDERY_INIT),
+    #                     (FLOATING_INIT, FLOATING_INIT),
+    #)
     
     name = models.CharField(max_length=200)
     value = models.FloatField()

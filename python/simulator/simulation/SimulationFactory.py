@@ -15,7 +15,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import numpy as np
 
 from sim.models import *
-from simulation.distribution.Distributions import getMultipleIndicatorDistributions, getDemoDistributions
+from simulation.distribution.Distributions import getGalactoseDistributions, getDemoDistributions
 from simulation.distribution.RandomSampling import createParametersBySampling
 
 SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
@@ -70,41 +70,40 @@ def createDemoSamples(N, sampling):
     dist_data = getDemoDistributions()
     return createParametersBySampling(dist_data, N, sampling);
 
-
-def createMultipleIndicatorSamples(N, sampling):
-    ''' MulitpleIndicator simulations. '''
-    dist_data = getMultipleIndicatorDistributions()
+def createGalactoseSamples(N, sampling):
+    dist_data = getGalactoseDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
     samples = adaptFlowInSamples(samples)
-    return samples
-
-
-def createGalactoseSamples(gal_range, N=1, sampling='mean'):
-    ''' 
-    Raw sample is taken from the distributions.
-    The same raw_sample is used to generate all the galactose simulations, 
-    i.e. the identical sinusoidal units are simulated with varying 
-    inputs (here of galactose).
-    TODO: make more general with a given id and range. 
-    '''
-    raw_samples = createMultipleIndicatorSamples(N, sampling) 
-    raw_samples = setDeficiencyInSamples(raw_samples)
-    samples = []
-    for s in raw_samples:
-        for galactose in gal_range:
-            # make a copy of the dictionary
-            snew = s.copy()
-            # add information
-            snew['deficiency'] = ('deficiency', 0, '-', GLOBAL_PARAMETER)
-            snew['PP_gal'] = ('PP__gal', galactose, 'mM', BOUNDERY_INIT)
-            samples.append(snew)
+    samples = setDeficiencyInSamples(samples, deficiency=0)
     return samples
 
 
 def setDeficiencyInSamples(samples, deficiency=0):
+    return setParameterInSamples(samples, 'deficiency', deficiency, '-', GLOBAL_PARAMETER)
+
+def setParameterInSamples(samples, pid, value, unit, ptype):
+    if ptype not in PTYPES:
+        print 'ptype not supported', ptype
+        return
+    
     for s in samples:
-        s['deficiency'] = ('deficiency', deficiency, '-', GLOBAL_PARAMETER)
+        s[pid] = (pid, value, unit, ptype)
     return samples
+
+def setParameterValuesInSamples(raw_samples, pid, values, unit, ptype):
+    if ptype not in PTYPES:
+        print 'ptype not supported', ptype
+        return
+    samples = []
+    for s in raw_samples:
+        for value in values:
+            # make a copy of the dictionary
+            snew = s.copy()
+            # add information
+            snew[pid] = (pid, value, unit, ptype)
+            samples.append(snew)
+    return samples
+
     
 def adaptFlowInSamples(samples):
     '''
@@ -170,18 +169,18 @@ def makeMultipleIndicator(N):
     syncDjangoSBML()
             
     task = createTask(model, integration, info=info) 
-    samples = createMultipleIndicatorSamples(N=N, sampling="distribution")
+    samples = createGalactoseSamples(N=N, sampling="distribution")
     createSimulationsForSamples(task, samples)
 
 #----------------------------------------------------------------------#
 def makeMultiscaleGalactose(N, singleCell=False):
     print '*** MULTISCALE_GALACTOSE_SIMULATIONS ***'
+    info = '''Simulation of varying galactose concentrations periportal to steady state.'''
+    
     if singleCell:
         sbml_id = "Galactose_v11_Nc1_core"
     else:
         sbml_id = "Galactose_v11_Nc20_core"
-            
-    info = '''Simulation of varying galactose concentrations periportal to steady state.'''
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
     syncDjangoSBML()
@@ -194,20 +193,52 @@ def makeMultiscaleGalactose(N, singleCell=False):
     settings = Setting.get_settings_for_dict(sdict)
     integration = Integration.get_or_create_integration(settings)
     
+    # create parameter samples
+    samples = createGalactoseSamples(N=N, sampling='distribution') 
+    gal_range = np.arange(0, 6, 0.5)
+    samples = setParameterValuesInSamples(samples, 'PP__gal', gal_range, 'mM', BOUNDERY_INIT)
+    
     # simulations
     task = createTask(model, integration, info=info)
-    gal_range = np.arange(0, 6, 0.5)
-    samples = createGalactoseSamples(gal_range, N=N, sampling="distribution")
     createSimulationsForSamples(task, samples)
     
     return (task, samples)
+#----------------------------------------------------------------------#
+def makeGalactoseChallenge(N):        
+    info = '''Simulation of varying galactose challenge periportal to steady state.'''
+    sbml_id = "Galactose_v11_Nc20_galactose-challenge"
+    model = SBMLModel.create(sbml_id, SBML_FOLDER);
+    model.save();
+    # syncDjangoSBML()
+    
+    # integration
+    print 'integration'
+    sdict = dict(default_settings)
+    sdict['tstart'] = 0.0;
+    sdict['tend']  = 10000.0;
+    settings = Setting.get_settings_for_dict(sdict)
+    integration = Integration.get_or_create_integration(settings)
+    
+    # create parameter samples
+    print 'samples'
+    raw_samples = createGalactoseSamples(N=N, sampling='distribution') 
+    gal_challenge = np.arange(0, 6, 0.5)
+    print gal_challenge
+    samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
+    
+    # simulations
+    print 'simulations'
+    task = createTask(model, integration, info=info)
+    createSimulationsForSamples(task, samples)
+    return (task, samples)
+
 
 ####################################################################################
 if __name__ == "__main__":
 
     #----------------------------------------------------------------------#
-    if (0):
-        makeDemo(N=1000)
+    if (1):
+        makeDemo(N=10)
     #----------------------------------------------------------------------#
     if (0):
         makeGlucose()
@@ -232,8 +263,11 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         makeMultipleIndicator(N=10)
+    #----------------------------------------------------------------------#
+    if (0):
+        makeGalactoseChallenge(N=10)
     #----------------------------------------------------------------------#
 
     
