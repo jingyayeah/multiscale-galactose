@@ -21,7 +21,7 @@ class EventData():
         
         
 def createDilutionEventData(tp_start = 10.0, duration = 0.5):
-    species = ["PP__gal", "PP__rbcM", "PP__alb", "PP__h2oM", "PP__suc"]
+    species = ["PP__galM", "PP__rbcM", "PP__alb", "PP__h2oM", "PP__suc"]
     
     tp_end = tp_start + duration
     p_height = 1.0/duration;

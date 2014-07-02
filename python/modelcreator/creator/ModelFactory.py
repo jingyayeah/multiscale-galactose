@@ -39,6 +39,10 @@ class TissueModel(object):
         self.model = self.doc.createModel(self.id)
         self.model.setName(self.id)
         
+        self.pars.append(
+                         ('Nc',             TissueModel.Nc,     '-',     True),
+        )
+        
         print '*'*40
         print '* Create:', self.id
         print '*'*40
@@ -127,7 +131,6 @@ class TissueModel(object):
             ('Vol_liv',     1.5E-3,   'm3',     True),
             ('rho_liv',     1.1E3,    'kg_per_m3', True), 
             ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
-            ('Nc',             Nc,     '-',     True),
             ('gal_challenge',  0.0,    'mM',    True),
     ]    
     names['L'] = 'sinusoidal length'
@@ -449,8 +452,8 @@ class TissueModel(object):
         fname = folder + self.id + '.xml'
         writer.writeSBMLToFile(self.doc, fname)
     
-        # validate the model with units
-        validator = SBMLValidator(ucheck=True)
+        # validate the model with units (only for small models)
+        validator = SBMLValidator(ucheck= (self.Nc<4) )
         val_string = validator.validate(fname)
     
 def storeInDatabase(tissueModel, folder):
@@ -473,12 +476,12 @@ if __name__ == "__main__":
     
     # Create the general model information 
     folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-    TissueModel.Nc = 1
-    TissueModel.version = 8
+    TissueModel.Nc = 20
+    TissueModel.version = 9
     cellModel = GalactoseModel()
     
     # bare model
-    gm = TissueModel(cellModel)
+    gm = TissueModel(cellModel, simId='core', events=None)
     gm.createModel()
     gm.writeSBML(folder)    
     storeInDatabase(gm, folder)
