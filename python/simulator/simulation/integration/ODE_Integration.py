@@ -114,7 +114,7 @@ def integrate_roadrunner(sims):
     sel = ['time']
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
-    sel += rr.model.getReactionIds()
+    sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
     # For testing store the parameters (make sure that reset is working)
     # sel += rr.model.getGlobalParameterIds()
             

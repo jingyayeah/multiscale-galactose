@@ -23,11 +23,11 @@ from creator.sbml.SBMLValidator import SBMLValidator
 
 from MetabolicModel import *
 from creator.processes.ReactionTemplate import ReactionTemplate
-from creator.MetabolicModel import createDeficiencyEvent
 
 class TissueModel(object):
     Nc = None
     version = None
+    names = None
         
     def __init__(self, cellModel, simId=None, events=None):
         self.cellModel = cellModel
@@ -40,9 +40,8 @@ class TissueModel(object):
         self.model.setName(self.id)
         
         self.pars.append(
-                         ('Nc',             TissueModel.Nc,     '-',     True),
+            ('Nc',             TissueModel.Nc,     '-',     True),
         )
-        
         print '*'*40
         print '* Create:', self.id
         print '*'*40
@@ -302,7 +301,6 @@ class TissueModel(object):
         self.createCellAssignmentRules()
         self.createCellReactions()
         
-        
         self.createCellEvents()
         self.createSimulationEvents()
         
@@ -380,7 +378,7 @@ class TissueModel(object):
         for r in self.cellModel.reactions:
             r.createReactions(self.model, initData)
                 
-    
+
     def createFlowReactions(self):
         flow = 'flow_sin * A_sin'     # [m3/s] volume flow
         for data in TissueModel.external:
@@ -417,23 +415,16 @@ class TissueModel(object):
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
     
     def createCellEvents(self):
-        units = {
-                 'GALK_kcat':'per_s',
-                 'GALK_k_gal':'mM',
-                 'GALK_k_atp':'mM',
-                 'GALT_vm': 'dimensionless',
-                 'GALT_k_gal1p': 'mM', 
-                 'GALT_k_udpglc': 'mM',
-                 'GALE_kcat': 'per_s',
-                 'GALE_k_udpglc':'mM',
-                 }
-        for deficiency, data in self.cellModel.def_events.iteritems():
+        ddict = self.cellModel.deficiencies
+        dunits = self.cellModel.deficiencies_units
+        
+        for deficiency, data in ddict.iteritems():
             e = createDeficiencyEvent(self.model, deficiency)
             # create all the event assignments for the event
             for key, value in data.iteritems():
                 p = self.model.getParameter(key)
                 p.setConstant(False)
-                formula = '{} {}'.format(value, units[key])        
+                formula = '{} {}'.format(value, dunits[key])        
                 astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
                 ea = e.createEventAssignment()
                 ea.setVariable(key)
@@ -472,13 +463,13 @@ def storeInDatabase(tissueModel, folder):
 ##########################################################################
 if __name__ == "__main__":
     
-    from CellModel import GalactoseModel
+    from creator.models.GalactoseModel import GalactoseModel
     from creator.events.EventFactory import *
     
     # Create the general model information 
     folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
     TissueModel.Nc = 20
-    TissueModel.version = 11
+    TissueModel.version = 12
     cellModel = GalactoseModel()
     
     # [1] core model

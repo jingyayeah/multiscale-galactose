@@ -1,8 +1,7 @@
 '''
-The important part is to be able to put various metabolic models
-in the sinusoidal model geometry.
-Cell models consist of reactions and transporters.
-As well as species.  
+Galactose model for inclusion into sinusoidal unit.
+The metabolic models are specified in a generic format which is than
+included in the tissue scale model.
 
 Created on Jun 24, 2014
 @author: mkoenig
@@ -69,8 +68,18 @@ class GalactoseModel(object):
                  GLUT2_GAL,
                  GLUT2_GALM)
     
-    # metabolic deficiencies
-    def_events = {
+    # metabolic events
+    deficiencies_units = {
+                 'GALK_kcat':'per_s',
+                 'GALK_k_gal':'mM',
+                 'GALK_k_atp':'mM',
+                 'GALT_vm': 'dimensionless',
+                 'GALT_k_gal1p': 'mM', 
+                 'GALT_k_udpglc': 'mM',
+                 'GALE_kcat': 'per_s',
+                 'GALE_k_udpglc':'mM',
+    }
+    deficiencies = {
         0 : {'GALK_kcat':8.7, 'GALK_k_gal':0.97, 'GALK_k_atp':0.034,
              'GALT_vm':  804,  'GALT_k_gal1p':1.25, 'GALT_k_udpglc':0.95,
              'GALE_kcat': 36,  'GALE_k_udpglc':0.069

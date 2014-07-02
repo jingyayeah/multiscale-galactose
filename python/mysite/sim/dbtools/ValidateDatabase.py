@@ -181,14 +181,14 @@ if __name__ == "__main__":
     #     Remove simulations for tasks
     #-----------------------------------------------
     # TODO: also clean the tmp files and local files after removing simulations
-    #task_pks = range(1,29)
-    #for pk in task_pks:
-    #    task = Task.objects.get(pk=pk)
-    #    removeSimulationsForTask(task)
+    task_pks = (1,2, 3, 4 )
+    for pk in task_pks:
+        task = Task.objects.get(pk=pk)
+        removeSimulationsForTask(task)
     
     #-----------------------------------------------
     #     Unassign all simulations
     #-----------------------------------------------
     # ! CAREFUL - KNOW WHAT YOU ARE DOING !
-    unassignAllSimulation()
+    # unassignAllSimulation()
     

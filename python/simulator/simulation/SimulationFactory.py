@@ -163,7 +163,7 @@ def makeMultipleIndicator(N):
     settings = Setting.get_settings_for_dict(sdict)
     integration = Integration.get_or_create_integration(settings)
     
-    sbml_id = 'Galactose_v11_Nc20_dilution'
+    sbml_id = 'Galactose_v12_Nc20_dilution'
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
     syncDjangoSBML()
@@ -178,7 +178,7 @@ def makeMultiscaleGalactose(N, singleCell=False):
     info = '''Simulation of varying galactose concentrations periportal to steady state.'''
     
     if singleCell:
-        sbml_id = "Galactose_v11_Nc1_core"
+        sbml_id = "Galactose_v12_Nc1_core"
     else:
         sbml_id = "Galactose_v11_Nc20_core"
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
@@ -206,10 +206,10 @@ def makeMultiscaleGalactose(N, singleCell=False):
 #----------------------------------------------------------------------#
 def makeGalactoseChallenge(N):        
     info = '''Simulation of varying galactose challenge periportal to steady state.'''
-    sbml_id = "Galactose_v11_Nc20_galactose-challenge"
+    sbml_id = "Galactose_v12_Nc20_galactose-challenge"
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
     model.save();
-    # syncDjangoSBML()
+    syncDjangoSBML()
     
     # integration
     print 'integration'
@@ -235,7 +235,6 @@ def makeGalactoseChallenge(N):
 
 ####################################################################################
 if __name__ == "__main__":
-
     #----------------------------------------------------------------------#
     if (1):
         makeDemo(N=10)
@@ -260,13 +259,12 @@ if __name__ == "__main__":
             task_d = createTask(task.sbml_model, integration, info=task.info)
             # create the simulations
             samples = setDeficiencyInSamples(samples, deficiency=d)
-            createSimulationsForSamples(task_d, samples)
-            
+            createSimulationsForSamples(task_d, samples)       
     #----------------------------------------------------------------------#
     if (0):
         makeMultipleIndicator(N=10)
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         makeGalactoseChallenge(N=10)
     #----------------------------------------------------------------------#
 

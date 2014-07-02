@@ -3,8 +3,6 @@ Created on Jun 20, 2014
 
 @author: mkoenig
 '''
-
-import sys
 import os.path
 import time
 import libsbml
