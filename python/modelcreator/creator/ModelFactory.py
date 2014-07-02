@@ -447,18 +447,18 @@ class TissueModel(object):
             createSimulationEvents(self.model, self.events)
     
     def writeSBML(self, folder):
-        print self.id
         writer = SBMLWriter()
         fname = folder + self.id + '.xml'
         writer.writeSBMLToFile(self.doc, fname)
     
         # validate the model with units (only for small models)
         validator = SBMLValidator(ucheck= (self.Nc<4) )
-        val_string = validator.validate(fname)
+        validator.validate(fname)
     
+
 def storeInDatabase(tissueModel, folder):
-    '''
-    SBML must already be written.
+    ''' SBML must already be written. 
+        TODO: this belongs to mysite not in the model creation
     '''
     import sys
     import os
@@ -466,29 +466,28 @@ def storeInDatabase(tissueModel, folder):
     os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
     from sim.models import SBMLModel
     
-    model = SBMLModel.create(gm.id, folder);
+    model = SBMLModel.create(tissueModel.id, folder);
     model.save();
    
 ##########################################################################
 if __name__ == "__main__":
-    ###################
+    
     from CellModel import GalactoseModel
+    from creator.events.EventFactory import *
     
     # Create the general model information 
     folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
     TissueModel.Nc = 20
-    TissueModel.version = 9
+    TissueModel.version = 11
     cellModel = GalactoseModel()
     
-    # bare model
+    # [1] core model
     gm = TissueModel(cellModel, simId='core', events=None)
     gm.createModel()
     gm.writeSBML(folder)    
     storeInDatabase(gm, folder)
     
-    from creator.events.EventFactory import *
-    
-    # multiple dilution indicator
+    # [2] multiple dilution indicator
     # ___|---|__ (in all periportal species)
     events = createDilutionEventData(tp_start=10.0, duration=0.5)
     gm = TissueModel(cellModel, simId="dilution", events=events)
@@ -496,13 +495,12 @@ if __name__ == "__main__":
     gm.writeSBML(folder)    
     storeInDatabase(gm, folder)
     
-    # galactose challenge (with various galactose)
+    # [3] galactose challenge (with various galactose)
     # __|------
-    
-    # events = createGalactoseChallengeEvents(peakStart)
     events = createGalactoseChallengeEventData(tc_start=100.0)
     gm = TissueModel(cellModel, simId="galactose-challenge", events=events)
     gm.createModel()
     gm.writeSBML(folder)    
     storeInDatabase(gm, folder)
 
+##########################################################################

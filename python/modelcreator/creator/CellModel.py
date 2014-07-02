@@ -10,7 +10,7 @@ Created on Jun 24, 2014
 from creator.processes.GalactoseReactions import *
 
 class GalactoseModel(object):
-    id = 'GalactoseModel'
+    id = 'Galactose'
     species = [
             # id, value, unit
             ('e__gal',  0.00012, 'mM'),

@@ -164,24 +164,22 @@ def makeMultipleIndicator(N):
     settings = Setting.get_settings_for_dict(sdict)
     integration = Integration.get_or_create_integration(settings)
     
-    peaks = range(0,3)
-    for kp in peaks:
-        sbml_id = "GalactoseComplete_P%02d_v21_Nc20_Nf1" % kp
-        model = SBMLModel.create(sbml_id, SBML_FOLDER);
-        model.save();
-        syncDjangoSBML()
+    sbml_id = 'Galactose_v11_Nc20_dilution'
+    model = SBMLModel.create(sbml_id, SBML_FOLDER);
+    model.save();
+    syncDjangoSBML()
             
-        task = createTask(model, integration, info=info) 
-        samples = createMultipleIndicatorSamples(N=N, sampling="distribution")
-        createSimulationsForSamples(task, samples)
+    task = createTask(model, integration, info=info) 
+    samples = createMultipleIndicatorSamples(N=N, sampling="distribution")
+    createSimulationsForSamples(task, samples)
 
 #----------------------------------------------------------------------#
 def makeMultiscaleGalactose(N, singleCell=False):
     print '*** MULTISCALE_GALACTOSE_SIMULATIONS ***'
     if singleCell:
-        sbml_id = "GalactoseComplete_v21_Nc1_Nf1"
+        sbml_id = "Galactose_v11_Nc1_core"
     else:
-        sbml_id = "GalactoseComplete_v21_Nc20_Nf1"
+        sbml_id = "Galactose_v11_Nc20_core"
             
     info = '''Simulation of varying galactose concentrations periportal to steady state.'''
     model = SBMLModel.create(sbml_id, SBML_FOLDER);
@@ -214,14 +212,14 @@ if __name__ == "__main__":
     if (0):
         makeGlucose()
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         # Create the normal case for 1 cell or all cells
         singleCell = False
         [task, samples] = makeMultiscaleGalactose(N=10, singleCell=singleCell)
     
         # Use the samples to create deficiencies
-        # deficiencies = range(1,4)
-        deficiencies = range(1, 24)
+        deficiencies = ()
+        # deficiencies = range(1, 24)
         for d in deficiencies:
             sdict = task.integration.get_settings_dict()
             sdict['condition'] = 'GDEF_' + str(d)
@@ -234,8 +232,8 @@ if __name__ == "__main__":
             createSimulationsForSamples(task_d, samples)
             
     #----------------------------------------------------------------------#
-    if (0):
-        makeMultipleIndicator(N=900)
+    if (1):
+        makeMultipleIndicator(N=10)
     #----------------------------------------------------------------------#
 
     
