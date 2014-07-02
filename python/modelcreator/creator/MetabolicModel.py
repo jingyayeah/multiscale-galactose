@@ -5,6 +5,7 @@ Created on Jun 18, 2014
 
 import libsbml
 from libsbml import UNIT_KIND_DIMENSIONLESS, UnitKind_toString
+from creator.events.EventFactory import createTriggerFromTime
 
 SBML_LEVEL = 3
 SBML_VERSION = 1
@@ -153,11 +154,9 @@ def _createAssignmentRule(model, sid, formula):
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
     rule.setMath(astnode);   
 
-#################################
-# Deficiency Events
-#################################
-
-
+######################################
+# Deficiency Events (Galactosemias)
+######################################
 def getDeficiencyEventId(deficiency):
     return 'EDEF_{:0>2d}'.format(deficiency)
     
@@ -175,4 +174,27 @@ def createDeficiencyEvent(model, deficiency):
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
     t.setMath(astnode);
     return e;
-    
+
+##########################################
+# Simulation Events (Peaks & Challenges)
+##########################################
+def createSimulationEvents(model, elist):
+    for edata in elist:
+        createEventFromEventData(model, edata)
+
+def createEventFromEventData(model, edata):
+    e = model.createEvent();
+    e.setId(edata.id)
+    e.setName(edata.name);
+    e.setUseValuesFromTriggerTime(True);
+    t = e.createTrigger();
+    t.setInitialValue(True)
+    t.setPersistent(True)
+    astnode = libsbml.parseL3FormulaWithModel(edata.trigger, model)
+    t.setMath(astnode)
+    # assignments
+    for key, value in edata.assignments.iteritems(): 
+        astnode = libsbml.parseL3FormulaWithModel(value, model)
+        ea = e.createEventAssignment()
+        ea.setVariable(key)
+        ea.setMath(astnode)

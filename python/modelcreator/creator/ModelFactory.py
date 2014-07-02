@@ -29,15 +29,26 @@ class TissueModel(object):
     Nc = None
     version = None
         
-    def __init__(self, cellModel):
-        print '*'*40
-        print '* Create TissueModel'
-        print '*'*40
-        self.id = 'GalactoseModel_v{}_Nc{}'.format(self.version, TissueModel.Nc)  
+    def __init__(self, cellModel, simId=None, events=None):
+        self.cellModel = cellModel
+        self.simId = simId
+        self.events = events
+        
+        self.id = self.createId()
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
         self.model = self.doc.createModel(self.id)
         self.model.setName(self.id)
-        self.cellModel = cellModel
+        
+        print '*'*40
+        print '* Create:', self.id
+        print '*'*40
+        
+    def createId(self):
+        if self.simId:
+            mid = '{}_v{}_Nc{}_{}'.format(self.cellModel.id, self.version, self.Nc, self.simId)
+        else:
+            mid = '{}_v{}_Nc{}'.format(self.cellModel.id, self.version, self.Nc)
+        return mid
     
     def cell_range(self):
         return range(1, TissueModel.Nc+1)
@@ -117,6 +128,7 @@ class TissueModel(object):
             ('rho_liv',     1.1E3,    'kg_per_m3', True), 
             ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
             ('Nc',             Nc,     '-',     True),
+            ('gal_challenge',  0.0,    'mM',    True),
     ]    
     names['L'] = 'sinusoidal length'
     names['y_sin'] = 'sinusoidal radius'
@@ -428,57 +440,66 @@ class TissueModel(object):
         ''' Create the simulation timecourse events based on the 
             event data.
         '''
-        e = self.model.createEvent();
-        # e.setId(eid)
-        '''
-        e.setName(eData.getName());
-        e.setUseValuesFromTriggerTime(true);
-        Trigger t = e.createTrigger(true, true);
-        t.setMath(ASTNode.parseFormula(eData.getTrigger()));
-        HashMap<String, String> assignments = eData.getAssignments();
-        for (String key : assignments.keySet()){
-            String a = assignments.get(key);
-            e.createEventAssignment(key, ASTNode.parseFormula(a));    
-        }
-        '''
-        return e;   
+        if self.events:
+            createSimulationEvents(self.model, self.events)
     
+    def writeSBML(self, folder):
+        print self.id
+        writer = SBMLWriter()
+        fname = folder + self.id + '.xml'
+        writer.writeSBMLToFile(self.doc, fname)
+    
+        # validate the model with units
+        validator = SBMLValidator(ucheck=True)
+        val_string = validator.validate(fname)
+    
+def storeInDatabase(tissueModel, folder):
+    '''
+    SBML must already be written.
+    '''
+    import sys
+    import os
+    sys.path.append('/home/mkoenig/multiscale-galactose/python')
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+    from sim.models import SBMLModel
+    
+    model = SBMLModel.create(gm.id, folder);
+    model.save();
+   
 ##########################################################################
 if __name__ == "__main__":
     ###################
     from CellModel import GalactoseModel
     
-    cm = GalactoseModel()
-    TissueModel.Nc = 1
-    TissueModel.version = 6
-    gm = TissueModel(cm)
-    gm.createModel()
-    ###################
-    
-    print gm.id
-    
-    print '*' * 20
-    writer = SBMLWriter()
-    # sbml = writer.writeSBMLToString(gm.doc)
-    # print sbml
-    # print '*' * 20
-    
+    # Create the general model information 
     folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-    file = folder + gm.id + '.xml'
-    writer.writeSBMLToFile(gm.doc, file)
+    TissueModel.Nc = 1
+    TissueModel.version = 8
+    cellModel = GalactoseModel()
     
-    # validate the model with units
-    validator = SBMLValidator(ucheck=True)
-    val_string = validator.validate(file)
+    # bare model
+    gm = TissueModel(cellModel)
+    gm.createModel()
+    gm.writeSBML(folder)    
+    storeInDatabase(gm, folder)
     
-    # store in database
-    import sys
-    import os
-    sys.path.append('/home/mkoenig/multiscale-galactose/python')
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+    from creator.events.EventFactory import *
     
-    from sim.models import SBMLModel
-    # TODO: problems if the model already exists
+    # multiple dilution indicator
+    # ___|---|__ (in all periportal species)
+    events = createDilutionEventData(tp_start=10.0, duration=0.5)
+    gm = TissueModel(cellModel, simId="dilution", events=events)
+    gm.createModel()
+    gm.writeSBML(folder)    
+    storeInDatabase(gm, folder)
     
-    model = SBMLModel.create(gm.id, folder);
-    model.save();
+    # galactose challenge (with various galactose)
+    # __|------
+    
+    # events = createGalactoseChallengeEvents(peakStart)
+    events = createGalactoseChallengeEventData(tc_start=100.0)
+    gm = TissueModel(cellModel, simId="galactose-challenge", events=events)
+    gm.createModel()
+    gm.writeSBML(folder)    
+    storeInDatabase(gm, folder)
+

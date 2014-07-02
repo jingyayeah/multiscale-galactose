@@ -10,6 +10,7 @@ Created on Jun 24, 2014
 from creator.processes.GalactoseReactions import *
 
 class GalactoseModel(object):
+    id = 'GalactoseModel'
     species = [
             # id, value, unit
             ('e__gal',  0.00012, 'mM'),
@@ -34,18 +35,15 @@ class GalactoseModel(object):
             ('c__nadp',             0.1,    'mM'),
             ('c__nadph',            0.1,    'mM'),
     ]
-    pars = [
-            # id, value, unit, constant
+    pars = [# id, value, unit, constant            
             ('scale_f',   10E-15,   '-',    True),
             ('REF_P',     1.0,      'mM',   True),
             ('deficiency',  0,      '-',    True),
     ]  
-    assignments = [
-            # id, assignment, unit
+    assignments = [# id, assignment, unit
             ('scale', 'scale_f', '-'),               
     ]
-    rules = [
-            # id, rule, unit
+    rules = [# id, rule, unit
             ('c__nadp_tot', 'c__nadp + c__nadph', 'mM'),
             ('c__adp_tot', 'c__atp + c__adp', 'mM'),
             ('c__udp_tot', 'c__utp + c__udp + c__udpglc + c__udpgal', 'mM'),
@@ -101,4 +99,3 @@ class GalactoseModel(object):
        22 : {'GALE_kcat': 30,  'GALE_k_udpglc':0.078},
        23 : {'GALE_kcat': 15,  'GALE_k_udpglc':0.099}      
     }
-
