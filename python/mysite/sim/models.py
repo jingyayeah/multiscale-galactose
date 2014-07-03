@@ -104,7 +104,9 @@ class SBMLModel(models.Model):
     
     @classmethod
     def create(cls, sbml_id, folder):
-        ''' Create the model based on the model id.'''
+        ''' Create the model based on the model id.
+            # TODO: create based on file
+        '''
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
             print 'Model already exists! - model is not saved'
@@ -141,7 +143,10 @@ class Setting(models.Model):
         return "{}={}".format(self.name, self.value) 
 
     @staticmethod
-    def get_settings_for_dict(sdict):
+    def get_settings(settings):
+        # add the default settings
+        sdict = dict(default_settings.items() + settings.items())
+        
         # get all settings objects from db
         settings = []
         for key, value in sdict.iteritems():

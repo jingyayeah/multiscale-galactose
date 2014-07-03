@@ -36,6 +36,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED, ERROR
 from sim.models import Task
 
+
+
+
 def unassignAssignedHangingSimulations(task=None, cutoff_minutes=10):
     unassignHangingSimulationsWithStatus(ASSIGNED, task, cutoff_minutes)
     
@@ -181,7 +184,7 @@ if __name__ == "__main__":
     #     Remove simulations for tasks
     #-----------------------------------------------
     # TODO: also clean the tmp files and local files after removing simulations
-    task_pks = (1,2, 3, 4 )
+    task_pks = (1,2, 3, 4)
     for pk in task_pks:
         task = Task.objects.get(pk=pk)
         removeSimulationsForTask(task)
