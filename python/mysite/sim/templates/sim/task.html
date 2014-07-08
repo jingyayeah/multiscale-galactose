@@ -14,12 +14,26 @@
     </table> 
     
     <!-- Simulations for task -->
-    <table id="table_items">
+    <table>
 	<tr>
-		<td>{{task.simulation_set}}</td>
+		{% usekwacro simulation_header %}
 	</tr>
+	{% for sim in task.simulation_set.all|slice:":10" %}
+	{% if sim %}	
 	<tr>
+		{% usekwacro simulation_content %}
 	</tr>
+	{% endif %}
+	{% endfor %}
+    <tr>
+		<td>...</td>
+	</tr>
+	
     </table> 
+    
+			
+	
+	
+	 
     
 {% endblock %}

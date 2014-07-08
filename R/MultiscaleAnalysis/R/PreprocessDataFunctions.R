@@ -84,6 +84,7 @@ preprocess <- function(pars, sim.dir, outFile=NULL, sim.indices=NULL, col.indice
   
   print('Create preprocess list')
   preprocess.list = readColumnData(pars=pars.sim, dir=sim.dir, col.indices_f)
+  
   print('Create preprocess matrix')
   print(ma.settings$simulator)
   if (ma.settings$simulator == 'COPASI' || ma.settings$simulator == 'ROADRUNNER_STEPS'){
@@ -165,7 +166,10 @@ readDataForSimulation <- function(dir, simId, col.indices_f){
   
   # fix strange behavior via cast
   data <- as.data.frame(data)
-  rownames(data) <- data[,'time']
+  
+  # TODO: fix problems with settings the rownames to time
+  # ? why set the time as rownames?
+  # rownames(data) <- data[,'time']
   
   # reduce data col.indices given by the function
   if (!is.null(col.indices_f)){
@@ -185,6 +189,7 @@ getTimeFromPreprocessMatrix <- function(preprocess.mat){
 }
 
 #' Convert timecourse list structure into data matrix.
+#' TODO: fix the performance (select only subset of interest)
 #' 
 #' @param datalist list of data matrices
 #' @param compounds which compounds to take

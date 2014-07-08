@@ -1,5 +1,5 @@
 ################################################################
-## Evaluation of MultipleIndicator Dilution Curves ##
+## Evaluation of MultipleIndicator Dilution Curves
 ################################################################
 # The workflow for analysis is:
 # [1] preprocessing of timecourse data
@@ -7,10 +7,11 @@
 #     and weighting of the data
 # [3] apply the weighting to the time course simulations. 
 #
-# Data is read from the preprocessed timecourse samples (TODO: arbitrary 
-# preprocessing to get the necessary components out of he solution CSV).
+# Data is read from the preprocessed timecourse samples.
+# Necessary to make multiple plots depending on subsets of the data
 #
-# TODO: create proper with experimental data
+# TODO: create the plots depending on the galactose challange
+# TODO: create plot with experimental data
 # TODO: create the log plot
 # 
 # author: Matthias Koenig

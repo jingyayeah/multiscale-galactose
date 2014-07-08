@@ -184,7 +184,7 @@ def createSimulationEvents(model, elist):
 
 def createEventFromEventData(model, edata):
     e = model.createEvent();
-    e.setId(edata.id)
+    e.setId(edata.eid)
     e.setName(edata.name);
     e.setUseValuesFromTriggerTime(True);
     t = e.createTrigger();

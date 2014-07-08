@@ -15,7 +15,7 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 ma.settings$simulator <- 'ROADRUNNER'
-tasks = seq(5,6)
+tasks = seq(2)
 date = '2014-06-23'
 modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
 t.approx <- seq(from=0, to=10000, by=10)

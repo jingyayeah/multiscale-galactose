@@ -4,7 +4,7 @@
 #' @param data dataset to be plotted
 #' @param correctTime set TRUE if the time should be corrected
 #' @export 
-plotDilutionData <- function(data, compounds=compounds, ccolors=ccolors, correctTime=FALSE){
+plotDilutionData <- function(data, compounds, ccolors, correctTime=FALSE){
   Nc = length(compounds)
   for (kc in seq(Nc)){
     compound <- compounds[kc]
@@ -18,6 +18,7 @@ plotDilutionData <- function(data, compounds=compounds, ccolors=ccolors, correct
     if (nrow(cdata)>0){
       points(cdata$time, cdata$outflow, col=ccolor)
       lines(cdata$time, cdata$outflow, col=ccolor, lty=2, lwd=2)
+      legend("topright",  legend=compounds, fill=ccolors) 
     }
   }
 }
@@ -35,7 +36,6 @@ getDilutionDataMaxima <- function(data, compounds){
     compound <- compounds[kc]
     cdata = data[data$compound==compound,]
     print(head(cdata))
-    
     maxima(kc) <- max(cdata)
   }
   maxima
@@ -49,6 +49,8 @@ getDilutionDataMaxima <- function(data, compounds){
 correctDilutionTimes <- function(data){
   dnew <- data;
   # TODO: properly extrapolate to zero
+  # ?? what happens here
+  plot(data$time)
   dnew$time <- dnew$time - min(data$time) + 1.0
   dnew
 }

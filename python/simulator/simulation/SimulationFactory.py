@@ -159,9 +159,9 @@ def make_galactose_core(sbml_id, N):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-def make_galactose_dilution(sbml_id, N):
+def make_galactose_dilution(sbml_id, N, sync=True):
     info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).'''
-    model = create_django_model(sbml_id, sync=True)
+    model = create_django_model(sbml_id, sync=sync)
     
     # parameter samples
     raw_samples = createGalactoseSamples(N=N, sampling="distribution")
@@ -226,7 +226,8 @@ if __name__ == "__main__":
         The peaks are combined with additional galactose background 
         challenges
         '''
-        [task, raw_samples] = make_galactose_dilution(sbml_id='Galactose_v12_Nc20_dilution', N=10)
+        [task, raw_samples] = make_galactose_dilution(sbml_id='Galactose_v12_Nc20_dilution', 
+                                                      N=10, sync=False)
         
         # additional galactose challenge
         PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
