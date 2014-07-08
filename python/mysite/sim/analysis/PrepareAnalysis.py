@@ -12,12 +12,13 @@ file and copying the used model for the simulations.
 import os
 import sys
 import shutil
-sys.path.append('/home/mkoenig/multiscale-galactose/python')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
+import sim.PathSettings
+from sim.PathSettings import MULTISCALE_GALACTOSE_RESULTS
 from settings import MEDIA_ROOT
 
 from sim.models import Task
-from AnalysisTools import createParameterFileForTask
+from sim.analysis.ParameterFiles import createParameterFileForTask
 import subprocess
 import pipes
 from sh import rsync
@@ -86,9 +87,7 @@ def exists_remote(host, path):
 
 #############################################################################   
 if __name__ == '__main__':
-    '''
-    Preparing data for analysis
-    '''
+    ''' Preparing data for analysis '''
     from optparse import OptionParser
     parser = OptionParser()
     parser.add_option("-t", "--task", dest="task_pk",
@@ -119,7 +118,7 @@ if __name__ == '__main__':
         import time
         date_str = time.strftime("%Y-%m-%d")
         print date_str 
-        directory = '/home/mkoenig/multiscale-galactose-results/' + date_str + '_' + str(task)
+        directory = MULTISCALE_GALACTOSE_RESULTS + '/' + date_str + '_' + str(task)
         print directory
     
     prepareDataForAnalysis(task, directory)
