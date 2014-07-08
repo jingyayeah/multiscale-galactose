@@ -53,11 +53,7 @@ def integrate(sims, simulator):
     Error handling is done via try/except 
     Cores are not hanging, but simulations are put into an ERROR state.
     Mainly problems if files are not available.
-    '''
-    directory = ''.join([SIM_FOLDER, "/", str(sims[0].task)])
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    
+    '''    
     if (simulator == COPASI):
         integrate_copasi(sims);
     elif (simulator == ROADRUNNER):

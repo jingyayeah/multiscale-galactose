@@ -28,13 +28,12 @@ TODO: support simulation priorities; use the simulation priorities !!!
 TODO: provide a set of simulations from the task view
 '''
 
+import sim.PathSettings
+from sim.PathSettings import MULTISCALE_GALACTOSE_RESULTS
+
+SIM_FOLDER = "/".join([MULTISCALE_GALACTOSE_RESULTS, 'tmp_sim'])
+
 import os
-import sys
-sys.path.append("/".join([os.getenv('MULTISCALE_GALACTOSE'), 'python']))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-
-SIM_FOLDER = "/".join([os.getenv('MULTISCALE_GALACTOSE_RESULTS'), 'tmp_sim'])
-
 import time
 import multiprocessing
 import socket
@@ -91,6 +90,12 @@ def assign_simulations(core, Nsim=1):
             sims = unassigned[0:Nsim]
         # set the assignment status
         assign_and_save_in_bulk(sims, core)
+        
+        # create the results folder if not existing
+        directory = ''.join([SIM_FOLDER, "/", str(sims[0].task)])
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        
         return sims
     else:
         return None

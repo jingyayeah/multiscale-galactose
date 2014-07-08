@@ -9,12 +9,13 @@ from the provided parameter distributions for the models.
 '''
 
 import os
-
 import logging
 import numpy as np
 from subprocess import call
 
+import sim.PathSettings
 from sim.models import *
+
 from simulation.distribution.Distributions import getGalactoseDistributions, getDemoDistributions
 from simulation.distribution.RandomSampling import createParametersBySampling
 
@@ -163,7 +164,8 @@ def make_galactose_dilution(sbml_id, N):
     model = create_django_model(sbml_id, sync=True)
     
     # parameter samples
-    samples = createGalactoseSamples(N=N, sampling="distribution")
+    raw_samples = createGalactoseSamples(N=N, sampling="distribution")
+    samples = setParameterInSamples(raw_samples, 'PP__gal', 0.0, 'mM', BOUNDERY_INIT)
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':5000.0, 'steps':100} )
@@ -194,7 +196,7 @@ def make_galactose_challenge(sbml_id, N):
 ####################################################################################
 if __name__ == "__main__":
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print 'make demo'
         make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=10)
     #----------------------------------------------------------------------#
@@ -218,7 +220,7 @@ if __name__ == "__main__":
             samples = setDeficiencyInSamples(samples, deficiency=d)
             createSimulationsForSamples(task_d, samples)     
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution peaks after certain time.
         The peaks are combined with additional galactose background 

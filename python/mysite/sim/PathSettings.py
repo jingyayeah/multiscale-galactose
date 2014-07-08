@@ -16,8 +16,15 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 if not os.environ.has_key('MULTISCALE_GALACTOSE'):
     os.environ['MULTISCALE_GALACTOSE'] = '/home/mkoenig/multiscale-galactose'
+if not os.environ.has_key('MULTISCALE_GALACTOSE_RESULTS'):
+    os.environ['MULTISCALE_GALACTOSE_RESULTS'] = '/home/mkoenig/multiscale-galactose-results'
 if not os.environ.has_key('SBML_DIR'):
-    os.environ['SBML_DIR'] = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
+    os.environ['SBML_DIR'] = os.environ['MULTISCALE_GALACTOSE_RESULTS'] + '/tmp_sbml'
 
 print os.environ['DJANGO_SETTINGS_MODULE']
 logging.debug('Settings loaded')
+
+
+MULTISCALE_GALACTOSE = os.environ['MULTISCALE_GALACTOSE']
+MULTISCALE_GALACTOSE_RESULTS = os.environ['MULTISCALE_GALACTOSE_RESULTS']
+SBML_DIR = os.environ['SBML_DIR']

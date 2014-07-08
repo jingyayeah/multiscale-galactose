@@ -1,12 +1,14 @@
 '''
+Tools to help analyze simulation series, i.e. simulations 
+belonging to the same task.
+Parameter files are generated based on the information in the database.
+All simulations within a task must have set the same parameters, i.e.
+for the unaltered case the unaltered parameters have to be set 
+explicitly. This enforces coherrent simulation information within a 
+task.
+
 Created on Mar 23, 2014
 @author: Matthias Koenig
-
-Tools to help analyse series of Simulations, i.e. simulations
-which belong to the same task.
-
-Here simulations are collected from the database and the 
-parameter files written for the simulations.
 '''
 
 import os
@@ -15,7 +17,6 @@ sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
-
 from sim.models import Task
 
 def getParameterFilenameForTask(task, folder=None):
@@ -80,10 +81,10 @@ def createParameterInfoForTask(task):
         
     
 if __name__ == "__main__":
+    
+    # write the parameter files
     folder = "/home/mkoenig/multiscale-galactose-results/"
-    # ids = range(12)
-    ids = (1, )
-    print ids
+    ids = (1, 2 )
     for task_id in ids:    
         task = Task.objects.get(pk=task_id);
         createParameterFileForTask(task, folder);

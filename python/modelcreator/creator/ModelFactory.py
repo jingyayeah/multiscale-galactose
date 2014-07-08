@@ -13,9 +13,11 @@ Easy to write and fast changeable model definition.
 @author: Matthias Koenig
 @date: 2014-06-17  
 '''
+import sim.PathSettings
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
+
         
 from creator.tools.Naming import *
 from creator.processes.ReactionFactory import *
@@ -449,14 +451,10 @@ class TissueModel(object):
 
 def storeInDatabase(tissueModel, folder):
     ''' SBML must already be written. 
-        TODO: this belongs to mysite not in the model creation
+    TODO: this part belongs in the model creation part
     '''
-    import sys
-    import os
-    sys.path.append('/home/mkoenig/multiscale-galactose/python')
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-    from sim.models import SBMLModel
     
+    from sim.models import SBMLModel
     model = SBMLModel.create(tissueModel.id, folder);
     model.save();
    
@@ -464,10 +462,11 @@ def storeInDatabase(tissueModel, folder):
 if __name__ == "__main__":
     
     from creator.models.GalactoseModel import GalactoseModel
-    from creator.events.EventFactory import *
+    from creator.events.EventFactory import createDilutionEventData, createGalactoseChallengeEventData
+    
+    from sim.PathSettings import SBML_DIR
     
     # Create the general model information 
-    folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
     TissueModel.Nc = 20
     TissueModel.version = 12
     cellModel = GalactoseModel()
@@ -475,23 +474,23 @@ if __name__ == "__main__":
     # [1] core model
     gm = TissueModel(cellModel, simId='core', events=None)
     gm.createModel()
-    gm.writeSBML(folder)    
-    storeInDatabase(gm, folder)
+    gm.writeSBML(SBML_DIR)    
+    storeInDatabase(gm, SBML_DIR)
     
     # [2] multiple dilution indicator
     # ___|---|__ (in all periportal species)
     events = createDilutionEventData(tp_start=10.0, duration=0.5)
     gm = TissueModel(cellModel, simId="dilution", events=events)
     gm.createModel()
-    gm.writeSBML(folder)    
-    storeInDatabase(gm, folder)
+    gm.writeSBML(SBML_DIR)    
+    storeInDatabase(gm, SBML_DIR)
     
     # [3] galactose challenge (with various galactose)
     # __|------
     events = createGalactoseChallengeEventData(tc_start=100.0)
     gm = TissueModel(cellModel, simId="galactose-challenge", events=events)
     gm.createModel()
-    gm.writeSBML(folder)    
-    storeInDatabase(gm, folder)
+    gm.writeSBML(SBML_DIR)    
+    storeInDatabase(gm, SBML_DIR)
 
 ##########################################################################
