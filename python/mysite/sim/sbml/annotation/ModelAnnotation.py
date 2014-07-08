@@ -81,13 +81,13 @@ class ModelAnnotator(object):
         c.setGivenName("Matthias");
         c.setEmail("konigmatt@googlemail.com");
         c.setOrganization("Charite Berlin");
-        status = h.addCreator(c);
+        h.addCreator(c);
         date_str = str(datetime.datetime.now())
         date = libsbml.Date(date_str)
         
-        status = h.setCreatedDate(date);
-        status = h.setModifiedDate(date);
-        status = self.model.setModelHistory(h);
+        h.setCreatedDate(date);
+        h.setModifiedDate(date);
+        self.model.setModelHistory(h);
 
     def annotateModel(self):
         '''

@@ -1,9 +1,8 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot, Integration,\
-    UNASSIGNED
-from django.shortcuts import render_to_response, render, get_object_or_404
+from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot, Integration
+from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from sim.analysis.AnalysisTools import createParameterInfoForTask
 

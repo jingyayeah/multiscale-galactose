@@ -22,10 +22,8 @@ Use the requests package & xml.etree
 @date: 2014-05-26
 '''
 from xml.etree import ElementTree
-from xml.etree.ElementTree import Element
-from xml.etree.ElementTree import SubElement
 import xml.dom.minidom as minidom
-import requests, json
+import requests
 import pickle
 
 MIRIAM_REST = 'http://www.ebi.ac.uk/miriamws/main/rest/'
@@ -54,10 +52,10 @@ def getMiriamDatatypes():
         datatypes[dt_id] = name
     return datatypes
 
-def createMiriamURNpickle(file):  
+def createMiriamURNpickle(fname):  
     datatypes = getMiriamDatatypes()
-    res_dict, uri_dict = getMiriamResourcesForDatatypes(datatypes.keys())
-    with open(file, 'wb') as handle:
+    _, uri_dict = getMiriamResourcesForDatatypes(datatypes.keys())
+    with open(fname, 'wb') as handle:
         pickle.dump(uri_dict, handle)
 
 def getMiriamResourcesForDatatypes(ids, debug=False):

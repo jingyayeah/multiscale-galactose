@@ -9,7 +9,6 @@ from the provided parameter distributions for the models.
 '''
 
 import os
-import Settings
 
 import logging
 import numpy as np
@@ -113,7 +112,7 @@ def createSimulationForSample(task, sample):
     parameters = []
     for data in sample.values():
         name, value, unit, ptype = data
-        p, created = Parameter.objects.get_or_create(name=name, value=value, unit=unit, ptype=ptype);
+        p, _ = Parameter.objects.get_or_create(name=name, value=value, unit=unit, ptype=ptype);
         parameters.append(p)
 
     sim = Simulation(task=task, status = UNASSIGNED)
@@ -138,7 +137,7 @@ def make_demo(sbml_id, N):
 #----------------------------------------------------------------------#
 def make_glucose(sbml_id):
     ''' Model of hepatic glucose metabolism '''
-    model = create_django_model(sbml_id, sync=True)
+    create_django_model(sbml_id, sync=True)
 
 #----------------------------------------------------------------------#
 def make_galactose_core(sbml_id, N):
@@ -196,6 +195,7 @@ def make_galactose_challenge(sbml_id, N):
 if __name__ == "__main__":
     #----------------------------------------------------------------------#
     if (1):
+        print 'make demo'
         make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=10)
     #----------------------------------------------------------------------#
     if (0):
@@ -216,16 +216,32 @@ if __name__ == "__main__":
             task_d = createTask(task.sbml_model, integration, info=task.info)
             # create the simulations
             samples = setDeficiencyInSamples(samples, deficiency=d)
-            createSimulationsForSamples(task_d, samples)       
+            createSimulationsForSamples(task_d, samples)     
     #----------------------------------------------------------------------#
     if (0):
-        make_galactose_dilution(sbml_id='Galactose_v12_Nc20_dilution', N=10)
+        '''
+        Multiple Indicator Dilution peaks after certain time.
+        The peaks are combined with additional galactose background 
+        challenges
+        '''
+        [task, raw_samples] = make_galactose_dilution(sbml_id='Galactose_v12_Nc20_dilution', N=10)
+        
+        # additional galactose challenge
+        PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
+        samples = setParameterValuesInSamples(raw_samples, 'PP__gal', PP__gal, 'mM', BOUNDERY_INIT)
+        createSimulationsForSamples(task, samples)
+        
     #----------------------------------------------------------------------#
     if (0):
+        '''
+        Galactose challenge after certain time and simulation to steady state.
+        '''
         make_galactose_challenge(sbml_id="Galactose_v12_Nc20_galactose-challenge", N=10)    
     #----------------------------------------------------------------------#
     if (0):
-        make_galactose_cirrhosis(N=10)
+        pass
+        # TODO: implement
+        # make_galactose_cirrhosis(N=10)
     
 ####################################################################################
 
