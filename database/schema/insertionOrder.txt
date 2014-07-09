@@ -6,7 +6,6 @@ sim_core
 sim_parameter
 sim_sbmlmodel
 sim_setting
-sim_subtask
 sim_task
 sim_simulation
 auth_permission

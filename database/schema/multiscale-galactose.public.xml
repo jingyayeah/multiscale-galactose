@@ -45,7 +45,7 @@
             <column ascending="true" name="permission_id"/>
          </index>
       </table>
-      <table name="auth_permission" numRows="48" remarks="" schema="public" type="TABLE">
+      <table name="auth_permission" numRows="45" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('auth_permission_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="permission_id" foreignKey="auth_group_permissions_permission_id_fkey" implied="false" onDeleteCascade="false" table="auth_group_permissions"/>
             <child column="permission_id" foreignKey="auth_user_user_permissions_permission_id_fkey" implied="false" onDeleteCascade="false" table="auth_user_user_permissions"/>
@@ -176,7 +176,7 @@
             <column ascending="true" name="user_id"/>
          </index>
       </table>
-      <table name="django_content_type" numRows="16" remarks="" schema="public" type="TABLE">
+      <table name="django_content_type" numRows="15" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('django_content_type_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="content_type_id" foreignKey="content_type_id_refs_id_d043b34a" implied="false" onDeleteCascade="false" table="auth_permission"/>
             <child column="content_type_id" foreignKey="content_type_id_refs_id_93d2d1f8" implied="false" onDeleteCascade="false" table="django_admin_log"/>
@@ -212,7 +212,7 @@
             <column ascending="true" name="session_key"/>
          </index>
       </table>
-      <table name="sim_core" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_core" numRows="4" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_core_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="core_id" foreignKey="sim_simulation_core_id_fkey" implied="false" onDeleteCascade="false" table="sim_simulation"/>
          </column>
@@ -228,7 +228,7 @@
             <column ascending="true" name="cpu"/>
          </index>
       </table>
-      <table name="sim_integration" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_integration" numRows="1" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_integration_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="integration_id" foreignKey="integration_id_refs_id_faa3e2b1" implied="false" onDeleteCascade="false" table="sim_integration_settings"/>
             <child column="integration_id" foreignKey="sim_task_integration_id_fkey" implied="false" onDeleteCascade="false" table="sim_task"/>
@@ -238,7 +238,7 @@
             <column ascending="true" name="id"/>
          </index>
       </table>
-      <table name="sim_integration_settings" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_integration_settings" numRows="8" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_integration_settings_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
          <column autoUpdated="false" digits="0" id="1" name="integration_id" nullable="false" remarks="" size="10" type="int4">
             <parent column="id" foreignKey="integration_id_refs_id_faa3e2b1" implied="false" onDeleteCascade="false" table="sim_integration"/>
@@ -261,7 +261,7 @@
             <column ascending="true" name="setting_id"/>
          </index>
       </table>
-      <table name="sim_parameter" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_parameter" numRows="56" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_parameter_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="parameter_id" foreignKey="sim_simulation_parameters_parameter_id_fkey" implied="false" onDeleteCascade="false" table="sim_simulation_parameters"/>
          </column>
@@ -293,7 +293,7 @@
             <column ascending="true" name="timecourse_id"/>
          </index>
       </table>
-      <table name="sim_sbmlmodel" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_sbmlmodel" numRows="3" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_sbmlmodel_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="sbml_model_id" foreignKey="sim_task_sbml_model_id_fkey" implied="false" onDeleteCascade="false" table="sim_task"/>
          </column>
@@ -310,7 +310,7 @@
             <column ascending="true" name="sbml_id"/>
          </index>
       </table>
-      <table name="sim_setting" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_setting" numRows="8" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_setting_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="setting_id" foreignKey="sim_integration_settings_setting_id_fkey" implied="false" onDeleteCascade="false" table="sim_integration_settings"/>
          </column>
@@ -322,7 +322,7 @@
             <column ascending="true" name="id"/>
          </index>
       </table>
-      <table name="sim_simulation" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_simulation" numRows="50" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_simulation_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="simulation_id" foreignKey="simulation_id_refs_id_ee1ca093" implied="false" onDeleteCascade="false" table="sim_simulation_parameters"/>
             <child column="simulation_id" foreignKey="sim_timecourse_simulation_id_fkey" implied="false" onDeleteCascade="false" table="sim_timecourse"/>
@@ -348,7 +348,7 @@
             <column ascending="true" name="task_id"/>
          </index>
       </table>
-      <table name="sim_simulation_parameters" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_simulation_parameters" numRows="350" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_simulation_parameters_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
          <column autoUpdated="false" digits="0" id="1" name="simulation_id" nullable="false" remarks="" size="10" type="int4">
             <parent column="id" foreignKey="simulation_id_refs_id_ee1ca093" implied="false" onDeleteCascade="false" table="sim_simulation"/>
@@ -371,17 +371,7 @@
             <column ascending="true" name="parameter_id"/>
          </index>
       </table>
-      <table name="sim_subtask" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('sim_subtask_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
-            <child column="subtask_id" foreignKey="sim_task_subtask_id_fkey" implied="false" onDeleteCascade="false" table="sim_task"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text"/>
-         <primaryKey column="id" sequenceNumberInPK="1"/>
-         <index name="sim_subtask_pkey" unique="true">
-            <column ascending="true" name="id"/>
-         </index>
-      </table>
-      <table name="sim_task" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_task" numRows="1" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_task_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="task_id" foreignKey="sim_simulation_task_id_fkey" implied="false" onDeleteCascade="false" table="sim_simulation"/>
          </column>
@@ -391,12 +381,8 @@
          <column autoUpdated="false" digits="0" id="2" name="integration_id" nullable="false" remarks="" size="10" type="int4">
             <parent column="id" foreignKey="sim_task_integration_id_fkey" implied="false" onDeleteCascade="false" table="sim_integration"/>
          </column>
-         <column autoUpdated="false" digits="0" id="3" name="subtask_id" nullable="false" remarks="" size="10" type="int4">
-            <parent column="id" foreignKey="sim_task_subtask_id_fkey" implied="false" onDeleteCascade="false" table="sim_subtask"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="4" name="simulator" nullable="false" remarks="" size="20" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="priority" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="6" name="info" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="priority" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="info" nullable="true" remarks="" size="2147483647" type="text"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="sim_task_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -407,17 +393,12 @@
          <index name="sim_task_sbml_model_id" unique="false">
             <column ascending="true" name="sbml_model_id"/>
          </index>
-         <index name="sim_task_sbml_model_id_integration_id_subtask_id_simulator_key" unique="true">
+         <index name="sim_task_sbml_model_id_integration_id_key" unique="true">
             <column ascending="true" name="sbml_model_id"/>
             <column ascending="true" name="integration_id"/>
-            <column ascending="true" name="subtask_id"/>
-            <column ascending="true" name="simulator"/>
-         </index>
-         <index name="sim_task_subtask_id" unique="false">
-            <column ascending="true" name="subtask_id"/>
          </index>
       </table>
-      <table name="sim_timecourse" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="sim_timecourse" numRows="50" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('sim_timecourse_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
             <child column="timecourse_id" foreignKey="sim_plot_timecourse_id_fkey" implied="false" onDeleteCascade="false" table="sim_plot"/>
          </column>

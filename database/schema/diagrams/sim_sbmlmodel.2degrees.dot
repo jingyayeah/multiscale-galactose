@@ -22,13 +22,12 @@ digraph "twoDegreesRelationshipsDiagram" {
   "sim_simulation":"elipses":w -> "sim_task":"id":e [arrowhead=none dir=back arrowtail=crowodot];
   "sim_task":"integration_id":w -> "sim_integration":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "sim_task":"sbml_model_id":w -> "sim_sbmlmodel":"id.type":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_task":"subtask_id":w -> "sim_subtask":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "sim_integration" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_integration</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 row</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="sim_integration.html"
     tooltip="sim_integration"
@@ -40,7 +39,7 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="id" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD><TD PORT="id.type" ALIGN="LEFT">serial[10]</TD></TR>
       <TR><TD PORT="sbml_id" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">sbml_id</TD><TD PORT="sbml_id.type" ALIGN="LEFT">varchar[200]</TD></TR>
       <TR><TD PORT="file" COLSPAN="2" ALIGN="LEFT">file</TD><TD PORT="file.type" ALIGN="LEFT">varchar[200]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
     URL="sim_sbmlmodel.html"
     tooltip="sim_sbmlmodel"
@@ -50,20 +49,10 @@ digraph "twoDegreesRelationshipsDiagram" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_simulation</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">50 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="sim_simulation.html"
     tooltip="sim_simulation"
-  ];
-  "sim_subtask" [
-    label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_subtask</TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
-    </TABLE>>
-    URL="sim_subtask.html"
-    tooltip="sim_subtask"
   ];
   "sim_task" [
     label=<
@@ -72,11 +61,9 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="sbml_model_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">sbml_model_id</TD></TR>
       <TR><TD PORT="integration_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">integration_id</TD></TR>
-      <TR><TD PORT="subtask_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">subtask_id</TD></TR>
-      <TR><TD PORT="simulator" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">simulator</TD></TR>
       <TR><TD PORT="priority" COLSPAN="3" ALIGN="LEFT">priority</TD></TR>
       <TR><TD PORT="info" COLSPAN="3" ALIGN="LEFT">info</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 3</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 row</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
     URL="sim_task.html"
     tooltip="sim_task"

@@ -1,10 +1,10 @@
 #!/usr/bin/python
 '''
-Main module to run simulations.
-Manages the assigning of simulation to available CPUs and the 
-integration process. Depending on the simulation definition different
-ODE integrators will be used.
-
+Module for running/starting simulations.
+Starts processes on the cpus which listen for available simulations.
+The simulation settings and parameters determine the actual simulation.
+The simulator supports parallalization by putting different simulations
+on different CPUs. 
 -------------------------------------------------------------------------------------
 How multiprocessing works, in a nutshell:
 
@@ -22,10 +22,9 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 -------------------------------------------------------------------------------------
 
 @author: Matthias Koenig
-@date: 2013-11-06
+@date: 2014-07-08
 
-TODO: support simulation priorities; use the simulation priorities !!!
-TODO: provide a set of simulations from the task view
+TODO: support simulation priorities; use the simulation priorities !
 '''
 
 import sim.PathSettings

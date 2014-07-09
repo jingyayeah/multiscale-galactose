@@ -10,7 +10,6 @@ sim_timecourse
 auth_permission
 sim_simulation
 sim_task
-sim_subtask
 sim_setting
 sim_sbmlmodel
 sim_parameter

@@ -162,37 +162,6 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 <tr class='even'>
- <td class='indexedColumn' title='Indexed'>subtask_id</td>
- <td class='detail'>int4</td>
- <td class='detail' align='right'>10</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='center'></td>
- <td class='detail'></td>
- <td class='detail'></td>
- <td class='detail'>
-  <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
-    <td class='relatedTable detail' title="sim_task.subtask_id refs sim_subtask.id via sim_task_subtask_id_fkey"><a href='sim_subtask.html'>sim_subtask</a><span class='relatedKey'>.id</span>
-    </td>
-    <td class='constraint detail'>sim_task_subtask_id_fkey<span title='Restrict delete:
- Parent cannot be deleted if children exist'>&nbsp;R</span></td>
-   </tr>
-  </table>
- </td>
- <td class='comment detail'></td>
-</tr>
-<tr class='odd'>
- <td class='indexedColumn' title='Indexed'>simulator</td>
- <td class='detail'>varchar</td>
- <td class='detail' align='right'>20</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='center'></td>
- <td class='detail'></td>
- <td class='detail'></td>
- <td class='detail'> </td>
- <td class='comment detail'></td>
-</tr>
-<tr class='even'>
  <td class='detail'>priority</td>
  <td class='detail'>int4</td>
  <td class='detail' align='right'>10</td>
@@ -215,7 +184,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='7 columns'>Table contained 0 rows at Thu Jun 12 09:44 CEST 2014<p/>
+<p title='5 columns'>Table contained 1 rows at Wed Jul 09 09:38 CEST 2014<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -248,16 +217,10 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <td class='constraint' style='text-align:left;'>sim_task_sbml_model_id</td>
  </tr>
  <tr>
-  <td class='indexedColumn'>sbml_model_id + integration_id + subtask_id + simulator</td>
+  <td class='indexedColumn'>sbml_model_id + integration_id</td>
   <td class='detail'>Must be unique</td>
-  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>sim_task_sbml_model_id_integration_id_subtask_id_simulator_key</td>
- </tr>
- <tr>
-  <td class='indexedColumn'>subtask_id</td>
-  <td class='detail'>Performance</td>
-  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>sim_task_subtask_id</td>
+  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
+  <td class='constraint' style='text-align:left;'>sim_task_sbml_model_id_integration_id_key</td>
  </tr>
 </table>
 </div>
@@ -265,23 +228,21 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from sim_task'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="sim_simulation.html" title="sim_simulation" alt="" coords="496,81,640,297">
-<area shape="rect" id="node3" href="sim_task.html" title="sim_task" alt="" coords="197,101,451,323">
-<area shape="rect" id="node5" href="sim_integration.html" title="sim_integration" alt="" coords="5,148,152,228">
+<area shape="rect" id="node1" href="sim_simulation.html" title="sim_simulation" alt="" coords="496,20,648,236">
+<area shape="rect" id="node3" href="sim_task.html" title="sim_task" alt="" coords="197,40,451,216">
+<area shape="rect" id="node5" href="sim_integration.html" title="sim_integration" alt="" coords="9,148,148,228">
 <area shape="rect" id="node7" href="sim_sbmlmodel.html" title="sim_sbmlmodel" alt="" coords="5,5,152,131">
-<area shape="rect" id="node9" href="sim_subtask.html" title="sim_subtask" alt="" coords="12,245,145,347">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/sim_task.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="sim_integration_settings.html" title="sim_integration_settings" alt="" coords="231,303,417,383">
-<area shape="rect" id="node3" href="sim_integration.html" title="sim_integration" alt="" coords="5,291,152,371">
-<area shape="rect" id="node4" href="sim_simulation.html" title="sim_simulation" alt="" coords="496,165,640,381">
-<area shape="rect" id="node6" href="sim_core.html" title="sim_core" alt="" coords="261,400,387,480">
-<area shape="rect" id="node8" href="sim_task.html" title="sim_task" alt="" coords="197,64,451,285">
-<area shape="rect" id="node13" href="sim_sbmlmodel.html" title="sim_sbmlmodel" alt="" coords="5,5,152,131">
-<area shape="rect" id="node15" href="sim_subtask.html" title="sim_subtask" alt="" coords="12,147,145,250">
-<area shape="rect" id="node9" href="sim_simulation_parameters.html" title="sim_simulation_parameters" alt="" coords="685,116,891,196">
-<area shape="rect" id="node16" href="sim_timecourse.html" title="sim_timecourse" alt="" coords="713,213,863,293">
+<area shape="rect" id="node1" href="sim_integration_settings.html" title="sim_integration_settings" alt="" coords="231,199,417,279">
+<area shape="rect" id="node3" href="sim_integration.html" title="sim_integration" alt="" coords="9,185,148,265">
+<area shape="rect" id="node4" href="sim_simulation.html" title="sim_simulation" alt="" coords="496,84,648,300">
+<area shape="rect" id="node6" href="sim_core.html" title="sim_core" alt="" coords="261,296,387,376">
+<area shape="rect" id="node8" href="sim_task.html" title="sim_task" alt="" coords="197,5,451,181">
+<area shape="rect" id="node13" href="sim_sbmlmodel.html" title="sim_sbmlmodel" alt="" coords="5,31,152,156">
+<area shape="rect" id="node9" href="sim_simulation_parameters.html" title="sim_simulation_parameters" alt="" coords="692,35,905,115">
+<area shape="rect" id="node14" href="sim_timecourse.html" title="sim_timecourse" alt="" coords="720,132,877,212">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/sim_task.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
