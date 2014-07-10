@@ -23,8 +23,6 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 
 @author: Matthias Koenig
 @date: 2014-07-08
-
-TODO: support simulation priorities; use the simulation priorities !
 '''
 
 import sim.PathSettings
@@ -72,13 +70,25 @@ def get_core_by_ip_and_cpu(ip, cpu):
 
 def assign_simulations(core, Nsim=1):
     ''' 
-    Gets an unassigned simulation and assigns the core to it.
-    Returns None if no simulation could be assigned 
-    Is performed in a lock so that multiple cores do not get the same unassigned simulation.
+    Assigning simulations to core.
+    Retrieves unassigned simulation(s) and assigns core for simulation.
+    Returns None if no simulation(s) could be assigned. 
+    
+    The assignment has to be synchronized between the different cores.
+    Use lock to handle the different cores on one cpu.
+    TODO: make sure that locked between different laptops.
+        (select_for_update method)
+    TODO: make this part more clever (filters on querysets)
+    TODO: support simulation priorities; task.priority
     '''
-    # Get a task with unassigned simulations
+    # Get all unassigned simulations
+    
+    # get tasks with unassigned simulations sorted via priority
+    
+    #tasks = Task.objects.filter(simulation)
     unassigned_query = Simulation.objects.filter(status=UNASSIGNED);
     if (unassigned_query.exists()):
+        task = unassigned_query[0].task
         # all simulations have to belong to same task
         unassigned = Simulation.objects.filter(task=unassigned_query[0].task, status=UNASSIGNED);
         if (Nsim == 1):
@@ -90,7 +100,8 @@ def assign_simulations(core, Nsim=1):
         # set the assignment status
         assign_and_save_in_bulk(sims, core)
         
-        # create the results folder if not existing
+        # create the results folder if not existing on computer
+        # also only one time
         directory = ''.join([SIM_FOLDER, "/", str(sims[0].task)])
         if not os.path.exists(directory):
             os.makedirs(directory)

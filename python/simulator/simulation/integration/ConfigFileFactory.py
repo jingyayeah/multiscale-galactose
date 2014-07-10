@@ -24,7 +24,9 @@ information is stored in the [Simulation] section.
     flow_sin = 60E-6
     PP__gal = 0.00012
     ############################
-    
+
+# TODO: fix this files for COPASI
+
 Created on Mar 21, 2014
 @author: Matthias Koenig
 '''
