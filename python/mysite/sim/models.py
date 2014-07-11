@@ -119,7 +119,8 @@ class SBMLModel(models.Model):
             return cls(sbml_id = sbml_id, file = myfile)
 
     
-
+    
+# TODO: remove the condition -> can be deduced from parameters
 default_settings = dict(zip(['condition', 'integrator', 'varSteps', 'absTol', 'relTol'], 
                             ['normal', ROADRUNNER, True, 1E-6, 1E-6]))
        
@@ -142,8 +143,22 @@ class Setting(models.Model):
     def __unicode__(self):
         return "{}={}".format(self.name, self.value) 
 
+    def _cast_value(self):
+        if self.datatype == DT_STRING:
+            return str(self.value)
+        elif self.datatype == DT_DOUBLE:
+            return float(self.value)
+        elif self.datatype == DT_INT:
+            return int(self.value)
+        elif self.datatype == DT_BOOLEAN:
+            return bool(self.value)
+        
+    cast_value = property(_cast_value)      
+    
+
     @staticmethod
     def get_settings(settings):
+        ''' Get settings based on settings dictionary. '''
         # add the default settings
         sdict = dict(default_settings.items() + settings.items())
         
@@ -151,10 +166,11 @@ class Setting(models.Model):
         settings = []
         for key, value in sdict.iteritems():
             value = cast_value(key, value)        
-            s, created = Setting.objects.get_or_create(name=key, value=str(value), 
+            s, _ = Setting.objects.get_or_create(name=key, value=str(value), 
                                                    datatype=datatypes[key])
             settings.append(s)
         return settings
+
 
 class Integration(models.Model):
     '''
@@ -228,11 +244,6 @@ class Parameter(models.Model):
                         ('-', '-'),
     )
     PARAMETER_TYPE = zip(PTYPES, PTYPES)
-    #PARAMETER_TYPE = (
-    #                     (GLOBAL_PARAMETER, GLOBAL_PARAMETER,),
-    #                     (BOUNDERY_INIT, BOUNDERY_INIT),
-    #                     (FLOATING_INIT, FLOATING_INIT),
-    #)
     
     name = models.CharField(max_length=200)
     value = models.FloatField()
@@ -244,6 +255,7 @@ class Parameter(models.Model):
     
     class Meta:
         unique_together = ("name", "value")
+
 
 
 class Task(models.Model):
@@ -278,10 +290,31 @@ class Task(models.Model):
         return self.simulation_set.filter(status=ERROR).count()
     
     def _get_integrator(self):
-        return self.integration.settings.get(name='integrator').value
-
-    integrator = property(_get_integrator)
+        return self._get_setting('integrator')
+    def _get_varSteps(self):
+        return self._get_setting('varSteps')
+    def _get_relTol(self):
+        return self._get_setting('relTol')
+    def _get_absTol(self):
+        return self._get_setting('absTol')  
+    def _get_steps(self):
+        return self._get_setting('steps')
+    def _get_tstart(self):
+        return self._get_setting('tstart')
+    def _get_tend(self):
+        return self._get_setting('tend')
     
+    def _get_setting(self, name):
+        return self.integration.settings.get(name=name).cast_value
+    
+    integrator = property(_get_integrator)
+    varSteps = property(_get_varSteps)
+    relTol = property(_get_relTol)
+    absTol = property(_get_absTol)
+    steps = property(_get_steps)
+    tstart = property(_get_tstart)
+    tend = property(_get_tend)
+
 
 UNASSIGNED = "UNASSIGNED"
 ASSIGNED = "ASSIGNED"
@@ -320,13 +353,11 @@ class Simulation(models.Model):
     parameters = models.ManyToManyField(Parameter)
     status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
     time_create = models.DateTimeField(default=timezone.now())
-    
-    # set during assignment
     time_assign = models.DateTimeField(null=True, blank=True)
     core = models.ForeignKey(Core, null=True, blank=True)
-    # set after simulation
     time_sim = models.DateTimeField(null=True, blank=True)
     
+    # Model managers
     objects = models.Manager();
     error_objects = ErrorSimulationManager()
     unassigned_objects = UnassignedSimulationManager()
@@ -362,6 +393,7 @@ class Simulation(models.Model):
     
     duration = property(_get_duration)
     hanging = property(_is_hanging)
+
 
     
 def timecourse_filename(instance, filename):

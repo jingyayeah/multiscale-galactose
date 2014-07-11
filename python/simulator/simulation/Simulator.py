@@ -41,7 +41,7 @@ from django.db import transaction
 
 from sim.models import Task, Core, Simulation
 from sim.models import UNASSIGNED, ASSIGNED
-from integration import ODE_Integration
+from integration import ode_integration
 
 
 def worker(cpu, lock, Nsim):
@@ -50,35 +50,32 @@ def worker(cpu, lock, Nsim):
     core, _ = Core.objects.get_or_create(ip=ip, cpu=cpu)
     
     while(True):    
+        # update core time
+        time_now = timezone.now()
+        core.time = time_now 
+        core.save()
+    
         # Assign simulations within a multiprocessing lock
         lock.acquire()
         task, sims = assign_simulations(core, Nsim)
         lock.release()
         
-        
         # Perform ODE integration
         if (sims):
-            print core, ' -> ', task, sims
-            ODE_Integration.integrate(sims, task.integrator)
+            print '{:<20} <{}> {}'.format(core, task, sims)
+            ode_integration.integrate(sims, task.integrator)
         else:
-            print core, ' ->', 'no simulations'
+            print '{:<20} <No Simulations>'.format(core)
             time.sleep(10)
 
 
 def assign_simulations(core, Nsim=1):
     ''' 
-    Assigning simulations to core.
-    Retrieves unassigned simulation(s) and assigns core for simulation.
+    Assigns simulation(s) to core.
     Returns None if no simulation(s) could be assigned. 
-    
     The assignment has to be synchronized between the different cores.
     Use lock to handle the different cores on one cpu.    
     '''
-    # update core time
-    time_now = timezone.now()
-    core.time = time_now 
-    core.save()
-    
     # get distinct tasks sorted by priority which have unassigned simulations 
     task_query = Task.objects.filter(simulation__status=UNASSIGNED).distinct('pk', 'priority').order_by('-priority')
     if (task_query.exists()):
@@ -92,13 +89,12 @@ def assign_simulations(core, Nsim=1):
             sims = Simulation.objects.select_for_update().filter(task=task, status=UNASSIGNED)[0:Nsim]
             
             for sim in sims:
-                sim.time_assign = time_now
+                sim.time_assign = timezone.now()
                 sim.core = core
                 sim.status = ASSIGNED
                 sim.save();
-        
             transaction.commit()
-        
+            
         return task, sims
     else:
         return None, None
@@ -134,6 +130,7 @@ def info(title):
     print 'process id:', os.getpid()
 
 #####################################################################################
+
 if __name__ == "__main__":     
     '''
     Starting the simulation on the local computer.

@@ -147,7 +147,7 @@ readColumnData <- function(pars, dir, col.indices_f){
 #' @param withTime keeps the time column
 #' @return column data
 #' @export
-readDataForSimulation <- function(dir, simId, col.indices_f){
+readDataForSimulation <- function(dir, simId, col.indices_f=NULL){
   fname <- getSimulationFileFromSimulationId(dir, simId)
   
   # much faster solution than read.csv
