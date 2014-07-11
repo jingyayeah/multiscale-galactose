@@ -276,7 +276,12 @@ class Task(models.Model):
     
     def error_count(self):
         return self.simulation_set.filter(status=ERROR).count()
+    
+    def _get_integrator(self):
+        return self.integration.settings.get(name='integrator').value
 
+    integrator = property(_get_integrator)
+    
 
 UNASSIGNED = "UNASSIGNED"
 ASSIGNED = "ASSIGNED"

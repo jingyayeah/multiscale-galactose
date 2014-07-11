@@ -5,6 +5,7 @@ Starts processes on the cpus which listen for available simulations.
 The simulation settings and parameters determine the actual simulation.
 The simulator supports parallalization by putting different simulations
 on different CPUs. 
+
 -------------------------------------------------------------------------------------
 How multiprocessing works, in a nutshell:
 
@@ -26,9 +27,7 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 '''
 
 import sim.PathSettings
-from sim.PathSettings import MULTISCALE_GALACTOSE_RESULTS
-
-SIM_FOLDER = "/".join([MULTISCALE_GALACTOSE_RESULTS, 'tmp_sim'])
+from sim.PathSettings import SIM_DIR
 
 import os
 import time
@@ -38,35 +37,33 @@ import fcntl
 import struct
 
 from django.utils import timezone
-from sim.models import Core, Simulation
+from django.db import transaction
+
+from sim.models import Task, Core, Simulation
 from sim.models import UNASSIGNED, ASSIGNED
 from integration import ODE_Integration
 
 
-def get_ip_address(ifname='eth0'):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915,  # SIOCGIFADDR
-        struct.pack('256s', ifname[:15])
-    )[20:24])
-
+def worker(cpu, lock, Nsim):
+    ''' Creates a worker for the cpu which listens for available simulations. '''
+    ip = get_ip_address()
+    core, _ = Core.objects.get_or_create(ip=ip, cpu=cpu)
     
-def get_core_by_ip_and_cpu(ip, cpu):
-    '''
-    Gets the core from the ip and cpu information and updates the time.
-    The time is the last time the core was requested, i.e. it was tried to use
-    the core for simulations.
-    '''
-    core_qset = Core.objects.filter(ip=ip, cpu=cpu)
-    if (core_qset.exists()):
-        core = core_qset[0]
-        core.time = timezone.now()
-        core.save()
-    else:
-        core = Core(ip=ip, cpu=cpu, time=timezone.now())
-        core.save()
-    return core
+    while(True):    
+        # Assign simulations within a multiprocessing lock
+        lock.acquire()
+        task, sims = assign_simulations(core, Nsim)
+        lock.release()
+        
+        
+        # Perform ODE integration
+        if (sims):
+            print core, ' -> ', task, sims
+            ODE_Integration.integrate(sims, task.integrator)
+        else:
+            print core, ' ->', 'no simulations'
+            time.sleep(10)
+
 
 def assign_simulations(core, Nsim=1):
     ''' 
@@ -75,86 +72,66 @@ def assign_simulations(core, Nsim=1):
     Returns None if no simulation(s) could be assigned. 
     
     The assignment has to be synchronized between the different cores.
-    Use lock to handle the different cores on one cpu.
-    TODO: make sure that locked between different laptops.
-        (select_for_update method)
-    TODO: make this part more clever (filters on querysets)
-    TODO: support simulation priorities; task.priority
+    Use lock to handle the different cores on one cpu.    
     '''
-    # Get all unassigned simulations
-    
-    # get tasks with unassigned simulations sorted via priority
-    
-    #tasks = Task.objects.filter(simulation)
-    unassigned_query = Simulation.objects.filter(status=UNASSIGNED);
-    if (unassigned_query.exists()):
-        task = unassigned_query[0].task
-        # all simulations have to belong to same task
-        unassigned = Simulation.objects.filter(task=unassigned_query[0].task, status=UNASSIGNED);
-        if (Nsim == 1):
-            # assign the first unassigned simulation
-            sims = [unassigned[0],]
-        else:            
-            Nsim = min(Nsim, unassigned.count())
-            sims = unassigned[0:Nsim]
-        # set the assignment status
-        assign_and_save_in_bulk(sims, core)
-        
-        # create the results folder if not existing on computer
-        # also only one time
-        directory = ''.join([SIM_FOLDER, "/", str(sims[0].task)])
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        
-        return sims
-    else:
-        return None
-
-from django.db.transaction import commit_on_success
-@commit_on_success
-def assign_and_save_in_bulk(simulations, core):
-    ''' Huge speed increase doing in bulk. '''
-    core.time = timezone.now()
+    # update core time
+    time_now = timezone.now()
+    core.time = time_now 
     core.save()
-    for sim in simulations:
-        sim.time_assign = timezone.now()
-        sim.core = core
-        sim.status = ASSIGNED
-        sim.save();
+    
+    # get distinct tasks sorted by priority which have unassigned simulations 
+    task_query = Task.objects.filter(simulation__status=UNASSIGNED).distinct('pk', 'priority').order_by('-priority')
+    if (task_query.exists()):
+        task = task_query[0]
+        # this is on the cpu lock (working)
+        create_simulation_directory_for_task(task)
+        
+        # select the simulations for update with locking the rows
+        # this is in the database lock
+        with transaction.commit_manually():
+            sims = Simulation.objects.select_for_update().filter(task=task, status=UNASSIGNED)[0:Nsim]
+            
+            for sim in sims:
+                sim.time_assign = time_now
+                sim.core = core
+                sim.status = ASSIGNED
+                sim.save();
+        
+            transaction.commit()
+        
+        return task, sims
+    else:
+        return None, None
 
 
+def create_simulation_directory_for_task(task):
+    ''' Create the folder to store simulation files. '''    
+    directory = SIM_DIR + "/" + str(task)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+
+def get_ip_address(ifname='eth0'):
+    ''' Returns the IP adress for the given computer. '''
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        ip = socket.inet_ntoa(fcntl.ioctl(
+                                          s.fileno(),
+                                          0x8915,  # SIOCGIFADDR
+                                          struct.pack('256s', ifname[:15])
+                                          )[20:24])
+    except IOError:
+        ip = "127.0.0.1"
+        print "No 'eth0 found, using 127.0.0.1"
+    return ip
+
+    
 def info(title):
     print title
     print 'module name:', __name__
     if hasattr(os, 'getppid'):  # only available on Unix
         print 'parent process:', os.getppid()
     print 'process id:', os.getpid()
-
-def worker(cpu, lock, Nsim):
-    info('function worker')
-    try:
-        ip = get_ip_address('eth0')
-    except IOError:
-        ip = "127.0.0.1"
-        print "No 'eth0 found, using 127.0.0.1"
-    
-    while(True):
-        # Update the time for the core
-        core = get_core_by_ip_and_cpu(ip, cpu)
-        
-        # Assign simulation
-        lock.acquire()
-        # assign the simulations within a lock so every simulation is only assigned
-        # to one core (otherwise multiple assignment bugs will arise)
-        sims = assign_simulations(core, Nsim)
-        lock.release()
-        print core, ' -> ', sims
-        if (sims):
-            integration = sims[0].task.integration
-            ODE_Integration.integrate(sims, integration.integrator)
-        else:
-            print core, "... no unassigned simulations ...";
-            time.sleep(10)
 
 #####################################################################################
 if __name__ == "__main__":     

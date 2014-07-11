@@ -19,8 +19,10 @@ import os
 import logging
 import numpy as np
 from subprocess import call
+from django.core.exceptions import ObjectDoesNotExist
 
 import sim.PathSettings
+from sim.PathSettings import SBML_DIR
 from sim.models import *
 
 from simulation.distribution.Distributions import getGalactoseDistributions, getDemoDistributions
@@ -81,7 +83,7 @@ def adaptFlowInSamples(samples):
 
 def create_django_model(sbml_id, sync=True):
     ''' Creates the model from given sbml_id '''    
-    model = SBMLModel.create(sbml_id, os.environ['SBML_DIR']);
+    model = SBMLModel.create(sbml_id, SBML_DIR);
     model.save();
     if sync:
         sync_sbml()
@@ -97,11 +99,20 @@ def sync_sbml():
     logging.debug(str(call_command))
     call(call_command)
     
-def createTask(model, integration, info='', priority=0):
-    task, created = Task.objects.get_or_create(sbml_model=model, integration=integration, 
-                                               info=info, priority=priority)
-    if (created):
-        print "Task created: {}".format(task)
+def create_task(model, integration, info='', priority=0):
+    '''
+    Task is uniquely identified via the model and integration.
+    Other fields have to be updated.
+    '''
+    try:
+        task = Task.objects.get(sbml_model=model, integration=integration)
+        task.info = info
+        task.priority = priority
+    except ObjectDoesNotExist:
+        task = Task(sbml_model=model, integration=integration, 
+                    info=info, priority=priority)
+    task.save()
+    print "Task created/updated: {}".format(task)    
     return task
 
 
@@ -139,7 +150,7 @@ def make_demo(sbml_id, N, priority=0):
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':500.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
-    task = createTask(model, integration, info, priority)
+    task = create_task(model, integration, info, priority)
     createSimulationsForSamples(task, samples)
         
 #----------------------------------------------------------------------#
@@ -160,7 +171,7 @@ def make_galactose_core(sbml_id, N):
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
-    task = createTask(model, integration, info=info)
+    task = create_task(model, integration, info=info)
     createSimulationsForSamples(task, samples)
     
     return (task, samples)
@@ -177,7 +188,7 @@ def make_galactose_dilution(sbml_id, N, sync=True):
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':5000.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
-    task = createTask(model, integration, info=info)
+    task = create_task(model, integration, info=info)
     createSimulationsForSamples(task, samples)
 
     return (task, samples)
@@ -195,7 +206,7 @@ def make_galactose_challenge(sbml_id, N):
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
-    task = createTask(model, integration, info=info)
+    task = create_task(model, integration, info=info)
     createSimulationsForSamples(task, samples)
     
     return (task, samples)
@@ -203,9 +214,9 @@ def make_galactose_challenge(sbml_id, N):
 ####################################################################################
 if __name__ == "__main__":
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         print 'make demo'
-        make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=10, priority=10)
+        make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=100, priority=10)
     #----------------------------------------------------------------------#
     if (0):
         make_glucose(sbml_id='Koenig2014_Hepatic_Glucose_Model_annotated')
@@ -222,7 +233,7 @@ if __name__ == "__main__":
             settings = Setting.get_settings_for_dict(sdict)
             integration = Integration.get_or_create_integration(settings)
             
-            task_d = createTask(task.sbml_model, integration, info=task.info)
+            task_d = create_task(task.sbml_model, integration, info=task.info)
             # create the simulations
             samples = setDeficiencyInSamples(samples, deficiency=d)
             createSimulationsForSamples(task_d, samples)     

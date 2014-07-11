@@ -1,30 +1,29 @@
 '''
 Here the actual ode integration is performed for the given simulations.
 
-@author: mkoenig
-@date: 2014-05-11
+@author: Matthias Koenig
+@date: 2014-07-11
 '''
 import sys
-import os
 import time
 import traceback
 from subprocess import call
 import shlex
 
+import numpy
+import roadrunner
+
 from django.core.files import File
 from ConfigFileFactory import create_config_file_in_folder
 
 from django.utils import timezone
+
 from sim.models import Timecourse
 from sim.models import DONE, ERROR, COPASI, ROADRUNNER
 from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
-from simulation.Simulator import SIM_FOLDER
+from sim.PathSettings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
 
-import numpy
-import roadrunner
-from matplotlib.pyplot import step
-COPASI_EXEC = "/home/mkoenig/multiscale-galactose/cpp/copasi/CopasiModelRunner/build/CopasiModelRunner"
 
 def storeConfigFile(sim, folder):
     #Store the config file in the database
@@ -35,57 +34,35 @@ def storeConfigFile(sim, folder):
     return config_file;
 
 def storeTimecourseResults(sim, tc_file):
-    # Store Timecourse Results
     f = open(tc_file, 'r')
     myfile = File(f)
-    tc, created = Timecourse.objects.get_or_create(simulation=sim)
+    tc, _ = Timecourse.objects.get_or_create(simulation=sim)
     tc.file = myfile
     tc.save();
     
-    # simulation finished (update simulation information and save)
+    # simulation finished (update simulation status)
     sim.time_sim = timezone.now()
     sim.status = DONE
     sim.save()
             
-def integrate(sims, simulator):
-    ''' 
-    Run ODE integration for the simulation. 
-    Error handling is done via try/except 
-    Cores are not hanging, but simulations are put into an ERROR state.
-    Mainly problems if files are not available.
-    '''    
-    if (simulator == COPASI):
+def integrate(sims, integrator):
+    ''' Run ODE integration for the simulation. '''        
+    if (integrator == COPASI):
         integrate_copasi(sims);
-    elif (simulator == ROADRUNNER):
+    elif (integrator == ROADRUNNER):
         integrate_roadrunner(sims);
 
-def integration_exception(sim):
-    '''
-    Handling exceptions in the integration.
-    TODO: proper file location.
-    '''
-    print "Exception in integration"
-    print '-'*60
-    fname = '/home/mkoenig/multiscale-galactose-results/ERROR_' + str(sim.pk) + '.log'
-    print fname
-    with open(fname, 'a') as f_err:
-        traceback.print_exc(file=f_err)
-    
-    traceback.print_exc(file=sys.stdout)
-    print '-'*60
-    sim.status = ERROR
-    sim.save()
-
-
 def integrate_copasi(sims):
-    ''' Integrate simulations with Copasi. '''
+    ''' Integrate simulations with Copasi. 
+        TODO: this is not up to date and probably not working currently.
+    '''
     sbml_file = str(sims[0].task.sbml_model.file.path)
     sbml_id = sims[0].task.sbml_model.sbml_id
     for sim in sims:  
         try:
             sim.time_assign = timezone.now() # correction due to bulk assignment
-            config_file = storeConfigFile(sim, SIM_FOLDER)
-            tc_file = "".join([SIM_FOLDER, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
+            config_file = storeConfigFile(sim, SIM_DIR)
+            tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
 
             # run an operating system command
             # call(["ls", "-l"])
@@ -126,7 +103,7 @@ def integrate_roadrunner(sims):
     for sim in sims:
         try:
             # set all parameters in the model and store the changes for revert
-            tstart = time.clock()
+            # tstart = time.clock()
             sim.time_assign = timezone.now() # correction due to bulk assignment
             changes = dict()
             for p in sim.parameters.all():
@@ -160,7 +137,7 @@ def integrate_roadrunner(sims):
             print 'Integration Time:', (time.clock()- tstart_int)
         
             # Store Timecourse Results
-            tc_file = "".join([SIM_FOLDER, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
+            tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
             numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.6E')
 
             # reset
@@ -174,6 +151,20 @@ def integrate_roadrunner(sims):
         except Exception:
             integration_exception(sim)
     
+def integration_exception(sim):
+    ''' Handling exceptions in the integration. '''
+    # print information
+    print '-' *60
+    print '*** Exception in ODE integration ***'
+    fname = MULTISCALE_GALACTOSE_RESULTS + '/ERROR_' + str(sim.pk) + '.log'
+    with open(fname, 'a') as f_err:
+        traceback.print_exc(file=f_err)
+    traceback.print_exc(file=sys.stdout)
+    print '-'*60
+    # update simulation status
+    sim.status = ERROR
+    sim.save()
+
 
 if __name__ == "__main__":
     from sim.models import Simulation

@@ -20,7 +20,7 @@ if __name__ == "__main__":
     # use value of the related tables
     # problems with multiplicity
     # ? could be count() a solution ?
-    tasks = Task.objects.filter(simulation__status=UNASSIGNED)
+    tasks = Task.objects.filter(simulation__status=UNASSIGNED).distinct('pk', 'priority').order_by('-priority')
     print tasks
     
     print tasks.distinct()
@@ -29,5 +29,9 @@ if __name__ == "__main__":
     
     # put it in a view? probably best? assign simulation view
     
+    print '*'*20
+    Nsim=1
+    tasks = Task.objects.all()[0:Nsim]
+    print tasks
     
     
