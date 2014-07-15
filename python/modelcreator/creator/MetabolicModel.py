@@ -165,11 +165,9 @@ def createDeficiencyEvent(model, deficiency):
     e = model.createEvent();
     e.setId(eid);
     e.setUseValuesFromTriggerTime(True);
-    initialValue = False # ! not supported by Copasi -> lame fix via time
-    persistent = True    # ! not supported by Copasi -> careful with usage
-    t = e.createTrigger();
-    t.setInitialValue(initialValue)
-    t.setPersistent(persistent)
+    t = e.createTrigger()
+    t.setInitialValue(False) # ! not supported by Copasi -> lame fix via time
+    t.setPersistent(True)    # ! not supported by Copasi -> careful with usage
     formula = '(time>0) && (deficiency=={:d})'.format(deficiency);
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
     t.setMath(astnode);
@@ -188,7 +186,7 @@ def createEventFromEventData(model, edata):
     e.setName(edata.name);
     e.setUseValuesFromTriggerTime(True);
     t = e.createTrigger();
-    t.setInitialValue(True)
+    t.setInitialValue(False)
     t.setPersistent(True)
     astnode = libsbml.parseL3FormulaWithModel(edata.trigger, model)
     t.setMath(astnode)

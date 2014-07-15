@@ -40,6 +40,20 @@ def createGalactoseChallengeEventData(tc_start = 100.0, peak_var='gal_challenge'
                    createTriggerFromTime(tc_start), {'PP__gal': peak_var})
     return [ed]
 
+def createGalactoseStepEventData():
+    ''' Stepwise increase in PP__gal over time.'''
+    event_data = []
+    duration = 1000.0;
+    for k in range(0,21):
+        time = 0.0 + k*duration;
+        gal = 0.0 + k*0.5
+        ed = EventData('ESTEP_{}'.format(k), "galactose step",
+                   createTriggerFromTime(time), {'PP__gal': '{} mM'.format(gal)})
+        event_data.append(ed)
+    return event_data
+
+
+
 def createTriggerFromTime(t):
     return '(time >= {})'.format(t)
 
@@ -56,6 +70,11 @@ if __name__ == '__main__':
     elist = createDilutionEventData(tp_start=100.0, duration=10.0)
     for edata in elist:
         edata.info()
+    
+    elist = createGalactoseStepEventData()
+    for edata in elist:
+        edata.info()
+    
     
     
     

@@ -19,7 +19,7 @@ def simulationPlot(sid, sim_file, out_dir):
     print 'Generate simulation plot'
     
     # call the R scripts
-    call_command = 'Rscript ' + MULTISCALE_GALACTOSE + '/R/makePlot.R ' + sim_file
+    call_command = 'Rscript ' + MULTISCALE_GALACTOSE + '/R/analysis/makePlot.R ' + sim_file + ' ' + out_dir
     print call_command
     call(shlex.split(call_command))
     

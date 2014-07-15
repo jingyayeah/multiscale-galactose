@@ -177,7 +177,7 @@ def make_galactose_core(sbml_id, N):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-def make_galactose_dilution(sbml_id, N, sync=True):
+def make_galactose_dilution(sbml_id, N, sync=True, priority=0):
     info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).'''
     model = create_django_model(sbml_id, sync=sync)
     
@@ -188,7 +188,7 @@ def make_galactose_dilution(sbml_id, N, sync=True):
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':5000.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
-    task = create_task(model, integration, info=info)
+    task = create_task(model, integration, info=info, priority=priority)
     createSimulationsForSamples(task, samples)
 
     return (task, samples)
@@ -205,6 +205,21 @@ def make_galactose_challenge(sbml_id, N):
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
+    integration = Integration.get_or_create_integration(settings)
+    task = create_task(model, integration, info=info)
+    createSimulationsForSamples(task, samples)
+    
+    return (task, samples)
+#----------------------------------------------------------------------#
+def make_galactose_step(sbml_id, N):        
+    info = '''Simulation of stepwise increase of periportal galactose.'''
+    model = create_django_model(sbml_id, sync=True)
+    
+    # parameter samples
+    samples = createGalactoseSamples(N=N, sampling='distribution') 
+    
+    # simulations
+    settings = Setting.get_settings( {'tstart':0.0, 'tend':30000.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
     task = create_task(model, integration, info=info)
     createSimulationsForSamples(task, samples)
@@ -238,15 +253,15 @@ if __name__ == "__main__":
             samples = setDeficiencyInSamples(samples, deficiency=d)
             createSimulationsForSamples(task_d, samples)     
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Multiple Indicator Dilution peaks after certain time.
         The peaks are combined with additional galactose background 
         challenges.
         In case of additional changes the system must be in steady
         '''
-        [task, raw_samples] = make_galactose_dilution(sbml_id='Galactose_v12_Nc20_dilution', 
-                                                      N=80, sync=False)
+        [task, raw_samples] = make_galactose_dilution(sbml_id='Galactose_v13_Nc20_dilution', 
+                                                      N=50, sync=True, priority=10)
         
         # additional galactose challenge
         PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
@@ -259,6 +274,14 @@ if __name__ == "__main__":
         Galactose challenge after certain time and simulation to steady state.
         '''
         make_galactose_challenge(sbml_id="Galactose_v12_Nc20_galactose-challenge", N=10)    
+    #----------------------------------------------------------------------#
+    if (1):
+        '''
+        Galactose stepwise increase.
+        '''
+        make_galactose_step(sbml_id="Galactose_v15_Nc1_galactose-step", N=10)    
+        make_galactose_step(sbml_id="Galactose_v15_Nc20_galactose-step", N=10) 
+        
     #----------------------------------------------------------------------#
     if (0):
         pass

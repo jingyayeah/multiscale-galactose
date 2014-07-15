@@ -441,7 +441,8 @@ class TissueModel(object):
     
     def writeSBML(self, folder):
         writer = SBMLWriter()
-        fname = folder + self.id + '.xml'
+        fname = folder + '/' + self.id + '.xml'
+        print 'Write SBML ({}) -> {}'.format(self.id, fname)
         writer.writeSBMLToFile(self.doc, fname)
     
         # validate the model with units (only for small models)
@@ -463,12 +464,13 @@ if __name__ == "__main__":
     
     from creator.models.GalactoseModel import GalactoseModel
     from creator.events.EventFactory import createDilutionEventData, createGalactoseChallengeEventData
+    from creator.events.EventFactory import createGalactoseStepEventData
     
     from sim.PathSettings import SBML_DIR
     
     # Create the general model information 
     TissueModel.Nc = 20
-    TissueModel.version = 12
+    TissueModel.version = 15
     cellModel = GalactoseModel()
     
     # [1] core model
@@ -479,7 +481,7 @@ if __name__ == "__main__":
     
     # [2] multiple dilution indicator
     # ___|---|__ (in all periportal species)
-    events = createDilutionEventData(tp_start=10.0, duration=0.5)
+    events = createDilutionEventData(tp_start=1000.0, duration=0.5)
     gm = TissueModel(cellModel, simId="dilution", events=events)
     gm.createModel()
     gm.writeSBML(SBML_DIR)    
@@ -492,5 +494,16 @@ if __name__ == "__main__":
     gm.createModel()
     gm.writeSBML(SBML_DIR)    
     storeInDatabase(gm, SBML_DIR)
+    
+    # [4] galactose step (with various galactose)
+    # __|------
+    events = createGalactoseStepEventData()
+    gm = TissueModel(cellModel, simId="galactose-step", events=events)
+    gm.createModel()
+    gm.writeSBML(SBML_DIR)    
+    storeInDatabase(gm, SBML_DIR)
+    
+    
+    
 
 ##########################################################################

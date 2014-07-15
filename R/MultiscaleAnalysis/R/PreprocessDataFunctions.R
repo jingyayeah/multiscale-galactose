@@ -201,8 +201,6 @@ getTimeFromPreprocessMatrix <- function(preprocess.mat){
 #' TODO: fix the performance (select only subset of interest)
 #' 
 #' @param datalist list of data matrices
-#' @param compounds which compounds to take
-#' @prefixes which prefixes to take
 #' @return matrix of pppv data
 #' @export
 createDataMatrices <- function(dir, datalist){
@@ -238,8 +236,7 @@ createDataMatrices <- function(dir, datalist){
 #' 
 #' @param datalist list of data matrices
 #' @param compounds which compounds to take
-#' @time time for interpolation
-#' @prefixes which prefixes to take
+#' @param time for interpolation
 #' @return matrix of pppv data
 #' @export
 createDataMatricesVarSteps <- function(dir, datalist, time){
