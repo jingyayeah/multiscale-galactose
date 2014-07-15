@@ -12,11 +12,12 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from sim.models import Simulation, Timecourse, Plot, Task, TIMECOURSE, DONE
+from sim.models import Simulation, Timecourse, Plot, Task, DONE
 import math
 import numpy as np
 import numpy.random as npr
 import csv
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 
@@ -125,7 +126,6 @@ def createPlotPPPV(sim, folder):
     if (sim.status != DONE):
         print "No timecourse available for simulation"
         return
-    
     
     x = getDataFromTimeCourse(sim.timecourse)
     time = x['time']

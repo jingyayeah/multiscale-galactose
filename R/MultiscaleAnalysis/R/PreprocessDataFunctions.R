@@ -141,7 +141,7 @@ readColumnData <- function(pars, dir, col.indices_f){
   data
 }
 
-#' Load the column data for single simulation by sim name
+#' Load the column data for single simulation by sim id
 #' 
 #' @param sim simulation identifier
 #' @param withTime keeps the time column
@@ -149,7 +149,15 @@ readColumnData <- function(pars, dir, col.indices_f){
 #' @export
 readDataForSimulation <- function(dir, simId, col.indices_f=NULL){
   fname <- getSimulationFileFromSimulationId(dir, simId)
-  
+  data <- readDataForSimulationFile(fname, col.indices_f)
+}
+
+#' Load the column data for single simulation by simulation file
+#' 
+#' @param fname CSV file to load
+#' @return column data
+#' @export
+readDataForSimulationFile <- function(fname, col.indices_f=NULL){
   # much faster solution than read.csv
   # data <- read.csv(file=fname)
   # ! careful data is not striped with fread
@@ -178,6 +186,7 @@ readDataForSimulation <- function(dir, simId, col.indices_f=NULL){
   }
   data
 }
+
 
 #' Reads the time vector from the simulation matrix list.
 #' @param MI.mat List of simulation matrixes

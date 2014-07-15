@@ -128,6 +128,7 @@ def simulation(request, simulation_id):
     # folder = "/home/mkoenig/multiscale-galactose-results/tmp_plot"
     # PlotSimulation.createSimulationPlots(sim, folder)
     
+    
     template = loader.get_template('sim/simulation.html')
     context = RequestContext(request, {
         'sim': sim,

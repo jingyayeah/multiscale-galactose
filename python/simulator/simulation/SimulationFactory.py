@@ -214,15 +214,15 @@ def make_galactose_challenge(sbml_id, N):
 ####################################################################################
 if __name__ == "__main__":
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print 'make demo'
         make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=100, priority=10)
     #----------------------------------------------------------------------#
     if (0):
         make_glucose(sbml_id='Koenig2014_Hepatic_Glucose_Model_annotated')
     #----------------------------------------------------------------------#
-    if (1):
-        [task, samples] = make_galactose_core(sbml_id='Galactose_v12_Nc20_core', N=10)
+    if (0):
+        [task, samples] = make_galactose_core(sbml_id='Galactose_v12_Nc20_core', N=50)
     
         # Use the samples to create deficiencies
         deficiencies = ()
@@ -238,14 +238,15 @@ if __name__ == "__main__":
             samples = setDeficiencyInSamples(samples, deficiency=d)
             createSimulationsForSamples(task_d, samples)     
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution peaks after certain time.
         The peaks are combined with additional galactose background 
-        challenges
+        challenges.
+        In case of additional changes the system must be in steady
         '''
         [task, raw_samples] = make_galactose_dilution(sbml_id='Galactose_v12_Nc20_dilution', 
-                                                      N=10, sync=False)
+                                                      N=80, sync=False)
         
         # additional galactose challenge
         PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
