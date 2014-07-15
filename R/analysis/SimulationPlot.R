@@ -72,23 +72,20 @@ plotTimecourse(df, c('PV__gal'), col=c('Red'))
 plotTimecourse(df, c('PV__suc'), col=c('Green'))
 
 # create plots for the metabolic model
+xlimits = c(0, 30000)
+
 # metabolites
 m_names = c('PP__gal', 'PP__galM', 'adp', 'atp', 'udp', 'utp', 'nadp', 'nadph',
             'gal', 'gal1p', 'galM', 'galtol', 'glc1p', 'glc6p', 'h2oM', 'phos', 'ppi',
             'udpgal', 'udpglc')
-m_names
-
 H__ids = list()
 for (name in m_names){
   pattern <- paste('__', name, '$', sep="")
   H__ids[[name]] = ids[grep(pattern, ids)]
 } 
-names(H__ids)
-H__ids[['atp']]
 
 # energy bilance
-xlimits = c(0, 30000)
-#xlimits = c(1000, 1100)
+
 par(mfrow=c(4,4))
 plot(numeric(0), numeric(0), xlim=xlimits, ylim=c(0,5), type='l', main="ATP", 
      xlab='time [s]', ylab='concentration [mM]')
@@ -122,12 +119,12 @@ plot(numeric(0), numeric(0))
 plot(numeric(0), numeric(0), xlim=xlimits, ylim=c(0,13), type='l', main="Galactose", 
      xlab='time [s]', ylab='concentration [mM]')
 plotTimecourse(df, H__ids[['gal']])
-plotTimecourse(df, H__ids[['PP__gal']], col='Blue')
+plotTimecourse(df, c('PP__gal'), col='Blue')
 
 plot(numeric(0), numeric(0), xlim=xlimits, ylim=c(0,2), type='l', main="Galactose M", 
      xlab='time [s]', ylab='concentration [mM]')
 plotTimecourse(df, H__ids[['galM']])
-plotTimecourse(df, H__ids[['PP__galM']], col='Blue')
+plotTimecourse(df, c('PP__galM'), col='Blue')
 
 plot(numeric(0), numeric(0), xlim=xlimits, ylim=c(0,3), type='l', main="Galactose-1P", 
      xlab='time [s]', ylab='concentration [mM]')
@@ -147,33 +144,41 @@ plot(numeric(0), numeric(0), xlim=xlimits, ylim=c(0,0.3), type='l', main="Glucos
      xlab='time [s]', ylab='concentration [mM]')
 plotTimecourse(df, H__ids[['glc6p']])
 
-plot(numeric(0), numeric(0), xlim=xlimits, ylim=c(0,0.3), type='l', main="Galactitol", 
+plot(numeric(0), numeric(0), xlim=xlimits, ylim=c(0,1.0), type='l', main="Galactitol", 
      xlab='time [s]', ylab='concentration [mM]')
 plotTimecourse(df, H__ids[['galtol']])
 
+par(mfrow=c(1,1))
+
+#####################################################################################
+# plot the reactions for analysis
+r_names = c('ALDR', 'ATPS', 'GALE', 'GALK', 'GALKM', 'GALT', 'GLUT2_GAL', 'GLUT2_GALM',
+            'GLY', 'GTFGAL', 'GTFGLC', 'H2OM', 'IMP', 'NADPR', 'NDKU', 'PGM1', 'PPASE',
+            'UGALP', 'UGP')
+Hr__ids = list()
+for (name in r_names){
+  pattern <- paste('__', name, '$', sep="")
+  Hr__ids[[name]] = ids[grep(pattern, ids)]
+} 
+Hr__ids
+test <- unlist(Hr__ids)
+test
+
+max(df[,unlist(Hr__ids)])
+min(df[,unlist(Hr__ids)])
+plot(numeric(0), numeric(), xlim=xlimits, type='l',
+     ylim=c(-10E-14, 10E-14))
+plotTimecourse(df, unlist(Hr__ids))
+
+par(mfrow=c(4,4))
+
+plot(numeric(0), numeric(0), xlim=xlimits,  ylim=c(-10E-14, 10E-14)),
+     type='l', main="GLUT2", xlab='time [s]', ylab='concentration [mM]')
+plotTimecourse(df, Hr__ids[['GLUT2_GAL']], col='Blue')
+plotTimecourse(df, Hr__ids[['GLUT2_GALM']], col='Red')
 
 par(mfrow=c(1,1))
 
-
-
-
-
-
-plot(numeric(0), numeric(), xlim=c(0,100), ylim=c(0,0.05), type='l')
-plotTimecourse(df, c('PV__galM'), col=c('Blue'))
-
-plot(numeric(0), numeric(), xlim=c(0,100), ylim=c(0,5.1), type='l')
-plotTimecourse(df, gal_ids)
-plotTimecourse(df, c('PV__gal'), col=c('Red'))
-plotTimecourse(df, c('PP__gal'), col=c('Red'))
-
-plot(numeric(0), numeric(), xlim=c(0,100), ylim=c(0,2.0), type='l')
-plotTimecourse(df, ids)
-
-plot(numeric(0), numeric(), xlim=c(0,100), ylim=c(0,0.5), type='l')
-plotTimecourse(df, galM_ids)
-plotTimecourse(df, gal_ids, col=c('Blue'))
-head(df[,gal_ids])
 
 
 plot(df$time, df$PP__gal, xlim=c(0,100), ylim=c(0,2), type='l')
