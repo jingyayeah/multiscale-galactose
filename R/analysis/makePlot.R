@@ -61,6 +61,7 @@ if (do_file_plots){
 }
 plot(numeric(0), numeric(), xlim=xlimits, ylim=ylimits, type='l')
 plotTimecourse(df, plot_ids, cols=plot_cols)
+plotTimecourse(df, c('PV__galM'), cols=c('BLUE'))
 
 if (do_file_plots){
   dev.off()
