@@ -172,7 +172,7 @@ plotTimecourse(df, unlist(Hr__ids))
 
 par(mfrow=c(4,4))
 
-plot(numeric(0), numeric(0), xlim=xlimits,  ylim=c(-10E-14, 10E-14)),
+plot(numeric(0), numeric(0), xlim=xlimits,  ylim=c(-10E-14, 10E-14),
      type='l', main="GLUT2", xlab='time [s]', ylab='concentration [mM]')
 plotTimecourse(df, Hr__ids[['GLUT2_GAL']], col='Blue')
 plotTimecourse(df, Hr__ids[['GLUT2_GALM']], col='Red')

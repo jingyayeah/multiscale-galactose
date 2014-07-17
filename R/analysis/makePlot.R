@@ -1,15 +1,17 @@
 ## makePlot.R
 # Rscript makePlot.R sid
+rm(list=ls())
+
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 args <- commandArgs(trailingOnly = TRUE)
 
-s
+sim_id <- 'Sim1371'
 sim_file <- args[1]
 out_dir <- args[2]
 
-sim_file = '/home/mkoenig/multiscale-galactose-results/django/timecourse/T3/Galactose_v12_Nc20_dilution_Sim497_roadrunner.csv'
+sim_file = '/home/mkoenig/multiscale-galactose-results/django/timecourse/T10/Galactose_v15_Nc20_dilution_Sim1371_roadrunner.csv'
 out_dir = '/home/mkoenig/multiscale-galactose-results/tmp_plot'
 print(sim_file)
 print(out_dir)
@@ -38,23 +40,48 @@ galM_ids = ids[grep('__galM$', names(df))]
 adp_ids = ids[grep('__a[d,t]p', names(df))]
 audp_ids = ids[grep('__[a,u][d,t]p$', names(df))]
 
-# create some plots
-create_plot_files = FALSE
-if (create_plot_files){
-  png(filename=paste(out_dir, '/', task, "_test_", name, sep=""),
+# get the variables to plot & calculate the plot limits
+names(df)
+plot_ids <- c(pp_ids, pv_ids)
+plot_cols <- c(rep('Black', length(pp_ids)), 
+               rep('Blue', length(pv_ids)))
+xlimits = c(min(df$time), max(df$time))
+ylimits = c(min(df[,plot_ids]), max(df[,plot_ids]))
+
+xlimits = c(1000,1200)
+ylimits = c(0,1)
+
+# create plot standard
+do_file_plots = F
+if (do_file_plots){
+  plot_file <- paste(out_dir, '/', task, "_", sim_id, '_plot1.png' , sep="")
+  print(plot_file)
+  png(filename=plot_file, 
       width = 500, height = 500, units = "px", bg = "white",  res = 72)
 }
-time <- getTimeFromPreprocessMatrix(preprocess.mat) - 10.0
-plotCompound(time, preprocess.mat[[name]], name, col=ccolors[name], ylim=c(0,2.1))
-if (create_plot_files){
+plot(numeric(0), numeric(), xlim=xlimits, ylim=ylimits, type='l')
+plotTimecourse(df, plot_ids, cols=plot_cols)
+
+if (do_file_plots){
   dev.off()
 }
 
+# do the same with ggplot2
+require(ggplot2)
+require(reshape)
+df.small <- df[,c('time', plot_ids)]
+names(df.small)
+# melt the data
+df.melt <- melt(df.small, id.vars='time', variable_name = 'series')
 
-plot(numeric(0), numeric(), xlim=c(0,100), ylim=c(0,2.3), type='l')
-plotTimecourse(df, pp_ids, col='Black')
-plotTimecourse(df, pv_ids, col='Blue')
+# create additional column for name
+# test <- sub(".*__", "", 'PP__gal')
+df.melt$name <- sub(".*__", "", df.melt$series)
+head(df.melt, n=40)
 
+# plot on same grid, each series colored differently -- 
+# good if the series have same scale
+ggplot(df.melt, aes(x=time,y=value, colour=name, group=series)) + geom_line() + scale_y_continuous(limits=ylimits) + scale_x_continuous(limits=xlimits)
 
 
 

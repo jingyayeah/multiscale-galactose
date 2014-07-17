@@ -481,6 +481,8 @@ if __name__ == "__main__":
     
     # [2] multiple dilution indicator
     # ___|---|__ (in all periportal species)
+    # The multiple dilution indicator peak comes when the system is 
+    # in steady state after the applied initial condition changes:
     events = createDilutionEventData(tp_start=1000.0, duration=0.5)
     gm = TissueModel(cellModel, simId="dilution", events=events)
     gm.createModel()
