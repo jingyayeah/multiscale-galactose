@@ -200,7 +200,7 @@ def make_galactose_challenge(sbml_id, N):
     
     # parameter samples
     raw_samples = createGalactoseSamples(N=N, sampling='distribution') 
-    gal_challenge = np.arange(0, 6, 0.5)
+    gal_challenge = np.arange(0, 6.5, 0.5)
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
@@ -256,7 +256,7 @@ if __name__ == "__main__":
             samples = setDeficiencyInSamples(samples, deficiency=d)
             createSimulationsForSamples(task_d, samples)     
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Multiple Indicator Dilution peaks after certain time.
         The peaks are combined with additional galactose background 
@@ -276,19 +276,19 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''
         sbml_id = "Galactose_v{}_Nc20_galactose-challenge".format(VERSION)
-        make_galactose_challenge(sbml_id, N=10)
+        make_galactose_challenge(sbml_id, N=100)
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Galactose stepwise increase.
         '''
-        make_galactose_step(sbml_id="Galactose_v{}_Nc1_galactose-step".format(VERSION), N=10)    
-        make_galactose_step(sbml_id="Galactose_v{}_Nc20_galactose-step".format(VERSION), N=10) 
+        # make_galactose_step(sbml_id="Galactose_v{}_Nc1_galactose-step".format(VERSION), N=10)    
+        make_galactose_step(sbml_id="Galactose_v{}_Nc20_galactose-step".format(VERSION), N=100) 
         
     #----------------------------------------------------------------------#
     if (0):
