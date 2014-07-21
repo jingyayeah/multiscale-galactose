@@ -13,7 +13,7 @@ from BasicClearanceReactions import K_S1, K_S1M, T_S1, T_S1M
 class BasicClearanceCell(object):
     id = 'BasicClearance'
     species = [
-            # id, value, unit, constant/boundaryCondition(?)
+            # id, value, unit, boundaryCondition
             ('e__s1',  0.0, 'mM'),
             ('e__s1M',  0.0, 'mM'),
             ('c__s1',  0.0, 'mM'),
