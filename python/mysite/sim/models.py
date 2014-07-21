@@ -213,11 +213,15 @@ class Integration(models.Model):
         
     @staticmethod
     def get_or_create_integration(settings):
-        ''' Check if the settings combination is already used in some other integration. '''
+        ''' 
+        Tests if the settings set is already defined as integration. 
+        Equality is tested via set equality.
+        '''
         settings_set = frozenset(settings)
     
         integration = None
         for int_test in Integration.objects.all():
+            # the uniqueness is tested via the set equality 
             if settings_set==frozenset(int_test.settings.all()):
                 integration = int_test
                 break

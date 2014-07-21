@@ -1,24 +1,29 @@
 '''
-Core model factory to create the SBML model.
-Based on basic information the SBML model is generated which than can be simulated.
+Model factory for the creation of the sinusoidal metabolic models.
+Cellular models are integrated into the sinusoidal structure.
+A modular structure of processes for the single hepatocyte processes and transporters
+exists which allows to reuse the created sinusoidal model for various simulations, like
+clearance of a variety of substances.
 
-What do you want?
-- important to have fast turnover cycle in modeling, i.e.
-  fast definition of the model structure and kinetics.
-
-Easy to write and fast changeable model definition.
-1. define objects (units, species, reactions, transporters, compartments, ....)
-3. translate to SBML
-
+Important features:
+- important is a fast turnover between changes and simulations. 
+  Currently this is quit cumbersome and necessary to write down the full network.
+- single cell models as well as the full sinusoidal architecture have to be generated 
+  at once.
+   
 @author: Matthias Koenig
 @date: 2014-06-17  
+
+TODO: rewrite for generation of general models, i.e not a singular solution towards
+      the galactose model.
+
 '''
+
 import sim.PathSettings
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
 
-        
 from creator.tools.Naming import *
 from creator.processes.ReactionFactory import *
 from creator.sbml.SBMLValidator import SBMLValidator

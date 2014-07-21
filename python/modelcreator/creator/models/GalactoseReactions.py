@@ -5,7 +5,7 @@ Created on Jul 1, 2014
 @author: mkoenig
 '''
 
-from ReactionTemplate import ReactionTemplate
+from creator.processes.ReactionTemplate import ReactionTemplate
 comps = ('c__', 'e__')
 
 #############################################################################################
