@@ -28,13 +28,13 @@ from creator.tools.Naming import *
 from creator.processes.ReactionFactory import *
 from creator.sbml.SBMLValidator import SBMLValidator
 
-from MetabolicModel import *
+from creator.MetabolicModel import *
 from creator.processes.ReactionTemplate import ReactionTemplate
 
-class TissueModel(object):
+class SinusoidalUnit(object):
     Nc = None
     version = None
-    names = None
+    names = dict()
         
     def __init__(self, cellModel, simId=None, events=None):
         self.cellModel = cellModel
@@ -47,7 +47,7 @@ class TissueModel(object):
         self.model.setName(self.id)
         
         self.pars.append(
-            ('Nc',             TissueModel.Nc,     '-',     True),
+            ('Nc',             SinusoidalUnit.Nc,     '-',     True),
         )
         print '*'*40
         print '* Create:', self.id
@@ -61,32 +61,7 @@ class TissueModel(object):
         return mid
     
     def cell_range(self):
-        return range(1, TissueModel.Nc+1)
-    
-    #########################################################################
-    names = dict()
-    names['rbcM'] = 'red blood cells M*'
-    names['suc'] = 'sucrose'
-    names['alb'] = 'albumin'
-    names['h2oM'] = 'water M*'
-    names['glc'] = 'D-glucose'
-    names['gal'] = 'D-galactose'
-    names['galM'] = 'D-galactose M*'
-    names['glc'] = 'D-glucose'
-    names['glc1p'] = 'D-glucose 1-phophate'
-    names['glc6p'] = 'D-glucose 6-phosphate'
-    names['gal1p'] = 'D-galactose 1-phosphate'
-    names['udpglc'] = 'UDP-D-glucose'
-    names['udpgal'] = 'UDP-D-galactose'
-    names['galtol'] = 'D-galactitol'
-    names['atp'] = 'ATP'
-    names['adp'] = 'ADP'
-    names['utp'] = 'UTP'
-    names['udp'] = 'UDP'
-    names['phos'] = 'phosphate'
-    names['ppi'] = 'pyrophosphate'
-    names['nadp'] = 'NADP'
-    names['nadph'] = 'NADPH'
+        return range(1, SinusoidalUnit.Nc+1)
     
     #########################################################################
     # Units
@@ -137,7 +112,6 @@ class TissueModel(object):
             ('Vol_liv',     1.5E-3,   'm3',     True),
             ('rho_liv',     1.1E3,    'kg_per_m3', True), 
             ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
-            ('gal_challenge',  0.0,    'mM',    True),
     ]    
     names['L'] = 'sinusoidal length'
     names['y_sin'] = 'sinusoidal radius'
@@ -210,74 +184,61 @@ class TissueModel(object):
     ##########################################################################
     # External Species
     ##########################################################################
-    external = [
-           ('rbcM', 0.0, '-'),
-           ('suc',  0.0, 'mM'),
-           ('alb',  0.0, 'mM'),
-           ('gal',  0.00012, 'mM'),
-           ('galM', 0.0, 'mM'),
-           ('h2oM', 0.0, 'mM'),
-           ]
-    
+    external = []
+
     def createExternalSpeciesDict(self):
         sdict = dict()
         # dis = sin, pp = sin, pv = sin
         # pp, pv, sin and disse are initialized identically
-        for data in TissueModel.external:
-            sid, init, units = data[0], data[1], data[2]
-            name = TissueModel.names[sid]
-            sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId())
+        for data in SinusoidalUnit.external:
+            (sid, init, units, constant) = self.getItemsFromSpeciesData(data)
+            
+            name = SinusoidalUnit.names[sid]
+            sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId(), constant)
             for k in self.cell_range():
-                sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k))
-                sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k))
-            sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId())    
+                sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k), constant)
+                sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k), constant)
+            sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId(), constant)    
         return sdict
     
     def createCellSpeciesDict(self):
         sdict = dict()
         for data in self.cellModel.species:     
-            full_id, init, units = data[0], data[1], data[2]
+            (full_id, init, units, constant) = self.getItemsFromSpeciesData(data)
+            
             tokens = full_id.split('__')
             sid = tokens[1]
-            name = TissueModel.names[sid]
+            name = SinusoidalUnit.names[sid]
             for k in self.cell_range():
-                if full_id.startswith('e__'):
-                    # should already be created 
-                    pass
-                elif full_id.startswith('c__'):
-                    sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units, getHepatocyteId(k))    
+                # TODO: only covers species in cytosol (has to work with arbitrary number of compartments)
+                if full_id.startswith('c__'):
+                    sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units, getHepatocyteId(k), constant)    
         return sdict
     
-    ##########################################################################
-    # External Transport
+    def getItemsFromSpeciesData(self, data):
+        sid, init, units = data[0], data[1], data[2]
+        # handle the constant species
+        if len(data)==4:
+            constant = data[3]
+        else:
+            constant = False
+        return (sid, init, units, constant)
+    
     ##########################################################################
     # Diffusion
-    pars.extend(
-            # diffusion constants [m^2/s]
-            [
-            ('DrbcM',  0.0E-12, 'm2_per_s', 'True'),
-            ('Dsuc',   720E-12, 'm2_per_s', 'True'),
-            ('Dalb',    90E-12, 'm2_per_s', 'True'),
-            ('Dgal',   910E-12, 'm2_per_s', 'True'),
-            ('DgalM',  910E-12, 'm2_per_s', 'True'),
-            ('Dh2oM', 2200E-12, 'm2_per_s', 'True'),
+    ##########################################################################
+    def createDiffusionAssignments(self):
+        ''' Create the geometrical diffusion constants 
+            based on the external substances.
+        '''
+        for data in SinusoidalUnit.external:
+            sid = data[0]
+            # id, assignment, unit
+            SinusoidalUnit.assignments.extend([
+              ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
+              ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
+              ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
             ])
-    names['DrbcM'] = 'diffusion constant rbc M*'
-    names['Dsuc'] = 'diffusion constant sucrose'
-    names['Dalb'] = 'diffusion constant albumin'
-    names['Dgal'] = 'diffusion constant galactose'
-    names['DgalM'] = 'diffusion constant galactose M*'
-    names['Dh2oM'] = 'diffusion constant water M*'
-    
-    # geometrical diffusion constants
-    for data in external:
-        sid = data[0]
-        # id, assignment, unit
-        assignments.extend([
-            ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
-            ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
-            ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
-        ])
     
     def createParametersDict(self, pars):
         pdict = dict()
@@ -290,8 +251,11 @@ class TissueModel(object):
     
 
     def createModel(self):
+        
         # sinusoidal unit model
         self.createUnits()
+        
+        print 'pars', self.pars
         self.createExternalParameters()
         self.createInitialAssignments()
         self.createExternalCompartments()
@@ -326,6 +290,7 @@ class TissueModel(object):
         createCompartments(self.model, comps)
     
     def createExternalSpecies(self):
+        print SinusoidalUnit.names
         sdict = self.createExternalSpeciesDict()
         createSpecies(self.model, sdict)
             
@@ -342,6 +307,7 @@ class TissueModel(object):
         createParameters(self.model, pdict)
  
     def createInitialAssignments(self):
+        self.createDiffusionAssignments()
         createInitialAssignments(self.model, self.assignments)
     
     def createCellInitialAssignments(self):
@@ -388,7 +354,7 @@ class TissueModel(object):
 
     def createFlowReactions(self):
         flow = 'flow_sin * A_sin'     # [m3/s] volume flow
-        for data in TissueModel.external:
+        for data in SinusoidalUnit.external:
             sid = data[0]    
             # flow PP -> S01 
             createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), flow=flow)
@@ -401,7 +367,7 @@ class TissueModel(object):
             createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=flow);
     
     def createDiffusionReactions(self):        
-        for data in TissueModel.external:
+        for data in SinusoidalUnit.external:
             sid = data[0]    
             # [1] sinusoid diffusion
             Dx_sin = 'Dx_sin_{}'.format(sid)
@@ -422,6 +388,12 @@ class TissueModel(object):
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
     
     def createCellEvents(self):
+        ''' Creates the additional events defined in the cell model.
+            These can be metabolic deficiencies, or other defined
+            parameter changes.
+            TODO: make this cleaner and more general.
+        '''
+        
         ddict = self.cellModel.deficiencies
         dunits = self.cellModel.deficiencies_units
         
@@ -464,53 +436,3 @@ def storeInDatabase(tissueModel, folder):
     model = SBMLModel.create(tissueModel.id, folder);
     model.save();
    
-##########################################################################
-if __name__ == "__main__":
-    
-    from creator.models.GalactoseModel import GalactoseModel
-    from creator.events.EventFactory import createDilutionEventData, createGalactoseChallengeEventData
-    from creator.events.EventFactory import createGalactoseStepEventData
-    
-    from sim.PathSettings import SBML_DIR
-    
-    # Create the general model information 
-    TissueModel.Nc = 20
-    TissueModel.version = 15
-    cellModel = GalactoseModel()
-    
-    # [1] core model
-    gm = TissueModel(cellModel, simId='core', events=None)
-    gm.createModel()
-    gm.writeSBML(SBML_DIR)    
-    storeInDatabase(gm, SBML_DIR)
-    
-    # [2] multiple dilution indicator
-    # ___|---|__ (in all periportal species)
-    # The multiple dilution indicator peak comes when the system is 
-    # in steady state after the applied initial condition changes:
-    events = createDilutionEventData(tp_start=1000.0, duration=0.5)
-    gm = TissueModel(cellModel, simId="dilution", events=events)
-    gm.createModel()
-    gm.writeSBML(SBML_DIR)    
-    storeInDatabase(gm, SBML_DIR)
-    
-    # [3] galactose challenge (with various galactose)
-    # __|------
-    events = createGalactoseChallengeEventData(tc_start=100.0)
-    gm = TissueModel(cellModel, simId="galactose-challenge", events=events)
-    gm.createModel()
-    gm.writeSBML(SBML_DIR)    
-    storeInDatabase(gm, SBML_DIR)
-    
-    # [4] galactose step (with various galactose)
-    # __|------
-    events = createGalactoseStepEventData()
-    gm = TissueModel(cellModel, simId="galactose-step", events=events)
-    gm.createModel()
-    gm.writeSBML(SBML_DIR)    
-    storeInDatabase(gm, SBML_DIR)
-    
-    
-    
-
-##########################################################################

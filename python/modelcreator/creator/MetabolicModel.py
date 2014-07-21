@@ -5,7 +5,6 @@ Created on Jun 18, 2014
 
 import libsbml
 from libsbml import UNIT_KIND_DIMENSIONLESS, UnitKind_toString
-from creator.events.EventFactory import createTriggerFromTime
 
 SBML_LEVEL = 3
 SBML_VERSION = 1
@@ -100,15 +99,15 @@ def _createCompartment(model, cid, name, dims, units, constant, value):
     
 def createSpecies(model, sdict):
     for sid in sorted(sdict):
-        # comps['PV'] = ('[PV] perivenious', 3, 'm3', True)
         data = sdict[sid]
         name = data[0]
         init = data[1]
         units = data[2]
         compartment = data[3]
-        _createSpecie(model, sid, name, init, units, compartment)
+        constant = data[4]
+        _createSpecie(model, sid, name, init, units, compartment, constant)
     
-def _createSpecie(model, sid, name, init, units, compartment):
+def _createSpecie(model, sid, name, init, units, compartment, constant):
     s = model.createSpecies()
     s.setId(sid)
     if name:
@@ -119,7 +118,7 @@ def _createSpecie(model, sid, name, init, units, compartment):
         
     s.setSubstanceUnits(model.getSubstanceUnits());
     s.setHasOnlySubstanceUnits(False);
-    s.setConstant(False)
+    s.setConstant(constant)
     s.setBoundaryCondition(False)
         
 def createInitialAssignments(model, assignments):

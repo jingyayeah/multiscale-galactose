@@ -6,9 +6,9 @@ included in the tissue scale model.
 Created on Jun 24, 2014
 @author: mkoenig
 '''
-from creator.processes.GalactoseReactions import *
+from creator.models.GalactoseReactions import *
 
-class GalactoseModel(object):
+class GalactoseCell(object):
     id = 'Galactose'
     species = [
             # id, value, unit
