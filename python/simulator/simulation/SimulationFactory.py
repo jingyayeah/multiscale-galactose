@@ -226,6 +226,25 @@ def make_galactose_step(sbml_id, N):
     
     return (task, samples)
 
+#----------------------------------------------------------------------#
+def make_deficiency_simulations(task, samples, deficiencies):
+    ''' Takes a given set of samples for the normal case and
+        creates the corresponding deficiency simulations. 
+        The information is stored in the settings dict
+        '''
+    sdict = task.integration.get_settings_dict()
+    for d in deficiencies:
+        sdict['condition'] = 'GDEF_' + str(d)
+        settings = Setting.get_settings_for_dict(sdict)
+        integration = Integration.get_or_create_integration(settings)
+        # Creates a new derived task    
+        # does it ? how is a task specified?
+        task_d = create_task(task.sbml_model, integration, info=task.info)
+        
+        # create the simulations
+        samples = setDeficiencyInSamples(samples, deficiency=d)
+        createSimulationsForSamples(task_d, samples)    
+
 ####################################################################################
 if __name__ == "__main__":
     VERSION = 15
@@ -242,19 +261,10 @@ if __name__ == "__main__":
         sbml_id = 'Galactose_v{}_Nc20_core'.format(VERSION)
         [task, samples] = make_galactose_core(sbml_id, N=50)
     
-        # Use the samples to create deficiencies
-        deficiencies = ()
-        # deficiencies = range(1, 24)
-        for d in deficiencies:
-            sdict = task.integration.get_settings_dict()
-            sdict['condition'] = 'GDEF_' + str(d)
-            settings = Setting.get_settings_for_dict(sdict)
-            integration = Integration.get_or_create_integration(settings)
-            
-            task_d = create_task(task.sbml_model, integration, info=task.info)
-            # create the simulations
-            samples = setDeficiencyInSamples(samples, deficiency=d)
-            createSimulationsForSamples(task_d, samples)     
+        # Create deficiency samples belonging to the original samples
+        deficiencies = range(1, 24)
+        make_deficiency_simulations(task, samples, deficiencies)
+ 
     #----------------------------------------------------------------------#
     if (0):
         '''
@@ -276,14 +286,14 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''
         sbml_id = "Galactose_v{}_Nc20_galactose-challenge".format(VERSION)
         make_galactose_challenge(sbml_id, N=100)
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Galactose stepwise increase.
         '''

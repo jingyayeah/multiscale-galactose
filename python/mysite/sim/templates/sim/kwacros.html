@@ -7,7 +7,7 @@
 		<th>pk</th>
 		<th>model</th>
 		<th>task</th>
-		<th>integration</th>
+		<th>settings</th>
 		<th>parameters</th>
 		<th>status</th>
 		<th>duration</th>
@@ -20,7 +20,9 @@
 			<td>{{sim.task}}</td>
 			<td>{% for s in sim.task.integration.settings.all %}{{ s }}<br />{% endfor %}</td>
 			<td>{% for p in sim.parameters.all %}{{ p }}<br />{% endfor %}</td>
-			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
+			<td><span class="{{sim.status}}">{{sim.status}}</span><br />
+			{{sim.time_assign}}<br />
+			</td>
 			<td>{{sim.duration}}</td>
 			<td>{{sim.core}}</td>
 			<td> {% if sim.status == 'DONE' %}
