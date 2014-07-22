@@ -8,6 +8,7 @@ R/MultiscaleAnalysis/.RData
 R/MultiscaleAnalysis/.Rhistory
 python/simulator/.settings
 
+*.Rhistory
 .~*
 *.sh~
 *.pyc
