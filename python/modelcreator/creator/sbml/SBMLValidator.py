@@ -112,6 +112,7 @@ class SBMLValidator:
                 lines.append( "*** consistency check ***\n")
                 lines.append( errMsgCC)
         val_string = '\n'.join(lines)
-        print val_string
+        print val_string, '\n'
+        
         return val_string
     

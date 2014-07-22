@@ -109,10 +109,10 @@ class SBMLModel(models.Model):
         '''
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
-            print 'Model already exists! - model is not saved'
+            print 'Django model already exists! - model is not saved'
             return model;
         except ObjectDoesNotExist:
-            print 'Create model: ', sbml_id
+            print 'Create django model: ', sbml_id
             filename = folder + "/" + sbml_id + ".xml" 
             f = open(filename, 'r')
             myfile = File(f)

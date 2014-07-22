@@ -50,7 +50,7 @@ class SinusoidalUnit(object):
             ('Nc',             SinusoidalUnit.Nc,     '-',     True),
         )
         print '*'*40
-        print '* Create:', self.id
+        print self.id
         print '*'*40
         
     def createId(self):
@@ -423,7 +423,7 @@ class SinusoidalUnit(object):
         
         writer = SBMLWriter()
         fname = folder + '/' + self.id + '.xml'
-        print 'Write SBML ({}) -> {}'.format(self.id, fname)
+        print 'Write : {}\n'.format(self.id, fname)
         writer.writeSBMLToFile(self.doc, fname)
     
         # validate the model with units (only for small models)

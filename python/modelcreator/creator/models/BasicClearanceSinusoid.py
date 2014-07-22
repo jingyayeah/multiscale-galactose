@@ -77,6 +77,17 @@ class BasicClearanceSinusoid(SinusoidalUnit):
     
     
 ##########################################################################
+# EventData for the model
+##########################################################################
+
+from creator.events.EventFactory import createPeakEventData
+def createDilutionEventData(time_start, duration):
+    species = ["PP__s1M", "PP__rbcM", "PP__albM", "PP__sucM"]
+    base = ('{} mM'.format(0.0), ) * len(species)
+    peak = ('{} mM'.format(1.0/duration),) * len(species);
+    return createPeakEventData(species, base, peak, time_start=time_start, duration=duration)
+
+
 if __name__ == "__main__":
     ''' 
     Create the various SinusoidalUnit models, i.e. the different
@@ -85,12 +96,9 @@ if __name__ == "__main__":
     from sim.PathSettings import SBML_DIR    
     from SinusoidalUnit import storeInDatabase
     from creator.models.BasicClearanceCell import BasicClearanceCell
-    # from creator.events.EventFactory import createDilutionEventData, createGalactoseChallengeEventData
-    # from creator.events.EventFactory import createGalactoseStepEventData
     
-
     # Create the general model information 
-    SinusoidalUnit.Nc = 1
+    SinusoidalUnit.Nc = 20
     SinusoidalUnit.version = 1
     cellModel = BasicClearanceCell()
     
@@ -99,3 +107,18 @@ if __name__ == "__main__":
     gm.createModel()
     gm.writeSBML(SBML_DIR)    
     storeInDatabase(gm, SBML_DIR)
+    
+    # [2] multiple dilution indicator
+    # ___|---|__ (in all periportal species)
+    # The multiple dilution indicator peak comes when the system is 
+    # in steady state after the applied initial condition changes:
+    
+    # TODO: fix the problems due to the static variables
+    # => lists are extended multiple times
+    events = createDilutionEventData(time_start=1000.0, duration=0.5)
+    gm = SinusoidalUnit(cellModel, simId="dilution", events=events)
+    gm.createModel()
+    gm.writeSBML(SBML_DIR)    
+    storeInDatabase(gm, SBML_DIR)
+    
+    

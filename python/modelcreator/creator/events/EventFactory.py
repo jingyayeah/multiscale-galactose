@@ -21,17 +21,27 @@ class EventData():
         print self.assignments
         
         
-def createDilutionEventData(tp_start = 10.0, duration = 0.5):
+        
+def createDilutionEventData(time_start, duration):
     species = ["PP__galM", "PP__rbcM", "PP__alb", "PP__h2oM", "PP__suc"]
-    
-    tp_end = tp_start + duration
-    p_height = 1.0/duration;
-    ed1 = EventData("EDIL_0", "pre Dilution Peak [PP]",
-                   createTriggerFromTime(0.0), createAssignments(species, 0.0))
-    ed2 = EventData("EDIL_1", "Dilution Peak [PP]",
-                   createTriggerFromTime(tp_start), createAssignments(species, p_height))
-    ed3 = EventData("EDIL_2", "post Dilution Peak [PP]",
-                   createTriggerFromTime(tp_end), createAssignments(species, 0.0))
+    # all species have the same peak height based on the duration
+    base = ('{} mM'.format(0.0), ) * len(species)
+    peak = ('{} mM'.format(1.0/duration),) * len(species);
+    return createPeakEventData(species, base, peak, time_start=time_start, duration=duration)
+        
+        
+def createPeakEventData(species, base, peak, time_start, duration):
+    ''' 
+    Creates a dilution peak in the given species beginning at the
+    start time and with the provided duration.
+    '''
+    time_end = time_start + duration
+    ed1 = EventData("EDIL_0", "pre peak [PP]",
+                   createTriggerFromTime(0.0), createAssignmentsDict(species, base))
+    ed2 = EventData("EDIL_1", "peak [PP]",
+                   createTriggerFromTime(time_start), createAssignmentsDict(species, peak))
+    ed3 = EventData("EDIL_2", "post peak [PP]",
+                   createTriggerFromTime(time_end), createAssignmentsDict(species, base))
 
     return [ed1, ed2, ed3]
 
@@ -53,12 +63,10 @@ def createGalactoseStepEventData():
     return event_data
 
 
-
 def createTriggerFromTime(t):
     return '(time >= {})'.format(t)
 
-def createAssignments(species, value):
-    values = [str(item)+' mM' for item in (value,)*len(species)]
+def createAssignmentsDict(species, values):
     return dict(zip(species, values) )
 
 #####################################################################
