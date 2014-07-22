@@ -19,7 +19,7 @@
 DATA=/home/mkoenig/multiscale-galactose-results/django/sbml/
 
 # TARGETS=(10.39.34.27)
-TARGETS=(10.39.32.106 10.39.32.189 10.39.32.111 10.39.34.27)
+TARGETS=(10.39.32.106 10.39.32.189 10.39.32.111 10.39.34.27 10.39.32.236)
 # TARGETS=(192.168.1.99 192.168.1.100)
 
 # -r recursively

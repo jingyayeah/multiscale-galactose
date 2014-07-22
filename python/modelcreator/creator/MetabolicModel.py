@@ -100,14 +100,10 @@ def _createCompartment(model, cid, name, dims, units, constant, value):
 def createSpecies(model, sdict):
     for sid in sorted(sdict):
         data = sdict[sid]
-        name = data[0]
-        init = data[1]
-        units = data[2]
-        compartment = data[3]
-        constant = data[4]
-        _createSpecie(model, sid, name, init, units, compartment, constant)
+        _createSpecie(model, sid, name=data[0], init=data[1], units=data[2], 
+                      compartment=data[3], boundaryCondition=data[4])
     
-def _createSpecie(model, sid, name, init, units, compartment, constant):
+def _createSpecie(model, sid, name, init, units, compartment, boundaryCondition):
     s = model.createSpecies()
     s.setId(sid)
     if name:
@@ -118,8 +114,8 @@ def _createSpecie(model, sid, name, init, units, compartment, constant):
         
     s.setSubstanceUnits(model.getSubstanceUnits());
     s.setHasOnlySubstanceUnits(False);
-    s.setConstant(constant)
-    s.setBoundaryCondition(False)
+    s.setConstant(False)
+    s.setBoundaryCondition(boundaryCondition)
         
 def createInitialAssignments(model, assignments):
     for data in assignments:

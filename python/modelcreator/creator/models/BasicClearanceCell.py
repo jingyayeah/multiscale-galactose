@@ -4,6 +4,9 @@ sinusoidal model.
 Used for prototyping and to test the clearance of alternative
 substances like coffeine.
 
+Species which participate in reactions but are constant throughout the simulations
+need a boundaryCondition=True.
+
 @author: Matthias Koenig
 @date: 2014-07-21
 '''
@@ -34,7 +37,7 @@ class BasicClearanceCell(object):
     reactions = (K_S1, K_S1M,
                  T_S1, T_S1M)
     
-    # TODO: more general
+    # TODO: more general (events for the metabolic models
     deficiencies_units = {}
     deficiencies = {}
 

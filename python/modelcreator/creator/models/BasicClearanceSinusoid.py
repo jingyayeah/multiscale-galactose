@@ -1,4 +1,5 @@
 '''
+TODO: generate a simple driver/input function depending on t
 
 
 TODO: get an overview how the class hierarchy is handeled

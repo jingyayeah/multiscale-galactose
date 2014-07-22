@@ -16,7 +16,7 @@ Important features:
 
 TODO: rewrite for generation of general models, i.e not a singular solution towards
       the galactose model.
-
+      => create a sinusoidal model which can be filled with cell models
 '''
 
 import sim.PathSettings
@@ -182,47 +182,52 @@ class SinusoidalUnit(object):
         return comps
 
     ##########################################################################
-    # External Species
+    # Species
     ##########################################################################
     external = []
 
     def createExternalSpeciesDict(self):
+        '''
+        All species which are defined external are generated in all 
+        external compartments, i.e. PP, PV, sinusoid and disse space.
+        '''
         sdict = dict()
-        # dis = sin, pp = sin, pv = sin
-        # pp, pv, sin and disse are initialized identically
         for data in SinusoidalUnit.external:
-            (sid, init, units, constant) = self.getItemsFromSpeciesData(data)
+            (sid, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
             
             name = SinusoidalUnit.names[sid]
-            sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId(), constant)
+            sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId(), boundaryCondition)
             for k in self.cell_range():
-                sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k), constant)
-                sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k), constant)
-            sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId(), constant)    
+                sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k), boundaryCondition)
+                sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k), boundaryCondition)
+            sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId(), boundaryCondition)
         return sdict
     
     def createCellSpeciesDict(self):
         sdict = dict()
         for data in self.cellModel.species:     
-            (full_id, init, units, constant) = self.getItemsFromSpeciesData(data)
+            (full_id, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
             
             tokens = full_id.split('__')
             sid = tokens[1]
             name = SinusoidalUnit.names[sid]
             for k in self.cell_range():
                 # TODO: only covers species in cytosol (has to work with arbitrary number of compartments)
+                # necessary to have a mapping of the compartments to the functions which generate id and names
                 if full_id.startswith('c__'):
-                    sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units, getHepatocyteId(k), constant)    
+                    sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units, 
+                                                             getHepatocyteId(k), boundaryCondition)    
         return sdict
+    
     
     def getItemsFromSpeciesData(self, data):
         sid, init, units = data[0], data[1], data[2]
         # handle the constant species
-        if len(data)==4:
-            constant = data[3]
+        if len(data) == 4:
+            boundaryCondition = data[3]
         else:
-            constant = False
-        return (sid, init, units, constant)
+            boundaryCondition = False
+        return (sid, init, units, boundaryCondition)
     
     ##########################################################################
     # Diffusion
@@ -254,8 +259,6 @@ class SinusoidalUnit(object):
         
         # sinusoidal unit model
         self.createUnits()
-        
-        print 'pars', self.pars
         self.createExternalParameters()
         self.createInitialAssignments()
         self.createExternalCompartments()
@@ -290,7 +293,6 @@ class SinusoidalUnit(object):
         createCompartments(self.model, comps)
     
     def createExternalSpecies(self):
-        print SinusoidalUnit.names
         sdict = self.createExternalSpeciesDict()
         createSpecies(self.model, sdict)
             
@@ -416,15 +418,18 @@ class SinusoidalUnit(object):
         if self.events:
             createSimulationEvents(self.model, self.events)
     
-    def writeSBML(self, folder):
+    def writeSBML(self, folder, validate=True):
+        print 'libSBML {}'.format(libsbml.getLibSBMLDottedVersion())
+        
         writer = SBMLWriter()
         fname = folder + '/' + self.id + '.xml'
         print 'Write SBML ({}) -> {}'.format(self.id, fname)
         writer.writeSBMLToFile(self.doc, fname)
     
         # validate the model with units (only for small models)
-        validator = SBMLValidator(ucheck= (self.Nc<4) )
-        validator.validate(fname)
+        if validate:
+            validator = SBMLValidator(ucheck= (self.Nc<4) )
+            validator.validate(fname)
     
 
 def storeInDatabase(tissueModel, folder):
