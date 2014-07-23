@@ -1,5 +1,6 @@
 '''
 Created on Jul 23, 2014
+
 @author: mkoenig
 '''
 
@@ -36,5 +37,4 @@ class CellModel(object):
             mdict[key] = getattr(cell_module, key)
         
         return CellModel(mdict)
-        
         
