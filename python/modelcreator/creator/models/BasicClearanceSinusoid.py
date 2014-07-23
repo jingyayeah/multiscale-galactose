@@ -95,15 +95,21 @@ if __name__ == "__main__":
     '''
     from sim.PathSettings import SBML_DIR    
     from SinusoidalUnit import storeInDatabase
-    from creator.models.BasicClearanceCell import BasicClearanceCell
+    from creator.CellModel import CellModel
     
     # Create the general model information 
     SinusoidalUnit.Nc = 20
     SinusoidalUnit.version = 1
-    cellModel = BasicClearanceCell()
+    
+    # Create the cell model instance
+    cell_model = CellModel.createModel('BasicClearanceCell')
+    cell_model.info()
+
+    # Create the tissue model instance
+    
     
     # [1] core model
-    gm = SinusoidalUnit(cellModel, simId='core', events=None)
+    gm = SinusoidalUnit(cell_model, simId='core', events=None)
     gm.createModel()
     gm.writeSBML(SBML_DIR)    
     storeInDatabase(gm, SBML_DIR)
@@ -116,7 +122,7 @@ if __name__ == "__main__":
     # TODO: fix the problems due to the static variables
     # => lists are extended multiple times
     events = createDilutionEventData(time_start=1000.0, duration=0.5)
-    gm = SinusoidalUnit(cellModel, simId="dilution", events=events)
+    gm = SinusoidalUnit(cell_model, simId="dilution", events=events)
     gm.createModel()
     gm.writeSBML(SBML_DIR)    
     storeInDatabase(gm, SBML_DIR)
