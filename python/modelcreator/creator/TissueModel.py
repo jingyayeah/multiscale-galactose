@@ -63,23 +63,27 @@ class TissueModel(object):
         Information in earlier modules if overwritten by information
         in later modules.
         
-        Necessary to make copies of the information.
-        What is shared?
         '''
+        import copy
         cdict = dict()
         for name in module_names:
             mdict = TissueModel._createDict(name)
             for key, value in mdict.iteritems():
-                if not cdict.has_key(key):
-                    cdict[key] = value
-                else:
+                if type(value) is list:
+                    # create new list
+                    if not cdict.has_key(key):
+                        cdict[key] = []
+                    # now add the elements by copy
+                    cdict[key].extend(copy.deepcopy(value))
+                        
+                elif type(value) is dict:
+                    # create new dict
+                    if not cdict.has_key(key):
+                        cdict[key] = dict()
+                    # now add the elements by copy
                     old_value = cdict.get(key)
-                    # the information has to be list or dict (and consistent)
-                    if type(old_value) is list:
-                        old_value.extend(value)
-                    if type(old_value) is dict:
-                        for k, v in value.iteritems():
-                            old_value[k] = v
+                    for k, v in value.iteritems():
+                        old_value[k] = copy.deepcopy(v)                    
         return cdict
 
 
@@ -228,14 +232,16 @@ class TissueModel(object):
         ''' Create the geometrical diffusion constants 
             based on the external substances.
         '''
+        diffusion_assignments = []
         for data in self.external:
             sid = data[0]
             # id, assignment, unit
-            self.assignments.extend([
+            diffusion_assignments.extend([
               ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
               ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
               ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
             ])
+        return diffusion_assignments
 
     
     def createParametersDict(self, pars):
@@ -278,8 +284,10 @@ class TissueModel(object):
         createParameters(self.model, pdict)
  
     def createInitialAssignments(self):
-        self.createDiffusionAssignments()
         createInitialAssignments(self.model, self.assignments)
+        # additional diffusion assignments
+        dif_assignments = self.createDiffusionAssignments()
+        createInitialAssignments(self.model, dif_assignments)
     
     def createCellInitialAssignments(self):
         createInitialAssignments(self.model, self.cellModel.assignments)
