@@ -19,31 +19,35 @@ TODO: rewrite for generation of general models, i.e not a singular solution towa
       => create a sinusoidal model which can be filled with cell models
 '''
 
-import sim.PathSettings
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
-    UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
+    UNIT_KIND_METRE,UNIT_KIND_KILOGRAM
 
-from creator.tools.Naming import *
-from creator.processes.ReactionFactory import *
-from creator.sbml.SBMLValidator import SBMLValidator
 
-from creator.MetabolicModel import *
-from creator.processes.ReactionTemplate import ReactionTemplate
-
-from creator import TissueModel
-
-class SinusoidalUnit(TissueModel):
+class SinusoidalUnit():
     '''
     The SinusoidalUnit has to extend the information from the 
     abstract base class TissueModel.
     '''
+    Nc = None
+    version = None
+    names = dict()
+    main_units = dict()
+    units = dict()
     
+    #########################################################################
+    # Main Units
+    ##########################################################################
+    main_units['time'] = 's'
+    main_units['extent'] = UNIT_KIND_MOLE
+    main_units['substance'] = UNIT_KIND_MOLE
+    main_units['length'] = 'm'
+    main_units['area'] = 'm2'
+    main_units['volume'] = 'm3'
     
     #########################################################################
     # Units
-    ##########################################################################
-    units = dict()
+    ##########################################################################  
     units['s'] = [(UNIT_KIND_SECOND, 1.0, 0)]
     units['kg'] = [(UNIT_KIND_KILOGRAM, 1.0, 0)]
     units['m'] = [(UNIT_KIND_METRE, 1.0, 0)]
@@ -117,43 +121,8 @@ class SinusoidalUnit(TissueModel):
             ("m_liv", "rho_liv * Vol_liv", "kg"),
             ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
     ]
+    
     ##########################################################################
     # AssignmentRules
     ##########################################################################
     rules = []
-
-    def createExternalSpeciesDict(self):
-        '''
-        All species which are defined external are generated in all 
-        external compartments, i.e. PP, PV, sinusoid and disse space.
-        '''
-        sdict = dict()
-        for data in SinusoidalUnit.external:
-            (sid, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
-            
-            name = SinusoidalUnit.names[sid]
-            sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId(), boundaryCondition)
-            for k in self.cell_range():
-                sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k), boundaryCondition)
-                sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k), boundaryCondition)
-            sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId(), boundaryCondition)
-        return sdict
-    
-    def createCellSpeciesDict(self):
-        sdict = dict()
-        for data in self.cellModel.species:     
-            (full_id, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
-            
-            tokens = full_id.split('__')
-            sid = tokens[1]
-            name = SinusoidalUnit.names[sid]
-            for k in self.cell_range():
-                # TODO: only covers species in cytosol (has to work with arbitrary number of compartments)
-                # necessary to have a mapping of the compartments to the functions which generate id and names
-                if full_id.startswith('c__'):
-                    sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units, 
-                                                             getHepatocyteId(k), boundaryCondition)    
-        return sdict
-   
-   
-   

@@ -17,16 +17,18 @@ from creator.processes.ReactionTemplate import ReactionTemplate
 
 
 class TissueModel(object):
-    Nc = None
-    version = None
+    '''
+    Here all the logic is performed to create the SBML model
+    from the provided information.
+    '''
 
-    
     '''
-    InstanceKeys are the available information.
+        Generate the instance keys from the given 
+        information fields
     '''
+    # InstanceKeys are the available information.
     _keys = ['names']
 
-    
     def __init__(self, mdict):
         for key, value in mdict.iteritems():
             setattr(self, key, value)
@@ -60,18 +62,7 @@ class TissueModel(object):
     def info(self):
         for key in TissueModel._keys:
             print key, ' : ', getattr(self, key)
-    
-    #########################################################################
-    # Units
-    ##########################################################################
-    main_units = dict()
-    main_units['time'] = 's'
-    main_units['extent'] = UNIT_KIND_MOLE
-    main_units['substance'] = UNIT_KIND_MOLE
-    main_units['length'] = 'm'
-    main_units['area'] = 'm2'
-    main_units['volume'] = 'm3'
-    
+        
     #########################################################################
     # External Compartments
     ##########################################################################
@@ -146,6 +137,40 @@ class TissueModel(object):
             pdict[pid] = [pid, self.names.get(pid, None), 
                           pdata[1], pdata[2], pdata[3]]
         return pdict
+    
+    
+    def createExternalSpeciesDict(self):
+        '''
+        All species which are defined external are generated in all 
+        external compartments, i.e. PP, PV, sinusoid and disse space.
+        '''
+        sdict = dict()
+        for data in SinusoidalUnit.external:
+            (sid, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
+            
+            name = SinusoidalUnit.names[sid]
+            sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId(), boundaryCondition)
+            for k in self.cell_range():
+                sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k), boundaryCondition)
+                sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k), boundaryCondition)
+            sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId(), boundaryCondition)
+        return sdict
+    
+    def createCellSpeciesDict(self):
+        sdict = dict()
+        for data in self.cellModel.species:     
+            (full_id, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
+            
+            tokens = full_id.split('__')
+            sid = tokens[1]
+            name = SinusoidalUnit.names[sid]
+            for k in self.cell_range():
+                # TODO: only covers species in cytosol (has to work with arbitrary number of compartments)
+                # necessary to have a mapping of the compartments to the functions which generate id and names
+                if full_id.startswith('c__'):
+                    sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units, 
+                                                             getHepatocyteId(k), boundaryCondition)    
+        return sdict
     
 
     def createModel(self):
