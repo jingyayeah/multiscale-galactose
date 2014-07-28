@@ -10,7 +10,7 @@ from creator.tools.Naming import initString
 from ReactionFactory import setKineticLaw
 from creator.tools.Equation import Equation
 
-from creator.MetabolicModel import createParameter, createAssignmentRules,\
+from creator.models.MetabolicModel import createParameter, createAssignmentRules,\
     getUnitString
 
 class ReactionTemplate(object):

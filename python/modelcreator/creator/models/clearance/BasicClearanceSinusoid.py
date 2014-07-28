@@ -1,16 +1,8 @@
 '''
-TODO: get an overview how the class hierarchy is handeled
-in python. There should be cleaner ways to do this.
+Basic model for clearance of substance.
 
-I am not sure if this is a good idea to overwrite the class variables.
-Especially if multiple models are generated within one run
-( => problems with multiple extends/appends )
-TODO: fix and make cleaner. Necessary to define the minimal information
-necessary for the sinusoidal model.
-
-@date: 2014-07-21
 @author: Matthias Koenig
-
+@date:   2014-07-28
 '''
 
 names = dict()

@@ -21,14 +21,15 @@ def createDilutionEventData(time_start, duration):
 
 
 if __name__ == "__main__":
-    from creator.CellModel import CellModel
-    from creator.TissueModel import TissueModel
+    from creator.models.CellModel import CellModel
+    from creator.models.TissueModel import TissueModel
 
     # definition of cell model and tissue model
     Nc = 3
     version = 3
-    cell_model = CellModel.createModel('BasicClearanceCell')
-    tdict = TissueModel.createTissueDict(['SinusoidalUnit', 'BasicClearanceSinusoid']) 
+    cell_model = CellModel.createModel('clearance.BasicClearanceCell')
+    tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
+                                          'clearance.BasicClearanceSinusoid']) 
 
     #---------------------------------------------------------------------------------
     # [1] core model

@@ -12,6 +12,9 @@ to generate an instance of CellModel.
 @author: Matthias Koenig
 @date: 2014-07-21
 '''
+
+from BasicClearanceReactions import K_S1, K_S1M, T_S1, T_S1M
+
 ##############################################################
 mid = 'BasicClearance'
 species = [
@@ -37,7 +40,7 @@ rules = [    # id, rule, unit
             ('c__phos_tot', '3 dimensionless *c__atp + 2 dimensionless *c__adp + c__phos', 'mM'),
 ]
 
-from BasicClearanceReactions import K_S1, K_S1M, T_S1, T_S1M
+
 reactions = (K_S1, 
              K_S1M, 
              T_S1, 
@@ -49,7 +52,7 @@ deficiencies = {}
 
 if __name__ == "__main__":
     # create an instance of a cell model based on this module
-    from creator.CellModel import CellModel
+    from creator.models.CellModel import CellModel
 
     cell_model = CellModel.createModel('BasicClearanceCell')
     cell_model.info()

@@ -6,11 +6,11 @@ included in the tissue scale model.
 Created on Jun 24, 2014
 @author: mkoenig
 '''
-from creator.models.GalactoseReactions import *
+from GalactoseReactions import *
 
-class GalactoseCell(object):
-    id = 'Galactose'
-    species = [
+##############################################################
+mid = 'Galactose'
+species = [
             # id, value, unit
             ('e__gal',  0.00012, 'mM'),
             ('e__galM', 0.0, 'mM'),
@@ -33,23 +33,23 @@ class GalactoseCell(object):
             ('c__ppi',              0.008,  'mM'),
             ('c__nadp',             0.1,    'mM'),
             ('c__nadph',            0.1,    'mM'),
-    ]
-    pars = [# id, value, unit, constant            
+]
+pars = [# id, value, unit, constant            
             ('scale_f',   10E-15,   '-',    True),
             ('REF_P',     1.0,      'mM',   True),
             ('deficiency',  0,      '-',    True),
-    ]  
-    assignments = [# id, assignment, unit
+]  
+assignments = [# id, assignment, unit
             ('scale', 'scale_f', '-'),               
-    ]
-    rules = [# id, rule, unit
+]
+rules = [# id, rule, unit
             ('c__nadp_tot', 'c__nadp + c__nadph', 'mM'),
             ('c__adp_tot', 'c__atp + c__adp', 'mM'),
             ('c__udp_tot', 'c__utp + c__udp + c__udpglc + c__udpgal', 'mM'),
             ('c__phos_tot', '3 dimensionless *c__atp + 2 dimensionless *c__adp + 3 dimensionless *c__utp + 2 dimensionless *c__udp' +
               '+ c__phos + 2 dimensionless *c__ppi + c__glc1p + c__glc6p + c__gal1p + 2 dimensionless*c__udpglc + 2 dimensionless *c__udpgal', 'mM'),
-    ]
-    reactions = (GALK, GALKM,
+]
+reactions = (GALK, GALKM,
                  IMP, 
                  ATPS, 
                  ALDR, 
@@ -68,8 +68,8 @@ class GalactoseCell(object):
                  GLUT2_GAL,
                  GLUT2_GALM)
     
-    # metabolic events
-    deficiencies_units = {
+# metabolic events
+deficiencies_units = {
                  'GALK_kcat':'per_s',
                  'GALK_k_gal':'mM',
                  'GALK_k_atp':'mM',
@@ -78,8 +78,8 @@ class GalactoseCell(object):
                  'GALT_k_udpglc': 'mM',
                  'GALE_kcat': 'per_s',
                  'GALE_k_udpglc':'mM',
-    }
-    deficiencies = {
+}
+deficiencies = {
         0 : {'GALK_kcat':8.7, 'GALK_k_gal':0.97, 'GALK_k_atp':0.034,
              'GALT_vm':  804,  'GALT_k_gal1p':1.25, 'GALT_k_udpglc':0.95,
              'GALE_kcat': 36,  'GALE_k_udpglc':0.069
@@ -107,4 +107,4 @@ class GalactoseCell(object):
        21 : {'GALE_kcat': 5.8,  'GALE_k_udpglc':0.035},
        22 : {'GALE_kcat': 30,  'GALE_k_udpglc':0.078},
        23 : {'GALE_kcat': 15,  'GALE_k_udpglc':0.099}      
-    }
+}

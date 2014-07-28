@@ -12,7 +12,7 @@ from creator.tools.Naming import *
 from creator.processes.ReactionFactory import *
 from creator.sbml.SBMLValidator import SBMLValidator
 
-from creator.MetabolicModel import *
+from creator.models.MetabolicModel import *
 from creator.processes.ReactionTemplate import ReactionTemplate
 from sim.PathSettings import SBML_DIR
 
@@ -97,17 +97,20 @@ class TissueModel(object):
         TODO: some quality control of the model structure.
         '''
         # dynamically import module
-        tissue_module = __import__(module_name)
+        #tissue_module = __import__(module_name)
+        import importlib
+        module = importlib.import_module(module_name)
         
         # get attributes from the class
         print '***', module_name, '***'
-        # print dir(tissue_module)
+        print module
+        print dir(module)
 
         mdict = dict()
         for key in TissueModel._keys:
-            if hasattr(tissue_module, key):
+            if hasattr(module, key):
                 print 'set:', key
-                mdict[key] = getattr(tissue_module, key)
+                mdict[key] = getattr(module, key)
             else:
                 print 'missing:', key
 

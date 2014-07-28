@@ -241,7 +241,7 @@ PGM1 = ReactionTemplate(
     rules = [ 
             ('c__PGM1_Vmax', 'PGM1_f * c__GALK_Vmax*c__PGM1_P/REF_P', 'mole_per_s'),
     ],
-    formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1p - c__glc6p/PGM1_keq)/(1+c__glc1p/PGM1_k_glc1p+c__glc6p/PGM1_k_glc6p)", 'mole_per_s')
+    formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1p - c__glc6p/PGM1_keq)/(1 dimensionless +c__glc1p/PGM1_k_glc1p+c__glc6p/PGM1_k_glc6p)", 'mole_per_s')
 )
 #############################################################################################
 GLY = ReactionTemplate(
