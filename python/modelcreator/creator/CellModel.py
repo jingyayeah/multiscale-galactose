@@ -31,7 +31,7 @@ class CellModel(object):
         cell_module = __import__(module_name)
         
         # get attributes from the class
-        print dir(cell_module)
+        # print dir(cell_module)
         mdict = dict()
         for key in CellModel._keys:
             mdict[key] = getattr(cell_module, key)

@@ -14,67 +14,60 @@ Important features:
 @author: Matthias Koenig
 @date: 2014-06-17  
 
-TODO: rewrite for generation of general models, i.e not a singular solution towards
-      the galactose model.
-      => create a sinusoidal model which can be filled with cell models
+TODO: where are the Nc and Nf parameters created?
 '''
-
-
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM
 
+#########################################################################
+main_units = dict()
+units = dict()
+names = dict()
+pars = []
+external = []
+assignments = []
+rules = []
 
-class SinusoidalUnit():
-    '''
-    The SinusoidalUnit has to extend the information from the 
-    abstract base class TissueModel.
-    '''
-    Nc = None
-    version = None
-    names = dict()
-    main_units = dict()
-    units = dict()
+#########################################################################
+# Main Units
+##########################################################################
+main_units['time'] = 's'
+main_units['extent'] = UNIT_KIND_MOLE
+main_units['substance'] = UNIT_KIND_MOLE
+main_units['length'] = 'm'
+main_units['area'] = 'm2'
+main_units['volume'] = 'm3'
     
-    #########################################################################
-    # Main Units
-    ##########################################################################
-    main_units['time'] = 's'
-    main_units['extent'] = UNIT_KIND_MOLE
-    main_units['substance'] = UNIT_KIND_MOLE
-    main_units['length'] = 'm'
-    main_units['area'] = 'm2'
-    main_units['volume'] = 'm3'
-    
-    #########################################################################
-    # Units
-    ##########################################################################  
-    units['s'] = [(UNIT_KIND_SECOND, 1.0, 0)]
-    units['kg'] = [(UNIT_KIND_KILOGRAM, 1.0, 0)]
-    units['m'] = [(UNIT_KIND_METRE, 1.0, 0)]
-    units['m2'] = [(UNIT_KIND_METRE, 2.0, 0)]
-    units['m3'] = [(UNIT_KIND_METRE, 3.0, 0)]
-    units['per_s'] = [(UNIT_KIND_SECOND, -1.0, 0)]
-    units['mole_per_s'] = [(UNIT_KIND_MOLE, 1.0, 0), 
+#########################################################################
+# Units
+##########################################################################  
+units['s'] = [(UNIT_KIND_SECOND, 1.0, 0)]
+units['kg'] = [(UNIT_KIND_KILOGRAM, 1.0, 0)]
+units['m'] = [(UNIT_KIND_METRE, 1.0, 0)]
+units['m2'] = [(UNIT_KIND_METRE, 2.0, 0)]
+units['m3'] = [(UNIT_KIND_METRE, 3.0, 0)]
+units['per_s'] = [(UNIT_KIND_SECOND, -1.0, 0)]
+units['mole_per_s'] = [(UNIT_KIND_MOLE, 1.0, 0), 
                        (UNIT_KIND_SECOND, -1.0, 0)]
-    units['m_per_s'] = [(UNIT_KIND_METRE, 1.0, 0), 
+units['m_per_s'] = [(UNIT_KIND_METRE, 1.0, 0), 
                     (UNIT_KIND_SECOND, -1.0, 0)]
-    units['m2_per_s'] = [(UNIT_KIND_METRE, 2.0, 0), 
+units['m2_per_s'] = [(UNIT_KIND_METRE, 2.0, 0), 
                     (UNIT_KIND_SECOND, -1.0, 0)]
-    units['m3_per_s'] = [(UNIT_KIND_METRE, 3.0, 0), 
+units['m3_per_s'] = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_SECOND, -1.0, 0)]
-    units['mM']       = [(UNIT_KIND_MOLE, 1.0, 0), 
+units['mM']       = [(UNIT_KIND_MOLE, 1.0, 0), 
                     (UNIT_KIND_METRE, -3.0, 0)]
-    units['per_mM']   = [(UNIT_KIND_METRE, 3.0, 0), 
+units['per_mM']   = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_MOLE, -1.0, 0)]
-    units['kg_per_m3']   = [(UNIT_KIND_KILOGRAM, 1.0, 0), 
+units['kg_per_m3']   = [(UNIT_KIND_KILOGRAM, 1.0, 0), 
                     (UNIT_KIND_METRE, -3.0, 0)]
-    units['m3_per_skg']   = [(UNIT_KIND_METRE, 3.0, 0), 
+units['m3_per_skg']   = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_KILOGRAM, -1.0, 0), (UNIT_KIND_SECOND, -1.0, 0)]
 
-    ##########################################################################
-    # Parameters
-    ##########################################################################
-    pars = [
+##########################################################################
+# Parameters
+##########################################################################
+pars.extend([
             # id, value, unit, constant
             ('L',           500E-6,   'm',      True),
             ('y_sin',       4.4E-6,   'm',      True),
@@ -85,23 +78,23 @@ class SinusoidalUnit():
             ('Vol_liv',     1.5E-3,   'm3',     True),
             ('rho_liv',     1.1E3,    'kg_per_m3', True), 
             ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
-    ]    
-    names['L'] = 'sinusoidal length'
-    names['y_sin'] = 'sinusoidal radius'
-    names['y_dis'] = 'width space of disse'
-    names['y_cell'] = 'width hepatocyte'
-    names['flow_sin'] = 'sinusoidal flow velocity'
-    names['f_fen'] = 'fenestraetion fraction'
-    names['Vol_liv'] = 'liver reference volume'
-    names['rho_liv'] = 'liver density'
-    names['Q_liv'] = 'liver reference blood flow'
-    names['Nc'] = 'hepatocytes in sinusoid'
-    names['Nf'] = 'sinusoid volumes per cell'
+])
+names['L'] = 'sinusoidal length'
+names['y_sin'] = 'sinusoidal radius'
+names['y_dis'] = 'width space of disse'
+names['y_cell'] = 'width hepatocyte'
+names['flow_sin'] = 'sinusoidal flow velocity'
+names['f_fen'] = 'fenestraetion fraction'
+names['Vol_liv'] = 'liver reference volume'
+names['rho_liv'] = 'liver density'
+names['Q_liv'] = 'liver reference blood flow'
+names['Nc'] = 'hepatocytes in sinusoid'
+names['Nf'] = 'sinusoid volumes per cell'
         
-    ##########################################################################
-    # InitialAssignments
-    ##########################################################################
-    assignments = [
+##########################################################################
+# InitialAssignments
+##########################################################################
+assignments.extend([
             # id, assignment, unit
             ('x_cell', 'L/Nc', 'm'),
             ('x_sin',  "x_cell", "m"),
@@ -120,9 +113,9 @@ class SinusoidalUnit():
             ("Q_sinunit", "pi*y_sin^2*flow_sin", "m3_per_s"),
             ("m_liv", "rho_liv * Vol_liv", "kg"),
             ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
-    ]
+])
     
-    ##########################################################################
-    # AssignmentRules
-    ##########################################################################
-    rules = []
+##########################################################################
+# AssignmentRules
+##########################################################################
+rules.extend([])

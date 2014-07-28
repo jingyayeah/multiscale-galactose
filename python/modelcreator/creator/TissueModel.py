@@ -14,45 +14,107 @@ from creator.sbml.SBMLValidator import SBMLValidator
 
 from creator.MetabolicModel import *
 from creator.processes.ReactionTemplate import ReactionTemplate
+from sim.PathSettings import SBML_DIR
 
 
 class TissueModel(object):
     '''
-    Here all the logic is performed to create the SBML model
-    from the provided information.
+    The SBML model is created from the tissue informaton
+    and the single cell models.
     '''
+    _keys = ['main_units', 'units', 'names',
+            'pars', 'external', 'assignments', 'rules']
 
-    '''
-        Generate the instance keys from the given 
-        information fields
-    '''
-    # InstanceKeys are the available information.
-    _keys = ['names']
-
-    def __init__(self, mdict):
-        for key, value in mdict.iteritems():
+    def __init__(self, Nc, version,
+                 tissue_dict, cell_model, simId='core', events=None):
+        '''
+        Initialize with the tissue information dictionary and 
+        the respective cell model used for creation.
+        '''
+        self.Nc = Nc
+        self.version = version
+        self.simId = simId
+        self.cellModel = cell_model
+        print self.cellModel.info()
+        
+        # tissue information fields
+        for key, value in tissue_dict.iteritems():
             setattr(self, key, value)
+        self.events = events
    
+        # sbml 
         self.id = self.createId()
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
         self.model = self.doc.createModel(self.id)
         self.model.setName(self.id)
         
-        # The Nc has to be handed better
+        # add dynamical parameters
         self.pars.append(
-            ('Nc', TissueModel.Nc, '-', True),
+            ('Nc', self.Nc, '-', True),
         )
+    
+        print '*'*40, '\n', self.id, '\n', '*'*40
+    
+    @staticmethod
+    def createTissueDict(module_names):
+        '''
+        Creates one information dictionary from various modules
+        by combining the information.
+        Information in earlier modules if overwritten by information
+        in later modules.
         
-        print '*'*40
-        print self.id
-        print '*'*40
+        Necessary to make copies of the information.
+        What is shared?
+        '''
+        cdict = dict()
+        for name in module_names:
+            mdict = TissueModel._createDict(name)
+            for key, value in mdict.iteritems():
+                if not cdict.has_key(key):
+                    cdict[key] = value
+                else:
+                    old_value = cdict.get(key)
+                    # the information has to be list or dict (and consistent)
+                    if type(old_value) is list:
+                        old_value.extend(value)
+                    if type(old_value) is dict:
+                        for k, v in value.iteritems():
+                            old_value[k] = v
+        return cdict
+
+
+    @staticmethod
+    def _createDict(module_name):
+        '''
+        A module which encodes a cell model is given and
+        used to create the instance of the CellModel from
+        the given global variables of the module.
         
+        TODO: some quality control of the model structure.
+        '''
+        # dynamically import module
+        tissue_module = __import__(module_name)
+        
+        # get attributes from the class
+        print '***', module_name, '***'
+        # print dir(tissue_module)
+
+        mdict = dict()
+        for key in TissueModel._keys:
+            if hasattr(tissue_module, key):
+                print 'set:', key
+                mdict[key] = getattr(tissue_module, key)
+            else:
+                print 'missing:', key
+
+        return mdict
+
         
     def createId(self):
         if self.simId:
-            mid = '{}_v{}_Nc{}_{}'.format(self.cellModel.id, self.version, self.Nc, self.simId)
+            mid = '{}_v{}_Nc{}_{}'.format(self.cellModel.mid, self.version, self.Nc, self.simId)
         else:
-            mid = '{}_v{}_Nc{}'.format(self.cellModel.id, self.version, self.Nc)
+            mid = '{}_v{}_Nc{}'.format(self.cellModel.mid, self.version, self.Nc)
         return mid
     
     def cell_range(self):
@@ -62,6 +124,28 @@ class TissueModel(object):
     def info(self):
         for key in TissueModel._keys:
             print key, ' : ', getattr(self, key)
+            
+            
+    def createModel(self):    
+        # sinusoidal unit model
+        self.createUnits()
+        self.createExternalParameters()
+        self.createInitialAssignments()
+        self.createExternalCompartments()
+        self.createExternalSpecies()
+        self.createTransportReactions()
+        self.createBoundaryConditions()
+        
+        # cell model
+        self.createCellCompartments()
+        self.createCellSpecies()
+        self.createCellParameters()
+        self.createCellInitialAssignments()
+        self.createCellAssignmentRules()
+        self.createCellReactions()
+        
+        self.createCellEvents()
+        self.createSimulationEvents()
         
     #########################################################################
     # External Compartments
@@ -93,62 +177,17 @@ class TissueModel(object):
 
     ##########################################################################
     # Species
-    ##########################################################################
-    external = []
-    
-    def createExternalSpeciesDict(self):
-        ''' abstract method '''
-        return
-    
-    def createCellSpeciesDict(self):
-        ''' abstract method '''
-        return
-    
-    def getItemsFromSpeciesData(self, data):
-        sid, init, units = data[0], data[1], data[2]
-        # handle the constant species
-        if len(data) == 4:
-            boundaryCondition = data[3]
-        else:
-            boundaryCondition = False
-        return (sid, init, units, boundaryCondition)
-    
-    ##########################################################################
-    # Diffusion
-    ##########################################################################
-    def createDiffusionAssignments(self):
-        ''' Create the geometrical diffusion constants 
-            based on the external substances.
-        '''
-        for data in SinusoidalUnit.external:
-            sid = data[0]
-            # id, assignment, unit
-            SinusoidalUnit.assignments.extend([
-              ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
-              ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
-              ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
-            ])
-    
-    def createParametersDict(self, pars):
-        pdict = dict()
-        for pdata in pars:
-            pid = pdata[0]
-            # id, name, value, unit, constant
-            pdict[pid] = [pid, self.names.get(pid, None), 
-                          pdata[1], pdata[2], pdata[3]]
-        return pdict
-    
-    
+    ##########################################################################    
     def createExternalSpeciesDict(self):
         '''
         All species which are defined external are generated in all 
         external compartments, i.e. PP, PV, sinusoid and disse space.
         '''
         sdict = dict()
-        for data in SinusoidalUnit.external:
+        for data in self.external:
             (sid, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
             
-            name = SinusoidalUnit.names[sid]
+            name = self.names[sid]
             sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId(), boundaryCondition)
             for k in self.cell_range():
                 sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k), boundaryCondition)
@@ -163,7 +202,7 @@ class TissueModel(object):
             
             tokens = full_id.split('__')
             sid = tokens[1]
-            name = SinusoidalUnit.names[sid]
+            name = self.names[sid]
             for k in self.cell_range():
                 # TODO: only covers species in cytosol (has to work with arbitrary number of compartments)
                 # necessary to have a mapping of the compartments to the functions which generate id and names
@@ -172,29 +211,42 @@ class TissueModel(object):
                                                              getHepatocyteId(k), boundaryCondition)    
         return sdict
     
+    def getItemsFromSpeciesData(self, data):
+        sid, init, units = data[0], data[1], data[2]
+        # handle the constant species
+        if len(data) == 4:
+            boundaryCondition = data[3]
+        else:
+            boundaryCondition = False
+        return (sid, init, units, boundaryCondition)
+    
 
-    def createModel(self):
-        
-        # sinusoidal unit model
-        self.createUnits()
-        self.createExternalParameters()
-        self.createInitialAssignments()
-        self.createExternalCompartments()
-        self.createExternalSpecies()
-        self.createTransportReactions()
-        self.createBoundaryConditions()
-        
-        # cell model
-        self.createCellCompartments()
-        self.createCellSpecies()
-        self.createCellParameters()
-        self.createCellInitialAssignments()
-        self.createCellAssignmentRules()
-        self.createCellReactions()
-        
-        self.createCellEvents()
-        self.createSimulationEvents()
-        
+    ##########################################################################
+    # Diffusion
+    ##########################################################################
+    def createDiffusionAssignments(self):
+        ''' Create the geometrical diffusion constants 
+            based on the external substances.
+        '''
+        for data in self.external:
+            sid = data[0]
+            # id, assignment, unit
+            self.assignments.extend([
+              ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
+              ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
+              ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
+            ])
+
+    
+    def createParametersDict(self, pars):
+        pdict = dict()
+        for pdata in pars:
+            pid = pdata[0]
+            # id, name, value, unit, constant
+            pdict[pid] = [pid, self.names.get(pid, None), 
+                          pdata[1], pdata[2], pdata[3]]
+        return pdict
+    
 
     def createUnits(self):
         for key, value in self.units.iteritems():
@@ -276,7 +328,7 @@ class TissueModel(object):
 
     def createFlowReactions(self):
         flow = 'flow_sin * A_sin'     # [m3/s] volume flow
-        for data in SinusoidalUnit.external:
+        for data in self.external:
             sid = data[0]    
             # flow PP -> S01 
             createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), flow=flow)
@@ -289,7 +341,7 @@ class TissueModel(object):
             createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=flow);
     
     def createDiffusionReactions(self):        
-        for data in SinusoidalUnit.external:
+        for data in self.external:
             sid = data[0]    
             # [1] sinusoid diffusion
             Dx_sin = 'Dx_sin_{}'.format(sid)
@@ -338,12 +390,14 @@ class TissueModel(object):
         if self.events:
             createSimulationEvents(self.model, self.events)
     
-    def writeSBML(self, folder, validate=True):
+    
+    def writeSBML(self, fname=None, validate=True):
         print 'libSBML {}'.format(libsbml.getLibSBMLDottedVersion())
+        if not fname:
+            fname = SBML_DIR + '/' + self.id + '.xml'
         
-        writer = SBMLWriter()
-        fname = folder + '/' + self.id + '.xml'
         print 'Write : {}\n'.format(self.id, fname)
+        writer = SBMLWriter()
         writer.writeSBMLToFile(self.doc, fname)
     
         # validate the model with units (only for small models)
@@ -352,39 +406,12 @@ class TissueModel(object):
             validator.validate(fname)
     
 
-    
-    @staticmethod
-    def createModel(module_name, cellModel, Nc, simId=None, events=None):
+    def storeInDatabase(self):
+        ''' 
+        SBML must already has be written in standard locaction
+        before.
         '''
-        A module which encodes a cell model is given and
-        used to create the instance of the CellModel from
-        the given global variables of the module.
-        '''
-        # dynamically import module
-        tissue_module = __import__(module_name)
-        
-        # get attributes from the module
-        print dir(tissue_module)
-        mdict = dict()
-        for key in TissueModel._keys:
-            mdict[key] = getattr(tissue_module, key)
-            
-        # add the additional information
-        mdict['cellModel'] = cellModel
-        mdict['Nc'] = Nc
-        mdict['simId'] = simId
-        mdict['events'] = events
-            
-        
-        return TissueModel(mdict)
-
-
-def storeInDatabase(tissueModel, folder):
-    ''' SBML must already be written. 
-    TODO: this part belongs in the model creation part
-    '''
-    
-    from sim.models import SBMLModel
-    model = SBMLModel.create(tissueModel.id, folder);
-    model.save();
+        from sim.models import SBMLModel
+        model = SBMLModel.create(self.id, SBML_DIR);
+        model.save();
         
