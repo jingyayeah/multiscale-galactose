@@ -74,14 +74,19 @@ class Equation(object):
             sid = ' '.join(tokens[1:])
         return (stoichiometry, sid)
         
-    def toString(self):
+    def toString(self, modifiers=False):
         left = self.toStringSide(self.reactants)
         right = self.toStringSide(self.products)
         if self.reversible == True:
             sep = REV_SEP
         elif self.reversible == False:
             sep = IRREV_SEP
-        return ' '.join([left, sep, right])
+        
+        if modifiers:
+            mod = self.toStringModifiers()
+            return ' '.join([left, sep, right, mod])
+        else:
+            return ' '.join([left, sep, right])
     
     def toStringSide(self, items):
         tokens = []
@@ -92,6 +97,9 @@ class Equation(object):
             else:
                 tokens.append(' '.join([str(stoichiometry), sid]))
         return ' + '.join(tokens)
+    
+    def toStringModifiers(self):
+        return '[{}]'.format(', '.join(self.modifiers))
     
     def info(self):
         lines = [

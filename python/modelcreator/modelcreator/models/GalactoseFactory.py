@@ -6,11 +6,11 @@ Create the various SinusoidalUnit models of galactose metabolism,
 @date:    2014-07-28
 '''
 
-from creator.models.CellModel import CellModel
-from creator.models.TissueModel import TissueModel
+from modelcreator.models.model_cell import CellModel
+from modelcreator.models.model_tissue import TissueModel
     
-from creator.events.EventFactory import createDilutionEventData, createGalactoseChallengeEventData
-from creator.events.EventFactory import createGalactoseStepEventData
+from modelcreator.events.event_factory import createDilutionEventData, createGalactoseChallengeEventData
+from modelcreator.events.event_factory import createGalactoseStepEventData
 
 
 if __name__ == "__main__":

@@ -5,10 +5,11 @@ BasicClearance example model.
 @date:    2014-07-28
 '''
 
-from creator.events.EventFactory import createPeakEventData
+from modelcreator.events.event_factory import createPeakEventData
+from modelcreator.models.model_cell import CellModel
+from modelcreator.models.model_tissue import TissueModel
 
-
-def createDilutionEventData(time_start, duration):
+def createClearanceDilutionEventData(time_start, duration):
     '''
     Generate the event data for the dilution peaks.
     '''
@@ -21,8 +22,6 @@ def createDilutionEventData(time_start, duration):
 
 
 if __name__ == "__main__":
-    from creator.models.CellModel import CellModel
-    from creator.models.TissueModel import TissueModel
 
     # definition of cell model and tissue model
     Nc = 3
@@ -44,7 +43,7 @@ if __name__ == "__main__":
     # ___|---|__ (in all periportal species)
     # The multiple dilution indicator peak comes when the system is 
     # in steady state after the applied initial condition changes:
-    events = createDilutionEventData(time_start=1000.0, duration=0.5)
+    events = createClearanceDilutionEventData(time_start=1000.0, duration=0.5)
     tm2 = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='dilution', events=events)
     tm2.createModel()

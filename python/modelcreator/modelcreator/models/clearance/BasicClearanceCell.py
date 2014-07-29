@@ -9,6 +9,7 @@ need a boundaryCondition=True.
 Here the model definition information is stored. The information is used
 to generate an instance of CellModel.
 
+
 @author: Matthias Koenig
 @date: 2014-07-21
 '''
@@ -51,10 +52,8 @@ deficiencies = {}
 ##############################################################    
 
 if __name__ == "__main__":
-    # create an instance of a cell model based on this module
-    from creator.models.CellModel import CellModel
-
+    
+    from modelcreator.models.model_cell import CellModel
+    
     cell_model = CellModel.createModel('BasicClearanceCell')
     cell_model.info()
-    
-    

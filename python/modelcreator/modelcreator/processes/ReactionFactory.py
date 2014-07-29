@@ -4,7 +4,7 @@ Created on Jun 19, 2014
 @author: mkoenig
 '''
 import libsbml
-from creator.tools.Naming import *
+from modelcreator.tools.naming import *
 
 def setKineticLaw(model, reaction, formula):
     ''' Sets the kinetic law in reaction based on given formula. '''

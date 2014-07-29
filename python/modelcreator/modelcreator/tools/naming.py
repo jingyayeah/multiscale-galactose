@@ -1,9 +1,10 @@
 '''
 Definition of ids and names for objects
 in the metabolic networks.
+General helper functions to work with the naming.
 
-Created on Jun 19, 2014
-@author: mkoenig
+@author: Matthias Koenig
+@author: 2014-07-29
 '''
 
 def initString(string, initDict):

@@ -13,8 +13,6 @@ Important features:
    
 @author: Matthias Koenig
 @date: 2014-06-17  
-
-TODO: where are the Nc and Nf parameters created?
 '''
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM

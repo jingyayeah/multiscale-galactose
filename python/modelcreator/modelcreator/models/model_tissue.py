@@ -4,17 +4,17 @@ Created on Jul 23, 2014
 '''
 
 import sim.PathSettings
+from sim.PathSettings import SBML_DIR
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
 
-from creator.tools.Naming import *
-from creator.processes.ReactionFactory import *
-from creator.sbml.SBMLValidator import SBMLValidator
+from modelcreator.tools.naming import *
+from modelcreator.processes.ReactionFactory import *
+from modelcreator.sbml.SBMLValidator import SBMLValidator
 
-from creator.models.MetabolicModel import *
-from creator.processes.ReactionTemplate import ReactionTemplate
-from sim.PathSettings import SBML_DIR
+from modelcreator.models.model_metabolic import *
+from modelcreator.processes.ReactionTemplate import ReactionTemplate
 
 
 class TissueModel(object):

@@ -1,24 +1,20 @@
 '''
-Reaction Master which handels all the reaction related
-creation of SBML content.
+ReactionTemplate defines the general 
+structure of reaction infromation
+
 
 Created on Jun 30, 2014
 @author: mkoenig
 '''
-import libsbml
-from creator.tools.Naming import initString
-from ReactionFactory import setKineticLaw
-from creator.tools.Equation import Equation
 
-from creator.models.MetabolicModel import createParameter, createAssignmentRules,\
+from modelcreator.tools.naming import initString
+from modelcreator.tools.equation import Equation
+from modelcreator.models.model_metabolic import createParameter, createAssignmentRules,\
     getUnitString
 
+from ReactionFactory import setKineticLaw
+
 class ReactionTemplate(object):
-    '''
-    initData is a list of dictionaries which defines the 
-    values for initialization of the reaction
-    '''
-    model = None
     
     def __init__(self, rid, name, equation, pars, rules, formula):
         self.rid = rid
