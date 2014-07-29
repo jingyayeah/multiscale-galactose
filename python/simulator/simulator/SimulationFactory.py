@@ -250,9 +250,9 @@ if __name__ == "__main__":
     VERSION = 19
     
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         print 'make demo'
-        make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=100, priority=10)
+        make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=2000, priority=10)
     #----------------------------------------------------------------------#
     if (0):
         make_glucose(sbml_id='Koenig2014_Hepatic_Glucose_Model_annotated')
@@ -266,7 +266,7 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Multiple Indicator Dilution peaks after certain time.
         The peaks are combined with additional galactose background 
@@ -286,7 +286,7 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''

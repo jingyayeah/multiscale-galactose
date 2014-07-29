@@ -21,8 +21,7 @@ from sim.models import Timecourse
 from sim.models import DONE, ERROR, COPASI, ROADRUNNER
 from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
-from simulator.integration import config_files
-
+import config_files
 
 def storeConfigFile(sim, folder):
     ''' Store the config file in the database. '''

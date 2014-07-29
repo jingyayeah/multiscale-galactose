@@ -16,7 +16,7 @@ from modelcreator.events.event_factory import createGalactoseStepEventData
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 20
+    Nc = 1
     version = 19
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
@@ -45,9 +45,10 @@ if __name__ == "__main__":
     del tm, events
     
     #---------------------------------------------------------------------------------
-    # [3] galactose challenge (with various galactose)
+    # [3] galactose challenge (with various galactose pp__gal)
+    #     after the system is in steady state.
     # __|------
-    events = createGalactoseChallengeEventData(tc_start=100.0)
+    events = createGalactoseChallengeEventData(tc_start=1000.0)
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='galactose-challenge', events=events)
     tm.createModel()
