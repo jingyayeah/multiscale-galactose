@@ -1,11 +1,10 @@
 ################################################################
 ## Plot single simulations
 ################################################################
-# Analysis of the galactose elimination simulations with varying
-# galactose and varying blood flow
+# Plot information of single simulation for quality control
 #
 # author: Matthias Koenig
-# date: 2014-07-14
+# date: 2014-07-28
 ################################################################
 rm(list=ls())
 library(data.table)
@@ -16,11 +15,14 @@ setwd(ma.settings$dir.results)
 
 # Get overview over available simulations
 ma.settings$simulator <- 'ROADRUNNER'
-task <- 'T9'
-date = '2014-07-15'
-modelId <- paste('Galactose_v15_Nc20_galactose-step')
+task <- 'T1'
+modelId <- paste('Galactose_v20_Nc20_galactose-challenge')
+simId <- 105
+dir = paste(ma.settings$dir.results, '/tmp_sim/', task, sep='')
+df = readDataForSimulation(dir=dir, simId=paste('Sim', simId, sep=''))
+ids = names(df)
 
-
+date = '2014-07-28'
 sname <- paste(date, '_', task, sep='')
 parsfile <- file.path(ma.settings$dir.results, sname, 
                       paste(task, '_', modelId, '_parameters.csv', sep=""))
@@ -31,12 +33,7 @@ head(pars)
 
 # create model dataframe for simulation
 #simId <- 1251
-simId <- 1278
-dir = paste(ma.settings$dir.results, '/tmp_sim/', task, sep='')
-df = readDataForSimulation(dir=dir, simId=paste('Sim', simId, sep=''))
-head(df)
-ids = names(df)
-ids
+
 
 # plot some components via ids
 plotTimecourse <- function(df, ids, cols='Black'){
@@ -55,15 +52,15 @@ galM_ids = ids[grep('__galM$', names(df))]
 #audp_ids = ids[grep('__[a,u][d,t]p$', names(df))]
 
 ids
-plot(numeric(0), numeric(0), ylim=c(0,10), xlim=c(0,30000), type='l')
+plot(numeric(0), numeric(0), ylim=c(0,10), xlim=c(0,30000))
 plotTimecourse(df, ids)
 
 
 
 # create pp and pv plots
-xlimits = c(1000, 1200)
-ylimits = c(0, 0.5)
-plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits, type='l')
+xlimits = c(2000, 2400)
+ylimits = c(0, 10)
+plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits)
 plotTimecourse(df, pp_ids)
 plotTimecourse(df, pv_ids)
 

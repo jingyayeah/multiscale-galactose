@@ -147,7 +147,7 @@ def integrate_roadrunner(sims):
             storeTimecourseResults(sim, tc_file)
             # print 'Full Time:', (time.clock()-tstart)
             
-        except Exception:
+        except:
             integration_exception(sim)
     return rr
     
@@ -164,6 +164,8 @@ def integration_exception(sim):
     # update simulation status
     sim.status = ERROR
     sim.save()
+    
+    raise
 
 
 if __name__ == "__main__":

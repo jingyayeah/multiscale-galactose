@@ -291,10 +291,10 @@ if __name__ == "__main__":
         Galactose challenge after certain time and simulation to steady state.
         '''
         sbml_id = "Galactose_v{}_Nc20_galactose-challenge".format(VERSION)
-        task, samples = make_galactose_challenge(sbml_id, N=1)
+        task, samples = make_galactose_challenge(sbml_id, N=100)
         
         # Create deficiency samples belonging to the original samples
-        deficiencies = []
+        deficiencies = range(1,3)
         # deficiencies = range(1, 24)
         derive_deficiency_simulations(task, samples, deficiencies)
     #----------------------------------------------------------------------#
