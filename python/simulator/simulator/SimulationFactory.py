@@ -25,8 +25,9 @@ import sim.PathSettings
 from sim.PathSettings import SBML_DIR
 from sim.models import *
 
-from simulation.distribution.Distributions import getGalactoseDistributions, getDemoDistributions
-from simulation.distribution.RandomSampling import createParametersBySampling
+
+from simulator.distribution.distributions import getGalactoseDistributions, getDemoDistributions
+from simulator.distribution.sampling import createParametersBySampling
 
 
 def createDemoSamples(N, sampling):
@@ -246,7 +247,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 15
+    VERSION = 19
     
     #----------------------------------------------------------------------#
     if (0):
@@ -265,7 +266,7 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution peaks after certain time.
         The peaks are combined with additional galactose background 
@@ -274,7 +275,7 @@ if __name__ == "__main__":
         '''
         sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
         [task, raw_samples] = make_galactose_dilution(sbml_id, 
-                                                      N=10, sync=True, priority=10)
+                                                      N=1, sync=True, priority=10)
         
         # additional galactose challenge
         # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
@@ -285,7 +286,7 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''

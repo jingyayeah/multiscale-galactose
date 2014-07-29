@@ -7,6 +7,7 @@ cpp/copasi/CopasiModelRunner/Debug/*
 R/MultiscaleAnalysis/.RData
 R/MultiscaleAnalysis/.Rhistory
 python/simulator/.settings
+python/modelcreator/.settings
 
 *.Rhistory
 .~*

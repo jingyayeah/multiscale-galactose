@@ -8,12 +8,14 @@ Analysis can be done in any programme reading the csv information.
 @date:   2014-07-11
 '''
 
+import roadrunner
+
 import sim.PathSettings
 from sim.models import Simulation
-from simulation.integration import ode_integration
-from simulation import Simulator
 
-import roadrunner
+from simulator.integration import ode_integration
+from simulator import Simulator
+
 
 def plot1(ids, result):
     """
@@ -34,8 +36,6 @@ def plot1(ids, result):
         name = ids[i]
         p.plot(time, series, label=str(name))
         p.legend()
-
-
 
 
 if __name__ == "__main__":
@@ -76,9 +76,3 @@ if __name__ == "__main__":
     
     # rr.plot()
         
-        
-    
-
-
-    
-    

@@ -14,15 +14,14 @@ import numpy
 import roadrunner
 
 from django.core.files import File
-from simulation.integration import config_files
-
 from django.utils import timezone
 
+from sim.PathSettings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
 from sim.models import Timecourse
 from sim.models import DONE, ERROR, COPASI, ROADRUNNER
 from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
-from sim.PathSettings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
+from simulator.integration import config_files
 
 
 def storeConfigFile(sim, folder):
