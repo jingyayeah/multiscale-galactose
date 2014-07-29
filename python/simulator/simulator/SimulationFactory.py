@@ -247,10 +247,10 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 19
+    VERSION = 20
     
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         print 'make demo'
         make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=2000, priority=10)
     #----------------------------------------------------------------------#
@@ -291,10 +291,11 @@ if __name__ == "__main__":
         Galactose challenge after certain time and simulation to steady state.
         '''
         sbml_id = "Galactose_v{}_Nc20_galactose-challenge".format(VERSION)
-        task, samples = make_galactose_challenge(sbml_id, N=100)
+        task, samples = make_galactose_challenge(sbml_id, N=1)
         
         # Create deficiency samples belonging to the original samples
-        deficiencies = range(1, 24)
+        deficiencies = []
+        # deficiencies = range(1, 24)
         derive_deficiency_simulations(task, samples, deficiencies)
     #----------------------------------------------------------------------#
     if (0):

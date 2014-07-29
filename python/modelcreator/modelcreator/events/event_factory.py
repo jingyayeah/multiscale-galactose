@@ -32,10 +32,13 @@ def createPeakEventData(species, base, peak, time_start, duration):
 
     return [ed1, ed2, ed3]
 
-def createGalactoseChallengeEventData(tc_start = 100.0, peak_var='gal_challenge'):
-    ed = EventData("EDIL_0", "galactose challenge",
+def createGalactoseChallengeEventData(tc_start, base_var='0.0', peak_var='gal_challenge'):
+    ed1 = EventData("ECHA_0", "pre challenge [PP]",
+                   createTriggerFromTime(0.0), {'PP__gal': base_var})
+    
+    ed2 = EventData("ECHA_1", "galactose challenge",
                    createTriggerFromTime(tc_start), {'PP__gal': peak_var})
-    return [ed]
+    return [ed1, ed2]
 
 def createGalactoseStepEventData():
     ''' Stepwise increase in PP__gal over time.'''
