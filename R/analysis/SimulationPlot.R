@@ -22,6 +22,7 @@ dir = paste(ma.settings$dir.results, '/tmp_sim/', task, sep='')
 df = readDataForSimulation(dir=dir, simId=paste('Sim', simId, sep=''))
 ids = names(df)
 
+
 date = '2014-07-28'
 sname <- paste(date, '_', task, sep='')
 parsfile <- file.path(ma.settings$dir.results, sname, 

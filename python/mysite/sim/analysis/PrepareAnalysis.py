@@ -1,8 +1,9 @@
 #!/usr/bin/python
 '''
-Module for preparing all data and files for given task for the 
-analysis.
-First step is creating a folder for analysis, creating the parameter
+Module for collecting and generating the files for a given task
+necessary for subsequent analysis. 
+- creates folder for analysis
+- creates parameter file
 file and copying the used model for the simulations.
 
 @author: Matthias Koenig

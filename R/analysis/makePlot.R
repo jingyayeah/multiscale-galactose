@@ -1,5 +1,8 @@
 ## makePlot.R
 # Rscript makePlot.R sid
+# R script to automatically generate important plots.
+
+
 rm(list=ls())
 
 library(MultiscaleAnalysis)

@@ -38,18 +38,3 @@ for (k in tasks){
   
   outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
 }
-###############################################################
-# create figures
-###############################################################
-
-for (k in seq(1,2)){
-  task <- paste('T', k, sep='')
-  sname <- paste(date, '_', task, sep='')
-  print(sname)
-  ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, task)
-  parsfile <- file.path(ma.settings$dir.results, sname, 
-                        paste(task, '_', modelId, '_parameters.csv', sep=""))
-  outfile <- outfileFromParsFile(parsfile)
-  load(outfile)
-
-}

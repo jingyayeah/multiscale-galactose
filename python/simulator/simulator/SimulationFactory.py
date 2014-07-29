@@ -124,9 +124,12 @@ def createSimulationsForSamples(task, samples):
         
 def createSimulationForSample(task, sample):
     ''' 
-    Create the single Parameters, the combined ParameterCollection
-    and the simulation based on the Parametercollection for the
-    iterable sample, which contains triples of (name, value, unit).
+    Creates the simulation for a given sample.
+    Does not check if the simulation already exists.
+    - creates the Parameters
+    - creates empty simulation and adds the parameters.
+    The function does not check if the simulation with these parameters
+    already exist. This must be controlled on level of the samples.
     '''
     # Parameters are generated in a unique way
     parameters = []
@@ -245,6 +248,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
         samples = setDeficiencyInSamples(samples, deficiency=d)
         createSimulationsForSamples(task_d, samples)    
 
+
 ####################################################################################
 if __name__ == "__main__":
     VERSION = 20
@@ -252,7 +256,7 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     if (0):
         print 'make demo'
-        make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=2000, priority=10)
+        make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=20, priority=10)
     #----------------------------------------------------------------------#
     if (0):
         make_glucose(sbml_id='Koenig2014_Hepatic_Glucose_Model_annotated')
@@ -286,7 +290,7 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''
@@ -297,6 +301,19 @@ if __name__ == "__main__":
         deficiencies = range(1,3)
         # deficiencies = range(1, 24)
         derive_deficiency_simulations(task, samples, deficiencies)
+    
+    if (0):
+        ''' Reuse the samples from task.
+            Necessary to generate the identical geometries than
+            for the normal case.
+        '''
+        from simulator.distribution.sampling_tools import get_samples_from_task
+        task = Task.objects.get(pk=1)
+        samples = get_samples_from_task(task)
+        
+        derive_deficiency_simulations(task, samples, deficiencies=range(5,24))
+        
+        
     #----------------------------------------------------------------------#
     if (0):
         '''

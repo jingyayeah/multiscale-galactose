@@ -172,7 +172,7 @@ def calculatePointsByLHS(N, variableMax, variableMin):
 
 if __name__ == "__main__":
     # TODO: visualize the sampling for control
-    from Distributions import getGalactoseDistributions
+    from distributions import getGalactoseDistributions
     dist_data = getGalactoseDistributions();
     samples = _createSamplesByManual(dist_data)
     for s in samples:
@@ -189,7 +189,7 @@ if __name__ == "__main__":
         print s
         
     print '#' * 40    
-    from Distributions import getDemoDistributions
+    from distributions import getDemoDistributions
     dist_data = getDemoDistributions()
     samples = _createSamplesByDistribution(dist_data, N=10)
     for s in samples:
