@@ -306,12 +306,13 @@ if __name__ == "__main__":
         ''' Reuse the samples from task.
             Necessary to generate the identical geometries than
             for the normal case.
+            This is only for testing. For final simulations all galactosemias
+            should be generated in batch.
         '''
         from simulator.distribution.sampling_tools import get_samples_from_task
         task = Task.objects.get(pk=1)
         samples = get_samples_from_task(task)
-        
-        derive_deficiency_simulations(task, samples, deficiencies=range(5,24))
+        # derive_deficiency_simulations(task, samples, deficiencies=range(5,24))
         
         
     #----------------------------------------------------------------------#
