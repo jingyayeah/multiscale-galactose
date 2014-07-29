@@ -76,11 +76,18 @@ def integrate_copasi(sims):
         
 def integrate_roadrunner(sims):
     ''' Integrate simulations with RoadRunner.'''
-    sbml_file = str(sims[0].task.sbml_model.file.path)
-    sbml_id = sims[0].task.sbml_model.sbml_id
     
     # read SBML
-    rr = roadrunner.RoadRunner(sbml_file)
+    try:
+        sbml_file = str(sims[0].task.sbml_model.file.path)
+        sbml_id = sims[0].task.sbml_model.sbml_id
+        rr = roadrunner.RoadRunner(sbml_file)
+    except RuntimeError:
+        # reset the simulation status
+        for sim in sims:
+            sim.status = ERROR
+            sim.save()
+        raise
         
     # set the selection
     sel = ['time']
@@ -165,7 +172,6 @@ def integration_exception(sim):
     sim.status = ERROR
     sim.save()
     
-    raise
 
 
 if __name__ == "__main__":
