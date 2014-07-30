@@ -15,25 +15,24 @@ setwd(ma.settings$dir.results)
 
 # Get overview over available simulations
 ma.settings$simulator <- 'ROADRUNNER'
-task <- 'T1'
-modelId <- paste('Galactose_v20_Nc20_galactose-challenge')
-simId <- 105
+task <- 'T25'
+modelId <- paste('Galactose_v21_Nc20_dilution')
+simId <- 29966
+
 dir = paste(ma.settings$dir.results, '/tmp_sim/', task, sep='')
-df = readDataForSimulation(dir=dir, simId=paste('Sim', simId, sep=''))
+fname = getSimulationFileFromSimulationId(dir, simId=paste('Sim', simId, sep=''))
+df = readDataForSimulationFile(fname)
 ids = names(df)
-
-
-date = '2014-07-28'
-sname <- paste(date, '_', task, sep='')
-parsfile <- file.path(ma.settings$dir.results, sname, 
-                      paste(task, '_', modelId, '_parameters.csv', sep=""))
-print(parsfile)
-pars <- loadParameterFile(file=parsfile)
-head(pars)
-
+ids
 
 # create model dataframe for simulation
 #simId <- 1251
+
+Sys.time()->start;
+load('/home/mkoenig/multiscale-galactose-results/2014-07-30_T25Galactose_v21_Nc20_dilution_Sim29921_roadrunner.csv.Rdata')
+
+print(Sys.time()-start);
+
 
 
 # plot some components via ids
@@ -53,14 +52,12 @@ galM_ids = ids[grep('__galM$', names(df))]
 #audp_ids = ids[grep('__[a,u][d,t]p$', names(df))]
 
 ids
-plot(numeric(0), numeric(0), ylim=c(0,10), xlim=c(0,30000))
+plot(numeric(0), numeric(0), ylim=c(0,10), xlim=c(0,1200))
 plotTimecourse(df, ids)
 
-
-
 # create pp and pv plots
-xlimits = c(2000, 2400)
-ylimits = c(0, 10)
+xlimits = c(1000, 1200)
+ylimits = c(0, 0.5)
 plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits)
 plotTimecourse(df, pp_ids)
 plotTimecourse(df, pv_ids)
