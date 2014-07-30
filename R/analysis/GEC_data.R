@@ -3,13 +3,15 @@
 ################################################################
 # General GEC data for model fitting. 
 # Especially GEC in cirrhosis
+
 # author: Matthias Koenig
 # date: 2014-04-19
-
 ###############################################################
+
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
+create_plots = TRUE
 
 ccols = c("black", "darkorange")
 cpch = c(15, 17)
@@ -22,7 +24,6 @@ head(tyg1962)
 summary(tyg1962)
 
 ## figure ##
-create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Tygstrup1962.png'),
       width = 800, height = 800, units = "px", bg = "white",  res = 150)
@@ -49,9 +50,8 @@ if (create_plots==TRUE){
   dev.off()
 }
 
-
 ###############################################################
-## Dafour2005 ##
+## Dufour2005 ##
 ###############################################################
 duf2005 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Dufour2005_Tab1.csv"), sep="\t")
 head(duf2005)
@@ -62,7 +62,6 @@ cats = c('normal', 'cirrhosis')
 ccols = c("black", "darkorange")
 cpch = c(15, 17)
 
-create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Dufour2005.png'),
       width = 800, height = 800, units = "px", bg = "white",  res = 150)
@@ -93,7 +92,6 @@ head(duc1979)
 summary(duc1979)
 data <- duc1979
 
-create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Ducry1979.png'),
       width = 800, height = 800, units = "px", bg = "white",  res = 150)
@@ -122,7 +120,6 @@ head(tyg1957)
 summary(tyg1957)
 
 ## figure ##
-create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Tygstrup1957.png'),
       width = 800, height = 800, units = "px", bg = "white",  res = 150)
