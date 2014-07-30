@@ -66,6 +66,9 @@ res <- mclapply(values, workerFunc, mc.cores = numWorkers)
 # here the problems with the variable timesteps arise
 
 
+
+#######################################
+# 
 # create empty matrix first
 createDataMatricesVarSteps <- function(compound_id, dir, simIds, time){
   Nsim = length(simIds)
