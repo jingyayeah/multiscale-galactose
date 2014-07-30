@@ -16,7 +16,7 @@ K_S1 = ReactionTemplate(
     'c__s1 + c__atp <-> c__s1p + c__adp',
     pars = [
             ('KS1_P',      0.02,    'mole'),
-            ('KS1_kcat',     8.7,    'per_s'),
+            ('KS1_kcat',    8.7,    'per_s'),
             ('KS1_keq',     50,       '-'),
             ('KS1_k_s1p',  1.5,     'mM'),
             ('KS1_k_adp',   0.8,     'mM'),
@@ -48,7 +48,7 @@ T_S1 = ReactionTemplate(
     's1 transport [c__]',
     'e__s1 <-> c__s1',
     pars = [
-            ('T_f',    1E6,   'mole_per_s'),
+            ('T_f',    10,   'mole_per_s'),
             ('T_k_s1', 85.5,  'mM'),
             
     ],

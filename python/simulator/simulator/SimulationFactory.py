@@ -251,7 +251,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 20
+    VERSION = 21
     
     #----------------------------------------------------------------------#
     if (0):
@@ -279,18 +279,18 @@ if __name__ == "__main__":
         '''
         sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
         [task, raw_samples] = make_galactose_dilution(sbml_id, 
-                                                      N=1, sync=True, priority=10)
+                                                      N=1000, sync=True, priority=10)
         
         # additional galactose challenge
-        # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
+        PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
         # The galactose values have to be adapted for already occured
         # clearance
-        PP__gal = (2.3, 5, 14.8, 19.8) # [mM]
+        # PP__gal = (2.3, 5, 14.8, 19.8) # [mM]
         samples = setParameterValuesInSamples(raw_samples, 'PP__gal', PP__gal, 'mM', BOUNDERY_INIT)
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''
@@ -298,7 +298,7 @@ if __name__ == "__main__":
         task, samples = make_galactose_challenge(sbml_id, N=100)
         
         # Create deficiency samples belonging to the original samples
-        deficiencies = range(1,3)
+        deficiencies = range(1,4)
         # deficiencies = range(1, 24)
         derive_deficiency_simulations(task, samples, deficiencies)
     
