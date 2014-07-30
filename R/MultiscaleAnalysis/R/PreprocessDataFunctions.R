@@ -187,12 +187,8 @@ readDataForSimulationFile <- function(fname, col.indices_f=NULL){
   # fix strange behavior via cast
   data <- as.data.frame(data)
   
-  # TODO: fix problems with settings the rownames to time
-  # ? why set the time as rownames?
-  # rownames(data) <- data[,'time']
-  
   # reduce data col.indices given by the function
-  if (!is.null(col.indices_f)){
+  if (!is.null(col.indices_f)){  
     col.indices <- col.indices_f(data)
     data <- data[, col.indices]
   }

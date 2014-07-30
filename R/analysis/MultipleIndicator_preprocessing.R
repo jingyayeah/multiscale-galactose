@@ -4,6 +4,7 @@
 # Read the timecourse data and creates reduced data structures
 # for simplified query and visualization.
 #
+# Run with: Rscript
 # author: Matthias Koenig
 # date: 2014-07-30
 rm(list=ls())
@@ -38,13 +39,61 @@ parsfile <- file.path(ma.settings$dir.results, folder,
 pars <- loadParameterFile(file=parsfile)
 head(pars)
 names(pars)
-plotParameterHistogramFull(pars)   
 
+#plotParameterHistogramFull(pars)   
 
 # more efficient preprocessing ?
 # read all the information in Rdata files
-createColumnDataFiles(pars, dir=ma.settings$dir.simdata)
+# createColumnDataFiles(pars, dir=ma.settings$dir.simdata)
+# head(pars)
 
 
-outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
+# do parallell - Parallel calculation (mclapply):
+library(parallel)
+numWorkers <- 12
+
+workerFunc <- function(simId){
+  print(simId)
+  fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simId)
+  data <- readDataForSimulationFile(fname)
+  save(data, file=paste(fname, '.Rdata', sep=''))
+}
+values = rownames(pars)
+res <- mclapply(values, workerFunc, mc.cores = numWorkers)
+
+# now all the Rdata files exist: it is necessary to put the things together for the different ids
+# this should hopefully be fast,
+# here the problems with the variable timesteps arise
+
+
+# create empty matrix first
+createDataMatricesVarSteps <- function(compound_id, dir, simIds, time){
+  Nsim = length(simIds)
+  
+  # compund names
+  compounds <- colnames(datalist[[1]])
+  Nc <- length(compounds)
+  
+  # create empty matrix first
+  mat = vector('list', Nc)
+  names(mat) <- compounds
+  
+  Ntime = length(time)
+  
+  for (kc in seq(Nc)){
+    tmp <- matrix(data=NA, nrow = Ntime, ncol = Nsim)
+    colnames(tmp) <- simulations
+    rownames(tmp) <- time
+    
+    for(ks in seq(Nsim)){
+      data.approx <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, kc], xout=time, method="linear")
+      tmp[, ks] <- data.approx[[2]]
+    }
+    mat[[kc]] <- tmp;
+  }
+  mat
+}
+
+
+# outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
 

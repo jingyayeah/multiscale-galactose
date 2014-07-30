@@ -29,8 +29,7 @@ ids
 #simId <- 1251
 
 Sys.time()->start;
-load('/home/mkoenig/multiscale-galactose-results/2014-07-30_T25Galactose_v21_Nc20_dilution_Sim29921_roadrunner.csv.Rdata')
-
+load('/home/mkoenig/multiscale-galactose-results/2014-07-30_T25/Galactose_v21_Nc20_dilution_Sim29921_roadrunner.csv.Rdata')
 print(Sys.time()-start);
 
 
