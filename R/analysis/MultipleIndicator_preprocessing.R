@@ -65,6 +65,49 @@ res <- mclapply(values, workerFunc, mc.cores = numWorkers)
 # this should hopefully be fast,
 # here the problems with the variable timesteps arise
 
+compounds = c('PP__gal', 'PV__gal')
+compounds[1]
+
+# Read the data
+simIds = rownames(pars)
+Nsim = length(simIds)
+
+# compund names
+Nc <- length(compounds)
+
+
+# create empty matrix first
+tmp = vector('list', Nc)
+tmp
+names(tmp) <- compounds
+tmp
+
+# create a matrix 
+for (kc in seq(10)){
+  # read the data
+  fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[kc])
+  print(fname)
+  load(paste(fname, '.Rdata', sep=''))
+  Ntime = nrow(data)
+  tmp <- matrix(data=NA, nrow = Ntime, ncol = Nsim)
+  colnames(tmp) <- simIds
+#   rownames(tmp) <- time
+#   
+#   for(ks in seq(Nsim)){
+#     data.approx <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, kc], xout=time, method="linear")
+#     tmp[, ks] <- data.approx[[2]]
+#   }
+#   mat[[kc]] <- tmp;
+}
+
+plot(data$time, data$PV__gal)
+
+
+rm(list=ls())
+# loads variable of name data
+load('/home/mkoenig/multiscale-galactose-results/2014-07-30_T25/T25/Galactose_v21_Nc20_dilution_Sim30042_roadrunner.csv.Rdata')
+
+
 
 
 #######################################
