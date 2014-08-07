@@ -80,18 +80,45 @@ reduceDimension <- function(df){
   res <- df[indices, ]
 }
 
+# necessary to add event points for plotting purposes.
+# Otherwise there are large jumps in the values during plotting
 addEventPoints <- function(df){
-  
+  Nr = nrow(df)
+  event_indices <- 1 + which(abs(df[2:Nr,2]-df[1:(Nr-1),2])>1E-6)
+  # add rows to the dataframe at the end
+  rnew <- data.frame( (df[event_indices, 1]-1E-8), df[(event_indices-1),2] )
+  names(rnew) <- names(df)
+  # print(sprintf("%.10f",rnew[1]))
+  df <- rbind(df, rnew)  
+  # sort the data frame
+  df <- df[with(df, order(time)),]
 }
 
+df <- tmp[[3]][[1]]
+df
+df1 <- addEventPoints(df)
+df1
 
-# define the objects of interest (not too many are possible)
-ids <- c('PP__gal', 'PV__gal', 'PP__galM', 'PV__galM')
-id <- ids[1]
 
+# calculate functions on the reduced sets
+# use t-approx to make the corresponding matrix
+# than calculate values on the matrix
+
+
+
+
+
+################################################################
 # create list of timecourses for one component
 simIds = rownames(pars)
 Nsim = length(simIds)
+
+# get a dictionary of the available names
+fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[1])
+ids <- names(data)
+
+ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "PP__suc",
+         "PV__alb", "PV__gal", "PV__galM", "PV__h2oM", "PV__rbcM", "PV__suc")
 
 # Create the empty data structures
 rm(tmp)
@@ -106,7 +133,6 @@ for (id in ids){
 for (ks in seq(Nsim)){
 # for (ks in seq(10)){
   print(ks/Nsim)
-
   # read the data into -> data
   fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[ks])
   load(paste(fname, '.Rdata', sep=''))
@@ -114,23 +140,17 @@ for (ks in seq(Nsim)){
   # assign the data
   for (id in ids){
     df <- data[, c('time', id)];
-    tmp[[id]][[ks]] <- reduceDimension(df)
+    df <- reduceDimension(df)
+    df <- addEventPoints(df)
+    tmp[[id]][[ks]] <- df
   }
 }
+
+####################################
+# figures
+tmp[[3]][[1]]
+
 head(tmp$PP__galM)
-
-
-
-makeTransparent<-function(someColor, alpha=100)
-{
-  newColor<-col2rgb(someColor)
-  apply(newColor, 2, function(curcoldata){rgb(red=curcoldata[1], green=curcoldata[2],
-                                              blue=curcoldata[3],alpha=alpha, maxColorValue=255)})
-}
-
-
-col=makeTransparent('Red', 0.5)
-col
 
 head(pars)
 gal_levels <- levels(factor(pars$PP__gal))
@@ -138,20 +158,22 @@ gal_levels <- gal_levels[c(2,4,5)]
 gal_levels
 
 # plot some of the timecourses
-PV__galM <- tmp[['PV__galM']]
+compound <- tmp[['PV__galM']]
+compound <- tmp[['PP__galM']]
 
 par(mfrow=c(1,length(gal_levels)))
 # create subplot for all the different levels
 for (gal_level in gal_levels){
   # empty plot
-  plot(numeric(0), numeric(0), xlim=c(999,1040), ylim=c(0,0.5))
+  plot(numeric(0), numeric(0), xlim=c(0,1050), ylim=c(0,0.5))
   
   # find the simulation rows for the level
   gal_rows <- which(pars$PP__gal==gal_level)
 
   # plot all the single simulations for the level
   for (k in gal_rows){
-    points(PV__galM[[k]]$time, PV__galM[[k]][[2]], type='l', col=rgb(0.5,0.5,0.5, alpha=0.1 ))      
+    points(compound[[k]]$time, compound[[k]][[2]], 
+           type='o', col=rgb(0.5,0.5,0.5, alpha=0.1 ))      
   }
 }
 par(mfrow=c(1,1))
