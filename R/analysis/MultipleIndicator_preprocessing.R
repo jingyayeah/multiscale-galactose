@@ -7,19 +7,13 @@
 # Run with: Rscript
 # author: Matthias Koenig
 # date: 2014-07-30
+
 rm(list=ls())
-
-# - data folder & how to interpolate the information
-folder <- '2014-07-30_T25'
-t.approx <- seq(from=0, to=100, by=0.1)
-plot(seq(1,length(t.approx)), t.approx )
-
-##
-
 library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
-ma.settings$simulator <- 'ROADRUNNER'
+
+folder <- '2014-07-30_T25'
 
 # read the file information from the folder
 tmp <- strsplit(folder, '_')
@@ -32,23 +26,21 @@ modelId <- substr(modelXML,1,nchar(modelXML)-4)
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, folder, task)
 parsfile <- file.path(ma.settings$dir.results, folder, 
                       paste(task, '_', modelId, '_parameters.csv', sep=""))
+rm(modelXML)
+
+# read the parameter file
+pars <- loadParameterFile(file=parsfile)
+head(pars)
+#plotParameterHistogramFull(pars)   
 
 ###############################################################
 # preprocess data
 ###############################################################
-pars <- loadParameterFile(file=parsfile)
-head(pars)
-names(pars)
-
-#plotParameterHistogramFull(pars)   
-
 # more efficient preprocessing ?
 # read all the information in Rdata files
 # createColumnDataFiles(pars, dir=ma.settings$dir.simdata)
-# head(pars)
 
-
-# do parallell - Parallel calculation (mclapply):
+## parallel preprocessing (mclapply) ##
 library(parallel)
 numWorkers <- 12
 
@@ -58,14 +50,17 @@ workerFunc <- function(simId){
   data <- readDataForSimulationFile(fname)
   save(data, file=paste(fname, '.Rdata', sep=''))
 }
+
 values = rownames(pars)
 res <- mclapply(values, workerFunc, mc.cores = numWorkers)
 
-# now all the Rdata files exist: it is necessary to put the things together for the different ids
-# this should hopefully be fast,
-# here the problems with the variable timesteps arise
+###############################################################
+# now all the Rdata files exist: 
+# putting things together from the different calculations to calculate
+# statistical values
+# The variable timesteps have to be accounted for.
 
-
+## Dimension Reduction ## 
 # Alternative dimension reduction based on the RDP algorithm
 # http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
 # Ramer–Douglas–Peucker algorithm
@@ -80,11 +75,12 @@ reduceDimension <- function(df){
   res <- df[indices, ]
 }
 
+## Add Event timepoints ##
 # necessary to add event points for plotting purposes.
 # Otherwise there are large jumps in the values during plotting
 addEventPoints <- function(df){
   Nr = nrow(df)
-  event_indices <- 1 + which(abs(df[2:Nr,2]-df[1:(Nr-1),2])>1E-6)
+  event_indices <- 1 + which(abs(df[2:Nr,2]-df[1:(Nr-1),2])>0.1)
   # add rows to the dataframe at the end
   rnew <- data.frame( (df[event_indices, 1]-1E-8), df[(event_indices-1),2] )
   names(rnew) <- names(df)
@@ -94,46 +90,30 @@ addEventPoints <- function(df){
   df <- df[with(df, order(time)),]
 }
 
-df <- tmp[[3]][[1]]
-df
-df1 <- addEventPoints(df)
-df1
-
-
-# calculate functions on the reduced sets
-# use t-approx to make the corresponding matrix
-# than calculate values on the matrix
-
-
-
-
-
 ################################################################
 # create list of timecourses for one component
 simIds = rownames(pars)
 Nsim = length(simIds)
 
+# Create data structure for ids and save
 # get a dictionary of the available names
 fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[1])
-ids <- names(data)
+ids.dict <- names(data)
 
 ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "PP__suc",
          "PV__alb", "PV__gal", "PV__galM", "PV__h2oM", "PV__rbcM", "PV__suc")
 
-# Create the empty data structures
-rm(tmp)
-tmp = vector('list', length(ids))
-names(tmp) <- ids
-for (id in ids){
-  elist <- vector('list', Nsim)
-  names(elist) <- simIds
-  tmp[[id]] <- elist
+x <- vector('list', length(ids))
+names(x) <- ids
+for (id in ids){  
+  x[[id]] <- vector('list', Nsim)
+  names(x[[id]]) <- simIds
 }
 
 for (ks in seq(Nsim)){
 # for (ks in seq(10)){
   print(ks/Nsim)
-  # read the data into -> data
+  # load data as 'data'
   fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[ks])
   load(paste(fname, '.Rdata', sep=''))
     
@@ -142,47 +122,138 @@ for (ks in seq(Nsim)){
     df <- data[, c('time', id)];
     df <- reduceDimension(df)
     df <- addEventPoints(df)
-    tmp[[id]][[ks]] <- df
+    x[[id]][[ks]] <- df
+  }
+}
+# save x
+head(x$PV__galM)
+
+# calculate functions on the reduced sets
+# use t-approx to make the corresponding matrix
+# than calculate values on the matrix
+# 1. calculate the matrix 5000 x 200/0.05 (4000)
+#                              x 50/0.01 (5000)   
+length(ids.dict)
+
+# data approximation
+#     data.approx <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, kc], xout=time, method="linear")
+#     tmp[, ks] <- data.approx[[2]]
+
+# time vector for approximation matrix
+time.min <- 995
+time.max <- 1050
+time = seq(from=time.min, to=time.max, by=0.2)
+Ntime = length(time)
+
+mat <- vector('list', length(ids))
+names(mat) <- ids
+
+for (id in ids){
+  # setup the empty matrix
+  mat[[id]] <- matrix(data=NA, nrow=Ntime, ncol=Nsim)
+  colnames(mat[[id]]) <- simIds
+  rownames(mat[[id]]) <- time
+  
+  # fill the matrix
+  for(ks in seq(Nsim)){
+    datalist <- x[[id]]
+    data.interp <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, 2], xout=time, method="linear")
+    mat[[id]][, ks] <- data.interp[[2]]
   }
 }
 
-####################################
-# figures
-tmp[[3]][[1]]
 
-head(tmp$PP__galM)
+head(mat)
+summary(mat)
 
-head(pars)
+# now calculate things on the matrix and store
+# i.e. mean, std, 
+
+# subsetting by the level
 gal_levels <- levels(factor(pars$PP__gal))
 gal_levels <- gal_levels[c(2,4,5)]
 gal_levels
 
-# plot some of the timecourses
-compound <- tmp[['PV__galM']]
-compound <- tmp[['PP__galM']]
+# Calculate the volume flow for weigthing
+pars$F <- pi*(pars$y_sin^2) * pars$flow_sin
 
+plot(pars$flow_sin, pars$F)
+plot(pars$y_sin, pars$F)
+
+
+## plot the mean timecourses ##
+library('matrixStats')
+
+
+compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
+ccolors = c('gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+
+plotMeanCurves <- function(){
+for (kc in seq(length(compounds))){
+  compound <- compounds[kc]
+  col <- ccolors[kc]
+  id <- paste('PV__', compound, sep='')
+  for (gal_level in gal_levels){
+    # find the simulation rows for the level
+    gal_rows <- which(pars$PP__gal==gal_level)
+  
+    tmp <- mat[[id]][,gal_rows]
+    w <- pars$F[gal_rows] # weighting with the volume flow F
+
+    row.wmeans <- rowWeightedMeans(tmp, w=w)
+    row.means <- rowMeans(tmp)
+    points(time, row.wmeans, col=col, lwd=2, type='l', lty=2)
+    #points(time, row.means, col=col, lwd=2, type='l', lty=1)
+    #points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
+  
+    #points(time, rowMins(tmp), col='Red', lwd=2, type='l', lty=2)
+    #points(time, rowMaxs(tmp), col='Red', lwd=2, type='l', lty=2)
+    #points(time, rowQuantiles(tmp,probs=c(0.25)), col='Green', lwd=2, type='l', lty=3)
+    #points(time, rowQuantiles(tmp,probs=c(0.75)), col='Green', lwd=2, type='l', lty=3)  
+    
+    # lines for the max values
+    tmax.wmeans <- time[which.max(row.wmeans)]
+    cat("tmax [", id , "] = ", tmax.wmeans, "\n")
+    tmax.means <- time[which.max(row.means)]
+    abline(v=tmax.wmeans, col=col)
+    #abline(v=tmax.means, col=col)
+  }
+}
+}
+par(mfrow=c(2,1))
+plot(numeric(0), numeric(0), log='y', xlim=c(time.min, 1025), ylim=c(1E-2,0.5))
+plotMeanCurves()
+plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
+plotMeanCurves()
+par(mfrow=c(1,1))
+     
+
+
+####################################
+## plot the single timecourses
+
+# plot some of the timecourses
+id = 'PV__galM'
 par(mfrow=c(1,length(gal_levels)))
 # create subplot for all the different levels
 for (gal_level in gal_levels){
   # empty plot
-  plot(numeric(0), numeric(0), xlim=c(0,1050), ylim=c(0,0.5))
+  plot(numeric(0), numeric(0), xlim=c(time.min, time.max), ylim=c(0,0.2))
   
   # find the simulation rows for the level
   gal_rows <- which(pars$PP__gal==gal_level)
 
   # plot all the single simulations for the level
   for (k in gal_rows){
-    points(compound[[k]]$time, compound[[k]][[2]], 
-           type='o', col=rgb(0.5,0.5,0.5, alpha=0.1 ))      
+    points(x[[id]][[k]]$time, x[[id]][[k]][[2]], 
+           type='l', col=rgb(0.5,0.5,0.5, alpha=0.1 ))      
   }
 }
 par(mfrow=c(1,1))
 
 
 
-# data approximation
-#     data.approx <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, kc], xout=time, method="linear")
-#     tmp[, ks] <- data.approx[[2]]
+
 
 
 df <- tmp[[1]]
@@ -199,13 +270,13 @@ test <- tmp[[1]]
 head(test)
 plot(test[[1]], test[[2]], ylim=c(0, 0.1))
 
-duplicated()
+
 
 rm(list=ls())
 # loads variable of name data
 load('/home/mkoenig/multiscale-galactose-results/2014-07-30_T25/T25/Galactose_v21_Nc20_dilution_Sim30042_roadrunner.csv.Rdata')
 
-
+test = matrix(data=1.0, nrow =500, ncol=5000)
 
 
 #######################################
