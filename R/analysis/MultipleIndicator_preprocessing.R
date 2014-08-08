@@ -171,7 +171,7 @@ summary(mat)
 
 # subsetting by the level
 gal_levels <- levels(factor(pars$PP__gal))
-gal_levels <- gal_levels[c(2,4,5)]
+#gal_levels <- gal_levels[c(2,4,5)]
 gal_levels
 
 # Calculate the volume flow for weigthing
@@ -183,8 +183,6 @@ plot(pars$y_sin, pars$F)
 
 ## plot the mean timecourses ##
 library('matrixStats')
-
-
 compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 
@@ -200,9 +198,14 @@ for (kc in seq(length(compounds))){
     tmp <- mat[[id]][,gal_rows]
     w <- pars$F[gal_rows] # weighting with the volume flow F
 
-    row.wmeans <- rowWeightedMeans(tmp, w=w)
     row.means <- rowMeans(tmp)
-    points(time, row.wmeans, col=col, lwd=2, type='l', lty=2)
+    row.wmeans <- rowWeightedMeans(tmp, w=w)
+    row.medians <- rowMedians(tmp)
+    row.wmedians <- rowWeightedMedians(tmp, w=w)
+    
+    points(time, row.wmeans, col=col, lwd=2, type='l', lty=1)
+    points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
+    
     #points(time, row.means, col=col, lwd=2, type='l', lty=1)
     #points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
   
@@ -227,6 +230,15 @@ plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
 plotMeanCurves()
 par(mfrow=c(1,1))
      
+
+# The galactose peaks come almost with the RBC peaks ?
+# why (in single simulation this is different)
+head(pars)
+
+
+plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
+
+
 
 
 ####################################
