@@ -183,29 +183,25 @@ t.approx = seq(from=1995, to=2200, by=5)
 t.approx
 mlist <- createApproximationMatrix(ids=ids, simIds=simIds, t.approx=t.approx)
 
-
-# now calculate things on the matrix and store
+###############################################################
+# now calculate things on the matrix 
 # i.e. mean, std, 
-
-# subsetting by the level
-gal_levels <- levels(factor(pars$PP__gal))
-#gal_levels <- gal_levels[c(2,4,5)]
-gal_levels
 
 # Calculate the volume flow for weigthing
 pars$F <- pi*(pars$y_sin^2) * pars$flow_sin
-
 plot(pars$flow_sin, pars$F)
 plot(pars$y_sin, pars$F)
 
+#####
+# levels
+f.level = "gal_challenge"  # "PP__gal" 
 
-
-## plot the mean timecourses ##
+## Calculate the matrix
 library('matrixStats')
 compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 
-plotMeanCurves <- function(){
+stats <- list('vector', length(t.approx))
 for (kc in seq(length(compounds))){
   compound <- compounds[kc]
   col <- ccolors[kc]
@@ -213,10 +209,10 @@ for (kc in seq(length(compounds))){
   for (gal_level in gal_levels){
     # find the simulation rows for the level
     gal_rows <- which(pars$PP__gal==gal_level)
-  
+    
     tmp <- mat[[id]][,gal_rows]
     w <- pars$F[gal_rows] # weighting with the volume flow F
-
+    
     row.means <- rowMeans(tmp)
     row.wmeans <- rowWeightedMeans(tmp, w=w)
     row.medians <- rowMedians(tmp)
@@ -227,7 +223,7 @@ for (kc in seq(length(compounds))){
     
     #points(time, row.means, col=col, lwd=2, type='l', lty=1)
     #points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
-  
+    
     #points(time, rowMins(tmp), col='Red', lwd=2, type='l', lty=2)
     #points(time, rowMaxs(tmp), col='Red', lwd=2, type='l', lty=2)
     #points(time, rowQuantiles(tmp,probs=c(0.25)), col='Green', lwd=2, type='l', lty=3)
@@ -241,14 +237,67 @@ for (kc in seq(length(compounds))){
     #abline(v=tmax.means, col=col)
   }
 }
+
+#########
+
+## plot the mean timecourses ##
+
+
+plotMeanCurves <- function(mlist, f.level, compounds, ccolors){
+  for (kc in seq(length(compounds))){
+    compound <- compounds[kc]
+    col <- ccolors[kc]
+    id <- paste('PV__', compound, sep='')
+    
+    # different levels
+    plot.levels <- levels(as.factor(pars[[f.level]]))
+    for (p.level in plot.levels){
+      sim_rows <- which(pars[[f.level]]==p.level)
+      tmp <- mlist[[id]][ ,sim_rows]
+      w <- pars$F[sim_rows] # weighting with the volume flow F
+      
+      row.means <- rowMeans(tmp)
+      row.wmeans <- rowWeightedMeans(tmp, w=w)
+      row.medians <- rowMedians(tmp)
+      row.wmedians <- rowWeightedMedians(tmp, w=w)
+      row.sds <- rowSds(tmp)
+      
+      time = as.numeric(rownames(tmp))
+      points(time, row.wmeans, col=col, lwd=2, type='l', lty=1)
+      points(time, row.wmeans+row.sds, col='Orange', lwd=2, type='l', lty=1)
+      points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
+    
+    #points(time, row.means, col=col, lwd=2, type='l', lty=1)
+    #points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
+  
+    #points(time, rowMins(tmp), col='Red', lwd=2, type='l', lty=2)
+    #points(time, rowMaxs(tmp), col='Red', lwd=2, type='l', lty=2)
+    #points(time, rowQuantiles(tmp,probs=c(0.25)), col='Green', lwd=2, type='l', lty=3)
+    #points(time, rowQuantiles(tmp,probs=c(0.75)), col='Green', lwd=2, type='l', lty=3)  
+    
+    # lines for the max values
+      tmax.wmeans <- time[which.max(row.wmeans)]
+      cat("tmax [", id , "] = ", tmax.wmeans, "\n")
+      tmax.means <- time[which.max(row.means)]
+      abline(v=tmax.wmeans, col=col)
+      #abline(v=tmax.means, col=col)
+    }
+  }
 }
+# Dilution
 par(mfrow=c(2,1))
 plot(numeric(0), numeric(0), log='y', xlim=c(time.min, 1025), ylim=c(1E-2,0.5))
 plotMeanCurves()
 plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
 plotMeanCurves()
 par(mfrow=c(1,1))
-     
+
+# Gal challenge
+plot(numeric(0), numeric(0), xlim=c(min(t.approx), max(t.approx)), ylim=c(0,7))
+plotMeanCurves(mlist, f.level, compounds=compounds, ccolors=ccolors)
+
+
+
 #########
 # The galactose peaks come almost with the RBC peaks ?
 # why (in single simulation this is different)
