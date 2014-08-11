@@ -6,14 +6,16 @@
 #
 # Run with: Rscript
 # author: Matthias Koenig
-# date: 2014-07-30
-
+# date: 2014-08-11
+################################################################
 rm(list=ls())
 library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-folder <- '2014-07-30_T25'
+# folder <- '2014-07-30_T25'
+folder <- '2014-07-30_T26'
+
 
 # read the file information from the folder
 tmp <- strsplit(folder, '_')
@@ -24,14 +26,19 @@ modelXML <- list.files(path=file.path(ma.settings$dir.results, folder), pattern=
 # remove the '.xml'
 modelId <- substr(modelXML,1,nchar(modelXML)-4)
 ma.settings$dir.simdata <- file.path(ma.settings$dir.results, folder, task)
+
 parsfile <- file.path(ma.settings$dir.results, folder, 
                       paste(task, '_', modelId, '_parameters.csv', sep=""))
 rm(modelXML)
 
+# make a results folder
+dir.create(file.path(folder, 'results'), showWarnings = FALSE)
+
 # read the parameter file
 pars <- loadParameterFile(file=parsfile)
+simIds = rownames(pars)
 head(pars)
-#plotParameterHistogramFull(pars)   
+plotParameterHistogramFull(pars)   
 
 ###############################################################
 # preprocess data
@@ -42,17 +49,16 @@ head(pars)
 
 ## parallel preprocessing (mclapply) ##
 library(parallel)
-numWorkers <- 12
-
 workerFunc <- function(simId){
   print(simId)
   fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simId)
   data <- readDataForSimulationFile(fname)
   save(data, file=paste(fname, '.Rdata', sep=''))
 }
+Ncores <- 12
+res <- mclapply(simIds, workerFunc, mc.cores=Ncores)
+rm()
 
-values = rownames(pars)
-res <- mclapply(values, workerFunc, mc.cores = numWorkers)
 
 ###############################################################
 # now all the Rdata files exist: 
@@ -90,43 +96,55 @@ addEventPoints <- function(df){
   df <- df[with(df, order(time)),]
 }
 
-################################################################
-# create list of timecourses for one component
-simIds = rownames(pars)
-Nsim = length(simIds)
+# Creates list of lists for the given ids from the timeseries data.
+# Perfoms Dimensionality reduction and adds interpolated timepoints 
+# for the events
+createDataMatrices <- function(ids, out.fname, simIds){
+  # Create the list for storage of the matrices
+  x <- vector('list', length(ids))
+  names(x) <- ids
+  
+  # Create list of lists
+  Nsim = length(simIds)
+  for (id in ids){  
+    x[[id]] <- vector('list', Nsim)
+    names(x[[id]]) <- simIds
+  }
+  
+  # Fill the lists
+  
+  for (ks in seq(Nsim)){
+    cat(ks/Nsim*100, '\n')  
+    # load data as 'data' and put in list
+    fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[ks])
+    load(paste(fname, '.Rdata', sep=''))
+    for (id in ids){
+      df <- data[, c('time', id)];
+      df <- reduceDimension(df)
+      df <- addEventPoints(df)
+      x[[id]][[ks]] <- df
+    }
+  }
+  save(x, ids, file=out.fname)
+}
 
-# Create data structure for ids and save
-# get a dictionary of the available names
+## Create timeseries list of lists ##
+# dictionary of the available names
 fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[1])
 ids.dict <- names(data)
 
+
 ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "PP__suc",
          "PV__alb", "PV__gal", "PV__galM", "PV__h2oM", "PV__rbcM", "PV__suc")
+x.fname <- paste(folder, '/results/x.Rdata', sep='')
 
-x <- vector('list', length(ids))
-names(x) <- ids
-for (id in ids){  
-  x[[id]] <- vector('list', Nsim)
-  names(x[[id]]) <- simIds
-}
+# make the preprocessing
+x <- createDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds)
+# load the data without preprocessing
+load(file=x.fname)
 
-for (ks in seq(Nsim)){
-# for (ks in seq(10)){
-  print(ks/Nsim)
-  # load data as 'data'
-  fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[ks])
-  load(paste(fname, '.Rdata', sep=''))
-    
-  # assign the data
-  for (id in ids){
-    df <- data[, c('time', id)];
-    df <- reduceDimension(df)
-    df <- addEventPoints(df)
-    x[[id]][[ks]] <- df
-  }
-}
-# save x
-head(x$PV__galM)
+
+
 
 # calculate functions on the reduced sets
 # use t-approx to make the corresponding matrix
@@ -239,7 +257,7 @@ pars.sorted <- pars[with(pars, order(y_cell, y_sin, L, y_dis, flow_sin, PP__gal)
 head(pars.sorted)
 
 
-N=100
+N=54
 plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
 testIds = rownames(pars.sorted)[(1+N*5):(5+N*5)]
 for (simId in testIds){
@@ -257,7 +275,8 @@ for (simId in testIds){
   }
 }
 
-
+hist(pars$flow_sin, breaks = 40)
+summary(pars$flow_sin)
 
 ####################################
 ## plot the single timecourses

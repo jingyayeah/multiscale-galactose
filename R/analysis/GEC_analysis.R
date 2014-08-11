@@ -15,6 +15,8 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 ma.settings$simulator <- 'ROADRUNNER'
 
+
+
 ###############################################################
 # Calculate the clearance parameters 
 ###############################################################
