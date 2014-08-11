@@ -144,44 +144,45 @@ load(file=x.fname)
 
 
 ###############################################################
-
-# calculate functions on the reduced sets
-# use t-approx to make the corresponding matrix
+## Calculation of statistical values for the timecourses.
+# Necessary to create a compatible data structure which has values
+# for all timepoints.
+# Use t-approx to create timecourse matrix
 # than calculate values on the matrix
 # 1. calculate the matrix 5000 x 200/0.05 (4000)
 #                              x 50/0.01 (5000)   
-length(ids.dict)
 
-# data approximation
-#     data.approx <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, kc], xout=time, method="linear")
-#     tmp[, ks] <- data.approx[[2]]
-
-# time vector for approximation matrix
-time.min <- 995
-time.max <- 1050
-time = seq(from=time.min, to=time.max, by=0.2)
-Ntime = length(time)
-
-mat <- vector('list', length(ids))
-names(mat) <- ids
-
-for (id in ids){
-  # setup the empty matrix
-  mat[[id]] <- matrix(data=NA, nrow=Ntime, ncol=Nsim)
-  colnames(mat[[id]]) <- simIds
-  rownames(mat[[id]]) <- time
+createApproximationMatrix <- function(ids, simIds, t.approx){
+  Ntime <- length(t.approx)
+  Nsim <- length(simIds)
   
-  # fill the matrix
-  for(ks in seq(Nsim)){
-    datalist <- x[[id]]
-    data.interp <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, 2], xout=time, method="linear")
-    mat[[id]][, ks] <- data.interp[[2]]
+  # setup the results list
+  mlist <- vector('list', length(ids))
+  names(mlist) <- ids
+  for (id in ids){
+    # setup the empty matrix
+    mlist[[id]] <- matrix(data=NA, nrow=Ntime, ncol=Nsim)
+    colnames(mlist[[id]]) <- simIds
+    rownames(mlist[[id]]) <- t.approx
+  
+    # fill the matrix with interpolated data
+    for(ks in seq(Nsim)){
+      datalist <- x[[id]]
+      data.interp <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, 2], xout=t.approx, method="linear")
+      mlist[[id]][, ks] <- data.interp[[2]]
+    }
   }
+  return(mlist)
 }
 
+# approximation time vector for dilution
+t.approx = seq(from=995, to=1050, by=0.2)
 
-head(mat)
-summary(mat)
+# approximation time vector for gal_challange
+t.approx = seq(from=1995, to=2200, by=5)
+t.approx
+mlist <- createApproximationMatrix(ids=ids, simIds=simIds, t.approx=t.approx)
+
 
 # now calculate things on the matrix and store
 # i.e. mean, std, 
