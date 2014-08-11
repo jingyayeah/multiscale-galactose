@@ -57,8 +57,7 @@ workerFunc <- function(simId){
 }
 Ncores <- 12
 res <- mclapply(simIds, workerFunc, mc.cores=Ncores)
-rm()
-
+rm(Ncores)
 
 ###############################################################
 # now all the Rdata files exist: 
@@ -126,13 +125,13 @@ createDataMatrices <- function(ids, out.fname, simIds){
     }
   }
   save(x, ids, file=out.fname)
+  return(x)
 }
 
 ## Create timeseries list of lists ##
 # dictionary of the available names
 fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[1])
 ids.dict <- names(data)
-
 
 ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "PP__suc",
          "PV__alb", "PV__gal", "PV__galM", "PV__h2oM", "PV__rbcM", "PV__suc")
@@ -144,7 +143,7 @@ x <- createDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds)
 load(file=x.fname)
 
 
-
+###############################################################
 
 # calculate functions on the reduced sets
 # use t-approx to make the corresponding matrix
@@ -197,6 +196,7 @@ pars$F <- pi*(pars$y_sin^2) * pars$flow_sin
 
 plot(pars$flow_sin, pars$F)
 plot(pars$y_sin, pars$F)
+
 
 
 ## plot the mean timecourses ##
@@ -278,31 +278,41 @@ for (simId in testIds){
 hist(pars$flow_sin, breaks = 40)
 summary(pars$flow_sin)
 
-####################################
-## plot the single timecourses
+###########################################################################
+# Plot large set of single timecourses.
+# The large-scale plot is only possible on the dimension reduced data sets.
+# Select id and plot levels.
 
-# plot some of the timecourses
-id = 'PV__galM'
-par(mfrow=c(1,length(gal_levels)))
+# which ids splitted under which levels
+f.level = "gal_challenge"  # "PP__gal" 
+plot.ids = c('PP__gal', 'PV__gal')
+plot.colors = c( rgb(0.5,0.5,0.5, alpha=0.3), rgb(0.5,0.5,1.0, alpha=0.3) )
+names(plot.colors) <- plot.ids
+
+# set the minimal and maximal time for plotting
+xlimits <- c(1800, 2500)
+ylimits <- c(0.0, 7.0)
+
 # create subplot for all the different levels
-for (gal_level in gal_levels){
+nrow = ceiling(sqrt(length(plot.levels)))
+par(mfrow=c(nrow, nrow))
+plot.levels <- levels(as.factor(pars[[f.level]]))
+for (p.level in plot.levels){
   # empty plot
-  plot(numeric(0), numeric(0), xlim=c(time.min, time.max), ylim=c(0,0.2))
+  plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits, 
+       main=paste(f.level, '=', p.level))
   
-  # find the simulation rows for the level
-  gal_rows <- which(pars$PP__gal==gal_level)
-
+  # find the simulation rows for the level &
   # plot all the single simulations for the level
+  gal_rows <- which(pars[[f.level]]==p.level)
   for (k in gal_rows){
-    points(x[[id]][[k]]$time, x[[id]][[k]][[2]], 
-           type='l', col=rgb(0.5,0.5,0.5, alpha=0.1 ))      
+    for (id in plot.ids){
+      points(x[[id]][[k]]$time, x[[id]][[k]][[2]], 
+           type='l', col=plot.colors[[id]])      
+    }
   }
 }
 par(mfrow=c(1,1))
-
-
-
-
 
 
 df <- tmp[[1]]
@@ -318,46 +328,4 @@ dim(tmp[[500]])
 test <- tmp[[1]]
 head(test)
 plot(test[[1]], test[[2]], ylim=c(0, 0.1))
-
-
-
-rm(list=ls())
-# loads variable of name data
-load('/home/mkoenig/multiscale-galactose-results/2014-07-30_T25/T25/Galactose_v21_Nc20_dilution_Sim30042_roadrunner.csv.Rdata')
-
-test = matrix(data=1.0, nrow =500, ncol=5000)
-
-
-#######################################
-# 
-# create empty matrix first
-createDataMatricesVarSteps <- function(compound_id, dir, simIds, time){
-  Nsim = length(simIds)
-  
-  # compund names
-  compounds <- colnames(datalist[[1]])
-  Nc <- length(compounds)
-  
-  # create empty matrix first
-  mat = vector('list', Nc)
-  names(mat) <- compounds
-  
-  Ntime = length(time)
-  
-  for (kc in seq(Nc)){
-    tmp <- matrix(data=NA, nrow = Ntime, ncol = Nsim)
-    colnames(tmp) <- simulations
-    rownames(tmp) <- time
-    
-    for(ks in seq(Nsim)){
-      data.approx <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, kc], xout=time, method="linear")
-      tmp[, ks] <- data.approx[[2]]
-    }
-    mat[[kc]] <- tmp;
-  }
-  mat
-}
-
-
-# outFile <- preprocess(pars, ma.settings$dir.simdata, time=t.approx)
 
