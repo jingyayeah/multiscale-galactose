@@ -230,14 +230,32 @@ plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
 plotMeanCurves()
 par(mfrow=c(1,1))
      
-
+#########
 # The galactose peaks come almost with the RBC peaks ?
 # why (in single simulation this is different)
-head(pars)
+
+# sort the pars to find matching simulations
+pars.sorted <- pars[with(pars, order(y_cell, y_sin, L, y_dis, flow_sin, PP__gal)), ]
+head(pars.sorted)
 
 
+N=100
 plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
-
+testIds = rownames(pars.sorted)[(1+N*5):(5+N*5)]
+for (simId in testIds){
+  for (kc in seq(length(compounds))){
+    compound <- compounds[kc]
+    print(compound)
+    id <- paste('PV__', compound, sep="")
+    print(id)
+    col <- ccolors[kc]
+    time <- x[[id]][[simId]]$time
+    tmp.data <- x[[id]][[simId]][[2]]
+    points(time, tmp.data, type='l', col=col)
+    tmp.tmax <- time[which.max(tmp.data)]
+    abline(v=tmp.tmax, col=col)
+  }
+}
 
 
 
