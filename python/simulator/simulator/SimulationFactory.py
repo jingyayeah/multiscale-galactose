@@ -290,7 +290,7 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''
@@ -302,7 +302,7 @@ if __name__ == "__main__":
         # deficiencies = range(1, 24)
         derive_deficiency_simulations(task, samples, deficiencies)
     
-    if (0):
+    if (1):
         ''' Reuse the samples from task.
             Necessary to generate the identical geometries than
             for the normal case.
@@ -310,9 +310,10 @@ if __name__ == "__main__":
             should be generated in batch.
         '''
         from simulator.distribution.sampling_tools import get_samples_from_task
-        task = Task.objects.get(pk=1)
+        task = Task.objects.get(pk=26)
         samples = get_samples_from_task(task)
-        # derive_deficiency_simulations(task, samples, deficiencies=range(5,24))
+        deficiencies = range(4,24)
+        derive_deficiency_simulations(task, samples, deficiencies=deficiencies)
         
         
     #----------------------------------------------------------------------#
