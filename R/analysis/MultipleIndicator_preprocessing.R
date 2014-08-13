@@ -13,8 +13,8 @@ library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-# Galactose challange, with galactosemias
-folders <- paste('2014-08-13_T', seq(26,48), sep='')
+# Galactose challenge, with galactosemias
+folders <- paste('2014-08-13_T', seq(31,49), sep='')
 
 for (folder in folders){
   source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 

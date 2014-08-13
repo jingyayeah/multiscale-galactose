@@ -7,20 +7,14 @@
 # author: Matthias Koenig
 # date: 2014-06-11
 ################################################################
+# install.packages('matrixStats')
 rm(list=ls())
 library(data.table)
 library(MultiscaleAnalysis)
 library(libSBML)
 library(matrixStats)
+
 setwd(ma.settings$dir.results)
-
-# Galactose challenge, with galactosemias (peal at t0=2000[s], end of simulation
-# t=10000[s])
-t_end <- 10000
-t_peak <- 2000
-# folder <- '2014-07-30_T26'  # normal
-folder <- '2014-07-30_T27'  # GDEF1
-
 
 ###############################################################
 # Calculate the clearance parameters 
@@ -40,7 +34,7 @@ createClearanceDataFrame <- function(folder, t_peak=2000, t_end=10000){
   # interpolate the half maximal time
   for(ks in seq(Nsim)){
     # fit the point
-    points <- c( 0.5*PV__gal.ss[[ks]] )
+    points <- c( 0.5*mlist$PV__gal[[ks]] )
     data.interp <- approx(x$PV__gal[[ks]][, 2], x$PV__gal[[ks]][, 1], xout=points, method="linear")
     t_half[ks] <- data.interp[[2]] - t_peak
   }
@@ -75,16 +69,10 @@ createClearanceDataFrame <- function(folder, t_peak=2000, t_end=10000){
   return(parscl)
 }
 
-
-folder <- '2014-07-30_T27'  # GDEF1
-parscl <- createClearanceDataFrame(folder)
-
-head(parscl)
-plot(parscl$c_in, parscl$c_out)
-
-plot(parscl$c_in, parscl$t_half, main=folder, ylab='t_half [s]')
-plot(parscl$c_out, parscl$t_half, main=folder, ylab='t_half [s]')
-h1 <- hist(parscl$t_half, breaks=40)
+# Galactose challenge, with galactosemias (peal at t0=2000[s], end of simulation
+# t=10000[s])
+folder <- '2014-08-13_T27'  # GDEF1
+parscl <- createClearanceDataFrame(folder, t_peak=2000, t_end=10000)
 
 
 ###########################################################################
@@ -92,18 +80,12 @@ h1 <- hist(parscl$t_half, breaks=40)
 ###########################################################################
 # combine the clearance data for a set of simulations
 
-folders <- 
-clearance <- list()
-for (k in tasks){
-  task <- paste('T', k, sep='')
-  sname <- paste(date, '_', task, sep='')
-  parsfile <- file.path(ma.settings$dir.results, sname, 
-                      paste(task, '_', modelId, '_parameters.csv', sep=""))
-  pars <- loadParameterFile(file=parsfile)
-  plotParameterHistogramFull(pars)                      
+folders <- paste('2014-08-13_T', seq(26, 30), sep='')
+clearance <- list(length(folders))
+for (folder in folders){
   
-  df <- createClearanceDataFrame(task, pars, parsfile)
-  clearance[[task]] <- df
+  df <- createClearanceDataFrame(folder, t_peak=2000, t_end=10000)
+  clearance[[folder]] <- df
 }
 
 # Merge the data frames for the galactosemias
@@ -113,6 +95,7 @@ for (k in tasks){
 # [9-14] GALT D
 # [15-23] GALE D
 #def_type <- c('normal', rep('GALK DEF')
+
 library('plyr')
 df <- rbind.fill(clearance)
 def_names = c("[0] normal",
@@ -142,8 +125,8 @@ def_names = c("[0] normal",
 df$deficiency <- factor(df$deficiency,
                   levels = seq(0,23),
                   labels = def_names)
-# bind the def types to the dataframe 
-df$def_type <- factor(
+
+
 
 library('ggplot2')
 
