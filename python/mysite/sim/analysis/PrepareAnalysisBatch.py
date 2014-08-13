@@ -1,7 +1,9 @@
+#!/usr/bin/python
 '''
-Created on Jun 11, 2014
+Make the batch analysis of the data for multiple tasks.
 
-@author: mkoenig
+@author: Matthias Koenig
+@date: 2014-08-13
 '''
 
 import os
@@ -9,17 +11,16 @@ import sys
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
-import time
 from sim.models import Task
 from PrepareAnalysis import prepareDataForAnalysis
 
+task_pks = range(29, 46) 
+
 if __name__ == "__main__":
-    date_str = time.strftime("%Y-%m-%d")
-    task_pks = (3, )
+    print task_pks
     for pk in task_pks:
+        print pk
         task = Task.objects.get(pk=pk)
-        directory = '/home/mkoenig/multiscale-galactose-results/' + date_str + '_' + str(task)
-        print directory
-        prepareDataForAnalysis(task, directory)
+        prepareDataForAnalysis(task)
         
         

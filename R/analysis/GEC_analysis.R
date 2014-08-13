@@ -9,43 +9,59 @@
 ################################################################
 rm(list=ls())
 library(data.table)
+library(MultiscaleAnalysis)
 library(libSBML)
 library(matrixStats)
-library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
-ma.settings$simulator <- 'ROADRUNNER'
 
+# Galactose challenge, with galactosemias (peal at t0=2000[s], end of simulation
+# t=10000[s])
+t_end <- 10000
+t_peak <- 2000
+# folder <- '2014-07-30_T26'  # normal
+folder <- '2014-07-30_T27'  # GDEF1
 
 
 ###############################################################
 # Calculate the clearance parameters 
 ###############################################################
-# get the last timepoint of the component
-getLastTimepoint <- function(mat, name){
-  data <- mat[[name]]
-  dims <- dim(data)
-  res <- data[dims[1],]
-}
-
-createClearanceDataFrame <- function(task, pars, parsfile){
-  outfile <- outfileFromParsFile(parsfile)
-  load(outfile)
+createClearanceDataFrame <- function(folder, t_peak=2000, t_end=10000){
+  # loads the x list for the folder
+  source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
+         echo=TRUE, local=FALSE)
   
-  c_in <- getLastTimepoint(preprocess.mat, 'PP__gal')
-  c_out <- getLastTimepoint(preprocess.mat, 'PV__gal')
+  # steady state values for the ids
+  mlist <- createApproximationMatrix(ids=ids, simIds=simIds, points=c(t_end), reverse=FALSE)
   
+  # half maximal time, i.e. time to reach half steady state value
+  t_half <- rep(NA, length(simIds))
+  names(t_half) <- simIds
+  Nsim <- length(simIds)
+  # interpolate the half maximal time
+  for(ks in seq(Nsim)){
+    # fit the point
+    points <- c( 0.5*PV__gal.ss[[ks]] )
+    data.interp <- approx(x$PV__gal[[ks]][, 2], x$PV__gal[[ks]][, 1], xout=points, method="linear")
+    t_half[ks] <- data.interp[[2]] - t_peak
+  }
+  
+  # Clearance parameters for the system #
+  #-------------------------------------
   # F = flow_sin              # [µm/sec]
-  # c_in = 'PP__gal'[end]     # [mmol/l]
-  # c_out = 'PV_gal[end]'          # [mmol/l]
+  # c_in = 'PP__gal'[end]     # [mmol/L]
+  # c_out = 'PV_gal[end]'          # [mmol/L]
   # R = F*(c_in - c_out)      # [m/sec * mmol/l]
   # ER = (c_in - c_out)/c_in  # [-]
   # CL = R/c_in               # [µm/sec]
   # GE = (c_in - c_out) 
   
+  c_in <- as.vector(mlist$PP__gal)   # [mmol/L]
+  c_out <- as.vector(mlist$PV__gal)  # [mmol/L]
+  FL <- pi*(pars$y_sin^2) * pars$flow_sin  # [µm^3/sec]
+  
   parscl <- pars
-  parscl$task <- task
-  FL <- parscl$flow_sin
-  parscl$FL <- FL 
+  parscl$t_half <- as.vector(t_half)
+  parscl$FL <- FL
   parscl$c_in <- c_in
   parscl$c_out <- c_out
   
@@ -54,19 +70,29 @@ createClearanceDataFrame <- function(task, pars, parsfile){
   parscl$CL <- FL * (c_in - c_out)/c_in
   parscl$GE <- (c_in - c_out)
   
+  # reduce to the values with > 0 PP__gal (NAN)
   parscl <- parscl[parscl$c_in>0.0, ]
+  return(parscl)
 }
+
+
+folder <- '2014-07-30_T27'  # GDEF1
+parscl <- createClearanceDataFrame(folder)
+
+head(parscl)
+plot(parscl$c_in, parscl$c_out)
+
+plot(parscl$c_in, parscl$t_half, main=folder, ylab='t_half [s]')
+plot(parscl$c_out, parscl$t_half, main=folder, ylab='t_half [s]')
+h1 <- hist(parscl$t_half, breaks=40)
+
 
 ###########################################################################
 # Create the clearance figures
 ###########################################################################
-# The preprocessing of the data has to be already finished at this point.
-# Here only the combined graphs are generated.
-date = '2014-06-11'
-modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
-tasks <- c(1)
+# combine the clearance data for a set of simulations
 
-# combine the clearance data
+folders <- 
 clearance <- list()
 for (k in tasks){
   task <- paste('T', k, sep='')

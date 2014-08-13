@@ -27,7 +27,13 @@ from sh import rsync
 IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
 # IPS = ('192.168.1.99', '192.168.1.100')
 
-def prepareDataForAnalysis(task, directory):
+def prepareDataForAnalysis(task):
+    import time
+    date_str = time.strftime("%Y-%m-%d")
+    print date_str 
+    directory = MULTISCALE_GALACTOSE_RESULTS + '/' + date_str + '_' + str(task)
+    print directory
+
     if not os.path.exists(directory):
         os.makedirs(directory)
         print 'created: ', directory
@@ -93,8 +99,6 @@ if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-t", "--task", dest="task_pk",
                   help="Provide task pk for analysis")
-    parser.add_option("-d", "--directory", dest="directory",
-                  help="Folder where the data should be prepared")
     
     (options, args) = parser.parse_args()
      
@@ -109,19 +113,7 @@ if __name__ == '__main__':
     if (task == None):
         print 'Task does not exist'
         sys.exit()
-    
-    if (options.directory):
-        directory = options.directory
-        if not os.path.exists(directory):
-            print directory, 'does not exist'
-            sys.exit()
-    else:    
-        import time
-        date_str = time.strftime("%Y-%m-%d")
-        print date_str 
-        directory = MULTISCALE_GALACTOSE_RESULTS + '/' + date_str + '_' + str(task)
-        print directory
-    
-    prepareDataForAnalysis(task, directory)
+     
+    prepareDataForAnalysis(task)
     sys.exit()
     

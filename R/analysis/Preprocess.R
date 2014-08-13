@@ -88,8 +88,12 @@ createDataMatrices <- function(ids, out.fname, simIds){
 # than calculate values on the matrix
 # 1. calculate the matrix 5000 x 200/0.05 (4000)
 #                              x 50/0.01 (5000)   
-createApproximationMatrix <- function(ids, simIds, t.approx){
-  Ntime <- length(t.approx)
+
+# Creates the approximation of the time, data vector.
+# if reverse=FALSE => fit time vector
+# if reverse=TRUE => fit data vector
+createApproximationMatrix <- function(ids, simIds, points, reverse=FALSE){
+  Npoints <- length(points)
   Nsim <- length(simIds)
   
   # setup the results list
@@ -97,19 +101,28 @@ createApproximationMatrix <- function(ids, simIds, t.approx){
   names(mlist) <- ids
   for (id in ids){
     # setup the empty matrix
-    mlist[[id]] <- matrix(data=NA, nrow=Ntime, ncol=Nsim)
+    mlist[[id]] <- matrix(data=NA, nrow=Npoints, ncol=Nsim)
     colnames(mlist[[id]]) <- simIds
-    rownames(mlist[[id]]) <- t.approx
+    rownames(mlist[[id]]) <- points
     
     # fill the matrix with interpolated data
     for(ks in seq(Nsim)){
       datalist <- x[[id]]
-      data.interp <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, 2], xout=t.approx, method="linear")
+      if (reverse == FALSE){
+        # fit the time
+        data.interp <- approx(datalist[[ks]][, 1], datalist[[ks]][, 2], xout=points, method="linear")
+      } else if (reverse == TRUE){
+        # fit the points
+        data.interp <- approx(datalist[[ks]][, 2], datalist[[ks]][, 1], xout=points, method="linear")
+      }
       mlist[[id]][, ks] <- data.interp[[2]]
     }
   }
   return(mlist)
 }
+
+
+
 
 ###############################################################
 # preprocess  - create necessary variables
