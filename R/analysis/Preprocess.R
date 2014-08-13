@@ -176,7 +176,7 @@ if (file.exists(x.fname)){
     data <- readDataForSimulationFile(fname)
     save(data, file=paste(fname, '.Rdata', sep=''))
   }
-  Ncores <- 12
+  Ncores <- 10
   res <- mclapply(simIds, workerFunc, mc.cores=Ncores)
   rm(Ncores)
 
