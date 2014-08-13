@@ -14,13 +14,13 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 # Galactose challange, with galactosemias
-folders <- c('2014-07-30_T25', '2014-07-30_T26', '2014-07-30_T27',
-             '2014-08-13_T28') 
+folders <- paste('2014-08-13_T', seq(26,48), sep='')
+
 for (folder in folders){
   source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
 }
-
+stop('finished preprocessing')
 ###########################################################################
 # Plot large set of single timecourses directly from x
 # The large-scale plot is only possible on the dimension reduced data sets.
