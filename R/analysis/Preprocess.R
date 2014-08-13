@@ -171,12 +171,12 @@ if (file.exists(x.fname)){
   print('# Reading CSV -> Rdata #')
   library(parallel)
   workerFunc <- function(simId){
-    print(simId)
+    # print(simId)
     fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simId)
     data <- readDataForSimulationFile(fname)
     save(data, file=paste(fname, '.Rdata', sep=''))
   }
-  Ncores <- 10
+  Ncores <- 9
   res <- mclapply(simIds, workerFunc, mc.cores=Ncores)
   rm(Ncores)
 
