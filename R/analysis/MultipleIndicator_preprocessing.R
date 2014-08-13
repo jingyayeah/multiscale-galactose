@@ -13,174 +13,57 @@ library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-# folder <- '2014-07-30_T25'
-folder <- '2014-07-30_T26'
-
-
-# read the file information from the folder
-tmp <- strsplit(folder, '_')
-date <- tmp[[1]][1]
-task <- tmp[[1]][2]
-rm(tmp)
-modelXML <- list.files(path=file.path(ma.settings$dir.results, folder), pattern='.xml')
-# remove the '.xml'
-modelId <- substr(modelXML,1,nchar(modelXML)-4)
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, folder, task)
-
-parsfile <- file.path(ma.settings$dir.results, folder, 
-                      paste(task, '_', modelId, '_parameters.csv', sep=""))
-rm(modelXML)
-
-# make a results folder
-dir.create(file.path(folder, 'results'), showWarnings = FALSE)
-
-# read the parameter file
-pars <- loadParameterFile(file=parsfile)
-simIds = rownames(pars)
-head(pars)
-plotParameterHistogramFull(pars)   
-
-###############################################################
-# preprocess data
-###############################################################
-# more efficient preprocessing ?
-# read all the information in Rdata files
-# createColumnDataFiles(pars, dir=ma.settings$dir.simdata)
-
-## parallel preprocessing (mclapply) ##
-library(parallel)
-workerFunc <- function(simId){
-  print(simId)
-  fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simId)
-  data <- readDataForSimulationFile(fname)
-  save(data, file=paste(fname, '.Rdata', sep=''))
-}
-Ncores <- 12
-res <- mclapply(simIds, workerFunc, mc.cores=Ncores)
-rm(Ncores)
-
-###############################################################
-# now all the Rdata files exist: 
-# putting things together from the different calculations to calculate
-# statistical values
-# The variable timesteps have to be accounted for.
-
-## Dimension Reduction ## 
-# Alternative dimension reduction based on the RDP algorithm
-# http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
-# Ramer–Douglas–Peucker algorithm
-reduceDimension <- function(df){
-  # Reduction of dimensionality for given dataframe consisting
-  # of time, data
-  # The first and last element are kept as well as all inner elements, which
-  # are not identical to the previous one in respect to the data
-  Nr = nrow(df)
-  unique_indices <- abs(df[2:(Nr-1),2]-df[1:(Nr-2),2])>1E-8  
-  indices <- c(TRUE, unique_indices, TRUE)
-  res <- df[indices, ]
+# Galactose challange, with galactosemias
+folders <- c('2014-07-30_T25', '2014-07-30_T26', '2014-07-30_T27')
+for (folder in folders){
+  source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
+       echo=TRUE, local=FALSE)
 }
 
-## Add Event timepoints ##
-# necessary to add event points for plotting purposes.
-# Otherwise there are large jumps in the values during plotting
-addEventPoints <- function(df){
-  Nr = nrow(df)
-  event_indices <- 1 + which(abs(df[2:Nr,2]-df[1:(Nr-1),2])>0.1)
-  # add rows to the dataframe at the end
-  rnew <- data.frame( (df[event_indices, 1]-1E-8), df[(event_indices-1),2] )
-  names(rnew) <- names(df)
-  # print(sprintf("%.10f",rnew[1]))
-  df <- rbind(df, rnew)  
-  # sort the data frame
-  df <- df[with(df, order(time)),]
-}
 
-# Creates list of lists for the given ids from the timeseries data.
-# Perfoms Dimensionality reduction and adds interpolated timepoints 
-# for the events
-createDataMatrices <- function(ids, out.fname, simIds){
-  # Create the list for storage of the matrices
-  x <- vector('list', length(ids))
-  names(x) <- ids
+###########################################################################
+# Plot large set of single timecourses directly from x
+# The large-scale plot is only possible on the dimension reduced data sets.
+# Select id and plot levels.
+
+# which ids splitted under which levels
+f.level = "gal_challenge"  # "PP__gal" 
+plot.ids = c('PP__gal', 'PV__gal')
+plot.colors = c( rgb(0.5,0.5,0.5, alpha=0.3), rgb(0.5,0.5,1.0, alpha=0.3) )
+names(plot.colors) <- plot.ids
+
+# set the minimal and maximal time for plotting
+xlimits <- c(1995, 2200)
+ylimits <- c(0.0, 6.0)
+
+# create subplot for all the different levels
+plot.levels <- levels(as.factor(pars[[f.level]]))
+nrow = ceiling(sqrt(length(plot.levels)))
+par(mfrow=c(nrow, nrow))
+for (p.level in plot.levels){
+  # empty plot
+  plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits, 
+       main=paste(f.level, '=', p.level))
   
-  # Create list of lists
-  Nsim = length(simIds)
-  for (id in ids){  
-    x[[id]] <- vector('list', Nsim)
-    names(x[[id]]) <- simIds
-  }
-  
-  # Fill the lists
-  
-  for (ks in seq(Nsim)){
-    cat(ks/Nsim*100, '\n')  
-    # load data as 'data' and put in list
-    fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[ks])
-    load(paste(fname, '.Rdata', sep=''))
-    for (id in ids){
-      df <- data[, c('time', id)];
-      df <- reduceDimension(df)
-      df <- addEventPoints(df)
-      x[[id]][[ks]] <- df
+  # find the simulation rows for the level &
+  # plot all the single simulations for the level
+  gal_rows <- which(pars[[f.level]]==p.level)
+  for (k in gal_rows){
+    for (id in plot.ids){
+      points(x[[id]][[k]]$time, x[[id]][[k]][[2]], 
+             type='l', col=plot.colors[[id]])      
     }
   }
-  save(x, ids, file=out.fname)
-  return(x)
 }
+par(mfrow=c(1,1))
+###########################################################################
 
-## Create timeseries list of lists ##
-# dictionary of the available names
-fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[1])
-ids.dict <- names(data)
-
-ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "PP__suc",
-         "PV__alb", "PV__gal", "PV__galM", "PV__h2oM", "PV__rbcM", "PV__suc")
-x.fname <- paste(folder, '/results/x.Rdata', sep='')
-
-# make the preprocessing
-x <- createDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds)
-# load the data without preprocessing
-load(file=x.fname)
-
-
-###############################################################
-## Calculation of statistical values for the timecourses.
-# Necessary to create a compatible data structure which has values
-# for all timepoints.
-# Use t-approx to create timecourse matrix
-# than calculate values on the matrix
-# 1. calculate the matrix 5000 x 200/0.05 (4000)
-#                              x 50/0.01 (5000)   
-
-createApproximationMatrix <- function(ids, simIds, t.approx){
-  Ntime <- length(t.approx)
-  Nsim <- length(simIds)
-  
-  # setup the results list
-  mlist <- vector('list', length(ids))
-  names(mlist) <- ids
-  for (id in ids){
-    # setup the empty matrix
-    mlist[[id]] <- matrix(data=NA, nrow=Ntime, ncol=Nsim)
-    colnames(mlist[[id]]) <- simIds
-    rownames(mlist[[id]]) <- t.approx
-  
-    # fill the matrix with interpolated data
-    for(ks in seq(Nsim)){
-      datalist <- x[[id]]
-      data.interp <- approx(datalist[[ks]][, 'time'], datalist[[ks]][, 2], xout=t.approx, method="linear")
-      mlist[[id]][, ks] <- data.interp[[2]]
-    }
-  }
-  return(mlist)
-}
-
+## Approximation matrix for full analysis ##
 # approximation time vector for dilution
 t.approx = seq(from=995, to=1050, by=0.2)
 
 # approximation time vector for gal_challange
 t.approx = seq(from=1995, to=2200, by=5)
-t.approx
 mlist <- createApproximationMatrix(ids=ids, simIds=simIds, t.approx=t.approx)
 
 ###############################################################
@@ -328,54 +211,4 @@ for (simId in testIds){
 hist(pars$flow_sin, breaks = 40)
 summary(pars$flow_sin)
 
-###########################################################################
-# Plot large set of single timecourses.
-# The large-scale plot is only possible on the dimension reduced data sets.
-# Select id and plot levels.
-
-# which ids splitted under which levels
-f.level = "gal_challenge"  # "PP__gal" 
-plot.ids = c('PP__gal', 'PV__gal')
-plot.colors = c( rgb(0.5,0.5,0.5, alpha=0.3), rgb(0.5,0.5,1.0, alpha=0.3) )
-names(plot.colors) <- plot.ids
-
-# set the minimal and maximal time for plotting
-xlimits <- c(1800, 2500)
-ylimits <- c(0.0, 7.0)
-
-# create subplot for all the different levels
-nrow = ceiling(sqrt(length(plot.levels)))
-par(mfrow=c(nrow, nrow))
-plot.levels <- levels(as.factor(pars[[f.level]]))
-for (p.level in plot.levels){
-  # empty plot
-  plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits, 
-       main=paste(f.level, '=', p.level))
-  
-  # find the simulation rows for the level &
-  # plot all the single simulations for the level
-  gal_rows <- which(pars[[f.level]]==p.level)
-  for (k in gal_rows){
-    for (id in plot.ids){
-      points(x[[id]][[k]]$time, x[[id]][[k]][[2]], 
-           type='l', col=plot.colors[[id]])      
-    }
-  }
-}
-par(mfrow=c(1,1))
-
-
-df <- tmp[[1]]
-Nr <- nrow(df)
-df[2:(Nr-1),2]
-df[2,]
-
-head(tmp[[1]])
-head(tmp[[100]])
-plot(data$time, data$PV__gal)
-dim(tmp[[500]])
-
-test <- tmp[[1]]
-head(test)
-plot(test[[1]], test[[2]], ylim=c(0, 0.1))
 
