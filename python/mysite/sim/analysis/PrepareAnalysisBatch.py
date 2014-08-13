@@ -14,7 +14,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 from sim.models import Task
 from PrepareAnalysis import prepareDataForAnalysis
 
-task_pks = range(29, 46) 
+task_pks = range(46, 50) 
 
 if __name__ == "__main__":
     print task_pks
