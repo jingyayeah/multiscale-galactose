@@ -14,6 +14,8 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
 # Galactose challenge, with galactosemias
+folder <- '2014-07-30_T25'
+
 folders <- paste('2014-08-13_T', seq(33,49), sep='')
 
 for (folder in folders){
@@ -64,7 +66,7 @@ t.approx = seq(from=995, to=1050, by=0.2)
 
 # approximation time vector for gal_challange
 t.approx = seq(from=1995, to=2200, by=5)
-mlist <- createApproximationMatrix(ids=ids, simIds=simIds, t.approx=t.approx)
+mlist <- createApproximationMatrix(ids=ids, simIds=simIds, points=t.approx)
 
 ###############################################################
 # now calculate things on the matrix 
@@ -78,7 +80,7 @@ plot(pars$y_sin, pars$F)
 #####
 # levels
 f.level = "gal_challenge"  # "PP__gal" 
-
+f.level <- "PP__gal" 
 ## Calculate the matrix
 library('matrixStats')
 compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
@@ -147,8 +149,8 @@ plotMeanCurves <- function(mlist, f.level, compounds, ccolors){
       
       time = as.numeric(rownames(tmp))
       points(time, row.wmeans, col=col, lwd=2, type='l', lty=1)
-      points(time, row.wmeans+row.sds, col='Orange', lwd=2, type='l', lty=1)
-      points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
+      #points(time, row.wmeans+row.sds, col='Orange', lwd=2, type='l', lty=1)
+      #points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
     
     #points(time, row.means, col=col, lwd=2, type='l', lty=1)
     #points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
@@ -168,11 +170,13 @@ plotMeanCurves <- function(mlist, f.level, compounds, ccolors){
   }
 }
 # Dilution
+time.min=995
+
 par(mfrow=c(2,1))
 plot(numeric(0), numeric(0), log='y', xlim=c(time.min, 1025), ylim=c(1E-2,0.5))
-plotMeanCurves()
+plotMeanCurves(mlist, f.level, compounds, ccolors)
 plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
-plotMeanCurves()
+plotMeanCurves(mlist, f.level, compounds, ccolors)
 par(mfrow=c(1,1))
 
 # Gal challenge

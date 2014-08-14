@@ -137,32 +137,36 @@ library('mgcv')
 g <- ggplot(df, aes(c_in, c_in-c_out))
 g1 <- g + geom_abline(intercept=0, slope=1, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (periportal) [mM]") + ylab("Galactose (periportal-perivenious) [mM]") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
 plot(g1)
+# Calculate the height and width (in pixels) for a 4x4-inch image at 300 ppi
+ppi <- 150
+png("/home/mkoenig/tmp/cin_cout.png", width=12*ppi, height=4*ppi, res=ppi)
+plot(g1)
+dev.off()
+
 
 # ER
 g <- ggplot(df, aes(c_in, ER))
 g2 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (periportal) [mM]") + ylab("Elimination Ratio (ER)") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
 plot(g2)
+png("/home/mkoenig/tmp/ER.png", width=12*ppi, height=4*ppi, res=ppi)
+plot(g2)
+dev.off()
 
-# FL * c_in - c_out
+# FL * (c_in - c_out)
 g <- ggplot(df, aes(c_in, FL*(c_in-c_out)))
 g3 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (periportal) [mM]") + ylab("Elimination Ratio (ER)") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
 plot(g3)
 
 # t_half
 g <- ggplot(df, aes(c_out, t_half))
-g4 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (periportal) [mM]") + ylab("Elimination Ratio (ER)") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
+g4 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (perivenious) [mM]") + ylab("t_half [s]") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
 plot(g4)
-
-# Save the plots
-svg("/home/mkoenig/tmp/test.svg", width=8, height=4)
-plot(g1)
+png("/home/mkoenig/tmp/t_half.png", width=12*ppi, height=4*ppi, res=ppi)
+plot(g4)
 dev.off()
 
-# Calculate the height and width (in pixels) for a 4x4-inch image at 300 ppi
-ppi <- 150
-png("/home/mkoenig/tmp/test.png", width=8*ppi, height=4*ppi, res=ppi)
-plot(g1)
-dev.off()
+
+
 
 
 
