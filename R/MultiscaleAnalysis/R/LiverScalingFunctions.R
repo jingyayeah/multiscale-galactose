@@ -57,7 +57,7 @@ extendParameterStructure <- function(pars, fixed_ps, model){
       # create a variable with the name
       X[[pid]] <- rep(value, Nsim)
     } else {
-      cat('parameter not in model:', name, '\n')    
+      cat('parameter not in model:', pid, '\n')    
     }
   }
   

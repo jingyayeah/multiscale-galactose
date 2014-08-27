@@ -3,6 +3,7 @@
 export(calculateProbabilitiesForVariables)
 export(calculateSampleProbability)
 export(correctDilutionTimes)
+export(createClearanceDataFrame)
 export(createColumnDataFiles)
 export(createDataFromHistogramm)
 export(createDataMatrices)
