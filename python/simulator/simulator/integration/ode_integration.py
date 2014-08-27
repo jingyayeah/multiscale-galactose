@@ -17,7 +17,7 @@ from django.core.files import File
 from django.utils import timezone
 
 from sim.PathSettings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
-from sim.models import Timecourse
+from sim.models import Timecourse, NONE_SBML_PARAMETER
 from sim.models import DONE, ERROR, COPASI, ROADRUNNER
 from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
@@ -113,14 +113,16 @@ def integrate_roadrunner(sims):
             sim.time_assign = timezone.now() # correction due to bulk assignment
             changes = dict()
             for p in sim.parameters.all():
-                name = p.name
+                if (p.ptype == NONE_SBML_PARAMETER):
+                    continue
+                
+                name = str(p.name) # handle unicode from db
                 if (p.ptype == GLOBAL_PARAMETER):
                     pass
                 elif (p.ptype == BOUNDERY_INIT):
                     name = "".join(['[', name, ']'])
                 elif (p.ptype == FLOATING_INIT):
                     name = "".join(['init([', name, '])'])
-                name = str(name)
                 
                 # now set the value for the correct name
                 changes[name] = rr.model[name]
@@ -178,5 +180,5 @@ if __name__ == "__main__":
     from sim.models import Simulation
     
     sims = [Simulation.objects.filter(task__pk=1)[0], ]
-    integrate(sims, simulator=ROADRUNNER)
-    integrate(sims, simulator=COPASI)
+    integrate(sims, integrator=ROADRUNNER)
+    # integrate(sims, simulator=COPASI)

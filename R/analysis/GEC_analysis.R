@@ -24,7 +24,10 @@ setwd(ma.settings$dir.results)
 # t=10000[s])
 
 # load parameter structure
-folder <- '2014-08-13_T26'  # normal
+#folder <- '2014-08-13_T26'  # normal
+
+folder <- '2014-08-27_T1'  # normal flow
+
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
 

@@ -160,9 +160,9 @@ if __name__ == "__main__":
     #-----------------------------------------------
     #task = Task.objects.get(pk=1)
     #print task
-    #unassignAssignedHangingSimulations(task=task, cutoff_minutes=10);
-    unassignErrorHangingSimulations(task=None, cutoff_minutes=-1);
-    # unassignErrorHangingSimulations(cutoff_minutes=-1);
+    # unassignAssignedHangingSimulations(task=task, cutoff_minutes=10);
+    # unassignErrorHangingSimulations(task=None, cutoff_minutes=-1);
+    unassignErrorHangingSimulations(cutoff_minutes=-1);
     
     #-----------------------------------------------
     #     Unassign by computer
@@ -186,7 +186,7 @@ if __name__ == "__main__":
     #     Remove simulations for tasks
     #-----------------------------------------------
     # TODO: also clean the tmp files and local files after removing simulations
-    #task_pks = (2,)
+    #task_pks = (1,)
     #for pk in task_pks:
     #    task = Task.objects.get(pk=pk)
     #    removeSimulationsForTask(task)

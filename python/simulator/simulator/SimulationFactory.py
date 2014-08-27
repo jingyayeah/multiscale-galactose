@@ -20,6 +20,7 @@ import logging
 import numpy as np
 from subprocess import call
 from django.core.exceptions import ObjectDoesNotExist
+from copy import deepcopy
 
 import sim.PathSettings
 from sim.PathSettings import SBML_DIR
@@ -28,6 +29,14 @@ from sim.models import *
 
 from simulator.distribution.distributions import getGalactoseDistributions, getDemoDistributions
 from simulator.distribution.sampling import createParametersBySampling
+
+
+def deep_copy_samples(samples):
+    ''' A full deep copy of the samples list. 
+        Necessary to create derived samples.
+    '''
+    new_samples = deepcopy(samples)
+    return new_samples
 
 
 def createDemoSamples(N, sampling):
@@ -41,12 +50,19 @@ def createGalactoseSamples(N, sampling):
     samples = setDeficiencyInSamples(samples, deficiency=0)
     return samples
 
-def createFlowSamples(N, sampling, flow_range):
-    #TODO
-    pass
-    
-    
-    
+def createFlowSamples(N, sampling, f_flows):
+    ''' Create samples for the different flow adaptions. '''
+    dist_data = getGalactoseDistributions()
+    raw_samples = createParametersBySampling(dist_data, N, sampling);
+    raw_samples = setDeficiencyInSamples(raw_samples, deficiency=0)
+    samples = []
+    # Go over the flow range and create the flow samples, set the flow parameter in all cases
+    for f_flow in f_flows:
+        tmp_samples = deep_copy_samples(raw_samples)
+        tmp_samples = adapt_flow_in_samples(tmp_samples, f_flow)
+        samples.extend(tmp_samples)
+    return samples
+        
 
 def setDeficiencyInSamples(samples, deficiency=0):
     return setParameterInSamples(samples, 'deficiency', deficiency, '-', GLOBAL_PARAMETER)
@@ -83,10 +99,7 @@ def adapt_flow_in_samples(samples, f_flow):
         if (s.has_key("flow_sin")):
             name, value, unit, ptype = s["flow_sin"];
             s["flow_sin"] = (name, value*f_flow, unit, ptype)
-            
-            # TODO: store the adaptation of the value
-            # TODO: handle multiple adaptations of flow
-            # s["f_flow"] = ("f_flow", f_flow, unit, ptype)
+            s["f_flow"] = ("f_flow", f_flow, '-', NONE_SBML_PARAMETER)
     return samples
 
 
@@ -213,7 +226,7 @@ def make_galactose_challenge(sbml_id, N):
     # parameter samples
     raw_samples = createGalactoseSamples(N=N, sampling='distribution') 
     # gal_challenge = np.arange(0.5, 7.0, 0.5)
-    gal_challenge = np.arange(0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0)
+    gal_challenge = (0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0)
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
@@ -225,17 +238,17 @@ def make_galactose_challenge(sbml_id, N):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-# TODO: proper definition of the flow
 
-def make_galactose_challenge_flow(sbml_id, N):        
+def make_galactose_flow(sbml_id, N):        
     info = '''Simulation of varying galactose challenge periportal to steady state under different flows'''
     model = create_django_model(sbml_id, sync=True)
     
-    # parameter samples
-    raw_samples = createGalactoseSamples(N=N, sampling='distribution')
-     
-    # gal_challenge = np.arange(0.5, 7.0, 0.5)
-    gal_challenge = np.arange(0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0)
+    # adapt flow in samples with the given f_flows
+    f_flows = (0.5, 0.4, 0.3, 0.2, 0.1)
+    raw_samples = createFlowSamples(N=N, sampling='distribution', f_flows=f_flows)
+    
+    # only test the max GEC
+    gal_challenge = (8.0, )
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
@@ -243,7 +256,7 @@ def make_galactose_challenge_flow(sbml_id, N):
     integration = Integration.get_or_create_integration(settings)
     task = create_task(model, integration, info=info)
     createSimulationsForSamples(task, samples)
-    
+
     return (task, samples)
 
 #----------------------------------------------------------------------#
@@ -283,7 +296,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 22
+    VERSION = 24
     
     #----------------------------------------------------------------------#
     if (0):
@@ -322,11 +335,11 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''
-        sbml_id = "Galactose_v{}_Nc20_galactose-challenge".format(VERSION)
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         task, samples = make_galactose_challenge(sbml_id, N=100)
         
         if (0):
@@ -348,6 +361,14 @@ if __name__ == "__main__":
         deficiencies = range(4,24)
         derive_deficiency_simulations(task, samples, deficiencies=deficiencies)
         
+    #----------------------------------------------------------------------#
+    if (1):
+        '''
+        Galactose elimination under different flow distributions (scaled).
+        '''
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
+        task, samples = make_galactose_flow(sbml_id, N=10)
+    
         
     #----------------------------------------------------------------------#
     if (0):
@@ -355,7 +376,7 @@ if __name__ == "__main__":
         Galactose stepwise increase.
         '''
         # make_galactose_step(sbml_id="Galactose_v{}_Nc1_galactose-step".format(VERSION), N=10)    
-        make_galactose_step(sbml_id="Galactose_v{}_Nc20_galactose-step".format(VERSION), N=100) 
+        make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".format(VERSION), N=100) 
         
     #----------------------------------------------------------------------#
     if (0):
