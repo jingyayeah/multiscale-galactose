@@ -37,7 +37,7 @@ def createDemoSamples(N, sampling):
 def createGalactoseSamples(N, sampling):
     dist_data = getGalactoseDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
-    samples = adaptFlowInSamples(samples)
+    samples = adaptFlowInSamples(samples, f_flow=0.47)
     samples = setDeficiencyInSamples(samples, deficiency=0)
     return samples
 
@@ -67,14 +67,13 @@ def setParameterValuesInSamples(raw_samples, pid, values, unit, ptype):
     return samples
 
     
-def adaptFlowInSamples(samples):
+def adaptFlowInSamples(samples, f_flow):
     '''
     flow is adapted due to scaling to full liver architecture
         TODO: make this consistent, this is not good and seems like dirty fix
         TODO: make a class for the parameters
     '''
     print 'flow adaptation'
-    f_flow = 0.47
     for s in samples:
         if (s.has_key("flow_sin")):
             name, value, unit, ptype = s["flow_sin"];
@@ -204,7 +203,8 @@ def make_galactose_challenge(sbml_id, N):
     
     # parameter samples
     raw_samples = createGalactoseSamples(N=N, sampling='distribution') 
-    gal_challenge = np.arange(0, 6.5, 0.5)
+    # gal_challenge = np.arange(0.5, 7.0, 0.5)
+    gal_challenge = np.arange(0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0)
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
@@ -214,6 +214,29 @@ def make_galactose_challenge(sbml_id, N):
     createSimulationsForSamples(task, samples)
     
     return (task, samples)
+
+#----------------------------------------------------------------------#
+# TODO: proper definition of the flow
+
+def make_galactose_challenge_flow(sbml_id, N):        
+    info = '''Simulation of varying galactose challenge periportal to steady state under different flows'''
+    model = create_django_model(sbml_id, sync=True)
+    
+    # parameter samples
+    raw_samples = createGalactoseSamples(N=N, sampling='distribution')
+     
+    # gal_challenge = np.arange(0.5, 7.0, 0.5)
+    gal_challenge = np.arange(0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0)
+    samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
+    
+    # simulations
+    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
+    integration = Integration.get_or_create_integration(settings)
+    task = create_task(model, integration, info=info)
+    createSimulationsForSamples(task, samples)
+    
+    return (task, samples)
+
 #----------------------------------------------------------------------#
 def make_galactose_step(sbml_id, N):        
     info = '''Simulation of stepwise increase of periportal galactose.'''
@@ -251,7 +274,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 21
+    VERSION = 22
     
     #----------------------------------------------------------------------#
     if (0):
@@ -290,19 +313,20 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Galactose challenge after certain time and simulation to steady state.
         '''
         sbml_id = "Galactose_v{}_Nc20_galactose-challenge".format(VERSION)
         task, samples = make_galactose_challenge(sbml_id, N=100)
         
-        # Create deficiency samples belonging to the original samples
-        deficiencies = range(1,4)
-        # deficiencies = range(1, 24)
-        derive_deficiency_simulations(task, samples, deficiencies)
+        if (0):
+            # Create deficiency samples belonging to the original samples
+            deficiencies = range(1,4)
+            # deficiencies = range(1, 24)
+            derive_deficiency_simulations(task, samples, deficiencies)
     
-    if (1):
+    if (0):
         ''' Reuse the samples from task.
             Necessary to generate the identical geometries than
             for the normal case.

@@ -42,34 +42,40 @@ parscl <- createClearanceDataFrame(t_peak=2000, t_end=10000)
 parscl <- parscl[parscl$c_in>0.0, ]
 summary(parscl)
 
-# get the sum, mean and median data for the sample
-test <- list()
+# get the clearance parameters for the highest gal challenge
+max(parscl$c_in)
+parscl.max <- parscl[parscl$c_in == max(parscl$c_in), ]
+head(parscl.max)
+
+plot(parscl$flow_sin, parscl$R)
 
 # Part of the liver is large vessels. This has to be corrected for.
-f_tissue = 0.75;
+f_tissue <- 0.75;
+Vol_liv <- parscl$Vol_liv[1]
+
 
 # total flow samples
-test$sum.Q_sinunit <- sum(parscl$Q_sinunit)     # [m^3/sec]
-test$sum.Vol_sinunit <- sum(parscl$Vol_sinunit) # [m^3]
-test$sum.R <- sum(parscl$R)                     # [mole/sec]
+test <- list()
+test$sum.Q_sinunit <- sum(parscl.max$Q_sinunit)     # [m^3/sec]
+test$sum.Vol_sinunit <- sum(parscl.max$Vol_sinunit) # [m^3]
+test$sum.R <- sum(parscl.max$R)                     # [mole/sec]
 
-test$Q_sinunit_per_vol <- sum(parscl$Q_sinunit)/sum(parscl$Vol_sinunit) # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)]
-test$R_per_vol <- sum(parscl$R)/sum(parscl$Vol_sinunit)                 # [mole/sec/m^3(liv)]
+test$Q_sinunit_per_vol <- sum(parscl.max$Q_sinunit)/sum(parscl.max$Vol_sinunit) # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)]
+test$R_per_vol <- sum(parscl.max$R)/sum(parscl.max$Vol_sinunit)                 # [mole/sec/m^3(liv)]
 
 test$Q_sinunit_per_vol_units <- test$Q_sinunit_per_vol*60  # [ml/min/ml(liv)]
 test$R_per_vol_units <- test$R_per_vol*60/1000             # [mmole/min/ml(liv)]
 
-test$Q_sinunit_per_liv_units <- test$Q_sinunit_per_vol_units * parscl$Vol_liv[1]*1E6     # [L/min]
-test$R_per_liv_units <- test$R_per_vol*60/1000 * parscl$Vol_liv[1] *1E6                   # [mmole/min]
+test$Q_sinunit_per_liv_units <- test$Q_sinunit_per_vol_units * Vol_liv*1E6     # [L/min]
+test$R_per_liv_units <- test$R_per_vol*60/1000 * Vol_liv*1E6                   # [mmole/min]
 
 
-test$Q_sinunit_tissue_per_liv_units <- test$Q_sinunit_per_vol_units * parscl$Vol_liv[1]*1E6 *f_tissue     # [L/min]
-test$R_tissue_per_liv_units <- test$R_per_vol*60/1000 * parscl$Vol_liv[1] *1E6              *f_tissue     # [mmole/min]
-
-
+test$Q_sinunit_tissue_per_liv_units <- test$Q_sinunit_per_vol_units * Vol_liv*1E6 *f_tissue     # [L/min]
+test$R_tissue_per_liv_units <- test$R_per_vol*60/1000 * Vol_liv*1E6              *f_tissue     # [mmole/min]
 
 test
 
+boxplot(parscl$Q_sinunit/parscl$Vol_sinunit)
 
 names(parscl)
 plot(parscl$c_in, parscl$c_out)
