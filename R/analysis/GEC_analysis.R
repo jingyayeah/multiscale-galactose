@@ -29,21 +29,122 @@ source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'),
        echo=TRUE, local=FALSE)
 
 # Extend the parameters with the SBML parameters and calculated parameters
-head(pars)
 ps <- getParameterTypes(pars=pars)
 f.sbml <- file.path(ma.settings$dir.results, folder, paste(modelId, '.xml', sep=''))
 model <- loadSBMLModel(f.sbml)
-ps$fixed
-
 pars <- extendParameterStructure(pars=pars, fixed_ps=ps$fixed, model=model)
-
 head(pars)
 
-# calculate the clearance parameters
-parscl <- createClearanceDataFrame(folder, t_peak=2000, t_end=10000)
+# calculate the clearance parameters:
+parscl <- createClearanceDataFrame(t_peak=2000, t_end=10000)
 
-# Calculate overall values for the set of samples, i.e. for the clearance
-# data.frame
+# reduce to the values with > 0 PP__gal (NAN)
+parscl <- parscl[parscl$c_in>0.0, ]
+summary(parscl)
+
+# get the sum, mean and median data for the sample
+test <- list()
+
+# Part of the liver is large vessels. This has to be corrected for.
+f_tissue = 0.75;
+
+# total flow samples
+test$sum.Q_sinunit <- sum(parscl$Q_sinunit)     # [m^3/sec]
+test$sum.Vol_sinunit <- sum(parscl$Vol_sinunit) # [m^3]
+test$sum.R <- sum(parscl$R)                     # [mole/sec]
+
+test$Q_sinunit_per_vol <- sum(parscl$Q_sinunit)/sum(parscl$Vol_sinunit) # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)]
+test$R_per_vol <- sum(parscl$R)/sum(parscl$Vol_sinunit)                 # [mole/sec/m^3(liv)]
+
+test$Q_sinunit_per_vol_units <- test$Q_sinunit_per_vol*60  # [ml/min/ml(liv)]
+test$R_per_vol_units <- test$R_per_vol*60/1000             # [mmole/min/ml(liv)]
+
+test$Q_sinunit_per_liv_units <- test$Q_sinunit_per_vol_units * parscl$Vol_liv[1]*1E6     # [L/min]
+test$R_per_liv_units <- test$R_per_vol*60/1000 * parscl$Vol_liv[1] *1E6                   # [mmole/min]
+
+
+test$Q_sinunit_tissue_per_liv_units <- test$Q_sinunit_per_vol_units * parscl$Vol_liv[1]*1E6 *f_tissue     # [L/min]
+test$R_tissue_per_liv_units <- test$R_per_vol*60/1000 * parscl$Vol_liv[1] *1E6              *f_tissue     # [mmole/min]
+
+
+
+test
+
+
+names(parscl)
+plot(parscl$c_in, parscl$c_out)
+plot(parscl$flow_sin, (parscl$c_in - parscl$c_out)/parscl$c_in)
+
+
+
+
+
+###########################################################################
+# Scale to whole-liver
+###########################################################################
+# The conversion factor via flux and via volume have to be the same.
+# They are calculated based on the weighted distributions of the parameters. 
+# But they have to be calculated over the distribution of geometries
+# N_Q = Q_liv/Q_sinunit;
+# N_Vol = N_Q
+# N_Vol = f_tissue*Vol_liv/Vol_sinunit  => f_tissue = N_Vol * Vol_sinunit/Vol_liv
+# -20% large vessels
+
+# calculate conversion factors
+calculateConversionFactors <- function(pars){
+  res <- list()
+  f_tissue = 0.75;
+  
+  # varies depending on parameters
+  Q_sinunit.wmean <- wt.mean(pars[['Q_sinunit']], pars$p_sample)
+  Q_sinunit.wsd <- wt.sd(pars[['Q_sinunit']], pars$p_sample)
+  Vol_sinunit.wmean <- wt.mean(pars[['Vol_sinunit']], pars$p_sample)
+  Vol_sinunit.wsd <- wt.sd(pars[['Vol_sinunit']], pars$p_sample)
+  
+  # constant normal value
+  Q_liv.wmean <- wt.mean(pars[['Q_liv']], pars$p_sample)
+  Q_liv.wsd <- wt.sd(pars[['Q_liv']], pars$p_sample)
+  Vol_liv.wmean <- wt.mean(pars[['Vol_liv']], pars$p_sample)
+  Vol_liv.wsd <- wt.sd(pars[['Vol_liv']], pars$p_sample)
+  N_Vol = f_tissue*Vol_liv.wmean/Vol_sinunit.wmean
+  N_Q1 = Q_liv.wmean/Q_sinunit.wmean
+  f_flow = N_Q1/N_Vol
+  N_Q = N_Q1/f_flow
+  
+  cat('N_Q: ', N_Q, '\n')
+  cat('N_Vol: ', N_Vol, '\n')
+  cat('N_Vol/N_Q1: ', N_Vol/N_Q1, '\n')
+  cat('N_Vol/N_Q: ',  N_Vol/N_Q, '\n')
+  cat('f_flow: ', f_flow, '\n')
+  
+  res$N_Q <- N_Q
+  res$N_Vol <- N_Vol
+  res$f_tissue <- f_tissue
+  res$f_flow <- f_flow
+  res
+}
+res <- calculateConversionFactors(pars)
+names(res)
+
+###########################################################################
+# Scale things to whole liver
+###########################################################################
+# How do changes in liver size and blood flow change the results
+# [A] liver size -> different conversion factor with
+# N_Vol.new = N_Vol.alt * Vol_liv.new/Vol_liv.ref 
+# => parameters are scaled linearly with the liver volume (i.e. smaller or bigger liver
+#     with same constitution)
+
+# [B] changes in global blood flow
+# N_Q.new = f_tissue * N_Vol.new
+# -> new meanstd & variance for local blood flow
+# Q_liv.wmean.new = Q_liv.wmean * N_Q.new/N_Q
+# i.e. if the blood flow goes down, than the mean velocity through the sinusoids goes down
+
+
+
+
+
 
 
 ###########################################################################

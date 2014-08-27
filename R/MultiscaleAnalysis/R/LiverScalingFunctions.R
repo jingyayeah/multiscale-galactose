@@ -62,25 +62,24 @@ extendParameterStructure <- function(pars, fixed_ps, model){
   }
   
   attach(X)   	
-  x_cell 	= 	L/Nc
-  x_sin 	= 	x_cell
-  A_sin 	= 	pi*y_sin^2 		
-  A_dis 	= 	pi*(y_sin+y_dis)^2-A_sin 		
-  A_sindis 	= 	2*pi*y_sin*x_sin 		
-  Vol_sin 	= 	A_sin*x_sin 		
-  Vol_dis 	= 	A_dis*x_sin 		
-  Vol_cell 	= 	pi*(y_sin+y_dis+y_cell)^2*x_cell-pi*(y_sin+y_dis)^2*x_cell 		
-  Vol_pp 	= 	Vol_sin 		
-  Vol_pv 	= 	Vol_sin
-  f_sin   = 	Vol_sin/(Vol_sin+Vol_dis+Vol_cell) 		
-  f_dis 	= 	Vol_dis/(Vol_sin+Vol_dis+Vol_cell) 		
-  f_cell 	= 	Vol_cell/(Vol_sin+Vol_dis+Vol_cell) 		
-  Vol_sinunit 	= 	L*pi*(y_sin+y_dis+y_cell)^2 		
-  Q_sinunit 	= 	pi*y_sin^2*flow_sin 		
-  m_liv 	= 	rho_liv*Vol_liv 		
-  q_liv 	= 	Q_liv/m_liv
+  x_cell 	= 	L/Nc  # [m]
+  x_sin 	= 	x_cell  # [m]
+  A_sin 	= 	pi*y_sin^2  # [m^2] 		
+  A_dis 	= 	pi*(y_sin+y_dis)^2-A_sin  # [m^2] 		
+  A_sindis 	= 	2*pi*y_sin*x_sin  # [m^2] 		
+  Vol_sin 	= 	A_sin*x_sin  # [m^3] 		
+  Vol_dis 	= 	A_dis*x_sin  # [m^3] 		
+  Vol_cell 	= 	pi*(y_sin+y_dis+y_cell)^2*x_cell-pi*(y_sin+y_dis)^2*x_cell  # [m^3]
+  Vol_pp 	= 	Vol_sin  # [m^3] 		
+  Vol_pv 	= 	Vol_sin  # [m^3]
+  f_sin   = 	Vol_sin/(Vol_sin+Vol_dis+Vol_cell)  # [-]
+  f_dis 	= 	Vol_dis/(Vol_sin+Vol_dis+Vol_cell)  # [-] 		
+  f_cell 	= 	Vol_cell/(Vol_sin+Vol_dis+Vol_cell) # [-] 		
+  Vol_sinunit 	= 	L*pi*(y_sin+y_dis+y_cell)^2   # [m^3] 		
+  Q_sinunit 	= 	A_sin*flow_sin                  # [m^3/sec] 		
+  m_liv 	= 	rho_liv*Vol_liv   # [kg] 		
+  q_liv 	= 	Q_liv/m_liv       # [m^3/sec/kg]
   
-
   X$x_cell = x_cell
   X$x_sin = x_sin
   X$A_sin = A_sin
