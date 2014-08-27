@@ -29,17 +29,14 @@ source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'),
        echo=TRUE, local=FALSE)
 
 # Extend the parameters with the SBML parameters and calculated parameters
+head(pars)
 ps <- getParameterTypes(pars=pars)
 f.sbml <- file.path(ma.settings$dir.results, folder, paste(modelId, '.xml', sep=''))
 model <- loadSBMLModel(f.sbml)
-model <- loadSBMLModel('test.xml')
-model
-lofp <- Model_getName(model)
-lofp <- Model_getId(model)
-Model_getI
-lofp
+ps$fixed
 
 pars <- extendParameterStructure(pars=pars, fixed_ps=ps$fixed, model=model)
+
 head(pars)
 
 # calculate the clearance parameters

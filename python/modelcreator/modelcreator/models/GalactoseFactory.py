@@ -16,8 +16,8 @@ from modelcreator.events.event_factory import createGalactoseStepEventData
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 1
-    version = 21
+    Nc = 20
+    version = 22
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='core', events=None)
     tm.createModel()
-    tm.writeSBML()    
+    tm.writeSBML()   
     tm.storeInDatabase()
     del tm
 

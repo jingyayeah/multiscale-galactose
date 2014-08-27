@@ -61,10 +61,9 @@ extendParameterStructure <- function(pars, fixed_ps, model){
     }
   }
   
-  attach(X)
-  Nb   =     Nf*Nc   	
+  attach(X)   	
   x_cell 	= 	L/Nc
-  x_sin 	= 	x_cell/Nf
+  x_sin 	= 	x_cell
   A_sin 	= 	pi*y_sin^2 		
   A_dis 	= 	pi*(y_sin+y_dis)^2-A_sin 		
   A_sindis 	= 	2*pi*y_sin*x_sin 		
@@ -81,7 +80,7 @@ extendParameterStructure <- function(pars, fixed_ps, model){
   m_liv 	= 	rho_liv*Vol_liv 		
   q_liv 	= 	Q_liv/m_liv
   
-  X$Nb = Nb  	
+
   X$x_cell = x_cell
   X$x_sin = x_sin
   X$A_sin = A_sin
