@@ -4,18 +4,17 @@
 # The glactose elimination capacity changes with age. Other
 # typically oberved alterations are reduced GEC in disease.
 # Best example is the reduced GEC in cirrhosis.
-# Here only data which has age information associated with the gec.
+# Here only data which has age information associated with the GEC
 
 # author: Matthias Koenig
 # date: 2014-04-17
-
 ###############################################################
+
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
+create_plots = TRUE
 
-###############################################################
-# Load experimental data 
 ###############################################################
 ## Marchesini1988 ##
 ###############################################################
@@ -32,16 +31,13 @@ rm(data)
 summary(mar1988)
 head(mar1988)
 
-# Linear Regression of the data sets
+## Linear Regression ##
 lm.fig1 <- lm(mar1988$GEC ~ mar1988$age)
 lm.fig2 <- lm(mar1988$HPI ~ mar1988$age)
 lm.fig3 <- lm(mar1988$GEC ~ mar1988$HPI)
+# plot(lm.fig1) # Evaluation of the fit
 
-# Evaluation of the fit
-# plot(lm.fig1)
-
-# Create the figure with the fit
-create_plots = FALSE
+## Figures ##
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Marchesini1988.png'),
     width = 800, height = 2000, units = "px", bg = "white",  res = 150)
@@ -99,13 +95,12 @@ head(sch1986.fig2)
 sch1986.fig3 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Schnegg1986_Fig3.csv"), sep="\t")
 head(sch1986.fig3)
 
-# Linear Regression of the data sets
+## Linear Regression ##
 sch1986.lm1 <- lm(sch1986.fig1$GEC ~ sch1986.fig1$age)
 sch1986.lm2 <- lm(sch1986.fig2$Caf ~ sch1986.fig2$age)
 sch1986.lm3 <- lm(sch1986.fig3$AP ~ sch1986.fig3$age)
 
-# Create the figure with the fit
-create_plots=FALSE
+## Create Figures ##
 if (create_plots==TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Schnegg1986.png'),
     width = 800, height = 2000, units = "px", bg = "white",  res = 150)
@@ -149,7 +144,6 @@ lan2011.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Lange2
 head(lan2011.fig1)
 summary(lan2011.fig1)
 
-create_plots=FALSE
 if (create_plots==TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Lange2011.png'),
       width = 800, height = 800, units = "px", bg = "white",  res = 150)
@@ -190,7 +184,6 @@ printCategoryPoints <- function(data,
 }
 
 # Create the data plot
-create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Wynne1989.png'),
       width = 800, height = 1200, units = "px", bg = "white",  res = 150)
@@ -238,10 +231,9 @@ head(win1965)
 summary(win1965)
 
 ## figure ##
-create_plots = FALSE
 if (create_plots == TRUE){
   png(filename=file.path(ma.settings$dir.results, 'Winkler1965.png'),
-      width = 800, height = 800, units = "px", bg = "white",  res = 150)
+      width = 800, height = 1200, units = "px", bg = "white",  res = 150)
 }
 par(mfrow=c(2,1))
 plot(numeric(0), numeric(0), xlim=c(0,90), ylim=c(0,5), 

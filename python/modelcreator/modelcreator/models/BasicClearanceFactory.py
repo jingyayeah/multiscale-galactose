@@ -24,8 +24,8 @@ def createClearanceDilutionEventData(time_start, duration):
 if __name__ == "__main__":
 
     # definition of cell model and tissue model
-    Nc = 1
-    version = 3
+    Nc = 20
+    version = 4
     cell_model = CellModel.createModel('clearance.BasicClearanceCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'clearance.BasicClearanceSinusoid']) 

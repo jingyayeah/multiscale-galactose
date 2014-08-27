@@ -2,48 +2,61 @@
 ## Galactose Clearance & Elimination Curves ##
 ################################################################
 # Analysis of the galactose elimination simulations with varying
-# galactose and varying blood flow
+# galactose and varying blood flow.
+# Calculation of the per_volume_values
 #
 # author: Matthias Koenig
-# date: 2014-06-11
+# date: 2014-08-27
 ################################################################
+# install.packages('matrixStats')
 rm(list=ls())
 library(data.table)
+library(MultiscaleAnalysis)
 library(libSBML)
 library(matrixStats)
-library(MultiscaleAnalysis)
+
 setwd(ma.settings$dir.results)
-ma.settings$simulator <- 'ROADRUNNER'
 
 ###############################################################
 # Calculate the clearance parameters 
 ###############################################################
-# get the last timepoint of the component
-getLastTimepoint <- function(mat, name){
-  data <- mat[[name]]
-  dims <- dim(data)
-  res <- data[dims[1],]
-}
-
-createClearanceDataFrame <- function(task, pars, parsfile){
-  outfile <- outfileFromParsFile(parsfile)
-  load(outfile)
+createClearanceDataFrame <- function(folder, t_peak=2000, t_end=10000){
+  # loads the x list for the folder
+  source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
+         echo=TRUE, local=FALSE)
   
-  c_in <- getLastTimepoint(preprocess.mat, 'PP__gal')
-  c_out <- getLastTimepoint(preprocess.mat, 'PV__gal')
+  # steady state values for the ids
+  mlist <- createApproximationMatrix(ids=ids, simIds=simIds, points=c(t_end), reverse=FALSE)
   
+  # half maximal time, i.e. time to reach half steady state value
+  t_half <- rep(NA, length(simIds))
+  names(t_half) <- simIds
+  Nsim <- length(simIds)
+  # interpolate the half maximal time
+  for(ks in seq(Nsim)){
+    # fit the point
+    points <- c( 0.5*mlist$PV__gal[[ks]] )
+    data.interp <- approx(x$PV__gal[[ks]][, 2], x$PV__gal[[ks]][, 1], xout=points, method="linear")
+    t_half[ks] <- data.interp[[2]] - t_peak
+  }
+  
+  # Clearance parameters for the system #
+  #-------------------------------------
   # F = flow_sin              # [µm/sec]
-  # c_in = 'PP__gal'[end]     # [mmol/l]
-  # c_out = 'PV_gal[end]'          # [mmol/l]
+  # c_in = 'PP__gal'[end]     # [mmol/L]
+  # c_out = 'PV_gal[end]'          # [mmol/L]
   # R = F*(c_in - c_out)      # [m/sec * mmol/l]
   # ER = (c_in - c_out)/c_in  # [-]
   # CL = R/c_in               # [µm/sec]
   # GE = (c_in - c_out) 
   
+  c_in <- as.vector(mlist$PP__gal)   # [mmol/L]
+  c_out <- as.vector(mlist$PV__gal)  # [mmol/L]
+  FL <- pi*(pars$y_sin^2) * pars$flow_sin  # [µm^3/sec]
+  
   parscl <- pars
-  parscl$task <- task
-  FL <- parscl$flow_sin
-  parscl$FL <- FL 
+  parscl$t_half <- as.vector(t_half)
+  parscl$FL <- FL
   parscl$c_in <- c_in
   parscl$c_out <- c_out
   
@@ -52,30 +65,29 @@ createClearanceDataFrame <- function(task, pars, parsfile){
   parscl$CL <- FL * (c_in - c_out)/c_in
   parscl$GE <- (c_in - c_out)
   
+  # reduce to the values with > 0 PP__gal (NAN)
   parscl <- parscl[parscl$c_in>0.0, ]
+  return(parscl)
 }
+
+# Galactose challenge, with galactosemias (peal at t0=2000[s], end of simulation
+# t=10000[s])
+folder <- '2014-08-13_T27'  # GDEF1
+
+parscl <- createClearanceDataFrame(folder, t_peak=2000, t_end=10000)
+
 
 ###########################################################################
 # Create the clearance figures
 ###########################################################################
-# The preprocessing of the data has to be already finished at this point.
-# Here only the combined graphs are generated.
-date = '2014-06-11'
-modelId <- paste('GalactoseComplete_v21_Nc20_Nf1')
-tasks <- c(1)
+# combine the clearance data for a set of simulations
 
-# combine the clearance data
+folders <- paste('2014-08-13_T', seq(26, 30), sep='')
 clearance <- list()
-for (k in tasks){
-  task <- paste('T', k, sep='')
-  sname <- paste(date, '_', task, sep='')
-  parsfile <- file.path(ma.settings$dir.results, sname, 
-                      paste(task, '_', modelId, '_parameters.csv', sep=""))
-  pars <- loadParameterFile(file=parsfile)
-  plotParameterHistogramFull(pars)                      
-  
-  df <- createClearanceDataFrame(task, pars, parsfile)
-  clearance[[task]] <- df
+for (folder in folders){
+  df <- createClearanceDataFrame(folder, t_peak=2000, t_end=10000)
+  head(df)
+  clearance[[folder]] <- df
 }
 
 # Merge the data frames for the galactosemias
@@ -85,8 +97,10 @@ for (k in tasks){
 # [9-14] GALT D
 # [15-23] GALE D
 #def_type <- c('normal', rep('GALK DEF')
+
 library('plyr')
 df <- rbind.fill(clearance)
+
 def_names = c("[0] normal",
               "[1] GALK Deficiency (H44Y)",
               "[2] GALK Deficiency (R68C)",
@@ -114,41 +128,47 @@ def_names = c("[0] normal",
 df$deficiency <- factor(df$deficiency,
                   levels = seq(0,23),
                   labels = def_names)
-# bind the def types to the dataframe 
-df$def_type <- factor(
+head(df)
 
+# install.packages('ggplot2')
+# install.packages('mgcv')
 library('ggplot2')
+library('mgcv')
 
+# c_in - c_out
 g <- ggplot(df, aes(c_in, c_in-c_out))
 g1 <- g + geom_abline(intercept=0, slope=1, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (periportal) [mM]") + ylab("Galactose (periportal-perivenious) [mM]") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
 plot(g1)
-
-ggplot(df, aes(x=interaction(c_in, c_in), y=c_in-c_out)) + geom_boxplot()
-g2 <- g + geom_boxplot()
-plot(g2)
-
-svg("/home/mkoenig/tmp/test.svg", width=8, height=4)
-plot(g1)
-dev.off()
-
-ppi <- 150
 # Calculate the height and width (in pixels) for a 4x4-inch image at 300 ppi
-png("/home/mkoenig/tmp/test.png", width=8*ppi, height=4*ppi, res=ppi)
+ppi <- 150
+png("/home/mkoenig/tmp/cin_cout.png", width=12*ppi, height=4*ppi, res=ppi)
 plot(g1)
 dev.off()
 
 
+# ER
 g <- ggplot(df, aes(c_in, ER))
-g1 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~task) + xlab("Galactose (periportal) [mM]") + ylab("Elimination Ratio (ER)") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
-plot(g1)
-svg("/home/mkoenig/tmp/test2.svg", width=8, height=4)
-plot(g1)
+g2 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (periportal) [mM]") + ylab("Elimination Ratio (ER)") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
+plot(g2)
+png("/home/mkoenig/tmp/ER.png", width=12*ppi, height=4*ppi, res=ppi)
+plot(g2)
 dev.off()
-ppi <- 150
-# Calculate the height and width (in pixels) for a 4x4-inch image at 300 ppi
-png("/home/mkoenig/tmp/test2.png", width=8*ppi, height=4*ppi, res=ppi)
-plot(g1)
+
+# FL * (c_in - c_out)
+g <- ggplot(df, aes(c_in, FL*(c_in-c_out)))
+g3 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (periportal) [mM]") + ylab("Elimination Ratio (ER)") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
+plot(g3)
+
+# t_half
+g <- ggplot(df, aes(c_out, t_half))
+g4 <- g + geom_abline(intercept=1, slope=0, color="gray") + geom_point(aes(color=flow_sin), alpha=1) + geom_smooth() + facet_grid(.~deficiency) + xlab("Galactose (perivenious) [mM]") + ylab("t_half [s]") + coord_cartesian(xlim=c(0, 5.75)) + labs(fill="blood flow [m/s]")
+plot(g4)
+png("/home/mkoenig/tmp/t_half.png", width=12*ppi, height=4*ppi, res=ppi)
+plot(g4)
 dev.off()
+
+
+
 
 
 

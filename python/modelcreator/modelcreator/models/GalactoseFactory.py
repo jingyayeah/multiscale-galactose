@@ -17,7 +17,7 @@ if __name__ == "__main__":
     
     # definition of cell model and tissue model
     Nc = 20
-    version = 20
+    version = 24
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='core', events=None)
     tm.createModel()
-    tm.writeSBML()    
+    tm.writeSBML()   
     tm.storeInDatabase()
     del tm
 
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     # __|------
     events = createGalactoseChallengeEventData(tc_start=2000.0)
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
-                     cell_model=cell_model, simId='galactose-challenge', events=events)
+                     cell_model=cell_model, simId='galchallenge', events=events)
     tm.createModel()
     tm.writeSBML()    
     tm.storeInDatabase()
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     # __|------
     events = createGalactoseStepEventData()
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
-                     cell_model=cell_model, simId='galactose-step', events=events)
+                     cell_model=cell_model, simId='galstep', events=events)
     tm.createModel()
     tm.writeSBML()    
     tm.storeInDatabase()

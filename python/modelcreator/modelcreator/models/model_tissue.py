@@ -16,6 +16,7 @@ from modelcreator.sbml.SBMLValidator import SBMLValidator
 from modelcreator.models.model_metabolic import *
 from modelcreator.processes.ReactionTemplate import ReactionTemplate
 
+from modelcreator.sbml.SBMLUtils import check
 
 class TissueModel(object):
     '''
@@ -44,9 +45,12 @@ class TissueModel(object):
    
         # sbml 
         self.id = self.createId()
+        print 'id', self.id
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
-        self.model = self.doc.createModel(self.id)
-        self.model.setName(self.id)
+        self.model = self.doc.createModel()
+        
+        check(self.model.setId(self.id), 'set id')
+        check(self.model.setName(self.id), 'set name')
         
         # add dynamical parameters
         self.pars.append(

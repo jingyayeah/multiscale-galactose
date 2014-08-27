@@ -82,6 +82,8 @@ preprocess <- function(pars, sim.dir, outFile=NULL, sim.indices=NULL, col.indice
     stop()
   }
   
+  # For the preprocess list all the single simulation files are read
+  # and stored in a list. This takes a lot of space and is very inefficient.
   print('Create preprocess list')
   preprocess.list = readColumnData(pars=pars.sim, dir=sim.dir, col.indices_f)
   
@@ -141,18 +143,28 @@ readColumnData <- function(pars, dir, col.indices_f){
   data
 }
 
-#' Load the column data for single simulation by sim id
-#' 
-#' @param sim simulation identifier
-#' @param withTime keeps the time column
-#' @return column data
+#' Read all col.indices components and store R data structures.
+#' For all simulations the csv files are loaded and the 
+#' respective columns extracted.
+#' @param max_index maximal index until which data is read
+#' @return list of matrices
 #' @export
-readDataForSimulation <- function(dir, simId, col.indices_f=NULL){
-  fname <- getSimulationFileFromSimulationId(dir, simId)
-  data <- readDataForSimulationFile(fname, col.indices_f)
+createColumnDataFiles <- function(pars, dir, col.indices_f=NULL){
+  simulations <- row.names(pars)
+  Nsim <- length(simulations)
+  for (k in seq(1,Nsim)){
+    simId <- simulations[[k]]
+    print(paste(simId, ' [', k/Nsim*100, ']'))
+  
+    # read data and save
+    fname <- getSimulationFileFromSimulationId(dir, simId)
+    data <- readDataForSimulationFile(fname, col.indices_f)
+    save(data, file=paste(fname, '.Rdata', sep=''))
+  }
 }
 
-#' Load the column data for single simulation by simulation file
+
+#' Load the column data for simulation file.
 #' 
 #' @param fname CSV file to load
 #' @return column data
@@ -175,12 +187,8 @@ readDataForSimulationFile <- function(fname, col.indices_f=NULL){
   # fix strange behavior via cast
   data <- as.data.frame(data)
   
-  # TODO: fix problems with settings the rownames to time
-  # ? why set the time as rownames?
-  # rownames(data) <- data[,'time']
-  
   # reduce data col.indices given by the function
-  if (!is.null(col.indices_f)){
+  if (!is.null(col.indices_f)){  
     col.indices <- col.indices_f(data)
     data <- data[, col.indices]
   }
