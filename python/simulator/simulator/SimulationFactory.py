@@ -37,9 +37,16 @@ def createDemoSamples(N, sampling):
 def createGalactoseSamples(N, sampling):
     dist_data = getGalactoseDistributions()
     samples = createParametersBySampling(dist_data, N, sampling);
-    samples = adaptFlowInSamples(samples, f_flow=0.47)
+    samples = adapt_flow_in_samples(samples, f_flow=0.47)
     samples = setDeficiencyInSamples(samples, deficiency=0)
     return samples
+
+def createFlowSamples(N, sampling, flow_range):
+    #TODO
+    pass
+    
+    
+    
 
 def setDeficiencyInSamples(samples, deficiency=0):
     return setParameterInSamples(samples, 'deficiency', deficiency, '-', GLOBAL_PARAMETER)
@@ -67,17 +74,19 @@ def setParameterValuesInSamples(raw_samples, pid, values, unit, ptype):
     return samples
 
     
-def adaptFlowInSamples(samples, f_flow):
+def adapt_flow_in_samples(samples, f_flow):
     '''
-    flow is adapted due to scaling to full liver architecture
-        TODO: make this consistent, this is not good and seems like dirty fix
-        TODO: make a class for the parameters
+    Flow is adapted via scaling of all samples with a constant factor f_flow.
+    The sample distribution is linearly scaled with the provided factor.
     '''
-    print 'flow adaptation'
     for s in samples:
         if (s.has_key("flow_sin")):
             name, value, unit, ptype = s["flow_sin"];
             s["flow_sin"] = (name, value*f_flow, unit, ptype)
+            
+            # TODO: store the adaptation of the value
+            # TODO: handle multiple adaptations of flow
+            # s["f_flow"] = ("f_flow", f_flow, unit, ptype)
     return samples
 
 

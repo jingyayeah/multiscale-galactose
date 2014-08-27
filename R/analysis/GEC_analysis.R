@@ -50,7 +50,7 @@ head(parscl.max)
 plot(parscl$flow_sin, parscl$R)
 
 # Part of the liver is large vessels. This has to be corrected for.
-f_tissue <- 0.75;
+f_tissue <- 0.80;
 Vol_liv <- parscl$Vol_liv[1]
 
 
