@@ -33,7 +33,9 @@ t_end <- 10000 # [s]
 #folder <- '2014-08-13_T26'  # normal
 folder <- '2014-08-28_T50'   # normal
 
-pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-27_T50/T50.txt')
+#pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-27_T50/T50.txt')
+pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-28_T50/T50_Galactose_v24_Nc20_galchallenge_parameters.csv')
+
 head(pars)
 
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
