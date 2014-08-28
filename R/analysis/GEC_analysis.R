@@ -31,6 +31,11 @@ folder <- '2014-08-27_T1'  # normal flow
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
 
+# The data is split via the f_flow (variation in flow)
+head(pars)
+library('ggplot2')
+ggplot(pars, aes(factor(f_flow), flow_sin)) + geom_boxplot()  
+
 # Extend the parameters with the SBML parameters and calculated parameters
 ps <- getParameterTypes(pars=pars)
 f.sbml <- file.path(ma.settings$dir.results, folder, paste(modelId, '.xml', sep=''))
@@ -50,12 +55,19 @@ max(parscl$c_in)
 parscl.max <- parscl[parscl$c_in == max(parscl$c_in), ]
 head(parscl.max)
 
+plot(parscl$f_flow, parscl$flow_sin)
 plot(parscl$flow_sin, parscl$R)
+
+# Calculate the clearance based on the 
+f_flow = 0.2
+# parscl.max <- parscl[(parscl$c_in==max(parscl$c_in) && parscl$f_flow==f_flow), ]
+parscl.max <- parscl[parscl$f_flow==f_flow, ]
+head(parscl.max)
 
 # Part of the liver is large vessels. This has to be corrected for.
 f_tissue <- 0.80;
 Vol_liv <- parscl$Vol_liv[1]
-
+Vol_liv
 
 # total flow samples
 test <- list()
@@ -69,14 +81,14 @@ test$R_per_vol <- sum(parscl.max$R)/sum(parscl.max$Vol_sinunit)                 
 test$Q_sinunit_per_vol_units <- test$Q_sinunit_per_vol*60  # [ml/min/ml(liv)]
 test$R_per_vol_units <- test$R_per_vol*60/1000             # [mmole/min/ml(liv)]
 
-test$Q_sinunit_per_liv_units <- test$Q_sinunit_per_vol_units * Vol_liv*1E6     # [L/min]
-test$R_per_liv_units <- test$R_per_vol*60/1000 * Vol_liv*1E6                   # [mmole/min]
+test$Q_sinunit_per_liv_units <- test$Q_sinunit_per_vol_units * Vol_liv*1E6     # [ml/min]
+test$R_per_liv_units <- test$R_per_vol*60 * Vol_liv*1E3                        # [mmole/min]
 
-
-test$Q_sinunit_tissue_per_liv_units <- test$Q_sinunit_per_vol_units * Vol_liv*1E6 *f_tissue     # [L/min]
-test$R_tissue_per_liv_units <- test$R_per_vol*60/1000 * Vol_liv*1E6              *f_tissue     # [mmole/min]
-
+test$Q_sinunit_tissue_per_liv_units <- test$Q_sinunit_per_vol_units * Vol_liv*1E6 *f_tissue     # [ml/min]
+test$R_tissue_per_liv_units <- test$R_per_vol*60 * Vol_liv*1E3              *f_tissue     # [mmole/min]
 test
+
+
 
 boxplot(parscl$Q_sinunit/parscl$Vol_sinunit)
 

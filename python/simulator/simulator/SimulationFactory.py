@@ -367,7 +367,7 @@ if __name__ == "__main__":
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        task, samples = make_galactose_flow(sbml_id, N=10)
+        task, samples = make_galactose_flow(sbml_id, N=200)
     
         
     #----------------------------------------------------------------------#
