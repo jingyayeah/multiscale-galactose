@@ -248,7 +248,7 @@ def make_galactose_flow(sbml_id, N):
     raw_samples = createFlowSamples(N=N, sampling='distribution', f_flows=f_flows)
     
     # only test the max GEC
-    gal_challenge = (8.0, )
+    gal_challenge = (8.0, 0.5)
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
@@ -367,7 +367,7 @@ if __name__ == "__main__":
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        task, samples = make_galactose_flow(sbml_id, N=200)
+        task, samples = make_galactose_flow(sbml_id, N=100)
     
         
     #----------------------------------------------------------------------#
