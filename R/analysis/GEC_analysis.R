@@ -8,33 +8,42 @@
 # This analysis only the simulations for the normal case. The
 # analysis for the GEC simulations is performed analoque.
 #
+# Clearance is tested via a galactose challenge periportal. 
+# For the calculation of the GEC capacity the metabolic capacity
+# has to be saturated (i.e in the high galactose range).
+#
 # author: Matthias Koenig
 # date: 2014-08-25
 ################################################################
 # install.packages('matrixStats')
+
 rm(list=ls())
 library(data.table)
 library(MultiscaleAnalysis)
 library(libSBML)
 library(matrixStats)
-
 setwd(ma.settings$dir.results)
 
-# Galactose challenge, with galactosemias (peal at t0=2000[s], end of simulation
-# t=10000[s])
+# Galactose challenge consists of peak ,
+# and subsequent time for reaching steady state ()
+t_peak <- 2000 # [s]
+t_end <- 10000 # [s]
 
-# load parameter structure
+# Dataset for analyis
 #folder <- '2014-08-13_T26'  # normal
+folder <- '2014-08-28_T50'   # normal
 
-folder <- '2014-08-27_T1'  # normal flow
+pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-27_T50/T50.txt')
+head(pars)
 
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
 
-# The data is split via the f_flow (variation in flow)
-head(pars)
+# boxplot to show the distribution of flows
 library('ggplot2')
-ggplot(pars, aes(factor(f_flow), flow_sin)) + geom_boxplot()  
+ggplot(pars, aes(factor(f_flow), flow_sin)) + geom_boxplot() + geom_point()
+ggplot(pars, aes(factor(gal_challenge), flow_sin)) + geom_boxplot() + geom_point()
+
 
 # Extend the parameters with the SBML parameters and calculated parameters
 ps <- getParameterTypes(pars=pars)

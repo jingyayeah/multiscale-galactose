@@ -24,9 +24,9 @@ import subprocess
 import pipes
 from sh import rsync
 
-# IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
+IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
 # IPS = ('192.168.1.99', '192.168.1.100')
-IPS = ('192.168.1.99',)
+# IPS = ('192.168.1.99',)
 
 def prepareDataForAnalysis(task):
     import time

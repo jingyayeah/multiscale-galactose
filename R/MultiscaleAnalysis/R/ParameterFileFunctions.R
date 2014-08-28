@@ -14,22 +14,20 @@
 #' @export
 pars.keywords <- c('status', 'duration', 'core', 'sim')
 
-#'  Reads the stored parameter file as data.frame.
+#'  Read theparameter file into a data.frame.
 #'  
 #'  This function reads the parameter file in CSV format into a data.frame.
-#'  To load the associated data for the simulations do the preprocessing and
-#'  use the load functions.
 #'  @param file parameter csv file for loading
 #'  @return data.frame of parameters
 #'  @export  
 loadParameterFile <- function(file){
-  print(parsfile)
-  pars <- read.csv(parsfile, header=TRUE)
+  print(file)
+  pars <- read.csv(file, header=TRUE)
   row.names(pars) <- paste("Sim", pars$sim, sep="")
   
   # replace 'X..' if header given via '# '
   names(pars) <- gsub('X..', '', names(pars))
-  pars
+  return(pars)
 }
 
 #' Get parameter names, i.e columns which are not keywords.
