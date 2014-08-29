@@ -240,15 +240,15 @@ def make_galactose_challenge(sbml_id, N):
 #----------------------------------------------------------------------#
 
 def make_galactose_flow(sbml_id, N):        
-    info = '''Simulation of varying galactose challenge periportal to steady state under different flows'''
+    info = '''Galactose challenge/clearance under varying flows per volume.'''
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
-    f_flows = (0.5, 0.4, 0.3, 0.2, 0.1)
+    f_flows = (0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1)
     raw_samples = createFlowSamples(N=N, sampling='distribution', f_flows=f_flows)
     
     # only test the max GEC
-    gal_challenge = (8.0, 0.5)
+    gal_challenge = (8.0, 2.0, 0.5)
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations

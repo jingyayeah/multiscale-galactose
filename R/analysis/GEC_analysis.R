@@ -64,9 +64,9 @@ parscl <- parscl[parscl$c_in>0.0, ]
 summary(parscl)
 
 # get the clearance parameters for the highest gal challenge
-max(parscl$c_in)
-parscl.max <- parscl[parscl$c_in == max(parscl$c_in), ]
-head(parscl.max)
+# max(parscl$c_in)
+# parscl.max <- parscl[parscl$c_in == max(parscl$c_in), ]
+# head(parscl.max)
 
 
 
@@ -85,17 +85,7 @@ p <- ggplot(parscl, aes(flow_sin, ER, colour=c_out)) + geom_point()
 p + facet_grid(f_flow ~ gal_challenge)
 
 
-# Calculate the clearance based on subsets
-# use the plyr approach for the nested splitting of the data
-library("plyr")
-tmp <- ddply(parscl.max, ~f_flow, summarise, sum.Q_sinunit=sum(Q_sinunit),sum.R=sum(R))
-
-plot(tmp$f_flow, tmp$sum.R, type='l', ylim=c(0, max(tmp$sum.R)))
-
-d2 <- ddply(parscl, c("f_flow", "gal_challenge"), summarize, sum.Q_sinunit = sum(Q_sinunit))
-head(d2)
-
-
+library(plyr)
 # Analyse the data split by group (f_flow)
 # TODO: f_tissue and Vol_liv have to come from model definition
 f_analyse <- function(x){
@@ -131,10 +121,10 @@ f_analyse <- function(x){
 
 d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
 head(d2)
-# save the csv
+# TODO: save the csv
 sd2
 
-# save the plots
+# TODO: save the plots
 p <- ggplot(d2, aes(f_flow, R_per_liv_units)) + geom_point() + geom_line()
 p + facet_grid(~ gal_challenge)
 
