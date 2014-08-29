@@ -31,10 +31,10 @@ t_end <- 10000 # [s]
 
 # Dataset for analyis
 #folder <- '2014-08-13_T26'  # normal
-folder <- '2014-08-28_T50'   # normal
+folder <- '2014-08-29_T50'   # normal
 
 #pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-27_T50/T50.txt')
-pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-28_T50/T50_Galactose_v24_Nc20_galchallenge_parameters.csv')
+pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-29_T50/T50_Galactose_v24_Nc20_galchallenge_parameters.csv')
 
 head(pars)
 
@@ -122,7 +122,7 @@ f_analyse <- function(x){
 d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
 head(d2)
 # TODO: save the csv
-sd2
+d2
 
 # TODO: save the plots
 p <- ggplot(d2, aes(f_flow, R_per_liv_units)) + geom_point() + geom_line()
