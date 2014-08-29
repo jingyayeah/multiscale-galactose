@@ -123,12 +123,11 @@ def sync_sbml():
     
 def create_task(model, integration, info='', priority=0):
     '''
-    Task is uniquely identified via the model and integration.
+    Task is uniquely identified via model, integration and information.
     Other fields have to be updated.
     '''
     try:
-        task = Task.objects.get(sbml_model=model, integration=integration)
-        task.info = info
+        task = Task.objects.get(sbml_model=model, integration=integration, info=info)
         task.priority = priority
     except ObjectDoesNotExist:
         task = Task(sbml_model=model, integration=integration, 
