@@ -9,7 +9,7 @@
 # date: 2014-04-17
 ###############################################################
 
-# rm(list=ls())
+rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 create_plots = F
@@ -33,17 +33,35 @@ mar1988$study = 'mar1988'
 mar1988$gender = 'all'
 head(mar1988)
 
-# age [years], bodyweight [kg], GEC [mmol/min]
-tyg1962 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Tygstrup1962.csv"), sep="\t")
+# age [years], GEC [µmol/min/kg]
+lan2011 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Lange2011_Fig1.csv"), sep="\t")
+lan2011$study = 'lan2011'
+lan2011$gender = 'all'
+lan2011$GECmumolkg <- lan2011$GEC
+lan2011$GECkg <- lan2011$GEC/1000
+lan2011 <- lan2011[lan2011$status=='healthy', ]
+head(lan2011)
+
+tyg1962$GECkg <- tyg1962$GEC/tyg1962$bodyweight
 tyg1962$study = 'tyg1962'
 tyg1962$gender = 'all'
 tyg1962 <- tyg1962[tyg1962$state=='healthy', ]
 head(tyg1962)
 
-# sex [m,f], age [years], bodyweight [kg], GEC [mmol/min/kg]
+
+# age [years], bodyweight [kg], GEC [mmol/min]
+tyg1962 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Tygstrup1962.csv"), sep="\t")
+tyg1962$GECkg <- tyg1962$GEC/tyg1962$bodyweight
+tyg1962$study = 'tyg1962'
+tyg1962$gender = 'all'
+tyg1962 <- tyg1962[tyg1962$state=='healthy', ]
+head(tyg1962)
+
+# sex [m,f], age [years], bodyweight [kg], GEC [mg/min/kg]
 sch1986.tab1 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Schnegg1986_Tab1.csv"), sep="\t")
+head(sch1986.tab1)
 sch1986.tab1$study <- 'sch1986'
-sch1986.tab1$gender <- as.character(sch1986tab$sex)
+sch1986.tab1$gender <- as.character(sch1986.tab1$sex)
 sch1986.tab1$gender[sch1986.tab1$gender=='m'] <- 'male'
 sch1986.tab1$gender[sch1986.tab1$gender=='f'] <- 'female'
 sch1986.tab1$GECmgkg <- sch1986.tab1$GEC
@@ -51,6 +69,7 @@ sch1986.tab1$GEC <- sch1986.tab1$GECmgkg * sch1986.tab1$bodyweight/180; # [mg/mi
 sch1986.tab1$GECkg <- sch1986.tab1$GECmgkg/180
 head(sch1986.tab1)
 
+# age [years], GEC [mg/min/kg]
 sch1986.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Schnegg1986_Fig1.csv"), sep="\t")
 sch1986.fig1$study <- 'sch1986'
 sch1986.fig1$gender <- 'all'
@@ -106,14 +125,6 @@ makeFigure <- function(data, main, xname, yname,
   legend("topright",  legend=gender.levels, fill=gender.cols)  
 }
 
-if (create_plots == TRUE){
-  png(filename=file.path(ma.settings$dir.results, 'plot1.png'),
-      width = 800, height = 800, units = "px", bg = "white",  res = 150)
-
-  if (create_plots==TRUE){
-    dev.off()
-  }
-}
 
 ############################################
 # GEC [mmol/min] vs. age [years]
@@ -130,22 +141,55 @@ makeFigure(data, main='GEC vs. age', xname='age', yname='GEC',
            xlab='Age [years]', ylab='GEC [mmol/min]', 
            xlim=c(0,90), ylim=c(0,5))
 
+m1 <- lm(GEC ~ age, data=data)
+summary(m1)
+plot(data$age, data$GEC)
+abline(m1)
+
+lm.data <- list()
+lm.data$x <- data$age
+lm.data$xname <- 'age'
+lm.data$xunit <- '[years]'
+lm.data$xlim <- c(10,100)
+lm.data$y <- data$GEC
+lm.data$yname <- 'GEC'
+lm.data$yunit <- '[mmol/min]'
+lm.data$ylim <- c(0.0, 5.0)
+lm.file <- file.path(ma.settings$dir.code, 'analysis', 'data_regression.R')
+print(lm.file)
+source(lm.file)
+
 ############################################
 # GEC [mmol/min/kgbw] vs. age [years]
 ############################################
-data <- rbind( sch1986.fig1[, c('study', 'gender', 'age', 'GECkg')], 
+data <- rbind( lan2011[, c('study', 'gender', 'age', 'GECkg')],
+               tyg1962[, c('study', 'gender', 'age', 'GECkg')],
+               sch1986.fig1[, c('study', 'gender', 'age', 'GECkg')], 
                sch1986.tab1[, c('study', 'gender', 'age', 'GECkg')] )
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
+data
 
 makeFigure(data, main='GEC/kg vs. age', xname='age', yname='GECkg',
            xlab='Age [years]', ylab='GEC [mmol/min/kg]', 
-           xlim=c(0,90), ylim=c(0,0.07))
+           xlim=c(0,90), ylim=c(0,0.10))
+
+############################################
+# GEC [mmol/min] vs. volLiver [ml]
+############################################
+data <- rbind( mar1988[, c('study', 'gender', 'volLiver', 'GEC')])
+data$gender <- as.factor(data$gender)
+levels(data$gender) <- gender.levels
+
+makeFigure(data, main='GEC vs. volLiver', xname='volLiver', yname='GEC',
+           xlab='Volume liver [ml]', ylab='GEC [mmol/min]', 
+           xlim=c(500,2000), ylim=c(0, 5))
 
 ############################################
 # bodyweight [kg] vs. age [years]
 ############################################
 data <- rbind( tyg1962[, c('study', 'gender', 'bodyweight', 'age')],
+               sch1986.tab1[, c('study', 'gender', 'bodyweight', 'age')],
                win1965[, c('study', 'gender', 'bodyweight', 'age')],
                duc1979[, c('study', 'gender', 'bodyweight', 'age')])
 data$gender <- as.factor(data$gender)

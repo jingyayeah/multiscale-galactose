@@ -1,3 +1,12 @@
+##############################################
+# Linear regression analyis of dependent 
+# variables
+
+# @author: Matthias Koenig
+# @date: 2014-09-21
+##############################################
+
+
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
@@ -22,24 +31,162 @@ mar1988$study = 'mar1988'
 mar1988$gender = 'all'
 head(mar1988)
 
+
 ##############################################
 # Linear regression analysis
 ##############################################
+
+# Prepare data
+data <- list()
+data$x <- mar1988$age
+data$xname <- 'age'
+data$xunit <- '[years]'
+data$xlim <- c(20,90)
+data$y <- mar1988$GEC
+data$yname <- 'GEC'
+data$yunit <- '[mmol/min]'
+data$ylim <- c(1.0, 5.0)
+
+#################################################
+
+# Perform analysis
+linear_regression <- function(data){  
+  attach(data)
+  res <- list()
+  res$name <- paste(yname, 'vs', xname)
+  res$cor <- cor(x, y)
+  res$cor.test <- cor.test(x, y)
+  
+  res$df <- data.frame(x=x, y=y)
+  names(res$df) <- c(xname, yname)
+  # linear regression
+  # linear regression
+  res$m1 <- lm(y ~ x, data=res$df)
+  print(res$m1)
+  
+  # Confidence Limits on the Estimated Coefficients
+  res$confint <- confint(res$m1, level=0.95)
+  
+  detach(data)
+  return(res)
+}
+
+# Perform calculation
+res <- linear_regression(data)
+
+# Create output file with information
+sink.fname <-  file.path(ma.settings$dir.results, 'linear_regression', paste(res$name, ".log", sep=''))
+sink.file <- file(sink.fname, open = "wt")
+sink(sink.file)
+sink(sink.file, type="message")
+
+print('### Linear Regression Model ###')
+print('* data *')
+str(data)
+
+print('* model *')
+summary(res$m1)
+print(res$confint)
+
+sink(type="message")
+sink()
+file.show(sink.fname)
+
+
+create_plots=T
+linear_regression_plots <- function(res, data){
+  attach(data)
+  
+  if (create_plots == TRUE){
+    plot.file <- file.path(ma.settings$dir.results, 'linear_regression', 
+                           paste(res$name, '_plot1.png', sep=""))
+    print(plot.file)               
+    png(filename=plot.file,
+        width = 800, height = 800, units = "px", bg = "white",  res = 150)
+  }
+  # Plot the linear regression with the data  
+  plot(x, y, xlab=paste(xname, xunit), 
+       ylab=paste(yname, yunit),
+       xlim=xlim, ylim=ylim,
+       main=paste(yname, 'vs.', xname))
+  abline(res$m1, col='red')
+  
+  # get the confidence intervals for the betas
+  conf.interval <- predict(res$m1, interval="confidence") 
+  lines(x, conf.interval[,2], lty=2)
+  lines(x, conf.interval[,3], lty=2)
+  
+  # get prediction intervals
+  newx <- seq(min(x), max(x), length.out = 100)
+  for (level in c(0.66, 0.95)){
+    pred.interval <- predict(res$m1, newdata=data.frame(x=newx), interval="prediction", level=level) 
+    lines(newx,pred.interval[,2], lty=3, col='blue')
+    lines(newx,pred.interval[,3], lty=3, col='blue') 
+  }
+  if (create_plots==TRUE){ dev.off() }
+  
+  
+  # Residual and control plots
+  if (create_plots == TRUE){
+    plot.file <- file.path(ma.settings$dir.results, 'linear_regression', 
+                           paste(res$name, '_plot2.png', sep=""))
+    print(plot.file)               
+    png(filename=plot.file,
+        width = 800, height = 800, units = "px", bg = "white",  res = 150)
+  }
+  par(mfrow=c(2,2))
+  plot(res$m1)
+  par(mfrow=c(1,1))
+  if (create_plots==TRUE){ dev.off() }
+  
+  detach(data)
+}
+
+linear_regression_plots(res,data)
+
+
+########################################
 with(mar1988, plot(age, GEC))
 df <- data.frame(x=mar1988$age, y<-mar1988$GEC)
 names(df) <- c('age', 'GEC')
+  
+  # Residual and control plots
+  par(mfrow=c(2,2))
+  plot(m1)
+  par(mfrow=c(1,1))
+  plot(x=m1, which=6)
+  
+  # more advanced residual plots
+  install.packages('car')
+  library('car')
+  residualPlots(model=m1)
+  
+  
+}
 
-options(show.signif.stars=T)
-# correlation and covariance matrices
-cor(df)
-cor.test(df$age, df$GEC)
-# covariance matrix
-cov(df)
-# visual representation of the correlation matrix
-pairs(df)
+
+
+
+
+  # create data frame
+  df <- data.frame(x=x, y=y)
+  names(df) <- c('x', 'y')
+  
+  options(show.signif.stars=T)
+  
+  # correlation matrix
+  cor(df)
+  cor.test(df[,1], df[,2])
+  
+  # covariance matrix
+  cov(df)
+  
+  # visual representation of the correlation matrix
+  pairs(df)
+  
 # more in depth analysis with the correlate() function from library(lsr)
-library(lsr)
 # install.packages('lsr')
+library(lsr)
 correlate(df, test=TRUE)
 
 # linear regression
@@ -72,29 +219,6 @@ plot(df$GEC, df$age, xlab="age [years]",
      main="GEC vs. age")
 abline(m1)
 
-# plot formula text
-
-
-# The book is giving you a prediction interval, aka a tolerance
-# interval. Some people use the term "confidence interval" a bit too
-# sloppily.
-  
-plot(m1$residuals)
-hist(m1$residuals,freq = F, xlim=c(-1.5, 1.5))
-m1.n <- length(m1$residuals)
-m1.sd <- sd(m1$residuals)
-m1.mean <- mean(m1$residuals)
-m1.n
-m1.sd
-x = seq(from=-1.0, to=1.0, by=0.01)
-points(x, dnorm(x, mean = m1.mean, sd = m1.sd) )
-mean(m1$residuals)
-
-error <- qt(0.975,df=m1.n-1) * m1.sd/sqrt(m1.n)
-qt(0.975, df=m1.n-1)
-error
-abline(v=error, col='blue')
-abline(v=-error, col='blue')
 
 # show an ANOVA table
 options(show.signif.stars=F)
