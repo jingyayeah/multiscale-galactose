@@ -262,11 +262,13 @@ class Parameter(models.Model):
         unique_together = ("name", "value")
 
 
-
 class Task(models.Model):
     '''
         Tasks are compatible on their integration setting and the
         underlying model.
+        Task are uniquely identified via the combination of model, integration
+        and the information string. Replicates of the same task can be run via
+        modifying the info.
     '''
     sbml_model = models.ForeignKey(SBMLModel)
     integration = models.ForeignKey(Integration)
@@ -274,7 +276,7 @@ class Task(models.Model):
     info = models.TextField(null=True, blank=True)
     
     class Meta:
-        unique_together = ("sbml_model", "integration")
+        unique_together = ("sbml_model", "integration", "info")
     
     def __unicode__(self):
         return "T%d" % (self.pk)

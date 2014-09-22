@@ -123,12 +123,11 @@ def sync_sbml():
     
 def create_task(model, integration, info='', priority=0):
     '''
-    Task is uniquely identified via the model and integration.
+    Task is uniquely identified via model, integration and information.
     Other fields have to be updated.
     '''
     try:
-        task = Task.objects.get(sbml_model=model, integration=integration)
-        task.info = info
+        task = Task.objects.get(sbml_model=model, integration=integration, info=info)
         task.priority = priority
     except ObjectDoesNotExist:
         task = Task(sbml_model=model, integration=integration, 
@@ -240,15 +239,15 @@ def make_galactose_challenge(sbml_id, N):
 #----------------------------------------------------------------------#
 
 def make_galactose_flow(sbml_id, N):        
-    info = '''Simulation of varying galactose challenge periportal to steady state under different flows'''
+    info = '''Galactose challenge/clearance under varying flows per volume.'''
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
-    f_flows = (0.5, 0.4, 0.3, 0.2, 0.1)
+    f_flows = (0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1)
     raw_samples = createFlowSamples(N=N, sampling='distribution', f_flows=f_flows)
     
     # only test the max GEC
-    gal_challenge = (8.0, )
+    gal_challenge = (8.0, 2.0, 0.5)
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
@@ -367,7 +366,7 @@ if __name__ == "__main__":
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        task, samples = make_galactose_flow(sbml_id, N=200)
+        task, samples = make_galactose_flow(sbml_id, N=400)
     
         
     #----------------------------------------------------------------------#

@@ -8,33 +8,46 @@
 # This analysis only the simulations for the normal case. The
 # analysis for the GEC simulations is performed analoque.
 #
+# Clearance is tested via a galactose challenge periportal. 
+# For the calculation of the GEC capacity the metabolic capacity
+# has to be saturated (i.e in the high galactose range).
+#
 # author: Matthias Koenig
 # date: 2014-08-25
 ################################################################
 # install.packages('matrixStats')
+
 rm(list=ls())
 library(data.table)
 library(MultiscaleAnalysis)
 library(libSBML)
 library(matrixStats)
-
 setwd(ma.settings$dir.results)
 
-# Galactose challenge, with galactosemias (peal at t0=2000[s], end of simulation
-# t=10000[s])
+# Galactose challenge consists of peak ,
+# and subsequent time for reaching steady state ()
+t_peak <- 2000 # [s]
+t_end <- 10000 # [s]
 
-# load parameter structure
+# Dataset for analyis
 #folder <- '2014-08-13_T26'  # normal
+folder <- '2014-08-29_T50'   # normal
 
-folder <- '2014-08-27_T1'  # normal flow
+#pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-27_T50/T50.txt')
+pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-29_T50/T50_Galactose_v24_Nc20_galchallenge_parameters.csv')
+
+head(pars)
 
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
 
-# The data is split via the f_flow (variation in flow)
-head(pars)
+# boxplot to show the distribution of flows
 library('ggplot2')
-ggplot(pars, aes(factor(f_flow), flow_sin)) + geom_boxplot()  
+ggplot(pars, aes(factor(f_flow), flow_sin)) + geom_boxplot() + geom_point()
+ggplot(pars, aes(factor(gal_challenge), flow_sin)) + geom_boxplot() + geom_point()
+mean(pars$flow_sin[pars$f_flow==0.5])
+summary(pars$flow_sin[pars$f_flow==0.5])
+
 
 # Extend the parameters with the SBML parameters and calculated parameters
 ps <- getParameterTypes(pars=pars)
@@ -51,45 +64,74 @@ parscl <- parscl[parscl$c_in>0.0, ]
 summary(parscl)
 
 # get the clearance parameters for the highest gal challenge
-max(parscl$c_in)
-parscl.max <- parscl[parscl$c_in == max(parscl$c_in), ]
-head(parscl.max)
+# max(parscl$c_in)
+# parscl.max <- parscl[parscl$c_in == max(parscl$c_in), ]
+# head(parscl.max)
+
+
 
 plot(parscl$f_flow, parscl$flow_sin)
 plot(parscl$flow_sin, parscl$R)
 
-# Calculate the clearance based on the 
-f_flow = 0.2
-# parscl.max <- parscl[(parscl$c_in==max(parscl$c_in) && parscl$f_flow==f_flow), ]
-parscl.max <- parscl[parscl$f_flow==f_flow, ]
-head(parscl.max)
+library('ggplot2')
+p <- ggplot(parscl, aes(flow_sin, R, colour=c_out)) + geom_point()
+p + facet_grid(f_flow ~ gal_challenge)
 
-# Part of the liver is large vessels. This has to be corrected for.
-f_tissue <- 0.80;
-Vol_liv <- parscl$Vol_liv[1]
-Vol_liv
-
-# total flow samples
-test <- list()
-test$sum.Q_sinunit <- sum(parscl.max$Q_sinunit)     # [m^3/sec]
-test$sum.Vol_sinunit <- sum(parscl.max$Vol_sinunit) # [m^3]
-test$sum.R <- sum(parscl.max$R)                     # [mole/sec]
-
-test$Q_sinunit_per_vol <- sum(parscl.max$Q_sinunit)/sum(parscl.max$Vol_sinunit) # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)]
-test$R_per_vol <- sum(parscl.max$R)/sum(parscl.max$Vol_sinunit)                 # [mole/sec/m^3(liv)]
-
-test$Q_sinunit_per_vol_units <- test$Q_sinunit_per_vol*60  # [ml/min/ml(liv)]
-test$R_per_vol_units <- test$R_per_vol*60/1000             # [mmole/min/ml(liv)]
-
-test$Q_sinunit_per_liv_units <- test$Q_sinunit_per_vol_units * Vol_liv*1E6     # [ml/min]
-test$R_per_liv_units <- test$R_per_vol*60 * Vol_liv*1E3                        # [mmole/min]
-
-test$Q_sinunit_tissue_per_liv_units <- test$Q_sinunit_per_vol_units * Vol_liv*1E6 *f_tissue     # [ml/min]
-test$R_tissue_per_liv_units <- test$R_per_vol*60 * Vol_liv*1E3              *f_tissue     # [mmole/min]
-test
+p <- ggplot(parscl, aes(flow_sin, CL, colour=c_out)) + geom_point()
+p + facet_grid(f_flow ~ gal_challenge)
 
 
+p <- ggplot(parscl, aes(flow_sin, ER, colour=c_out)) + geom_point()
+p + facet_grid(f_flow ~ gal_challenge)
 
+
+library(plyr)
+# Analyse the data split by group (f_flow)
+# TODO: f_tissue and Vol_liv have to come from model definition
+f_analyse <- function(x){
+  f_tissue <- 0.85;  # [-] correction for non-parenchyma (large vessels, ...)
+  
+  ## sum over sinusoidal unit samples
+  # total volume (sinusoidal unit volume corrected with tissue factor)
+  sum.Vol_sinunit <- sum(x$Vol_sinunit)/f_tissue # [m^3]
+  # total flow
+  sum.Q_sinunit <- sum(x$Q_sinunit) # [m^3/sec]
+  # total removal
+  sum.R <- sum(x$R) # [mole/sec]
+  
+  ## normalize to volume 
+  Q_per_vol <- sum.Q_sinunit/sum.Vol_sinunit      # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)]
+  R_per_vol <- sum.R/sum.Vol_sinunit             # [mole/sec/m^3(liv)]
+  
+  ## biological units
+  Q_per_vol_units <- Q_per_vol*60                 # [ml/min/ml(liv)]
+  R_per_vol_units <- R_per_vol*60/1000            # [mmole/min/ml(liv)]
+  
+  ## per standard liver
+  Vol_liv <- 1.5E-3      # [m^3]
+  Q_per_liv_units <- Q_per_vol_units * Vol_liv*1E6     # [ml/min]
+  R_per_liv_units <- R_per_vol_units * Vol_liv*1E6     # [mmole/min]
+  
+  data.frame(sum.Vol_sinunit, 
+             sum.Q_sinunit, sum.R,
+             Q_per_vol, R_per_vol,
+             Q_per_vol_units, R_per_vol_units,
+             Q_per_liv_units, R_per_liv_units)
+}
+
+d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
+head(d2)
+# TODO: save the csv
+d2
+
+# TODO: save the plots
+p <- ggplot(d2, aes(f_flow, R_per_liv_units)) + geom_point() + geom_line()
+p + facet_grid(~ gal_challenge)
+
+p <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line()
+p + facet_grid(~ gal_challenge)
+
+# plot results
 boxplot(parscl$Q_sinunit/parscl$Vol_sinunit)
 
 names(parscl)
