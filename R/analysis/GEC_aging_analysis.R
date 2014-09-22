@@ -9,7 +9,7 @@
 # date: 2014-04-17
 ###############################################################
 
-rm(list=ls())
+# rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 create_plots = F
