@@ -20,6 +20,27 @@ gender.cols = c("black", "blue", "red")
 ##############################################
 # Read datasets
 ##############################################
+
+
+# age [years], bodyweight [kg], GEC [mmol/min], GEC [mmol/min/kg] 
+duc1979 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Ducry1979_Tab1.csv"), sep="\t")
+duc1979$study <- 'duc1979'
+duc1979$gender <- 'all'
+head(duc1979)
+
+# age [years], sex [M,F], GECmg [mg/min/kg], GEC [mmol/min/kg] 
+# age [years], gender [male, female], GECkg [mmole/min/kg]
+duf2005 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Dufour2005_Tab1.csv"), sep="\t")
+duf2005$GECkg <- duf2005$GECmg/180
+duf2005$gender <- as.character(duf2005$sex)
+duf2005$gender[duf2005$gender=='M'] <- 'male'
+duf2005$gender[duf2005$gender=='F'] <- 'female'
+duf2005$study <- 'duf2005'
+duf2005 <- duf2005[duf2005$state=='normal', ]
+head(duf2005)
+
+
+
 # age [years], GEC (galactose elimination capacity) [mmol/min], 
 # HVI (hepatic volumetric index) [units], volLiver [cm^3]
 mar1988 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Marchesini1988_Fig.csv"), sep="\t")
@@ -41,7 +62,7 @@ lan2011$GECkg <- lan2011$GEC/1000
 lan2011 <- lan2011[lan2011$status=='healthy', ]
 head(lan2011)
 
-
+# age [years], bodyweigth [kg], GEC [mmol/min], GECkg [mmol/min/kg]
 tyg1962$GECkg <- tyg1962$GEC/tyg1962$bodyweight
 tyg1962$study = 'tyg1962'
 tyg1962$gender = 'all'
@@ -83,30 +104,45 @@ win1965 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Winkler1965.csv")
 win1965 <- win1965[!is.na(win1965$GEC), ]
 win1965$flowLiver <- 0.5 * (win1965$bloodflowM1 + win1965$bloodflowM2)
 win1965$bodyweight <- win1965$weight
+win1965$flowLiverkg <- win1965$flowLiver/win1965$bodyweight
 win1965$gender <- as.character(win1965$sex)
 win1965$study <- 'win1965'
 head(win1965)
 
-# age [years], bodyweight [kg], GEC [mmol/min], GEC [mmol/min/kg] 
-duc1979 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Ducry1979_Tab1.csv"), sep="\t")
-duc1979$study <- 'duc1979'
-duc1979$gender <- 'all'
-head(duc1979)
 
-# gender [male, female], age[years], volume [ml]
+# gender [male, female], age [years], liver volume [ml]
 wyn1989.fig2a <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig2A.csv"), sep="\t")
 wyn1989.fig2a$volLiver <- wyn1989.fig2a$volume
 wyn1989.fig2a$study <- 'wyn1989'
 head(wyn1989.fig2a)
 
-
+# gender [male, female], age [years], liver volume per bodyweight [ml/kg]
 wyn1989.fig2b <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig2B.csv"), sep="\t")
+wyn1989.fig2b$volLiverkg <- wyn1989.fig2b$relvolume
+wyn1989.fig2b$study <- 'wyn1989'
 head(wyn1989.fig2b)
 
+# gender [male, female], age [years], liver blood flow [ml/min]
 wyn1989.fig3a <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig3A.csv"), sep="\t")
-wyn1989.fig3b <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig3B.csv"), sep="\t")
-wyn1989.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig4.csv"), sep="\t")
+wyn1989.fig3a$flowLiver <- wyn1989.fig3a$bloodflow
+wyn1989.fig3a$study <- 'wyn1989'
+head(wyn1989.fig3a)
 
+# gender [male, female], age [years], liver blood flow per bodyweight [ml/min/kg]
+wyn1989.fig3b <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig3B.csv"), sep="\t")
+wyn1989.fig3b$flowLiverkg <- wyn1989.fig3b$relbloodflow
+wyn1989.fig3b$study <- 'wyn1989'
+head(wyn1989.fig3b)
+
+# gender [male, female], age [years], perfusion [ml/min/ml]
+wyn1989.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig4.csv"), sep="\t")
+wyn1989.fig4$study <- 'wyn1989'
+head(wyn1989.fig4)
+
+# age [years], bodyweight [kg], volLiver [ml], volLiverkg [ml/kg]
+swi1978 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Swift1978_Tab1.csv"), sep="\t")
+swi1978$study <- 'swi1978'
+head(swi1978)
 
 
 ##############################################
@@ -159,13 +195,14 @@ print(lm.file)
 source(lm.file)
 
 ############################################
-# GEC [mmol/min/kgbw] vs. age [years]
+# GECkg [mmol/min/kgbw] vs. age [years]
 ############################################
 data <- rbind( lan2011[, c('study', 'gender', 'age', 'GECkg')],
                duc1979[, c('study', 'gender', 'age', 'GECkg')],
                tyg1962[, c('study', 'gender', 'age', 'GECkg')],
                sch1986.fig1[, c('study', 'gender', 'age', 'GECkg')], 
-               sch1986.tab1[, c('study', 'gender', 'age', 'GECkg')] )
+               # sch1986.tab1[, c('study', 'gender', 'age', 'GECkg')],
+               duf2005[, c('study', 'gender', 'age', 'GECkg')])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
 
@@ -211,16 +248,67 @@ makeFigure(data, main='Liver volume vs. age',xname='age', yname='volLiver',
            xlab='Age [years]', ylab='Liver volume [ml]', 
            xlim=c(0,90), ylim=c(600,2000))
 
+# mean data from Swift1978
+for (k in c(1,2)){
+  segments(swi1978$minAge[k], swi1978$volLiver[k],  
+         swi1978$maxAge[k], swi1978$volLiver[k])
+  segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiver[k]+swi1978$volLiverSd[k],
+         0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiver[k]-swi1978$volLiverSd[k])
+}
+############################################
+# volLiverkg [ml/kg] vs. age [years]
+############################################
+data <- rbind(wyn1989.fig2b[, c('study', 'gender', 'age', 'volLiverkg')])
+data$gender <- as.factor(data$gender)
+levels(data$gender) <- gender.levels
+
+makeFigure(data, main='Liver volume per bodyweight vs. age',xname='age', yname='volLiverkg',
+           xlab='Age [years]', ylab='Liver volume per bodyweight [ml/kg]', 
+           xlim=c(0,90), ylim=c(10, 35))
+
+# mean data from Swift1978
+for (k in c(1,2)){
+  segments(swi1978$minAge[k], swi1978$volLiverkg[k],  
+           swi1978$maxAge[k], swi1978$volLiverkg[k])
+  segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]+swi1978$volLiverkgSd[k],
+           0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]-swi1978$volLiverkgSd[k])
+}
+
 ############################################
 # flowLiver [ml/min] vs. age [years]
 ############################################
-data <- rbind( win1965[, c('study', 'gender', 'age', 'flowLiver')] )
+data <- rbind( win1965[, c('study', 'gender', 'age', 'flowLiver')],
+               wyn1989.fig3a[, c('study', 'gender', 'age', 'flowLiver')])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
 
 makeFigure(data, main='Blood flow vs. age',xname='age', yname='flowLiver',
            xlab='Age [years]', ylab='Blood flow liver [ml/min]', 
-           xlim=c(0,90), ylim=c(600,3000))
+           xlim=c(0,90), ylim=c(400,3000))
+
+############################################
+# flowLiverkg [ml/min/kg] vs. age [years]
+############################################
+data <- rbind( win1965[, c('study', 'gender', 'age', 'flowLiverkg')],
+               wyn1989.fig3b[, c('study', 'gender', 'age', 'flowLiverkg')])
+data$gender <- as.factor(data$gender)
+levels(data$gender) <- gender.levels
+
+makeFigure(data, main='Blood flow per bodyweight vs. age', xname='age', yname='flowLiverkg',
+           xlab='Age [years]', ylab='Blood flow liver per bodyweight [ml/min/kg]', 
+           xlim=c(0,90), ylim=c(0,40))
+
+############################################
+# perfusion [ml/min/ml] vs. age [years]
+############################################
+data <- rbind( wyn1989.fig4[, c('study', 'gender', 'age', 'perfusion')])
+data$gender <- as.factor(data$gender)
+levels(data$gender) <- gender.levels
+
+makeFigure(data, main='Perfusion vs. age', xname='age', yname='perfusion',
+           xlab='Age [years]', ylab='Perfusion [ml/min/ml]', 
+           xlim=c(0,90), ylim=c(0,2))
+
 
 
 ############################################
