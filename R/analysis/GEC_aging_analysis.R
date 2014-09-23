@@ -21,7 +21,6 @@ gender.cols = c("black", "blue", "red")
 # Read datasets
 ##############################################
 
-
 # age [years], bodyweight [kg], GEC [mmol/min], GEC [mmol/min/kg] 
 duc1979 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Ducry1979_Tab1.csv"), sep="\t")
 duc1979$study <- 'duc1979'
@@ -143,14 +142,22 @@ head(wyn1989.fig4)
 swi1978 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Swift1978_Tab1.csv"), sep="\t")
 swi1978$study <- 'swi1978'
 head(swi1978)
-
-
-##############################################
+############################################################################################
 # Figure template
-##############################################
+############################################################################################
 makeFigure <- function(data, main, xname, yname, 
                                    xlab, ylab, 
-                                   xlim, ylim){
+                                   xlim, ylim, create_plots=T){
+  
+  if (create_plots == TRUE){
+    name = paste(yname, 'vs', xname) 
+    plot.file <- file.path(ma.settings$dir.results, 'linear_regression', 
+                           paste(name, '.png', sep=""))
+    print(plot.file)               
+    png(filename=plot.file,
+        width = 800, height = 800, units = "px", bg = "white",  res = 150)
+  }
+  
   plot(numeric(0), numeric(0), xlim=xlim, ylim=ylim, 
        main=main, xlab=xlab, ylab=ylab)
   for (k in 1:length(gender.levels)){
@@ -158,41 +165,66 @@ makeFigure <- function(data, main, xname, yname,
     points(data[inds, xname], data[inds, yname], col=gender.cols[k])  
   }
   legend("topright",  legend=gender.levels, fill=gender.cols)  
+  
+  # linear regression
+  formula <- as.formula(paste(yname, '~', xname))
+  print(formula)
+  m1 <- lm(formula, data=data)
+  summary(m1)
+  abline(m1)
+  
+  # get the confidence intervals for the betas
+  newx <- seq(min(data[[xname]]), max(data[[xname]]), length.out = 100)
+  newx.df <- as.data.frame(newx)
+  names(newx.df) <- c(xname)
+  
+  # conf.interval <- predict(m1, interval="confidence") 
+  conf.interval <- predict(m1, newdata=newx.df, interval="confidence") 
+  lines(newx, conf.interval[,2], lty=2)
+  lines(newx, conf.interval[,3], lty=2)
+  
+  # get prediction intervals
+  for (level in c(0.66, 0.95)){
+    pred.interval <- predict(m1, newdata=newx.df, interval="prediction", level=level) 
+    lines(newx, pred.interval[,2], lty=3, col='blue')
+    lines(newx, pred.interval[,3], lty=3, col='blue') 
+  }
+  if (create_plots==TRUE){ dev.off() }
+  
+  # write output file
+  # Create output file with information
+  log.file <- file.path(ma.settings$dir.results, 'linear_regression', 
+                         paste(name, '.txt', sep=""))
+  sink.file <- file(log.file, open = "wt")
+  sink(sink.file)
+  sink(sink.file, type="message")  
+  print('### Data ###')
+  print(summary(data))
+  print('### Linear Regression Model ###')
+  print(summary(m1))
+  sink(type="message")
+  sink()
+
 }
 
-
-############################################
+############################################################################################
 # GEC [mmol/min] vs. age [years]
 ############################################
-data <- rbind( mar1988[, c('study', 'gender', 'age', 'GEC')],
-               tyg1962[, c('study', 'gender', 'age', 'GEC')],
-               sch1986.tab1[, c('study', 'gender', 'age', 'GEC')],
-               win1965[, c('study', 'gender', 'age', 'GEC')],
-               duc1979[, c('study', 'gender', 'age', 'GEC')])
+selection <- c('study', 'gender', 'age', 'GEC')
+data <- rbind( mar1988[, selection],
+               tyg1962[, selection],
+               sch1986.tab1[, selection],
+               win1965[, selection],
+               duc1979[, selection])
+
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
+data <- data[complete.cases(data), ]  # remove NA
+summary(data)
 
 makeFigure(data, main='GEC vs. age', xname='age', yname='GEC',
            xlab='Age [years]', ylab='GEC [mmol/min]', 
            xlim=c(0,90), ylim=c(0,5))
-
-m1 <- lm(GEC ~ age, data=data)
-summary(m1)
-plot(data$age, data$GEC)
-abline(m1)
-
-lm.data <- list()
-lm.data$x <- data$age
-lm.data$xname <- 'age'
-lm.data$xunit <- '[years]'
-lm.data$xlim <- c(10,100)
-lm.data$y <- data$GEC
-lm.data$yname <- 'GEC'
-lm.data$yunit <- '[mmol/min]'
-lm.data$ylim <- c(0.0, 5.0)
-lm.file <- file.path(ma.settings$dir.code, 'analysis', 'data_regression.R')
-print(lm.file)
-source(lm.file)
 
 ############################################
 # GECkg [mmol/min/kgbw] vs. age [years]
@@ -219,7 +251,7 @@ levels(data$gender) <- gender.levels
 
 makeFigure(data, main='GEC vs. volLiver', xname='volLiver', yname='GEC',
            xlab='Volume liver [ml]', ylab='GEC [mmol/min]', 
-           xlim=c(500,2000), ylim=c(0, 5))
+           xlim=c(600,1800), ylim=c(0, 5))
 
 ############################################
 # bodyweight [kg] vs. age [years]
@@ -308,7 +340,6 @@ levels(data$gender) <- gender.levels
 makeFigure(data, main='Perfusion vs. age', xname='age', yname='perfusion',
            xlab='Age [years]', ylab='Perfusion [ml/min/ml]', 
            xlim=c(0,90), ylim=c(0,2))
-
 
 
 ############################################
