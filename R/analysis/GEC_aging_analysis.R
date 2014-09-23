@@ -8,7 +8,6 @@
 # author: Matthias Koenig
 # date: 2014-04-17
 ###############################################################
-
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
@@ -41,6 +40,7 @@ lan2011$GECmumolkg <- lan2011$GEC
 lan2011$GECkg <- lan2011$GEC/1000
 lan2011 <- lan2011[lan2011$status=='healthy', ]
 head(lan2011)
+
 
 tyg1962$GECkg <- tyg1962$GEC/tyg1962$bodyweight
 tyg1962$study = 'tyg1962'
@@ -87,9 +87,8 @@ win1965$gender <- as.character(win1965$sex)
 win1965$study <- 'win1965'
 head(win1965)
 
-# age [years], weight [kg], GEC [mmol/min]
+# age [years], bodyweight [kg], GEC [mmol/min], GEC [mmol/min/kg] 
 duc1979 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Ducry1979_Tab1.csv"), sep="\t")
-duc1979$bodyweight <- duc1979$weight
 duc1979$study <- 'duc1979'
 duc1979$gender <- 'all'
 head(duc1979)
@@ -163,12 +162,12 @@ source(lm.file)
 # GEC [mmol/min/kgbw] vs. age [years]
 ############################################
 data <- rbind( lan2011[, c('study', 'gender', 'age', 'GECkg')],
+               duc1979[, c('study', 'gender', 'age', 'GECkg')],
                tyg1962[, c('study', 'gender', 'age', 'GECkg')],
                sch1986.fig1[, c('study', 'gender', 'age', 'GECkg')], 
                sch1986.tab1[, c('study', 'gender', 'age', 'GECkg')] )
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
-data
 
 makeFigure(data, main='GEC/kg vs. age', xname='age', yname='GECkg',
            xlab='Age [years]', ylab='GEC [mmol/min/kg]', 
@@ -188,7 +187,8 @@ makeFigure(data, main='GEC vs. volLiver', xname='volLiver', yname='GEC',
 ############################################
 # bodyweight [kg] vs. age [years]
 ############################################
-data <- rbind( tyg1962[, c('study', 'gender', 'bodyweight', 'age')],
+data <- rbind( duc1979[, c('study', 'gender', 'bodyweight', 'age')],
+               tyg1962[, c('study', 'gender', 'bodyweight', 'age')],
                sch1986.tab1[, c('study', 'gender', 'bodyweight', 'age')],
                win1965[, c('study', 'gender', 'bodyweight', 'age')],
                duc1979[, c('study', 'gender', 'bodyweight', 'age')])
