@@ -78,6 +78,8 @@ gra2000.tab1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Gra
 gra2000.tab1$gender <- as.character(gra2000.tab1$sex)
 gra2000.tab1$gender[gra2000.tab1$gender=='M'] <- 'male'
 gra2000.tab1$gender[gra2000.tab1$gender=='F'] <- 'female'
+gra2000.tab1$volLiver <- gra2000.tab1$liverWeight/f_liver_density * 1000; # [ml]
+gra2000.tab1$volLiverSd <- gra2000.tab1$liverWeightSd/f_liver_density * 1000; # [ml]
 head(gra2000.tab1)
 
 # sex [M,F], bmi [kg/m^2], liverWeight [kg] 
@@ -85,6 +87,8 @@ gra2000.tab2 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Gra
 gra2000.tab2$gender <- as.character(gra2000.tab2$sex)
 gra2000.tab2$gender[gra2000.tab2$gender=='M'] <- 'male'
 gra2000.tab2$gender[gra2000.tab2$gender=='F'] <- 'female'
+gra2000.tab2$volLiver <- gra2000.tab2$liverWeight/f_liver_density * 1000; # [ml]
+gra2000.tab2$volLiverSd <- gra2000.tab2$liverWeightSd/f_liver_density * 1000; # [ml]
 head(gra2000.tab2)
 
 # age [years], GEC [µmol/min/kg]
@@ -157,6 +161,14 @@ win1965$gender <- as.character(win1965$sex)
 win1965$study <- 'win1965'
 head(win1965)
 
+# sex [M], age [years], bodyweight [kg], liverWeight [kg]
+tom1965 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Thompson1965.csv"), sep="\t")
+tom1965$gender <- as.character(tom1965$sex)
+tom1965$gender[tom1965$gender=='M'] <- 'male'
+tom1965$gender[tom1965$gender=='F'] <- 'female'
+tom1965$volLiver <- tom1965$liverWeight/f_liver_density * 1000; # [ml]
+tom1965$volLiverSd <- tom1965$liverWeightSd/f_liver_density * 1000; # [ml]
+head(tom1965)
 
 # gender [male, female], age [years], liver volume [ml]
 wyn1989.fig2a <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig2A.csv"), sep="\t")
@@ -191,7 +203,6 @@ head(wyn1989.fig4)
 swi1978 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Swift1978_Tab1.csv"), sep="\t")
 swi1978$study <- 'swi1978'
 head(swi1978)
-
 
 
 ############################################################################################
@@ -430,6 +441,17 @@ for (k in c(1,2)){
   segments(bac1981$age[k], bac1981$volLiver[k]+bac1981$volLiverSd[k],
            bac1981$age[k], bac1981$volLiver[k]-bac1981$volLiverSd[k])
 }
+# mean data from Thompson1965
+head(tom1965)
+for (k in 1:nrow(tom1965)){
+  sex <- tom1965$gender[k]
+  col <- gender.cols[which(gender.levels == sex)]
+  segments(tom1965$ageMin[k], tom1965$volLiver[k],  
+           tom1965$ageMax[k], tom1965$volLiver[k], col=col)
+  segments(tom1965$age[k], tom1965$volLiver[k]+tom1965$volLiverSd[k],
+           tom1965$age[k], tom1965$volLiver[k]-tom1965$volLiverSd[k], col=col)
+}
+
 
 
 #fit the individual gender data
@@ -538,7 +560,15 @@ for (k in 1:nrow(del1968.fig1)){
   segments(del1968.fig1$weight[k], del1968.fig1$volLiver[k]+del1968.fig1$volLiverSd[k],
            del1968.fig1$weight[k], del1968.fig1$volLiver[k]-del1968.fig1$volLiverSd[k], col=col)
 }
-
+head(tom1965)
+for (k in 1:nrow(tom1965)){
+  sex <- tom1965$gender[k]
+  col <- gender.cols[which(gender.levels == sex)]
+  segments(tom1965$bodyweight[k]-tom1965$bodyweightSd[k], tom1965$volLiver[k],  
+           tom1965$bodyweight[k]+tom1965$bodyweightSd[k], tom1965$volLiver[k], col=col)
+  segments(tom1965$bodyweight[k], tom1965$volLiver[k]+tom1965$volLiverSd[k],
+           tom1965$bodyweight[k], tom1965$volLiver[k]-tom1965$volLiverSd[k], col=col)
+}
 
 ############################################
 # volLiver [ml] vs. height [cm]
@@ -569,7 +599,18 @@ for (k in 1:nrow(del1968.fig3)){
   segments(del1968.fig3$height[k], del1968.fig3$volLiver[k]+del1968.fig3$volLiverSd[k],
            del1968.fig3$height[k], del1968.fig3$volLiver[k]-del1968.fig3$volLiverSd[k], col=col)
 }
-
+head(gra2000.tab1)
+for (k in 1:nrow(gra2000.tab1)){
+  print(k)
+  # horizontal
+  sex <- gra2000.tab1$gender[k]
+  col <- gender.cols[which(gender.levels == sex)]
+  segments(gra2000.tab1$heightMin[k], gra2000.tab1$volLiver[k],  
+           gra2000.tab1$heightMax[k], gra2000.tab1$volLiver[k], col=col)
+  # vertical
+  segments(gra2000.tab1$heightMean[k], gra2000.tab1$volLiver[k]+gra2000.tab1$volLiverSd[k],
+           gra2000.tab1$heightMean[k], gra2000.tab1$volLiver[k]-gra2000.tab1$volLiverSd[k], col=col)
+}
 
 ############################################
 # flowLiver [ml/min] vs. age [years]
