@@ -20,6 +20,8 @@ gender.cols = c("black", "blue", "red")
 ##############################################
 # Read datasets
 ##############################################
+f_liver_density = 1.08  # [g/ml] conversion between volume and weight
+
 # age [years], volLiver [ml], BSA [m^2], volLiverPerBSA [ml/m^2]
 bac1981 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Bach1981_Tab2.csv"), sep="\t")
 bac1981$gender <- as.character(bac1981$sex)
@@ -31,6 +33,8 @@ del1968.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "DeL
 del1968.fig1$gender <- as.character(del1968.fig1$sex)
 del1968.fig1$gender[del1968.fig1$gender=='M'] <- 'male'
 del1968.fig1$gender[del1968.fig1$gender=='F'] <- 'female'
+del1968.fig1$volLiver <- del1968.fig1$liverWeight/f_liver_density * 1000; # [ml]
+del1968.fig1$volLiverSd <- del1968.fig1$liverWeightSd/f_liver_density * 1000; # [ml]
 head(del1968.fig1)
 
 # height [cm], liverWeight [kg], liverWeightSd [kg]
@@ -38,6 +42,8 @@ del1968.fig3 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "DeL
 del1968.fig3$gender <- as.character(del1968.fig3$sex)
 del1968.fig3$gender[del1968.fig3$gender=='M'] <- 'male'
 del1968.fig3$gender[del1968.fig3$gender=='F'] <- 'female'
+del1968.fig3$volLiver <- del1968.fig3$liverWeight/f_liver_density * 1000; # [ml]
+del1968.fig3$volLiverSd <- del1968.fig3$liverWeightSd/f_liver_density * 1000; # [ml]
 head(del1968.fig3)
 
 # BSA [m^2], liverWeight [kg], liverWeightSd [kg]
@@ -45,6 +51,8 @@ del1968.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "DeL
 del1968.fig4$gender <- as.character(del1968.fig4$sex)
 del1968.fig4$gender[del1968.fig4$gender=='M'] <- 'male'
 del1968.fig4$gender[del1968.fig4$gender=='F'] <- 'female'
+del1968.fig4$volLiver <- del1968.fig4$liverWeight/f_liver_density * 1000; # [ml]
+del1968.fig4$volLiverSd <- del1968.fig4$liverWeightSd/f_liver_density * 1000; # [ml]
 head(del1968.fig4)
 
 
@@ -105,6 +113,8 @@ naw1998 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Nawaratn
 naw1998$gender <- as.character(naw1998$sex)
 naw1998$gender[naw1998$gender=='M'] <- 'male'
 naw1998$gender[naw1998$gender=='F'] <- 'female'
+
+naw1998$volLiverkg <- naw1998$volLiver/naw1998$bodyweight # [ml/kg]
 naw1998$volLiver <- naw1998$liverVol
 head(naw1998)
 
@@ -411,7 +421,18 @@ for (k in c(1,2)){
   segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiver[k]+swi1978$volLiverSd[k],
          0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiver[k]-swi1978$volLiverSd[k])
 }
-# plot the individual gender data
+# mean data from Bach1981
+for (k in c(1,2)){
+  # horizontal
+  segments(bac1981$age[k]-bac1981$ageSd[k], bac1981$volLiver[k],  
+           bac1981$age[k]+bac1981$ageSd[k], bac1981$volLiver[k])
+  # vertical
+  segments(bac1981$age[k], bac1981$volLiver[k]+bac1981$volLiverSd[k],
+           bac1981$age[k], bac1981$volLiver[k]-bac1981$volLiverSd[k])
+}
+
+
+#fit the individual gender data
 for (k in 1:length(gender.levels)){
   inds <- which(data$gender == gender.levels[k])
   
@@ -427,9 +448,9 @@ for (k in 1:length(gender.levels)){
 xname <- 'age'
 yname <- 'volLiverkg'
 selection <- c('study', 'gender', xname, yname)
-data <- rbind(wyn1989.fig2b[, selection])
-data$gender <- as.factor(data$gender)
-levels(data$gender) <- gender.levels
+data <- rbind(wyn1989.fig2b[, selection],
+              naw1998[, selection])
+names(naw1998)
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
@@ -454,9 +475,7 @@ for (k in c(1,2)){
 xname <- 'BSA'
 yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
-data <- rbind()
-data$gender <- as.factor(data$gender)
-levels(data$gender) <- gender.levels
+data <- rbind(naw1998[, selection])
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
@@ -465,18 +484,91 @@ id = id + 1
 
 makeFigure(data, m1, main='Liver volume vs. BSA', xname='BSA', yname='volLiver',
            xlab='Body surface area (BSA) [m^2]', ylab='Liver volume [ml]', 
-           xlim=c(0,90), ylim=c(10, 35))
+           xlim=c(1.2,2.4), ylim=c(500, 2500))
 
 # mean data from bac1981
-# TODO
+head(bac1981)
 for (k in c(1,2)){
-  segments(swi1978$minAge[k], swi1978$volLiverkg[k],  
-           swi1978$maxAge[k], swi1978$volLiverkg[k])
-  segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]+swi1978$volLiverkgSd[k],
-           0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]-swi1978$volLiverkgSd[k])
+  # horizontal
+  #segments(bac1981$BSA[k]-bac1981$BSASd[k], bac1981$volLiver[k],  
+  #         bac1981$BSA[k]+bac1981$BSASd[k], bac1981$volLiver[k])
+  # vertical
+  #segments(bac1981$BSA[k], bac1981$volLiver[k]+bac1981$volLiverSd[k],
+  #         bac1981$BSA[k], bac1981$volLiver[k]-bac1981$volLiverSd[k])
+}
+head(del1968.fig4)
+for (k in 1:nrow(del1968.fig4)){
+  print(k)
+  # horizontal
+  sex <- del1968.fig4$gender[k]
+  col <- gender.cols[which(gender.levels == sex)]
+  segments(del1968.fig4$BSAMin[k], del1968.fig4$volLiver[k],  
+           del1968.fig4$BSAMax[k], del1968.fig4$volLiver[k], col=col)
+  # vertical
+  segments(del1968.fig4$BSA[k], del1968.fig4$volLiver[k]+del1968.fig4$volLiverSd[k],
+           del1968.fig4$BSA[k], del1968.fig4$volLiver[k]-del1968.fig4$volLiverSd[k], col=col)
+}
+
+############################################
+# volLiver [ml] vs. bodyweight [kg]
+############################################
+xname <- 'bodyweight'
+yname <- 'volLiver'
+selection <- c('study', 'gender', xname, yname)
+data <- rbind(naw1998[, selection])
+
+m1 <- linear_regression(data, xname, yname)
+reg.models[[id]] = m1
+reg.data[[id]] = data
+id = id + 1
+
+makeFigure(data, m1, main='Liver volume vs. bodyweight', xname='bodyweight', yname='volLiver',
+           xlab='bodyweight [kg]', ylab='Liver volume [ml]', 
+           xlim=c(40,120), ylim=c(500, 2500))
+
+head(del1968.fig1)
+for (k in 1:nrow(del1968.fig1)){
+  print(k)
+  # horizontal
+  sex <- del1968.fig1$gender[k]
+  col <- gender.cols[which(gender.levels == sex)]
+  segments(del1968.fig1$weightMin[k], del1968.fig1$volLiver[k],  
+           del1968.fig1$weightMax[k], del1968.fig1$volLiver[k], col=col)
+  # vertical
+  segments(del1968.fig1$weight[k], del1968.fig1$volLiver[k]+del1968.fig1$volLiverSd[k],
+           del1968.fig1$weight[k], del1968.fig1$volLiver[k]-del1968.fig1$volLiverSd[k], col=col)
 }
 
 
+############################################
+# volLiver [ml] vs. height [cm]
+############################################
+xname <- 'height'
+yname <- 'volLiver'
+selection <- c('study', 'gender', xname, yname)
+data <- rbind(naw1998[, selection])
+
+m1 <- linear_regression(data, xname, yname)
+reg.models[[id]] = m1
+reg.data[[id]] = data
+id = id + 1
+
+makeFigure(data, m1, main='Liver volume vs. height', xname='height', yname='volLiver',
+           xlab='height [cm]', ylab='Height [cm]', 
+           xlim=c(140,200), ylim=c(500, 2500))
+
+head(del1968.fig3)
+for (k in 1:nrow(del1968.fig3)){
+  print(k)
+  # horizontal
+  sex <- del1968.fig3$gender[k]
+  col <- gender.cols[which(gender.levels == sex)]
+  segments(del1968.fig3$heightMin[k], del1968.fig3$volLiver[k],  
+           del1968.fig3$heightMax[k], del1968.fig3$volLiver[k], col=col)
+  # vertical
+  segments(del1968.fig3$height[k], del1968.fig3$volLiver[k]+del1968.fig3$volLiverSd[k],
+           del1968.fig3$height[k], del1968.fig3$volLiver[k]-del1968.fig3$volLiverSd[k], col=col)
+}
 
 
 ############################################
