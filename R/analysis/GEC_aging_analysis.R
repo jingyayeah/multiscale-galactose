@@ -61,13 +61,6 @@ lan2011$GECkg <- lan2011$GEC/1000
 lan2011 <- lan2011[lan2011$status=='healthy', ]
 head(lan2011)
 
-# age [years], bodyweigth [kg], GEC [mmol/min], GECkg [mmol/min/kg]
-tyg1962$GECkg <- tyg1962$GEC/tyg1962$bodyweight
-tyg1962$study = 'tyg1962'
-tyg1962$gender = 'all'
-tyg1962 <- tyg1962[tyg1962$state=='healthy', ]
-head(tyg1962)
-
 
 # age [years], bodyweight [kg], GEC [mmol/min]
 tyg1962 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Tygstrup1962.csv"), sep="\t")
@@ -176,16 +169,32 @@ linear_regression <- function(data, xname, yname){
 ############################################################################################
 # Figure template
 ############################################################################################
+makeQualityFigure <- function(m1, xname, yname, create_plots=F){
+  name = paste(yname, 'vs', xname) 
+  if (create_plots == TRUE){
+    plot.file <- file.path(ma.settings$dir.results, 'linear_regression', 
+                           paste(name, '_quality.png', sep=""))
+    print(plot.file)               
+    png(filename=plot.file,
+        width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
+  }
+  
+  par(mfrow=c(2,2))
+  plot(m1)
+  par(mfrow=c(1,1))
+  if (create_plots==TRUE){ dev.off() }
+}
+
 makeFigure <- function(data, m1, main, xname, yname, 
                                    xlab, ylab, 
-                                   xlim, ylim, create_plots=F){
+                                   xlim, ylim, create_plots=T){
   name = paste(yname, 'vs', xname) 
   if (create_plots == TRUE){
     plot.file <- file.path(ma.settings$dir.results, 'linear_regression', 
                            paste(name, '.png', sep=""))
     print(plot.file)               
     png(filename=plot.file,
-        width = 800, height = 800, units = "px", bg = "white",  res = 150)
+        width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
   }
   
   plot(numeric(0), numeric(0), xlim=xlim, ylim=ylim, 
@@ -194,7 +203,8 @@ makeFigure <- function(data, m1, main, xname, yname,
     inds <- which(data$gender == gender.levels[k])
     points(data[inds, xname], data[inds, yname], col=gender.cols[k])  
   }
-  legend("topright",  legend=gender.levels, fill=gender.cols)  
+  legend("topright",  legend=gender.levels, fill=gender.cols) 
+  # legend("topleft",  legend=gender.levels, fill=gender.cols) 
   
   # Plot linear regression information
   if (!is.null(m1)){
@@ -212,15 +222,23 @@ makeFigure <- function(data, m1, main, xname, yname,
     lines(newx, conf.interval[,3], lty=2)
   
     # get prediction intervals
-    for (level in c(0.66, 0.95)){
+    for (level in c(0.682, 0.95)){
       pred.interval <- predict(m1, newdata=newx.df, interval="prediction", level=level) 
       lines(newx, pred.interval[,2], lty=3, col='blue')
       lines(newx, pred.interval[,3], lty=3, col='blue') 
     }
+    
+    # residual standard error
+    RSE <- sqrt(deviance(m1)/df.residual(m1))
+    
+    # plot equation
+    info <- sprintf('y = %3.4f * x %+3.4f\n RSE = %3.4f', m1$coefficients[2], m1$coefficients[1], RSE)
+    text(x=0.5*(xlim[2]+xlim[1]), 
+         y=(ylim[1] + 0.05*(ylim[2]-ylim[1])), labels = info)
   }
   if (create_plots==TRUE){ dev.off() }
+  # makeQualityFigure(m1, xname, yname, create_plots=T)
 }
-
 
 # Store the linear regression information in data frame
 # SE standard error
@@ -253,7 +271,8 @@ id = id + 1
 
 makeFigure(data, m1, main='GEC vs. age', xname='age', yname='GEC',
            xlab='Age [years]', ylab='GEC [mmol/min]', 
-           xlim=c(0,90), ylim=c(0,5), create_plots=F)
+           xlim=c(0,90), ylim=c(0,5))
+
 
 ############################################
 # GECkg [mmol/min/kgbw] vs. age [years]
@@ -319,7 +338,7 @@ id = id + 1
 
 makeFigure(data, m1, main='Bodyweight vs. age',xname='age', yname='bodyweight',
            xlab='Age [years]', ylab='Bodyweight [kg]', 
-           xlim=c(0,90), ylim=c(40,140))
+           xlim=c(0,90), ylim=c(0,140))
 
 ############################################
 # volLiver [ml] vs. age [years]
@@ -398,23 +417,39 @@ makeFigure(data, m1, main='Blood flow vs. age',xname='age', yname='flowLiver',
 ############################################
 # flowLiverkg [ml/min/kg] vs. age [years]
 ############################################
-data <- rbind( win1965[, c('study', 'gender', 'age', 'flowLiverkg')],
-               wyn1989.fig3b[, c('study', 'gender', 'age', 'flowLiverkg')])
+xname <- 'age'
+yname <- 'flowLiverkg'
+selection <- c('study', 'gender', xname, yname)
+data <- rbind( win1965[, selection],
+               wyn1989.fig3b[, selection])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
 
-makeFigure(data, main='Blood flow per bodyweight vs. age', xname='age', yname='flowLiverkg',
+m1 <- linear_regression(data, xname, yname)
+reg.models[[id]] = m1
+reg.data[[id]] = data
+id = id + 1
+
+makeFigure(data, m1, main='Blood flow per bodyweight vs. age', xname='age', yname='flowLiverkg',
            xlab='Age [years]', ylab='Blood flow liver per bodyweight [ml/min/kg]', 
            xlim=c(0,90), ylim=c(0,40))
 
 ############################################
 # perfusion [ml/min/ml] vs. age [years]
 ############################################
-data <- rbind( wyn1989.fig4[, c('study', 'gender', 'age', 'perfusion')])
+xname <- 'age'
+yname <- 'perfusion'
+selection <- c('study', 'gender', xname, yname)
+data <- rbind( wyn1989.fig4[, selection])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
 
-makeFigure(data, main='Perfusion vs. age', xname='age', yname='perfusion',
+m1 <- linear_regression(data, xname, yname)
+reg.models[[id]] = m1
+reg.data[[id]] = data
+id = id + 1
+
+makeFigure(data, m1, main='Perfusion vs. age', xname='age', yname='perfusion',
            xlab='Age [years]', ylab='Perfusion [ml/min/ml]', 
            xlim=c(0,90), ylim=c(0,2))
 
@@ -422,11 +457,19 @@ makeFigure(data, main='Perfusion vs. age', xname='age', yname='perfusion',
 ############################################
 # GEC [mmol/min] vs. flowLiver [ml/min]
 ############################################
-data <- rbind( win1965[, c('study', 'gender', 'flowLiver', 'GEC')])
+xname <- 'flowLiver'
+yname <- 'GEC'
+selection <- c('study', 'gender', xname, yname)
+data <- rbind( win1965[, selection])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
 
-makeFigure(data, main='GEC vs. flowLiver', xname='flowLiver', yname='GEC',
+m1 <- linear_regression(data, xname, yname)
+reg.models[[id]] = m1
+reg.data[[id]] = data
+id = id + 1
+
+makeFigure(data, m1,  main='GEC vs. flowLiver', xname='flowLiver', yname='GEC',
            xlab='Blood flow liver [ml/min]', ylab='GEC [mmol/min]', 
            xlim=c(600,3000), ylim=c(0,5))
 
