@@ -1,0 +1,8 @@
+study	status	sex	class	n	bmiMean	bmiMin	bmiMax	bmiSd	liverWeight	liverWeightSd
+gra2000	healthy	M	bmi_m_1	152	20	14	21	1.6	1.581	0.372
+gra2000	healthy	M	bmi_m_2	111	23.5	22	24	0.9	1.73	0.405
+gra2000	healthy	M	bmi_m_3	92	27	25	34	1.9	1.769	0.39
+gra2000	healthy	F	bmi_f_1	139	18.5	13	20	1.9	1.346	0.328
+gra2000	healthy	F	bmi_f_2	109	23	21	24	1.1	1.521	0.331
+gra2000	healthy	F	bmi_f_3	81	28.5	25	40	3.2	1.609	0.419
+

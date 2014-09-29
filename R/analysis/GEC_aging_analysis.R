@@ -20,6 +20,33 @@ gender.cols = c("black", "blue", "red")
 ##############################################
 # Read datasets
 ##############################################
+# age [years], volLiver [ml], BSA [m^2], volLiverPerBSA [ml/m^2]
+bac1981 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Bach1981_Tab2.csv"), sep="\t")
+bac1981$gender <- as.character(bac1981$sex)
+bac1981$gender[bac1981$gender=='U'] <- 'all'
+head(bac1981)
+
+# weight [kg], liverWeight [kg], liverWeightSd [kg]
+del1968.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "DeLand1968_Fig1.csv"), sep="\t")
+del1968.fig1$gender <- as.character(del1968.fig1$sex)
+del1968.fig1$gender[del1968.fig1$gender=='M'] <- 'male'
+del1968.fig1$gender[del1968.fig1$gender=='F'] <- 'female'
+head(del1968.fig1)
+
+# height [cm], liverWeight [kg], liverWeightSd [kg]
+del1968.fig3 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "DeLand1968_Fig3.csv"), sep="\t")
+del1968.fig3$gender <- as.character(del1968.fig3$sex)
+del1968.fig3$gender[del1968.fig3$gender=='M'] <- 'male'
+del1968.fig3$gender[del1968.fig3$gender=='F'] <- 'female'
+head(del1968.fig3)
+
+# BSA [m^2], liverWeight [kg], liverWeightSd [kg]
+del1968.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "DeLand1968_Fig4.csv"), sep="\t")
+del1968.fig4$gender <- as.character(del1968.fig4$sex)
+del1968.fig4$gender[del1968.fig4$gender=='M'] <- 'male'
+del1968.fig4$gender[del1968.fig4$gender=='F'] <- 'female'
+head(del1968.fig4)
+
 
 # age [years], bodyweight [kg], GEC [mmol/min], GEC [mmol/min/kg] 
 duc1979 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Ducry1979_Tab1.csv"), sep="\t")
@@ -38,7 +65,28 @@ duf2005$study <- 'duf2005'
 duf2005 <- duf2005[duf2005$state=='normal', ]
 head(duf2005)
 
+# sex [M,F], height [cm], liverWeight [kg] 
+gra2000.tab1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Grandmaison2000_Tab1.csv"), sep="\t")
+gra2000.tab1$gender <- as.character(gra2000.tab1$sex)
+gra2000.tab1$gender[gra2000.tab1$gender=='M'] <- 'male'
+gra2000.tab1$gender[gra2000.tab1$gender=='F'] <- 'female'
+head(gra2000.tab1)
 
+# sex [M,F], bmi [kg/m^2], liverWeight [kg] 
+gra2000.tab2 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Grandmaison2000_Tab2.csv"), sep="\t")
+gra2000.tab2$gender <- as.character(gra2000.tab2$sex)
+gra2000.tab2$gender[gra2000.tab2$gender=='M'] <- 'male'
+gra2000.tab2$gender[gra2000.tab2$gender=='F'] <- 'female'
+head(gra2000.tab2)
+
+# age [years], GEC [µmol/min/kg]
+lan2011 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Lange2011_Fig1.csv"), sep="\t")
+lan2011$study = 'lan2011'
+lan2011$gender = 'all'
+lan2011$GECmumolkg <- lan2011$GEC
+lan2011$GECkg <- lan2011$GEC/1000
+lan2011 <- lan2011[lan2011$status=='healthy', ]
+head(lan2011)
 
 # age [years], GEC (galactose elimination capacity) [mmol/min], 
 # HVI (hepatic volumetric index) [units], volLiver [cm^3]
@@ -52,15 +100,13 @@ mar1988$study = 'mar1988'
 mar1988$gender = 'all'
 head(mar1988)
 
-# age [years], GEC [µmol/min/kg]
-lan2011 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Lange2011_Fig1.csv"), sep="\t")
-lan2011$study = 'lan2011'
-lan2011$gender = 'all'
-lan2011$GECmumolkg <- lan2011$GEC
-lan2011$GECkg <- lan2011$GEC/1000
-lan2011 <- lan2011[lan2011$status=='healthy', ]
-head(lan2011)
-
+# age [years], sex [M,F], bodyweight [kg], BSA [kg/m^2], liverVol [ml], height [cm] 
+naw1998 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Nawaratne1998_Tab1.csv"), sep="\t")
+naw1998$gender <- as.character(naw1998$sex)
+naw1998$gender[naw1998$gender=='M'] <- 'male'
+naw1998$gender[naw1998$gender=='F'] <- 'female'
+naw1998$volLiver <- naw1998$liverVol
+head(naw1998)
 
 # age [years], bodyweight [kg], GEC [mmol/min]
 tyg1962 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Tygstrup1962.csv"), sep="\t")
@@ -187,7 +233,7 @@ makeQualityFigure <- function(m1, xname, yname, create_plots=F){
 
 makeFigure <- function(data, m1, main, xname, yname, 
                                    xlab, ylab, 
-                                   xlim, ylim, create_plots=T){
+                                   xlim, ylim, create_plots=F){
   name = paste(yname, 'vs', xname) 
   if (create_plots == TRUE){
     plot.file <- file.path(ma.settings$dir.results, 'linear_regression', 
@@ -199,9 +245,11 @@ makeFigure <- function(data, m1, main, xname, yname,
   
   plot(numeric(0), numeric(0), xlim=xlim, ylim=ylim, 
        main=main, xlab=xlab, ylab=ylab)
+  # plot the individual gender data
   for (k in 1:length(gender.levels)){
     inds <- which(data$gender == gender.levels[k])
     points(data[inds, xname], data[inds, yname], col=gender.cols[k])  
+    
   }
   legend("topright",  legend=gender.levels, fill=gender.cols) 
   # legend("topleft",  legend=gender.levels, fill=gender.cols) 
@@ -273,7 +321,6 @@ makeFigure(data, m1, main='GEC vs. age', xname='age', yname='GEC',
            xlab='Age [years]', ylab='GEC [mmol/min]', 
            xlim=c(0,90), ylim=c(0,5))
 
-
 ############################################
 # GECkg [mmol/min/kgbw] vs. age [years]
 ############################################
@@ -328,8 +375,6 @@ data <- rbind( duc1979[, selection],
                sch1986.tab1[, selection],
                win1965[, selection],
                duc1979[, selection])
-data$gender <- as.factor(data$gender)
-levels(data$gender) <- gender.levels
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
@@ -347,9 +392,8 @@ xname <- 'age'
 yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( mar1988[, selection],
-               wyn1989.fig2a[, selection])
-data$gender <- as.factor(data$gender)
-levels(data$gender) <- gender.levels
+               wyn1989.fig2a[, selection],
+               naw1998[, selection])
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
@@ -367,6 +411,16 @@ for (k in c(1,2)){
   segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiver[k]+swi1978$volLiverSd[k],
          0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiver[k]-swi1978$volLiverSd[k])
 }
+# plot the individual gender data
+for (k in 1:length(gender.levels)){
+  inds <- which(data$gender == gender.levels[k])
+  
+  # loess fit (TODO 
+  lw1 = loess(volLiver ~ age, data=data[inds, ])
+  j <- order(data[inds, xname])
+  lines(data[inds, xname][j], lw1$fitted[j],col=gender.cols[k],lwd=3)
+}
+
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
 ############################################
@@ -393,6 +447,37 @@ for (k in c(1,2)){
   segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]+swi1978$volLiverkgSd[k],
            0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]-swi1978$volLiverkgSd[k])
 }
+
+############################################
+# volLiver [ml] vs. BSA [m^2]
+############################################
+xname <- 'BSA'
+yname <- 'volLiver'
+selection <- c('study', 'gender', xname, yname)
+data <- rbind()
+data$gender <- as.factor(data$gender)
+levels(data$gender) <- gender.levels
+
+m1 <- linear_regression(data, xname, yname)
+reg.models[[id]] = m1
+reg.data[[id]] = data
+id = id + 1
+
+makeFigure(data, m1, main='Liver volume vs. BSA', xname='BSA', yname='volLiver',
+           xlab='Body surface area (BSA) [m^2]', ylab='Liver volume [ml]', 
+           xlim=c(0,90), ylim=c(10, 35))
+
+# mean data from bac1981
+# TODO
+for (k in c(1,2)){
+  segments(swi1978$minAge[k], swi1978$volLiverkg[k],  
+           swi1978$maxAge[k], swi1978$volLiverkg[k])
+  segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]+swi1978$volLiverkgSd[k],
+           0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]-swi1978$volLiverkgSd[k])
+}
+
+
+
 
 ############################################
 # flowLiver [ml/min] vs. age [years]
