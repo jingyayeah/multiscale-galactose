@@ -22,6 +22,16 @@ gender.cols = c("black", "blue", "red")
 ##############################################
 f_liver_density = 1.08  # [g/ml] conversion between volume and weight
 
+# sex, age, liverVolume
+alt1962 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Altman1962.csv"), sep="\t")
+alt1962$gender <- as.character(alt1962$sex)
+alt1962$gender[alt1962$gender=='M'] <- 'male'
+alt1962$gender[alt1962$gender=='F'] <- 'female'
+alt1962$volLiver <- alt1962$liverWeight/f_liver_density * 1000; # [ml]
+alt1962$volLiverSd <- alt1962$liverWeightSd/f_liver_density * 1000; # [ml]
+head(alt1962)
+
+
 # age [years], volLiver [ml], BSA [m^2], volLiverPerBSA [ml/m^2]
 bac1981 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Bach1981_Tab2.csv"), sep="\t")
 bac1981$gender <- as.character(bac1981$sex)
@@ -414,7 +424,8 @@ yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( mar1988[, selection],
                wyn1989.fig2a[, selection],
-               naw1998[, selection])
+               naw1998[, selection], 
+               alt1962[, selection])
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
