@@ -83,14 +83,6 @@ duf2005$study <- 'duf2005'
 duf2005 <- duf2005[duf2005$state=='normal', ]
 head(duf2005)
 
-# BSA [m^2], liverVol [ml]
-hei1999 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Heinemann1999.csv"), sep="\t")
-hei1999$gender <- as.character(hei1999$sex)
-hei1999$gender[hei1999$gender=='U'] <- 'all'
-hei1999$volLiver <- hei1999$liverVol
-head(hei1999)
-
-
 # sex [M,F], height [cm], liverWeight [kg] 
 gra2000.tab1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Grandmaison2000_Tab1.csv"), sep="\t")
 gra2000.tab1$gender <- as.character(gra2000.tab1$sex)
@@ -108,6 +100,13 @@ gra2000.tab2$gender[gra2000.tab2$gender=='F'] <- 'female'
 gra2000.tab2$volLiver <- gra2000.tab2$liverWeight/f_liver_density * 1000; # [ml]
 gra2000.tab2$volLiverSd <- gra2000.tab2$liverWeightSd/f_liver_density * 1000; # [ml]
 head(gra2000.tab2)
+
+# BSA [m^2], liverVol [ml]
+hei1999 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Heinemann1999.csv"), sep="\t")
+hei1999$gender <- as.character(hei1999$sex)
+hei1999$gender[hei1999$gender=='U'] <- 'all'
+hei1999$volLiver <- hei1999$liverVol
+head(hei1999)
 
 # age [years], GEC [µmol/min/kg]
 lan2011 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Lange2011_Fig1.csv"), sep="\t")
@@ -187,6 +186,15 @@ tom1965$gender[tom1965$gender=='F'] <- 'female'
 tom1965$volLiver <- tom1965$liverWeight/f_liver_density * 1000; # [ml]
 tom1965$volLiverSd <- tom1965$liverWeightSd/f_liver_density * 1000; # [ml]
 head(tom1965)
+
+
+# BSA [m^2], liverVol [ml]
+ura1995 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Urata1995.csv"), sep="\t")
+ura1995$gender <- as.character(ura1995$sex)
+ura1995$gender[ura1995$gender=='U'] <- 'all'
+ura1995$volLiver <- ura1995$liverVol
+head(ura1995)
+
 
 # gender [male, female], age [years], liver volume [ml]
 wyn1989.fig2a <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig2A.csv"), sep="\t")
@@ -517,7 +525,8 @@ xname <- 'BSA'
 yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind(naw1998[, selection],
-              hei1999[, selection])
+              hei1999[, selection],
+              ura1995[, selection])
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
