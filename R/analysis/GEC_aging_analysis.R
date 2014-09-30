@@ -83,6 +83,14 @@ duf2005$study <- 'duf2005'
 duf2005 <- duf2005[duf2005$state=='normal', ]
 head(duf2005)
 
+# BSA [m^2], liverVol [ml]
+hei1999 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Heinemann1999.csv"), sep="\t")
+hei1999$gender <- as.character(hei1999$sex)
+hei1999$gender[hei1999$gender=='U'] <- 'all'
+hei1999$volLiver <- hei1999$liverVol
+head(hei1999)
+
+
 # sex [M,F], height [cm], liverWeight [kg] 
 gra2000.tab1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Grandmaison2000_Tab1.csv"), sep="\t")
 gra2000.tab1$gender <- as.character(gra2000.tab1$sex)
@@ -508,7 +516,8 @@ for (k in c(1,2)){
 xname <- 'BSA'
 yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
-data <- rbind(naw1998[, selection])
+data <- rbind(naw1998[, selection],
+              hei1999[, selection])
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
@@ -517,7 +526,7 @@ id = id + 1
 
 makeFigure(data, m1, main='Liver volume vs. BSA', xname='BSA', yname='volLiver',
            xlab='Body surface area (BSA) [m^2]', ylab='Liver volume [ml]', 
-           xlim=c(1.2,2.4), ylim=c(500, 2500))
+           xlim=c(0.5,2.5), ylim=c(0, 4000))
 
 # mean data from bac1981
 head(bac1981)
