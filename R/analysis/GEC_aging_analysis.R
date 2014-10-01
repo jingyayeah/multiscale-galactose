@@ -150,6 +150,7 @@ sch1945$gender <- as.character(sch1945$sex)
 sch1945$gender[sch1945$gender=='M'] <- 'male'
 sch1945$gender[sch1945$gender=='F'] <- 'female'
 sch1945$flowLiver <- sch1945$liverBloodflow
+sch1945$flowLiverkg <- sch1945$flowLiver/sch1945$bodyweight
 head(sch1945)
 
 # sex [m,f], age [years], bodyweight [kg], GEC [mg/min/kg]
@@ -170,6 +171,11 @@ sch1986.fig1$gender <- 'all'
 sch1986.fig1$GECmgkg <- sch1986.fig1$GEC
 sch1986.fig1$GECkg   <- sch1986.fig1$GEC/180
 head(sch1986.fig1)
+
+# age [years], bodyweight [kg], volLiver [ml], volLiverkg [ml/kg]
+swi1978 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Swift1978_Tab1.csv"), sep="\t")
+swi1978$study <- 'swi1978'
+head(swi1978)
 
 # sex [M], age [years], bodyweight [kg], liverWeight [kg]
 tom1965 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Thompson1965.csv"), sep="\t")
@@ -249,10 +255,12 @@ wyn1989.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1
 wyn1989.fig4$study <- 'wyn1989'
 head(wyn1989.fig4)
 
-# age [years], bodyweight [kg], volLiver [ml], volLiverkg [ml/kg]
-swi1978 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Swift1978_Tab1.csv"), sep="\t")
-swi1978$study <- 'swi1978'
-head(swi1978)
+# age [years], liver bloodflow [ml/min]
+wyn1990 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Wynne1990.csv"), sep="\t")
+wyn1990$gender <- as.character(wyn1990$sex)
+wyn1990$gender[wyn1990$gender=='U'] <- 'all'
+wyn1990$flowLiver <- wyn1990$liverBloodflow
+head(wyn1990)
 
 # BSA [m^2], liverWeight [g]
 yos2003 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Yoshizumi2003.csv"), sep="\t")
@@ -267,6 +275,14 @@ yos2003$gender <- as.character(yos2003$sex)
 yos2003$gender[yos2003$gender=='U'] <- 'all'
 yos2003$volLiver <- yos2003$liverWeight/f_liver_density ; # [ml]
 head(yos2003)
+
+# age [years], FHF (functional hepatic flow) [ml/min]
+zol1993 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Zoller1993.csv"), sep="\t")
+zol1993$gender <- as.character(zol1993$sex)
+zol1993$gender[zol1993$gender=='M'] <- 'male'
+zol1993$gender[zol1993$gender=='F'] <- 'female'
+zol1993$flowLiverkg <- zol1993$liverBloodflowPerBodyweight
+head(zol1993)
 
 # age [years], FHF (functional hepatic flow) [ml/min]
 zol1999 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Zoli1999.csv"), sep="\t")
@@ -372,7 +388,7 @@ makeFigure <- function(data, m1, main, xname, yname,
     RSE <- sqrt(deviance(m1)/df.residual(m1))
     
     # plot equation
-    info <- sprintf('y = %3.4f * x %+3.4f\n RSE = %3.4f', m1$coefficients[2], m1$coefficients[1], RSE)
+    info <- sprintf('y = %3.4f * x %+3.4f\n RSE = %3.4f\n n = %d', m1$coefficients[2], m1$coefficients[1], RSE, length(m1$residuals))
     text(x=0.5*(xlim[2]+xlim[1]), 
          y=(ylim[1] + 0.05*(ylim[2]-ylim[1])), labels = info)
   }
@@ -689,7 +705,8 @@ data <- rbind( win1965[, selection],
                wyn1989.fig3a[, selection],
                bra1945[, selection],
                zol1999[, selection],
-               sch1945[, selection])
+               sch1945[, selection],
+               wyn1990[, selection])
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
@@ -726,7 +743,9 @@ xname <- 'age'
 yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( win1965[, selection],
-               wyn1989.fig3b[, selection])
+               wyn1989.fig3b[, selection],
+               sch1945[, selection],
+               zol1993[, selection])
 
 m1 <- linear_regression(data, xname, yname)
 reg.models[[id]] = m1
