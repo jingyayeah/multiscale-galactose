@@ -596,7 +596,7 @@ id = id + 1
 
 makeFigure(data, m1, main='Liver volume vs. BSA', xname='BSA', yname='volLiver',
            xlab='Body surface area (BSA) [m^2]', ylab='Liver volume [ml]', 
-           xlim=c(0.5,2.5), ylim=c(0, 4000))
+           xlim=c(0.1,2.5), ylim=c(0, 4000))
 
 # mean data from bac1981
 
