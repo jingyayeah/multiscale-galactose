@@ -1,0 +1,6 @@
+study	status	sex	ageMin	ageMax	PVBloodVelocity	PVBloodVelocitySD	PVBloodFlow	PVBloodFlowSD	HABloodVelocity	HABloodVelocitySD	HABloodFlow	HABloodFlowSD	THF	THFSD	FHF	FHFSD
+zol1999	healthy	U	25	45	19.4	3.5	1209	205	35	6	235	76	1445	220	1514	250
+zol1999	healthy	U	45	60	16.7	1.6	980	337	43	12	313	117	1293	340	1326	348
+zol1999	healthy	U	61	75	15.8	2.5	978	194	43	13	318	144	1297	253	1258	226
+zol1999	healthy	U	75	87	15	1.8	749	117	40	8	271	94	1020	148	1015	163
+
