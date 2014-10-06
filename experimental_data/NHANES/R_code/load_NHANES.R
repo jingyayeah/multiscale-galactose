@@ -8,7 +8,7 @@
 # What we have is a set of occuring combinations of gender, age, weight, ethnicity, ...
 
 rm(list = ls())
-setwd('/home/mkoenig/Desktop/NHANES')
+setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
 library(foreign)
 
 # NHANES (1999-2000)
