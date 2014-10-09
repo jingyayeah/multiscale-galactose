@@ -37,6 +37,14 @@ bac1981$gender <- as.character(bac1981$sex)
 bac1981$gender[bac1981$gender=='U'] <- 'all'
 head(bac1981)
 
+# age [years], sex [M,F], liverWeight [g]
+boy1933 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Boyd1933_Fig1.csv"), sep="\t")
+boy1933$gender <- as.character(boy1933$sex)
+boy1933$gender[boy1933$gender=='M'] <- 'male'
+boy1933$gender[boy1933$gender=='M'] <- 'female'
+boy1933$volLiver <- boy1933$liverWeight/f_liver_density; # [ml]
+head(boy1933)
+
 # age [years], sex [M,F], BSA [m^2], liverBloodFlow [ml/min]
 bra1945 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Bradley1945.csv"), sep="\t")
 bra1945$gender <- as.character(bra1945$sex)
@@ -499,7 +507,8 @@ yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( mar1988[, selection],
                wyn1989.fig2a[, selection],
-               naw1998[, selection])
+               naw1998[, selection],
+               boy1933[, selection])
 
 # add randomized data
 for (k in 1:nrow(tom1965)){
@@ -523,11 +532,6 @@ for (k in 1:nrow(alt1962)){
   data <- rbind(data, df)
 }
 
-
-tail(data)
-# plot(data$age[data$study=='tom1965'], data$volLiver[data$study=='tom1965'])
-data <- data[data$age>=10, ]
-head(alt1962)
 
 # m1 <- linear_regression(data, xname, yname)
 m1 <- NULL
@@ -566,6 +570,11 @@ for (k in 1:nrow(tom1965)){
 #   segments(bac1981$age[k], bac1981$volLiver[k]+bac1981$volLiverSd[k],
 #            bac1981$age[k], bac1981$volLiver[k]-bac1981$volLiverSd[k])
 # }
+
+
+tail(data)
+# plot(data$age[data$study=='tom1965'], data$volLiver[data$study=='tom1965'])
+# data <- data[data$age>=10, ]
 
 
 inds <- order(data$age)
