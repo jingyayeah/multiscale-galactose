@@ -138,3 +138,13 @@ gam.check(mod_gam2, k.rep=1000)
 
 
 # Get Robust standard errors with the sandwich package
+
+## GAM & Heteroscedasticity
+# Generalized Additive Models as it is for standard linear models?  I am
+# asking particularly about the GAMs as implemented in the mgcv package.
+# Based upon my online search it seems that some forms of penalized splines
+# can address heteroscedasticity while others cannot and I'm not sure what
+# is true of the methods used in mgcv.
+# Yes, the mgcv implementation estimates the models via penalized
+# likelihood maximisation, and will be as sensitive to violation of the
+# assumed mean variance relationship as any GLM fitted by MLE. 

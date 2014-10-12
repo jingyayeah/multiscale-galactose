@@ -36,7 +36,8 @@ plot(fit.gam,scale=0,se=2,shade=TRUE,resid=TRUE,pages=1)
 # GAM uses Penalized thin plate regression splines as default
 fit.gam <- gam(y ~ s(x, k=9))
 fit.gam <- gam(y ~ s(x, fx=TRUE, k=9), family=gaussian())
-# plot(fit.gam,scale=0,se=2,shade=TRUE,resid=TRUE,pages=1)
+#fit.gam <- gam(y ~ s(x, fx=TRUE, k=9), family=Gamma())
+plot(fit.gam,scale=0,se=2,shade=TRUE,resid=TRUE,pages=1)
 gam.check(fit.gam, k.rep=1000)
 
 fit.gam.male <- gam(y ~ s(x), subset=inds.male)
