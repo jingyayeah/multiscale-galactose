@@ -1,41 +1,189 @@
 # Centile estimation with gamlss
 # http://www.gamlss.org/?p=1215
-install.packages('gamlss')
-
-
+#
+# TODO: 
+# - fit model
+# - calculate confidence intervals
+# - calculate prediction intervals
+# - plot centiles
+#
+# author: Matthias Koenig
+# date: 2014-10-12
 rm(list = ls())
+
+if (!require("RColorBrewer")) {
+  install.packages("RColorBrewer")
+  library(RColorBrewer)
+}
+### Show all the colour schemes available
+display.brewer.all()
+
 # Get example data
 setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
 load(file='data/nhanes_data.dat')
 head(data)
-x <- data$RIDAGEYR
-y <- data$BMXWT
-plot(x, y, col='grey', )
-rug(x, side=1, col="grey"); rug(y, side=2, col="grey")
 
-names(data)
-data.male <- data[data$RIAGENDR == 'male', ]
-data.female <- data[data$RIAGENDR == 'female', ]
-x.male <- data.male$RIDAGEYR
-y.male <- data.male$BMXWT
-x.female <- data.female$RIDAGEYR
-y.female <- data.female$BMXWT
-points(x.male, y.male, col="blue")
-points(x.female, y.female, col="red")
+# new data.frame with necessary information
+df <- data.frame(age=data$RIDAGEYR, sex=data$RIAGENDR, bsa=data$BSA)
+df$agepower <- df$age^0.3
+summary(df)
 
+# The male and female datasets
+
+df.male <- df[df$sex == 'male', ]
+df.female <- df[df$sex == 'female', ]
+
+df.names <- c('all', 'male', 'female')
+df.cols <- c( rgb(0,0,0,alpha=0.5),
+                rgb(0,0,1,alpha=0.5),
+                rgb(1,0,0,alpha=0.5) )
+names(df.cols) <- df.names 
+
+par(mfrow=c(1,3))
+for (k in 1:3){
+  if (k ==1){ d <- df }
+  else if (k ==2){ d <- df.male }
+  else if (k ==3){ d <- df.female }
+  
+  plot(d$agepower, d$bsa, col=df.cols[k], 
+       main=sprintf('NHANES (%s)', df.names[k]),
+       xlab='Age [years]',
+       ylab=expression(paste("BSA [", m^2, "]", sep="")),
+       ylim=c(0.5, 2.5))
+  rug(d$age, side=1, col="grey"); rug(d$bsa, side=2, col="grey")
+}
+par(mfrow=c(1,1))
+rm(d,k)
+
+#######################################################
+# Fit the model with cubic splines - centile estimation
+#######################################################
 library('gamlss')
-## Fit cubic splines ##
-fit.all <- gamlss(y ~ cs(x,6), sigma.formula= ~cs(x,3), family=NO)
-fit.male.no <- gamlss(y.male ~ cs(x.male,6), sigma.formula= ~cs(x.male,3), family=NO)
-fit.female <- gamlss(y.female ~ cs(x.female,6), sigma.formula= ~cs(x.female,3), family=NO)
-x.male.order <- order(x.male)
-lines(x.male[x.male.order], fitted(fit.male)[x.male.order], col='blue', lwd=4)
-x.female.order <- order(x.female)
-lines(x.female[x.female.order], fitted(fit.female)[x.female.order], col='red', lwd=4)
+fit.all.no <- gamlss(bsa ~ cs(age,6), sigma.formula= ~cs(age,3), family=NO, data=df)
+summary(fit.all.no)
+plot(fit.all.no)
+centiles(fit.all.no,  xvar=df$age)
+fittedPlot(fit.all.no, x=df$age)
+
+fit.all.bccg <- gamlss(bsa ~ cs(age,6), sigma.formula= ~cs(age,3), family=BCCG, data=df)
+fit.all.bccg.1 <- gamlss(bsa ~ cs(age,6), 
+                       sigma.formula= ~cs(age,3), nu.formula= ~cs(age,3), 
+                       family=BCCG, data=df)
+summary(fit.all.bccg)
+plot(fit.all.bccg)
+centiles(fit.all.bccg,  xvar=df$age)
+fittedPlot(fit.all.bccg, x=df$age)
+summary(fit.all.bccg.1)
+plot(fit.all.bccg.1)
+centiles(fit.all.bccg.1,  xvar=df$age)
+fittedPlot(fit.all.bccg.1, x=df$age)
+
+fit.male.bccg <- gamlss(bsa ~ cs(age,6), sigma.formula= ~cs(age,3), family=BCCG, data=df.male)
+centiles(fit.male.bccg,  xvar=df.male$age)
+
+fit.female.bccg <- gamlss(bsa ~ cs(age,9), sigma.formula= ~cs(age,3), family=BCCG, data=df.female)
+centiles(fit.female.bccg,  xvar=df.female$age)
+
+fit.final <- list(fit.all.bccg, fit.male.bccg, fit.female.bccg) 
+
+#########################################
+# Generate the centile plot
+# - confidence intervals
+# - different shades for centiles
+
+# Calculation of the centiles for given x-values and 
+# fitted gamlss object
+qCentiles <- function (obj, newdata=NULL, cent = c(0.4, 2, 10, 25, 50, 75, 90, 98, 99.6) ) 
+{
+  if (!is.gamlss(obj)) 
+    stop(paste("This is not an gamlss object", "\n", ""))
+  if (is.null(newdata)) 
+    stop(paste("The xvar argument is not specified", "\n", ""))
+  
+  # evalute for prediction
+  fname <- obj$family[1]
+  qfun <- paste("q", fname, sep = "")
+  lpar <- length(obj$parameters)
+  centiles <- vector('list', length(cent))
+  ii = 0
+  for (k in 1:length(cent)) {
+    var <- cent[k]
+    if (lpar == 1) {
+      newcall <- call(qfun, var/100, 
+                      mu = predict(obj, what="mu", type="response", newdata=newdata))
+    }
+    else if (lpar == 2) {
+      newcall <- call(qfun, var/100, 
+                      mu = predict(obj, what="mu", type="response", newdata=newdata),
+                      sigma = predict(obj, what="sigma", type="response", newdata=newdata))
+    }
+    else if (lpar == 3) {
+      newcall <- call(qfun, var/100, 
+                      mu = predict(obj, what="mu", type="response", newdata=newdata),
+                      sigma = predict(obj, what="sigma", type="response", newdata=newdata),
+                      nu = predict(obj, what="nu", type="response", newdata=newdata))
+    }
+    else {
+      newcall <- call(qfun, var/100, 
+                      mu = predict(obj, what="mu", type="response", newdata=newdata),
+                      sigma = predict(obj, what="sigma", type="response", newdata=newdata),
+                      nu = predict(obj, what="nu", type="response", newdata=newdata),
+                      tau = predict(obj, what="tau", type="response", newdata=newdata))
+    }
+    ll <- eval(newcall)
+    centiles[[k]] <- ll
+  }  
+  return(centiles)
+}
+
+
+d <- df.male; k <- 2
+plot(d$age, d$bsa, col=df.cols[k], 
+     main=sprintf('NHANES (%s)', df.names[k]),
+     xlab='Age [years]',
+     ylab=expression(paste("BSA [", m^2, "]", sep="")),
+     ylim=c(0.5, 2.5), pch=20, cex=0.8)
+grid()
+
+lines(d$age[order(d$age)], fitted(fit.bccg[[k]])[order(d$age)], col='black', lwd=3)
+
+plot(d$age, d$bsa, type="n", col=df.cols[k], 
+     main=sprintf('NHANES (%s)', df.names[k]),
+     xlab='Age [years]',
+     ylab=expression(paste("BSA [", m^2, "]", sep="")),
+     ylim=c(0.5, 2.5), pch=20, cex=0.8)
+
+# get the centiles for
+age.grid <- seq(from=min(df$age), to=max(df$age), length.out = 101)
+cent.values <- c(2.5, 10, 25, 50, 75, 90, 97.5)
+cents <- qCentiles(fit.final[[k]], newdata=data.frame(age=age.grid), cent=cent.values)
+
+plot(d$age, d$bsa, type="n")
+for (k in 1:length(cent.values)){
+  lines(age.grid, cents[[k]])
+}
+summary(cents[[1]])
+str(cents[[1]])
+
+?predict.gamlss
+
+
+
+    
+# The function BCCG defines the Box-Cox Cole and Green distribution (Box-Cox normal), a three parameter distribution, for a gamlss.family object to be used in GAMLSS fitting using the function gamlss(). The functions dBCCG, pBCCG, qBCCG and rBCCG define the density, distribution function, quantile function and random generation for the specific parameterization of the Box-Cox Cole and Green distribution.
+qBCCG()
+centiles(fit.male.bccg, xvar=d$age, cent=cent.values)
+
+# plot centiles & write text next to it
+
+
+
 
 plot(fit.all)
 # note that the plot() function does not produce additive term plots [as it does for example in the gam() function of the package mgcv] in R. The function which does this in the gamlss package is term.plot()
 term.plot(fit.all, se=TRUE, partial=TRUE)
+
+
 
 ## Centile estimation using GAMLSS ##
 #####################################
@@ -65,6 +213,7 @@ lines(x.male[x.male.order], fitted(fit.male.bcpe)[x.male.order], col='red', lty=
 
 centiles(fit.male.lms, xvar=x.male, cent=c(97.5, 90, 75, 50, 25, 10, 2.5))
 centiles(fit.female.lms, xvar=x.female )
+
 
 
 ############################
