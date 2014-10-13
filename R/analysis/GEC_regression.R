@@ -5,8 +5,6 @@
 # @author: Matthias Koenig
 # @date: 2014-09-21
 ##############################################
-
-
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
