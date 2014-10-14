@@ -14,7 +14,22 @@ setwd('/home/mkoenig/multiscale-galactose/')
 ## data info ##
 dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
+
 # dataset <- 'volLiver_age'
+dataset <- 'volLiverkg_age'
+
+dataset <- 'volLiver_BSA'
+
+dataset <- 'volLiver_bodyweight'
+dataset <- 'volLiver_height'
+
+dataset <- 'flowLiver_age'
+dataset <- 'flowLiverkg_age'
+
+dataset <- 'flowLiver_BSA'
+
+
+
 
 if (dataset == 'GEC_age'){
   xname='age'; xlab='Age [years]'; xlim=c(0,95)
