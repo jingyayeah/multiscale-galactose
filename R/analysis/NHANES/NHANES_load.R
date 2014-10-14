@@ -1,12 +1,21 @@
-# load the NHANES sas files
-# - no problem for the continuus NHANES files (this can be easily imported in R)
-# - more complex for the NHANES III dataset (generate SAS import and export afterwards)
+################################################################################
+# NHANES - load NHANES files & combine for analysis
 #
-# Necessary to account for the study sampling design ?. I.e. certain populations
-# have been oversampled to get enough data points. Consequently, the means and 
-# variations do not really mean anything.
-# What we have is a set of occuring combinations of gender, age, weight, ethnicity, ...
-
+# Use of the continuus NHANES files (1999-2012), which this can be easily 
+# imported in R. Alternative data source is the NHANES III dataset.
+# The important subset used for analysis consists of the demographic information,
+# and the body measurements.
+# Data can be downloaded from the NHANES webpage. The analysis only uses the 
+# BMX and DEMO subsets of the NHANES data. No filtering is performed here, but
+# just the merging of the necessary subsets of NHANES.
+# 
+# An important point to consider is the complex study sampling design underlying 
+# NHANES, which oversamples certain subpopulations (!?). Without accounting for the 
+# study design certain inferences are not valid.
+#
+# author: Matthias Koenig
+# date:   14-10-2014
+################################################################################
 rm(list = ls())
 setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
 library(foreign)
@@ -32,7 +41,6 @@ demo.F <- read.xport("data/DEMO_F.XPT")
 # NHANES (2011-2012)
 bmx.G <- read.xport("data/BMX_G.XPT")
 demo.G <- read.xport("data/DEMO_G.XPT")
-
 
 ##############################
 # Load continous NHANES data #
@@ -77,8 +85,8 @@ bmx <- data.frame(id=c('SEQN',
                                'Waist Circumference Comment'), stringsAsFactors=F)
 bmx              
 
-# process all the datasets
-
+# process all the datasets, i.w. combination of the subsets of interest
+# from all the continous periods.
 library(plyr)
 data <- vector("list", nrow(info))
 for (k in 1:nrow(info)){
@@ -128,14 +136,15 @@ for (k in 1:nrow(info)){
   
   data[[k]] <- res
 }
+
 # install.packages('reshape')
 library(reshape)
 nhanes <- reshape::merge_all(data)
 head(nhanes)
-
 save(nhanes, file='data/nhanes.dat')
 
 ################################################################################
+# Test the data loading
 rm(list = ls())
 setwd('/home/mkoenig/Desktop/NHANES')
 load(file='data/nhanes.dat')

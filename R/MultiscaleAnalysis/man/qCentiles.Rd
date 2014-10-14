@@ -1,0 +1,11 @@
+\name{qCentiles}
+\alias{qCentiles}
+\title{Calculation of the centiles}
+\usage{
+qCentiles(obj, newdata = NULL, cent = c(0.4, 2, 10, 25, 50, 75, 90, 98,
+  99.6))
+}
+\description{
+Calculation of the centiles
+}
+

@@ -311,7 +311,7 @@ linear_regression <- function(data, xname, yname){
   
   # Create output file with log information
   name = paste(yname, 'vs', xname) 
-  log.file <- file.path(ma.settings$dir.results, 'linear_regression', 
+  log.file <- file.path(ma.settings$dir.results, 'regression', 
                         paste(name, '.txt', sep=""))
   sink.file <- file(log.file, open = "wt")
   sink(sink.file)
@@ -334,7 +334,7 @@ linear_regression <- function(data, xname, yname){
 makeQualityFigure <- function(m1, xname, yname, create_plots=F){
   name = paste(yname, 'vs', xname) 
   if (create_plots == TRUE){
-    plot.file <- file.path(ma.settings$dir.results, 'linear_regression', 
+    plot.file <- file.path(ma.settings$dir.results, 'regression', 
                            paste(name, '_quality.png', sep=""))
     print(plot.file)               
     png(filename=plot.file,
@@ -352,7 +352,7 @@ makeFigure <- function(data, m1, main, xname, yname,
                                    xlim, ylim, create_plots=F){
   name = paste(yname, 'vs', xname) 
   if (create_plots == TRUE){
-    plot.file <- file.path(ma.settings$dir.results, 'linear_regression', 
+    plot.file <- file.path(ma.settings$dir.results, 'regression', 
                            paste(name, '.png', sep=""))
     print(plot.file)               
     png(filename=plot.file,
@@ -436,6 +436,8 @@ id = id + 1
 makeFigure(data, m1, main='GEC vs. age', xname='age', yname='GEC',
            xlab='Age [years]', ylab='GEC [mmol/min]', 
            xlim=c(0,90), ylim=c(0,5))
+
+save('data', file=file.path(ma.settings$dir.expdata, "processed", "GEC_age.Rdata"))
 
 ############################################
 # GECkg [mmol/min/kgbw] vs. age [years]

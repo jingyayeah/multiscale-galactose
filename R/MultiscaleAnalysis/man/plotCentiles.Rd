@@ -1,0 +1,15 @@
+\name{plotCentiles}
+\alias{plotCentiles}
+\title{Create plots for centiles
+Make this work generally without depending on the variable name}
+\usage{
+plotCentiles(model, d, xname, yname, main, xlab, ylab, xlim, ylim, pcol)
+}
+\arguments{
+  \item{model}{GAMLSS model}
+}
+\description{
+Create plots for centiles Make this work generally without
+depending on the variable name
+}
+
