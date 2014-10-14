@@ -708,21 +708,6 @@ makeFigure(data, m1, main='Blood flow vs. age',xname='age', yname='flowLiver',
            xlim=c(0,90), ylim=c(400,3000))
 
 ############################################
-# flowLiver [ml/min] vs. BSA [m^2]
-############################################
-xname <- 'BSA'
-yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname)
-data <- rbind(bra1945[, selection],
-              sch1945[, selection])
-saveData(data)
-
-m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Blood flow vs. BSA', xname='BSA', yname='flowLiver',
-           xlab='Body surface are (BSA) [m^2]', ylab='Blood flow liver [ml/min]', 
-           xlim=c(1.4,2.2), ylim=c(400,2500))
-
-############################################
 # flowLiverkg [ml/min/kg] vs. age [years]
 ############################################
 xname <- 'age'
@@ -749,10 +734,21 @@ data <- rbind( wyn1989.fig4[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-reg.models[[id]] = m1
-reg.data[[id]] = data
-id = id + 1
-
 makeFigure(data, m1, main='Perfusion vs. age', xname='age', yname='perfusion',
            xlab='Age [years]', ylab='Perfusion [ml/min/ml]', 
            xlim=c(0,90), ylim=c(0,2))
+
+############################################
+# flowLiver [ml/min] vs. BSA [m^2]
+############################################
+xname <- 'BSA'
+yname <- 'flowLiver'
+selection <- c('study', 'gender', xname, yname)
+data <- rbind(bra1945[, selection],
+              sch1945[, selection])
+saveData(data)
+
+m1 <- linear_regression(data, xname, yname)
+makeFigure(data, m1, main='Blood flow vs. BSA', xname='BSA', yname='flowLiver',
+           xlab='Body surface are (BSA) [m^2]', ylab='Blood flow liver [ml/min]', 
+           xlim=c(1.4,2.2), ylim=c(400,2500))
