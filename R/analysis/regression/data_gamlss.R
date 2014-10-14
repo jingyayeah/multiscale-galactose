@@ -69,7 +69,32 @@ plotCentiles(model=fit.all.no, d=df.all, xname='age', yname='GEC',
              ylab=expression(paste("GEC [", mmol/min, "]", sep="")),
              xlim=c(0,95), ylim=c(0, 4.0), pcol='black')
 
-##################
+
+#######################################################
+# GAMLSS - Confidence intervals
+#######################################################
+# Bootstrap intervals
+
+
+
+# Using multcomp
+# artax.karlin.mff.cuni.cz/r-help/library/BSagri/
+library(gamlss)
+install.packages("multcomp")
+library(multcomp)
+
+comps <- glht(modelfit2, mcp(Treatment="Tukey"))
+CIs2<-CIGLM(comps2, method="Raw")
+CIs2
+
+CIsAdj2<-CIGLM(comps2, method="Adj")
+CIsAdj2
+
+CIsBonf2<-CIGLM(comps2, method="Bonf")
+CIsBonf2
+
+
+
 
 
 

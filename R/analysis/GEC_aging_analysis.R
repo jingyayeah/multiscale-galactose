@@ -329,7 +329,7 @@ linear_regression <- function(data, xname, yname){
 }
 
 ############################################################################################
-# Figure template
+# Helper functions
 ############################################################################################
 makeQualityFigure <- function(m1, xname, yname, create_plots=F){
   name = paste(yname, 'vs', xname) 
@@ -404,16 +404,40 @@ makeFigure <- function(data, m1, main, xname, yname,
   # makeQualityFigure(m1, xname, yname, create_plots=T)
 }
 
-# Store the linear regression information in data frame
-# SE standard error
-# RSE residual standard error
-# info: id, xname, yname, b0, b1, b0.SE, b1.SE, RSE 
-# m1:
-id = 1
-reg.models = list()
-reg.data = list()
+# Takes mean data and generates individual data points from them.
+# Simplified use of mean data to include in fitting procedure
+addRandomizedMeanData <- function(data, newdata){
+  xname <- names(data)[3]
+  yname <- names(data)[4]
+  
+  for (k in 1:nrow(newdata)){
+    n <- newdata$n[k]
+    study <- rep(newdata$study[k], n)
+    gender <- rep(newdata$gender[k], n)
+    # replicate the data point n times
+    assign(xname, rep(newdata[k, xname], n))
+    assign(yname, rep(newdata[k, yname], n))
+    # TODO: handle the variance (?!), i.e. use the reported variance for point
+    #       generation (otherwise the variance of the estimation is too small
+    # volLiver <- rnorm(n, mean=tom1965$volLiver[k], sd=tom1965$volLiverSd[k])
+    df <- data.frame(study, gender, get(xname), get(yname) )
+    names(df) <- c('study', 'gender', xname, yname)
+    data <- rbind(data, df)
+  }
+}
 
-############################################################################################
+saveData <- function(data, dir=NULL){
+  if (is.null(dir)){
+    dir <- file.path(ma.settings$dir.expdata, "processed")
+  }
+  xname <- names(data)[3]
+  yname <- names(data)[4]
+  fname=file.path(dir, sprintf('%s_%s.Rdata', yname, xname))
+  print( sprintf('%s vs. %s -> %s', yname, xname, fname) )
+  save('data', file=fname) 
+}
+
+############################################
 # GEC [mmol/min] vs. age [years]
 ############################################
 xname <- 'age'
@@ -427,23 +451,17 @@ data <- rbind( mar1988[, selection],
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
 data <- data[complete.cases(data), ]  # remove NA
+saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-reg.models[[id]] = m1
-reg.data[[id]] = data
-id = id + 1
-
 makeFigure(data, m1, main='GEC vs. age', xname='age', yname='GEC',
            xlab='Age [years]', ylab='GEC [mmol/min]', 
            xlim=c(0,90), ylim=c(0,5))
 
-save('data', file=file.path(ma.settings$dir.expdata, "processed", "GEC_age.Rdata"))
-
 ############################################
 # GECkg [mmol/min/kgbw] vs. age [years]
 ############################################
-xname <- 'age'
-yname <- 'GECkg'
+xname <- 'age'; yname <- 'GECkg'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( lan2011[, selection],
                duc1979[, selection],
@@ -453,12 +471,9 @@ data <- rbind( lan2011[, selection],
                duf2005[, selection])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
+saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-reg.models[[id]] = m1
-reg.data[[id]] = data
-id = id + 1
-
 makeFigure(data, m1, main='GEC/kg vs. age', xname='age', yname='GECkg',
            xlab='Age [years]', ylab='GEC [mmol/min/kg]', 
            xlim=c(0,90), ylim=c(0,0.10))
@@ -466,18 +481,14 @@ makeFigure(data, m1, main='GEC/kg vs. age', xname='age', yname='GECkg',
 ############################################
 # GEC [mmol/min] vs. volLiver [ml]
 ############################################
-xname <- 'volLiver'
-yname <- 'GEC'
+xname <- 'volLiver'; yname <- 'GEC'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( mar1988[, selection])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
+saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-reg.models[[id]] = m1
-reg.data[[id]] = data
-id = id + 1
-
 makeFigure(data, m1, main='GEC vs. volLiver', xname='volLiver', yname='GEC',
            xlab='Volume liver [ml]', ylab='GEC [mmol/min]', 
            xlim=c(600,1800), ylim=c(0, 5))
@@ -485,18 +496,14 @@ makeFigure(data, m1, main='GEC vs. volLiver', xname='volLiver', yname='GEC',
 ############################################
 # GEC [mmol/min] vs. flowLiver [ml/min]
 ############################################
-xname <- 'flowLiver'
-yname <- 'GEC'
+xname <- 'flowLiver'; yname <- 'GEC'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( win1965[, selection])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
+saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-reg.models[[id]] = m1
-reg.data[[id]] = data
-id = id + 1
-
 makeFigure(data, m1,  main='GEC vs. flowLiver', xname='flowLiver', yname='GEC',
            xlab='Blood flow liver [ml/min]', ylab='GEC [mmol/min]', 
            xlim=c(600,3000), ylim=c(0,5))
@@ -504,46 +511,20 @@ makeFigure(data, m1,  main='GEC vs. flowLiver', xname='flowLiver', yname='GEC',
 ############################################
 # volLiver [ml] vs. age [years]
 ############################################
-xname <- 'age'
-yname <- 'volLiver'
+xname <- 'age'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( mar1988[, selection],
                wyn1989.fig2a[, selection],
                naw1998[, selection],
                boy1933[, selection])
 
-# add randomized data
-for (k in 1:nrow(tom1965)){
-  n <- tom1965$n[k]
-  study <- rep(tom1965$study[k], n)
-  age <- rep(tom1965$age[k], n)
-  gender <- rep(tom1965$gender[k], n)
-  # volLiver <- rnorm(n, mean=tom1965$volLiver[k], sd=tom1965$volLiverSd[k])
-  volLiver <- rep(tom1965$volLiver[k], n)
-  df <- data.frame(study=study, gender=gender, age=age, volLiver=volLiver)
-  data <- rbind(data, df)
-}
-for (k in 1:nrow(alt1962)){
-  n <- alt1962$n[k]
-  study <- rep(alt1962$study[k], n)
-  age <- rep(alt1962$age[k], n)
-  gender <- rep(alt1962$gender[k], n)
-  # volLiver <- rnorm(n, mean=tom1965$volLiver[k], sd=tom1965$volLiverSd[k])
-  volLiver <- rep(alt1962$volLiver[k], n)
-  df <- data.frame(study=study, gender=gender, age=age, volLiver=volLiver)
-  data <- rbind(data, df)
-}
+addRandomizedMeanData(data, tom1965)
+addRandomizedMeanData(data, alt1962)
+saveData(data)
 
-
-# m1 <- linear_regression(data, xname, yname)
-m1 <- NULL
-reg.models[[id]] = m1
-reg.data[[id]] = data
-id = id + 1
-
-makeFigure(data, m1, main='Liver volume vs. age',xname='age', yname='volLiver',
+makeFigure(data, m1=NULL, main='Liver volume vs. age',xname='age', yname='volLiver',
            xlab='Age [years]', ylab='Liver volume [ml]', 
-           xlim=c(0,90), ylim=c(0,2000))
+           xlim=c(0,90), ylim=c(0,3000))
 
 # mean data from Thompson1965
 head(tom1965)
@@ -555,7 +536,6 @@ for (k in 1:nrow(tom1965)){
   segments(tom1965$age[k], tom1965$volLiver[k]+tom1965$volLiverSd[k],
            tom1965$age[k], tom1965$volLiver[k]-tom1965$volLiverSd[k], col=col)
 }
-
 # # mean data from Swift1978
 # for (k in c(1,2)){
 #   segments(swi1978$minAge[k], swi1978$volLiver[k],  
@@ -572,35 +552,6 @@ for (k in 1:nrow(tom1965)){
 #   segments(bac1981$age[k], bac1981$volLiver[k]+bac1981$volLiverSd[k],
 #            bac1981$age[k], bac1981$volLiver[k]-bac1981$volLiverSd[k])
 # }
-
-
-tail(data)
-# plot(data$age[data$study=='tom1965'], data$volLiver[data$study=='tom1965'])
-# data <- data[data$age>=10, ]
-
-
-inds <- order(data$age)
-y.loess <- loess(y ~ x, span=0.75, data.frame(x=data$age[inds], y=data$volLiver[inds]))
-summary(y.loess)
-y.predict <- predict(y.loess, data.frame(x=data$age[inds]))
-lines(data$age[inds], y.predict)
-
-inds.f <- which(data$gender == 'female')
-x <- data$age[inds.f]
-y <- data$volLiver[inds.f]
-inds <- order(x)
-y.loess <- loess(y ~ x, span=0.75, data.frame(x=x[inds], y=y[inds]))
-y.predict <- predict(y.loess, data.frame(x=x[inds]))
-lines(x[inds], y.predict, col='red')
-
-inds.f <- which(data$gender == 'male')
-x <- data$age[inds.f]
-y <- data$volLiver[inds.f]
-inds <- order(x)
-y.loess <- loess(y ~ x, span=0.75, data.frame(x=x[inds], y=y[inds]))
-y.predict <- predict(y.loess, data.frame(x=x[inds]))
-lines(x[inds], y.predict, col='blue')
-
 
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
