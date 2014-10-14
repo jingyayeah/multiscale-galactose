@@ -28,7 +28,6 @@ alt1962$gender <- as.character(alt1962$sex)
 alt1962$gender[alt1962$gender=='M'] <- 'male'
 alt1962$gender[alt1962$gender=='F'] <- 'female'
 alt1962$volLiver <- alt1962$liverWeight/f_liver_density * 1000; # [ml]
-alt1962$volLiverSd <- alt1962$liverWeightSd/f_liver_density * 1000; # [ml]
 head(alt1962)
 
 # age [years], volLiver [ml], BSA [m^2], volLiverPerBSA [ml/m^2]
@@ -183,6 +182,9 @@ head(sch1986.fig1)
 # age [years], bodyweight [kg], volLiver [ml], volLiverkg [ml/kg]
 swi1978 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Swift1978_Tab1.csv"), sep="\t")
 swi1978$study <- 'swi1978'
+swi1978$gender <- 'all'
+swi1978$age <- 0.5*(swi1978$minAge + swi1978$maxAge)
+swi1978 <- swi1978[1:2, ] # remove hospitalized cases
 head(swi1978)
 
 # sex [M], age [years], bodyweight [kg], liverWeight [kg]
@@ -424,17 +426,24 @@ addRandomizedMeanData <- function(data, newdata){
     names(df) <- c('study', 'gender', xname, yname)
     data <- rbind(data, df)
   }
+  return(data)
 }
 
+# Saves data.frame as csv and R data
 saveData <- function(data, dir=NULL){
   if (is.null(dir)){
     dir <- file.path(ma.settings$dir.expdata, "processed")
   }
   xname <- names(data)[3]
   yname <- names(data)[4]
-  fname=file.path(dir, sprintf('%s_%s.Rdata', yname, xname))
-  print( sprintf('%s vs. %s -> %s', yname, xname, fname) )
-  save('data', file=fname) 
+  r_fname <- file.path(dir, sprintf('%s_%s.Rdata', yname, xname))
+  csv_fname <- file.path(dir, sprintf('%s_%s.csv', yname, xname))
+
+  print( sprintf('%s vs. %s -> %s', yname, xname, r_fname) )
+  print( sprintf('%s vs. %s -> %s', yname, xname, csv_fname) )
+  save('data', file=r_fname)
+  write.table(file=csv_fname, x=data, na="NA", row.names=FALSE, quote=FALSE,
+            sep="\t", col.names=TRUE)
 }
 
 ############################################
@@ -471,6 +480,7 @@ data <- rbind( lan2011[, selection],
                duf2005[, selection])
 data$gender <- as.factor(data$gender)
 levels(data$gender) <- gender.levels
+data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -518,8 +528,8 @@ data <- rbind( mar1988[, selection],
                naw1998[, selection],
                boy1933[, selection])
 
-addRandomizedMeanData(data, tom1965)
-addRandomizedMeanData(data, alt1962)
+data <- addRandomizedMeanData(data, tom1965)
+data <- addRandomizedMeanData(data, alt1962)
 saveData(data)
 
 makeFigure(data, m1=NULL, main='Liver volume vs. age',xname='age', yname='volLiver',
@@ -561,13 +571,10 @@ yname <- 'volLiverkg'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind(wyn1989.fig2b[, selection] ,
               naw1998[, selection])
-head(naw1998)
+data <- addRandomizedMeanData(data, swi1978)
+saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-reg.models[[id]] = m1
-reg.data[[id]] = data
-id = id + 1
-
 makeFigure(data, m1, main='Liver volume per bodyweight vs. age',xname='age', yname='volLiverkg',
            xlab='Age [years]', ylab='Liver volume per bodyweight [ml/kg]', 
            xlim=c(0,90), ylim=c(10, 35))
@@ -576,8 +583,8 @@ makeFigure(data, m1, main='Liver volume per bodyweight vs. age',xname='age', yna
 for (k in c(1,2)){
   segments(swi1978$minAge[k], swi1978$volLiverkg[k],  
            swi1978$maxAge[k], swi1978$volLiverkg[k])
-  segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]+swi1978$volLiverkgSd[k],
-           0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiverkg[k]-swi1978$volLiverkgSd[k])
+  segments(swi1978$age[k], swi1978$volLiverkg[k]+swi1978$volLiverkgSd[k],
+           swi1978$age[k], swi1978$volLiverkg[k]-swi1978$volLiverkgSd[k])
 }
 
 ############################################
@@ -591,17 +598,13 @@ data <- rbind(naw1998[, selection],
               ura1995[, selection],
               vau2002.fig1[, selection],
               yos2003[,selection])
+saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-reg.models[[id]] = m1
-reg.data[[id]] = data
-id = id + 1
-
 makeFigure(data, m1, main='Liver volume vs. BSA', xname='BSA', yname='volLiver',
            xlab='Body surface area (BSA) [m^2]', ylab='Liver volume [ml]', 
            xlim=c(0.1,2.5), ylim=c(0, 4000))
 
-# mean data from bac1981
 
 head(del1968.fig4)
 for (k in 1:nrow(del1968.fig4)){

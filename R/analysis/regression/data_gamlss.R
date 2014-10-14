@@ -11,32 +11,52 @@
 rm(list = ls())
 setwd('/home/mkoenig/multiscale-galactose/')
 
-## load data ##
-# GEC vs. age
-load(file=file.path(ma.settings$dir.expdata, "processed", "GEC_age.Rdata"))
+## data info ##
+dataset <- 'GEC_age'
+# dataset <- 'GECkg_age'
+# dataset <- 'volLiver_age'
 
+if (dataset == 'GEC_age'){
+  xname='age'; xlab='Age [years]'; xlim=c(0,95)
+  yname='GEC'; ylab="GEC [mmol/min]"; ylim=c(0, 4.0)
+  
+} else if (dataset == 'GECkg_age'){
+  xname='age'; xlab='Age [years]'; xlim=c(0,95)
+  yname='GECkg'; ylab="GEC per bodyweight [mmol/min/kg]"; ylim=c(0, 0.10)
+  
+} else if (dataset == 'volLiver_age'){
+  xname='age'; xlab='Age [years]'; xlim=c(0,95)
+  yname='volLiver'; ylab="Liver volume [ml]"; ylim=c(0, 3000)
+}
+main <- sprintf('%s vs. %s', yname, xname)
+
+## load data ##
+fname <- file.path(ma.settings$dir.expdata, "processed", sprintf("%s_%s.Rdata", yname, xname))
+print(fname)
+load(file=fname)
 names(data)[names(data) == 'gender'] <- 'sex'
 head(data)
-
+# prepare subsets
+df.names <- c('all', 'male', 'female')
 df.all <- data
+if (dataset == 'GEC_age'){
+  # problems with non Marchesini data
+  df.all <- df.all[df.all$sex=='all',]
+}
+
 df.male <- df.all[df.all$sex == 'male', ]
 df.female <- df.all[df.all$sex == 'female', ]
 rm(data)
 
-## plot info ##
-p.main="GEC vs. age"
-xname='age'; xlab='Age [years]'; xlim=c(0,95)
-yname='GEC'; ylab="GEC [mmol/min]"; ylim=c(0, 4.0)
-df.names <- c('all', 'male', 'female')
 df.cols <- c( rgb(0,0,0,alpha=0.5),
               rgb(0,0,1,alpha=0.5),
               rgb(1,0,0,alpha=0.5) )
 names(df.cols) <- df.names 
 ##
 
-# ! filter the bad data !
-df.all <- df.all[df.all$sex=='all',]
-
+#######################################################
+# Data overview
+#######################################################
 par(mfrow=c(1,3))
 for (k in 1:3){
   if (k==1){ d <- df.all }
@@ -55,19 +75,87 @@ rm(d,k)
 #######################################################
 library('MultiscaleAnalysis')
 library('gamlss')
-# simple model with normal distributed link function
-fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,1), family=NO, data=df.all)
-# fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
-# fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+create_plots = TRUE
 
-# confidence intervals via bootstrapping
+startDevPlot <- function(width=2000, height=1000, file=NULL){
+  if (is.null(file)){
+    file <- file.path(ma.settings$dir.results, 'regression', sprintf('%s_%s_regression.png', yname, xname))
+  }
+  if (create_plots == T) { 
+    print(file)
+    png(filename=file, width=width, height=height, 
+      units = "px", bg = "white",  res = 150)
+  }
+  print('No plot files created')
+}
+stopDevPlot <- function(){
+  if (create_plots == T) { dev.off() }
+}
+
+## GEC vs. age ########################################
+if (dataset == 'GEC_age'){
+  startDevPlot(width=650, height=1000)
+  # simple model with normal distributed link function
+  fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,1), family=NO, data=df.all)
+  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
+  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+  
+  fit.final <- fit.all.no
+  plotCentiles(model=fit.final, d=df.all, xname=xname, yname=yname,
+               main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+               pcol=df.cols[['all']])
+  stopDevPlot()
+}
+
+## GECkg vs. age ######################################
+if (dataset == 'GECkg_age'){
+  startDevPlot(width=650, height=1000)
+  # simple model with normal distributed link function
+  fit.all.no <- gamlss(GECkg ~ cs(age,4), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
+  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+  
+  fit.final <- fit.all.no
+  plotCentiles(model=fit.final, d=df.all, xname=xname, yname=yname,
+               main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+               pcol=df.cols[['all']])
+  stopDevPlot()
+}
+
+## volLiver vs. age ######################################
+if (dataset == 'volLiver_age'){
+  startDevPlot(width=2000, height=1000)
+  par(mfrow=c(1,3))
+  ## all ##
+  fit.all.no <- gamlss(volLiver ~ cs(age,4), sigma.formula= ~cs(age,3), family=NO, data=df.all)
+  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
+  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+  plotCentiles(model=fit.all.no, d=df.all, xname=xname, yname=yname,
+               main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+               pcol=df.cols[['all']])
+  
+  ## male ##
+  fit.male.no <- gamlss(volLiver ~ cs(age,6), sigma.formula= ~cs(age,3), family=NO, data=df.male)
+  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
+  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+  
+  plotCentiles(model=fit.male.no, d=df.male, xname=xname, yname=yname,
+               main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+               pcol=df.cols[['male']])
+  summary(fit.male.no)
+  
+  ## female ##
+  fit.female.no <- gamlss(volLiver ~ cs(age,6), sigma.formula= ~cs(age,2), family=NO, data=df.female)
+  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
+  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+  plotCentiles(model=fit.female.no, d=df.female, xname=xname, yname=yname,
+               main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+               pcol=df.cols[['female']])
+  par(mfrow=c(1,1))
+  stopDevPlot()
+}
 
 
-plotCentiles(model=fit.all.no, d=df.all, xname='age', yname='GEC',
-             main="GEC (all)",
-             xlab='Age [years]', 
-             ylab=expression(paste("GEC [", mmol/min, "]", sep="")),
-             xlim=c(0,95), ylim=c(0, 4.0), pcol='black')
 
 
 #######################################################
