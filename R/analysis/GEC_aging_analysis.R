@@ -209,17 +209,6 @@ tyg1962$gender = 'all'
 tyg1962 <- tyg1962[tyg1962$state=='healthy', ]
 head(tyg1962)
 
-# sex [male,female], age [years], weight [kg], GEC [mmol/min], bloodFlowM1 [ml/min], bloodFlowM2 [ml/min],
-# flowLiver [ml/min]
-win1965 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Winkler1965.csv"), sep="\t")
-win1965 <- win1965[!is.na(win1965$GEC), ]
-win1965$flowLiver <- 0.5 * (win1965$bloodflowM1 + win1965$bloodflowM2)
-win1965$bodyweight <- win1965$weight
-win1965$flowLiverkg <- win1965$flowLiver/win1965$bodyweight
-win1965$gender <- as.character(win1965$sex)
-win1965$study <- 'win1965'
-head(win1965)
-
 # BSA [m^2], liverVol [ml]
 ura1995 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Urata1995.csv"), sep="\t")
 ura1995$gender <- as.character(ura1995$sex)
@@ -241,34 +230,28 @@ vau2002.fig2$gender[vau2002.fig2$gender=='U'] <- 'all'
 vau2002.fig2$volLiver <- vau2002.fig2$liverVol
 head(vau2002.fig2)
 
+# sex [male,female], age [years], weight [kg], GEC [mmol/min], bloodFlowM1 [ml/min], bloodFlowM2 [ml/min],
+# flowLiver [ml/min]
+win1965 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Winkler1965.csv"), sep="\t")
+win1965 <- win1965[!is.na(win1965$GEC), ]
+win1965$flowLiver <- 0.5 * (win1965$bloodflowM1 + win1965$bloodflowM2)
+win1965$bodyweight <- win1965$weight
+win1965$flowLiverkg <- win1965$flowLiver/win1965$bodyweight
+win1965$gender <- as.character(win1965$sex)
+win1965$study <- 'win1965'
+head(win1965)
+
 # gender [male, female], age [years], liver volume [ml]
-wyn1989.fig2a <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig2A.csv"), sep="\t")
-wyn1989.fig2a$volLiver <- wyn1989.fig2a$volume
-wyn1989.fig2a$study <- 'wyn1989'
-head(wyn1989.fig2a)
-
-# gender [male, female], age [years], liver volume per bodyweight [ml/kg]
-wyn1989.fig2b <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig2B.csv"), sep="\t")
-wyn1989.fig2b$volLiverkg <- wyn1989.fig2b$relvolume
-wyn1989.fig2b$study <- 'wyn1989'
-head(wyn1989.fig2b)
-
-# gender [male, female], age [years], liver blood flow [ml/min]
-wyn1989.fig3a <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig3A.csv"), sep="\t")
-wyn1989.fig3a$flowLiver <- wyn1989.fig3a$bloodflow
-wyn1989.fig3a$study <- 'wyn1989'
-head(wyn1989.fig3a)
-
-# gender [male, female], age [years], liver blood flow per bodyweight [ml/min/kg]
-wyn1989.fig3b <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig3B.csv"), sep="\t")
-wyn1989.fig3b$flowLiverkg <- wyn1989.fig3b$relbloodflow
-wyn1989.fig3b$study <- 'wyn1989'
-head(wyn1989.fig3b)
-
-# gender [male, female], age [years], perfusion [ml/min/ml]
-wyn1989.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Wynne1989_Fig4.csv"), sep="\t")
-wyn1989.fig4$study <- 'wyn1989'
-head(wyn1989.fig4)
+wyn1989 <- read.csv(file.path(ma.settings$dir.expdata, "wynne", "Wynne1989_corrected.csv"), sep="\t")
+wyn1989$volLiver <- wyn1989$livVolume
+wyn1989$volLiverkg <- wyn1989$livVolumekg
+wyn1989$flowLiver <- wyn1989$livBloodflow
+wyn1989$flowLiverkg <- wyn1989$livBloodflowkg
+wyn1989$gender <- as.character(wyn1989$sex)
+wyn1989$gender[wyn1989$gender=='M'] <- 'male'
+wyn1989$gender[wyn1989$gender=='F'] <- 'female'
+wyn1989$study <- 'wyn1989'
+head(wyn1989)
 
 # age [years], liver bloodflow [ml/min]
 wyn1990 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Wynne1990.csv"), sep="\t")
@@ -338,20 +321,42 @@ linear_regression <- function(data, xname, yname){
 ############################################################################################
 # Helper functions
 ############################################################################################
-makeQualityFigure <- function(m1, xname, yname, create_plots=F){
-  name = paste(yname, 'vs', xname) 
-  if (create_plots == TRUE){
-    plot.file <- file.path(ma.settings$dir.results, 'regression', 
-                           paste(name, '_quality.png', sep=""))
-    print(plot.file)               
-    png(filename=plot.file,
-        width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
-  }
-  
-  par(mfrow=c(2,2))
-  plot(m1)
-  par(mfrow=c(1,1))
-  if (create_plots==TRUE){ dev.off() }
+# Axis labels
+lab <- list()
+lab$age <- "Age [years]"
+lab$bodyweight <- "Body weight [kg]"
+lab$height <- "Height [cm]"
+lab$BSA <- "Body surface area (BSA) [m^2]"
+
+lab$GEC <- "GEC [mmol/min]"
+lab$GECkg <- "GEC per bodyweight [mmol/min/kg]"
+lab$volLiver <- "Liver volume [ml]"
+lab$volLiverkg <- "Liver volume per bodyweight [ml/kg]"
+lab$flowLiver <- "Liver blood flow [ml/min]"
+lab$flowLiverkg <- "Liver blood flow per bodyweight [ml/min/kg]"
+lab$Perfusion <- "Perfusion [ml/min/ml]"
+
+# Axis limits
+lim <- list()
+lim$age <- c(0, 95)
+lim$bodyweight <- c(0, 150)
+lim$height <- c(0, 220)
+lim$BSA <- c(0, 3.1)
+
+lim$GEC <- c(0, 5.0)
+lim$GECkg <- c(0, 0.10)
+lim$volLiver <- c(0, 3000)
+lim$volLiverkg <- c(0, 30)
+lim$flowLiver <- c(0, 2800)
+lim$flowLiverkg <- c(0, 40)
+lim$perfusion <- c(0, 2)
+
+
+makeFigureFull <- function(data, m1, xname, yname, create_plots=F){
+  xlab <- lab[[xname]]; ylab <- lab[[yname]]
+  xlim <- lim[[xname]]; ylim <- lim[[yname]]
+  main <- sprintf('%s vs. %s', yname, xname)
+  makeFigure(data, m1, main, xname, yname, xlab, ylab, xlim, ylim, create_plots)
 }
 
 makeFigure <- function(data, m1, main, xname, yname, 
@@ -454,8 +459,7 @@ saveData <- function(data, dir=NULL){
 ############################################
 # GEC [mmol/min] vs. age [years]
 ############################################
-xname <- 'age'
-yname <- 'GEC'
+xname <- 'age'; yname <- 'GEC'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( mar1988[, selection],
                tyg1962[, selection],
@@ -466,9 +470,7 @@ data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='GEC vs. age', xname='age', yname='GEC',
-           xlab='Age [years]', ylab='GEC [mmol/min]', 
-           xlim=c(0,90), ylim=c(0,5))
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # GECkg [mmol/min/kgbw] vs. age [years]
@@ -485,9 +487,7 @@ data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='GEC/kg vs. age', xname='age', yname='GECkg',
-           xlab='Age [years]', ylab='GEC [mmol/min/kg]', 
-           xlim=c(0,90), ylim=c(0,0.10))
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # GEC [mmol/min] vs. volLiver [ml]
@@ -498,9 +498,7 @@ data <- rbind( mar1988[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='GEC vs. volLiver', xname='volLiver', yname='GEC',
-           xlab='Volume liver [ml]', ylab='GEC [mmol/min]', 
-           xlim=c(600,1800), ylim=c(0, 5))
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # GEC [mmol/min] vs. flowLiver [ml/min]
@@ -511,9 +509,7 @@ data <- rbind( win1965[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1,  main='GEC vs. flowLiver', xname='flowLiver', yname='GEC',
-           xlab='Blood flow liver [ml/min]', ylab='GEC [mmol/min]', 
-           xlim=c(600,3000), ylim=c(0,5))
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # volLiver [ml] vs. age [years]
@@ -521,16 +517,15 @@ makeFigure(data, m1,  main='GEC vs. flowLiver', xname='flowLiver', yname='GEC',
 xname <- 'age'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( mar1988[, selection],
-               wyn1989.fig2a[, selection],
+               wyn1989[, selection],
                naw1998[, selection],
                boy1933[, selection])
 data <- addRandomizedMeanData(data, tom1965)
 data <- addRandomizedMeanData(data, alt1962)
 saveData(data)
 
-makeFigure(data, m1=NULL, main='Liver volume vs. age',xname='age', yname='volLiver',
-           xlab='Age [years]', ylab='Liver volume [ml]', 
-           xlim=c(0,90), ylim=c(0,3000))
+m1 <- NULL
+makeFigureFull(data, m1, xname, yname)
 
 # mean data from Thompson1965
 head(tom1965)
@@ -562,18 +557,15 @@ for (k in 1:nrow(tom1965)){
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
 ############################################
-xname <- 'age'
-yname <- 'volLiverkg'
+xname <- 'age'; yname <- 'volLiverkg'
 selection <- c('study', 'gender', xname, yname)
-data <- rbind(wyn1989.fig2b[, selection] ,
+data <- rbind(wyn1989[, selection] ,
               naw1998[, selection])
 data <- addRandomizedMeanData(data, swi1978)
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Liver volume per bodyweight vs. age',xname='age', yname='volLiverkg',
-           xlab='Age [years]', ylab='Liver volume per bodyweight [ml/kg]', 
-           xlim=c(0,90), ylim=c(10, 35))
+makeFigureFull(data, m1, xname, yname)
 
 # mean data from Swift1978
 for (k in c(1,2)){
@@ -586,8 +578,7 @@ for (k in c(1,2)){
 ############################################
 # volLiver [ml] vs. BSA [m^2]
 ############################################
-xname <- 'BSA'
-yname <- 'volLiver'
+xname <- 'BSA'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind(naw1998[, selection],
               hei1999[, selection],
@@ -598,11 +589,8 @@ data <- addRandomizedMeanData(data, del1968.fig4)
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Liver volume vs. BSA', xname='BSA', yname='volLiver',
-           xlab='Body surface area (BSA) [m^2]', ylab='Liver volume [ml]', 
-           xlim=c(0.1,2.5), ylim=c(0, 4000))
+makeFigureFull(data, m1, xname, yname)
 
-head(del1968.fig4)
 for (k in 1:nrow(del1968.fig4)){
   # horizontal
   sex <- del1968.fig4$gender[k]
@@ -617,19 +605,17 @@ for (k in 1:nrow(del1968.fig4)){
 ############################################
 # volLiver [ml] vs. bodyweight [kg]
 ############################################
-xname <- 'bodyweight'
-yname <- 'volLiver'
+xname <- 'bodyweight'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind(naw1998[, selection],
-              vau2002.fig2[, selection])
+              vau2002.fig2[, selection],
+              wyn1989[, selection])
 data <- addRandomizedMeanData(data, del1968.fig1)
 data <- addRandomizedMeanData(data, tom1965)
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Liver volume vs. bodyweight', xname='bodyweight', yname='volLiver',
-           xlab='bodyweight [kg]', ylab='Liver volume [ml]', 
-           xlim=c(40,120), ylim=c(500, 2500))
+makeFigureFull(data, m1, xname, yname)
 
 for (k in 1:nrow(del1968.fig1)){
   # horizontal
@@ -653,8 +639,7 @@ for (k in 1:nrow(tom1965)){
 ############################################
 # volLiver [ml] vs. height [cm]
 ############################################
-xname <- 'height'
-yname <- 'volLiver'
+xname <- 'height'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind(naw1998[, selection])
 data <- addRandomizedMeanData(data, del1968.fig3)
@@ -662,9 +647,7 @@ data <- addRandomizedMeanData(data, gra2000.tab1)
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Liver volume vs. height', xname='height', yname='volLiver',
-           xlab='height [cm]', ylab='Height [cm]', 
-           xlim=c(140,200), ylim=c(500, 2500))
+makeFigureFull(data, m1, xname, yname)
 
 for (k in 1:nrow(del1968.fig3)){
   # horizontal
@@ -676,7 +659,7 @@ for (k in 1:nrow(del1968.fig3)){
   segments(del1968.fig3$height[k], del1968.fig3$volLiver[k]+del1968.fig3$volLiverSd[k],
            del1968.fig3$height[k], del1968.fig3$volLiver[k]-del1968.fig3$volLiverSd[k], col=col)
 }
-head(gra2000.tab1)
+
 for (k in 1:nrow(gra2000.tab1)){
   # horizontal
   sex <- gra2000.tab1$gender[k]
@@ -684,18 +667,17 @@ for (k in 1:nrow(gra2000.tab1)){
   segments(gra2000.tab1$heightMin[k], gra2000.tab1$volLiver[k],  
            gra2000.tab1$heightMax[k], gra2000.tab1$volLiver[k], col=col)
   # vertical
-  segments(gra2000.tab1$heightMean[k], gra2000.tab1$volLiver[k]+gra2000.tab1$volLiverSd[k],
-           gra2000.tab1$heightMean[k], gra2000.tab1$volLiver[k]-gra2000.tab1$volLiverSd[k], col=col)
+  segments(gra2000.tab1$height[k], gra2000.tab1$volLiver[k]+gra2000.tab1$volLiverSd[k],
+           gra2000.tab1$height[k], gra2000.tab1$volLiver[k]-gra2000.tab1$volLiverSd[k], col=col)
 }
 
 ############################################
 # flowLiver [ml/min] vs. age [years]
 ############################################
-xname <- 'age'
-yname <- 'flowLiver'
+xname <- 'age'; yname <- 'flowLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( win1965[, selection],
-               wyn1989.fig3a[, selection],
+               wyn1989[, selection],
                bra1945[, selection],
                zol1999[, selection],
                sch1945[, selection],
@@ -703,40 +685,43 @@ data <- rbind( win1965[, selection],
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Blood flow vs. age',xname='age', yname='flowLiver',
-           xlab='Age [years]', ylab='Blood flow liver [ml/min]', 
-           xlim=c(0,90), ylim=c(400,3000))
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # flowLiverkg [ml/min/kg] vs. age [years]
 ############################################
-xname <- 'age'
-yname <- 'flowLiverkg'
+xname <- 'age'; yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind( win1965[, selection],
-               wyn1989.fig3b[, selection],
+               wyn1989[, selection],
                sch1945[, selection],
                zol1993[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Blood flow per bodyweight vs. age', xname='age', yname='flowLiverkg',
-           xlab='Age [years]', ylab='Blood flow liver per bodyweight [ml/min/kg]', 
-           xlim=c(0,90), ylim=c(0,40))
+makeFigureFull(data, m1, xname, yname)
+
+############################################
+# flowLiver [ml/min] vs. bodyweight [kg]
+############################################
+xname <- 'bodyweight'; yname <- 'flowLiver'
+selection <- c('study', 'gender', xname, yname)
+data <- rbind( wyn1989[, selection])
+saveData(data)
+
+m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # perfusion [ml/min/ml] vs. age [years]
 ############################################
-xname <- 'age'
-yname <- 'perfusion'
+xname <- 'age'; yname <- 'perfusion'
 selection <- c('study', 'gender', xname, yname)
-data <- rbind( wyn1989.fig4[, selection])
+data <- rbind( wyn1989[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Perfusion vs. age', xname='age', yname='perfusion',
-           xlab='Age [years]', ylab='Perfusion [ml/min/ml]', 
-           xlim=c(0,90), ylim=c(0,2))
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # flowLiver [ml/min] vs. BSA [m^2]
@@ -749,6 +734,4 @@ data <- rbind(bra1945[, selection],
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigure(data, m1, main='Blood flow vs. BSA', xname='BSA', yname='flowLiver',
-           xlab='Body surface are (BSA) [m^2]', ylab='Blood flow liver [ml/min]', 
-           xlim=c(1.4,2.2), ylim=c(400,2500))
+makeFigureFull(data, m1, xname, yname)

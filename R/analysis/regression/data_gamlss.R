@@ -18,6 +18,7 @@ lab$GEC <- "GEC [mmol/min]"
 lab$GECkg <- "GEC per bodyweight [mmol/min/kg]"
 lab$volLiver <- "Liver volume [ml]"
 lab$volLiverkg <- "Liver volume per bodyweight [ml/kg]"
+lab$flowLiver <- "Liver blood flow [ml/min]"
 lab$BSA <- "Body surface area (BSA) [m^2]"
 
 # Axis limits
@@ -27,6 +28,7 @@ lim$GEC <- c(0, 4.0)
 lim$GECkg <- c(0, 0.10)
 lim$volLiver <- c(0, 3000)
 lim$volLiverkg <- c(0, 30)
+lim$flowLiver <- c(0, 2800)
 lim$BSA <- c(0, 3.1)
 ################################################################################
 ## Data file ##
@@ -35,10 +37,10 @@ lim$BSA <- c(0, 3.1)
 # dataset <- 'GECkg_age'
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
-dataset <- 'volLiver_BSA'
+# dataset <- 'volLiver_BSA'
 # dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiver_height'
-# dataset <- 'flowLiver_age'
+dataset <- 'flowLiver_age'
 # dataset <- 'flowLiverkg_age'
 # dataset <- 'flowLiver_BSA'
 ################################################################################
@@ -94,6 +96,8 @@ df.cols <- c( rgb(0,0,0,alpha=0.5),
               rgb(0,0,1,alpha=0.5),
               rgb(1,0,0,alpha=0.5) )
 names(df.cols) <- df.names 
+
+table(df.all$study)
 
 #######################################################
 # Data overview
