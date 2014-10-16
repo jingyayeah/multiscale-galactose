@@ -49,19 +49,21 @@ qCentiles <- function (obj, newdata=NULL, cent = c(0.4, 2, 10, 25, 50, 75, 90, 9
 plotCentiles <- function(model, d, xname, yname, 
                          main, xlab, ylab, xlim, ylim, pcol){
   # calculate centiles
-  age.grid <- seq(from=min(d[[xname]]), to=max(d[[xname]]), length.out = 501)
+  x.grid <- seq(from=min(d[[xname]]), to=max(d[[xname]]), length.out = 501)
   cent.values <- c(2.5, 10, 25, 50, 75, 90, 97.5) # these should be symmetrical
-  cents <- qCentiles(model, newdata=data.frame(age=age.grid), cent=cent.values)
+  
+  # data frame for centile function
+  x.df <- data.frame(x.grid)
+  names(x.df) <- c(xname)
+  cents <- qCentiles(model, newdata=x.df, cent=cent.values)
   
   
   # empty plot
-  print('empty plot')
   plot(d[[xname]], d[[yname]], type="n", frame.plot=F,
        main=main, xlab=xlab, ylab=ylab, ylim=ylim, xlim=xlim)
   grid()
   
   # plot centile shades
-  print('centile shades')
   shade_between_curves <- function(x, yup, ylow, col=rgb(0.1, 0.1, 0.1, alpha=0.1)){
     xvals <- c(x, rev(x))
     yvals <- c(yup, rev(ylow))
@@ -70,7 +72,7 @@ plotCentiles <- function(model, d, xname, yname,
   for (kc in 1:floor(length(cent.values/2))){
     ylow = cents[[kc]]
     yup = cents[[length(cents)+1-kc]]
-    shade_between_curves(age.grid, yup, ylow) 
+    shade_between_curves(x.grid, yup, ylow) 
   }
   
   # plot points
@@ -79,15 +81,15 @@ plotCentiles <- function(model, d, xname, yname,
   
   # plot centile lines
   for (kc in 1:length(cent.values)){
-    lines(age.grid, cents[[kc]], lwd=0.5, col='black')
+    lines(x.grid, cents[[kc]], lwd=0.5, col='black')
   }
-  lines(age.grid, cents[[floor(length(cents)/2)+1]], lwd=3, col="black")
+  lines(x.grid, cents[[floor(length(cents)/2)+1]], lwd=3, col="black")
   
   # plot the text (centile description)
   for (kc in 1:length(cent.values)){
     yvals <- cents[[kc]]
     ypos <- yvals[length(yvals)]
-    xpos <- max(age.grid) + 3
+    xpos <- max(x.grid) + (max(x.grid)-min(x.grid))*0.03
     info <- paste(cent.values[kc])
     print(info)
     text(xpos, ypos, info, cex=0.8)
