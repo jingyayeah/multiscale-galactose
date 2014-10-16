@@ -97,6 +97,8 @@ fit.final <- list(fit.all.bccg, fit.male.bccg, fit.female.bccg)
 ##########################
 # TODO: confidence intervals
 
+centiles.pred
+
 library('MultiscaleAnalysis')
 k=2
 plotCentiles(model=fit.final[[k]], d=df.male, 
