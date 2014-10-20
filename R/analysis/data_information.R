@@ -18,7 +18,7 @@ lab$Perfusion <- "Perfusion [ml/min/ml]"
 
 # Axis limits
 lim <- list()
-lim$age <- c(0, 95)
+lim$age <- c(0, 100)
 lim$bodyweight <- c(0, 150)
 lim$height <- c(0, 220)
 lim$BSA <- c(0, 3.1)

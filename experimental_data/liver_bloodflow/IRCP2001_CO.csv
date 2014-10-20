@@ -1,0 +1,14 @@
+study	status	age	sex	CO	liverBloodflowEst
+she1977	healthy	0	M	0.6	0.15
+she1977	healthy	1	M	1.2	0.31
+she1977	healthy	5	M	3.4	0.87
+she1977	healthy	10	M	5.0	1.28
+she1977	healthy	15	M	6.1	1.56
+she1977	healthy	20	M	6.5	1.66
+she1977	healthy	0	F	0.6	0.15
+she1977	healthy	1	F	1.2	0.31
+she1977	healthy	5	F	3.4	0.87
+she1977	healthy	10	F	5.0	1.28
+she1977	healthy	15	F	6.1	1.56
+she1977	healthy	20	F	5.9	1.50
+

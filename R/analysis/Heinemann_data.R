@@ -101,8 +101,14 @@ abline(h=18.5, col='grey', lwd=1.0)
 
 plot(liverWeight/bodyweight~age, data=hei1999, col=colors, pch=symbols, cex=0.8,
      xlab='age [years]', ylab='Liver weight per body weight [g/kg]', 
-     xlim=c(0,100), ylim=c(0,60) )
+     xlim=c(0,100), ylim=c(0,80) )
 points(liverWeight/bodyweight~age, data=hei1999[outliers, ], col='black', pch=1, cex=1.5)
+
+plot(liverWeight/bodyweight~bodyweight, data=hei1999, col=colors, pch=symbols, cex=0.8,
+     xlab='bodyweight [kg]', ylab='Liver weight per body weight [g/kg]', 
+     xlim=c(0,100), ylim=c(0,80) )
+points(liverWeight/bodyweight~bodyweight, data=hei1999[outliers, ], col='black', pch=1, cex=1.5)
+
 par(mfrow=c(1,1))
 stopDevPlot()
 

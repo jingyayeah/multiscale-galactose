@@ -144,6 +144,14 @@ hei1999$volLiverkg <- hei1999$volLiver/hei1999$bodyweight # [ml/kg]
 hei1999$BSA <- hei1999$BSA_DuBois # use the DuBois calculation
 head(hei1999)
 
+# age [years], sex [M,F], cardiac_output [L/min], liver blood flow [L/min]
+ircp2001.co <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "IRCP2001_CO.csv"), sep="\t")
+ircp2001.co$gender <- as.character(ircp2001.co$sex)
+ircp2001.co$gender[ircp2001.co$gender=='M'] <- 'male'
+ircp2001.co$gender[ircp2001.co$gender=='F'] <- 'female'
+ircp2001.co$flowLiver <- ircp2001.co$liverBloodflowEst * 1000    # [ml/min]
+head(ircp2001.co)
+
 # age [years], GEC [µmol/min/kg]
 lan2011 <- read.csv(file.path(ma.settings$dir.expdata, "GEC_aging", "Lange2011_Fig1.csv"), sep="\t")
 lan2011$study = 'lan2011'
@@ -693,11 +701,13 @@ data <- rbind( win1965[, selection],
                bra1945[, selection],
                zol1999[, selection],
                sch1945[, selection],
-               wyn1990[, selection])
+               wyn1990[, selection],
+               ircp2001.co[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
+# grid()
 
 ############################################
 # flowLiverkg [ml/min/kg] vs. age [years]

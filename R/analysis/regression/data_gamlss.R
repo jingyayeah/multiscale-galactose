@@ -20,10 +20,10 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 # dataset <- 'volLiverkg_age'
 # dataset <- 'volLiver_BSA'
 # dataset <- 'volLiver_bodyweight'
-# dataset <- 'flowLiver_age'
+dataset <- 'flowLiver_age'
 # dataset <- 'flowLiverkg_age'
 # dataset <- 'perfusion_age'
-dataset <- 'flowLiver_volLiver'
+# dataset <- 'flowLiver_volLiver'
 # dataset <- 'volLiver_flowLiver'
 ################################################################################
 # Plot helpers
@@ -36,7 +36,7 @@ xlim <- lim[[xname]]; ylim <- lim[[yname]]
 main <- sprintf('%s vs. %s', yname, xname)
 
 # Plot to file
-create_plots = TRUE
+create_plots = FALSE
 startDevPlot <- function(width=2000, height=1000, file=NULL){
   if (is.null(file)){
     file <- file.path(ma.settings$dir.results, 'regression', sprintf('%s_%s_regression.png', yname, xname))
@@ -86,6 +86,8 @@ df.cols <- c( rgb(0,0,0,alpha=0.5),
               rgb(0,0,1,alpha=0.5),
               rgb(1,0,0,alpha=0.5) )
 names(df.cols) <- df.names 
+df.symbols = c(21, 22, 23)
+names(df.symbols) <- df.names 
 
 table(df.all$study)
 
@@ -99,7 +101,7 @@ for (k in 1:3){
   if (k==2){ d <- df.male }
   if (k==3){ d <- df.female }
   
-  plot(d[[xname]], d[[yname]], col=df.cols[k], 
+  plot(d[[xname]], d[[yname]], col=df.cols[k], bg=df.cols[k], pch=df.symbols[k],
        main=sprintf('%s', df.names[k]), xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim)
   rug(d[[xname]], side=1, col="black"); rug(d[[yname]], side=2, col="black")
 }
@@ -147,15 +149,17 @@ if (dataset == 'volLiver_age'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
   ## all ##
-  fit.all.no <- gamlss(volLiver ~ cs(age,4), sigma.formula= ~cs(age,3), family=NO, data=df.all)
+  fit.all.no <- gamlss(volLiver ~ cs(age,2), sigma.formula= ~cs(age,1), family=NO, data=df.all)
   # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
   # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
-  plotCentiles(model=fit.all.no, d=df.all, xname=xname, yname=yname,
+  fit.all.bccg <- gamlss(volLiver ~ cs(age,2), sigma.formula= ~cs(age,1), family=BCCG, data=df.all)
+  fit.all.bccg <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.all)
+  plotCentiles(model=fit.all.bccg, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
   
   ## male ##
-  fit.male.no <- gamlss(volLiver ~ cs(age,6), sigma.formula= ~cs(age,3), family=NO, data=df.male)
+  fit.male.no <- gamlss(volLiver ~ cs(age,6), sigma.formula= ~cs(age,1), family=NO, data=df.male)
   # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
   # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
   
