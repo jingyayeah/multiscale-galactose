@@ -90,6 +90,7 @@ stopDevPlot()
 
 # Figure 2
 startDevPlot(name='heinemann/Heinemann1999_Fig2', height=1000, width=1000)
+par(mfrow=c(2,2))
 plot(BMI~age, data=hei1999, col=colors, pch=symbols, cex=0.8,
      xlab='age [years]', ylab='BMI (Body mass index) [kg/m^2]', 
      xlim=c(0,100), ylim=c(0,40) )
@@ -97,8 +98,13 @@ points(BMI~age, data=hei1999[outliers, ], col='black', pch=1, cex=1.5)
 abline(h=30, col='grey', lwd=1.0)
 abline(h=25, col='grey', lwd=1.0)
 abline(h=18.5, col='grey', lwd=1.0)
-stopDevPlot()
 
+plot(liverWeight/bodyweight~age, data=hei1999, col=colors, pch=symbols, cex=0.8,
+     xlab='age [years]', ylab='Liver weight per body weight [g/kg]', 
+     xlim=c(0,100), ylim=c(0,60) )
+points(liverWeight/bodyweight~age, data=hei1999[outliers, ], col='black', pch=1, cex=1.5)
+par(mfrow=c(1,1))
+stopDevPlot()
 
 #################################################
 # Modeling

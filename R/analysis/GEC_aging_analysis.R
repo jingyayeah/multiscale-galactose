@@ -13,9 +13,11 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 create_plots = F
 
+source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 # gender color (all, male, female)
 gender.levels <- c('all', 'male', 'female')
-gender.cols = c("black", "blue", "red")
+gender.cols = c(rgb(0,0,0, alpha=0.5), rgb(0,0,1, alpha=0.5), rgb(1,0,0, alpha=0.5))
+gender.symbols = c(21, 22, 23)
 
 ##############################################
 # Read datasets
@@ -119,11 +121,27 @@ gra2000.tab2$volLiver <- gra2000.tab2$liverWeight/f_liver_density * 1000; # [ml]
 gra2000.tab2$volLiverSd <- gra2000.tab2$liverWeightSd/f_liver_density * 1000; # [ml]
 head(gra2000.tab2)
 
-# BSA [m^2], liverVol [ml]
-hei1999 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Heinemann1999.csv"), sep="\t")
+# digitized BSA [m^2], liverVol [ml]
+# hei1999 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Heinemann1999.csv"), sep="\t")
+# hei1999$gender <- as.character(hei1999$sex)
+# hei1999$gender[hei1999$gender=='U'] <- 'all'
+# hei1999$volLiver <- hei1999$liverVol
+# head(hei1999)
+hei1999 <- read.csv(file.path(ma.settings$dir.expdata, "heinemann", "Heinemann1999.csv"), sep="\t")
+# remove outliers found by graphical analysis
+outliers.1 <- which((hei1999$liverWeight<500) & (hei1999$age>5))
+outliers.2 <- which((hei1999$liverWeight>1500) & (hei1999$liverWeight<2000) & (hei1999$age<10))
+outliers.3 <- which((hei1999$BSA_DuBois<0.5) & (hei1999$liverWeight/hei1999$bodyweight<20))
+outliers <- c(outliers.1, outliers.2, outliers.3)
+hei1999 <- hei1999[-outliers, ]
+
+hei1999$study <- 'hei1999'
 hei1999$gender <- as.character(hei1999$sex)
-hei1999$gender[hei1999$gender=='U'] <- 'all'
-hei1999$volLiver <- hei1999$liverVol
+hei1999$gender[hei1999$gender=='M'] <- 'male'
+hei1999$gender[hei1999$gender=='F'] <- 'female'
+hei1999$volLiver <- hei1999$liverWeight/f_liver_density  # [ml]
+hei1999$volLiverkg <- hei1999$volLiver/hei1999$bodyweight # [ml/kg]
+hei1999$BSA <- hei1999$BSA_DuBois # use the DuBois calculation
 head(hei1999)
 
 # age [years], GEC [µmol/min/kg]
@@ -321,7 +339,7 @@ linear_regression <- function(data, xname, yname){
 ############################################################################################
 # Helper functions
 ############################################################################################
-source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
+
 
 makeFigureFull <- function(data, m1, xname, yname, create_plots=F){
   xlab <- lab[[xname]]; ylab <- lab[[yname]]
@@ -347,7 +365,10 @@ makeFigure <- function(data, m1, main, xname, yname,
   # plot the individual gender data
   for (k in 1:length(gender.levels)){
     inds <- which(data$gender == gender.levels[k])
-    points(data[inds, xname], data[inds, yname], col=gender.cols[k])  
+    # better plot
+    
+    points(data[inds, xname], data[inds, yname], col=gender.cols[k], bg=gender.cols[k], 
+           pch=gender.symbols[k], cex=0.8)  
     
   }
   legend("topright",  legend=gender.levels, fill=gender.cols) 
@@ -490,9 +511,11 @@ selection <- c('study', 'gender', xname, yname)
 data <- rbind( mar1988[, selection],
                wyn1989[, selection],
                naw1998[, selection],
-               boy1933[, selection])
+               boy1933[, selection],
+               hei1999[, selection])
 data <- addRandomizedMeanData(data, tom1965)
 data <- addRandomizedMeanData(data, alt1962)
+table(data$study)
 saveData(data)
 
 m1 <- NULL
@@ -531,7 +554,11 @@ for (k in 1:nrow(tom1965)){
 xname <- 'age'; yname <- 'volLiverkg'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind(wyn1989[, selection] ,
+              naw1998[, selection], 
+              hei1999[, selection])
+data <- rbind(wyn1989[, selection] ,
               naw1998[, selection])
+
 data <- addRandomizedMeanData(data, swi1978)
 saveData(data)
 
@@ -580,11 +607,11 @@ xname <- 'bodyweight'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
 data <- rbind(naw1998[, selection],
               vau2002.fig2[, selection],
-              wyn1989[, selection])
+              wyn1989[, selection],
+              hei1999[, selection])
 data <- addRandomizedMeanData(data, del1968.fig1)
 data <- addRandomizedMeanData(data, tom1965)
 saveData(data)
-
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
 
@@ -612,7 +639,8 @@ for (k in 1:nrow(tom1965)){
 ############################################
 xname <- 'height'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname)
-data <- rbind(naw1998[, selection])
+data <- rbind(naw1998[, selection],
+              hei1999[, selection])
 data <- addRandomizedMeanData(data, del1968.fig3)
 data <- addRandomizedMeanData(data, gra2000.tab1)
 saveData(data)
