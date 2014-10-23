@@ -30,6 +30,7 @@ alt1962$gender <- as.character(alt1962$sex)
 alt1962$gender[alt1962$gender=='M'] <- 'male'
 alt1962$gender[alt1962$gender=='F'] <- 'female'
 alt1962$volLiver <- alt1962$liverWeight/f_liver_density * 1000; # [ml]
+alt1962$volLiverSd <- NA
 head(alt1962)
 
 # age [years], volLiver [ml], BSA [m^2], volLiverPerBSA [ml/m^2]
@@ -320,9 +321,8 @@ head(zol1999)
 # Linear regression template
 ############################################################################################
 linear_regression <- function(data, xname, yname){
-  
+  # do linear regression
   formula <- as.formula(paste(yname, '~', xname))
-  print(formula)
   m1 <- lm(formula, data=data)
   
   # Create output file with log information
@@ -337,18 +337,14 @@ linear_regression <- function(data, xname, yname){
   print(summary(data))
   print('### Linear Regression Model ###')
   print(summary(m1))
-  
   sink(type="message")
   sink()
-  
   return(m1)
 }
 
 ############################################################################################
 # Helper functions
 ############################################################################################
-
-
 makeFigureFull <- function(data, m1, xname, yname, create_plots=F){
   xlab <- lab[[xname]]; ylab <- lab[[yname]]
   xlim <- lim[[xname]]; ylim <- lim[[yname]]
@@ -416,23 +412,37 @@ makeFigure <- function(data, m1, main, xname, yname,
   # makeQualityFigure(m1, xname, yname, create_plots=T)
 }
 
+################################
+# Mean & SD data
+################################
 # Takes mean data and generates individual data points from them.
-# Simplified use of mean data to include in fitting procedure
+# Simplified use of mean data to include in fitting procedure.
+# n data points are generated 
 addRandomizedMeanData <- function(data, newdata){
   xname <- names(data)[3]
   yname <- names(data)[4]
   
+  freq <- newdata$n
+  sds <- newdata[, paste(yname, 'Sd', sep="")]
   for (k in 1:nrow(newdata)){
-    n <- newdata$n[k]
+    n <- freq[k]
+    
     study <- rep(newdata$study[k], n)
     gender <- rep(newdata$gender[k], n)
+    
     # replicate the data point n times
-    assign(xname, rep(newdata[k, xname], n))
-    assign(yname, rep(newdata[k, yname], n))
-    # TODO: handle the variance (?!), i.e. use the reported variance for point
+    # unsolved issue is how to handle the 
     #       generation (otherwise the variance of the estimation is too small
-    # volLiver <- rnorm(n, mean=tom1965$volLiver[k], sd=tom1965$volLiverSd[k])
-    df <- data.frame(study, gender, get(xname), get(yname) )
+    # problems with reproduciblity, due to random generation of samples from 
+    # distribution
+    x <- rep(newdata[k, xname], n)
+    assign(xname, x)
+    
+    y <- rep(newdata[k, yname], n)
+    # y <- rnorm(n, mean=newdata[k, xname], sd=sds[k])
+    assign(yname, y)
+    
+    df <- data.frame(study, gender, get(xname), get(yname))
     names(df) <- c('study', 'gender', xname, yname)
     data <- rbind(data, df)
   }
@@ -461,11 +471,13 @@ saveData <- function(data, dir=NULL){
 ############################################
 xname <- 'age'; yname <- 'GEC'
 selection <- c('study', 'gender', xname, yname)
+# individual subject data
 data <- rbind( mar1988[, selection],
                tyg1962[, selection],
                sch1986.tab1[, selection],
                win1965[, selection],
                duc1979[, selection])
+# data$frequency <- 1; data$Sd <- NA    # only count once, no standard deviation
 data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
 
@@ -525,7 +537,6 @@ data <- addRandomizedMeanData(data, tom1965)
 data <- addRandomizedMeanData(data, alt1962)
 table(data$study)
 saveData(data)
-
 m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
 
@@ -539,22 +550,6 @@ for (k in 1:nrow(tom1965)){
   segments(tom1965$age[k], tom1965$volLiver[k]+tom1965$volLiverSd[k],
            tom1965$age[k], tom1965$volLiver[k]-tom1965$volLiverSd[k], col=col)
 }
-# # mean data from Swift1978
-# for (k in c(1,2)){
-#   segments(swi1978$minAge[k], swi1978$volLiver[k],  
-#          swi1978$maxAge[k], swi1978$volLiver[k])
-#   segments(0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiver[k]+swi1978$volLiverSd[k],
-#          0.5*(swi1978$minAge[k] + swi1978$maxAge[k]), swi1978$volLiver[k]-swi1978$volLiverSd[k])
-# }
-# # mean data from Bach1981
-# for (k in c(1,2)){
-#   # horizontal
-#   segments(bac1981$age[k]-bac1981$ageSd[k], bac1981$volLiver[k],  
-#            bac1981$age[k]+bac1981$ageSd[k], bac1981$volLiver[k])
-#   # vertical
-#   segments(bac1981$age[k], bac1981$volLiver[k]+bac1981$volLiverSd[k],
-#            bac1981$age[k], bac1981$volLiver[k]-bac1981$volLiverSd[k])
-# }
 
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
@@ -564,22 +559,10 @@ selection <- c('study', 'gender', xname, yname)
 data <- rbind(wyn1989[, selection] ,
               naw1998[, selection], 
               hei1999[, selection])
-data <- rbind(wyn1989[, selection] ,
-              naw1998[, selection])
-
-data <- addRandomizedMeanData(data, swi1978)
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
-
-# mean data from Swift1978
-for (k in c(1,2)){
-  segments(swi1978$minAge[k], swi1978$volLiverkg[k],  
-           swi1978$maxAge[k], swi1978$volLiverkg[k])
-  segments(swi1978$age[k], swi1978$volLiverkg[k]+swi1978$volLiverkgSd[k],
-           swi1978$age[k], swi1978$volLiverkg[k]-swi1978$volLiverkgSd[k])
-}
 
 ############################################
 # volLiver [ml] vs. BSA [m^2]
@@ -594,7 +577,7 @@ data <- rbind(naw1998[, selection],
 data <- addRandomizedMeanData(data, del1968.fig4)
 saveData(data)
 
-m1 <- linear_regression(data, xname, yname)
+m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
 
 for (k in 1:nrow(del1968.fig4)){
@@ -653,7 +636,7 @@ data <- addRandomizedMeanData(data, del1968.fig3)
 data <- addRandomizedMeanData(data, gra2000.tab1)
 saveData(data)
 
-m1 <- linear_regression(data, xname, yname)
+m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
 
 for (k in 1:nrow(del1968.fig3)){
@@ -690,7 +673,6 @@ saveData(data)
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
 
-
 ############################################
 # flowLiver [ml/min] vs. age [years]
 ############################################
@@ -705,7 +687,7 @@ data <- rbind( win1965[, selection],
                ircp2001.co[, selection])
 saveData(data)
 
-m1 <- linear_regression(data, xname, yname)
+m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
 # grid()
 

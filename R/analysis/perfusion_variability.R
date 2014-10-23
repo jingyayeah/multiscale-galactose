@@ -115,3 +115,8 @@ shapiro.test(rnorm(100, mean = 5, sd = 3))
 shapiro.test(runif(100, min=2, max=4))
 
 # To fit an arbitrary distribution, use the Kolmogorov-Smirnov test. The KS test compares an empirical and a theoretical model by computing the maximum absolute difference between the empirical and theoretical distribution functions: 
+
+
+# Work with correlations and PDF
+
+

@@ -148,7 +148,7 @@ lines(CD4$age[order(CD4$age)], fitted(maic)[order(CD4$age)], col = "blue")
 lines(CD4$age[order(CD4$age)], fitted(msbc)[order(CD4$age)], col = "green")
 
 # Given that the smooth cubic spline model for  appears reasonable, we proceed by looking at
-# a suitable models for log  (since the default link function for sigma for the normal NO distribution
+# a suitable models for log  (since the default link function for sigma for the normal NO distribution
 # We try a smooth cubic splines model for both terms. The following code will
 # give us the best choice of degrees of freedom for both mu and sigma according to AIC. Note
 # the fit of model m1 is used as the starting values
