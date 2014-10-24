@@ -149,14 +149,16 @@ if (dataset == 'volLiver_age'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
   ## all ##
-  fit.all.no <- gamlss(volLiver ~ cs(age,4), sigma.formula= ~cs(age,1), family=NO, data=df.all)
+  fit.all.no <- gamlss(volLiver ~ cs(age,1), sigma.formula= ~age, family=NO, data=df.all)
   # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
   # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
-  fit.all.bccg <- gamlss(volLiver ~ cs(age,2), sigma.formula= ~cs(age,1), family=BCCG, data=df.all)
+  fit.all.bccg <- gamlss(volLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=BCCG, data=df.all)
   fit.all.bccg <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.all)
+  
   plotCentiles(model=fit.all.no, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
+  
   
   ## male ##
   fit.male.no <- gamlss(volLiver ~ cs(age,4), sigma.formula= ~cs(age,2), family=NO, data=df.male)

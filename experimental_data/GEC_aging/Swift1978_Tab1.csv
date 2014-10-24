@@ -1,5 +1,0 @@
-state	n	minAge	maxAge	bodyweight	bodyweightSd	volLiver	volLiverSd	volLiverkg	volLiverkgSd
-young normal	15	20	29	67	12	1303	289	19.4	1.9
-elderly normal	11	75	86	58	9	990	166	15.3	3.8
-elderly hospitalised	10	70	89	56	11	838	242	15.6	3.9
-
