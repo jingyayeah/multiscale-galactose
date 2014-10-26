@@ -111,7 +111,7 @@ head(duc1979)
 # age [years], sex [M,F], GECmg [mg/min/kg], GEC [mmol/min/kg] 
 # age [years], gender [male, female], GECkg [mmole/min/kg]
 duf2005 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Dufour2005_Tab1.csv"), sep="\t")
-duc1979$dtype <- 'individual'
+duf2005$dtype <- 'individual'
 duf2005$gender <- getGender(duf2005)
 duf2005$GECkg <- duf2005$GECmg/180
 duf2005 <- duf2005[duf2005$state=='normal', ]
@@ -241,7 +241,7 @@ head(swi1978)
 
 # sex [M], age [years], bodyweight [kg], liverWeight [kg]
 tom1965 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Thompson1965.csv"), sep="\t")
-swi1978$dtype <- 'population'
+tom1965$dtype <- 'population'
 tom1965$gender <- getGender(tom1965)
 tom1965$volLiver <- tom1965$liverWeight/f_liver_density * 1000; # [ml]
 tom1965$volLiverSd <- tom1965$liverWeightSd/f_liver_density * 1000; # [ml]
@@ -287,52 +287,42 @@ win1965$flowLiverkg <- win1965$flowLiver/win1965$bodyweight
 win1965 <- win1965[!is.na(win1965$GEC), ] # filter cases without GEC
 head(win1965)
 
-
-# gender [male, female], age [years], liver volume [ml]
+# gender [male, female], age [years], liver volume [ml], bloodflow, perfusion
 wyn1989 <- read.csv(file.path(ma.settings$dir.expdata, "wynne", "Wynne1989_corrected.csv"), sep="\t")
+wyn1989$dtype <- 'individual'
+wyn1989$gender <- getGender(wyn1989)
 wyn1989$volLiver <- wyn1989$livVolume
 wyn1989$volLiverkg <- wyn1989$livVolumekg
 wyn1989$flowLiver <- wyn1989$livBloodflow
 wyn1989$flowLiverkg <- wyn1989$livBloodflowkg
-wyn1989$gender <- as.character(wyn1989$sex)
-wyn1989$gender[wyn1989$gender=='M'] <- 'male'
-wyn1989$gender[wyn1989$gender=='F'] <- 'female'
 wyn1989$study <- 'wyn1989'
 head(wyn1989)
 
 # age [years], liver bloodflow [ml/min]
 wyn1990 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Wynne1990.csv"), sep="\t")
-wyn1990$gender <- as.character(wyn1990$sex)
-wyn1990$gender[wyn1990$gender=='U'] <- 'all'
+wyn1990$dtype <- 'individual'
+wyn1990$gender <- as.character(wyn1990)
 wyn1990$flowLiver <- wyn1990$liverBloodflow
 head(wyn1990)
 
 # BSA [m^2], liverWeight [g]
 yos2003 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Yoshizumi2003.csv"), sep="\t")
-yos2003$gender <- as.character(yos2003$sex)
-yos2003$gender[yos2003$gender=='U'] <- 'all'
-yos2003$volLiver <- yos2003$liverWeight/f_liver_density ; # [ml]
-head(yos2003)
-
-# BSA [m^2], liverWeight [g]
-yos2003 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Yoshizumi2003.csv"), sep="\t")
-yos2003$gender <- as.character(yos2003$sex)
-yos2003$gender[yos2003$gender=='U'] <- 'all'
+yos2003$dtype <- 'individual'
+yos2003$gender <- getGender(yos2003)
 yos2003$volLiver <- yos2003$liverWeight/f_liver_density ; # [ml]
 head(yos2003)
 
 # age [years], FHF (functional hepatic flow) [ml/min]
 zol1993 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Zoller1993.csv"), sep="\t")
-zol1993$gender <- as.character(zol1993$sex)
-zol1993$gender[zol1993$gender=='M'] <- 'male'
-zol1993$gender[zol1993$gender=='F'] <- 'female'
+zol1993$dtype <- 'individual'
+zol1993$gender <- getGender(zol1993)
 zol1993$flowLiverkg <- zol1993$liverBloodflowPerBodyweight
 head(zol1993)
 
 # age [years], FHF (functional hepatic flow) [ml/min]
 zol1999 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Zoli1999.csv"), sep="\t")
-zol1999$gender <- as.character(zol1999$sex)
-zol1999$gender[zol1999$gender=='U'] <- 'all'
+zol1999$dtype <- 'individual'
+zol1999$gender <- getGender(zol1999)
 zol1999$flowLiver <- zol1999$FHF
 head(zol1999)
 
@@ -388,11 +378,14 @@ makeFigure <- function(data, m1, main, xname, yname,
        main=main, xlab=xlab, ylab=ylab)
   # plot the individual gender data
   for (k in 1:length(gender.levels)){
-    inds <- which(data$gender == gender.levels[k])
-    # better plot
     
-    points(data[inds, xname], data[inds, yname], col=gender.cols[k], bg=gender.cols[k], 
-           pch=gender.symbols[k], cex=0.8)  
+    # better plot
+    inds.in <- which(data$gender == gender.levels[k] & data$dtype == 'individual')
+    points(data[inds.in, xname], data[inds.in, yname], col=gender.cols[k], bg=gender.cols[k], 
+           pch=gender.symbols[k], cex=0.8)
+    inds.po <- which(data$gender == gender.levels[k] & data$dtype == 'population')
+    points(data[inds.po, xname], data[inds.po, yname], col=gender.cols[k], 
+           pch=gender.symbols[k], cex=0.8)
     
   }
   legend("topright",  legend=gender.levels, fill=gender.cols) 
@@ -433,12 +426,14 @@ makeFigure <- function(data, m1, main, xname, yname,
 }
 
 ################################
-# Mean & SD data
+# Population data
 ################################
-# Takes mean data and generates individual data points from them.
-# Simplified use of mean data to include in fitting procedure.
-# n data points are generated 
-addRandomizedMeanData <- function(data, newdata){
+# Takes data from population studies, i.e. multiple individuals put together
+# providing n (number subjects), mean (mean value) and Sd (standard deviation)
+# or range (distance to upper/lower limit of group).
+
+# Add n measurements of mean data 
+addMeanPopulationData <- function(data, newdata){
   xname <- names(data)[3]
   yname <- names(data)[4]
   
@@ -446,28 +441,83 @@ addRandomizedMeanData <- function(data, newdata){
   sds <- newdata[, paste(yname, 'Sd', sep="")]
   for (k in 1:nrow(newdata)){
     n <- freq[k]
-    
     study <- rep(newdata$study[k], n)
     gender <- rep(newdata$gender[k], n)
+    dtype <- rep(newdata$dtype[k], n)
     
-    # replicate the data point n times
-    # unsolved issue is how to handle the 
-    #       generation (otherwise the variance of the estimation is too small
-    # problems with reproduciblity, due to random generation of samples from 
-    # distribution
+    # replicate mean data point n times
     x <- rep(newdata[k, xname], n)
     assign(xname, x)
     
     y <- rep(newdata[k, yname], n)
-    # y <- rnorm(n, mean=newdata[k, xname], sd=sds[k])
     assign(yname, y)
     
-    df <- data.frame(study, gender, get(xname), get(yname))
-    names(df) <- c('study', 'gender', xname, yname)
+    df <- data.frame(study, gender, get(xname), get(yname), dtype)
+    names(df) <- c('study', 'gender', xname, yname, 'dtype')
     data <- rbind(data, df)
   }
   return(data)
 }
+
+# Generate randomized data points within the given measurement
+# interval for the data, i.e. use mean and sd/range for x and y 
+# to create n data points. 
+# The data is weighted only a fraction of the individual data in 
+# the regression but the information is provided for the fit curves.
+addRandomizedPopulationData <- function(data, newdata){
+    xname <- names(data)[3]
+    yname <- names(data)[4]    
+    
+    for (k in 1:nrow(newdata)){
+        n <- newdata$n[k]
+        study <- rep(newdata$study[k], n)
+        gender <- rep(newdata$gender[k], n)
+        dtype <- rep(newdata$dtype[k], n)
+        
+        # check if Sd or Range for x and y
+        xtype <- NULL
+        ytype <- NULL
+        if (paste(xname, 'Sd', sep="") %in% names(newdata)){
+            xtype <- 'Sd'   
+        } else if (paste(xname, 'Range', sep="") %in% names(newdata)){
+            xtype <- 'Range'   
+        }
+        if (paste(yname, 'Sd', sep="") %in% names(newdata)){
+            ytype <- 'Sd'   
+        } else if (paste(yname, 'Range', sep="") %in% names(newdata)){
+            ytype <- 'Range'   
+        }
+        
+        # generate x points
+        xmean <- newdata[k, xname]
+        if (xtype == 'Sd'){
+            x <- rnorm(n, mean=xmean, sd=newdata[k, paste(xname, 'Sd', sep="")])
+        } else if (xtype == 'Range'){
+            xrange <- newdata[k, paste(xname, 'Range', sep="")]
+            x <- runif(n, min=xmean-xrange, max=xmean+xrange)
+        }
+        x[x<0] <- 0
+        assign(xname, x)
+        
+        
+        # generate y points
+        ymean <- newdata[k, yname]
+        if (ytype == 'Sd'){
+            y <- rnorm(n, mean=ymean, sd=newdata[k, paste(yname, 'Sd', sep="")])
+        } else if (ytype == 'Range'){
+            yrange <- newdata[k, paste(xname, 'Range', sep="")]
+            y <- runif(n, min=mean-yrange, max=ymean+yrange)
+        }
+        y[y<0] <- 0
+        assign(yname, y)
+        
+        df <- data.frame(study, gender, get(xname), get(yname), dtype)
+        names(df) <- c('study', 'gender', xname, yname, 'dtype')
+        data <- rbind(data, df)
+    }
+    return(data)
+}
+
 
 # Saves data.frame as csv and R data
 saveData <- function(data, dir=NULL){
@@ -490,7 +540,7 @@ saveData <- function(data, dir=NULL){
 # GEC [mmol/min] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'GEC'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 # individual subject data
 data <- rbind( mar1988[, selection],
                tyg1962[, selection],
@@ -501,6 +551,7 @@ data <- rbind( mar1988[, selection],
 # data$frequency <- 1; data$Sd <- NA    # only count once, no standard deviation
 data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
+head(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
@@ -509,7 +560,7 @@ makeFigureFull(data, m1, xname, yname)
 # GECkg [mmol/min/kgbw] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'GECkg'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( lan2011[, selection],
                duc1979[, selection],
                tyg1962[, selection],
@@ -526,7 +577,7 @@ makeFigureFull(data, m1, xname, yname)
 # GEC [mmol/min] vs. volLiver [ml]
 ############################################
 xname <- 'volLiver'; yname <- 'GEC'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( mar1988[, selection])
 saveData(data)
 
@@ -537,31 +588,34 @@ makeFigureFull(data, m1, xname, yname)
 # GEC [mmol/min] vs. flowLiver [ml/min]
 ############################################
 xname <- 'flowLiver'; yname <- 'GEC'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( win1965[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
 
+
 ############################################
 # volLiver [ml] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( mar1988[, selection],
                wyn1989[, selection],
                naw1998[, selection],
                boy1933[, selection],
                hei1999[, selection])
 
-data <- addRandomizedMeanData(data, tom1965)
-data <- addRandomizedMeanData(data, alt1962)
-data <- addRandomizedMeanData(data, kay1987)
+
+# data <- addRandomizedPopulationData(data, alt1962)
+data <- addRandomizedPopulationData(data, tom1965)
+data <- addRandomizedPopulationData(data, kay1987)
 table(data$study)
 saveData(data)
 m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
+
 
 # mean data from Thompson1965
 head(tom1965)
