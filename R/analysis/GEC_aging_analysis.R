@@ -272,7 +272,7 @@ head(vau2002.fig1)
 
 # bodyweight [kg], liverVol [ml]
 vau2002.fig2 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Vauthey2002_Fig2.csv"), sep="\t")
-vau2002$dtype <- 'individual'
+vau2002.fig2$dtype <- 'individual'
 vau2002.fig2$gender <- as.character(vau2002.fig2$sex)
 vau2002.fig2$gender[vau2002.fig2$gender=='U'] <- 'all'
 vau2002.fig2$volLiver <- vau2002.fig2$liverVol
@@ -607,8 +607,8 @@ data <- rbind( mar1988[, selection],
                boy1933[, selection],
                hei1999[, selection])
 
-
 # data <- addRandomizedPopulationData(data, alt1962)
+head(tom1965)
 data <- addRandomizedPopulationData(data, tom1965)
 data <- addRandomizedPopulationData(data, kay1987)
 table(data$study)
@@ -616,9 +616,7 @@ saveData(data)
 m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
 
-
 # mean data from Thompson1965
-head(tom1965)
 for (k in 1:nrow(tom1965)){
   sex <- tom1965$gender[k]
   col <- gender.cols[which(gender.levels == sex)]
@@ -636,33 +634,31 @@ for (k in 1:nrow(kay1987)){
              kay1987$age[k], kay1987$volLiver[k]-kay1987$volLiverSd[k], col=col)
 }
 
-
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'volLiverkg'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(wyn1989[, selection] ,
               naw1998[, selection], 
               hei1999[, selection])
 saveData(data)
 
-m1 <- linear_regression(data, xname, yname)
+m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # volLiver [ml] vs. BSA [m^2]
 ############################################
 xname <- 'BSA'; yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(naw1998[, selection],
               hei1999[, selection],
               ura1995[, selection],
               vau2002.fig1[, selection],
               yos2003[,selection])
-data <- addRandomizedMeanData(data, del1968.fig4)
+data <- addRandomizedPopulationData(data, del1968.fig4)
 saveData(data)
-
 m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
 
@@ -681,13 +677,13 @@ for (k in 1:nrow(del1968.fig4)){
 # volLiver [ml] vs. bodyweight [kg]
 ############################################
 xname <- 'bodyweight'; yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(naw1998[, selection],
               vau2002.fig2[, selection],
               wyn1989[, selection],
               hei1999[, selection])
-data <- addRandomizedMeanData(data, del1968.fig1)
-data <- addRandomizedMeanData(data, tom1965)
+data <- addRandomizedPopulationData(data, del1968.fig1)
+data <- addRandomizedPopulationData(data, tom1965)
 saveData(data)
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
