@@ -425,6 +425,43 @@ makeFigure <- function(data, m1, main, xname, yname,
   # makeQualityFigure(m1, xname, yname, create_plots=T)
 }
 
+# check if Sd or Range for x and y based on which fields are available
+# in the dataset
+getRangeType <- function(dat, xname, yname){
+    xtype <- NULL
+    ytype <- NULL
+    if (paste(xname, 'Sd', sep="") %in% names(dat)){
+        xtype <- 'Sd'   
+    } else if (paste(xname, 'Range', sep="") %in% names(dat)){
+        xtype <- 'Range'   
+    }
+    if (paste(yname, 'Sd', sep="") %in% names(dat)){
+        ytype <- 'Sd'   
+    } else if (paste(yname, 'Range', sep="") %in% names(dat)){
+        ytype <- 'Range'   
+    }
+    return(list(xtype=xtype, ytype=ytype))
+}
+
+# Add the population data segments to the plot
+addPopulationSegments <- function(dat, xname, yname){
+    types <- getRangeType(dat, xname, yname)    
+    for (k in 1:nrow(dat)){
+        sex <- dat$gender[k]
+        col <- gender.cols[which(gender.levels == sex)]
+        
+        xmean <- dat[k, xname]
+        ymean <- dat[k, yname]
+        xrange <- dat[k, paste(xname, types$xtype, sep="")]
+        yrange <- dat[k, paste(yname, types$ytype, sep="")]
+        
+        # horizontal
+        segments(xmean-xrange, ymean, xmean+xrange, ymean, col=col)
+        # vertical
+        segments(xmean, ymean-yrange, xmean, ymean+yrange, col=col)
+    }
+}
+
 ################################
 # Population data
 ################################
@@ -466,31 +503,18 @@ addMeanPopulationData <- function(data, newdata){
 # the regression but the information is provided for the fit curves.
 addRandomizedPopulationData <- function(data, newdata){
     xname <- names(data)[3]
-    yname <- names(data)[4]    
+    yname <- names(data)[4]
+    types <- getRangeType(data, xname, yname)
     
     for (k in 1:nrow(newdata)){
         n <- newdata$n[k]
         study <- rep(newdata$study[k], n)
         gender <- rep(newdata$gender[k], n)
         dtype <- rep(newdata$dtype[k], n)
-        
-        # check if Sd or Range for x and y
-        xtype <- NULL
-        ytype <- NULL
-        if (paste(xname, 'Sd', sep="") %in% names(newdata)){
-            xtype <- 'Sd'   
-        } else if (paste(xname, 'Range', sep="") %in% names(newdata)){
-            xtype <- 'Range'   
-        }
-        if (paste(yname, 'Sd', sep="") %in% names(newdata)){
-            ytype <- 'Sd'   
-        } else if (paste(yname, 'Range', sep="") %in% names(newdata)){
-            ytype <- 'Range'   
-        }
-        
+              
         # generate x points
         xmean <- newdata[k, xname]
-        if (xtype == 'Sd'){
+        if (types$xtype == 'Sd'){
             x <- rnorm(n, mean=xmean, sd=newdata[k, paste(xname, 'Sd', sep="")])
         } else if (xtype == 'Range'){
             xrange <- newdata[k, paste(xname, 'Range', sep="")]
@@ -499,10 +523,9 @@ addRandomizedPopulationData <- function(data, newdata){
         x[x<0] <- 0
         assign(xname, x)
         
-        
         # generate y points
         ymean <- newdata[k, yname]
-        if (ytype == 'Sd'){
+        if (types$ytype == 'Sd'){
             y <- rnorm(n, mean=ymean, sd=newdata[k, paste(yname, 'Sd', sep="")])
         } else if (ytype == 'Range'){
             yrange <- newdata[k, paste(xname, 'Range', sep="")]
@@ -548,10 +571,8 @@ data <- rbind( mar1988[, selection],
                win1965[, selection],
                duc1979[, selection])
 
-# data$frequency <- 1; data$Sd <- NA    # only count once, no standard deviation
 data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
-head(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
@@ -595,7 +616,6 @@ saveData(data)
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
 
-
 ############################################
 # volLiver [ml] vs. age [years]
 ############################################
@@ -606,9 +626,9 @@ data <- rbind( mar1988[, selection],
                naw1998[, selection],
                boy1933[, selection],
                hei1999[, selection])
+data <- rbind( mar1988[, selection])
 
-# data <- addRandomizedPopulationData(data, alt1962)
-head(tom1965)
+data <- addRandomizedPopulationData(data, alt1962)
 data <- addRandomizedPopulationData(data, tom1965)
 data <- addRandomizedPopulationData(data, kay1987)
 table(data$study)
@@ -617,6 +637,7 @@ m1 <- NULL
 makeFigureFull(data, m1, xname, yname)
 
 # mean data from Thompson1965
+addPopulationSegments(tom1965, xname, yname)
 for (k in 1:nrow(tom1965)){
   sex <- tom1965$gender[k]
   col <- gender.cols[which(gender.levels == sex)]
@@ -682,6 +703,7 @@ data <- rbind(naw1998[, selection],
               vau2002.fig2[, selection],
               wyn1989[, selection],
               hei1999[, selection])
+data <- rbind(naw1998[, selection])
 data <- addRandomizedPopulationData(data, del1968.fig1)
 data <- addRandomizedPopulationData(data, tom1965)
 saveData(data)
