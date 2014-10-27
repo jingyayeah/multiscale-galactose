@@ -12,6 +12,7 @@ rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 create_plots = F
+set.seed(123)
 
 # load field, axis and color information
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
@@ -94,13 +95,15 @@ head(del1968.fig3)
 
 # BSA [m^2], liverWeight [kg], liverWeightSd [kg]
 del1968.fig4 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "DeLand1968_Fig4.csv"), sep="\t")
-del1968.fig3$dtype <- 'population'
+del1968.fig4$dtype <- 'population'
 del1968.fig4$gender <- getGender(del1968.fig4)
+del1968.fig4 <- del1968.fig4[complete.cases(del1968.fig4), ] # remove NA in liver weight
 del1968.fig4$volLiver <- del1968.fig4$liverWeight/f_liver_density * 1000; # [ml]
 del1968.fig4$volLiverSd <- del1968.fig4$liverWeightSd/f_liver_density * 1000; # [ml]
 del1968.fig4$n <- 10  # n estimated, ~ 10 in every class
-del1968.fig4$BSARange <- 0.5*(del1968.fig4$BSAMax-del1968.fig3$BSAMin)
+del1968.fig4$BSARange <- 0.5*(del1968.fig4$BSAMax-del1968.fig4$BSAMin)
 head(del1968.fig4)
+summary(del1968.fig4)
 
 # age [years], bodyweight [kg], GEC [mmol/min], GEC [mmol/min/kg] 
 duc1979 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Ducry1979_Tab1.csv"), sep="\t")
@@ -157,13 +160,14 @@ outliers.2 <- which((hei1999$liverWeight>1500) & (hei1999$liverWeight<2000) & (h
 outliers.3 <- which((hei1999$BSA_DuBois<0.5) & (hei1999$liverWeight/hei1999$bodyweight<20))
 outliers <- c(outliers.1, outliers.2, outliers.3)
 hei1999 <- hei1999[-outliers, ]
+rm(outliers.1, outliers.2, outliers.3)
 head(hei1999)
 
 # age [years], sex [M,F], cardiac_output [L/min], liver blood flow [L/min]
 # liver blood flow estimated via cardia output
 ircp2001.co <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "IRCP2001_CO.csv"), sep="\t")
 ircp2001.co$dtype <- 'individual'
-ircp2001.co$gender <- get.gender(ircp2001.co)
+ircp2001.co$gender <- getGender(ircp2001.co)
 ircp2001.co$flowLiver <- ircp2001.co$liverBloodflowEst * 1000    # [ml/min]
 head(ircp2001.co)
 
@@ -301,7 +305,7 @@ head(wyn1989)
 # age [years], liver bloodflow [ml/min]
 wyn1990 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Wynne1990.csv"), sep="\t")
 wyn1990$dtype <- 'individual'
-wyn1990$gender <- as.character(wyn1990)
+wyn1990$gender <- getGender(wyn1990)
 wyn1990$flowLiver <- wyn1990$liverBloodflow
 head(wyn1990)
 
@@ -504,43 +508,45 @@ addMeanPopulationData <- function(data, newdata){
 addRandomizedPopulationData <- function(data, newdata){
     xname <- names(data)[3]
     yname <- names(data)[4]
-    types <- getRangeType(data, xname, yname)
+    types <- getRangeType(newdata, xname, yname)
+    print(types)
     
     for (k in 1:nrow(newdata)){
         n <- newdata$n[k]
         study <- rep(newdata$study[k], n)
         gender <- rep(newdata$gender[k], n)
         dtype <- rep(newdata$dtype[k], n)
-              
+
         # generate x points
         xmean <- newdata[k, xname]
+        xrange <- newdata[k, paste(xname, types$xtype, sep="")]
         if (types$xtype == 'Sd'){
-            x <- rnorm(n, mean=xmean, sd=newdata[k, paste(xname, 'Sd', sep="")])
-        } else if (xtype == 'Range'){
-            xrange <- newdata[k, paste(xname, 'Range', sep="")]
+            x <- rnorm(n, mean=xmean, sd=xrange)
+        } else if (types$xtype == 'Range'){
             x <- runif(n, min=xmean-xrange, max=xmean+xrange)
         }
         x[x<0] <- 0
         assign(xname, x)
+        cat(xname, ':', xmean, '+-', xrange, '\n')
         
         # generate y points
         ymean <- newdata[k, yname]
+        yrange <- newdata[k, paste(yname, types$ytype, sep="")]
         if (types$ytype == 'Sd'){
-            y <- rnorm(n, mean=ymean, sd=newdata[k, paste(yname, 'Sd', sep="")])
-        } else if (ytype == 'Range'){
-            yrange <- newdata[k, paste(xname, 'Range', sep="")]
+            y <- rnorm(n, mean=ymean, sd=yrange)
+        } else if (types$ytype == 'Range'){
             y <- runif(n, min=mean-yrange, max=ymean+yrange)
         }
         y[y<0] <- 0
         assign(yname, y)
-        
+        cat(yname, ':', ymean, '+-', yrange, '\n')
+
         df <- data.frame(study, gender, get(xname), get(yname), dtype)
         names(df) <- c('study', 'gender', xname, yname, 'dtype')
         data <- rbind(data, df)
     }
     return(data)
 }
-
 
 # Saves data.frame as csv and R data
 saveData <- function(data, dir=NULL){
@@ -626,34 +632,15 @@ data <- rbind( mar1988[, selection],
                naw1998[, selection],
                boy1933[, selection],
                hei1999[, selection])
-data <- rbind( mar1988[, selection])
 
-data <- addRandomizedPopulationData(data, alt1962)
+# data <- addRandomizedPopulationData(data, alt1962) # no range/Sd for volLiver
 data <- addRandomizedPopulationData(data, tom1965)
 data <- addRandomizedPopulationData(data, kay1987)
-table(data$study)
-saveData(data)
-m1 <- NULL
-makeFigureFull(data, m1, xname, yname)
 
-# mean data from Thompson1965
+saveData(data)
+makeFigureFull(data, NULL, xname, yname)
 addPopulationSegments(tom1965, xname, yname)
-for (k in 1:nrow(tom1965)){
-  sex <- tom1965$gender[k]
-  col <- gender.cols[which(gender.levels == sex)]
-  segments(tom1965$ageMin[k], tom1965$volLiver[k],  
-           tom1965$ageMax[k], tom1965$volLiver[k], col=col)
-  segments(tom1965$age[k], tom1965$volLiver[k]+tom1965$volLiverSd[k],
-           tom1965$age[k], tom1965$volLiver[k]-tom1965$volLiverSd[k], col=col)
-}
-for (k in 1:nrow(kay1987)){
-    sex <- kay1987$gender[k]
-    col <- gender.cols[which(gender.levels == sex)]
-    segments(kay1987$ageMin[k], kay1987$volLiver[k],  
-             kay1987$ageMax[k], kay1987$volLiver[k], col=col)
-    segments(kay1987$age[k], kay1987$volLiver[k]+kay1987$volLiverSd[k],
-             kay1987$age[k], kay1987$volLiver[k]-kay1987$volLiverSd[k], col=col)
-}
+addPopulationSegments(kay1987, xname, yname)
 
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
@@ -664,9 +651,7 @@ data <- rbind(wyn1989[, selection] ,
               naw1998[, selection], 
               hei1999[, selection])
 saveData(data)
-
-m1 <- NULL
-makeFigureFull(data, m1, xname, yname)
+makeFigureFull(data, NULL, xname, yname)
 
 ############################################
 # volLiver [ml] vs. BSA [m^2]
@@ -678,21 +663,12 @@ data <- rbind(naw1998[, selection],
               ura1995[, selection],
               vau2002.fig1[, selection],
               yos2003[,selection])
+
 data <- addRandomizedPopulationData(data, del1968.fig4)
 saveData(data)
-m1 <- NULL
-makeFigureFull(data, m1, xname, yname)
 
-for (k in 1:nrow(del1968.fig4)){
-  # horizontal
-  sex <- del1968.fig4$gender[k]
-  col <- gender.cols[which(gender.levels == sex)]
-  segments(del1968.fig4$BSAMin[k], del1968.fig4$volLiver[k],  
-           del1968.fig4$BSAMax[k], del1968.fig4$volLiver[k], col=col)
-  # vertical
-  segments(del1968.fig4$BSA[k], del1968.fig4$volLiver[k]+del1968.fig4$volLiverSd[k],
-           del1968.fig4$BSA[k], del1968.fig4$volLiver[k]-del1968.fig4$volLiverSd[k], col=col)
-}
+makeFigureFull(data, NULL, xname, yname)
+addPopulationSegments(del1968.fig4, xname, yname)
 
 ############################################
 # volLiver [ml] vs. bodyweight [kg]
@@ -703,74 +679,36 @@ data <- rbind(naw1998[, selection],
               vau2002.fig2[, selection],
               wyn1989[, selection],
               hei1999[, selection])
-data <- rbind(naw1998[, selection])
-data <- addRandomizedPopulationData(data, del1968.fig1)
-data <- addRandomizedPopulationData(data, tom1965)
-saveData(data)
-m1 <- linear_regression(data, xname, yname)
-makeFigureFull(data, m1, xname, yname)
 
-for (k in 1:nrow(del1968.fig1)){
-  # horizontal
-  sex <- del1968.fig1$gender[k]
-  col <- gender.cols[which(gender.levels == sex)]
-  segments(del1968.fig1$weightMin[k], del1968.fig1$volLiver[k],  
-           del1968.fig1$weightMax[k], del1968.fig1$volLiver[k], col=col)
-  # vertical
-  segments(del1968.fig1$bodyweight[k], del1968.fig1$volLiver[k]+del1968.fig1$volLiverSd[k],
-           del1968.fig1$bodyweight[k], del1968.fig1$volLiver[k]-del1968.fig1$volLiverSd[k], col=col)
-}
-for (k in 1:nrow(tom1965)){
-  sex <- tom1965$gender[k]
-  col <- gender.cols[which(gender.levels == sex)]
-  segments(tom1965$bodyweight[k]-tom1965$bodyweightSd[k], tom1965$volLiver[k],  
-           tom1965$bodyweight[k]+tom1965$bodyweightSd[k], tom1965$volLiver[k], col=col)
-  segments(tom1965$bodyweight[k], tom1965$volLiver[k]+tom1965$volLiverSd[k],
-           tom1965$bodyweight[k], tom1965$volLiver[k]-tom1965$volLiverSd[k], col=col)
-}
+# data <- addRandomizedPopulationData(data, del1968.fig1)
+# data <- addRandomizedPopulationData(data, tom1965)
+saveData(data)
+# m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, NULL, xname, yname)
+# addPopulationSegments(del1968.fig4, xname, yname)
+# addPopulationSegments(tom1965, xname, yname)
 
 ############################################
 # volLiver [ml] vs. height [cm]
 ############################################
 xname <- 'height'; yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(naw1998[, selection],
               hei1999[, selection])
-data <- addRandomizedMeanData(data, del1968.fig3)
-data <- addRandomizedMeanData(data, gra2000.tab1)
+data <- addRandomizedPopulationData(data, del1968.fig3)
+data <- addRandomizedPopulationData(data, gra2000.tab1)
 saveData(data)
 
-m1 <- NULL
-makeFigureFull(data, m1, xname, yname)
-
-for (k in 1:nrow(del1968.fig3)){
-  # horizontal
-  sex <- del1968.fig3$gender[k]
-  col <- gender.cols[which(gender.levels == sex)]
-  segments(del1968.fig3$heightMin[k], del1968.fig3$volLiver[k],  
-           del1968.fig3$heightMax[k], del1968.fig3$volLiver[k], col=col)
-  # vertical
-  segments(del1968.fig3$height[k], del1968.fig3$volLiver[k]+del1968.fig3$volLiverSd[k],
-           del1968.fig3$height[k], del1968.fig3$volLiver[k]-del1968.fig3$volLiverSd[k], col=col)
-}
-
-for (k in 1:nrow(gra2000.tab1)){
-  # horizontal
-  sex <- gra2000.tab1$gender[k]
-  col <- gender.cols[which(gender.levels == sex)]
-  segments(gra2000.tab1$heightMin[k], gra2000.tab1$volLiver[k],  
-           gra2000.tab1$heightMax[k], gra2000.tab1$volLiver[k], col=col)
-  # vertical
-  segments(gra2000.tab1$height[k], gra2000.tab1$volLiver[k]+gra2000.tab1$volLiverSd[k],
-           gra2000.tab1$height[k], gra2000.tab1$volLiver[k]-gra2000.tab1$volLiverSd[k], col=col)
-}
+makeFigureFull(data, NULL, xname, yname)
+addPopulationSegments(del1968.fig3, xname, yname)
+addPopulationSegments(gra2000.tab1, xname, yname)
 
 ############################################
 # volLiver [ml] vs. flowLiver [ml/min]
 ############################################
 xname <- 'flowLiver'
 yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(wyn1989[, selection])
 saveData(data)
 
@@ -781,25 +719,24 @@ makeFigureFull(data, m1, xname, yname)
 # flowLiver [ml/min] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( win1965[, selection],
                wyn1989[, selection],
                bra1945[, selection],
                zol1999[, selection],
                sch1945[, selection],
                wyn1990[, selection],
-               ircp2001.co[, selection])
+               ircp2001.co[, selection]) # only estimate via cardiac output
 saveData(data)
 
-m1 <- NULL
-makeFigureFull(data, m1, xname, yname)
+makeFigureFull(data, NULL, xname, yname)
 # grid()
 
 ############################################
 # flowLiverkg [ml/min/kg] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'flowLiverkg'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( win1965[, selection],
                wyn1989[, selection],
                sch1945[, selection],
@@ -813,7 +750,7 @@ makeFigureFull(data, m1, xname, yname)
 # flowLiver [ml/min] vs. bodyweight [kg]
 ############################################
 xname <- 'bodyweight'; yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( wyn1989[, selection])
 saveData(data)
 
@@ -824,7 +761,7 @@ makeFigureFull(data, m1, xname, yname)
 # perfusion [ml/min/ml] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'perfusion'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( wyn1989[, selection])
 saveData(data)
 
@@ -836,7 +773,7 @@ makeFigureFull(data, m1, xname, yname)
 ############################################
 xname <- 'BSA'
 yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(bra1945[, selection],
               sch1945[, selection])
 saveData(data)
@@ -849,7 +786,7 @@ makeFigureFull(data, m1, xname, yname)
 ############################################
 xname <- 'volLiver'
 yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname)
+selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(wyn1989[, selection])
 saveData(data)
 

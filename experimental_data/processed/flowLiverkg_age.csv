@@ -1,110 +1,110 @@
-study	gender	age	flowLiverkg
-win1965	male	23	30.8024691358025
-win1965	male	52	31.7164179104478
-win1965	male	51	29.0196078431373
-win1965	male	40	17.3
-win1965	male	19	21.125
-win1965	female	49	32.4489795918367
-win1965	female	17	25.8928571428571
-wyn1989	female	24	24.2
-wyn1989	male	24	21.8
-wyn1989	male	27	22.3
-wyn1989	female	27	25.7
-wyn1989	male	28	27.3
-wyn1989	female	28	27.2
-wyn1989	male	28	20.7
-wyn1989	female	28	25.7
-wyn1989	male	29	24.1
-wyn1989	male	29	20.7
-wyn1989	male	29	32.2
-wyn1989	female	29	21.9
-wyn1989	male	30	21.3
-wyn1989	female	32	25.7
-wyn1989	female	33	24.1
-wyn1989	female	33	23.4
-wyn1989	female	33	20.1
-wyn1989	male	33	20.1
-wyn1989	female	36	22.9
-wyn1989	male	37	24.1
-wyn1989	male	41	24.9
-wyn1989	female	42	26.6
-wyn1989	female	42	21.5
-wyn1989	male	42	28.9
-wyn1989	male	43	22.8
-wyn1989	male	45	25.5
-wyn1989	female	45	21.2
-wyn1989	female	46	22.6
-wyn1989	female	46	23
-wyn1989	male	51	20.4
-wyn1989	male	53	18.2
-wyn1989	female	54	18.9
-wyn1989	female	55	16.9
-wyn1989	male	55	22.6
-wyn1989	female	56	17.7
-wyn1989	female	57	20.7
-wyn1989	female	59	15.5
-wyn1989	male	59	27.2
-wyn1989	male	62	17.6
-wyn1989	male	63	21.2
-wyn1989	male	63	16.4
-wyn1989	female	64	12.5
-wyn1989	female	64	17
-wyn1989	female	65	15.9
-wyn1989	male	65	19.6
-wyn1989	female	66	11.9
-wyn1989	female	68	17.6
-wyn1989	male	68	16
-wyn1989	male	70	16.2
-wyn1989	male	71	14.5
-wyn1989	male	71	20.1
-wyn1989	male	71	12.6
-wyn1989	female	72	17.3
-wyn1989	male	75	17.6
-wyn1989	male	75	16.8
-wyn1989	female	76	16.1
-wyn1989	female	78	15.8
-wyn1989	female	79	13.4
-wyn1989	male	79	14.6
-wyn1989	female	80	11.3
-wyn1989	male	84	19.2
-wyn1989	female	87	14.3
-wyn1989	male	90	16.7
-wyn1989	male	91	10.9
-wyn1989	female	91	12.5
-she1945	male	56	22.1311475409836
-she1945	male	40	23.134328358209
-she1945	male	22	32.2857142857143
-she1945	male	47	26.0166666666667
-she1945	male	36	25.6031746031746
-she1945	male	68	24.3478260869565
-she1945	female	45	24.6666666666667
-she1945	male	34	34.7222222222222
-she1945	male	62	24.7272727272727
-she1945	male	67	25.8333333333333
-she1945	male	51	22.3448275862069
-she1945	male	46	29.8461538461538
-she1945	female	21	25.8
-she1945	male	57	18.6666666666667
-she1945	male	40	19.4153846153846
-she1945	male	64	25
-she1945	male	45	16.6666666666667
-she1945	male	20	30.8771929824561
-she1945	male	34	28.75
-she1945	male	57	16.8888888888889
-she1945	male	65	32.5833333333333
-she1945	male	50	25.0204081632653
-she1945	male	56	22.6119402985075
-she1945	male	33	21.7391304347826
-she1945	male	36	33.9772727272727
-she1945	male	75	18.16
-she1945	male	34	19.4078947368421
-she1945	male	56	22.0851063829787
-she1945	male	60	21.6666666666667
-she1945	female	45	21.1666666666667
-she1945	male	63	14.8245614035088
-she1945	male	60	21.0204081632653
-zol1993	male	29	22
-zol1993	male	25	21.7
-zol1993	female	25	20
-zol1993	male	28	24.2
-zol1993	female	26	26.4
+study	gender	age	flowLiverkg	dtype
+win1965	male	23	30.8024691358025	individual
+win1965	male	52	31.7164179104478	individual
+win1965	male	51	29.0196078431373	individual
+win1965	male	40	17.3	individual
+win1965	male	19	21.125	individual
+win1965	female	49	32.4489795918367	individual
+win1965	female	17	25.8928571428571	individual
+wyn1989	female	24	24.2	individual
+wyn1989	male	24	21.8	individual
+wyn1989	male	27	22.3	individual
+wyn1989	female	27	25.7	individual
+wyn1989	male	28	27.3	individual
+wyn1989	female	28	27.2	individual
+wyn1989	male	28	20.7	individual
+wyn1989	female	28	25.7	individual
+wyn1989	male	29	24.1	individual
+wyn1989	male	29	20.7	individual
+wyn1989	male	29	32.2	individual
+wyn1989	female	29	21.9	individual
+wyn1989	male	30	21.3	individual
+wyn1989	female	32	25.7	individual
+wyn1989	female	33	24.1	individual
+wyn1989	female	33	23.4	individual
+wyn1989	female	33	20.1	individual
+wyn1989	male	33	20.1	individual
+wyn1989	female	36	22.9	individual
+wyn1989	male	37	24.1	individual
+wyn1989	male	41	24.9	individual
+wyn1989	female	42	26.6	individual
+wyn1989	female	42	21.5	individual
+wyn1989	male	42	28.9	individual
+wyn1989	male	43	22.8	individual
+wyn1989	male	45	25.5	individual
+wyn1989	female	45	21.2	individual
+wyn1989	female	46	22.6	individual
+wyn1989	female	46	23	individual
+wyn1989	male	51	20.4	individual
+wyn1989	male	53	18.2	individual
+wyn1989	female	54	18.9	individual
+wyn1989	female	55	16.9	individual
+wyn1989	male	55	22.6	individual
+wyn1989	female	56	17.7	individual
+wyn1989	female	57	20.7	individual
+wyn1989	female	59	15.5	individual
+wyn1989	male	59	27.2	individual
+wyn1989	male	62	17.6	individual
+wyn1989	male	63	21.2	individual
+wyn1989	male	63	16.4	individual
+wyn1989	female	64	12.5	individual
+wyn1989	female	64	17	individual
+wyn1989	female	65	15.9	individual
+wyn1989	male	65	19.6	individual
+wyn1989	female	66	11.9	individual
+wyn1989	female	68	17.6	individual
+wyn1989	male	68	16	individual
+wyn1989	male	70	16.2	individual
+wyn1989	male	71	14.5	individual
+wyn1989	male	71	20.1	individual
+wyn1989	male	71	12.6	individual
+wyn1989	female	72	17.3	individual
+wyn1989	male	75	17.6	individual
+wyn1989	male	75	16.8	individual
+wyn1989	female	76	16.1	individual
+wyn1989	female	78	15.8	individual
+wyn1989	female	79	13.4	individual
+wyn1989	male	79	14.6	individual
+wyn1989	female	80	11.3	individual
+wyn1989	male	84	19.2	individual
+wyn1989	female	87	14.3	individual
+wyn1989	male	90	16.7	individual
+wyn1989	male	91	10.9	individual
+wyn1989	female	91	12.5	individual
+she1945	male	56	22.1311475409836	individual
+she1945	male	40	23.134328358209	individual
+she1945	male	22	32.2857142857143	individual
+she1945	male	47	26.0166666666667	individual
+she1945	male	36	25.6031746031746	individual
+she1945	male	68	24.3478260869565	individual
+she1945	female	45	24.6666666666667	individual
+she1945	male	34	34.7222222222222	individual
+she1945	male	62	24.7272727272727	individual
+she1945	male	67	25.8333333333333	individual
+she1945	male	51	22.3448275862069	individual
+she1945	male	46	29.8461538461538	individual
+she1945	female	21	25.8	individual
+she1945	male	57	18.6666666666667	individual
+she1945	male	40	19.4153846153846	individual
+she1945	male	64	25	individual
+she1945	male	45	16.6666666666667	individual
+she1945	male	20	30.8771929824561	individual
+she1945	male	34	28.75	individual
+she1945	male	57	16.8888888888889	individual
+she1945	male	65	32.5833333333333	individual
+she1945	male	50	25.0204081632653	individual
+she1945	male	56	22.6119402985075	individual
+she1945	male	33	21.7391304347826	individual
+she1945	male	36	33.9772727272727	individual
+she1945	male	75	18.16	individual
+she1945	male	34	19.4078947368421	individual
+she1945	male	56	22.0851063829787	individual
+she1945	male	60	21.6666666666667	individual
+she1945	female	45	21.1666666666667	individual
+she1945	male	63	14.8245614035088	individual
+she1945	male	60	21.0204081632653	individual
+zol1993	male	29	22	individual
+zol1993	male	25	21.7	individual
+zol1993	female	25	20	individual
+zol1993	male	28	24.2	individual
+zol1993	female	26	26.4	individual
