@@ -174,34 +174,38 @@ head(df.all)
 if (dataset == 'volLiver_age'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
-  
+   
   ## all ##  
   # fit.all.no <- gamlss(volLiver ~ cs(age,1), data=df.all)
-  fit.all.bccg <- gamlss(volLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=BCCG, data=df.all)
-  fit.all.bccg.2 <- gamlss(volLiver ~ cs(age,2), family=BCCG, data=df.all)
+  # fit.all.bccg <- gamlss(volLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=BCCG, data=df.all)
+  # fit.all.bccg.2 <- gamlss(volLiver ~ cs(age,2), sigma.formula= ~cs(age,1), family=BCCG, data=df.all)
   
-  fit.all <- fit.all.bccg.2
+  fit.all.bccg.3 <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.all)
+  fit.all <- fit.all.bccg.3
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
   summary(fit.all)
   
   ## male ##
-  fit.male.no <- gamlss(volLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=NO, data=df.male)
-  fit.male.bccg <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.male)
-  
-  fit.male <- fit.male.bccg
+  #fit.male.bccg <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.male)
+  fit.male.bccg.3 <- gamlss(volLiver ~ cs(age,3), sigma.formula=~age ,family=BCCG, data=df.male)
+  fit.male <- fit.male.bccg.3
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
   summary(fit.male)
   
   ## female ##
-  fit.female.no <- gamlss(volLiver ~ cs(age,4), sigma.formula= ~cs(age,2), family=BCCG, data=df.female)
-  fit.female.no <- gamlss(volLiver ~ cs(age,4), data=df.female)
+  fit.female.bccg <- gamlss(volLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=BCCG, data=df.female)
+  # fit.female.bccg <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.female)
+  
+  # fit.female.no <- gamlss(volLiver ~ cs(age,4), data=df.female)
   # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
   # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
-  plotCentiles(model=fit.female.no, d=df.female, xname=xname, yname=yname,
+
+  fit.female <- fit.female.bccg
+  plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['female']])
   par(mfrow=c(1,1))

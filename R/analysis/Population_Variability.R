@@ -62,7 +62,9 @@ for (i in 1:10){
 # and blood flow variation
 setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
 load(file='data/nhanes_data.dat')
-head(data)
+nhanes <- data
+rm(data)
+head(nhanes)
 
 
 # GEC per volume liver tissue for given perfusion
@@ -83,8 +85,55 @@ perfusion
 
 # [1] Get the liver volume via information
 # (age, sex)
-# TODO: get the liver volume fit functions
-age.grid
+# get the liver volume fit functions
+dataset <- 'volLiver_age'
+name.parts <- strsplit(dataset, '_')
+xname <- name.parts[[1]][2]
+yname <- name.parts[[1]][1]
+xlab <- lab[[xname]]; ylab <- lab[[yname]]
+xlim <- lim[[xname]]; ylim <- lim[[yname]]
+main <- sprintf('%s vs. %s', yname, xname)
+rm(name.parts)
+r_fname <- file.path(dir, sprintf('%s_%s_models.Rdata', yname, xname))
+load(file=r_fname)
+models.volLiver_age <- models
+
+m.volLiver_age.male <- models.volLiver_age$fit.male
+summary(m.volLiver_age.male)
+df.male <- models.volLiver_age$df.male
+
+plotCentiles(model=m.volLiver_age.male, d=df.male, xname=xname, yname=yname,
+             main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+             pcol=df.cols[['male']])
+
+# calculate the liver volumes based on age and gender
+head(nhanes)
+names(nhanes)[names(nhanes)=='RIDAGEYR'] <- 'age'
+names(nhanes)[names(nhanes)=='RIAGENDR'] <- 'sex'
+names(nhanes)[names(nhanes)=='BMXWT'] <- 'bodyweight'
+nhanes.f <- nhanes[nhanes$sex=='female', ]
+nhanes.m <- nhanes[nhanes$sex=='male', ]
+names(nhanes)
+
+newdata <- data.frame(age=nhanes.m$age)
+head(newdata)
+
+volLiver.mu <- predict(m.volLiver_age.male, what = "mu", type = "response", newdata=newdata )
+volLiver.sigma <- predict(m.volLiver_age.male, what = "sigma", type = "response", newdata=newdata)
+# plot(newdata$age, volLiver.mu)
+plot(newdata$age, rBCCG(n=1, mu=volLiver.mu, sigma=volLiver.sigma, nu=1.0))
+
+# prediction in liver volume for NHANES
+volLiver <- rep(NA, nrow(newdata)
+for (k in 1:nrow(newdata)){
+    n = 1
+    # test <- rBCCG(n=n, mu=volLiver.mu[k], sigma=volLiver.sigma[k], nu=0)
+    # points(rep(newdata$age[k], n),test, col='red', cex=0.5)
+    volLiver[k] <- rBCCG(n=n, mu=volLiver.mu[k], sigma=volLiver.sigma[k], nu=0)
+}
+points(newdata$age, volLiver, col='red', cex=0.5)
+
+nhanes.m$volLiver <- volLiver    
 
 # [2] Get the blood flow via information
 age.grid, volLiver

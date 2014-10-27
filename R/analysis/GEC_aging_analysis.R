@@ -12,7 +12,7 @@ rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 create_plots = F
-set.seed(123)
+set.seed(12345)
 
 # load field, axis and color information
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
@@ -161,7 +161,9 @@ outliers.3 <- which((hei1999$BSA_DuBois<0.5) & (hei1999$liverWeight/hei1999$body
 outliers <- c(outliers.1, outliers.2, outliers.3)
 hei1999 <- hei1999[-outliers, ]
 rm(outliers.1, outliers.2, outliers.3)
-head(hei1999)
+# remove the overweight and obese people, i.e. only BMI <25 
+hei1999 <- hei1999[hei1999$BMI<25, ]
+
 
 # age [years], sex [M,F], cardiac_output [L/min], liver blood flow [L/min]
 # liver blood flow estimated via cardia output
@@ -525,7 +527,7 @@ addRandomizedPopulationData <- function(data, newdata){
         } else if (types$xtype == 'Range'){
             x <- runif(n, min=xmean-xrange, max=xmean+xrange)
         }
-        x[x<0] <- 0
+        x[x<0] <- NA
         assign(xname, x)
         cat(xname, ':', xmean, '+-', xrange, '\n')
         
@@ -537,7 +539,7 @@ addRandomizedPopulationData <- function(data, newdata){
         } else if (types$ytype == 'Range'){
             y <- runif(n, min=mean-yrange, max=ymean+yrange)
         }
-        y[y<0] <- 0
+        y[y<0] <- NA
         assign(yname, y)
         cat(yname, ':', ymean, '+-', yrange, '\n')
 
@@ -564,6 +566,7 @@ saveData <- function(data, dir=NULL){
   write.table(file=csv_fname, x=data, na="NA", row.names=FALSE, quote=FALSE,
             sep="\t", col.names=TRUE)
 }
+########################################################################################
 
 ############################################
 # GEC [mmol/min] vs. age [years]
@@ -652,6 +655,11 @@ data <- rbind(wyn1989[, selection] ,
               hei1999[, selection])
 saveData(data)
 makeFigureFull(data, NULL, xname, yname)
+
+#inds <- which(hei1999$bodyweight<3.5)
+#inds <- which(hei1999$volLiverkg>60)
+#points(hei1999$age[inds], hei1999$volLiverkg[inds], col='black', lwd = 3)
+#hei1999[inds,]
 
 ############################################
 # volLiver [ml] vs. BSA [m^2]
