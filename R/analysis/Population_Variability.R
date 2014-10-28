@@ -8,6 +8,7 @@
 ################################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
+library('gamlss')
 setwd('/home/mkoenig/multiscale-galactose/')
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 dir <- file.path(ma.settings$dir.expdata, "processed")
@@ -183,7 +184,7 @@ plot(nhanes.all$age, nhanes.all$volLiver, col=nhanes.all$sex)
 
 
 ################################################################################
-## [1] liver bloodflow ######
+## [2] liver bloodflow ######
 ################################################################################
 dataset <- 'flowLiver_age'
 name.parts <- strsplit(dataset, '_')
@@ -221,7 +222,7 @@ plotCentiles(model=m.flowLiver_age.female, d=df.female, xname=xname, yname=yname
              main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
              pcol=df.cols[['female']])
 
-# function to calculate liver Volume from age
+# function to calculate liver blood flow from age
 f_flowLiver_age <- function(age, sex, mean.value=FALSE){
   # Get model for sex
   if (sex == 'all'){
@@ -278,7 +279,11 @@ nhanes.all$flowLiver[nhanes.all$sex=='male'] <- flowLiver.male
 nhanes.all$flowLiver[nhanes.all$sex=='female'] <- flowLiver.female
 head(nhanes.all)
 plot(nhanes.all$age, nhanes.all$flowLiver, col=nhanes.all$sex)
+head(nhanes.all)
 
+# The simple regression of liverVolume and bloodFlow is giving too large
+# variance in flowLiver ~ volLiver. 
+# The correlation structure is not taken into account, i.e. correlation matrix
 plot(nhanes.all$volLiver, nhanes.all$flowLiver, col=nhanes.all$sex, pch=21, cex=0.8)
 nhanes.all$BMXWAIST <- NULL
 nhanes.all$BMIWT <- NULL
@@ -296,6 +301,85 @@ colors[nhanes.all$sex=='female'] <- rgb(1,0,0, alpha=0.5)
 plot3d(nhanes.all$age, nhanes.all$volLiver, nhanes.all$flowLiver, 
        col=colors, pch=symbols, size=5) 
 decorate3d()
+
+
+################################################################################
+## [2] flowLiver ~ volLiver ######
+################################################################################
+# consequently it is necessary to take the correlation into account, given
+# via 
+dataset <- 'flowLiver_volLiver'
+name.parts <- strsplit(dataset, '_')
+xname <- name.parts[[1]][2]
+yname <- name.parts[[1]][1]
+xlab <- lab[[xname]]; ylab <- lab[[yname]]
+xlim <- lim[[xname]]; ylim <- lim[[yname]]
+main <- sprintf('%s vs. %s', yname, xname)
+rm(name.parts)
+## load models ##
+r_fname <- file.path(dir, sprintf('%s_%s_models.Rdata', yname, xname))
+load(file=r_fname)
+models.flowLiver_volLiver <- models
+# all (one correlation structure for all, male & female)
+m.flowLiver_volLiver.all <- models.flowLiver_volLiver$fit.all # BCCG
+summary(m.flowLiver_volLiver.all)
+df.all <- models.flowLiver_volLiver$df.all
+plotCentiles(model=m.flowLiver_volLiver.all, d=df.all, xname=xname, yname=yname,
+             main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+             pcol=df.cols[['all']])
+
+
+# function to calculate liver Volume from age and liver volume
+# via correlation structure
+f_flowLiver_age <- function(age, sex, volLiver, mean.value=FALSE){
+  # Get sex dependent model for flow
+  if (sex == 'all'){
+    m <- m.flowLiver_age.all
+  }else if (sex == 'male'){
+    m <- m.flowLiver_age.male 
+  }else if (sex == 'female'){
+    m <- m.flowLiver_age.female
+  }
+  newdata <- data.frame(age=age)
+  
+  mu <- predict(m, what = "mu", type = "response", newdata=newdata)
+  sigma <- predict(m, what = "sigma", type = "response", newdata=newdata)
+  nu <- predict(m, what = "nu", type = "response", newdata=newdata)
+  
+  if (mean.value == TRUE){
+    # calculate the predicted mean volume
+    flowLiver <- mu
+  } else {
+    flowLiver <- rBCCG(n=nrow(newdata), mu=mu, sigma=sigma, nu=nu)
+  }
+  return(flowLiver)
+}
+
+
+
+# Nhanes blood flow predictions
+par(mfrow=c(1,3))
+for (sex in c('all', 'male', 'female')){
+  mname <- paste('m.flowLiver_age.', sex, sep="")
+  dname <- paste('df.', sex, sep="")
+  rname <- paste('flowLiver.', sex, sep="")
+  rname.mu <- paste('flowLiver.', sex, '.mu', sep="")
+  m <- get(mname)
+  d <- get(dname)
+  newdata <- get(paste('nhanes.', sex, sep="") ) 
+  
+  # calculate the liver volumes based on age and gender
+  plotCentiles(model=m, d=d, xname=xname, yname=yname,
+               main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+               pcol=df.cols[[sex]])
+  # random selection from distribution
+  assign(rname, f_flowLiver_age(age=newdata$age, sex=sex, mean.value=FALSE) )
+  points(newdata$age, get(rname), cex=0.5, col='orange')
+  # mean value
+  assign(rname.mu, f_flowLiver_age(age=newdata$age, sex=sex, mean.value=TRUE) )
+  points(newdata$age, get(rname.mu), col='red')
+}
+par(mfrow=c(1,1))
 
 
 # [3] Calculate the perfusion
