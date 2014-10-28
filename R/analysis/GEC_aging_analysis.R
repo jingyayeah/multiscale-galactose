@@ -41,6 +41,7 @@ getGender <- function(dat){
 # Read datasets
 ##############################################
 f_liver_density = 1.08  # [g/ml] conversion between volume and weight
+f_co_fraction = 0.25    # [-] Liver bloodflow as fraction of cardiac output
 dtypes <- c('population', 'individual')
 
 # sex, age, liverVolume
@@ -71,6 +72,20 @@ bra1945$dtype <- 'individual'
 bra1945$gender <- getGender(bra1945)
 bra1945$flowLiver <- bra1945$liverBloodFlow
 head(bra1945)
+
+# age [years], sex [U], cardiac_output [L/min]
+# liver blood flow estimated via cardiac output
+cat2010 <- read.csv(file.path(ma.settings$dir.expdata, "cardiac_output", "Cattermole2010_Tab2.csv"), sep="\t")
+cat2010$dtype <- 'population'
+cat2010$gender <- getGender(cat2010)
+cat2010$flowLiver <- cat2010$CO * 1000 * f_co_fraction # [ml/min]
+cat2010$flowLiverMin <- cat2010$COMin * 1000 * f_co_fraction # [ml/min]
+cat2010$flowLiverMax <- cat2010$COMax * 1000 * f_co_fraction # [ml/min]
+cat2010$ageRange <- 0.5*(cat2010$ageMax - cat2010$ageMin)
+# cat2010$flowLiverRange <- 0.5*(cat2010$flowLiverMax - cat2010$flowLiverMin)
+cat2010$flowLiverSd <- 0.5*(cat2010$flowLiverMax - cat2010$flowLiverMin)/2 # only estimate!, read from centiles
+cat2010 <- cat2010[complete.cases(cat2010), ]
+head(cat2010)
 
 # weight [kg], liverWeight [kg], liverWeightSd [kg]
 del1968.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "DeLand1968_Fig1.csv"), sep="\t")
@@ -167,10 +182,10 @@ hei1999 <- hei1999[hei1999$BMI<25, ]
 
 # age [years], sex [M,F], cardiac_output [L/min], liver blood flow [L/min]
 # liver blood flow estimated via cardia output
-ircp2001.co <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "IRCP2001_CO.csv"), sep="\t")
+ircp2001.co <- read.csv(file.path(ma.settings$dir.expdata, "cardiac_output", "IRCP2001_CO.csv"), sep="\t")
 ircp2001.co$dtype <- 'individual'
 ircp2001.co$gender <- getGender(ircp2001.co)
-ircp2001.co$flowLiver <- ircp2001.co$liverBloodflowEst * 1000    # [ml/min]
+ircp2001.co$flowLiver <- ircp2001.co$CO * 1000 * f_co_fraction # [ml/min]
 head(ircp2001.co)
 
 # sex [M,F], age [years], livWeight [g]
@@ -537,7 +552,7 @@ addRandomizedPopulationData <- function(data, newdata){
         if (types$ytype == 'Sd'){
             y <- rnorm(n, mean=ymean, sd=yrange)
         } else if (types$ytype == 'Range'){
-            y <- runif(n, min=mean-yrange, max=ymean+yrange)
+            y <- runif(n, min=ymean-yrange, max=ymean+yrange)
         }
         y[y<0] <- NA
         assign(yname, y)
@@ -736,8 +751,12 @@ data <- rbind( win1965[, selection],
                wyn1990[, selection],
                ircp2001.co[, selection]) # only estimate via cardiac output
 saveData(data)
+data <- addRandomizedPopulationData(data, cat2010)  
+head(cat2010)
+saveData(data)
 
 makeFigureFull(data, NULL, xname, yname)
+addPopulationSegments(cat2010, xname, yname)
 # grid()
 
 ############################################

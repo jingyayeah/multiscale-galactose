@@ -76,7 +76,15 @@ plotCentiles <- function(model, d, xname, yname,
   }
   
   # plot points
-  points(d[[xname]], d[[yname]], col=pcol, pch=20, cex=0.8)
+  if ("dtype" %in% names(d)){
+   inds.in <- which(d$dtype == 'individual')
+   points(d[inds.in, xname], d[inds.in, yname], col=pcol, bg=pcol, pch=21, cex=0.8)
+   inds.po <- which(d$dtype == 'population')
+   points(d[inds.po, xname], d[inds.po, yname], col=pcol, pch=21, cex=0.8)
+  }else{
+    points(d[[xname]], d[[yname]], col=pcol, bg=pcol, pch=21, cex=0.8)
+  }
+  
   rug(d[[xname]], side=1, col="black"); rug(d[[yname]], side=2, col="black")
   
   # plot centile lines

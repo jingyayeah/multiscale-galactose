@@ -16,11 +16,11 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 ################################################################################
 # dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
-dataset <- 'volLiver_age'
+# dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
 # dataset <- 'volLiver_BSA'
 # dataset <- 'volLiver_bodyweight'
-# dataset <- 'flowLiver_age'
+dataset <- 'flowLiver_age'
 # dataset <- 'flowLiverkg_age'
 # dataset <- 'perfusion_age'
 # dataset <- 'flowLiver_volLiver'
@@ -63,7 +63,7 @@ head(data)
 names(data)[names(data) == 'gender'] <- 'sex'
 data <- na.omit(data) # remove NA
 data$weights <- 1   # population data is weighted 0.25
-data$weights[data$dtype=='population'] = 0.25
+data$weights[data$dtype=='population'] = 0.1
 data$study <- as.factor(data$study)
 data$sex <- as.factor(data$sex)
 data$dtype <- as.factor(data$dtype)
@@ -72,7 +72,7 @@ data$dtype <- as.factor(data$dtype)
 df.names <- c('all', 'male', 'female')
 df.all <- data
 # reduce data tp the individual data for first analysis
-df.all <- df.all[df.all$dtype=="individual", ]
+# df.all <- df.all[df.all$dtype=="individual", ]
 
 # some preprocessing
 if (dataset == 'GEC_age'){
@@ -91,8 +91,8 @@ rm(data)
 #######################################################
 # Plot basic data overview
 #######################################################
-
-# startDevPlot(width=2000, height=1000)
+create_plots = F
+# startDevPlot(width=2000, height=1000, file="/home/mkoenig/Desktop/Dirsch/flowLiver_age.png")
 par(mfrow=c(1,3))
 for (k in 1:3){
   if (k==1){ d <- df.all }
@@ -110,7 +110,7 @@ for (k in 1:3){
   rug(d[inds.in, xname], side=1, col="black"); rug(d[inds.in, yname], side=2, col="black")
 }
 par(mfrow=c(1,1))
-# stopDevPlot()
+#stopDevPlot()
 rm(d,k)
 
 ################################################################################
@@ -129,6 +129,7 @@ saveFitModels <- function(models, xname, yname, dir=NULL){
 }
 
 ## GEC vs. age ########################################
+create_plots=T
 if (dataset == 'GEC_age'){
   startDevPlot(width=650, height=1000)
   # all #
@@ -321,32 +322,42 @@ if (dataset == 'volLiver_bodyweight'){
 }
 
 ## flowLiver vs. age ######################################
+create_plots=T
 if (dataset == 'flowLiver_age'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
-  head(df.all)
+  head(df.all); tail(df.all)
+  
   ## all ##
-  fit.all.bccg <- gamlss(flowLiver ~ cs(age,2), sigma.formula= ~cs(age,2), family=BCCG, data=df.all)
-  plotCentiles(model=fit.all.bccg, d=df.all, xname=xname, yname=yname,
+  fit.all.bccg <- gamlss(flowLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=BCCG, weights=weights, data=df.all)
+  fit.all.bccg <- gamlss(flowLiver ~ cs(age,2), family=BCCG, weights=weights, data=df.all)
+  fit.all <- fit.all.bccg
+  plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
   
   ## male ##
   fit.male.bccg <- gamlss(flowLiver ~ cs(age,2), sigma.formula= ~cs(age,1), family=BCCG, data=df.male)
-  plotCentiles(model=fit.male.bccg, d=df.male, xname=xname, yname=yname,
+  fit.male <- fit.all.bccg
+  plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
-  summary(fit.male.no)
   
   ## female ##
-  fit.female.bccg <- gamlss(flowLiver ~ cs(age,2), sigma.formula= ~cs(age,1), family=BCCG, data=df.female)
+  fit.female.bccg <- gamlss(flowLiver ~ cs(age,4), sigma.formula= ~cs(age,1), family=BCCG, data=df.female)
   # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
   # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
-  plotCentiles(model=fit.female.bccg, d=df.female, xname=xname, yname=yname,
+  fit.female <- fit.female.bccg
+  plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['female']])
   par(mfrow=c(1,1))
   stopDevPlot()
+  
+  # save Models
+  models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
+                 df.all=df.all, df.male=df.male, df.female=df.female)
+  saveFitModels(models, xname, yname)
 }
 
 ## flowLiver vs. volLiver ######################################
