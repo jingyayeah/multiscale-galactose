@@ -213,25 +213,23 @@ plotCentiles(model=m.flowLiver_age.male, d=df.male, xname=xname, yname=yname,
              main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
              pcol=df.cols[['male']])
 
-## here
-
 # female
-m.volLiver_age.female <- models.volLiver_age$fit.female # BCCG
-summary(m.volLiver_age.female)
-df.female <- models.volLiver_age$df.female
-plotCentiles(model=m.volLiver_age.female, d=df.female, xname=xname, yname=yname,
+m.flowLiver_age.female <- models.flowLiver_age$fit.female # BCCG
+summary(m.flowLiver_age.female)
+df.female <- models.flowLiver_age$df.female
+plotCentiles(model=m.flowLiver_age.female, d=df.female, xname=xname, yname=yname,
              main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
              pcol=df.cols[['female']])
 
 # function to calculate liver Volume from age
-f_volLiver_age <- function(age, sex, mean.value=FALSE){
+f_flowLiver_age <- function(age, sex, mean.value=FALSE){
   # Get model for sex
   if (sex == 'all'){
-    m <- m.volLiver_age.all 
+    m <- m.flowLiver_age.all
   }else if (sex == 'male'){
-    m <- m.volLiver_age.male 
+    m <- m.flowLiver_age.male 
   }else if (sex == 'female'){
-    m <- m.volLiver_age.female 
+    m <- m.flowLiver_age.female
   }
   newdata <- data.frame(age=age)
   
@@ -240,20 +238,20 @@ f_volLiver_age <- function(age, sex, mean.value=FALSE){
   nu <- predict(m, what = "nu", type = "response", newdata=newdata)
   if (mean.value == TRUE){
     # calculate the predicted mean volume
-    volLiver <- mu
+    flowLiver <- mu
   } else {
-    volLiver <- rBCCG(n=nrow(newdata), mu=mu, sigma=sigma, nu=nu)
+    flowLiver <- rBCCG(n=nrow(newdata), mu=mu, sigma=sigma, nu=nu)
   }
-  return(volLiver)
+  return(flowLiver)
 }
 
-# Nhanes volume predictions
+# Nhanes blood flow predictions
 par(mfrow=c(1,3))
 for (sex in c('all', 'male', 'female')){
-  mname <- paste('m.volLiver_age.', sex, sep="")
+  mname <- paste('m.flowLiver_age.', sex, sep="")
   dname <- paste('df.', sex, sep="")
-  rname <- paste('volLiver.', sex, sep="")
-  rname.mu <- paste('volLiver.', sex, '.mu', sep="")
+  rname <- paste('flowLiver.', sex, sep="")
+  rname.mu <- paste('flowLiver.', sex, '.mu', sep="")
   m <- get(mname)
   d <- get(dname)
   newdata <- get(paste('nhanes.', sex, sep="") ) 
@@ -263,16 +261,41 @@ for (sex in c('all', 'male', 'female')){
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[[sex]])
   # random selection from distribution
-  assign(rname, f_volLiver_age(age=newdata$age, sex=sex, mean.value=FALSE) )
+  assign(rname, f_flowLiver_age(age=newdata$age, sex=sex, mean.value=FALSE) )
   points(newdata$age, get(rname), cex=0.5, col='orange')
   # mean value
-  assign(rname.mu, f_volLiver_age(age=newdata$age, sex=sex, mean.value=TRUE) )
+  assign(rname.mu, f_flowLiver_age(age=newdata$age, sex=sex, mean.value=TRUE) )
   points(newdata$age, get(rname.mu), col='red')
 }
 par(mfrow=c(1,1))
 
+# set the liver blood flow
+nhanes.male$flowLiver <- flowLiver.male
+nhanes.female$flowLiver <- flowLiver.female
+# all liver volume is predicted from male & female
+nhanes.all$flowLiver <- NA
+nhanes.all$flowLiver[nhanes.all$sex=='male'] <- flowLiver.male
+nhanes.all$flowLiver[nhanes.all$sex=='female'] <- flowLiver.female
+head(nhanes.all)
+plot(nhanes.all$age, nhanes.all$flowLiver, col=nhanes.all$sex)
 
+plot(nhanes.all$volLiver, nhanes.all$flowLiver, col=nhanes.all$sex, pch=21, cex=0.8)
+nhanes.all$BMXWAIST <- NULL
+nhanes.all$BMIWT <- NULL
+nhanes.all$BMIWAIST <- NULL
+nhanes.all$BMIHT <- NULL
+summary(nhanes.all)
+m.test <- gamlss(flowLiver ~cs(volLiver,2), sigma.formula= ~cs(age,1), family=NO, data=nhanes.all)
+centiles(m.test, xvar=nhanes.all$volLiver )
 
+require("rgl")
+require("RColorBrewer")
+colors <- rep(NA, nrow(nhanes.all))
+colors[nhanes.all$sex=='male'] <- rgb(0,0,1, alpha=0.5)
+colors[nhanes.all$sex=='female'] <- rgb(1,0,0, alpha=0.5)
+plot3d(nhanes.all$age, nhanes.all$volLiver, nhanes.all$flowLiver, 
+       col=colors, pch=symbols, size=5) 
+decorate3d()
 
 
 # [3] Calculate the perfusion

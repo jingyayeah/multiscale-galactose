@@ -322,7 +322,7 @@ if (dataset == 'volLiver_bodyweight'){
 }
 
 ## flowLiver vs. age ######################################
-create_plots=F
+create_plots=T
 if (dataset == 'flowLiver_age'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
@@ -335,10 +335,11 @@ if (dataset == 'flowLiver_age'){
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
+  summary(fit.all)
   
   ## male ##
-  fit.male.bccg <- gamlss(flowLiver ~ cs(age,2), sigma.formula= ~cs(age,1), family=BCCG, data=df.male)
-  fit.male <- fit.all.bccg
+  fit.male.bccg <- gamlss(flowLiver ~ cs(age,4), sigma.formula= ~cs(age,1), family=BCCG, data=df.male)
+  fit.male <- fit.male.bccg
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
@@ -394,17 +395,18 @@ if (dataset == 'flowLiver_volLiver'){
   
 }
 
+
+
+
 #######################################################
 # GAMLSS - Model selection
 #######################################################
-
+# TODO
 
 #######################################################
 # GAMLSS - Confidence intervals
 #######################################################
 # Bootstrap intervals
-
-
 
 # Using multcomp
 # artax.karlin.mff.cuni.cz/r-help/library/BSagri/
@@ -422,40 +424,3 @@ CIsAdj2
 CIsBonf2<-CIGLM(comps2, method="Bonf")
 CIsBonf2
 
-
-
-
-
-
-
-summary(fit.all.no)
-plot(fit.all.no)
-centiles(fit.all.no,  xvar=df.all$age)
-fittedPlot(fit.all.no, x=df.all$age)
-
-# using LMS based link distribution (BCCG - Box-Cox, Cole and Green)
-fit.all.bccg <- gamlss(bsa ~ cs(age,6), sigma.formula= ~cs(age,3), family=BCCG, data=df.all)
-fit.all.bccg.1 <- gamlss(bsa ~ cs(age,6), 
-                         sigma.formula= ~cs(age,3), nu.formula= ~cs(age,3), 
-                         family=BCCG, data=df.all)
-
-summary(fit.all.bccg)
-plot(fit.all.bccg)
-centiles(fit.all.bccg,  xvar=df.all$age)
-fittedPlot(fit.all.bccg, x=df.all$age)
-summary(fit.all.bccg.1)
-plot(fit.all.bccg.1)
-centiles(fit.all.bccg.1,  xvar=df.all$age)
-fittedPlot(fit.all.bccg.1, x=df.all$age)
-
-# final models after selection
-fit.all.bccg <- gamlss(bsa ~ cs(age,6), sigma.formula= ~cs(age,3), family=BCCG, data=df.all)
-centiles(fit.all.bccg,  xvar=df.all$age)
-
-fit.male.bccg <- gamlss(bsa ~ cs(age,6), sigma.formula= ~cs(age,3), family=BCCG, data=df.male)
-centiles(fit.male.bccg,  xvar=df.male$age)
-
-fit.female.bccg <- gamlss(bsa ~ cs(age,9), sigma.formula= ~cs(age,3), family=BCCG, data=df.female)
-centiles(fit.female.bccg,  xvar=df.female$age)
-
-fit.final <- list(fit.all.bccg, fit.male.bccg, fit.female.bccg) 
