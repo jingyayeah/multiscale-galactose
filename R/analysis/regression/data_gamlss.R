@@ -16,11 +16,11 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 ################################################################################
 # dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
-# dataset <- 'volLiver_age'
+dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
 # dataset <- 'volLiver_BSA'
 # dataset <- 'volLiver_bodyweight'
-dataset <- 'flowLiver_age'
+# dataset <- 'flowLiver_age'
 # dataset <- 'flowLiverkg_age'
 # dataset <- 'perfusion_age'
 # dataset <- 'flowLiver_volLiver'
@@ -72,7 +72,7 @@ data$dtype <- as.factor(data$dtype)
 df.names <- c('all', 'male', 'female')
 df.all <- data
 # reduce data tp the individual data for first analysis
-# df.all <- df.all[df.all$dtype=="individual", ]
+df.all <- df.all[df.all$dtype=="individual", ]
 
 # some preprocessing
 if (dataset == 'GEC_age'){

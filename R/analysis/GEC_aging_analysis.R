@@ -846,5 +846,3 @@ saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
-
-
