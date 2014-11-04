@@ -22,7 +22,7 @@ head(data)
 ## Analysis data.frame
 # new data.frame with necessary information,
 # age, sex, BSA
-df.all <- data.frame(age=data$RIDAGEYR, sex=data$RIAGENDR, bsa=data$BSA)
+df.all <- data[ ,c('age', 'sex', 'bodyweight', 'height', 'BSA')]
 df.male <- df.all[df.all$sex == 'male', ]
 df.female <- df.all[df.all$sex == 'female', ]
 
@@ -40,11 +40,8 @@ for (k in 1:3){
   else if (k==2){ d <- df.male }
   else if (k==3){ d <- df.female }
   
-  plot(d$age, d$bsa, col=df.cols[k], 
-       main=sprintf('NHANES (%s)', df.names[k]),
-       xlab='Age [years]',
-       ylab=expression(paste("BSA [", m^2, "]", sep="")),
-       ylim=c(0.5, 2.5))
+  plot(d$age, d$height, col=df.cols[k], 
+       main=sprintf('NHANES (%s)', df.names[k]))
   rug(d$age, side=1, col="grey"); rug(d$bsa, side=2, col="grey")
 }
 par(mfrow=c(1,1))

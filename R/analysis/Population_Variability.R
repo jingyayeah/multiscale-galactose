@@ -16,8 +16,8 @@ dir <- file.path(ma.settings$dir.expdata, "processed")
 ####################################################
 # GEC_age model 
 ####################################################
-# simple example to test the prediction and data 
-# generation from given model
+# The GEC age model is the resulting data which should be predicted.
+# Here the data is loaded to show how to work with the model.
 dataset <- 'GEC_age'
 name.parts <- strsplit(dataset, '_')
 xname <- name.parts[[1]][2]
@@ -50,6 +50,11 @@ for (k in 1:length(age.grid)){
     # points(age[k], rnorm(n=1, mean=GEC.mu[k], sd=GEC.sigma[k]), col='red')
 }
 
+## Monte Carlo Simulation ##
+# architecture of the Monte-Carlo simulation has to be very simplified.
+# Generate basic samples of (age, gender, bodyweight) from the fitted Nhanes curves
+
+
 ####################################################
 # Population prediction NHANES
 ####################################################
@@ -61,14 +66,12 @@ load(file='data/nhanes_data.dat')
 nhanes.all <- data
 rm(data)
 head(nhanes.all)
-head(nhanes.all)
-names(nhanes.all)[names(nhanes.all)=='RIDAGEYR'] <- 'age'
-names(nhanes.all)[names(nhanes.all)=='RIAGENDR'] <- 'sex'
-names(nhanes.all)[names(nhanes.all)=='BMXWT'] <- 'bodyweight'
+nhanes.all$RIDAGEMN <- NULL # remove na column
 nhanes.female <- nhanes.all[nhanes.all$sex=='female', ]
 nhanes.male <- nhanes.all[nhanes.all$sex=='male', ]
 names(nhanes.all)
 
+# Simple GEC model
 f_GECml_perfusion <- function(perfusion){
   # GEC per volume liver tissue for given perfusion
   # function coming from the underlying detailed kinetic model
@@ -86,7 +89,7 @@ perfusion = flowLiver/volLiver
 perfusion
 
 ################################################################################
-## [1] liver Volume ######
+## [1] liver Volume from age,sex
 ################################################################################
 dataset <- 'volLiver_age'
 name.parts <- strsplit(dataset, '_')
@@ -184,7 +187,7 @@ plot(nhanes.all$age, nhanes.all$volLiver, col=nhanes.all$sex)
 
 
 ################################################################################
-## [2] liver bloodflow ######
+## [2] liver bloodflow from age & sex ######
 ################################################################################
 dataset <- 'flowLiver_age'
 name.parts <- strsplit(dataset, '_')
@@ -281,6 +284,8 @@ head(nhanes.all)
 plot(nhanes.all$age, nhanes.all$flowLiver, col=nhanes.all$sex)
 head(nhanes.all)
 
+summary(nhanes.all)
+
 # The simple regression of liverVolume and bloodFlow is giving too large
 # variance in flowLiver ~ volLiver. 
 # The correlation structure is not taken into account, i.e. correlation matrix
@@ -290,9 +295,8 @@ nhanes.all$BMIWT <- NULL
 nhanes.all$BMIWAIST <- NULL
 nhanes.all$BMIHT <- NULL
 summary(nhanes.all)
-m.test <- gamlss(flowLiver ~cs(volLiver,2), sigma.formula= ~cs(age,1), family=NO, data=nhanes.all)
-centiles(m.test, xvar=nhanes.all$volLiver )
 
+# 3D plot for analysis
 require("rgl")
 require("RColorBrewer")
 colors <- rep(NA, nrow(nhanes.all))
@@ -328,42 +332,37 @@ plotCentiles(model=m.flowLiver_volLiver.all, d=df.all, xname=xname, yname=yname,
              main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
              pcol=df.cols[['all']])
 
+# add the prediction directly from age
+points(nhanes.all$volLiver, nhanes.all$flowLiver, col=nhanes.all$sex, pch=21, cex=0.7)
 
+m <- m.flowLiver_volLiver.all
+summary(m)
 # function to calculate liver Volume from age and liver volume
 # via correlation structure
-f_flowLiver_age <- function(age, sex, volLiver, mean.value=FALSE){
-  # Get sex dependent model for flow
-  if (sex == 'all'){
-    m <- m.flowLiver_age.all
-  }else if (sex == 'male'){
-    m <- m.flowLiver_age.male 
-  }else if (sex == 'female'){
-    m <- m.flowLiver_age.female
-  }
-  newdata <- data.frame(age=age)
+f_flowLiver_volLiver <- function(volLiver, mean.value=FALSE){
+  # No sex dependence of flowLiver ~ volLiver
+  m <- m.flowLiver_volLiver.all
+  newdata <- data.frame(volLiver=volLiver)
   
   mu <- predict(m, what = "mu", type = "response", newdata=newdata)
   sigma <- predict(m, what = "sigma", type = "response", newdata=newdata)
-  nu <- predict(m, what = "nu", type = "response", newdata=newdata)
   
   if (mean.value == TRUE){
     # calculate the predicted mean volume
     flowLiver <- mu
   } else {
-    flowLiver <- rBCCG(n=nrow(newdata), mu=mu, sigma=sigma, nu=nu)
+    flowLiver <- rNO(n=nrow(newdata), mu=mu, sigma=sigma)
   }
   return(flowLiver)
 }
 
-
-
-# Nhanes blood flow predictions
+# Nhanes blood flow predictions via the volume of the liver
 par(mfrow=c(1,3))
-for (sex in c('all', 'male', 'female')){
-  mname <- paste('m.flowLiver_age.', sex, sep="")
+for (sex in c('all')){
+  mname <- paste('m.flowLiver_volLiver.', sex, sep="")
   dname <- paste('df.', sex, sep="")
-  rname <- paste('flowLiver.', sex, sep="")
-  rname.mu <- paste('flowLiver.', sex, '.mu', sep="")
+  rname <- paste('flowLiver_direct.', sex, sep="")
+  rname.mu <- paste('flowLiver_direct.', sex, '.mu', sep="")
   m <- get(mname)
   d <- get(dname)
   newdata <- get(paste('nhanes.', sex, sep="") ) 
@@ -373,13 +372,31 @@ for (sex in c('all', 'male', 'female')){
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[[sex]])
   # random selection from distribution
-  assign(rname, f_flowLiver_age(age=newdata$age, sex=sex, mean.value=FALSE) )
-  points(newdata$age, get(rname), cex=0.5, col='orange')
+  assign(rname, f_flowLiver_volLiver(volLiver=newdata$volLiver, mean.value=FALSE) )
+  points(newdata$volLiver, get(rname), cex=0.5, col='orange')
   # mean value
-  assign(rname.mu, f_flowLiver_age(age=newdata$age, sex=sex, mean.value=TRUE) )
-  points(newdata$age, get(rname.mu), col='red')
+  assign(rname.mu, f_flowLiver_volLiver(volLiver=newdata$volLiver, mean.value=TRUE) )
+  points(newdata$volLiver, get(rname.mu), col='red')
 }
 par(mfrow=c(1,1))
+
+# set the nhanes direct flow calculation
+nhanes.all$flowLiver_direct <- flowLiver_direct.all
+
+# The correlation structure is good, but the information about the age is lost.
+# Necessary to take all available correlations into account, which provide
+# additional information
+par(mfrow=c(1,3))
+plot(nhanes.all$age, nhanes.all$flowLiver, col=nhanes.all$sex)
+plot(nhanes.all$age, nhanes.all$flowLiver_direct, col=nhanes.all$sex)
+par(mfrow=c(1,1))
+par(mfrow=c(1,3))
+plot(nhanes.all$volLiver, nhanes.all$flowLiver, col=nhanes.all$sex)
+plot(nhanes.all$volLiver, nhanes.all$flowLiver_direct, col=nhanes.all$sex)
+par(mfrow=c(1,1))
+
+
+
 
 
 # [3] Calculate the perfusion

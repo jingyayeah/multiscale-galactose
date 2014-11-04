@@ -42,6 +42,8 @@ demo.F <- read.xport("data/DEMO_F.XPT")
 bmx.G <- read.xport("data/BMX_G.XPT")
 demo.G <- read.xport("data/DEMO_G.XPT")
 
+names(demo.G)
+
 ##############################
 # Load continous NHANES data #
 ##############################
@@ -57,11 +59,13 @@ info <- data.frame(id=c('A', 'B', 'C', 'D',
 demo <- data.frame(id=c('SEQN',
                  'RIAGENDR',
                  'RIDAGEYR',
+                 'RIDAGEMN',
                  'RIDRETH1'
                  #'RIDRETH2'
                  ), description=c('Respondent sequence number',
                     'Gender of the sample person',
                     'Best age in years of the sample person at time of HH screening. Individuals 85 and over are topcoded at 85 years of age.',
+                    'Best age in months.',
                     'Recode of reported race and ethnicity information'
                     # 'Linked NH3 Race and Ethnicity Recode.'
                     ), stringsAsFactors=F)
@@ -83,7 +87,7 @@ bmx <- data.frame(id=c('SEQN',
                                'Body Mass Index (kg/m**2)',
                                'Waist Circumference (cm)',
                                'Waist Circumference Comment'), stringsAsFactors=F)
-bmx              
+           
 
 # process all the datasets, i.w. combination of the subsets of interest
 # from all the continous periods.
@@ -146,7 +150,7 @@ save(nhanes, file='data/nhanes.dat')
 ################################################################################
 # Test the data loading
 rm(list = ls())
-setwd('/home/mkoenig/Desktop/NHANES')
+setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
 load(file='data/nhanes.dat')
 head(nhanes)
 ################################################################################

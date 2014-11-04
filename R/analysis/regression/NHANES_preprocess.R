@@ -37,6 +37,16 @@ sel <- bmi.sel & eth.sel & na.sel
 data <- nhanes[sel,]
 head(data)
 summary(data)
+
+# add columns with unified names
+data$age <- data$RIDAGEMN/12    # use age from month if available
+data$age[is.na(data$age)] <- data$RIDAGEYR[is.na(data$age)]
+data$sex <- data$RIAGENDR
+data$bodyweight <- data$BMXWT
+data$height <- data$BMXHT
+data$ethnicity <- data$RIDRETH1
+head(data)
+
 save('data', file='data/nhanes_data.dat')
 
 
@@ -46,15 +56,15 @@ save('data', file='data/nhanes_data.dat')
 library(ggplot2)
 
 # plot height [cm]
-g1 <- ggplot(data, aes(RIDAGEYR, BMXHT))
+g1 <- ggplot(data, aes(age, height))
 g1 + geom_point()
-g1 + geom_point(aes(color=RIAGENDR)) + labs(title = "NHANES cohort (18.5 <= BMI < 24.9)") + labs(x='age [year]') + theme_bw()
+g1 + geom_point(aes(color=sex)) + labs(title = "NHANES cohort (18.5 <= BMI < 24.9)") + labs(x='age [year]') + theme_bw()
 
 # plot BSA [cm]
-g1 <- ggplot(data, aes(RIDAGEYR, BSA))
+g1 <- ggplot(data, aes(age, bodyweight))
 g1 + geom_point()
-g1 + geom_point(aes(color=RIAGENDR)) + labs(title = c("NHANES cohort (18.5 <= BMI < 24.9)\nNon-Hispanic White")) + labs(x='age [year]') + theme_bw() + facet_grid(.~RIAGENDR)
-g1 + geom_point(aes(color=RIAGENDR)) + labs(title = c("NHANES cohort (18.5 <= BMI < 24.9)\nNon-Hispanic White")) + labs(x='age [year]') + facet_grid(.~RIAGENDR) + theme_bw() + geom_smooth(method='loess')
+g1 + geom_point(aes(col=height)) + labs(title = c("NHANES cohort (18.5 <= BMI < 24.9)\nNon-Hispanic White")) + theme_bw() + facet_grid(.~sex)
+g1 + geom_point(aes(color=age)) + labs(title = c("NHANES cohort (18.5 <= BMI < 24.9)\nNon-Hispanic White")) + labs(x='age [year]') + facet_grid(.~RIAGENDR) + theme_bw() + geom_smooth(method='loess')
 
 ####################################
 ## Prediction models              ##
