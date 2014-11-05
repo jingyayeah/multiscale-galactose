@@ -19,7 +19,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
-# dataset <- 'volLiver_bodyweight'
+dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiver_height'
 # dataset <- 'volLiver_BSA'
 
@@ -28,7 +28,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 # dataset <- 'flowLiver_age'
 # dataset <- 'flowLiverkg_age'
 # dataset <- 'flowLiverkg_bodyweight'
-dataset <- 'perfusion_age'
+#dataset <- 'perfusion_age'
 
 # dataset <- 'volLiver_flowLiver'
 ################################################################################
@@ -307,30 +307,32 @@ if (dataset == 'volLiver_bodyweight'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
   ## all ##
-  # fit.all.no <- gamlss(volLiver ~ cs(BSA,3), sigma.formula= ~cs(BSA,3), family=NO, data=df.all)
   fit.all.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,2), family=NO, data=df.all)
-  plotCentiles(model=fit.all.no, d=df.all, xname=xname, yname=yname,
+  fit.all <- fit.all.no
+  plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
   
   ## male ##
-  fit.male.no <- gamlss(volLiver ~ cs(bodyweight,2), family=NO, data=df.male)
-  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
-  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+  fit.male.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,1), family=NO, data=df.male)
+  fit.male <- fit.male.no
   plotCentiles(model=fit.male.no, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
   summary(fit.male.no)
   
   ## female ##
-  fit.female.no <- gamlss(volLiver ~ cs(bodyweight,2), family=NO, data=df.female)
-  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
-  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
+  fit.female.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,1), family=NO, data=df.female)
   plotCentiles(model=fit.female.no, d=df.female, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['female']])
   par(mfrow=c(1,1))
   stopDevPlot()
+  
+  # save Models
+  models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
+                 df.all=df.all, df.male=df.male, df.female=df.female)
+  saveFitModels(models, xname, yname)
 }
 
 ## flowLiver vs. age ######################################
