@@ -685,8 +685,6 @@ plot3d(data2$age, data2$bodyweight, data2$volLiver,
 decorate3d()
 # saveData(data)
 
-
-
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
 ############################################
@@ -798,6 +796,18 @@ saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
+
+############################################
+# flowLiverkg [ml/min] vs. bodyweight [kg]
+############################################
+xname <- 'bodyweight'; yname <- 'flowLiverkg'
+selection <- c('study', 'gender', xname, yname, 'dtype')
+data <- rbind( wyn1989[, selection])
+saveData(data)
+
+m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, m1, xname, yname)
+
 
 ############################################
 # perfusion [ml/min/ml] vs. age [years]

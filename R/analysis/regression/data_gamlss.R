@@ -16,14 +16,19 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 ################################################################################
 # dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
+
 # dataset <- 'volLiver_age'
-dataset <- 'volLiverkg_age'
-# dataset <- 'volLiver_BSA'
+# dataset <- 'volLiverkg_age'
 # dataset <- 'volLiver_bodyweight'
-# dataset <- 'flowLiver_age'
-# dataset <- 'flowLiverkg_age'
-# dataset <- 'perfusion_age'
+# dataset <- 'volLiver_height'
+# dataset <- 'volLiver_BSA'
+
 # dataset <- 'flowLiver_volLiver'
+# dataset <- 'flowLiver_age'
+# dataset <- 'flowLiver_bodyweight'
+dataset <- 'flowLiverkg_age'
+# dataset <- 'perfusion_age'
+
 # dataset <- 'volLiver_flowLiver'
 ################################################################################
 # Plot helpers
@@ -45,8 +50,7 @@ startDevPlot <- function(width=2000, height=1000, file=NULL){
     print(file)
     png(filename=file, width=width, height=height, 
         units = "px", bg = "white",  res = 150)
-  }
-  print('No plot files created')
+  } else { print('No plot files created') }
 }
 stopDevPlot <- function(){
   if (create_plots == T) { dev.off() }
@@ -91,8 +95,9 @@ rm(data)
 #######################################################
 # Plot basic data overview
 #######################################################
-create_plots = F
-# startDevPlot(width=2000, height=1000, file="/home/mkoenig/Desktop/Dirsch/flowLiver_age.png")
+create_plots = T
+sprintf("/home/mkoenig/Desktop/data/%s_%s.png", xname, yname)
+startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/%s_%s.png", xname, yname))
 par(mfrow=c(1,3))
 for (k in 1:3){
   if (k==1){ d <- df.all }
@@ -110,7 +115,7 @@ for (k in 1:3){
   rug(d[inds.in, xname], side=1, col="black"); rug(d[inds.in, yname], side=2, col="black")
 }
 par(mfrow=c(1,1))
-#stopDevPlot()
+stopDevPlot()
 rm(d,k)
 
 ################################################################################
@@ -300,7 +305,6 @@ if (dataset == 'volLiver_BSA'){
 if (dataset == 'volLiver_bodyweight'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
-  head(df.all)
   ## all ##
   # fit.all.no <- gamlss(volLiver ~ cs(BSA,3), sigma.formula= ~cs(BSA,3), family=NO, data=df.all)
   fit.all.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,2), family=NO, data=df.all)
@@ -337,7 +341,7 @@ if (dataset == 'flowLiver_age'){
   
   ## all ##
   # fit.all.bccg <- gamlss(flowLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=BCCG, weights=weights, data=df.all)
-  fit.all.bccg <- gamlss(flowLiver ~ cs(age,1), family=BCCG, weights=weights, data=df.all)
+  fit.all.bccg <- gamlss(flowLiver ~ cs(age,5), sigma.formula= ~cs(age,1), family=BCCG, weights=weights, data=df.all)
   fit.all <- fit.all.bccg
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
@@ -352,6 +356,7 @@ if (dataset == 'flowLiver_age'){
                pcol=df.cols[['male']])
   
   ## female ##
+  summary(df.female)
   fit.female.bccg <- gamlss(flowLiver ~ cs(age,4), sigma.formula= ~cs(age,1), family=BCCG, data=df.female)
   # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
   # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
@@ -401,6 +406,7 @@ if (dataset == 'flowLiver_volLiver'){
   saveFitModels(models, xname, yname)
   
 }
+
 
 
 

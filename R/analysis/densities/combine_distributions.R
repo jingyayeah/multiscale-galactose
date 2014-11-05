@@ -30,32 +30,35 @@ rD(20)
 # necessary to have quantile function and use *inverse transform sampling*
 
 
-# how to combine to probability functions
+# Combining the information from different 
 # sample from combined probability densities
 
-flow.grid=seq(from=0, to=100, by=1)
-
-par(mfrow=c(1,1))
-
-f_p1 <- function(x, mean=60, sd=20){
+volLiver.grid=seq(from=0, to=3000, by=10)
+f_p1 <- function(x, mean=1500, sd=240){
   return(dnorm(x, mean, sd)) 
 }
-f_p2 <- function(x, mean=20, sd=5){
+f_p2 <- function(x, mean=1200, sd=150){
+  return(dnorm(x, mean, sd)) 
+}
+f_p3 <- function(x, mean=1100, sd=150){
   return(dnorm(x, mean, sd)) 
 }
 f_pc <- function(x){
-  return( f_p1(x) * f_p2(x) ) 
+  return( f_p1(x) * f_p2(x) * f_p3(x) ) 
   #return( f_q1(p)*f_q2(p) ) 
 }
+x <- volLiver.grid
+y1 <- f_p1(x=x)
+y2 <- f_p2(x=x)
+y2 <- f_p3(x=x)
+y_pc <- f_pc(x=x)
 
-y1 <- f_p1(x=age.grid)
-y2 <- f_p2(x=age.grid)
-y3 <- f_pc(x=age.grid)
 
-
-plot(age.grid, y1/max(y1), col='gray', type='l', ylim=c(0, 1.0))
-points(age.grid, y2/max(y2), col='blue', type='l')
-points(age.grid, y3/max(y3), col='red', type='l')
+plot(x, y1/max(y1), col='black', type='l', lty=2, ylim=c(0, 1.0))
+points(x, y2/max(y2), col='black', type='l', lty=3)
+points(x, y3/max(y3), col='black', type='l', lty=4)
+points(x, y_pc/max(y_pc), col='red', type='l', lty=1, lwd=4)
+legend('topright', legend=c('info A', 'info B', 'info C', 'combined'), col=c('black', 'black', 'black', 'red'), lty=c(2, 3,4,1))
 par(mfrow=c(1,1))
 
 n <- 1000
