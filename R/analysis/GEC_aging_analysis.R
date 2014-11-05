@@ -260,6 +260,14 @@ swi1978$ageRange <- 0.5*(swi1978$ageMax - swi1978$ageMin)
 swi1978 <- swi1978[-3, ] # remove hospitalized cases
 head(swi1978)
 
+# bodyweight [kg], COkg [ml/min/kg], CO [ml/min]
+sim1997 <- read.csv(file.path(ma.settings$dir.expdata, "cardiac_output", "Simmone1997.csv"), sep="\t")
+sim1997$dtype <- 'individual'
+sim1997$gender <- getGender(sim1997)
+sim1997$flowLiver <- sim1997$CO * f_co_fraction # [ml/min]
+sim1997$flowLiverkg <- sim1997$COkg * f_co_fraction # [ml/min]
+head(sim1997)
+
 # sex [M], age [years], bodyweight [kg], liverWeight [kg]
 tom1965 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Thompson1965.csv"), sep="\t")
 tom1965$dtype <- 'population'
@@ -764,7 +772,7 @@ data <- rbind( win1965[, selection],
                wyn1990[, selection],
                ircp2001.co[, selection]) # only estimate via cardiac output
 saveData(data)
-data <- addRandomizedPopulationData(data, cat2010)  
+#data <- addRandomizedPopulationData(data, cat2010)  
 head(cat2010)
 saveData(data)
 
@@ -791,7 +799,8 @@ makeFigureFull(data, m1, xname, yname)
 ############################################
 xname <- 'bodyweight'; yname <- 'flowLiver'
 selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( wyn1989[, selection])
+data <- rbind(sim1997[, selection],
+              wyn1989[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -802,7 +811,8 @@ makeFigureFull(data, m1, xname, yname)
 ############################################
 xname <- 'bodyweight'; yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( wyn1989[, selection])
+data <- rbind(  sim1997[, selection],
+                wyn1989[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
