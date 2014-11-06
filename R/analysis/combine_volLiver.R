@@ -14,17 +14,18 @@ dir <- file.path(ma.settings$dir.expdata, "processed")
 
 # creates the density function of the liver volume for the 
 # given antropomorphic details.
+# TODO: Check for boundary conditions of the predictions !
+
+## get density from volLiver ~ age ##
 f_d.volLiver.1 <- function(age, sex='all', bodyweight=NULL, BSA=NULL){
- ## get density from volLiver ~ age ##
  d.volLiver_age = NULL
  if (!is.null(age)){
   load(file=file.path(dir, 'volLiver_age_models.Rdata'))
-  m.volLiver_age <- models  
-  # get model and data for evaluation
   mname <- paste('fit.', sex, sep="")
   dfname <- paste('df.', sex, sep="")
-  m <- m.volLiver_age[[mname]]
-  assign(dfname, m.volLiver_age[[dfname]])
+  m <- models[[mname]]
+  assign(dfname, models[[dfname]])
+  
   # create the density function from the fitted values
   newdata <- data.frame(age=age)
   mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
@@ -35,8 +36,8 @@ f_d.volLiver.1 <- function(age, sex='all', bodyweight=NULL, BSA=NULL){
   return(d.volLiver_age)
 }
 
+## get density from volLiver ~ bodyweight ##
 f_d.volLiver.2 <- function(age=NULL, sex='all', bodyweight, BSA=NULL){
-  ## get density from volLiver ~ bodyweight ##
   d.volLiver_bodyweight = NULL
   if (!is.null(bodyweight)){
     load(file=file.path(dir, 'volLiver_bodyweight_models.Rdata'))
@@ -54,11 +55,9 @@ f_d.volLiver.2 <- function(age=NULL, sex='all', bodyweight, BSA=NULL){
   return(d.volLiver_bodyweight)
 }
 
-# ! In the density generating functions the boundary
-# conditions have to be tested.
+## get density from volLiver ~ bsa ##
 f_d.volLiver.3 <- function(age=NULL, sex='all', bodyweight=NULL, BSA){
-  ## get density from volLiver ~ bsa ##
-  d.volLiver_BSA = NULL
+  f_d = NULL
   if (!is.null(BSA)){
     load(file=file.path(dir, 'volLiver_BSA_models.Rdata'))
     mname <- paste('fit.', sex, sep="")
@@ -70,16 +69,36 @@ f_d.volLiver.3 <- function(age=NULL, sex='all', bodyweight=NULL, BSA){
     newdata <- data.frame(BSA=BSA)
     mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
     sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
-    d.volLiver_BSA <- function(x) dNO(x, mu=mu, sigma=sigma)
+    f_d <- function(x) dNO(x, mu=mu, sigma=sigma)
   }
-  return(d.volLiver_BSA)
+  return(f_d)
 }
 
 ## get density from volLiver ~ bsa ##
+f_d.volLiver.4 <- function(age, sex='all', bodyweight, BSA=NULL){
+  f_d = NULL
+  if (!is.null(bodyweight) & !is.null(age)){
+    load(file=file.path(dir, 'volLiverkg_bodyweight_models.Rdata'))
+    mname <- paste('fit.', sex, sep="")
+    dfname <- paste('df.', sex, sep="")
+    m <- models[[mname]]
+    assign(dfname, models[[dfname]])
+    
+    # create the density function from the fitted values
+    newdata <- data.frame(bodyweight=bodyweight)
+    mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
+    sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
+    
+    # check what to return
+    # f_d <- function(x) dNO(x, mu=mu, sigma=sigma)
+  }
+  return(f_d)
+}
 
-sex.types <- c('all', 'male', 'female')
-sex.cols <- c('black', 'blue', 'red')
+
+## get density from volLiver ~ bsa ##
 volLiver.grid <- seq(0, 3000, by=20)
+
 age.test <- seq(1, 100, by=4)
 bodyweight.test <- seq(1, 120, by=6)
 
@@ -89,6 +108,8 @@ info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], BSA=%s [m^2]', age, sex
 f.test.1 <- f_d.volLiver.1(age=age, sex=sex, bodyweight=bodyweight, BSA=BSA)
 f.test.2 <- f_d.volLiver.2(age=age, sex=sex, bodyweight=bodyweight, BSA=BSA)
 f.test.3 <- f_d.volLiver.3(age=age, sex=sex, bodyweight=bodyweight, BSA=BSA)
+f.test.4 <- f_d.volLiver.4(age=age, sex=sex, bodyweight=bodyweight, BSA=BSA)
+
 plot(volLiver.grid, f.test.1(volLiver.grid), type='l', lty=2, ylim=c(0,0.007),
      main=info)
 points(volLiver.grid, f.test.2(volLiver.grid), type='l', lty=3)
