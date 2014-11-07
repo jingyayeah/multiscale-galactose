@@ -326,7 +326,33 @@ par(mfrow=c(1,1))
 # Rejection sampling for testing
 ############################################################
 sex = 'male'; age=50; bodyweight=80; BSA=1.8;
-f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)$f_d
+
+# find proper approximation of density
+a <- 5.5; b <- 5.5
+m <- a/(a+b); s <- sqrt((a/(a+b))*(b/(a+b))/(a+b+1))
+funct1 <- function(x) {dnorm(x, mean=m, sd=s)}
+funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
+plot(funct1, from=0, to=1, col="blue", ylab="")
+plot(funct2, from=0, to=1, col="red", add=T)
+
+
+set.seed(1); nsim <- 1e5
+x <- rnorm(n=nsim, mean=m, sd=s)
+u <- runif(n=nsim)
+ratio <- dbeta(x, shape1=a, shape2=b)/(1.3*dnorm(x, mean=m, sd=s))
+ind <- I(u < ratio)
+betas <- x[ind==1]
+# as a check to make sure we have enough
+length(betas) # gives 76836
+funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
+plot(density(betas))
+plot(funct2, from=0, to=1, col="red", lty=2, add=T)
+
+
+
+
+
 
 Nsim=1000
 M = 0.05*5000

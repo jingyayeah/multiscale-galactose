@@ -100,34 +100,29 @@ a <- 5.5; b <- 5.5
 m <- a/(a+b); s <- sqrt((a/(a+b))*(b/(a+b))/(a+b+1))
 funct1 <- function(x) {dnorm(x, mean=m, sd=s)}
 funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
-##plotting normal and beta densities
-pdf(file = "beta1.pdf", height = 4.5, width = 5)
 plot(funct1, from=0, to=1, col="blue", ylab="")
 plot(funct2, from=0, to=1, col="red", add=T)
-dev.off()
+
 ##M=1.3 (this is trial and error to get a good M)
 funct1 <- function(x) {1.3*dnorm(x, mean=m, sd=s)}
 funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
-pdf(file = "beta2.pdf", height = 4.5, width = 5)
 plot(funct1, from=0, to=1, col="blue", ylab="")
 plot(funct2, from=0, to=1, col="red", add=T)
-dev.off()
+
 ##Doing accept-reject
 ##substance of code
 set.seed(1); nsim <- 1e5
 x <- rnorm(n=nsim, mean=m, sd=s)
 u <- runif(n=nsim)
-ratio <- dbeta(x, shape1=a, shape2=b) /
-  (1.3*dnorm(x, mean=m, sd=s))
+ratio <- dbeta(x, shape1=a, shape2=b)/(1.3*dnorm(x, mean=m, sd=s))
 ind <- I(u < ratio)
 betas <- x[ind==1]
 # as a check to make sure we have enough
 length(betas) # gives 76836
 funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
-pdf(file = "beta3.pdf", height = 4.5, width = 5)
 plot(density(betas))
 plot(funct2, from=0, to=1, col="red", lty=2, add=T)
-dev.off()
+
 
 ## Importance sampling ##
 # The original purpose of importance sampling was to sample more
@@ -174,3 +169,5 @@ par(mfrow=c(1,1))
 mean(uIS)
 mean(cIS)
 mean(gIS)
+
+# Gibbs sampling and MCMC
