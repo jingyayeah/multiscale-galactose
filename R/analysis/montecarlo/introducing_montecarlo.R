@@ -93,3 +93,84 @@ while (length(x)<Nsim){
   x=c(x,y[runif(Nsim*M)*M<dbeta(y,a,b)])
 }
 x = x[1:Nsim]
+
+# more about rejection sampling
+##simple rejection sampler for Beta(5.5,5.5), 3.26.13
+a <- 5.5; b <- 5.5
+m <- a/(a+b); s <- sqrt((a/(a+b))*(b/(a+b))/(a+b+1))
+funct1 <- function(x) {dnorm(x, mean=m, sd=s)}
+funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
+##plotting normal and beta densities
+pdf(file = "beta1.pdf", height = 4.5, width = 5)
+plot(funct1, from=0, to=1, col="blue", ylab="")
+plot(funct2, from=0, to=1, col="red", add=T)
+dev.off()
+##M=1.3 (this is trial and error to get a good M)
+funct1 <- function(x) {1.3*dnorm(x, mean=m, sd=s)}
+funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
+pdf(file = "beta2.pdf", height = 4.5, width = 5)
+plot(funct1, from=0, to=1, col="blue", ylab="")
+plot(funct2, from=0, to=1, col="red", add=T)
+dev.off()
+##Doing accept-reject
+##substance of code
+set.seed(1); nsim <- 1e5
+x <- rnorm(n=nsim, mean=m, sd=s)
+u <- runif(n=nsim)
+ratio <- dbeta(x, shape1=a, shape2=b) /
+  (1.3*dnorm(x, mean=m, sd=s))
+ind <- I(u < ratio)
+betas <- x[ind==1]
+# as a check to make sure we have enough
+length(betas) # gives 76836
+funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
+pdf(file = "beta3.pdf", height = 4.5, width = 5)
+plot(density(betas))
+plot(funct2, from=0, to=1, col="red", lty=2, add=T)
+dev.off()
+
+## Importance sampling ##
+# The original purpose of importance sampling was to sample more
+# heavily from regions that are important
+1 - pnorm(5)    # gives 2.866516e-07
+
+# Naive method
+set.seed(1)
+ss <- 100000
+x <- rnorm(n=ss)
+phat <- sum(x>5)/length(x)
+sdphat <- sqrt(phat*(1-phat)/length(x)) # gives 0
+
+# IS method
+set.seed(1)
+y <- rnorm(n=ss, mean=5)
+h <- dnorm(y, mean=0)/dnorm(y, mean=5) * I(y>5)
+mean(h) # gives 2.865596e-07
+sd(h)/sqrt(length(h)) # gives 2.157211e-09
+
+# using different distributions for weighting in importance sampling
+# necessary to normalize
+# sample the normal distribution between -1 and 1
+
+uniformIS <- function(nn) {
+  sapply(runif(nn,-1,1),
+         function(xx) dnorm(xx,0,1)/dunif(xx,-1,1)) }
+cauchyIS <- function(nn) {
+  sapply(rt(nn,1),
+         function(xx) (xx <= 1)*(xx >=-1)*dnorm(xx,0,1)/dt(xx,2)) }
+gaussianIS <- function(nn) {
+  sapply(rnorm(nn,0,1),
+         function(xx) (xx <= 1)*(xx >= -1)) }
+
+nSim <- 1000
+uIS <- uniformIS(nSim)
+cIS <- cauchyIS(nSim)
+gIS <- gaussianIS(nSim)
+par(mfrow=c(1,3))
+hist(uIS)
+hist(cIS)
+hist(gIS)
+par(mfrow=c(1,1))
+mean(uIS)
+mean(cIS)
+mean(gIS)
