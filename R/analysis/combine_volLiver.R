@@ -20,18 +20,24 @@ dir <- file.path(ma.settings$dir.expdata, "processed")
 # volLiver ~ bodyweight
 # volLiver ~ BSA
 ######################################
-# TODO: Check for boundary conditions of the predictions !
-# Especially for the age ! 
+# load the necessary models once
+load(file=file.path(dir, 'volLiver_age_models.Rdata'))
+models.volLiver_age <- models
+load(file=file.path(dir, 'volLiver_bodyweight_models.Rdata'))
+models.volLiver_bodyweight <- models
+load(file=file.path(dir, 'volLiver_BSA_models.Rdata'))
+models.volLiver_BSA <- models
+load(file=file.path(dir, 'volLiverkg_age_models.Rdata'))
+models.volLiverkg_age <- models
 
 ## get density from volLiver ~ age ##
 f_d.volLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
  f_d = NULL
  if (!is.null(age)){
-  load(file=file.path(dir, 'volLiver_age_models.Rdata'))
   mname <- paste('fit.', sex, sep="")
   dfname <- paste('df.', sex, sep="")
-  m <- models[[mname]]
-  assign(dfname, models[[dfname]])
+  m <- models.volLiver_age[[mname]]
+  assign(dfname, models.volLiver_age[[dfname]])
   
   # create the density function from the fitted values
   newdata <- data.frame(age=age)
@@ -47,11 +53,10 @@ f_d.volLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
 f_d.volLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
   d.volLiver_bodyweight = NULL
   if (!is.null(bodyweight)){
-    load(file=file.path(dir, 'volLiver_bodyweight_models.Rdata'))
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
-    m <- models[[mname]]
-    assign(dfname, models[[dfname]])
+    m <- models.volLiver_bodyweight[[mname]]
+    assign(dfname, models.volLiver_bodyweight[[dfname]])
     
     # create the density function from the fitted values
     newdata <- data.frame(bodyweight=bodyweight)
@@ -66,11 +71,10 @@ f_d.volLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
 f_d.volLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, BSA){
   f_d = NULL
   if (!is.null(BSA)){
-    load(file=file.path(dir, 'volLiver_BSA_models.Rdata'))
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
-    m <- models[[mname]]
-    assign(dfname, models[[dfname]])
+    m <- models.volLiver_BSA[[mname]]
+    assign(dfname, models.volLiver_BSA[[dfname]])
     
     # create the density function from the fitted values
     newdata <- data.frame(BSA=BSA)
@@ -85,11 +89,10 @@ f_d.volLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, BSA){
 f_d.volLiver.4 <- function(sex='all', age=NULL, bodyweight, BSA=NULL){
   f_d = NULL
   if (!is.null(bodyweight) & !is.null(age)){
-    load(file=file.path(dir, 'volLiverkg_age_models.Rdata'))
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
-    m <- models[[mname]]
-    assign(dfname, models[[dfname]])
+    m <- models.volLiverkg_age[[mname]]
+    assign(dfname, models.volLiverkg_age[[dfname]])
     
     # create the density function from the fitted values
     newdata <- data.frame(age=age)
@@ -125,13 +128,11 @@ f_d.volLiver.c <- function(x, sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
                sex=sex, age=age, bodyweight=bodyweight, BSA=BSA) ) 
 }
 
-
 # Evaluate the distribution functions
-volLiver.grid <- seq(0, 3000, by=20)
+volLiver.grid <- seq(10, 3000, by=20)
 
-par(mfrow=c(3,1))
 # some example values
-age<-60; sex<-'male'; bodyweight<-50; BSA<-1.3
+age<-60; sex<-'male'; bodyweight<-50; BSA<-1.7
 # age<-60; sex<-'male'; bodyweight<-NULL; BSA<-NULL
 info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], BSA=%s [m^2]', age, sex, bodyweight, BSA)
 
@@ -144,10 +145,7 @@ points(volLiver.grid, f_d.volLiver$f_d.1(volLiver.grid), type='l', lty=2)
 points(volLiver.grid, f_d.volLiver$f_d.2(volLiver.grid), type='l', lty=3)
 points(volLiver.grid, f_d.volLiver$f_d.3(volLiver.grid), type='l', lty=4)
 points(volLiver.grid, f_d.volLiver$f_d.4(volLiver.grid), type='l', lty=5)
-legend("topright", legend=c('combined', 'volLiver~age', 'volLiver~bodyweight', 'volLiver~BSA', 'volLiverkg~age'), lty=c(1,2,3,4,5),
-       col=c(gender.base_cols[[sex]], 'black', 'black', 'black', 'black'))
-par(mfrow=c(1,1))
-
+legend("topright", legend=c('combined', 'volLiver~age', 'volLiver~bodyweight', 'volLiver~BSA', 'volLiverkg~age'), lty=c(1,2,3,4,5), col=c(gender.base_cols[[sex]], 'black', 'black', 'black', 'black'))
 
 ######################################
 ## Liver Blood Flow
@@ -157,15 +155,24 @@ par(mfrow=c(1,1))
 # flowLiverkg ~ age
 # flowLiverkg ~ bodyweight
 ######################################
+load(file=file.path(dir, 'flowLiver_age_models.Rdata'))
+models.flowLiver_age <- models
+load(file=file.path(dir, 'flowLiver_volLiver_models.Rdata'))
+models.flowLiver_volLiver <- models
+load(file=file.path(dir, 'flowLiverkg_age_models.Rdata'))
+models.flowLiverkg_age <- models
+load(file=file.path(dir, 'flowLiverkg_bodyweight_models.Rdata'))
+models.flowLiverkg_bodyweight <- models
+
 ## density from flowLiver ~ age ##
-f_d.flowLiver.1 <- function(age, sex='all', bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
   f_d = NULL
   if (!is.null(age)){
     load(file=file.path(dir, 'flowLiver_age_models.Rdata'))
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
-    m <- models[[mname]]
-    assign(dfname, models[[dfname]])
+    m <- models.flowLiver_age[[mname]]
+    assign(dfname, models.flowLiver_age[[dfname]])
     
     # create the density function from the fitted values
     newdata <- data.frame(age=age)
@@ -178,14 +185,13 @@ f_d.flowLiver.1 <- function(age, sex='all', bodyweight=NULL, volLiver=NULL){
 }
 
 ## density from flowLiver ~ volLiver ##
-f_d.flowLiver.2 <- function(age, sex='all', bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
   f_d = NULL
   if (!is.null(volLiver)){
-    load(file=file.path(dir, 'flowLiver_volLiver_models.Rdata'))
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
-    m <- models[[mname]]
-    assign(dfname, models[[dfname]])
+    m <- models.flowLiver_volLiver[[mname]]
+    assign(dfname, models.flowLiver_volLiver[[dfname]])
     
     # create the density function from the fitted values
     newdata <- data.frame(volLiver=volLiver)
@@ -199,14 +205,13 @@ f_d.flowLiver.2 <- function(age, sex='all', bodyweight=NULL, volLiver=NULL){
 }
 
 ## density from flowLiverkg ~ age ##
-f_d.flowLiver.3 <- function(age, sex='all', bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
   f_d = NULL
-  if (!is.null(age) & !is.null(bodyweight)){
-    load(file=file.path(dir, 'flowLiverkg_age_models.Rdata'))
+  if (!is.null(age) & !is.null(bodyweight) & age>17){
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
-    m <- models[[mname]]
-    assign(dfname, models[[dfname]])
+    m <- models.flowLiverkg_age[[mname]]
+    assign(dfname, models.flowLiverkg_age[[dfname]])
     
     # create the density function from the fitted values
     newdata <- data.frame(age=age)
@@ -219,14 +224,13 @@ f_d.flowLiver.3 <- function(age, sex='all', bodyweight=NULL, volLiver=NULL){
 }
 
 ## density from flowLiverkg ~ bodyweight ##
-f_d.flowLiver.4 <- function(age, sex='all', bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.4 <- function(sex='all', age=NULL,  bodyweight=NULL, volLiver=NULL){
   f_d = NULL
   if (!is.null(bodyweight)){
-    load(file=file.path(dir, 'flowLiverkg_bodyweight_models.Rdata'))
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
-    m <- models[[mname]]
-    assign(dfname, models[[dfname]])
+    m <- models.flowLiverkg_bodyweight[[mname]]
+    assign(dfname, models.flowLiverkg_bodyweight[[dfname]])
     
     # create the density function from the fitted values
     newdata <- data.frame(bodyweight=bodyweight)
@@ -239,7 +243,7 @@ f_d.flowLiver.4 <- function(age, sex='all', bodyweight=NULL, volLiver=NULL){
 }
 
 ## combined density ##
-f_d.flowLiver.c <- function(x, sex='all', age, bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.c <- function(x, sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
   f_d.1 <- f_d.flowLiver.1(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
   f_d.2 <- f_d.flowLiver.2(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
   f_d.3 <- f_d.flowLiver.3(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
@@ -260,10 +264,10 @@ f_d.flowLiver.c <- function(x, sex='all', age, bodyweight=NULL, volLiver=NULL){
 }
 
 # Evaluate the distribution functions
-flowLiver.grid <- seq(0, 3000, by=10)
+flowLiver.grid <- seq(10, 3000, by=10)
 
 # some example values
-age<-10; sex<-'all'; bodyweight<-30; volLiver<-600
+age<-10; sex<-'male'; bodyweight<-30; volLiver<-600
 info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], volLiver=%s [ml]', age, sex, bodyweight, volLiver)
 
 f_d.flowLiver <- f_d.flowLiver.c(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
@@ -317,5 +321,69 @@ for (k in seq(1:length(gender.levels))){
   }
 }
 par(mfrow=c(1,1))
+
+############################################################
+# Rejection sampling for testing
+############################################################
+sex = 'male'; age=50; bodyweight=80; BSA=1.8;
+f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+
+Nsim=1000
+M = 0.05*5000
+y=runif(Nsim, min=0, max=5000)*M
+plot(density(y))
+lines(volLiver.grid, f_d$f_d(volLiver.grid))
+y <- f_d$f_d(volLiver.grid)
+summary(y)
+head(y)
+
+
+x = NULL
+
+
+
+hist(y, freq=F)
+
+while (length(x)<Nsim){
+  y=runif(Nsim, min=0, max=5000)
+  # get the accepted values
+  x=c(x, y[runif(Nsim, min=0, max=5000)*M <f_d$f_d(y)])
+  print(length(x))
+}
+x = x[1:Nsim]
+
+
+##############################################################################
+# Predict NHANES
+##############################################################################
+setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
+load(file='data/nhanes_data.dat')
+nhanes.all <- data
+rm(data)
+head(nhanes.all)
+nhanes <- nhanes.all[, c('sex', 'bodyweight', 'age', 'height', 'BSA')]
+names(nhanes)
+head(nhanes)
+# predict the liver volume
+system.time({
+livVolume <- rep(0, nrow(nhanes))
+for (k in seq(1,10)){
+  print(k)
+  sex <- nhanes$sex[k]
+  age <- nhanes$age[k]
+  bodyweight <- nhanes$bodyweight[k]
+  BSA <- nhanes$BSA[k]
+  f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+  # sample from the liver volume
+  livVolume[k] <- NA
+}
+})
+head(livVolume, 30)
+
+nrow(nhanes)
+8000/60/60
+
+
+
 
 

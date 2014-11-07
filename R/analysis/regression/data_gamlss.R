@@ -17,8 +17,8 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 # dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
 
-# dataset <- 'volLiver_age'
-dataset <- 'volLiverkg_age'
+dataset <- 'volLiver_age'
+# dataset <- 'volLiverkg_age'
 # dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiver_height'
 # dataset <- 'volLiver_BSA'
@@ -96,9 +96,9 @@ rm(data)
 #######################################################
 # Plot basic data overview
 #######################################################
-create_plots = T
+create_plots = F
 sprintf("/home/mkoenig/Desktop/data/%s_%s.png", xname, yname)
-startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/%s_%s.png", xname, yname))
+startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/%s_%s.png", yname, xname))
 par(mfrow=c(1,3))
 for (k in 1:3){
   if (k==1){ d <- df.all }
@@ -133,6 +133,7 @@ saveFitModels <- function(models, xname, yname, dir=NULL){
     print( sprintf('%s vs. %s -> %s', yname, xname, r_fname) )
     save('models', file=r_fname)
 }
+create_plots=TRUE
 
 ## GEC vs. age ########################################
 create_plots=T
@@ -181,37 +182,18 @@ head(df.all)
 if (dataset == 'volLiver_age'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
-   
-  ## all ##  
-  # fit.all.no <- gamlss(volLiver ~ cs(age,1), data=df.all)
-  # fit.all.bccg <- gamlss(volLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=BCCG, data=df.all)
-  # fit.all.bccg.2 <- gamlss(volLiver ~ cs(age,2), sigma.formula= ~cs(age,1), family=BCCG, data=df.all)
-  
-  fit.all.bccg.3 <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.all)
-  fit.all <- fit.all.bccg.3
+  ## all ##    
+  fit.all <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.all)
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
-  summary(fit.all)
-  
   ## male ##
-  #fit.male.bccg <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.male)
-  fit.male.bccg.3 <- gamlss(volLiver ~ cs(age,3), sigma.formula=~age ,family=BCCG, data=df.male)
-  fit.male <- fit.male.bccg.3
+  fit.male <- gamlss(volLiver ~ cs(age,3), sigma.formula=~age ,family=BCCG, data=df.male)
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
-  summary(fit.male)
-  
   ## female ##
-  fit.female.bccg <- gamlss(volLiver ~ cs(age,3), sigma.formula= ~cs(age,1), family=BCCG, data=df.female)
-  # fit.female.bccg <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.female)
-  
-  # fit.female.no <- gamlss(volLiver ~ cs(age,4), data=df.female)
-  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
-  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
-
-  fit.female <- fit.female.bccg
+  fit.female <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.female)
   plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['female']])
@@ -222,13 +204,6 @@ if (dataset == 'volLiver_age'){
   models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
                  df.all=df.all, df.male=df.male, df.female=df.female)
   saveFitModels(models, xname, yname)
-  
-  
-  # optimize degree of freedoms based on BIC (Baysian information criterium)
-#   fn.SBC.female <- function(p) {
-#       AIC(gamlss(volLiver ~ cs(age, df = p[1]), data=df.female, trace = FALSE, family=NO), k = log(nrow(df.female)))
-#   }
-#   opSBC <- optim(par=c(4), fn.SBC.female, method = "L-BFGS-B", lower = c(1), upper = c(6))
 }
 
 ## volLiverkg vs. age ######################################
@@ -471,6 +446,11 @@ if (dataset == 'flowLiverkg_bodyweight'){
 # GAMLSS - Model selection
 #######################################################
 # TODO
+# optimize degree of freedoms based on BIC (Baysian information criterium)
+#   fn.SBC.female <- function(p) {
+#       AIC(gamlss(volLiver ~ cs(age, df = p[1]), data=df.female, trace = FALSE, family=NO), k = log(nrow(df.female)))
+#   }
+#   opSBC <- optim(par=c(4), fn.SBC.female, method = "L-BFGS-B", lower = c(1), upper = c(6))
 
 #######################################################
 # GAMLSS - Confidence intervals
