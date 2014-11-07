@@ -88,8 +88,11 @@ p + facet_grid(f_flow ~ gal_challenge)
 library(plyr)
 # Analyse the data split by group (f_flow)
 # TODO: f_tissue and Vol_liv have to come from model definition
+# TODO: calculate N and SD
 f_analyse <- function(x){
   f_tissue <- 0.85;  # [-] correction for non-parenchyma (large vessels, ...)
+  
+  N <- length(x$Vol_sinunit)
   
   ## sum over sinusoidal unit samples
   # total volume (sinusoidal unit volume corrected with tissue factor)
@@ -101,7 +104,7 @@ f_analyse <- function(x){
   
   ## normalize to volume 
   Q_per_vol <- sum.Q_sinunit/sum.Vol_sinunit      # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)]
-  R_per_vol <- sum.R/sum.Vol_sinunit             # [mole/sec/m^3(liv)]
+  R_per_vol <- sum.R/sum.Vol_sinunit              # [mole/sec/m^3(liv)]
   
   ## biological units
   Q_per_vol_units <- Q_per_vol*60                 # [ml/min/ml(liv)]
@@ -112,7 +115,8 @@ f_analyse <- function(x){
   Q_per_liv_units <- Q_per_vol_units * Vol_liv*1E6     # [ml/min]
   R_per_liv_units <- R_per_vol_units * Vol_liv*1E6     # [mmole/min]
   
-  data.frame(sum.Vol_sinunit, 
+  data.frame(N,
+             sum.Vol_sinunit, 
              sum.Q_sinunit, sum.R,
              Q_per_vol, R_per_vol,
              Q_per_vol_units, R_per_vol_units,
@@ -122,14 +126,27 @@ f_analyse <- function(x){
 d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
 head(d2)
 # TODO: save the csv
-d2
+save('d2', 'pars', file='/home/mkoenig/Desktop/GEC_curve.Rdata')
 
+###########################################################################
+# GEC ~ perfusion 
+###########################################################################
+# Finally the GEC curves are generated. 
 # TODO: save the plots
+# TODO: get the prediction intervals via bootstrapping from the distribution
+
+# GEC clearance per liver volume
 p <- ggplot(d2, aes(f_flow, R_per_liv_units)) + geom_point() + geom_line()
 p + facet_grid(~ gal_challenge)
 
 p <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line()
 p + facet_grid(~ gal_challenge)
+
+# GEC clearance per volume depending on perfusion
+p <- ggplot(d2, aes(Q_per_vol_units, R_per_liv_units)) + geom_point() + geom_line()
+p + facet_grid(~ gal_challenge)
+
+
 
 # plot results
 boxplot(parscl$Q_sinunit/parscl$Vol_sinunit)
@@ -137,10 +154,6 @@ boxplot(parscl$Q_sinunit/parscl$Vol_sinunit)
 names(parscl)
 plot(parscl$c_in, parscl$c_out)
 plot(parscl$flow_sin, (parscl$c_in - parscl$c_out)/parscl$c_in)
-
-
-
-
 
 ###########################################################################
 # Scale to whole-liver
