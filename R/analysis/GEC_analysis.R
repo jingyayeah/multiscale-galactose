@@ -130,7 +130,7 @@ f_analyse <- function(x){
 d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
 head(d2)
 # TODO: save the csv
-save('d2', 'pars', file='/home/mkoenig/Desktop/GEC_curve_T53.Rdata')
+save('d2', 'parscl', file='/home/mkoenig/Desktop/GEC_curve_T53.Rdata')
 
 ###########################################################################
 # GEC ~ perfusion 
@@ -207,11 +207,13 @@ names(parscl)
 plot(parscl$c_in, parscl$c_out)
 plot(parscl$flow_sin, (parscl$c_in - parscl$c_out)/parscl$c_in)
 
-
+#####################################
 # Bootstrap the resulting GEC curve #
+#####################################
 # what are the expected values based on different samplings from the same underlying distribution.
-
-
+# Do a bootstrap analysis
+head(parscl)
+head(d2)
 
 
 
