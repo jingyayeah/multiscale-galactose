@@ -325,71 +325,55 @@ par(mfrow=c(1,1))
 ############################################################
 # Rejection sampling for testing
 ############################################################
+
+## find proper approximation of density ##
+# get density
 sex = 'male'; age=50; bodyweight=80; BSA=1.8;
 f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)$f_d
+plot(f_d, from=0, to=3000, col="blue", ylab="")
 
-# find proper approximation of density
-a <- 5.5; b <- 5.5
-m <- a/(a+b); s <- sqrt((a/(a+b))*(b/(a+b))/(a+b+1))
-funct1 <- function(x) {dnorm(x, mean=m, sd=s)}
-funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
-plot(funct1, from=0, to=1, col="blue", ylab="")
-plot(funct2, from=0, to=1, col="red", add=T)
+# define 
+interval <- c(1,3000) # interval for sampling (no sampling in zero regions)
 
-# fit a gaussion to the model
+# find maximum value
+f_d.max_x <- optimize(f_d, interval=interval, maximum=TRUE)$maximum
+f_d.max_y <- f_d(f_d.max_x)
+f_d.max_x
+f_d.max_y
 
-m <- a/(a+b); s <- sqrt((a/(a+b))*(b/(a+b))/(a+b+1))
-funct1 <- function(x) {dnorm(x, mean=m, sd=s)}
+# find half maximal value
+f_d.half <- function(x){f_d(x)-0.5*f_d.max_y}
+f_d.half_x1 <- uniroot(f_d.half, interval=c(interval[1], f_d.max_x))$root
+f_d.half_x2 <- uniroot(f_d.half, interval=c(f_d.max_x, interval[2]))$root
+sd <- max(f_d.max_x-f_d.half_x1, f_d.half_x2-f_d.max_x)
+
+# normalization constant for rejection sampling,
+# so that the second function is above the sample function
+m <- 1.01 * f_d.max_y / (1/(sd*sqrt(2*pi)))
+m
+
+# sample within 3*sds within the interval
+s.interval = c(max(interval[1], f_d.max_x - 3*sd), min(interval[2], f_d.max_x + 3*sd)) 
+s.interval
+
+funct1 <- function(x) {m*dnorm(x, mean=f_d.max_x, sd=sd)}
 funct2 <- f_d
-plot(funct1, from=0, to=3000, col="blue", ylab="")
-plot(funct2, from=0, to=3000, col="red", add=T)
-
-
-
-
-
-
+plot(funct1, from=s.interval[1], to=s.interval[2], col="blue", ylab="")
+curve(funct2, from=s.interval[1], to=s.interval[2], col="red", add=T)
 
 set.seed(1); nsim <- 1e5
-x <- rnorm(n=nsim, mean=m, sd=s)
+x <- rnorm(n=nsim, mean=f_d.max_x, sd=sd)
 u <- runif(n=nsim)
-ratio <- dbeta(x, shape1=a, shape2=b)/(1.3*dnorm(x, mean=m, sd=s))
+ratio <- f_d(x) / (m*dnorm(x, mean=f_d.max_x, sd=sd))
 ind <- I(u < ratio)
-betas <- x[ind==1]
-# as a check to make sure we have enough
-length(betas) # gives 76836
-funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
-plot(density(betas))
-plot(funct2, from=0, to=1, col="red", lty=2, add=T)
+s.values <- x[ind==1]
 
+length(s.values) # as a check to make sure we have enough
+plot(density(s.values))
+hist(betas, freq=FALSE, add=T)
+curve(funct2, from=s.interval[1], to=s.interval[2], col="red", lwd=2, add=T)
+curve(funct1, from=s.interval[1], to=s.interval[2], col="blue", ylab="", add=T)
 
-
-
-
-
-Nsim=1000
-M = 0.05*5000
-y=runif(Nsim, min=0, max=5000)*M
-plot(density(y))
-lines(volLiver.grid, f_d$f_d(volLiver.grid))
-y <- f_d$f_d(volLiver.grid)
-summary(y)
-head(y)
-
-
-x = NULL
-
-
-
-hist(y, freq=F)
-
-while (length(x)<Nsim){
-  y=runif(Nsim, min=0, max=5000)
-  # get the accepted values
-  x=c(x, y[runif(Nsim, min=0, max=5000)*M <f_d$f_d(y)])
-  print(length(x))
-}
-x = x[1:Nsim]
 
 
 ##############################################################################
