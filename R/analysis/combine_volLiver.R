@@ -1,6 +1,8 @@
 # Combine the different distributions for the volume of the liver.
 # creates the density function of the liver volume for the 
 # given antropomorphic details.
+# 
+# TODO: fix the problems with the volLiver ~ age function
 #
 # author: Matthias Koenig
 # date: 2014-11-06
@@ -20,6 +22,9 @@ dir <- file.path(ma.settings$dir.expdata, "processed")
 # volLiver ~ bodyweight
 # volLiver ~ BSA
 ######################################
+# methods(predict)
+# getAnywhere("predict.gamlss")
+
 # load the necessary models once
 load(file=file.path(dir, 'volLiver_age_models.Rdata'))
 models.volLiver_age <- models
@@ -29,6 +34,9 @@ load(file=file.path(dir, 'volLiver_BSA_models.Rdata'))
 models.volLiver_BSA <- models
 load(file=file.path(dir, 'volLiverkg_age_models.Rdata'))
 models.volLiverkg_age <- models
+
+# some test data
+age<-60; sex<-'male'; bodyweight<-50; BSA<-1.7
 
 ## get density from volLiver ~ age ##
 f_d.volLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
@@ -41,13 +49,14 @@ f_d.volLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
   
   # create the density function from the fitted values
   newdata <- data.frame(age=age)
-  mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
-  sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
-  nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname))
+  capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+  capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
+  capture.output({ nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname)) })
   f_d <- function(x) dBCCG(x, mu=mu, sigma=sigma, nu=nu)
  }
   return(f_d)
 }
+f_d.volLiver.1(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 ## get density from volLiver ~ bodyweight ##
 f_d.volLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
@@ -60,12 +69,13 @@ f_d.volLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
     
     # create the density function from the fitted values
     newdata <- data.frame(bodyweight=bodyweight)
-    mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
-    sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
     d.volLiver_bodyweight <- function(x) dNO(x, mu=mu, sigma=sigma)
   }
   return(d.volLiver_bodyweight)
 }
+f_d.volLiver.2(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 ## get density from volLiver ~ bsa ##
 f_d.volLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, BSA){
@@ -78,12 +88,13 @@ f_d.volLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, BSA){
     
     # create the density function from the fitted values
     newdata <- data.frame(BSA=BSA)
-    mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
-    sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
     f_d <- function(x) dNO(x, mu=mu, sigma=sigma)
   }
   return(f_d)
 }
+f_d.volLiver.3(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 ## get density from volLiverkg ~ age ##
 f_d.volLiver.4 <- function(sex='all', age=NULL, bodyweight, BSA=NULL){
@@ -96,16 +107,16 @@ f_d.volLiver.4 <- function(sex='all', age=NULL, bodyweight, BSA=NULL){
     
     # create the density function from the fitted values
     newdata <- data.frame(age=age)
-    mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
-    sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
-    nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname))
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname)) })
     
-    # scaling of the distribution (function works with volLiver, 
-    # but takes volLiverkg as input    
+    # scaling of the distribution (function works with volLiver, but takes volLiverkg as input)
     f_d <- function(x) dBCCG(x/bodyweight, mu=mu, sigma=sigma, nu=nu)/bodyweight
   }
   return(f_d)
 }
+f_d.volLiver.4(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 ## combined density ##
 f_d.volLiver.c <- function(x, sex='all', age=NULL, bodyweight=NULL, BSA=NULL){ 
@@ -127,12 +138,13 @@ f_d.volLiver.c <- function(x, sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
                f_d.2=f_d.2, f_d.3=f_d.3, f_d.4=f_d.4,
                sex=sex, age=age, bodyweight=bodyweight, BSA=BSA) ) 
 }
+f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 # Evaluate the distribution functions
 volLiver.grid <- seq(10, 3000, by=20)
 
 # some example values
-age<-60; sex<-'male'; bodyweight<-50; BSA<-1.7
+age<-60; sex<-'male'; bodyweight<-50; BSA<-1.7; volLiver<-2000
 # age<-60; sex<-'male'; bodyweight<-NULL; BSA<-NULL
 info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], BSA=%s [m^2]', age, sex, bodyweight, BSA)
 
@@ -176,13 +188,14 @@ f_d.flowLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL)
     
     # create the density function from the fitted values
     newdata <- data.frame(age=age)
-    mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
-    sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
-    nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname))
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname)) })
     f_d <- function(x) dBCCG(x, mu=mu, sigma=sigma, nu=nu)
   }
   return(f_d)
 }
+f_d.flowLiver.1(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 ## density from flowLiver ~ volLiver ##
 f_d.flowLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
@@ -195,14 +208,13 @@ f_d.flowLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL)
     
     # create the density function from the fitted values
     newdata <- data.frame(volLiver=volLiver)
-    mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
-    sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
-    # nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname))
-    # f_d <- function(x) dBCCG(x, mu=mu, sigma=sigma, nu=nu)
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
     f_d <- function(x) dNO(x, mu=mu, sigma=sigma)
   }
   return(f_d)
 }
+f_d.flowLiver.2(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 ## density from flowLiverkg ~ age ##
 f_d.flowLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
@@ -215,13 +227,14 @@ f_d.flowLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL)
     
     # create the density function from the fitted values
     newdata <- data.frame(age=age)
-    mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
-    sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
     # transformation to flowLiver necessary
     f_d <- function(x) {dNO(x/bodyweight, mu=mu, sigma=sigma)/bodyweight}
   }
   return(f_d)
 }
+f_d.flowLiver.3(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 ## density from flowLiverkg ~ bodyweight ##
 f_d.flowLiver.4 <- function(sex='all', age=NULL,  bodyweight=NULL, volLiver=NULL){
@@ -234,13 +247,14 @@ f_d.flowLiver.4 <- function(sex='all', age=NULL,  bodyweight=NULL, volLiver=NULL
     
     # create the density function from the fitted values
     newdata <- data.frame(bodyweight=bodyweight)
-    mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname))
-    sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname))
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
     # transformation to flowLiver necessary
     f_d <- function(x) {dNO(x/bodyweight, mu=mu, sigma=sigma)/bodyweight}
   }
   return(f_d)
 }
+f_d.flowLiver.4(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 ## combined density ##
 f_d.flowLiver.c <- function(x, sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
@@ -262,6 +276,7 @@ f_d.flowLiver.c <- function(x, sex='all', age=NULL, bodyweight=NULL, volLiver=NU
                f_d.2=f_d.2, f_d.3=f_d.3, f_d.4=f_d.4,
                sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver) ) 
 }
+f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 # Evaluate the distribution functions
 flowLiver.grid <- seq(10, 3000, by=10)
@@ -280,6 +295,10 @@ points(flowLiver.grid, f_d.flowLiver$f_d.3(flowLiver.grid), type='l', lty=4)
 points(flowLiver.grid, f_d.flowLiver$f_d.4(flowLiver.grid), type='l', lty=5)
 legend("topright", legend=c('combined', 'flowLiver~age', 'flowLiver~volLiver', 'flowLiverkg~age', 'flowLiverkg~bodyweight'), lty=c(1,2,3,4,5),
        col=c(gender.base_cols[[sex]], 'black', 'black', 'black', 'black'))
+
+# sex="male"; age=15.25; bodyweight=65; BSA=1.76778526997496; volLiver=1502.32225603063;
+# f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
+
 
 ##############################################################################
 # Test some of the functions
@@ -325,71 +344,109 @@ par(mfrow=c(1,1))
 ############################################################
 # Rejection sampling for testing
 ############################################################
+
+## find proper approximation of density ##
+# get density
 sex = 'male'; age=50; bodyweight=80; BSA=1.8;
 f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)$f_d
+plot(f_d, from=0, to=3000, col="blue", ylab="")
 
-# find proper approximation of density
-a <- 5.5; b <- 5.5
-m <- a/(a+b); s <- sqrt((a/(a+b))*(b/(a+b))/(a+b+1))
-funct1 <- function(x) {dnorm(x, mean=m, sd=s)}
-funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
-plot(funct1, from=0, to=1, col="blue", ylab="")
-plot(funct2, from=0, to=1, col="red", add=T)
+# define 
+interval <- c(1,3000) # interval for sampling (no sampling in zero regions)
 
-# fit a gaussion to the model
+# find maximum value
+f_d.max_x <- optimize(f_d, interval=interval, maximum=TRUE)$maximum
+f_d.max_y <- f_d(f_d.max_x)
+f_d.max_x
+f_d.max_y
 
-m <- a/(a+b); s <- sqrt((a/(a+b))*(b/(a+b))/(a+b+1))
-funct1 <- function(x) {dnorm(x, mean=m, sd=s)}
-funct2 <- f_d
-plot(funct1, from=0, to=3000, col="blue", ylab="")
-plot(funct2, from=0, to=3000, col="red", add=T)
+# find half maximal value
+f_d.half <- function(x){f_d(x)-0.5*f_d.max_y}
+f_d.half_x1 <- uniroot(f_d.half, interval=c(interval[1], f_d.max_x))$root
+f_d.half_x2 <- uniroot(f_d.half, interval=c(f_d.max_x, interval[2]))$root
+sd <- max(f_d.max_x-f_d.half_x1, f_d.half_x2-f_d.max_x)
 
+# sample within 3*sds within the interval
+s.interval = c(max(interval[1], f_d.max_x - 3*sd), min(interval[2], f_d.max_x + 3*sd)) 
+s.interval
 
+# normalization constant for rejection sampling,
+# so that the second function is above the sample function
+m <- 1.01 * f_d.max_y / (1/(sd*sqrt(2*pi)))
+m
 
+funct1 <- function(x) {m*dnorm(x, mean=f_d.max_x, sd=sd)}
+plot(funct1, from=s.interval[1], to=s.interval[2], col="blue", ylab="")
+curve(f_d, from=s.interval[1], to=s.interval[2], col="red", add=T)
 
-
-
-
-set.seed(1); nsim <- 1e5
-x <- rnorm(n=nsim, mean=m, sd=s)
-u <- runif(n=nsim)
-ratio <- dbeta(x, shape1=a, shape2=b)/(1.3*dnorm(x, mean=m, sd=s))
-ind <- I(u < ratio)
-betas <- x[ind==1]
-# as a check to make sure we have enough
-length(betas) # gives 76836
-funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
-plot(density(betas))
-plot(funct2, from=0, to=1, col="red", lty=2, add=T)
-
-
-
-
-
-
-Nsim=1000
-M = 0.05*5000
-y=runif(Nsim, min=0, max=5000)*M
-plot(density(y))
-lines(volLiver.grid, f_d$f_d(volLiver.grid))
-y <- f_d$f_d(volLiver.grid)
-summary(y)
-head(y)
-
-
-x = NULL
-
-
-
-hist(y, freq=F)
-
-while (length(x)<Nsim){
-  y=runif(Nsim, min=0, max=5000)
-  # get the accepted values
-  x=c(x, y[runif(Nsim, min=0, max=5000)*M <f_d$f_d(y)])
-  print(length(x))
+set.seed(1); Nsim <- 1e5
+s.values <- NULL
+while(length(s.values) < Nsim){
+  x <- rnorm(n=Nsim, mean=f_d.max_x, sd=sd)
+  u <- runif(n=Nsim)
+  ratio <- f_d(x) / (m*dnorm(x, mean=f_d.max_x, sd=sd))
+  ind <- I(u<ratio)
+  s.values <- c(s.values, x[ind==1])
 }
-x = x[1:Nsim]
+s.values=s.values[1:Nsim]
+length(s.values) # as a check to make sure we have enough
+
+
+plot(density(s.values))
+hist(betas, freq=FALSE, add=T)
+curve(funct1, from=s.interval[1], to=s.interval[2], col="red", lwd=2, add=T)
+curve(f_d, from=s.interval[1], to=s.interval[2], col="blue", ylab="", add=T)
+
+####################################################
+# function for rejection sampling of f_d
+####################################################
+f_d.rejection_sample <- function(f_d, Nsim, interval){
+  # find maximum value
+  f_d.max_x <- optimize(f_d, interval=interval, maximum=TRUE)$maximum
+  f_d.max_y <- f_d(f_d.max_x)
+  
+  # find half maximal value
+  f_d.half <- function(x){f_d(x)-0.5*f_d.max_y}
+  f_d.half_x1 <- uniroot(f_d.half, interval=c(interval[1], f_d.max_x))$root
+  f_d.half_x2 <- uniroot(f_d.half, interval=c(f_d.max_x, interval[2]))$root
+  sd <- max(f_d.max_x-f_d.half_x1, f_d.half_x2-f_d.max_x)
+  
+  # sample within 3*sds in the provided interval
+  s.interval = c(max(interval[1], f_d.max_x - 3*sd), min(interval[2], f_d.max_x + 3*sd)) 
+  
+  # normalization constant for rejection sampling,
+  # so that the second function is above the sample function
+  m <- 1.01 * f_d.max_y / (1/(sd*sqrt(2*pi)))
+  funct1 <- function(x) {m*dnorm(x, mean=f_d.max_x, sd=sd)}
+  
+  # rejection sampling
+  values <- NULL
+  while(length(values) < Nsim){
+    x <- rnorm(n=Nsim, mean=f_d.max_x, sd=sd)
+    u <- runif(n=Nsim)
+    ratio <- f_d(x)/funct1(x)
+    ind <- I(u<ratio)
+    values <- c(values, x[ind==1])
+  }
+  values = values[1:Nsim]
+  
+  return(list(values=values, f_d=f_d, funct1=funct1, s.interval=s.interval) )
+}
+
+sex = 'male'; age=40; bodyweight=90; BSA=1.8; volLiver=2500;
+
+f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)$f_d
+f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)$f_d
+
+# rejection sampling
+rs1 <- f_d.rejection_sample(f_d1, 1000, interval=c(1,3000))
+plot(f_d1, from=0, to=3000, col="blue", ylab="")
+hist(rs1$values, freq=FALSE, add=TRUE)
+
+rs2 <- f_d.rejection_sample(f_d2, 1000, interval=c(1,3000))
+plot(f_d2, from=0, to=3000, col="blue", ylab="")
+hist(rs2$values, freq=FALSE, add=TRUE)
+
 
 
 ##############################################################################
@@ -400,29 +457,55 @@ load(file='data/nhanes_data.dat')
 nhanes.all <- data
 rm(data)
 head(nhanes.all)
+
+# create a reduced nhanes dataset
 nhanes <- nhanes.all[, c('sex', 'bodyweight', 'age', 'height', 'BSA')]
-names(nhanes)
 head(nhanes)
-# predict the liver volume
-system.time({
-livVolume <- rep(0, nrow(nhanes))
-for (k in seq(1,10)){
-  print(k)
+
+# predict liver volume and blood flow
+interval.volLiver <- c(1, 4000)
+interval.flowLiver <- c(1, 4000)
+  
+volLiver <- rep(NA, nrow(nhanes))
+flowLiver <- rep(NA, nrow(nhanes))
+for (k in seq(1,nrow(nhanes))){
+# for (k in seq(1,10)){
+  cat(k, '\n')
   sex <- nhanes$sex[k]
   age <- nhanes$age[k]
   bodyweight <- nhanes$bodyweight[k]
   BSA <- nhanes$BSA[k]
-  f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-  # sample from the liver volume
-  livVolume[k] <- NA
+  
+  # get the combined distribution for the liver volumes
+  f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+  # rejection sampling
+  rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=interval.volLiver)
+  volLiver[k] <- rs1$values[1]
+  
+  # get the combined distribution for liver blood flow
+  f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver[k])
+  # rejection sampling
+  rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=interval.flowLiver)
+  flowLiver[k] <- rs2$values[1]
+  
+  #cat(sprintf('sex=%s, age=%2.1f [year], bodyweight=%2.1f [kg], BSA=%1.2f [m^2], volLiver=%4.1f [ml], flowLiver=%4.1f [ml/min]', sex, age, bodyweight, BSA, volLiver[k], flowLiver[k]))
 }
-})
-head(livVolume, 30)
-
-nrow(nhanes)
-8000/60/60
-
+nhanes$volLiver <- volLiver
+nhanes$flowLiver <- flowLiver
+head(nhanes)
+save('nhanes', file='nhanes_liverData.Rdata')
 
 
+# TODO: missing calculation of GEC based on the local distribution 
 
+# TODO: generate the control plots for nhanes prediction
+# Check if the predicted distributions are in line with the measured 
+# simple correlations
+m <- models.flowLiver_volLiver$fit.all
+df.all <- models.flowLiver_volLiver$df.all
+plotCentiles(model=m, d=df, xname='volLiver', yname='flowLiver',
+             main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
+             pcol='blue')
+points(nhanes$volLiver[nhanes$sex=='female'], flowLiver[nhanes$sex=='female'], xlim=c(0,3000), ylim=c(0,2500), col='red', cex=0.2)
+plot(nhanes$age[nhanes$sex=='female'], nhanes$volLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
 
