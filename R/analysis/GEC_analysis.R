@@ -32,12 +32,15 @@ t_end <- 10000 # [s]
 # Dataset for analyis
 #folder <- '2014-08-13_T26'  # normal
 #folder <- '2014-08-29_T50'   # normal
-folder <- '2014-11-08_T52'   # normal
+# folder <- '2014-11-08_T52'   # normal
+folder <- '2014-11-08_T53'   # normal
 
 #pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-27_T50/T50.txt')
 #pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-29_T50/T50_Galactose_v24_Nc20_galchallenge_parameters.csv')
-pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T52/T52_Galactose_v24_Nc20_galchallenge_parameters.csv')
+# pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T52/T52_Galactose_v24_Nc20_galchallenge_parameters.csv')
+pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T53/T53_Galactose_v24_Nc20_galchallenge_parameters.csv')
 head(pars)
+hist(pars$flow_sin)
 
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
@@ -127,7 +130,7 @@ f_analyse <- function(x){
 d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
 head(d2)
 # TODO: save the csv
-# save('d2', 'pars', file='/home/mkoenig/Desktop/GEC_curve.Rdata')
+save('d2', 'pars', file='/home/mkoenig/Desktop/GEC_curve_T53.Rdata')
 
 ###########################################################################
 # GEC ~ perfusion 
@@ -136,17 +139,63 @@ head(d2)
 # TODO: save the plots
 # TODO: get the prediction intervals via bootstrapping from the distribution
 
+# Multiple plot function
+#
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+# - cols:   Number of columns in layout
+# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+#
+# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+# then plot 1 will go in the upper left, 2 will go in the upper right, and
+# 3 will go all the way across the bottom.
+#
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  require(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots==1) {
+    print(plots[[1]])
+    
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
 
 # GEC clearance per liver volume
-p1 <- ggplot(d2, aes(f_flow, R_per_liv_units)) + geom_point() + geom_line()
-p1 + facet_grid(~ gal_challenge)
+p1 <- ggplot(d2, aes(f_flow, R_per_liv_units)) + geom_point() + geom_line() + facet_grid(~ gal_challenge)
+p1 
 
-p2 <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line()
-p2 + facet_grid(~ gal_challenge)
+p2 <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + facet_grid(~ gal_challenge)
+p2 
 
 # GEC clearance per volume depending on perfusion
-p3 <- ggplot(d2, aes(Q_per_vol_units, R_per_liv_units)) + geom_point() + geom_line()
-p3 + facet_grid(~ gal_challenge) + ylim(0, 4)
+p3 <- ggplot(d2, aes(Q_per_vol_units, R_per_liv_units)) + geom_point() + geom_line()+ facet_grid(~ gal_challenge) + ylim(0, 4)
+p3 
 
 multiplot(p1, p2, p3, cols=3)
 
@@ -157,6 +206,18 @@ boxplot(parscl$Q_sinunit/parscl$Vol_sinunit)
 names(parscl)
 plot(parscl$c_in, parscl$c_out)
 plot(parscl$flow_sin, (parscl$c_in - parscl$c_out)/parscl$c_in)
+
+
+# Bootstrap the resulting GEC curve #
+# what are the expected values based on different samplings from the same underlying distribution.
+
+
+
+
+
+
+
+
 
 ###########################################################################
 # Scale to whole-liver
