@@ -347,33 +347,81 @@ f_d.half_x1 <- uniroot(f_d.half, interval=c(interval[1], f_d.max_x))$root
 f_d.half_x2 <- uniroot(f_d.half, interval=c(f_d.max_x, interval[2]))$root
 sd <- max(f_d.max_x-f_d.half_x1, f_d.half_x2-f_d.max_x)
 
+# sample within 3*sds within the interval
+s.interval = c(max(interval[1], f_d.max_x - 3*sd), min(interval[2], f_d.max_x + 3*sd)) 
+s.interval
+
 # normalization constant for rejection sampling,
 # so that the second function is above the sample function
 m <- 1.01 * f_d.max_y / (1/(sd*sqrt(2*pi)))
 m
 
-# sample within 3*sds within the interval
-s.interval = c(max(interval[1], f_d.max_x - 3*sd), min(interval[2], f_d.max_x + 3*sd)) 
-s.interval
-
 funct1 <- function(x) {m*dnorm(x, mean=f_d.max_x, sd=sd)}
-funct2 <- f_d
 plot(funct1, from=s.interval[1], to=s.interval[2], col="blue", ylab="")
-curve(funct2, from=s.interval[1], to=s.interval[2], col="red", add=T)
+curve(f_d, from=s.interval[1], to=s.interval[2], col="red", add=T)
 
-set.seed(1); nsim <- 1e5
-x <- rnorm(n=nsim, mean=f_d.max_x, sd=sd)
-u <- runif(n=nsim)
-ratio <- f_d(x) / (m*dnorm(x, mean=f_d.max_x, sd=sd))
-ind <- I(u < ratio)
-s.values <- x[ind==1]
-
+set.seed(1); Nsim <- 1e5
+s.values <- NULL
+while(length(s.values) < Nsim){
+  x <- rnorm(n=Nsim, mean=f_d.max_x, sd=sd)
+  u <- runif(n=Nsim)
+  ratio <- f_d(x) / (m*dnorm(x, mean=f_d.max_x, sd=sd))
+  ind <- I(u<ratio)
+  s.values <- c(s.values, x[ind==1])
+}
+s.values=s.values[1:Nsim]
 length(s.values) # as a check to make sure we have enough
+
+
 plot(density(s.values))
 hist(betas, freq=FALSE, add=T)
-curve(funct2, from=s.interval[1], to=s.interval[2], col="red", lwd=2, add=T)
-curve(funct1, from=s.interval[1], to=s.interval[2], col="blue", ylab="", add=T)
+curve(funct1, from=s.interval[1], to=s.interval[2], col="red", lwd=2, add=T)
+curve(f_d, from=s.interval[1], to=s.interval[2], col="blue", ylab="", add=T)
 
+####################################################
+# function for rejection sampling of f_d
+####################################################
+f_d.rejection_sample <- function(f_d, Nsim, interval){
+  # find maximum value
+  f_d.max_x <- optimize(f_d, interval=interval, maximum=TRUE)$maximum
+  f_d.max_y <- f_d(f_d.max_x)
+  
+  # find half maximal value
+  f_d.half <- function(x){f_d(x)-0.5*f_d.max_y}
+  f_d.half_x1 <- uniroot(f_d.half, interval=c(interval[1], f_d.max_x))$root
+  f_d.half_x2 <- uniroot(f_d.half, interval=c(f_d.max_x, interval[2]))$root
+  sd <- max(f_d.max_x-f_d.half_x1, f_d.half_x2-f_d.max_x)
+  
+  # sample within 3*sds in the provided interval
+  s.interval = c(max(interval[1], f_d.max_x - 3*sd), min(interval[2], f_d.max_x + 3*sd)) 
+  
+  # normalization constant for rejection sampling,
+  # so that the second function is above the sample function
+  m <- 1.01 * f_d.max_y / (1/(sd*sqrt(2*pi)))
+  funct1 <- function(x) {m*dnorm(x, mean=f_d.max_x, sd=sd)}
+  
+  # rejection sampling
+  values <- NULL
+  while(length(values) < Nsim){
+    x <- rnorm(n=Nsim, mean=f_d.max_x, sd=sd)
+    u <- runif(n=Nsim)
+    ratio <- f_d(x)/funct1(x)
+    ind <- I(u<ratio)
+    values <- c(values, x[ind==1])
+  }
+  values = values[1:Nsim]
+  
+  return(list(values=values, f_d=f_d, funct1=funct1, s.interval=s.interval) )
+}
+
+sex = 'female'; age=20; bodyweight=50; BSA=1.8;
+f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)$f_d
+interval <- c(1,3000) # interval for sampling
+
+# rejection sampling
+rs <- f_d.rejection_sample(f_d, 1000, interval)
+plot(f_d, from=0, to=3000, col="blue", ylab="")
+hist(rs$values, freq=FALSE, add=TRUE)
 
 
 ##############################################################################
