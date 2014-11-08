@@ -31,11 +31,12 @@ t_end <- 10000 # [s]
 
 # Dataset for analyis
 #folder <- '2014-08-13_T26'  # normal
-folder <- '2014-08-29_T50'   # normal
+#folder <- '2014-08-29_T50'   # normal
+folder <- '2014-11-08_T52'   # normal
 
 #pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-27_T50/T50.txt')
-pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-29_T50/T50_Galactose_v24_Nc20_galchallenge_parameters.csv')
-
+#pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-29_T50/T50_Galactose_v24_Nc20_galchallenge_parameters.csv')
+pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T52/T52_Galactose_v24_Nc20_galchallenge_parameters.csv')
 head(pars)
 
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
@@ -126,7 +127,7 @@ f_analyse <- function(x){
 d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
 head(d2)
 # TODO: save the csv
-save('d2', 'pars', file='/home/mkoenig/Desktop/GEC_curve.Rdata')
+# save('d2', 'pars', file='/home/mkoenig/Desktop/GEC_curve.Rdata')
 
 ###########################################################################
 # GEC ~ perfusion 
@@ -135,17 +136,19 @@ save('d2', 'pars', file='/home/mkoenig/Desktop/GEC_curve.Rdata')
 # TODO: save the plots
 # TODO: get the prediction intervals via bootstrapping from the distribution
 
-# GEC clearance per liver volume
-p <- ggplot(d2, aes(f_flow, R_per_liv_units)) + geom_point() + geom_line()
-p + facet_grid(~ gal_challenge)
 
-p <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line()
-p + facet_grid(~ gal_challenge)
+# GEC clearance per liver volume
+p1 <- ggplot(d2, aes(f_flow, R_per_liv_units)) + geom_point() + geom_line()
+p1 + facet_grid(~ gal_challenge)
+
+p2 <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line()
+p2 + facet_grid(~ gal_challenge)
 
 # GEC clearance per volume depending on perfusion
-p <- ggplot(d2, aes(Q_per_vol_units, R_per_liv_units)) + geom_point() + geom_line()
-p + facet_grid(~ gal_challenge)
+p3 <- ggplot(d2, aes(Q_per_vol_units, R_per_liv_units)) + geom_point() + geom_line()
+p3 + facet_grid(~ gal_challenge) + ylim(0, 4)
 
+multiplot(p1, p2, p3, cols=3)
 
 
 # plot results

@@ -243,7 +243,7 @@ def make_galactose_flow(sbml_id, N):
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
-    f_flows = (0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1)
+    f_flows = (1.0, 0.7, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1, 0.05, 0.01)
     raw_samples = createFlowSamples(N=N, sampling='distribution', f_flows=f_flows)
     
     # only test the max GEC
@@ -252,7 +252,7 @@ def make_galactose_flow(sbml_id, N):
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
-    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':200} )
+    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
     integration = Integration.get_or_create_integration(settings)
     task = create_task(model, integration, info=info)
     createSimulationsForSamples(task, samples)
@@ -367,7 +367,7 @@ if __name__ == "__main__":
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        task, samples = make_galactose_flow(sbml_id, N=100)
+        task, samples = make_galactose_flow(sbml_id, N=1000)
     
         
     #----------------------------------------------------------------------#
