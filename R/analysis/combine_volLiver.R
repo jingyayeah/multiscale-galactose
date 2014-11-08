@@ -296,6 +296,10 @@ points(flowLiver.grid, f_d.flowLiver$f_d.4(flowLiver.grid), type='l', lty=5)
 legend("topright", legend=c('combined', 'flowLiver~age', 'flowLiver~volLiver', 'flowLiverkg~age', 'flowLiverkg~bodyweight'), lty=c(1,2,3,4,5),
        col=c(gender.base_cols[[sex]], 'black', 'black', 'black', 'black'))
 
+# sex="male"; age=15.25; bodyweight=65; BSA=1.76778526997496; volLiver=1502.32225603063;
+# f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
+
+
 ##############################################################################
 # Test some of the functions
 # age dependency
@@ -453,20 +457,20 @@ load(file='data/nhanes_data.dat')
 nhanes.all <- data
 rm(data)
 head(nhanes.all)
+
+# create a reduced nhanes dataset
 nhanes <- nhanes.all[, c('sex', 'bodyweight', 'age', 'height', 'BSA')]
-names(nhanes)
 head(nhanes)
 
-# predict the liver volume
+# predict liver volume and blood flow
 interval.volLiver <- c(1, 4000)
 interval.flowLiver <- c(1, 4000)
-system.time({
   
-livVolume <- rep(NA, nrow(nhanes))
+volLiver <- rep(NA, nrow(nhanes))
 flowLiver <- rep(NA, nrow(nhanes))
-for (k in seq(1,10)){
-#for (k in seq(1,nrow(nhanes))){
-  print(k)
+for (k in seq(1,nrow(nhanes))){
+# for (k in seq(1,10)){
+  cat(k, '\n')
   sex <- nhanes$sex[k]
   age <- nhanes$age[k]
   bodyweight <- nhanes$bodyweight[k]
@@ -476,15 +480,32 @@ for (k in seq(1,10)){
   f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
   # rejection sampling
   rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=interval.volLiver)
-  livVolume[k] <- rs1$values[1]
+  volLiver[k] <- rs1$values[1]
   
   # get the combined distribution for liver blood flow
-  f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
+  f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver[k])
   # rejection sampling
   rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=interval.flowLiver)
   flowLiver[k] <- rs2$values[1]
+  
+  #cat(sprintf('sex=%s, age=%2.1f [year], bodyweight=%2.1f [kg], BSA=%1.2f [m^2], volLiver=%4.1f [ml], flowLiver=%4.1f [ml/min]', sex, age, bodyweight, BSA, volLiver[k], flowLiver[k]))
 }
-})
-head(livVolume, 20)
-head(flowLiver, 20)
-plot(livVolume, flowLiver, xlim=c(0,3000), ylim=c(0,2500), col=nhanes$sex)
+nhanes$volLiver <- volLiver
+nhanes$flowLiver <- flowLiver
+head(nhanes)
+save('nhanes', file='nhanes_liverData.Rdata')
+
+
+# TODO: missing calculation of GEC based on the local distribution 
+
+# TODO: generate the control plots for nhanes prediction
+# Check if the predicted distributions are in line with the measured 
+# simple correlations
+m <- models.flowLiver_volLiver$fit.all
+df.all <- models.flowLiver_volLiver$df.all
+plotCentiles(model=m, d=df, xname='volLiver', yname='flowLiver',
+             main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
+             pcol='blue')
+points(nhanes$volLiver[nhanes$sex=='female'], flowLiver[nhanes$sex=='female'], xlim=c(0,3000), ylim=c(0,2500), col='red', cex=0.2)
+plot(nhanes$age[nhanes$sex=='female'], nhanes$volLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
+

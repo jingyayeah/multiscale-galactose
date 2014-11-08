@@ -135,6 +135,10 @@ saveFitModels <- function(models, xname, yname, dir=NULL){
 }
 create_plots=TRUE
 
+# TODO: fix the model liver ~ age problems.
+# TODO: always fit a good model for mu first and use as starting point for mu, sigma 
+# model
+
 ## GEC vs. age ########################################
 create_plots=T
 if (dataset == 'GEC_age'){
@@ -187,11 +191,19 @@ if (dataset == 'volLiver_age'){
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
+  
+  newdata <- data.frame(age=c(20))
+  mu <- predict(fit.all, what = "mu", type = "response", newdata=newdata, data=df.all)
+  
   ## male ##
   fit.male <- gamlss(volLiver ~ cs(age,3), sigma.formula=~age ,family=BCCG, data=df.male)
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
+  
+  newdata <- data.frame(age=c(20))
+  mu <- predict(fit.male, what = "mu", type = "response", newdata=newdata, data=df.male)
+  
   ## female ##
   fit.female <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.female)
   plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
