@@ -493,7 +493,7 @@ for (k in seq(1,nrow(nhanes))){
 nhanes$volLiver <- volLiver
 nhanes$flowLiver <- flowLiver
 head(nhanes)
-save('nhanes', file='nhanes_liverData.Rdata')
+# save('nhanes', file='nhanes_liverData.Rdata')
 
 
 # TODO: missing calculation of GEC based on the local distribution 
@@ -503,9 +503,21 @@ save('nhanes', file='nhanes_liverData.Rdata')
 # simple correlations
 m <- models.flowLiver_volLiver$fit.all
 df.all <- models.flowLiver_volLiver$df.all
-plotCentiles(model=m, d=df, xname='volLiver', yname='flowLiver',
+plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
              main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
              pcol='blue')
 points(nhanes$volLiver[nhanes$sex=='female'], flowLiver[nhanes$sex=='female'], xlim=c(0,3000), ylim=c(0,2500), col='red', cex=0.2)
-plot(nhanes$age[nhanes$sex=='female'], nhanes$volLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
+points(nhanes$volLiver[nhanes$sex=='male'], flowLiver[nhanes$sex=='male'], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
 
+
+plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
+             main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
+             pcol='blue')
+points(nhanes$volLiver[nhanes$age>18], flowLiver[nhanes$age>18], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
+
+
+plot(nhanes$age[nhanes$sex=='female'], nhanes$volLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
+points(nhanes$age[nhanes$sex=='male'], nhanes$volLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
+
+plot(nhanes$age[nhanes$sex=='female'], nhanes$flowLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
+points(nhanes$age[nhanes$sex=='male'], nhanes$flowLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
