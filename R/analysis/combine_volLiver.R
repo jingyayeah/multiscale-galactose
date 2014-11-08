@@ -336,6 +336,19 @@ funct2 <- function(x) {dbeta(x, shape1=a, shape2=b)}
 plot(funct1, from=0, to=1, col="blue", ylab="")
 plot(funct2, from=0, to=1, col="red", add=T)
 
+# fit a gaussion to the model
+
+m <- a/(a+b); s <- sqrt((a/(a+b))*(b/(a+b))/(a+b+1))
+funct1 <- function(x) {dnorm(x, mean=m, sd=s)}
+funct2 <- f_d
+plot(funct1, from=0, to=3000, col="blue", ylab="")
+plot(funct2, from=0, to=3000, col="red", add=T)
+
+
+
+
+
+
 
 set.seed(1); nsim <- 1e5
 x <- rnorm(n=nsim, mean=m, sd=s)
