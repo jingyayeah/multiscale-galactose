@@ -414,14 +414,19 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
   return(list(values=values, f_d=f_d, funct1=funct1, s.interval=s.interval) )
 }
 
-sex = 'female'; age=20; bodyweight=50; BSA=1.8;
-f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)$f_d
-interval <- c(1,3000) # interval for sampling
+sex = 'male'; age=40; bodyweight=90; BSA=1.8; volLiver=2500;
+f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)$f_d
+f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)$f_d
 
 # rejection sampling
-rs <- f_d.rejection_sample(f_d, 1000, interval)
-plot(f_d, from=0, to=3000, col="blue", ylab="")
-hist(rs$values, freq=FALSE, add=TRUE)
+rs1 <- f_d.rejection_sample(f_d1, 1000, interval=c(1,3000))
+plot(f_d1, from=0, to=3000, col="blue", ylab="")
+hist(rs1$values, freq=FALSE, add=TRUE)
+
+rs2 <- f_d.rejection_sample(f_d2, 1000, interval=c(1,3000))
+plot(f_d2, from=0, to=3000, col="blue", ylab="")
+hist(rs2$values, freq=FALSE, add=TRUE)
+
 
 
 ##############################################################################
@@ -435,21 +440,44 @@ head(nhanes.all)
 nhanes <- nhanes.all[, c('sex', 'bodyweight', 'age', 'height', 'BSA')]
 names(nhanes)
 head(nhanes)
+
 # predict the liver volume
+interval.volLiver <- c(1, 4000)
+interval.flowLiver <- c(1, 4000)
 system.time({
-livVolume <- rep(0, nrow(nhanes))
-for (k in seq(1,10)){
+  
+livVolume <- rep(NA, nrow(nhanes))
+flowLiver <- rep(NA, nrow(nhanes))
+# for (k in seq(1,10)){
+for (k in seq(1,nrow(nhanes))){
+  print('\n')
+  print('#############')
+  print(k)
+  print('#############')
   print(k)
   sex <- nhanes$sex[k]
   age <- nhanes$age[k]
   bodyweight <- nhanes$bodyweight[k]
   BSA <- nhanes$BSA[k]
-  f_d <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-  # sample from the liver volume
-  livVolume[k] <- NA
+  
+  # get the combined distribution for the liver volumes
+  f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+  # rejection sampling
+  rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=interval.volLiver)
+  livVolume[k] <- rs1$values[1]
+  
+  # get the combined distribution for liver blood flow
+  f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
+  # rejection sampling
+  rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=interval.flowLiver)
+  flowLiver[k] <- rs2$values[1]
 }
 })
-head(livVolume, 30)
+head(livVolume, 20)
+head(flowLiver, 20)
+plot(livVolume, flowLiver, xlim=c(0,3000), ylim=c(0,2500), col=nhanes$sex)
+
+nrow(nhanes)
 
 nrow(nhanes)
 8000/60/60
