@@ -239,7 +239,7 @@ def make_galactose_challenge(sbml_id, N):
 #----------------------------------------------------------------------#
 
 def make_galactose_flow(sbml_id, N):        
-    info = '''Galactose challenge/clearance under varying flows per volume.'''
+    info = '''Galactose challenge/clearance under changed perfusion.'''
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
@@ -247,11 +247,12 @@ def make_galactose_flow(sbml_id, N):
     raw_samples = createFlowSamples(N=N, sampling='distribution', f_flows=f_flows)
     
     # only test the max GEC
-    gal_challenge = (8.0, 2.0, 0.5)
+    # gal_challenge = (8.0, 2.0, 0.5)
+    gal_challenge = (8.0,)
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
-    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
+    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':200} )
     integration = Integration.get_or_create_integration(settings)
     task = create_task(model, integration, info=info)
     createSimulationsForSamples(task, samples)
@@ -366,7 +367,7 @@ if __name__ == "__main__":
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        task, samples = make_galactose_flow(sbml_id, N=400)
+        task, samples = make_galactose_flow(sbml_id, N=100)
     
         
     #----------------------------------------------------------------------#
