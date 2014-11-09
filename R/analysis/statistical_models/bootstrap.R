@@ -172,35 +172,125 @@ f_analyse <- function(x){
 d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
 head(d2)
 
+# bootstrap calculation of function
+f_bootstrap <- function(dset, funct, B=1000){
+  # bootstraping the function on the given dataset
+  dset.mean <- f_analyse(dset)
+  
+  # calculate for bootstrap samples
+  N <- nrow(dset)
+  dset.boot <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=B))
+  names(dset.boot) <- names(dset.mean)
+  
+  for (k in seq(1,B)){
+    # create the sample by replacement
+    # these are the indices of the rows to take from the orignal dataframe
+    inds <- sample(seq(1,n), size=n, replace=TRUE)
+    
+    # create the bootstrap data.frame
+    df.boot <- dset[inds, ]
+    # calculate the values for the bootstrap df
+    dset.boot[k, ] <- f_analyse(df.boot)[1, ]
+  }
+  # now the function can be applied on the bootstrap set
+  dset.funct <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=1))
+  names(dset.funct) <- names(dset.mean)
+  for (i in seq(1,ncol(dset.mean))){
+    dset.funct[1,i] <- funct(dset.boot[,i])
+  }
+  return(dset.funct)
+}
+# Calculate bootstrap sd for confidence intervals
+d2.se <- ddply(parscl, c("gal_challenge", 'f_flow'), f_bootstrap, funct=sd, B=1000)
+
+
+
+head(d2) # mean values
+head(d2.se) # bootstrap SE
+
+# fit the curves
+x <- d2$Q_per_vol_units
+y1 <- d2$R_per_vol_units
+y2 <- d2.se$R_per_vol_units
+f1 <- approxfun(x, y1, method = "linear")
+f2 <- splinefun(x, y1)
+f2.se <- splinefun(x, y2)
+plot(x,y1, ylim=c(0,0.003))
+curve(f1, from=0, to=3.5, col='red', add=T)
+curve(f2, from=0, to=3.5, col='blue', add=T)
+curve(f2.se, from=0, to=3.5, col='blue', add=T)
+
+GEC_curves <- list(d2=d2, d2.se=d2.se)
+save(GEC_curves, file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap.Rdata'))
+
+
+
+########################################
+# Figure GEC ~ perfusion
+########################################
+startDevPlot <- function(width=1000, height=1000, file=NULL){
+  if (is.null(file)){
+    file <- file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve.png')
+  }
+  if (create_plots == T) { 
+    print(file)
+    png(filename=file, width=width, height=height, 
+        units = "px", bg = "white",  res = 170)
+  } else { print('No plot files created') }
+}
+stopDevPlot <- function(){
+  if (create_plots == T) { dev.off() }
+}
+
+create_plots = F
+startDevPlot()
+plot(d2$Q_per_vol_units, d2$R_per_vol_units, type='n',main='Galactose clearance ~ perfusion', 
+     xlab='Liver perfusion [ml/min/ml]', ylab='GEC per volume tissue [mmol/min/ml]', font=1, font.lab=2)
+x <- c(d2$Q_per_vol_units, rev(d2$Q_per_vol_units))
+y <- c(d2$R_per_vol_units+2*d2.se$R_per_vol_units, rev(d2$R_per_vol_units-2*d2.se$R_per_vol_units))
+polygon(x,y, col = rgb(0,0,0, 0.3), border = NA)
+lines(d2$Q_per_vol_units, d2$R_per_vol_units+2*d2.se$R_per_vol_units, col=rgb(0,0,0, 0.8))
+lines(d2$Q_per_vol_units, d2$R_per_vol_units-2*d2.se$R_per_vol_units, col=rgb(0,0,0, 0.8))
+points(d2$Q_per_vol_units, d2$R_per_vol_units, pch=21, col='black', bg=rgb(0,0,0, 0.8))
+lines(d2$Q_per_vol_units, d2$R_per_vol_units, col='black', lwd=2)
+legend('bottomright', legend=c('mean GEC (Ns=1000 sinusoidal units)', '+-2SE (bootstrap, Nb=1000)'), 
+       lty=c(1, 1), col=c('black', rgb(0,0,0,0.8)), lwd=c(2,1))
+stopDevPlot()
+
+###################################################################
+
 # get a subset and do the analysis
 dset <- parscl[parscl$f_flow==0.5 & parscl$gal_challenge==8,]
 
 # point estimate
-p.est <- f_analyse(dset)
-head(p.est)
+dset.mean <- f_analyse(dset)
+head(dset)
 
-
-# do the samples
-B <- 100  # number of samples
-n <- nrow(dset)
-
-res <- matrix(c(NA), ncol=ncol(dset), nrow=B)
+# calculate for bootstrap samples
+B <- 1000  # number of samples
+N <- nrow(dset)
+dset.boot <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=B))
+names(dset.boot) <- names(dset.mean)
 for (k in seq(1,B)){
-  # creat the sample by replacement
-  
+  # create the sample by replacement
+  # these are the indices of the rows to take from the orignal dataframe
   inds <- sample(seq(1,n), size=n, replace=TRUE)
-  hist(inds)
-  #TODO here
-  sample(CommuteAtlanta$Time, size=B*n, replace=TRUE), B, n)
   
+  # create the bootstrap data.frame
+  df.boot <- dset[inds, ]
+  # calculate the values for the bootstrap df
+  dset.boot[k, ] <- f_analyse(df.boot)[1, ]
 }
+head(dset.boot)
 
+hist(dset.boot$R_per_vol_units, xlim=c(0, 0.003))
+R_per_vol_units.se <- sd(dset.boot$R_per_vol_units)
+cis <- dset.mean$R_per_vol_units + c(-1, 1) * 2*R_per_vol_units.se
 
-
-boot.samples <- matrix(sample(CommuteAtlanta$Time, size=B*n, replace=TRUE), B, n)
-dim(boot.samples)
-
-
+dset.mean$R_per_vol_units
+R_per_vol_units.se
+R_per_vol_units.se/dset.mean$R_per_vol_units
+cis
 
 # point estimate
 time.mean <- with(CommuteAtlanta, mean(Time))
