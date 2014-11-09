@@ -221,7 +221,7 @@ curve(f2, from=0, to=3.5, col='blue', add=T)
 curve(f2.se, from=0, to=3.5, col='blue', add=T)
 
 GEC_curves <- list(d2=d2, d2.se=d2.se)
-save(GEC_curves, file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap.Rdata'))
+save(GEC_curves, file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap.Rdata'))
 
 
 
