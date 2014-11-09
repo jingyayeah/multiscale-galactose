@@ -569,17 +569,70 @@ plot(nhanes$age[I.male], GEC$GEC[I.male]/nhanes$bodyweight[I.male], col='blue', 
 plot(nhanes$age[I.female], GEC$GEC[I.female]/nhanes$bodyweight[I.female], col='red', cex=0.3, ylim=c(0,0.1))  
 par(mfrow=c(1,1))
 
-##############################################################################
-# GEC predictions for other datasets
-##############################################################################
-# load the data to predict
-
-## [1] GEC
 
 
-## [2] GECkg
+############################################
+# GEC [mmol/min] prediction from data
+############################################
+rm(list=ls())
+loadRawData <- function(name, dir=NULL){
+  if (is.null(dir)){
+    dir <- file.path(ma.settings$dir.expdata, "processed")
+    print(dir)
+  }
+  r_fname <- file.path(dir, sprintf('%s.Rdata', name))
+  print(r_fname)
+  load(file=r_fname)
+  return(data)
+}
+
+# load data for prediction
+mar1988 <- loadRawData('mar1988')
+head(mar1988) # age, volLiver, [GEC]
+
+tyg1962 <- loadRawData('tyg1962')
+head(tyg1962) # age, bodyweight, [GEC]
+
+sch1986.tab1 <- loadRawData('sch1986.tab1')
+head(sch1986.tab1) # sex, age, bodyweight, [GEC]
+
+win1965 <- loadRawData('win1965')
+head(win1965) # sex, age, bodyweight, flowLiver, BSA, [GEC]
+
+duc1979 <- loadRawData('duc1979')
+head(duc1979) # age, bodyweight, BSA, [GEC]
+
+# [1] create empty prediction table
+# prediction table
+# study, age, gender, bodyweight, BSA, 
+# volLiver, volLiver.predicted, flowLiver, flowLiver.predicted
+# GEC, GEC.predicted, GECkg, GECkg.predicted
+
+# [2] perform the predictions
+# TODO implement
+predict_GEC <- function(s
 
 
+############################################
+# GECkg [mmol/min/kgbw] vs. age [years]
+############################################
+lan2011 <- loadRawData('lan2011')
+head(lan2011) # age, [GECkg]
+
+duc1979 <- loadRawData('duc1979')
+head(duc1979) # age, bodyweight, BSA, [GECkg]
+
+tyg1962 <- loadRawData('tyg1962')
+head(tyg1962) # age, bodyweight, [GECkg]
+
+sch1986.fig1 <- loadRawData('sch1986.fig1')
+head(sch1986.fig1) # age, [GECkg]
+
+sch1986.tab1 <- loadRawData('sch1986.tab1')
+head(sch1986.tab1) # sex, age, bodyweight [GECkg]
+
+duf2005 <- loadRawData('duf2005')
+head(duf2005) # sex, age, [GECkg]
 
 
 

@@ -1,0 +1,15 @@
+study	sex	subject	state	trained	age	height	bodyweight	VO2max	GECmgkg	KICG	kp	Cltot	kb	GEC	GECkg	dtype	gender	BSA
+duc1979	U	H.R.	normal	trained	20	170	64	78	7.8	23	55	8.2	26	2.77	0.0433333333	individual	all	1.74208074509859
+duc1979	U	G.F.	normal	trained	26	172	60	73.5	6.9	15	34	4.2	19	2.3	0.0383333333	individual	all	1.70938043586165
+duc1979	U	U.R.	normal	trained	27	177	68	67.5	6.2	16	34	4.5	18	2.34	0.0344444444	individual	all	1.84061615577361
+duc1979	U	K.B	normal	trained	22	175	67	65.8	6	21	33	4.2	14	2.23	0.0333333333	individual	all	1.81405604377991
+duc1979	U	F.N.	normal	trained	22	183	73	65.8	7.4	19	39	6	22	3	0.0411111111	individual	all	1.9433703806577
+duc1979	U	R.H	normal	trained	20	179	64	65.7	10	19	30	5	19	3.56	0.0555555556	individual	all	1.80846979698228
+duc1979	U	F.W.	normal	trained	27	180	68	63.7	6.4	16	45	6.5	27	2.42	0.0355555556	individual	all	1.86318156191064
+duc1979	U	R.R.	normal	trained	20	174	59	56.6	NA	NA	39	6.1	21	NA	NA	individual	all	1.71149893650867
+duc1979	U	B.M.	normal	untrained	23	168	60	51.4	8.1	22	36	0.8	20	2.7	0.045	individual	all	1.68046640352187
+duc1979	U	K.H.	normal	untrained	23	185	70	50.9	6.1	19	39	5.6	20	2.37	0.0338888889	individual	all	1.92412150602773
+duc1979	U	R.L.	normal	untrained	31	186	72	46.1	7.8	19	40	7	21	3.12	0.0433333333	individual	all	1.95492238335725
+duc1979	U	G.O.	normal	untrained	26	182	70	45.9	6.5	21	64	8.3	23	2.53	0.0361111111	individual	all	1.90144928697387
+duc1979	U	Z.M.	normal	untrained	24	174	59	42.8	6.6	21	31	6.7	24	2.16	0.0366666667	individual	all	1.71149893650867
+duc1979	U	H.C.	normal	untrained	29	191	88	42.7	7.6	21	27	3.3	15	3.72	0.0422222222	individual	all	2.17030439846466

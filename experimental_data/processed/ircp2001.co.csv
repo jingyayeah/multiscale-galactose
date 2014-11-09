@@ -1,0 +1,13 @@
+study	status	age	sex	CO	dtype	gender	flowLiver
+ircp2001	healthy	0	M	0.6	individual	male	150
+ircp2001	healthy	1	M	1.2	individual	male	300
+ircp2001	healthy	5	M	3.4	individual	male	850
+ircp2001	healthy	10	M	5	individual	male	1250
+ircp2001	healthy	15	M	6.1	individual	male	1525
+ircp2001	healthy	20	M	6.5	individual	male	1625
+ircp2001	healthy	0	F	0.6	individual	female	150
+ircp2001	healthy	1	F	1.2	individual	female	300
+ircp2001	healthy	5	F	3.4	individual	female	850
+ircp2001	healthy	10	F	5	individual	female	1250
+ircp2001	healthy	15	F	6.1	individual	female	1525
+ircp2001	healthy	20	F	5.9	individual	female	1475

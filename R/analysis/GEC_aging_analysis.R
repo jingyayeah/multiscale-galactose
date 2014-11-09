@@ -37,6 +37,30 @@ getGender <- function(dat){
  return(gender)
 }
 
+# Calculate body surface area (BSA) [m^2] from bodyweight [kg] and height [cm].
+calculateBSA <- function(bodyweight_kg, height_cm){
+  # DuBois formula
+  return (0.007184*height_cm^0.725*bodyweight_kg^0.425)
+}
+  
+  
+# Calculate body mass index (BMI) [kg/m^2] from bodyweight [kg] and height [m].
+# bodyweight/(height)^2
+
+saveRawData <- function(data, dir=NULL){
+  if (is.null(dir)){
+    dir <- file.path(ma.settings$dir.expdata, "processed")
+  }
+  name <- deparse(substitute(data)) 
+  print(name)
+  r_fname <- file.path(dir, sprintf('%s.Rdata', name))
+  csv_fname <- file.path(dir, sprintf('%s.csv', name))
+  print(r_fname)
+  save('data', file=r_fname)
+  write.table(file=csv_fname, x=data, na="NA", row.names=FALSE, quote=FALSE,
+              sep="\t", col.names=TRUE)
+}
+
 ##############################################
 # Read datasets
 ##############################################
@@ -51,12 +75,14 @@ alt1962$gender <- getGender(alt1962)
 alt1962$volLiver <- alt1962$liverWeight/f_liver_density * 1000; # [ml]
 alt1962$volLiverSd <- NA
 alt1962$ageRange <- 0.5*(alt1962$ageMax-alt1962$ageMin)
+saveRawData(alt1962)
 head(alt1962)
 
 # age [years], volLiver [ml], BSA [m^2], volLiverPerBSA [ml/m^2]
 bac1981 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Bach1981_Tab2.csv"), sep="\t")
 bac1981$dtype <- 'population'
 bac1981$gender <- getGender(bac1981$sex)
+saveRawData(bac1981)
 head(bac1981)
 
 # age [years], sex [M,F], liverWeight [g]
@@ -64,6 +90,7 @@ boy1933 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Boyd1933
 boy1933$dtype <- 'individual'
 boy1933$gender <- getGender(boy1933)
 boy1933$volLiver <- boy1933$liverWeight/f_liver_density; # [ml]
+saveRawData(boy1933)
 head(boy1933)
 
 # age [years], sex [M,F], BSA [m^2], liverBloodFlow [ml/min]
@@ -71,6 +98,7 @@ bra1945 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Bradl
 bra1945$dtype <- 'individual'
 bra1945$gender <- getGender(bra1945)
 bra1945$flowLiver <- bra1945$liverBloodFlow
+saveRawData(bra1945)
 head(bra1945)
 
 # age [years], sex [U], cardiac_output [L/min]
@@ -85,6 +113,7 @@ cat2010$ageRange <- 0.5*(cat2010$ageMax - cat2010$ageMin)
 # cat2010$flowLiverRange <- 0.5*(cat2010$flowLiverMax - cat2010$flowLiverMin)
 cat2010$flowLiverSd <- 0.5*(cat2010$flowLiverMax - cat2010$flowLiverMin)/2 # only estimate!, read from centiles
 cat2010 <- cat2010[complete.cases(cat2010), ]
+saveRawData(cat2010)
 head(cat2010)
 
 # weight [kg], liverWeight [kg], liverWeightSd [kg]
@@ -96,6 +125,7 @@ del1968.fig1$volLiver <- del1968.fig1$liverWeight/f_liver_density * 1000; # [ml]
 del1968.fig1$volLiverSd <- del1968.fig1$liverWeightSd/f_liver_density * 1000; # [ml]
 del1968.fig1$n <- 10  # n estimated, ~ 10 in every class
 del1968.fig1$bodyweightRange <- 0.5*(del1968.fig1$weightMax-del1968.fig1$weightMin)
+saveRawData(del1968.fig1)
 head(del1968.fig1)
 
 # height [cm], liverWeight [kg], liverWeightSd [kg]
@@ -106,6 +136,7 @@ del1968.fig3$volLiver <- del1968.fig3$liverWeight/f_liver_density * 1000; # [ml]
 del1968.fig3$volLiverSd <- del1968.fig3$liverWeightSd/f_liver_density * 1000; # [ml]
 del1968.fig3$n <- 10  # n estimated, ~ 10 in every class
 del1968.fig3$heightRange <- 0.5*(del1968.fig3$heightMax-del1968.fig3$heightMin)
+saveRawData(alt1968.fig3)
 head(del1968.fig3)
 
 # BSA [m^2], liverWeight [kg], liverWeightSd [kg]
@@ -117,13 +148,15 @@ del1968.fig4$volLiver <- del1968.fig4$liverWeight/f_liver_density * 1000; # [ml]
 del1968.fig4$volLiverSd <- del1968.fig4$liverWeightSd/f_liver_density * 1000; # [ml]
 del1968.fig4$n <- 10  # n estimated, ~ 10 in every class
 del1968.fig4$BSARange <- 0.5*(del1968.fig4$BSAMax-del1968.fig4$BSAMin)
+saveRawData(del1968.fig4)
 head(del1968.fig4)
-summary(del1968.fig4)
 
 # age [years], bodyweight [kg], GEC [mmol/min], GEC [mmol/min/kg] 
 duc1979 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Ducry1979_Tab1.csv"), sep="\t")
 duc1979$dtype <- 'individual'
 duc1979$gender <- getGender(duc1979)
+duc1979$BSA <- calculateBSA(bodyweight_kg=duc1979$bodyweight, height_cm=duc1979$height)
+saveRawData(duc1979)
 head(duc1979)
 
 # age [years], sex [M,F], GECmg [mg/min/kg], GEC [mmol/min/kg] 
@@ -133,6 +166,8 @@ duf2005$dtype <- 'individual'
 duf2005$gender <- getGender(duf2005)
 duf2005$GECkg <- duf2005$GECmg/180
 duf2005 <- duf2005[duf2005$state=='normal', ]
+duf2005 <- duf2005[!is.na(duf2005$GEC), ] # filter cases without GEC
+saveRawData(duf2005)
 head(duf2005)
 
 # sex [M,F], height [cm], liverWeight [kg] 
@@ -143,6 +178,7 @@ gra2000.tab1$height <- gra2000.tab1$heightMean
 gra2000.tab1$heightRange <- 0.5*(gra2000.tab1$heightMax - gra2000.tab1$heightMin)
 gra2000.tab1$volLiver <- gra2000.tab1$liverWeight/f_liver_density * 1000; # [ml]
 gra2000.tab1$volLiverSd <- gra2000.tab1$liverWeightSd/f_liver_density * 1000; # [ml]
+saveRawData(gra2000.tab1)
 head(gra2000.tab1)
 
 # sex [M,F], bmi [kg/m^2], liverWeight [kg] 
@@ -153,6 +189,7 @@ gra2000.tab2$bmi <- gra2000.tab2$bmiMean
 gra2000.tab2$bmiRange <- 0.5*(gra2000.tab2$bmiMax - gra2000.tab2$bmiMin)
 gra2000.tab2$volLiver <- gra2000.tab2$liverWeight/f_liver_density * 1000; # [ml]
 gra2000.tab2$volLiverSd <- gra2000.tab2$liverWeightSd/f_liver_density * 1000; # [ml]
+saveRawData(gra2000.tab2)
 head(gra2000.tab2)
 
 # digitized BSA [m^2], liverVol [ml]
@@ -178,7 +215,7 @@ hei1999 <- hei1999[-outliers, ]
 rm(outliers.1, outliers.2, outliers.3)
 # remove the overweight and obese people, i.e. only BMI <25 
 hei1999 <- hei1999[hei1999$BMI<30, ]
-
+saveRawData(hei1999)
 
 # age [years], sex [M,F], cardiac_output [L/min], liver blood flow [L/min]
 # liver blood flow estimated via cardia output
@@ -186,6 +223,7 @@ ircp2001.co <- read.csv(file.path(ma.settings$dir.expdata, "cardiac_output", "IR
 ircp2001.co$dtype <- 'individual'
 ircp2001.co$gender <- getGender(ircp2001.co)
 ircp2001.co$flowLiver <- ircp2001.co$CO * 1000 * f_co_fraction # [ml/min]
+saveRawData(ircp2001.co)
 head(ircp2001.co)
 
 # sex [M,F], age [years], livWeight [g]
@@ -195,6 +233,7 @@ kay1987$gender <- getGender(kay1987)
 kay1987$volLiver <- kay1987$livWeight/f_liver_density  # [ml]
 kay1987$volLiverSd <- kay1987$livWeightSd/f_liver_density  # [ml]
 kay1987$ageRange <- 0.5*(kay1987$ageMax - kay1987$ageMin)  # [ml]
+saveRawData(kay1987)
 head(kay1987)
 
 # age [years], GEC [µmol/min/kg]
@@ -204,6 +243,7 @@ lan2011$gender <- getGender(lan2011)
 lan2011$GECmumolkg <- lan2011$GEC
 lan2011$GECkg <- lan2011$GECkg/1000
 lan2011 <- lan2011[lan2011$status=='healthy', ]
+saveRawData(lan2011)
 head(lan2011)
 
 # age [years], GEC (galactose elimination capacity) [mmol/min], 
@@ -217,6 +257,7 @@ mar1988 <- data.frame(subject=mar1988$subject,
 mar1988$dtype <- 'individual'
 mar1988$study = 'mar1988'
 mar1988$gender = 'all'
+saveRawData(mar1988)
 head(mar1988)
 
 # age [years], sex [M,F], bodyweight [kg], BSA [kg/m^2], liverVol [ml], height [cm] 
@@ -225,6 +266,7 @@ naw1998$dtype <- 'individual'
 naw1998$gender <- getGender(naw1998)
 naw1998$volLiver <- naw1998$liverVol
 naw1998$volLiverkg <- naw1998$volLiver/naw1998$bodyweight # [ml/kg]
+saveRawData(naw1998)
 head(naw1998)
 
 # sex [M, F], age [years], bodyweight [kg], height [cm], BSA [m^2], flowLiver [ml/min]
@@ -233,6 +275,7 @@ sch1945$dtype <- 'individual'
 sch1945$gender <- getGender(sch1945)
 sch1945$flowLiver <- sch1945$liverBloodflow
 sch1945$flowLiverkg <- sch1945$flowLiver/sch1945$bodyweight
+saveRawData(sch1945)
 head(sch1945)
 
 # sex [m,f], age [years], bodyweight [kg], GEC [mg/min/kg]
@@ -242,6 +285,7 @@ sch1986.tab1$gender <- getGender(sch1986.tab1)
 sch1986.tab1$GECmgkg <- sch1986.tab1$GEC
 sch1986.tab1$GEC <- sch1986.tab1$GECmgkg * sch1986.tab1$bodyweight/180; # [mg/min/kg -> mmol/min]
 sch1986.tab1$GECkg <- sch1986.tab1$GECmgkg/180
+saveRawData(sch1986.tab1)
 head(sch1986.tab1)
 
 # age [years], GEC [mg/min/kg]
@@ -250,6 +294,7 @@ sch1986.fig1$dtype <- 'individual'
 sch1986.fig1$gender <- getGender(sch1986.fig1)
 sch1986.fig1$GECmgkg <- sch1986.fig1$GEC
 sch1986.fig1$GECkg   <- sch1986.fig1$GEC/180
+saveRawData(sch1986.fig1)
 head(sch1986.fig1)
 
 # age [years], bodyweight [kg], volLiver [ml], volLiverkg [ml/kg]
@@ -258,6 +303,7 @@ swi1978$dtype <- 'population'
 swi1978$gender <- getGender(swi1978)
 swi1978$ageRange <- 0.5*(swi1978$ageMax - swi1978$ageMin)
 swi1978 <- swi1978[-3, ] # remove hospitalized cases
+saveRawData(swi1978)
 head(swi1978)
 
 # bodyweight [kg], COkg [ml/min/kg], CO [ml/min]
@@ -266,6 +312,7 @@ sim1997$dtype <- 'individual'
 sim1997$gender <- getGender(sim1997)
 sim1997$flowLiver <- sim1997$CO * f_co_fraction # [ml/min]
 sim1997$flowLiverkg <- sim1997$COkg * f_co_fraction # [ml/min]
+saveRawData(sim1997)
 head(sim1997)
 
 # sex [M], age [years], bodyweight [kg], liverWeight [kg]
@@ -275,6 +322,7 @@ tom1965$gender <- getGender(tom1965)
 tom1965$volLiver <- tom1965$liverWeight/f_liver_density * 1000; # [ml]
 tom1965$volLiverSd <- tom1965$liverWeightSd/f_liver_density * 1000; # [ml]
 tom1965$ageRange <- 0.5*(tom1965$ageMax - tom1965$ageMin)
+saveRawData(tom1965)
 head(tom1965)
 
 # age [years], bodyweight [kg], GEC [mmol/min]
@@ -283,6 +331,7 @@ tyg1962$dtype <- 'individual'
 tyg1962$gender = getGender(tyg1962)
 tyg1962$GECkg <- tyg1962$GEC/tyg1962$bodyweight
 tyg1962 <- tyg1962[tyg1962$state=='healthy', ] # filter cirrhosis out
+saveRawData(tyg1962)
 head(tyg1962)
 
 # BSA [m^2], liverVol [ml]
@@ -290,6 +339,7 @@ ura1995 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Urata199
 ura1995$dtype <- 'individual'
 ura1995$gender <- getGender(ura1995)
 ura1995$volLiver <- ura1995$liverVol
+saveRawData(ura1995)
 head(ura1995)
 
 # BSA [m^2], liverVol [ml]
@@ -297,6 +347,7 @@ vau2002.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Vau
 vau2002.fig1$dtype <- 'individual'
 vau2002.fig1$gender <- getGender(vau2002.fig1)
 vau2002.fig1$volLiver <- vau2002.fig1$liverVol
+saveRawData(vau2002.fig1)
 head(vau2002.fig1)
 
 # bodyweight [kg], liverVol [ml]
@@ -305,6 +356,7 @@ vau2002.fig2$dtype <- 'individual'
 vau2002.fig2$gender <- as.character(vau2002.fig2$sex)
 vau2002.fig2$gender[vau2002.fig2$gender=='U'] <- 'all'
 vau2002.fig2$volLiver <- vau2002.fig2$liverVol
+saveRawData(vau2002.fig2)
 head(vau2002.fig2)
 
 # sex [male,female], age [years], weight [kg], GEC [mmol/min], bloodFlowM1 [ml/min], bloodFlowM2 [ml/min],
@@ -313,7 +365,9 @@ win1965 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Winkler1965.csv")
 win1965$dtype <- 'individual'
 win1965$gender <- getGender(win1965)
 win1965$flowLiverkg <- win1965$flowLiver/win1965$bodyweight
+win1965$BSA <- calculateBSA(bodyweight_kg=win1965$bodyweight, height_cm=win1965$height)
 win1965 <- win1965[!is.na(win1965$GEC), ] # filter cases without GEC
+saveRawData(win1965)
 head(win1965)
 
 # gender [male, female], age [years], liver volume [ml], bloodflow, perfusion
@@ -325,6 +379,7 @@ wyn1989$volLiverkg <- wyn1989$livVolumekg
 wyn1989$flowLiver <- wyn1989$livBloodflow
 wyn1989$flowLiverkg <- wyn1989$livBloodflowkg
 wyn1989$study <- 'wyn1989'
+saveRawData(wyn1989)
 head(wyn1989)
 
 # age [years], liver bloodflow [ml/min]
@@ -332,6 +387,7 @@ wyn1990 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Wynne
 wyn1990$dtype <- 'individual'
 wyn1990$gender <- getGender(wyn1990)
 wyn1990$flowLiver <- wyn1990$liverBloodflow
+saveRawData(wyn1990)
 head(wyn1990)
 
 # BSA [m^2], liverWeight [g]
@@ -339,6 +395,7 @@ yos2003 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Yoshizum
 yos2003$dtype <- 'individual'
 yos2003$gender <- getGender(yos2003)
 yos2003$volLiver <- yos2003$liverWeight/f_liver_density ; # [ml]
+saveRawData(yos2003)
 head(yos2003)
 
 # age [years], FHF (functional hepatic flow) [ml/min]
@@ -346,6 +403,7 @@ zol1993 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Zolle
 zol1993$dtype <- 'individual'
 zol1993$gender <- getGender(zol1993)
 zol1993$flowLiverkg <- zol1993$liverBloodflowPerBodyweight
+saveRawData(zol1993)
 head(zol1993)
 
 # age [years], FHF (functional hepatic flow) [ml/min]
@@ -353,6 +411,7 @@ zol1999 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Zoli1
 zol1999$dtype <- 'individual'
 zol1999$gender <- getGender(zol1999)
 zol1999$flowLiver <- zol1999$FHF
+saveRawData(zol1999)
 head(zol1999)
 
 

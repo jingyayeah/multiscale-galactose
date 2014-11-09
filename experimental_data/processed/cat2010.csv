@@ -1,0 +1,13 @@
+study	status	sex	nMale	nFemale	n	age	ageMin	ageMax	CO	COMin	COMax	dtype	gender	flowLiver	flowLiverMin	flowLiverMax	ageRange	flowLiverSd
+cat2010	healthy	U	10	10	20	1.5	1	2	2	1.5	2.8	population	all	500	375	700	0.5	81.25
+cat2010	healthy	U	14	24	38	2.5	2	3	2.6	1.9	3.6	population	all	650	475	900	0.5	106.25
+cat2010	healthy	U	55	39	94	3.5	3	4	3.1	2.2	4.4	population	all	775	550	1100	0.5	137.5
+cat2010	healthy	U	74	62	136	4.5	4	5	3.5	2.5	5.1	population	all	875	625	1275	0.5	162.5
+cat2010	healthy	U	80	43	123	5.5	5	6	3.8	2.6	5.6	population	all	950	650	1400	0.5	187.5
+cat2010	healthy	U	78	52	130	6.5	6	7	4	2.8	6	population	all	1000	700	1500	0.5	200
+cat2010	healthy	U	78	62	140	7.5	7	8	4.3	2.9	6.4	population	all	1075	725	1600	0.5	218.75
+cat2010	healthy	U	73	70	143	8.5	8	9	4.6	3.1	6.9	population	all	1150	775	1725	0.5	237.5
+cat2010	healthy	U	66	54	120	9.5	9	10	4.9	3.2	7.5	population	all	1225	800	1875	0.5	268.75
+cat2010	healthy	U	51	43	94	10.5	10	11	5.2	3.4	8	population	all	1300	850	2000	0.5	287.5
+cat2010	healthy	U	71	66	137	11.5	11	12	5.5	3.6	8.6	population	all	1375	900	2150	0.5	312.5
+cat2010	healthy	U	6	9	15	12.5	12	13	5.8	3.7	9.2	population	all	1450	925	2300	0.5	343.75
