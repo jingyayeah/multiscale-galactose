@@ -39,9 +39,9 @@ models.volLiverkg_age <- models
 age<-60; sex<-'male'; bodyweight<-50; BSA<-1.7
 
 ## get density from volLiver ~ age ##
-f_d.volLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
+f_d.volLiver.1 <- function(sex='all', age=NA, bodyweight=NA, BSA=NA){
  f_d = NULL
- if (!is.null(age)){
+ if (!is.na(age)){
   mname <- paste('fit.', sex, sep="")
   dfname <- paste('df.', sex, sep="")
   m <- models.volLiver_age[[mname]]
@@ -58,10 +58,11 @@ f_d.volLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
 }
 f_d.volLiver.1(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
+
 ## get density from volLiver ~ bodyweight ##
-f_d.volLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
+f_d.volLiver.2 <- function(sex='all', age=NA, bodyweight=NA, BSA=NA){
   d.volLiver_bodyweight = NULL
-  if (!is.null(bodyweight)){
+  if (!is.na(bodyweight)){
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
     m <- models.volLiver_bodyweight[[mname]]
@@ -78,9 +79,9 @@ f_d.volLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, BSA=NULL){
 f_d.volLiver.2(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 ## get density from volLiver ~ bsa ##
-f_d.volLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, BSA){
+f_d.volLiver.3 <- function(sex='all', age=NA, bodyweight=NA, BSA=NA){
   f_d = NULL
-  if (!is.null(BSA)){
+  if (!is.na(BSA)){
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
     m <- models.volLiver_BSA[[mname]]
@@ -97,9 +98,9 @@ f_d.volLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, BSA){
 f_d.volLiver.3(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 ## get density from volLiverkg ~ age ##
-f_d.volLiver.4 <- function(sex='all', age=NULL, bodyweight, BSA=NULL){
+f_d.volLiver.4 <- function(sex='all', age=NA, bodyweight, BSA=NA){
   f_d = NULL
-  if (!is.null(bodyweight) & !is.null(age)){
+  if (!is.na(bodyweight) & !is.na(age)){
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
     m <- models.volLiverkg_age[[mname]]
@@ -119,7 +120,7 @@ f_d.volLiver.4 <- function(sex='all', age=NULL, bodyweight, BSA=NULL){
 f_d.volLiver.4(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 ## combined density ##
-f_d.volLiver.c <- function(x, sex='all', age=NULL, bodyweight=NULL, BSA=NULL){ 
+f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, BSA=NA){ 
   f_d.1 <- f_d.volLiver.1(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
   f_d.2 <- f_d.volLiver.2(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
   f_d.3 <- f_d.volLiver.3(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
@@ -145,7 +146,6 @@ volLiver.grid <- seq(10, 3000, by=20)
 
 # some example values
 age<-60; sex<-'male'; bodyweight<-50; BSA<-1.7; volLiver<-2000
-# age<-60; sex<-'male'; bodyweight<-NULL; BSA<-NULL
 info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], BSA=%s [m^2]', age, sex, bodyweight, BSA)
 
 # create the distribution functions for the subject/subjects
@@ -177,9 +177,9 @@ load(file=file.path(dir, 'flowLiverkg_bodyweight_models.Rdata'))
 models.flowLiverkg_bodyweight <- models
 
 ## density from flowLiver ~ age ##
-f_d.flowLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.1 <- function(sex='all', age=NA, bodyweight=NA, volLiver=NA){
   f_d = NULL
-  if (!is.null(age)){
+  if (!is.na(age)){
     load(file=file.path(dir, 'flowLiver_age_models.Rdata'))
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
@@ -198,9 +198,9 @@ f_d.flowLiver.1 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL)
 f_d.flowLiver.1(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 ## density from flowLiver ~ volLiver ##
-f_d.flowLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.2 <- function(sex='all', age=NA, bodyweight=NA, volLiver=NA){
   f_d = NULL
-  if (!is.null(volLiver)){
+  if (!is.na(volLiver)){
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
     m <- models.flowLiver_volLiver[[mname]]
@@ -217,9 +217,9 @@ f_d.flowLiver.2 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL)
 f_d.flowLiver.2(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 ## density from flowLiverkg ~ age ##
-f_d.flowLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.3 <- function(sex='all', age=NA, bodyweight=NA, volLiver=NA){
   f_d = NULL
-  if (!is.null(age) & !is.null(bodyweight) & age>17){
+  if (!is.na(age) & !is.na(bodyweight) & age>17){
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
     m <- models.flowLiverkg_age[[mname]]
@@ -237,9 +237,9 @@ f_d.flowLiver.3 <- function(sex='all', age=NULL, bodyweight=NULL, volLiver=NULL)
 f_d.flowLiver.3(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 ## density from flowLiverkg ~ bodyweight ##
-f_d.flowLiver.4 <- function(sex='all', age=NULL,  bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.4 <- function(sex='all', age=NA,  bodyweight=NA, volLiver=NA){
   f_d = NULL
-  if (!is.null(bodyweight)){
+  if (!is.na(bodyweight)){
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
     m <- models.flowLiverkg_bodyweight[[mname]]
@@ -257,7 +257,7 @@ f_d.flowLiver.4 <- function(sex='all', age=NULL,  bodyweight=NULL, volLiver=NULL
 f_d.flowLiver.4(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 
 ## combined density ##
-f_d.flowLiver.c <- function(x, sex='all', age=NULL, bodyweight=NULL, volLiver=NULL){
+f_d.flowLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, volLiver=NA){
   f_d.1 <- f_d.flowLiver.1(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
   f_d.2 <- f_d.flowLiver.2(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
   f_d.3 <- f_d.flowLiver.3(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
@@ -293,8 +293,7 @@ points(flowLiver.grid, f_d.flowLiver$f_d.1(flowLiver.grid), type='l', lty=2)
 points(flowLiver.grid, f_d.flowLiver$f_d.2(flowLiver.grid), type='l', lty=3)
 points(flowLiver.grid, f_d.flowLiver$f_d.3(flowLiver.grid), type='l', lty=4)
 points(flowLiver.grid, f_d.flowLiver$f_d.4(flowLiver.grid), type='l', lty=5)
-legend("topright", legend=c('combined', 'flowLiver~age', 'flowLiver~volLiver', 'flowLiverkg~age', 'flowLiverkg~bodyweight'), lty=c(1,2,3,4,5),
-       col=c(gender.base_cols[[sex]], 'black', 'black', 'black', 'black'))
+legend("topright", legend=c('combined', 'flowLiver~age', 'flowLiver~volLiver', 'flowLiverkg~age', 'flowLiverkg~bodyweight'), lty=c(1,2,3,4,5), col=c(gender.base_cols[[sex]], 'black', 'black', 'black', 'black'))
 
 # sex="male"; age=15.25; bodyweight=65; BSA=1.76778526997496; volLiver=1502.32225603063;
 # f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
@@ -306,7 +305,7 @@ legend("topright", legend=c('combined', 'flowLiver~age', 'flowLiver~volLiver', '
 age.test <- seq(1, 100, by=4)
 par(mfrow=c(1,3))
 bodyweight=70
-BSA=NULL
+BSA=NA
 for (k in seq(1:length(gender.levels))){
   sex <- gender.levels[k]
   col <- gender.cols[k]
@@ -329,13 +328,13 @@ par(mfrow=c(1,3))
 for (k in seq(1:length(gender.levels))){
   sex <- gender.levels[k]
   col <- gender.cols[k]
-  f_d.f <- f_d.volLiver.c(sex=sex, age=NULL, bodyweight=bodyweight.test[1], BSA=NULL)
+  f_d.f <- f_d.volLiver.c(sex=sex, age=NA, bodyweight=bodyweight.test[1], BSA=NA)
   plot(volLiver.grid, f_d.f$f_d(volLiver.grid), type='l', col=col, main=gender.levels[k])
   legend("topright", legend=c('volLiver~bodyweight'), lty=c(1),
          col=col)
   for (bodyweight in bodyweight.test){
     print(bodyweight)
-    f_d.f <- f_d.volLiver.c(sex=sex, age=NULL, bodyweight=bodyweight, BSA=NULL)
+    f_d.f <- f_d.volLiver.c(sex=sex, age=NA, bodyweight=bodyweight, BSA=NA)
     points(volLiver.grid, f_d.f$f_d(volLiver.grid), type='l', col=col)
   }
 }
@@ -412,7 +411,7 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
   sd <- max(f_d.max_x-f_d.half_x1, f_d.half_x2-f_d.max_x)
   
   # sample within 3*sds in the provided interval
-  s.interval = c(max(interval[1], f_d.max_x - 3*sd), min(interval[2], f_d.max_x + 3*sd)) 
+  s.interval = c(max(interval[1], f_d.max_x-3*sd), min(interval[2], f_d.max_x+3*sd)) 
   
   # normalization constant for rejection sampling,
   # so that the second function is above the sample function
@@ -423,10 +422,11 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
   values <- NULL
   while(length(values) < Nsim){
     x <- rnorm(n=Nsim, mean=f_d.max_x, sd=sd)
-    u <- runif(n=Nsim)
+    x <- x[x>0]   # guarantee that > 0, otherwise the f_d will break
+    u <- runif(n=length(x))
     ratio <- f_d(x)/funct1(x)
     ind <- I(u<ratio)
-    values <- c(values, x[ind==1])
+    values <- c(values, x[ind==1]) 
   }
   values = values[1:Nsim]
   
@@ -447,81 +447,8 @@ rs2 <- f_d.rejection_sample(f_d2, 1000, interval=c(1,3000))
 plot(f_d2, from=0, to=3000, col="blue", ylab="")
 hist(rs2$values, freq=FALSE, add=TRUE)
 
-#########################################################################################################
-
-
 ##############################################################################
-# Predict NHANES
-##############################################################################
-setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
-load(file='data/nhanes_data.dat')
-nhanes.all <- data
-rm(data)
-head(nhanes.all)
-
-# create a reduced nhanes dataset
-nhanes <- nhanes.all[, c('sex', 'bodyweight', 'age', 'height', 'BSA')]
-head(nhanes)
-
-# predict liver volume and blood flow
-interval.volLiver <- c(1, 4000)
-interval.flowLiver <- c(1, 4000)
-volLiver <- rep(NA, nrow(nhanes))
-flowLiver <- rep(NA, nrow(nhanes))
-for (k in seq(1,nrow(nhanes))){
-  cat(k, '\n')
-  sex <- nhanes$sex[k]
-  age <- nhanes$age[k]
-  bodyweight <- nhanes$bodyweight[k]
-  BSA <- nhanes$BSA[k]
-  
-  # get the combined distribution for the liver volumes
-  f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-  # rejection sampling
-  rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=interval.volLiver)
-  volLiver[k] <- rs1$values[1]
-  
-  # get the combined distribution for liver blood flow
-  f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver[k])
-  # rejection sampling
-  rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=interval.flowLiver)
-  flowLiver[k] <- rs2$values[1]
-  
-  #cat(sprintf('sex=%s, age=%2.1f [year], bodyweight=%2.1f [kg], BSA=%1.2f [m^2], volLiver=%4.1f [ml], flowLiver=%4.1f [ml/min]', sex, age, bodyweight, BSA, volLiver[k], flowLiver[k]))
-}
-nhanes$volLiver <- volLiver
-nhanes$flowLiver <- flowLiver
-head(nhanes)
-# save('nhanes', file='nhanes_liverData.Rdata')
-
-##############################################################################
-# Control plots
-##############################################################################
-# TODO: generate the control plots for nhanes prediction
-# Check if the predicted distributions are in line with the measured 
-# simple correlations
-m <- models.flowLiver_volLiver$fit.all
-df.all <- models.flowLiver_volLiver$df.all
-plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
-             main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
-             pcol='blue')
-points(nhanes$volLiver[nhanes$sex=='female'], flowLiver[nhanes$sex=='female'], xlim=c(0,3000), ylim=c(0,2500), col='red', cex=0.2)
-points(nhanes$volLiver[nhanes$sex=='male'], flowLiver[nhanes$sex=='male'], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
-
-plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
-             main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
-             pcol='blue')
-points(nhanes$volLiver[nhanes$age>18], flowLiver[nhanes$age>18], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
-
-
-plot(nhanes$age[nhanes$sex=='female'], nhanes$volLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
-points(nhanes$age[nhanes$sex=='male'], nhanes$volLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
-
-plot(nhanes$age[nhanes$sex=='female'], nhanes$flowLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
-points(nhanes$age[nhanes$sex=='male'], nhanes$flowLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
-
-##############################################################################
-# Calculate GEC & GECkg
+# GEC curves
 ##############################################################################
 load(file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap.Rdata'))
 
@@ -556,16 +483,85 @@ calculate_GEC <- function(volLiver, flowLiver){
   return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GEC=GEC))
 }
 
+##############################################################################
+# Predict NHANES
+##############################################################################
+setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
+load(file='data/nhanes_data.dat')
+nhanes.all <- data
+rm(data)
+head(nhanes.all)
+
+# create a reduced nhanes dataset
+nhanes <- nhanes.all[, c('sex', 'bodyweight', 'age', 'height', 'BSA')]
+head(nhanes)
+
+# predict liver volume and blood flow
+volLiver <- rep(NA, nrow(nhanes))
+flowLiver <- rep(NA, nrow(nhanes))
+for (k in seq(1,nrow(nhanes))){
+  cat(k, '\n')
+  sex <- nhanes$sex[k]
+  age <- nhanes$age[k]
+  bodyweight <- nhanes$bodyweight[k]
+  BSA <- nhanes$BSA[k]
+  
+  # get the combined distribution for the liver volumes
+  f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+  # rejection sampling
+  rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1, 4000))
+  volLiver[k] <- rs1$values[1]
+  
+  # get the combined distribution for liver blood flow
+  f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver[k])
+  # rejection sampling
+  rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
+  flowLiver[k] <- rs2$values[1]
+  
+  #cat(sprintf('sex=%s, age=%2.1f [year], bodyweight=%2.1f [kg], BSA=%1.2f [m^2], volLiver=%4.1f [ml], flowLiver=%4.1f [ml/min]', sex, age, bodyweight, BSA, volLiver[k], flowLiver[k]))
+}
+nhanes$volLiver <- volLiver
+nhanes$flowLiver <- flowLiver
+head(nhanes)
+# save('nhanes', file='nhanes_liverData.Rdata')
+
 ## Calculate GEC and GECkg for nhanes ##
 GEC <- calculate_GEC(nhanes$volLiver, nhanes$flowLiver)
+
+##  plots NHANES
 I.male <- (nhanes$sex=='male')
 I.female <- (nhanes$sex=='female')
+
 par(mfrow=c(2,2))
 plot(nhanes$age[I.male], GEC$GEC[I.male], col='blue', cex=0.3, ylim=c(0,6))
 plot(nhanes$age[I.female], GEC$GEC[I.female], col='red', cex=0.3, ylim=c(0,6))
 plot(nhanes$age[I.male], GEC$GEC[I.male]/nhanes$bodyweight[I.male], col='blue', cex=0.3, ylim=c(0,0.1))  
 plot(nhanes$age[I.female], GEC$GEC[I.female]/nhanes$bodyweight[I.female], col='red', cex=0.3, ylim=c(0,0.1))  
 par(mfrow=c(1,1))
+
+# TODO: generate the control plots for nhanes prediction
+# Check if the predicted distributions are in line with the measured 
+# simple correlations
+m <- models.flowLiver_volLiver$fit.all
+df.all <- models.flowLiver_volLiver$df.all
+plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
+             main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
+             pcol='blue')
+points(nhanes$volLiver[nhanes$sex=='female'], flowLiver[nhanes$sex=='female'], xlim=c(0,3000), ylim=c(0,2500), col='red', cex=0.2)
+points(nhanes$volLiver[nhanes$sex=='male'], flowLiver[nhanes$sex=='male'], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
+
+plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
+             main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
+             pcol='blue')
+points(nhanes$volLiver[nhanes$age>18], flowLiver[nhanes$age>18], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
+
+
+plot(nhanes$age[nhanes$sex=='female'], nhanes$volLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
+points(nhanes$age[nhanes$sex=='male'], nhanes$volLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
+
+plot(nhanes$age[nhanes$sex=='female'], nhanes$flowLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
+points(nhanes$age[nhanes$sex=='male'], nhanes$flowLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
+
 
 
 ############################################
@@ -585,14 +581,14 @@ loadRawData <- function(name, dir=NULL){
 f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
 # General GEC & GECkg 
-predict_GEC <- function(sex=NULL, age=NULL, bodyweight=NULL, BSA=NULL, volLiver.exp=NULL,
-                        flowLiver.exp=NULL, GEC.exp=NULL, GECkg.exp=NULL){
-  if (is.null(sex)){
+predict_GEC <- function(study, sex=NA, age=NA, bodyweight=NA, BSA=NA, volLiver.exp=NA,
+                        flowLiver.exp=NA, GEC.exp=NA, GECkg.exp=NA){
+  if (is.na(sex)){
    sex = 'all' 
   }
   
   # predict the liver volume
-  if (is.null(volLiver.exp)){
+  if (is.na(volLiver.exp)){
     cat('* Predict Liver Volume *\n')
     # get the combined distribution for the liver volumes
     f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
@@ -605,7 +601,7 @@ predict_GEC <- function(sex=NULL, age=NULL, bodyweight=NULL, BSA=NULL, volLiver.
   print(volLiver.pre)
   
   # predict the liver blood
-  if (is.null(flowLiver.exp)){
+  if (is.na(flowLiver.exp)){
     cat('* Predict Liver Flow *\n')
     # get the combined distribution for liver blood flow
     f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver.pre)
@@ -618,40 +614,128 @@ predict_GEC <- function(sex=NULL, age=NULL, bodyweight=NULL, BSA=NULL, volLiver.
 
   # predict GEC
   cat('* Predict GEC *\n')
-  GEC.pre <- calculate_GEC(volLiver=volLiver.pre, flowLiver=flowLiver.pre)
+  GEC.pre <- calculate_GEC(volLiver=volLiver.pre, flowLiver=flowLiver.pre)$GEC
   
   # predict GECkg
   GECkg.pre <- NA
-  if (!is.null(bodyweight)){
-    GECkg.pre <- GECkg/bodyweight
+  if (!is.na(bodyweight)){
+    GECkg.pre <- GEC.pre/bodyweight
   }
-  return (data.frame(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA, 
+  return (data.frame(study=study, sex=sex, age=age, bodyweight=bodyweight, BSA=BSA, 
                      volLiver.pre=volLiver.pre, volLiver.exp=volLiver.exp,
                      flowLiver.pre=flowLiver.pre, flowLiver.exp=flowLiver.exp, 
                      GEC.pre=GEC.pre, GEC.exp=GEC.exp,
                      GECkg.pre=GECkg.pre, GECkg.exp=GECkg.exp) )
 }
 
+col.names <- c('study', 'sex', 'age', 'bodyweight', 'BSA', 
+                'volLiver.pre', 'volLiver.exp',
+                'flowLiver.pre', 'flowLiver.exp', 
+                'GEC.pre', 'GEC.exp',
+                'GECkg.pre', 'GECkg.exp')
 
-# load data for prediction
+
+##########################
+## mar1988
+##########################
 mar1988 <- loadRawData('mar1988')
 head(mar1988) # age, volLiver, [GEC]
+B = 10
+n = nrow(mar1988)
 
-for (k in 1:nrow(mar1988)){
-  print(k)
-  tmp <- predict_GEC(age=mar1988$age[k], volLiver=mar1988$volLiver[k], GEC.exp=mar1988$GEC[k]) 
-  print(tmp)
+mar1988.pre <- data.frame(matrix(NA, ncol=13, nrow=nrow(mar1988)*B) )
+names(mar1988.pre) <- col.names
+for (i in 1:B){
+  for (k in 1:n){
+    print( (i-1)*n+k )
+    mar1988.pre[((i-1)*n+k),] <- predict_GEC(study=mar1988$study[k], age=mar1988$age[k], 
+                                           volLiver=mar1988$volLiver[k], GEC.exp=mar1988$GEC[k]) 
+  }
 }
 
+par(mfrow=c(1,2))
+plot(mar1988.pre$GEC.exp, mar1988.pre$GEC.pre, xlim=c(0,4), ylim=c(0,4), pch=21, col='black', bg=rgb(0, 0, 0, 0.5))
+abline(a=0, b=1, col='black')
+plot(mar1988.pre$GEC.exp, mar1988.pre$GEC.pre-mar1988.pre$GEC.exp, xlim=c(0,4), ylim=c(-2,2), pch=21, 
+col='black', bg=rgb(0, 0, 0, 0.5))
+abline(h=0, col='black')
+par(mfrow=c(1,1))
 
+##########################
+## tyg1962
+##########################
 tyg1962 <- loadRawData('tyg1962')
 head(tyg1962) # age, bodyweight, [GEC]
+n = nrow(tyg1962)
+tyg1962.pre <- data.frame(matrix(NA, ncol=13, nrow=n*B) )
+names(tyg1962.pre) <- col.names
+for (i in 1:B){
+  for (k in 1:n){
+    print( (i-1)*n+k )
+    tyg1962.pre[((i-1)*n+k),] <- predict_GEC(study=tyg1962$study[k], age=tyg1962$age[k], GEC.exp=tyg1962$GEC[k]) 
+  }
+}
+plot(tyg1962.pre$GEC.exp, tyg1962.pre$GEC.pre, xlim=c(0,7), ylim=c(0,7), pch=21, col='black', bg=rgb(0, 0, 0, 0.5), cex=0.8)
+abline(a=0, b=1, col='black')
+
+##########################
+## sch1986.tab1
+##########################
 sch1986.tab1 <- loadRawData('sch1986.tab1')
 head(sch1986.tab1) # sex, age, bodyweight, [GEC]
+n = nrow(sch1986.tab1)
+sch1986.tab1.pre <- data.frame(matrix(NA, ncol=13, nrow=n*B) )
+names(sch1986.tab1.pre) <- col.names
+B=30
+for (i in 1:B){
+  for (k in 1:n){
+    print( (i-1)*n+k )
+    sch1986.tab1.pre[((i-1)*n+k),] <- predict_GEC(study=sch1986.tab1$study[k], sex=sch1986.tab1$gender[k], age=sch1986.tab1$age[k], GEC.exp=sch1986.tab1$GEC[k]) 
+  }
+}
+plot(sch1986.tab1.pre$GEC.exp, sch1986.tab1.pre$GEC.pre, xlim=c(0,7), ylim=c(0,7), pch=21, col=rgb(0, 0, 0, 0.4), bg=rgb(0, 0, 0, 0.4), cex=0.8)
+abline(a=0, b=1, col='black')
+
+##########################
+## win1965
+##########################
 win1965 <- loadRawData('win1965')
-head(win1965) # sex, age, bodyweight, flowLiver, BSA, [GEC]
+head(win1965) # sex, age, bodyweight, BSA, flowLiver [GEC]
+n = nrow(win1965)
+win1965.pre <- data.frame(matrix(NA, ncol=13, nrow=n*B) )
+names(win1965.pre) <- col.names
+B=30
+for (i in 1:B){
+  for (k in 1:n){
+    print( (i-1)*n+k )
+    win1965.pre[((i-1)*n+k),] <- predict_GEC(study=win1965$study[k], sex=win1965$gender[k], age=win1965$age[k], 
+                                             bodyweight=win1965$bodyweight[k], BSA=win1965$BSA[k], flowLiver.exp=win1965$flowLiver[k],
+                                             GEC.exp=sch1986.tab1$GEC[k]) 
+  }
+}
+plot(win1965.pre$GEC.exp, win1965.pre$GEC.pre, xlim=c(0,7), ylim=c(0,7), pch=21, col=rgb(0, 0, 0, 0.4), bg=rgb(0, 0, 0, 0.4), cex=0.8)
+abline(a=0, b=1, col='black')
+
+##########################
+## duc1979
+##########################
 duc1979 <- loadRawData('duc1979')
 head(duc1979) # age, bodyweight, BSA, [GEC]
+n = nrow(duc1979)
+duc1979.pre <- data.frame(matrix(NA, ncol=13, nrow=n*B) )
+names(duc1979.pre) <- col.names
+B=30
+for (i in 1:B){
+  for (k in 1:n){
+    print( (i-1)*n+k )
+    duc1979.pre[((i-1)*n+k),] <- predict_GEC(study=duc1979$study[k], age=duc1979$age[k], 
+                                             bodyweight=duc1979$bodyweight[k], BSA=duc1979$BSA[k],
+                                             GEC.exp=duc1979$GEC[k]) 
+  }
+}
+
+plot(duc1979.pre$GEC.exp, duc1979.pre$GEC.pre, xlim=c(0,7), ylim=c(0,7), pch=21, col=rgb(0, 0, 0, 0.4), bg=rgb(0, 0, 0, 0.4), cex=0.8)
+abline(a=0, b=1, col='black')
 
 
 
