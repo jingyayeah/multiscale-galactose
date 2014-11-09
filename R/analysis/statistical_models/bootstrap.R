@@ -176,31 +176,34 @@ head(d2)
 dset <- parscl[parscl$f_flow==0.5 & parscl$gal_challenge==8,]
 
 # point estimate
-p.est <- f_analyse(dset)
-head(p.est)
+dset.mean <- f_analyse(dset)
+head(dset)
 
-
-# do the samples
-B <- 100  # number of samples
-n <- nrow(dset)
-
-res <- matrix(c(NA), ncol=ncol(dset), nrow=B)
+# calculate for bootstrap samples
+B <- 1000  # number of samples
+N <- nrow(dset)
+dset.boot <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=B))
+names(dset.boot) <- names(dset.mean)
 for (k in seq(1,B)){
-  # creat the sample by replacement
-  
+  # create the sample by replacement
+  # these are the indices of the rows to take from the orignal dataframe
   inds <- sample(seq(1,n), size=n, replace=TRUE)
-  hist(inds)
-  #TODO here
-  sample(CommuteAtlanta$Time, size=B*n, replace=TRUE), B, n)
   
+  # create the bootstrap data.frame
+  df.boot <- dset[inds, ]
+  # calculate the values for the bootstrap df
+  dset.boot[k, ] <- f_analyse(df.boot)[1, ]
 }
+head(dset.boot)
 
+hist(dset.boot$R_per_vol_units, xlim=c(0, 0.003))
+R_per_vol_units.se <- sd(dset.boot$R_per_vol_units)
+cis <- dset.mean$R_per_vol_units + c(-1, 1) * 2*R_per_vol_units.se
 
-
-boot.samples <- matrix(sample(CommuteAtlanta$Time, size=B*n, replace=TRUE), B, n)
-dim(boot.samples)
-
-
+dset.mean$R_per_vol_units
+R_per_vol_units.se
+R_per_vol_units.se/dset.mean$R_per_vol_units
+cis
 
 # point estimate
 time.mean <- with(CommuteAtlanta, mean(Time))
