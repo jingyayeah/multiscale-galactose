@@ -145,19 +145,22 @@ f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 volLiver.grid <- seq(10, 3000, by=20)
 
 # some example values
-age<-60; sex<-'male'; bodyweight<-50; BSA<-1.7; volLiver<-2000
+age<-80; sex<-'male'; bodyweight<-55; BSA<-1.6; volLiver<-2000
 info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], BSA=%s [m^2]', age, sex, bodyweight, BSA)
 
 # create the distribution functions for the subject/subjects
 f_d.volLiver <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 summary(f_d.volLiver)
+
 # plot single contributions and resulting density
-plot(volLiver.grid, f_d.volLiver$f_d(volLiver.grid), type='l', lty=1, col=gender.base_cols[[sex]], lwd=2, main=info)
-points(volLiver.grid, f_d.volLiver$f_d.1(volLiver.grid), type='l', lty=2)
-points(volLiver.grid, f_d.volLiver$f_d.2(volLiver.grid), type='l', lty=3)
-points(volLiver.grid, f_d.volLiver$f_d.3(volLiver.grid), type='l', lty=4)
-points(volLiver.grid, f_d.volLiver$f_d.4(volLiver.grid), type='l', lty=5)
-legend("topright", legend=c('combined', 'volLiver~age', 'volLiver~bodyweight', 'volLiver~BSA', 'volLiverkg~age'), lty=c(1,2,3,4,5), col=c(gender.base_cols[[sex]], 'black', 'black', 'black', 'black'))
+#png(filename='/home/mkoenig/multiscale-galactose/presentations/volLiver_estimation_02.png', width=1000, height=1000, units = "px", bg = "white",  res = 150)
+plot(volLiver.grid, f_d.volLiver$f_d(volLiver.grid), type='l', lty=1, col=gender.base_cols[[sex]], lwd=2, main=info, xlab='liver volume [ml]', ylab='estimated probability density', font.lab=2)
+points(volLiver.grid, f_d.volLiver$f_d.1(volLiver.grid), type='l', lty=2, col='red', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.2(volLiver.grid), type='l', lty=3, col='orange', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.3(volLiver.grid), type='l', lty=4, col='gray', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.4(volLiver.grid), type='l', lty=5, col='black', lwd=2)
+legend("topright", legend=c('combined', 'volLiver~age', 'volLiver~bodyweight', 'volLiver~BSA', 'volLiverkg~age'), lty=c(1,2,3,4,5), col=c(gender.base_cols[[sex]], 'red', 'orange', 'gray', 'black'), lwd=c(2,2,2,2))
+# dev.off()
 
 ######################################
 ## Liver Blood Flow
@@ -282,7 +285,7 @@ f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 flowLiver.grid <- seq(10, 3000, by=10)
 
 # some example values
-age<-10; sex<-'male'; bodyweight<-30; volLiver<-600
+age<-80; sex<-'male'; bodyweight<-30; volLiver<-600
 info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], volLiver=%s [ml]', age, sex, bodyweight, volLiver)
 
 f_d.flowLiver <- f_d.flowLiver.c(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
@@ -297,6 +300,10 @@ legend("topright", legend=c('combined', 'flowLiver~age', 'flowLiver~volLiver', '
 
 # sex="male"; age=15.25; bodyweight=65; BSA=1.76778526997496; volLiver=1502.32225603063;
 # f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
+
+png(filename='/home/mkoenig/multiscale-galactose/presentations/flowLiver_80years_male.png', width=1000, height=1000, units = "px", bg = "white",  res = 200)
+plot(flowLiver.grid, f_d.flowLiver$f_d.1(flowLiver.grid), type='l', lty=1, col=gender.base_cols[[sex]], lwd=2, main=sprintf('age=%s [y], sex=%s', age, sex), xlab='liver bloodflow [ml/min]', ylab='estimated probability density', font.lab=2)
+dev.off()
 
 
 ##############################################################################
@@ -663,7 +670,7 @@ plot_GEC <- function(df, main, xlim=c(0,7)){
   
   plot(df$GEC.exp, df$GEC.pre-df$GEC.exp, main=main, xlim=xlim, ylim=c(-3,3), pch=21, 
      col='black', bg=rgb(0, 0, 0, 0.5),
-     xlab='GEC experiment [mmol/min]', ylab='GEC predicted-experiment [mmol/min]')
+     xlab='GEC experiment [mmol/min]', ylab='GEC predicted-experiment [mmol/min]', font.lab=2)
   abline(h=0, col='black')
 }
 plot_GECkg <- function(df, main, xlim=c(0,0.10)){
@@ -673,7 +680,7 @@ plot_GECkg <- function(df, main, xlim=c(0,0.10)){
   
   plot(df$GECkg.exp, df$GECkg.pre-df$GECkg.exp, main=main, xlim=xlim, ylim=c(-0.04,0.04), pch=21, 
        col='black', bg=rgb(0, 0, 0, 0.5),
-       xlab='GECkg experiment [mmol/min/kg]', ylab='GEC predicted-experiment [mmol/min/kg]')
+       xlab='GECkg experiment [mmol/min/kg]', ylab='GEC predicted-experiment [mmol/min/kg]', font.lab=2)
   abline(h=0, col='black')
   par(mfrow=c(1,1))
 }
@@ -720,9 +727,10 @@ library('reshape')
 df <- reshape::merge_all(df.list)
 
 par(mfrow=c(2,2))
-plot_GEC(df, main='Combined GEC')
-plot_GECkg(df, main='Combined GECkg')
+plot_GEC(df, main='Combined GEC data', xlim=c(0,6))
+plot_GECkg(df, main='Combined GECkg data', xlim=c(0,0.08))
 par(mfrow=c(1,1))
+
 
 par(mfrow=c(2,2))
 plot_GEC_age(df, main='Combined GEC')
