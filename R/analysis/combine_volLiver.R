@@ -495,9 +495,9 @@ nhanes$flowLiver <- flowLiver
 head(nhanes)
 # save('nhanes', file='nhanes_liverData.Rdata')
 
-
-# TODO: missing calculation of GEC based on the local distribution 
-
+##############################################################################
+# Control plots
+##############################################################################
 # TODO: generate the control plots for nhanes prediction
 # Check if the predicted distributions are in line with the measured 
 # simple correlations
@@ -521,3 +521,65 @@ points(nhanes$age[nhanes$sex=='male'], nhanes$volLiver[nhanes$sex=='male'], xlim
 
 plot(nhanes$age[nhanes$sex=='female'], nhanes$flowLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
 points(nhanes$age[nhanes$sex=='male'], nhanes$flowLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
+
+##############################################################################
+# Calculate GEC & GECkg
+##############################################################################
+# TODO: missing calculation of GEC based on the local distribution 
+load(file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap.Rdata'))
+# make the GEC fit function
+d.mean <- GEC_curves$d2
+d.se <- GEC_curves$d2.se
+
+GEC_functions <- function(d.mean, d.se){
+  # create spline fits
+  x <- d.mean$Q_per_vol_units      # perfusion [ml/min/ml]
+  y <- d.mean$R_per_vol_units     # GEC clearance [mmol/min/ml]
+  y.se <- d.se$R_per_vol_units  # GEC standard error (bootstrap) [mmol/min/ml]
+  f <- splinefun(x, y)
+  f.se <- splinefun(x, y.se)  
+  
+  plot(x,y, ylim=c(0,0.003))
+  curve(f, from=0, to=3.5, col='red', add=T)
+  curve(f.se, from=0, to=3.5, col='blue', add=T)
+  
+  return(list(f_GEC=f, f_GEC.se=f.se)) 
+}
+GEC_f <- GEC_functions(d.mean, d.se)
+GEC_f
+
+calculate_GEC <- function(volLiver, flowLiver){
+  # perfusion
+  perfusion <- flowLiver/volLiver # [ml/min/ml]
+  # GEC per volume based on perfusion
+  GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
+  # GEC based on volume
+  GEC <- GEC_per_vol * volLiver # mmol/min
+  return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GEC=GEC))
+}
+
+GEC <- calculate_GEC(nhanes$volLiver, nhanes$flowLiver)
+
+I.male <- (nhanes$sex=='male')
+I.female <- (nhanes$sex=='female')
+par(mfrow=c(2,2))
+plot(nhanes$age[I.male], GEC$GEC[I.male], col='blue', cex=0.3, ylim=c(0,6))
+plot(nhanes$age[I.female], GEC$GEC[I.female], col='red', cex=0.3, ylim=c(0,6))
+plot(nhanes$age[I.male], GEC$GEC[I.male]/nhanes$bodyweight[I.male], col='blue', cex=0.3, ylim=c(0,0.1))  
+plot(nhanes$age[I.female], GEC$GEC[I.female]/nhanes$bodyweight[I.female], col='red', cex=0.3, ylim=c(0,0.1))  
+par(mfrow=c(1,1))
+
+##############################################################################
+# GEC predictions for other datasets
+##############################################################################
+# load the data to predict
+
+## [1] GEC
+
+
+## [2] GECkg
+
+
+
+
+
