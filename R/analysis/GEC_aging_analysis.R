@@ -366,6 +366,7 @@ win1965$dtype <- 'individual'
 win1965$gender <- getGender(win1965)
 win1965$flowLiverkg <- win1965$flowLiver/win1965$bodyweight
 win1965$BSA <- calculateBSA(bodyweight_kg=win1965$bodyweight, height_cm=win1965$height)
+win1965$GECkg <- win1965$GEC/win1965$bodyweight
 win1965 <- win1965[!is.na(win1965$GEC), ] # filter cases without GEC
 saveRawData(win1965)
 head(win1965)
@@ -659,8 +660,9 @@ selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( mar1988[, selection],
                tyg1962[, selection],
                sch1986.tab1[, selection],
-               win1965[, selection],
-               duc1979[, selection])
+               # win1965[, selection], # outlier compare to other datasets
+               duc1979[, selection],
+               duf2005[, selection])
 
 data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
@@ -678,6 +680,7 @@ data <- rbind( lan2011[, selection],
                tyg1962[, selection],
                sch1986.fig1[, selection], 
                # sch1986.tab1[, c('study', 'gender', 'age', 'GECkg')], # already ploted via sch1986.fig1
+               # win1965[, selection],  # outlier compare to other datasets
                duf2005[, selection])
 data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
@@ -699,13 +702,13 @@ makeFigureFull(data, m1, xname, yname)
 ############################################
 # GEC [mmol/min] vs. flowLiver [ml/min]
 ############################################
-xname <- 'flowLiver'; yname <- 'GEC'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( win1965[, selection])
-saveData(data)
+#xname <- 'flowLiver'; yname <- 'GEC'
+#selection <- c('study', 'gender', xname, yname, 'dtype')
+#data <- rbind( win1965[, selection]) # outlier compare to other datasets
+#saveData(data)
 
-m1 <- linear_regression(data, xname, yname)
-makeFigureFull(data, m1, xname, yname)
+#m1 <- linear_regression(data, xname, yname)
+#makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # volLiver [ml] vs. age [years]
@@ -823,16 +826,15 @@ addPopulationSegments(gra2000.tab1, xname, yname)
 ############################################
 xname <- 'age'; yname <- 'flowLiver'
 selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( win1965[, selection],
+data <- rbind( win1965[, selection], 
                wyn1989[, selection],
                bra1945[, selection],
                zol1999[, selection],
                sch1945[, selection],
                wyn1990[, selection],
                ircp2001.co[, selection]) # only estimate via cardiac output
-saveData(data)
+
 #data <- addRandomizedPopulationData(data, cat2010)  
-head(cat2010)
 saveData(data)
 
 makeFigureFull(data, NULL, xname, yname)
@@ -844,13 +846,14 @@ addPopulationSegments(cat2010, xname, yname)
 ############################################
 xname <- 'age'; yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( win1965[, selection],
+data <- rbind( win1965[, selection], 
                wyn1989[, selection],
                sch1945[, selection],
                zol1993[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
+par(mfrow=c(2,1))
 makeFigureFull(data, m1, xname, yname)
 
 ############################################

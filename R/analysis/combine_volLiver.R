@@ -486,6 +486,9 @@ calculate_GEC <- function(volLiver, flowLiver){
 ##############################################################################
 # Predict NHANES
 ##############################################################################
+do_nhanes == FALSE
+if (do_nhanes == TRUE){
+
 setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
 load(file='data/nhanes_data.dat')
 nhanes.all <- data
@@ -562,10 +565,9 @@ points(nhanes$age[nhanes$sex=='male'], nhanes$volLiver[nhanes$sex=='male'], xlim
 plot(nhanes$age[nhanes$sex=='female'], nhanes$flowLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
 points(nhanes$age[nhanes$sex=='male'], nhanes$flowLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
 
-
-
+}
 ############################################
-# GEC [mmol/min] prediction from data
+# GEC [mmol/min] & GECkg [mmol/min/kg]
 ############################################
 loadRawData <- function(name, dir=NULL){
   if (is.null(dir)){
@@ -580,196 +582,187 @@ loadRawData <- function(name, dir=NULL){
 
 f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
-# General GEC & GECkg 
-predict_GEC <- function(study, sex=NA, age=NA, bodyweight=NA, BSA=NA, volLiver.exp=NA,
-                        flowLiver.exp=NA, GEC.exp=NA, GECkg.exp=NA){
-  if (is.na(sex)){
-   sex = 'all' 
+
+# predict GEC for full data frame
+predict_GEC <- function(df){
+  for (k in 1:nrow(df)){
+    df[k,] <- predict_GEC_row(df[k,]) 
+  }
+  return(df)
+}
+
+# predict GEC for single row 
+predict_GEC_row <- function(row){
+  if (is.na(row$sex)){
+   row$sex = 'all' 
   }
   
   # predict the liver volume
-  if (is.na(volLiver.exp)){
+  if (is.na(row$volLiver.exp)){
     cat('* Predict Liver Volume *\n')
     # get the combined distribution for the liver volumes
-    f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+    f_d1 <- f_d.volLiver.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, BSA=row$BSA)
     # rejection sampling
     rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1,4000))
-    volLiver.pre <- rs1$values[1]  
+    row$volLiver.pre <- rs1$values[1]  
   } else {
-    volLiver.pre <- volLiver.exp 
+    row$volLiver.pre <- row$volLiver.exp 
   }
-  print(volLiver.pre)
+  print(row$volLiver.pre)
   
   # predict the liver blood
-  if (is.na(flowLiver.exp)){
+  if (is.na(row$flowLiver.exp)){
     cat('* Predict Liver Flow *\n')
     # get the combined distribution for liver blood flow
-    f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver.pre)
+    f_d2 <- f_d.flowLiver.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, volLiver=row$volLiver.pre)
     # rejection sampling
     rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1,4000))
-    flowLiver.pre <- rs2$values[1]  
+    row$flowLiver.pre <- rs2$values[1]  
   } else {
-    flowLiver.pre <- flowLiver.exp 
+    row$flowLiver.pre <- row$flowLiver.exp 
   }
 
   # predict GEC
   cat('* Predict GEC *\n')
-  GEC.pre <- calculate_GEC(volLiver=volLiver.pre, flowLiver=flowLiver.pre)$GEC
+  row$GEC.pre <- calculate_GEC(volLiver=row$volLiver.pre, flowLiver=row$flowLiver.pre)$GEC
   
   # predict GECkg
-  GECkg.pre <- NA
-  if (!is.na(bodyweight)){
-    GECkg.pre <- GEC.pre/bodyweight
+  row$GECkg.pre <- NA
+  if (!is.na(row$bodyweight)){
+    row$GECkg.pre <- row$GEC.pre/row$bodyweight
   }
-  return (data.frame(study=study, sex=sex, age=age, bodyweight=bodyweight, BSA=BSA, 
-                     volLiver.pre=volLiver.pre, volLiver.exp=volLiver.exp,
-                     flowLiver.pre=flowLiver.pre, flowLiver.exp=flowLiver.exp, 
-                     GEC.pre=GEC.pre, GEC.exp=GEC.exp,
-                     GECkg.pre=GECkg.pre, GECkg.exp=GECkg.exp) )
+  return (row)
 }
 
-col.names <- c('study', 'sex', 'age', 'bodyweight', 'BSA', 
-                'volLiver.pre', 'volLiver.exp',
-                'flowLiver.pre', 'flowLiver.exp', 
-                'GEC.pre', 'GEC.exp',
-                'GECkg.pre', 'GECkg.exp')
-
-
-##########################
-## mar1988
-##########################
-mar1988 <- loadRawData('mar1988')
-head(mar1988) # age, volLiver, [GEC]
-B = 10
-n = nrow(mar1988)
-
-mar1988.pre <- data.frame(matrix(NA, ncol=13, nrow=nrow(mar1988)*B) )
-names(mar1988.pre) <- col.names
-for (i in 1:B){
-  for (k in 1:n){
-    print( (i-1)*n+k )
-    mar1988.pre[((i-1)*n+k),] <- predict_GEC(study=mar1988$study[k], age=mar1988$age[k], 
-                                           volLiver=mar1988$volLiver[k], GEC.exp=mar1988$GEC[k]) 
+# prepare one common data frame for prediction
+prepare_df <- function(data){
+  fields <- c('study', 'gender', 'age', 'bodyweight', 'BSA', 'volLiver', 'flowLiver', 'GEC', 'GECkg')
+  index <-  c( 1, 2, 3, 4, 5, 7, 9, 11, 13)
+  col.names <- c('study', 'sex', 'age', 'bodyweight', 'BSA', 
+                 'volLiver.pre', 'volLiver.exp',
+                 'flowLiver.pre', 'flowLiver.exp', 
+                 'GEC.pre', 'GEC.exp',
+                 'GECkg.pre', 'GECkg.exp')
+  data.pre <- data.frame(matrix(NA, ncol=13, nrow=nrow(data)) )
+  names(data.pre) <- col.names
+  for (k in 1:length(fields)){
+    field <- fields[k]
+    if (field %in% names(data)){
+     data.pre[ , index[k]] <- data[[field]] 
+    }
   }
+  
+  return(data.pre)
 }
 
-par(mfrow=c(1,2))
-plot(mar1988.pre$GEC.exp, mar1988.pre$GEC.pre, xlim=c(0,4), ylim=c(0,4), pch=21, col='black', bg=rgb(0, 0, 0, 0.5))
-abline(a=0, b=1, col='black')
-plot(mar1988.pre$GEC.exp, mar1988.pre$GEC.pre-mar1988.pre$GEC.exp, xlim=c(0,4), ylim=c(-2,2), pch=21, 
-col='black', bg=rgb(0, 0, 0, 0.5))
-abline(h=0, col='black')
+# plot GEC
+plot_GEC <- function(df, main, xlim=c(0,7)){
+  plot(df$GEC.exp, df$GEC.pre, main=main, xlim=xlim, ylim=xlim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='GEC experiment [mmol/min]', ylab='GEC predicted [mmol/min]', font.lab=2)
+  abline(a=0, b=1, col='black')
+  
+  plot(df$GEC.exp, df$GEC.pre-df$GEC.exp, main=main, xlim=xlim, ylim=c(-3,3), pch=21, 
+     col='black', bg=rgb(0, 0, 0, 0.5),
+     xlab='GEC experiment [mmol/min]', ylab='GEC predicted-experiment [mmol/min]')
+  abline(h=0, col='black')
+}
+plot_GECkg <- function(df, main, xlim=c(0,0.10)){
+  plot(df$GECkg.exp, df$GECkg.pre, main=main, xlim=xlim, ylim=xlim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='GECkg experiment [mmol/min/kg]', ylab='GECkg predicted [mmol/min/kg]', font.lab=2)
+  abline(a=0, b=1, col='black')
+  
+  plot(df$GECkg.exp, df$GECkg.pre-df$GECkg.exp, main=main, xlim=xlim, ylim=c(-0.04,0.04), pch=21, 
+       col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='GECkg experiment [mmol/min/kg]', ylab='GEC predicted-experiment [mmol/min/kg]')
+  abline(h=0, col='black')
+  par(mfrow=c(1,1))
+}
+
+predict_GEC_for_name <- function(name){
+  name.pre <- paste(name, '.pre', sep='')
+  name.p <- paste(name, '.p', sep='')
+  assign(name, loadRawData(name))
+  assign(name.pre, prepare_df( get(name)) )
+  assign(name.p, predict_GEC( get(name.pre)) )
+  par(mfrow=c(2,2))
+  plot_GEC(get(name.p), main=name)
+  plot_GECkg(get(name.p), main=name)
+  par(mfrow=c(1,1))
+  return ( get(name.p) )
+}
+
+############################################
+# GEC [mmol/min] 
+############################################
+## mar1988 (age, volLiver, [GEC])
+mar1988.p1 <- predict_GEC_for_name('mar1988')
+str(mar1988.p1)
+## tyg1962 (age, bodyweight, [GEC, GECkg])
+tyg1962.p1 <- predict_GEC_for_name('tyg1962')
+str(tyg1962.p1)
+## sch1986.tab1 (sex, age, bodyweight, [GEC, GECkg])
+sch1986.tab1.p1 <- predict_GEC_for_name('sch1986.tab1')
+str(sch1986.tab1.p1)
+## win1965 (sex, age, bodyweight, BSA, flowLiver, [GEC, GECkg]
+# win1965.p1 <- predict_GEC_for_name('win1965')
+
+## duc1979 (sex, age, bodyweight BSA, [GEC, GECkg])
+duc1979.p1 <- predict_GEC_for_name('duc1979')
+str(duc1979.p1)
+
+## duf2005 (sex, age, [GEC, GECkg])
+duf2005.p1 <- predict_GEC_for_name('duf2005')
+str(duf2005.p1)
+
+## combine the data frames and show all the predictions
+df.list <- list(mar1988.p1, tyg1962.p1, sch1986.tab1.p1, duc1979.p1, duf2005.p1)
+library('reshape')
+df <- reshape::merge_all(df.list)
+
+par(mfrow=c(2,2))
+plot_GEC(df, main='Combined GEC')
+plot_GECkg(df, main='Combined GECkg')
 par(mfrow=c(1,1))
 
-##########################
-## tyg1962
-##########################
-tyg1962 <- loadRawData('tyg1962')
-head(tyg1962) # age, bodyweight, [GEC]
-n = nrow(tyg1962)
-tyg1962.pre <- data.frame(matrix(NA, ncol=13, nrow=n*B) )
-names(tyg1962.pre) <- col.names
-for (i in 1:B){
-  for (k in 1:n){
-    print( (i-1)*n+k )
-    tyg1962.pre[((i-1)*n+k),] <- predict_GEC(study=tyg1962$study[k], age=tyg1962$age[k], GEC.exp=tyg1962$GEC[k]) 
-  }
+par(mfrow=c(2,2))
+plot_GEC_age(df, main='Combined GEC')
+plot_GECkg_age(df, main='Combined GECkg')
+par(mfrow=c(1,1))
+
+
+plot_GEC_age <- function(df, main, ylim=c(0,7)){
+  plot(df$age, df$GEC.pre, main=main, ylim=ylim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='GEC experiment [mmol/min]', ylab='GEC predicted [mmol/min]', font.lab=2)
+  abline(a=0, b=1, col='black')
+  
+  plot(df$age, df$GEC.pre-df$GEC.exp, main=main, ylim=c(-3,3), pch=21, 
+       col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='age [years]', ylab='GEC predicted-experiment [mmol/min]')
+  abline(h=0, col='black')
 }
-plot(tyg1962.pre$GEC.exp, tyg1962.pre$GEC.pre, xlim=c(0,7), ylim=c(0,7), pch=21, col='black', bg=rgb(0, 0, 0, 0.5), cex=0.8)
-abline(a=0, b=1, col='black')
-
-##########################
-## sch1986.tab1
-##########################
-sch1986.tab1 <- loadRawData('sch1986.tab1')
-head(sch1986.tab1) # sex, age, bodyweight, [GEC]
-n = nrow(sch1986.tab1)
-sch1986.tab1.pre <- data.frame(matrix(NA, ncol=13, nrow=n*B) )
-names(sch1986.tab1.pre) <- col.names
-B=30
-for (i in 1:B){
-  for (k in 1:n){
-    print( (i-1)*n+k )
-    sch1986.tab1.pre[((i-1)*n+k),] <- predict_GEC(study=sch1986.tab1$study[k], sex=sch1986.tab1$gender[k], age=sch1986.tab1$age[k], GEC.exp=sch1986.tab1$GEC[k]) 
-  }
+plot_GECkg_age <- function(df, main, ylim=c(0,0.10)){
+  plot(df$age, df$GECkg.pre, main=main, ylim=ylim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='GECkg experiment [mmol/min/kg]', ylab='GECkg predicted [mmol/min/kg]', font.lab=2)
+  abline(a=0, b=1, col='black')
+  
+  plot(df$age, df$GECkg.pre-df$GECkg.exp, main=main, ylim=c(-0.04,0.04), pch=21, 
+       col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='age [years]', ylab='GEC predicted-experiment [mmol/min/kg]')
+  abline(h=0, col='black')
+  par(mfrow=c(1,1))
 }
-plot(sch1986.tab1.pre$GEC.exp, sch1986.tab1.pre$GEC.pre, xlim=c(0,7), ylim=c(0,7), pch=21, col=rgb(0, 0, 0, 0.4), bg=rgb(0, 0, 0, 0.4), cex=0.8)
-abline(a=0, b=1, col='black')
-
-##########################
-## win1965
-##########################
-win1965 <- loadRawData('win1965')
-head(win1965) # sex, age, bodyweight, BSA, flowLiver [GEC]
-n = nrow(win1965)
-win1965.pre <- data.frame(matrix(NA, ncol=13, nrow=n*B) )
-names(win1965.pre) <- col.names
-B=30
-for (i in 1:B){
-  for (k in 1:n){
-    print( (i-1)*n+k )
-    win1965.pre[((i-1)*n+k),] <- predict_GEC(study=win1965$study[k], sex=win1965$gender[k], age=win1965$age[k], 
-                                             bodyweight=win1965$bodyweight[k], BSA=win1965$BSA[k], flowLiver.exp=win1965$flowLiver[k],
-                                             GEC.exp=sch1986.tab1$GEC[k]) 
-  }
-}
-plot(win1965.pre$GEC.exp, win1965.pre$GEC.pre, xlim=c(0,7), ylim=c(0,7), pch=21, col=rgb(0, 0, 0, 0.4), bg=rgb(0, 0, 0, 0.4), cex=0.8)
-abline(a=0, b=1, col='black')
-
-##########################
-## duc1979
-##########################
-duc1979 <- loadRawData('duc1979')
-head(duc1979) # age, bodyweight, BSA, [GEC]
-n = nrow(duc1979)
-duc1979.pre <- data.frame(matrix(NA, ncol=13, nrow=n*B) )
-names(duc1979.pre) <- col.names
-B=30
-for (i in 1:B){
-  for (k in 1:n){
-    print( (i-1)*n+k )
-    duc1979.pre[((i-1)*n+k),] <- predict_GEC(study=duc1979$study[k], age=duc1979$age[k], 
-                                             bodyweight=duc1979$bodyweight[k], BSA=duc1979$BSA[k],
-                                             GEC.exp=duc1979$GEC[k]) 
-  }
-}
-
-plot(duc1979.pre$GEC.exp, duc1979.pre$GEC.pre, xlim=c(0,7), ylim=c(0,7), pch=21, col=rgb(0, 0, 0, 0.4), bg=rgb(0, 0, 0, 0.4), cex=0.8)
-abline(a=0, b=1, col='black')
-
-
-
-# [1] create empty prediction table
-# prediction table
-# study, age, gender, bodyweight, BSA, 
-# volLiver, volLiver.predicted, flowLiver, flowLiver.predicted
-# GEC, GEC.predicted, GECkg, GECkg.predicted
-
-# [2] perform the predictions
-# TODO implement
 
 
 
 ############################################
-# GECkg [mmol/min/kgbw] vs. age [years]
+# GECkg [mmol/min/kgbw]
 ############################################
-lan2011 <- loadRawData('lan2011')
-head(lan2011) # age, [GECkg]
+# problem that bodyweight is missing -> prediction via volLiverkg & flowLiverkg
 
-duc1979 <- loadRawData('duc1979')
-head(duc1979) # age, bodyweight, BSA, [GECkg]
+loadRawData('lan2011') # age, GECkg 
+lan2011.p1 <- predict_GEC_for_name('lan2011')
 
-tyg1962 <- loadRawData('tyg1962')
-head(tyg1962) # age, bodyweight, [GECkg]
-
-sch1986.fig1 <- loadRawData('sch1986.fig1')
-head(sch1986.fig1) # age, [GECkg]
-
-sch1986.tab1 <- loadRawData('sch1986.tab1')
-head(sch1986.tab1) # sex, age, bodyweight [GECkg]
-
-duf2005 <- loadRawData('duf2005')
-head(duf2005) # sex, age, [GECkg]
-
-
+## sch1968.fig1 (age, [GECkg])
+loadRawData('sch1986.fig1')
+sch1968.fig1.p1 <- predict_GEC_for_name('sch1986.fig1')
 
