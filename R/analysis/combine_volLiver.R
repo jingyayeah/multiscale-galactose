@@ -447,6 +447,7 @@ rs2 <- f_d.rejection_sample(f_d2, 1000, interval=c(1,3000))
 plot(f_d2, from=0, to=3000, col="blue", ylab="")
 hist(rs2$values, freq=FALSE, add=TRUE)
 
+#########################################################################################################
 
 
 ##############################################################################
@@ -465,11 +466,9 @@ head(nhanes)
 # predict liver volume and blood flow
 interval.volLiver <- c(1, 4000)
 interval.flowLiver <- c(1, 4000)
-  
 volLiver <- rep(NA, nrow(nhanes))
 flowLiver <- rep(NA, nrow(nhanes))
 for (k in seq(1,nrow(nhanes))){
-# for (k in seq(1,10)){
   cat(k, '\n')
   sex <- nhanes$sex[k]
   age <- nhanes$age[k]
@@ -509,7 +508,6 @@ plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
 points(nhanes$volLiver[nhanes$sex=='female'], flowLiver[nhanes$sex=='female'], xlim=c(0,3000), ylim=c(0,2500), col='red', cex=0.2)
 points(nhanes$volLiver[nhanes$sex=='male'], flowLiver[nhanes$sex=='male'], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
 
-
 plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
              main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
              pcol='blue')
@@ -525,8 +523,8 @@ points(nhanes$age[nhanes$sex=='male'], nhanes$flowLiver[nhanes$sex=='male'], xli
 ##############################################################################
 # Calculate GEC & GECkg
 ##############################################################################
-# TODO: missing calculation of GEC based on the local distribution 
 load(file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap.Rdata'))
+
 # make the GEC fit function
 d.mean <- GEC_curves$d2
 d.se <- GEC_curves$d2.se
@@ -558,8 +556,8 @@ calculate_GEC <- function(volLiver, flowLiver){
   return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GEC=GEC))
 }
 
+## Calculate GEC and GECkg for nhanes ##
 GEC <- calculate_GEC(nhanes$volLiver, nhanes$flowLiver)
-
 I.male <- (nhanes$sex=='male')
 I.female <- (nhanes$sex=='female')
 par(mfrow=c(2,2))
@@ -570,11 +568,9 @@ plot(nhanes$age[I.female], GEC$GEC[I.female]/nhanes$bodyweight[I.female], col='r
 par(mfrow=c(1,1))
 
 
-
 ############################################
 # GEC [mmol/min] prediction from data
 ############################################
-rm(list=ls())
 loadRawData <- function(name, dir=NULL){
   if (is.null(dir)){
     dir <- file.path(ma.settings$dir.expdata, "processed")
@@ -586,21 +582,78 @@ loadRawData <- function(name, dir=NULL){
   return(data)
 }
 
+f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+
+# General GEC & GECkg 
+predict_GEC <- function(sex=NULL, age=NULL, bodyweight=NULL, BSA=NULL, volLiver.exp=NULL,
+                        flowLiver.exp=NULL, GEC.exp=NULL, GECkg.exp=NULL){
+  if (is.null(sex)){
+   sex = 'all' 
+  }
+  
+  # predict the liver volume
+  if (is.null(volLiver.exp)){
+    cat('* Predict Liver Volume *\n')
+    # get the combined distribution for the liver volumes
+    f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+    # rejection sampling
+    rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1,4000))
+    volLiver.pre <- rs1$values[1]  
+  } else {
+    volLiver.pre <- volLiver.exp 
+  }
+  print(volLiver.pre)
+  
+  # predict the liver blood
+  if (is.null(flowLiver.exp)){
+    cat('* Predict Liver Flow *\n')
+    # get the combined distribution for liver blood flow
+    f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver.pre)
+    # rejection sampling
+    rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1,4000))
+    flowLiver.pre <- rs2$values[1]  
+  } else {
+    flowLiver.pre <- flowLiver.exp 
+  }
+
+  # predict GEC
+  cat('* Predict GEC *\n')
+  GEC.pre <- calculate_GEC(volLiver=volLiver.pre, flowLiver=flowLiver.pre)
+  
+  # predict GECkg
+  GECkg.pre <- NA
+  if (!is.null(bodyweight)){
+    GECkg.pre <- GECkg/bodyweight
+  }
+  return (data.frame(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA, 
+                     volLiver.pre=volLiver.pre, volLiver.exp=volLiver.exp,
+                     flowLiver.pre=flowLiver.pre, flowLiver.exp=flowLiver.exp, 
+                     GEC.pre=GEC.pre, GEC.exp=GEC.exp,
+                     GECkg.pre=GECkg.pre, GECkg.exp=GECkg.exp) )
+}
+
+
 # load data for prediction
 mar1988 <- loadRawData('mar1988')
 head(mar1988) # age, volLiver, [GEC]
 
+for (k in 1:nrow(mar1988)){
+  print(k)
+  tmp <- predict_GEC(age=mar1988$age[k], volLiver=mar1988$volLiver[k], GEC.exp=mar1988$GEC[k]) 
+  print(tmp)
+}
+
+
 tyg1962 <- loadRawData('tyg1962')
 head(tyg1962) # age, bodyweight, [GEC]
-
 sch1986.tab1 <- loadRawData('sch1986.tab1')
 head(sch1986.tab1) # sex, age, bodyweight, [GEC]
-
 win1965 <- loadRawData('win1965')
 head(win1965) # sex, age, bodyweight, flowLiver, BSA, [GEC]
-
 duc1979 <- loadRawData('duc1979')
 head(duc1979) # age, bodyweight, BSA, [GEC]
+
+
 
 # [1] create empty prediction table
 # prediction table
@@ -610,7 +663,7 @@ head(duc1979) # age, bodyweight, BSA, [GEC]
 
 # [2] perform the predictions
 # TODO implement
-predict_GEC <- function(s
+
 
 
 ############################################
