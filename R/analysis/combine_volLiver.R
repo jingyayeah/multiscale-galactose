@@ -535,8 +535,14 @@ nhanes$flowLiver <- flowLiver
 head(nhanes)
 # save('nhanes', file='nhanes_liverData.Rdata')
 
+load(file='nhanes_liverData.Rdata')
+head(nhanes)
 ## Calculate GEC and GECkg for nhanes ##
 GEC <- calculate_GEC(nhanes$volLiver, nhanes$flowLiver)
+nhanes$GEC <- GEC$GEC
+head(nhanes)
+nhanes$GECkg <- nhanes$GEC/nhanes$bodyweight
+save('nhanes', file='nhanes_liverData_GEC.Rdata')
 
 ##  plots NHANES
 I.male <- (nhanes$sex=='male')
