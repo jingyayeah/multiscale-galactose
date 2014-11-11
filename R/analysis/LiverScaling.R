@@ -33,6 +33,8 @@
 #
 # TODO: evaluate result convergence with sample size 
 #
+# Here the ECDF is used for calculation of results.
+
 #  @author: Matthias Koenig
 #  @date: 2014-05-01
 
@@ -181,22 +183,14 @@ if (create_plot_files == TRUE){
 }
 
 ###########################################################################
-# Arbitrary parameter ECDFs
-###########################################################################
-# TODO
-
-###########################################################################
 # Calculate weighted derived values
 ###########################################################################
 # Calculate weighted values based on the probabilities for sample
 # Weighted mean, variance and standard deviation calculations
 name='flow_sin'
 wmean <- wt.mean(pars[[name]], pars$p_sample)
-wmean
 wvar <- wt.var(pars[[name]], pars$p_sample)
-wvar
 wsd <- wt.sd(pars[[name]], pars$p_sample)
-wsd
 plotWeighted(pars, p.gen, name)
 
 # Generate plots
@@ -212,4 +206,3 @@ for (name in ps$var){
   plotWeighted(pars, p.gen, name)
   dev.off()
 }
-

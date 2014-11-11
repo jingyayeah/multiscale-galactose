@@ -1,3 +1,14 @@
+################################################################
+# Preprocess File Functions
+################################################################
+# These are preprocess file functions.
+# 
+# TODO: what is still used here and what is completely obolete ???
+#
+# author: Matthias Koenig
+# date: 2014-11-11
+################################################################
+
 #' Get integration timecourse file for simulation id.
 #' 
 #' TODO: this is not working any more with the multiple simulations

@@ -18,23 +18,3 @@ applications
 
 ## Acknowledgements
 This work is funded by Virtual Liver Network (VLN)
-
-## Work in progress
-### Galactose simulations
-  * Simulate clearance data
-  * 1 Model -> simulate galactose multiple indicator dilution curves
-  * Scale model to liver
-  * Clearance depending on age
-  * Cirrhosis predictions
-  * Galactosemias
-
-### Info to cooperation partners
-  * send Marchesini & Vilstrup simulation results
-
-### Prepare poster
-  * Buch preparation
-
-### Visualization in network context (CyFluxViz)
-  * finish demo network and visualize
-  * handeling of cofactor nodes (node splitting)
-  * create video of simulation (VS for CSV data)
