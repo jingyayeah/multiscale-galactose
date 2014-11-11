@@ -1,56 +1,56 @@
 ################################################################
-## Galactose Clearance & Elimination Curves ##
+## Galactose Clearance & Elimination Curves
 ################################################################
-# Analysis of the galactose elimination simulations with varying
-# galactose and varying blood flow.
-# Calculation of the mean values for the set of simulations
-# provided.
-# This analysis only the simulations for the normal case. The
-# analysis for the GEC simulations is performed analoque.
+# Analysis of galactose elimination simulations for sets of 
+# sinusoidal units.
+# Simulation can vary among others in galactose challange, blood
+# flow or metabolic network/capacity (for instance galactosemias).
+# 
+# Samples are integrated, i.e. the mean response and variations
+# are calculated for a given set of sinusoidal units.
+#
+# This script is used to calculate the GEC response curves for 
+# given samples of sinusoidal units. These GEC response curves
+# are used for scaling of the tissue model to complete liver.
 #
 # Clearance is tested via a galactose challenge periportal. 
 # For the calculation of the GEC capacity the metabolic capacity
-# has to be saturated (i.e in the high galactose range).
+# is saturated (i.e in the high galactose range).
+#
+# TODO: perform postprocessing directly after the simulation
 #
 # author: Matthias Koenig
-# date: 2014-08-25
+# date: 2014-11-11
 ################################################################
-# install.packages('matrixStats')
 
 rm(list=ls())
-library(data.table)
-library(MultiscaleAnalysis)
-library(libSBML)
-library(matrixStats)
 setwd(ma.settings$dir.results)
 
-# Galactose challenge consists of peak ,
-# and subsequent time for reaching steady state ()
+library(MultiscaleAnalysis)
+library(libSBML)
+library(data.table); library(matrixStats);
+
+# Galactose challenge at peak time, simulation covers at least t_end
 t_peak <- 2000 # [s]
 t_end <- 10000 # [s]
 
 # Dataset for analyis
-#folder <- '2014-08-13_T26'  # normal
-#folder <- '2014-08-29_T50'   # normal
-# folder <- '2014-11-08_T52'   # normal
-folder <- '2014-11-08_T53'   # normal
-
-#pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-27_T50/T50.txt')
-#pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-08-29_T50/T50_Galactose_v24_Nc20_galchallenge_parameters.csv')
-# pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T52/T52_Galactose_v24_Nc20_galchallenge_parameters.csv')
+folder <- '2014-11-08_T53' # normal galactose challenge
 pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T53/T53_Galactose_v24_Nc20_galchallenge_parameters.csv')
+
+# Some visual analysis of the parameters
 head(pars)
-hist(pars$flow_sin)
-
-source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
-       echo=TRUE, local=FALSE)
-
-# boxplot to show the distribution of flows
+plotParameterHistogramFull(pars=pars)
 library('ggplot2')
+# distribution of flows 
 ggplot(pars, aes(factor(f_flow), flow_sin)) + geom_boxplot() + geom_point()
-ggplot(pars, aes(factor(gal_challenge), flow_sin)) + geom_boxplot() + geom_point()
 mean(pars$flow_sin[pars$f_flow==0.5])
 summary(pars$flow_sin[pars$f_flow==0.5])
+
+# Preprocess the dataset 
+# Here the important subcomponents are loaded from the integration csv files
+source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
+       echo=TRUE, local=FALSE)
 
 
 # Extend the parameters with the SBML parameters and calculated parameters
@@ -71,8 +71,6 @@ summary(parscl)
 # max(parscl$c_in)
 # parscl.max <- parscl[parscl$c_in == max(parscl$c_in), ]
 # head(parscl.max)
-
-
 
 plot(parscl$f_flow, parscl$flow_sin)
 plot(parscl$flow_sin, parscl$R)

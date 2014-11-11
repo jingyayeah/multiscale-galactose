@@ -1,20 +1,22 @@
-###########################################################################################
+################################################################
 # Function set handling parameter files
-###########################################################################################
-# Parameter files are created directly from the database for the tasks. 
+################################################################
+# Parameter files are created via the database for the tasks. 
 # They contain additional columns providing information about the 
-# simulations, i.e. certain keyword columns are not parameters.
+# simulations like the simulation status or the time necessary
+# for integration of the sinusoidal unit.
+# Consequently, certain columns are not parameters.
+#
+# author: Matthias Koenig
+# date: 2014-11-11
+################################################################
 
-# Trick:
-# a good way is to pack output in a list
-#list(coefficients=coef, vcov=vcov, ...)
 
-
-#' Reserved keywords which are not parameters
+#' Reserved keywords which are not parameters.
 #' @export
 pars.keywords <- c('status', 'duration', 'core', 'sim')
 
-#'  Read theparameter file into a data.frame.
+#'  Read parameter file into data.frame.
 #'  
 #'  This function reads the parameter file in CSV format into a data.frame.
 #'  @param file parameter csv file for loading
@@ -61,6 +63,7 @@ plotParameterHistogramFull <- function(pars, all_pars=FALSE){
 } 
 
 #' Plot parameter histogram
+#' 
 #' @param pars Parameter data frame
 #' @param name of parameter
 #' @return hist information
@@ -69,21 +72,3 @@ plotParameterHistogram <- function(pars, name, breaks=40){
   x <- pars[,name] 
   h <- hist(x, breaks=breaks, xlab=name, main=paste("Histogram", name))
 }
-
-
-###########################################################################################
-# Usage
-###########################################################################################
-test <- FALSE
-if (test == TRUE){
- print('TESTING ParameterFile')
- folder.results <- 
- folder.simdata <- paste(folder.results, '/', '2014-04-13_Dilution_Curves', sep="")
- task <- 'T3'
- modelId <- 'Dilution_Test'
- pars <- loadParsFile(folder.simdata, task, modelId)
- pars.histfile <-paste(folder.results, '/', task, "_parameter_histograms.png", sep="") 
- plotFullParameterHist(pars, pars.histfile)
- 
-}
-rm(test)
