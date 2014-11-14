@@ -11,6 +11,7 @@
 # date: 2014-11-14
 ################################################################################
 rm(list=ls())
+# install.packages('gamlss')
 library('MultiscaleAnalysis')
 library('gamlss')
 setwd('/home/mkoenig/multiscale-galactose/')

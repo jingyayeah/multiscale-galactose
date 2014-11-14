@@ -7,6 +7,23 @@
 # date: 2014-11-11
 ################################################################
 
+#' Start the plot generation
+#' @export
+startDevPlot <- function(width=1000, height=1000, file=NULL, create_plots=F, res=150){
+  print(file)
+  if (!is.null(file) & create_plots==TRUE) { 
+    png(filename=file, width=width, height=height, 
+        units = "px", bg = "white",  res = res)
+  } else { print('No plot files created') }
+}
+
+#' Stop the plot generation
+#' @export
+stopDevPlot <- function(create_plots=F){
+  if (create_plots == T) { dev.off() }
+}
+
+
 #' Multiple plot function
 #'
 #' ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
