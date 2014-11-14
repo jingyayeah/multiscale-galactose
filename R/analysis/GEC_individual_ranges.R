@@ -1,3 +1,11 @@
+################################################################################
+# Individual GEC prediction ranges
+################################################################################
+# Example curves to show the idea of individualized predictions.
+#
+# author: Matthias Koenig
+# date: 24-10-2014
+################################################################################
 png(filename='home/mkoenig/muliscale-galactose/presentations/normal_ranges.png', width=1500, height=800, 
     units = "px", bg = "white",  res = 150)
 N=100

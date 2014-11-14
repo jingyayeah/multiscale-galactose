@@ -1,5 +1,5 @@
 ################################################################
-## Analysis of Sampling Distributon & Scaling to whole-liver
+## Analysis of Sampling Distributon 
 ################################################################
 #
 # Whole liver function is calculated based on a sample of 

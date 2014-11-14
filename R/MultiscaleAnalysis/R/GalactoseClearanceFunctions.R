@@ -1,3 +1,11 @@
+################################################################
+## Galactose Clearance Functions
+################################################################
+# Functions for calculating the clearance from the timecourses.
+#
+# author: Matthias Koenig
+# date: 2014-11-11
+################################################################
 
 #' Calculate the clearance parameters and data.frame.
 #' Necessary to provide the peak and simulation end time for calculation.
@@ -5,7 +13,7 @@
 #' @param folder preprocessed folder for analysis
 #' @return data.frame with clearance parameters
 #' @export
-createClearanceDataFrame <- function(t_peak=2000, t_end=10000){
+createGalactoseClearanceDataFrame <- function(t_peak=2000, t_end=10000){
   # steady state values for the ids
   mlist <- createApproximationMatrix(ids=ids, simIds=simIds, points=c(t_end), reverse=FALSE)
   
@@ -34,10 +42,8 @@ createClearanceDataFrame <- function(t_peak=2000, t_end=10000){
   c_in <- as.vector(mlist$PP__gal)   # [mmol/L]
   c_out <- as.vector(mlist$PV__gal)  # [mmol/L]
 
-  
-  parscl <- pars
-  
-  parscl$t_half <- as.vector(t_half)
+  parscl <- pars  
+  parscl$t_half <- as.vector(t_half) # [s]
   parscl$c_in <- c_in
   parscl$c_out <- c_out
   
@@ -46,7 +52,5 @@ createClearanceDataFrame <- function(t_peak=2000, t_end=10000){
   parscl$CL <- parscl$Q_sinunit * (c_in - c_out)/c_in
   parscl$DG <- (c_in - c_out)
   
-  # reduce to the values with > 0 PP__gal (NAN)
-  # parscl <- parscl[parscl$c_in>0.0, ]
   return(parscl)
 }

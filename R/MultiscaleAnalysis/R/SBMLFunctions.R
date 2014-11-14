@@ -1,3 +1,16 @@
+################################################################
+## SBML Functions
+################################################################
+# Functions to read additional information from the SBML file.
+# All necessary parameters for calculation should be available 
+# in the underlying SBML model of the sinusoidal unit.
+# Here functions for the information retrieval from the SBML.
+#
+# author: Matthias Koenig
+# date: 2014-11-14
+################################################################
+
+
 #' Parameters which are fixed in the model
 #' @param pars parameter structure
 #' @param all_ps parameters in model
@@ -40,8 +53,8 @@ getAllSBMLParameterIdsFromModel <- function (model) {
   model_pids
 }
 
-
-#' Create extended data frame with the calculated values
+#' Create extended data frame with the calculated values based
+#' on the information from the SBML.
 #'@param pars parameter structure
 #'@export
 extendParameterStructure <- function(pars, fixed_ps, model){
