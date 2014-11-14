@@ -461,7 +461,9 @@ hist(rs2$values, freq=FALSE, add=TRUE)
 ##############################################################################
 # GEC curves
 ##############################################################################
-load(file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap.Rdata'))
+res <- load(file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap_new.Rdata'))
+cat(res)
+str(GEC_curves)
 
 # make the GEC fit function
 d.mean <- GEC_curves$d2
@@ -484,23 +486,25 @@ GEC_functions <- function(d.mean, d.se){
 GEC_f <- GEC_functions(d.mean, d.se)
 GEC_f
 
-calculate_GEC <- function(volLiver, flowLiver){
+calculate_GEC <- function(volLiver, flowLiver, f_tissue=0.8){  
   # perfusion
   perfusion <- flowLiver/volLiver # [ml/min/ml]
   # GEC per volume based on perfusion
   GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
-  # GEC based on volume
-  GEC <- GEC_per_vol * volLiver # mmol/min
-  return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GEC=GEC))
+  # GEC for complete liver
+  # GEC curves are for liver tissue. No correction for the large vessel structure
+  # has been applied. Here the metabolic capacity of combined sinusoidal units.
+  GEC <- GEC_per_vol * f_tissue * volLiver # mmol/min
+  return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GEC=GEC, f_tissue=f_tissue))
 }
 
 ##############################################################################
 # Predict NHANES
 ##############################################################################
-do_nhanes == FALSE
+setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
+do_nhanes = FALSE
 if (do_nhanes == TRUE){
 
-setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
 load(file='data/nhanes_data.dat')
 nhanes.all <- data
 rm(data)
@@ -538,6 +542,7 @@ nhanes$volLiver <- volLiver
 nhanes$flowLiver <- flowLiver
 head(nhanes)
 # save('nhanes', file='nhanes_liverData.Rdata')
+}
 
 load(file='nhanes_liverData.Rdata')
 head(nhanes)
@@ -548,7 +553,7 @@ head(nhanes)
 nhanes$GECkg <- nhanes$GEC/nhanes$bodyweight
 save('nhanes', file='nhanes_liverData_GEC.Rdata')
 
-##  plots NHANES
+##  Some control plots
 I.male <- (nhanes$sex=='male')
 I.female <- (nhanes$sex=='female')
 
@@ -559,21 +564,18 @@ plot(nhanes$age[I.male], GEC$GEC[I.male]/nhanes$bodyweight[I.male], col='blue', 
 plot(nhanes$age[I.female], GEC$GEC[I.female]/nhanes$bodyweight[I.female], col='red', cex=0.3, ylim=c(0,0.1))  
 par(mfrow=c(1,1))
 
-# TODO: generate the control plots for nhanes prediction
-# Check if the predicted distributions are in line with the measured 
-# simple correlations
 m <- models.flowLiver_volLiver$fit.all
 df.all <- models.flowLiver_volLiver$df.all
 plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
              main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
              pcol='blue')
-points(nhanes$volLiver[nhanes$sex=='female'], flowLiver[nhanes$sex=='female'], xlim=c(0,3000), ylim=c(0,2500), col='red', cex=0.2)
-points(nhanes$volLiver[nhanes$sex=='male'], flowLiver[nhanes$sex=='male'], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
+points(nhanes$volLiver[nhanes$sex=='female'], nhanes$flowLiver[nhanes$sex=='female'], xlim=c(0,3000), ylim=c(0,2500), col='red', cex=0.2)
+points(nhanes$volLiver[nhanes$sex=='male'], nhanes$flowLiver[nhanes$sex=='male'], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
 
 plotCentiles(model=m, d=df.all, xname='volLiver', yname='flowLiver',
              main='Test', xlab='liver volume', ylab='liver bloodflow', xlim=c(0,3000), ylim=c(0,3000), 
              pcol='blue')
-points(nhanes$volLiver[nhanes$age>18], flowLiver[nhanes$age>18], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
+points(nhanes$volLiver[nhanes$age>18], nhanes$flowLiver[nhanes$age>18], xlim=c(0,3000), ylim=c(0,2500), col='black', cex=0.2)
 
 
 plot(nhanes$age[nhanes$sex=='female'], nhanes$volLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
@@ -581,11 +583,12 @@ points(nhanes$age[nhanes$sex=='male'], nhanes$volLiver[nhanes$sex=='male'], xlim
 
 plot(nhanes$age[nhanes$sex=='female'], nhanes$flowLiver[nhanes$sex=='female'], xlim=c(0,100), ylim=c(0,2500), col='red', cex=0.2)
 points(nhanes$age[nhanes$sex=='male'], nhanes$flowLiver[nhanes$sex=='male'], xlim=c(0,100), ylim=c(0,2500), col='blue', cex=0.2)
-
 }
-############################################
-# GEC [mmol/min] & GECkg [mmol/min/kg]
-############################################
+
+
+########################################################################################
+# Predict additional GEC data [mmol/min] & GECkg [mmol/min/kg]
+########################################################################################
 loadRawData <- function(name, dir=NULL){
   if (is.null(dir)){
     dir <- file.path(ma.settings$dir.expdata, "processed")
@@ -783,6 +786,12 @@ lan2011.p1 <- predict_GEC_for_name('lan2011')
 ## sch1968.fig1 (age, [GECkg])
 loadRawData('sch1986.fig1')
 sch1968.fig1.p1 <- predict_GEC_for_name('sch1986.fig1')
+
+
+
+
+
+
 
 
 ###########################################################################
