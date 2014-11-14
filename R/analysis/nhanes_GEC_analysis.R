@@ -10,13 +10,13 @@ head(nhanes)
 
 ################################################################################
 # dataset <- 'GEC_age'
-# dataset <- 'GECkg_age'
+dataset <- 'GECkg_age'
 
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
 # dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiver_height'
-dataset <- 'volLiver_BSA'
+#dataset <- 'volLiver_BSA'
 
 # dataset <- 'flowLiver_volLiver'
 # dataset <- 'flowLiverkg_volLiver'
@@ -92,8 +92,8 @@ rm(data)
 # Plot basic data overview
 #######################################################
 create_plots = T
-sprintf("/home/mkoenig/Desktop/data/nhanes_%s_%s.png", xname, yname)
-startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/nhanes_%s_%s.png", yname, xname))
+# sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", xname, yname)
+startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", yname, xname))
 par(mfrow=c(1,3))
 for (k in 1:3){
   if (k==1){ 
@@ -117,7 +117,7 @@ for (k in 1:3){
   inds.in <- which(d$dtype == 'individual')
   points(nhanes.d[[xname]], nhanes.d[[yname]], col="black", bg="black", pch=21, cex=0.25)
   #points(d[inds.in, xname], d[inds.in, yname], col='blue', bg='blue', pch=21)
-  points(d[inds.in, xname], d[inds.in, yname], col=rgb(0,0,1, 0.5), bg=rgb(0,0,1, 0.5), pch=21)
+  points(d[inds.in, xname], d[inds.in, yname], col=rgb(0,0,1, 1), bg=rgb(0,0,1, 1), pch=21)
   
   legend('bottomright', legend=c('NHANES prediction', 'experimental data'), col=c('black', 'blue'), pch=c(21,21)) 
          
