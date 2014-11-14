@@ -1,21 +1,17 @@
 ################################################################
 ## Galactose Clearance & Elimination Curves
 ################################################################
-# Analysis of galactose elimination simulations for sets of 
-# sinusoidal units.
-# Simulation can vary among others in galactose challange, blood
-# flow or metabolic network/capacity (for instance galactosemias).
+# Creates GEC response curves, i.e. GEC per tissue for given 
+# perfusion.
+# GEC is calculated based on periportal galactose challenge. 
+# The GEC response curves are used to scale the simulations
+# to larger liver regions and the complete liver.
 # 
+# Combines galactose elimination simulations for multiple 
+# sinusoidal units.Simulation can vary among others in galactose 
+# challenge, blood flow or metabolic parameters.
 # Samples are integrated, i.e. the mean response and variations
 # are calculated for a given set of sinusoidal units.
-#
-# This script is used to calculate the GEC response curves for 
-# given samples of sinusoidal units. These GEC response curves
-# are used for scaling of the tissue model to complete liver.
-#
-# Clearance is tested via a galactose challenge periportal. 
-# For the calculation of the GEC capacity the metabolic capacity
-# is saturated (i.e in the high galactose range).
 #
 # TODO: perform postprocessing directly after the simulation
 #
