@@ -5,13 +5,49 @@
     @date: 2014-06-14
     
 '''
+import os
+import tarfile
+
 from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.files import File
-
 from sim.storage import OverwriteStorage
+
+
+###################################################################################
+
+# Provide R preprocess function
+from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
+  
+string = r"""
+    trim <- function (x){
+      gsub("^\\s+|\\s+$", "", x)
+    } 
+    readData <- function(fname){
+      library('data.table')
+      # read data
+      data <- fread(fname, header=T, sep=',')
+  
+      # replace 'X..' if header given via '# '
+      names(data) <- gsub('X..', '', names(data))
+      names(data) <- gsub('#', '', names(data))
+      names(data) <- gsub('\\[', '', names(data))
+      names(data) <- gsub('\\]', '', names(data))
+  
+      # necessary to trim
+      setnames(data, trim(colnames(data)))
+  
+      # fix strange behavior via cast
+      data <- as.data.frame(data)
+      # save the data 
+  
+      save(data, file=paste(fname, '.Rdata', sep=''))
+    }
+"""
+rpack = SignatureTranslatedAnonymousPackage(string, "rpack")
+
 
 ###################################################################################
 # General definitions of datatypes and settings
@@ -420,6 +456,16 @@ class Timecourse(models.Model):
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
     
+    def zip(self):
+        ''' tar.gz the file '''    
+        f = self.file.path
+        f_tar = f[:-3] + 'tar.gz'
+        tar = tarfile.open(f_tar, "w:gz")
+        tar.add(f, arcname=os.path.basename(f))
+        tar.close()
+    
+    def rdata(self):
+        rpack.readData(self.file.path)
 
 
 class Plot(models.Model):

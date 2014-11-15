@@ -315,7 +315,7 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution peaks after certain time.
         The peaks are combined with additional galactose background 
@@ -324,7 +324,7 @@ if __name__ == "__main__":
         '''
         sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
         [task, raw_samples] = make_galactose_dilution(sbml_id, 
-                                                      N=1000, sync=True, priority=10)
+                                                      N=50, sync=True, priority=10)
         
         # additional galactose challenge
         PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
@@ -362,8 +362,9 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies=deficiencies)
         
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
+        GEC curve calculation.
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)

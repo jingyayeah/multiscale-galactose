@@ -5,6 +5,7 @@ Here the actual ode integration is performed for the given simulations.
 @date: 2014-07-11
 '''
 import sys
+import os
 import time
 import traceback
 from subprocess import call
@@ -37,8 +38,16 @@ def storeTimecourseResults(sim, tc_file):
     myfile = File(f)
     tc, _ = Timecourse.objects.get_or_create(simulation=sim)
     tc.file = myfile
-    tc.save();
-    
+    tc.save()
+    # zip the file
+    tc.zip()
+    # convert to Rdata
+    tc.rdata()
+    # remove the original simulation file now
+    myfile.close()
+    f.close()
+    os.remove(tc_file)
+     
     # simulation finished (update simulation status)
     sim.time_sim = timezone.now()
     sim.status = DONE
@@ -110,6 +119,7 @@ def integrate_roadrunner(sims):
         try:
             # set all parameters in the model and store the changes for revert
             # tstart = time.clock()
+            tstart_total = time.clock()
             sim.time_assign = timezone.now() # correction due to bulk assignment
             changes = dict()
             for p in sim.parameters.all():
@@ -154,7 +164,7 @@ def integrate_roadrunner(sims):
                 rr.model[key] = value
                     
             storeTimecourseResults(sim, tc_file)
-            # print 'Full Time:', (time.clock()-tstart)
+            print 'Total Time:', (time.clock()-tstart_total)
             
         except:
             integration_exception(sim)
@@ -179,6 +189,6 @@ def integration_exception(sim):
 if __name__ == "__main__":
     from sim.models import Simulation
     
-    sims = [Simulation.objects.filter(task__pk=1)[0], ]
+    sims = [Simulation.objects.filter(task__pk=54)[0], ]
     integrate(sims, integrator=ROADRUNNER)
     # integrate(sims, simulator=COPASI)
