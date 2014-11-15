@@ -76,6 +76,7 @@ pars.extend([
             ('Vol_liv',     1.5E-3,   'm3',     True),
             ('rho_liv',     1.1E3,    'kg_per_m3', True), 
             ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
+            ('f_tissue',     0.8, '-', True),
 ])
 names['L'] = 'sinusoidal length'
 names['y_sin'] = 'sinusoidal radius'
@@ -86,6 +87,7 @@ names['f_fen'] = 'fenestraetion fraction'
 names['Vol_liv'] = 'liver reference volume'
 names['rho_liv'] = 'liver density'
 names['Q_liv'] = 'liver reference blood flow'
+names['f_tissue'] = 'parenchymal fraction of liver'
 names['Nc'] = 'hepatocytes in sinusoid'
 names['Nf'] = 'sinusoid volumes per cell'
         

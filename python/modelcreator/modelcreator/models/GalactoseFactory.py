@@ -16,14 +16,15 @@ from modelcreator.events.event_factory import createGalactoseStepEventData
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 1
-    version = 24
+    Nc = 20
+    version = 25
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 
 
     #---------------------------------------------------------------------------------
     # [1] core model
+    # Model without events. Basic model.
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='core', events=None)
     tm.createModel()
@@ -33,9 +34,10 @@ if __name__ == "__main__":
 
     #---------------------------------------------------------------------------------
     # [2] multiple dilution indicator
-    # ___|---|__ (in all periportal species)
-    # The multiple dilution indicator peak comes when the system is 
-    # in steady state after the applied initial condition changes:
+    #    _
+    # __| |__ (short rectangular peak in all periportal species)
+    # The multiple dilution indicator peak is applied after the system has
+    # reached steady state (<1000s) from initial non galactose conditions.
     events = createDilutionEventData(time_start=1000.0, duration=0.5)
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='dilution', events=events)
@@ -45,9 +47,12 @@ if __name__ == "__main__":
     del tm, events
     
     #---------------------------------------------------------------------------------
-    # [3] galactose challenge (with various galactose pp__gal)
-    #     after the system is in steady state.
-    # __|------
+    # [3] galactose challenge 
+    # Continous galactose challenge periportal applied (galactose pp__gal) after
+    # system has reached steady state. Simulation continued until new steady state
+    # under challenge conditions is reached.
+    #    ________
+    # __|
     events = createGalactoseChallengeEventData(tc_start=2000.0)
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='galchallenge', events=events)
@@ -57,8 +62,13 @@ if __name__ == "__main__":
     del tm, events
     
     #---------------------------------------------------------------------------------
-    # [4] galactose step (with various galactose)
-    # __|------
+    # [4] galactose step 
+    # Step-wise increase in the galactose concentration until new steady state 
+    # concentrations are reached in the system.
+    #        _
+    #      _| |
+    #    _|   |
+    # __|     |___
     events = createGalactoseStepEventData()
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='galstep', events=events)

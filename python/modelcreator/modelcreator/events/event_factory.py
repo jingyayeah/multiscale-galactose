@@ -32,12 +32,12 @@ def createPeakEventData(species, base, peak, time_start, duration):
 
     return [ed1, ed2, ed3]
 
-def createGalactoseChallengeEventData(tc_start, base_var='0.0', peak_var='gal_challenge'):
+def createGalactoseChallengeEventData(tc_start, base_value=0.0, peak_variable='gal_challenge'):
     ed1 = EventData("ECHA_0", "pre challenge [PP]",
-                   createTriggerFromTime(0.0), {'PP__gal': base_var})
+                   createTriggerFromTime(0.0), {'PP__gal': '{} mM'.format(base_value)})
     
     ed2 = EventData("ECHA_1", "galactose challenge",
-                   createTriggerFromTime(tc_start), {'PP__gal': peak_var})
+                   createTriggerFromTime(tc_start), {'PP__gal': peak_variable})
     return [ed1, ed2]
 
 def createGalactoseStepEventData():
@@ -61,15 +61,18 @@ def createAssignmentsDict(species, values):
 
 #####################################################################
 if __name__ == '__main__':
-    elist = createDilutionEventData()
+    elist = createDilutionEventData(time_start=100.0, duration=5)
+    print '\n* Dilution *'
     for edata in elist:
         edata.info()
     
-    elist = createDilutionEventData(tp_start=100.0, duration=10.0)
+    elist = createGalactoseChallengeEventData(tc_start=10, base_value=0.0)
+    print '\n* Galactose Challenge *'
     for edata in elist:
         edata.info()
     
     elist = createGalactoseStepEventData()
+    print '\n* Galactose Step *'
     for edata in elist:
         edata.info()
     
