@@ -4,7 +4,7 @@
 \title{Convert timecourse list structure into data matrix.
 TODO: fix the performance (select only subset of interest)}
 \usage{
-createDataMatrices(ids, out.fname, simIds)
+createDataMatrices(dir, datalist)
 }
 \arguments{
 \item{datalist}{list of data matrices}

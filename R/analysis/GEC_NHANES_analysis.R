@@ -126,3 +126,5 @@ for (k in 1:3){
 par(mfrow=c(1,1))
 stopDevPlot()
 rm(d,k)
+
+min(nhanes$age)

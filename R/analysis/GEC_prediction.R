@@ -461,8 +461,8 @@ hist(rs2$values, freq=FALSE, add=TRUE)
 ##############################################################################
 # GEC curves
 ##############################################################################
-res <- load(file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap_new.Rdata'))
-cat(res)
+task <- 'T54'
+load(file=file.path(ma.settings$dir.expdata, 'processed', paste('GEC_curve_', task,'.Rdata', sep="")))
 str(GEC_curves)
 
 # make the GEC fit function
@@ -697,6 +697,27 @@ plot_GECkg <- function(df, main, xlim=c(0,0.10)){
   abline(h=0, col='black')
   par(mfrow=c(1,1))
 }
+plot_GEC_age <- function(df, main, ylim=c(0,7)){
+  plot(df$age, df$GEC.pre, main=main, ylim=ylim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='age [years]', ylab='GEC predicted [mmol/min]', font.lab=2)
+  abline(a=0, b=1, col='black')
+  
+  plot(df$age, df$GEC.pre-df$GEC.exp, main=main, ylim=c(-3,3), pch=21, 
+       col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='age [years]', ylab='GEC predicted-experiment [mmol/min]', font.lab=2)
+  abline(h=0, col='black')
+}
+plot_GECkg_age <- function(df, main, ylim=c(0,0.10)){
+  plot(df$age, df$GECkg.pre, main=main, ylim=ylim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='age [years]', ylab='GECkg predicted [mmol/min/kg]', font.lab=2)
+  abline(a=0, b=1, col='black')
+  
+  plot(df$age, df$GECkg.pre-df$GECkg.exp, main=main, ylim=c(-0.04,0.04), pch=21, 
+       col='black', bg=rgb(0, 0, 0, 0.5),
+       xlab='age [years]', ylab='GEC predicted-experiment [mmol/min/kg]', font.lab=2)
+  abline(h=0, col='black')
+  par(mfrow=c(1,1))
+}
 
 predict_GEC_for_name <- function(name){
   name.pre <- paste(name, '.pre', sep='')
@@ -744,35 +765,10 @@ plot_GEC(df, main='Combined GEC data', xlim=c(0,6))
 plot_GECkg(df, main='Combined GECkg data', xlim=c(0,0.08))
 par(mfrow=c(1,1))
 
-
 par(mfrow=c(2,2))
 plot_GEC_age(df, main='Combined GEC')
 plot_GECkg_age(df, main='Combined GECkg')
 par(mfrow=c(1,1))
-
-
-plot_GEC_age <- function(df, main, ylim=c(0,7)){
-  plot(df$age, df$GEC.pre, main=main, ylim=ylim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
-       xlab='GEC experiment [mmol/min]', ylab='GEC predicted [mmol/min]', font.lab=2)
-  abline(a=0, b=1, col='black')
-  
-  plot(df$age, df$GEC.pre-df$GEC.exp, main=main, ylim=c(-3,3), pch=21, 
-       col='black', bg=rgb(0, 0, 0, 0.5),
-       xlab='age [years]', ylab='GEC predicted-experiment [mmol/min]')
-  abline(h=0, col='black')
-}
-plot_GECkg_age <- function(df, main, ylim=c(0,0.10)){
-  plot(df$age, df$GECkg.pre, main=main, ylim=ylim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
-       xlab='GECkg experiment [mmol/min/kg]', ylab='GECkg predicted [mmol/min/kg]', font.lab=2)
-  abline(a=0, b=1, col='black')
-  
-  plot(df$age, df$GECkg.pre-df$GECkg.exp, main=main, ylim=c(-0.04,0.04), pch=21, 
-       col='black', bg=rgb(0, 0, 0, 0.5),
-       xlab='age [years]', ylab='GEC predicted-experiment [mmol/min/kg]')
-  abline(h=0, col='black')
-  par(mfrow=c(1,1))
-}
-
 
 
 ############################################
@@ -789,58 +785,17 @@ sch1968.fig1.p1 <- predict_GEC_for_name('sch1986.fig1')
 
 
 
+############################################
+# Predict for Heinemann
+############################################
+# Use the Heinemann liver volume data for prediction.
 
 
 
 
 
-###########################################################################
-# Conversion factor
-###########################################################################
-# The conversion factors via flux and volume have to be the same.
-# They are calculated based on the weighted distributions of the parameters. 
-# But they have to be calculated over the distribution of geometries
-#  N_Q = Q_liv/Q;
-# with  
-#  N_Vol = N_Q
-#  N_Vol = f_tissue*Vol_liv/Vol_sinunit  
-# => f_tissue = N_Vol * Vol_sinunit/Vol_liv
-# -20% large vessels
 
-# calculate conversion factors
-calculateConversionFactors <- function(pars){
-  res <- list()
-  f_tissue = 0.75;
-  
-  # varies depending on parameters
-  Q_sinunit.wmean <- wt.mean(pars[['Q_sinunit']], pars$p_sample)
-  Q_sinunit.wsd <- wt.sd(pars[['Q_sinunit']], pars$p_sample)
-  Vol_sinunit.wmean <- wt.mean(pars[['Vol_sinunit']], pars$p_sample)
-  Vol_sinunit.wsd <- wt.sd(pars[['Vol_sinunit']], pars$p_sample)
-  
-  # constant normal value
-  Q_liv.wmean <- wt.mean(pars[['Q_liv']], pars$p_sample)
-  Q_liv.wsd <- wt.sd(pars[['Q_liv']], pars$p_sample)
-  Vol_liv.wmean <- wt.mean(pars[['Vol_liv']], pars$p_sample)
-  Vol_liv.wsd <- wt.sd(pars[['Vol_liv']], pars$p_sample)
-  N_Vol = f_tissue*Vol_liv.wmean/Vol_sinunit.wmean
-  N_Q1 = Q_liv.wmean/Q_sinunit.wmean
-  
-  f_flow = N_Q1/N_Vol
-  N_Q = N_Q1/f_flow
-  
-  cat('N_Q: ', N_Q, '\n')
-  cat('N_Vol: ', N_Vol, '\n')
-  cat('N_Vol/N_Q1: ', N_Vol/N_Q1, '\n')
-  cat('N_Vol/N_Q: ',  N_Vol/N_Q, '\n')
-  cat('f_flow: ', f_flow, '\n')
-  
-  res$N_Q <- N_Q
-  res$N_Vol <- N_Vol
-  res$f_tissue <- f_tissue
-  res$f_flow <- f_flow
-  res
-}
-res <- calculateConversionFactors(pars)
-names(res)
+
+
+
 

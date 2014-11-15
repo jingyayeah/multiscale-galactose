@@ -29,8 +29,11 @@ t_peak <- 2000 # [s]
 t_end <- 10000 # [s]
 
 # Dataset for analyis
-folder <- '2014-11-08_T53' # normal galactose challenge
-pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T53/T53_Galactose_v24_Nc20_galchallenge_parameters.csv')
+# folder <- '2014-11-08_T53' # normal galactose challenge (old scale v24)
+# pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T53/T53_Galactose_v24_Nc20_galchallenge_parameters.csv')
+folder <- '2014-11-15_T54' # normal galactose challenge
+pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-15_T54/T54_Galactose_v25_Nc20_galchallenge_parameters.csv')
+
 
 # Some visual analysis of the parameters
 head(pars)
@@ -45,7 +48,7 @@ summary(pars$flow_sin[pars$f_flow==0.5])
 # Here the important subcomponents are loaded from the integration csv files
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
-
+head(x)
 
 # Extend the parameters with the SBML and calculated parameters
 ps <- getParameterTypes(pars=pars)
@@ -126,7 +129,6 @@ f_analyse <- function(x){
 }
 
 d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
-save('d2', 'parscl', file='/home/mkoenig/multiscale-galactose/experimental_data/processed/GEC_curve_T53_new.Rdata')
 
 ###########################################################################
 # GEC curves
@@ -152,6 +154,7 @@ head(parscl)
 # Bootstrap the GEC curves
 ###########################################################################
 # bootstrap calculation of function
+# The number of samples in the bootstrap corresponds to the available samples.
 f_bootstrap <- function(dset, funct, B=1000){
   # bootstraping the function on the given dataset
   dset.mean <- f_analyse(dset)
@@ -199,8 +202,14 @@ curve(f1, from=0, to=3.5, col='red', add=T)
 curve(f2, from=0, to=3.5, col='blue', add=T)
 curve(f2.se, from=0, to=3.5, col='blue', add=T)
 
+
+# save everything
 GEC_curves <- list(d2=d2, d2.se=d2.se)
-save(GEC_curves, file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve_T53_bootstrap_new.Rdata'))
+d2.file <- file.path(ma.settings$dir.expdata, 'processed',
+                     paste('GEC_curve_', task, '.Rdata', sep=''))
+cat(d2.file)          
+save('d2', 'd2.se', 'parscl', 'GEC_curves', file=d2.file)
+
 
 ########################################
 # Figure GEC ~ perfusion (bootstrap)
@@ -208,7 +217,7 @@ save(GEC_curves, file=file.path(ma.settings$dir.expdata, 'processed', 'GEC_curve
 create_plots=F
 startDevPlot(create_plots)
 plot(d2$Q_per_vol_units, d2$R_per_vol_units, type='n',main='Galactose clearance ~ perfusion', 
-     xlab='Liver perfusion [ml/min/ml]', ylab='GEC per volume tissue [mmol/min/ml]', font=1, font.lab=2)
+     xlab='Liver perfusion [ml/min/ml]', ylab='GEC per volume tissue [mmol/min/ml]', font=1, font.lab=2, ylim=c(0,1.5*max(d2$R_per_vol_units)))
 x <- c(d2$Q_per_vol_units, rev(d2$Q_per_vol_units))
 y <- c(d2$R_per_vol_units+2*d2.se$R_per_vol_units, rev(d2$R_per_vol_units-2*d2.se$R_per_vol_units))
 polygon(x,y, col = rgb(0,0,0, 0.3), border = NA)
@@ -221,5 +230,56 @@ legend('bottomright', legend=c('mean GEC (Ns=1000 sinusoidal units)', '+-2SE (bo
 stopDevPlot(create_plots)
 
 ###################################################################
+# TODO: create the GEC curves here
+# TODO: check the conversion factor is correct, i.e. N_Q and N_Vol
 
 
+###########################################################################
+# Conversion factor
+###########################################################################
+# The conversion factors via flux and volume have to be the same.
+# They are calculated based on the weighted distributions of the parameters. 
+# But they have to be calculated over the distribution of geometries
+#  N_Q = Q_liv/Q;
+# with  
+#  N_Vol = N_Q
+#  N_Vol = f_tissue*Vol_liv/Vol_sinunit  
+# => f_tissue = N_Vol * Vol_sinunit/Vol_liv
+# -20% large vessels
+
+# calculate conversion factors
+calculateConversionFactors <- function(pars){
+  res <- list()
+  f_tissue = 0.75;
+  
+  # varies depending on parameters
+  Q_sinunit.wmean <- wt.mean(pars[['Q_sinunit']], pars$p_sample)
+  Q_sinunit.wsd <- wt.sd(pars[['Q_sinunit']], pars$p_sample)
+  Vol_sinunit.wmean <- wt.mean(pars[['Vol_sinunit']], pars$p_sample)
+  Vol_sinunit.wsd <- wt.sd(pars[['Vol_sinunit']], pars$p_sample)
+  
+  # constant normal value
+  Q_liv.wmean <- wt.mean(pars[['Q_liv']], pars$p_sample)
+  Q_liv.wsd <- wt.sd(pars[['Q_liv']], pars$p_sample)
+  Vol_liv.wmean <- wt.mean(pars[['Vol_liv']], pars$p_sample)
+  Vol_liv.wsd <- wt.sd(pars[['Vol_liv']], pars$p_sample)
+  N_Vol = f_tissue*Vol_liv.wmean/Vol_sinunit.wmean
+  N_Q1 = Q_liv.wmean/Q_sinunit.wmean
+  
+  f_flow = N_Q1/N_Vol
+  N_Q = N_Q1/f_flow
+  
+  cat('N_Q: ', N_Q, '\n')
+  cat('N_Vol: ', N_Vol, '\n')
+  cat('N_Vol/N_Q1: ', N_Vol/N_Q1, '\n')
+  cat('N_Vol/N_Q: ',  N_Vol/N_Q, '\n')
+  cat('f_flow: ', f_flow, '\n')
+  
+  res$N_Q <- N_Q
+  res$N_Vol <- N_Vol
+  res$f_tissue <- f_tissue
+  res$f_flow <- f_flow
+  res
+}
+res <- calculateConversionFactors(pars)
+names(res)

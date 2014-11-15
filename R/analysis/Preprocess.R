@@ -24,7 +24,8 @@ setwd(ma.settings$dir.results)
 ###############################################################
 # The collection of data files to be preprocessed is defined via
 # the folder variable which encodes the Task
-#     folder <- '2014-07-30_T26')
+
+folder <- '2014-11-15_T54'
 print(folder)
 if (!exists('folder')){   
   stop('no folder for preprocessing set')
@@ -78,5 +79,6 @@ if (file.exists(x.fname)){
   rm(Ncores)
 
   # make the preprocessing
-  x <- createDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds)
+  cat('Creating Data matrix ...\n')
+  x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, modelId=modelId, dir=ma.settings$dir.simdata)
 }

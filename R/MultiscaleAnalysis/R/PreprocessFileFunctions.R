@@ -15,7 +15,7 @@
 #'@param simId simulation identifier
 #'@return filename for the integration file
 #'@export
-getSimulationFileFromSimulationId <- function(dir, simId){
+getSimulationFileFromSimulationId <- function(dir, simId, modelId){
   if (ma.settings$simulator == 'COPASI'){
     fname <- paste(dir, '/', modelId, "_", simId, "_copasi.csv", sep="")  
   } else if (ma.settings$simulator == 'ROADRUNNER'){
