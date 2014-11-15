@@ -296,7 +296,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 24
+    VERSION = 25
     
     #----------------------------------------------------------------------#
     if (0):
@@ -367,7 +367,7 @@ if __name__ == "__main__":
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        task, samples = make_galactose_flow(sbml_id, N=1000)
+        task, samples = make_galactose_flow(sbml_id, N=50)
     
         
     #----------------------------------------------------------------------#
