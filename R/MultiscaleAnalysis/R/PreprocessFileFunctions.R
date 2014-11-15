@@ -56,7 +56,6 @@ preprocessPPPV <- function(parsfile, sim.dir, outFile=NULL, sim.indices=NULL){
   preprocess(parsfile, sim.dir, outFile=outFile, sim.indices=sim.indices, col.indices_f=f)
 }
   
-
 #' Preprocess the CSV simulation data for given parameter file.
 #' 
 #' @param parsfile Parameter file
