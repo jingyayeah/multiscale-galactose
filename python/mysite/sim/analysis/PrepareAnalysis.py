@@ -30,33 +30,31 @@ IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
 
 def prepareDataForAnalysis(task):
     import time
+    # directory for analysis
     date_str = time.strftime("%Y-%m-%d")
-    print date_str 
     directory = MULTISCALE_GALACTOSE_RESULTS + '/' + date_str + '_' + str(task)
-    print directory
-
     if not os.path.exists(directory):
         os.makedirs(directory)
-        print 'created: ', directory
-    
+    print directory
+
     # copy SBML
     sbml_file = str(task.sbml_model.file.path)
     shutil.copy2(sbml_file, directory)
     
-    # create Parameter File
+    # create parameter file
     createParameterFileForTask(task, directory)
     
     # collect all the timecourses on localhost
-    print '* Collect timecourses'  
     rsyncTimecoursesForTask(task)
     
-    # copy timecourses to target folder
-    source_dir = getTimecourseDirectory(task) + '/'
+    # copy timecourses to new target folder
+    # not 
     target_dir = directory + '/' + str(task) + '/'
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
-    print 'copy', source_dir,'->', target_dir
-    copytree(source_dir, target_dir)
+    # source_dir = getTimecourseDirectory(task) + '/'
+    # print 'copy', source_dir,'->', target_dir
+    # copytree(source_dir, target_dir)
 
 def rsyncTimecoursesForTask(task):
     directory = getTimecourseDirectory(task)

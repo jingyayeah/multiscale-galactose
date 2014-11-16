@@ -15,11 +15,10 @@ tasks with higher priority are performed first.
 @date: 2014-03-14
 '''
 
-import os
+
 import logging
 import numpy as np
 from subprocess import call
-from django.core.exceptions import ObjectDoesNotExist
 from copy import deepcopy
 
 import sim.PathSettings
@@ -218,14 +217,14 @@ def make_galactose_dilution(sbml_id, N, sampling):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-def make_galactose_challenge(sbml_id, N):        
-    info = '''Simulation of varying galactose challenge periportal to steady state.'''
+def make_galactose_challenge(sbml_id, N, sampling):        
+    info = 'Galactose challenge periportal ({})'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
     
     # parameter samples
-    raw_samples = createGalactoseSamples(N=N, sampling='distribution') 
+    raw_samples = createGalactoseSamples(N=N, sampling=sampling) 
     # gal_challenge = np.arange(0.5, 7.0, 0.5)
-    gal_challenge = (0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0)
+    gal_challenge = (0.5, 1.0, 2.0, 4.0, 8.0)
     samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
     
     # simulations
@@ -315,9 +314,28 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
-        Multiple Indicator Dilution peaks.
+        GEC curves.
+        Galactose elimination under different flow distributions (scaled).
+        '''
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
+        # sample from distribution
+        task, samples = make_galactose_flow(sbml_id, N=50, sampling='distribution')
+        # mean sinusoidal unit
+        task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
+
+    #----------------------------------------------------------------------#
+    if (0):
+        ''' GEC curves in aging. '''
+        # TODO : implement the change in fenestraetion and the collagen disposition
+        pass
+
+   
+    #----------------------------------------------------------------------#
+    if (0):
+        '''
+        Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves
         under varying galactose concentrations periportal.
         The galactose values periportal must be corrected for already occurred clearance,
@@ -339,44 +357,32 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (0):
-        '''
-        Galactose challenge after certain time and simulation to steady state.
-        '''
+    if (1):
+        ''' Galactose challenge in galactosemias. '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        task, samples = make_galactose_challenge(sbml_id, N=100)
+        deficiencies = range(1, 24)
         
-        if (0):
-            # Create deficiency samples belonging to the original samples
-            deficiencies = range(1,4)
-            # deficiencies = range(1, 24)
-            derive_deficiency_simulations(task, samples, deficiencies)
+        # Create deficiency samples belonging to the original samples
+        task, samples = make_galactose_challenge(sbml_id, N=5, sampling='distribution')
+        derive_deficiency_simulations(task, samples, deficiencies)
     
-    if (0):
-        ''' Reuse the samples from task.
-            Necessary to generate the identical geometries than
-            for the normal case.
-            This is only for testing. For final simulations all galactosemias
-            should be generated in batch.
-        '''
-        from simulator.distribution.sampling_tools import get_samples_from_task
-        task = Task.objects.get(pk=26)
-        samples = get_samples_from_task(task)
-        deficiencies = range(4,24)
-        derive_deficiency_simulations(task, samples, deficiencies=deficiencies)
-        
-    #----------------------------------------------------------------------#
-    if (0):
-        '''
-        GEC curve calculation.
-        Galactose elimination under different flow distributions (scaled).
-        '''
-        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        # sample from distribution
-        task, samples = make_galactose_flow(sbml_id, N=50, sampling='distribution')
         # mean sinusoidal unit
-        task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
-    
+        task, samples = make_galactose_challenge(sbml_id, N=1, sampling='mean')
+        derive_deficiency_simulations(task, samples, deficiencies)
+    #===========================================================================
+    # if (0):
+    #     ''' Reuse the samples from task.
+    #         Necessary to generate the identical geometries than
+    #         for the normal case.
+    #         This is only for testing. For final simulations all galactosemias
+    #         should be generated in batch.
+    #     '''
+    #     from simulator.distribution.sampling_tools import get_samples_from_task
+    #     task = Task.objects.get(pk=26)
+    #     samples = get_samples_from_task(task)
+    #     deficiencies = range(4,24)
+    #     derive_deficiency_simulations(task, samples, deficiencies=deficiencies)
+    #===========================================================================
         
     #----------------------------------------------------------------------#
     if (0):
@@ -387,12 +393,6 @@ if __name__ == "__main__":
         # mean sinusoidal unit
         task, samples = make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".format(VERSION), 
                                             N=1, sampling='mean')
-    #----------------------------------------------------------------------#
-    if (0):
-        ''' GEC curves in aging. '''
-        # TODO : implement the change in fenestraetion and the collagen disposition
-        pass
-
 
 ####################################################################################
 

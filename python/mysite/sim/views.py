@@ -1,7 +1,7 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
 
-from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Plot, Integration
+from sim.models import SBMLModel, Core, Simulation, Timecourse, Task, Integration
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from sim.analysis.ParameterFiles import createParameterInfoForTask, getParameterFilenameForTask
@@ -161,16 +161,16 @@ def timecourses(request):
     return HttpResponse(template.render(context))
 
 
-def plots(request):
-    '''
-    Overview of Plots.
-    '''
-    plots_list = Plot.objects.all()
-    template = loader.get_template('sim/plots.html')
-    context = RequestContext(request, {
-        'plots_list': plots_list,
-    })
-    return HttpResponse(template.render(context))
+# def plots(request):
+#     '''
+#     Overview of Plots.
+#     '''
+#     plots_list = Plot.objects.all()
+#     template = loader.get_template('sim/plots.html')
+#     context = RequestContext(request, {
+#         'plots_list': plots_list,
+#     })
+#     return HttpResponse(template.render(context))
 
 def documentation(request):
     '''

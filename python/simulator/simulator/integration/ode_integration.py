@@ -152,7 +152,8 @@ def integrate_roadrunner(sims):
                                 relative=relTol,
                                 variableStep=False, stiff=True)
             
-            print 'Integration Time:', (time.clock()- tstart_int)
+            # print 'Integration Time:', (time.clock()- tstart_int)
+            t_int = time.clock()- tstart_int
         
             # Store Timecourse Results
             tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
@@ -164,7 +165,7 @@ def integrate_roadrunner(sims):
                 rr.model[key] = value
                     
             storeTimecourseResults(sim, tc_file)
-            print 'Total Time:', (time.clock()-tstart_total)
+            print 'Time: [{:.1f}|{:.1f}]'.format( (time.clock()-tstart_total), t_int )
             
         except:
             integration_exception(sim)
@@ -188,7 +189,7 @@ def integration_exception(sim):
 
 if __name__ == "__main__":
     from sim.models import Simulation
-    
-    sims = [Simulation.objects.filter(task__pk=54)[0], ]
+    sims = [Simulation.objects.filter(task__pk=1)[0], ]
+    print '* Start integration *'
     integrate(sims, integrator=ROADRUNNER)
     # integrate(sims, simulator=COPASI)

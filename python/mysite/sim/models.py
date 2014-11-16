@@ -466,22 +466,39 @@ class Timecourse(models.Model):
     
     def rdata(self):
         rpack.readData(self.file.path)
+    
+#     def _unzip_csv(self):
+#         ''' Simulation did not finish '''
+#         f = self.file.path
+#         f_tar = f[:-3] + 'tar.gz'
+#         tar = tarfile.open(f_tar, "r:gz")
+#         csv_file = tar.extractfile(os.path.basename(f))
+#         return csv_file
+#     
+#     def _get_zip(self):
+#         ''' Simulation did not finish '''
+#         f = self.file.path
+#         f_tar = f[:-3] + 'tar.gz'
+#         return f_tar
+#     
+#     csv = property(_get_zip)
+#     
 
 
-class Plot(models.Model):
-    '''
-    TODO: implement properly
-    do plots based on content in database
-    '''
-    TIMECOURSE = "TIMECOURSE"
-    STEADYSTATE = "STEADYSTATE"
-  
-    PLOT_TYPES = (
-        (TIMECOURSE, 'Timecourse'),
-        (STEADYSTATE, 'SteadyState'),
-    )
-    timecourse = models.ForeignKey(Timecourse)
-    plot_type = models.CharField(max_length=20, choices=PLOT_TYPES, default=TIMECOURSE)
-    file = models.FileField(upload_to="plot/%Y-%m-%d")
+# class Plot(models.Model):
+#     '''
+#     TODO: implement properly
+#     do plots based on content in database
+#     '''
+#     TIMECOURSE = "TIMECOURSE"
+#     STEADYSTATE = "STEADYSTATE"
+#   
+#     PLOT_TYPES = (
+#         (TIMECOURSE, 'Timecourse'),
+#         (STEADYSTATE, 'SteadyState'),
+#     )
+#     timecourse = models.ForeignKey(Timecourse)
+#     plot_type = models.CharField(max_length=20, choices=PLOT_TYPES, default=TIMECOURSE)
+#     file = models.FileField(upload_to="plot/%Y-%m-%d")
     
     
