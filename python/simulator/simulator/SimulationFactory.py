@@ -314,14 +314,14 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         GEC curves.
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution
-        task, samples = make_galactose_flow(sbml_id, N=50, sampling='distribution')
+        task, samples = make_galactose_flow(sbml_id, N=1000, sampling='distribution')
         # mean sinusoidal unit
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
