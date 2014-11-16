@@ -12,7 +12,7 @@ sudo apt-get install llvm python-numpy python-scipy
 
 # django
 cd ~/Downloads
-wget --output-document ~/Downloads/Django_1.7.1.tar.gz https://www.djangoproject.com/download/1.7.1/tarball/
+wget --output-document ~/Downloads/Django-1.7.1.tar.gz https://www.djangoproject.com/download/1.7.1/tarball/
 tar xzvf ~/Downloads/Django-1.7.1.tar.gz
 cd ~/Downloads/Django-1.7.1
 sudo python setup.py install
