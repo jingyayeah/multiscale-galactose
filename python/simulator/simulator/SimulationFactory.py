@@ -201,18 +201,18 @@ def make_galactose_core(sbml_id, N):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-def make_galactose_dilution(sbml_id, N, sync=True, priority=0):
-    info = '''Simulation of multiple-indicator dilution curves (tracer peak periportal).'''
-    model = create_django_model(sbml_id, sync=sync)
+def make_galactose_dilution(sbml_id, N, sampling):
+    info = 'Multiple-indicator dilution curves ({})'.format(sampling)
+    model = create_django_model(sbml_id, sync=True)
     
     # parameter samples
-    raw_samples = createGalactoseSamples(N=N, sampling="distribution")
+    raw_samples = createGalactoseSamples(N=N, sampling=sampling)
     samples = setParameterInSamples(raw_samples, 'PP__gal', 0.0, 'mM', BOUNDERY_INIT)
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':5000.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
-    task = create_task(model, integration, info=info, priority=priority)
+    task = create_task(model, integration, info=info, priority=0)
     createSimulationsForSamples(task, samples)
 
     return (task, samples)
@@ -238,13 +238,13 @@ def make_galactose_challenge(sbml_id, N):
 
 #----------------------------------------------------------------------#
 
-def make_galactose_flow(sbml_id, N):        
-    info = '''Galactose challenge/clearance under changed perfusion.'''
+def make_galactose_flow(sbml_id, N, sampling):        
+    info = 'Galactose clearance under varying perfusion ({}).'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
     f_flows = (1.0, 0.7, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1, 0.05, 0.01)
-    raw_samples = createFlowSamples(N=N, sampling='distribution', f_flows=f_flows)
+    raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     
     # only test the max GEC
     # gal_challenge = (8.0, 2.0, 0.5)
@@ -260,12 +260,12 @@ def make_galactose_flow(sbml_id, N):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-def make_galactose_step(sbml_id, N):        
-    info = '''Simulation of stepwise increase of periportal galactose.'''
+def make_galactose_step(sbml_id, N, sampling):        
+    info = 'Stepwise increase of periportal galactose ({})'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
     
     # parameter samples
-    samples = createGalactoseSamples(N=N, sampling='distribution') 
+    samples = createGalactoseSamples(N=N, sampling=sampling) 
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':30000.0, 'steps':100} )
@@ -317,20 +317,24 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     if (1):
         '''
-        Multiple Indicator Dilution peaks after certain time.
-        The peaks are combined with additional galactose background 
-        challenges.
-        In case of additional changes the system must be in steady
+        Multiple Indicator Dilution peaks.
+        Combination with different galactose challenge, i.e. dilution curves
+        under varying galactose concentrations periportal.
+        The galactose values periportal must be corrected for already occurred clearance,
+        i.e the periportal concentrations are higher than the reported values.
+        A correction factor of ~2.3 was applied to the reported galactose values of
+        PP__gal = (2.3, 5, 14.8, 19.8) # [mM]
         '''
         sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
-        [task, raw_samples] = make_galactose_dilution(sbml_id, 
-                                                      N=50, sync=True, priority=10)
-        
-        # additional galactose challenge
         PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
-        # The galactose values have to be adapted for already occured
-        # clearance
-        # PP__gal = (2.3, 5, 14.8, 19.8) # [mM]
+        
+        # basic dilution curves with additional galactose challenge
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=50, sampling="distribution")
+        samples = setParameterValuesInSamples(raw_samples, 'PP__gal', PP__gal, 'mM', BOUNDERY_INIT)
+        createSimulationsForSamples(task, samples)
+        
+        # mean sinusoid for comparison
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
         samples = setParameterValuesInSamples(raw_samples, 'PP__gal', PP__gal, 'mM', BOUNDERY_INIT)
         createSimulationsForSamples(task, samples)
         
@@ -368,22 +372,27 @@ if __name__ == "__main__":
         Galactose elimination under different flow distributions (scaled).
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        task, samples = make_galactose_flow(sbml_id, N=50)
+        # sample from distribution
+        task, samples = make_galactose_flow(sbml_id, N=50, sampling='distribution')
+        # mean sinusoidal unit
+        task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
     
         
     #----------------------------------------------------------------------#
     if (0):
-        '''
-        Galactose stepwise increase.
-        '''
-        # make_galactose_step(sbml_id="Galactose_v{}_Nc1_galactose-step".format(VERSION), N=10)    
-        make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".format(VERSION), N=100) 
-        
+        ''' Galactose stepwise increase. '''
+        # sample from distribution
+        task, samples = make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".format(VERSION), 
+                                            N=100, sampling='distribution')
+        # mean sinusoidal unit
+        task, samples = make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".format(VERSION), 
+                                            N=1, sampling='mean')
     #----------------------------------------------------------------------#
     if (0):
+        ''' GEC curves in aging. '''
+        # TODO : implement the change in fenestraetion and the collagen disposition
         pass
-        # TODO: implement
-        # make_galactose_cirrhosis(N=10)
-    
+
+
 ####################################################################################
 
