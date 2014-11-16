@@ -321,7 +321,7 @@ if __name__ == "__main__":
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution
-        task, samples = make_galactose_flow(sbml_id, N=1000, sampling='distribution')
+        task, samples = make_galactose_flow(sbml_id, N=50, sampling='distribution')
         # mean sinusoidal unit
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
@@ -357,7 +357,7 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         ''' Galactose challenge in galactosemias. '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         deficiencies = range(1, 24)
