@@ -12,9 +12,15 @@ sudo apt-get install llvm python-numpy python-scipy ipython
 
 # django
 cd ~/Downloads
-wget --output-document ~/Downloads/Django-1.7.1.tar.gz https://www.djangoproject.com/download/1.7.1/tarball/
-tar xzvf ~/Downloads/Django-1.7.1.tar.gz
-cd ~/Downloads/Django-1.7.1
+# remove old installations
+sudo rm -rf /usr/local/lib/python2.7/dist-packages/django
+sudo pip uninstall Django
+#wget --output-document ~/Downloads/Django-1.7.1.tar.gz https://www.djangoproject.com/download/1.7.1/tarball/
+#tar xzvf ~/Downloads/Django-1.7.1.tar.gz
+#cd ~/Downloads/Django-1.7.1
+wget --output-document ~/Downloads/Django-1.6.8.tar.gz https://www.djangoproject.com/download/1.6.8/tarball/
+tar xzvf ~/Downloads/Django-1.6.8.tar.gz
+cd ~/Downloads/Django-1.6.8
 sudo python setup.py install
 
 # psycopg2
