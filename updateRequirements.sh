@@ -7,7 +7,7 @@
 ############################################################
 # install dependencies
 sudo apt-get install python-dev libpq-dev python-rpy2 
-sudo apt-get install llvm python-numpy python-scipy
+sudo apt-get install llvm python-numpy python-scipy ipython
 
 
 # django
