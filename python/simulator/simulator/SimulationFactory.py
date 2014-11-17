@@ -238,7 +238,7 @@ def make_galactose_challenge(sbml_id, N, sampling):
 #----------------------------------------------------------------------#
 
 def make_galactose_flow(sbml_id, N, sampling):        
-    info = 'Galactose clearance under varying perfusion ({}).'.format(sampling)
+    info = 'Galactose clearance under given perfusion ({}).'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
@@ -321,7 +321,7 @@ if __name__ == "__main__":
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution
-        task, samples = make_galactose_flow(sbml_id, N=1000, sampling='distribution')
+        task, samples = make_galactose_flow(sbml_id, N=5, sampling='distribution')
         # mean sinusoidal unit
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
@@ -333,7 +333,7 @@ if __name__ == "__main__":
 
    
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves

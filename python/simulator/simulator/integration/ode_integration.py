@@ -43,10 +43,12 @@ def storeTimecourseResults(sim, tc_file):
     tc.zip()
     # convert to Rdata
     tc.rdata()
-    # remove the original simulation file now
+    # remove the original csv file now
     myfile.close()
     f.close()
     os.remove(tc_file)
+    # remove the db csv (only compressed file kept)
+    os.remove(tc.file.path)
      
     # simulation finished (update simulation status)
     sim.time_sim = timezone.now()
@@ -188,8 +190,15 @@ def integration_exception(sim):
 
 
 if __name__ == "__main__":
+    
+    # tc = Timecourse.objects.get(simulation__pk=15624)
+    # print tc.file.path
+    # os.remove(tc.file.path)
+
     from sim.models import Simulation
-    sims = [Simulation.objects.filter(task__pk=1)[0], ]
+    sims = [Simulation.objects.filter(task__pk=5)[0], ]
     print '* Start integration *'
     integrate(sims, integrator=ROADRUNNER)
     # integrate(sims, simulator=COPASI)
+    
+    
