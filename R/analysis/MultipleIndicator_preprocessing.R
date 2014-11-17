@@ -1,44 +1,49 @@
 ################################################################
-# Preprocess Multiple Indicator Dilution data
+# Preprocess Multiple Indicator Dilution (MID) data
 ################################################################
 # Read the timecourse data and creates reduced data structures
 # for simplified query and visualization.
+# MID is calculated under varying galactose challenges.
+# 
+# Necessary to reproduce the peak structure as well as the different 
+# galactose curves.
 #
-# Run with: Rscript
 # author: Matthias Koenig
-# date: 2014-08-11
+# date: 2014-11-17
 ################################################################
 rm(list=ls())
 library(data.table)
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-# Galactose challenge, with galactosemias
-folder <- '2014-07-30_T25'
-
-folders <- paste('2014-08-13_T', seq(33,49), sep='')
-for (folder in folders){
-  source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
+folder <- '2014-11-17_T3' # Multiple indicator data
+source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
-}
-stop('finished preprocessing')
+
+t_peak <- 1000 # [s]
+t_end <- 5000 # [s]
+
 ###########################################################################
-# Plot large set of single timecourses directly from x
+# Plot large set of individual timecourses directly from x
 # The large-scale plot is only possible on the dimension reduced data sets.
 # Select id and plot levels.
 
-# which ids splitted under which levels
-f.level = "gal_challenge"  # "PP__gal" 
+# split the dataset under the given galactose challenge
+f.level = "PP__gal"      
+gal_levels <- levels(as.factor(pars[[f.level]]))
+print(gal_levels)
+
 plot.ids = c('PP__gal', 'PV__gal')
-plot.colors = c( rgb(0.5,0.5,0.5, alpha=0.3), rgb(0.5,0.5,1.0, alpha=0.3) )
+plot.colors = c( rgb(0.5,0.5,0.5, alpha=0.3), rgb(0,0,1.0, alpha=0.3) )
 names(plot.colors) <- plot.ids
 
 # set the minimal and maximal time for plotting
-xlimits <- c(1995, 2200)
-ylimits <- c(0.0, 6.0)
+# depends on where the dilution peak is given
+xlimits <- c(t_peak-5, t_peak+200)
+ylimits <- c(0.0, max(as.numeric(gal_levels)))
 
 # create subplot for all the different levels
-plot.levels <- levels(as.factor(pars[[f.level]]))
+head(pars)
 nrow = ceiling(sqrt(length(plot.levels)))
 par(mfrow=c(nrow, nrow))
 for (p.level in plot.levels){
@@ -59,54 +64,45 @@ for (p.level in plot.levels){
 par(mfrow=c(1,1))
 ###########################################################################
 
-## Approximation matrix for full analysis ##
-# approximation time vector for dilution
+## Approximation matrix for full analysis based on minimal variable set
 t.approx = seq(from=995, to=1050, by=0.2)
+simIds <- rownames(pars)
+mat <- createApproximationMatrix(ids=ids, simIds=simIds, points=t.approx, reverse=FALSE)
 
-# approximation time vector for gal_challange
-t.approx = seq(from=1995, to=2200, by=5)
-mlist <- createApproximationMatrix(ids=ids, simIds=simIds, points=t.approx)
 
 ###############################################################
-# now calculate things on the matrix 
-# i.e. mean, std, 
+# Calculate mean time curves and sds 
+# the analysis has to be redone with the approximated files
 
-# Calculate the volume flow for weigthing
-pars$F <- pi*(pars$y_sin^2) * pars$flow_sin
-plot(pars$flow_sin, pars$F)
-plot(pars$y_sin, pars$F)
-
-#####
-# levels
-f.level = "gal_challenge"  # "PP__gal" 
 f.level <- "PP__gal" 
-## Calculate the matrix
+time <- t.approx
+plot(numeric(0), numeric(0), type='n', xlim=c(min(t.approx), max(t.approx)), ylim=c(0,0.2) )
 library('matrixStats')
 compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue')
-
 stats <- list('vector', length(t.approx))
 for (kc in seq(length(compounds))){
   compound <- compounds[kc]
   col <- ccolors[kc]
   id <- paste('PV__', compound, sep='')
+  cat(id)
   for (gal_level in gal_levels){
     # find the simulation rows for the level
     gal_rows <- which(pars$PP__gal==gal_level)
     
     tmp <- mat[[id]][,gal_rows]
-    w <- pars$F[gal_rows] # weighting with the volume flow F
+    # w <- pars$F[gal_rows] # weighting with the volume flow F
     
     row.means <- rowMeans(tmp)
-    row.wmeans <- rowWeightedMeans(tmp, w=w)
+    # row.wmeans <- rowWeightedMeans(tmp, w=w)
     row.medians <- rowMedians(tmp)
-    row.wmedians <- rowWeightedMedians(tmp, w=w)
+    # row.wmedians <- rowWeightedMedians(tmp, w=w)
     
-    points(time, row.wmeans, col=col, lwd=2, type='l', lty=1)
-    points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
+    # points(time, row.wmeans, col=col, lwd=2, type='l', lty=1)
+    # points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
     
-    #points(time, row.means, col=col, lwd=2, type='l', lty=1)
-    #points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
+    points(time, row.means, col=col, lwd=2, type='l', lty=1)
+    points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
     
     #points(time, rowMins(tmp), col='Red', lwd=2, type='l', lty=2)
     #points(time, rowMaxs(tmp), col='Red', lwd=2, type='l', lty=2)
@@ -114,11 +110,11 @@ for (kc in seq(length(compounds))){
     #points(time, rowQuantiles(tmp,probs=c(0.75)), col='Green', lwd=2, type='l', lty=3)  
     
     # lines for the max values
-    tmax.wmeans <- time[which.max(row.wmeans)]
-    cat("tmax [", id , "] = ", tmax.wmeans, "\n")
-    tmax.means <- time[which.max(row.means)]
-    abline(v=tmax.wmeans, col=col)
-    #abline(v=tmax.means, col=col)
+    # tmax.wmeans <- time[which.max(row.wmeans)]
+    # abline(v=tmax.wmeans, col=col)
+    # cat("tmax [", id , "] = ", tmax.wmeans, "\n")
+    # tmax.means <- time[which.max(row.means)]
+    # abline(v=tmax.means, col=col)
   }
 }
 

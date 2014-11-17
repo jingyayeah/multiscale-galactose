@@ -61,9 +61,13 @@ simIds = rownames(pars)
 ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "PP__suc",
          "PV__alb", "PV__gal", "PV__galM", "PV__h2oM", "PV__rbcM", "PV__suc")
 x.fname <- paste(folder, '/results/x.Rdata', sep='')
-
 cat('Creating Data matrix ...\n')
-x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, modelId=modelId, dir=ma.settings$dir.simdata)
+if (file.exists(x.fname)){
+     load(file=x.fname)
+     cat('Preprocessed data exists and is loaded.\n')
+} else {
+  x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, modelId=modelId, dir=ma.settings$dir.simdata)
+}
 
 
 # Direct preprocessing of the csv files

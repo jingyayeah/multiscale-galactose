@@ -3,21 +3,19 @@
 ################################################################
 # Data from Goresky and Villeneuve.
 #
-# TODO: remove warnings (problems with time correction)
-# TODO: proper correction of zero times
 # TODO: create plots of data
 #
 # author: Matthias Koenig
-# date: 2014-04-14
+# date: 2014-11-17
+################################################################
 
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
+create_plots = TRUE
 compounds = c('RBC', 'albumin', 'Na', 'sucrose', 'water', 'galactose')
 ccolors = c('darkred', 'darkgreen', 'gray', 'darkorange', 'darkblue', 'black')
-#          red,  green, orange, blue,  black, gray
-
 
 ###############################################################
 # Load experimental data 
@@ -43,16 +41,20 @@ plotDilutionDataGoresky1973 <- function(correctTime=FALSE){
   for (condition in condition.levels){
     name = paste("Goresky1973", condition)
     print(name)
-    plot(numeric(0), numeric(0), 
+    plot(numeric(0), numeric(0), type='n',
          xlim=c(0,30), ylim=c(0,16), 
          xlab="time [s]", ylab="10^3 x outflow fraction/ml", main=name)
     data <- gor1973[gor1973$condition == condition, ]
-    plotDilutionData(data, compounds, ccolors, correctTime)
+    plotDilutionData(data, compounds, ccolors, correctTime=correctTime)
   }
   par(mfrow=c(1,1))  
 }
+startDevPlot(file=file.path(ma.settings$dir.results, 'figures', 'MultipleIndicator_Goresky1973_1.png'), create_plots=create_plots)
 plotDilutionDataGoresky1973()
+stopDevPlot()
+startDevPlot(file=file.path(ma.settings$dir.results, 'figures', 'MultipleIndicator_Goresky1973_2.png'), create_plots=create_plots)
 plotDilutionDataGoresky1973(correctTime=TRUE)
+stopDevPlot()
 
 ###############################################################
 ## Goresky1983 ##
@@ -64,54 +66,48 @@ plot(numeric(0), numeric(0),
      xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973")
 plotDilutionData(gor1983, compounds, ccolors)
 
+
+startDevPlot(file=file.path(ma.settings$dir.results, 'figures', 'MultipleIndicator_Goresky1983_1.png'), create_plots=create_plots)
 plot(numeric(0), numeric(0), 
      xlim=c(0,30), ylim=c(0,16), 
      xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973")
 plotDilutionData(gor1983, compounds, ccolors, correctTime=TRUE)
+stopDevPlot()
 
 
 ## Goresky1983 & 1973 ##
+startDevPlot(file=file.path(ma.settings$dir.results, 'figures', 'MultipleIndicator_Goresky_1.png'), create_plots=create_plots)
 plot(numeric(0), numeric(0), 
      xlim=c(0,30), ylim=c(0,16), 
      xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973 & 1983")
-plotDilutionData(gor1983, correctTime=TRUE)
+plotDilutionData(gor1983, compounds, ccolors, correctTime=TRUE)
 plotDilutionData(gor1973[gor1973$condition=="A",], compounds, ccolors, correctTime=TRUE)
 plotDilutionData(gor1973[gor1973$condition=="B",], compounds, ccolors, correctTime=TRUE)
 plotDilutionData(gor1973[gor1973$condition=="C",], compounds, ccolors, correctTime=TRUE)
+stopDevPlot()
 
 ###############################################################
 ## Villeneuve1996 ##
 # data is in log
+vil1996 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Villeneuve1996_Fig3.csv"), sep="\t")
+summary(vil1996)
+startDevPlot(file=file.path(ma.settings$dir.results, 'figures', 'MultipleIndicator_Villeneuve1996_1.png'), create_plots=create_plots)
 plot(numeric(0), numeric(0), 
      xlim=c(0,120), ylim=c(0,4000), 
      xlab="time [s]", ylab="10^3 x outflow fraction", main="Villeneuve1996")
-vil1996 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Villeneuve1996_Fig3.csv"), sep="\t")
-summary(vil1996)
 plotDilutionData(vil1996, compounds, ccolors, correctTime=TRUE)
-
-
-# Plot all the dilution curves in the same plot
-plot(numeric(0), numeric(0), 
-     xlim=c(0,120), ylim=c(0,20), 
-     xlab="time [s]", ylab="10^3 x outflow fraction", main="Villeneuve1996")
+stopDevPlot()
 
 # scaling for comparison
 vil1996$outflow <- 1/200 * vil1996$outflow
+# Plot all the dilution curves in the same plot
+startDevPlot(file=file.path(ma.settings$dir.results, 'figures', 'MultipleIndicator_All_1.png'), create_plots=create_plots)
+plot(numeric(0), numeric(0), 
+     xlim=c(0,120), ylim=c(0,20), 
+     xlab="time [s]", ylab="10^3 x outflow fraction", main="Villeneuve1996")
 plotDilutionData(vil1996, compounds, ccolors, correctTime=TRUE)
 plotDilutionData(gor1983, compounds, ccolors, correctTime=TRUE)
 plotDilutionData(gor1973[gor1973$condition=="A",], compounds, ccolors, correctTime=TRUE)
 plotDilutionData(gor1973[gor1973$condition=="B",], compounds, ccolors, correctTime=TRUE)
 plotDilutionData(gor1973[gor1973$condition=="C",], compounds, ccolors, correctTime=TRUE)
-
-
-###############################################################
-# Plot with simulations data
-###############################################################
-## Goresky1983 & 1973 ##
-plot(numeric(0), numeric(0), 
-     xlim=c(0,30), ylim=c(0,16), 
-     xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973 & 1983")
-plotDilutionData(gor1983, correctTime=TRUE)
-plotDilutionData(gor1973[gor1973$condition=="A",], correctTime=TRUE)
-plotDilutionData(gor1973[gor1973$condition=="B",], correctTime=TRUE)
-plotDilutionData(gor1973[gor1973$condition=="C",], correctTime=TRUE)
+stopDevPlot()

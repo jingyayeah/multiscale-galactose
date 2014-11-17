@@ -19,7 +19,7 @@ startDevPlot <- function(width=1000, height=1000, file=NULL, create_plots=F, res
 
 #' Stop the plot generation
 #' @export
-stopDevPlot <- function(create_plots=F){
+stopDevPlot <- function(create_plots=T){
   if (create_plots == T) { dev.off() }
 }
 
