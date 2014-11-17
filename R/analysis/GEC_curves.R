@@ -48,12 +48,7 @@ source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'),
        echo=TRUE, local=FALSE)
 
 
-# Extend the parameters with the SBML and calculated parameters
-ps <- getParameterTypes(pars=pars)
-f.sbml <- file.path(ma.settings$dir.results, folder, paste(modelId, '.xml', sep=''))
-model <- loadSBMLModel(f.sbml)
-pars <- extendParameterStructure(pars=pars, fixed_ps=ps$fixed, model=model)
-head(pars)
+
 
 # Calculate the galactose clearance parameters
 parscl <- createGalactoseClearanceDataFrame(t_peak=2000, t_end=10000)

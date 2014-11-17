@@ -45,9 +45,16 @@ rm(tmp, modelXML)
 # make results folder
 dir.create(file.path(folder, 'results'), showWarnings = FALSE)
 
-# read parameter file
+# read parameter file & extend with SBML information
 print(parsfile)
 pars <- loadParameterFile(file=parsfile)
+
+ps <- getParameterTypes(pars=pars)
+f.sbml <- file.path(ma.settings$dir.results, folder, paste(modelId, '.xml', sep=''))
+model <- loadSBMLModel(f.sbml)
+pars <- extendParameterStructure(pars=pars, fixed_ps=ps$fixed, model=model)
+head(pars)
+
 simIds = rownames(pars)
 
 ###############################################################
