@@ -20,35 +20,33 @@
 ################################################################
 rm(list=ls())
 setwd(ma.settings$dir.results)
-library(MultiscaleAnalysis)
-library(libSBML)
-library(data.table); library(matrixStats);
+library('MultiscaleAnalysis')
+library('libSBML')
+library('data.table'); library('matrixStats');
+library('ggplot2')
 
 # Galactose challenge at peak time, simulation covers at least t_end
 t_peak <- 2000 # [s]
 t_end <- 10000 # [s]
 
 # Dataset for analyis
-# folder <- '2014-11-08_T53' # normal galactose challenge (old scale v24)
-# pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-08_T53/T53_Galactose_v24_Nc20_galchallenge_parameters.csv')
-folder <- '2014-11-15_T54' # normal galactose challenge
-pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-15_T54/T54_Galactose_v25_Nc20_galchallenge_parameters.csv')
-
+folder <- '2014-11-17_T1' # normal galactose challenge
 
 # Some visual analysis of the parameters
-head(pars)
-plotParameterHistogramFull(pars=pars)
-library('ggplot2')
+# pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-17_T5/T5_Galactose_v25_Nc20_galchallenge_parameters.csv')
+# head(pars)
+# plotParameterHistogramFull(pars=pars)
+# library('ggplot2')
 # distribution of flows 
-ggplot(pars, aes(factor(f_flow), flow_sin)) + geom_boxplot() + geom_point()
-mean(pars$flow_sin[pars$f_flow==0.5])
-summary(pars$flow_sin[pars$f_flow==0.5])
+# ggplot(pars, aes(factor(f_flow), flow_sin)) + geom_boxplot() + geom_point()
+# mean(pars$flow_sin[pars$f_flow==0.5])
+# summary(pars$flow_sin[pars$f_flow==0.5])
 
-# Preprocess the dataset 
+# Preprocess dataset 
 # Here the important subcomponents are loaded from the integration csv files
 source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
        echo=TRUE, local=FALSE)
-head(x)
+
 
 # Extend the parameters with the SBML and calculated parameters
 ps <- getParameterTypes(pars=pars)
@@ -281,5 +279,5 @@ calculateConversionFactors <- function(pars){
   res$f_flow <- f_flow
   res
 }
-res <- calculateConversionFactors(pars)
-names(res)
+#res <- calculateConversionFactors(pars)
+#names(res)

@@ -10,8 +10,6 @@
 # Important part is also dimension reduction of the data
 # structure.
 #
-# TODO: Run with: Rscript directly after the CSV was generated
-#
 # author: Matthias Koenig
 # date: 2014-11-11
 ################################################################
@@ -25,9 +23,9 @@ setwd(ma.settings$dir.results)
 # The collection of data files to be preprocessed is defined via
 # the folder variable which encodes the Task
 
-folder <- '2014-11-15_T54'
+# folder <- '2014-11-17_T5'
 print(folder)
-if (!exists('folder')){   
+if (!exists('folder')){
   stop('no folder for preprocessing set')
 }
 tmp <- strsplit(folder, '_')
@@ -37,7 +35,9 @@ task <- tmp[[1]][2]
 modelXML <- list.files(path=file.path(ma.settings$dir.results, folder), pattern='.xml')
 modelId <- substr(modelXML,1,nchar(modelXML)-4)
 
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, folder, task)
+# ma.settings$dir.simdata <- file.path(ma.settings$dir.results, folder, task)               # copied files
+ma.settings$dir.simdata <- file.path(ma.settings$dir.results, 'django', 'timecourse', task) # direct from django
+
 parsfile <- file.path(ma.settings$dir.results, folder, 
                       paste(task, '_', modelId, '_parameters.csv', sep=""))
 rm(tmp, modelXML)
@@ -62,23 +62,28 @@ ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "PP__suc",
          "PV__alb", "PV__gal", "PV__galM", "PV__h2oM", "PV__rbcM", "PV__suc")
 x.fname <- paste(folder, '/results/x.Rdata', sep='')
 
-library(parallel)
-if (file.exists(x.fname)){
-  load(file=x.fname)
-  cat('Preprocessed data exists and is loaded.\n')
-} else {
-  # convert the CSV to R data structure. Uses parallel
-  cat('Preprocessing CSV files ...\n')
-  workerFunc <- function(simId){
-    fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simId)
-    data <- readDataForSimulationFile(fname)
-    save(data, file=paste(fname, '.Rdata', sep=''))
-  }
-  Ncores <- 9
-  res <- mclapply(simIds, workerFunc, mc.cores=Ncores)
-  rm(Ncores)
+cat('Creating Data matrix ...\n')
+x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, modelId=modelId, dir=ma.settings$dir.simdata)
 
-  # make the preprocessing
-  cat('Creating Data matrix ...\n')
-  x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, modelId=modelId, dir=ma.settings$dir.simdata)
-}
+
+# Direct preprocessing of the csv files
+# library(parallel)
+# if (file.exists(x.fname)){
+#   load(file=x.fname)
+#   cat('Preprocessed data exists and is loaded.\n')
+# } else {
+#   # convert the CSV to R data structure. Uses parallel
+#   cat('Preprocessing CSV files ...\n')
+#   workerFunc <- function(simId){
+#     fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simId)
+#     data <- readDataForSimulationFile(fname)
+#     save(data, file=paste(fname, '.Rdata', sep=''))
+#   }
+#   Ncores <- 9
+#   res <- mclapply(simIds, workerFunc, mc.cores=Ncores)
+#   rm(Ncores)
+# 
+#   # make the preprocessing
+#   cat('Creating Data matrix ...\n')
+#   x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, modelId=modelId, dir=ma.settings$dir.simdata)
+# }
