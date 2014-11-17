@@ -68,8 +68,8 @@ def rsyncTimecoursesForTask(task):
         if exists_remote(host, to_path): 
             print 'rsync : ', from_path, '->', to_path      
             #rsync -ravzX --delete mkoenig@ip:directory directory
-            rsync("-ravzX", from_path, to_path)
-
+            rsync("-ravzX", from_path + '*.Rdata', to_path)
+            rsync("-ravzX", from_path + '*.gz', to_path)
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
