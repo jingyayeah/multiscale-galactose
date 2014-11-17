@@ -321,7 +321,7 @@ if __name__ == "__main__":
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution
-        task, samples = make_galactose_flow(sbml_id, N=50, sampling='distribution')
+        task, samples = make_galactose_flow(sbml_id, N=1000, sampling='distribution')
         # mean sinusoidal unit
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
@@ -333,7 +333,7 @@ if __name__ == "__main__":
 
    
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves
@@ -347,7 +347,7 @@ if __name__ == "__main__":
         PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=50, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1000, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, 'PP__gal', PP__gal, 'mM', BOUNDERY_INIT)
         createSimulationsForSamples(task, samples)
         

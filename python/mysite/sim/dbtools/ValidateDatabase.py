@@ -195,5 +195,5 @@ if __name__ == "__main__":
     #     Unassign all simulations
     #-----------------------------------------------
     # ! CAREFUL - KNOW WHAT YOU ARE DOING !
-    # unassignAllSimulation()
+    unassignAllSimulation()
     

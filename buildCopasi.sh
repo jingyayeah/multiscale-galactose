@@ -8,6 +8,8 @@
 ############################################################
 # install dependencies
 sudo apt-get install libboost-all-dev git cmake g++ libgl1-mesa-dev libglu1-mesa-dev libqt4-dev libxml2-dev zlib1g-dev byacc flex
+# Necessary to comile own code with copasi
+sudo apt-get install libboost-all-dev
 
 # building copasi from scratch
 rm -rf ~/copasi
@@ -20,7 +22,15 @@ cd copasi-dependencies
 ./createLinux.sh
 cd ..
 
+# fix for the dependencies
+cd ~/copasi/copasi-dependencies/tmp/libSEDML
+rm -rf sedml
+cmake -DLIBSBML_INCLUDE_DIR=../../bin/include -DLIBSBML_LIBRARY=../../bin/lib/libsbml-static.a ../../src/libSEDML
+make
+make install
+
 # build copasi
+cd ~/copasi/
 git clone https://github.com/copasi/COPASI
 mkdir build_copasi
 cd build_copasi
