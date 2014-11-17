@@ -20,6 +20,7 @@ plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c
   }
   
   if (meanData){
+    cat('Plot compound mean')
     plotCompoundMean(time, data, weights, col)
   }
 }

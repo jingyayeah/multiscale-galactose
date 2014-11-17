@@ -94,7 +94,7 @@ plotMeanCurves <- function(mlist, f.level, compounds, ccolors){
       #points(time, row.wmeans+row.sds, col='Orange', lwd=2, type='l', lty=1)
       #points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
     
-    #points(time, row.means, col=col, lwd=2, type='l', lty=1)
+      points(time, row.means, col=col, lwd=0.5, type='l', lty=2)
     #points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
   
     #points(time, rowMins(tmp), col='Red', lwd=2, type='l', lty=2)
@@ -129,6 +129,8 @@ plotMeanCurves(mlist, f.level, compounds, ccolors)
 plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
 plotMeanCurves(mlist, f.level, compounds, ccolors)
 par(mfrow=c(1,1))
+
+# TODO: add experimental data (Goresky) to plot
 
 
 ############################################################

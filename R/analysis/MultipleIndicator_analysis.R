@@ -12,7 +12,6 @@
 #
 # TODO: create the plots depending on the galactose challange
 # TODO: create plot with experimental data
-# TODO: create the log plot
 # 
 # author: Matthias Koenig
 # date: 2014-05-13
@@ -24,23 +23,27 @@ library('RColorBrewer')
 library('libSBML')
 setwd(ma.settings$dir.results)
 
-#------------------------------------------------------------------------------#
-sname <- '2014-05-13_MultipleIndicator'
-version <- 'v18'
-ma.settings$dir.simdata <- file.path(ma.settings$dir.results, sname, 'data')
-task.offset <- 31
-task.seq <- seq(0,2)
-tasks <- paste('T', task.offset+task.seq, sep='')
-peaks <- paste('P0', task.seq, sep='')
-Ntask = length(tasks)
+t_peak <- 1000              # [s] MID peak start
+t_end <- 5000               # [s] simulation time
+folder <- '2014-11-17_T3'   # Multiple indicator data
+
+source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
+       echo=TRUE, local=FALSE)
+
+# parameters are already extended with SBML information
+head(pars)
+
+
 #------------------------------------------------------------------------------#
 
 compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
-compounds = c('rbcM', 'alb', 'suc', 'h2oM')
-ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
+# compounds = c('rbcM', 'alb', 'suc', 'h2oM')
+# ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
 pv_compounds = paste('PV__', compounds, sep='')
 names(ccolors) <- pv_compounds
+names(ccolors)
+ccolors
 
 # Colors for probability weights
 col2rgb_alpha <- function(col, alpha){
@@ -65,69 +68,17 @@ getColorsForWeights <- function (weights) {
 }
 
 # Preprocess the parameters for scaling
+t.min = t_peak-5
+t.max = t_peak+50
+t.approx = seq(from=t_peak-5, to=t_peak+50, by=0.2)
+preprocess.mat <- createApproximationMatrix(ids=ids, simIds=rownames(pars), points=t.approx, reverse=FALSE)
 
-# for (kt in seq(Ntask)){
-for (kt in seq(1)){
-  task <- tasks[kt]
-  peak <- peaks[kt]
-  modelId <- paste('MultipleIndicator_', peak, '_', version, '_Nc20_Nf1', sep='')
-  parsfile <- file.path(ma.settings$dir.results, sname, 
-                        paste(task, '_', modelId, '_parameters.csv', sep=""))
-  # Load the data
-  load(file=outfileFromParsFile(parsfile))
-  
-  # Parameter processing
-  ps <- getParameterTypes(pars=pars)
-  
-  # Extend the parameters with the SBML parameters and calculated parameters
-  fsbml <- file.path(ma.settings$dir.results, sname, paste(modelId, '.xml', sep=''))
-  model <- loadSBMLModel(fsbml)
-  pars <- extendParameterStructure(pars=pars, fixed_ps=ps$fixed, model=model)
-  head(pars)
-  
-  # Standard distributions for normal case
-  p.gen <- loadStandardDistributions()
-  print(p.gen)
-  
-  # ECDFs for standard distributions
-  ecdf.list <- createListOfStandardECDF(p.gen, ps$var)
-  
-  # Calculate the probabilites for single variables
-  pars <- calculateProbabilitiesForVariables(pars, ecdf.list)
-  # And the overall probability per sample
-  pars <- calculateSampleProbability(pars, ps$var)
-  head(pars)
-    
-  # Color definition based on probabilities
-  weights <- NULL
-  # weights = pars$p_sample
-  if (is.null(weights)){
-    ccols <- NULL 
-  }else{
-    ccols <- getColorsForWeights(weights)
-  }
-  
-  # Create the plots
-  print('weigths:')
-  weights
-  time = getTimeFromPreprocessMatrix(preprocess.mat)-10.0
-  plotMultipleIndicatorCurves(time, preprocess.mat, weights=NULL, ccols=ccols, create_plot_files=T)
-  plotMultipleIndicatorMean(time, preprocess.mat, weights=NULL, create_plot_files=T)
-}
-
-max(preprocess.mat[["PP__alb"]])
-# some example plots
-name="PP__alb"
-create_plot_files = TRUE
-if (create_plot_files){
-  png(filename=paste(ma.settings$dir.results, '/', task, "_test_", name, sep=""),
-      width = 500, height = 500, units = "px", bg = "white",  res = 72)
-}
-time <- getTimeFromPreprocessMatrix(preprocess.mat) - 10.0
+# some example plots of single time curves
+name="PV__alb"
+max(preprocess.mat[[name]])
+time <- getTimeFromPreprocessMatrix(preprocess.mat)-t_peak
 plotCompound(time, preprocess.mat[[name]], name, col=ccolors[name], ylim=c(0,2.1))
-if (create_plot_files){
-  dev.off()
-}
+
 
 ###################################################################################
 # Dilution curves with experimental data
