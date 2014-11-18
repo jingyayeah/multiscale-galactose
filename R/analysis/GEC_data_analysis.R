@@ -926,6 +926,18 @@ m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
 
 ############################################
+# flowLiverkg [ml/min/kg] vs. BSA [m^2]
+############################################
+xname <- 'BSA'
+yname <- 'flowLiverkg'
+selection <- c('study', 'gender', xname, yname, 'dtype')
+data <- rbind(sch1945[, selection],
+              cat2010[, selection]) # estimate via cardiac output
+saveData(data)
+# m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, NULL, xname, yname)
+
+############################################
 # flowLiver [ml/min] vs. volLiver [ml]
 ############################################
 xname <- 'volLiver'
