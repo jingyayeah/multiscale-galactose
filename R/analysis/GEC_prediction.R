@@ -5,7 +5,7 @@
 # best prediction for liver volume, blood flow and GEC.
 # Creates density functions based on given antropomorphic details.
 # 
-# TODO: fix volLiver ~ age model
+# TOOD: volLiverkg & flowLiverkg prediction from data
 #
 # author: Matthias Koenig
 # date: 2014-11-14
@@ -167,6 +167,12 @@ legend("topright", legend=c('combined', 'volLiver~age', 'volLiver~bodyweight', '
 # dev.off()
 
 ######################################
+## Liver Volume per bodyweight
+######################################
+# TODO predict the volLiverkg
+
+
+######################################
 ## Liver Blood Flow
 ######################################
 # flowLiver ~ age
@@ -309,6 +315,10 @@ png(filename='/home/mkoenig/multiscale-galactose/presentations/flowLiver_80years
 plot(flowLiver.grid, f_d.flowLiver$f_d.1(flowLiver.grid), type='l', lty=1, col=gender.base_cols[[sex]], lwd=2, main=sprintf('age=%s [y], sex=%s', age, sex), xlab='liver bloodflow [ml/min]', ylab='estimated probability density', font.lab=2)
 dev.off()
 
+######################################
+## Liver Blood Flow per bodyweight
+######################################
+# TOOD implement the flowLiverkg
 
 ##############################################################################
 # Test some of the functions
@@ -497,6 +507,19 @@ calculate_GEC <- function(volLiver, flowLiver, f_tissue=0.8){
   GEC <- GEC_per_vol * f_tissue * volLiver # mmol/min
   return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GEC=GEC, f_tissue=f_tissue))
 }
+
+calculate_GECkg <- function(volLiverkg, flowLiverkg, f_tissue=0.8){  
+    # perfusion
+    perfusion <- flowLiverkg/volLiverkg # [ml/min/ml]
+    # GEC per volume based on perfusion
+    GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
+    # GEC for liver per kg
+    # GEC curves are for liver tissue. No correction for the large vessel structure
+    # has been applied. Here the metabolic capacity of combined sinusoidal units.
+    GECkg <- GEC_per_vol * f_tissue * volLiver # mmol/min
+    return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GECkg=GECkg, f_tissue=f_tissue))
+}
+
 
 ##############################################################################
 # Predict NHANES
@@ -774,7 +797,7 @@ par(mfrow=c(1,1))
 ############################################
 # GECkg [mmol/min/kgbw]
 ############################################
-# problem that bodyweight is missing -> prediction via volLiverkg & flowLiverkg
+# TODO prediction via volLiverkg & flowLiverkg (without available bodyweight)
 
 loadRawData('lan2011') # age, GECkg 
 lan2011.p1 <- predict_GEC_for_name('lan2011')
@@ -784,18 +807,15 @@ loadRawData('sch1986.fig1')
 sch1968.fig1.p1 <- predict_GEC_for_name('sch1986.fig1')
 
 
-
 ############################################
 # Predict for Heinemann
 ############################################
-# Use the Heinemann liver volume data for prediction.
+# TODO Use the Heinemann liver volume data for prediction.
 
-
-
-
-
-
-
-
-
+############################################
+# Predict distributons
+############################################
+# TODO Multiple predictions per data point with different subsets of 
+# information.
+# mean prediction + inervals for the predictions
 

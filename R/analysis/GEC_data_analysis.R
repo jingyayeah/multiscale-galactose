@@ -1,12 +1,12 @@
 ################################################################
-## GEC in aging
+## Data analysis & dataset combination for GEC modeling
 ################################################################
-# Changes of GEC in aging, with perfusion, ...
-# Combine the datasets into the graphs and provide different views 
-# depending on gender.
+# Loading, preprocessing & combination of datasets for prediction 
+# and for fitting of regression models.
+# Here the experimental data is prepared to use in models.
 #
 # author: Matthias Koenig
-# date: 2014-04-17
+# date: 2014-11-17
 ###############################################################
 rm(list=ls())
 library(MultiscaleAnalysis)

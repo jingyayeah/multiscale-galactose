@@ -5,10 +5,9 @@
 # Fitting of GAMLSS statistical models to the underlying datasats. These are 
 # the models used for the individual predictions of the 2D correlations.
 #
-# TODO: fix problems with model volLiver_age
-# TODO: fix the model liver ~ age problems.
 # TODO: use the weighting in all models
-# TODO: always fit a good model for mu first and use as starting point for mu, sigma 
+# TODO: always fit basic model first (mu), which is used as starting point 
+# for the (mu, sigma) models
 # TODO: cross-validation
 #
 # author: Matthias Koenig
@@ -26,6 +25,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
 # dataset <- 'volLiver_bodyweight'
+# dataset <- 'volLiverkg_bodyweight'
 # dataset <- 'volLiver_height'
 # dataset <- 'volLiver_BSA'
 
@@ -35,7 +35,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 # dataset <- 'flowLiver_age'
 # dataset <- 'flowLiver_bodyweight'
-dataset <- 'flowLiverkg_age'
+# dataset <- 'flowLiverkg_age'
 # dataset <- 'flowLiverkg_bodyweight'
 
 
@@ -194,36 +194,32 @@ if (dataset == 'GECkg_age'){
 head(df.all)
 
 ## volLiver vs. age ######################################
-if (dataset == 'volLiver_age'){
+if (dataset == 'volLiver_age'){    
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
-  ## all ##    
-  fit.all <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.all)
+  # all
+  fit.all.nosigma <- gamlss(volLiver ~ cs(age,4), family=BCCG, weights=weights, data=df.all)
+  fit.all <- gamlss(volLiver ~ cs(age,4), sigma.formula=~age, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma)
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
-  
-  newdata <- data.frame(age=c(20))
-  mu <- predict(fit.all, what = "mu", type = "response", newdata=newdata, data=df.all)
-  
-  ## male ##
-  fit.male <- gamlss(volLiver ~ cs(age,3), sigma.formula=~age ,family=BCCG, data=df.male)
+  # test predictions
+  mu <- predict(fit.all, what = "mu", type = "response", newdata=data.frame(age=c(20)), data=df.all)
+  # male
+  fit.male.nosigma <- gamlss(volLiver ~ cs(age,4), family=BCCG, weights=weights, data=df.male)
+  fit.male <- gamlss(volLiver ~ cs(age,4), sigma.formula=~age, family=BCCG, weights=weights, data=df.male, start.from=fit.male.nosigma)
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
-  
-  newdata <- data.frame(age=c(20))
-  mu <- predict(fit.male, what = "mu", type = "response", newdata=newdata, data=df.male)
-  
-  ## female ##
-  fit.female <- gamlss(volLiver ~ cs(age,3), family=BCCG, data=df.female)
+  # female
+  fit.female <- gamlss(volLiver ~ cs(age,4), family=BCCG, weights=weights, data=df.female)
   plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['female']])
   par(mfrow=c(1,1))
   stopDevPlot()
   
-  # save Models
+  # save models
   models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
                  df.all=df.all, df.male=df.male, df.female=df.female)
   saveFitModels(models, xname, yname)
