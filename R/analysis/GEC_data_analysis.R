@@ -369,6 +369,7 @@ vau2002.fig2$dtype <- 'individual'
 vau2002.fig2$gender <- as.character(vau2002.fig2$sex)
 vau2002.fig2$gender[vau2002.fig2$gender=='U'] <- 'all'
 vau2002.fig2$volLiver <- vau2002.fig2$liverVol
+vau2002.fig2$volLiverkg <- vau2002.fig2$volLiver/vau2002.fig2$bodyweight
 saveRawData(vau2002.fig2)
 head(vau2002.fig2)
 
@@ -715,13 +716,13 @@ makeFigureFull(data, m1, xname, yname)
 ############################################
 # GEC [mmol/min] vs. flowLiver [ml/min]
 ############################################
-#xname <- 'flowLiver'; yname <- 'GEC'
-#selection <- c('study', 'gender', xname, yname, 'dtype')
-#data <- rbind( win1965[, selection]) # outlier compare to other datasets
-#saveData(data)
+xname <- 'flowLiver'; yname <- 'GEC'
+selection <- c('study', 'gender', xname, yname, 'dtype')
+data <- rbind( win1965[, selection]) # outlier compare to other datasets
+saveData(data)
 
-#m1 <- linear_regression(data, xname, yname)
-#makeFigureFull(data, m1, xname, yname)
+m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # volLiver [ml] vs. age [years]
@@ -746,27 +747,25 @@ addPopulationSegments(kay1987, xname, yname)
 ############################################
 # volLiver [ml] vs. age [years] and bodyweight [kg]
 ############################################
-x1name <- 'age'; x2name <- 'bodyweight'; yname <- 'volLiver'
-selection <- c('study', 'gender', x1name, x2name, yname, 'dtype')
-data <- rbind(wyn1989[, selection] ,
-              naw1998[, selection], 
-              hei1999[, selection])
-head(data)
-require("rgl")
-require("RColorBrewer")
-colors <- rep(NA, nrow(data))
-colors[data$gender=='male'] <- rgb(0,0,1, alpha=0.5)
-colors[data$gender=='female'] <- rgb(1,0,0, alpha=0.5)
-plot3d(data$age, data$bodyweight, data$volLiver, 
-       col=colors, pch=symbols, size=5) 
-data1 <- data[data$gender=="male", ]
-data2 <- data[data$gender=="female", ]
-plot3d(data1$age, data1$bodyweight, data1$volLiver, 
-       pch=symbols, size=5, col='blue') 
-plot3d(data2$age, data2$bodyweight, data2$volLiver, 
-       pch=symbols, size=5, col='red') 
-decorate3d()
-# saveData(data)
+# x1name <- 'age'; x2name <- 'bodyweight'; yname <- 'volLiver'
+# selection <- c('study', 'gender', x1name, x2name, yname, 'dtype')
+# data <- rbind(wyn1989[, selection] ,
+#               naw1998[, selection], 
+#               hei1999[, selection])
+# require("rgl")
+# require("RColorBrewer")
+# colors <- rep(NA, nrow(data))
+# colors[data$gender=='male'] <- rgb(0,0,1, alpha=0.5)
+# colors[data$gender=='female'] <- rgb(1,0,0, alpha=0.5)
+# plot3d(data$age, data$bodyweight, data$volLiver, 
+#        col=colors, pch=symbols, size=5) 
+# data1 <- data[data$gender=="male", ]
+# data2 <- data[data$gender=="female", ]
+# plot3d(data1$age, data1$bodyweight, data1$volLiver, 
+#        pch=symbols, size=5, col='blue') 
+# plot3d(data2$age, data2$bodyweight, data2$volLiver, 
+#        pch=symbols, size=5, col='red') 
+# decorate3d()
 
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
@@ -796,6 +795,16 @@ makeFigureFull(data, NULL, xname, yname)
 # addPopulationSegments(del1968.fig4, xname, yname)
 
 ############################################
+# volLiverkg [ml/kg] vs. BSA [m^2]
+############################################
+xname <- 'BSA'; yname <- 'volLiverkg'
+selection <- c('study', 'gender', xname, yname, 'dtype')
+data <- rbind(naw1998[, selection],
+              hei1999[, selection])
+saveData(data)
+makeFigureFull(data, NULL, xname, yname)
+
+############################################
 # volLiver [ml] vs. bodyweight [kg]
 ############################################
 xname <- 'bodyweight'; yname <- 'volLiver'
@@ -812,6 +821,18 @@ addPopulationSegments(del1968.fig1, xname, yname)
 addPopulationSegments(tom1965, xname, yname)
 
 ############################################
+# volLiverkg [ml/kg] vs. bodyweight [kg]
+############################################
+xname <- 'bodyweight'; yname <- 'volLiverkg'
+selection <- c('study', 'gender', xname, yname, 'dtype')
+data <- rbind(naw1998[, selection],
+              vau2002.fig2[, selection],
+              wyn1989[, selection],
+              hei1999[, selection])
+saveData(data)
+makeFigureFull(data, NULL, xname, yname)
+
+############################################
 # volLiver [ml] vs. height [cm]
 ############################################
 xname <- 'height'; yname <- 'volLiver'
@@ -821,10 +842,19 @@ data <- rbind(naw1998[, selection],
 # data <- addRandomizedPopulationData(data, del1968.fig3)
 # data <- addRandomizedPopulationData(data, gra2000.tab1)
 saveData(data)
-
 makeFigureFull(data, NULL, xname, yname)
 addPopulationSegments(del1968.fig3, xname, yname)
 addPopulationSegments(gra2000.tab1, xname, yname)
+
+############################################
+# volLiverkg [ml/kg] vs. height [cm]
+############################################
+xname <- 'height'; yname <- 'volLiverkg'
+selection <- c('study', 'gender', xname, yname, 'dtype')
+data <- rbind(naw1998[, selection],
+              hei1999[, selection])
+saveData(data)
+makeFigureFull(data, NULL, xname, yname)
 
 ############################################
 # flowLiver [ml/min] vs. age [years]
@@ -839,7 +869,6 @@ data <- rbind( win1965[, selection],
                wyn1990[, selection],
                cat2010[, selection],     # estimate via cardiac output
                ircp2001.co[, selection]) # estimate via cardiac output
-
 saveData(data)
 makeFigureFull(data, NULL, xname, yname)
 
@@ -854,10 +883,8 @@ data <- rbind( win1965[, selection],
                zol1993[, selection],
                cat2010[, selection]) # estimate via cardiac output
 saveData(data)
-
 # m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, NULL, xname, yname)
-
 
 ############################################
 # flowLiver [ml/min] vs. bodyweight [kg]
@@ -879,18 +906,6 @@ selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(  wyn1989[, selection],
                 sim1997[, selection], # estimate via cardiac output
                 cat2010[, selection]) # estimate via cardiac output
-saveData(data)
-
-m1 <- linear_regression(data, xname, yname)
-makeFigureFull(data, m1, xname, yname)
-
-
-############################################
-# perfusion [ml/min/ml] vs. age [years]
-############################################
-xname <- 'age'; yname <- 'perfusion'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( wyn1989[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -929,6 +944,17 @@ xname <- 'volLiver'
 yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(wyn1989[, selection])
+saveData(data)
+
+m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, m1, xname, yname)
+
+############################################
+# perfusion [ml/min/ml] vs. age [years]
+############################################
+xname <- 'age'; yname <- 'perfusion'
+selection <- c('study', 'gender', xname, yname, 'dtype')
+data <- rbind( wyn1989[, selection])
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
