@@ -64,8 +64,10 @@ saveRawData <- function(data, dir=NULL){
 ##############################################
 # Read datasets
 ##############################################
-f_liver_density = 1.08  # [g/ml] conversion between volume and weight
-f_co_fraction = 0.25    # [-] Liver bloodflow as fraction of cardiac output
+f_liver_density = 1.08     # [g/ml] conversion between volume and weight
+f_co_fraction = 0.25       # [-] Liver bloodflow as fraction of cardiac output
+f_weight_indirect = 0.2    # [-] Weighting of indirect measurments
+
 dtypes <- c('population', 'individual')
 
 # sex, age, liverVolume
@@ -103,15 +105,26 @@ head(bra1945)
 
 # age [years], sex [U], cardiac_output [L/min]
 # liver blood flow estimated via cardiac output
-cat2010 <- read.csv(file.path(ma.settings$dir.expdata, "cardiac_output", "Cattermole2010_Tab2.csv"), sep="\t")
-cat2010$dtype <- 'population'
+# cat2010 <- read.csv(file.path(ma.settings$dir.expdata, "cardiac_output", "Cattermole2010_Tab2.csv"), sep="\t")
+# cat2010$dtype <- 'population'
+# cat2010$gender <- getGender(cat2010)
+# cat2010$flowLiver <- cat2010$CO * 1000 * f_co_fraction # [ml/min]
+# cat2010$flowLiverMin <- cat2010$COMin * 1000 * f_co_fraction # [ml/min]
+# cat2010$flowLiverMax <- cat2010$COMax * 1000 * f_co_fraction # [ml/min]
+# cat2010$ageRange <- 0.5*(cat2010$ageMax - cat2010$ageMin)
+# # cat2010$flowLiverRange <- 0.5*(cat2010$flowLiverMax - cat2010$flowLiverMin)
+# cat2010$flowLiverSd <- 0.5*(cat2010$flowLiverMax - cat2010$flowLiverMin)/2 # only estimate!, read from centiles
+# cat2010 <- cat2010[complete.cases(cat2010), ]
+# saveRawData(cat2010)
+# head(cat2010)
+
+# liver blood flow estimated via cardiac output
+# age [years], sex [M,F], bodyweight [kg], height [cm], BSA [m^2], cardiac_output [mL/min], cardiac_outputkg [ml/min/kg]
+cat2010 <- read.csv(file.path(ma.settings$dir.expdata, "cattermole", "Koenig_Cattermole2009.csv"), sep="\t")
+cat2010$dtype <- 'individual'
 cat2010$gender <- getGender(cat2010)
-cat2010$flowLiver <- cat2010$CO * 1000 * f_co_fraction # [ml/min]
-cat2010$flowLiverMin <- cat2010$COMin * 1000 * f_co_fraction # [ml/min]
-cat2010$flowLiverMax <- cat2010$COMax * 1000 * f_co_fraction # [ml/min]
-cat2010$ageRange <- 0.5*(cat2010$ageMax - cat2010$ageMin)
-# cat2010$flowLiverRange <- 0.5*(cat2010$flowLiverMax - cat2010$flowLiverMin)
-cat2010$flowLiverSd <- 0.5*(cat2010$flowLiverMax - cat2010$flowLiverMin)/2 # only estimate!, read from centiles
+cat2010$flowLiver <- cat2010$CO * f_co_fraction # [ml/min]
+cat2010$flowLiverkg <- cat2010$COkg * f_co_fraction # [ml/min]
 cat2010 <- cat2010[complete.cases(cat2010), ]
 saveRawData(cat2010)
 head(cat2010)
@@ -722,8 +735,8 @@ data <- rbind( mar1988[, selection],
                hei1999[, selection])
 
 # data <- addRandomizedPopulationData(data, alt1962) # no range/Sd for volLiver
-data <- addRandomizedPopulationData(data, tom1965)
-data <- addRandomizedPopulationData(data, kay1987)
+# data <- addRandomizedPopulationData(data, tom1965)
+# data <- addRandomizedPopulationData(data, kay1987)
 
 saveData(data)
 makeFigureFull(data, NULL, xname, yname)
@@ -766,11 +779,6 @@ data <- rbind(wyn1989[, selection] ,
 saveData(data)
 makeFigureFull(data, NULL, xname, yname)
 
-#inds <- which(hei1999$bodyweight<3.5)
-#inds <- which(hei1999$volLiverkg>60)
-#points(hei1999$age[inds], hei1999$volLiverkg[inds], col='black', lwd = 3)
-#hei1999[inds,]
-
 ############################################
 # volLiver [ml] vs. BSA [m^2]
 ############################################
@@ -782,11 +790,10 @@ data <- rbind(naw1998[, selection],
               vau2002.fig1[, selection],
               yos2003[,selection])
 
-data <- addRandomizedPopulationData(data, del1968.fig4)
+# data <- addRandomizedPopulationData(data, del1968.fig4)
 saveData(data)
-
 makeFigureFull(data, NULL, xname, yname)
-addPopulationSegments(del1968.fig4, xname, yname)
+# addPopulationSegments(del1968.fig4, xname, yname)
 
 ############################################
 # volLiver [ml] vs. bodyweight [kg]
@@ -797,14 +804,12 @@ data <- rbind(naw1998[, selection],
               vau2002.fig2[, selection],
               wyn1989[, selection],
               hei1999[, selection])
-
 # data <- addRandomizedPopulationData(data, del1968.fig1)
 # data <- addRandomizedPopulationData(data, tom1965)
 saveData(data)
-# m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, NULL, xname, yname)
-# addPopulationSegments(del1968.fig4, xname, yname)
-# addPopulationSegments(tom1965, xname, yname)
+addPopulationSegments(del1968.fig1, xname, yname)
+addPopulationSegments(tom1965, xname, yname)
 
 ############################################
 # volLiver [ml] vs. height [cm]
@@ -813,8 +818,8 @@ xname <- 'height'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(naw1998[, selection],
               hei1999[, selection])
-data <- addRandomizedPopulationData(data, del1968.fig3)
-data <- addRandomizedPopulationData(data, gra2000.tab1)
+# data <- addRandomizedPopulationData(data, del1968.fig3)
+# data <- addRandomizedPopulationData(data, gra2000.tab1)
 saveData(data)
 
 makeFigureFull(data, NULL, xname, yname)
@@ -832,14 +837,11 @@ data <- rbind( win1965[, selection],
                zol1999[, selection],
                sch1945[, selection],
                wyn1990[, selection],
-               ircp2001.co[, selection]) # only estimate via cardiac output
+               cat2010[, selection],     # estimate via cardiac output
+               ircp2001.co[, selection]) # estimate via cardiac output
 
-#data <- addRandomizedPopulationData(data, cat2010)  
 saveData(data)
-
 makeFigureFull(data, NULL, xname, yname)
-addPopulationSegments(cat2010, xname, yname)
-# grid()
 
 ############################################
 # flowLiverkg [ml/min/kg] vs. age [years]
@@ -849,22 +851,23 @@ selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( win1965[, selection], 
                wyn1989[, selection],
                sch1945[, selection],
-               zol1993[, selection])
+               zol1993[, selection],
+               cat2010[, selection]) # estimate via cardiac output
 saveData(data)
 
-m1 <- linear_regression(data, xname, yname)
-par(mfrow=c(2,1))
-makeFigureFull(data, m1, xname, yname)
+# m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, NULL, xname, yname)
+
 
 ############################################
 # flowLiver [ml/min] vs. bodyweight [kg]
 ############################################
 xname <- 'bodyweight'; yname <- 'flowLiver'
 selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(sim1997[, selection],
-              wyn1989[, selection])
+data <- rbind(wyn1989[, selection],
+              sim1997[, selection], # estimate via cardiac output
+              cat2010[, selection]) # estimate via cardiac output
 saveData(data)
-
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
 
@@ -873,8 +876,9 @@ makeFigureFull(data, m1, xname, yname)
 ############################################
 xname <- 'bodyweight'; yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(  sim1997[, selection],
-                wyn1989[, selection])
+data <- rbind(  wyn1989[, selection],
+                sim1997[, selection], # estimate via cardiac output
+                cat2010[, selection]) # estimate via cardiac output
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -899,7 +903,8 @@ xname <- 'BSA'
 yname <- 'flowLiver'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(bra1945[, selection],
-              sch1945[, selection])
+              sch1945[, selection],
+              cat2010[, selection]) # estimate via cardiac output
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)

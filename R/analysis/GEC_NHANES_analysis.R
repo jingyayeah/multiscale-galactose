@@ -91,7 +91,7 @@ rm(data)
 #######################################################
 # Plot basic data overview
 #######################################################
-create_plots = F
+create_plots = T
 # sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", xname, yname)
 startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", yname, xname))
 par(mfrow=c(1,3))
