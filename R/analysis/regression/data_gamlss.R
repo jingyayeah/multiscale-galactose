@@ -10,6 +10,7 @@
 # for the (mu, sigma) models
 # TODO: create the additional models in dependency of the bodyweight, i.e.
 #       the models necessary to fit volLiverkg and flowLiverkg
+
 # TODO: cross-validation
 #
 # author: Matthias Koenig
@@ -21,13 +22,13 @@ rm(list = ls())
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 ################################################################################
-# dataset <- 'GEC_age'
+dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
 
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
 # dataset <- 'volLiver_bodyweight'
-dataset <- 'volLiverkg_bodyweight'
+# dataset <- 'volLiverkg_bodyweight'
 # dataset <- 'volLiver_height'
 # dataset <- 'volLiverkg_height' # TODO
 # dataset <- 'volLiver_BSA'
@@ -296,33 +297,30 @@ if (dataset == 'volLiver_bodyweight'){
 
 ## volLiverkg vs. bodyweight ######################################
 if (dataset == 'volLiverkg_bodyweight'){
-    # TODO: make the corrections to the models
     startDevPlot(width=2000, height=1000)
     par(mfrow=c(1,3))
-    ## all ##
-    fit.all.no <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,2), family=NO, data=df.all)
-    fit.all <- fit.all.no
+    # all
+    fit.all.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.all)
+    fit.all <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma)
     plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['all']])
-    
-    ## male ##
-    fit.male.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,1), family=NO, data=df.male)
-    fit.male <- fit.male.no
-    plotCentiles(model=fit.male.no, d=df.male, xname=xname, yname=yname,
+    # male
+    fit.male.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.male)
+    fit.male <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.male, start.from=fit.male.nosigma)
+    plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['male']])
-    
-    ## female ##
-    fit.female.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,1), family=NO, data=df.female)
-    fit.female <- fit.female.no
-    plotCentiles(model=fit.female.no, d=df.female, xname=xname, yname=yname,
+    # female
+    fit.female.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.female)
+    fit.female <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.female, start.from=fit.female.nosigma)
+    plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['female']])
     par(mfrow=c(1,1))
     stopDevPlot()
     
-    # save Models
+    # save models
     models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
                    df.all=df.all, df.male=df.male, df.female=df.female)
     saveFitModels(models, xname, yname)
