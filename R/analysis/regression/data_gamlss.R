@@ -16,18 +16,18 @@
 # author: Matthias Koenig
 # date: 2014-11-17
 ################################################################################
+rm(list = ls())
 library('MultiscaleAnalysis')
 setwd('/home/mkoenig/multiscale-galactose/')
-rm(list = ls())
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 ################################################################################
-dataset <- 'GEC_age'
+# dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
 
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
-# dataset <- 'volLiver_bodyweight'
+dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiverkg_bodyweight'
 # dataset <- 'volLiver_height'
 # dataset <- 'volLiverkg_height' # TODO
@@ -99,17 +99,6 @@ table(data$weights)
 # reduce data tp the individual points (no population data used)
 data <- data[data$dtype=="individual", ]
 
-# filtering of some values
-if (dataset == 'GEC_age'){
-    # TODO: recheck the data
-    # problems with non Marchesini data (data very far away and large spread)
-    data <- data[data$sex=='all',]
-}
-if (dataset == 'volLiver_BSA'){
-    # cutoff based on the normal range for BSA (based on NHANES)
-    data <- data[data$BSA<=2.5,]
-}
-
 # prepare subsets
 df.names <- c('all', 'male', 'female')
 df.all <- data
@@ -162,23 +151,18 @@ create_plots=TRUE
 create_plots=T
 if (dataset == 'GEC_age'){
   startDevPlot(width=650, height=1000)
-  # all #
-  fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,1), family=NO, data=df.all)
-  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
-  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
-  
-  fit.all <- fit.all.no
+  # all
+  fit.all.nosigma <- gamlss(GEC ~ cs(age,2), family=NO, weights=weights, data=df.all)
+  fit.all <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,1), family=NO, weights=weights, data=df.all, start.from=fit.all.nosigma)
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
+  # male
+  fit.male <- NULL
+  # female
+  fit.female <- NULL
   stopDevPlot()
   
-  # male #
-  fit.male <- NULL
-  # female #
-  fit.female <- NULL
-  
-  # save Models
   models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
                  df.all=df.all, df.male=df.male, df.female=df.female)
   saveFitModels(models, xname, yname)
@@ -187,19 +171,22 @@ if (dataset == 'GEC_age'){
 ## GECkg vs. age ######################################
 if (dataset == 'GECkg_age'){
   startDevPlot(width=650, height=1000)
-  # simple model with normal distributed link function
-  fit.all.no <- gamlss(GECkg ~ cs(age,4), sigma.formula= ~cs(age,2), family=NO, data=df.all)
-  # fit.all.no <- gamlss(GEC ~ cs(age,3), family=NO, data=df.all)
-  # fit.all.no <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,2), family=NO, data=df.all)
-  
-  fit.final <- fit.all.no
-  plotCentiles(model=fit.final, d=df.all, xname=xname, yname=yname,
+  # all
+  fit.all.nosigma <- gamlss(GECkg ~ cs(age,4), family=NO, weights=weights, data=df.all)
+  fit.all <- gamlss(GECkg ~ cs(age,4), sigma.formula= ~age, family=NO, weights=weights, data=df.all, start.from=fit.all.nosigma)
+  plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
+  # male
+  fit.male <- NULL
+  # female
+  fit.female <- NULL
   stopDevPlot()
+  
+  models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
+                 df.all=df.all, df.male=df.male, df.female=df.female)
+  saveFitModels(models, xname, yname)
 }
-
-head(df.all)
 
 
 ## volLiver vs. age ######################################
@@ -238,18 +225,18 @@ if (dataset == 'volLiver_age'){
 if (dataset == 'volLiverkg_age'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
-  ## all ##
-  fit.all <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, data=df.all)
-  plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
+  # all
+  fit.all <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, weights=weights, data=df.all, method=mixed(2,10))
+  plotCentiles(model=fit.all.nosigma, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
-  ## male ##
-  fit.male <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, data=df.male)
+  # male
+  fit.male <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, weights=weights, data=df.male, method=mixed(2,10)))
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
-  ## female ##
-  fit.female <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, data=df.female)
+  # female
+  fit.female <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, weights=weights, data=df.female, method=mixed(2,10))
   plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['female']])
@@ -266,30 +253,28 @@ if (dataset == 'volLiverkg_age'){
 if (dataset == 'volLiver_bodyweight'){
     startDevPlot(width=2000, height=1000)
     par(mfrow=c(1,3))
-    ## all ##
-    fit.all.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,2), family=NO, data=df.all)
-    fit.all <- fit.all.no
+    # all
+    fit.all.nosigma <- gamlss(volLiver ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.all)
+    fit.all <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma)
     plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['all']])
-    
-    ## male ##
-    fit.male.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,1), family=NO, data=df.male)
-    fit.male <- fit.male.no
-    plotCentiles(model=fit.male.no, d=df.male, xname=xname, yname=yname,
+    # male
+    fit.male.nosigma <- gamlss(volLiver ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.male)
+    fit.male <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.male, start.from=fit.male.nosigma)
+    plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['male']])
     
-    ## female ##
-    fit.female.no <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,1), family=NO, data=df.female)
-    fit.female <- fit.female.no
-    plotCentiles(model=fit.female.no, d=df.female, xname=xname, yname=yname,
+    # female
+    fit.female.nosigma <- gamlss(volLiver ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.female)
+    fit.female <- gamlss(volLiver ~ cs(bodyweight,2), sigma.formula= ~cs(bodyweight,1), family=BCCG, weights=weights, data=df.female, start.from=fit.female.nosigma)
+    plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['female']])
     par(mfrow=c(1,1))
     stopDevPlot()
     
-    # save Models
     models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
                    df.all=df.all, df.male=df.male, df.female=df.female)
     saveFitModels(models, xname, yname)
