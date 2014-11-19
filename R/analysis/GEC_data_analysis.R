@@ -734,7 +734,6 @@ data <- rbind( mar1988[, selection],
                naw1998[, selection],
                boy1933[, selection],
                hei1999[, selection])
-
 # data <- addRandomizedPopulationData(data, alt1962) # no range/Sd for volLiver
 # data <- addRandomizedPopulationData(data, tom1965)
 # data <- addRandomizedPopulationData(data, kay1987)
@@ -952,14 +951,7 @@ makeFigureFull(data, m1, xname, yname)
 ############################################
 # flowLiverkg [ml/min/kg] vs. volLiver [ml]
 ############################################
-xname <- 'volLiver'
-yname <- 'flowLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(wyn1989[, selection])
-saveData(data)
-
-m1 <- linear_regression(data, xname, yname)
-makeFigureFull(data, m1, xname, yname)
+# not necessary: flowLiverkg ~ volLiverkg == flowLiver ~ volLiver
 
 ############################################
 # perfusion [ml/min/ml] vs. age [years]
