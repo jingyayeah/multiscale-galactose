@@ -27,10 +27,10 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
-dataset <- 'volLiver_bodyweight'
+# dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiverkg_bodyweight'
 # dataset <- 'volLiver_height'
-# dataset <- 'volLiverkg_height' # TODO
+# dataset <- 'volLiverkg_height'
 # dataset <- 'volLiver_BSA'
 # dataset <- 'volLiverkg_BSA' # TODO
 
@@ -285,27 +285,84 @@ if (dataset == 'volLiverkg_bodyweight'){
     startDevPlot(width=2000, height=1000)
     par(mfrow=c(1,3))
     # all
-    fit.all.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.all)
-    fit.all <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma)
+    fit.all.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.all, method=mixed(2,10))
+    fit.all <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma, method=mixed(2,10))
     plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['all']])
     # male
-    fit.male.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.male)
-    fit.male <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.male, start.from=fit.male.nosigma)
+    fit.male.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.male, method=mixed(2,10))
+    fit.male <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.male, start.from=fit.male.nosigma, method=mixed(2,10))
     plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['male']])
     # female
-    fit.female.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.female)
-    fit.female <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.female, start.from=fit.female.nosigma)
+    fit.female.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.female, method=mixed(2,10))
+    fit.female <- gamlss(volLiverkg ~ cs(bodyweight,2), sigma.formula= ~bodyweight, family=BCCG, weights=weights, data=df.female, start.from=fit.female.nosigma, method=mixed(2,10))
     plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                  main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                  pcol=df.cols[['female']])
     par(mfrow=c(1,1))
     stopDevPlot()
     
-    # save models
+    models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
+                   df.all=df.all, df.male=df.male, df.female=df.female)
+    saveFitModels(models, xname, yname)
+}
+
+## volLiver vs. height ######################################
+if (dataset == 'volLiver_height'){
+    startDevPlot(width=2000, height=1000)
+    par(mfrow=c(1,3))
+    # all
+    fit.all.nosigma <- gamlss(volLiver ~ cs(height,5), family=BCCG, weights=weights, data=df.all)
+    fit.all <- gamlss(volLiver ~ cs(height,5), sigma.formula= ~height, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma)
+    plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['all']])
+    # male
+    fit.male.nosigma <- gamlss(volLiver ~ cs(height,5), family=BCCG, weights=weights, data=df.male)
+    fit.male <- gamlss(volLiver ~ cs(height,5), sigma.formula= ~height, family=BCCG, weights=weights, data=df.male, start.from=fit.male.nosigma)
+    plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['male']])
+    
+    # female
+    fit.female.nosigma <- gamlss(volLiver ~ cs(height,4), family=BCCG, weights=weights, data=df.female)
+    fit.female <- gamlss(volLiver ~ cs(height,4), sigma.formula= ~height, family=BCCG, weights=weights, data=df.female, start.from=fit.female.nosigma)
+    plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['female']])
+    par(mfrow=c(1,1))
+    stopDevPlot()
+    
+    models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
+                   df.all=df.all, df.male=df.male, df.female=df.female)
+    saveFitModels(models, xname, yname)
+}
+
+## volLiverkg vs. height ######################################
+if (dataset == 'volLiverkg_height'){
+    startDevPlot(width=2000, height=1000)
+    par(mfrow=c(1,3))
+    # all
+    fit.all <- gamlss(volLiverkg ~ cs(height,2), family=BCCG, weights=weights, data=df.all)
+    plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['all']])
+    # male
+    fit.male <- gamlss(volLiverkg ~ cs(height,2), family=BCCG, weights=weights, data=df.male)
+    plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['male']])
+    # female
+    fit.female <- gamlss(volLiverkg ~ cs(height,2), family=BCCG, weights=weights, data=df.female)
+    plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['female']])
+    par(mfrow=c(1,1))
+    stopDevPlot()
+    
     models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
                    df.all=df.all, df.male=df.male, df.female=df.female)
     saveFitModels(models, xname, yname)
@@ -315,25 +372,27 @@ if (dataset == 'volLiverkg_bodyweight'){
 if (dataset == 'volLiver_BSA'){
   startDevPlot(width=2000, height=1000)
   par(mfrow=c(1,3))
-  ## all ##
-  fit.all <- gamlss(volLiver ~ cs(BSA,2), sigma.formula= ~cs(BSA,1), family=NO, data=df.all)
+  # all
+  fit.all.nosigma <- gamlss(volLiver ~ cs(BSA,3), family=BCCG, weights=weights, data=df.all)
+  fit.all <- gamlss(volLiver ~ cs(BSA,3), sigma.formula= ~cs(BSA,1), family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma)
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
-  ## male ##
-  fit.male <- gamlss(volLiver ~ cs(BSA,2), sigma.formula= ~cs(BSA,1), family=NO, data=df.male)
+  # male
+  fit.male.nosigma <- gamlss(volLiver ~ cs(BSA,3), family=BCCG, weights=weights, data=df.male)
+  fit.male <- gamlss(volLiver ~ cs(BSA,3), sigma.formula= ~cs(BSA,1), family=BCCG, weights=weights, data=df.male, start.from=fit.male.nosigma)
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
-  ## female ##
-  fit.female <- gamlss(volLiver ~ cs(BSA,2), sigma.formula= ~cs(BSA,1), family=NO, data=df.female)
+  # female
+  fit.female.nosigma <- gamlss(volLiver ~ cs(BSA,3), family=BCCG, weights=weights, data=df.female)
+  fit.female <- gamlss(volLiver ~ cs(BSA,3), sigma.formula= ~cs(BSA,1), family=BCCG, weights=weights, data=df.female, start.from=fit.female.nosigma)
   plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['female']])
   par(mfrow=c(1,1))
   stopDevPlot()
   
-  # save Models
   models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
                  df.all=df.all, df.male=df.male, df.female=df.female)
   saveFitModels(models, xname, yname)
