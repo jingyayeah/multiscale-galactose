@@ -8,7 +8,7 @@
 # TODO: cross-validation of model fits
 #
 # author: Matthias Koenig
-# date: 2014-11-17
+# date: 2014-11-20
 ################################################################################
 rm(list = ls())
 library('MultiscaleAnalysis')
@@ -21,7 +21,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
-dataset <- 'volLiver_bodyweight'
+# dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiverkg_bodyweight'
 # dataset <- 'volLiver_height'
 # dataset <- 'volLiverkg_height'
@@ -29,6 +29,7 @@ dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiverkg_BSA'
 
 # dataset <- 'flowLiver_volLiver'
+dataset <- 'flowLiverkg_volLiverkg'
 # dataset <- 'perfusion_age'
 
 # dataset <- 'flowLiver_age'
@@ -445,6 +446,36 @@ if (dataset == 'flowLiver_volLiver'){
                    df.all=df.all, df.male=df.male, df.female=df.female)
     saveFitModels(models, xname, yname)
 }
+
+## flowLiverkg vs. volLiverkg ######################################
+create_plots=T
+if (dataset == 'flowLiverkg_volLiverkg'){
+    startDevPlot(width=2000, height=1000)
+    par(mfrow=c(1,3))
+    
+    # all
+    fit.all <- gamlss(flowLiverkg ~ volLiverkg, sigma.formula= ~cs(volLiverkg,1), family=NO, data=df.all)
+    plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['all']])
+    # male
+    fit.male <- gamlss(flowLiverkg ~ volLiverkg, sigma.formula= ~volLiverkg, family=NO, data=df.male)
+    plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['male']])
+    # female
+    fit.female <- gamlss(flowLiverkg ~ volLiverkg, sigma.formula= ~volLiverkg, family=NO, data=df.female)
+    plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,
+                 main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
+                 pcol=df.cols[['female']])
+    par(mfrow=c(1,1))
+    stopDevPlot()
+    
+    models <- list(fit.all=fit.all, fit.male=fit.male, fit.female=fit.female, 
+                   df.all=df.all, df.male=df.male, df.female=df.female)
+    saveFitModels(models, xname, yname)
+}
+
 
 ## perfusion vs. age ######################################
 create_plots=F

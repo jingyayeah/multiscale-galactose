@@ -949,9 +949,16 @@ m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname)
 
 ############################################
-# flowLiverkg [ml/min/kg] vs. volLiver [ml]
+# flowLiverkg [ml/min/kg] vs. volLiverkg [ml/kg]
 ############################################
-# not necessary: flowLiverkg ~ volLiverkg == flowLiver ~ volLiver
+xname <- 'volLiverkg'
+yname <- 'flowLiverkg'
+selection <- c('study', 'gender', xname, yname, 'dtype')
+data <- rbind(wyn1989[, selection])
+saveData(data)
+
+m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, m1, xname, yname)
 
 ############################################
 # perfusion [ml/min/ml] vs. age [years]
