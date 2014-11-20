@@ -60,28 +60,25 @@ rm(models)
 age=60; sex='male'; bodyweight=50; height=170;  BSA=1.7
 
 #########################################
-# Densities for volLiver
+# Density factories
 #########################################
-# A general factory to create the probability densities.
-# Reuse to generate the different models
+# A general factory to create the various probability densities
+# from the individual models.
 f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA){
-    f_d = NULL
     if (is.na(get(xname))){
-        return(f_d)
+        return(NULL)
     }
-    # create newdata
+    # data to predict
     newdata <- data.frame(get(xname))
     names(newdata) <- c(xname)
-    print(newdata)
     
-    # model and data
+    # get link function from model, predict the necessary parameters & 
+    # create respective density
+    f_d = NULL
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
     m <- models[[mname]]
     assign(dfname, models[[dfname]])
-            
-    # get link function from model, predict the necessary parameters & 
-    # create respective density
     link = m$family[1]  
     if (link == 'BCCG'){
         capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
@@ -96,7 +93,23 @@ f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=
     return(f_d)
 }
 
-# volLiver
+# Wrapper around the factory to use the per bodyweight data for prediction
+f_d.factory.bodyweight <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA){
+    # check if bodyweight and name is available
+    if (is.na(bodyweight) | is.na(xname)){
+        return(NULL)
+    }
+    f_d.scale <- function(x) {
+        f_d.tmp <- f_d.factory(models=models, xname=xname, 
+                               sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+        return(f_d.tmp(x/bodyweight)/bodyweight)
+    }
+    return(f_d.scale)
+}
+
+#########################################
+# volLiver densities
+#########################################
 xlimits=c(0,4000); ylimits=c(0,0.002)
 plot(numeric(0), numeric(0), type='n', xlim=xlimits, ylim=ylimits, 
      xlab='volLiver [ml]', ylab='probability', font.lab=2)
@@ -108,15 +121,103 @@ curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
 tmp <- f_d.factory(models=models.volLiver_bodyweight, xname='bodyweight', 
                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
 curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
-# volLiver :  volLiver ~ height
+# volLiver ~ height
 tmp <- f_d.factory(models=models.volLiver_height, xname='height', 
                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
 curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
-# volLiver :  volLiver ~ bsa
+# volLiver ~ bsa
 tmp <- f_d.factory(models=models.volLiver_BSA, xname='BSA', 
                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
 curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
 
+# volLiverkg ~ age
+tmp <- f_d.factory.bodyweight(models=models.volLiverkg_age, xname='age', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiverkg ~ bodyweight
+tmp <- f_d.factory.bodyweight(models=models.volLiverkg_bodyweight, xname='bodyweight', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiverkg ~ height
+tmp <- f_d.factory.bodyweight(models=models.volLiverkg_height, xname='height', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiverkg ~ bsa
+tmp <- f_d.factory.bodyweight(models=models.volLiverkg_BSA, xname='BSA', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+
+
+# combined density
+# Use all the single correlation density information to predict some combined density
+f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA){ 
+    # volLiver info
+    f_d.1 <- f_d.factory(models=models.volLiver_age, xname='age', 
+                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    f_d.2 <- f_d.factory(models=models.volLiver_bodyweight, xname='bodyweight', 
+                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    f_d.3 <- f_d.factory(models=models.volLiver_height, xname='height', 
+                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    f_d.4 <- f_d.factory(models=models.volLiver_BSA, xname='BSA', 
+                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    # volLiverkg info
+    f_d.5 <- f_d.factory.bodyweight(models=models.volLiverkg_age, xname='age', 
+                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    f_d.6 <- f_d.factory.bodyweight(models=models.volLiverkg_bodyweight, xname='bodyweight', 
+                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    f_d.7 <- f_d.factory.bodyweight(models=models.volLiverkg_height, xname='height', 
+                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    f_d.8 <- f_d.factory.bodyweight(models=models.volLiverkg_BSA, xname='BSA', 
+                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    
+    # handle cases that distribution function is not available
+    if (is.null(f_d.1)){ f_d.1 <- function(x){1} }
+    if (is.null(f_d.2)){ f_d.2 <- function(x){1} }
+    if (is.null(f_d.3)){ f_d.3 <- function(x){1} }
+    if (is.null(f_d.4)){ f_d.4 <- function(x){1} }
+    if (is.null(f_d.5)){ f_d.5 <- function(x){1} }
+    if (is.null(f_d.6)){ f_d.6 <- function(x){1} }
+    if (is.null(f_d.7)){ f_d.7 <- function(x){1} }
+    if (is.null(f_d.8)){ f_d.8 <- function(x){1} }
+    # unnormalized
+    f_d.raw <- function(x) {f_d.1(x)*f_d.2(x)*f_d.3(x)*f_d.4(x)*f_d.5(x)*f_d.6(x)*f_d.7(x)*f_d.8(x)}
+    A <- integrate(f=f_d.raw, lower=0, upper=5000)
+    # normalized
+    f_d <- function(x){f_d.raw(x)/A$value}
+    return( list(f_d=f_d, f_d.raw=f_d.raw, 
+                 f_d.1=f_d.1, f_d.2=f_d.2, f_d.3=f_d.3, f_d.4=f_d.4,
+                 f_d.5=f_d.5, f_d.6=f_d.6, f_d.7=f_d.7, f_d.8=f_d.8,
+                 sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA) ) 
+}
+
+# Example
+age<-80; sex<-'male'; bodyweight<-55; BSA<-1.6; height=170; volLiver<-2000
+info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], BSA=%s [m^2]', age, sex, bodyweight, BSA)
+f_d.volLiver <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+summary(f_d.volLiver)
+
+# plot single contributions and resulting density
+# png(filename='/home/mkoenig/multiscale-galactose/presentations/volLiver_estimation_02.png', width=1000, height=1000, units = "px", bg = "white",  res = 150)
+volLiver.grid <- seq(10, 3000, by=20)
+plot(volLiver.grid, f_d.volLiver$f_d(volLiver.grid), type='l', lty=1, col=gender.base_cols[[sex]], lwd=2, main=info, xlab='liver volume [ml]', ylab='estimated probability density', font.lab=2)
+points(volLiver.grid, f_d.volLiver$f_d.1(volLiver.grid), type='l', lty=1, col='red', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.2(volLiver.grid), type='l', lty=1, col='orange', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.3(volLiver.grid), type='l', lty=1, col='gray', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.4(volLiver.grid), type='l', lty=1, col='black', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.5(volLiver.grid), type='l', lty=2, col='red', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.6(volLiver.grid), type='l', lty=2, col='orange', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.7(volLiver.grid), type='l', lty=2, col='gray', lwd=2)
+points(volLiver.grid, f_d.volLiver$f_d.8(volLiver.grid), type='l', lty=2, col='black', lwd=2)
+legend("topright", legend=c('combined', 'volLiver~age', 'volLiver~bodyweight', 'volLiver~height', 'volLiver~BSA', 
+                                        'volLiverkg~age', 'volLiverkg~bodyweight', 'volLiverkg~height', 'volLiverkg~BSA'), 
+       lty=c(rep(1,5), rep(2,4)), 
+       col=c(gender.base_cols[[sex]], 'red', 'orange', 'gray', 'black', 'red', 'orange', 'gray', 'black'), lwd=rep(2,9))
+# dev.off()
+
+
+######################################
+## Liver Volume per bodyweight
+######################################
 # volLiverkg
 xlimits=c(0,80); ylimits=c(0,0.15)
 plot(numeric(0), numeric(0), type='n', xlim=xlimits, ylim=ylimits, 
@@ -137,85 +238,6 @@ curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
 tmp <- f_d.factory(models=models.volLiverkg_BSA, xname='BSA', 
                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
 curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
-
-
-
-
-## volLiverkg ~ age ####
-f_d.volLiver.volLiverkg_age <- function(sex='all', age=NA, bodyweight, BSA=NA){
-    f_d = NULL
-    if (!is.na(bodyweight) & !is.na(age)){
-        mname <- paste('fit.', sex, sep="")
-        dfname <- paste('df.', sex, sep="")
-        m <- models.volLiverkg_age[[mname]]
-        assign(dfname, models.volLiverkg_age[[dfname]])
-        
-        # create the density function from the fitted values
-        newdata <- data.frame(age=age)
-        capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
-        capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
-        capture.output({ nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname)) })
-        
-        # scaling of the distribution (function works with volLiver, but takes volLiverkg as input)
-        f_d <- function(x) dBCCG(x/bodyweight, mu=mu, sigma=sigma, nu=nu)/bodyweight
-    }
-    return(f_d)
-}
-f_d.volLiver.volLiverkg_age(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-
-
-
-## combined density ##
-f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, BSA=NA){ 
-    f_d.1 <- f_d.factory(models=models.volLiver_age, xname='age', 
-                         sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-    f_d.2 <- f_d.volLiver.2(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-    f_d.3 <- f_d.volLiver.3(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-    f_d.4 <- f_d.volLiver.4(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-    # handle cases that distribution function is not available
-    if (is.null(f_d.1)){ f_d.1 <- function(x){1} }
-    if (is.null(f_d.2)){ f_d.2 <- function(x){1} }
-    if (is.null(f_d.3)){ f_d.3 <- function(x){1} }
-    if (is.null(f_d.4)){ f_d.4 <- function(x){1} }
-    # unnormalized
-    f_d.raw <- function(x) {f_d.1(x) * f_d.2(x) * f_d.3(x) * f_d.4(x)}
-    A <- integrate(f=f_d.raw, lower=0, upper=5000)
-    # normalized
-    f_d <- function(x){f_d.raw(x)/A$value}
-    return( list(f_d=f_d, f_d.raw=f_d.raw, f_d.1=f_d.1, 
-                 f_d.2=f_d.2, f_d.3=f_d.3, f_d.4=f_d.4,
-                 sex=sex, age=age, bodyweight=bodyweight, BSA=BSA) ) 
-}
-f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-
-# Evaluate the distribution functions
-volLiver.grid <- seq(10, 3000, by=20)
-
-# some example values
-age<-80; sex<-'male'; bodyweight<-55; BSA<-1.6; volLiver<-2000
-info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], BSA=%s [m^2]', age, sex, bodyweight, BSA)
-
-# create the distribution functions for the subject/subjects
-f_d.volLiver <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-summary(f_d.volLiver)
-
-# plot single contributions and resulting density
-#png(filename='/home/mkoenig/multiscale-galactose/presentations/volLiver_estimation_02.png', width=1000, height=1000, units = "px", bg = "white",  res = 150)
-plot(volLiver.grid, f_d.volLiver$f_d(volLiver.grid), type='l', lty=1, col=gender.base_cols[[sex]], lwd=2, main=info, xlab='liver volume [ml]', ylab='estimated probability density', font.lab=2)
-points(volLiver.grid, f_d.volLiver$f_d.1(volLiver.grid), type='l', lty=2, col='red', lwd=2)
-points(volLiver.grid, f_d.volLiver$f_d.2(volLiver.grid), type='l', lty=3, col='orange', lwd=2)
-points(volLiver.grid, f_d.volLiver$f_d.3(volLiver.grid), type='l', lty=4, col='gray', lwd=2)
-points(volLiver.grid, f_d.volLiver$f_d.4(volLiver.grid), type='l', lty=5, col='black', lwd=2)
-legend("topright", legend=c('combined', 'volLiver~age', 'volLiver~bodyweight', 'volLiver~BSA', 'volLiverkg~age'), lty=c(1,2,3,4,5), col=c(gender.base_cols[[sex]], 'red', 'orange', 'gray', 'black'), lwd=c(2,2,2,2))
-# dev.off()
-
-######################################
-## Liver Volume per bodyweight
-######################################
-# TODO predict the volLiverkg
-
-
-
 
 
 
