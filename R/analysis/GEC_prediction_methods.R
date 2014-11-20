@@ -33,66 +33,53 @@ load(file=file.path(dir, 'volLiver_age_models.Rdata'))
 models.volLiver_age <- models
 load(file=file.path(dir, 'volLiverkg_age_models.Rdata'))
 models.volLiverkg_age <- models
+
 load(file=file.path(dir, 'volLiver_bodyweight_models.Rdata'))
 models.volLiver_bodyweight <- models
 load(file=file.path(dir, 'volLiverkg_bodyweight_models.Rdata'))
-models.volLiver_bodyweight <- models
+models.volLiverkg_bodyweight <- models
+
 load(file=file.path(dir, 'volLiver_height_models.Rdata'))
-models.volLiver_BSA <- models
+models.volLiver_height <- models
 load(file=file.path(dir, 'volLiverkg_height_models.Rdata'))
-models.volLiver_BSA <- models
-models.volLiver_bodyweight <- models
+models.volLiverkg_height <- models
+
 load(file=file.path(dir, 'volLiver_BSA_models.Rdata'))
 models.volLiver_BSA <- models
 load(file=file.path(dir, 'volLiverkg_BSA_models.Rdata'))
-models.volLiver_BSA <- models
+models.volLiverkg_BSA <- models
 rm(models)
 
-str(models)
 
-m <- models[[1]]
-str(m)
-m$family
-m$parameters
-
-# necessary to get the dependent variables from the call or gamlss
-# to properly predict
-m$call
-test <- 1
-tmp <- data.frame(test)
-tmp
-predict(m, what = "mu", type = "response", newdata=tmp, data=models[[4]])
-match(names(newdata), names(data))
-getAnywhere("predict.gamlss")
-
-str(models[[4]])
+# m <- models[[1]]
+# m$family
+# m$parameters
+# m$call
 
 # some test data
-age<-60; sex<-'male'; bodyweight<-50; BSA<-1.7
+age=60; sex='male'; bodyweight=50; height=170;  BSA=1.7
 
 #########################################
 # Densities for volLiver
 #########################################
 # A general factory to create the probability densities.
 # Reuse to generate the different models
-
-f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, BSA=NA){
+f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA){
     f_d = NULL
-    # create newdata based on the xname
-    if (xname == 'age'){
-        if (is.na(age)){
-            return(f_d)    
-        }
-        newdata <- data.frame(get(xname))
+    if (is.na(get(xname))){
+        return(f_d)
     }
+    # create newdata
+    newdata <- data.frame(get(xname))
     names(newdata) <- c(xname)
+    print(newdata)
     
     # model and data
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
-    m <- models.volLiver_age[[mname]]
+    m <- models[[mname]]
     assign(dfname, models[[dfname]])
-        
+            
     # get link function from model, predict the necessary parameters & 
     # create respective density
     link = m$family[1]  
@@ -108,36 +95,51 @@ f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, BSA=NA)
     }
     return(f_d)
 }
+
+# volLiver
+xlimits=c(0,4000); ylimits=c(0,0.002)
+plot(numeric(0), numeric(0), type='n', xlim=xlimits, ylim=ylimits, 
+     xlab='volLiver [ml]', ylab='probability', font.lab=2)
+# volLiver ~ age
 tmp <- f_d.factory(models=models.volLiver_age, xname='age', 
-                   sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-curve(tmp, from=0, to=4000)
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiver ~ bodyweight
+tmp <- f_d.factory(models=models.volLiver_bodyweight, xname='bodyweight', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiver :  volLiver ~ height
+tmp <- f_d.factory(models=models.volLiver_height, xname='height', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiver :  volLiver ~ bsa
+tmp <- f_d.factory(models=models.volLiver_BSA, xname='BSA', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+
+# volLiverkg
+xlimits=c(0,80); ylimits=c(0,0.15)
+plot(numeric(0), numeric(0), type='n', xlim=xlimits, ylim=ylimits, 
+     xlab='volLiverkg [ml/kg]', ylab='probability', font.lab=2)
+# volLiverkg ~ age
+tmp <- f_d.factory(models=models.volLiverkg_age, xname='age', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiverkg ~ bodyweight
+tmp <- f_d.factory(models=models.volLiverkg_bodyweight, xname='bodyweight', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiverkg ~ height
+tmp <- f_d.factory(models=models.volLiverkg_height, xname='height', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
+# volLiverkg ~ bsa
+tmp <- f_d.factory(models=models.volLiverkg_BSA, xname='BSA', 
+                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
 
 
-## volLiver ~ age ####
-f_d.volLiver.volLiver_age <- f_d.factory(models=models.volLiver_age, xname='age', 
-                                         sex='all', age=NA, bodyweight=NA, BSA=NA)
 
-curve(tmp, from=0, to=4000)
-
-f_d.volLiver.volLiver_age <- function(sex='all', age=NA, bodyweight=NA, BSA=NA){
-    f_d = NULL
-    if (!is.na(age)){
-        mname <- paste('fit.', sex, sep="")
-        dfname <- paste('df.', sex, sep="")
-        m <- models.volLiver_age[[mname]]
-        assign(dfname, models.volLiver_age[[dfname]])
-        
-        # create the density function from the fitted values
-        newdata <- data.frame(age=age)
-        capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
-        capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
-        capture.output({ nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname)) })
-        f_d <- function(x) dBCCG(x, mu=mu, sigma=sigma, nu=nu)
-    }
-    return(f_d)
-}
-tmp <- f_d.volLiver.volLiver_age(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-curve(tmp, from=0, to=4000)
 
 ## volLiverkg ~ age ####
 f_d.volLiver.volLiverkg_age <- function(sex='all', age=NA, bodyweight, BSA=NA){
@@ -161,49 +163,12 @@ f_d.volLiver.volLiverkg_age <- function(sex='all', age=NA, bodyweight, BSA=NA){
 }
 f_d.volLiver.volLiverkg_age(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
 
-## get density from volLiver ~ bodyweight ##
-f_d.volLiver.2 <- function(sex='all', age=NA, bodyweight=NA, BSA=NA){
-    d.volLiver_bodyweight = NULL
-    if (!is.na(bodyweight)){
-        mname <- paste('fit.', sex, sep="")
-        dfname <- paste('df.', sex, sep="")
-        m <- models.volLiver_bodyweight[[mname]]
-        assign(dfname, models.volLiver_bodyweight[[dfname]])
-        
-        # create the density function from the fitted values
-        newdata <- data.frame(bodyweight=bodyweight)
-        capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
-        capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
-        d.volLiver_bodyweight <- function(x) dNO(x, mu=mu, sigma=sigma)
-    }
-    return(d.volLiver_bodyweight)
-}
-f_d.volLiver.2(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-
-## get density from volLiver ~ bsa ##
-f_d.volLiver.3 <- function(sex='all', age=NA, bodyweight=NA, BSA=NA){
-    f_d = NULL
-    if (!is.na(BSA)){
-        mname <- paste('fit.', sex, sep="")
-        dfname <- paste('df.', sex, sep="")
-        m <- models.volLiver_BSA[[mname]]
-        assign(dfname, models.volLiver_BSA[[dfname]])
-        
-        # create the density function from the fitted values
-        newdata <- data.frame(BSA=BSA)
-        capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
-        capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
-        f_d <- function(x) dNO(x, mu=mu, sigma=sigma)
-    }
-    return(f_d)
-}
-f_d.volLiver.3(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-
 
 
 ## combined density ##
 f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, BSA=NA){ 
-    f_d.1 <- f_d.volLiver.1(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
+    f_d.1 <- f_d.factory(models=models.volLiver_age, xname='age', 
+                         sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
     f_d.2 <- f_d.volLiver.2(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
     f_d.3 <- f_d.volLiver.3(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
     f_d.4 <- f_d.volLiver.4(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
@@ -248,6 +213,17 @@ legend("topright", legend=c('combined', 'volLiver~age', 'volLiver~bodyweight', '
 ## Liver Volume per bodyweight
 ######################################
 # TODO predict the volLiverkg
+
+
+
+
+
+
+
+
+
+
+
 
 
 ######################################
@@ -350,6 +326,8 @@ f_d.flowLiver.4(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)
 ## combined density ##
 f_d.flowLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, volLiver=NA){
     f_d.1 <- f_d.flowLiver.1(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
+    
+    
     f_d.2 <- f_d.flowLiver.2(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
     f_d.3 <- f_d.flowLiver.3(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)
     f_d.4 <- f_d.flowLiver.4(age=age, sex=sex, bodyweight=bodyweight, volLiver=volLiver)

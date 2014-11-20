@@ -21,7 +21,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
-# dataset <- 'volLiver_bodyweight'
+dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiverkg_bodyweight'
 # dataset <- 'volLiver_height'
 # dataset <- 'volLiverkg_height'
@@ -36,7 +36,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 # dataset <- 'flowLiver_bodyweight'
 # dataset <- 'flowLiverkg_bodyweight'
 # dataset <- 'flowLiver_BSA'
-dataset <- 'flowLiverkg_BSA'
+# dataset <- 'flowLiverkg_BSA'
 
 
 ################################################################################
