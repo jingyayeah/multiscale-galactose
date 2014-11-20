@@ -113,9 +113,6 @@ loadRawData <- function(name, dir=NULL){
   return(data)
 }
 
-f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-
-
 # predict GEC for full data frame
 predict_GEC <- function(df){
   for (k in 1:nrow(df)){
@@ -125,6 +122,8 @@ predict_GEC <- function(df){
 }
 
 # predict GEC for single row 
+# The distributions have to be calculated only once. Than fast rejection sampling
+# can be done on the distributions.
 predict_GEC_row <- function(row){
   if (is.na(row$sex)){
    row$sex = 'all' 
@@ -134,7 +133,7 @@ predict_GEC_row <- function(row){
   if (is.na(row$volLiver.exp)){
     cat('* Predict Liver Volume *\n')
     # get the combined distribution for the liver volumes
-    f_d1 <- f_d.volLiver.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, BSA=row$BSA)
+    f_d1 <- f_d.volLiver.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, height=row$height, BSA=row$BSA)
     # rejection sampling
     rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1,4000))
     row$volLiver.pre <- rs1$values[1]  
@@ -147,7 +146,7 @@ predict_GEC_row <- function(row){
   if (is.na(row$flowLiver.exp)){
     cat('* Predict Liver Flow *\n')
     # get the combined distribution for liver blood flow
-    f_d2 <- f_d.flowLiver.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, volLiver=row$volLiver.pre)
+    f_d2 <- f_d.flowLiver.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, height=row$height, volLiver=row$volLiver.pre)
     # rejection sampling
     rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1,4000))
     row$flowLiver.pre <- rs2$values[1]  
@@ -155,6 +154,41 @@ predict_GEC_row <- function(row){
     row$flowLiver.pre <- row$flowLiver.exp 
   }
 
+  # predict liver volume per bodyweight
+  if (is.na(row$volLiverkg.exp)){
+      if ( (!is.na(row$volLiver.pre)) & (!is.na(row$bodyweight))){
+        # if bodyweight available use it
+        row$volLiverkg.pre <- row$volLiver.pre/row$bodyweight   
+      } else {
+        cat('* Predict Liver Volume per Bodyweight *\n')
+        # get the combined distribution for the liver volumes
+        f_d1 <- f_d.volLiverkg.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, height=row$height, BSA=row$BSA)
+      # rejection sampling
+      rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1,100))
+      row$volLiverkg.pre <- rs1$values[1]  
+      }
+  } else {
+      row$volLiverkg.pre <- row$volLiverkg.exp 
+  }
+  
+  # predict liver bloodflow per bodyweight
+  if (is.na(row$volLiverkg.exp)){
+      if ( (!is.na(row$flowLiver.pre)) & (!is.na(row$bodyweight))){
+          # if bodyweight available use it
+          row$flowLiverkg.pre <- row$flowLiver.pre/row$bodyweight   
+      } else {
+          cat('* Predict Liver Blood flow per Bodyweight *\n')
+         
+          f_d1 <- f_d.flowLiverkg.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, height=row$height, BSA=row$BSA, volLiverkg=row$volLiverkg.pre)
+          # rejection sampling
+          rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1,100))
+          row$flowLiverkg.pre <- rs1$values[1]  
+      }
+  } else {
+      row$flowLiverkg.pre <- row$flowLiverkg.exp 
+  }
+  
+  
   # predict GEC
   cat('* Predict GEC *\n')
   row$GEC.pre <- calculate_GEC(volLiver=row$volLiver.pre, flowLiver=row$flowLiver.pre)$GEC
@@ -163,20 +197,29 @@ predict_GEC_row <- function(row){
   row$GECkg.pre <- NA
   if (!is.na(row$bodyweight)){
     row$GECkg.pre <- row$GEC.pre/row$bodyweight
+  } else {
+    cat('* Predict GEC *\n')
+    row$GECkg.pre <- calculate_GECkg(volLiverkg=row$volLiverkg.pre, flowLiverkg=row$flowLiverkg.pre)$GECkg
+    test <- calculate_GECkg(volLiverkg=row$volLiverkg.pre, flowLiverkg=row$flowLiverkg.pre)
+    print(test)
   }
+  
   return (row)
 }
 
 # prepare one common data frame for prediction
 prepare_df <- function(data){
-  fields <- c('study', 'gender', 'age', 'bodyweight', 'BSA', 'volLiver', 'flowLiver', 'GEC', 'GECkg')
-  index <-  c( 1, 2, 3, 4, 5, 7, 9, 11, 13)
-  col.names <- c('study', 'sex', 'age', 'bodyweight', 'BSA', 
+  fields <- c('study', 'gender', 'age', 'bodyweight', 'height', 'BSA', 
+              'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg', 'GEC', 'GECkg')
+  index <-  c( 1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 16, 18)
+  col.names <- c('study', 'sex', 'age', 'bodyweight', 'height', 'BSA', 
                  'volLiver.pre', 'volLiver.exp',
+                 'volLiverkg.pre', 'volLiverkg.exp',
                  'flowLiver.pre', 'flowLiver.exp', 
+                 'flowLiverkg.pre', 'flowLiverkg.exp', 
                  'GEC.pre', 'GEC.exp',
                  'GECkg.pre', 'GECkg.exp')
-  data.pre <- data.frame(matrix(NA, ncol=13, nrow=nrow(data)) )
+  data.pre <- data.frame(matrix(NA, ncol=18, nrow=nrow(data)) )
   names(data.pre) <- col.names
   for (k in 1:length(fields)){
     field <- fields[k]
@@ -233,17 +276,20 @@ plot_GECkg_age <- function(df, main, ylim=c(0,0.10)){
 }
 
 predict_GEC_for_name <- function(name){
+  # name='mar1988'
   name.pre <- paste(name, '.pre', sep='')
   name.p <- paste(name, '.p', sep='')
   assign(name, loadRawData(name))
   assign(name.pre, prepare_df( get(name)) )
   assign(name.p, predict_GEC( get(name.pre)) )
+  
   par(mfrow=c(2,2))
   plot_GEC(get(name.p), main=name)
   plot_GECkg(get(name.p), main=name)
   par(mfrow=c(1,1))
   return ( get(name.p) )
 }
+
 
 ############################################
 # GEC [mmol/min] 
@@ -291,11 +337,20 @@ par(mfrow=c(1,1))
 
 loadRawData('lan2011') # age, GECkg 
 lan2011.p1 <- predict_GEC_for_name('lan2011')
+head(lan2011.p1)
+par(mfrow=c(2,2))
+plot_GEC(lan2011.p1, main='Combined GEC data', xlim=c(0,6))
+plot_GECkg(lan2011.p1, main='Combined GECkg data', xlim=c(0,0.08))
+par(mfrow=c(1,1))
+
 
 ## sch1968.fig1 (age, [GECkg])
 loadRawData('sch1986.fig1')
 sch1968.fig1.p1 <- predict_GEC_for_name('sch1986.fig1')
-
+par(mfrow=c(2,2))
+plot_GEC(sch1968.fig1.p1, main='Combined GEC data', xlim=c(0,6))
+plot_GECkg(sch1968.fig1.p1, main='Combined GECkg data', xlim=c(0.01,0.07))
+par(mfrow=c(1,1))
 
 ############################################
 # Predict for Heinemann

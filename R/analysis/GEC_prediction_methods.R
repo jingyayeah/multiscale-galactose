@@ -63,16 +63,16 @@ rm(models)
 f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA, 
                         volLiver=NA, volLiverkg=NA){
     if (is.na(get(xname))){
-        return(NULL)
+        return(NA)
     }
     # data to predict
     newdata <- data.frame(get(xname))
     names(newdata) <- c(xname)
-    print(newdata)
+    #print(newdata)
     
     # get link function from model, predict the necessary parameters & 
     # create respective density
-    f_d = NULL
+    f_d = NA
     mname <- paste('fit.', sex, sep="")
     dfname <- paste('df.', sex, sep="")
     m <- models[[mname]]
@@ -94,8 +94,11 @@ f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=
 # Wrapper around the factory to use the per bodyweight data for prediction
 f_d.factory.bodyweight <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA, volLiver=NA){
     # check if bodyweight and name is available
-    if (is.na(bodyweight) | is.na(xname)){
-        return(NULL)
+    if (is.na(get(xname))){
+        return(NA)
+    }
+    if (is.na(bodyweight)){
+        return(NA)
     }
     f_d.scale <- function(x) {
         f_d.tmp <- f_d.factory(models=models, xname=xname, 
@@ -149,10 +152,23 @@ tmp <- f_d.factory.bodyweight(models=models.volLiverkg_BSA, xname='BSA',
 curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
 
 
+prepare_fds <- function(f_ds){
+ # Some of the distributons are not available (return NA). 
+ # For the calculation of the distributions these have to be put to the 1 function
+    for (k in 1:length(f_ds)){   
+        if (!is.function( f_ds[[k]] ) ){
+            
+            if(is.na(f_ds[[k]])){ 
+                f_ds[[k]] <- function(x){1} 
+            }
+        }
+    }
+    return(f_ds)
+}
+
 # combined density
 # Use all the single correlation density information to predict some combined density
 f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA){ 
-    # volLiver info
     f_ds = list()
     f_ds[['volLiver_age']] <- f_d.factory(models=models.volLiver_age, xname='age', 
                          sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
@@ -172,16 +188,11 @@ f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=N
                          sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
     f_ds[['volLiverkg_BSA']] <- f_d.factory.bodyweight(models=models.volLiverkg_BSA, xname='BSA', 
                          sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    # handle cases where distribution function is not available
-    for (k in 1:length(f_ds)){   
-        if (is.null(f_ds[[k]])){ 
-            f_ds[[k]] <- function(x){1} 
-        }
-    }
+    f_ds <- prepare_fds(f_ds)
 
     # unnormalized
     f_d.raw <- function(x) {
-        f_ds[['volLiver_age']](x) *f_ds[['volLiver_bodyweight']](x) *f_ds[['volLiver_height']](x) *f_ds[['volLiver_BSA']](x) *
+        f_ds[['volLiver_age']](x)*f_ds[['volLiver_bodyweight']](x)*f_ds[['volLiver_height']](x) *f_ds[['volLiver_BSA']](x) *
             f_ds[['volLiverkg_age']](x) *f_ds[['volLiverkg_bodyweight']](x) *f_ds[['volLiverkg_height']](x) *f_ds[['volLiverkg_BSA']](x)
     }
     # normalized
@@ -192,7 +203,7 @@ f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=N
 }
 
 # Example
-age<-80; sex<-'male'; bodyweight<-55; BSA<-1.6; height=170; volLiver<-2000
+age<-80; sex<-'male'; bodyweight<-55; BSA<-1.6; height=NA;
 info <- sprintf('age=%s [y], sex=%s, bodyweight=%s [kg], BSA=%s [m^2]', age, sex, bodyweight, BSA)
 f_d.volLiver <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
 summary(f_d.volLiver)
@@ -251,11 +262,7 @@ f_d.volLiverkg.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA
                                     sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
     f_ds[['volLiverkg_BSA']] <- f_d.factory(models=models.volLiverkg_BSA, xname='BSA', 
                                     sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    for (k in 1:length(f_ds)){   
-        if (is.null(f_ds[[k]])){ 
-            f_ds[[k]] <- function(x){1} 
-        }
-    }
+    f_ds <- prepare_fds(f_ds)
     
     # unnormalized
     f_d.raw <- function(x) {
@@ -369,11 +376,8 @@ f_d.flowLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=
                                            sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
     f_ds[['flowLiver_volLiver']] <- f_d.factory(models=models.flowLiver_volLiver, xname='volLiver', 
                                              sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA, volLiver=volLiver)
-    for (k in 1:length(f_ds)){   
-        if (is.null(f_ds[[k]])){ 
-            f_ds[[k]] <- function(x){1} 
-        }
-    }
+    f_ds <- prepare_fds(f_ds)
+    
     # unnormalized
     f_d.raw <- function(x) {
         f_ds[['flowLiver_age']](x) *f_ds[['flowLiver_bodyweight']](x) *f_ds[['flowLiver_BSA']](x)*
@@ -449,11 +453,8 @@ f_d.flowLiverkg.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BS
                                            sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
     f_ds[['flowLiverkg_volLiverkg']] <- f_d.factory(models=models.flowLiverkg_volLiverkg, xname='volLiverkg', 
                                                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA, volLiverkg=volLiverkg)
-    for (k in 1:length(f_ds)){   
-        if (is.null(f_ds[[k]])){ 
-            f_ds[[k]] <- function(x){1} 
-        }
-    }
+    f_ds <- prepare_fds(f_ds)
+    
     # unnormalized
     f_d.raw <- function(x) {
             f_ds[['flowLiverkg_age']](x) *f_ds[['flowLiverkg_bodyweight']](x) *f_ds[['flowLiverkg_BSA']](x)*
@@ -489,24 +490,23 @@ legend("topright", legend=c('combined', 'flowLiverkg~age', 'flowLiverkg~bodyweig
 
 
 ##############################################################################
-# Test some of the functions
-# age dependency
+# Test age dependency
 age.test <- seq(1, 100, by=4)
+bodyweight=20; BSA=NA; height=NA;
+
+x = seq(from=1, to=3000, by=20)
 par(mfrow=c(1,3))
-bodyweight=70
-BSA=NA
 for (k in seq(1:length(gender.levels))){
     sex <- gender.levels[k]
     col <- gender.cols[k]
-    f_d.f <- f_d.volLiver.c(sex=sex, age=age.test[1], bodyweight=bodyweight, BSA=BSA)
+    age = age.test[1]
+    f_d.volLiver <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
     
-    plot(volLiver.grid, f_d.f$f_d(volLiver.grid), type='l', col=col, main=gender.levels[k])
-    legend("topright", legend=c('volLiver~age'), lty=c(1),
-           col=col)
+    plot(x, f_d.volLiver$f_d(x), type='l', col=col, main=gender.levels[k])
+    legend("topright", legend=c('volLiver~age'), lty=c(1), col=col)
     for (age in age.test){
-        print(age)
-        f_d.f <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)
-        points(volLiver.grid, f_d.f$f_d(volLiver.grid), type='l', col=col)
+        f_d.f <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+        points(x, f_d.f$f_d(x), type='l', col=col)
     }
 }
 par(mfrow=c(1,1))
@@ -517,14 +517,13 @@ par(mfrow=c(1,3))
 for (k in seq(1:length(gender.levels))){
     sex <- gender.levels[k]
     col <- gender.cols[k]
-    f_d.f <- f_d.volLiver.c(sex=sex, age=NA, bodyweight=bodyweight.test[1], BSA=NA)
-    plot(volLiver.grid, f_d.f$f_d(volLiver.grid), type='l', col=col, main=gender.levels[k])
+    f_d.f <- f_d.volLiver.c(sex=sex, bodyweight=bodyweight.test[1])
+    plot(x, f_d.f$f_d(x), type='l', col=col, main=gender.levels[k])
     legend("topright", legend=c('volLiver~bodyweight'), lty=c(1),
            col=col)
     for (bodyweight in bodyweight.test){
-        print(bodyweight)
-        f_d.f <- f_d.volLiver.c(sex=sex, age=NA, bodyweight=bodyweight, BSA=NA)
-        points(volLiver.grid, f_d.f$f_d(volLiver.grid), type='l', col=col)
+        f_d.f <- f_d.volLiver.c(sex=sex, bodyweight=bodyweight)
+        points(x, f_d.f$f_d(x), type='l', col=col)
     }
 }
 par(mfrow=c(1,1))
@@ -623,7 +622,6 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
 }
 
 sex = 'male'; age=40; bodyweight=90; BSA=1.8; volLiver=2500;
-
 f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight, BSA=BSA)$f_d
 f_d2 <- f_d.flowLiver.c(sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver)$f_d
 
@@ -684,6 +682,6 @@ calculate_GECkg <- function(volLiverkg, flowLiverkg, f_tissue=0.8){
     # GEC for liver per kg
     # GEC curves are for liver tissue. No correction for the large vessel structure
     # has been applied. Here the metabolic capacity of combined sinusoidal units.
-    GECkg <- GEC_per_vol * f_tissue * volLiver # mmol/min
+    GECkg <- GEC_per_vol * f_tissue * volLiverkg # mmol/min
     return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GECkg=GECkg, f_tissue=f_tissue))
 }
