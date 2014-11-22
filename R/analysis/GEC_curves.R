@@ -30,7 +30,7 @@ t_peak <- 2000 # [s]
 t_end <- 10000 # [s]
 
 # Dataset for analyis
-folder <- '2014-11-17_T1' # normal galactose challenge
+folder <- '2014-11-22_T7' # normal galactose challenge
 
 # Some visual analysis of the parameters
 # pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-17_T5/T5_Galactose_v25_Nc20_galchallenge_parameters.csv')

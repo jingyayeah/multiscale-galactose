@@ -16,8 +16,8 @@ getParameterTypes <- function(pars){
   # Get parameters from SBML or parameter structure and calculate the derived
   # variables.
   ps <- list()
-  ps$all = c('Nc', 'L', 'y_sin', 'y_dis', 'y_cell', 'flow_sin', 'f_fen', 
-             'rho_liv', 'Q_liv', 'Vol_liv')
+  ps$all = c('Nc', 'L', 'y_sin', 'y_end', 'y_dis', 'y_cell', 'flow_sin', 'N_fen', 'r_fen', 'f_fen', 
+             'rho_liv', 'f_tissue')
   ps$fixed <- getFixedParameters(pars=pars, all_ps=ps$all)
   ps$var <- getVariableParameters(pars=pars, all_ps=ps$all)
   
