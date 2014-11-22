@@ -57,6 +57,7 @@ units['mM']       = [(UNIT_KIND_MOLE, 1.0, 0),
                     (UNIT_KIND_METRE, -3.0, 0)]
 units['per_mM']   = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_MOLE, -1.0, 0)]
+units['per_m2']   = [(UNIT_KIND_METRE, -2.0, 0)]
 units['kg_per_m3']   = [(UNIT_KIND_KILOGRAM, 1.0, 0), 
                     (UNIT_KIND_METRE, -3.0, 0)]
 units['m3_per_skg']   = [(UNIT_KIND_METRE, 3.0, 0), 
@@ -69,21 +70,22 @@ pars.extend([
             # id, value, unit, constant
             ('L',           500E-6,   'm',      True),
             ('y_sin',       4.4E-6,   'm',      True),
+            ('y_end',     0.165E-6, 'm',      True),
             ('y_dis',       1.2E-6,   'm',      True),
-            ('y_cell',      7.58E-6,  'm',      True),
+            ('y_cell',     7.58E-6,  'm',      True),
             ('flow_sin',    180E-6,   'm_per_s',True),
-            ('f_fen',       0.09,     '-',      True),
-            ('Vol_liv',     1.5E-3,   'm3',     True),
-            ('rho_liv',     1.1E3,    'kg_per_m3', True), 
-            ('Q_liv',     1.750E-3/60.0, 'm3_per_s', True),
+            ('N_fen',        10E12,   'per_m2', True),
+            ('r_fen',      53.5E-9,   'm',      True),
+            
+            ('rho_liv',     1.08E3,    'kg_per_m3', True), 
             ('f_tissue',     0.8, '-', True),
 ])
 names['L'] = 'sinusoidal length'
 names['y_sin'] = 'sinusoidal radius'
-names['y_dis'] = 'width space of disse'
+names['y_dis'] = 'width space of Disse'
 names['y_cell'] = 'width hepatocyte'
 names['flow_sin'] = 'sinusoidal flow velocity'
-names['f_fen'] = 'fenestraetion fraction'
+names['f_fen'] = 'fenestration fraction'
 names['Vol_liv'] = 'liver reference volume'
 names['rho_liv'] = 'liver density'
 names['Q_liv'] = 'liver reference blood flow'
@@ -99,22 +101,40 @@ assignments.extend([
             ('x_cell', 'L/Nc', 'm'),
             ('x_sin',  "x_cell", "m"),
             ("A_sin", "pi*y_sin^2",  "m2"),
-            ("A_dis", "pi*(y_sin+y_dis)^2 - A_sin",  "m2"),
+            ("A_dis", "pi*(y_sin+y_end+y_dis)^2 - pi*(y_sin+y_end)^2",  "m2"),
             ("A_sindis", "2 dimensionless *pi*y_sin*x_sin",  "m2"),
+            ("A_sinunit", "pi*(y_sin+y_end+y_dis+y_cell)^2",  "m2"),
             ("Vol_sin", "A_sin*x_sin",  "m3"),
             ("Vol_dis", "A_dis*x_sin",  "m3"),
-            ("Vol_cell", "pi*(y_sin+y_dis+y_cell)^2 *x_cell- pi*(y_sin+y_dis)^2*x_cell", "m3"),
+            ("Vol_cell", "pi*x_cell*( (y_sin+y_end+y_dis+y_cell)^2-(y_sin+y_end+y_dis)^2 )", "m3"),
             ("Vol_pp", "Vol_sin", "m3"),
             ("Vol_pv", "Vol_sin", "m3"),
-            ("f_sin",  "Vol_sin/(Vol_sin + Vol_dis + Vol_cell)", '-'),
-            ("f_dis", "Vol_dis/(Vol_sin + Vol_dis + Vol_cell)", '-'),
-            ("f_cell", "Vol_cell/(Vol_sin + Vol_dis + Vol_cell)", '-'),
-            ("Vol_sinunit", "L*pi*(y_sin + y_dis + y_cell)^2", "m3"),
+            ("Vol_sinunit", "L*pi*(y_sin+y_end+y_dis+y_cell)^2", "m3"),
+            ("f_sin",  "Vol_sin/(A_sinunit*x_sin)", '-'),
+            ("f_dis", "Vol_dis/(A_sinunit*x_sin)", '-'),
+            ("f_cell", "Vol_cell/(A_sinunit*x_sin)", '-'),
             ("Q_sinunit", "pi*y_sin^2*flow_sin", "m3_per_s"),
-            ("m_liv", "rho_liv * Vol_liv", "kg"),
-            ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
+            ("f_fen", "N_fen*pi*(r_fen)^2", '-'),
+            # ("m_liv", "rho_liv * Vol_liv", "kg"),
+            # ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
 ])
-
+names['x_cell'] = 'length cell compartment'
+names['x_sin'] = 'length sinusoidal compartment'
+names['A_sin'] = 'cross section sinusoid'
+names['A_dis'] = 'cross section space of Disse'
+names['A_sindis'] = 'exchange area between sinusoid and Disse'
+names['A_sinunit'] = 'cross section sinusoidal unit'
+names['Vol_sin'] = 'volume sinusoidal compartment'
+names['Vol_dis'] = 'volume Disse compartment'
+names['Vol_cell'] = 'volume cell compartment'
+names['Vol_pp'] = 'volume periportal'
+names['Vol_pv'] = 'volume perivenious'
+names['Vol_sinunit'] = 'total volume sinusoidal unit'
+names['f_sin'] = 'sinusoidal fraction of volume'
+names['f_dis'] = 'Disse fraction of volume'
+names['f_cell'] = 'cell fraction of volume'
+names['Q_sinunit'] = 'volume flow sinusoid'
+names['f_fen'] = 'fenestration porosity'
     
 ##########################################################################
 # AssignmentRules

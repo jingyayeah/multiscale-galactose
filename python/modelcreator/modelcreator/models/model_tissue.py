@@ -20,7 +20,7 @@ from modelcreator.sbml.SBMLUtils import check
 
 class TissueModel(object):
     '''
-    The SBML model is created from the tissue informaton
+    The SBML model is created from the tissue information
     and the single cell models.
     '''
     _keys = ['main_units', 'units', 'names',
@@ -238,7 +238,20 @@ class TissueModel(object):
     def createDiffusionAssignments(self):
         ''' Create the geometrical diffusion constants 
             based on the external substances.
+            For the diffusion between sinusoid and space of Disse,
+            diffusion through fenestrations is handled via pore theory.
         '''
+        # get the fenestration radius
+        r_fen = None
+        for p in self.pars:
+            if (p[0] == 'r_fen'):
+                r_fen = p[1]
+                break
+        if not r_fen:
+            raise('Fenestration radius not defined.')
+        print 'Fenestration Radius: ', r_fen
+        
+        
         diffusion_assignments = []
         for data in self.external:
             sid = data[0]
@@ -246,8 +259,22 @@ class TissueModel(object):
             diffusion_assignments.extend([
               ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
               ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
-              ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
+              # ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
+              # check the pore size
             ])
+            # test if substance larger than fenestration radius
+            r_sid = None
+            for p in self.pars:
+                if (p[0] == 'r_{}'.format(sid)):
+                    r_sid = p[1]
+                    break
+            if (r_sid>r_fen):
+                diffusion_assignments.extend([ ('Dy_sindis_{}'.format(sid), '0 m3_per_s', "m3_per_s") ])
+            else:
+                diffusion_assignments.extend([
+              ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis * (1 dimensionless - r_{}/r_fen)^2 * (1 dimensionless - 2.104 dimensionless*r_{}/r_fen + 2.09 dimensionless *(r_{}/r_fen)^3 - 0.95 dimensionless *(r_{}/r_fen)^5)'.format(sid, sid, sid, sid, sid), "m3_per_s")
+            ])
+            
         return diffusion_assignments
 
     
@@ -291,13 +318,13 @@ class TissueModel(object):
         createParameters(self.model, pdict)
  
     def createInitialAssignments(self):
-        createInitialAssignments(self.model, self.assignments)
+        createInitialAssignments(self.model, self.assignments, self.names)
         # additional diffusion assignments
         dif_assignments = self.createDiffusionAssignments()
-        createInitialAssignments(self.model, dif_assignments)
+        createInitialAssignments(self.model, dif_assignments, self.names)
     
     def createCellInitialAssignments(self):
-        createInitialAssignments(self.model, self.cellModel.assignments)
+        createInitialAssignments(self.model, self.cellModel.assignments, self.names)
     
          
     def createAssignmentRules(self):

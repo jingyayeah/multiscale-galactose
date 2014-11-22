@@ -117,14 +117,14 @@ def _createSpecie(model, sid, name, init, units, compartment, boundaryCondition)
     s.setConstant(False)
     s.setBoundaryCondition(boundaryCondition)
         
-def createInitialAssignments(model, assignments):
+def createInitialAssignments(model, assignments, names):
     for data in assignments:
         # id, assignment, unit
         pid = data[0]
         unit = getUnitString(data[2])
         # Create parameter if not existing
         if not model.getParameter(pid):
-            createParameter(model, pid, unit, name=None, value=None, constant=True)
+            createParameter(model, pid, unit, name=names.get(pid, None), value=None, constant=True)
         _createInitialAssignment(model, sid=pid, formula=data[1])
     
 def _createInitialAssignment(model, sid, formula):

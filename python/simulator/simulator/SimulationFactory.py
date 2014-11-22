@@ -295,7 +295,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 25
+    VERSION = 36
     
     #----------------------------------------------------------------------#
     if (0):
@@ -321,7 +321,7 @@ if __name__ == "__main__":
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution
-        task, samples = make_galactose_flow(sbml_id, N=5, sampling='distribution')
+        task, samples = make_galactose_flow(sbml_id, N=50, sampling='distribution')
         # mean sinusoidal unit
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
