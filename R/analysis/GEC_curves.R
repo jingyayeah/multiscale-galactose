@@ -222,6 +222,8 @@ legend('bottomright', legend=c('mean GEC (Ns=1000 sinusoidal units)', '+-2SE (bo
        lty=c(1, 1), col=c('black', rgb(0,0,0,0.8)), lwd=c(2,1))
 stopDevPlot(create_plots)
 
+d2
+
 ###################################################################
 # TODO: create the GEC curves here
 # TODO: check the conversion factor is correct, i.e. N_Q and N_Vol

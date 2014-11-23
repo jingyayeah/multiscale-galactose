@@ -74,17 +74,25 @@ def setParameterInSamples(samples, pid, value, unit, ptype):
         s[pid] = (pid, value, unit, ptype)
     return samples
 
-def setParameterValuesInSamples(raw_samples, pid, values, unit, ptype):
-    if ptype not in PTYPES:
-        print 'ptype not supported', ptype
-        return
+
+def setParameterValuesInSamples(raw_samples, p_list):
+    for pset in p_list:
+        if pset['ptype'] not in PTYPES:
+            print 'ptype not supported', pset['ptype']
+            return
+    
+    Np = len(p_list)                # numbers of parameters to set
+    Nval = len(p_list[0]['values']) # number of values from first p_dict
+    
     samples = []
     for s in raw_samples:
-        for value in values:
+        for k in range(Nval):
             # make a copy of the dictionary
             snew = s.copy()
-            # add information
-            snew[pid] = (pid, value, unit, ptype)
+            # set all the information
+            for i in range(Np):
+                p_dict = p_list[i]
+                snew[p_dict['pid']] = (p_dict['pid'], p_dict['values'][k], p_dict['unit'], p_dict['ptype'])
             samples.append(snew)
     return samples
 
@@ -248,7 +256,8 @@ def make_galactose_flow(sbml_id, N, sampling):
     # only test the max GEC
     # gal_challenge = (8.0, 2.0, 0.5)
     gal_challenge = (8.0,)
-    samples = setParameterValuesInSamples(raw_samples, 'gal_challenge', gal_challenge, 'mM', GLOBAL_PARAMETER)
+    samples = setParameterValuesInSamples(raw_samples, 
+                [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'ptype':GLOBAL_PARAMETER}])
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
@@ -257,6 +266,38 @@ def make_galactose_flow(sbml_id, N, sampling):
     createSimulationsForSamples(task, samples)
 
     return (task, samples)
+
+#----------------------------------------------------------------------#
+
+def make_galactose_aging(sbml_id, N, sampling):        
+    info = 'Galactose clearance under given perfusion for different age({}).'.format(sampling)
+    model = create_django_model(sbml_id, sync=True)
+    
+    # adapt flow in samples with the given f_flows
+    f_flows = (1.0, 0.7, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1, 0.05, 0.01)
+    raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
+    
+    # only test max GEC
+    gal_challenge = (8.0,)
+    samples = setParameterValuesInSamples(raw_samples, 
+                [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'ptype':GLOBAL_PARAMETER}])
+    
+    y_end = [165E-9*x for x in [1, 1.375, 1.75, 3.5]]  # [nm]
+    N_fen = [1E13*x for x in [1, 0.5, 0.25, 0.125]]  # [1/m^2]
+    p_list = [ {'pid': 'y_end', 'values': y_end, 'unit': 'nm', 'ptype':GLOBAL_PARAMETER},
+                   {'pid': 'N_fen', 'values': N_fen, 'unit': 'per_m2', 'ptype':GLOBAL_PARAMETER}]
+    samples = setParameterValuesInSamples(samples, p_list)
+    
+    # simulations
+    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
+    integration = Integration.get_or_create_integration(settings)
+    task = create_task(model, integration, info=info)
+    createSimulationsForSamples(task, samples)
+
+    return (task, samples)
+
+
+
 
 #----------------------------------------------------------------------#
 def make_galactose_step(sbml_id, N, sampling):        
@@ -314,7 +355,7 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         GEC curves.
         Galactose elimination under different flow distributions (scaled).
@@ -326,11 +367,16 @@ if __name__ == "__main__":
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
     #----------------------------------------------------------------------#
-    if (0):
-        ''' GEC curves in aging. '''
-        # TODO : implement the change in fenestraetion and the collagen disposition
-        pass
-
+    if (1):
+        ''' GEC curves in aging. 
+            Age dependent change in N_fen and y_end.
+        '''
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
+        # sample from distribution & add additional changes in aging
+        task, samples = make_galactose_aging(sbml_id, N=49, sampling='distribution')
+        
+        # mean sinusoidal unit
+        task, samples = make_galactose_aging(sbml_id, N=0, sampling='mean')
    
     #----------------------------------------------------------------------#
     if (0):
@@ -345,15 +391,17 @@ if __name__ == "__main__":
         '''
         sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
         PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
+        p_list = [ {'pid': 'PP__gal', 'values': PP__gal, 'unit': 'mM', 'ptype':BOUNDERY_INIT}]
+        
         
         # basic dilution curves with additional galactose challenge
         [task, raw_samples] = make_galactose_dilution(sbml_id, N=1000, sampling="distribution")
-        samples = setParameterValuesInSamples(raw_samples, 'PP__gal', PP__gal, 'mM', BOUNDERY_INIT)
+        samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         
         # mean sinusoid for comparison
         [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
-        samples = setParameterValuesInSamples(raw_samples, 'PP__gal', PP__gal, 'mM', BOUNDERY_INIT)
+        samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         
     #----------------------------------------------------------------------#
