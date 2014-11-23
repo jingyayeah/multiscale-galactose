@@ -30,7 +30,10 @@ t_peak <- 2000 # [s]
 t_end <- 10000 # [s]
 
 # Dataset for analyis
-folder <- '2014-11-22_T7' # normal galactose challenge
+if(!exists('folder')){
+  folder <- '2014-11-23_T9' # normal galactose challenge
+}
+cat('GEC curves: ', folder, '\n')
 
 # Some visual analysis of the parameters
 # pars <- loadParameterFile(file='/home/mkoenig/multiscale-galactose-results/2014-11-17_T5/T5_Galactose_v25_Nc20_galchallenge_parameters.csv')
@@ -48,8 +51,6 @@ source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'),
        echo=TRUE, local=FALSE)
 
 
-
-
 # Calculate the galactose clearance parameters
 parscl <- createGalactoseClearanceDataFrame(t_peak=2000, t_end=10000)
 
@@ -61,15 +62,17 @@ summary(parscl)
 plot(parscl$f_flow, parscl$flow_sin)
 plot(parscl$flow_sin, parscl$R)
 
+head(parscl)
+
 library('ggplot2')
 p <- ggplot(parscl, aes(flow_sin, R, colour=c_out)) + geom_point()
-p + facet_grid(f_flow ~ gal_challenge)
+p + facet_grid(f_flow ~ N_fen)
 
 p <- ggplot(parscl, aes(flow_sin, CL, colour=c_out)) + geom_point()
-p + facet_grid(f_flow ~ gal_challenge)
+p + facet_grid(f_flow ~ N_fen)
 
 p <- ggplot(parscl, aes(flow_sin, ER, colour=c_out)) + geom_point()
-p + facet_grid(f_flow ~ gal_challenge)
+p + facet_grid(f_flow ~ N_fen)
 
 
 library(plyr)
@@ -121,7 +124,7 @@ f_analyse <- function(x){
              Q_per_vol_units, R_per_vol_units)
 }
 
-d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
+d2 <- ddply(parscl, c("gal_challenge", "N_fen", 'f_flow'), f_analyse)
 
 ###########################################################################
 # GEC curves
@@ -129,10 +132,11 @@ d2 <- ddply(parscl, c("gal_challenge", 'f_flow'), f_analyse)
 # Plot the generated GEC curves
 # TODO: save the plots
 head(d2)
-p1 <- ggplot(d2, aes(f_flow, R_per_vol_units*1500)) + geom_point() + geom_line() + facet_grid(~ gal_challenge)
-p2 <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + facet_grid(~ gal_challenge)
-p3 <- ggplot(d2, aes(Q_per_vol_units, R_per_vol_units*1500)) + geom_point() + geom_line()+ ylim(0,5) +facet_grid(~ gal_challenge)
+p1 <- ggplot(d2, aes(f_flow, R_per_vol_units*1500)) + geom_point() + geom_line() + facet_grid(~ N_fen)
+p2 <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + facet_grid(~ N_fen)
+p3 <- ggplot(d2, aes(Q_per_vol_units, R_per_vol_units*1500)) + geom_point() + geom_line()+ ylim(0,5) +facet_grid(~ N_fen)
 multiplot(p1, p2, p3, cols=3)
+d2
 
 # combined plot of the individual with the mean simulations
 names(d2)
@@ -176,7 +180,7 @@ f_bootstrap <- function(dset, funct, B=1000){
   return(dset.funct)
 }
 # Calculate bootstrap sd for confidence intervals
-d2.se <- ddply(parscl, c("gal_challenge", 'f_flow'), f_bootstrap, funct=sd, B=1000)
+d2.se <- ddply(parscl, c("gal_challenge", "N_fen", 'f_flow'), f_bootstrap, funct=sd, B=1000)
 
 head(d2)    # point estimate (mean values)
 head(d2.se) # bootstrap SE
