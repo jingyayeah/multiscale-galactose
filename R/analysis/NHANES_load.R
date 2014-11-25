@@ -16,30 +16,30 @@
 # date:   2014-11-25
 ################################################################################
 rm(list = ls())
-setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
+setwd('/home/mkoenig/multiscale-galactose/experimental_data/nhanes')
 library(foreign)
 
 # NHANES (1999-2000)
-bmx.A <- read.xport("data/BMX_A.XPT")
-demo.A <- read.xport("data/DEMO_A.XPT")
+bmx.A <- read.xport("BMX_A.XPT")
+demo.A <- read.xport("DEMO_A.XPT")
 # NHANES (2001-2002)
-bmx.B <- read.xport("data/BMX_B.XPT")
-demo.B <- read.xport("data/DEMO_B.XPT")
+bmx.B <- read.xport("BMX_B.XPT")
+demo.B <- read.xport("DEMO_B.XPT")
 # NHANES (2003-2004)
-bmx.C <- read.xport("data/BMX_C.XPT")
-demo.C <- read.xport("data/DEMO_C.XPT")
+bmx.C <- read.xport("BMX_C.XPT")
+demo.C <- read.xport("DEMO_C.XPT")
 # NHANES (2005-2006)
-bmx.D <- read.xport("data/BMX_D.XPT")
-demo.D <- read.xport("data/DEMO_D.XPT")
+bmx.D <- read.xport("BMX_D.XPT")
+demo.D <- read.xport("DEMO_D.XPT")
 # NHANES (2007-2008)
-bmx.E <- read.xport("data/BMX_E.XPT")
-demo.E <- read.xport("data/DEMO_E.XPT")
+bmx.E <- read.xport("BMX_E.XPT")
+demo.E <- read.xport("DEMO_E.XPT")
 # NHANES (2009-2010)
-bmx.F <- read.xport("data/BMX_F.XPT")
-demo.F <- read.xport("data/DEMO_F.XPT")
+bmx.F <- read.xport("BMX_F.XPT")
+demo.F <- read.xport("DEMO_F.XPT")
 # NHANES (2011-2012)
-bmx.G <- read.xport("data/BMX_G.XPT")
-demo.G <- read.xport("data/DEMO_G.XPT")
+bmx.G <- read.xport("BMX_G.XPT")
+demo.G <- read.xport("DEMO_G.XPT")
 
 ##############################
 # Load continous NHANES data #
@@ -95,10 +95,10 @@ for (k in 1:nrow(info)){
   print(letter)
   
   # read and merge
-  demo.file <- paste("data/DEMO_", letter, ".XPT", sep="")
+  demo.file <- paste("DEMO_", letter, ".XPT", sep="")
   print(demo.file)
   demo.data <- read.xport(demo.file)
-  bmx.file <- paste("data/BMX_", letter, ".XPT", sep="")
+  bmx.file <- paste("BMX_", letter, ".XPT", sep="")
   print(bmx.file)
   bmx.data <- read.xport(bmx.file)
   res <- merge(bmx.data, demo.data , by=c('SEQN'))
@@ -142,12 +142,14 @@ for (k in 1:nrow(info)){
 library(reshape)
 nhanes <- reshape::merge_all(data)
 head(nhanes)
-save(nhanes, file='data/nhanes.dat')
+
+setwd('/home/mkoenig/multiscale-galactose/results/')
+save(nhanes, file='nhanes/nhanes.Rdata')
 
 ################################################################################
 # Test data loading
 rm(list = ls())
-setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
-load(file='data/nhanes.dat')
+setwd('/home/mkoenig/multiscale-galactose/results/')
+load(file='nhanes/nhanes.Rdata')
 head(nhanes)
 ################################################################################

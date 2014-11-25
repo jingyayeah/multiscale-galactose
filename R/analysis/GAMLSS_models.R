@@ -39,6 +39,12 @@ dataset <- 'flowLiverkg_volLiverkg'
 # dataset <- 'flowLiver_BSA'
 # dataset <- 'flowLiverkg_BSA'
 
+# Create all the gamlss models
+# TODO: -> create data figures, create centile figures, create table of results,
+
+models <- c('GEC_age',  'GECkg_age',  'volLiver_age', 'volLiverkg_age',
+            'volLiver
+
 
 ################################################################################
 # Plot helpers

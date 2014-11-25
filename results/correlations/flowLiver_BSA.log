@@ -1,0 +1,28 @@
+[1] "### Data ###"
+     study         gender               BSA           flowLiver         dtype          
+ bra1945:  23   Length:1252        Min.   :0.3880   Min.   : 318.5   Length:1252       
+ she1945:  32   Class :character   1st Qu.:0.7660   1st Qu.: 900.3   Class :character  
+ cat2010:1197   Mode  :character   Median :0.9300   Median :1091.4   Mode  :character  
+                                   Mean   :0.9803   Mean   :1137.4                     
+                                   3rd Qu.:1.1402   3rd Qu.:1318.6                     
+                                   Max.   :2.0600   Max.   :2649.6                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-869.53 -151.47  -21.08  133.22 1182.26 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   340.27      23.45   14.51   <2e-16 ***
+BSA           813.17      22.95   35.44   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 234.8 on 1250 degrees of freedom
+Multiple R-squared:  0.5012,	Adjusted R-squared:  0.5008 
+F-statistic:  1256 on 1 and 1250 DF,  p-value: < 2.2e-16
+

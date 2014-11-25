@@ -1,0 +1,28 @@
+[1] "### Data ###"
+    study              gender             volLiver      flowLiver       dtype          
+ Length:65          Length:65          Min.   : 650   Min.   : 500   Length:65         
+ Class :character   Class :character   1st Qu.:1029   1st Qu.:1049   Class :character  
+ Mode  :character   Mode  :character   Median :1222   Median :1297   Mode  :character  
+                                       Mean   :1241   Mean   :1338                     
+                                       3rd Qu.:1432   3rd Qu.:1530                     
+                                       Max.   :1916   Max.   :2367                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-694.72 -146.49  -24.07  151.19  637.50 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -37.89927  126.02925  -0.301    0.765    
+volLiver      1.10846    0.09889  11.209   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 231.4 on 63 degrees of freedom
+Multiple R-squared:  0.666,	Adjusted R-squared:  0.6607 
+F-statistic: 125.6 on 1 and 63 DF,  p-value: < 2.2e-16
+

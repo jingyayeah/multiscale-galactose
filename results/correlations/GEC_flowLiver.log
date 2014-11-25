@@ -1,0 +1,28 @@
+[1] "### Data ###"
+     study      gender            flowLiver         GEC           dtype          
+ win1965:7   Length:7           Min.   :1450   Min.   :1.180   Length:7          
+             Class :character   1st Qu.:1535   1st Qu.:1.702   Class :character  
+             Mode  :character   Median :1690   Median :1.880   Mode  :character  
+                                Mean   :1794   Mean   :1.837                     
+                                3rd Qu.:1928   3rd Qu.:1.951                     
+                                Max.   :2495   Max.   :2.494                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+      2       3       4       5       6       7       8 
+ 0.1417 -0.4850 -0.1141  0.6234  0.1238 -0.1543 -0.1356 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)  
+(Intercept)  2.7688833  0.7393123   3.745   0.0134 *
+flowLiver   -0.0005193  0.0004043  -1.285   0.2552  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.378 on 5 degrees of freedom
+Multiple R-squared:  0.2481,	Adjusted R-squared:  0.09777 
+F-statistic:  1.65 on 1 and 5 DF,  p-value: 0.2552
+

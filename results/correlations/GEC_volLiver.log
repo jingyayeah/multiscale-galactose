@@ -1,0 +1,28 @@
+[1] "### Data ###"
+    study              gender             volLiver           GEC           dtype          
+ Length:50          Length:50          Min.   : 714.8   Min.   :1.481   Length:50         
+ Class :character   Class :character   1st Qu.: 994.1   1st Qu.:2.048   Class :character  
+ Mode  :character   Mode  :character   Median :1144.0   Median :2.334   Mode  :character  
+                                       Mean   :1147.4   Mean   :2.404                     
+                                       3rd Qu.:1251.4   3rd Qu.:2.865                     
+                                       Max.   :1604.1   Max.   :3.817                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9172 -0.3523  0.0050  0.2406  1.1683 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 0.8415591  0.3744631   2.247   0.0292 *  
+volLiver    0.0013617  0.0003203   4.251 9.76e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5069 on 48 degrees of freedom
+Multiple R-squared:  0.2735,	Adjusted R-squared:  0.2584 
+F-statistic: 18.07 on 1 and 48 DF,  p-value: 9.761e-05
+

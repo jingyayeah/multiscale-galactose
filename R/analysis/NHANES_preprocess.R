@@ -11,10 +11,10 @@
 # date:   2014-11-25
 ################################################################################
 rm(list = ls())
-setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
 
 ## Load NHANES data ##
-load(file='data/nhanes.dat')
+setwd('/home/mkoenig/multiscale-galactose/results/')
+load(file='nhanes/nhanes.Rdata')
 head(nhanes)
 
 # Body surface area (BSA) by classic formula of DuBois’s {Moesteller1987}
@@ -45,7 +45,7 @@ data$height <- data$BMXHT
 data$ethnicity <- data$RIDRETH1
 head(data)
 
-save('data', file='data/nhanes_data.dat')
+save('data', file='nhanes/nhanes_data.Rdata')
 
 ####################################
 ## Plotting data                  ##

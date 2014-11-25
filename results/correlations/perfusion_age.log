@@ -1,0 +1,28 @@
+[1] "### Data ###"
+    study              gender               age          perfusion        dtype          
+ Length:65          Length:65          Min.   :24.00   Min.   :0.600   Length:65         
+ Class :character   Class :character   1st Qu.:33.00   1st Qu.:0.960   Class :character  
+ Mode  :character   Mode  :character   Median :55.00   Median :1.060   Mode  :character  
+                                       Mean   :53.48   Mean   :1.075                     
+                                       3rd Qu.:70.00   3rd Qu.:1.210                     
+                                       Max.   :91.00   Max.   :1.580                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.43063 -0.10410  0.01532  0.13073  0.41941 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.262450   0.061359  20.575  < 2e-16 ***
+age         -0.003512   0.001076  -3.265  0.00177 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1718 on 63 degrees of freedom
+Multiple R-squared:  0.1447,	Adjusted R-squared:  0.1311 
+F-statistic: 10.66 on 1 and 63 DF,  p-value: 0.001774
+

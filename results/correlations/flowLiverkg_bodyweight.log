@@ -1,0 +1,28 @@
+[1] "### Data ###"
+    study              gender            bodyweight     flowLiverkg         dtype          
+ Length:1954        Length:1954        Min.   : 3.90   Min.   :  6.938   Length:1954       
+ Class :character   Class :character   1st Qu.:20.60   1st Qu.: 23.122   Class :character  
+ Mode  :character   Mode  :character   Median :29.30   Median : 38.044   Mode  :character  
+                                       Mean   :36.53   Mean   : 37.686                     
+                                       3rd Qu.:50.00   3rd Qu.: 49.492                     
+                                       Max.   :97.60   Max.   :132.471                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-28.396  -6.357  -0.521   5.749  81.754 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 60.43311    0.45455  132.95   <2e-16 ***
+bodyweight  -0.62277    0.01083  -57.53   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 9.909 on 1952 degrees of freedom
+Multiple R-squared:  0.629,	Adjusted R-squared:  0.6288 
+F-statistic:  3309 on 1 and 1952 DF,  p-value: < 2.2e-16
+

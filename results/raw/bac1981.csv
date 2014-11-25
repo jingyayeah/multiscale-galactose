@@ -1,0 +1,3 @@
+study	status	group	n	sex	age	ageSd	BSA	BSASd	volLiver	volLiverSd	volLiverPerBSA	volLiverPerBSASd	albumin	albuminSd	dtype	gender
+bac1981	healthy	younger subjects	14	U	28.8	8.3	1.82	0.23	1732	372	948	109	695	45	population	all
+bac1981	healthy	older subjects	14	U	82.5	7.1	1.6	0.28	1435	488	795	153	549	63	population	all

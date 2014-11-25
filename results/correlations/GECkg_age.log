@@ -1,0 +1,28 @@
+[1] "### Data ###"
+     study       gender               age              GECkg            dtype          
+ lan2011:10   Length:140         Min.   : 0.4691   Min.   :0.02077   Length:140        
+ duc1979:13   Class :character   1st Qu.:22.6667   1st Qu.:0.03667   Class :character  
+ tyg1962:18   Mode  :character   Median :25.4752   Median :0.04062   Mode  :character  
+ sch1986:94                      Mean   :32.8685   Mean   :0.04144                     
+ duf2005: 5                      3rd Qu.:38.1454   3rd Qu.:0.04433                     
+                                 Max.   :88.5106   Max.   :0.08466                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.013333 -0.004846 -0.000955  0.004355  0.037154 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.760e-02  1.260e-03  37.782  < 2e-16 ***
+age         -1.874e-04  3.356e-05  -5.582 1.22e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.007199 on 138 degrees of freedom
+Multiple R-squared:  0.1842,	Adjusted R-squared:  0.1783 
+F-statistic: 31.16 on 1 and 138 DF,  p-value: 1.216e-07
+

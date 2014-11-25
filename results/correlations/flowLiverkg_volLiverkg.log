@@ -1,0 +1,28 @@
+[1] "### Data ###"
+    study              gender            volLiverkg     flowLiverkg       dtype          
+ Length:65          Length:65          Min.   :12.80   Min.   :10.90   Length:65         
+ Class :character   Class :character   1st Qu.:15.50   1st Qu.:16.40   Class :character  
+ Mode  :character   Mode  :character   Median :18.20   Median :20.10   Mode  :character  
+                                       Mean   :18.66   Mean   :19.94                     
+                                       3rd Qu.:20.70   3rd Qu.:23.00                     
+                                       Max.   :29.60   Max.   :32.20                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.0155 -2.1180 -0.2567  2.1566 10.7706 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   3.9541     2.1288   1.857   0.0679 .  
+volLiverkg    0.8566     0.1118   7.665 1.38e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.432 on 63 degrees of freedom
+Multiple R-squared:  0.4826,	Adjusted R-squared:  0.4743 
+F-statistic: 58.75 on 1 and 63 DF,  p-value: 1.376e-10
+
