@@ -6,13 +6,11 @@
 # Here the experimental data is prepared to use in models.
 #
 # author: Matthias Koenig
-# date: 2014-11-17
+# date: 2014-11-21
 ###############################################################
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
-create_plots = F
-set.seed(12345)
 
 # load field, axis and color information
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
@@ -42,7 +40,6 @@ calculateBSA <- function(bodyweight_kg, height_cm){
   # DuBois formula
   return (0.007184*height_cm^0.725*bodyweight_kg^0.425)
 }
-  
   
 # Calculate body mass index (BMI) [kg/m^2] from bodyweight [kg] and height [m].
 # bodyweight/(height)^2
@@ -468,7 +465,7 @@ makeFigureFull <- function(data, m1, xname, yname, create_plots=F){
 makeFigure <- function(data, m1, main, xname, yname, 
                                    xlab, ylab, 
                                    xlim, ylim, create_plots=F){
-  name = paste(yname, 'vs', xname) 
+  name = paste('data_', yname, '_', xname) 
   if (create_plots == TRUE){
     plot.file <- file.path(ma.settings$dir.results, 'regression', 
                            paste(name, '.png', sep=""))
@@ -664,6 +661,7 @@ saveData <- function(data, dir=NULL){
             sep="\t", col.names=TRUE)
 }
 ########################################################################################
+create_plots = T
 
 ############################################
 # GEC [mmol/min] vs. age [years]
@@ -682,7 +680,7 @@ data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigureFull(data, m1, xname, yname)
+makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 
 ############################################
 # GECkg [mmol/min/kgbw] vs. age [years]
@@ -700,7 +698,7 @@ data <- data[complete.cases(data), ]  # remove NA
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
-makeFigureFull(data, m1, xname, yname)
+makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 
 ############################################
 # GEC [mmol/min] vs. volLiver [ml]

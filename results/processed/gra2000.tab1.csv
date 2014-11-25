@@ -1,0 +1,7 @@
+study	status	sex	class	n	heightMean	heightMin	heightMax	heightSD	liverWeight	liverWeightSd	dtype	gender	height	heightRange	volLiver	volLiverSd
+gra2000	healthy	M	height_m_1	55	160	144	165	4.5	1.455	0.37	population	male	160	10.5	1347.22222222222	342.592592592593
+gra2000	healthy	M	height_m_2	178	170	166	175	3.1	1.637	0.369	population	male	170	4.5	1515.74074074074	341.666666666667
+gra2000	healthy	M	height_m_3	122	180	176	190	3.8	1.831	0.384	population	male	180	7	1695.37037037037	355.555555555555
+gra2000	healthy	F	height_f_1	78	150	126	155	4.6	1.275	0.321	population	female	150	14.5	1180.55555555556	297.222222222222
+gra2000	healthy	F	height_f_2	167	160	156	165	2.8	1.496	0.331	population	female	160	4.5	1385.18518518518	306.481481481481
+gra2000	healthy	F	height_f_3	84	170	166	180	3.6	1.624	0.38	population	female	170	7	1503.7037037037	351.851851851852
