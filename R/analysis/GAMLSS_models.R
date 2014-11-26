@@ -11,55 +11,43 @@
 # author: Matthias Koenig
 # date: 2014-11-26
 ################################################################################
-rm(list = ls())
+
+if (!exists('dataset')){
+  # clean start
+  rm(list = ls())
+  create_plots = TRUE
+  
+  # dataset <- 'GEC_age'
+  # dataset <- 'GECkg_age'
+
+  # dataset <- 'volLiver_age'
+  dataset <- 'volLiverkg_age'
+  # dataset <- 'volLiver_bodyweight'
+  # dataset <- 'volLiverkg_bodyweight'
+  # dataset <- 'volLiver_height'
+  # dataset <- 'volLiverkg_height'
+  # dataset <- 'volLiver_BSA'
+  # dataset <- 'volLiverkg_BSA'
+
+  # dataset <- 'flowLiver_volLiver'
+  # dataset <- 'flowLiverkg_volLiverkg'
+  # dataset <- 'perfusion_age'
+
+  # dataset <- 'flowLiver_age'
+  # dataset <- 'flowLiverkg_age'
+  # dataset <- 'flowLiver_bodyweight'
+  # dataset <- 'flowLiverkg_bodyweight'
+  # dataset <- 'flowLiver_BSA'
+  # dataset <- 'flowLiverkg_BSA'
+} else {
+  create_plots = TRUE
+}
+
+################################################################################
 library('MultiscaleAnalysis')
 setwd('/home/mkoenig/multiscale-galactose/')
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
-################################################################################
-dataset <- 'GEC_age'
-# dataset <- 'GECkg_age'
-
-# dataset <- 'volLiver_age'
-# dataset <- 'volLiverkg_age'
-# dataset <- 'volLiver_bodyweight'
-# dataset <- 'volLiverkg_bodyweight'
-# dataset <- 'volLiver_height'
-# dataset <- 'volLiverkg_height'
-# dataset <- 'volLiver_BSA'
-# dataset <- 'volLiverkg_BSA'
-
-# dataset <- 'flowLiver_volLiver'
-# dataset <- 'flowLiverkg_volLiverkg'
-# dataset <- 'perfusion_age'
-
-# dataset <- 'flowLiver_age'
-# dataset <- 'flowLiverkg_age'
-# dataset <- 'flowLiver_bodyweight'
-# dataset <- 'flowLiverkg_bodyweight'
-# dataset <- 'flowLiver_BSA'
-# dataset <- 'flowLiverkg_BSA'
-
-# Create all the gamlss models
-# TODO: -> create data figures, create centile figures, create table of results,
-
-dsets <- c('GEC_age', 'GECkg_age',  
-            
-            'volLiver_age', 'volLiverkg_age',
-            'volLiver_bodyweight','volLiverkg_bodyweight',
-            'volLiver_height','volLiverkg_height',
-            'volLiver_BSA', 'volLiverkg_BSA',
-            
-            'flowLiver_volLiver', 'flowLiverkg_volLiverkg',
-            'perfusion_age',
-            
-            'flowLiver_age', 'flowLiverkg_age',
-            'flowLiver_bodyweight', 'flowLiverkg_bodyweight',
-            'flowLiver_BSA', 'flowLiverkg_BSA')
-dsets
-
-
-################################################################################
 # Plot helpers
 name.parts <- strsplit(dataset, '_')
 xname <- name.parts[[1]][2]
@@ -70,7 +58,6 @@ xlim <- lim[[xname]]; ylim <- lim[[yname]]
 main <- sprintf('%s vs. %s', yname, xname)
 
 # Plot to file
-create_plots = FALSE
 startDevPlot <- function(width=2000, height=1000, file=NULL){
   if (create_plots == T) { 
     print(file)
@@ -117,7 +104,6 @@ rm(data)
 #######################################################
 # Plot basic data overview
 #######################################################
-create_plots = T
 startDevPlot(width=2000, height=1000, 
              file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_raw.png", yname, xname)))
 par(mfrow=c(1,3))
@@ -151,10 +137,8 @@ saveFitModels <- function(models, xname, yname){
     print( sprintf('%s vs. %s -> %s', yname, xname, r_fname) )
     save('models', file=r_fname)
 }
-create_plots=TRUE
 
 ## GEC vs. age ########################################
-create_plots=T
 if (dataset == 'GEC_age'){
   startDevPlot(width=650, height=1000,
                file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname))) 
@@ -178,7 +162,7 @@ if (dataset == 'GEC_age'){
 ## GECkg vs. age ######################################
 if (dataset == 'GECkg_age'){
   startDevPlot(width=650, height=1000,
-               file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname))) )
+               file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
   # all
   fit.all.nosigma <- gamlss(GECkg ~ cs(age,4), family=NO, weights=weights, data=df.all)
   fit.all <- gamlss(GECkg ~ cs(age,4), sigma.formula= ~age, family=NO, weights=weights, data=df.all, start.from=fit.all.nosigma)
@@ -196,10 +180,10 @@ if (dataset == 'GECkg_age'){
   saveFitModels(models, xname, yname)
 }
 
-
 ## volLiver vs. age ######################################
 if (dataset == 'volLiver_age'){    
-  startDevPlot(width=2000, height=1000)
+  startDevPlot(width=2000, height=1000,
+               file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
   par(mfrow=c(1,3))
   # all
   fit.all.nosigma <- gamlss(volLiver ~ cs(age,4), family=BCCG, weights=weights, data=df.all)
@@ -231,15 +215,16 @@ if (dataset == 'volLiver_age'){
 
 ## volLiverkg vs. age ######################################
 if (dataset == 'volLiverkg_age'){
-  startDevPlot(width=2000, height=1000)
+  startDevPlot(width=2000, height=1000,
+               file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
   par(mfrow=c(1,3))
   # all
   fit.all <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, weights=weights, data=df.all, method=mixed(2,10))
-  plotCentiles(model=fit.all.nosigma, d=df.all, xname=xname, yname=yname,
+  plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['all']])
   # male
-  fit.male <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, weights=weights, data=df.male, method=mixed(2,10)))
+  fit.male <- gamlss(volLiverkg ~ cs(age,1), family=BCCG, weights=weights, data=df.male, method=mixed(2,10))
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=df.cols[['male']])
@@ -259,7 +244,8 @@ if (dataset == 'volLiverkg_age'){
 
 ## volLiver vs. bodyweight ######################################
 if (dataset == 'volLiver_bodyweight'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000,
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all.nosigma <- gamlss(volLiver ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.all)
@@ -290,7 +276,8 @@ if (dataset == 'volLiver_bodyweight'){
 
 ## volLiverkg vs. bodyweight ######################################
 if (dataset == 'volLiverkg_bodyweight'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000,
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all.nosigma <- gamlss(volLiverkg ~ cs(bodyweight,2), family=BCCG, weights=weights, data=df.all, method=mixed(2,10))
@@ -320,7 +307,8 @@ if (dataset == 'volLiverkg_bodyweight'){
 
 ## volLiver vs. height ######################################
 if (dataset == 'volLiver_height'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000,
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all.nosigma <- gamlss(volLiver ~ cs(height,5), family=BCCG, weights=weights, data=df.all)
@@ -351,7 +339,8 @@ if (dataset == 'volLiver_height'){
 
 ## volLiverkg vs. height ######################################
 if (dataset == 'volLiverkg_height'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000,
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all <- gamlss(volLiverkg ~ cs(height,2), family=BCCG, weights=weights, data=df.all)
@@ -378,7 +367,8 @@ if (dataset == 'volLiverkg_height'){
 
 ## volLiver vs. BSA ######################################
 if (dataset == 'volLiver_BSA'){
-  startDevPlot(width=2000, height=1000)
+  startDevPlot(width=2000, height=1000,
+               file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
   par(mfrow=c(1,3))
   # all
   fit.all.nosigma <- gamlss(volLiver ~ cs(BSA,3), family=BCCG, weights=weights, data=df.all)
@@ -408,7 +398,8 @@ if (dataset == 'volLiver_BSA'){
 
 ## volLiverkg vs. BSA ######################################
 if (dataset == 'volLiverkg_BSA'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000, 
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all <- gamlss(volLiverkg ~ cs(BSA,2), family=BCCG, weights=weights, data=df.all)
@@ -433,11 +424,10 @@ if (dataset == 'volLiverkg_BSA'){
     saveFitModels(models, xname, yname)
 }
 
-
 ## flowLiver vs. volLiver ######################################
-create_plots=T
 if (dataset == 'flowLiver_volLiver'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000, 
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
 
     # all
@@ -464,9 +454,9 @@ if (dataset == 'flowLiver_volLiver'){
 }
 
 ## flowLiverkg vs. volLiverkg ######################################
-create_plots=T
 if (dataset == 'flowLiverkg_volLiverkg'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000, 
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     
     # all
@@ -492,11 +482,10 @@ if (dataset == 'flowLiverkg_volLiverkg'){
     saveFitModels(models, xname, yname)
 }
 
-
 ## perfusion vs. age ######################################
-create_plots=F
 if (dataset == 'perfusion_age'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000, 
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all <- gamlss(perfusion ~ age, family=NO, weights=weights, data=df.all)
@@ -521,11 +510,10 @@ if (dataset == 'perfusion_age'){
     saveFitModels(models, xname, yname)
 }
 
-
 ## flowLiver vs. age ######################################
-create_plots=F
 if (dataset == 'flowLiver_age'){
-  startDevPlot(width=2000, height=1000)
+  startDevPlot(width=2000, height=1000,
+               file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
   par(mfrow=c(1,3))
   # all
   fit.all.nosigma <- gamlss(flowLiver ~ cs(age,5), family=BCCG, weights=weights, data=df.all)
@@ -554,9 +542,9 @@ if (dataset == 'flowLiver_age'){
 }
 
 ## flowLiverkg vs. age ######################################
-create_plots=T
 if (dataset == 'flowLiverkg_age'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000,
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))  
     # all
     fit.all <- gamlss(flowLiverkg ~ cs(age,5), family=BCCG, weights=weights, data=df.all)
@@ -582,9 +570,9 @@ if (dataset == 'flowLiverkg_age'){
 }
 
 ## flowLiver vs. bodyweight ######################################
-create_plots=F
 if (dataset == 'flowLiver_bodyweight'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000,
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all <- gamlss(flowLiver ~ cs(bodyweight,3), family=BCCG, weights=weights, data=df.all)
@@ -610,9 +598,9 @@ if (dataset == 'flowLiver_bodyweight'){
 }
 
 ## flowLiverkg vs. bodyweight ######################################
-create_plots=T
 if (dataset == 'flowLiverkg_bodyweight'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000, 
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all <- gamlss(flowLiverkg ~cs(bodyweight, 2), family=BCCG, weights=weights, data=df.all)
@@ -638,9 +626,8 @@ if (dataset == 'flowLiverkg_bodyweight'){
 }
 
 ## flowLiver vs. BSA ######################################
-create_plots=F
 if (dataset == 'flowLiver_BSA'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000, file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all <- gamlss(flowLiver ~ cs(BSA,2), family=BCCG, weights=weights, data=df.all)
@@ -666,9 +653,9 @@ if (dataset == 'flowLiver_BSA'){
 }
 
 ## flowLiverkg vs. BSA ######################################
-create_plots=T
 if (dataset == 'flowLiverkg_BSA'){
-    startDevPlot(width=2000, height=1000)
+    startDevPlot(width=2000, height=1000,  
+                 file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
     par(mfrow=c(1,3))
     # all
     fit.all <- gamlss(flowLiverkg ~cs(BSA, 2), family=BCCG, weights=weights, data=df.all)
@@ -694,6 +681,8 @@ if (dataset == 'flowLiverkg_BSA'){
 }
 
 
+
+
 #######################################################
 # GAMLSS - Model selection
 #######################################################
@@ -711,17 +700,17 @@ if (dataset == 'flowLiverkg_BSA'){
 
 # Using multcomp
 # artax.karlin.mff.cuni.cz/r-help/library/BSagri/
-library(gamlss)
-install.packages("multcomp")
-library(multcomp)
-
-comps <- glht(modelfit2, mcp(Treatment="Tukey"))
-CIs2<-CIGLM(comps2, method="Raw")
-CIs2
-
-CIsAdj2<-CIGLM(comps2, method="Adj")
-CIsAdj2
-
-CIsBonf2<-CIGLM(comps2, method="Bonf")
-CIsBonf2
+# library(gamlss)
+# install.packages("multcomp")
+# library(multcomp)
+# 
+# comps <- glht(modelfit2, mcp(Treatment="Tukey"))
+# CIs2<-CIGLM(comps2, method="Raw")
+# CIs2
+# 
+# CIsAdj2<-CIGLM(comps2, method="Adj")
+# CIsAdj2
+# 
+# CIsBonf2<-CIGLM(comps2, method="Bonf")
+# CIsBonf2
 
