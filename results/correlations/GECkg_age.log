@@ -2,9 +2,9 @@
      study       gender               age              GECkg            dtype          
  lan2011:10   Length:140         Min.   : 0.4691   Min.   :0.02077   Length:140        
  duc1979:13   Class :character   1st Qu.:22.6667   1st Qu.:0.03667   Class :character  
- tyg1962:18   Mode  :character   Median :25.4752   Median :0.04062   Mode  :character  
+ tyg1963:18   Mode  :character   Median :25.4752   Median :0.04062   Mode  :character  
  sch1986:94                      Mean   :32.8685   Mean   :0.04144                     
- duf2005: 5                      3rd Qu.:38.1454   3rd Qu.:0.04433                     
+ duf1992: 5                      3rd Qu.:38.1454   3rd Qu.:0.04433                     
                                  Max.   :88.5106   Max.   :0.08466                     
 [1] "### Linear Regression Model ###"
 
