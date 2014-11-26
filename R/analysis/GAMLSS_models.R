@@ -6,9 +6,10 @@
 # the models used for the individual predictions of the 2D correlations.
 #
 # TODO: cross-validation of model fits
+# TODO: create GAMLSS model table (which studies, how many data points)
 #
 # author: Matthias Koenig
-# date: 2014-11-20
+# date: 2014-11-26
 ################################################################################
 rm(list = ls())
 library('MultiscaleAnalysis')
@@ -16,7 +17,7 @@ setwd('/home/mkoenig/multiscale-galactose/')
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 ################################################################################
-# dataset <- 'GEC_age'
+dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
 
 # dataset <- 'volLiver_age'
@@ -29,7 +30,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 # dataset <- 'volLiverkg_BSA'
 
 # dataset <- 'flowLiver_volLiver'
-dataset <- 'flowLiverkg_volLiverkg'
+# dataset <- 'flowLiverkg_volLiverkg'
 # dataset <- 'perfusion_age'
 
 # dataset <- 'flowLiver_age'
@@ -42,8 +43,20 @@ dataset <- 'flowLiverkg_volLiverkg'
 # Create all the gamlss models
 # TODO: -> create data figures, create centile figures, create table of results,
 
-models <- c('GEC_age',  'GECkg_age',  'volLiver_age', 'volLiverkg_age',
-            'volLiver
+dsets <- c('GEC_age', 'GECkg_age',  
+            
+            'volLiver_age', 'volLiverkg_age',
+            'volLiver_bodyweight','volLiverkg_bodyweight',
+            'volLiver_height','volLiverkg_height',
+            'volLiver_BSA', 'volLiverkg_BSA',
+            
+            'flowLiver_volLiver', 'flowLiverkg_volLiverkg',
+            'perfusion_age',
+            
+            'flowLiver_age', 'flowLiverkg_age',
+            'flowLiver_bodyweight', 'flowLiverkg_bodyweight',
+            'flowLiver_BSA', 'flowLiverkg_BSA')
+dsets
 
 
 ################################################################################
@@ -59,9 +72,6 @@ main <- sprintf('%s vs. %s', yname, xname)
 # Plot to file
 create_plots = FALSE
 startDevPlot <- function(width=2000, height=1000, file=NULL){
-  if (is.null(file)){
-    file <- file.path(ma.settings$dir.results, 'regression', sprintf('%s_%s_regression.png', yname, xname))
-  }
   if (create_plots == T) { 
     print(file)
     png(filename=file, width=width, height=height, 
@@ -75,7 +85,7 @@ stopDevPlot <- function(){
 #######################################################
 # Data preprocessing
 #######################################################
-fname <- file.path(ma.settings$dir.expdata, "processed", sprintf("%s_%s.Rdata", yname, xname))
+fname <- file.path(ma.settings$dir.base, "results", 'correlations', sprintf("%s_%s.Rdata", yname, xname))
 print(fname)
 load(file=fname)
 
@@ -88,7 +98,7 @@ data$dtype <- as.factor(data$dtype)
 
 # weighting of data points in regression
 data$weights <- 1 
-data$weights[data$dtype=='population'] = 0.1 # data from population studies is less weighted
+data$weights[data$dtype=='population'] = 0.1 # data from population studies is less weighted (not used in regression)
 data$weights[data$study=="cat2010"] = 0.1    # indirect measured data (flow via cardiac output), is weighted less
 data$weights[data$study=="sim1997"] = 0.1    # indirect measured data (flow via cardiac output), is weighted less
 data$weights[data$study=="ircp2001"] = 10    # the very few data points for flow in children are weighted more
@@ -107,9 +117,9 @@ rm(data)
 #######################################################
 # Plot basic data overview
 #######################################################
-create_plots = F
-sprintf("/home/mkoenig/Desktop/data/%s_%s.png", xname, yname)
-startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/%s_%s.png", yname, xname))
+create_plots = T
+startDevPlot(width=2000, height=1000, 
+             file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_raw.png", yname, xname)))
 par(mfrow=c(1,3))
 for (k in 1:3){
   if (k==1){ d <- df.all }
@@ -135,10 +145,8 @@ rm(d,k)
 ################################################################################
 library('gamlss')
 # Save models
-saveFitModels <- function(models, xname, yname, dir=NULL){
-    if (is.null(dir)){
-        dir <- file.path(ma.settings$dir.expdata, "processed")
-    }
+saveFitModels <- function(models, xname, yname){
+    dir <- file.path(ma.settings$dir.base, "results", "gamlss")
     r_fname <- file.path(dir, sprintf('%s_%s_models.Rdata', yname, xname))
     print( sprintf('%s vs. %s -> %s', yname, xname, r_fname) )
     save('models', file=r_fname)
@@ -148,7 +156,8 @@ create_plots=TRUE
 ## GEC vs. age ########################################
 create_plots=T
 if (dataset == 'GEC_age'){
-  startDevPlot(width=650, height=1000)
+  startDevPlot(width=650, height=1000,
+               file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname))) 
   # all
   fit.all.nosigma <- gamlss(GEC ~ cs(age,2), family=NO, weights=weights, data=df.all)
   fit.all <- gamlss(GEC ~ cs(age,2), sigma.formula= ~cs(age,1), family=NO, weights=weights, data=df.all, start.from=fit.all.nosigma)
@@ -168,7 +177,8 @@ if (dataset == 'GEC_age'){
 
 ## GECkg vs. age ######################################
 if (dataset == 'GECkg_age'){
-  startDevPlot(width=650, height=1000)
+  startDevPlot(width=650, height=1000,
+               file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname))) )
   # all
   fit.all.nosigma <- gamlss(GECkg ~ cs(age,4), family=NO, weights=weights, data=df.all)
   fit.all <- gamlss(GECkg ~ cs(age,4), sigma.formula= ~age, family=NO, weights=weights, data=df.all, start.from=fit.all.nosigma)

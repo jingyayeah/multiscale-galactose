@@ -63,7 +63,6 @@ saveRawData <- function(data, dir=NULL){
 ##############################################
 f_liver_density = 1.08     # [g/ml] conversion between volume and weight
 f_co_fraction = 0.25       # [-] Liver bloodflow as fraction of cardiac output
-f_weight_indirect = 0.2    # [-] Weighting of indirect measurments
 
 dtypes <- c('population', 'individual')
 
