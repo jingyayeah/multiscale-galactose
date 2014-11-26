@@ -1,11 +1,11 @@
 [1] "### Data ###"
-     study         gender               BSA           flowLiver         dtype          
- bra1945:  23   Length:1265        Min.   :0.3880   Min.   : 318.5   Length:1265       
- she1945:  32   Class :character   1st Qu.:0.7690   1st Qu.: 900.7   Class :character  
- tyg1957:  13   Mode  :character   Median :0.9330   Median :1093.1   Mode  :character  
- cat2010:1197                      Mean   :0.9881   Mean   :1140.5                     
-                                   3rd Qu.:1.1530   3rd Qu.:1320.6                     
-                                   Max.   :2.0600   Max.   :2649.6                     
+     study         gender               BSA          flowLiver         dtype          
+ bra1945:  23   Length:1356        Min.   :0.388   Min.   : 318.5   Length:1356       
+ bra1952:  91   Class :character   1st Qu.:0.777   1st Qu.: 914.1   Class :character  
+ she1950:  32   Mode  :character   Median :0.953   Median :1120.6   Mode  :character  
+ tyg1957:  13                      Mean   :1.041   Mean   :1166.9                     
+ cat2010:1197                      3rd Qu.:1.225   3rd Qu.:1352.1                     
+                                   Max.   :2.210   Max.   :2649.6                     
 [1] "### Linear Regression Model ###"
 
 Call:
@@ -13,16 +13,16 @@ lm(formula = formula, data = data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--846.78 -154.52  -21.92  131.61 1196.55 
+-791.39 -158.18  -23.36  137.19 1242.89 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   364.54      23.10   15.78   <2e-16 ***
-BSA           785.35      22.39   35.08   <2e-16 ***
+(Intercept)   444.80      20.89   21.30   <2e-16 ***
+BSA           694.01      19.02   36.49   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 237.1 on 1263 degrees of freedom
-Multiple R-squared:  0.4935,	Adjusted R-squared:  0.4931 
-F-statistic:  1231 on 1 and 1263 DF,  p-value: < 2.2e-16
+Residual standard error: 246 on 1354 degrees of freedom
+Multiple R-squared:  0.4958,	Adjusted R-squared:  0.4955 
+F-statistic:  1332 on 1 and 1354 DF,  p-value: < 2.2e-16
 

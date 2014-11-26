@@ -100,6 +100,14 @@ bra1945$flowLiver <- bra1945$liverBloodFlow
 saveRawData(bra1945)
 head(bra1945)
 
+# age [years], sex [M,F], BSA [m^2], liverBloodFlow [ml/min]
+bra1952 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Bradley1952_Tab1.csv"), sep="\t")
+bra1952$dtype <- 'individual'
+bra1952$gender <- getGender(bra1952)
+bra1952$flowLiver <- bra1952$liverBloodFlow
+saveRawData(bra1952)
+head(bra1952)
+
 # age [years], sex [U], cardiac_output [L/min]
 # liver blood flow estimated via cardiac output
 # cat2010 <- read.csv(file.path(ma.settings$dir.expdata, "cardiac_output", "Cattermole2010_Tab2.csv"), sep="\t")
@@ -256,6 +264,15 @@ lan2011 <- lan2011[lan2011$status=='healthy', ]
 saveRawData(lan2011)
 head(lan2011)
 
+# age [years], Sex [M], BSA [m^2], EHBF [ml/min]
+lee1962 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Leevy1962_Tab1.csv"), sep="\t")
+lee1962$dtype <- 'individual'
+lee1962$gender <- getGender(lee1962)
+lee1962$flowLiver <- lee1962$BSP_EHBF
+lee1962 <- lee1962[lee1962$status=='healthy', ]
+saveRawData(lee1962)
+head(lee1962)
+
 # age [years], GEC (galactose elimination capacity) [mmol/min], 
 # HVI (hepatic volumetric index) [units], volLiver [cm^3]
 mar1988 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Marchesini1988_Fig.csv"), sep="\t")
@@ -280,13 +297,13 @@ saveRawData(naw1998)
 head(naw1998)
 
 # sex [M, F], age [years], bodyweight [kg], height [cm], BSA [m^2], flowLiver [ml/min]
-sch1945 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Sherlock1945.csv"), sep="\t")
-sch1945$dtype <- 'individual'
-sch1945$gender <- getGender(sch1945)
-sch1945$flowLiver <- sch1945$liverBloodflow
-sch1945$flowLiverkg <- sch1945$flowLiver/sch1945$bodyweight
-saveRawData(sch1945)
-head(sch1945)
+she1950 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Sherlock1950.csv"), sep="\t")
+she1950$dtype <- 'individual'
+she1950$gender <- getGender(she1950)
+she1950$flowLiver <- she1950$liverBloodflow
+she1950$flowLiverkg <- she1950$flowLiver/she1950$bodyweight
+saveRawData(she1950)
+head(she1950)
 
 # sex [m,f], age [years], bodyweight [kg], GEC [mg/min/kg]
 sch1986.tab1 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Schnegg1986_Tab1.csv"), sep="\t")
@@ -357,12 +374,18 @@ saveRawData(tyg1963)
 head(tyg1963)
 
 # BSA [m^2], liverVol [ml]
-ura1995 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Urata1995.csv"), sep="\t")
-ura1995$dtype <- 'individual'
-ura1995$gender <- getGender(ura1995)
-ura1995$volLiver <- ura1995$liverVol
-saveRawData(ura1995)
-head(ura1995)
+ura1995.fig2 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Urata1995_Fig2.csv"), sep="\t")
+ura1995.fig2$dtype <- 'individual'
+ura1995.fig2$gender <- getGender(ura1995.fig2)
+saveRawData(ura1995.fig2)
+head(ura1995.fig2)
+
+# age [m^2], liverVolkg [ml/kg]
+ura1995.fig3 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Urata1995_Fig3.csv"), sep="\t")
+ura1995.fig3$dtype <- 'individual'
+ura1995.fig3$gender <- getGender(ura1995.fig3)
+saveRawData(ura1995.fig3)
+head(ura1995.fig3)
 
 # BSA [m^2], liverVol [ml]
 vau2002.fig1 <- read.csv(file.path(ma.settings$dir.expdata, "liver_volume", "Vauthey2002_Fig1.csv"), sep="\t")
@@ -782,10 +805,12 @@ addPopulationSegments(kay1987, xname, yname)
 xname <- 'age'; yname <- 'volLiverkg'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(wyn1989[, selection] ,
-              naw1998[, selection], 
+              naw1998[, selection],
+              ura1995.fig3[, selection],
               hei1999[, selection])
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
+# points(ura1995.fig3[[xname]], ura1995.fig3[[yname]], col='black', bg='black', pch=21, cex=1.5)
 
 ############################################
 # volLiver [ml] vs. BSA [m^2]
@@ -794,13 +819,14 @@ xname <- 'BSA'; yname <- 'volLiver'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(naw1998[, selection],
               hei1999[, selection],
-              ura1995[, selection],
+              ura1995.fig2[, selection],
               vau2002.fig1[, selection],
               yos2003[,selection])
 
 # data <- addRandomizedPopulationData(data, del1968.fig4)
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
+# points(ura1995.fig2[[xname]], ura1995.fig2[[yname]], col='black', bg='black', pch=21, cex=1.5)
 # addPopulationSegments(del1968.fig4, xname, yname)
 
 ############################################
@@ -873,15 +899,16 @@ selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( win1965[, selection], 
                wyn1989[, selection],
                bra1945[, selection],
+               bra1952[, selection],
                zol1999[, selection],
-               sch1945[, selection],
+               she1950[, selection],
                wyn1990[, selection],
                tyg1958[, selection],
                cat2010[, selection],     # estimate via cardiac output
                ircp2001.co[, selection]) # estimate via cardiac output
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
-# points(tyg1958$age, tyg1958$flowLiver, col='black', bg='black', pch=21, cex=1.5)
+# points(lee1962[[xname]], lee1962[[yname]], col='black', bg='black', pch=21, cex=1.5)
 
 ############################################
 # flowLiverkg [ml/min/kg] vs. age [years]
@@ -890,7 +917,7 @@ xname <- 'age'; yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind( win1965[, selection], 
                wyn1989[, selection],
-               sch1945[, selection],
+               she1950[, selection],
                zol1993[, selection],
                tyg1958[, selection],
                cat2010[, selection]) # estimate via cardiac output
@@ -906,11 +933,13 @@ xname <- 'bodyweight'; yname <- 'flowLiver'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(wyn1989[, selection],
               tyg1958[, selection],
+              she1950[, selection],
               sim1997[, selection], # estimate via cardiac output
               cat2010[, selection]) # estimate via cardiac output
 saveData(data)
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
+#points(she1950[[xname]], she1950[[yname]], col='black', bg='black', pch=21, cex=1.5)
 
 ############################################
 # flowLiverkg [ml/min] vs. bodyweight [kg]
@@ -919,12 +948,15 @@ xname <- 'bodyweight'; yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(  wyn1989[, selection],
                 tyg1958[, selection],
+                she1950[, selection],
                 sim1997[, selection], # estimate via cardiac output
                 cat2010[, selection]) # estimate via cardiac output
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
+#points(she1950[[xname]], she1950[[yname]], col='black', bg='black', pch=21, cex=1.5)
+
 
 ############################################
 # flowLiver [ml/min] vs. BSA [m^2]
@@ -933,13 +965,15 @@ xname <- 'BSA'
 yname <- 'flowLiver'
 selection <- c('study', 'gender', xname, yname, 'dtype')
 data <- rbind(bra1945[, selection],
-              sch1945[, selection],
+              bra1952[, selection],
+              she1950[, selection],
               tyg1958[, selection],
               cat2010[, selection]) # estimate via cardiac output
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
+#points(bra1952[[xname]], bra1952[[yname]], col='black', bg='black', pch=21, cex=1.5)
 
 ############################################
 # flowLiverkg [ml/min/kg] vs. BSA [m^2]
@@ -947,7 +981,7 @@ makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 xname <- 'BSA'
 yname <- 'flowLiverkg'
 selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(sch1945[, selection],
+data <- rbind(she1950[, selection],
               tyg1958[, selection],
               cat2010[, selection]) # estimate via cardiac output
 saveData(data)

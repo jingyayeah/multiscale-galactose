@@ -1,10 +1,10 @@
 [1] "### Data ###"
     study              gender            bodyweight      flowLiver         dtype          
- Length:1967        Length:1967        Min.   : 3.90   Min.   : 220.2   Length:1967       
- Class :character   Class :character   1st Qu.:20.65   1st Qu.: 878.0   Class :character  
- Mode  :character   Mode  :character   Median :29.50   Median :1075.1   Mode  :character  
-                                       Mean   :36.71   Mean   :1111.7                     
-                                       3rd Qu.:50.84   3rd Qu.:1293.6                     
+ Length:1999        Length:1999        Min.   : 3.90   Min.   : 220.2   Length:1999       
+ Class :character   Class :character   1st Qu.:20.70   1st Qu.: 880.0   Class :character  
+ Mode  :character   Mode  :character   Median :29.82   Median :1080.7   Mode  :character  
+                                       Mean   :37.05   Mean   :1116.3                     
+                                       3rd Qu.:51.81   3rd Qu.:1300.1                     
                                        Max.   :97.60   Max.   :2649.6                     
 [1] "### Linear Regression Model ###"
 
@@ -13,16 +13,16 @@ lm(formula = formula, data = data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--861.92 -203.21  -23.34  175.83 1472.49 
+-868.04 -203.03  -22.72  174.54 1469.02 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  850.374     13.707   62.04   <2e-16 ***
-bodyweight     7.118      0.325   21.90   <2e-16 ***
+(Intercept) 847.0995    13.7179   61.75   <2e-16 ***
+bodyweight    7.2652     0.3228   22.51   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 299.4 on 1965 degrees of freedom
-Multiple R-squared:  0.1962,	Adjusted R-squared:  0.1958 
-F-statistic: 479.8 on 1 and 1965 DF,  p-value: < 2.2e-16
+Residual standard error: 300.3 on 1997 degrees of freedom
+Multiple R-squared:  0.2023,	Adjusted R-squared:  0.2019 
+F-statistic: 506.5 on 1 and 1997 DF,  p-value: < 2.2e-16
 

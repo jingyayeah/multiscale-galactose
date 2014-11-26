@@ -1,10 +1,10 @@
 [1] "### Data ###"
     study              gender            bodyweight     flowLiverkg         dtype          
- Length:1967        Length:1967        Min.   : 3.90   Min.   :  6.938   Length:1967       
- Class :character   Class :character   1st Qu.:20.65   1st Qu.: 23.032   Class :character  
- Mode  :character   Mode  :character   Median :29.50   Median : 37.875   Mode  :character  
-                                       Mean   :36.71   Mean   : 37.588                     
-                                       3rd Qu.:50.84   3rd Qu.: 49.258                     
+ Length:1999        Length:1999        Min.   : 3.90   Min.   :  6.938   Length:1999       
+ Class :character   Class :character   1st Qu.:20.70   1st Qu.: 22.834   Class :character  
+ Mode  :character   Mode  :character   Median :29.82   Median : 37.608   Mode  :character  
+                                       Mean   :37.05   Mean   : 37.372                     
+                                       3rd Qu.:51.81   3rd Qu.: 48.930                     
                                        Max.   :97.60   Max.   :132.471                     
 [1] "### Linear Regression Model ###"
 
@@ -13,16 +13,16 @@ lm(formula = formula, data = data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--28.398  -6.353  -0.496   5.653  81.765 
+-28.380  -6.333  -0.513   5.551  81.797 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 60.40146    0.45258  133.46   <2e-16 ***
-bodyweight  -0.62148    0.01073  -57.92   <2e-16 ***
+(Intercept) 60.34813    0.44970  134.19   <2e-16 ***
+bodyweight  -0.62009    0.01058  -58.59   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 9.885 on 1965 degrees of freedom
-Multiple R-squared:  0.6306,	Adjusted R-squared:  0.6304 
-F-statistic:  3354 on 1 and 1965 DF,  p-value: < 2.2e-16
+Residual standard error: 9.845 on 1997 degrees of freedom
+Multiple R-squared:  0.6323,	Adjusted R-squared:  0.6321 
+F-statistic:  3433 on 1 and 1997 DF,  p-value: < 2.2e-16
 
