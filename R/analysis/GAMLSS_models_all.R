@@ -33,8 +33,6 @@ dsets
 for (dataset in dsets){
   cat(dataset, '\n')
   source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_models.R'))
-  cat(xname, '~', yname, '\n')
-  models
 }
 
 ################################################################################
@@ -51,15 +49,28 @@ formulaString <- function(formula, sigma=F){
   return(f)
 }
 
+dataOverview <- function(df){
+  t <- table(df$study)
+  t <- t[order(names(t))]
+  
+  tokens <- list(length(t))
+  for (k in 1:length(t)){
+    tokens[k] <- sprintf('%s(%s)', names(t)[k], t[k]) 
+  }
+  return( paste(tokens, collapse = ', ') )
+}
+# df <- models[['df.all']]
+# dataOverview(df)
+
+
+# Create the table
 Nr <- length(dsets)
 res.table <- data.frame(character(Nr*3), character(Nr*3), character(Nr*3), character(Nr*3), 
-                        character(Nr*3), character(Nr*3), numeric(Nr*3), numeric(Nr*3), stringsAsFactors=FALSE)
+                        character(Nr*3), character(Nr*3), numeric(Nr*3), numeric(Nr*3), 
+                        character(Nr*3), stringsAsFactors=FALSE)
 names(res.table) <- c('y', 'x', 'sex', 'link',
-                      'mu.formula', 'sigma.formula', 'df', 'N')
-head(res.table)
-
-# for (k in 1:Nr){
-for (k in 1:2){
+                      'mu.formula', 'sigma.formula', 'df', 'N', 'data')
+for (k in 1:Nr){
  # get names
  dset.name <- dsets[k]
  xy.names <- createXYNameFromDatasetName(dset.name)
@@ -71,33 +82,28 @@ for (k in 1:2){
    m <- models[[sprintf('fit.%s', sex)]]
    df <- models[[sprintf('df.%s', sex)]]
    if(is.null(m)){
-     link <- '';  mu.f <- ''; sigma.f <- ''
+     row <- c(yname, xname, sex, '',
+              '', '', '', nrow(df), '')
    } else {
-     link <- m$family[2]
-     mu.f <- formulaString(m$mu.formula)
-     sigma.f <- formulaString(m$sigma.formula, sigma=T)
-     row <- c(yname, xname, sex, link,
-              mu.f, sigma.f, sprintf('%1.1f', m$df.fit), m$N)
+     row <- c(yname, xname, sex, m$family[1],
+              formulaString(m$mu.formula), formulaString(m$sigma.formula, sigma=T), sprintf('%1.1f', m$df.fit), m$N,
+              dataOverview(df))     
+     
    }
-   row <- c(yname, xname, sex, link,
-            mu.f, sigma.f, sprintf('%1.1f', m$df.fit), m$N)
-   print(row)
    res.table[3*(k-1)+si, ] <- row
  }
 }
+
+# save the table
+# replace sex
+res.table$sex[res.table$sex==gender.levels[1]] <- 'A'
+res.table$sex[res.table$sex==gender.levels[2]] <- 'M'
+res.table$sex[res.table$sex==gender.levels[3]] <- 'F'
+
+t_fname <- file.path(ma.settings$dir.base, "results", "GAMLSS_models_table.csv")
+cat('Table:', t_fname, '\n')
+write.table(x=res.table, file=t_fname, sep='\t', col.names=T, row.names=F, quote=F)
+
+# m <- models[['fit.all']]
+# m$family[2]
 head(res.table)
-
-models <- loadFitModels(xname='age', yname='GEC')
-m <- models[['fit.all']]
-m
-m$family[2]
-m$call
-m$sigma.df
-m$mu.df
-formulaString(m$mu.formula)
-str(m)
-df <- models[['df.all']]
-
-
-
-
