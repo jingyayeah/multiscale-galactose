@@ -45,14 +45,13 @@ if (!exists('dataset')){
 
 ################################################################################
 library('MultiscaleAnalysis')
-setwd('/home/mkoenig/multiscale-galactose/')
+setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 # Plot helpers
-name.parts <- strsplit(dataset, '_')
-xname <- name.parts[[1]][2]
-yname <- name.parts[[1]][1]
-rm(name.parts)
+names <- createXYNameFromDatasetName(dataset)
+xname <- names$xname
+yname <- names$yname
 xlab <- lab[[xname]]; ylab <- lab[[yname]]
 xlim <- lim[[xname]]; ylim <- lim[[yname]]
 main <- sprintf('%s vs. %s', yname, xname)
@@ -130,13 +129,6 @@ rm(d,k)
 # GAMLSS - Model fitting
 ################################################################################
 library('gamlss')
-# Save models
-saveFitModels <- function(models, xname, yname){
-    dir <- file.path(ma.settings$dir.base, "results", "gamlss")
-    r_fname <- file.path(dir, sprintf('%s_%s_models.Rdata', yname, xname))
-    print( sprintf('%s vs. %s -> %s', yname, xname, r_fname) )
-    save('models', file=r_fname)
-}
 
 ## GEC vs. age ########################################
 if (dataset == 'GEC_age'){

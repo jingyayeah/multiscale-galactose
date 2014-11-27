@@ -9,6 +9,23 @@
 # date: 2014-11-11
 ################################################################
 
+#' Get the xname and yname from the dataset name.
+#' 
+#'@export
+createXYNameFromDatasetName <- function(dataset.name){
+  name.parts <- strsplit(dataset.name, '_')
+  xname <- name.parts[[1]][2]
+  yname <- name.parts[[1]][1]
+  return( list(xname=xname, yname=yname) )
+}
+
+#' Create dataset name from xname and yname.
+#' 
+#'@export
+createDatasetName <- function(xname, yname){
+  return( sprintf('%s_%s', xname, yname) )
+}
+
 #' Get integration timecourse file for simulation id.
 #' 
 #' TODO: this is not working any more with the multiple simulations

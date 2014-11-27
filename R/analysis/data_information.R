@@ -21,6 +21,9 @@ names(df.cols) <- df.names
 df.symbols = c(21, 22, 23)
 names(df.symbols) <- df.names 
 
+
+
+
 # Additional data information used for plots and analysis
 # main purpose for automatically generating the images
 # for the various xname, yname combinations of available data
