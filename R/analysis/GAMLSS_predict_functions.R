@@ -344,23 +344,25 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
 
 # Combined prediction of liver volume and 
 predict_liver_person <- function(person, Nsample){
+  volLiver = rep(NA, Nsample)
+  flowLiver = rep(NA, Nsample)
+  
   # individual combined probability density for liver volume
   f_d1 <- f_d.volLiver.c(sex=person$sex, age=person$age, bodyweight=person$bodyweight,
                          height=person$height, BSA=person$BSA)
-    # rejection sampling of liver volume
-   rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
-   volLiver <- rs1$values
+  # rejection sampling of liver volume
+  rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
+  volLiver <- rs1$values
     
-    # now for ever liver volume the blood flow
-    # individual combined probability density for blood flow
-    flowLiver = rep(NA, Nsample)
-    for (i in 1:Nsample){
+  # now for ever liver volume the blood flow
+  # individual combined probability density for blood flow  
+  for (i in 1:Nsample){
       f_d2 <- f_d.flowLiver.c(sex=person$sex, age=person$age, bodyweight=person$bodyweight, 
                               height=person$height, BSA=person$BSA, volLiver=volLiver[i])
       rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
       flowLiver[i] <- rs2$values[1]
-    }
-    return(list(volLiver=volLiver, flowLiver=flowLiver))
+  }
+  return(list(volLiver=volLiver, flowLiver=flowLiver))
 }
 # predict_liver_person(person=nhanes[1,], Nsample=3)
 
