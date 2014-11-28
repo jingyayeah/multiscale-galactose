@@ -8,7 +8,7 @@
 # features.
 #
 # methods(predict)
-# getAnywhere("predict.gamlss")
+getAnywhere("predict.gamlss")
 #
 # author: Matthias Koenig
 # date: 2014-11-27
@@ -33,7 +33,6 @@ f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=
   # data to predict
   newdata <- data.frame(get(xname))
   names(newdata) <- c(xname)
-  #print(newdata)
   
   # get link function from model, predict the necessary parameters & 
   # create respective density
@@ -42,7 +41,7 @@ f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=
   dfname <- paste('df.', sex, sep="")
   m <- models[[mname]]
   assign(dfname, models[[dfname]])
-  link = m$family[1]  
+  link = m$family[1]
   if (link == 'BCCG'){
     capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
     capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
@@ -160,10 +159,9 @@ f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=N
             f_ds[['volLiverkg_age']](x) *f_ds[['volLiverkg_bodyweight']](x) *f_ds[['volLiverkg_height']](x) *f_ds[['volLiverkg_BSA']](x)
     }
     # normalized
-    A <- integrate(f=f_d.raw, lower=0, upper=5000)
-    f_d <- function(x){f_d.raw(x)/A$value}
-    
-    return( list(f_d=f_d, f_d.raw=f_d.raw, f_ds=f_ds,
+    # A <- integrate(f=f_d.raw, lower=0, upper=5000)
+    # f_d <- function(x){f_d.raw(x)/A$value}
+    return( list(f_d=f_d.raw, f_ds=f_ds,
                  sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA) ) 
 }
 
@@ -188,9 +186,9 @@ f_d.volLiverkg.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA
         f_ds[['volLiverkg_age']](x) *f_ds[['volLiverkg_bodyweight']](x) *f_ds[['volLiverkg_height']](x) *f_ds[['volLiverkg_BSA']](x)
     }
     # normalized
-    A <- integrate(f=f_d.raw, lower=0, upper=150)
-    f_d <- function(x){f_d.raw(x)/A$value}
-    return( list(f_d=f_d, f_d.raw=f_d.raw, f_ds=f_ds,
+    # A <- integrate(f=f_d.raw, lower=0, upper=150)
+    # f_d <- function(x){f_d.raw(x)/A$value}
+    return( list(f_d=f_d.raw, f_ds=f_ds,
                  sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA) ) 
 }
 
@@ -223,9 +221,9 @@ f_d.flowLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=
             f_ds[['flowLiver_volLiver']](x)
     }
     # normalized
-    A <- integrate(f=f_d.raw, lower=0, upper=5000)
-    f_d <- function(x){f_d.raw(x)/A$value}
-    return( list(f_d=f_d, f_d.raw=f_d.raw, f_ds=f_ds,
+    # A <- integrate(f=f_d.raw, lower=0, upper=5000)
+    # f_d <- function(x){f_d.raw(x)/A$value}
+    return( list(f_d=f_d.raw, f_ds=f_ds,
                  sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver) ) 
 }
 
@@ -251,9 +249,9 @@ f_d.flowLiverkg.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BS
             f_ds[['flowLiverkg_volLiverkg']](x)
     }
     # normalized
-    A <- integrate(f=f_d.raw, lower=0, upper=80)
-    f_d <- function(x){f_d.raw(x)/A$value}
-    return( list(f_d=f_d, f_d.raw=f_d.raw, f_ds=f_ds,
+    # A <- integrate(f=f_d.raw, lower=0, upper=80)
+    # f_d <- function(x){f_d.raw(x)/A$value}
+    return( list(f_d=f_d.raw, f_ds=f_ds,
                  sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver) ) 
 }
 
@@ -307,30 +305,94 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
     return(list(values=values, f_d=f_d, funct1=funct1) )
 }
 
-sex='male'; age=50; bodyweight=80; height=175; BSA=1.9;
-ptm <- proc.time()
-f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight,
-                        height=height, BSA=BSA)
-proc.time() - ptm
+# sex='male'; age=50; bodyweight=80; height=175; BSA=1.9;
+# ptm <- proc.time()
+# f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight,
+#                         height=height, BSA=BSA)
+# proc.time() - ptm
+# 
+# # rm(list=ls())
+# ptm <- proc.time()
+# rs2 <- f_d.rejection_sample(f_d1$f_d, Nsim=500, interval=c(1, 4000))
+# proc.time() - ptm
+# 
+# 
+# # normalization for plots
+# A <- integrate(f=f_d1$f_d, lower=1000, upper=3000)
+# A$value
+# plot(1:3000, 1/A$value*f_d1$f_d(1:3000), col='red')
+# hist(rs2$values, add=TRUE, freq=FALSE, breaks=10)
+# 
+# hist(rs2$values, freq=FALSE, breaks =10)
+# points(1:3000, f_d1$f_d(1:3000), col='red')
+# 
+# ptm <- proc.time()
+# f_d1$f_d(1:1000)
+# proc.time() - ptm
+# 
+# library(profr)
+# p <- profr(
+#   f_d.rejection_sample(f_d1$f_d, Nsim=10, interval=c(1, 4000)),
+#   0.01
+# )
+# plot(p)
 
-# rm(list=ls())
-ptm <- proc.time()
-rs2 <- f_d.rejection_sample(f_d1$f_d, Nsim=100, interval=c(1, 4000))
-proc.time() - ptm
 
-plot(1:3000, f_d1$f_d(1:3000), col='red')
-hist(rs2$values, add=TRUE, freq=FALSE, breaks=7 )
+################################################################################
+# Prediction function for liver volume and blood flow
+################################################################################
 
-hist(rs2$values, freq=FALSE, breaks =10)
 
-ptm <- proc.time()
-f_d1$f_d(1:1000)
-proc.time() - ptm
+# Combined prediction of liver volume and 
+predict_liver_features <- function(people, Nsample){
+  names <- colnames(people)
+  if( !("sex" %in% names)) {warning("sex missing in data")}
+  if( !("age" %in% names)) {warning("age missing in data")}
+  if( !("bodyweight" %in% names)) {warning("bodyweight missing in data")}
+  if( !("height" %in% names)) {warning("height missing in data")}
+  if( !("BSA" %in% names)) {warning("BSA missing in data")}
+  
+  Np = nrow(people)
+  # data has to have certain subfields
+  
+  # create empty matrix
+  volLiver <- matrix(NA, nrow=Np, ncol=Nsample)
+  flowLiver <- matrix(NA, nrow=Np, ncol=Nsample)
+  for (k in 1:Np){
+    ptm <- proc.time()
+    cat(k, '\n')    
+    # individual combined probability density for liver volume
+    f_d1 <- f_d.volLiver.c(sex=people$sex[k], age=people$age[k], bodyweight=people$bodyweight[k],
+                           height=people$height[k], BSA=people$BSA[k])
+    # rejection sampling of liver volume
+    rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
+    volLiver[k, ] <- rs1$values
+    
+    # now for ever liver volume the blood flow
+    # individual combined probability density for blood flow
+    for (i in 1:Nsample){
+      f_d2 <- f_d.flowLiver.c(sex=people$sex[k], age=people$age[k], bodyweight=people$bodyweight[k], 
+                           height=people$height[k], BSA=people$BSA[k], volLiver=volLiver[k, i])
+      # rejection sampling
+      rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
+      flowLiver[k, i] <- rs2$values[1]
+    }
+    res <- proc.time() - ptm
+    print(res)
+  }  
+  return(list(volLiver=volLiver, flowLiver=flowLiver))
+}
+load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
+nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
+rm(data)
+head(nhanes)
 
-library(profr)
-p <- profr(
-  f_d.rejection_sample(f_d1$f_d, Nsim=10, interval=c(1, 4000)),
-  0.01
-)
-plot(p)
+## predict liver volume and blood flow ##
+set.seed(12345)
+liver.info <- predict_liver_features(nhanes[1:5, ], 100)
+liver.info$volLiver
+liver.info$flowLiver
+
+plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000))
+plot(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), col='red')
 

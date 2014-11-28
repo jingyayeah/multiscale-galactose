@@ -10,7 +10,6 @@
 # author: Matthias Koenig
 # date: 2014-11-27
 ################################################################################
-
 rm(list=ls())
 setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
@@ -67,6 +66,7 @@ proc.time() - ptm
 ptm <- proc.time()
 f_d2 <- f_d.flowLiver.c(sex=nhanes$sex[1], age=nhanes$age[1], bodyweight=nhanes$bodyweight[1], 
                         height=nhanes$height[1], BSA=nhanes$BSA[1], volLiver=volLiver[1])
+proc.time() - ptm
 
 ptm <- proc.time()
 rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1000, interval=c(1, 4000))
