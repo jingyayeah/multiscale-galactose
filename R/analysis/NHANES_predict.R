@@ -23,39 +23,24 @@ rm(data)
 head(nhanes)
 
 ## predict liver volume and blood flow ##
+cat('# parallel #\n')
 set.seed(12345)
-volLiver <- rep(NA, nrow(nhanes))
-flowLiver <- rep(NA, nrow(nhanes))
-# N <- nrow(nhanes)
-N <- 10
-for (k in 1:N){
-   
-    ptm <- proc.time() # Start the clock!
-    cat(sprintf('%1.2f', k/N), '\n')    
-    # individual combined probability density for liver volume
-    f_d1 <- f_d.volLiver.c(sex=nhanes$sex[k], age=nhanes$age[k], bodyweight=nhanes$bodyweight[k],
-                           height=nhanes$height[k], BSA=nhanes$BSA[k])
-    # rejection sampling
-    rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1, 4000))
-    volLiver[k] <- rs1$values[1]
-    
-    # individual combined probability density for blood flow
-    f_d2 <- f_d.flowLiver.c(sex=nhanes$sex[k], age=nhanes$age[k], bodyweight=nhanes$bodyweight[k], 
-                            height=nhanes$height[k], BSA=nhanes$BSA[k], volLiver=volLiver[k])
-    # rejection sampling
-    rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
-    flowLiver[k] <- rs2$values[1]
-    
-    res <- proc.time() - ptm # Stop the clock
-    print(res)
-    # cat(sprintf('sex=%s, age=%2.1f [year], bodyweight=%2.1f [kg], height=%1.2f [cm], BSA=%1.2f [m^2], 
-    # volLiver=%4.1f [ml], flowLiver=%4.1f [ml/min]', nhanes$sex[k], nhanes$age[k], 
-    # nhanes$bodyweight[k], nhanes$height[k], nhanes$BSA[k], volLiver[k], flowLiver[k]))
-}
-nhanes$volLiver <- volLiver
-nhanes$flowLiver <- flowLiver
-head(nhanes)
-print(res)
+ptm <- proc.time()
+liver.info <- predict_liver_people(nhanes, 1, Ncores=11)
+proc.time() - ptm
+
+nhanes$volLiver <- liver.info$volLiver
+nhanes$flowLiver <- liver.info$flowLiver
+save('nhanes', file=file.path(sma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
+
+
+#########################
+
+
+plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000))
+plot(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), col='red')
+boxplot(t(liver.info$volLiver))
+
 
 # still too slow
 ptm <- proc.time()

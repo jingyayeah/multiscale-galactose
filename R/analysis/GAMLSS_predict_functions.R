@@ -393,39 +393,40 @@ predict_liver_people <- function(people, Nsample, Ncores=1){
       # print(time)
     }
   } else {
-       res <- mclapply(1:Np, workerFunc, mc.cores=Ncores)
-       for (k in 1:Np){
-         volLiver[k, ] <- res[[k]]$volLiver
-         flowLiver[k, ] <- res[[k]]$flowLiver
-       }
+    library(parallel)
+    res <- mclapply(1:Np, workerFunc, mc.cores=Ncores)
+    for (k in 1:Np){
+       volLiver[k, ] <- res[[k]]$volLiver
+       flowLiver[k, ] <- res[[k]]$flowLiver
+    }
   }
   return(list(volLiver=volLiver, flowLiver=flowLiver))
 }
 
 
-# library(parallel)
-
-load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
-nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
-rm(data)
-head(nhanes)
-
-## predict liver volume and blood flow ##
-set.seed(12345)
-ptm <- proc.time()
-liver.info <- predict_liver_people(nhanes[1:5, ], 5)
-proc.time() - ptm
-
-ptm <- proc.time()
-liver.info <- predict_liver_people(nhanes[1:5, ], 5, Ncores=4)
-proc.time() - ptm
-
-liver.info$volLiver
-liver.info$flowLiver
-
-plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000))
-plot(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), col='red')
-boxplot(t(liver.info$volLiver))
+# load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
+# nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
+# rm(data)
+# head(nhanes)
+# 
+# ## predict liver volume and blood flow ##
+# set.seed(12345)
+# cat('# serial #\n')
+# ptm <- proc.time()
+# liver.info <- predict_liver_people(nhanes[1:5, ], 1)
+# proc.time() - ptm
+# 
+# cat('# parallel #\n')
+# ptm <- proc.time()
+# liver.info <- predict_liver_people(nhanes[1:5, ], 1, Ncores=12)
+# proc.time() - ptm
+# 
+# liver.info$volLiver
+# liver.info$flowLiver
+# 
+# plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000))
+# plot(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), col='red')
+# boxplot(t(liver.info$volLiver))
 
 
 
