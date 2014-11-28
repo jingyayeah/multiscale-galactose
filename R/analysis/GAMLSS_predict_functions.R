@@ -8,7 +8,7 @@
 # features.
 #
 # methods(predict)
-getAnywhere("predict.gamlss")
+# getAnywhere("predict.gamlss")
 #
 # author: Matthias Koenig
 # date: 2014-11-27
@@ -342,9 +342,30 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
 # Prediction function for liver volume and blood flow
 ################################################################################
 
-
 # Combined prediction of liver volume and 
-predict_liver_features <- function(people, Nsample){
+predict_liver_person <- function(person, Nsample){
+  # individual combined probability density for liver volume
+  f_d1 <- f_d.volLiver.c(sex=person$sex, age=person$age, bodyweight=person$bodyweight,
+                         height=person$height, BSA=person$BSA)
+    # rejection sampling of liver volume
+   rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
+   volLiver <- rs1$values
+    
+    # now for ever liver volume the blood flow
+    # individual combined probability density for blood flow
+    flowLiver = rep(NA, Nsample)
+    for (i in 1:Nsample){
+      f_d2 <- f_d.flowLiver.c(sex=person$sex, age=person$age, bodyweight=person$bodyweight, 
+                              height=person$height, BSA=person$BSA, volLiver=volLiver[i])
+      rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
+      flowLiver[i] <- rs2$values[1]
+    }
+    return(list(volLiver=volLiver, flowLiver=flowLiver))
+}
+# predict_liver_person(person=nhanes[1,], Nsample=3)
+
+
+predict_liver_people <- function(people, Nsample, Ncores=1){
   names <- colnames(people)
   if( !("sex" %in% names)) {warning("sex missing in data")}
   if( !("age" %in% names)) {warning("age missing in data")}
@@ -352,36 +373,38 @@ predict_liver_features <- function(people, Nsample){
   if( !("height" %in% names)) {warning("height missing in data")}
   if( !("BSA" %in% names)) {warning("BSA missing in data")}
   
-  Np = nrow(people)
-  # data has to have certain subfields
-  
   # create empty matrix
+  Np = nrow(people)
   volLiver <- matrix(NA, nrow=Np, ncol=Nsample)
   flowLiver <- matrix(NA, nrow=Np, ncol=Nsample)
-  for (k in 1:Np){
-    ptm <- proc.time()
-    cat(k, '\n')    
-    # individual combined probability density for liver volume
-    f_d1 <- f_d.volLiver.c(sex=people$sex[k], age=people$age[k], bodyweight=people$bodyweight[k],
-                           height=people$height[k], BSA=people$BSA[k])
-    # rejection sampling of liver volume
-    rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
-    volLiver[k, ] <- rs1$values
-    
-    # now for ever liver volume the blood flow
-    # individual combined probability density for blood flow
-    for (i in 1:Nsample){
-      f_d2 <- f_d.flowLiver.c(sex=people$sex[k], age=people$age[k], bodyweight=people$bodyweight[k], 
-                           height=people$height[k], BSA=people$BSA[k], volLiver=volLiver[k, i])
-      # rejection sampling
-      rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
-      flowLiver[k, i] <- rs2$values[1]
+  
+  workerFunc <- function(i){
+    predict_liver_person(people[i, ], Nsample)
+  }
+  
+  if (Ncores == 1){
+    for (k in 1:Np){
+      # ptm <- proc.time()
+      # cat(k, '\n') 
+      res <- workerFunc(k)
+      volLiver[k, ] <- res$volLiver
+      flowLiver[k, ] <- res$flowLiver
+      # time <- proc.time() - ptm
+      # print(time)
     }
-    res <- proc.time() - ptm
-    print(res)
-  }  
+  } else {
+       res <- mclapply(1:Np, workerFunc, mc.cores=Ncores)
+       for (k in 1:Np){
+         volLiver[k, ] <- res[[k]]$volLiver
+         flowLiver[k, ] <- res[[k]]$flowLiver
+       }
+  }
   return(list(volLiver=volLiver, flowLiver=flowLiver))
 }
+
+
+# library(parallel)
+
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
 nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
 rm(data)
@@ -389,10 +412,20 @@ head(nhanes)
 
 ## predict liver volume and blood flow ##
 set.seed(12345)
-liver.info <- predict_liver_features(nhanes[1:5, ], 100)
+ptm <- proc.time()
+liver.info <- predict_liver_people(nhanes[1:5, ], 5)
+proc.time() - ptm
+
+ptm <- proc.time()
+liver.info <- predict_liver_people(nhanes[1:5, ], 5, Ncores=4)
+proc.time() - ptm
+
 liver.info$volLiver
 liver.info$flowLiver
 
 plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000))
 plot(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), col='red')
+boxplot(t(liver.info$volLiver))
+
+
 
