@@ -26,12 +26,14 @@ head(nhanes)
 cat('# parallel #\n')
 set.seed(12345)
 ptm <- proc.time()
+# liver.info <- predict_liver_people(nhanes[1:5,], 1, Ncores=11)
 liver.info <- predict_liver_people(nhanes, 1, Ncores=11)
 proc.time() - ptm
+#liver.info
 
 nhanes$volLiver <- liver.info$volLiver
 nhanes$flowLiver <- liver.info$flowLiver
-save('nhanes', file=file.path(sma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
+save('nhanes', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
 
 
 #########################
