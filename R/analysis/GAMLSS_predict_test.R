@@ -10,7 +10,8 @@
 # author: Matthias Koenig
 # date: 2014-11-20
 ################################################################################
-
+setwd(ma.settings$dir.base)
+source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
 
 #########################################
 # volLiver densities
@@ -37,7 +38,6 @@ curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
 tmp <- f_d.factory(models=models.volLiver_BSA, xname='BSA', 
                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
 curve(tmp, from=xlimits[1], to=xlimits[2], add=TRUE)
-
 # volLiverkg ~ age
 tmp <- f_d.factory.bodyweight(models=models.volLiverkg_age, xname='age', 
                               sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)

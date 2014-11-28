@@ -4,8 +4,8 @@
 # Combines the information from multiple pair-wise correlation to create the
 # best prediction for liver volume, blood flow and GEC.
 # Creates density functions based on given antropomorphic details.
-# 
-# TODO: handle the allowed boundaries ! Especially for the flow data !
+# Prediction models are applicable in the normal range of anthropomporhpic
+# features.
 #
 # methods(predict)
 # getAnywhere("predict.gamlss")
@@ -13,7 +13,7 @@
 # author: Matthias Koenig
 # date: 2014-11-27
 ################################################################################
-rm(list=ls())
+# rm(list=ls())
 library('MultiscaleAnalysis')
 library('gamlss')
 setwd(ma.settings$dir.base)
@@ -162,6 +162,7 @@ f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=N
     # normalized
     A <- integrate(f=f_d.raw, lower=0, upper=5000)
     f_d <- function(x){f_d.raw(x)/A$value}
+    
     return( list(f_d=f_d, f_d.raw=f_d.raw, f_ds=f_ds,
                  sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA) ) 
 }
@@ -263,27 +264,38 @@ f_d.flowLiverkg.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BS
 # probability distribution.
 f_d.rejection_sample <- function(f_d, Nsim, interval){
     # find maximum value
-    f_d.max_x <- optimize(f_d, interval=interval, maximum=TRUE)$maximum
-    f_d.max_y <- f_d(f_d.max_x)
-    
-    # find half maximal value
-    f_d.half <- function(x){f_d(x)-0.5*f_d.max_y}
-    f_d.half_x1 <- uniroot(f_d.half, interval=c(interval[1], f_d.max_x))$root
-    f_d.half_x2 <- uniroot(f_d.half, interval=c(f_d.max_x, interval[2]))$root
-    sd <- max(f_d.max_x-f_d.half_x1, f_d.half_x2-f_d.max_x)
+    #   f_d.max_x <- optimize(f_d, interval=interval, maximum=TRUE)$maximum
+    #   f_d.max_y <- f_d(f_d.max_x)
+    #  factor 10 faster:
+    x = seq(from=interval[1], to=interval[2], length.out=400)
+    y = f_d(x)
+    ind.max <- which.max(y)
+    x.max <- x[ind.max]
+    y.max <- y[ind.max]
+  
+    # estimation of sd via half maximal values
+    # f_d.half <- function(x){f_d(x)-0.5*f_d.max_y}
+    # f_d.half_x1 <- uniroot(f_d.half, interval=c(interval[1], f_d.max_x))$root
+    # f_d.half_x2 <- uniroot(f_d.half, interval=c(f_d.max_x, interval[2]))$root
+    # sd <- max(f_d.max_x-f_d.half_x1, f_d.half_x2-f_d.max_x)
+    ind.sdleft <- tail(which(y[1:ind.max]<=0.5*y.max),1)
+    ind.sdright <- which(y[ind.max:length(y)]<=0.5*y.max)[1] + ind.max -1
+    sd.left <- x.max - x[ind.sdleft] 
+    sd.right <- x[ind.sdright]-x.max 
+    sd <- max(sd.left, sd.right)
     
     # sample within 3*sds in the provided interval
-    s.interval = c(max(interval[1], f_d.max_x-3*sd), min(interval[2], f_d.max_x+3*sd)) 
+    # s.interval = c(max(interval[1], x.max-3*sd), min(interval[2], x.max+3*sd)) 
     
     # normalization constant for rejection sampling,
     # so that the second function is above the sample function
-    m <- 1.01 * f_d.max_y / (1/(sd*sqrt(2*pi)))
-    funct1 <- function(x) {m*dnorm(x, mean=f_d.max_x, sd=sd)}
+    m <- 1.1 * y.max / (1/(sd*sqrt(2*pi)))
+    funct1 <- function(x) {m*dnorm(x, mean=x.max, sd=sd)}
     
     # rejection sampling
     values <- NULL
     while(length(values) < Nsim){
-        x <- rnorm(n=Nsim, mean=f_d.max_x, sd=sd)
+        x <- rnorm(n=Nsim*2, mean=x.max, sd=sd)
         x <- x[x>0]   # guarantee that > 0, otherwise the f_d will break
         u <- runif(n=length(x))
         ratio <- f_d(x)/funct1(x)
@@ -292,5 +304,33 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
     }
     values = values[1:Nsim]
     
-    return(list(values=values, f_d=f_d, funct1=funct1, s.interval=s.interval) )
+    return(list(values=values, f_d=f_d, funct1=funct1) )
 }
+
+sex='male'; age=50; bodyweight=80; height=175; BSA=1.9;
+ptm <- proc.time()
+f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight,
+                        height=height, BSA=BSA)
+proc.time() - ptm
+
+# rm(list=ls())
+ptm <- proc.time()
+rs2 <- f_d.rejection_sample(f_d1$f_d, Nsim=100, interval=c(1, 4000))
+proc.time() - ptm
+
+plot(1:3000, f_d1$f_d(1:3000), col='red')
+hist(rs2$values, add=TRUE, freq=FALSE, breaks=7 )
+
+hist(rs2$values, freq=FALSE, breaks =10)
+
+ptm <- proc.time()
+f_d1$f_d(1:1000)
+proc.time() - ptm
+
+library(profr)
+p <- profr(
+  f_d.rejection_sample(f_d1$f_d, Nsim=10, interval=c(1, 4000)),
+  0.01
+)
+plot(p)
+
