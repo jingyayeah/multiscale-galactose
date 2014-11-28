@@ -21,73 +21,6 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 dir <- file.path(ma.settings$dir.base, "results", 'gamlss')
 
 ################################################################################
-# Density factories
-################################################################################
-# A general factory to create the various probability densities
-# from the individual models.
-f_d.factory <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA, 
-                        volLiver=NA, volLiverkg=NA){
-  if (is.na(get(xname))){
-    return(NA)
-  }
-  # data to predict
-  newdata <- data.frame(get(xname))
-  names(newdata) <- c(xname)
-  
-  # get link function from model, predict the necessary parameters & 
-  # create respective density
-  f_d = NA
-  mname <- paste('fit.', sex, sep="")
-  dfname <- paste('df.', sex, sep="")
-  m <- models[[mname]]
-  assign(dfname, models[[dfname]])
-  link = m$family[1]
-  if (link == 'BCCG'){
-    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
-    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
-    capture.output({ nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname)) })
-    f_d <- function(x) dBCCG(x, mu=mu, sigma=sigma, nu=nu)
-  } else if (link =='NO'){
-    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
-    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
-    f_d <- function(x) dNO(x, mu=mu, sigma=sigma)
-  }
-  return(f_d)
-}
-
-# Wrapper around the factory to use the per bodyweight data for prediction
-f_d.factory.bodyweight <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA, volLiver=NA){
-  # check if bodyweight and name is available
-  if (is.na(get(xname))){
-    return(NA)
-  }
-  if (is.na(bodyweight)){
-    return(NA)
-  }
-  f_d.scale <- function(x) {
-    f_d.tmp <- f_d.factory(models=models, xname=xname, 
-                           sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA, volLiver=NA)
-    return(f_d.tmp(x/bodyweight)/bodyweight)
-  }
-  return(f_d.scale)
-}
-
-
-# Some of the distributons are not available (return NA). 
-prepare_fds <- function(f_ds){
-  # For the calculation of the distributions these have to be put to the 1 function
-  for (k in 1:length(f_ds)){   
-    if (!is.function( f_ds[[k]] ) ){
-      
-      if(is.na(f_ds[[k]])){ 
-        f_ds[[k]] <- function(x){1} 
-      }
-    }
-  }
-  return(f_ds)
-}
-
-################################################################################
 ## GAMLSS models
 ################################################################################
 load(file=file.path(dir, 'volLiver_age_models.Rdata'))
@@ -126,31 +59,144 @@ models.flowLiverkg_BSA <- models
 
 rm(models)
 
+
+
+################################################################################
+# Density factories
+################################################################################
+# A general factory to create the various probability densities
+# from the individual models. 
+# The prediction is computational expensive. The parameters for the distribution
+# have to be predicted exactely once per given person information.
+f_d.parameters <- function(models, xname, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA, 
+                           volLiver=NA, volLiverkg=NA){
+  if (is.na(get(xname))){
+    return(list(link=NA, mu=NA, sigma=NA, nu=NA))
+  }
+  # data to predict
+  newdata <- data.frame(get(xname))
+  names(newdata) <- c(xname)
+  
+  # get link function from model, predict the necessary parameters & 
+  # create respective density
+  mname <- paste('fit.', sex, sep="")
+  dfname <- paste('df.', sex, sep="")
+  m <- models[[mname]]
+  assign(dfname, models[[dfname]])
+  link = m$family[1]
+  if (link == 'BCCG'){
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ nu <- predict(m, what = "nu", type = "response", newdata=newdata, data=get(dfname)) })
+  } else if (link =='NO'){
+    capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
+    capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
+  }
+  return( list(link=link, mu=mu, sigma=sigma, nu=nu, 
+              xname=xname, sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA, 
+              volLiver=volLiver, volLiverkg=volLiverkg) )
+}
+
+f_d.factory <- function(pars){
+  link = pars$link
+  mu = pars$mu
+  sigma=pars$sigma
+  nu=pars$nu
+  
+  if (link == 'BCCG'){
+    f_d <- function(x) dBCCG(x, mu=mu, sigma=sigma, nu=nu)
+  } else if (link =='NO'){
+    f_d <- function(x) dNO(x, mu=mu, sigma=sigma)
+  } else if (link =='None'){
+    f_d <- NA
+  }
+  return(f_d)
+}
+
+age=60; sex='male'; bodyweight=50; height=170;  BSA=1.7
+# volLiver ~ age
+tmp <- f_d.parameters(models=models.volLiver_age, xname='age', 
+                      sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+tmp
+ftmp <- f_d.factory(tmp)
+ftmp
+
+
+f_d.factory.bodyweight <- function(pars){
+  link = pars$link
+  mu = pars$mu
+  sigma = pars$sigma
+  nu = pars$nu
+  bodyweight = pars$bodyweight
+  
+  if (link == 'BCCG'){
+    f_d <- function(x) dBCCG(x/bodyweight, mu=mu, sigma=sigma, nu=nu)/bodyweight
+  } else if (link =='NO'){
+    f_d <- function(x) dNO(x/bodyweight, mu=mu, sigma=sigma)/bodyweight
+  } else if (link =='None'){
+    f_d <- NA
+  }
+  return(f_d)
+}
+
+# Some of the distributons are not available (return NA). 
+prepare_fds <- function(f_ds){
+  # For the calculation of the distributions these have to be put to the 1 function
+  for (k in 1:length(f_ds)){   
+    if (!is.function( f_ds[[k]] ) ){
+      
+      if(is.na(f_ds[[k]])){ 
+        f_ds[[k]] <- function(x){1} 
+      }
+    }
+  }
+  return(f_ds)
+}
+
+
+
 ################################################################################
 ## Liver Volume (volLiver [ml])
 ################################################################################
+# Calculate the f_d volLiver parameter once
+f_d.volLiver.pars <- function(sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA){ 
+  pars = list()
+  pars[['volLiver_age']] <- f_d.parameters(models=models.volLiver_age, xname='age', 
+                                        sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+  pars[['volLiver_bodyweight']] <- f_d.parameters(models=models.volLiver_bodyweight, xname='bodyweight', 
+                                               sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+  pars[['volLiver_height']] <- f_d.parameters(models=models.volLiver_height, xname='height', 
+                                           sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+  pars[['volLiver_BSA']] <- f_d.parameters(models=models.volLiver_BSA, xname='BSA', 
+                                        sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+  
+  # volLiverkg info
+  pars[['volLiverkg_age']] <- f_d.parameters(models=models.volLiverkg_age, xname='age', 
+                                                     sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+  pars[['volLiverkg_bodyweight']] <- f_d.parameters(models=models.volLiverkg_bodyweight, xname='bodyweight', 
+                                                            sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+  pars[['volLiverkg_height']] <- f_d.parameters(models=models.volLiverkg_height, xname='height', 
+                                                        sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+  pars[['volLiverkg_BSA']] <- f_d.parameters(models=models.volLiverkg_BSA, xname='BSA', 
+  return(pars) 
+}
+
+
+
 # Combined density
-f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA){ 
+f_d.volLiver.c <- function(x, pars){ 
     # Use all the single correlation density information to predict some combined density
     f_ds = list()
-    f_ds[['volLiver_age']] <- f_d.factory(models=models.volLiver_age, xname='age', 
-                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiver_bodyweight']] <- f_d.factory(models=models.volLiver_bodyweight, xname='bodyweight', 
-                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiver_height']] <- f_d.factory(models=models.volLiver_height, xname='height', 
-                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiver_BSA']] <- f_d.factory(models=models.volLiver_BSA, xname='BSA', 
-                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    f_ds[['volLiver_age']] <- f_d.factory(pars[['volLiver_age']])
+    f_ds[['volLiver_bodyweight']] <- f_d.factory(pars[['volLiver_bodyweight']])
+    f_ds[['volLiver_height']] <- f_d.factory(pars[['volLiver_height']])
+    f_ds[['volLiver_BSA']] <- f_d.factory(pars[['volLiver_BSA']])
     
     # volLiverkg info
-    f_ds[['volLiverkg_age']] <- f_d.factory.bodyweight(models=models.volLiverkg_age, xname='age', 
-                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiverkg_bodyweight']] <- f_d.factory.bodyweight(models=models.volLiverkg_bodyweight, xname='bodyweight', 
-                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiverkg_height']] <- f_d.factory.bodyweight(models=models.volLiverkg_height, xname='height', 
-                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiverkg_BSA']] <- f_d.factory.bodyweight(models=models.volLiverkg_BSA, xname='BSA', 
-                         sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
+    f_ds[['volLiverkg_age']] <- f_d.factory.bodyweight(pars[['volLiverkg_age']])
+    f_ds[['volLiverkg_bodyweight']] <- f_d.factory.bodyweight(pars[['volLiverkg_bodyweight']])
+    f_ds[['volLiverkg_height']] <- f_d.factory.bodyweight(pars[['volLiverkg_height']])
+    f_ds[['volLiverkg_BSA']] <- f_d.factory.bodyweight(pars[['volLiverkg_BSA']])
     f_ds <- prepare_fds(f_ds)
 
     # unnormalized
@@ -158,12 +204,11 @@ f_d.volLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=N
         f_ds[['volLiver_age']](x)*f_ds[['volLiver_bodyweight']](x)*f_ds[['volLiver_height']](x) *f_ds[['volLiver_BSA']](x) *
             f_ds[['volLiverkg_age']](x) *f_ds[['volLiverkg_bodyweight']](x) *f_ds[['volLiverkg_height']](x) *f_ds[['volLiverkg_BSA']](x)
     }
-    # normalized
-    # A <- integrate(f=f_d.raw, lower=0, upper=5000)
-    # f_d <- function(x){f_d.raw(x)/A$value}
-    return( list(f_d=f_d.raw, f_ds=f_ds,
-                 sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA) ) 
+    return( list(f_d=f_d.raw, f_ds=f_ds, pars) ) 
 }
+
+
+
 
 ################################################################################
 ## Liver Volume per bodyweight (volLiverkg [ml/kg])
