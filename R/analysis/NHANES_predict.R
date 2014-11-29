@@ -19,28 +19,30 @@ source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R')
 ##############################################################################
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
 nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
+nhanes$volLiver <- NA
+nhanes$volLiverkg <- NA
 rm(data)
 head(nhanes)
+
 
 ## predict liver volume and blood flow ##
 cat('# parallel #\n')
 set.seed(12345)
 ptm <- proc.time()
-liver.info <- predict_liver_people(nhanes[1:5,], 20, Ncores=1)
+liver.info <- predict_liver_people(nhanes[1:5,], 1000, Ncores=1)
 # liver.info <- predict_liver_people(nhanes, 1, Ncores=11)
 proc.time() - ptm
-#liver.info
 
-nhanes$volLiver <- liver.info$volLiver
-nhanes$flowLiver <- liver.info$flowLiver
-save('nhanes', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
+
+str(liver.info$volLiver)
+save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
 
 
 #########################
 
 
-plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000))
-plot(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), col='red')
+plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000), cex=0.2)
+points(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), cex=0.2, col='red')
 boxplot(t(liver.info$volLiver))
 
 

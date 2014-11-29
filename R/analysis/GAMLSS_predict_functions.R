@@ -131,20 +131,6 @@ prepare_fds <- function(f_ds){
   return(f_ds)
 }
 
-# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
-# p1
-# f_d.parameters(models=fit.models$volLiver_age, xname='age', p1)
-# pars <- f_d.parameters(models=fit.models$volLiver_bodyweight, xname='bodyweight', p1)
-# ftmp <- f_d.factory(pars=pars)
-# plot(1:4000, ftmp(1:4000))
-# # the bodyweight
-# pars1 <- f_d.parameters(models=fit.models$volLiverkg_bodyweight, xname='bodyweight', p1)
-# pars1
-# ftmp1 <- f_d.factory.bodyweight(pars=pars1)
-# ftmp1
-# ftmp1(10)
-# plot(1:4000, ftmp1(1:4000))
-
 # Combined density
 f_d.combined <- function(x, pars, yname){ 
   # get single correlation densities
@@ -191,12 +177,6 @@ f_d.volLiver.c <- function(x, pars){
    return (f_d.combined(x, pars, yname='volLiver') )
 }
 
-# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
-# pars <- f_d.volLiver.pars(p1)
-# ftest <- f_d.volLiver.c(pars=pars)
-# x <- 1:4000
-# plot(x,ftest$f_d(x))
-
 ################################################################################
 ## Liver Volume per bodyweight (volLiverkg [ml/kg])
 ################################################################################
@@ -214,12 +194,6 @@ f_d.volLiverkg.pars <- function(person){
 f_d.volLiverkg.c <- function(x, pars){
   return (f_d.combined(x, pars, yname='volLiverkg') )
 }
-
-# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
-# pars <- f_d.volLiverkg.pars(p1)
-# ftest <- f_d.volLiverkg.c(pars=pars)
-# x <- 1:80
-# plot(x,ftest$f_d(x))
 
 ################################################################################
 ## Liver Blood Flow (flowLiver [ml/min])
@@ -243,17 +217,6 @@ f_d.flowLiver.pars <- function(person){
 f_d.flowLiver.c <- function(x, pars){
   return (f_d.combined(x, pars, yname='flowLiver') )
 }
-# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA)
-# pars <- f_d.flowLiver.pars(p1)
-# ftest <- f_d.flowLiver.c(pars=pars)
-# x <- 1:4000
-# plot(x,ftest$f_d(x))
-# 
-# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=1400, volLiverkg=NA)
-# pars <- f_d.flowLiver.pars(p1)
-# ftest <- f_d.flowLiver.c(pars=pars)
-# x <- 1:4000
-# plot(x,ftest$f_d(x))
 
 ################################################################################
 ## Liver Blood Flow per Bodyweight (flowLiverkg [ml/min/kg])
@@ -272,19 +235,6 @@ f_d.flowLiverkg.pars <- function(person){
 f_d.flowLiverkg.c <- function(x, pars){
   return (f_d.combined(x, pars, yname='flowLiverkg') )
 }
-
-# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
-# pars <- f_d.flowLiverkg.pars(p1)
-# ftest <- f_d.flowLiverkg.c(pars=pars)
-# x <- 1:80
-# plot(x,ftest$f_d(x))
-# 
-# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=20) 
-# pars <- f_d.flowLiverkg.pars(p1)
-# ftest <- f_d.flowLiverkg.c(pars=pars)
-# x <- 1:80
-# plot(x,ftest$f_d(x))
-
 
 ################################################################################
 # Rejection sampling of f_d
@@ -336,48 +286,76 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
     return(list(values=values, f_d=f_d, funct1=funct1) )
 }
 
-
 # p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
 # ptm <- proc.time()
 # pars.volLiver <- f_d.volLiver.pars(p1)
-# # pars.volLiverkg <- f_d.volLiverkg.pars(p1)
+# pars.volLiverkg <- f_d.volLiverkg.pars(p1)
 # pars.flowLiver <- f_d.flowLiver.pars(p1)
-# # pars.flowLiverkg <- f_d.flowLiverkg.pars(p1)
+# pars.flowLiverkg <- f_d.flowLiverkg.pars(p1)
 # proc.time() - ptm
-# 
-# 
-# ptm <- proc.time()
-# f_d1 <- f_d.volLiver.c(pars=pars.volLiver)
-# proc.time() - ptm
-# 
-# # rm(list=ls())
-# ptm <- proc.time()
-# rs2 <- f_d.rejection_sample(f_d1$f_d, Nsim=500, interval=c(1, 4000))
-# proc.time() - ptm
-# 
-# 
-# # normalization for plots
-# A <- integrate(f=f_d1$f_d, lower=1000, upper=3000)
-# A$value
-# plot(1:3000, 1/A$value*f_d1$f_d(1:3000), col='red')
-# hist(rs2$values, add=TRUE, freq=FALSE, breaks=10)
-# 
-# 
-# ptm <- proc.time()
-# f_d1$f_d(1:1000)
-# proc.time() - ptm
-# 
-# library(profr)
-# p <- profr(
-#   pars.volLiver <- f_d.volLiver.pars(p1),
-#   0.01
-# )
-# plot(p)
-
 
 ################################################################################
 # Prediction function for liver volume and blood flow
 ################################################################################
+
+# Combined prediction of liver volume and 
+predict_liver_person.fast <- function(person, Nsample){
+  volLiver = rep(NA, Nsample)
+  flowLiver = rep(NA, Nsample)
+  
+  # predict base
+  pars.volLiver <- f_d.volLiver.pars(person)
+  pars.flowLiver <- f_d.flowLiver.pars(person)
+  
+  # [1]
+  # individual combined probability density for liver volume
+  f_d1 <- f_d.volLiver.c(pars=pars.volLiver)
+  # rejection sampling of liver volume
+  rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
+  volLiver <- rs1$values
+  
+  # [2]
+  # predict all the response functions for given liver volumes at once 
+  p1 <- person
+  p1$volLiver <- volLiver
+  plist <- f_d.parameters(models=fit.models[['flowLiver_volLiver']], xname='volLiver', person=p1)
+  
+  # now for ever liver volume the blood flow
+  # individual combined probability density for blood flow  
+  for (k in 1:Nsample){
+    # generate 
+    p <- list(link=plist$link, 
+              mu=plist$mu[k],
+              sigma=plist$sigma[k],
+              nu=plist$nu[k],
+              xname=plist$xname)
+    # replace
+    pars.flowLiver[['flowLiver_volLiver']] <- p
+    # sample from distribution
+    f_d2 <- f_d.flowLiver.c(pars=pars.flowLiver)
+    rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
+    flowLiver[k] <- rs2$values[1]
+  }
+  return(list(volLiver=volLiver, flowLiver=flowLiver))
+}
+
+# volLiver <- 1:10
+# p1 <- person
+# p1$volLiver <- volLiver
+# plist <- f_d.parameters(models=fit.models[['flowLiver_volLiver']], xname='volLiver', person=p1)
+
+# nhanes$volLiver <- NA
+# nhanes$volLiverkg <- NA
+# ptest=as.list(nhanes[1,])
+# ptm <- proc.time()
+# predict_liver_person.fast(person=ptest, Nsample=1000)
+# proc.time() - ptm
+# 
+# 
+# ptm <- proc.time()
+# predict_liver_person(person=nhanes[1,], Nsample=20)
+# proc.time() - ptm
+
 
 # Combined prediction of liver volume and 
 predict_liver_person <- function(person, Nsample){
@@ -387,7 +365,6 @@ predict_liver_person <- function(person, Nsample){
   # pars.flowLiver <- f_d.flowLiver.pars(p1)
   # pars.flowLiverkg <- f_d.flowLiverkg.pars(p1)
 
-  
   volLiver = rep(NA, Nsample)
   flowLiver = rep(NA, Nsample)
   
@@ -427,7 +404,8 @@ predict_liver_people <- function(people, Nsample, Ncores=1){
   flowLiver <- matrix(NA, nrow=Np, ncol=Nsample)
   
   workerFunc <- function(i){
-    predict_liver_person(people[i, ], Nsample)
+    # predict_liver_person(people[i, ], Nsample)
+    predict_liver_person.fast(as.list(people[i, ]), Nsample)
   }
   
   if (Ncores == 1){
@@ -475,6 +453,3 @@ predict_liver_people <- function(people, Nsample, Ncores=1){
 # plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000))
 # plot(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), col='red')
 # boxplot(t(liver.info$volLiver))
-
-
-
