@@ -35,6 +35,9 @@ nhanes$volLiver <- liver.info$volLiver
 nhanes$flowLiver <- liver.info$flowLiver
 save('nhanes', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
 
+head(nhanes)
+plot(nhanes$age, nhanes$flowLiver)
+plot(nhanes$age, nhanes$volLiver, cex=0.3, pch=21)
 
 #########################
 
