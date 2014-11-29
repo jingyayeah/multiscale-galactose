@@ -34,13 +34,18 @@ save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nh
 
 rm(list=ls())
 cat('----------------------------------------------------------\n')
-load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
+load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver_01.Rdata'))
+volLiver <- liver.info$volLiver
+flowLiver <- liver.info$flowLiver
+save('volLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_volLiver.Rdata'))
+save('flowLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_flowLiver.Rdata'))
 str(liver.info)
 cat('# Liver Volume #')
 head(liver.info$volLiver[, 1:5])
 cat('# Liver Blood Flow #')
 head(liver.info$flowLiver[, 1:5])
 cat('----------------------------------------------------------\n')
+
 
 ## Calculate GEC and GECkg for nhanes ##
 # GEC <- calculate_GEC(nhanes$volLiver, nhanes$flowLiver)
