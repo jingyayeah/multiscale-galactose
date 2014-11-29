@@ -1,17 +1,15 @@
 ##############################################################################
 # GEC curves
 ##############################################################################
-
-# make the GEC fit function
 library('MultiscaleAnalysis')
 
-GEC_functions <- function(task='T54'){
-  
-  load(file=file.path(ma.settings$dir.expdata, 'processed', paste('GEC_curve_', task,'.Rdata', sep="")))
+# Create the GEC functions from the given GEC task data
+GEC_functions <- function(task){  
+  dir <- file.path(ma.settings$dir.base, 'results', 'GEC_curves')
+  load(file=file.path(dir, sprintf('GEC_curve_%s.Rdata', task)))
   str(GEC_curves)
   d.mean <- GEC_curves$d2
   d.se <- GEC_curves$d2.se
-  
   
   # create spline fits
   x <- d.mean$Q_per_vol_units      # perfusion [ml/min/ml]
@@ -27,30 +25,31 @@ GEC_functions <- function(task='T54'){
   return(list(f_GEC=f, f_GEC.se=f.se)) 
 }
 
-GEC_f <- GEC_functions()
-GEC_f <- GEC_functions(d.mean, d.se)
-GEC_f
-
 calculate_GEC <- function(volLiver, flowLiver, f_tissue=0.8){  
   # perfusion
   perfusion <- flowLiver/volLiver # [ml/min/ml]
+  
   # GEC per volume based on perfusion
-  GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
+  # GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
+  GEC_per_vol <- GEC_f$f_GEC(perfusion) # [mmol/min/ml]
+  
   # GEC for complete liver
   # GEC curves are for liver tissue. No correction for the large vessel structure
   # has been applied. Here the metabolic capacity of combined sinusoidal units.
-  GEC <- GEC_per_vol * f_tissue * volLiver # mmol/min
-  return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GEC=GEC, f_tissue=f_tissue))
+  GEC <- GEC_per_vol * f_tissue * volLiver   # [mmol/min]
+  return(list(values=GEC, perfusion=perfusion, GEC_per_vol=GEC_per_vol, f_tissue=f_tissue))
 }
 
 calculate_GECkg <- function(volLiverkg, flowLiverkg, f_tissue=0.8){  
   # perfusion
-  perfusion <- flowLiverkg/volLiverkg # [ml/min/ml]
+  perfusion <- flowLiverkg/volLiverkg    # [ml/min/ml]
   # GEC per volume based on perfusion
-  GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
+  # GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
+  GEC_per_vol <- GEC_f$f_GEC(perfusion)  # [mmol/min/ml]
+  
   # GEC for liver per kg
   # GEC curves are for liver tissue. No correction for the large vessel structure
   # has been applied. Here the metabolic capacity of combined sinusoidal units.
-  GECkg <- GEC_per_vol * f_tissue * volLiverkg # mmol/min
-  return(list(perfusion=perfusion, GEC_per_vol=GEC_per_vol, GECkg=GECkg, f_tissue=f_tissue))
+  GECkg <- GEC_per_vol * f_tissue * volLiverkg  # [mmol/min/kg]
+  return(list(values=GECkg, perfusion=perfusion, GEC_per_vol=GEC_per_vol, f_tissue=f_tissue))
 }

@@ -43,18 +43,43 @@ save('flowLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nha
 
 rm(list=ls())
 cat('----------------------------------------------------------\n')
-load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
-
-str(liver.info)
+load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
+nhanes <- data; rm(data)
+load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_volLiver.Rdata'))
+load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_flowLiver.Rdata'))
 cat('# Liver Volume #')
-head(liver.info$volLiver[, 1:5])
+head(volLiver[, 1:5])
 cat('# Liver Blood Flow #')
-head(liver.info$flowLiver[, 1:5])
+head(flowLiver[, 1:5])
 cat('----------------------------------------------------------\n')
 
 
 ## Calculate GEC and GECkg for nhanes ##
-# GEC <- calculate_GEC(nhanes$volLiver, nhanes$flowLiver)
+source(file.path(ma.settings$dir.code, 'analysis', 'GEC_predict_functions.R'))
+GEC_f <- GEC_functions(task='T54')
+
+GEC <- calculate_GEC(volLiver, flowLiver)
+GEC <- GEC$values
+
+m.bodyweight <- matrix(rep(nhanes$bodyweight, ncol(GEC)),
+                       nrow=nrow(GEC), ncol=ncol(GEC))
+GECkg <- GEC/m.bodyweight
+boxplot(t(GEC[1:100, ]), notch=TRUE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4)
+boxplot(t(GEC[1:100, ]), notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4)
+
+
+stat_sum_df <- function(fun, geom="crossbar", ...) {
+  stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
+}
+
+library(ggplot2)
+# install.packages('Hmisc')
+library(Hmisc)
+ggplot(mtcars, aes(factor(cyl), mpg)) + 
+  stat_sum_df("median_hilow",conf.int=0.5,fill="white")
+
+
+
 # nhanes$GEC <- GEC$GEC
 # head(nhanes)
 # nhanes$GECkg <- nhanes$GEC/nhanes$bodyweight

@@ -13,8 +13,11 @@ rm(list=ls())
 library('MultiscaleAnalysis')
 library('gamlss')
 setwd(ma.settings$dir.base)
-source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_prediction.R'))
+source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
+source(file.path(ma.settings$dir.code, 'analysis', 'GEC_predict_functions.R'))
+
+GEC_f <- GEC_functions(task='T54')
 
 
 
@@ -24,22 +27,6 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 
 
-
-
-
-
-
-# TODO: load the methods and functions
-##############################################################################
-# GEC curves
-##############################################################################
-task <- 'T54'
-load(file=file.path(ma.settings$dir.expdata, 'processed', paste('GEC_curve_', task,'.Rdata', sep="")))
-str(GEC_curves)
-
-# make the GEC fit function
-d.mean <- GEC_curves$d2
-d.se <- GEC_curves$d2.se
 
 
 
