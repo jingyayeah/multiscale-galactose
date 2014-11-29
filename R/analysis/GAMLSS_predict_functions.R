@@ -390,6 +390,7 @@ predict_liver_person <- function(person, Nsample){
 # predict_liver_person(person=nhanes[1,], Nsample=3)
 
 
+
 predict_liver_people <- function(people, Nsample, Ncores=1){
   names <- colnames(people)
   if( !("sex" %in% names)) {warning("sex missing in data")}
@@ -405,6 +406,7 @@ predict_liver_people <- function(people, Nsample, Ncores=1){
   
   workerFunc <- function(i){
     # predict_liver_person(people[i, ], Nsample)
+    cat(i, '\n')
     predict_liver_person.fast(as.list(people[i, ]), Nsample)
   }
   
@@ -420,7 +422,7 @@ predict_liver_people <- function(people, Nsample, Ncores=1){
     }
   } else {
     library(parallel)
-    res <- mclapply(1:Np, workerFunc, mc.cores=Ncores)
+    res <- mclapply(1:Np, workerFunc, mc.cores=Ncores, mc.silent=FALSE, mc.preschedule=TRUE)
     for (k in 1:Np){
        volLiver[k, ] <- res[[k]]$volLiver
        flowLiver[k, ] <- res[[k]]$flowLiver
