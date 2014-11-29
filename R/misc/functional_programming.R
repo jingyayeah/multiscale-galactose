@@ -80,3 +80,8 @@ unenclose(cube)
 #> {
 #>     x^3
 #> }
+
+
+
+#“To become significantly more reliable, code must become more transparent. In particular, nested conditions and loops must be viewed with great suspicion. Complicated control flows confuse programmers. Messy code often hides bugs.”
+# — Bjarne Stroustrup
