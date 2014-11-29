@@ -31,14 +31,16 @@ ptm <- proc.time()
 liver.info <- predict_liver_people(nhanes, 1000, Ncores=11)
 proc.time() - ptm
 save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
-
-rm(list=ls())
-cat('----------------------------------------------------------\n')
-load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver_01.Rdata'))
 volLiver <- liver.info$volLiver
 flowLiver <- liver.info$flowLiver
 save('volLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_volLiver.Rdata'))
 save('flowLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_flowLiver.Rdata'))
+
+
+rm(list=ls())
+cat('----------------------------------------------------------\n')
+load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
+
 str(liver.info)
 cat('# Liver Volume #')
 head(liver.info$volLiver[, 1:5])
@@ -57,7 +59,7 @@ cat('----------------------------------------------------------\n')
 #########################
 # head(nhanes)
 # plot(nhanes$age, nhanes$flowLiver)
-# plot(nhanes$age, nhanes$volLiver, cex=0.3, pch=21)
+plot(volLiver, flowLiver, cex=0.2, pch=21)
 # 
 # plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000), cex=0.2)
 # points(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), cex=0.2, col='red')
