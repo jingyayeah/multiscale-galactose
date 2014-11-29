@@ -1,4 +1,18 @@
-GEC_functions <- function(d.mean, d.se){
+##############################################################################
+# GEC curves
+##############################################################################
+
+# make the GEC fit function
+library('MultiscaleAnalysis')
+
+GEC_functions <- function(task='T54'){
+  
+  load(file=file.path(ma.settings$dir.expdata, 'processed', paste('GEC_curve_', task,'.Rdata', sep="")))
+  str(GEC_curves)
+  d.mean <- GEC_curves$d2
+  d.se <- GEC_curves$d2.se
+  
+  
   # create spline fits
   x <- d.mean$Q_per_vol_units      # perfusion [ml/min/ml]
   y <- d.mean$R_per_vol_units     # GEC clearance [mmol/min/ml]
@@ -12,6 +26,8 @@ GEC_functions <- function(d.mean, d.se){
   
   return(list(f_GEC=f, f_GEC.se=f.se)) 
 }
+
+GEC_f <- GEC_functions()
 GEC_f <- GEC_functions(d.mean, d.se)
 GEC_f
 
