@@ -8,7 +8,6 @@ R/MultiscaleAnalysis/.RData
 R/MultiscaleAnalysis/.Rhistory
 python/simulator/.settings
 python/modelcreator/.settings
-results/nhanes/nhanes_liver.Rdata
 
 *.Rhistory
 .~*
