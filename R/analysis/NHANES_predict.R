@@ -26,8 +26,8 @@ head(nhanes)
 cat('# parallel #\n')
 set.seed(12345)
 ptm <- proc.time()
-# liver.info <- predict_liver_people(nhanes[1:5,], 1, Ncores=11)
-liver.info <- predict_liver_people(nhanes, 1, Ncores=11)
+liver.info <- predict_liver_people(nhanes[1:5,], 20, Ncores=1)
+# liver.info <- predict_liver_people(nhanes, 1, Ncores=11)
 proc.time() - ptm
 #liver.info
 
@@ -76,8 +76,7 @@ plot(p)
 
 library(profr)
 p <- profr(
-  f_d2 <- f_d.flowLiver.c(sex=nhanes$sex[1], age=nhanes$age[1], bodyweight=nhanes$bodyweight[1], 
-                          height=nhanes$height[1], BSA=nhanes$BSA[1], volLiver=volLiver[1]),
+  rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1000, interval=c(1, 4000)),
   0.01
 )
 plot(p)
