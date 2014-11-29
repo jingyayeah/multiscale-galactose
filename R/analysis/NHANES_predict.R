@@ -28,7 +28,10 @@ cat('# parallel #\n')
 set.seed(12345)
 ptm <- proc.time()
 # liver.info <- predict_liver_people(nhanes[1:20,], 1000, Ncores=4)
+
 liver.info <- predict_liver_people(nhanes, 1000, Ncores=11)
+# liver.info <- predict_liver_people(nhanes[1:100], 1000, Ncores=11)
+
 proc.time() - ptm
 save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
 # due to 
@@ -60,7 +63,9 @@ cat('----------------------------------------------------------\n')
 #########################
 # head(nhanes)
 # plot(nhanes$age, nhanes$flowLiver)
-plot(volLiver, flowLiver, cex=0.2, pch=21)
+
+=======
+# plot(nhanes$age, nhanes$volLiver, cex=0.3, pch=21)
 # 
 # plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000), cex=0.2)
 # points(liver.info$volLiver[2,], liver.info$flowLiver[2,], xlim=c(0,2000), ylim=c(0,2000), cex=0.2, col='red')
