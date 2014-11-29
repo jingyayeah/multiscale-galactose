@@ -1,3 +1,13 @@
+################################################################
+# General reused information
+################################################################
+# Definition of axis names, limits, colors for data sets.
+# Additional data information used for plots and analysis
+# main purpose for automatically generating the images
+# for the various xname, yname combinations of available data
+# author: Matthias Koenig
+# date: 2014-11-27
+################################################################
 
 # different styles for main gender classes
 gender.levels <- c('all', 'male', 'female')
@@ -8,25 +18,6 @@ names(gender.levels) <- gender.levels
 names(gender.cols) <- gender.levels
 names(gender.base_cols) <- gender.levels
 names(gender.symbols) <- gender.levels
-
-# additional colors for plot
-df.names <- gender.levels
-df.cols <- c( rgb(0,0,0,alpha=0.5),
-              rgb(0,0,1,alpha=0.5),
-              rgb(1,0,0,alpha=0.5) )
-df.cols.po <- c( rgb(0.5,0.5,0.5,alpha=0.25),
-                 rgb(0.5,0.5,0.5,alpha=0.25),
-                 rgb(0.5,0.5,0.5,alpha=0.25) )
-names(df.cols) <- df.names 
-df.symbols = c(21, 22, 23)
-names(df.symbols) <- df.names 
-
-
-
-
-# Additional data information used for plots and analysis
-# main purpose for automatically generating the images
-# for the various xname, yname combinations of available data
 
 # Axis labels
 lab <- list()
