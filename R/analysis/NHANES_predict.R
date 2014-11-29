@@ -8,6 +8,8 @@
 # date: 2014-11-29
 ################################################################################
 rm(list=ls())
+library('MultiscaleAnalysis')
+library('methods')
 setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
 
@@ -26,10 +28,19 @@ cat('# parallel #\n')
 set.seed(12345)
 ptm <- proc.time()
 # liver.info <- predict_liver_people(nhanes[1:20,], 1000, Ncores=4)
-liver.info <- predict_liver_people(nhanes[1:100], 1000, Ncores=11)
+liver.info <- predict_liver_people(nhanes, 1000, Ncores=11)
 proc.time() - ptm
 save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
 
+rm(list=ls())
+cat('----------------------------------------------------------\n')
+load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
+str(liver.info)
+cat('# Liver Volume #')
+head(liver.info$volLiver[, 1:5])
+cat('# Liver Blood Flow #')
+head(liver.info$flowLiver[, 1:5])
+cat('----------------------------------------------------------\n')
 
 ## Calculate GEC and GECkg for nhanes ##
 # GEC <- calculate_GEC(nhanes$volLiver, nhanes$flowLiver)
@@ -37,7 +48,6 @@ save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nh
 # head(nhanes)
 # nhanes$GECkg <- nhanes$GEC/nhanes$bodyweight
 # save('nhanes', file='nhanes_liverData_GEC.Rdata')
-
 
 #########################
 # head(nhanes)
