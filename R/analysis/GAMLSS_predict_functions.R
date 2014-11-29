@@ -69,7 +69,7 @@ names(fit.models)
 # have to be predicted exactely once per given person information.
 f_d.parameters <- function(models, xname, person){
   if (is.na(person[[xname]])){
-    return(list(link=NA, person=person))
+    return(list(link='None', person=person))
   }
   # Create dataset to predict
   newdata <- data.frame( person[[xname]] )
@@ -89,6 +89,7 @@ f_d.parameters <- function(models, xname, person){
   } else if (link =='NO'){
     capture.output({ mu <- predict(m, what = "mu", type = "response", newdata=newdata, data=get(dfname)) })
     capture.output({ sigma <- predict(m, what = "sigma", type = "response", newdata=newdata, data=get(dfname)) })
+    nu <- NA
   }
   return( list(link=link, mu=mu, sigma=sigma, nu=nu, 
               xname=xname, person=person) )
@@ -122,6 +123,7 @@ prepare_fds <- function(f_ds){
   for (k in 1:length(f_ds)){   
     if (!is.function( f_ds[[k]] ) ){
       if(is.na(f_ds[[k]])){ 
+        message(sprintf('Link function not available: %s', names(f_ds)[k]))
         f_ds[[k]] <- function(x){1} 
       }
     }
@@ -143,11 +145,33 @@ prepare_fds <- function(f_ds){
 # ftmp1(10)
 # plot(1:4000, ftmp1(1:4000))
 
+# Combined density
+f_d.combined <- function(x, pars, yname){ 
+  # get single correlation densities
+  f_ds = list()
+  for(name in names(pars)){
+    if (grepl(sprintf("^%s_", yname), name) & !grepl("kg_", yname) ){
+      f_ds[[name]] <- f_d.factory(pars[[name]])
+    } 
+    if (grepl(sprintf("^%skg_", yname), name)){
+      f_ds[[name]] <- f_d.factory.bodyweight(pars[[name]])
+    }
+  }
+  f_ds <- prepare_fds(f_ds)
+  
+  # unnormalized combined density
+  f_d.raw <- function(x) {
+    # return the product (independence) of the individual densities
+    values <- lapply(ftest$f_ds, function(f) f(x))
+    y <- Reduce( "*", values, accumulate=FALSE )
+  }
+  return( list(f_d=f_d.raw, f_ds=f_ds, pars) ) 
+}
 
 ################################################################################
 ## Liver Volume (volLiver [ml])
 ################################################################################
-# Calculate the f_d volLiver parameter once
+# calculate volLiver parameter
 f_d.volLiver.pars <- function(person){ 
   pars = list()
   # volLiver 
@@ -163,101 +187,73 @@ f_d.volLiver.pars <- function(person){
   return(pars)
 }
 
-pars <- f_d.volLiver.pars(p1)
-
-# Combined density
-f_d.combined <- function(x, pars, yname){ 
-    # get single correlation densities
-    f_ds = list()
-    for(name in names(pars)){
-      if (grepl(sprintf("^%s_", yname), name)){
-        f_ds[[name]] <- f_d.factory(pars[[name]])
-      } else if (grepl(sprintf("^%skg_", yname), name)){
-        f_ds[[name]] <- f_d.factory.bodyweight(pars[[name]])
-      }
-    }
-    f_ds <- prepare_fds(f_ds)
-
-    # unnormalized combined density
-    f_d.raw <- function(x) {
-        # return the product (independence) of the individual densities
-        values <- lapply(ftest$f_ds, function(f) f(x))
-        y <- Reduce( "*", test, accumulate=FALSE )
-    }
-    return( list(f_d=f_d.raw, f_ds=f_ds, pars) ) 
-}
-
 f_d.volLiver.c <- function(x, pars){
    return (f_d.combined(x, pars, yname='volLiver') )
 }
 
+p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
 pars <- f_d.volLiver.pars(p1)
 ftest <- f_d.volLiver.c(pars=pars)
 x <- 1:4000
 plot(x,ftest$f_d(x))
 
-
 ################################################################################
 ## Liver Volume per bodyweight (volLiverkg [ml/kg])
 ################################################################################
-# Combined density
-f_d.volLiverkg.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA){ 
-    f_ds = list()
-    f_ds[['volLiverkg_age']] <- f_d.factory(models=models.volLiverkg_age, xname='age', 
-                                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiverkg_bodyweight']] <- f_d.factory(models=models.volLiverkg_bodyweight, xname='bodyweight', 
-                                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiverkg_height']] <- f_d.factory(models=models.volLiverkg_height, xname='height', 
-                                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['volLiverkg_BSA']] <- f_d.factory(models=models.volLiverkg_BSA, xname='BSA', 
-                                    sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds <- prepare_fds(f_ds)
-    
-    # unnormalized
-    f_d.raw <- function(x) {
-        f_ds[['volLiverkg_age']](x) *f_ds[['volLiverkg_bodyweight']](x) *f_ds[['volLiverkg_height']](x) *f_ds[['volLiverkg_BSA']](x)
-    }
-    # normalized
-    # A <- integrate(f=f_d.raw, lower=0, upper=150)
-    # f_d <- function(x){f_d.raw(x)/A$value}
-    return( list(f_d=f_d.raw, f_ds=f_ds,
-                 sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA) ) 
+# calculate volLiverkg parameter
+f_d.volLiverkg.pars <- function(person){ 
+  pars = list()
+  # volLiverkg
+  for(xname in c('age', 'bodyweight', 'height', 'BSA')){
+    name <- sprintf('volLiverkg_%s', xname)
+    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+  }
+  return(pars)
 }
+
+f_d.volLiverkg.c <- function(x, pars){
+  return (f_d.combined(x, pars, yname='volLiverkg') )
+}
+
+p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
+pars <- f_d.volLiverkg.pars(p1)
+ftest <- f_d.volLiverkg.c(pars=pars)
+x <- 1:80
+plot(x,ftest$f_d(x))
 
 ################################################################################
 ## Liver Blood Flow (flowLiver [ml/min])
 ################################################################################
-# combined density
-f_d.flowLiver.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA, volLiver=NA){
-    f_ds = list()
-    f_ds[['flowLiver_age']] <- f_d.factory(models=models.flowLiver_age, xname='age', 
-                                            sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiver_bodyweight']] <- f_d.factory(models=models.flowLiver_bodyweight, xname='bodyweight', 
-                                                   sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiver_BSA']] <- f_d.factory(models=models.flowLiver_BSA, xname='BSA', 
-                                               sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiverkg_age']] <- f_d.factory.bodyweight(models=models.flowLiverkg_age, xname='age', 
-                                           sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiverkg_bodyweight']] <- f_d.factory.bodyweight(models=models.flowLiverkg_bodyweight, xname='bodyweight', 
-                                                  sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiverkg_BSA']] <- f_d.factory.bodyweight(models=models.flowLiverkg_BSA, xname='BSA', 
-                                           sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiver_volLiver']] <- f_d.factory(models=models.flowLiver_volLiver, xname='volLiver', 
-                                             sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA, volLiver=volLiver)
-    f_ds <- prepare_fds(f_ds)
-    
-    # unnormalized
-    f_d.raw <- function(x) {
-        f_ds[['flowLiver_age']](x) *f_ds[['flowLiver_bodyweight']](x) *f_ds[['flowLiver_BSA']](x)*
-            f_ds[['flowLiverkg_age']](x) *f_ds[['flowLiverkg_bodyweight']](x) *f_ds[['flowLiverkg_BSA']](x)*
-            f_ds[['flowLiver_volLiver']](x)
-    }
-    # normalized
-    # A <- integrate(f=f_d.raw, lower=0, upper=5000)
-    # f_d <- function(x){f_d.raw(x)/A$value}
-    return( list(f_d=f_d.raw, f_ds=f_ds,
-                 sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver) ) 
+# calculate flowLiver parameter
+f_d.flowLiver.pars <- function(person){ 
+  pars = list()
+  # flowLiver
+  for(xname in c('age', 'bodyweight', 'BSA', 'volLiver')){
+    name <- sprintf('flowLiver_%s', xname)
+    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+  }
+  # flowliverkg
+  for(xname in c('age', 'bodyweight', 'BSA')){
+    name <- sprintf('flowLiverkg_%s', xname)
+    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+  }
+  return(pars)
 }
+
+f_d.flowLiver.c <- function(x, pars){
+  return (f_d.combined(x, pars, yname='flowLiver') )
+}
+# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA)
+# pars <- f_d.flowLiver.pars(p1)
+# ftest <- f_d.flowLiver.c(pars=pars)
+# x <- 1:4000
+# plot(x,ftest$f_d(x))
+# 
+# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=1400, volLiverkg=NA)
+# pars <- f_d.flowLiver.pars(p1)
+# ftest <- f_d.flowLiver.c(pars=pars)
+# x <- 1:4000
+# plot(x,ftest$f_d(x))
 
 ################################################################################
 ## Liver Blood Flow per Bodyweight (flowLiverkg [ml/min/kg])
