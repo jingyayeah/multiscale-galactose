@@ -13,7 +13,7 @@
 # author: Matthias Koenig
 # date: 2014-11-27
 ################################################################################
-rm(list=ls())
+# rm(list=ls())
 library('MultiscaleAnalysis')
 library('gamlss')
 setwd(ma.settings$dir.base)
@@ -162,7 +162,7 @@ f_d.combined <- function(x, pars, yname){
   # unnormalized combined density
   f_d.raw <- function(x) {
     # return the product (independence) of the individual densities
-    values <- lapply(ftest$f_ds, function(f) f(x))
+    values <- lapply(f_ds, function(f) f(x))
     y <- Reduce( "*", values, accumulate=FALSE )
   }
   return( list(f_d=f_d.raw, f_ds=f_ds, pars) ) 
@@ -191,11 +191,11 @@ f_d.volLiver.c <- function(x, pars){
    return (f_d.combined(x, pars, yname='volLiver') )
 }
 
-p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
-pars <- f_d.volLiver.pars(p1)
-ftest <- f_d.volLiver.c(pars=pars)
-x <- 1:4000
-plot(x,ftest$f_d(x))
+# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
+# pars <- f_d.volLiver.pars(p1)
+# ftest <- f_d.volLiver.c(pars=pars)
+# x <- 1:4000
+# plot(x,ftest$f_d(x))
 
 ################################################################################
 ## Liver Volume per bodyweight (volLiverkg [ml/kg])
@@ -215,11 +215,11 @@ f_d.volLiverkg.c <- function(x, pars){
   return (f_d.combined(x, pars, yname='volLiverkg') )
 }
 
-p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
-pars <- f_d.volLiverkg.pars(p1)
-ftest <- f_d.volLiverkg.c(pars=pars)
-x <- 1:80
-plot(x,ftest$f_d(x))
+# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
+# pars <- f_d.volLiverkg.pars(p1)
+# ftest <- f_d.volLiverkg.c(pars=pars)
+# x <- 1:80
+# plot(x,ftest$f_d(x))
 
 ################################################################################
 ## Liver Blood Flow (flowLiver [ml/min])
@@ -258,30 +258,33 @@ f_d.flowLiver.c <- function(x, pars){
 ################################################################################
 ## Liver Blood Flow per Bodyweight (flowLiverkg [ml/min/kg])
 ################################################################################
-# combined density
-f_d.flowLiverkg.c <- function(x, sex='all', age=NA, bodyweight=NA, height=NA, BSA=NA, volLiverkg=NA){
-    f_ds = list()
-    f_ds[['flowLiverkg_age']] <- f_d.factory(models=models.flowLiverkg_age, xname='age', 
-                                           sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiverkg_bodyweight']] <- f_d.factory(models=models.flowLiverkg_bodyweight, xname='bodyweight', 
-                                                  sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiverkg_BSA']] <- f_d.factory(models=models.flowLiverkg_BSA, xname='BSA', 
-                                           sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA)
-    f_ds[['flowLiverkg_volLiverkg']] <- f_d.factory(models=models.flowLiverkg_volLiverkg, xname='volLiverkg', 
-                                                        sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA, volLiverkg=volLiverkg)
-    f_ds <- prepare_fds(f_ds)
-    
-    # unnormalized
-    f_d.raw <- function(x) {
-            f_ds[['flowLiverkg_age']](x) *f_ds[['flowLiverkg_bodyweight']](x) *f_ds[['flowLiverkg_BSA']](x)*
-            f_ds[['flowLiverkg_volLiverkg']](x)
-    }
-    # normalized
-    # A <- integrate(f=f_d.raw, lower=0, upper=80)
-    # f_d <- function(x){f_d.raw(x)/A$value}
-    return( list(f_d=f_d.raw, f_ds=f_ds,
-                 sex=sex, age=age, bodyweight=bodyweight, volLiver=volLiver) ) 
+# flowLiverkg parameter
+f_d.flowLiverkg.pars <- function(person){ 
+  pars = list()
+  # flowLiverkg
+  for(xname in c('age', 'bodyweight', 'BSA', 'volLiverkg')){
+    name <- sprintf('flowLiverkg_%s', xname)
+    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+  }
+  return(pars)
 }
+
+f_d.flowLiverkg.c <- function(x, pars){
+  return (f_d.combined(x, pars, yname='flowLiverkg') )
+}
+
+# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
+# pars <- f_d.flowLiverkg.pars(p1)
+# ftest <- f_d.flowLiverkg.c(pars=pars)
+# x <- 1:80
+# plot(x,ftest$f_d(x))
+# 
+# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=20) 
+# pars <- f_d.flowLiverkg.pars(p1)
+# ftest <- f_d.flowLiverkg.c(pars=pars)
+# x <- 1:80
+# plot(x,ftest$f_d(x))
+
 
 ################################################################################
 # Rejection sampling of f_d
@@ -333,10 +336,18 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
     return(list(values=values, f_d=f_d, funct1=funct1) )
 }
 
-# sex='male'; age=50; bodyweight=80; height=175; BSA=1.9;
+
+# p1 <- data.frame(age=60, sex='male', bodyweight=50, height=170, BSA=1.7, volLiver=NA, volLiverkg=NA) 
 # ptm <- proc.time()
-# f_d1 <- f_d.volLiver.c(sex=sex, age=age, bodyweight=bodyweight,
-#                         height=height, BSA=BSA)
+# pars.volLiver <- f_d.volLiver.pars(p1)
+# # pars.volLiverkg <- f_d.volLiverkg.pars(p1)
+# pars.flowLiver <- f_d.flowLiver.pars(p1)
+# # pars.flowLiverkg <- f_d.flowLiverkg.pars(p1)
+# proc.time() - ptm
+# 
+# 
+# ptm <- proc.time()
+# f_d1 <- f_d.volLiver.c(pars=pars.volLiver)
 # proc.time() - ptm
 # 
 # # rm(list=ls())
@@ -351,8 +362,6 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
 # plot(1:3000, 1/A$value*f_d1$f_d(1:3000), col='red')
 # hist(rs2$values, add=TRUE, freq=FALSE, breaks=10)
 # 
-# hist(rs2$values, freq=FALSE, breaks =10)
-# points(1:3000, f_d1$f_d(1:3000), col='red')
 # 
 # ptm <- proc.time()
 # f_d1$f_d(1:1000)
@@ -360,7 +369,7 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
 # 
 # library(profr)
 # p <- profr(
-#   f_d.rejection_sample(f_d1$f_d, Nsim=10, interval=c(1, 4000)),
+#   pars.volLiver <- f_d.volLiver.pars(p1),
 #   0.01
 # )
 # plot(p)
@@ -372,12 +381,18 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
 
 # Combined prediction of liver volume and 
 predict_liver_person <- function(person, Nsample){
+  
+  pars.volLiver <- f_d.volLiver.pars(person)
+  # pars.volLiverkg <- f_d.volLiverkg.pars(p1)
+  # pars.flowLiver <- f_d.flowLiver.pars(p1)
+  # pars.flowLiverkg <- f_d.flowLiverkg.pars(p1)
+
+  
   volLiver = rep(NA, Nsample)
   flowLiver = rep(NA, Nsample)
   
   # individual combined probability density for liver volume
-  f_d1 <- f_d.volLiver.c(sex=person$sex, age=person$age, bodyweight=person$bodyweight,
-                         height=person$height, BSA=person$BSA)
+  f_d1 <- f_d.volLiver.c(pars=pars.volLiver)
   # rejection sampling of liver volume
   rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
   volLiver <- rs1$values
@@ -385,10 +400,13 @@ predict_liver_person <- function(person, Nsample){
   # now for ever liver volume the blood flow
   # individual combined probability density for blood flow  
   for (i in 1:Nsample){
-      f_d2 <- f_d.flowLiver.c(sex=person$sex, age=person$age, bodyweight=person$bodyweight, 
-                              height=person$height, BSA=person$BSA, volLiver=volLiver[i])
-      rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
-      flowLiver[i] <- rs2$values[1]
+    # set volLiver & predict parameters
+    person$volLiver <- volLiver[i]
+    pars.flowLiver <- f_d.flowLiver.pars(person)
+    # sample from distribution
+    f_d2 <- f_d.flowLiver.c(pars=pars.flowLiver)
+    rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
+    flowLiver[i] <- rs2$values[1]
   }
   return(list(volLiver=volLiver, flowLiver=flowLiver))
 }
@@ -414,13 +432,13 @@ predict_liver_people <- function(people, Nsample, Ncores=1){
   
   if (Ncores == 1){
     for (k in 1:Np){
-      # ptm <- proc.time()
-      # cat(k, '\n') 
+      ptm <- proc.time()
+      cat(k, '\n') 
       res <- workerFunc(k)
       volLiver[k, ] <- res$volLiver
       flowLiver[k, ] <- res$flowLiver
-      # time <- proc.time() - ptm
-      # print(time)
+      time <- proc.time() - ptm
+      print(time)
     }
   } else {
     library(parallel)

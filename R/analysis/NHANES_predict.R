@@ -26,8 +26,8 @@ head(nhanes)
 cat('# parallel #\n')
 set.seed(12345)
 ptm <- proc.time()
-# liver.info <- predict_liver_people(nhanes[1:5,], 1, Ncores=11)
-liver.info <- predict_liver_people(nhanes, 1, Ncores=11)
+liver.info <- predict_liver_people(nhanes[1:5,], 20, Ncores=1)
+# liver.info <- predict_liver_people(nhanes, 1, Ncores=11)
 proc.time() - ptm
 #liver.info
 
