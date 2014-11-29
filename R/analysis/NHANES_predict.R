@@ -31,6 +31,7 @@ ptm <- proc.time()
 liver.info <- predict_liver_people(nhanes, 1000, Ncores=11)
 proc.time() - ptm
 save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
+# due to 
 volLiver <- liver.info$volLiver
 flowLiver <- liver.info$flowLiver
 save('volLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_volLiver.Rdata'))
