@@ -60,17 +60,116 @@ cat('----------------------------------------------------------\n')
 ## Calculate GEC and GECkg for nhanes ##
 source(file.path(ma.settings$dir.code, 'analysis', 'GEC_predict_functions.R'))
 GEC_f <- GEC_functions(task='T54')
-
 GEC <- calculate_GEC(volLiver, flowLiver)
 GEC <- GEC$values
-
 m.bodyweight <- matrix(rep(nhanes$bodyweight, ncol(GEC)),
                        nrow=nrow(GEC), ncol=ncol(GEC))
 GECkg <- GEC/m.bodyweight
-boxplot(t(GEC[1:100, ]), notch=TRUE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4)
-boxplot(t(GEC[1:100, ]), notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4, ylim=c(0,5))
 
-head(nhanes)
+
+## calculate the quantiles of data and predictions ##
+calc_quantiles <- function(data, q.values=c(0.025, 0.25, 0.5, 0.75, 0.975)){
+  qdata <- apply(data, 1, quantile, q.values)
+  return ( t(qdata) )
+}
+
+volLiver.q <- calc_quantiles(volLiver)
+flowLiver.q <- calc_quantiles(flowLiver)
+GEC.q <- calc_quantiles(GEC)
+GECkg.q <- calc_quantiles(GECkg)
+colnames(GEC.q)
+##
+
+## Create some plots ##
+ind.male <- (nhanes$sex == 'male')
+ind.female <- (nhanes$sex == 'female')
+plot(nhanes$age, GEC.q[,'50%'], cex=0.3, pch=21)
+plot(nhanes$bodyweight[ind.male], GEC.q[ind.male,'50%'], cex=0.3, pch=21, col=rgb(1,0,0, 0.5))
+x0 <- nhanes$bodyweight[ind.male]
+y0 <- GEC.q[ind.male,'25%']
+y1 <- GEC.q[ind.male,'75%']
+# y0 <- GEC.q[ind.male,'2.5%']
+# y1 <- GEC.q[ind.male,'97.5%']
+segments(x0=x0, y0=y0, x1=x0, y1=y1, col=rgb(1,0,0, 0.1) )
+points(nhanes$bodyweight[ind.female], GEC.q[ind.female,'50%'], cex=0.3, pch=21, col=rgb(0,0,1, 0.5))
+x0 <- nhanes$bodyweight[ind.female]
+y0 <- GEC.q[ind.female,'25%']
+y1 <- GEC.q[ind.female,'75%']
+# y0 <- GEC.q[ind.female,'2.5%']
+# y1 <- GEC.q[ind.female,'97.5%']
+segments(x0=x0, y0=y0, x1=x0, y1=y1, col=rgb(0,0,1, 0.1) )
+
+# flowLiver vs. volLiver
+plot(volLiver.q[,'50%'], flowLiver.q[,'50%'], cex=0.3, xlim=c(0,2000), ylim=c(0,2000))
+plot(volLiver.q[ind.male,'50%'], flowLiver.q[ind.male,'50%'], col=rgb(0,0,1), cex=nhanes$age[ind.male]/100, xlim=c(0,400), ylim=c(0,400))
+points(volLiver.q[ind.female,'50%'], flowLiver.q[ind.female,'50%'], col=rgb(1,0,0), cex=nhanes$age[ind.female]/100)
+
+plot(volLiver[1,], flowLiver[1,], cex=0.3)
+points(volLiver.q[1, '50%'], flowLiver.q[1, '50%'], cex=2.0, col='black', bg='black', pch=21)
+plot(volLiver.q[ind.male, flowLiver.q, cex=0.3)
+
+
+plot(volLiver.q[ind.male,'50%'], flowLiver.q[ind.male,'50%'], cex=0.3, pch=21, col=rgb(1,0,0, 0.5))
+x0 <- volLiver.q[ind.male,'50%']
+y0 <- flowLiver.q[ind.male,'25%']
+y1 <- flowLiver.q[ind.male,'75%']
+segments(x0=x0, y0=y0, x1=x0, y1=y1, col=rgb(1,0,0, 0.1) )
+x0 <- volLiver.q[ind.male,'25%']
+x1 <- flowLiver.q[ind.male,'75%']
+y0 <- volLiver.q[ind.male,'50%']
+segments(x0=x0, y0=y0, x1=x1, y1=y0, col=rgb(1,0,0, 0.1) )
+
+
+
+points(nhanes$bodyweight[ind.female], GEC.q[ind.female,'50%'], cex=0.3, pch=21, col=rgb(0,0,1, 0.5))
+x0 <- nhanes$bodyweight[ind.female]
+y0 <- GEC.q[ind.female,'25%']
+y1 <- GEC.q[ind.female,'75%']
+# y0 <- GEC.q[ind.female,'2.5%']
+# y1 <- GEC.q[ind.female,'97.5%']
+segments(x0=x0, y0=y0, x1=x0, y1=y1, col=rgb(0,0,1, 0.1) )
+
+
+plot(nhanes$bodyweight[ind.male], GECkg.q[ind.male,'50%'], cex=0.3, pch=21, col=rgb(1,0,0, 0.5))
+points(nhanes$bodyweight[ind.female], GECkg.q[ind.female,'50%'], cex=0.3, pch=21, col=rgb(0,0,1, 0.5))
+
+plot(nhanes$age[ind.male], GEC.q[ind.male,'50%'], cex=0.3, pch=21, col=rgb(1,0,0, 0.5))
+points(nhanes$age[ind.female], GEC.q[ind.female,'50%'], cex=0.3, pch=21, col=rgb(0,0,1, 0.5))
+
+plot(nhanes$age[ind.male], GECkg.q[ind.male,'50%'], cex=0.3, pch=21, col=rgb(1,0,0, 0.5))
+points(nhanes$age[ind.female], GECkg.q[ind.female,'50%'], cex=0.3, pch=21, col=rgb(0,0,1, 0.5))
+
+
+plot(nhanes$age[ind.male], GECkg.q[ind.male,'50%'], cex=0.3, pch=21, col=rgb(1,0,0, 0.5))
+points(nhanes$age[ind.female], GECkg.q[ind.female,'50%'], cex=0.3, pch=21, col=rgb(0,0,1, 0.5))
+
+
+
+boxplot(t(GEC[1:100, ]), notch=TRUE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4, plot=FALSE)
+
+box <- boxplot(t(GEC[1:100, ]), notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4, ylim=c(0,5), plot=TRUE)
+
+
+# adapt the whiskers to [0.025, 0.975]
+range <- 1:3000
+box <- boxplot(t(GEC[range, ]), notch=FALSE, range=0, ylim=c(0,5), xlim=c(0,100), plot=FALSE, at=nhanes$age[range])
+# Calcualte the quantiels
+box$stats <- apply(GEC[range, ], 1, quantile, c(0.025, 0.25, 0.5, 0.75, 0.975))
+bxp(z=box, notch=FALSE, range=0, xlim=c(0,100), ylim=c(0,5), horizontal=FALSE, boxwex=0.5, lty=1, at=nhanes$age[range], boxfill=rgb(0,0,0,0.1), boxcol=rgb(0,0,0,0.2))
+
+
+box <- boxplot(t(GEC[range, ]), notch=FALSE, range=0, ylim=c(0,5), xlim=c(0,110), plot=FALSE, at=nhanes$bodyweight[range])
+# Calcualte the quantiels
+box$stats <- apply(GEC[range, ], 1, quantile, c(0.025, 0.25, 0.5, 0.75, 0.975))
+bxp(z=box, notch=FALSE, range=0, xlim=c(0,110), ylim=c(0,5), horizontal=FALSE, boxwex=0.5, lty=1, at=nhanes$bodyweight[range], boxfill=rgb(0,0,0,0.1), boxcol=rgb(0,0,0,0.2))
+
+
+box <- boxplot(t(GECkg[range, ]), notch=FALSE, range=0, ylim=c(0,0.10), xlim=c(0,110), plot=FALSE, at=nhanes$bodyweight[range])
+# Calcualte the quantiels
+box$stats <- apply(GECkg[range, ], 1, quantile, c(0.025, 0.25, 0.5, 0.75, 0.975))
+bxp(z=box, notch=FALSE, range=0, xlim=c(0,110), ylim=c(0,0.10), horizontal=FALSE, boxwex=0.5, lty=1, at=nhanes$bodyweight[range], boxfill=rgb(0,0,0,0.1), boxcol=rgb(0,0,0,0.2))
+
+
 
 ######################################
 # Create the personalized plot
@@ -129,14 +228,13 @@ GEC_figure <- function(data, person){
 ######################################
 # Create the proper prediction for an individual person
 
-
 for (k in 1:10){
   index <- k
   print(k)
   data <- GEC[index, ]
   person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
   GEC_figure(data=data, person)
-  Sys.sleep(3)
+  Sys.sleep(1)
 }
 
 
