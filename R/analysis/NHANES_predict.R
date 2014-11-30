@@ -14,8 +14,10 @@ setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
 
 ##############################################################################
-# Predict NHANES
+# Predict NHANES liver volume & flow
 ##############################################################################
+do_nhanes = FALSE
+if (do_nhanes){
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
 nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
 nhanes$volLiver <- NA
@@ -39,9 +41,11 @@ volLiver <- liver.info$volLiver
 flowLiver <- liver.info$flowLiver
 save('volLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_volLiver.Rdata'))
 save('flowLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_flowLiver.Rdata'))
+}
 
-
-rm(list=ls())
+##############################################################################
+# Predict GEC and GECkg
+##############################################################################
 cat('----------------------------------------------------------\n')
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
 nhanes <- data; rm(data)
@@ -52,7 +56,6 @@ head(volLiver[, 1:5])
 cat('# Liver Blood Flow #')
 head(flowLiver[, 1:5])
 cat('----------------------------------------------------------\n')
-
 
 ## Calculate GEC and GECkg for nhanes ##
 source(file.path(ma.settings$dir.code, 'analysis', 'GEC_predict_functions.R'))
@@ -65,7 +68,54 @@ m.bodyweight <- matrix(rep(nhanes$bodyweight, ncol(GEC)),
                        nrow=nrow(GEC), ncol=ncol(GEC))
 GECkg <- GEC/m.bodyweight
 boxplot(t(GEC[1:100, ]), notch=TRUE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4)
-boxplot(t(GEC[1:100, ]), notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4)
+boxplot(t(GEC[1:100, ]), notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4, ylim=c(0,5))
+
+head(nhanes)
+
+# Create the proper prediction for an individual person
+index <- 1
+data <- GEC[index, ]
+person.nhanes <- nhanes[index, ]
+person <- with(person.nhanes, list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
+info <- with(person, sprintf('(sex=%s, age=%1.0f [years], bodyweight=%1.1f [kg], height=%1.0f [cm], BSA=%1.2f [m^2])', sex, age, bodyweight, height, BSA))
+info
+
+# Histogram
+h1 <- hist(data, plot=FALSE)
+h1.max <- max(h1$density)
+# Empty plot
+plot(numeric(0), numeric(0), type='n', xlim=c(0,5), ylim=c(0, h1.max+1), 
+     main="Personalized GEC reference range",
+     sub=info,
+     xlab="GEC [mmol/min]", ylab="probability", font.lab=2)
+# TODO: add the personal information
+
+# Do the polygons
+span = 0.75
+qdata <- quantile(data, c(0.025, .975))
+# left
+polygon(x=c(qdata[1]-span, qdata[1], qdata[1], qdata[1]-span), y=c(0, 0,h1.max+0.25, h1.max+0.25), col=rgb(1,0,0,0.1), border=rgb(1,0,0,0))
+polygon(x=c(qdata[2]+span, qdata[2], qdata[2], qdata[2]+span), y=c(0, 0,h1.max+0.25, h1.max+0.25), col=rgb(1,0,0,0.1), border=rgb(1,0,0,0))
+
+# Density
+plot(h1, xlim=c(0,5), col=rgb(0,0,0, 0.05), border=rgb(0,0,0, 0.5), freq=FALSE, add=TRUE)
+lines(density(GEC[1, ]), col='black', lwd=2)
+# quantiles
+# qdata <- quantile(GEC[1, ], c(0.025, .25, .50,  .75, .975))
+qdata <- quantile(GEC[1, ], c(.25,  .75))
+abline(v=qdata, col='black', lwd=2, lty=1)
+qdata <- quantile(GEC[1, ], c(0.025, .975))
+abline(v=qdata, col='red', lwd=2, lty=1)
+# rugs
+rug(GEC[1, ])
+# boxplot
+boxplot(GEC[1, ], notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4, ylim=c(0,5), horizontal = TRUE, add=TRUE, at=c(h1.max+0.5))
+
+# legend
+# TODO
+
+
+
 
 
 stat_sum_df <- function(fun, geom="crossbar", ...) {
