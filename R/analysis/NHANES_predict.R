@@ -77,20 +77,24 @@ index <- 1
 data <- GEC[index, ]
 person.nhanes <- nhanes[index, ]
 person <- with(person.nhanes, list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
-info <- with(person, sprintf('(sex=%s, age=%1.0f [years], bodyweight=%1.1f [kg], height=%1.0f [cm], BSA=%1.2f [m^2])', sex, age, bodyweight, height, BSA))
-info
 
+######################################
+# Create the personalized plot
+######################################
 # Histogram
 h1 <- hist(data, plot=FALSE)
 h1.max <- max(h1$density)
 # Empty plot
 plot(numeric(0), numeric(0), type='n', xlim=c(0,5), ylim=c(0, h1.max+1), 
-     main="Personalized GEC reference range",
-     sub=info,
+     main="GEC reference range [2.5% - 97.5%]",
      xlab="GEC [mmol/min]", ylab="probability", font.lab=2)
-# TODO: add the personal information
+person.info <- with(person, sprintf(' %s\n %1.0f years\n %1.1f kg\n %1.0f cm\n %1.2f m^2', sex, age, bodyweight,height, BSA))
+text(x=0,y=h1.max, labels=c(person.info), pos=4, cex=0.9)
+qdata <- quantile(data, c(0.025, 0.5, .975))
+GEC.info <- sprintf('median %1.2f\n [%1.2f - %1.2f]\n ', qdata[2], qdata[1], qdata[3])
+text(x=qdata[2], y=h1.max+0.5, labels=c(GEC.info), pos=3, cex=0.9)
 
-# Do the polygons
+# polygons (red area)
 span = 0.75
 qdata <- quantile(data, c(0.025, .975))
 # left
@@ -99,22 +103,23 @@ polygon(x=c(qdata[2]+span, qdata[2], qdata[2], qdata[2]+span), y=c(0, 0,h1.max+0
 
 # Density
 plot(h1, xlim=c(0,5), col=rgb(0,0,0, 0.05), border=rgb(0,0,0, 0.5), freq=FALSE, add=TRUE)
-lines(density(GEC[1, ]), col='black', lwd=2)
+lines(density(data), col='black', lwd=2)
 # quantiles
 # qdata <- quantile(GEC[1, ], c(0.025, .25, .50,  .75, .975))
-qdata <- quantile(GEC[1, ], c(.25,  .75))
-abline(v=qdata, col='black', lwd=2, lty=1)
-qdata <- quantile(GEC[1, ], c(0.025, .975))
-abline(v=qdata, col='red', lwd=2, lty=1)
+# qdata <- quantile(data, c(.25,  .75))
+# abline(v=qdata, col='black', lwd=2, lty=1)
+#qdata <- quantile(data, c(0.025, .975))
+# abline(v=qdata, col='red', lwd=2, lty=1)
 # rugs
-rug(GEC[1, ])
+rug(data)
 # boxplot
-boxplot(GEC[1, ], notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4, ylim=c(0,5), horizontal = TRUE, add=TRUE, at=c(h1.max+0.5))
+# TODO custom boxplot
+box <- boxplot(data, notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.4, ylim=c(0,5), horizontal = TRUE, at=c(h1.max+0.5), add=TRUE, plot=FALSE)
+box$stats <- matrix(quantile(data, c(0.025, 0.25, 0.5, 0.75, 0.975)), nrow=5, ncol=1)
+bxp(z=box, notch=FALSE, range=0, boxwex=0.4, ylim=c(0,5), horizontal=TRUE, add=TRUE, at=c(h1.max+0.5), lty=1)
 
-# legend
-# TODO
 
-
+######################################
 
 
 
