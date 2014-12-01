@@ -66,7 +66,6 @@ m.bodyweight <- matrix(rep(nhanes$bodyweight, ncol(GEC)),
                        nrow=nrow(GEC), ncol=ncol(GEC))
 GECkg <- GEC/m.bodyweight
 
-
 ## calculate the quantiles of data and predictions ##
 calc_quantiles <- function(data, q.values=c(0.025, 0.25, 0.5, 0.75, 0.975)){
   qdata <- apply(data, 1, quantile, q.values)
@@ -78,6 +77,110 @@ flowLiver.q <- calc_quantiles(flowLiver)
 GEC.q <- calc_quantiles(GEC)
 GECkg.q <- calc_quantiles(GECkg)
 colnames(GEC.q)
+
+############################################################################
+# Create personalized GEC plot
+############################################################################
+GEC_figure <- function(data, person){
+  # Histogram
+  h <- hist(data, plot=FALSE)
+  h.max <- max(h$density)
+  # Density
+  dens <- density(data)
+  d.max <- max(dens$y)
+  # Maximum for arranging things
+  p.max <- max(h.max, d.max)
+  
+  # empty plot
+  plot(numeric(0), numeric(0), type='n', xlim=c(0,5), ylim=c(0, 1.2*p.max), 
+       main="GEC reference range [2.5% - 97.5%]",
+       xlab="GEC [mmol/min]", ylab="probability", font.lab=2)
+  
+  qdata <- quantile(data, c(0.025, 0.5, .975))
+  
+  # person info
+  person.info <- with(person, sprintf(' %s\n %1.0f years\n %1.1f kg\n %1.0f cm\n %1.2f m^2', sex, age, bodyweight,height, BSA))
+  x.text=0
+  if (qdata[2] < 2.5){ x.text = 3.7 }
+  text(x=x.text,y=p.max, labels=c(person.info), pos=4, cex=0.9)
+  
+  # GEC info
+  GEC.info <- sprintf('median %1.2f\n [%1.2f - %1.2f]\n ', qdata[2], qdata[1], qdata[3])
+  text(x=qdata[2], y=1.08*p.max, labels=c(GEC.info), pos=3, cex=0.9)
+  
+  # polygons (red area left & right)
+  span = 0.75
+  qdata <- quantile(data, c(0.025, .975))
+  polygon(x=c(qdata[1]-span, qdata[1], qdata[1], qdata[1]-span), y=c(0, 0,p.max, p.max), col=rgb(1,0,0,0.1), border=rgb(1,0,0,0))
+  polygon(x=c(qdata[2]+span, qdata[2], qdata[2], qdata[2]+span), y=c(0, 0,p.max, p.max), col=rgb(1,0,0,0.1), border=rgb(1,0,0,0))
+  
+  # histogram & density
+  plot(h, xlim=c(0,5), col=rgb(0,0,0, 0.05), border=rgb(0,0,0, 0.5), freq=FALSE, add=TRUE)
+  lines(dens, col='black', lwd=2)
+  
+  # Quantiles
+  # qdata <- quantile(GEC[1, ], c(0.025, .25, .50,  .75, .975))
+  # qdata <- quantile(data, c(.25,  .75))
+  # abline(v=qdata, col='black', lwd=2, lty=1)
+  #qdata <- quantile(data, c(0.025, .975))
+  # abline(v=qdata, col='red', lwd=2, lty=1)
+  # Rugs
+  rug(data)
+  # Boxplot
+  box <- boxplot(data, notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.1*p.max, horizontal = TRUE, at=c(1.1*p.max), add=TRUE, plot=FALSE)
+  box$stats <- matrix(quantile(data, c(0.025, 0.25, 0.5, 0.75, 0.975)), nrow=5, ncol=1)
+  bxp(z=box, notch=FALSE, range=0, boxwex=0.1*p.max, ylim=c(0,5), horizontal=TRUE, add=TRUE, at=c(1.1*p.max), lty=1)
+}
+############################################################################
+# Create personalized overview flowLiver ~ volLiver
+############################################################################
+vol_flow_figure <- function(volLiver, flowLiver, person){
+  abline(a=0, b=1, col='gray')
+  plot(volLiver, flowLiver, xlim=lim$volLiver, ylim=lim$flowLiver,
+       xlab=lab$volLiver, ylab=lab$flowLiver)
+  rugs(volLiver)
+}
+
+index <- 1
+person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
+vol_flow_figure(volLiver=volLiver[index,], flowLiver=flowLiver[index, ], person)
+
+
+for (k in 1:10){
+  #png(filename=sprintf("/home/mkoenig/Desktop/data/NHANES_GEC_range_%s.png", k), width=1000, height=1000, 
+      units = "px", bg = "white",  res = 150)
+  index <- k
+  print(k)
+  data <- GEC[index, ]
+  person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
+  GEC_figure(data=data, person)
+  dev.off()
+  Sys.sleep(1)
+}
+
+
+
+# Create the proper prediction for an individual person
+
+for (k in 1:10){
+  png(filename=sprintf("/home/mkoenig/Desktop/data/NHANES_GEC_range_%s.png", k), width=1000, height=1000, 
+      units = "px", bg = "white",  res = 150)
+  index <- k
+  print(k)
+  data <- GEC[index, ]
+  person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
+  GEC_figure(data=data, person)
+  dev.off()
+  Sys.sleep(1)
+}
+
+
+
+
+
+
+
+
 ##
 # Set NHANES volLiver and flowLiver to median
 nhanes$volLiver <- volLiver.q[, '50%']
@@ -187,74 +290,6 @@ bxp(z=box, notch=FALSE, range=0, xlim=c(0,110), ylim=c(0,0.10), horizontal=FALSE
 
 
 
-######################################
-# Create the personalized plot
-######################################
-GEC_figure <- function(data, person){
-  # Histogram
-  h <- hist(data, plot=FALSE)
-  h.max <- max(h$density)
-  # Density
-  dens <- density(data)
-  d.max <- max(dens$y)
-  # Maximum for arranging things
-  p.max <- max(h.max, d.max)
-  
-  
-  # empty plot
-  plot(numeric(0), numeric(0), type='n', xlim=c(0,5), ylim=c(0, 1.2*p.max), 
-     main="GEC reference range [2.5% - 97.5%]",
-     xlab="GEC [mmol/min]", ylab="probability", font.lab=2)
-  
-  qdata <- quantile(data, c(0.025, 0.5, .975))
-  
-  # person info
-  person.info <- with(person, sprintf(' %s\n %1.0f years\n %1.1f kg\n %1.0f cm\n %1.2f m^2', sex, age, bodyweight,height, BSA))
-  x.text=0
-  if (qdata[2] < 2.5){ x.text = 3.7 }
-  text(x=x.text,y=p.max, labels=c(person.info), pos=4, cex=0.9)
-  
-  # GEC info
-  GEC.info <- sprintf('median %1.2f\n [%1.2f - %1.2f]\n ', qdata[2], qdata[1], qdata[3])
-  text(x=qdata[2], y=1.08*p.max, labels=c(GEC.info), pos=3, cex=0.9)
-
-  # polygons (red area left & right)
-  span = 0.75
-  qdata <- quantile(data, c(0.025, .975))
-  polygon(x=c(qdata[1]-span, qdata[1], qdata[1], qdata[1]-span), y=c(0, 0,p.max, p.max), col=rgb(1,0,0,0.1), border=rgb(1,0,0,0))
-  polygon(x=c(qdata[2]+span, qdata[2], qdata[2], qdata[2]+span), y=c(0, 0,p.max, p.max), col=rgb(1,0,0,0.1), border=rgb(1,0,0,0))
-
-  # histogram & density
-  plot(h, xlim=c(0,5), col=rgb(0,0,0, 0.05), border=rgb(0,0,0, 0.5), freq=FALSE, add=TRUE)
-  lines(dens, col='black', lwd=2)
-  
-  # Quantiles
-  # qdata <- quantile(GEC[1, ], c(0.025, .25, .50,  .75, .975))
-  # qdata <- quantile(data, c(.25,  .75))
-  # abline(v=qdata, col='black', lwd=2, lty=1)
-  #qdata <- quantile(data, c(0.025, .975))
-  # abline(v=qdata, col='red', lwd=2, lty=1)
-  # Rugs
-  rug(data)
-  # Boxplot
-  box <- boxplot(data, notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxwex=0.1*p.max, horizontal = TRUE, at=c(1.1*p.max), add=TRUE, plot=FALSE)
-  box$stats <- matrix(quantile(data, c(0.025, 0.25, 0.5, 0.75, 0.975)), nrow=5, ncol=1)
-  bxp(z=box, notch=FALSE, range=0, boxwex=0.1*p.max, ylim=c(0,5), horizontal=TRUE, add=TRUE, at=c(1.1*p.max), lty=1)
-}
-######################################
-# Create the proper prediction for an individual person
-
-for (k in 1:10){
-  png(filename=sprintf("/home/mkoenig/Desktop/data/NHANES_GEC_range_%s.png", k), width=1000, height=1000, 
-      units = "px", bg = "white",  res = 150)
-  index <- k
-  print(k)
-  data <- GEC[index, ]
-  person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
-  GEC_figure(data=data, person)
-  dev.off()
-  Sys.sleep(1)
-}
 
 
 # nhanes$GEC <- GEC$GEC
