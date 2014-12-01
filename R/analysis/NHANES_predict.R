@@ -167,7 +167,7 @@ box <- boxplot(t(GEC[1:100, ]), notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxw
 
 
 # adapt the whiskers to [0.025, 0.975]
-range <- 1:100
+range <- 1:1000
 box <- boxplot(t(GEC[range, ]), notch=FALSE, range=0, ylim=c(0,5), xlim=c(0,100), plot=FALSE, at=nhanes$age[range])
 # Calcualte the quantiels
 box$stats <- apply(GEC[range, ], 1, quantile, c(0.025, 0.25, 0.5, 0.75, 0.975))
@@ -247,7 +247,7 @@ GEC_figure <- function(data, person){
 for (k in 1:10){
   png(filename=sprintf("/home/mkoenig/Desktop/data/NHANES_GEC_range_%s.png", k), width=1000, height=1000, 
       units = "px", bg = "white",  res = 150)
-  index <- 2
+  index <- k
   print(k)
   data <- GEC[index, ]
   person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
