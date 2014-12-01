@@ -1,11 +1,11 @@
 rm(list = ls())
 library('MultiscaleAnalysis')
-# setwd('/home/mkoenig/multiscale-galactose/')
-setwd('/home/mkoenig/multiscale-galactose/experimental_data/NHANES')
+library('methods')
+setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 # Load the NHANES dataset
-load(file='nhanes_liverData_GEC.Rdata')
+load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_GEC.Rdata'))
 head(nhanes)
 
 ################################################################################
@@ -40,7 +40,7 @@ main <- sprintf('%s vs. %s', yname, xname)
 create_plots = FALSE
 startDevPlot <- function(width=2000, height=1000, file=NULL){
   if (is.null(file)){
-    file <- file.path(ma.settings$dir.results, 'regression', sprintf('%s_%s_regression.png', yname, xname))
+    file <- file.path(ma.settings$dir.base, 'results', sprintf('%s_%s_regression.png', yname, xname))
   }
   if (create_plots == T) { 
     print(file)
@@ -54,7 +54,7 @@ stopDevPlot <- function(){
 
 ################################################################################
 ## load data ##
-fname <- file.path(ma.settings$dir.expdata, "processed", sprintf("%s_%s.Rdata", yname, xname))
+fname <- file.path(ma.settings$dir.base, "results", "correlations", sprintf("%s_%s.Rdata", yname, xname))
 print(fname)
 load(file=fname)
 head(data)
@@ -113,7 +113,7 @@ for (k in 1:3){
        main=sprintf('%s', df.names[k]), xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, font.lab=1.8, cex.lab=2)
   
   inds.po <- which(d$dtype == 'population')
-  points(d[inds.po, xname], d[inds.po, yname], col=df.cols.po[k], pch=df.symbols[k])
+  points(d[inds.po, xname], d[inds.po, yname], col=gender.cols[k], pch=gender.symbols[k])
   inds.in <- which(d$dtype == 'individual')
   points(nhanes.d[[xname]], nhanes.d[[yname]], col="black", bg="black", pch=21, cex=0.25)
   #points(d[inds.in, xname], d[inds.in, yname], col='blue', bg='blue', pch=21)
