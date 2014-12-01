@@ -14,6 +14,7 @@ library('MultiscaleAnalysis')
 library('methods')
 setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
+source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 ##############################################################################
 # Predict NHANES liver volume & flow
@@ -83,7 +84,7 @@ GECkg.q <- calc_quantiles(GECkg)
 colnames(GEC.q)
 
 ############################################################################
-# Create personalized GEC plot
+# Plot personalized GEC
 ############################################################################
 GEC_figure <- function(data, person){
   # Histogram
@@ -135,26 +136,47 @@ GEC_figure <- function(data, person){
   box$stats <- matrix(quantile(data, c(0.025, 0.25, 0.5, 0.75, 0.975)), nrow=5, ncol=1)
   bxp(z=box, notch=FALSE, range=0, boxwex=0.1*p.max, ylim=c(0,5), horizontal=TRUE, add=TRUE, at=c(1.1*p.max), lty=1)
 }
+
 ############################################################################
-# Overview flowLiver ~ volLiver
+# Plot flowLiver ~ volLiver
 ############################################################################
-vol_flow_figure <- function(volLiver, flowLiver, person){
+scale_density <- function(h, max.value){
+  h$density <- max.value/max(h$density) * h$density 
+  return(h)
+}
+
+
+vol_flow_figure <- function(vol, flow, data, person){
   # empty plot
   plot(numeric(0), numeric(0), xlim=lim$volLiver, ylim=lim$flowLiver,
        xlab=lab$volLiver, ylab=lab$flowLiver, type='n',
        main="flowLiver ~ volLiver")
   abline(a=0, b=1, col='gray')
-  plot(volLiver, flowLiver, xlim=lim$volLiver, ylim=lim$flowLiver,
-       xlab=lab$volLiver, ylab=lab$flowLiver)
-  rug(volLiver, side=1)
-  rug(flowLiver, side=2)
+  points(vol, flow, pch=21, bg=rgb(0,0,0, 0.1), col="black", cex=1*data/max(data))
+  # rugs
+  rug(vol, side=1)
+  rug(flow, side=2)
+  # additional histograms
+  max.value=400
+  hx <- hist(vol, plot=FALSE)
+  hx <- scale_density(hx, max.value=max.value)
+  plot(hx, freq=FALSE, col=rgb(0,0,0,0.3), add=TRUE)
+  
+  hy <- hist(flow, plot=FALSE)
+  hy <- scale_density(hy, max.value=max.value)
+  plot(hy, freq=FALSE, col=rgb(0,0,0,0.3), add=TRUE)
+    
+  # additional boxplot
+  # add the means 
+  points(mean(vol), mean(flow), bg='blue', col='black', pch=22, cex=2)
   
 }
-
 index <- 1
 person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
-vol_flow_figure(volLiver=volLiver[index,], flowLiver=flowLiver[index, ], person)
+vol_flow_figure(vol=volLiver[index,], flow=flowLiver[index, ], data=GEC[index, ], person)
 
+
+lines(density(volLiver[index, ]), col="red", lwd=3)
 
 for (k in 1:10){
   #png(filename=sprintf("/home/mkoenig/Desktop/data/NHANES_GEC_range_%s.png", k), width=1000, height=1000, 
