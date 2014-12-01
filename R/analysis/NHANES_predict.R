@@ -79,6 +79,22 @@ GEC.q <- calc_quantiles(GEC)
 GECkg.q <- calc_quantiles(GECkg)
 colnames(GEC.q)
 ##
+# Set NHANES volLiver and flowLiver to median
+nhanes$volLiver <- volLiver.q[, '50%']
+nhanes$flowLiver <- flowLiver.q[, '50%']
+nhanes$GEC <- GEC.q[, '50%']
+nhanes$GECkg <- GECkg.q[, '50%']
+
+nhanes$volLiver <- volLiver[, 1]
+nhanes$flowLiver <- flowLiver[, 1]
+nhanes$GEC <- GEC[, 1]
+nhanes$GECkg <- GECkg[, 1]
+dim(GEC)
+
+head(nhanes)
+save(nhanes, file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_GEC.Rdata'))
+##
+
 
 ## Create some plots ##
 ind.male <- (nhanes$sex == 'male')
@@ -101,7 +117,7 @@ segments(x0=x0, y0=y0, x1=x0, y1=y1, col=rgb(0,0,1, 0.1) )
 
 # flowLiver vs. volLiver
 plot(volLiver.q[,'50%'], flowLiver.q[,'50%'], cex=0.3, xlim=c(0,2000), ylim=c(0,2000))
-plot(volLiver.q[ind.male,'50%'], flowLiver.q[ind.male,'50%'], col=rgb(0,0,1), cex=nhanes$age[ind.male]/100, xlim=c(0,400), ylim=c(0,400))
+plot(volLiver.q[ind.male,'50%'], flowLiver.q[ind.male,'50%'], col=rgb(0,0,1), cex=nhanes$age[ind.male]/100, xlim=c(400, 2000), ylim=c(400, 2000))
 points(volLiver.q[ind.female,'50%'], flowLiver.q[ind.female,'50%'], col=rgb(1,0,0), cex=nhanes$age[ind.female]/100)
 
 plot(volLiver[1,], flowLiver[1,], cex=0.3)
@@ -151,7 +167,7 @@ box <- boxplot(t(GEC[1:100, ]), notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, boxw
 
 
 # adapt the whiskers to [0.025, 0.975]
-range <- 1:3000
+range <- 1:100
 box <- boxplot(t(GEC[range, ]), notch=FALSE, range=0, ylim=c(0,5), xlim=c(0,100), plot=FALSE, at=nhanes$age[range])
 # Calcualte the quantiels
 box$stats <- apply(GEC[range, ], 1, quantile, c(0.025, 0.25, 0.5, 0.75, 0.975))
@@ -229,11 +245,14 @@ GEC_figure <- function(data, person){
 # Create the proper prediction for an individual person
 
 for (k in 1:10){
-  index <- k
+  png(filename=sprintf("/home/mkoenig/Desktop/data/NHANES_GEC_range_%s.png", k), width=1000, height=1000, 
+      units = "px", bg = "white",  res = 150)
+  index <- 2
   print(k)
   data <- GEC[index, ]
   person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
   GEC_figure(data=data, person)
+  dev.off()
   Sys.sleep(1)
 }
 
