@@ -144,8 +144,6 @@ scale_density <- function(h, max.value){
   h$density <- max.value/max(h$density) * h$density 
   return(h)
 }
-
-
 vol_flow_figure <- function(vol, flow, data, person){
   # empty plot
   plot(numeric(0), numeric(0), xlim=lim$volLiver, ylim=lim$flowLiver,
@@ -168,50 +166,31 @@ vol_flow_figure <- function(vol, flow, data, person){
     
   # additional boxplot
   # add the means 
-  points(mean(vol), mean(flow), bg='blue', col='black', pch=22, cex=2)
-  
+  points(mean(vol), mean(flow), bg='blue', col='black', pch=22, cex=2)  
 }
+
+# test the plots
 index <- 1
 person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
 vol_flow_figure(vol=volLiver[index,], flow=flowLiver[index, ], data=GEC[index, ], person)
 
 
-lines(density(volLiver[index, ]), col="red", lwd=3)
-
-for (k in 1:10){
+for (index in 1:30){
   #png(filename=sprintf("/home/mkoenig/Desktop/data/NHANES_GEC_range_%s.png", k), width=1000, height=1000, 
-      units = "px", bg = "white",  res = 150)
-  index <- k
-  print(k)
-  data <- GEC[index, ]
+  # units = "px", bg = "white",  res = 150)
   person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
-  GEC_figure(data=data, person)
-  dev.off()
-  Sys.sleep(1)
+  par(mfrow=c(1,2))
+  GEC_figure(data=GEC[index, ], person)
+  vol_flow_figure(vol=volLiver[index,], flow=flowLiver[index, ], data=GEC[index, ], person)
+  par(mfrow=c(1,1))  
+# dev.off()
+  
+  Sys.sleep(2)
 }
 
-
-
-# Create the proper prediction for an individual person
-
-for (k in 1:10){
-  png(filename=sprintf("/home/mkoenig/Desktop/data/NHANES_GEC_range_%s.png", k), width=1000, height=1000, 
-      units = "px", bg = "white",  res = 150)
-  index <- k
-  print(k)
-  data <- GEC[index, ]
-  person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
-  GEC_figure(data=data, person)
-  dev.off()
-  Sys.sleep(1)
-}
-
-
-
-
-
-
-
+############################################################################
+# Additional plots for analysis
+############################################################################
 
 ##
 # Set NHANES volLiver and flowLiver to median
