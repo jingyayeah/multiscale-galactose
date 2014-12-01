@@ -1,11 +1,13 @@
 ################################################################################
 # NHANES prediction 
 ################################################################################
-# Predicts the liver volumes, blood flows and metabolic functions for the
+# Predict liver volume, blood flow and metabolic functions for the
 # NHANES cohort. 
+# Based on the individual samples of blood flow an liver the GEC clearance
+# is calculated.
 #
 # author: Matthias Koenig
-# date: 2014-11-29
+# date: 2014-12-01
 ################################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
@@ -16,31 +18,33 @@ source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R')
 ##############################################################################
 # Predict NHANES liver volume & flow
 ##############################################################################
+# Predicting liver volume and blod flow
+Nsample <- 1000  # number of Monte Carlo predictions
+Ncores <- 11     # number of cores
+out_dir <- file.path(ma.settings$dir.base, 'results', 'nhanes')
 do_nhanes = FALSE
 if (do_nhanes){
-load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
-nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
-nhanes$volLiver <- NA
-nhanes$volLiverkg <- NA
-rm(data)
-head(nhanes)
+  # load empty NHANES data
+  load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
+  nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
+  nhanes$volLiver <- NA
+  nhanes$volLiverkg <- NA
+  rm(data)
+  head(nhanes)
 
-## predict liver volume and blood flow ##
-cat('# parallel #\n')
-set.seed(12345)
-ptm <- proc.time()
-# liver.info <- predict_liver_people(nhanes[1:20,], 1000, Ncores=4)
-
-liver.info <- predict_liver_people(nhanes, 1000, Ncores=11)
-# liver.info <- predict_liver_people(nhanes[1:100], 1000, Ncores=11)
-
-proc.time() - ptm
-save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
-# due to 
-volLiver <- liver.info$volLiver
-flowLiver <- liver.info$flowLiver
-save('volLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_volLiver.Rdata'))
-save('flowLiver', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_flowLiver.Rdata'))
+  # predict liver volume and blood flow
+  set.seed(12345)   # only working for serial simulations
+  ptm <- proc.time()
+  # liver.info <- predict_liver_people(nhanes[1:20,], 1000, Ncores=4)
+  liver.info <- predict_liver_people(nhanes, Nsample, Ncores=Ncores)
+  proc.time() - ptm
+  
+  # save the results
+  # save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
+  volLiver <- liver.info$volLiver
+  flowLiver <- liver.info$flowLiver
+  save('volLiver', file=file.path(out_dir, 'nhanes_volLiver.Rdata'))
+  save('flowLiver', file=file.path(out_dir, 'nhanes_flowLiver.Rdata'))
 }
 
 ##############################################################################
@@ -132,13 +136,19 @@ GEC_figure <- function(data, person){
   bxp(z=box, notch=FALSE, range=0, boxwex=0.1*p.max, ylim=c(0,5), horizontal=TRUE, add=TRUE, at=c(1.1*p.max), lty=1)
 }
 ############################################################################
-# Create personalized overview flowLiver ~ volLiver
+# Overview flowLiver ~ volLiver
 ############################################################################
 vol_flow_figure <- function(volLiver, flowLiver, person){
+  # empty plot
+  plot(numeric(0), numeric(0), xlim=lim$volLiver, ylim=lim$flowLiver,
+       xlab=lab$volLiver, ylab=lab$flowLiver, type='n',
+       main="flowLiver ~ volLiver")
   abline(a=0, b=1, col='gray')
   plot(volLiver, flowLiver, xlim=lim$volLiver, ylim=lim$flowLiver,
        xlab=lab$volLiver, ylab=lab$flowLiver)
-  rugs(volLiver)
+  rug(volLiver, side=1)
+  rug(flowLiver, side=2)
+  
 }
 
 index <- 1
