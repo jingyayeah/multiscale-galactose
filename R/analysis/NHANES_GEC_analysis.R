@@ -24,12 +24,14 @@ nhanes$flowLiver <- flowLiver.q[, '50%']
 nhanes$flowLiverkg <- nhanes$flowLiver/nhanes$bodyweight
 nhanes$GEC <- GEC.q[, '50%']
 nhanes$GECkg <- nhanes$GEC/nhanes$bodyweight
+nhanes$perfusion <- nhanes$flowLiver/nhanes$volLiver
 
 
 for (k in 1:5){
   nhanes[[sprintf('volLiverkg_sample_%d', k)]] <- nhanes[[sprintf('volLiver_sample_%d', k)]]/nhanes$bodyweight
   nhanes[[sprintf('flowLiverkg_sample_%d', k)]] <- nhanes[[sprintf('flowLiver_sample_%d', k)]]/nhanes$bodyweight
   nhanes[[sprintf('GECkg_sample_%d', k)]] <- nhanes[[sprintf('GEC_sample_%d', k)]]/nhanes$bodyweight
+  nhanes[[sprintf('perfusion_sample_%d', k)]] <- nhanes[[sprintf('flowLiver_sample_%d', k)]]/nhanes[[sprintf('volLiver_sample_%d', k)]]
 }
 # nhanes <- nhanes[, c('SEQN', 'ethnicity', 'sex', 'age', 'bodyweight', 'height', 'BSA',
 #                    'volLiver', 'flowLiver', 'GEC',
@@ -39,23 +41,25 @@ for (k in 1:5){
 head(nhanes)
 
 ################################################################################
+if (!exists('dataset')){
 # dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
 
 # dataset <- 'volLiver_age'
 # dataset <- 'volLiverkg_age'
-dataset <- 'volLiver_bodyweight'
+# dataset <- 'volLiver_bodyweight'
 # dataset <- 'volLiver_height'
-#dataset <- 'volLiver_BSA'
+# dataset <- 'volLiver_BSA'
 
 # dataset <- 'flowLiver_volLiver'
 # dataset <- 'flowLiverkg_volLiver'
 # dataset <- 'flowLiver_age'
 # dataset <- 'flowLiverkg_age'
 # dataset <- 'flowLiverkg_bodyweight'
-#dataset <- 'perfusion_age'
+ dataset <- 'perfusion_age'
 
 # dataset <- 'volLiver_flowLiver'
+}
 ################################################################################
 # Plot helpers
 name.parts <- strsplit(dataset, '_')
@@ -67,11 +71,8 @@ xlim <- lim[[xname]]; ylim <- lim[[yname]]
 main <- sprintf('%s vs. %s', yname, xname)
 
 # Plot to file
-create_plots = FALSE
+create_plots = TRUE
 startDevPlot <- function(width=2000, height=1000, file=NULL){
-  if (is.null(file)){
-    file <- file.path(ma.settings$dir.base, 'results', sprintf('%s_%s_regression.png', yname, xname))
-  }
   if (create_plots == T) { 
     print(file)
     png(filename=file, width=width, height=height, 
@@ -117,7 +118,7 @@ rm(data)
 #######################################################
 # Plot basic data overview
 #######################################################
-create_plots = F
+create_plots = T
 # sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", xname, yname)
 startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", yname, xname))
 par(mfrow=c(1,3))
@@ -139,19 +140,20 @@ for (k in 1:3){
   plot(d[, xname], d[, yname], type='n',
        main=sprintf('%s', df.names[k]), xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, font.lab=2, cex.lab=1.0)
   
-  # mean nhanes of Monte Carlo or experimental data
-  points(nhanes.d[[xname]], nhanes.d[[yname]], col="black", bg="black", pch=21, cex=0.2)
+
   # plot individual samples
   for (k in 1:5){
     name <- sprintf('%s_sample_%d', yname, k)
     if (name %in% colnames(nhanes))
       points(nhanes.d[[xname]], nhanes.d[[name]], col="red", bg="red", pch=21, cex=0.2)
   }
+  # mean nhanes of Monte Carlo or experimental data
+  points(nhanes.d[[xname]], nhanes.d[[yname]], col="black", bg="black", pch=21, cex=0.2)
   
   # plot experimental data points
   inds.in <- which(d$dtype == 'individual')
   #points(d[inds.in, xname], d[inds.in, yname], col='blue', bg='blue', pch=21)
-  points(d[inds.in, xname], d[inds.in, yname], col=rgb(1,1,1), bg=rgb(0,0,1, 0.5), pch=21, cex=0.5)
+  points(d[inds.in, xname], d[inds.in, yname], col=rgb(1,1,1), bg=rgb(0,0,1, 1.0), pch=21, cex=0.8)
   
   legend('bottomright', bty="n", cex=0.8, legend=c('NHANES single prediction','NHANES mean prediction', 'experimental data'), 
          col=c('red', 'black', 'white'), pt.bg=c('red', 'black', 'blue'), pch=c(21,21,21), pt.cex=c(0.5, 0.5, 1)) 
