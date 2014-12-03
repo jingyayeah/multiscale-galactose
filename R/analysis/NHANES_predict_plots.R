@@ -85,6 +85,8 @@ scale_density <- function(h, max.value){
   h$density <- max.value/max(h$density) * h$density 
   return(h)
 }
+
+# scatterplot of liver volumes & blood flows
 vol_flow_figure <- function(vol, flow, data, person){
   # empty plot
   plot(numeric(0), numeric(0), xlim=lim$volLiver, ylim=lim$flowLiver,
@@ -97,39 +99,45 @@ vol_flow_figure <- function(vol, flow, data, person){
   rug(flow, side=2)
   # additional histograms
   max.value=400
-  hx <- hist(vol, plot=FALSE)
+  col.hist <- rgb(0,0,0, 0.3); breaks <- 20;
+  hx <- hist(vol, plot=FALSE, breaks=breaks)
   hx <- scale_density(hx, max.value=max.value)
-  plot(hx, freq=FALSE, col=rgb(0,0,0,0.3), add=TRUE)
+  plot(hx, freq=FALSE, col=col.hist, add=TRUE)
   
-  hy <- hist(flow, plot=FALSE)
+  hy <- hist(flow, plot=FALSE, breaks=breaks)
   hy <- scale_density(hy, max.value=max.value)
-  plot(hy, freq=FALSE, col=rgb(0,0,0,0.3), add=TRUE)
+  Nhist = length(hy$density)
+  rect(ybottom=hy$breaks[1:Nhist], xleft=0, ytop=hy$breaks[2:(Nhist+1)], xright=hy$density, col=col.hist)
+  
   
   # additional boxplot
   # add the means 
   points(mean(vol), mean(flow), bg='blue', col='black', pch=22, cex=2)  
 }
 
-# test the plots
-# index <- 1
-# person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
-# vol_flow_figure(vol=volLiver[index,], flow=flowLiver[index, ], data=GEC[index, ], person)
+# full combined plot of the information
+full_plot <- function(person, data, vol, flow){
+  par(mfrow=c(1,2))
+  GEC_figure(data=GEC[index, ], person)
+  vol_flow_figure(vol=volLiver[index,], flow=flowLiver[index, ], data=GEC[index, ], person)
+  par(mfrow=c(1,1))
+}
+index <- 1
+person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
+full_plot(person, data=GEC[index, ], vol=volLiver[index, ], flow=flowLiver[index, ])
 
 
 dir <- file.path(ma.settings$dir.base, 'results', 'nhanes', 'plots')
 # for (index in 1:nrow(nhanes)) {
 for (index in 1:100) {
-  person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
-  
+  fname <- sprintf("%s/NHANES_GEC_range_%04i.png", dir, index)
+  cat(fname, '\n')
+  png(filename=fname, width=2000, height=1000, units = "px", bg = "white",  res = 150)
   # create figure
-  png(filename=sprintf("%s/NHANES_GEC_range_%04i.png", dir, index), width=2000, height=1000, units = "px", bg = "white",  res = 150)
-  par(mfrow=c(1,2))
-  GEC_figure(data=GEC[index, ], person)
-  vol_flow_figure(vol=volLiver[index,], flow=flowLiver[index, ], data=GEC[index, ], person)
-  par(mfrow=c(1,1))  
-  dev.off()
+  person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
+  full_plot(person, data=GEC[index, ], vol=volLiver[index, ], flow=flowLiver[index, ]) 
   
-  # Sys.sleep(2)
+  dev.off()
 }
 
 ############################################################################
