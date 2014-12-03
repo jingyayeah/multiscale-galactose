@@ -29,7 +29,7 @@ nhanes$BSA <- 0.007184 * nhanes$BMXHT^0.725 * nhanes$BMXWT^0.425
 #   25.0 – 29.9	Overweight
 #   30.0 and Above	Obese
 # bmi.sel <- (nhanes$BMXBMI >= 18.5) & (nhanes$BMXBMI <= 24.9)
-bmi.sel <- (nhanes$BMXBMI < 30)
+bmi.sel <- (nhanes$BMXBMI <= 30) 
 eth.sel <- (nhanes$RIDRETH1 == "Non-Hispanic White")
 na.sel <- !is.na(nhanes$RIDAGEYR) & !is.na(nhanes$RIAGENDR) & !is.na(nhanes$BMXBMI) & !is.na(nhanes$BMXWT) & !is.na(nhanes$BMXHT)
 sel <- bmi.sel & eth.sel & na.sel
@@ -45,9 +45,9 @@ data$bodyweight <- data$BMXWT
 data$height <- data$BMXHT
 data$ethnicity <- data$RIDRETH1
 head(data)
-
 save('data', file='nhanes/nhanes_data.Rdata')
-nrow(nhanes)
+nrow(data)
+
 
 ####################################
 ## Plotting data                  ##

@@ -32,20 +32,22 @@ if (do_nhanes){
   nhanes$volLiverkg <- NA
   rm(data)
   head(nhanes)
-
+  nrow(nhanes)
+  
   # predict liver volume and blood flow
   set.seed(12345)   # only working for serial simulations
   ptm <- proc.time()
-  # liver.info <- predict_liver_people(nhanes[1:20,], 1000, Ncores=4)
+  # liver.info <- predict_liver_people(nhanes[1:10,], 1000, Ncores=4)
   liver.info <- predict_liver_people(nhanes, Nsample, Ncores=Ncores)
-  proc.time() - ptm
+  time <- proc.time() - ptm
+  print(time)
   
   # save the results
   # save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
   volLiver <- liver.info$volLiver
   flowLiver <- liver.info$flowLiver
-  save('volLiver', file=file.path(out_dir, 'nhanes_volLiver.Rdata'))
-  save('flowLiver', file=file.path(out_dir, 'nhanes_flowLiver.Rdata'))
+  # save('volLiver', file=file.path(out_dir, 'nhanes_volLiver.Rdata'))
+  #save('flowLiver', file=file.path(out_dir, 'nhanes_flowLiver.Rdata'))
 }
 
 ##############################################################################

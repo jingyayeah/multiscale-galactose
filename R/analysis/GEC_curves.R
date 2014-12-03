@@ -13,10 +13,8 @@
 # Samples are integrated, i.e. the mean response and variations
 # are calculated for a given set of sinusoidal units.
 #
-# TODO: perform postprocessing directly after the simulation
-#
 # author: Matthias Koenig
-# date: 2014-11-11
+# date: 2014-11-30
 ################################################################
 rm(list=ls())
 setwd(ma.settings$dir.results)
@@ -31,7 +29,7 @@ t_end <- 10000 # [s]
 
 # Dataset for analyis
 if(!exists('folder')){
-  folder <- '2014-11-23_T9' # normal galactose challenge
+  folder <- '2014-11-30_T1' # normal galactose challenge
 }
 cat('GEC curves: ', folder, '\n')
 
