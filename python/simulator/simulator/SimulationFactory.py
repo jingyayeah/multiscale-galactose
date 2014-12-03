@@ -268,7 +268,6 @@ def make_galactose_flow(sbml_id, N, sampling):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-
 def make_galactose_aging(sbml_id, N, sampling):        
     info = 'Galactose clearance under given perfusion for different age({}).'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
@@ -297,6 +296,32 @@ def make_galactose_aging(sbml_id, N, sampling):
 
     return (task, samples)
 
+#----------------------------------------------------------------------#
+def make_galactose_metabolic_change(sbml_id, N, sampling):        
+    info = 'Galactose clearance under given perfusion for different metabolic capacity ({}).'.format(sampling)
+    model = create_django_model(sbml_id, sync=True)
+    
+    # adapt flow in samples with the given f_flows
+    f_flows = (1.0, 0.7, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1, 0.05, 0.01)
+    raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
+    
+    # only test max GEC
+    gal_challenge = (8.0,)
+    samples = setParameterValuesInSamples(raw_samples, 
+                [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'ptype':GLOBAL_PARAMETER}])
+    
+    # age represents : [20, 40, 60, 80, 100]
+    scale_f = [5.3E-15*x for x in [0.75, 0.9, 1, 1.1, 1.25]]  # [-]
+    p_list = [ {'pid': 'scale_f', 'values': scale_f, 'unit': '-', 'ptype':GLOBAL_PARAMETER}, ]
+    samples = setParameterValuesInSamples(samples, p_list)
+    
+    # simulations
+    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
+    integration = Integration.get_or_create_integration(settings)
+    task = create_task(model, integration, info=info)
+    createSimulationsForSamples(task, samples)
+
+    return (task, samples)
 
 
 
@@ -368,7 +393,7 @@ if __name__ == "__main__":
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
@@ -378,6 +403,18 @@ if __name__ == "__main__":
         
         # mean sinusoidal unit
         task, samples = make_galactose_aging(sbml_id, N=0, sampling='mean')
+   
+    #----------------------------------------------------------------------#
+    if (1):
+        ''' GEC curves under different metabolic capacity of galactose metabolism. 
+            Change in the maximal scale of metabolism
+        '''
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
+        # sample from distribution & add additional changes in aging
+        task, samples = make_galactose_metabolic_change(sbml_id, N=50, sampling='distribution')
+        
+        # mean sinusoidal unit
+        task, samples = make_galactose_metabolic_change(sbml_id, N=0, sampling='mean')
    
     #----------------------------------------------------------------------#
     if (0):
