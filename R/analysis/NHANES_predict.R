@@ -23,7 +23,7 @@ source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 Nsample <- 1000  # number of Monte Carlo predictions
 Ncores <- 11     # number of cores
 out_dir <- file.path(ma.settings$dir.base, 'results', 'nhanes')
-do_nhanes = FALSE
+do_nhanes = TRUE
 if (do_nhanes){
   # load empty NHANES data
   load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))

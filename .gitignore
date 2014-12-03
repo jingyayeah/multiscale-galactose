@@ -9,6 +9,10 @@ R/MultiscaleAnalysis/.Rhistory
 python/simulator/.settings
 python/modelcreator/.settings
 
+results/nhanes/backup
+results/nhanes/nhanes_flowLiver.Rdata
+results/nhanes/nhanes_volLiver.Rdata
+
 *.Rhistory
 .~*
 *.sh~
