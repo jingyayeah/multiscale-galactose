@@ -11,12 +11,16 @@
 
 # different styles for main gender classes
 gender.levels <- c('all', 'male', 'female')
-gender.cols = c(rgb(0,0,0, alpha=0.5), rgb(0,0,1, alpha=0.5), rgb(1,0,0, alpha=0.5))
+
 gender.base_cols = c(rgb(0,0,0, alpha=1.0), rgb(0,0,1, alpha=1.0), rgb(1,0,0, alpha=1.0))
+gender.cols = c(rgb(0,0,0, alpha=0.5), rgb(0,0,1, alpha=0.5), rgb(1,0,0, alpha=0.5))
+gender.cols_light = c(rgb(0,0,0, alpha=0.1), rgb(0,0,1, alpha=0.1), rgb(1,0,0, alpha=0.1))
+
 gender.symbols = c(21, 22, 23)
 names(gender.levels) <- gender.levels
 names(gender.cols) <- gender.levels
 names(gender.base_cols) <- gender.levels
+names(gender.cols_light) <- gender.levels
 names(gender.symbols) <- gender.levels
 
 # Axis labels
