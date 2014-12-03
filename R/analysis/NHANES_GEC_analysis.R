@@ -1,4 +1,14 @@
-rm(list = ls())
+################################################################################
+# Create NHANES figures with predicted data
+################################################################################
+# Create figure for the NHANES simulation in combination with the experimental
+# data.
+#
+# author: Matthias Koenig
+# date: 2014-12-03
+################################################################################
+
+# rm(list = ls())
 library('MultiscaleAnalysis')
 library('methods')
 setwd(ma.settings$dir.base)
@@ -120,7 +130,8 @@ rm(data)
 #######################################################
 create_plots = T
 # sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", xname, yname)
-startDevPlot(width=2000, height=1000, file=sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", yname, xname))
+png.file <- file.path(ma.settings$dir.base, 'results', sprintf("nhanes_%s_%s.png", yname, xname))
+startDevPlot(width=2000, height=1000, file=png.file)
 par(mfrow=c(1,3))
 for (k in 1:3){
   if (k==1){ 
