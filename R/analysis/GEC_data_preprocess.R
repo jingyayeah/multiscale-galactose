@@ -230,9 +230,12 @@ outliers.3 <- which((hei1999$BSA_DuBois<0.5) & (hei1999$liverWeight/hei1999$body
 outliers <- c(outliers.1, outliers.2, outliers.3)
 hei1999 <- hei1999[-outliers, ]
 rm(outliers.1, outliers.2, outliers.3)
-# remove the overweight and obese people, i.e. only BMI <25 
-hei1999 <- hei1999[hei1999$BMI<30, ]
+# remove the obese people, i.e. only BMI <25 
+hei1999 <- hei1999[hei1999$BMI<30.0, ]
 saveRawData(hei1999)
+head(hei1999)
+plot(hei1999$bodyweight, hei1999$volLiver, xlim=c(0,100))
+
 
 # age [years], sex [M,F], cardiac_output [L/min], liver blood flow [L/min]
 # liver blood flow estimated via cardia output

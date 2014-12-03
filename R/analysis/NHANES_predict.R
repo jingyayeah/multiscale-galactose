@@ -91,11 +91,13 @@ GECkg.q <- calc_quantiles(GECkg)
 #   nhanes[[sprintf('GEC_%s', name)]]  <- GEC.q[, name]
 #   nhanes[[sprintf('GECkg_%s', name)]]  <- GECkg.q[, name]
 # }
-# store one random sample in addition
-nhanes$volLiver_sample <- volLiver[, 1]
-nhanes$flowLiver_sample <- flowLiver[, 1]
-nhanes$GEC_sample <- GEC[, 1]
-nhanes$GECkg_sample <- GECkg[, 1]
+# store some random samples in addition
+for (k in 1:5){
+  nhanes[[sprintf('volLiver_sample_%d', k)]] <- volLiver[, k]
+  nhanes[[sprintf('flowLiver_sample_%d', k)]] <- flowLiver[, k]
+  nhanes[[sprintf('GEC_sample_%d', k)]] <- GEC[, k]
+  nhanes[[sprintf('GECkg_sample_%d', k)]] <- GECkg[, k]
+}
 
 head(nhanes)
 save(nhanes, volLiver.q, flowLiver.q, GEC.q, GECkg.q, file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_GEC_quantiles.Rdata'))
