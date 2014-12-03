@@ -406,11 +406,7 @@ predict_liver_people <- function(people, Nsample, Ncores=1){
   
   workerFunc <- function(i){
     # predict_liver_person(people[i, ], Nsample)
-<<<<<<< HEAD
-    cat(sprintf('%1.2f\n', i/Np))
-=======
-    cat(i, '\n')
->>>>>>> cd9a23ce0c05d8af4892f3e00d39bff6de6b53c5
+    cat(sprintf('%1.3f\n', i/Np))
     predict_liver_person.fast(as.list(people[i, ]), Nsample)
   }
   
