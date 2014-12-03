@@ -282,8 +282,9 @@ def make_galactose_aging(sbml_id, N, sampling):
     samples = setParameterValuesInSamples(raw_samples, 
                 [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'ptype':GLOBAL_PARAMETER}])
     
-    y_end = [165E-9*x for x in [1, 1.375, 1.75, 3.5]]  # [nm]
-    N_fen = [1E13*x for x in [1, 0.5, 0.25, 0.125]]  # [1/m^2]
+    # age represents : [20, 40, 60, 80, 100]
+    y_end = [165E-9*x for x in [1, 1.375, 1.75, 2.125, 2.5]]  # [nm]
+    N_fen = [1E13*x for x in [1, 0.5, 0.25, 0.125, 0.0625]]  # [1/m^2]
     p_list = [ {'pid': 'y_end', 'values': y_end, 'unit': 'nm', 'ptype':GLOBAL_PARAMETER},
                    {'pid': 'N_fen', 'values': N_fen, 'unit': 'per_m2', 'ptype':GLOBAL_PARAMETER}]
     samples = setParameterValuesInSamples(samples, p_list)
@@ -355,7 +356,7 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         GEC curves.
         Galactose elimination under different flow distributions (scaled).
@@ -367,13 +368,13 @@ if __name__ == "__main__":
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution & add additional changes in aging
-        task, samples = make_galactose_aging(sbml_id, N=49, sampling='distribution')
+        task, samples = make_galactose_aging(sbml_id, N=50, sampling='distribution')
         
         # mean sinusoidal unit
         task, samples = make_galactose_aging(sbml_id, N=0, sampling='mean')

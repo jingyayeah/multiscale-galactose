@@ -46,6 +46,7 @@ if (do_nhanes){
   # save('nhanes', 'liver.info', file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_liver.Rdata'))
   volLiver <- liver.info$volLiver
   flowLiver <- liver.info$flowLiver
+  cat('* Saving data *\n')
   save('volLiver', file=file.path(out_dir, 'nhanes_volLiver.Rdata'))
   save('flowLiver', file=file.path(out_dir, 'nhanes_flowLiver.Rdata'))
 }
