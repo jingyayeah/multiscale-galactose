@@ -1,11 +1,12 @@
 ################################################################################
 # Predict volLiver, flowLiver, volLiverkg, flowLiverkg, GEC & GECkg
 ################################################################################
-# Use the prediction methods to predict the data.
-# TOOD: volLiverkg & flowLiverkg prediction from data
+# Prediction of individual GEC data. 
+# Here the methods are applied to datasets which are combinations of 
+# antropomorphic information and GEC or GECkg measurements.
 #
 # author: Matthias Koenig
-# date: 2014-11-20
+# date: 2014-12-03
 ################################################################################
 
 # Load all the necessary functions for predictions
@@ -20,13 +21,12 @@ source(file.path(ma.settings$dir.code, 'analysis', 'GEC_predict_functions.R'))
 GEC_f <- GEC_functions(task='T54')
 
 
-
 ########################################################################################
 # Predict additional GEC data [mmol/min] & GECkg [mmol/min/kg]
 ########################################################################################
 loadRawData <- function(name, dir=NULL){
   if (is.null(dir)){
-    dir <- file.path(ma.settings$dir.expdata, "processed")
+    dir <- file.path(ma.settings$dir.base, 'results', 'raw')
     print(dir)
   }
   r_fname <- file.path(dir, sprintf('%s.Rdata', name))
@@ -35,22 +35,15 @@ loadRawData <- function(name, dir=NULL){
   return(data)
 }
 
-# predict GEC for full data frame
-predict_GEC <- function(df){
-  for (k in 1:nrow(df)){
-    df[k,] <- predict_GEC_row(df[k,]) 
-  }
-  return(df)
-}
-
 # predict GEC for single row 
 # The distributions have to be calculated only once. Than fast rejection sampling
 # can be done on the distributions.
 predict_GEC_row <- function(row){
   if (is.na(row$sex)){
-   row$sex = 'all' 
+    row$sex = 'all' 
   }
   
+  ## TODO: use the new prediction functions
   # predict the liver volume
   if (is.na(row$volLiver.exp)){
     cat('* Predict Liver Volume *\n')
@@ -75,41 +68,40 @@ predict_GEC_row <- function(row){
   } else {
     row$flowLiver.pre <- row$flowLiver.exp 
   }
-
+  
   # predict liver volume per bodyweight
   if (is.na(row$volLiverkg.exp)){
-      if ( (!is.na(row$volLiver.pre)) & (!is.na(row$bodyweight))){
-        # if bodyweight available use it
-        row$volLiverkg.pre <- row$volLiver.pre/row$bodyweight   
-      } else {
-        cat('* Predict Liver Volume per Bodyweight *\n')
-        # get the combined distribution for the liver volumes
-        f_d1 <- f_d.volLiverkg.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, height=row$height, BSA=row$BSA)
+    if ( (!is.na(row$volLiver.pre)) & (!is.na(row$bodyweight))){
+      # if bodyweight available use it
+      row$volLiverkg.pre <- row$volLiver.pre/row$bodyweight   
+    } else {
+      cat('* Predict Liver Volume per Bodyweight *\n')
+      # get the combined distribution for the liver volumes
+      f_d1 <- f_d.volLiverkg.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, height=row$height, BSA=row$BSA)
       # rejection sampling
       rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1,100))
       row$volLiverkg.pre <- rs1$values[1]  
-      }
+    }
   } else {
-      row$volLiverkg.pre <- row$volLiverkg.exp 
+    row$volLiverkg.pre <- row$volLiverkg.exp 
   }
   
   # predict liver bloodflow per bodyweight
   if (is.na(row$volLiverkg.exp)){
-      if ( (!is.na(row$flowLiver.pre)) & (!is.na(row$bodyweight))){
-          # if bodyweight available use it
-          row$flowLiverkg.pre <- row$flowLiver.pre/row$bodyweight   
-      } else {
-          cat('* Predict Liver Blood flow per Bodyweight *\n')
-         
-          f_d1 <- f_d.flowLiverkg.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, height=row$height, BSA=row$BSA, volLiverkg=row$volLiverkg.pre)
-          # rejection sampling
-          rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1,100))
-          row$flowLiverkg.pre <- rs1$values[1]  
-      }
+    if ( (!is.na(row$flowLiver.pre)) & (!is.na(row$bodyweight))){
+      # if bodyweight available use it
+      row$flowLiverkg.pre <- row$flowLiver.pre/row$bodyweight   
+    } else {
+      cat('* Predict Liver Blood flow per Bodyweight *\n')
+      
+      f_d1 <- f_d.flowLiverkg.c(sex=row$sex, age=row$age, bodyweight=row$bodyweight, height=row$height, BSA=row$BSA, volLiverkg=row$volLiverkg.pre)
+      # rejection sampling
+      rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=1, interval=c(1,100))
+      row$flowLiverkg.pre <- rs1$values[1]  
+    }
   } else {
-      row$flowLiverkg.pre <- row$flowLiverkg.exp 
+    row$flowLiverkg.pre <- row$flowLiverkg.exp 
   }
-  
   
   # predict GEC
   cat('* Predict GEC *\n')
@@ -128,6 +120,15 @@ predict_GEC_row <- function(row){
   
   return (row)
 }
+
+# predict GEC for full data frame
+predict_GEC <- function(df){
+  for (k in 1:nrow(df)){
+    df[k,] <- predict_GEC_row(df[k,]) 
+  }
+  return(df)
+}
+
 
 # prepare one common data frame for prediction
 prepare_df <- function(data){
@@ -175,6 +176,7 @@ plot_GECkg <- function(df, main, xlim=c(0,0.10)){
   abline(h=0, col='black')
   par(mfrow=c(1,1))
 }
+
 plot_GEC_age <- function(df, main, ylim=c(0,7)){
   plot(df$age, df$GEC.pre, main=main, ylim=ylim, pch=21, col='black', bg=rgb(0, 0, 0, 0.5),
        xlab='age [years]', ylab='GEC predicted [mmol/min]', font.lab=2)
@@ -203,6 +205,8 @@ predict_GEC_for_name <- function(name){
   name.p <- paste(name, '.p', sep='')
   assign(name, loadRawData(name))
   assign(name.pre, prepare_df( get(name)) )
+  print(head(get(name.pre)))
+  
   assign(name.p, predict_GEC( get(name.pre)) )
   
   par(mfrow=c(2,2))
