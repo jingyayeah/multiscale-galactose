@@ -12,6 +12,8 @@ python/modelcreator/.settings
 results/nhanes/backup
 results/nhanes/nhanes_flowLiver.Rdata
 results/nhanes/nhanes_volLiver.Rdata
+results/nhanes/nhanes_GEC.Rdata
+results/nhanes/nhanes_GECkg.Rdata
 
 *.Rhistory
 .~*
