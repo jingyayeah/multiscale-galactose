@@ -115,6 +115,7 @@ vol_flow_figure <- function(vol, flow, data, person){
   points(mean(vol), mean(flow), bg='blue', col='black', pch=22, cex=2)  
 }
 
+
 vol_model_figure <- function(person){
  # plot the model information underlying the volume prediction
  # TODO : generate the plot
@@ -135,9 +136,6 @@ full_plot <- function(person, data, vol, flow){
 index <- 1
 person <- with(nhanes[index, ], list(sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA))
 full_plot(person, data=GEC[index, ], vol=volLiver[index, ], flow=flowLiver[index, ])
-#
-
-
 
 
 dir <- file.path(ma.settings$dir.base, 'results', 'nhanes', 'plots')
@@ -261,7 +259,6 @@ bxp(z=box, notch=FALSE, range=0, xlim=c(0,110), ylim=c(0,0.10), horizontal=FALSE
 # head(nhanes)
 # plot(nhanes$age, nhanes$flowLiver)
 
-=======
   # plot(nhanes$age, nhanes$volLiver, cex=0.3, pch=21)
   # 
   # plot(liver.info$volLiver[1,], liver.info$flowLiver[1,], xlim=c(0,2000), ylim=c(0,2000), cex=0.2)

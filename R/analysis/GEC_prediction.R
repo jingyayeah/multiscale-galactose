@@ -20,7 +20,6 @@ source(file.path(ma.settings$dir.code, 'analysis', 'GEC_predict_functions.R'))
 
 GEC_f <- GEC_functions(task='T54')
 
-
 ########################################################################################
 # Predict additional GEC data [mmol/min] & GECkg [mmol/min/kg]
 ########################################################################################
