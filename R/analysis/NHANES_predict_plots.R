@@ -248,8 +248,6 @@ bxp(z=box, notch=FALSE, range=0, xlim=c(0,110), ylim=c(0,0.10), horizontal=FALSE
 
 
 
-
-
 # nhanes$GEC <- GEC$GEC
 # head(nhanes)
 # nhanes$GECkg <- nhanes$GEC/nhanes$bodyweight
