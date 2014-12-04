@@ -29,7 +29,7 @@ t_end <- 10000 # [s]
 
 # Dataset for analyis
 if(!exists('folder')){
-  folder <- '2014-11-30_T1' # normal galactose challenge
+  folder <- '2014-12-03_T5' # normal galactose challenge
 }
 cat('GEC curves: ', folder, '\n')
 
