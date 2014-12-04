@@ -164,7 +164,7 @@ for (k in 1:3){
   # plot experimental data points
   inds.in <- which(d$dtype == 'individual')
   #points(d[inds.in, xname], d[inds.in, yname], col='blue', bg='blue', pch=21)
-  points(d[inds.in, xname], d[inds.in, yname], col=rgb(1,1,1), bg=rgb(0,0,1, 1.0), pch=21, cex=0.8)
+  points(d[inds.in, xname], d[inds.in, yname], col=rgb(1,1,1), bg=rgb(0,0,1, 1.0), pch=21, cex=1.2)
   
   legend('bottomright', bty="n", cex=0.8, legend=c('NHANES single prediction','NHANES mean prediction', 'experimental data'), 
          col=c('red', 'black', 'white'), pt.bg=c('red', 'black', 'blue'), pch=c(21,21,21), pt.cex=c(0.5, 0.5, 1)) 

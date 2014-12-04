@@ -115,19 +115,6 @@ vol_flow_figure <- function(vol, flow, data, person){
   points(mean(vol), mean(flow), bg='blue', col='black', pch=22, cex=2)  
 }
 
-
-source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
-vol_model_figure <- function(person){
- # plot the model information underlying the volume prediction
- # TODO : generate the plot
-  # get the information from person
-  liver.info <- predict_liver_people(nhanes, Nsample, Ncores=Ncores)
-  
-  
-  
-}
-
-
 # full combined plot of the information
 full_plot <- function(person, data, vol, flow){
   par(mfrow=c(2,2))
@@ -143,6 +130,7 @@ person <- as.list(with(nhanes[index, ], data.frame(sex=sex, age=age, bodyweight=
 full_plot(person, data=GEC[index, ], vol=volLiver[index, ], flow=flowLiver[index, ])
 
 
+source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
 plot_fds <- function(f_d.info, interval){
   x <- seq(from=interval[1], to=interval[2], length.out=300)
 
@@ -163,20 +151,30 @@ plot_fds <- function(f_d.info, interval){
   y <- f_d.info$f_d(x)
   lines(x, y.max*y/max(y), type='l', col='black', lwd=4)
   
+#   y <- rep(0, length(x))
+#   Nf <- length(f_d.info$f_ds)
+#   for (k in seq.int(Nf)){
+#     y <- y + f_d.info$f_ds[[k]](x)
+#   }
+#   y <- y/Nf
+#   lines(x, y, type='l', col='black', lwd=4, lty=2)
+  
   # legend
   Nf <- length(f_d.info$f_ds)
   legend('topright', legend=names(f_d.info$f_ds), lty=1:Nf, 
          col=2:(Nf+1), cex=0.8, lwd=2)
 }
 
+par(mfrow=c(2,2))
 inds.old <- which(nhanes$age>80)
 head(inds.old)
 index <- inds.old[5]
 person <- as.list(with(nhanes[index, ], data.frame(sex=sex, age=age, bodyweight=bodyweight, 
                                                    height=height, BSA=BSA,
                                                    volLiver=NA, volLiverkg=NA)))
+person$sex <- 'male'
 
-par(mfrow=c(2,1))
+
 pars.volLiver <- f_d.volLiver.pars(person)
 f_d1 <- f_d.volLiver.c(pars=pars.volLiver)
 plot_fds(f_d1, interval=c(1,3000))
@@ -186,7 +184,10 @@ person$volLiver
 pars.flowLiver <- f_d.flowLiver.pars(person)
 f_d3 <- f_d.flowLiver.c(pars=pars.flowLiver)
 plot_fds(f_d3, interval=c(1,3000))
-par(mfrow=c(2,1))
+
+
+
+par(mfrow=c(1,1))
 
 pars.flowLiver <- f_d.flowLiver.pars2(person)
 f_d3 <- f_d.flowLiver.c(pars=pars.flowLiver)

@@ -160,12 +160,14 @@ f_d.combined <- function(x, pars, yname){
 f_d.volLiver.pars <- function(person){ 
   pars = list()
   # volLiver 
-  for(xname in c('age', 'bodyweight', 'height', 'BSA')){
+  # for(xname in c('age', 'bodyweight', 'height', 'BSA')){
+  for(xname in c('age', 'bodyweight', 'height')){
     name <- sprintf('volLiver_%s', xname)
     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
   }
   # volLiverkg
-  for(xname in c('age', 'bodyweight', 'height', 'BSA')){
+  # for(xname in c('age', 'bodyweight', 'height', 'BSA')){
+  for(xname in c('age')){
     name <- sprintf('volLiverkg_%s', xname)
     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
   }
@@ -181,7 +183,8 @@ f_d.volLiver.c <- function(x, pars){
 f_d.volLiverkg.pars <- function(person){ 
   pars = list()
   # volLiverkg
-  for(xname in c('age', 'bodyweight', 'height', 'BSA')){
+  for(xname in c('age', 'bodyweight', 'height')){
+  # for(xname in c('age', 'bodyweight', 'height', 'BSA')){
     name <- sprintf('volLiverkg_%s', xname)
     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
   }
@@ -205,6 +208,7 @@ f_d.flowLiver.pars <- function(person){
   # flowliverkg
   # for(xname in c('age', 'bodyweight', 'BSA')){
   for(xname in c('age')){
+  # for(xname in c('age')){
     name <- sprintf('flowLiverkg_%s', xname)
     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
   }

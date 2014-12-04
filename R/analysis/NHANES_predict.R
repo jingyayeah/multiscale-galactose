@@ -59,6 +59,7 @@ if (do_nhanes){
 cat('----------------------------------------------------------\n')
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
 nhanes <- data; rm(data)
+nhanes <- nhanes[1:1000, ]
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_volLiver.Rdata'))
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_flowLiver.Rdata'))
 cat('# Liver Volume #')
@@ -75,8 +76,8 @@ GEC <- GEC$values
 m.bodyweight <- matrix(rep(nhanes$bodyweight, ncol(GEC)),
                        nrow=nrow(GEC), ncol=ncol(GEC))
 GECkg <- GEC/m.bodyweight
-save(GEC, file=file.path(out_dir, 'nhanes_GEC.Rdata'))
-save(GECkg, file=file.path(out_dir, 'nhanes_GECkg.Rdata'))
+save(GEC, file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_GEC.Rdata'))
+save(GECkg, file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_GECkg.Rdata'))
 
 
 # Calculation and settings of the quantiles for the data
