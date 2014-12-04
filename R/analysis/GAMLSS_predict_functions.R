@@ -151,7 +151,7 @@ f_d.combined <- function(x, pars, yname){
     values <- lapply(f_ds, function(f) f(x))
     y <- Reduce( "*", values, accumulate=FALSE )
   }
-  return( list(f_d=f_d.raw, f_ds=f_ds, pars) ) 
+  return( list(f_d=f_d.raw, f_ds=f_ds, pars=pars) ) 
 }
 
 ################################################################################
@@ -392,7 +392,7 @@ predict_liver_person <- function(person, Nsample){
 
 
 predict_liver_people <- function(people, Nsample, Ncores=1){
-  names <- colnames(people)
+  names <- names(people)
   if( !("sex" %in% names)) {warning("sex missing in data")}
   if( !("age" %in% names)) {warning("age missing in data")}
   if( !("bodyweight" %in% names)) {warning("bodyweight missing in data")}

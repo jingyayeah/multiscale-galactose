@@ -159,15 +159,60 @@ f <- function(x) {
 f(stop("This is an error!"))
 #> Error in force(x): This is an error!
 
-This is important when creating closures with lapply() or a loop:
-  
-  add <- function(x) {
+# This is important when creating closures with lapply() or a loop:
+add <- function(x) {
     function(y) x + y
-  }
+}
 adders <- lapply(1:10, add)
 adders[[1]](10)
 #> [1] 20
 adders[[10]](10)
 #> [1] 20
 
+# x is lazily evaluated the first time that you call one of the adder functions. At this point, the loop is complete and the final value of x is 10. Therefore all of the adder functions will add 10 on to their input, probably not what you wanted! Manually forcing evaluation fixes the problem:
+  
+add <- function(x) {
+    force(x)
+    function(y) x + y
+}
+adders2 <- lapply(1:10, add)
+adders2[[1]](10)
+#> [1] 11
+adders2[[10]](10)
+#> [1] 20
 
+# This code is exactly equivalent to
+add <- function(x) {
+  x
+  function(y) x + y
+}
+
+# More technically, an unevaluated argument is called a promise, or (less commonly) a thunk. A promise is made up of two parts:
+# The expression which gives rise to the delayed computation. (It can be accessed with substitute(). See non-standard evaluation for more details.)
+# The environment where the expression was created and where it should be evaluated.
+
+# The first time a promise is accessed the expression is evaluated in the environment where it was created. This value is cached, so that subsequent access to the evaluated promise does not recompute the value (but the original expression is still associated with the value, so substitute() can continue to access it). You can find more information about a promise using pryr::promise_info(). This uses some C++ code to extract information about the promise without evaluating it, which is impossible to do in pure R code.
+
+# Laziness is useful in if statements — the second statement below will be evaluated only if the first is true. If it wasn’t, the statement would return an error because NULL > 0 is a logical vector of length 0 and not a valid input to if.
+
+x <- NULL
+if (!is.null(x) && x > 0) {
+  
+}
+
+# There is a special argument called ... . This argument will match any arguments not otherwise matched, and can be easily passed on to other functions. This is useful if you want to collect arguments to call another function, but you don’t want to prespecify their possible names. ... is often used in conjunction with S3 generic functions to allow individual methods to be more flexible.
+
+# One relatively sophisticated user of ... is the base plot() function. plot() is a generic method with arguments x, y and ... . To understand what ... does for a given function we need to read the help: “Arguments to be passed to methods, such as graphical parameters”. Most simple invocations of plot() end up calling plot.default() which has many more arguments, but also has ... . Again, reading the documentation reveals that ... accepts “other graphical parameters”, which are listed in the help for par(). This allows us to write code like:
+  
+plot(1:5, col = "red")
+plot(1:5, cex = 5, pch = 20)
+
+# To capture ... in a form that is easier to work with, you can use list(...). (See capturing unevaluated dots for other ways to capture ... without evaluating the arguments.)
+
+f <- function(...) {
+  names(list(...))
+}
+f(a = 1, b = 2)
+#> [1] "a" "b"
+
+# (There are two important exceptions to the copy-on-modify rule: environments and reference classes. These can be modified in place, so extra care is needed when working with them.)
