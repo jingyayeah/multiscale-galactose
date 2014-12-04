@@ -37,6 +37,7 @@ data <- nhanes[sel,]
 head(data)
 summary(data)
 
+
 # add columns with unified names
 data$age <- data$RIDAGEMN/12    # use age from month if available
 data$age[is.na(data$age)] <- data$RIDAGEYR[is.na(data$age)]
@@ -44,9 +45,18 @@ data$sex <- data$RIAGENDR
 data$bodyweight <- data$BMXWT
 data$height <- data$BMXHT
 data$ethnicity <- data$RIDRETH1
-head(data)
+
+# save('data', file='nhanes/nhanes_data.Rdata')
+
+# distribute the age of the 85 group on 85 - 100 (cutoff of NHANES)
+set.seed(12345)
+ind_old <- data$age==85
+N_old <- sum(as.integer(ind_old))
+age_old <- sample(85:100, size = N_old, replace=TRUE )
+data[ind_old, 'age'] <- age_old
+#hist(data$age[data$age>=85] )
+
 save('data', file='nhanes/nhanes_data.Rdata')
-nrow(data)
 
 
 ####################################

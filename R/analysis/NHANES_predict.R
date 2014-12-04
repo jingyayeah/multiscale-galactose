@@ -33,6 +33,8 @@ if (do_nhanes){
   rm(data)
   head(nhanes)
   nrow(nhanes)
+  # Reduce to subset
+  nhanes <- nhanes[1:1000, ]
   
   # predict liver volume and blood flow
   set.seed(12345)   # only working for serial simulations
