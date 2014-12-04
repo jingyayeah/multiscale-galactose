@@ -157,7 +157,6 @@ f_d.combined <- function(x, pars, yname){
 ################################################################################
 ## Liver Volume (volLiver [ml])
 ################################################################################
-# calculate volLiver parameter
 f_d.volLiver.pars <- function(person){ 
   pars = list()
   # volLiver 
@@ -176,11 +175,9 @@ f_d.volLiver.pars <- function(person){
 f_d.volLiver.c <- function(x, pars){
    return (f_d.combined(x, pars, yname='volLiver') )
 }
-
 ################################################################################
 ## Liver Volume per bodyweight (volLiverkg [ml/kg])
 ################################################################################
-# calculate volLiverkg parameter
 f_d.volLiverkg.pars <- function(person){ 
   pars = list()
   # volLiverkg
@@ -194,20 +191,20 @@ f_d.volLiverkg.pars <- function(person){
 f_d.volLiverkg.c <- function(x, pars){
   return (f_d.combined(x, pars, yname='volLiverkg') )
 }
-
 ################################################################################
 ## Liver Blood Flow (flowLiver [ml/min])
 ################################################################################
-# calculate flowLiver parameter
 f_d.flowLiver.pars <- function(person){ 
   pars = list()
   # flowLiver
-  for(xname in c('age', 'bodyweight', 'BSA', 'volLiver')){
+  # for(xname in c('age', 'bodyweight', 'BSA', 'volLiver')){
+  for(xname in c('age', 'volLiver')){
     name <- sprintf('flowLiver_%s', xname)
     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
   }
   # flowliverkg
-  for(xname in c('age', 'bodyweight', 'BSA')){
+  # for(xname in c('age', 'bodyweight', 'BSA')){
+  for(xname in c('age')){
     name <- sprintf('flowLiverkg_%s', xname)
     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
   }
@@ -225,7 +222,8 @@ f_d.flowLiver.c <- function(x, pars){
 f_d.flowLiverkg.pars <- function(person){ 
   pars = list()
   # flowLiverkg
-  for(xname in c('age', 'bodyweight', 'BSA', 'volLiverkg')){
+  for(xname in c('age', 'volLiverkg')){
+  # for(xname in c('age', 'bodyweight', 'BSA', 'volLiverkg')){
     name <- sprintf('flowLiverkg_%s', xname)
     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
   }
@@ -235,7 +233,6 @@ f_d.flowLiverkg.pars <- function(person){
 f_d.flowLiverkg.c <- function(x, pars){
   return (f_d.combined(x, pars, yname='flowLiverkg') )
 }
-
 ################################################################################
 # Rejection sampling of f_d
 ################################################################################

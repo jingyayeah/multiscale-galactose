@@ -145,13 +145,9 @@ full_plot(person, data=GEC[index, ], vol=volLiver[index, ], flow=flowLiver[index
 
 plot_fds <- function(f_d.info, interval){
   x <- seq(from=interval[1], to=interval[2], length.out=300)
-  par(mfrow=c(2,1))
-  # plot the combined distribution
-  y <- f_d.info$f_d(x)
-  plot(x, y/max(y), type='l', col='black', lwd=2)
 
   # plot the single distributions
-  y.max <- 1.5* max(f_d.info$f_ds[[1]](x))
+  y.max <- 3* max(f_d.info$f_ds[[1]](x))
   plot(numeric(0), numeric(0), xlim=range(x), ylim=c(0, y.max))
   for (k in seq_along(f_d.info$f_ds)){
     
@@ -160,27 +156,46 @@ plot_fds <- function(f_d.info, interval){
     } else {
       y <- f_d.info$f_ds[[k]](x)
       # lines(x, y/max(y), col='red')
-      lines(x, y, col=k, lty=k, lwd=2)
+      lines(x, y, col=(k+1), lty=k, lwd=2)
     }
   }
+  # plot the combined distribution
+  y <- f_d.info$f_d(x)
+  lines(x, y.max*y/max(y), type='l', col='black', lwd=4)
+  
+  # legend
   Nf <- length(f_d.info$f_ds)
   legend('topright', legend=names(f_d.info$f_ds), lty=1:Nf, 
-         col=1:Nf, cex=0.8, lwd=2)
-
-  par(mfrow=c(1,1))
+         col=2:(Nf+1), cex=0.8, lwd=2)
 }
 
+inds.old <- which(nhanes$age>80)
+head(inds.old)
+index <- inds.old[5]
+person <- as.list(with(nhanes[index, ], data.frame(sex=sex, age=age, bodyweight=bodyweight, 
+                                                   height=height, BSA=BSA,
+                                                   volLiver=NA, volLiverkg=NA)))
+
+par(mfrow=c(2,1))
 pars.volLiver <- f_d.volLiver.pars(person)
 f_d1 <- f_d.volLiver.c(pars=pars.volLiver)
 plot_fds(f_d1, interval=c(1,3000))
 
-pars.volLiverkg <- f_d.volLiverkg.pars(person)
-f_d2 <- f_d.volLiverkg.c(pars=pars.volLiverkg)
-plot_fds(f_d2, interval=c(1,60))
-
+person$volLiver <- which.max(f_d1$f_d(1:3000))
+person$volLiver
 pars.flowLiver <- f_d.flowLiver.pars(person)
 f_d3 <- f_d.flowLiver.c(pars=pars.flowLiver)
 plot_fds(f_d3, interval=c(1,3000))
+par(mfrow=c(2,1))
+
+pars.flowLiver <- f_d.flowLiver.pars2(person)
+f_d3 <- f_d.flowLiver.c(pars=pars.flowLiver)
+plot_fds(f_d3, interval=c(1,3000))
+
+
+pars.volLiverkg <- f_d.volLiverkg.pars(person)
+f_d2 <- f_d.volLiverkg.c(pars=pars.volLiverkg)
+plot_fds(f_d2, interval=c(1,60))
 
 pars.flowLiverkg <- f_d.flowLiverkg.pars(person)
 f_d4 <- f_d.flowLiverkg.c(pars=pars.flowLiverkg)
