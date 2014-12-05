@@ -61,7 +61,7 @@ saveRawData <- function(data, dir=NULL){
 ##############################################
 # Read datasets
 ##############################################
-f_liver_density = 1.08     # [g/ml] conversion between volume and weight
+f_liver_density = 1.18     # [g/ml] conversion between volume and weight
 f_co_fraction = 0.25       # [-] Liver bloodflow as fraction of cardiac output
 
 dtypes <- c('population', 'individual')
@@ -231,11 +231,12 @@ outliers <- c(outliers.1, outliers.2, outliers.3)
 hei1999 <- hei1999[-outliers, ]
 rm(outliers.1, outliers.2, outliers.3)
 # remove the obese people, i.e. only BMI <25 
-hei1999 <- hei1999[hei1999$BMI<30.0, ]
+hei1999 <- hei1999[hei1999$BMI<25, ]
 saveRawData(hei1999)
 head(hei1999)
-plot(hei1999$bodyweight, hei1999$volLiver, xlim=c(0,100))
-
+# plot(hei1999$age, hei1999$volLiver, xlim=c(0,100))
+# points(hei1999$age, hei1999$volLiver, pch=21, col=rgb(0,0,1,1), bg=rgb(0,0,1,1))
+# points(hei1999$age, hei1999$volLiver, pch=21, col=rgb(1,0,0,1), bg=rgb(1,0,0,1))
 
 # age [years], sex [M,F], cardiac_output [L/min], liver blood flow [L/min]
 # liver blood flow estimated via cardia output
@@ -513,19 +514,25 @@ makeFigure <- function(data, m1, main, xname, yname,
   
   plot(numeric(0), numeric(0), xlim=xlim, ylim=ylim, 
        main=main, xlab=xlab, ylab=ylab)
+  studies <- levels(as.factor(data$study))
   # plot the individual gender data
   for (k in 1:length(gender.levels)){
     
-    # better plot
-    inds.in <- which(data$gender == gender.levels[k] & data$dtype == 'individual')
-    points(data[inds.in, xname], data[inds.in, yname], col=gender.cols[k], bg=gender.cols[k], 
-           pch=gender.symbols[k], cex=0.8)
-    inds.po <- which(data$gender == gender.levels[k] & data$dtype == 'population')
-    points(data[inds.po, xname], data[inds.po, yname], col=gender.cols[k], 
-           pch=gender.symbols[k], cex=0.8)
+    # plot individual studies
     
+    for (s in seq_along(studies)){
+      cat(gender.levels[k], studies[s], '\n')
+      inds.in <- which(data$study==studies[s] & data$gender == gender.levels[k] & data$dtype == 'individual')
+      points(data[inds.in, xname], data[inds.in, yname], col=gender.cols[k], bg=gender.cols[k], 
+           pch=((20+s)%%26), cex=0.8)
+      inds.po <- which(data$study==studies[s] & data$gender == gender.levels[k] & data$dtype == 'population')
+      points(data[inds.po, xname], data[inds.po, yname], col=gender.cols[k], 
+           pch=((20+s)%%26), cex=0.8)
+    }
   }
-  legend("topright",  legend=gender.levels, fill=gender.cols) 
+  legend("topright",  legend=c(gender.levels, studies), col=c(gender.cols, rep('black', length(studies))), 
+         pt.bg=c(gender.cols, rep('black', length(studies))),
+        pch=c(rep(1, length(gender.levels)), ((20+seq_along(studies))%%26) ) )
   # legend("topleft",  legend=gender.levels, fill=gender.cols) 
   
   # Plot linear regression information
@@ -698,7 +705,7 @@ saveData <- function(data, dir=NULL){
             sep="\t", col.names=TRUE)
 }
 ########################################################################################
-create_plots = F
+create_plots = T
 
 ############################################
 # GEC [mmol/min] vs. age [years]
@@ -769,14 +776,17 @@ data <- rbind( mar1988[, selection],
                naw1998[, selection],
                boy1933[, selection],
                hei1999[, selection])
+
 # data <- addRandomizedPopulationData(data, alt1962) # no range/Sd for volLiver
 # data <- addRandomizedPopulationData(data, tom1965)
 # data <- addRandomizedPopulationData(data, kay1987)
-
 saveData(data)
+par(mfrow=c(1,1))
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
-addPopulationSegments(tom1965, xname, yname)
-addPopulationSegments(kay1987, xname, yname)
+# points(wyn1989[[xname]], wyn1989[[yname]], col='black', bg='black', pch=21, cex=1.5)
+# points(mar1988[[xname]], mar1988[[yname]], col='black', bg='black', pch=21, cex=1.5)
+#addPopulationSegments(tom1965, xname, yname)
+#addPopulationSegments(kay1987, xname, yname)
 
 ############################################
 # volLiver [ml] vs. age [years] and bodyweight [kg]

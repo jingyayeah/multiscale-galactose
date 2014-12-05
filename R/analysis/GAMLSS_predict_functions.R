@@ -167,10 +167,10 @@ f_d.volLiver.pars <- function(person){
   }
   # volLiverkg
   # for(xname in c('age', 'bodyweight', 'height', 'BSA')){
-  for(xname in c('age')){
-    name <- sprintf('volLiverkg_%s', xname)
-    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
-  }
+#   for(xname in c('age')){
+#     name <- sprintf('volLiverkg_%s', xname)
+#     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+#   }
   return(pars)
 }
 
@@ -207,11 +207,10 @@ f_d.flowLiver.pars <- function(person){
   }
   # flowliverkg
   # for(xname in c('age', 'bodyweight', 'BSA')){
-  for(xname in c('age')){
-  # for(xname in c('age')){
-    name <- sprintf('flowLiverkg_%s', xname)
-    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
-  }
+#   for(xname in c('age')){
+#     name <- sprintf('flowLiverkg_%s', xname)
+#     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+#   }
   return(pars)
 }
 

@@ -79,7 +79,7 @@ GEC_figure <- function(data, person){
 }
 
 ############################################################################
-# Plot flowLiver ~ volLiver
+# Plot individual flowLiver ~ volLiver
 ############################################################################
 scale_density <- function(h, max.value){
   h$density <- max.value/max(h$density) * h$density 
@@ -109,7 +109,6 @@ vol_flow_figure <- function(vol, flow, data, person){
   Nhist = length(hy$density)
   rect(ybottom=hy$breaks[1:Nhist], xleft=0, ytop=hy$breaks[2:(Nhist+1)], xright=hy$density, col=col.hist)
   
-  
   # additional boxplot
   # add the means 
   points(mean(vol), mean(flow), bg='blue', col='black', pch=22, cex=2)  
@@ -129,7 +128,9 @@ person <- as.list(with(nhanes[index, ], data.frame(sex=sex, age=age, bodyweight=
                                                    volLiver=NA, volLiverkg=NA)))
 full_plot(person, data=GEC[index, ], vol=volLiver[index, ], flow=flowLiver[index, ])
 
-
+############################################################################
+# Plot prediction information volLiver & flowLiver
+############################################################################
 source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
 plot_fds <- function(f_d.info, interval){
   x <- seq(from=interval[1], to=interval[2], length.out=300)
@@ -165,6 +166,7 @@ plot_fds <- function(f_d.info, interval){
          col=2:(Nf+1), cex=0.8, lwd=2)
 }
 
+## example ##
 par(mfrow=c(2,2))
 inds.old <- which(nhanes$age>80)
 head(inds.old)
@@ -201,8 +203,6 @@ plot_fds(f_d2, interval=c(1,60))
 pars.flowLiverkg <- f_d.flowLiverkg.pars(person)
 f_d4 <- f_d.flowLiverkg.c(pars=pars.flowLiverkg)
 plot_fds(f_d4, interval=c(1,60))
-
-
 
 
 
