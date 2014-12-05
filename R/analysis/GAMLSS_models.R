@@ -17,11 +17,11 @@ if (!exists('dataset')){
   rm(list = ls())
   create_plots = TRUE
   
-  # dataset <- 'GEC_age'
+  dataset <- 'GEC_age'
   # dataset <- 'GECkg_age'
 
   # dataset <- 'volLiver_age'
-  dataset <- 'volLiverkg_age'
+  # dataset <- 'volLiverkg_age'
   # dataset <- 'volLiver_bodyweight'
   # dataset <- 'volLiverkg_bodyweight'
   # dataset <- 'volLiver_height'

@@ -4,12 +4,11 @@
 # Fitting of GAMLSS statistical models to the underlying datasats. These are 
 # the models used for the individual predictions of the 2D correlations.
 #
-# TODO: create overview table of models (studies, datapoints, link function, ...)
-#
 # author: Matthias Koenig
-# date: 2014-11-26
+# date: 2014-12-04
 ################################################################################
 rm(list=ls())
+library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
