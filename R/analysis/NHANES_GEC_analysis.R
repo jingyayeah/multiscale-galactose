@@ -156,7 +156,7 @@ for (k in 1:3){
   for (k in 1:5){
     name <- sprintf('%s_sample_%d', yname, k)
     if (name %in% colnames(nhanes))
-      points(nhanes.d[[xname]], nhanes.d[[name]], col="red", bg="red", pch=21, cex=0.4)
+      points(nhanes.d[[xname]], nhanes.d[[name]], col=rgb(0.6, 0.6, 0.6, 1), bg=rgb(0.6, 0.6, 0.6, 1), pch=21, cex=0.4)
   }
   # mean nhanes of Monte Carlo or experimental data
   points(nhanes.d[[xname]], nhanes.d[[yname]], col="black", bg="black", pch=21, cex=0.4)
@@ -164,16 +164,16 @@ for (k in 1:3){
   # plot experimental data points
   inds.in <- which(d$dtype == 'individual')
   #points(d[inds.in, xname], d[inds.in, yname], col='blue', bg='blue', pch=21)
-  points(d[inds.in, xname], d[inds.in, yname], col=rgb(0,0,1, 0.5), bg=rgb(0,0,1, 0.5), pch=21, cex=1.2)
+  points(d[inds.in, xname], d[inds.in, yname], col=rgb(0,0,1, 0.7), bg=rgb(0,0,1, 0.7), pch=21, cex=1.0)
   
   legend('bottomright', bty="n", cex=0.8, legend=c('NHANES single prediction','NHANES mean prediction', 'experimental data'), 
          col=c('red', 'black', 'white'), pt.bg=c('red', 'black', 'blue'), pch=c(21,21,21), pt.cex=c(0.5, 0.5, 1)) 
          
   #rug(d[inds.in, xname], side=1, col="black"); rug(d[inds.in, yname], side=2, col="black")
   
-  # additional marchesini data
-  inds.in <- which(d$study =='wyn1989')
-  points(d[inds.in, xname], d[inds.in, yname], col=rgb(0,0,0, 1), bg=rgb(0,0,0, 1), pch=22, cex=1.2)
+  # additional wyn data
+  # inds.in <- which(d$study =='wyn1989')
+  # points(d[inds.in, xname], d[inds.in, yname], col=rgb(0,0,0, 1), bg=rgb(0,0,0, 1), pch=22, cex=1.2)
 }
 par(mfrow=c(1,1))
 stopDevPlot()

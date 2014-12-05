@@ -36,7 +36,7 @@ lab$volLiverkg <- "Liver volume per bodyweight [ml/kg]"
 lab$volLiverBSA <- "Liver volume per BSA [ml/m^2]"
 lab$flowLiver <- "Liver blood flow [ml/min]"
 lab$flowLiverkg <- "Liver blood flow per bodyweight [ml/min/kg]"
-lab$Perfusion <- "Perfusion [ml/min/ml]"
+lab$perfusion <- "Perfusion [ml/min/ml]"
 
 # Axis limits
 lim <- list()

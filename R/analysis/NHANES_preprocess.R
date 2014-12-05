@@ -29,7 +29,7 @@ nhanes$BSA <- 0.007184 * nhanes$BMXHT^0.725 * nhanes$BMXWT^0.425
 #   25.0 – 29.9	Overweight
 #   30.0 and Above	Obese
 # bmi.sel <- (nhanes$BMXBMI >= 18.5) & (nhanes$BMXBMI <= 24.9)
-bmi.sel <- (nhanes$BMXBMI < 25) 
+bmi.sel <- (nhanes$BMXBMI < 25)
 eth.sel <- (nhanes$RIDRETH1 == "Non-Hispanic White")
 na.sel <- !is.na(nhanes$RIDAGEYR) & !is.na(nhanes$RIAGENDR) & !is.na(nhanes$BMXBMI) & !is.na(nhanes$BMXWT) & !is.na(nhanes$BMXHT)
 sel <- bmi.sel & eth.sel & na.sel
@@ -56,13 +56,12 @@ data$ethnicity <- data$RIDRETH1
 # data[ind_old, 'age'] <- age_old
 #hist(data$age[data$age>=85] )
 
-# remove the 85 years data from NHANES. This is the pooled data
-# from 85 - 100 years
-ind_old <- data$age==85
-data <- data[-ind_old, ]
-nrow(data)
+# remove the 85 and 80 years data from NHANES. 
+# This data was pooled from older people for anonymization
+ind_old1 <- which(data$age==85)
+ind_old2 <- which(data$age==80)
+data <- data[-c(ind_old1, ind_old2), ]
 save('data', file='nhanes/nhanes_data.Rdata')
-
 
 ####################################
 ## Plotting data                  ##
@@ -79,7 +78,3 @@ g1 <- ggplot(data, aes(age, bodyweight))
 g1 + geom_point()
 g1 + geom_point(aes(color=sex)) + labs(title = "NHANES cohort (18.5 <= BMI < 24.9)") + labs(x='age [year]') + theme_bw()
 
-# plot height [cm]
-g1 <- ggplot(data[data$BMXBMI<18.5,], aes(age, height))
-g1 + geom_point()
-g1 + geom_point(aes(color=sex)) + labs(title = "NHANES cohort (18.5 <= BMI < 24.9)") + labs(x='age [year]') + theme_bw()

@@ -6,7 +6,6 @@
 # the models used for the individual predictions of the 2D correlations.
 #
 # TODO: cross-validation of model fits
-# TODO: create GAMLSS model table (which studies, how many data points)
 #
 # author: Matthias Koenig
 # date: 2014-11-26
@@ -20,7 +19,7 @@ if (!exists('dataset')){
   # dataset <- 'GEC_age'
   # dataset <- 'GECkg_age'
 
-  # dataset <- 'volLiver_age'
+  dataset <- 'volLiver_age'
   # dataset <- 'volLiverkg_age'
   # dataset <- 'volLiver_bodyweight'
   # dataset <- 'volLiverkg_bodyweight'
@@ -88,6 +87,8 @@ data$weights[data$dtype=='population'] = 0.1 # data from population studies is l
 data$weights[data$study=="cat2010"] = 0.1    # indirect measured data (flow via cardiac output), is weighted less
 data$weights[data$study=="sim1997"] = 0.1    # indirect measured data (flow via cardiac output), is weighted less
 data$weights[data$study=="ircp2001"] = 10    # the very few data points for flow in children are weighted more
+data$weights[data$study=="wyn1989"] = 2    # living datasets are weighted more (compared to autopsy)
+data$weights[data$study=="mar1988"] = 2    # living datasets are weighted more (compared to autopsy)
 table(data$weights)
 
 # reduce data tp the individual points (no population data used)
@@ -174,11 +175,12 @@ if (dataset == 'GECkg_age'){
 
 ## volLiver vs. age ######################################
 if (dataset == 'volLiver_age'){    
+  
   startDevPlot(width=2000, height=1000,
                file=file.path(ma.settings$dir.base, 'results', 'gamlss', sprintf("%s_%s_models.png", yname, xname)))
   par(mfrow=c(1,3))
   # all
-  fit.all.nosigma <- gamlss(volLiver ~ cs(age,4), family=BCCG, weights=weights, data=df.all)
+  fit.all.nosigma <- gamlss(volLiver ~ cs(age,4), family=BCCG, weights=weights, data=df.all, method=mixed(2,10))
   fit.all <- gamlss(volLiver ~ cs(age,4), sigma.formula=~age, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma)
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 

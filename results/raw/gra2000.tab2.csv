@@ -1,7 +1,7 @@
 study	status	sex	class	n	bmiMean	bmiMin	bmiMax	bmiSd	liverWeight	liverWeightSd	dtype	gender	bmi	bmiRange	volLiver	volLiverSd
-gra2000	healthy	M	bmi_m_1	152	20	14	21	1.6	1.581	0.372	population	male	20	3.5	1339.83050847458	315.254237288136
-gra2000	healthy	M	bmi_m_2	111	23.5	22	24	0.9	1.73	0.405	population	male	23.5	1	1466.10169491525	343.220338983051
-gra2000	healthy	M	bmi_m_3	92	27	25	34	1.9	1.769	0.39	population	male	27	4.5	1499.15254237288	330.508474576271
-gra2000	healthy	F	bmi_f_1	139	18.5	13	20	1.9	1.346	0.328	population	female	18.5	3.5	1140.6779661017	277.966101694915
-gra2000	healthy	F	bmi_f_2	109	23	21	24	1.1	1.521	0.331	population	female	23	1.5	1288.98305084746	280.508474576271
-gra2000	healthy	F	bmi_f_3	81	28.5	25	40	3.2	1.609	0.419	population	female	28.5	7.5	1363.5593220339	355.084745762712
+gra2000	healthy	M	bmi_m_1	152	20	14	21	1.6	1.581	0.372	population	male	20	3.5	1264.8	297.6
+gra2000	healthy	M	bmi_m_2	111	23.5	22	24	0.9	1.73	0.405	population	male	23.5	1	1384	324
+gra2000	healthy	M	bmi_m_3	92	27	25	34	1.9	1.769	0.39	population	male	27	4.5	1415.2	312
+gra2000	healthy	F	bmi_f_1	139	18.5	13	20	1.9	1.346	0.328	population	female	18.5	3.5	1076.8	262.4
+gra2000	healthy	F	bmi_f_2	109	23	21	24	1.1	1.521	0.331	population	female	23	1.5	1216.8	264.8
+gra2000	healthy	F	bmi_f_3	81	28.5	25	40	3.2	1.609	0.419	population	female	28.5	7.5	1287.2	335.2

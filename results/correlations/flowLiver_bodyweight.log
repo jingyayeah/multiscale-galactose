@@ -1,11 +1,11 @@
 [1] "### Data ###"
     study              gender            bodyweight      flowLiver         dtype          
- Length:1999        Length:1999        Min.   : 3.90   Min.   : 220.2   Length:1999       
- Class :character   Class :character   1st Qu.:20.70   1st Qu.: 880.0   Class :character  
- Mode  :character   Mode  :character   Median :29.82   Median :1080.7   Mode  :character  
-                                       Mean   :37.05   Mean   :1116.3                     
-                                       3rd Qu.:51.81   3rd Qu.:1300.1                     
-                                       Max.   :97.60   Max.   :2649.6                     
+ Length:802         Length:802         Min.   : 3.90   Min.   : 220.2   Length:802        
+ Class :character   Class :character   1st Qu.:35.72   1st Qu.: 852.5   Class :character  
+ Mode  :character   Mode  :character   Median :58.00   Median :1081.1   Mode  :character  
+                                       Mean   :54.16   Mean   :1105.9                     
+                                       3rd Qu.:71.09   3rd Qu.:1300.9                     
+                                       Max.   :97.60   Max.   :2500.0                     
 [1] "### Linear Regression Model ###"
 
 Call:
@@ -13,16 +13,16 @@ lm(formula = formula, data = data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--868.04 -203.03  -22.72  174.54 1469.02 
+-765.81 -193.34  -21.49  178.55 1205.36 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 847.0995    13.7179   61.75   <2e-16 ***
-bodyweight    7.2652     0.3228   22.51   <2e-16 ***
+(Intercept) 532.9564    27.0782   19.68   <2e-16 ***
+bodyweight   10.5789     0.4669   22.66   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 300.3 on 1997 degrees of freedom
-Multiple R-squared:  0.2023,	Adjusted R-squared:  0.2019 
-F-statistic: 506.5 on 1 and 1997 DF,  p-value: < 2.2e-16
+Residual standard error: 274.3 on 800 degrees of freedom
+Multiple R-squared:  0.3909,	Adjusted R-squared:  0.3901 
+F-statistic: 513.4 on 1 and 800 DF,  p-value: < 2.2e-16
 

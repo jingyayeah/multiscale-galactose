@@ -61,7 +61,7 @@ saveRawData <- function(data, dir=NULL){
 ##############################################
 # Read datasets
 ##############################################
-f_liver_density = 1.18     # [g/ml] conversion between volume and weight
+f_liver_density = 1.25     # [g/ml] conversion between volume and weight
 f_co_fraction = 0.25       # [-] Liver bloodflow as fraction of cardiac output
 
 dtypes <- c('population', 'individual')
@@ -124,11 +124,12 @@ head(bra1952)
 
 # liver blood flow estimated via cardiac output
 # age [years], sex [M,F], bodyweight [kg], height [cm], BSA [m^2], cardiac_output [mL/min], cardiac_outputkg [ml/min/kg]
+cat.factor <- 0.75 # data is overestimating the blood flow in comparison to Simmone1997
 cat2010 <- read.csv(file.path(ma.settings$dir.expdata, 'raw_data', "cattermole", "Koenig_Cattermole2009.csv"), sep="\t")
 cat2010$dtype <- 'individual'
 cat2010$gender <- getGender(cat2010)
-cat2010$flowLiver <- cat2010$CO * f_co_fraction # [ml/min]
-cat2010$flowLiverkg <- cat2010$COkg * f_co_fraction # [ml/min]
+cat2010$flowLiver <- cat2010$CO * f_co_fraction * cat.factor # [ml/min]
+cat2010$flowLiverkg <- cat2010$COkg * f_co_fraction * cat.factor # [ml/min]
 cat2010 <- cat2010[complete.cases(cat2010), ]
 saveRawData(cat2010)
 head(cat2010)
@@ -705,7 +706,7 @@ saveData <- function(data, dir=NULL){
             sep="\t", col.names=TRUE)
 }
 ########################################################################################
-create_plots = F
+create_plots = T
 
 ############################################
 # GEC [mmol/min] vs. age [years]
@@ -783,10 +784,13 @@ data <- rbind( mar1988[, selection],
 saveData(data)
 par(mfrow=c(1,1))
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
+# points(hei1999[[xname]], hei1999[[yname]], col='black', bg='black', pch=21, cex=1.5)
 # points(wyn1989[[xname]], wyn1989[[yname]], col='black', bg='black', pch=21, cex=1.5)
-# points(mar1988[[xname]], mar1988[[yname]], col='black', bg='black', pch=21, cex=1.5)
+# points(naw1998[[xname]], naw1998[[yname]], col='black', bg='black', pch=21, cex=1.5)
+#points(mar1988[[xname]], mar1988[[yname]], col='black', bg='black', pch=21, cex=1.5)
 #addPopulationSegments(tom1965, xname, yname)
 #addPopulationSegments(kay1987, xname, yname)
+
 
 ############################################
 # volLiver [ml] vs. age [years] and bodyweight [kg]
@@ -823,6 +827,7 @@ data <- rbind(wyn1989[, selection] ,
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # points(ura1995.fig3[[xname]], ura1995.fig3[[yname]], col='black', bg='black', pch=21, cex=1.5)
+points(wyn1989[[xname]], wyn1989[[yname]], col='black', bg='black', pch=21, cex=1.5)
 
 ############################################
 # volLiver [ml] vs. BSA [m^2]
@@ -948,11 +953,18 @@ data <- rbind(wyn1989[, selection],
               she1950[, selection],
               sim1997[, selection], # estimate via cardiac output
               cat2010[, selection]) # estimate via cardiac output
+
+data <- rbind(wyn1989[, selection],
+              tyg1958[, selection],
+              she1950[, selection],
+              sim1997[, selection])
+
 saveData(data)
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
-#points(she1950[[xname]], she1950[[yname]], col='black', bg='black', pch=21, cex=1.5)
-
+# points(sim1997[[xname]], sim1997[[yname]], col='black', bg='black', pch=21, cex=1.5)
+points(cat2010[[xname]], cat2010[[yname]], col='black', bg='black', pch=21, cex=0.8)
+grid()
 ############################################
 # flowLiverkg [ml/min] vs. bodyweight [kg]
 ############################################
@@ -985,7 +997,7 @@ saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
-#points(bra1952[[xname]], bra1952[[yname]], col='black', bg='black', pch=21, cex=1.5)
+# points(cat2010[[xname]], cat2010[[yname]], col='black', bg='black', pch=21, cex=1.5)
 
 ############################################
 # flowLiverkg [ml/min/kg] vs. BSA [m^2]

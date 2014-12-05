@@ -16,6 +16,7 @@ setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
+
 ##############################################################################
 # Predict NHANES liver volume & flow
 ##############################################################################
@@ -34,7 +35,7 @@ if (do_nhanes){
   head(nhanes)
   nrow(nhanes)
   # Reduce to subset
-  nhanes <- nhanes[1:1000, ]
+  nhanes <- nhanes[1:2000, ]
   
   # predict liver volume and blood flow
   set.seed(12345)   # only working for serial simulations
@@ -59,7 +60,7 @@ if (do_nhanes){
 cat('----------------------------------------------------------\n')
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
 nhanes <- data; rm(data)
-nhanes <- nhanes[1:1000, ]
+nhanes <- nhanes[1:2000, ]
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_volLiver.Rdata'))
 load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_flowLiver.Rdata'))
 cat('# Liver Volume #')

@@ -1,11 +1,11 @@
 [1] "### Data ###"
      study         gender               BSA          flowLiver         dtype          
- bra1945:  23   Length:1356        Min.   :0.388   Min.   : 318.5   Length:1356       
- bra1952:  91   Class :character   1st Qu.:0.777   1st Qu.: 914.1   Class :character  
- she1950:  32   Mode  :character   Median :0.953   Median :1120.6   Mode  :character  
- tyg1957:  13                      Mean   :1.041   Mean   :1166.9                     
- cat2010:1197                      3rd Qu.:1.225   3rd Qu.:1352.1                     
-                                   Max.   :2.210   Max.   :2649.6                     
+ bra1945:  23   Length:1356        Min.   :0.388   Min.   : 238.8   Length:1356       
+ bra1952:  91   Class :character   1st Qu.:0.777   1st Qu.: 687.8   Class :character  
+ she1950:  32   Mode  :character   Median :0.953   Median : 852.2   Mode  :character  
+ tyg1957:  13                      Mean   :1.041   Mean   : 919.1                     
+ cat2010:1197                      3rd Qu.:1.225   3rd Qu.:1077.5                     
+                                   Max.   :2.210   Max.   :2500.0                     
 [1] "### Linear Regression Model ###"
 
 Call:
@@ -13,16 +13,16 @@ lm(formula = formula, data = data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--791.39 -158.18  -23.36  137.19 1242.89 
+-649.49 -113.40  -16.01   98.91  901.13 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   444.80      20.89   21.30   <2e-16 ***
-BSA           694.01      19.02   36.49   <2e-16 ***
+(Intercept)   112.20      15.80   7.101    2e-12 ***
+BSA           775.42      14.39  53.894   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 246 on 1354 degrees of freedom
-Multiple R-squared:  0.4958,	Adjusted R-squared:  0.4955 
-F-statistic:  1332 on 1 and 1354 DF,  p-value: < 2.2e-16
+Residual standard error: 186.1 on 1354 degrees of freedom
+Multiple R-squared:  0.682,	Adjusted R-squared:  0.6818 
+F-statistic:  2905 on 1 and 1354 DF,  p-value: < 2.2e-16
 

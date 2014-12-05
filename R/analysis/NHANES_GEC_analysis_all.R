@@ -8,6 +8,7 @@
 # date: 2014-12-03
 ################################################################################
 rm(list=ls())
+library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
