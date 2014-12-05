@@ -23,16 +23,7 @@ GEC_f <- GEC_functions(task='T54')
 ########################################################################################
 # Predict additional GEC data [mmol/min] & GECkg [mmol/min/kg]
 ########################################################################################
-loadRawData <- function(name, dir=NULL){
-  if (is.null(dir)){
-    dir <- file.path(ma.settings$dir.base, 'results', 'raw')
-    print(dir)
-  }
-  r_fname <- file.path(dir, sprintf('%s.Rdata', name))
-  print(r_fname)
-  load(file=r_fname)
-  return(data)
-}
+
 
 # predict GEC for single row 
 # The distributions have to be calculated only once. Than fast rejection sampling

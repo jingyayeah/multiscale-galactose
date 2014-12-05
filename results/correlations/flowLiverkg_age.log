@@ -1,0 +1,28 @@
+[1] "### Data ###"
+     study         gender               age         flowLiverkg        dtype          
+ win1965:   7   Length:1319        Min.   : 0.47   Min.   : 9.912   Length:1319       
+ wyn1989:  65   Class :character   1st Qu.: 5.27   1st Qu.:22.501   Class :character  
+ she1950:  32   Mode  :character   Median : 7.78   Median :26.600   Mode  :character  
+ zol1993:   5                      Mean   :11.06   Mean   :27.644                     
+ tyg1957:  13                      3rd Qu.:10.46   3rd Qu.:32.264                     
+ cat2010:1197                      Max.   :91.00   Max.   :79.483                     
+[1] "### Linear Regression Model ###"
+
+Call:
+lm(formula = formula, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-17.699  -4.713  -0.580   4.220  50.566 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 29.93290    0.24554  121.90   <2e-16 ***
+age         -0.20696    0.01416  -14.62   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 6.869 on 1317 degrees of freedom
+Multiple R-squared:  0.1396,	Adjusted R-squared:  0.1389 
+F-statistic: 213.7 on 1 and 1317 DF,  p-value: < 2.2e-16
+

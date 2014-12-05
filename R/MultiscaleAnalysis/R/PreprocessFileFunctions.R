@@ -26,6 +26,21 @@ createDatasetName <- function(xname, yname){
   return( sprintf('%s_%s', xname, yname) )
 }
 
+#' Load the processed raw data for the given name.
+#' 
+#'@export
+loadRawData <- function(name, dir=NULL){
+  if (is.null(dir)){
+    dir <- file.path(ma.settings$dir.base, 'results', 'raw')
+    print(dir)
+  }
+  r_fname <- file.path(dir, sprintf('%s.Rdata', name))
+  print(r_fname)
+  load(file=r_fname)
+  return(data)
+}
+
+
 #' Get integration timecourse file for simulation id.
 #' 
 #' TODO: this is not working any more with the multiple simulations
