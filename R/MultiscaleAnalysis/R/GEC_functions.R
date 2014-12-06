@@ -35,12 +35,17 @@ GEC_functions <- function(task){
 
 #' Plot single GEC function.
 #' 
+#' TODO: better overview over the used GEC function in the calculation.
 #' @export
 plot_GEC_function <- function(GEC_f){
-  attach(GEC_f)
-  plot(Qvol, Rvol, ylim=c(0,0.003))
-  curve(f, from=0, to=max(Qvol), col='red', add=T)
-  curve(f.se, from=0, to=max(Qvol), col='blue', add=T)
+  f <- GEC_f$f
+  f.se <- GEC_f$f.se
+  x <- GEC_f$Qvol
+  y <- GEC_f$Rvol
+  
+  plot(x, y, ylim=c(0,0.003))
+  curve(f, from=0, to=max(x), col='red', add=T)
+  curve(f.se, from=0, to=max(x), col='blue', add=T)
 }
 
 

@@ -13,7 +13,9 @@ rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
-# Load the fit models for prediction
+################################
+# GAMLSS models
+################################
 fit.models <- load_models_for_prediction()
 
 ################################
@@ -22,7 +24,6 @@ fit.models <- load_models_for_prediction()
 GEC_f <- GEC_functions(task='T54')
 str(GEC_f)
 plot_GEC_function(GEC_f)
-
 
 ################################
 # Predict RAW people
@@ -33,11 +34,12 @@ cat('* PREDICT RAW *\n')
 # very old persons.
 people.raw <- create_all_people(c('hei1999', 'cat2010'))
 people.raw <- people.raw[1:10, ]
+
 dir.raw <- file.path(ma.settings$dir.base, 'results', 'rest')
 
-liver.info <- predict_volume_and_flow(people=people.raw, out_dir=dir.raw)
+info.raw <- predict_volume_and_flow(people=people.raw, out_dir=dir.raw)
 predict_GEC(people.raw, GEC_f=GEC_f, 
-            volLiver=liver.info$volLiver, flowLiver=liver.info$flowLiver, 
+            volLiver=info.raw$volLiver, flowLiver=info.raw$flowLiver, 
             out_dir=dir.raw)
 
 ################################
@@ -52,16 +54,29 @@ people.nhanes$volLiverkg <- NA
 people.nhanes <- people.nhanes[1:10, ]
 rm(data)
 dir.nhanes <- file.path(ma.settings$dir.base, 'results', 'nhanes')
-liver.info <- predict_volume_and_flow(people=people.nhanes, out_dir=dir.nhanes)
+info.nhanes <- predict_volume_and_flow(people=people.nhanes, out_dir=dir.nhanes)
+
+typeof(people.nhanes)
+
+predict_GEC(people.nhanes, GEC_f=GEC_f,
+            volLiver=info.nhanes$volLiver, flowLiver=info.nhanes$flowLiver,
+            out_dir=dir.nhanes)
 
 # test loading
 load(file=file.path(dir.nhanes, 'volLiver.Rdata'))
 load(file=file.path(dir.nhanes, 'flowLiver.Rdata'))
+load(file=file.path(dir.nhanes, 'GEC.Rdata'))
 cat('# Liver Volume #')
 head(volLiver[, 1:5])
 cat('# Liver Blood Flow #')
 head(flowLiver[, 1:5])
+cat('# GEC #')
+head(GEC[, 1:5])
 
-predict_GEC(people.nhanes, GEC_f=GEC_f,
-            volLiver=liver.info$volLiver, flowLiver=liver.info$flowLiver,
-            out_dir=dir.nhanes)
+index <- 1
+individual_plot(person=people.nhanes[index, ], 
+                vol=volLiver[1, ], flow=flowLiver[1,], 
+                data=GEC[1, ])
+
+
+
