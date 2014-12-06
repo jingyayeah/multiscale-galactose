@@ -45,40 +45,6 @@ library('plyr')
 d2 <- ddply(parscl, c("gal_challenge", "N_fen", 'f_flow'), f_analyse)
 
 
-
-###########################################################################
-# GEC curves
-###########################################################################
-# Some control plots
-plot(parscl$f_flow, parscl$flow_sin)
-plot(parscl$flow_sin, parscl$R)
-
-p <- ggplot(parscl, aes(flow_sin, R, colour=c_out)) + geom_point()
-p + facet_grid(f_flow ~ N_fen)
-
-p <- ggplot(parscl, aes(flow_sin, CL, colour=c_out)) + geom_point()
-p + facet_grid(f_flow ~ N_fen)
-
-p <- ggplot(parscl, aes(flow_sin, ER, colour=c_out)) + geom_point()
-p + facet_grid(f_flow ~ N_fen)
-
-# Plot the generated GEC curves
-head(d2)
-p1 <- ggplot(d2, aes(f_flow, R_per_vol_units*1500)) + geom_point() + geom_line() + facet_grid(~ N_fen)
-p2 <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + facet_grid(~ N_fen)
-p3 <- ggplot(d2, aes(Q_per_vol_units, R_per_vol_units*1500)) + geom_point() + geom_line()+ ylim(0,5) +facet_grid(~ N_fen)
-multiplot(p1, p2, p3, cols=3)
-d2
-
-# combined plot of the individual with the mean simulations
-names(d2)
-plot(d2$Q_per_vol_units, d2$mean.R, ylim=c(0, 2.0*max(d2$mean.R)), lwd=2, col='blue')
-lines(d2$Q_per_vol_units, d2$mean.R, lwd=2, col='blue')
-lines(d2$Q_per_vol_units, d2$mean.R+d2$sd.R, col='Gray', lwd=2)
-lines(d2$Q_per_vol_units, d2$mean.R-d2$sd.R, col='Gray', lwd=2)
-points(parscl$Q_sinunit/parscl$Vol_sinunit*60, parscl$R, cex=0.2, bg=rgb(0,0,0,0.5))
-head(parscl)
-
 ###########################################################################
 # Bootstrap the GEC curves
 ###########################################################################
@@ -140,15 +106,40 @@ cat(d2.file)
 save('d2', 'd2.se', 'parscl', 'GEC_curves', file=d2.file)
 
 
-########################################
-# Figure GEC ~ perfusion (bootstrap)
-########################################
-create_plots=F
-startDevPlot(create_plots)
 
-stopDevPlot(create_plots)
+###########################################################################
+# GEC curves
+###########################################################################
+# Some control plots
+plot(parscl$f_flow, parscl$flow_sin)
+plot(parscl$flow_sin, parscl$R)
 
+p <- ggplot(parscl, aes(flow_sin, R, colour=c_out)) + geom_point()
+p + facet_grid(f_flow ~ N_fen)
+
+p <- ggplot(parscl, aes(flow_sin, CL, colour=c_out)) + geom_point()
+p + facet_grid(f_flow ~ N_fen)
+
+p <- ggplot(parscl, aes(flow_sin, ER, colour=c_out)) + geom_point()
+p + facet_grid(f_flow ~ N_fen)
+
+# Plot the generated GEC curves
+head(d2)
+p1 <- ggplot(d2, aes(f_flow, R_per_vol_units*1500)) + geom_point() + geom_line() + facet_grid(~ N_fen)
+p2 <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + facet_grid(~ N_fen)
+p3 <- ggplot(d2, aes(Q_per_vol_units, R_per_vol_units*1500)) + geom_point() + geom_line()+ ylim(0,5) +facet_grid(~ N_fen)
+multiplot(p1, p2, p3, cols=3)
 d2
+
+# combined plot of the individual with the mean simulations
+names(d2)
+plot(d2$Q_per_vol_units, d2$mean.R, ylim=c(0, 2.0*max(d2$mean.R)), lwd=2, col='blue')
+lines(d2$Q_per_vol_units, d2$mean.R, lwd=2, col='blue')
+lines(d2$Q_per_vol_units, d2$mean.R+d2$sd.R, col='Gray', lwd=2)
+lines(d2$Q_per_vol_units, d2$mean.R-d2$sd.R, col='Gray', lwd=2)
+points(parscl$Q_sinunit/parscl$Vol_sinunit*60, parscl$R, cex=0.2, bg=rgb(0,0,0,0.5))
+head(parscl)
+
 
 
 ###########################################################################
