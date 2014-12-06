@@ -3,7 +3,7 @@
 \alias{createApproximationMatrix}
 \title{Creates approximation data matrix for time and data vectors.}
 \usage{
-createApproximationMatrix(ids, simIds, points, reverse = FALSE)
+createApproximationMatrix(x, ids, simIds, points, reverse = FALSE)
 }
 \description{
 Necessary to create a compatible data structure which has values

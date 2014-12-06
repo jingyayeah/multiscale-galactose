@@ -13,6 +13,54 @@
 # date: 2014-12-06
 ################################################################
 
+#' Analyse the data split by group (f_flow).
+#' 
+#' @export
+f_analyse <- function(x){  
+  # number of samples
+  N_sunits <- length(x$Vol_sinunit)
+  
+  # total volume (sinusoidal unit volume)
+  sum.Vol_sinunit <- sum(x$Vol_sinunit) # [m^3]
+  # total flow
+  sum.Q_sinunit <- sum(x$Q_sinunit)     # [m^3/sec]
+  # total removal
+  sum.R <- sum(x$R) # [mole/sec]
+  
+  ## normalize to volume 
+  Q_per_vol <- sum.Q_sinunit/sum.Vol_sinunit     # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)] 
+  R_per_vol <- sum.R/sum.Vol_sinunit             # [mole/sec/m^3(liv)]
+  
+  ## proper units for flow and clearance
+  Q_per_vol_units <- Q_per_vol*60                 # [ml/min/ml(liv)]
+  R_per_vol_units <- R_per_vol*60/1000            # [mmole/min/ml(liv)]
+  
+  ## mean, sd over sinusoidal unit samples
+  # volume (sinusoidal 
+  mean.Vol_sinunit <- mean(x$Vol_sinunit) # [m^3]
+  sd.Vol_sinunit <- sd(x$Vol_sinunit)     # [m^3]
+  # flow
+  mean.Q_sinunit <- mean(x$Q_sinunit) # [m^3/sec]
+  sd.Q_sinunit <- sd(x$Q_sinunit)     # [m^3/sec]
+  # removal
+  mean.R <- mean(x$R) # [mole/sec]
+  sd.R <- sd(x$R)     # [mole/sec]
+  # pp - pv difference
+  mean.DG <- mean(x$DG) # [mmole/L]
+  sd.DG <- sd(x$DG)     # [mmole/L]
+  # Extraction ratio
+  mean.ER <- mean(x$ER) # [-]
+  sd.ER <- sd(x$ER)     # [-]
+  
+  data.frame(N_sunits,
+             mean.Vol_sinunit, mean.Q_sinunit, mean.R, mean.DG, mean.ER,
+             sd.Vol_sinunit, sd.Q_sinunit, sd.R, sd.DG, sd.ER,
+             sum.Vol_sinunit, sum.Q_sinunit, sum.R,
+             Q_per_vol, R_per_vol,
+             Q_per_vol_units, R_per_vol_units)
+}
+
+
 #' Create the GEC functions from the given GEC task data
 #'
 #'@export
@@ -30,22 +78,45 @@ GEC_functions <- function(task){
   f <- splinefun(Qvol, Rvol)
   f.se <- splinefun(Qvol, Rvol.se)  
   
-  return(list(f=f, f.se=f.se, Qvol=Qvol, Rvol=Rvol, Rvol.se=Rvol.se))
+  return(list(f=f, f.se=f.se, d.mean=d.mean, d.se=d.se))
 }
 
 #' Plot single GEC function.
 #' 
-#' TODO: better overview over the used GEC function in the calculation.
 #' @export
 plot_GEC_function <- function(GEC_f){
   f <- GEC_f$f
   f.se <- GEC_f$f.se
-  x <- GEC_f$Qvol
-  y <- GEC_f$Rvol
+  d.mean <- GEC_f$d.mean
+  d.se <- GEC_f$d.se
   
-  plot(x, y, ylim=c(0,0.003))
-  curve(f, from=0, to=max(x), col='red', add=T)
-  curve(f.se, from=0, to=max(x), col='blue', add=T)
+  x <- d.mean$Q_per_vol_units
+  y <- d.mean$R_per_vol_units
+  y.se <- d.se$R_per_vol_units
+  
+  plot(x, y, type='n',main='Galactose clearance ~ perfusion', 
+       xlab='Liver perfusion [ml/min/ml]', ylab='GEC per volume tissue [mmol/min/ml]', font=1, font.lab=2, ylim=c(0,1.5*max(y)))
+  
+  x.grid <- seq(from=0, to=max(x), length.out=100)
+  fx <- f(x.grid)
+  fx.se <- f.se(x.grid)
+  
+  xp <- c(x.grid, rev(x.grid))
+  yp <- c(fx+2*fx.se, rev(fx-2*fx.se))
+  polygon(xp,yp, col = rgb(0,0,0, 0.3), border = NA)
+  # lines(x, y+2*y.se, col=rgb(0,0,0, 0.8))
+  # lines(x, y-2*y.se, col=rgb(0,0,0, 0.8))
+  points(x, y, pch=21, col='black', bg=rgb(0,0,0, 0.8))
+  # lines(x, y, col='black', lwd=2)
+  # add spline functions
+ 
+  lines(x.grid, fx, col='blue', lwd=2)
+  lines(x.grid, fx+2*fx.se, col='black')
+  lines(x.grid, fx-2*fx.se, col='black')
+  
+  legend('bottomright', legend=c('mean GEC (Ns=1000 sinusoidal units)', '+-2SE (bootstrap, Nb=1000)',
+                                 'GEC spline function'), 
+         lty=c(1, 1, 1), col=c('black', rgb(0,0,0,0.8), 'blue'), lwd=c(2,1,2))
 }
 
 

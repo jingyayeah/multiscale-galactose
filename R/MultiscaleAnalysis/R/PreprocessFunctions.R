@@ -93,7 +93,7 @@ createPreprocessDataMatrices <- function(ids, out.fname, simIds, modelId, dir){
 #' if reverse=FALSE => fit time vector
 #' if reverse=TRUE => fit data vector
 #' @export
-createApproximationMatrix <- function(ids, simIds, points, reverse=FALSE){
+createApproximationMatrix <- function(x, ids, simIds, points, reverse=FALSE){
   Npoints <- length(points)
   Nsim <- length(simIds)
   

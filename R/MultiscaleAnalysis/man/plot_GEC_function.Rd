@@ -6,6 +6,6 @@
 plot_GEC_function(GEC_f)
 }
 \description{
-TODO: better overview over the used GEC function in the calculation.
+Plot single GEC function.
 }
 
