@@ -58,40 +58,4 @@ predict_volume_and_flow <- function(people, out_dir, Nsample=1000, Ncores=11){
     return(liver.info)
 }
 
-##############################################################################
-# Predict GEC and GECkg
-##############################################################################
-# Calculation and settings of the quantiles for the data
-calc_quantiles <- function(data, q.values=c(0.025, 0.25, 0.5, 0.75, 0.975)){
-  qdata <- apply(data, 1, quantile, q.values)
-  return ( t(qdata) )
-}
 
-# Predict GEC and GECkg for NHANES
-predict_GEC <- function(people, volLiver, flowLiver, out_dir){
-  
-  GEC_f <- GEC_functions(task='T54')
-  GEC_all <- calculate_GEC(GEC_f, volLiver, flowLiver)
-  GEC <- GEC_all$values
-  m.bodyweight <- matrix(rep(people$bodyweight, ncol(GEC)),
-                       nrow=nrow(GEC), ncol=ncol(GEC))
-  GECkg <- GEC/m.bodyweight
-
-  save(GEC, file=file.path(out_dir, 'GEC.Rdata'))
-  save(GECkg, file=file.path(out_dir, 'GECkg.Rdata'))
-
-  volLiver.q <- calc_quantiles(volLiver)
-  flowLiver.q <- calc_quantiles(flowLiver)
-  GEC.q <- calc_quantiles(GEC)
-  GECkg.q <- calc_quantiles(GECkg)
-
-  # store some random samples in addition
-  for (k in 1:5){
-    people[[sprintf('volLiver_sample_%d', k)]] <- volLiver[, k]
-    people[[sprintf('flowLiver_sample_%d', k)]] <- flowLiver[, k]
-    people[[sprintf('GEC_sample_%d', k)]] <- GEC[, k]
-    people[[sprintf('GECkg_sample_%d', k)]] <- GECkg[, k]
-  }
-
-  save(people, volLiver.q, flowLiver.q, GEC.q, GECkg.q, file=file.path(out_dir, 'rest_GEC_quantiles.Rdata'))
-}

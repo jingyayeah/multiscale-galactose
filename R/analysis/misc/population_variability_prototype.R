@@ -396,13 +396,3 @@ plot(nhanes.all$volLiver, nhanes.all$flowLiver_direct, col=nhanes.all$sex)
 par(mfrow=c(1,1))
 
 
-
-
-
-# [3] Calculate the perfusion
-
-# [4] Calculate GEC for perfusion
-
-# [5] Scale to whole liver
-
-

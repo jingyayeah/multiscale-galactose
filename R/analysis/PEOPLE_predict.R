@@ -15,6 +15,11 @@ setwd(ma.settings$dir.base)
 source(file.path(ma.settings$dir.code, 'analysis', 'PEOPLE_predict_functions.R'))
 
 ################################
+# Which GEC function to use
+################################
+GEC_f <- GEC_functions(task='T54')
+
+################################
 # Predict RAW people
 ################################
 cat('* PREDICT RAW *\n')
@@ -26,8 +31,9 @@ people.raw <- people.raw[1:10, ]
 dir.raw <- file.path(ma.settings$dir.base, 'results', 'rest')
 
 liver.info <- predict_volume_and_flow(people=people.raw, out_dir=dir.raw)
-predict_GEC(people.raw, volLiver=liver.info$volLiver, flowLiver=liver.info$flowLiver, out_dir=dir.raw)
-
+predict_GEC(people.raw, GEC_f=GEC_f, 
+            volLiver=liver.info$volLiver, flowLiver=liver.info$flowLiver, 
+            out_dir=dir.raw)
 
 ################################
 # Predict NHANES cohort
@@ -51,4 +57,6 @@ head(volLiver[, 1:5])
 cat('# Liver Blood Flow #')
 head(flowLiver[, 1:5])
 
-predict_GEC(people.nhanes, volLiver=liver.info$volLiver, flowLiver=liver.info$flowLiver, out_dir=dir.nhanes)
+predict_GEC(people.nhanes, GEC_f=GEC_f,
+            volLiver=liver.info$volLiver, flowLiver=liver.info$flowLiver,
+            out_dir=dir.nhanes)

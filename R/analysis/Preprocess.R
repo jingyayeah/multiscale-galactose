@@ -75,26 +75,3 @@ if (file.exists(x.fname)){
 } else {
   x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, modelId=modelId, dir=ma.settings$dir.simdata)
 }
-
-
-# Direct preprocessing of the csv files
-# library(parallel)
-# if (file.exists(x.fname)){
-#   load(file=x.fname)
-#   cat('Preprocessed data exists and is loaded.\n')
-# } else {
-#   # convert the CSV to R data structure. Uses parallel
-#   cat('Preprocessing CSV files ...\n')
-#   workerFunc <- function(simId){
-#     fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simId)
-#     data <- readDataForSimulationFile(fname)
-#     save(data, file=paste(fname, '.Rdata', sep=''))
-#   }
-#   Ncores <- 9
-#   res <- mclapply(simIds, workerFunc, mc.cores=Ncores)
-#   rm(Ncores)
-# 
-#   # make the preprocessing
-#   cat('Creating Data matrix ...\n')
-#   x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, modelId=modelId, dir=ma.settings$dir.simdata)
-# }

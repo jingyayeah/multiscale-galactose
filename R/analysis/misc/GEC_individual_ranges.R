@@ -1,7 +1,7 @@
 ################################################################################
 # Individual GEC prediction ranges
 ################################################################################
-# Example curves to show the idea of individualized predictions.
+# Demonstration curves to show the idea of individualized predictions.
 #
 # author: Matthias Koenig
 # date: 24-10-2014
