@@ -21,7 +21,7 @@ fit.models <- load_models_for_prediction()
 ################################
 # GEC function to use
 ################################
-GEC_f <- GEC_functions(task='T54')
+GEC_f <- GEC_functions(task='T1')
 names(GEC_f)
 plot_GEC_function(GEC_f)
 

@@ -15,12 +15,84 @@
 
 
 ###########################################################################
+# Galactose clearance by individual sinusoidal unit
+###########################################################################
+#' Calculates clearance information for sinusoidal unit.
+#' 
+#' Here the central calculation of clearance for a sinusoidal unit based
+#' on the periportal and perivenious steady state concentration 
+#' differences is performed. For ever sinusoidal unit the data is calculated.
+#' In a first step the timecourse matrix is approximated for the 
+#' steady state data point (tend), which is necessary due to the variable
+#' time steps in the individual integrations.
+#' In a second step the actual clearance parameters are calculated based
+#' on the steady state concentration matrix.
+#' @export
+extend_with_galactose_clearance <- function(processed, t_peak, t_end){
+  ids <- processed$ids
+  pars <- processed$pars
+  x <- processed$x
+  simIds = rownames(pars)
+  
+  # steady state values for the ids
+  mlist <- createApproximationMatrix(x, ids=ids, simIds=simIds, points=c(t_end), reverse=FALSE)
+  
+  # half maximal time, i.e. time to reach half steady state value
+  t_half <- rep(NA, length(simIds))
+  names(t_half) <- simIds
+  Nsim <- length(simIds)
+  # interpolate the half maximal time
+  for(ks in seq(Nsim)){
+    # fit the point
+    points <- c( 0.5*mlist$PV__gal[[ks]] )
+    data.interp <- approx(x$PV__gal[[ks]][, 2], x$PV__gal[[ks]][, 1], xout=points, method="linear")
+    t_half[ks] <- data.interp[[2]] - t_peak
+  }
+  
+  # Clearance parameters for the system #
+  #-------------------------------------
+  # F = Q_sinunit             # [m^3/sec]
+  # c_in = 'PP__gal'[end]     # [mmol/L]
+  # c_out = 'PV_gal[end]'     # [mmol/L]
+  # R = F*(c_in - c_out)      # [m^3/sec * mmol/L] = [mol/sec]
+  # ER = (c_in - c_out)/c_in  # [-]
+  # CL = R/c_in               # [m^3/sec]
+  # DG = (c_in - c_out)       # [mmol/L]
+  
+  c_in <- as.vector(mlist$PP__gal)   # [mmol/L]
+  c_out <- as.vector(mlist$PV__gal)  # [mmol/L]
+  
+  parscl <- pars  
+  parscl$t_half <- as.vector(t_half) # [s]
+  parscl$c_in <- c_in
+  parscl$c_out <- c_out
+  
+  parscl$R <- parscl$Q_sinunit * (c_in - c_out)
+  parscl$ER <- (c_in - c_out)/c_in
+  parscl$CL <- parscl$Q_sinunit * (c_in - c_out)/c_in
+  parscl$DG <- (c_in - c_out)
+  
+  # reduce to the values with > 0 PP__gal (remove NaN)
+  parscl <- parscl[parscl$c_in>0.0, ]
+  
+  return(parscl)
+}
+
+
+###########################################################################
 # Calculation of GEC curves
 ###########################################################################
-#' Analyse the data split by group (f_flow).
-#' 
+#' Calculation of galactose clearance parameters via integration
+#' of multiple sinusoidal units (region of interest).
+#' Important to integrate only over samples from the same underlying distribution.
+#' mean & sd values are the mean and sd between the different sinusoidal 
+#' units. 
+#' Q_per_vol & R_per_vol are the perfusion of the region of interest and
+#' the corresponding removal of galactose per region of interest.
+#' Be aware of the units !
+#' @param x Called with extended parameter data.frame containing clearance per sinusoidal unit.
 #' @export
-f_analyse <- function(x){  
+f_integrate_GEC <- function(x){  
   # number of samples
   N_sunits <- length(x$Vol_sinunit)
   
@@ -68,9 +140,9 @@ f_analyse <- function(x){
 #' Bootstrap of the calculation function.
 #' The number of samples in the bootstrap corresponds to the available samples.
 #' @export
-f_bootstrap <- function(dset, funct, B=1000){
+f_integrate_GEC_bootstrap <- function(dset, funct, B=1000){
   # bootstraping the function on the given dataset
-  dset.mean <- f_analyse(dset)
+  dset.mean <- f_integrate_GEC(dset)
   
   # calculate for bootstrap samples
   N <- nrow(dset)
@@ -85,7 +157,7 @@ f_bootstrap <- function(dset, funct, B=1000){
     # create the bootstrap data.frame
     df.boot <- dset[inds, ]
     # calculate the values for the bootstrap df
-    dset.boot[k, ] <- f_analyse(df.boot)[1, ]
+    dset.boot[k, ] <- f_integrate_GEC(df.boot)[1, ]
   }
   # now the function can be applied on the bootstrap set
   dset.funct <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=1))
@@ -105,7 +177,6 @@ GEC_curve_file <- function(task){
   file.path(dir, sprintf('GEC_curve_%s.Rdata', task))
 }
 
-
 #' Calculate GEC curves for task folder.
 #' 
 #' Integrates over the available simulations and calculates the individual
@@ -113,7 +184,7 @@ GEC_curve_file <- function(task){
 #' Folders have the format: 
 #' @export
 calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000, 
-                                 factors=c('f_flow', "gal_challenge", "N_fen"),
+                                 factors=c('f_flow', "gal_challenge", "N_fen", 'scale_f'),
                                  force=FALSE){
   # Process the integration time curves
   processed <- preprocess_task(folder=folder, force=force) 
@@ -125,9 +196,9 @@ calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000,
   # Generates the necessary data points for the interpolation of the GEC
   # curves and creates an estimate of error via bootstrap.
   cat('Calculate mean GEC\n')
-  d.mean <- ddply(parscl, factors, f_analyse)
+  d.mean <- ddply(parscl, factors, f_integrate_GEC)
   cat('Calculate se GEC (bootstrap)\n')
-  d.se <- ddply(parscl, factors, f_bootstrap, funct=sd, B=1000)
+  d.se <- ddply(parscl, factors, f_integrate_GEC_bootstrap, funct=sd, B=1000)
   
   # save the GEC curves 
   GEC_curves <- list(d.mean=d.mean, d.se=d.se)
@@ -144,8 +215,8 @@ calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000,
 GEC_functions <- function(task){
   # Load the GEC data points
   load(file=GEC_curve_file(task))
-  d.mean <- GEC_curves$d2
-  d.se <- GEC_curves$d2.se
+  d.mean <- GEC_curves$d.mean
+  d.se <- GEC_curves$d.se
   
   # create spline fits
   Qvol <- d.mean$Q_per_vol_units     # perfusion [ml/min/ml]
