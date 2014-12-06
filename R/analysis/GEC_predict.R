@@ -12,18 +12,13 @@
 # Load all the necessary functions for predictions
 rm(list=ls())
 library('MultiscaleAnalysis')
-library('gamlss')
 setwd(ma.settings$dir.base)
-source(file.path(ma.settings$dir.code, 'analysis', 'GAMLSS_predict_functions.R'))
-source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
-source(file.path(ma.settings$dir.code, 'analysis', 'GEC_predict_functions.R'))
 
 GEC_f <- GEC_functions(task='T54')
 
 ########################################################################################
 # Predict additional GEC data [mmol/min] & GECkg [mmol/min/kg]
 ########################################################################################
-
 
 # predict GEC for single row 
 # The distributions have to be calculated only once. Than fast rejection sampling

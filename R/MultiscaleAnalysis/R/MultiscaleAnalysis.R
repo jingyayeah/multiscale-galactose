@@ -8,6 +8,8 @@
 # author: Matthias Koenig
 # date: 2014-12-06
 ################################################################
+library('methods')
+library('gamlss')
 
 # Set this as base folder, where the project was checked out to 
 dir.base <- '/home/mkoenig/multiscale-galactose'

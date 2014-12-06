@@ -6,6 +6,7 @@
 predict_GEC(people, GEC_f, volLiver, flowLiver, out_dir)
 }
 \description{
-Predict GEC and GECkg for people.
+Predicts the GEC and GECkg for given people. Calculates the
+quantiles and stores some of the individual samples
 }
 

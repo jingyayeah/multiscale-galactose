@@ -12,12 +12,17 @@
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
-source(file.path(ma.settings$dir.code, 'analysis', 'PEOPLE_predict_functions.R'))
+
+# Load the fit models for prediction
+fit.models <- load_models_for_prediction()
 
 ################################
-# Which GEC function to use
+# GEC function to use
 ################################
 GEC_f <- GEC_functions(task='T54')
+str(GEC_f)
+plot_GEC_function(GEC_f)
+
 
 ################################
 # Predict RAW people
