@@ -13,6 +13,10 @@
 # date: 2014-12-06
 ################################################################
 
+
+###########################################################################
+# Calculation of GEC curves
+###########################################################################
 #' Analyse the data split by group (f_flow).
 #' 
 #' @export
@@ -61,13 +65,85 @@ f_analyse <- function(x){
 }
 
 
-#' Create the GEC functions from the given GEC task data
+#' Bootstrap of the calculation function.
+#' The number of samples in the bootstrap corresponds to the available samples.
+#' @export
+f_bootstrap <- function(dset, funct, B=1000){
+  # bootstraping the function on the given dataset
+  dset.mean <- f_analyse(dset)
+  
+  # calculate for bootstrap samples
+  N <- nrow(dset)
+  dset.boot <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=B))
+  names(dset.boot) <- names(dset.mean)
+  
+  for (k in seq(1,B)){
+    # create the sample by replacement
+    # these are the indices of the rows to take from the orignal dataframe
+    inds <- sample(seq(1,N), size=N, replace=TRUE)
+    
+    # create the bootstrap data.frame
+    df.boot <- dset[inds, ]
+    # calculate the values for the bootstrap df
+    dset.boot[k, ] <- f_analyse(df.boot)[1, ]
+  }
+  # now the function can be applied on the bootstrap set
+  dset.funct <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=1))
+  names(dset.funct) <- names(dset.mean)
+  for (i in seq(1,ncol(dset.mean))){
+    dset.funct[1,i] <- funct(dset.boot[,i])
+  }
+  return(dset.funct)
+}
+
+
+#' Get GEC curve file name for given task.
+#' 
+#' @export
+GEC_curve_file <- function(task){
+  dir <- file.path(ma.settings$dir.base, 'results', 'GEC_curves')
+  file.path(dir, sprintf('GEC_curve_%s.Rdata', task))
+}
+
+
+#' Calculate GEC curves for task folder.
+#' 
+#' Integrates over the available simulations and calculates the individual
+#' GEC for the combinations of provided factors.
+#' Folders have the format: 
+#' @export
+calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000, 
+                                 factors=c('f_flow', "gal_challenge", "N_fen"),
+                                 force=FALSE){
+  # Process the integration time curves
+  processed <- preprocess_task(folder=folder, force=force) 
+  
+  # Calculate the galactose clearance parameters
+  parscl <- extend_with_galactose_clearance(processed=processed, t_peak, t_end=t_end)
+  
+  # Perform analysis split by factors.
+  # Generates the necessary data points for the interpolation of the GEC
+  # curves and creates an estimate of error via bootstrap.
+  cat('Calculate mean GEC\n')
+  d.mean <- ddply(parscl, factors, f_analyse)
+  cat('Calculate se GEC (bootstrap)\n')
+  d.se <- ddply(parscl, factors, f_bootstrap, funct=sd, B=1000)
+  
+  # save the GEC curves 
+  GEC_curves <- list(d.mean=d.mean, d.se=d.se)
+  GEC.file <- GEC_curve_file(processed$task))
+  cat(GEC.file, '\n')
+  save('parscl', 'GEC_curves', file=GEC.file)  
+  
+  return( list(parscl=parscl, GEC_curves=GEC_curves, GEC.file=GEC.file) )
+}
+
+#' Create the GEC functions from the given GEC task data.
 #'
 #'@export
 GEC_functions <- function(task){
-  # Load the GEC information for task
-  dir <- file.path(ma.settings$dir.base, 'results', 'GEC_curves')
-  load(file=file.path(dir, sprintf('GEC_curve_%s.Rdata', task)))
+  # Load the GEC data points
+  load(file=GEC_curve_file(task))
   d.mean <- GEC_curves$d2
   d.se <- GEC_curves$d2.se
   
@@ -119,6 +195,9 @@ plot_GEC_function <- function(GEC_f){
          lty=c(1, 1, 1), col=c('black', rgb(0,0,0,0.8), 'blue'), lwd=c(2,1,2))
 }
 
+#################################################################################
+# Using GEC curves for calculation of GEC
+#################################################################################
 
 #' Calculates GEC for given vectors of liver volume and blood flow.
 #'

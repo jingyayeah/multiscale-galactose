@@ -19,98 +19,21 @@
 
 # Dataset for analyis
 if(!exists('folder')){
-  folder <- '2014-12-03_T5' # normal galactose challenge
   rm(list=ls())
+  folder <- '2014-12-03_T5' # normal galactose challenge
 }
 
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
 # Galactose challenge at peak time, simulation covers at least t_end
-t_peak <- 2000; t_end <- 10000 # [s]
-
-# Process the integration time curves
-processed <- preprocess_task(folder=folder, force=TRUE) 
-names(processed)
-
-# Calculate the galactose clearance parameters
-parscl <- extend_with_galactose_clearance(processed=processed, 
-                                            t_peak=t_peak, t_end=t_end)
-head(parscl)
-
-# Perform analysis split by factors
-# Generates the necessary data points for the interpolation of the GEC
-# curves.
-library('plyr')
-d2 <- ddply(parscl, c("gal_challenge", "N_fen", 'f_flow'), f_analyse)
+res <- calculate_GEC_curves(folder, t_peak, t_end)
 
 
 ###########################################################################
-# Bootstrap the GEC curves
+# Control plots for GEC curves
 ###########################################################################
-# bootstrap calculation of function
-# The number of samples in the bootstrap corresponds to the available samples.
-f_bootstrap <- function(dset, funct, B=1000){
-  # bootstraping the function on the given dataset
-  dset.mean <- f_analyse(dset)
-  
-  # calculate for bootstrap samples
-  N <- nrow(dset)
-  dset.boot <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=B))
-  names(dset.boot) <- names(dset.mean)
-  
-  for (k in seq(1,B)){
-    # create the sample by replacement
-    # these are the indices of the rows to take from the orignal dataframe
-    inds <- sample(seq(1,N), size=N, replace=TRUE)
-    
-    # create the bootstrap data.frame
-    df.boot <- dset[inds, ]
-    # calculate the values for the bootstrap df
-    dset.boot[k, ] <- f_analyse(df.boot)[1, ]
-  }
-  # now the function can be applied on the bootstrap set
-  dset.funct <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=1))
-  names(dset.funct) <- names(dset.mean)
-  for (i in seq(1,ncol(dset.mean))){
-    dset.funct[1,i] <- funct(dset.boot[,i])
-  }
-  return(dset.funct)
-}
-# Calculate bootstrap sd for confidence intervals
-d2.se <- ddply(parscl, c("gal_challenge", "N_fen", 'f_flow'), f_bootstrap, funct=sd, B=1000)
-
-head(d2)    # point estimate (mean values)
-head(d2.se) # bootstrap SE
-
-###########################################################################
-# Fit the GEC curves
-###########################################################################
-x <- d2$Q_per_vol_units
-y1 <- d2$R_per_vol_units
-y2 <- d2.se$R_per_vol_units
-f1 <- approxfun(x, y1, method = "linear")
-f2 <- splinefun(x, y1)
-f2.se <- splinefun(x, y2)
-plot(x,y1, ylim=c(0,0.003))
-curve(f1, from=0, to=3.5, col='red', add=T)
-curve(f2, from=0, to=3.5, col='blue', add=T)
-curve(f2.se, from=0, to=3.5, col='blue', add=T)
-
-
-# save everything
-GEC_curves <- list(d2=d2, d2.se=d2.se)
-d2.file <- file.path(ma.settings$dir.expdata, 'processed',
-                     paste('GEC_curve_', task, '.Rdata', sep=''))
-cat(d2.file)          
-save('d2', 'd2.se', 'parscl', 'GEC_curves', file=d2.file)
-
-
-
-###########################################################################
-# GEC curves
-###########################################################################
-# Some control plots
+# TODO: create images for the analysis
 plot(parscl$f_flow, parscl$flow_sin)
 plot(parscl$flow_sin, parscl$R)
 
@@ -130,15 +53,6 @@ p2 <- ggplot(d2, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + fa
 p3 <- ggplot(d2, aes(Q_per_vol_units, R_per_vol_units*1500)) + geom_point() + geom_line()+ ylim(0,5) +facet_grid(~ N_fen)
 multiplot(p1, p2, p3, cols=3)
 d2
-
-# combined plot of the individual with the mean simulations
-names(d2)
-plot(d2$Q_per_vol_units, d2$mean.R, ylim=c(0, 2.0*max(d2$mean.R)), lwd=2, col='blue')
-lines(d2$Q_per_vol_units, d2$mean.R, lwd=2, col='blue')
-lines(d2$Q_per_vol_units, d2$mean.R+d2$sd.R, col='Gray', lwd=2)
-lines(d2$Q_per_vol_units, d2$mean.R-d2$sd.R, col='Gray', lwd=2)
-points(parscl$Q_sinunit/parscl$Vol_sinunit*60, parscl$R, cex=0.2, bg=rgb(0,0,0,0.5))
-head(parscl)
 
 
 
