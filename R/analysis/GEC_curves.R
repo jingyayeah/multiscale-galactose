@@ -20,13 +20,21 @@ setwd(ma.settings$dir.base)
 # Set of GEC curves to create from simulations
 # '2014-11-30_T1'  # normal GEC ~ f_flow
 # '2014-12-03_T3'  # normal GEC ~ f_flow, N_fen (ageing)
-# '2014-12-03_T5'  # normal GEC ~ f_flow, f_scale (ageing)
+# '2014-12-03_T5'  # normal GEC ~ f_flow, f_scale (metabolic scaling)
+# '2014-12-07_T6'  # normal GEC ~ f_flow, f_scale (metabolic scaling, mean)
 
-folders <- c('2014-11-30_T1', '2014-12-03_T3', '2014-12-03_T5')
+folders <- c('2014-11-30_T1', '2014-12-03_T3', '2014-12-03_T5', '2014-12-07_T6')
 for (folder in folders){
   assign(folder, calculate_GEC_curves(folder))
 }
-res <- calculate_GEC_curves('2014-12-03_T5')
+
+res <- calculate_GEC_curves('2014-12-07_T6')
+GEC_f <- GEC_functions(task='T6')
+names(GEC_f)
+plot_GEC_function(GEC_f)
+d.mean <- GEC_curves$d.mean
+d.se <- GEC_curves$d.se
+head(d.mean)
 
 ################################################################
 ## Normal Galactose Clearance & Elimination (20 years)
@@ -80,7 +88,7 @@ multiplot(p1, p2, p3, cols=3)
 ################################################################
 # variation in scale_f
 rm(list=ls())
-task <- 'T5'
+task <- 'T6'
 load(file=GEC_curve_file(task))
 d.mean <- GEC_curves$d.mean
 d.se <- GEC_curves$d.se

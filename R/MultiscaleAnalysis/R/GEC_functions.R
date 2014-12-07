@@ -182,9 +182,13 @@ GEC_curve_file <- function(task){
 #' Integrates over the available simulations and calculates the individual
 #' GEC for the combinations of provided factors.
 #' Folders have the format: 
+#' 
+#' factors=c('f_flow', "gal_challenge", "N_fen", 'scale_f')
+#' 
+#' 
 #' @export
 calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000, 
-                                 factors=c('f_flow', "gal_challenge", "N_fen", 'scale_f'),
+                                 factors=c('f_flow', 'scale_f'),
                                  force=FALSE){
   # Process the integration time curves
   processed <- preprocess_task(folder=folder, force=force) 

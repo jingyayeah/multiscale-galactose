@@ -298,7 +298,7 @@ def make_galactose_aging(sbml_id, N, sampling):
 
 #----------------------------------------------------------------------#
 def make_galactose_metabolic_change(sbml_id, N, sampling):        
-    info = 'Galactose clearance under given perfusion for different metabolic capacity ({}).'.format(sampling)
+    info = 'Galactose clearance per perfusion for varying metabolic capacity ({}).'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
@@ -322,7 +322,6 @@ def make_galactose_metabolic_change(sbml_id, N, sampling):
     createSimulationsForSamples(task, samples)
 
     return (task, samples)
-
 
 
 #----------------------------------------------------------------------#

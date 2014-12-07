@@ -1,45 +1,67 @@
 ################################################################
 ## Plot single simulations
 ################################################################
-# Plot information of single simulation for quality control
+# Plot information of single simulations.
 #
 # author: Matthias Koenig
-# date: 2014-07-28
+# date: 2014-12-07
 ################################################################
 rm(list=ls())
-library(data.table)
-library(libSBML)
-library(matrixStats)
 library(MultiscaleAnalysis)
-setwd(ma.settings$dir.results)
+setwd(ma.settings$dir.base)
 
 # Get overview over available simulations
-ma.settings$simulator <- 'ROADRUNNER'
-task <- 'T25'
-modelId <- paste('Galactose_v21_Nc20_dilution')
-simId <- 29966
+folder <- '2014-12-07_T6'
+info <- process_folder_info(folder)
+str(info)
+# Load the parameter file
+pars <- loadParameterFile(file=info$parsfile)
+head(pars)
 
-dir = paste(ma.settings$dir.results, '/tmp_sim/', task, sep='')
-fname = getSimulationFileFromSimulationId(dir, simId=paste('Sim', simId, sep=''))
-df = readDataForSimulationFile(fname)
-ids = names(df)
-ids
+# select some simulations from the file
+simIds <- rownames(pars)
+simIds
 
-# create model dataframe for simulation
-#simId <- 1251
+get_rdata_for_simulation <- function(sim_id, info){
+  fname <- file.path(info$dir.simdata, sprintf('%s_%s_roadrunner.csv.Rdata', info$modelId, sim_id))
+  cat(fname, '\n')                   
+  load(fname)
+  return(data)
+}
 
-Sys.time()->start;
-load('/home/mkoenig/multiscale-galactose-results/2014-07-30_T25/Galactose_v21_Nc20_dilution_Sim29921_roadrunner.csv.Rdata')
-print(Sys.time()-start);
+# get data for simulation
+data <- lapply(simIds, get_rdata_for_simulation, info)
+names(data) <- simIds
 
+ids = names(data[[1]])
 
+# filter the ids (some are not timecourses)
+keywords = c("time", "y_cell", "y_dis", "scale_f", "gal_challenge", "deficiency", "flow_sin", "L", "y_sin")
 
 # plot some components via ids
-plotTimecourse <- function(df, ids, cols='Black'){
+plotTimecourse <- function(data, ids, cols='Black'){
   for (id in ids){
-    lines(df$time, df[[id]], col=cols)
+    if (!(id %in% keywords)){
+      lines(data$time, data[[id]], col=cols)
+    }
   }
 }
+
+data[[1]]$scale_f[1]
+data[[2]]$scale_f[1]
+data[[3]]$scale_f[1]
+data[[4]]$scale_f[1]
+data[[5]]$scale_f[1]
+
+plot(numeric(0), numeric(0), type='n', xlim=c(1999,2030), ylim=c(0,8.5))
+for(k in 1:length(simIds)){
+  lines(data[[k]]$time, data[[k]]$PV__gal)
+}
+plot(numeric(0), numeric(0), type='n', xlim=c(1999,2030), ylim=c(0,8.5))
+for(k in 1:length(simIds)){
+  lines(data[[k]]$time, data[[k]]$H01__gal)
+}
+
 
 # subsets for plotting
 pp_ids = ids[grep('PP__', names(df))]
@@ -50,9 +72,12 @@ galM_ids = ids[grep('__galM$', names(df))]
 #adp_ids = ids[grep('__a[d,t]p', names(df))]
 #audp_ids = ids[grep('__[a,u][d,t]p$', names(df))]
 
-ids
-plot(numeric(0), numeric(0), ylim=c(0,10), xlim=c(0,1200))
-plotTimecourse(df, ids)
+par(mfrow=c(1,5))
+for (k in 1:5){
+  plot(numeric(0), numeric(0), ylim=c(0,10), xlim=c(0,10000))
+  plotTimecourse(data[[k]], ids)
+}
+par(mfrow=c(1,1))
 
 # create pp and pv plots
 xlimits = c(1000, 1200)

@@ -7,8 +7,76 @@
 # PreprocessFileFunctions.R
 #
 # author: Matthias Koenig
-# date: 2014-11-11
+# date: 2014-12-07
 ################################################################
+
+#' Process folder information.
+#' 
+#' From the folder information all the additional information can be created.
+#' @export
+process_folder_info <- function(folder){
+  dir <- file.path(ma.settings$dir.results, folder)
+  tmp <- strsplit(folder, '_')
+  date <- tmp[[1]][1]
+  task <- tmp[[1]][2]
+  modelXML <- list.files(path=file.path(ma.settings$dir.results, folder), pattern='.xml')
+  modelId <- substr(modelXML,1,nchar(modelXML)-4)
+  f.sbml <- file.path(dir, sprintf('%s.xml', modelId))
+  parsfile <- file.path(dir, sprintf('%s_%s_parameters.csv', task, modelId))
+  dir.simdata <- file.path(ma.settings$dir.results, 'django', 'timecourse', task)
+  return (list(folder=folder, dir=dir, date=date, task=task, parsfile=parsfile, 
+               modelId=modelId, f.sbml=f.sbml,
+               dir.simdata=dir.simdata) )  
+}
+
+
+#' Preprocess the results for given folder.
+#' 
+#' Generates the combined Rdata file for the selected ids.
+#' The collection of data files to be preprocessed is defined via
+#  the folder variable which encodes the task.
+#' Read the timecourse data (CSV) and creates reduced data
+#' structures consisting of some components of the full
+#' sinusoidal system.
+#' All simulation csv have been collected in a common folder.
+#' Main challenge is the combination of the timecourses based
+#' the varying timesteps used for simulation.
+#' Important part is also dimension reduction of the data
+#' structure.
+#' Folder format follows '2014-11-17_T5'.
+#' @export
+preprocess_task <- function(folder, ids=preprocess.ids, force=FALSE){
+  
+  if (missing(folder))
+    stop('Need to specify folder for preprocessing.')
+  # get all the information from the folder
+  info <- process_folder_info(folder)
+  
+  # create results folder
+  dir.create(file.path(info$dir, 'results'), showWarnings = FALSE)
+  
+  # read parameter file & extend with SBML information
+  cat(info$parsfile, '\n')
+  pars <- loadParameterFile(file=info$parsfile)
+  
+  # extend the parameter information with info from SBML file
+  ps <- getParameterTypes(pars=pars)
+  model <- loadSBMLModel(info$f.sbml)
+  pars <- extendParameterStructure(pars=pars, fixed_ps=ps$fixed, model=model)
+  
+  # Preprocess timecourses as Rdata
+  simIds = rownames(pars)
+  x.fname <- file.path(info$dir, 'results', 'x.Rdata')
+  cat('Creating data matrix ...\n')
+  if (file.exists(x.fname) & force==FALSE){
+    load(file=x.fname)
+    cat('Preprocessed data exists and is loaded.\n')
+  } else {
+    x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, 
+                                      modelId=info$modelId, dir=info$dir.simdata)
+  }
+  return(list(task=task, pars=pars, ids=ids, x=x, info=info))
+}
 
 #' Dimension reduction of timecourse data frames.
 #' 

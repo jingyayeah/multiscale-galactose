@@ -144,6 +144,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
                 # now set the value for the correct name
                 changes[name] = rr.model[name]
                 rr.model[name] = p.value
+                # print 'set', name, ' = ', p.value
 
             tstart_int = time.clock()
                         
@@ -165,13 +166,14 @@ def integrate_roadrunner(sims, keep_tmp=False):
             # Store Timecourse Results
             tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
             numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.6E')
+            storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
 
             # reset
             rr.reset()
+            # print 'reset', changes
             for key, value in changes.iteritems():
-                rr.model[key] = value
-                    
-            storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
+                rr.model[key] = value        
+            
             print 'Time: [{:.1f}|{:.1f}]'.format( (time.clock()-tstart_total), t_int )
             
         except:
@@ -201,7 +203,7 @@ if __name__ == "__main__":
     # os.remove(tc.file.path)
 
     from sim.models import Simulation
-    sims = [Simulation.objects.filter(task__pk=5)[0], ]
+    sims = [Simulation.objects.filter(task__pk=6)[0], ]
     print '* Start integration *'
     integrate(sims, integrator=ROADRUNNER, keep_tmp=True)
     # integrate(sims, simulator=COPASI)
