@@ -33,7 +33,7 @@ def storeConfigFile(sim, folder):
     sim.save()
     return config_file;
 
-def storeTimecourseResults(sim, tc_file):
+def storeTimecourseResults(sim, tc_file, keep_tmp=False):
     f = open(tc_file, 'r')
     myfile = File(f)
     tc, _ = Timecourse.objects.get_or_create(simulation=sim)
@@ -43,10 +43,11 @@ def storeTimecourseResults(sim, tc_file):
     tc.zip()
     # convert to Rdata
     tc.rdata()
-    # remove the original csv file now
-    myfile.close()
-    f.close()
-    os.remove(tc_file)
+    if (keep_tmp==False):
+        # remove the original csv file now
+        myfile.close()
+        f.close()
+        os.remove(tc_file)
     # remove the db csv (only compressed file kept)
     os.remove(tc.file.path)
      
@@ -55,12 +56,12 @@ def storeTimecourseResults(sim, tc_file):
     sim.status = DONE
     sim.save()
             
-def integrate(sims, integrator):
+def integrate(sims, integrator, keep_tmp):
     ''' Run ODE integration for the simulation. '''        
     if (integrator == COPASI):
         integrate_copasi(sims);
     elif (integrator == ROADRUNNER):
-        integrate_roadrunner(sims);
+        integrate_roadrunner(sims, keep_tmp);
 
 def integrate_copasi(sims):
     ''' Integrate simulations with Copasi. 
@@ -85,7 +86,7 @@ def integrate_copasi(sims):
             integration_exception(sim)
             
         
-def integrate_roadrunner(sims):
+def integrate_roadrunner(sims, keep_tmp=False):
     ''' Integrate simulations with RoadRunner.'''
     
     # read SBML
@@ -93,15 +94,19 @@ def integrate_roadrunner(sims):
         sbml_file = str(sims[0].task.sbml_model.file.path)
         sbml_id = sims[0].task.sbml_model.sbml_id
         rr = roadrunner.RoadRunner(sbml_file)
+        # get the changed parameters in SBML
+        pnames = [str(p.name) for p in sims[0].parameters.all() if p.ptype != 'NONE_SBML_PARAMETER']
+
     except RuntimeError:
         # reset the simulation status
         for sim in sims:
             sim.status = ERROR
             sim.save()
         raise
-        
+    
     # set the selection
     sel = ['time']
+    sel += pnames
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
     sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
@@ -166,7 +171,7 @@ def integrate_roadrunner(sims):
             for key, value in changes.iteritems():
                 rr.model[key] = value
                     
-            storeTimecourseResults(sim, tc_file)
+            storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
             print 'Time: [{:.1f}|{:.1f}]'.format( (time.clock()-tstart_total), t_int )
             
         except:
@@ -198,7 +203,7 @@ if __name__ == "__main__":
     from sim.models import Simulation
     sims = [Simulation.objects.filter(task__pk=5)[0], ]
     print '* Start integration *'
-    integrate(sims, integrator=ROADRUNNER)
+    integrate(sims, integrator=ROADRUNNER, keep_tmp=True)
     # integrate(sims, simulator=COPASI)
     
     
