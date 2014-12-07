@@ -411,10 +411,10 @@ if __name__ == "__main__":
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution & add additional changes in aging
-        task, samples = make_galactose_metabolic_change(sbml_id, N=50, sampling='distribution')
+        task, samples = make_galactose_metabolic_change(sbml_id, N=0, sampling='distribution')
         
         # mean sinusoidal unit
-        task, samples = make_galactose_metabolic_change(sbml_id, N=0, sampling='mean')
+        task, samples = make_galactose_metabolic_change(sbml_id, N=1, sampling='mean')
    
     #----------------------------------------------------------------------#
     if (0):
