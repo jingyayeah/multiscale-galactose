@@ -56,7 +56,7 @@ def storeTimecourseResults(sim, tc_file, keep_tmp=False):
     sim.status = DONE
     sim.save()
             
-def integrate(sims, integrator, keep_tmp):
+def integrate(sims, integrator, keep_tmp=False):
     ''' Run ODE integration for the simulation. '''        
     if (integrator == COPASI):
         integrate_copasi(sims);
