@@ -41,7 +41,7 @@ def plot1(ids, result):
 if __name__ == "__main__":
     
     # define simulation to run    
-    sim_pk = 101
+    sim_pk = 15162
     if not sim_pk:
         sims = Simulation.objects.all()[0],
     else:

@@ -11,7 +11,7 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.base)
 
 # Get overview over available simulations
-folder <- '2014-12-07_T6'
+folder <- '2014-12-07_T7'
 info <- process_folder_info(folder)
 str(info)
 # Load the parameter file

@@ -75,7 +75,7 @@ preprocess_task <- function(folder, ids=preprocess.ids, force=FALSE){
     x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, 
                                       modelId=info$modelId, dir=info$dir.simdata)
   }
-  return(list(task=task, pars=pars, ids=ids, x=x, info=info))
+  return(list(pars=pars, ids=ids, x=x, info=info))
 }
 
 #' Dimension reduction of timecourse data frames.

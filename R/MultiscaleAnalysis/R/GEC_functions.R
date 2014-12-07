@@ -206,7 +206,7 @@ calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000,
   
   # save the GEC curves 
   GEC_curves <- list(d.mean=d.mean, d.se=d.se)
-  GEC.file <- GEC_curve_file(processed$task)
+  GEC.file <- GEC_curve_file(processed$info[['task']])
   cat(GEC.file, '\n')
   save('parscl', 'GEC_curves', file=GEC.file)  
   
