@@ -392,7 +392,7 @@ if __name__ == "__main__":
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
@@ -413,7 +413,7 @@ if __name__ == "__main__":
         task, samples = make_galactose_metabolic_change(sbml_id, N=50, sampling='distribution')
         
         # mean sinusoidal unit
-        task, samples = make_galactose_metabolic_change(sbml_id, N=1, sampling='mean')
+        task, samples = make_galactose_metabolic_change(sbml_id, N=0, sampling='mean')
    
     #----------------------------------------------------------------------#
     if (0):
