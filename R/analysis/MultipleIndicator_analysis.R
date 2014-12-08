@@ -1,71 +1,43 @@
 ################################################################
-## Evaluation of MultipleIndicator Dilution Curves
+## Evaluation of Multiple Indicator Dilution Curves (MIDC)
 ################################################################
-# The workflow for analysis is:
-# [1] preprocessing of timecourse data
-# [2] analysis of the parameter samples & probability distributions
-#     and weighting of the data
-# [3] apply the weighting to the time course simulations. 
-#
-# Data is read from the preprocessed timecourse samples.
-# Necessary to make multiple plots depending on subsets of the data
+# The MIDC single sinusoidal unit data is used for calculation
+# of mean and median resulting curves.
 #
 # TODO: create the plots depending on the galactose challange
 # TODO: create plot with experimental data
 # 
 # author: Matthias Koenig
-# date: 2014-05-13
+# date: 2014-12-08
 ################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
-library('matrixStats')
-library('RColorBrewer')
-library('libSBML')
-setwd(ma.settings$dir.results)
+setwd(ma.settings$dir.base)
 
 t_peak <- 1000              # [s] MID peak start
 t_end <- 5000               # [s] simulation time
-folder <- '2014-11-17_T3'   # Multiple indicator data
+folder <- '2014-12-08_T7'   # Multiple indicator data
+folder.mean <- '2014-12-08_T8'   # Multiple indicator data mean
 
-source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
-       echo=TRUE, local=FALSE)
+# Process the integration time curves
+info <- process_folder_info(folder)
+processed <- preprocess_task(folder=folder, force=FALSE) 
 
 # parameters are already extended with SBML information
 head(pars)
 
 
 #------------------------------------------------------------------------------#
-
+# Definition of compounds in the model and respective colors
 compounds = c('gal', 'rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 # compounds = c('rbcM', 'alb', 'suc', 'h2oM')
 # ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
 pv_compounds = paste('PV__', compounds, sep='')
 names(ccolors) <- pv_compounds
-names(ccolors)
-ccolors
 
-# Colors for probability weights
-col2rgb_alpha <- function(col, alpha){
-  rgb <- rgb(col2rgb(col)[[1]]/256,col2rgb(col)[[2]]/256,col2rgb(col)[[3]]/256, alpha)
-}
-# Colors for weights
-getColorsForWeights <- function (weights) {
-  print('getColorsForWeights')
-  ccol = 'gray'
-  Nsim = nrow(pars)
-  Ncol = 7
-  colpal <- brewer.pal(Ncol+2, 'Greys')
-  ccols = rep(colpal[1], Nsim)
-  maxValue = max(weights) 
-  bw = maxValue/Ncol
-  for (k in seq(Ncol)){
-    ind <- which( (weights>((k-1)*bw)) & (weights <= (k*bw)))
-    ccols[ind] = colpal[k+2]
-    ccols[ind] = col2rgb_alpha(colpal[k+2], 0.7) 
-  }
-  ccols
-}
+
+library('RColorBrewer')
 
 # Preprocess the parameters for scaling
 t.min = t_peak-5

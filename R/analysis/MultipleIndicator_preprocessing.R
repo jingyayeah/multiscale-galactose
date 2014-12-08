@@ -4,26 +4,34 @@
 # Read the timecourse data and creates reduced data structures
 # for simplified query and visualization.
 # MID is calculated under varying galactose challenges.
-# 
 # Necessary to reproduce the peak structure as well as the different 
 # galactose curves.
+#
+# TODO: not all simulations reached steady state when the peak is 
+# given -> start the peak later ~ 5000 s
+# TODO: add the experimental data with the curves
+# TODO: adaptation of galactose parameters to describe the curves (transport relative to metabolism)
+# TODO: plot the single curves
 #
 # author: Matthias Koenig
 # date: 2014-11-17
 ################################################################
 rm(list=ls())
-library(data.table)
-library(MultiscaleAnalysis)
-setwd(ma.settings$dir.results)
+library('MultiscaleAnalysis')
+setwd(ma.settings$dir.base)
 
 t_peak <- 1000              # [s] MID peak start
 t_end <- 5000               # [s] simulation time
-folder <- '2014-11-17_T3'   # Multiple indicator data
+folder <- '2014-12-08_T7'   # Multiple indicator data
+folder.mean <- '2014-12-08_T8'   # Multiple indicator data mean
 
-source(file=file.path(ma.settings$dir.code, 'analysis', 'Preprocess.R'), 
-       echo=TRUE, local=FALSE)
+# Process the integration time curves
+info <- process_folder_info(folder)
+p <- preprocess_task(folder=folder, force=FALSE) 
+names(p)
 
 # parameters are already extended with SBML information
+pars <- p$pars
 head(pars)
 
 ###########################################################################
@@ -36,39 +44,40 @@ f.level = "PP__gal"
 gal_levels <- levels(as.factor(pars[[f.level]]))
 print(gal_levels)
 
-plot.ids = c('PP__gal', 'PV__gal')
+plot.ids = c('PP__gal', 'PV__gal') # plot the pp and pv galactose (background galactose)
 plot.colors = c( rgb(0.5,0.5,0.5, alpha=0.3), rgb(0,0,1.0, alpha=0.3) )
 names(plot.colors) <- plot.ids
 
 # set limits based on peak location
 xlimits <- c(t_peak-5, t_peak+200)
-ylimits <- c(0.0, max(as.numeric(gal_levels)))
+xlimits <- c(0.0, t_end)
+ylimits <- c(0.0, 1.2*max(as.numeric(gal_levels)))
 
-# create subplot for all the different levels
-head(pars)
-nrow = ceiling(sqrt(length(plot.levels)))
+# create subplot for the different background levels of galactose
+
+nrow = ceiling(sqrt(length(gal_levels)))
 par(mfrow=c(nrow, nrow))
-for (p.level in plot.levels){
+for (gal in gal_levels){
   # empty plot
   plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits, 
-       main=paste(f.level, '=', p.level))
+       main=paste(f.level, '=', gal), xlab='time [s]', ylab='concentration [mM]')
   
   # find the simulation rows for the level &
   # plot all the single simulations for the level
-  gal_rows <- which(pars[[f.level]]==p.level)
+  gal_rows <- which(pars[[f.level]]==gal)
   for (k in gal_rows){
     for (id in plot.ids){
-      points(x[[id]][[k]]$time, x[[id]][[k]][[2]], 
+      points(p$x[[id]][[k]]$time, p$x[[id]][[k]][[2]], 
              type='l', col=plot.colors[[id]])      
     }
   }
 }
 par(mfrow=c(1,1))
 
+gal_levels
 ###########################################################################
 # Calculate mean time curves and sds 
 ###########################################################################
-library('matrixStats')
 
 plotMeanCurves <- function(mlist, f.level, compounds, ccolors){
   for (kc in seq(length(compounds))){
@@ -77,7 +86,8 @@ plotMeanCurves <- function(mlist, f.level, compounds, ccolors){
     id <- paste('PV__', compound, sep='')
     
     # different levels
-    plot.levels <- levels(as.factor(pars[[f.level]]))
+    # plot.levels <- levels(as.factor(pars[[f.level]]))
+    plot.levels = c("0.28", "12.5", "17.5")
     for (p.level in plot.levels){
       sim_rows <- which(pars[[f.level]]==p.level)
       tmp <- mlist[[id]][ ,sim_rows]
@@ -116,7 +126,12 @@ plotMeanCurves <- function(mlist, f.level, compounds, ccolors){
 t.approx = seq(from=t_peak-5, to=t_peak+50, by=0.2)
 time <- t.approx
 simIds <- rownames(pars)
-mlist <- createApproximationMatrix(ids=ids, simIds=simIds, points=t.approx, reverse=FALSE)
+compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
+ids <- c( paste(rep('PP__', length(compounds)), compounds, sep=''), 
+          paste(rep('PV__', length(compounds)), compounds, sep=''))
+ids
+t.approx
+mlist <- createApproximationMatrix(p$x, ids=ids, simIds=simIds, points=t.approx, reverse=FALSE)
 
 compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
 ccolors = c('gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue')
@@ -153,12 +168,10 @@ for (simId in testIds){
     id <- paste('PV__', compound, sep="")
     print(id)
     col <- ccolors[kc]
-    time <- x[[id]][[simId]]$time
-    tmp.data <- x[[id]][[simId]][[2]]
+    time <- p$x[[id]][[simId]]$time
+    tmp.data <- p$x[[id]][[simId]][[2]]
     points(time, tmp.data, type='l', col=col)
     tmp.tmax <- time[which.max(tmp.data)]
     abline(v=tmp.tmax, col=col)
   }
 }
-
-hist(pars$flow_sin, breaks = 40)

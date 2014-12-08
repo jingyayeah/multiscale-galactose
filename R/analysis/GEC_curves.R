@@ -45,9 +45,21 @@ d.mean[, c('f_flow', 'N_fen', 'R_per_vol_units')]
 ################################################################
 # TODO: make function depending on person
 rm(list=ls())
-GEC_f <- GEC_functions(task='T1')
-names(GEC_f)
+
+par(mfrow=c(1,2))
+folder <- '2014-12-08_T5'
+info <- process_folder_info(folder)
+res <- calculate_GEC_curves(folder, force=FALSE, B=10)
+GEC_f <- GEC_functions(task=info$task)
 plot_GEC_function(GEC_f)
+
+folder <- '2014-12-08_T6'
+info <- process_folder_info(folder)
+res <- calculate_GEC_curves(folder, force=FALSE, B=10)
+GEC_f <- GEC_functions(task=info$task)
+plot_GEC_function(GEC_f)
+par(mfrow=c(1,1))
+
 
 
 ################################################################
