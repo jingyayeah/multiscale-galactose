@@ -28,8 +28,8 @@ for (folder in folders){
   assign(folder, calculate_GEC_curves(folder))
 }
 
-res <- calculate_GEC_curves('2014-12-07_T8')
-GEC_f <- GEC_functions(task='T8')
+res <- calculate_GEC_curves('2014-12-08_T10')
+GEC_f <- GEC_functions(task='T10')
 names(GEC_f)
 plot_GEC_function(GEC_f)
 d.mean <- GEC_curves$d.mean
