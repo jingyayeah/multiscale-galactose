@@ -1,32 +1,29 @@
 ################################################################################
-# Create NHANES figures with predicted data
+# Analyse PEOPLE prediction with experimental data
 ################################################################################
-# Create figure for the NHANES simulation in combination with the experimental
-# data.
+# Create figures of cohort predictions in combination with experimental 
+# data. Examples are the NHANES data and the information from cat2010 & hei1999.
 #
 # author: Matthias Koenig
-# date: 2014-12-03
+# date: 2014-12-07
 ################################################################################
-
-# rm(list = ls())
 library('MultiscaleAnalysis')
-library('methods')
 setwd(ma.settings$dir.base)
-source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
-# Load the NHANES dataset with the GEC data
-# Load the NHANES & quantile data
-dir_nhanes <- file.path(ma.settings$dir.base, 'results', 'nhanes')
-load(file=file.path(dir_nhanes, 'nhanes_GEC_quantiles.Rdata'))
-
-# Load the raw data
+# Load people information (RAW & NHANES)
+load(file=file.path(dir_nhanes, 'people.Rdata'))
 load(file=file.path(dir_nhanes, 'nhanes_volLiver.Rdata'))
 load(file=file.path(dir_nhanes, 'nhanes_flowLiver.Rdata'))
 load(file=file.path(dir_nhanes, 'nhanes_GEC.Rdata'))
 load(file=file.path(dir_nhanes, 'nhanes_GECkg.Rdata'))
-load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_GEC.Rdata'))
 
-# reduce the nhanes dataset to the interesting parts
+# calculate quantiles (mean)
+volLiver.q <- calc_quantiles(volLiver)
+flowLiver.q <- calc_quantiles(flowLiver)
+GEC.q <- calc_quantiles(GEC)
+GECkg.q <- calc_quantiles(GECkg)
+
+# Add the mean information from the MC simulation
 colnames(volLiver.q)
 nhanes$volLiver <- volLiver.q[, '50%']
 nhanes$volLiverkg <- nhanes$volLiver/nhanes$bodyweight
@@ -35,20 +32,6 @@ nhanes$flowLiverkg <- nhanes$flowLiver/nhanes$bodyweight
 nhanes$GEC <- GEC.q[, '50%']
 nhanes$GECkg <- nhanes$GEC/nhanes$bodyweight
 nhanes$perfusion <- nhanes$flowLiver/nhanes$volLiver
-
-
-for (k in 1:5){
-  nhanes[[sprintf('volLiverkg_sample_%d', k)]] <- nhanes[[sprintf('volLiver_sample_%d', k)]]/nhanes$bodyweight
-  nhanes[[sprintf('flowLiverkg_sample_%d', k)]] <- nhanes[[sprintf('flowLiver_sample_%d', k)]]/nhanes$bodyweight
-  nhanes[[sprintf('GECkg_sample_%d', k)]] <- nhanes[[sprintf('GEC_sample_%d', k)]]/nhanes$bodyweight
-  nhanes[[sprintf('perfusion_sample_%d', k)]] <- nhanes[[sprintf('flowLiver_sample_%d', k)]]/nhanes[[sprintf('volLiver_sample_%d', k)]]
-}
-# nhanes <- nhanes[, c('SEQN', 'ethnicity', 'sex', 'age', 'bodyweight', 'height', 'BSA',
-#                    'volLiver', 'flowLiver', 'GEC',
-#                    'volLiverkg', 'flowLiverkg', 'GECkg',
-#                    'volLiver_sample', 'flowLiver_sample', 'GEC_sample',
-#                    'volLiverkg_sample', 'flowLiverkg_sample', 'GECkg_sample']
-head(nhanes)
 
 ################################################################################
 if (!exists('dataset')){
@@ -152,12 +135,13 @@ for (k in 1:3){
        main=sprintf('%s', df.names[k]), xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, font.lab=2, cex.lab=1.0)
   
 
-  # plot individual samples
+  # plot selection of individual samples
   for (k in 1:5){
     name <- sprintf('%s_sample_%d', yname, k)
     if (name %in% colnames(nhanes))
       points(nhanes.d[[xname]], nhanes.d[[name]], col=rgb(0.6, 0.6, 0.6, 1), bg=rgb(0.6, 0.6, 0.6, 1), pch=21, cex=0.4)
   }
+  
   # mean nhanes of Monte Carlo or experimental data
   points(nhanes.d[[xname]], nhanes.d[[yname]], col="black", bg="black", pch=21, cex=0.4)
   

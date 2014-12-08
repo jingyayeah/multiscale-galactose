@@ -10,6 +10,14 @@
 # date: 2014-12-05
 ################################################################################
 
+#' Raw people folder.
+#' @export
+dir.raw <- file.path(ma.settings$dir.base, 'results', 'rest')
+
+#' NHANES people folder.
+#' @export
+dir.nhanes <- file.path(ma.settings$dir.base, 'results', 'nhanes')
+
 ##############################################################################
 # Create people
 ##############################################################################

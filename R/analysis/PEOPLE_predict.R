@@ -35,8 +35,6 @@ cat('* PREDICT RAW *\n')
 people.raw <- create_all_people(c('hei1999', 'cat2010'))
 people.raw <- people.raw[1:10, ]
 
-dir.raw <- file.path(ma.settings$dir.base, 'results', 'rest')
-
 info.raw <- predict_volume_and_flow(people=people.raw, out_dir=dir.raw)
 predict_GEC(people.raw, GEC_f=GEC_f, 
             volLiver=info.raw$volLiver, flowLiver=info.raw$flowLiver, 
@@ -53,19 +51,18 @@ people.nhanes$volLiver <- NA
 people.nhanes$volLiverkg <- NA
 people.nhanes <- people.nhanes[1:10, ]
 rm(data)
-dir.nhanes <- file.path(ma.settings$dir.base, 'results', 'nhanes')
+
 info.nhanes <- predict_volume_and_flow(people=people.nhanes, out_dir=dir.nhanes)
-
-typeof(people.nhanes)
-
 predict_GEC(people.nhanes, GEC_f=GEC_f,
             volLiver=info.nhanes$volLiver, flowLiver=info.nhanes$flowLiver,
             out_dir=dir.nhanes)
 
 # test loading
+
 load(file=file.path(dir.nhanes, 'volLiver.Rdata'))
 load(file=file.path(dir.nhanes, 'flowLiver.Rdata'))
 load(file=file.path(dir.nhanes, 'GEC.Rdata'))
+
 cat('# Liver Volume #')
 head(volLiver[, 1:5])
 cat('# Liver Blood Flow #')
@@ -77,6 +74,3 @@ index <- 1
 individual_plot(person=people.nhanes[index, ], 
                 vol=volLiver[1, ], flow=flowLiver[1,], 
                 data=GEC[1, ])
-
-
-

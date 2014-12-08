@@ -10,7 +10,6 @@
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
-source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 dsets <- c('GEC_age', 'GECkg_age',  
            'volLiver_age', 'volLiverkg_age',
@@ -31,5 +30,5 @@ dsets
 ################################################################################
 for (dataset in dsets){
   cat(dataset, '\n')
-  source(file.path(ma.settings$dir.code, 'analysis', 'NHANES_GEC_analysis.R'))
+  source(file.path(ma.settings$dir.code, 'analysis', 'PEOPLE_analysis.R'))
 }

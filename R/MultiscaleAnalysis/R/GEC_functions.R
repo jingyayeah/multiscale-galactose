@@ -330,22 +330,16 @@ predict_GEC <- function(people, GEC_f, volLiver, flowLiver, out_dir){
                          nrow=nrow(GEC), ncol=ncol(GEC))
   GECkg <- GEC/m.bodyweight
   
+  files <- list()
+  # save people
+  files$people <- file.path(out_dir, 'people.Rdata')
+  save(people, files$people)
+  
   # save GEC & GECkg
-  GEC.file <- file.path(out_dir, 'GEC.Rdata')
-  cat(GEC.file, '\n')
-  save(GEC, file=GEC.file)
-  GECkg.file <- file.path(out_dir, 'GECkg.Rdata')
-  cat(GECkg.file, '\n')
-  save(GECkg, file=GECkg.file)
+  files$GEC <- file.path(out_dir, 'GEC.Rdata')
+  save(GEC, file=files$GEC)
   
-  # calculate and store the quantiles
-  volLiver.q <- calc_quantiles(volLiver)
-  flowLiver.q <- calc_quantiles(flowLiver)
-  GEC.q <- calc_quantiles(GEC)
-  GECkg.q <- calc_quantiles(GECkg)
+  files$GECkg <- file.path(out_dir, 'GECkg.Rdata')
+  save(GECkg, file=files$GECkg)
   
-  # Quantiles files
-  quantiles.file <- file.path(out_dir, 'GEC_quantiles.Rdata')
-  cat(quantiles.file, '\n')
-  save(people, volLiver.q, flowLiver.q, GEC.q, GECkg.q, file=quantiles.file)
 }

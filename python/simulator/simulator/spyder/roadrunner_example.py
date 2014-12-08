@@ -5,6 +5,7 @@ import time
 import numpy
 import roadrunner
 from roadrunner.roadrunner import Logger
+from roadrunner import SelectionRecord
 print roadrunner.__version__
 
 
@@ -50,6 +51,15 @@ for value in [0, 100]:
     # This is not the case !!!
     # Especially the initial assignments are not recalculated with the new
     # values ???? 
+    # rr.reset()
+    
+    # rr.reset(SelectionRecord.RATE)
+    # rr.reset(SelectionRecord.INITIAL)
+    # rr.reset(SelectionRecord.FLOATING)
+    sel_test = rr.createSelection("Q_sinunit")
+    rr.reset(sel_test.INITIAL)
+    
+    
     
     print '*** simulate ***'    
     start = time.clock()
