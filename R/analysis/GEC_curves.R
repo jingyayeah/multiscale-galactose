@@ -34,8 +34,6 @@ for (folder in folders){
 }
 
 
-
-
 str(GEC_f)
 names(GEC_f)
 
@@ -75,11 +73,6 @@ par(mfrow=c(1,1))
 
 
 
-
-
-
-
-
 task <- 'T4'
 load(file=GEC_curve_file(task))
 d.mean <- GEC_curves$d.mean
@@ -113,6 +106,7 @@ for (age in c(0, 20, 40, 60, 80, 100)){
   inds <- which(d.mean$age == age)
   with(d.mean, lines(Q_per_vol_units[inds], R_per_vol_units[inds]*1500) )
 }
+
 
 p1 <- ggplot(d.mean, aes(f_flow, R_per_vol_units*1500)) + geom_point() + geom_line() + facet_grid(~ age)
 p2 <- ggplot(d.mean, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + facet_grid(~ age)
