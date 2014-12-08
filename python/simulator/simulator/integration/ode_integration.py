@@ -118,7 +118,6 @@ def integrate_roadrunner(sims, keep_tmp=False):
     # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
     # For testing store the parameters (make sure that reset is working)
     # sel += rr.model.getGlobalParameterIds()
-            
     rr.selections = sel
     header = ",".join(sel)
 
@@ -173,11 +172,11 @@ def integrate_roadrunner(sims, keep_tmp=False):
             numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.6E')
             storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
 
-            # reset
-            rr.reset()
+            
             # print 'reset', changes
             for key, value in changes.iteritems():
-                rr.model[key] = value        
+                rr.model[key] = value 
+            rr.reset()       
             
             print 'Time: [{:.1f}|{:.1f}]'.format( (time.clock()-tstart_total), t_int )
             
