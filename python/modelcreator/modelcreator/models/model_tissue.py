@@ -142,12 +142,14 @@ class TissueModel(object):
         self.createUnits()
         self.createExternalParameters()
         self.createInitialAssignments()
+        self.createAssignmentRules()
         self.createExternalCompartments()
         self.createExternalSpecies()
         self.createTransportReactions()
         self.createBoundaryConditions()
         
         # cell model
+        
         self.createCellCompartments()
         self.createCellSpecies()
         self.createCellParameters()
@@ -165,15 +167,15 @@ class TissueModel(object):
     def createExternalCompartmentsDict(self):
         comps = dict()
         # periportal
-        comps[getPPId()] = (getPPName(), 3, 'm3', True, 'Vol_pp')
+        comps[getPPId()] = (getPPName(), 3, 'm3', False, 'Vol_pp')
         # sinusoid
         for k in self.cell_range():
-            comps[getSinusoidId(k)] = (getSinusoidName(k), 3, 'm3', True, 'Vol_sin')
+            comps[getSinusoidId(k)] = (getSinusoidName(k), 3, 'm3', False, 'Vol_sin')
         # disse
         for k in self.cell_range():
-            comps[getDisseId(k)] = (getDisseName(k), 3, 'm3', True, 'Vol_dis')
+            comps[getDisseId(k)] = (getDisseName(k), 3, 'm3', False, 'Vol_dis')
         # perivenious
-        comps[getPVId()] = (getPVName(), 3, 'm3', True, 'Vol_pv')
+        comps[getPVId()] = (getPVName(), 3, 'm3', False, 'Vol_pv')
         return comps
 
     ##########################################################################
@@ -183,7 +185,7 @@ class TissueModel(object):
         comps = dict()
         # hepatocyte compartments
         for k in self.cell_range():
-            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', True, 'Vol_cell')
+            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', False, 'Vol_cell')
         return comps
 
     ##########################################################################
@@ -277,7 +279,10 @@ class TissueModel(object):
             
         return diffusion_assignments
 
+    def createDiffusionRules(self):
+        return self.createDiffusionAssignments()
     
+    ## Parameters ##
     def createParametersDict(self, pars):
         pdict = dict()
         for pdata in pars:
@@ -287,12 +292,13 @@ class TissueModel(object):
                           pdata[1], pdata[2], pdata[3]]
         return pdict
     
-
+    ## Units ##
     def createUnits(self):
         for key, value in self.units.iteritems():
             createUnitDefinition(self.model, key, value)
         setMainUnits(self.model, self.main_units)
     
+    ## Compartments ##
     def createExternalCompartments(self):
         comps = self.createExternalCompartmentsDict()
         createCompartments(self.model, comps)
@@ -301,6 +307,7 @@ class TissueModel(object):
         comps = self.createCellCompartmentsDict()
         createCompartments(self.model, comps)
     
+    ## Species ##
     def createExternalSpecies(self):
         sdict = self.createExternalSpeciesDict()
         createSpecies(self.model, sdict)
@@ -309,6 +316,7 @@ class TissueModel(object):
         sdict = self.createCellSpeciesDict()
         createSpecies(self.model, sdict)
    
+    ## Parameters ##
     def createExternalParameters(self):
         pdict = self.createParametersDict(self.pars)
         createParameters(self.model, pdict)
@@ -317,20 +325,41 @@ class TissueModel(object):
         pdict = self.createParametersDict(self.cellModel.pars)
         createParameters(self.model, pdict)
  
+    ## InitialAssignments ##
     def createInitialAssignments(self):
         createInitialAssignments(self.model, self.assignments, self.names)
-        # additional diffusion assignments
-        dif_assignments = self.createDiffusionAssignments()
-        createInitialAssignments(self.model, dif_assignments, self.names)
+        # diffusion
+        # dif_assignments = self.createDiffusionAssignments()
+        # createInitialAssignments(self.model, dif_assignments, self.names)
     
     def createCellInitialAssignments(self):
         createInitialAssignments(self.model, self.cellModel.assignments, self.names)
     
-         
+    
+    ## Assignment rules ##     
     def createAssignmentRules(self):
-        createAssignmentRules(self.model, self.rules)
+        createAssignmentRules(self.model, self.rules, self.names)
+        
+        # diffusion
+        dif_rules = self.createDiffusionRules()
+        createAssignmentRules(self.model, dif_rules, self.names)
+        
+    def createCellAssignmentRules(self):
+        ''' Necessary to handle additional information. '''
+        rules = []
+        rep_dicts = self.createCellReplacementDicts()
+        for rule in self.cellModel.rules:
+            for d in rep_dicts:
+                r_new = [initString(rpart, d) for rpart in rule]
+                rules.append(r_new)
+    
+        createAssignmentRules(self.model, rules, self.names)
+    
 
-    def createCellInitData(self):
+    def createCellReplacementDicts(self):
+        ''' Definition of replacement information for 
+            initialization of the cell ids.
+        '''
         initData = []
         for k in self.cell_range():
             d = dict()
@@ -339,14 +368,7 @@ class TissueModel(object):
             initData.append(d)
         return initData
     
-    def createCellAssignmentRules(self):
-        rules = []
-        initData = self.createCellInitData()
-        for rule in self.cellModel.rules:
-            for initDict in initData:
-                r_new = [initString(rpart, initDict) for rpart in rule]
-                rules.append(r_new)
-        createAssignmentRules(self.model, rules)
+
 
     def createBoundaryConditions(self):
         ''' Set constant in periportal. '''
@@ -360,9 +382,9 @@ class TissueModel(object):
         # set the model for the template
         ReactionTemplate.model = self.model
         
-        initData = self.createCellInitData()
+        rep_dicts = self.createCellReplacementDicts()
         for r in self.cellModel.reactions:
-            r.createReactions(self.model, initData)
+            r.createReactions(self.model, rep_dicts)
                 
     def createTransportReactions(self):
         self.createFlowReactions()

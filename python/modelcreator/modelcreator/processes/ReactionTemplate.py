@@ -43,7 +43,7 @@ class ReactionTemplate(object):
         for rule in self.rules:
             r_new = [initString(part, initDict) for part in rule]
             rules.append(r_new)
-        createAssignmentRules(self.model, rules)
+        createAssignmentRules(self.model, rules, {})
     
     def _createReaction(self, model, initDict):
         # TODO: check if everything is initialized
@@ -80,15 +80,5 @@ class ReactionTemplate(object):
         formula = initString(self.formula[0], initDict)
         setKineticLaw(model, r, formula) 
 
-        '''
-        # TODO: fix -> something is strange here (not possible to get the 
-        # derivedUnits for all reactions ??? 
-        print r
-        law = r.getKineticLaw()
-        print law
-        udef = law.getDerivedUnitDefinition()
-        print udef
-        print '{} -> [{}]'.format(rid, libsbml.UnitDefinition_printUnits(udef))
-        '''
         return r;
     

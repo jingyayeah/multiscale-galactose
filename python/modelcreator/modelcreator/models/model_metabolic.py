@@ -1,4 +1,9 @@
 '''
+Definition of general helper functions to create the various
+objects in the SBML. 
+These functions are called with the information dictionaries 
+during the generation of cell and tissue model.
+
 Created on Jun 18, 2014
 @author: mkoenig
 '''
@@ -93,7 +98,8 @@ def _createCompartment(model, cid, name, dims, units, constant, value):
     c.setUnits(units)
     c.setConstant(constant)
     if type(value) is str:
-        _createInitialAssignment(model, sid=cid, formula=value)
+        # _createInitialAssignment(model, sid=cid, formula=value)
+        _createAssignmentRule(model, sid=cid, formula=value)
     else:
         c.setValue(value)
     
@@ -116,7 +122,8 @@ def _createSpecie(model, sid, name, init, units, compartment, boundaryCondition)
     s.setHasOnlySubstanceUnits(False);
     s.setConstant(False)
     s.setBoundaryCondition(boundaryCondition)
-        
+
+## InitialAssignments ##      
 def createInitialAssignments(model, assignments, names):
     for data in assignments:
         # id, assignment, unit
@@ -133,14 +140,15 @@ def _createInitialAssignment(model, sid, formula):
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
     assignment.setMath(astnode);   
          
-def createAssignmentRules(model, rules):
+## AssignmentRules ##
+def createAssignmentRules(model, rules, names):
     for data in rules:
         # id, rule, unit
         pid = data[0]
         unit = getUnitString(data[2])
         # Create parameter if not existing
         if not model.getParameter(pid):
-            createParameter(model, pid, unit, name=None, value=None, constant=False)
+            createParameter(model, pid, unit, name=names.get(pid, None), value=None, constant=False)
         _createAssignmentRule(model, sid=pid, formula=data[1])
             
 def _createAssignmentRule(model, sid, formula):

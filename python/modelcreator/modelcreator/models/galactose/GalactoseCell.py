@@ -3,6 +3,7 @@ Galactose model for inclusion into sinusoidal unit.
 The metabolic models are specified in a generic format which is than
 included in the tissue scale model.
 
+
 Created on Jun 24, 2014
 @author: mkoenig
 '''
@@ -39,10 +40,10 @@ pars = [# id, value, unit, constant
             ('REF_P',     1.0,      'mM',   True),
             ('deficiency',  0,      '-',    True),
 ]  
-assignments = [# id, assignment, unit
-            ('scale', 'scale_f', '-'),               
-]
+assignments = [# id, assignment, unit       
+               ]
 rules = [# id, rule, unit
+            ('c__scale', 'scale_f', '-'),   
             ('c__nadp_tot', 'c__nadp + c__nadph', 'mM'),
             ('c__adp_tot', 'c__atp + c__adp', 'mM'),
             ('c__udp_tot', 'c__utp + c__udp + c__udpglc + c__udpgal', 'mM'),

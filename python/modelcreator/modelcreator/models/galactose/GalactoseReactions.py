@@ -27,7 +27,7 @@ GALK = ReactionTemplate(
             ('c__GALK_P',    1.0,     'mM'),
     ],
     rules = [ # id, rule, unit
-            ('c__GALK_Vmax', 'scale * GALK_PA * GALK_kcat * c__GALK_P/REF_P', 'mole_per_s'),
+            ('c__GALK_Vmax', 'c__scale * GALK_PA * GALK_kcat * c__GALK_P/REF_P', 'mole_per_s'),
             ('c__GALK_dm', '( (1 dimensionless +(c__gal+c__galM)/GALK_k_gal)*(1 dimensionless +c__atp/GALK_k_atp) +(1 dimensionless+c__gal1p/GALK_k_gal1p)*(1 dimensionless+c__adp/GALK_k_adp) -1 dimensionless)', '-'),
     ],
     formula = ('c__GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1 dimensionless/(1 dimensionless+c__gal1p/GALK_ki_gal1p) * (c__gal*c__atp -c__gal1p*c__adp/GALK_keq)/c__GALK_dm', 'mole_per_s')
@@ -299,7 +299,7 @@ H2OTM = ReactionTemplate(
             ('H2OT_k',  1.0, 'mM'),
     ],
     rules = [ # id, rule, unit
-            ('c__H2OT_Vmax', 'H2OT_f * scale', 'mole_per_s'),
+            ('c__H2OT_Vmax', 'H2OT_f * c__scale', 'mole_per_s'),
     ],
     formula = ('c__H2OT_Vmax/H2OT_k * (e__h2oM - c__h2oM)', 'mole_per_s')
 )
@@ -314,7 +314,7 @@ GLUT2_GAL = ReactionTemplate(
             ('c__GLUT2_P',   1.0, 'mM'),
     ],
     rules = [ # id, rule, unit
-            ('c__GLUT2_Vmax', 'GLUT2_f * scale * c__GLUT2_P/REF_P', 'mole_per_s'),
+            ('c__GLUT2_Vmax', 'GLUT2_f * c__scale * c__GLUT2_P/REF_P', 'mole_per_s'),
             ('c__GLUT2_dm', '(1 dimensionless + (e__gal+e__galM)/GLUT2_k_gal + (c__gal+c__galM)/GLUT2_k_gal)', '-'),
     ],
     formula = ('c__GLUT2_Vmax/GLUT2_k_gal * (e__gal - c__gal)/c__GLUT2_dm', 'mole_per_s')
