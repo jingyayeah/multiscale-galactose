@@ -401,7 +401,7 @@ if __name__ == "__main__":
         task, samples = make_galactose_aging(sbml_id, N=50, sampling='distribution')
         
         # mean sinusoidal unit
-        task, samples = make_galactose_aging(sbml_id, N=0, sampling='mean')
+        task, samples = make_galactose_aging(sbml_id, N=1, sampling='mean')
    
     #----------------------------------------------------------------------#
     if (1):
