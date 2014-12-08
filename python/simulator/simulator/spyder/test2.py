@@ -33,7 +33,7 @@ for rr in [rr1, rr2]:
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
     # Store reactions
-    sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]   
+    # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]   
     rr.selections = sel
     
     

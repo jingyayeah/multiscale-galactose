@@ -20,7 +20,7 @@ setwd(ma.settings$dir.base)
 # Set of GEC curves to create from simulations
 # '2014-11-30_T1'  # normal GEC ~ f_flow
 # '2014-12-03_T3'  # normal GEC ~ f_flow, N_fen (ageing)
-# '2014-12-03_T5'  # normal GEC ~ f_flow, f_scale (metabolic scaling)
+# '2014-12-08_T5'  # normal GEC ~ f_flow, f_scale (metabolic scaling)
 # '2014-12-07_T6'  # normal GEC ~ f_flow, f_scale (metabolic scaling, mean)
 
 folders <- c('2014-11-30_T1', '2014-12-03_T3', '2014-12-03_T5', '2014-12-07_T6')
@@ -28,8 +28,8 @@ for (folder in folders){
   assign(folder, calculate_GEC_curves(folder))
 }
 
-res <- calculate_GEC_curves('2014-12-08_T10')
-GEC_f <- GEC_functions(task='T2')
+res <- calculate_GEC_curves('2014-12-08_T4', force=TRUE, B=10)
+GEC_f <- GEC_functions(task='T4')
 str(GEC_f)
 names(GEC_f)
 plot_GEC_function(GEC_f)

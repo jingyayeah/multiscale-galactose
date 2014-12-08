@@ -183,13 +183,10 @@ GEC_curve_file <- function(task){
 #' GEC for the combinations of provided factors.
 #' Folders have the format: 
 #' 
-#' factors=c('f_flow', "gal_challenge", "N_fen", 'scale_f')
-#' 
-#' 
 #' @export
 calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000, 
-                                 factors=c('f_flow', 'scale_f'),
-                                 force=FALSE){
+                                 factors=c('f_flow', "gal_challenge", "N_fen", 'scale_f'),
+                                 force=FALSE, B=1000){
   # Process the integration time curves
   processed <- preprocess_task(folder=folder, force=force) 
   
@@ -202,7 +199,7 @@ calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000,
   cat('Calculate mean GEC\n')
   d.mean <- ddply(parscl, factors, f_integrate_GEC)
   cat('Calculate se GEC (bootstrap)\n')
-  d.se <- ddply(parscl, factors, f_integrate_GEC_bootstrap, funct=sd, B=1000)
+  d.se <- ddply(parscl, factors, f_integrate_GEC_bootstrap, funct=sd, B=B)
   
   # save the GEC curves 
   GEC_curves <- list(d.mean=d.mean, d.se=d.se)
@@ -265,7 +262,7 @@ plot_GEC_function <- function(GEC_f){
   lines(x.grid, fx+2*fx.se, col='black')
   lines(x.grid, fx-2*fx.se, col='black')
   
-  legend('bottomright', legend=c('mean GEC (Ns=1000 sinusoidal units)', '+-2SE (bootstrap, Nb=1000)',
+  legend('topleft', legend=c('mean GEC (Ns=1000 sinusoidal units)', '+-2SE (bootstrap, Nb=1000)',
                                  'GEC spline function'), 
          lty=c(1, 1, 1), col=c('black', rgb(0,0,0,0.8), 'blue'), lwd=c(2,1,2))
 }
