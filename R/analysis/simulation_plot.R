@@ -4,14 +4,14 @@
 # Plot information of single simulations.
 #
 # author: Matthias Koenig
-# date: 2014-12-07
+# date: 2014-12-08
 ################################################################
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.base)
 
 # Get overview over available simulations
-folder <- '2014-12-07_T7'
+folder <- '2014-12-08_T10'
 info <- process_folder_info(folder)
 str(info)
 # Load the parameter file

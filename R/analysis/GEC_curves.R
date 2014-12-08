@@ -30,10 +30,10 @@ for (folder in folders){
 
 res <- calculate_GEC_curves('2014-12-08_T10')
 GEC_f <- GEC_functions(task='T10')
+str(GEC_f)
 names(GEC_f)
 plot_GEC_function(GEC_f)
-d.mean <- GEC_curves$d.mean
-d.se <- GEC_curves$d.se
+d.mean <- GEC_f$d.mean
 head(d.mean)
 
 ################################################################
