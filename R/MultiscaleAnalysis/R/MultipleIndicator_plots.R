@@ -56,29 +56,32 @@ getColorsForWeights <- function (weights) {
 }
 
 
-#' Plot the single curves
+#' Plot a single component of the mulitple indicator dilution curves.
+#' 
+#' Data is a data matrix with simulations in columns and timepoints in rows.
+#' Column ids correspond to the simulation identifiers, row ids to the timepoints.
 #' @export
-plotCompound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), weights=NULL, ccols=NULL, meanData=TRUE){
-  plot(numeric(0), numeric(0), 'l', main=name,
-       xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
+plot_single_compound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), weights=NULL, ccols=NULL, meanData=TRUE){
+  plot(numeric(0), numeric(0), type='n', 
+       main=name, xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
   
+  Nsim = ncol(data)
+  # colors
   if (is.null(weights) || is.null(ccols)){
-    # ccols = c(rgb(0.5,0.5,0.5,alpha=0.8) )
-    ccols = rep(rgb(0.5,0.5,0.5, alpha=0.5), ncol(data))
+    ccols = rep(rgb(0.5,0.5,0.5, alpha=0.1), Nsim)
   }
-  
+  # order
   if (is.null(weights)){
-    ord <- seq(1, ncol(data)) 
+    ord <- seq(1, Nsim)
   }else{
     ord = order(weights)
   }
-    
-  for (ks in seq(ncol(data))){
+  # single curves
+  for (ks in seq(Nsim)){
     lines(time, data[,ord[ks]], col=ccols[ord[ks]])
   }
-  
+  # mean
   if (meanData){
-    cat('Plot compound mean')
     plotCompoundMean(time, data, weights, col)
   }
 }

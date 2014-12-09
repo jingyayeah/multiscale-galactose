@@ -217,7 +217,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
     samples = setParameterInSamples(raw_samples, 'PP__gal', 0.0, 'mM', BOUNDERY_INIT)
     
     # simulations
-    settings = Setting.get_settings( {'tstart':0.0, 'tend':5000.0, 'steps':100} )
+    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
     task = create_task(model, integration, info=info, priority=0)
     createSimulationsForSamples(task, samples)
@@ -361,7 +361,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 43
+    VERSION = 44
     
     #----------------------------------------------------------------------#
     if (0):
@@ -416,7 +416,7 @@ if __name__ == "__main__":
         task, samples = make_galactose_metabolic_change(sbml_id, N=0, sampling='mean')
    
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves

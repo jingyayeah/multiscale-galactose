@@ -106,7 +106,7 @@ def dilution_plots(s_list, selections, show=True):
     # adapt the axis
 
     p.xlim(999, 1020)
-    p.ylim(0, 0.4)
+    p.ylim(0, 0.01)
 
     
     if show:
@@ -165,7 +165,7 @@ plot(r)
 #########################################################################    
 # Multiple Indicator Dilution
 #########################################################################  
-sbml_file = 'Galactose_v43_Nc20_dilution.xml'
+sbml_file = 'Galactose_v44_Nc20_dilution.xml'
 r = load_model(sbml_file)
 items = r.model.items()
 
@@ -189,7 +189,7 @@ p_list = [
 inits = {}
 
 # s1 = simulation(r, sel, p1, inits)
-s_list = [simulation(r, sel, p, inits, absTol=1E-3, relTol=1E-3) for p in p_list ]
+s_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
 dilution_plots(s_list, r.selections)
 dilution_plots_gal(s_list, r.selections)
 print r.selections
