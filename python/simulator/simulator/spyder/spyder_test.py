@@ -105,10 +105,37 @@ def dilution_plots(s_list, selections, show=True):
             # p.legend()
     # adapt the axis
 
-    p.xlim(999, 1015)
+    p.xlim(999, 1020)
     p.ylim(0, 0.4)
 
     
+    if show:
+        p.show()
+
+def dilution_plots_gal(s_list, selections, show=True):
+    ''' Plot of the dilution curves '''
+
+    ids =  [item[1:(len(item)-1)] for item in selections if (item.startswith('[H') & item.endswith('galM]'))]
+    cols=['red', 'darkblue', 'darkgreen']   
+    print ids
+    import pylab as p
+
+    # plot all the individual solutions    
+    for ks, s in enumerate(s_list):
+        time = s[:,0]
+        for id in ids:
+            # find in which place of the solution the component is encoded
+            i_sel = position_in_list(selections, '[{}]'.format(id))
+            if i_sel < 0:
+                raise Exception("{} not in selection".format(id))
+            series = s[:,i_sel]
+            name = selections[i_sel]
+            p.plot(time, series, color=cols[ks], label=str(name))
+            # p.legend()
+    # adapt the axis
+
+    p.xlim(999, 1020)
+    # p.ylim(0, 0.4)
     if show:
         p.show()
 
@@ -136,17 +163,17 @@ plot(r)
 
 
 #########################################################################    
-# Galactose Challenge
+# Multiple Indicator Dilution
 #########################################################################  
 sbml_file = 'Galactose_v43_Nc20_dilution.xml'
 r = load_model(sbml_file)
-print r.model.items()
 items = r.model.items()
 
 # set selection
 sel = ['time']
 sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
+sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if (item.startswith('H') & item.endswith('galM'))]
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # Store reactions
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
@@ -155,17 +182,30 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = [
-    { "[PP__gal]" : 0.28, },
-    { "[PP__gal]" : 12.5, },
-    { "[PP__gal]" : 17.5, }
+    { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15, "GLUT2_f" : 12.0 },
+    { "[PP__gal]" : 12.5, "scale_f" : 1.2*5.3e-15, "GLUT2_f" : 12.0  },
+    { "[PP__gal]" : 17.5, "scale_f" : 1.2*5.3e-15, "GLUT2_f" : 12.0  }
 ]
 inits = {}
 
 # s1 = simulation(r, sel, p1, inits)
 s_list = [simulation(r, sel, p, inits, absTol=1E-3, relTol=1E-3) for p in p_list ]
 dilution_plots(s_list, r.selections)
+dilution_plots_gal(s_list, r.selections)
+print r.selections
+
+
+
+s = r.getSimulationData()
+import pylab as p
+test = s[:,len(r.selections)-5]
+time = s[:,0]
+p.plot(time, test)
 
 # additional changes for fitting the dilution curves
-(now test the effects of changing variables in the model, i.e.
+# (now test the effects of changing variables in the model, i.e.
+var = {'GLUT2_f': [1.0, 5.0, 10.0, 20.0, 100]}
+for value in var['GLUT2_f']:
+    # add the values to the p_list    
 
 

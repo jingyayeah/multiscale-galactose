@@ -127,14 +127,15 @@ t.approx = seq(from=t_peak-5, to=t_peak+50, by=0.2)
 time <- t.approx
 simIds <- rownames(pars)
 compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
+ccolors = c('gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 ids <- c( paste(rep('PP__', length(compounds)), compounds, sep=''), 
           paste(rep('PV__', length(compounds)), compounds, sep=''))
 ids
 t.approx
 mlist <- createApproximationMatrix(p$x, ids=ids, simIds=simIds, points=t.approx, reverse=FALSE)
 
-compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
-ccolors = c('gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+
+
 f.level <- "PP__gal" 
 
 time.min=995
