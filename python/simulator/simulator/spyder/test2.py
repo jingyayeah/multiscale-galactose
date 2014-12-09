@@ -7,18 +7,17 @@ import time
 import roadrunner
 print roadrunner.__version__
 
-sbml_file = 'Galactose_v36_Nc20_galchallenge.xml'
-sbml_file2 = 'Galactose_v43_Nc20_galchallenge.xml'
+# Load the model once to work with it
+sbml_file = 'Galactose_v43_Nc20_galchallenge.xml'
+print sbml_file
 
-print 'Loading :', sbml_file 
+print 'Loading :', sbml_file
 start = time.clock()
-rr1 = roadrunner.RoadRunner(sbml_file)
-print 'Assignments load :', (time.clock()- start)
+r = roadrunner.RoadRunner(sbml_file)
+print 'SBML Rules load :', (time.clock()- start)
 
-print 'Loading :', sbml_file2
-start = time.clock()
-rr2 = roadrunner.RoadRunner(sbml_file2)
-print 'Rules load :', (time.clock()- start)
+print r.model.items()
+
 
 # calculate proper absTol for concentrations
 # absTol = 1E-6 * min(rr1.model.getCompartmentVolumes())
@@ -33,7 +32,7 @@ for rr in [rr1, rr2]:
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
     # Store reactions
-    # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]   
+    # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
     rr.selections = sel
     
     
