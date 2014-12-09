@@ -1,0 +1,11 @@
+\name{plot_compound_mean}
+\alias{plot_compound_mean}
+\title{Plot the mean data.}
+\usage{
+plot_compound_mean(time, data, weights, col)
+}
+\description{
+Plots the mean and standard deviation for time courses.
+Uses weighted calculation if the weights are provided.
+}
+
