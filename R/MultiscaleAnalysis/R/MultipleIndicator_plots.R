@@ -56,42 +56,25 @@ getColorsForWeights <- function (weights) {
 }
 
 
-#' Plot a single component of the mulitple indicator dilution curves.
+#' Plots individual multiple indicator dilution curves.
 #' 
 #' Data is a data matrix with simulations in columns and timepoints in rows.
 #' Column ids correspond to the simulation identifiers, row ids to the timepoints.
 #' @export
-plot_single_compound <- function(time, data, name, col="black", ylim=c(0.0, 0.2), xlim=c(0, 30), weights=NULL, ccols=NULL, meanData=TRUE){
-  plot(numeric(0), numeric(0), type='n', 
-       main=name, xlab="time [s]", ylab="c [mM]", ylim=ylim, xlim=xlim)
-  
-  Nsim = ncol(data)
-  # colors
-  if (is.null(weights) || is.null(ccols)){
-    ccols = rep(rgb(0.5,0.5,0.5, alpha=0.1), Nsim)
-  }
-  # order
-  if (is.null(weights)){
-    ord <- seq(1, Nsim)
-  }else{
-    ord = order(weights)
-  }
+plot_compound_curves <- function(time, data, name, weights){
   # single curves
-  for (ks in seq(Nsim)){
-    lines(time, data[,ord[ks]], col=ccols[ord[ks]])
-  }
-  # mean
-  if (meanData){
-    plotCompoundMean(time, data, weights, col)
+  Nsim = ncol(data)
+  for (k in seq(Nsim)){
+    lines(time, data[, k],col=rgb(0.5,0.5,0.5, alpha=0.1))
   }
 }
 
 #' Plot the mean data.
 #' 
-#' Plots the mean and variance for time courses. Uses weighted calculation
+#' Plots the mean and standard deviation for time courses. Uses weighted calculation
 #' if the weights are provided.
 #' @export
-plotCompoundMean <- function(time, data, weights, col){
+plot_compound_mean <- function(time, data, weights, col){
   if (is.null(weights)){
     rMeans <- rowMeans(data)
     rSds <- rowSds(data)
@@ -106,11 +89,12 @@ plotCompoundMean <- function(time, data, weights, col){
   }
   rMeansUp <- rMeans+rSds
   rMeansDown <- rMeans-rSds
-  # rMeansDown[rMeansDown<0] = 0;
   lines(time, rMeans, col=col, lwd=2)
   lines(time, rMeansUp, col=col, lwd=2, lty=2)
-  lines(time, rMeansDown, col=col, lwd=2, lty=2)
+  # rMeansDown[rMeansDown<0] = 0;
+  # lines(time, rMeansDown, col=col, lwd=2, lty=2)
 }
+
 
 #' Create scatter plot of the dilution curve data
 #' @export

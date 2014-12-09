@@ -106,9 +106,8 @@ def dilution_plots(s_list, selections, show=True):
     # adapt the axis
 
     p.xlim(999, 1020)
-    p.ylim(0, 0.01)
+    p.ylim(0, 2.0)
 
-    
     if show:
         p.show()
 
@@ -165,7 +164,7 @@ plot(r)
 #########################################################################    
 # Multiple Indicator Dilution
 #########################################################################  
-sbml_file = 'Galactose_v44_Nc20_dilution.xml'
+sbml_file = 'Galactose_v43_Nc20_dilution_test.xml'
 r = load_model(sbml_file)
 items = r.model.items()
 
@@ -204,8 +203,3 @@ p.plot(time, test)
 
 # additional changes for fitting the dilution curves
 # (now test the effects of changing variables in the model, i.e.
-var = {'GLUT2_f': [1.0, 5.0, 10.0, 20.0, 100]}
-for value in var['GLUT2_f']:
-    # add the values to the p_list    
-
-

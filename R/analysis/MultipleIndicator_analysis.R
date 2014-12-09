@@ -47,7 +47,7 @@ gal_levels <- levels(as.factor(pars[[f.level]]))
 
 # Approximation matrix
 simIds <- rownames(pars)
-time = seq(from=t_peak-5, to=t_peak+50, by=0.02)
+time = seq(from=t_peak-5, to=t_peak+50, by=0.2)
 dlist <- createApproximationMatrix(p$x, ids=ids, simIds=simIds, points=time, reverse=FALSE)
 
 
@@ -85,7 +85,9 @@ par(mfrow=c(1,1))
 ###########################################################################
 # Calculate mean time curves and sds 
 ###########################################################################
-plotMeanCurves <- function(dlist, f.level, compounds, ccolors){
+
+# TODO: use the plot_mean_curve function
+plotMeanCurves <- function(dlist, f.level, compounds, weights, ccolors, f_scale){
   for (kc in seq(length(compounds))){
     compound <- compounds[kc]
     col <- ccolors[kc]
@@ -96,16 +98,17 @@ plotMeanCurves <- function(dlist, f.level, compounds, ccolors){
     plot.levels = c("0.28", "12.5", "17.5")
     for (p.level in plot.levels){
       sim_rows <- which(pars[[f.level]]==p.level)
-      tmp <- dlist[[id]][ ,sim_rows]
-      w <- pars$Q_sinunit[sim_rows] # weighting with the volume flow F
       
+      w <- weights[sim_rows]
+      
+      tmp <- f_scale* dlist[[id]][ ,sim_rows]
       row.means <- rowMeans(tmp)
       row.wmeans <- rowWeightedMeans(tmp, w=w)
       row.medians <- rowMedians(tmp)
       row.wmedians <- rowWeightedMedians(tmp, w=w)
       row.sds <- rowSds(tmp)
       
-      time = as.numeric(rownames(tmp))
+      time = as.numeric(rownames(tmp))-t_peak
       points(time, row.wmeans, col=col, lwd=2, type='l', lty=1)
       #points(time, row.wmeans+row.sds, col='Orange', lwd=2, type='l', lty=1)
       #points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
@@ -133,23 +136,49 @@ plotMeanCurves <- function(dlist, f.level, compounds, ccolors){
 # -> calculate via the total amount of tracer injected
 # Add legend
 
+# Load experimental data
+gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
+summary(gor1973)
+gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
+summary(gor1983)
+
+# necessary to scale to same values
+m1 = max(gor1983$outflow)
+m2 = max(gor1973[gor1973$condition=="A",'outflow'])
+m3 = max(gor1973[gor1973$condition=="B",'outflow'])
+m4 = max(gor1973[gor1973$condition=="C",'outflow'])
+scale_f = (m1+m2+m3+m4)/4;
+scale_f
+
+expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
+expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+
+table(gor1983$compound)
+table(gor1973$compound)
+
 par(mfrow=c(2,1))
 time.range <- c(t_peak-5, t_peak+25)
+weights = pars$Q_sinunit
 # normal plot
 plot(numeric(0), numeric(0), log='y', xlim=time.range, ylim=c(1E-2,0.5),
      main='Log Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plotMeanCurves(dlist, f.level, compounds, ccolors)
+plotMeanCurves(dlist, f.level, compounds, weights, ccolors)
+
+
 # log plot
-plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,0.3),
+plot(numeric(0), numeric(0), xlim=c(0,20), ylim=c(0,20),
      main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plotMeanCurves(dlist, f.level, compounds, ccolors)
+plotMeanCurves(dlist, f.level, compounds, weights, ccolors, f_scale=50)
+plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE)
+plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE)
+plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE)
+plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE)
+legend("topright",  legend = compounds, fill=ccolors) 
 par(mfrow=c(1,1))
 
 ###########################################################################
-# Mean curves with experimental data
+# Single curves with mean & SD
 ###########################################################################
-
-
 # compounds = c('rbcM', 'alb', 'suc', 'h2oM')
 # ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
 pv_compounds = paste('PV__', compounds, sep='')
@@ -157,23 +186,20 @@ names(ccolors) <- pv_compounds
 
 # some example plots of single time curves
 name <- "PV__alb"
-test <- dlist[[name]]
-names(test)
-
 time.rel <- time-t_peak
-plot_single_compound(time.rel, dlist[[name]], name, col=ccolors[name], ylim=c(0,2.1))
+weights <- pars$Q_sinunit   # weighting with volume flow
+
+# create empty plot
+plot(numeric(0), numeric(0), type='n', 
+     main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 0.2))
+plot_compound_curves(time=time.rel, data=dlist[[name]], weights=weights)
+plot_compound_mean(time=time.rel, data=dlist[[name]], weights=weights, col=ccolors[name])
 
 
 ###################################################################################
 # Dilution curves with experimental data
 ###################################################################################
-# weighted with the actual flow
-# rbind.rep <- function(x, times) matrix(x, times, length(x), byrow = TRUE)
-# cbind.rep <- function(x, times) matrix(x, length(x), times, byrow = FALSE)
-# Q_sinunit = rbind.rep(pars$Q_sinunit, nrow(data))
-# tmp = data*Q_sinunit
-# rmean2 <- rowMeans(tmp)
-# rmean2 <- rmean2/max(rmean2)*10
+
 
 # calculate the max times
 calculateMaxTimes <- function(preprocess.mat, compounds, time.offset){
@@ -194,9 +220,11 @@ calculateMaxTimes <- function(preprocess.mat, compounds, time.offset){
   maxtime
 }
 
-tmp <- calculateMaxTimes(preprocess.mat, compounds, 10.0)
+tmp <- calculateMaxTimes(data, compounds, 10.0)
 head(tmp)
 summary(tmp)
+
+
 
 # Create the boxplots with the mean curves
 createFullPlot <- function (maxtime, ccolors, time.offset, scale_f) {
@@ -291,18 +319,6 @@ for (kt in seq(Ntask)){
   createFullPlot(maxtime, ccolors, time.offset=time.offset, scale_f)
   # createBoxPlot(maxtime, ccolors, time.offset=time.offset)
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
