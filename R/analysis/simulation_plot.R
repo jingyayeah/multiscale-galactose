@@ -4,22 +4,24 @@
 # Plot information of single simulations.
 #
 # author: Matthias Koenig
-# date: 2014-12-07
+# date: 2014-12-08
 ################################################################
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.base)
 
 # Get overview over available simulations
-folder <- '2014-12-07_T7'
+folder <- '2014-12-08_T3'
 info <- process_folder_info(folder)
 str(info)
 # Load the parameter file
 pars <- loadParameterFile(file=info$parsfile)
 head(pars)
+plotParameterHistogramFull(pars)
+count(pars$N_fen)
 
 # select some simulations from the file
-simIds <- rownames(pars)
+simIds <- rownames(pars)[1:20]
 simIds
 
 get_rdata_for_simulation <- function(sim_id, info){
@@ -57,7 +59,7 @@ plot(numeric(0), numeric(0), type='n', xlim=c(1999,2030), ylim=c(0,8.5))
 for(k in 1:length(simIds)){
   lines(data[[k]]$time, data[[k]]$PV__gal)
 }
-plot(numeric(0), numeric(0), type='n', xlim=c(1999,2030), ylim=c(0,8.5))
+plot(numeric(0), numeric(0), type='n', xlim=c(1999,3000), ylim=c(0,8.5))
 for(k in 1:length(simIds)){
   lines(data[[k]]$time, data[[k]]$H01__gal)
 }

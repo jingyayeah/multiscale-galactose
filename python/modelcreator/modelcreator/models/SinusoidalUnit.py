@@ -82,21 +82,25 @@ pars.extend([
 ])
 names['L'] = 'sinusoidal length'
 names['y_sin'] = 'sinusoidal radius'
+names['y_end'] = 'endothelial cell thickness'
 names['y_dis'] = 'width space of Disse'
 names['y_cell'] = 'width hepatocyte'
 names['flow_sin'] = 'sinusoidal flow velocity'
-names['N_fen'] = 'fenestra per area'
-names['r_fen'] = 'fenestra radius'
+names['N_fen'] = 'fenestrations per area'
+names['r_fen'] = 'fenestration radius'
 
 names['rho_liv'] = 'liver density'
 names['f_tissue'] = 'parenchymal fraction of liver'
 names['Nc'] = 'hepatocytes in sinusoid'
-names['Nf'] = 'sinusoid volumes per cell'
-        
+names['scale_f'] = 'metabolic scaling factor'
+names['REF_P'] = 'reference protein amount'
+names['deficiency'] = 'type of galactosemia'
+names['gal_challenge'] = 'galactose challenge periportal'
+
 ##########################################################################
-# InitialAssignments
+# AssignmentRules
 ##########################################################################
-assignments.extend([
+rules.extend([
             # id, assignment, unit
             ('x_cell', 'L/Nc', 'm'),
             ('x_sin',  "x_cell", "m"),
@@ -118,6 +122,7 @@ assignments.extend([
             # ("m_liv", "rho_liv * Vol_liv", "kg"),
             # ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
 ])
+
 names['x_cell'] = 'length cell compartment'
 names['x_sin'] = 'length sinusoidal compartment'
 names['A_sin'] = 'cross section sinusoid'
@@ -136,7 +141,8 @@ names['f_cell'] = 'cell fraction of volume'
 names['Q_sinunit'] = 'volume flow sinusoid'
 names['f_fen'] = 'fenestration porosity'
     
+
 ##########################################################################
-# AssignmentRules
+# InitialAssignments
 ##########################################################################
-rules.extend([])
+assignments.extend([])

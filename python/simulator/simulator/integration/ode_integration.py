@@ -93,7 +93,12 @@ def integrate_roadrunner(sims, keep_tmp=False):
     try:
         sbml_file = str(sims[0].task.sbml_model.file.path)
         sbml_id = sims[0].task.sbml_model.sbml_id
+        
+        start = time.clock()
         rr = roadrunner.RoadRunner(sbml_file)
+        print 'Rules load :', (time.clock()- start)
+        
+
         # get the changed parameters in SBML
         pnames = [str(p.name) for p in sims[0].parameters.all() if p.ptype != 'NONE_SBML_PARAMETER']
 
@@ -109,10 +114,10 @@ def integrate_roadrunner(sims, keep_tmp=False):
     sel += pnames
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
-    sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
+    # Store the reactions
+    # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
     # For testing store the parameters (make sure that reset is working)
     # sel += rr.model.getGlobalParameterIds()
-            
     rr.selections = sel
     header = ",".join(sel)
 
@@ -146,8 +151,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
                 rr.model[name] = p.value
                 # print 'set', name, ' = ', p.value
 
-            tstart_int = time.clock()
-                        
+            tstart_int = time.clock()          
             if varSteps:
                 # variable step size integration 
                 s = rr.simulate(sdict['tstart'], sdict['tend'], 
@@ -168,11 +172,11 @@ def integrate_roadrunner(sims, keep_tmp=False):
             numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.6E')
             storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
 
-            # reset
-            rr.reset()
+            
             # print 'reset', changes
             for key, value in changes.iteritems():
-                rr.model[key] = value        
+                rr.model[key] = value 
+            rr.reset()       
             
             print 'Time: [{:.1f}|{:.1f}]'.format( (time.clock()-tstart_total), t_int )
             
@@ -203,8 +207,10 @@ if __name__ == "__main__":
     # os.remove(tc.file.path)
 
     from sim.models import Simulation
-    sims = [Simulation.objects.filter(task__pk=6)[0], ]
+    # sims = [Simulation.objects.filter(task__pk=6)[0], ]
+    sims = [Simulation.objects.get(pk=50), ]
     print '* Start integration *'
+    print 'Simulation: ', sims
     integrate(sims, integrator=ROADRUNNER, keep_tmp=True)
     # integrate(sims, simulator=COPASI)
     

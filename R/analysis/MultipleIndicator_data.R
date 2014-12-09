@@ -2,8 +2,7 @@
 ## Experimental Data for Dilution Curves
 ################################################################
 # Data from Goresky and Villeneuve.
-#
-# TODO: create plots of data
+# The Goresky data is simulated.
 #
 # author: Matthias Koenig
 # date: 2014-11-17

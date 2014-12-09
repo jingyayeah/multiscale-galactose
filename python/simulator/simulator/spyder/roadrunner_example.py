@@ -9,13 +9,14 @@ from roadrunner import SelectionRecord
 print roadrunner.__version__
 
 
-sbml_file = 'Galactose_v36_Nc1_galchallenge.xml'
+# sbml_file = 'Galactose_v36_Nc1_galchallenge.xml'
+sbml_file = 'Galactose_v43_Nc2_core.xml'
 print sbml_file
 rr = roadrunner.RoadRunner(sbml_file)
 
 
 # selection to show problem
-sel1 = ['time', '[PP__gal]', '[PV__gal]', 'scale_f', 'scale', 'H01__GALK_Vmax', 'flow_sin', 'Q_sinunit']
+sel1 = ['time', '[PP__gal]', '[PV__gal]', 'scale_f', 'H01__scale', 'H01__GALK_Vmax', 'flow_sin', 'Q_sinunit']
 
 rr.selections = sel1
 header = ",".join(sel1)
@@ -56,11 +57,7 @@ for value in [0, 100]:
     # rr.reset(SelectionRecord.RATE)
     # rr.reset(SelectionRecord.INITIAL)
     # rr.reset(SelectionRecord.FLOATING)
-    sel_test = rr.createSelection("Q_sinunit")
-    rr.reset(sel_test.INITIAL)
-    
-    
-    
+        
     print '*** simulate ***'    
     start = time.clock()
     # s = rr.simulate(0, 100, absolute=1E-6, relative=1E-6, variableStep=True, stiff=True, sel=sel)

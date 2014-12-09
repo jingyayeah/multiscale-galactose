@@ -1,34 +1,11 @@
 ################################################################
 ## MultipleIndicatorFunctions
 ################################################################
-# Helper functions for Multiple Indicator analysis.
+# Helper functions for Multiple Indicator Dilution analysis.
 #
 # author: Matthias Koenig
-# date: 2014-11-17
+# date: 2014-12-06
 ################################################################
-
-#' Plot single multiple-dilution indicator dataset.
-#' 
-#' @param data dataset to be plotted
-#' @param correctTime set TRUE if the time should be corrected
-#' @export 
-plotDilutionData <- function(data, compounds, ccolors, correctTime=FALSE){
-  if (correctTime){
-    data <- correctDilutionTimes(data)
-  }
-  Nc = length(compounds)
-  for (kc in seq(Nc)){
-    compound <- compounds[kc]
-    ccolor <- ccolors[kc]
-    # check for data for compound
-    cdata = data[data$compound==compound,]
-    if (nrow(cdata)>0){
-      points(cdata$time, cdata$outflow, col=ccolor)
-      lines(cdata$time, cdata$outflow, col=ccolor, lty=2, lwd=2)
-      legend("topright",  legend=compounds, fill=ccolors) 
-    }
-  }
-}
 
 #' Get the maximal values of the dilution data.
 #' 

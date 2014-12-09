@@ -217,7 +217,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
     samples = setParameterInSamples(raw_samples, 'PP__gal', 0.0, 'mM', BOUNDERY_INIT)
     
     # simulations
-    settings = Setting.get_settings( {'tstart':0.0, 'tend':5000.0, 'steps':100} )
+    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
     integration = Integration.get_or_create_integration(settings)
     task = create_task(model, integration, info=info, priority=0)
     createSimulationsForSamples(task, samples)
@@ -298,7 +298,7 @@ def make_galactose_aging(sbml_id, N, sampling):
 
 #----------------------------------------------------------------------#
 def make_galactose_metabolic_change(sbml_id, N, sampling):        
-    info = 'Galactose clearance per perfusion for varying metabolic capacity ({}).'.format(sampling)
+    info = 'Galactose clearance per perfusion for varying metabolic capacity (rules) ({}).'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
@@ -361,7 +361,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 36
+    VERSION = 44
     
     #----------------------------------------------------------------------#
     if (0):
@@ -387,36 +387,36 @@ if __name__ == "__main__":
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution
-        task, samples = make_galactose_flow(sbml_id, N=1000, sampling='distribution')
+        task, samples = make_galactose_flow(sbml_id, N=500, sampling='distribution')
         # mean sinusoidal unit
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution & add additional changes in aging
-        task, samples = make_galactose_aging(sbml_id, N=50, sampling='distribution')
+        task, samples = make_galactose_aging(sbml_id, N=100, sampling='distribution')
         
         # mean sinusoidal unit
         task, samples = make_galactose_aging(sbml_id, N=0, sampling='mean')
    
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         ''' GEC curves under different metabolic capacity of galactose metabolism. 
             Change in the maximal scale of metabolism
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution & add additional changes in aging
-        task, samples = make_galactose_metabolic_change(sbml_id, N=0, sampling='distribution')
+        task, samples = make_galactose_metabolic_change(sbml_id, N=100, sampling='distribution')
         
         # mean sinusoidal unit
-        task, samples = make_galactose_metabolic_change(sbml_id, N=1, sampling='mean')
+        task, samples = make_galactose_metabolic_change(sbml_id, N=0, sampling='mean')
    
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves

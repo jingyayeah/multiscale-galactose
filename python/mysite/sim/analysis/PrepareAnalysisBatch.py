@@ -15,7 +15,7 @@ from sim.models import Task
 from PrepareAnalysis import prepareDataForAnalysis
 
 
-task_pks = (8, ) 
+task_pks = (1, 2, 3, 4, 5, 6, 7, 8, ) 
 
 if __name__ == "__main__":
     print task_pks
