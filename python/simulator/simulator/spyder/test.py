@@ -64,6 +64,15 @@ r.model.items()
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
 r.model.items()
 
+r.model['[S3]'] = 2
+print r.model['[S3]']
+r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
+print r.model['[S3]']
+r.model.items()
+r.S3 = 10
+r.S3
+r.model.getBoundarySpeciesIds()
+
 print r.simulate(plot=True)
 
 

@@ -13,6 +13,7 @@ import shlex
 
 import numpy
 import roadrunner
+from roadrunner import SelectionRecord
 
 from django.core.files import File
 from django.utils import timezone
@@ -34,6 +35,7 @@ def storeConfigFile(sim, folder):
     return config_file;
 
 def storeTimecourseResults(sim, tc_file, keep_tmp=False):
+    ''' This takes quit long. '''
     f = open(tc_file, 'r')
     myfile = File(f)
     tc, _ = Timecourse.objects.get_or_create(simulation=sim)
@@ -85,6 +87,14 @@ def integrate_copasi(sims):
         except Exception:
             integration_exception(sim)
             
+def write_model_items(r, filename):
+    print filename
+    f = open(filename, "w")
+    rows = ["\t".join([data[0], str(data[1])] ) for data in r.model.items()]
+    f.write("\n".join(rows))
+    f.close()
+        
+
         
 def integrate_roadrunner(sims, keep_tmp=False):
     ''' Integrate simulations with RoadRunner.'''
@@ -96,32 +106,31 @@ def integrate_roadrunner(sims, keep_tmp=False):
         
         start = time.clock()
         rr = roadrunner.RoadRunner(sbml_file)
-        print 'Rules load :', (time.clock()- start)
+        print 'SBML load time :', (time.clock()- start)
         
-
-        # get the changed parameters in SBML
-        pnames = [str(p.name) for p in sims[0].parameters.all() if p.ptype != 'NONE_SBML_PARAMETER']
-
     except RuntimeError:
-        # reset the simulation status
+        # reset simulation status
         for sim in sims:
             sim.status = ERROR
             sim.save()
         raise
     
-    # Set RoadRunner settings
-    roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
+    # set RoadRunner settings
+    # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
     
+    # get changed parameters in SBML
+    # pars = sims[0].parameters.all()
+    # pnames = [str(p.name) for p in pars if p.ptype == GLOBAL_PARAMETER] \
+    #           + ["".join(['[', str(p.name), ']']) for p in pars if p.ptype == BOUNDERY_INIT] \
+    #           + ["".join(['init([', str(p.name), '])']) for p in pars if p.ptype == FLOATING_INIT]
+    # print pnames
     
     # set the selection
-    sel = ['time']
-    sel += pnames
-    sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
-    sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
-    # Store the reactions
-    sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
-    # For testing store the parameters (make sure that reset is working)
-    # sel += rr.model.getGlobalParameterIds()
+    sel = ['time'] \
+        + [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()] \
+        + [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] \
+        + [item for item in rr.model.getReactionIds() if item.startswith('H')]
+    
     rr.selections = sel
     header = ",".join(sel)
 
@@ -131,6 +140,13 @@ def integrate_roadrunner(sims, keep_tmp=False):
     relTol = sdict['relTol']
     varSteps = sdict['varSteps']
     
+    # make a concentration backup
+    conc_backup = dict()
+    for id in rr.model.getBoundarySpeciesIds():
+        conc_backup[id] = rr["[{}]".format(id)]    
+    for id in rr.model.getFloatingSpeciesIds():
+        conc_backup[id] = rr["[{}]".format(id)]
+    
     for sim in sims:
         try:
             # set all parameters in the model and store the changes for revert
@@ -138,23 +154,42 @@ def integrate_roadrunner(sims, keep_tmp=False):
             tstart_total = time.clock()
             sim.time_assign = timezone.now() # correction due to bulk assignment
             changes = dict()
+            
+            # apply parameter changes
             for p in sim.parameters.all():
-                if (p.ptype == NONE_SBML_PARAMETER):
+                if (p.ptype == GLOBAL_PARAMETER):
+                    name = str(p.name)
+                    changes[name] = rr.model[name]
+                    rr.model[name] = p.value
+                    # print 'set', name, ' = ', p.value
+            
+            # recalculate the initial assignments
+            rr.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
+            
+            # restore initial concentrations
+            for key, value in conc_backup.iteritems():
+                rr.model['[{}]'.format(key)] = value
+            
+            # apply concentration changes
+            for p in sim.parameters.all():
+                if (p.ptype in [NONE_SBML_PARAMETER, GLOBAL_PARAMETER]):
                     continue
                 
-                name = str(p.name) # handle unicode from db
-                if (p.ptype == GLOBAL_PARAMETER):
-                    pass
-                elif (p.ptype == BOUNDERY_INIT):
-                    name = "".join(['[', name, ']'])
+                name = str(p.name) 
+                if (p.ptype == BOUNDERY_INIT):
+                    name = '[{}]'.format(name)
                 elif (p.ptype == FLOATING_INIT):
-                    name = "".join(['init([', name, '])'])
+                    name = 'init([{}])'.format(name)
                 
-                # now set the value for the correct name
                 changes[name] = rr.model[name]
                 rr.model[name] = p.value
                 # print 'set', name, ' = ', p.value
-
+                            
+            # store the items before integration
+            # items_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_items.csv'])
+            # write_model_items(rr, items_file)
+            
+            # perform integration
             tstart_int = time.clock()          
             if varSteps:
                 # variable step size integration 
@@ -164,11 +199,8 @@ def integrate_roadrunner(sims, keep_tmp=False):
             else:
                 # fixed steps
                 s = rr.simulate(sdict['tstart'], sdict['tend'], steps=sdict['steps'],
-                                absolute=absTol, 
-                                relative=relTol,
-                                variableStep=False, stiff=True)
-            
-            # print 'Integration Time:', (time.clock()- tstart_int)
+                    absolute=absTol, relative=relTol,
+                    variableStep=False, stiff=True)
             t_int = time.clock()- tstart_int
         
             # Store Timecourse Results
@@ -176,12 +208,13 @@ def integrate_roadrunner(sims, keep_tmp=False):
             numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.6E')
             storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
 
-            
-            # print 'reset', changes
+            # reset parameter changes
             for key, value in changes.iteritems():
                 rr.model[key] = value 
-            rr.reset()       
-            
+            rr.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
+            # reset initial concentrations
+            rr.reset()
+              
             print 'Time: [{:.1f}|{:.1f}]'.format( (time.clock()-tstart_total), t_int )
             
         except:
@@ -212,7 +245,7 @@ if __name__ == "__main__":
 
     from sim.models import Simulation
     # sims = [Simulation.objects.filter(task__pk=6)[0], ]
-    sims = [Simulation.objects.get(pk=50), ]
+    sims = [Simulation.objects.get(pk=10000), ]
     print '* Start integration *'
     print 'Simulation: ', sims
     integrate(sims, integrator=ROADRUNNER, keep_tmp=True)

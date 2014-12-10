@@ -5,6 +5,7 @@ Created on Dec 8, 2014
 '''
 import time
 import roadrunner
+from roadrunner import SelectionRecord
 print roadrunner.__version__
 
 sbml_file = 'Galactose_v36_Nc20_galchallenge.xml'
@@ -55,14 +56,19 @@ def test():
         rr.model["L"] = 0.0005
         rr.model["y_sin"] = 4.4E-6
         rr.model["y_cell"] = 7.58E-6
-        rr.reset()    
-        
+        rr.model["[PP__gal]"] = 5.0
+        print 'PP__gal', rr.model['[PP__gal]']
+        rr.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
+        print 'PP__gal', rr.model['[PP__gal]']
+        print rr.model.getBoundarySpeciesIds()
+                
         print '*** simulate ***'    
         start = time.clock()
         s = rr.simulate(0, 5000, absolute=absTol, relative=1E-6, variableStep=True, stiff=True, plot=False)    
         print 'Integration time:', (time.clock()- start)    
         
-    
+
+roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
 roadrunner.Config.setValue(roadrunner.Config.LLVM_SYMBOL_CACHE, False)
 test()
 
