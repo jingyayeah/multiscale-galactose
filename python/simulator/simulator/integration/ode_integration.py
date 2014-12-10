@@ -109,13 +109,17 @@ def integrate_roadrunner(sims, keep_tmp=False):
             sim.save()
         raise
     
+    # Set RoadRunner settings
+    roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
+    
+    
     # set the selection
     sel = ['time']
     sel += pnames
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()]
     sel += [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] 
     # Store the reactions
-    # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
+    sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
     # For testing store the parameters (make sure that reset is working)
     # sel += rr.model.getGlobalParameterIds()
     rr.selections = sel

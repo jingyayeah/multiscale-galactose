@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by libAntimony version v2.5.2 on 2014-12-08 08:28 with libSBML version 5.10.2. -->
+<!-- Created by libAntimony version v2.5.2 on 2014-12-10 12:43 with libSBML version 5.10.2. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model id="test" name="test">
     <listOfCompartments>
@@ -8,13 +8,15 @@
     <listOfSpecies>
       <species id="S1" compartment="default_compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="S2" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="S3" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species id="S3" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="K3" constant="true"/>
+      <parameter id="K3" value="0.1" constant="true"/>
       <parameter id="K1" value="1" constant="true"/>
       <parameter id="K2" value="2" constant="true"/>
       <parameter id="K4" constant="true"/>
+      <parameter id="K5" constant="false"/>
+      <parameter id="K6" constant="true"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment symbol="S2">
@@ -26,7 +28,7 @@
           </apply>
         </math>
       </initialAssignment>
-      <initialAssignment symbol="K3">
+      <initialAssignment symbol="K4">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <plus/>
@@ -35,16 +37,27 @@
           </apply>
         </math>
       </initialAssignment>
-      <initialAssignment symbol="K4">
+      <initialAssignment symbol="K6">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <times/>
             <cn type="integer"> 2 </cn>
-            <ci> K3 </ci>
+            <ci> K4 </ci>
           </apply>
         </math>
       </initialAssignment>
     </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule variable="K5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> K1 </ci>
+            <ci> K2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
     <listOfReactions>
       <reaction id="J0" reversible="true" fast="false">
         <listOfReactants>
