@@ -212,8 +212,10 @@ def make_galactose_dilution(sbml_id, N, sampling):
     info = 'Multiple-indicator dilution curves ({})'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
     
-    # parameter samples
-    raw_samples = createGalactoseSamples(N=N, sampling=sampling)
+    # adapt flow in samples with the given f_flows
+    f_flows = (1.0, 0.7, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1, 0.05, 0.01)
+    raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
+    
     samples = setParameterInSamples(raw_samples, 'PP__gal', 0.0, 'mM', BOUNDERY_INIT)
     
     # simulations
@@ -392,7 +394,7 @@ if __name__ == "__main__":
         task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
@@ -427,12 +429,12 @@ if __name__ == "__main__":
         PP__gal = (2.3, 5, 14.8, 19.8) # [mM]
         '''
         sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
-        PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
+        PP__gal = (0.28, 12.5, 17.5) # [mM]
         p_list = [ {'pid': 'PP__gal', 'values': PP__gal, 'unit': 'mM', 'ptype':BOUNDERY_INIT}]
         
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1000, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=200, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         

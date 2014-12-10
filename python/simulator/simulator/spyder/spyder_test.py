@@ -62,13 +62,13 @@ def plot(r, show=True):
     if result is None:
         raise Exception("no simulation result")
     
-    time = result[:,0]
+    times = result[:,0]
 
     selections = r.selections
     for i in range(1, len(selections)):
         series = result[:,i]
         name = selections[i]
-        p.plot(time, series, label=str(name))
+        p.plot(times, series, label=str(name))
         p.legend()
     if show:
         p.show()
@@ -93,7 +93,7 @@ def dilution_plots(s_list, selections, show=True):
 
     # plot all the individual solutions    
     for s in s_list:
-        time = s[:,0]
+        times = s[:,0]
         for k, id in enumerate(ids):
             # find in which place of the solution the component is encoded
             i_sel = position_in_list(selections, '[{}]'.format(id))
@@ -101,11 +101,11 @@ def dilution_plots(s_list, selections, show=True):
                 raise Exception("{} not in selection".format(id))
             series = s[:,i_sel]
             name = selections[i_sel]
-            p.plot(time, series, color=cols[k], label=str(name))
+            p.plot(times, series, color=cols[k], label=str(name))
             # p.legend()
     # adapt the axis
 
-    p.xlim(999, 1020)
+    p.xlim(999, 1030)
     p.ylim(0, 2.0)
 
     if show:
@@ -121,7 +121,7 @@ def dilution_plots_gal(s_list, selections, show=True):
 
     # plot all the individual solutions    
     for ks, s in enumerate(s_list):
-        time = s[:,0]
+        times = s[:,0]
         for id in ids:
             # find in which place of the solution the component is encoded
             i_sel = position_in_list(selections, '[{}]'.format(id))
@@ -129,11 +129,13 @@ def dilution_plots_gal(s_list, selections, show=True):
                 raise Exception("{} not in selection".format(id))
             series = s[:,i_sel]
             name = selections[i_sel]
-            p.plot(time, series, color=cols[ks], label=str(name))
+            p.plot(times, series, color=cols[ks], label=str(name))
             # p.legend()
     # adapt the axis
 
-    p.xlim(999, 1020)
+    
+    
+    p.xlim(999, 1030)
     # p.ylim(0, 0.4)
     if show:
         p.show()
@@ -181,9 +183,9 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = [
-    { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15, "GLUT2_f" : 12.0 },
-    { "[PP__gal]" : 12.5, "scale_f" : 1.2*5.3e-15, "GLUT2_f" : 12.0  },
-    { "[PP__gal]" : 17.5, "scale_f" : 1.2*5.3e-15, "GLUT2_f" : 12.0  }
+    { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0 },
+    { "[PP__gal]" : 12.5, "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0  },
+    { "[PP__gal]" : 17.5, "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0  }
 ]
 inits = {}
 
@@ -198,8 +200,9 @@ print r.selections
 s = r.getSimulationData()
 import pylab as p
 test = s[:,len(r.selections)-5]
-time = s[:,0]
+times = s[:,0]
 p.plot(time, test)
+del(times)
 
 # additional changes for fitting the dilution curves
 # (now test the effects of changing variables in the model, i.e.

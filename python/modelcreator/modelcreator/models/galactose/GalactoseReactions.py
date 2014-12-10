@@ -309,7 +309,7 @@ GLUT2_GAL = ReactionTemplate(
     'galactose transport [c__]',
     'e__gal <-> c__gal',
     pars = [
-            ('GLUT2_f',    10.0,   'mole_per_s'),
+            ('GLUT2_f',    4.0,   'mole_per_s'),
             ('GLUT2_k_gal', 85.5, 'mM'),
             ('c__GLUT2_P',   1.0, 'mM'),
     ],

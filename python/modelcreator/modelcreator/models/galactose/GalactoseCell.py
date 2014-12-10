@@ -36,7 +36,7 @@ species = [
             ('c__nadph',            0.1,    'mM'),
 ]
 pars = [# id, value, unit, constant            
-            ('scale_f',   5.3E-15,   '-',    True),
+            ('scale_f',   6.4E-15,   '-',    True),
             ('REF_P',     1.0,      'mM',   True),
             ('deficiency',  0,      '-',    True),
 ]  
