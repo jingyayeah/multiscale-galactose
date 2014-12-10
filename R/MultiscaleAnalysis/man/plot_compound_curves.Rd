@@ -1,0 +1,12 @@
+\name{plot_compound_curves}
+\alias{plot_compound_curves}
+\title{Plots individual multiple indicator dilution curves.}
+\usage{
+plot_compound_curves(time, data, name, weights)
+}
+\description{
+Data is a data matrix with simulations in columns and
+timepoints in rows. Column ids correspond to the simulation
+identifiers, row ids to the timepoints.
+}
+

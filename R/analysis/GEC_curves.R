@@ -52,6 +52,9 @@ info <- process_folder_info(folder)
 res <- calculate_GEC_curves(folder, force=FALSE, B=10)
 GEC_f <- GEC_functions(task=info$task)
 plot_GEC_function(GEC_f)
+names(GEC_f)
+GEC_f$d.mean[, c('f_flow', 'Q_per_vol_units')]
+
 
 folder <- '2014-12-08_T6'
 info <- process_folder_info(folder)
