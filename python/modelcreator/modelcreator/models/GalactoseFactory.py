@@ -16,8 +16,8 @@ from modelcreator.events.event_factory import createGalactoseStepEventData
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 1
-    version = 50
+    Nc = 20
+    version = 51
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 
