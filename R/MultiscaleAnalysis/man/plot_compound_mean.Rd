@@ -8,5 +8,6 @@ plot_compound_mean(time, data, weights, col)
 \description{
 Plots the mean and standard deviation for time courses. Uses weighted calculation
 if the weights are provided.
+Other available functions are rowMins, rowMaxs & rowQuantiles.
 }
 

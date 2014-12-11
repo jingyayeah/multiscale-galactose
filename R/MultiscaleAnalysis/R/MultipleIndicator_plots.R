@@ -73,26 +73,31 @@ plot_compound_curves <- function(time, data, name, weights){
 #' 
 #' Plots the mean and standard deviation for time courses. Uses weighted calculation
 #' if the weights are provided.
+#' Other available functions are rowMins, rowMaxs & rowQuantiles.
 #' @export
 plot_compound_mean <- function(time, data, weights, col){
+  
   if (is.null(weights)){
-    rMeans <- rowMeans(data)
-    rSds <- rowSds(data)
-  }else{
+    # unweighted
+    r.means <- rowMeans(data)
+    r.sds <- rowSds(data)
+  } else {
+    # weighted
     Nt = length(time)
-    rMeans = numeric(Nt)
-    rSds = numeric(Nt)
+    r.means = numeric(Nt)
+    r.sds = numeric(Nt)
     for (k in seq(Nt)){
-      rMeans[k] = wt.mean(data[k, ], weights) 
-      rSds[k] = wt.sd(data[k, ], weights)
+      r.means[k] = wt.mean(data[k, ], weights) 
+      r.sds[k] = wt.sd(data[k, ], weights)
     }
   }
-  rMeansUp <- rMeans+rSds
-  rMeansDown <- rMeans-rSds
-  lines(time, rMeans, col=col, lwd=2)
-  lines(time, rMeansUp, col=col, lwd=2, lty=2)
-  # rMeansDown[rMeansDown<0] = 0;
-  # lines(time, rMeansDown, col=col, lwd=2, lty=2)
+  # plot mean & mean+sd
+  lines(time, r.means, col=col, lwd=2)
+  lines(time, r.means+r.sds, col=col, lwd=1, lty=2)
+    
+  # lines for the max values
+  tmax <- time[which.max(r.means)]
+  abline(v=tmax, col=col, lwd=0.5)
 }
 
 

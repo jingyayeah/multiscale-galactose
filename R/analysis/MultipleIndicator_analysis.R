@@ -94,11 +94,11 @@ par(mfrow=c(1,1))
 ###########################################################################
 # Calculate mean time curves and sds 
 ###########################################################################
-
-# TODO: use the plot_mean_curve function
-# Necessary to generate the mean only over the subset of simulations which belong
-# to the same condition.
-plotMeanCurves <- function(dlist, f.level, compounds, weights, ccolors){
+# Plotting subsets of the approximation matrix.
+# Creates the main dilution plot of the mean curves.
+plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors){
+  weights <- pars$Q_sinunit
+  
   for (kc in seq(length(compounds))){
     compound <- compounds[kc]
     col <- ccolors[kc]
@@ -108,94 +108,33 @@ plotMeanCurves <- function(dlist, f.level, compounds, weights, ccolors){
     # plot.levels <- levels(as.factor(pars[[f.level]]))
     plot.levels = c("0.28", "12.5", "17.5")
     for (p.level in plot.levels){
+      
+      # get subset of data
       sim_rows <- which(pars[[f.level]]==p.level)
       
       w <- weights[sim_rows]
-      
-      tmp <- dlist[[id]][ ,sim_rows]
-      row.means <- rowMeans(tmp)
-      row.wmeans <- rowWeightedMeans(tmp, w=w)
-      row.medians <- rowMedians(tmp)
-      row.wmedians <- rowWeightedMedians(tmp, w=w)
-      row.sds <- rowSds(tmp)
-      
-      time = as.numeric(rownames(tmp))-t_peak
-      points(time, row.wmeans, col=col, lwd=2, type='l', lty=1)
-      #points(time, row.wmeans+row.sds, col='Orange', lwd=2, type='l', lty=1)
-      #points(time, row.wmedians, col=col, lwd=2, type='l', lty=2)
-    
-      points(time, row.means, col=col, lwd=0.5, type='l', lty=2)
-    #points(time, rowMedians(tmp), col=col, lwd=2, type='l', lty=3)
-  
-    #points(time, rowMins(tmp), col='Red', lwd=2, type='l', lty=2)
-    #points(time, rowMaxs(tmp), col='Red', lwd=2, type='l', lty=2)
-    #points(time, rowQuantiles(tmp,probs=c(0.25)), col='Green', lwd=2, type='l', lty=3)
-    #points(time, rowQuantiles(tmp,probs=c(0.75)), col='Green', lwd=2, type='l', lty=3)  
-    
-    # lines for the max values
-      tmax.wmeans <- time[which.max(row.wmeans)]
-      cat("tmax [", id , "] = ", tmax.wmeans, "\n")
-      tmax.means <- time[which.max(row.means)]
-      abline(v=tmax.wmeans, col=col)
-      #abline(v=tmax.means, col=col)
+      data <- dlist[[id]][ ,sim_rows]
+      time = as.numeric(rownames(data))-t_peak
+      # plot
+      plot_compound_mean(time=time, data=data, weights=w, col=col)
     }
   }
 }
 
-
-# TODO: how is the concentration of the the dilute related to the dilution fraction
-# -> calculate via the total amount of tracer injected
-# Add legend
-
-# Load experimental data
-gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
-summary(gor1973)
-gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
-summary(gor1983)
-
-# necessary to scale to same values
-m1 = max(gor1983$outflow)
-m2 = max(gor1973[gor1973$condition=="A",'outflow'])
-m3 = max(gor1973[gor1973$condition=="B",'outflow'])
-m4 = max(gor1973[gor1973$condition=="C",'outflow'])
-scale_f = (m1+m2+m3+m4)/4;
-scale_f
-
-# plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE)
-# plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE)
-# plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE)
-# plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE)
-
-expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
-expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
-
-table(gor1983$compound)
-table(gor1973$compound)
-
-# Get dilution curves for given flow
-dlist.dict
-index = 10
-dlist <- dlist.all[[index]]
-plist <- pars.all[[index]]
-# ncol(dlist.all[[1]]$PV__rbcM)
-# ncol(dlist.all[[2]]$PV__rbcM)
-
-
+# plot mean dilution curves
 par(mfrow=c(2,1))
-time.range <- c(t_peak-5, t_peak+25)
-weights = pars$Q_sinunit
-
+time.range <- c(0, 20)
 # normal plot
-plot(numeric(0), numeric(0), xlim=c(0,20), ylim=c(0,0.5),
+plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,0.7), type='n',
      main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plotMeanCurves(dlist, plist, f.level, compounds, weights, ccolors)
+plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors)
 
 # log plot
-plot(numeric(0), numeric(0), log='y', xlim=c(0,20), ylim=c(1E-2,0.5),
+plot(numeric(0), numeric(0), log='y', xlim=time.range, ylim=c(1E-2,0.7),
      main='Log Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plotMeanCurves(dlist, plist, f.level, compounds, weights, ccolors)
+plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors)
 
-legend("topright",  legend = compounds, fill=ccolors) 
+legend("topright",  legend=compounds, fill=ccolors) 
 par(mfrow=c(1,1))
 
 ###########################################################################
@@ -221,6 +160,36 @@ plot_compound_mean(time=time.rel, data=dlist[[name]], weights=weights, col=ccolo
 ###################################################################################
 # Dilution curves with experimental data
 ###################################################################################
+###########################
+# Experimental data
+###########################
+# TODO: how is the concentration of the the dilute related to the dilution fraction
+# -> calculate via the total amount of tracer injected
+# Add legend
+
+# Load experimental data
+gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
+summary(gor1973)
+gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
+summary(gor1983)
+
+# necessary to scale to same values
+m1 = max(gor1983$outflow)
+m2 = max(gor1973[gor1973$condition=="A",'outflow'])
+m3 = max(gor1973[gor1973$condition=="B",'outflow'])
+m4 = max(gor1973[gor1973$condition=="C",'outflow'])
+scale_f = (m1+m2+m3+m4)/4;
+scale_f
+
+# plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE)
+# plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE)
+# plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE)
+# plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE)
+
+expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
+expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+table(gor1983$compound)
+table(gor1973$compound)
 
 
 # calculate the max times
