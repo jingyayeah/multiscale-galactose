@@ -112,10 +112,11 @@ def dilution_plots(s_list, selections, show=True):
     if show:
         p.show()
 
-def dilution_plots_gal(s_list, selections, show=True):
+def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
     ''' Plot of the dilution curves '''
+    print name
 
-    ids =  [item[1:(len(item)-1)] for item in selections if (item.startswith('[H') & item.endswith('galM]'))]
+    ids =  [item[1:(len(item)-1)] for item in selections if (item.startswith('[H') & item.endswith('{}]'.format(name)))]
     cols=['red', 'darkblue', 'darkgreen']   
 
     # plot all the individual solutions    
@@ -132,10 +133,9 @@ def dilution_plots_gal(s_list, selections, show=True):
             p.plot(times, series, color=cols[ks], label=str(name))
             # p.legend()
     # adapt the axis
-    p.xlim(t_peak-1, t_peak+30)
+    p.xlim(xlim)
     #p.ylim(0, 0.4)
-    if show:
-        p.show()
+    p.show()
 
 #########################################################################    
 # Galactose Challenge
@@ -163,7 +163,9 @@ plot(r)
 #########################################################################    
 # Multiple Indicator Dilution
 #########################################################################  
-sbml_file = 'Galactose_v45_Nc20_dilution.xml'
+folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
+sbml_file = folder + 'Galactose_v46_Nc20_dilution.xml'
+print sbml_file
 r = load_model(sbml_file)
 items = r.model.items()
 
@@ -171,7 +173,7 @@ items = r.model.items()
 sel = ['time']
 sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
-sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if (item.startswith('H') & item.endswith('galM'))]
+sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # Store reactions
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
@@ -190,7 +192,10 @@ inits = {}
 # s1 = simulation(r, sel, p1, inits)
 s_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
 dilution_plots(s_list, r.selections)
-dilution_plots_gal(s_list, r.selections)
+dilution_plots_gal(s_list, r.selections, name='galM')
+dilution_plots_gal(s_list, r.selections, name='gal1pM')
+dilution_plots_gal(s_list, r.selections, name='gal1pM', xlim=[5000, 6000])
+dilution_plots_gal(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
 print r.selections
 
 

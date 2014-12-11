@@ -65,7 +65,6 @@ print r.model.items()
 
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
 r.reset()
-
 r.model.items()
 
 
@@ -79,3 +78,4 @@ print r.model.items()
 
 r.reset()
 r.model.items()
+r.model.

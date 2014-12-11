@@ -14,7 +14,7 @@ comps = ('c__', 'e__')
 GALK = ReactionTemplate(
     'c__GALK',
     'Galactokinase [c__]',
-    'c__gal + c__atp <-> c__gal1p + c__adp',
+    'c__gal + c__atp <-> c__gal1p + c__adp [c__galM, c__gal1pM]',
     pars = [
             ('GALK_PA',      0.02,    'mole'),
             ('GALK_keq',     50,       '-'),
@@ -29,24 +29,25 @@ GALK = ReactionTemplate(
     rules = [ # id, rule, unit
             ('c__GALK_Vmax', 'c__scale * GALK_PA * GALK_kcat * c__GALK_P/REF_P', 'mole_per_s'),
             ('c__GALK_dm', '( (1 dimensionless +(c__gal+c__galM)/GALK_k_gal)*(1 dimensionless +c__atp/GALK_k_atp) +(1 dimensionless+c__gal1p/GALK_k_gal1p)*(1 dimensionless+c__adp/GALK_k_adp) -1 dimensionless)', '-'),
+            
     ],
-    formula = ('c__GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1 dimensionless/(1 dimensionless+c__gal1p/GALK_ki_gal1p) * (c__gal*c__atp -c__gal1p*c__adp/GALK_keq)/c__GALK_dm', 'mole_per_s')
+    formula = ('c__GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1 dimensionless/(1 dimensionless+(c__gal1p+c__gal1pM)/GALK_ki_gal1p) * (c__gal*c__atp - c__gal1p*c__adp/GALK_keq)/c__GALK_dm', 'mole_per_s')
 )
 
 #############################################################################################
 GALKM = ReactionTemplate(
     'c__GALKM',
     'Galactokinase M [c__]',
-    'c__galM + c__atp -> c__gal1p + c__adp',
+    'c__galM + c__atp -> c__gal1pM + c__adp [c__gal, c__gal1p]',
     pars = [],
     rules = [],
-    formula = ('c__GALK_Vmax/(GALK_k_gal*GALK_k_atp) * 1 dimensionless/(1 dimensionless+c__gal1p/GALK_ki_gal1p) * (c__galM*c__atp)/c__GALK_dm', 'mole_per_s')
+    formula = ('c__GALK_Vmax/(GALK_k_gal*GALK_k_atp) * 1 dimensionless/(1 dimensionless+(c__gal1p+c__gal1pM)/GALK_ki_gal1p) * (c__galM*c__atp - c__gal1pM*c__adp/GALK_keq)/c__GALK_dm', 'mole_per_s')
 )
 #############################################################################################
 IMP = ReactionTemplate(
     'c__IMP',
     'Inositol monophosphatase [c__]',
-    'c__gal1p => c__gal + c__phos',
+    'c__gal1p => c__gal + c__phos [c__gal1pM]',
     pars = [# id, value, unit
             ('IMP_f', 0.05, '-'),
             ('IMP_k_gal1p', 0.35, 'mM'),
@@ -54,9 +55,19 @@ IMP = ReactionTemplate(
     ],
     rules = [ # id, rule, unit
             ('c__IMP_Vmax', 'IMP_f * c__GALK_Vmax * c__IMP_P/REF_P', 'mole_per_s'),
+            ('c__IMP_dm', '(1 dimensionless + c__gal1p/IMP_k_gal1p + c__gal1pM/IMP_k_gal1p)', '-')
     ],
     # formula, unit
-    formula = ('c__IMP_Vmax/IMP_k_gal1p * c__gal1p/(1 dimensionless + c__gal1p/IMP_k_gal1p)', 'mole_per_s')
+    formula = ('c__IMP_Vmax/IMP_k_gal1p * c__gal1p/c__IMP_dm', 'mole_per_s')
+)
+#############################################################################################
+IMPM = ReactionTemplate(
+    'c__IMPM',
+    'Inositol monophosphatase M [c__]',
+    'c__gal1pM => c__galM + c__phos [c__gal1p]',
+    pars = [],
+    rules = [],
+    formula = ('c__IMP_Vmax/IMP_k_gal1p * c__gal1pM/c__IMP_dm', 'mole_per_s')
 )
 
 #############################################################################################

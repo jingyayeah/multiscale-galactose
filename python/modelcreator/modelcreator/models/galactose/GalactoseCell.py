@@ -22,6 +22,7 @@ species = [
             ('c__glc1p',           0.012,   'mM'),
             ('c__glc6p',           0.12,    'mM'),
             ('c__gal1p',           0.001,   'mM'),
+            ('c__gal1pM',          0.0,     'mM'),
             ('c__udpglc',          0.34,    'mM'),
             ('c__udpgal',          0.11,    'mM'),
             ('c__galtol',          0.001,   'mM'),
@@ -51,7 +52,7 @@ rules = [# id, rule, unit
               '+ c__phos + 2 dimensionless *c__ppi + c__glc1p + c__glc6p + c__gal1p + 2 dimensionless*c__udpglc + 2 dimensionless *c__udpgal', 'mM'),
 ]
 reactions = (GALK, GALKM,
-                 IMP, 
+                 IMP, IMPM,
                  ATPS, 
                  ALDR, 
                  NADPR,
