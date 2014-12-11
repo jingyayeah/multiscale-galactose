@@ -251,8 +251,6 @@ class TissueModel(object):
                 break
         if not r_fen:
             raise('Fenestration radius not defined.')
-        print 'Fenestration Radius: ', r_fen
-        
         
         diffusion_assignments = []
         for data in self.external:

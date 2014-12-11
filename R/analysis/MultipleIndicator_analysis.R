@@ -195,6 +195,7 @@ gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Go
 summary(gor1973)
 gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
 summary(gor1983)
+
 expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
 expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 
@@ -213,7 +214,7 @@ split_sims
 split_info
 subset = split_sims[[7]]
 # normal plot
-plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,0.7*scale), type='n',
+plot(numeric(0), numeric(0), xlim=c(0,40), ylim=c(0,0.7*scale), type='n',
      main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
 plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale)
 
@@ -222,6 +223,7 @@ plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, corr
 plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
 plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
 
+gor1973
 
 # necessary to scale to same values
 

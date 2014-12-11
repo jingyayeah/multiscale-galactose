@@ -205,9 +205,9 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 # { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0 },
 p_list = [
-    { "[PP__gal]" : 0.28, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0  },
-    { "[PP__gal]" : 12.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0  },
-    { "[PP__gal]" : 17.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0  }
+    { "[PP__gal]" : 0.28, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' : 0.03 },
+    { "[PP__gal]" : 12.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' : 0.03  },
+    { "[PP__gal]" : 17.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' : 0.03  }
 ]
 inits = {}
 
@@ -216,6 +216,7 @@ s_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list
 dilution_plots(s_list, r.selections)
 dilution_plots_gal(s_list, r.selections, name='galM')
 dilution_plots_gal(s_list, r.selections, name='gal1pM')
+
 dilution_plots_gal(s_list, r.selections, name='gal1pM', xlim=[5000, 6000])
 dilution_plots_gal(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
 

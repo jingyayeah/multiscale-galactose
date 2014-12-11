@@ -16,7 +16,7 @@ GALK = ReactionTemplate(
     'Galactokinase [c__]',
     'c__gal + c__atp <-> c__gal1p + c__adp [c__galM, c__gal1pM]',
     pars = [
-            ('GALK_PA',      0.02,    'mole'),
+            ('GALK_PA',      0.03,    'mole'),
             ('GALK_keq',     50,       '-'),
             ('GALK_k_gal1p', 1.5,     'mM'),
             ('GALK_k_adp',   0.8,     'mM'),
@@ -429,7 +429,7 @@ GLUT2_GAL = ReactionTemplate(
     'galactose transport [c__]',
     'e__gal <-> c__gal [e__galM, c__galM]',
     pars = [
-            ('GLUT2_f',    4.0,   'mole_per_s'),
+            ('GLUT2_f',    10.0,   'mole_per_s'),
             ('GLUT2_k_gal', 85.5, 'mM'),
             ('c__GLUT2_P',   1.0, 'mM'),
     ],
