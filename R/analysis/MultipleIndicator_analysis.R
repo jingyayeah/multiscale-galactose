@@ -54,7 +54,7 @@ dlist <- createApproximationMatrix(p$x, ids=ids, simIds=sim_ids, points=time, re
 # split ids on the factors
 factors=c('f_flow', "N_fen", 'scale_f')
 get_split_sims <- function(pars){
-  paste('Sim', pars$sim, paste="")
+  paste('Sim', pars$sim, sep="")
 }
 split_sims <- dlply(pars, factors, get_split_sims)
 split_info <- attr(split_sims, "split_labels")
@@ -109,11 +109,13 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors){
     plot.levels = c("0.28", "12.5", "17.5")
     for (p.level in plot.levels){
       
-      # get subset of data
-      sim_rows <- which(pars[[f.level]]==p.level)
+      # get subset of data belonging to galactose level
+      # and the subset
+      sim_rows <- intersect(which(pars[[f.level]]==p.level), which(rownames(pars) %in% subset))
+      cat('Simulation rows:', sim_rows, pars$sim[sim_rows], '\n')
       
       w <- weights[sim_rows]
-      data <- dlist[[id]][ ,sim_rows]
+      data <- as.matrix(dlist[[id]][ ,sim_rows])
       time = as.numeric(rownames(data))-t_peak
       # plot
       plot_compound_mean(time=time, data=data, weights=w, col=col)
@@ -121,7 +123,11 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors){
   }
 }
 
+split_info
+
 # plot mean dilution curves
+subset = rownames(pars)
+subset = split_sims[[7]]
 par(mfrow=c(2,1))
 time.range <- c(0, 20)
 # normal plot
@@ -153,16 +159,13 @@ weights <- pars$Q_sinunit   # weighting with volume flow
 # create empty plot
 plot(numeric(0), numeric(0), type='n', 
      main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 0.2))
-plot_compound_curves(time=time.rel, data=dlist[[name]], weights=weights)
-plot_compound_mean(time=time.rel, data=dlist[[name]], weights=weights, col=ccolors[name])
+plot_compound_curves(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit)
+plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, col=ccolors[name])
 
 
 ###################################################################################
 # Dilution curves with experimental data
 ###################################################################################
-###########################
-# Experimental data
-###########################
 # TODO: how is the concentration of the the dilute related to the dilution fraction
 # -> calculate via the total amount of tracer injected
 # Add legend
@@ -172,6 +175,16 @@ gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Go
 summary(gor1973)
 gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
 summary(gor1983)
+expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
+expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+
+
+
+plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE)
+plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE)
+plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE)
+plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE)
+
 
 # necessary to scale to same values
 m1 = max(gor1983$outflow)
@@ -181,13 +194,8 @@ m4 = max(gor1973[gor1973$condition=="C",'outflow'])
 scale_f = (m1+m2+m3+m4)/4;
 scale_f
 
-# plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE)
-# plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE)
-# plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE)
-# plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE)
 
-expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
-expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
+
 table(gor1983$compound)
 table(gor1973$compound)
 

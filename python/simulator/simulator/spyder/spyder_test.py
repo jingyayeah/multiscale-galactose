@@ -8,6 +8,9 @@ import time
 import roadrunner
 print roadrunner.__version__
 
+
+t_peak = 5000
+
 def load_model(sbml):
     print 'Loading :', sbml_file
     start = time.clock()
@@ -50,7 +53,7 @@ def simulation(r, selection, parameters, inits, absTol=1E-6, relTol=1E-6):
     # absTol is defined relative to the amounts
     absTol = absTol * min(r.model.getCompartmentVolumes())
     start = time.clock()
-    s = r.simulate(0, 5000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False)    
+    s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False)    
     print 'Integration time:', (time.clock()- start)
     reset_changed(r, changed)
     
@@ -89,9 +92,8 @@ def dilution_plots(s_list, selections, show=True):
     ids = pp_ids + pv_ids
     cols = ccols + ccols
     
-    import pylab as p
-
     # plot all the individual solutions    
+    import pylab as p    
     for s in s_list:
         times = s[:,0]
         for k, id in enumerate(ids):
@@ -104,9 +106,8 @@ def dilution_plots(s_list, selections, show=True):
             p.plot(times, series, color=cols[k], label=str(name))
             # p.legend()
     # adapt the axis
-
-    p.xlim(999, 1030)
-    p.ylim(0, 2.0)
+    p.xlim(t_peak-1, t_peak+30)
+    p.ylim(0, 0.4)
 
     if show:
         p.show()
@@ -116,10 +117,9 @@ def dilution_plots_gal(s_list, selections, show=True):
 
     ids =  [item[1:(len(item)-1)] for item in selections if (item.startswith('[H') & item.endswith('galM]'))]
     cols=['red', 'darkblue', 'darkgreen']   
-    print ids
-    import pylab as p
 
     # plot all the individual solutions    
+    import pylab as p
     for ks, s in enumerate(s_list):
         times = s[:,0]
         for id in ids:
@@ -132,11 +132,8 @@ def dilution_plots_gal(s_list, selections, show=True):
             p.plot(times, series, color=cols[ks], label=str(name))
             # p.legend()
     # adapt the axis
-
-    
-    
-    p.xlim(999, 1030)
-    # p.ylim(0, 0.4)
+    p.xlim(t_peak-1, t_peak+30)
+    #p.ylim(0, 0.4)
     if show:
         p.show()
 
@@ -166,7 +163,7 @@ plot(r)
 #########################################################################    
 # Multiple Indicator Dilution
 #########################################################################  
-sbml_file = 'Galactose_v43_Nc20_dilution_test.xml'
+sbml_file = 'Galactose_v45_Nc20_dilution.xml'
 r = load_model(sbml_file)
 items = r.model.items()
 
@@ -182,10 +179,11 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
+# { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0 },
 p_list = [
-    { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0 },
-    { "[PP__gal]" : 12.5, "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0  },
-    { "[PP__gal]" : 17.5, "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0  }
+    { "[PP__gal]" : 0.28, "flow_sin" : 0.4*270E-6 },
+    { "[PP__gal]" : 12.5, "flow_sin" : 0.4*270E-6 },
+    { "[PP__gal]" : 17.5, "flow_sin" : 0.4*270E-6 }
 ]
 inits = {}
 
