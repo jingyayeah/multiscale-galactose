@@ -12,7 +12,7 @@ rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
-create_plots = TRUE
+create_plots = FALSE
 compounds = c('RBC', 'albumin', 'Na', 'sucrose', 'water', 'galactose')
 ccolors = c('darkred', 'darkgreen', 'gray', 'darkorange', 'darkblue', 'black')
 
@@ -54,6 +54,7 @@ stopDevPlot()
 startDevPlot(file=file.path(ma.settings$dir.results, 'figures', 'MultipleIndicator_Goresky1973_2.png'), create_plots=create_plots)
 plotDilutionDataGoresky1973(correctTime=TRUE)
 stopDevPlot()
+
 
 ###############################################################
 ## Goresky1983 ##

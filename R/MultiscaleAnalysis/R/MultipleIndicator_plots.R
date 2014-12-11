@@ -61,11 +61,11 @@ getColorsForWeights <- function (weights) {
 #' Data is a data matrix with simulations in columns and timepoints in rows.
 #' Column ids correspond to the simulation identifiers, row ids to the timepoints.
 #' @export
-plot_compound_curves <- function(time, data, name, weights){
+plot_compound_curves <- function(time, data, name, weights, col=rgb(0.5,0.5,0.5, alpha=0.1)){
   # single curves
   Nsim = ncol(data)
   for (k in seq(Nsim)){
-    lines(time, data[, k],col=rgb(0.5,0.5,0.5, alpha=0.1))
+    lines(time, data[, k],col=col)
   }
 }
 

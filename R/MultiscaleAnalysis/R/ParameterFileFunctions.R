@@ -55,7 +55,8 @@ plotParameterHistogramFull <- function(pars, all_pars=FALSE){
     pnames <- getParameterNames(pars)
   }
   Np <- length(pnames)
-  par(mfrow=c(1,Np))
+  Ndim <- ceiling(sqrt(Np))
+  par(mfrow=c(Ndim,Ndim))
   for (k in seq(Np)){
     plotParameterHistogram(pars, name=pnames[k])
   }

@@ -20,11 +20,12 @@ setwd(ma.settings$dir.base)
 
 # Set folder and peak times for analysis
 folder <- '2014-12-11_T16'   # Multiple indicator data
-folder <- '2014-12-11_T15'   # Multiple indicator data
+# folder <- '2014-12-11_T15'   # Multiple indicator data
 # folder.mean <- '2014-12-08_T8'   # Multiple indicator data mean
 t_peak <- 5000               # [s] MID peak start
 t_end <- 10000               # [s] simulation time
-time = seq(from=t_peak-5, to=t_peak+50, by=0.2) # approximation time for plot
+time = seq(from=t_peak-5, to=t_peak+50, by=0.05) # approximation time for plot
+time = seq(from=t_peak-5, to=t_peak+10, by=0.01) # approximation time for plot
 
 # Process the integration time curves
 info <- process_folder_info(folder)
@@ -111,6 +112,15 @@ plot(numeric(0), numeric(0), type='n',
 plot_compound_curves(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit)
 plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, col=ccolors[name])
 
+# plot a subset
+name <- "PV__rbcM"
+inds <- pars$f_flow==0.4 & pars$PP__gal == 0
+plot(numeric(0), numeric(0), type='n', 
+     main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 2.0))
+plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=rgb(0.5,0.5,0.5, alpha=1.0))
+plot_compound_mean(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=ccolors[name])
+
+
 
 ###########################################################################
 # Calculate mean time curves and sds 
@@ -133,7 +143,7 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
       # get subset of data belonging to galactose level
       # and the subset
       sim_rows <- intersect(which(pars[[f.level]]==p.level), which(rownames(pars) %in% subset))
-      cat('Simulation rows:', sim_rows, pars$sim[sim_rows], '\n')
+      # cat('Simulation rows:', sim_rows, pars$sim[sim_rows], '\n')
       
       w <- weights[sim_rows]
       data <- scale * as.matrix(dlist[[id]][ ,sim_rows])
@@ -148,7 +158,7 @@ split_info
 
 # plot mean dilution curves
 subset = rownames(pars)
-subset = split_sims[[7]]
+subset = split_sims[[8]]
 scale = 1.0
 
 par(mfrow=c(2,1))
@@ -166,6 +176,12 @@ plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale)
 legend("topright",  legend=compounds, fill=ccolors) 
 par(mfrow=c(1,1))
 
+# plotParameterHistogramFull(pars)
+# inds <- pars$f_flow==0.4 & pars$PP__gal == 0
+# table(inds)
+# plot(pars$Vol_pp[inds], pars$Q_sinunit[inds])
+# plot(pars$Q_sinunit[inds], pars$Q_sinunit[inds])
+# hist(pars$Q_sinunit, breaks=40)
 
 ###################################################################################
 # Dilution curves with experimental data
@@ -190,9 +206,11 @@ m3 = max(gor1973[gor1973$condition=="B",'outflow'])
 m4 = max(gor1973[gor1973$condition=="C",'outflow'])
 scale = (m1+m2+m3+m4)/4;
 scale = scale/0.38
-offset =2.5
+offset = 2.2
 
 time.range <- c(0, 20)
+split_sims
+split_info
 subset = split_sims[[7]]
 # normal plot
 plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,0.7*scale), type='n',
@@ -208,9 +226,6 @@ plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, corr
 # necessary to scale to same values
 
 
-
-table(gor1983$compound)
-table(gor1973$compound)
 
 
 # calculate the max times
@@ -331,10 +346,6 @@ for (kt in seq(Ntask)){
   createFullPlot(maxtime, ccolors, time.offset=time.offset, scale_f)
   # createBoxPlot(maxtime, ccolors, time.offset=time.offset)
 }
-
-
-
-
 
 
 ############################################################
