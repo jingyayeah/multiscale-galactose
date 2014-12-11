@@ -7,29 +7,29 @@
 # Necessary to reproduce the peak structure as well as the different 
 # galactose curves.
 #
-# TODO: not all simulations reached steady state when the peak is 
-# given -> start the peak later ~ 5000 s
 # TODO: add the experimental data with the curves
 # TODO: adaptation of galactose parameters to describe the curves (transport relative to metabolism)
 # TODO: plot the single curves
 #
 # author: Matthias Koenig
-# date: 2014-12-09
+# date: 2014-12-11
 ################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
 # Set folder and peak times for analysis
-folder <- '2014-12-08_T7'   # Multiple indicator data
+folder <- '2014-12-11_T16'   # Multiple indicator data
 # folder.mean <- '2014-12-08_T8'   # Multiple indicator data mean
-t_peak <- 1000              # [s] MID peak start
-t_end <- 5000               # [s] simulation time
+t_peak <- 5000               # [s] MID peak start
+t_end <- 10000               # [s] simulation time
+time = seq(from=t_peak-5, to=t_peak+50, by=0.2) # approximation time for plot
 
 # Process the integration time curves
 info <- process_folder_info(folder)
 p <- preprocess_task(folder=folder, force=FALSE) 
 pars <- p$pars
+sim_ids <- rownames(pars)
 names(p)
 
 # Species in the dilution curves
@@ -41,15 +41,24 @@ ccolors <- c(ccolors, ccolors)
 names(ccolors) <- ids
 ccolors
 
-# Variation in background galactose levels
+# Variation of background galactose levels for given tracer
 f.level = "PP__gal" 
 gal_levels <- levels(as.factor(pars[[f.level]]))
+cat('Galactose levels: ', gal_levels, '\n')
 
-# Approximation matrix
-simIds <- rownames(pars)
-time = seq(from=t_peak-5, to=t_peak+50, by=0.2)
-dlist <- createApproximationMatrix(p$x, ids=ids, simIds=simIds, points=time, reverse=FALSE)
+################################################################
+# Create approximation matrices based on time courses
+# Dilution curves were simulated under varying flow conditions.
+dlist <- createApproximationMatrix(p$x, ids=ids, simIds=sim_ids, points=time, reverse=FALSE)
 
+# split ids on the factors
+factors=c('f_flow', "N_fen", 'scale_f')
+get_split_sims <- function(pars){
+  paste('Sim', pars$sim, paste="")
+}
+split_sims <- dlply(pars, factors, get_split_sims)
+split_info <- attr(split_sims, "split_labels")
+split_info
 
 ###########################################################################
 # Plot individual timecourses
@@ -87,7 +96,9 @@ par(mfrow=c(1,1))
 ###########################################################################
 
 # TODO: use the plot_mean_curve function
-plotMeanCurves <- function(dlist, f.level, compounds, weights, ccolors, f_scale){
+# Necessary to generate the mean only over the subset of simulations which belong
+# to the same condition.
+plotMeanCurves <- function(dlist, f.level, compounds, weights, ccolors){
   for (kc in seq(length(compounds))){
     compound <- compounds[kc]
     col <- ccolors[kc]
@@ -101,7 +112,7 @@ plotMeanCurves <- function(dlist, f.level, compounds, weights, ccolors, f_scale)
       
       w <- weights[sim_rows]
       
-      tmp <- f_scale* dlist[[id]][ ,sim_rows]
+      tmp <- dlist[[id]][ ,sim_rows]
       row.means <- rowMeans(tmp)
       row.wmeans <- rowWeightedMeans(tmp, w=w)
       row.medians <- rowMedians(tmp)
@@ -150,29 +161,40 @@ m4 = max(gor1973[gor1973$condition=="C",'outflow'])
 scale_f = (m1+m2+m3+m4)/4;
 scale_f
 
+# plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE)
+# plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE)
+# plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE)
+# plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE)
+
 expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
 expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 
 table(gor1983$compound)
 table(gor1973$compound)
 
+# Get dilution curves for given flow
+dlist.dict
+index = 10
+dlist <- dlist.all[[index]]
+plist <- pars.all[[index]]
+# ncol(dlist.all[[1]]$PV__rbcM)
+# ncol(dlist.all[[2]]$PV__rbcM)
+
+
 par(mfrow=c(2,1))
 time.range <- c(t_peak-5, t_peak+25)
 weights = pars$Q_sinunit
-# normal plot
-plot(numeric(0), numeric(0), log='y', xlim=time.range, ylim=c(1E-2,0.5),
-     main='Log Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plotMeanCurves(dlist, f.level, compounds, weights, ccolors)
 
+# normal plot
+plot(numeric(0), numeric(0), xlim=c(0,20), ylim=c(0,0.5),
+     main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
+plotMeanCurves(dlist, plist, f.level, compounds, weights, ccolors)
 
 # log plot
-plot(numeric(0), numeric(0), xlim=c(0,20), ylim=c(0,20),
-     main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plotMeanCurves(dlist, f.level, compounds, weights, ccolors, f_scale=50)
-plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE)
-plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE)
-plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE)
-plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE)
+plot(numeric(0), numeric(0), log='y', xlim=c(0,20), ylim=c(1E-2,0.5),
+     main='Log Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
+plotMeanCurves(dlist, plist, f.level, compounds, weights, ccolors)
+
 legend("topright",  legend = compounds, fill=ccolors) 
 par(mfrow=c(1,1))
 
