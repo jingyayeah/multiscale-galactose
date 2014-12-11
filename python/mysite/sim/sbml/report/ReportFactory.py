@@ -78,12 +78,12 @@ def createValueDictionary(model):
     # parse all the initial assignments
     for assignment in model.getListOfInitialAssignments():
         sid = assignment.getId()
-        math = ' = ' + libsbml.formulaToString(assignment.getMath())
+        math = ' = {}'.format(libsbml.formulaToString(assignment.getMath()))
         values[sid] = math
     # rules
     for rule in model.getListOfRules():
         sid = rule.getVariable()
-        math = ' = ' + libsbml.formulaToString(rule.getMath())
+        math = ' = {}'.format(libsbml.formulaToString(rule.getMath()))
         values[sid] = math
     return values
 

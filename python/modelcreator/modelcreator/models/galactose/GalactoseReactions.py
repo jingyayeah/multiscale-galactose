@@ -137,7 +137,7 @@ NADPR = ReactionTemplate(
 GALT = ReactionTemplate(
     'c__GALT',
     'Galactose-1-phosphate uridyl transferase [c__]',
-    'c__gal1p + c__udpglc <-> c__glc1p + c__udpgal [c__utp, c__udp]',
+    'c__gal1p + c__udpglc <-> c__glc1p + c__udpgal [c__utp, c__udp, c__gal1pM, c__udpglcM, c__glc1p, c__udpgalM]',
     pars = [
             ('GALT_f',        0.01,  '-'),
             ('GALT_keq',      1.0,   '-'),
@@ -152,10 +152,36 @@ GALT = ReactionTemplate(
     ],
     rules = [ # id, rule, unit
             ('c__GALT_Vmax', 'c__GALT_P/REF_P * GALT_f*c__GALK_Vmax*GALT_vm', 'mole_per_s'),
+            ('c__GALT_dm', '((1 dimensionless +(c__gal1p + c__gal1pM)/GALT_k_gal1p)*(1 dimensionless +(c__udpglc + c__udpglcM)/GALT_k_udpglc + c__udp/GALT_ki_udp + c__utp/GALT_ki_utp)' +
+                        '+ (1 dimensionless +(c__glc1p + c__glc1pM)/GALT_k_glc1p)*(1 dimensionless +(c__udpgal + c__udpgalM)/GALT_k_udpgal) -1 dimensionless)', '-'),
     ],
-    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1p*c__udpglc - c__glc1p*c__udpgal/GALT_keq) / " +
-                    "((1 dimensionless +c__gal1p/GALT_k_gal1p)*(1 dimensionless +c__udpglc/GALT_k_udpglc + c__udp/GALT_ki_udp + c__utp/GALT_ki_utp) + (1 dimensionless +c__glc1p/GALT_k_glc1p)*(1 dimensionless +c__udpgal/GALT_k_udpgal) -1 dimensionless)", 'mole_per_s')
+    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1p*c__udpglc - c__glc1p*c__udpgal/GALT_keq)/c__GALT_dm", 'mole_per_s')
 )
+GALTM1 = ReactionTemplate(
+    'c__GALTM1',
+    'Galactose-1-phosphate uridyl transferase M1 [c__]',
+    'c__gal1pM + c__udpglc <-> c__glc1p + c__udpgalM [c__utp, c__udp, c__gal1p, c__udpglcM, c__glc1pM, c__udpgal]',
+    pars = [],
+    rules = [],
+    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1pM*c__udpglc - c__glc1p*c__udpgalM/GALT_keq)/c__GALT_dm", 'mole_per_s')
+)
+GALTM2 = ReactionTemplate(
+    'c__GALTM2',
+    'Galactose-1-phosphate uridyl transferase M2 [c__]',
+    'c__gal1p + c__udpglcM <-> c__glc1pM + c__udpgal [c__utp, c__udp, c__gal1pM, c__udpglc, c__glc1p, c__udpgalM]',
+    pars = [],
+    rules = [],
+    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1p*c__udpglcM - c__glc1pM*c__udpgal/GALT_keq)/c__GALT_dm", 'mole_per_s')
+)
+GALTM3 = ReactionTemplate(
+    'c__GALTM3',
+    'Galactose-1-phosphate uridyl transferase M3 [c__]',
+    'c__gal1pM + c__udpglcM <-> c__glc1pM + c__udpgalM [c__utp, c__udp, c__gal1p, c__udpglc, c__glc1p, c__udpgal]',
+    pars = [],
+    rules = [],
+    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1pM*c__udpglcM - c__glc1pM*c__udpgalM/GALT_keq)/c__GALT_dm", 'mole_per_s')
+)
+
 #############################################################################################
 GALE = ReactionTemplate(
     'c__GALE',
@@ -281,7 +307,7 @@ NDKU = ReactionTemplate(
 PGM1 = ReactionTemplate(
     'c__PGM1',
     'Phosphoglucomutase-1 [c__]',
-    'c__glc1p <-> c__glc6p',
+    'c__glc1p <-> c__glc6p [c__glc1pM, c__glc6pM]',
     pars = [
             ('PGM1_f',   50.0,   '-'),
             ('PGM1_keq', 10.0,   '-'),
@@ -291,9 +317,21 @@ PGM1 = ReactionTemplate(
     ],
     rules = [ 
             ('c__PGM1_Vmax', 'PGM1_f * c__GALK_Vmax*c__PGM1_P/REF_P', 'mole_per_s'),
+            ('c__PGM1_dm', '(1 dimensionless + (c__glc1p + c__glc1pM)/PGM1_k_glc1p + (c__glc6p+c__glc6pM)/PGM1_k_glc6p)', '-'),
     ],
-    formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1p - c__glc6p/PGM1_keq)/(1 dimensionless +c__glc1p/PGM1_k_glc1p+c__glc6p/PGM1_k_glc6p)", 'mole_per_s')
+    formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1p - c__glc6p/PGM1_keq)/c__PGM1_dm", 'mole_per_s')
 )
+
+PGM1M = ReactionTemplate(
+    'c__PGM1M',
+    'Phosphoglucomutase-1 M [c__]',
+    'c__glc1pM <-> c__glc6pM  [c__glc1p, c__glc6p]',
+    pars = [],
+    rules = [],
+    formula = ("c__PGM1_Vmax/PGM1_k_glc1p *(c__glc1pM - c__glc6pM/PGM1_keq)/c__PGM1_dm", 'mole_per_s')
+)
+
+
 #############################################################################################
 GLY = ReactionTemplate(
     'c__GLY',
@@ -311,6 +349,16 @@ GLY = ReactionTemplate(
     ],
     formula = ("c__GLY_Vmax*(c__glc6p - GLY_k_glc6p)/GLY_k_glc6p * c__phos/(c__phos + GLY_k_p)", 'mole_per_s')
 )
+
+GLYM = ReactionTemplate(
+    'c__GLYM',
+    'Glycolysis M [c__]',
+    'c__glc6pM <-> c__phos',
+    pars = [],
+    rules = [],
+    formula = ("c__GLY_Vmax*(c__glc6pM - GLY_k_glc6p)/GLY_k_glc6p * c__phos/(c__phos + GLY_k_p)", 'mole_per_s')
+)
+
 #############################################################################################
 GTFGAL = ReactionTemplate(
     'c__GTFGAL',
@@ -327,6 +375,15 @@ GTFGAL = ReactionTemplate(
     ],
     formula = ("c__GTF_Vmax * c__udpgal/(c__udpgal + GTF_k_udpgal)", 'mole_per_s')
 )
+GTFGALM = ReactionTemplate(
+    'c__GTFGALM',
+    'Glycosyltransferase galactose M [c__]',
+    'c__udpgalM -> c__udp',
+    pars = [],
+    rules = [],
+    formula = ("c__GTF_Vmax * c__udpgalM/(c__udpgalM + GTF_k_udpgal)", 'mole_per_s')
+)
+
 GTFGLC = ReactionTemplate(
     'c__GTFGLC',
     'Glycosyltransferase glucose [c__]',
@@ -338,6 +395,18 @@ GTFGLC = ReactionTemplate(
     formula = ("0.0 dimensionless* c__GTF_Vmax * c__udpglc/(c__udpglc + GTF_k_udpglc)", 'mole_per_s')
 )
 
+GTFGLCM = ReactionTemplate(
+    'c__GTFGLCM',
+    'Glycosyltransferase glucose M [c__]',
+    'c__udpglcM -> c__udp',
+    pars = [
+            ('GTF_k_udpglc', 0.1, 'mM'),
+    ],
+    rules = [],
+    formula = ("0.0 dimensionless* c__GTF_Vmax * c__udpglcM/(c__udpglcM + GTF_k_udpglc)", 'mole_per_s')
+)
+
+
 #############################################################################################
 #    TRANSPORTERS
 #############################################################################################
@@ -346,7 +415,7 @@ H2OTM = ReactionTemplate(
     'H2O M transport [c__]',
     'e__h2oM <-> c__h2oM',
     pars = [
-            ('H2OT_f', 10.0, 'mole_per_s'),
+            ('H2OT_f', 5.0, 'mole_per_s'),
             ('H2OT_k',  1.0, 'mM'),
     ],
     rules = [ # id, rule, unit
@@ -358,7 +427,7 @@ H2OTM = ReactionTemplate(
 GLUT2_GAL = ReactionTemplate(
     'c__GLUT2_GAL',
     'galactose transport [c__]',
-    'e__gal <-> c__gal',
+    'e__gal <-> c__gal [e__galM, c__galM]',
     pars = [
             ('GLUT2_f',    4.0,   'mole_per_s'),
             ('GLUT2_k_gal', 85.5, 'mM'),
@@ -373,7 +442,7 @@ GLUT2_GAL = ReactionTemplate(
 GLUT2_GALM = ReactionTemplate(
     'c__GLUT2_GALM',
     'galactose transport M [c__]',
-    'e__galM <-> c__galM',
+    'e__galM <-> c__galM [e__gal, c__gal]',
     pars = [],
     rules = [],
     formula = ('c__GLUT2_Vmax/GLUT2_k_gal * (e__galM - c__galM)/c__GLUT2_dm', 'mole_per_s')
