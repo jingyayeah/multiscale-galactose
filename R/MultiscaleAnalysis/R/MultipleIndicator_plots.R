@@ -12,9 +12,9 @@
 #' @param data dataset to be plotted
 #' @param correctTime set TRUE if the time should be corrected
 #' @export 
-plotDilutionData <- function(data, compounds, ccolors, correctTime=FALSE){
+plotDilutionData <- function(data, compounds, ccolors, correctTime=FALSE, offset=0){
   if (correctTime){
-    data <- correctDilutionTimes(data)
+    data <- correctDilutionTimes(data, offset=offset)
   }
   Nc = length(compounds)
   for (kc in seq(Nc)){
