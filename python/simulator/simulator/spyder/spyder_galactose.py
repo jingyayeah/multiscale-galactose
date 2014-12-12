@@ -92,13 +92,11 @@ def dilution_plots(s_list, selections, show=True):
     ids = pp_ids + pv_ids
     cols = ccols + ccols
     
-    # TODO: make a second subplot only for gal
     # TODO: axis names     
     
     # plot all the individual solutions    
     
     import pylab as p    
-    p.subplot(1,2,1)
     for s in s_list:
         times = s[:,0]
         for k, id in enumerate(ids):
@@ -113,8 +111,8 @@ def dilution_plots(s_list, selections, show=True):
     # adapt the axis
     p.xlim(t_peak-1, t_peak+30)
     p.ylim(0, 0.4)
+    p.show()
     
-    p.subplot(1,2,2)
     for s in s_list:
         times = s[:,0]
         for k, id in enumerate(['PP__galM', 'PV__galM']):
@@ -129,7 +127,6 @@ def dilution_plots(s_list, selections, show=True):
     # adapt the axis
     p.xlim(t_peak-1, t_peak+30)
     p.ylim(0, 0.06)
-    
     p.show()
 
 def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
@@ -205,9 +202,9 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 # { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0 },
 p_list = [
-    { "[PP__gal]" : 0.28, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' : 0.03 },
-    { "[PP__gal]" : 12.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' : 0.03  },
-    { "[PP__gal]" : 17.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' : 0.03  }
+    { "[PP__gal]" : 0.28, "flow_sin" : 0.3*270E-6, "GLUT2_f" : 10.0 },
+    { "[PP__gal]" : 12.5, "flow_sin" : 0.3*270E-6, "GLUT2_f" : 10.0 },
+    { "[PP__gal]" : 17.5, "flow_sin" : 0.3*270E-6, "GLUT2_f" : 10.0 }
 ]
 inits = {}
 

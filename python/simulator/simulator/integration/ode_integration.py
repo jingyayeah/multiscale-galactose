@@ -118,6 +118,12 @@ def integrate_roadrunner(sims, keep_tmp=False):
     # set RoadRunner settings
     # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
     
+    # roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
+    print roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX
+    print '*' * 80
+    print rr.getInfo()
+    print '*' * 80
+    
     # get changed parameters in SBML
     # pars = sims[0].parameters.all()
     # pnames = [str(p.name) for p in pars if p.ptype == GLOBAL_PARAMETER] \

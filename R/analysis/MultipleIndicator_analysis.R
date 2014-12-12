@@ -24,8 +24,8 @@ folder <- '2014-12-12_T1'   # Multiple indicator data
 # folder.mean <- '2014-12-08_T8'   # Multiple indicator data mean
 t_peak <- 5000               # [s] MID peak start
 t_end <- 10000               # [s] simulation time
-time = seq(from=t_peak-5, to=t_peak+50, by=0.05) # approximation time for plot
-time = seq(from=t_peak-5, to=t_peak+10, by=0.01) # approximation time for plot
+time = seq(from=t_peak-5, to=t_peak+30, by=0.05) # approximation time for plot
+# time = seq(from=t_peak-5, to=t_peak+10, by=0.01) # approximation time for plot
 
 # Process the integration time curves
 info <- process_folder_info(folder)
@@ -101,25 +101,32 @@ par(mfrow=c(1,1))
 pv_compounds = paste('PV__', compounds, sep='')
 names(ccolors) <- pv_compounds
 
-# some example plots of single time curves
-name <- "PV__alb"
+# select subset
+subset = split_sims[[5]]
 time.rel <- time-t_peak
 weights <- pars$Q_sinunit   # weighting with volume flow
 
+# some example plots of single time curves
+name <- "PV__alb"
+
+
 # create empty plot
-plot(numeric(0), numeric(0), type='n', 
-     main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 0.2))
-plot_compound_curves(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit)
-plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, col=ccolors[name])
+# plot(numeric(0), numeric(0), type='n', 
+#      main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 0.2))
+# plot_compound_curves(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit)
+# plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, col=ccolors[name])
 
 # plot a subset
-name <- "PV__rbcM"
-inds <- pars$f_flow==0.4 & pars$PP__gal == 0.28
-plot(numeric(0), numeric(0), type='n', 
-     main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 2.0))
-plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=rgb(0.5,0.5,0.5, alpha=1.0))
-plot_compound_mean(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=ccolors[name])
-
+f_flow = 0.4
+for (gal in gal_levels){
+  for (name in pv_compounds){
+    inds <- pars$f_flow==f_flow & pars$PP__gal == gal
+    plot(numeric(0), numeric(0), type='n', 
+      main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 1.0))
+    plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=rgb(0.5,0.5,0.5, alpha=1.0))
+    plot_compound_mean(time=time.rel, data=as.matrix(dlist[[name]][, inds]), weights=pars$Q_sinunit[inds], col=ccolors[name])
+  }
+}
 
 
 ###########################################################################
