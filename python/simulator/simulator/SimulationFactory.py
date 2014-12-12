@@ -439,7 +439,7 @@ if __name__ == "__main__":
         createSimulationsForSamples(task, samples)
         
         # mean sinusoid for comparison
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=0, sampling="mean")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         

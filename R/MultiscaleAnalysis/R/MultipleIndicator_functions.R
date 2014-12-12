@@ -6,6 +6,7 @@
 # author: Matthias Koenig
 # date: 2014-12-06
 ################################################################
+
 #' Get the maximal values of the dilution data.
 #' 
 #' @param data experimental dataset
@@ -112,28 +113,34 @@ plot_compound_curves <- function(time, data, name, weights, col=rgb(0.5,0.5,0.5,
 #' Other available functions are rowMins, rowMaxs & rowQuantiles.
 #' @export
 plot_compound_mean <- function(time, data, weights, col){
-  
-  if (is.null(weights)){
-    # unweighted
-    r.means <- rowMeans(data)
-    r.sds <- rowSds(data)
-  } else {
-    # weighted
-    Nt = length(time)
-    r.means = numeric(Nt)
-    r.sds = numeric(Nt)
-    for (k in seq(Nt)){
-      r.means[k] = wt.mean(data[k, ], weights) 
-      r.sds[k] = wt.sd(data[k, ], weights)
-    }
-  }
+  # unweighted
+  r.means <- rowMeans(data)
+  r.sds <- rowSds(data)
   # plot mean & mean+sd
-  lines(time, r.means, col=col, lwd=2)
+  lines(time, r.means, col=col, lwd=2, lty=2)
   lines(time, r.means+r.sds, col=col, lwd=1, lty=2)
-    
   # lines for the max values
   tmax <- time[which.max(r.means)]
   abline(v=tmax, col=col, lwd=0.5)
+  
+  if (!is.null(weights)){
+    # weighted
+    Nt = length(time)
+    r.wmeans = numeric(Nt)
+    r.wsds = numeric(Nt)
+    for (k in seq(Nt)){
+      r.wmeans[k] = wt.mean(data[k, ], weights) 
+      r.wsds[k] = wt.sd(data[k, ], weights)
+    }
+    # plot mean & mean+sd
+    lines(time, r.wmeans, col=col, lwd=2, lty=1)
+    lines(time, r.wmeans+r.wsds, col=col, lwd=1, lty=1)
+    
+    # lines for the max values
+    tmax <- time[which.max(r.wmeans)]
+    abline(v=tmax, col=col, lwd=0.5)  
+  }
+  
 }
 
 

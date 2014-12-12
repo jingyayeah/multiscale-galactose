@@ -19,7 +19,7 @@ library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
 # Set folder and peak times for analysis
-folder <- '2014-12-11_T16'   # Multiple indicator data
+folder <- '2014-12-12_T1'   # Multiple indicator data
 # folder <- '2014-12-11_T15'   # Multiple indicator data
 # folder.mean <- '2014-12-08_T8'   # Multiple indicator data mean
 t_peak <- 5000               # [s] MID peak start
@@ -114,7 +114,7 @@ plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, co
 
 # plot a subset
 name <- "PV__rbcM"
-inds <- pars$f_flow==0.4 & pars$PP__gal == 0
+inds <- pars$f_flow==0.4 & pars$PP__gal == 0.28
 plot(numeric(0), numeric(0), type='n', 
      main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 2.0))
 plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=rgb(0.5,0.5,0.5, alpha=1.0))
@@ -136,19 +136,14 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
     id <- paste('PV__', compound, sep='')
     
     # different levels
-    # plot.levels <- levels(as.factor(pars[[f.level]]))
-    plot.levels = c("0.28", "12.5", "17.5")
+    plot.levels <- levels(as.factor(pars[[f.level]]))
     for (p.level in plot.levels){
-      
-      # get subset of data belonging to galactose level
-      # and the subset
+      # get subset of data belonging to galactose level and the subset
       sim_rows <- intersect(which(pars[[f.level]]==p.level), which(rownames(pars) %in% subset))
       # cat('Simulation rows:', sim_rows, pars$sim[sim_rows], '\n')
-      
       w <- weights[sim_rows]
       data <- scale * as.matrix(dlist[[id]][ ,sim_rows])
       time = as.numeric(rownames(data))-t_peak
-      # plot
       plot_compound_mean(time=time, data=data, weights=w, col=col)
     }
   }
@@ -158,7 +153,7 @@ split_info
 
 # plot mean dilution curves
 subset = rownames(pars)
-subset = split_sims[[8]]
+subset = split_sims[[6]]
 scale = 1.0
 
 par(mfrow=c(2,1))
