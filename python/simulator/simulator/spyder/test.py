@@ -11,9 +11,6 @@ from roadrunner.roadrunner import Logger
 print roadrunner.__version__
 
 import antimony
-
-roadrunner.Config.setValue(roadrunner.Config.LLVM_SYMBOL_CACHE, True)
-
 model_txt = """
     model test()
     // Reactions
@@ -42,39 +39,11 @@ antimony.writeSBMLFile('test.xml', 'test')
 sbml_file = 'test.xml'
 r = roadrunner.RoadRunner(sbml_file)
 r.model.items()
+print r.getSBML()
 r.selections = ['time'] + r.model.getBoundarySpeciesIds() + r.model.getFloatingSpeciesIds() 
 
-
-r.K1 = 10
-r.K2 = 11
-r.model.items()
-
-# reset with default args does NOT change any parameters, users would want to manually change params to see
-# how the model is effected, so default reset should not change these
-r.reset() 
-r.model.items()
-
-# new optional arg invokes the global param init assignment rules
-r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
-r.model.items()
-r.S1 = 10
-r.model.items()
-r.K1 = 0
-r.model.items()
-r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
-r.model.items()
-
-r.model['[S3]'] = 2
-print r.model['[S3]']
-r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
-print r.model['[S3]']
-r.model.items()
-r.S3 = 10
-r.S3
-r.model.getBoundarySpeciesIds()
-
-print r.simulate(plot=True)
-
+r.simulate(0, 20, variableStep=True, plot=True)
+r.reset()
 
 # Additional information
 S = r.getFullStoichiometryMatrix()
@@ -82,10 +51,10 @@ print S
 C = r.getConservationMatrix()
 print C
 
-####
-
-# 
+# MCA analysis 
+r.conservedMoietyAnalysis = True
 r.steadyState()
+
 # RuntimeError: Jacobian matrix singular in NLEQ
 r.getSteadyStateValues()
 # RuntimeError: Jacobian matrix singular in NLEQ
