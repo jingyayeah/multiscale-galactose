@@ -3,12 +3,10 @@
 \alias{generateLogStandardParameters}
 \title{Generates the standard parameters for meanlog and stdlog based on mean and std.}
 \usage{
-generateLogStandardParameters()
-}
-\value{
-data.frame of standard parameters
+generateLogStandardParameters(p.exp)
 }
 \description{
-Generates the standard parameters for meanlog and stdlog based on mean and std.
+The parameters are the reported mean and standard deviations from experiments.
+These data is used if no histograms are available to fit the distributions.
 }
 

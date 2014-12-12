@@ -6,6 +6,9 @@
 # Plots combining histogram & other experimental data with predicted
 # distributions are generated.
 # 
+# If no histogram data is available for parameters than the reported
+# mean and standard deviations are used.
+#
 #   dlnorm(x, meanlog = 0, sdlog = 1, log = FALSE)
 #   plnorm(q, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE) (cumulative distribution)
 #   qlnorm(p, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE)
@@ -18,9 +21,17 @@ rm(list=ls())
 library(MultiscaleAnalysis)
 library(MASS)
 setwd(ma.settings$dir.base)
+dir_in <- file.path(ma.settings$dir.exp, 'distributions')
+dir_out <- file.path(ma.settings$dir.base, 'results', 'distributions')
 
-# parameter values used in simulations (before fitting)
-p.gen <- generateLogStandardParameters()
+# parameter values (mean & sd before fitting)
+p.exp  <- read.csv(file=file.path(dir_in, 'distribution_exp_data.csv'))
+fname <- file.path(dir_out, 'distribution_exp_data.csv')
+write.csv(file=fname, p.exp)
+cat(fname, '\n')
+p.exp
+# converted parameters (lognormal)
+p.gen <- generateLogStandardParameters(p.exp)
 p.gen
 
 ###############################################################
@@ -44,7 +55,7 @@ Koo1975.all
 rm(name, varname)
 
 # R stacked bar plot
-png(filename=paste("Koo1975_velocity_distribution.png", sep=""),
+png(filename=file.path(dir_out, paste("Koo1975_velocity_distribution.png", sep="")),
     width = 800, height = 800, units = "px", bg = "white",  res = 150)
 barcol <- gray.colors(length(Koo1975.names))
 barplot(Koo1975.all, main="RBC velocity distribution", xlab="vRBC [µm/s]", ylab="count", col=barcol)
@@ -124,9 +135,9 @@ for (name in rownames(p.gen)){
 }
 p.gen
 
-# TODO: update the folder & use file directly
-fname <- file.path(ma.settings$dir.results, 'distribution_fit_data.csv')
-write.csv(file=fname, p.gen)
+fname <- file.path(dir_out, 'distribution_fit_data.csv')
+write.csv(file=fname, p.gen, quote=FALSE)
+cat(fname, '\n')
 
 
 ###############################################################
@@ -172,7 +183,7 @@ plot.res = 150
 ## flow_sin ##
 name <- 'flow_sin'
 if (create_plot_files == TRUE){
-    fname <- paste('distribution_', name, '.png', sep="")
+    fname <- file.path(dir_out, paste('distribution_', name, '.png', sep=""))
     png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
 }
 plot(numeric(0), numeric(0),  main="RBC velocity distribution", 
@@ -196,7 +207,7 @@ if (create_plot_files){
 ## y_cell ##
 name <- 'y_cell'
 if (create_plot_files == TRUE){
-    fname <- paste('distribution_', name, '.png', sep="")
+    fname <- file.path(dir_out, paste(paste('distribution_', name, '.png', sep=""))
     png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
 }
 plot(numeric(0), numeric(0),  main="y_cell distribution", 
@@ -219,8 +230,8 @@ if (create_plot_files){
 ## y_sin ##
 name <- 'y_sin'
 if (create_plot_files == TRUE){
-    fname <- paste('distribution_', name, '.png', sep="")
-    png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
+  fname <- file.path(dir_out, paste('distribution_', name, '.png', sep=""))
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
 }
 plot(numeric(0), numeric(0),  main="Sinusoidal radius", 
      xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
@@ -241,8 +252,8 @@ if (create_plot_files){
 ## y_dis ##
 name = 'y_dis'
 if (create_plot_files == TRUE){
-    fname <- paste('distribution_', name, '.png', sep="")
-    png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
+  fname <- file.path(dir_out, paste('distribution_', name, '.png', sep=""))
+  png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
 }
 plot(numeric(0), numeric(0),  main="Width space of Disse", 
      xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
@@ -262,7 +273,7 @@ if (create_plot_files){
 ## y_sin ##
 name = 'L'
 if (create_plot_files == TRUE){
-    fname <- paste('distribution_', name, '.png', sep="")
+    fname <- file.path(dir_out, paste('distribution_', name, '.png', sep=""))
     png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
 }
 plot(numeric(0), numeric(0),  main="Sinusoidal length", 

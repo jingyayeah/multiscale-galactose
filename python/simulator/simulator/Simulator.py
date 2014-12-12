@@ -153,7 +153,7 @@ if __name__ == "__main__":
     print 'Used CPUs: ', cpus
     print '#'*60
     
-    Nsim = 100;
+    Nsim = 20;
     
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()
