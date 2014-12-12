@@ -1,42 +1,36 @@
 ################################################################
 ## Parameter Distributions ##
 ################################################################
-# Definition and fitting of the parameter distributions for the
-# model.
-# author: Matthias Koenig
-# date: 2014-04-13
-#
-# 
-# Distributions are assumed to be lognormal distributed
-# Density, distribution function, quantile function and random generation 
-# for the log normal distribution whose logarithm has mean equal to meanlog 
-# and standard deviation equal to sdlog.
+# Definition and fitting of the parameter distributions.
 # Log-normal distributions are fitted to the experimental histogramm data.
-# The plots are generated with the simulated distributions.
+# Plots combining histogram & other experimental data with predicted
+# distributions are generated.
 # 
 #   dlnorm(x, meanlog = 0, sdlog = 1, log = FALSE)
 #   plnorm(q, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE) (cumulative distribution)
 #   qlnorm(p, meanlog = 0, sdlog = 1, lower.tail = TRUE, log.p = FALSE)
 #   rlnorm(n, meanlog = 0, sdlog = 1)
 #
-# TODO: analyse fits with QQplot
+# author: Matthias Koenig
+# date: 2014-12-12
 ################################################################
 rm(list=ls())
 library(MultiscaleAnalysis)
 library(MASS)
-setwd(ma.settings$dir.results)
+setwd(ma.settings$dir.base)
 
 # parameter values used in simulations (before fitting)
 p.gen <- generateLogStandardParameters()
 p.gen
 
+###############################################################
+# Fit distributions
+###############################################################
 # lists to store data and the fit parameters
 data <- list()
 fit <- list()
 
-###############################################################
-# flow_sin
-###############################################################
+## flow_sin ###################################################
 Koo1975.names = c('branching', 'interconnecting', 'direct')
 for (name in Koo1975.names){
   varname <- paste("Koo1975.", name, sep="");
@@ -64,10 +58,7 @@ fit[[name]] <- fitdistr(data[[name]]$x, "lognormal")
 p.gen <- storeFitData(p.gen, fit[[name]], name)
 
 
-###############################################################
-# y_cell and y_sin
-###############################################################
-library(MASS)
+## y_cell and y_sin ###########################################
 # velocity [mm/s], [%]
 csvname <- file.path(ma.settings$dir.expdata, 'parameter_distributions', paste('Puhl2003_Fig2.csv', sep=''))
 Puhl2003.fig2 <- read.csv(csvname, sep="\t", colClasses="numeric")
@@ -118,7 +109,10 @@ data[[name]] <- createDataFromHistogramm(p.y_sin)
 fit[[name]] <- fitdistr(data[[name]]$x, "lognormal")
 p.gen <- storeFitData(p.gen, fit[[name]], name)
 
-#### Store fit parameter ##############################################
+
+###############################################################
+# Store fitted parameters
+###############################################################
 # Calculate additional parameters for LHS scanning of probabilities
 # lower and upper bounds at 0.01 percentile and 0.99 percentile, respectively.
 # qvalues = c(0.01, 0.05, 0.5, 0.95, 0.99)
@@ -130,24 +124,41 @@ for (name in rownames(p.gen)){
 }
 p.gen
 
+# TODO: update the folder & use file directly
 fname <- file.path(ma.settings$dir.results, 'distribution_fit_data.csv')
 write.csv(file=fname, p.gen)
 
 
-#### Create the figures ##############################################
-# load simulated parameters
-sname <-'2014-04-30_MultipleIndicator' 
-task <- 'T11'
-modelId <- 'MultipleIndicator_P00_v13_Nc20_Nf1'
-
-parsfile <- file.path(ma.settings$dir.results, sname, 
-                      paste(task, '_', modelId, '_parameters.csv', sep=""))
-print(parsfile)
-load(file=outfileFromParsFile(parsfile))
-print(summary(pars))
+###############################################################
+# Load samples
+###############################################################
+folder <- '2014-12-11_T15' # Multiple Indicator Data
+p <- process_folder_info(folder)
+pars <- loadParameterFile(p$parsfile)
+# The subset of f_flow == 1 is used. Here the flow is unscaled
+# equal to the flow given by the distributions.
+# Concentrate on the first PP__gal level (other levels are redundant 
+# parameters because different PP__gal simulations for the same
+# parameter samples are performed)
+pars <- pars[pars$f_flow==1.0 & pars$PP__gal==levels(as.factor(pars$PP__gal))[1], ]
 head(pars)
+nrow(pars)
 
+# Parameter overview
+plotParameterHistogramFull(pars=pars)
 
+# Scatterplot of parameters
+# Index of parameters is encoded as color to test for shuffling effects
+library(RColorBrewer)
+colpal <- brewer.pal(9, 'YlOrRd')
+Nsim = nrow(pars)
+ccols <- colorRampPalette(colpal)(Nsim) # exend the color palette
+pnames <- getParameterNames(pars)
+plot(pars[, pnames], col=ccols, pch=15)
+
+###############################################################
+# Create figures
+###############################################################
 # Settings for plots
 create_plot_files = TRUE
 histc = rgb(1.0, 0.0, 0.0, 0.25)

@@ -3,7 +3,8 @@
 \alias{plot_compound_curves}
 \title{Plots individual multiple indicator dilution curves.}
 \usage{
-plot_compound_curves(time, data, name, weights)
+plot_compound_curves(time, data, name, weights, col = rgb(0.5, 0.5, 0.5, alpha
+  = 0.1))
 }
 \description{
 Data is a data matrix with simulations in columns and timepoints in rows.

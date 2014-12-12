@@ -3,7 +3,7 @@
 \alias{plotDilutionData}
 \title{Plot single multiple-dilution indicator dataset.}
 \usage{
-plotDilutionData(data, compounds, ccolors, correctTime = FALSE)
+plotDilutionData(data, compounds, ccolors, correctTime = FALSE, offset = 0)
 }
 \arguments{
 \item{data}{dataset to be plotted}
