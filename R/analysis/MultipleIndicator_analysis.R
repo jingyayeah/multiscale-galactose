@@ -20,11 +20,11 @@ setwd(ma.settings$dir.base)
 
 # Set folder and peak times for analysis
 folder <- '2014-12-12_T1'   # Multiple indicator data
-# folder <- '2014-12-11_T15'   # Multiple indicator data
-# folder.mean <- '2014-12-08_T8'   # Multiple indicator data mean
 t_peak <- 5000               # [s] MID peak start
 t_end <- 10000               # [s] simulation time
-time = seq(from=t_peak-5, to=t_peak+30, by=0.05) # approximation time for plot
+
+# Only small subset of simulation is of interest
+time = seq(from=t_peak-5, to=t_peak+50, by=0.05) # approximation time for plot
 # time = seq(from=t_peak-5, to=t_peak+10, by=0.01) # approximation time for plot
 
 # Process the integration time curves
@@ -63,7 +63,7 @@ split_info <- attr(split_sims, "split_labels")
 split_info
 
 ###########################################################################
-# Plot individual timecourses
+# Plot all individual timecourses
 ###########################################################################
 # This is the dimension-reduced data-set.
 # split the dataset under the given galactose challenge
@@ -96,38 +96,44 @@ par(mfrow=c(1,1))
 ###########################################################################
 # Single curves with mean & SD
 ###########################################################################
-# compounds = c('rbcM', 'alb', 'suc', 'h2oM')
-# ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
+# For one condition and compound all the individual timecurves are plotted.
 pv_compounds = paste('PV__', compounds, sep='')
 names(ccolors) <- pv_compounds
 
-# select subset
-subset = split_sims[[5]]
 time.rel <- time-t_peak
 weights <- pars$Q_sinunit   # weighting with volume flow
 
-# some example plots of single time curves
-name <- "PV__alb"
-
-
 # create empty plot
+# name <- "PV__alb"
 # plot(numeric(0), numeric(0), type='n', 
 #      main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 0.2))
 # plot_compound_curves(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit)
 # plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, col=ccolors[name])
 
-# plot all the gal conditions and compounds subset
-f_flow = 0.4
-for (gal in gal_levels){
-  for (name in pv_compounds){
-    inds <- pars$f_flow==f_flow & pars$PP__gal == gal
 
+# Subset corresponding to flow
+# subset = split_sims[[5]]
+f_flow = 0.3
+plot_compounds = pv_compounds[2:length(pv_compounds)] # don't plot PV__gal
+
+create_plots = TRUE
+for (gal in gal_levels){
+  startDevPlot(width=2000, height=500, file=fname, create_plots=create_plots)
+  inds = pars$f_flow == f_flow & pars$PP__gal == gal
+  
+  # create figure for every gal challenge
+  par(mfrow=c(1,length(plot_compounds)) )
+  fname <- file.path(ma.settings$dir.base, 'results', 'dilution', sprintf('MultipleIndicator_Individual_gal%s.png', gal))
+  for (name in plot_compounds){
     plot(numeric(0), numeric(0), type='n', 
-      main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 1.0))
-    plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=rgb(0.5,0.5,0.5, alpha=1.0))
+      main=name, xlab="time [s]", ylab="c [mM]", xlim=range(time.rel), ylim=c(0.0, 1.0))
+    plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=rgb(0.5,0.5,0.5, alpha=0.2))
     plot_compound_mean(time=time.rel, data=as.matrix(dlist[[name]][, inds]), weights=pars$Q_sinunit[inds], col=ccolors[name])
   }
+  par(mfrow=c(1,1))
+  stopDevPlot(create_plots=create_plots)
 }
+
 
 
 ###########################################################################
