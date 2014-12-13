@@ -90,6 +90,8 @@ for (gal in gal_levels){
 ###########################################################################
 
 # Create dilution plots of mean curves
+# The individual dilution curves are weighted with the volume flow of the
+# respective sinusoidal units.
 plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, scale=1.0, std=TRUE){
   weights <- pars$Q_sinunit
   

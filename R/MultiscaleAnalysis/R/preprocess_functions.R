@@ -45,8 +45,7 @@ process_folder_info <- function(folder){
 #' structure.
 #' Folder format follows '2014-11-17_T5'.
 #' @export
-preprocess_task <- function(folder, ids=preprocess.ids, force=FALSE){
-  
+preprocess_task <- function(folder, ids=preprocess.ids, force=FALSE, out_name='x'){
   if (missing(folder))
     stop('Need to specify folder for preprocessing.')
   # get all the information from the folder
@@ -66,13 +65,14 @@ preprocess_task <- function(folder, ids=preprocess.ids, force=FALSE){
   
   # Preprocess timecourses as Rdata
   simIds = rownames(pars)
-  x.fname <- file.path(info$dir, 'results', 'x.Rdata')
+  fname <- file.path(info$dir, 'results', sprintf('%s.Rdata', out_name))
+  
   cat('Creating data matrix ...\n')
-  if (file.exists(x.fname) & force==FALSE){
-    load(file=x.fname)
+  if (file.exists(fname) & force==FALSE){
+    load(file=fname)
     cat('Preprocessed data exists and is loaded.\n')
   } else {
-    x <- createPreprocessDataMatrices(ids=ids, out.fname=x.fname, simIds=simIds, 
+    x <- createPreprocessDataMatrices(ids=ids, out.fname=fname, simIds=simIds, 
                                       modelId=info$modelId, dir=info$dir.simdata)
   }
   return(list(pars=pars, ids=ids, x=x, info=info))
