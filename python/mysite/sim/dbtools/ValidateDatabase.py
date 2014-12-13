@@ -160,8 +160,8 @@ if __name__ == "__main__":
     #-----------------------------------------------
     task = Task.objects.get(pk=1)
     #print task
-    # unassignAssignedHangingSimulations(task=task, cutoff_minutes=1);
-    unassignErrorHangingSimulations(task=None, cutoff_minutes=-1);
+    unassignAssignedHangingSimulations(task=task, cutoff_minutes=1);
+    # unassignErrorHangingSimulations(task=None, cutoff_minutes=-1);
     # unassignErrorHangingSimulations(cutoff_minutes=-1);
     
     #-----------------------------------------------
