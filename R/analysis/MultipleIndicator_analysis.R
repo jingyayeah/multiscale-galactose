@@ -116,11 +116,12 @@ name <- "PV__alb"
 # plot_compound_curves(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit)
 # plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, col=ccolors[name])
 
-# plot a subset
+# plot all the gal conditions and compounds subset
 f_flow = 0.4
 for (gal in gal_levels){
   for (name in pv_compounds){
     inds <- pars$f_flow==f_flow & pars$PP__gal == gal
+
     plot(numeric(0), numeric(0), type='n', 
       main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 1.0))
     plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=rgb(0.5,0.5,0.5, alpha=1.0))

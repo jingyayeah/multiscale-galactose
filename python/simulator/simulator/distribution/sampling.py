@@ -171,6 +171,7 @@ def calculatePointsByLHS(N, variableMax, variableMin):
 ##########################################################################################
 
 if __name__ == "__main__":
+    
     from distributions import getGalactoseDistributions
     dist_data = getGalactoseDistributions();
     samples = _createSamplesByManual(dist_data)
@@ -179,6 +180,11 @@ if __name__ == "__main__":
     
     print '-' * 40
     samples = _createSamplesByDistribution(dist_data, N=5)
+    for s in samples:
+        print s
+    
+    print '-' * 40
+    samples = _createSamplesByMean(dist_data, N=5)
     for s in samples:
         print s
         

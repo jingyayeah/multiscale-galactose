@@ -13,7 +13,14 @@ def createDictFromKeysAndValues(keys, values):
     ''' helper function '''
     d = dict()
     for k in range(len(keys)):
-        d[keys[k]] = values[k]
+        key = keys[k]
+        value = values[k]
+        if value == 'NA':
+            value = None
+        if (value and (key not in ['name', 'unit', 'scale_unit'])):
+            value = float(value)
+            # value = values[k]
+        d[key] = value
     return d
 
 def getGalactoseDistributions():
