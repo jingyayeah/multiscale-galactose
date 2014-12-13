@@ -19,7 +19,7 @@ library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
 # Set folder and peak times for analysis
-folder <- '2014-12-12_T1'   # Multiple indicator data
+folder <- '2014-12-13_T1'   # Multiple indicator data
 t_peak <- 5000               # [s] MID peak start
 t_end <- 10000               # [s] simulation time
 
@@ -29,7 +29,7 @@ time = seq(from=t_peak-5, to=t_peak+50, by=0.05) # approximation time for plot
 
 # Process the integration time curves
 info <- process_folder_info(folder)
-p <- preprocess_task(folder=folder, force=FALSE) 
+p <- preprocess_task(folder=folder, force=TRUE) 
 pars <- p$pars
 sim_ids <- rownames(pars)
 names(p)
@@ -110,6 +110,7 @@ weights <- pars$Q_sinunit   # weighting with volume flow
 # plot_compound_curves(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit)
 # plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, col=ccolors[name])
 
+# TODO: small inlet plot
 
 # Subset corresponding to flow
 # subset = split_sims[[5]]
@@ -118,12 +119,12 @@ plot_compounds = pv_compounds[2:length(pv_compounds)] # don't plot PV__gal
 
 create_plots = TRUE
 for (gal in gal_levels){
+  fname <- file.path(ma.settings$dir.base, 'results', 'dilution', sprintf('MultipleIndicator_Individual_gal%s.png', gal))
   startDevPlot(width=2000, height=500, file=fname, create_plots=create_plots)
   inds = pars$f_flow == f_flow & pars$PP__gal == gal
   
   # create figure for every gal challenge
   par(mfrow=c(1,length(plot_compounds)) )
-  fname <- file.path(ma.settings$dir.base, 'results', 'dilution', sprintf('MultipleIndicator_Individual_gal%s.png', gal))
   for (name in plot_compounds){
     plot(numeric(0), numeric(0), type='n', 
       main=name, xlab="time [s]", ylab="c [mM]", xlim=range(time.rel), ylim=c(0.0, 1.0))
@@ -141,7 +142,7 @@ for (gal in gal_levels){
 ###########################################################################
 # Plotting subsets of the approximation matrix.
 # Creates the main dilution plot of the mean curves.
-plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, scale=1.0){
+plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, scale=1.0, std=TRUE){
   weights <- pars$Q_sinunit
   
   for (kc in seq(length(compounds))){
@@ -158,7 +159,7 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
       w <- weights[sim_rows]
       data <- scale * as.matrix(dlist[[id]][ ,sim_rows])
       time = as.numeric(rownames(data))-t_peak
-      plot_compound_mean(time=time, data=data, weights=w, col=col)
+      plot_compound_mean(time=time, data=data, weights=w, col=col, std=std)
     }
   }
 }
@@ -166,19 +167,19 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
 split_info
 
 # plot mean dilution curves
-subset = rownames(pars)
-subset = split_sims[[6]]
+# subset = rownames(pars)
+subset = split_sims[[which(split_info$f_flow==0.3)]]
 scale = 1.0
 
 par(mfrow=c(2,1))
-time.range <- c(0, 20)
+time.range <- c(0, 30)
 # normal plot
-plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,0.7*scale), type='n',
+plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,0.4*scale), type='n',
      main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
 plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale)
 
 # log plot
-plot(numeric(0), numeric(0), log='y', xlim=time.range, ylim=c(1E-2,0.7*scale),
+plot(numeric(0), numeric(0), log='y', xlim=time.range, ylim=c(1E-3,0.4*scale),
      main='Log Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
 plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale)
 
@@ -215,24 +216,23 @@ m2 = max(gor1973[gor1973$condition=="A",'outflow'])
 m3 = max(gor1973[gor1973$condition=="B",'outflow'])
 m4 = max(gor1973[gor1973$condition=="C",'outflow'])
 scale = (m1+m2+m3+m4)/4;
-scale = scale/0.38
-offset = 2.2
+scale = 4.55*scale
+offset = 0
 
-time.range <- c(0, 20)
+time.range <- c(0, 27)
 split_sims
 split_info
-subset = split_sims[[7]]
+subset = split_sims[[which(split_info$f_flow==0.4)]]
 # normal plot
-plot(numeric(0), numeric(0), xlim=c(0,40), ylim=c(0,0.7*scale), type='n',
+plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,17), type='n',
      main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale)
+plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale, std=FALSE)
 
 plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE, offset=offset)
 plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
 plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
 plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
 
-gor1973
 
 # necessary to scale to same values
 

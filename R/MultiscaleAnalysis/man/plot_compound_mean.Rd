@@ -3,7 +3,7 @@
 \alias{plot_compound_mean}
 \title{Plot the mean data.}
 \usage{
-plot_compound_mean(time, data, weights, col)
+plot_compound_mean(time, data, weights, col, std = TRUE)
 }
 \description{
 Plots the mean and standard deviation for time courses. Uses weighted calculation

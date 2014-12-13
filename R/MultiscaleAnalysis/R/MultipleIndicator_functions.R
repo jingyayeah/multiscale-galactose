@@ -112,16 +112,20 @@ plot_compound_curves <- function(time, data, name, weights, col=rgb(0.5,0.5,0.5,
 #' if the weights are provided.
 #' Other available functions are rowMins, rowMaxs & rowQuantiles.
 #' @export
-plot_compound_mean <- function(time, data, weights, col){
-  # unweighted
-  r.means <- rowMeans(data)
-  r.sds <- rowSds(data)
-  # plot mean & mean+sd
-  lines(time, r.means, col=col, lwd=2, lty=2)
-  lines(time, r.means+r.sds, col=col, lwd=1, lty=2)
-  # lines for the max values
-  tmax <- time[which.max(r.means)]
-  abline(v=tmax, col=col, lwd=0.5)
+plot_compound_mean <- function(time, data, weights, col, std=TRUE){
+  
+#   # unweighted
+#   r.means <- rowMeans(data)
+#   r.sds <- rowSds(data)
+#   
+#   # plot mean & mean+sd
+#   lines(time, r.means, col=col, lwd=2, lty=2)
+#   if (std){
+#     lines(time, r.means+r.sds, col=col, lwd=1, lty=2)
+#   }
+#   # lines for the max values
+#   tmax <- time[which.max(r.means)]
+#   abline(v=tmax, col=col, lwd=0.5)
   
   if (!is.null(weights)){
     # weighted
@@ -134,7 +138,9 @@ plot_compound_mean <- function(time, data, weights, col){
     }
     # plot mean & mean+sd
     lines(time, r.wmeans, col=col, lwd=2, lty=1)
-    lines(time, r.wmeans+r.wsds, col=col, lwd=1, lty=1)
+    if (std){
+      lines(time, r.wmeans+r.wsds, col=col, lwd=1, lty=1)
+    }
     
     # lines for the max values
     tmax <- time[which.max(r.wmeans)]
