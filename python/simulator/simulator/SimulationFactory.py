@@ -214,7 +214,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
     
     # adapt flow in samples with the given f_flows
     # f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
-    f_flows = (1.0, 0.5, 0.4, 0.3)
+    f_flows = (1.0, 0.4, 0.3)
     
     raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     
@@ -365,7 +365,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 53
+    VERSION = 54
     
     #----------------------------------------------------------------------#
     if (0):
@@ -434,17 +434,18 @@ if __name__ == "__main__":
         PP__gal = (0.28, 12.5, 17.5) # [mM]
         p_list = [ {'pid': 'PP__gal', 'values': PP__gal, 'unit': 'mM', 'ptype':BOUNDERY_INIT}]
         
+        # mean sinusoid for comparison
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
+        samples = setParameterValuesInSamples(raw_samples, p_list)
+        createSimulationsForSamples(task, samples)
+        
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=400, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1000, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         
-        # mean sinusoid for comparison
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=0, sampling="mean")
-        samples = setParameterValuesInSamples(raw_samples, p_list)
-        createSimulationsForSamples(task, samples)
-        
+
     #----------------------------------------------------------------------#
     if (0):
         ''' Galactose challenge in galactosemias. '''

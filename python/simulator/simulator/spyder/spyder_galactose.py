@@ -202,9 +202,9 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 # { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0 },
 p_list = [
-    { "[PP__gal]" : 0.28, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 20.0, "y_dis": 1.2E-6 },
-    { "[PP__gal]" : 12.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 20.0, "y_dis": 1.5E-6 },
-    { "[PP__gal]" : 17.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 20.0, "y_dis": 1.8E-6 }
+    { "[PP__gal]" : 0.28, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 25.0, "H2OT_f" : 0.7,},
+    { "[PP__gal]" : 12.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 25.0, "H2OT_f" : 0.7,},
+    { "[PP__gal]" : 17.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 25.0, "H2OT_f" : 0.7,}
 ]
 inits = {}
 
