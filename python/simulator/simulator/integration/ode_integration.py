@@ -140,9 +140,9 @@ def integrate_roadrunner(sims, keep_tmp=False):
     # make a concentration backup
     conc_backup = dict()
     for sid in rr.model.getBoundarySpeciesIds():
-        conc_backup[sid] = rr["[{}]".format(id)]    
+        conc_backup[sid] = rr["[{}]".format(sid)]    
     for sid in rr.model.getFloatingSpeciesIds():
-        conc_backup[sid] = rr["[{}]".format(id)]
+        conc_backup[sid] = rr["[{}]".format(sid)]
     
     for sim in sims:
         try:
