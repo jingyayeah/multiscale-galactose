@@ -10,6 +10,7 @@
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
+out_dir = file.path(ma.settings$dir.results, 'circos')
 
 # Set folder and peak times for analysis
 folder <- '2014-12-12_T2'   # Multiple indicator data
@@ -27,13 +28,11 @@ ids = c(sprintf('PP__%s', compound),
         sprintf('PV__%s', compound))
 
 # problem that different ids can be used for preprocessing
-#p <- preprocess_task(folder=folder, ids=ids, force=FALSE, out_name='circos') 
+p <- preprocess_task(folder=folder, ids=ids, force=FALSE, out_name='circos') 
 
 # Process the integration time curves
 info <- process_folder_info(folder)
 pars <- p$pars
-sim_ids <- rownames(pars)
-names(p)
 
 # Species in the dilution curves
 compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
@@ -49,18 +48,33 @@ inds
 # inds = which(pars$f_flow==0.4 & pars$PP__gal==0.28)
 
 
-
 sim_ids = rownames(pars)[inds]
 
-# Create the approximation matrix
+# Create the approximation matrices
 time
 ids
 length(sim_ids)
-
 dlist <- createApproximationMatrix(p$x, ids=ids, simIds=sim_ids, points=time, reverse=FALSE)
+dlist
+
+
+# Create the circos output matrices for all timepoints
+for (kt in 1:length(time)){ 
+  m <- matrix(data=NA, nrow=length(ids), ncol=length(sim_ids))
+  colnames(m) <- sim_ids
+  rownames(m) <- ids
+  # fill matrix
+  for (ks in seq_along(ids)){
+    id <- ids[ks]
+    m[ks, ] = dlist[[id]][ks, sim_ids]
+  }
+  # save
+  fname = file.path(out_dir, sprintf('cmat_%03i', kt))
+  write.table(m, file=fname, sep=',', quote=FALSE, row.names=TRUE)
+}
+
 
 # Create the CSV file for the species of interest
-name <- 'PP__galM'
 df <- as.data.frame(p$x[[name]])
 df$time <- time
 

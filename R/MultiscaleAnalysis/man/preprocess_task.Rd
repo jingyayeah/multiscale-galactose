@@ -3,7 +3,8 @@
 \alias{preprocess_task}
 \title{Preprocess the results for given folder.}
 \usage{
-preprocess_task(folder, ids = preprocess.ids, force = FALSE)
+preprocess_task(folder, ids = preprocess.ids, force = FALSE,
+  out_name = "x")
 }
 \description{
 Generates the combined Rdata file for the selected ids.
