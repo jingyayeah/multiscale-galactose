@@ -1,8 +1,8 @@
 '''
-Here the actual ode integration is performed for the given simulations.
+Performs ode integration for given simulations.
 
 @author: Matthias Koenig
-@date: 2014-07-11
+@date: 2014-12-13
 '''
 import sys
 import os
@@ -67,14 +67,14 @@ def integrate(sims, integrator, keep_tmp=False):
 
 def integrate_copasi(sims):
     ''' Integrate simulations with Copasi. 
-        TODO: this is not up to date and probably not working currently.
+        TODO: Update to latest Copasi source & test
     '''
     sbml_file = str(sims[0].task.sbml_model.file.path)
     sbml_id = sims[0].task.sbml_model.sbml_id
     for sim in sims:  
         try:
-            sim.time_assign = timezone.now() # correction due to bulk assignment
-            config_file = storeConfigFile(sim, SIM_DIR)
+            sim.time_assign = timezone.now()            # correction due to bulk assignment
+            config_file = storeConfigFile(sim, SIM_DIR) # create the copasi config file for settings & changes
             tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
 
             # run an operating system command
@@ -86,16 +86,8 @@ def integrate_copasi(sims):
             storeTimecourseResults(sim, tc_file)
         except Exception:
             integration_exception(sim)
-            
-def write_model_items(r, filename):
-    print filename
-    f = open(filename, "w")
-    rows = ["\t".join([data[0], str(data[1])] ) for data in r.model.items()]
-    f.write("\n".join(rows))
-    f.close()
-        
+                    
 
-        
 def integrate_roadrunner(sims, keep_tmp=False):
     ''' Integrate simulations with RoadRunner.'''
     
@@ -117,8 +109,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
     
     # set RoadRunner settings
     # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
-    
-    # roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
+    roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
     print roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX
     print '*' * 80
     print rr.getInfo()
@@ -148,10 +139,10 @@ def integrate_roadrunner(sims, keep_tmp=False):
     
     # make a concentration backup
     conc_backup = dict()
-    for id in rr.model.getBoundarySpeciesIds():
-        conc_backup[id] = rr["[{}]".format(id)]    
-    for id in rr.model.getFloatingSpeciesIds():
-        conc_backup[id] = rr["[{}]".format(id)]
+    for sid in rr.model.getBoundarySpeciesIds():
+        conc_backup[sid] = rr["[{}]".format(id)]    
+    for sid in rr.model.getFloatingSpeciesIds():
+        conc_backup[sid] = rr["[{}]".format(id)]
     
     for sim in sims:
         try:
@@ -226,7 +217,14 @@ def integrate_roadrunner(sims, keep_tmp=False):
         except:
             integration_exception(sim)
     return rr
-    
+
+def write_model_items(r, filename):
+    print filename
+    f = open(filename, "w")
+    rows = ["\t".join([data[0], str(data[1])] ) for data in r.model.items()]
+    f.write("\n".join(rows))
+    f.close()
+
 def integration_exception(sim):
     ''' Handling exceptions in the integration. '''
     # print information
