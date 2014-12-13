@@ -436,7 +436,7 @@ if __name__ == "__main__":
         
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=100, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=400, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         

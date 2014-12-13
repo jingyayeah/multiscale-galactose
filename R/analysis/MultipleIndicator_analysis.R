@@ -1,38 +1,28 @@
 ################################################################
-# Preprocess Multiple Indicator Dilution (MID) data
+# Multiple Indicator Dilution Curve analysis
 ################################################################
-# Read the timecourse data and creates reduced data structures
-# for simplified query and visualization.
-# MID is calculated under varying galactose challenges.
-# Necessary to reproduce the peak structure as well as the different 
-# galactose curves.
-#
-# TODO: add the experimental data with the curves
-# TODO: adaptation of galactose parameters to describe the curves (transport relative to metabolism)
-# TODO: plot the single curves
+# Plot of the individual simulations of the distributed 
+# model of sinusoidal units and calculation of the integrated
+# multiple indicator response curves.
 #
 # author: Matthias Koenig
-# date: 2014-12-11
+# date: 2014-12-13
 ################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
+dir_out <- file.path(ma.settings$dir.base, 'results', 'dilution')
 
-# Set folder and peak times for analysis
-folder <- '2014-12-13_T1'   # Multiple indicator data
-t_peak <- 5000               # [s] MID peak start
-t_end <- 10000               # [s] simulation time
+folder <- '2014-12-13_T9'         # Multiple indicator data
+t_peak <- 5000; t_end <- 10000    # [s] peak start time & total simulation time
 
-# Only small subset of simulation is of interest
-time = seq(from=t_peak-5, to=t_peak+50, by=0.05) # approximation time for plot
-# time = seq(from=t_peak-5, to=t_peak+10, by=0.01) # approximation time for plot
+# Focus on interesting time for analysis
+time = seq(from=t_peak-5, to=t_peak+50, by=0.05)   # approximation time for plot
 
-# Process the integration time curves
 info <- process_folder_info(folder)
 p <- preprocess_task(folder=folder, force=TRUE) 
 pars <- p$pars
 sim_ids <- rownames(pars)
-names(p)
 
 # Species in the dilution curves
 compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
@@ -41,14 +31,13 @@ ids <- c( paste(rep('PP__', length(compounds)), compounds, sep=''),
           paste(rep('PV__', length(compounds)), compounds, sep=''))
 ccolors <- c(ccolors, ccolors)
 names(ccolors) <- ids
-ccolors
 
 # Variation of background galactose levels for given tracer
+# Constant injection was used to reach various steady state levels of galactose.
 f.level = "PP__gal" 
 gal_levels <- levels(as.factor(pars[[f.level]]))
 cat('Galactose levels: ', gal_levels, '\n')
 
-################################################################
 # Create approximation matrices based on time courses
 # Dilution curves were simulated under varying flow conditions.
 dlist <- createApproximationMatrix(p$x, ids=ids, simIds=sim_ids, points=time, reverse=FALSE)
@@ -63,85 +52,44 @@ split_info <- attr(split_sims, "split_labels")
 split_info
 
 ###########################################################################
-# Plot all individual timecourses
-###########################################################################
-# This is the dimension-reduced data-set.
-# split the dataset under the given galactose challenge
-plot.ids = c('PP__gal', 'PV__gal') # plot the pp and pv galactose (background galactose)
-plot.colors = c( rgb(0.5,0.5,0.5, alpha=0.3), rgb(0,0,1.0, alpha=0.3) )
-names(plot.colors) <- plot.ids
-
-# create subplot for the different background levels of galactose
-xlimits <- c(t_peak-5, t_peak+200)
-ylimits <- c(0.0, 1.2*max(as.numeric(gal_levels)))
-nrow = ceiling(sqrt(length(gal_levels)))
-par(mfrow=c(nrow, nrow))
-for (gal in gal_levels){
-  # empty plot
-  plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits, 
-       main=paste(f.level, '=', gal), xlab='time [s]', ylab='concentration [mM]')
-  
-  # find the simulation rows for the level &
-  # plot all the single simulations for the level
-  gal_rows <- which(pars[[f.level]]==gal)
-  for (k in gal_rows){
-    for (id in plot.ids){
-      points(p$x[[id]][[k]]$time, p$x[[id]][[k]][[2]], 
-             type='l', col=plot.colors[[id]])      
-    }
-  }
-}
-par(mfrow=c(1,1))
-
-###########################################################################
 # Single curves with mean & SD
 ###########################################################################
 # For one condition and compound all the individual timecurves are plotted.
 pv_compounds = paste('PV__', compounds, sep='')
-names(ccolors) <- pv_compounds
+plot_compounds = pv_compounds[2:length(pv_compounds)] # don't plot PV__gal
 
+f_flow = 0.4    # correction of flow from liver to tissue
 time.rel <- time-t_peak
 weights <- pars$Q_sinunit   # weighting with volume flow
 
-# create empty plot
-# name <- "PV__alb"
-# plot(numeric(0), numeric(0), type='n', 
-#      main=name, xlab="time [s]", ylab="c [mM]", xlim=c(0, 30), ylim=c(0.0, 0.2))
-# plot_compound_curves(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit)
-# plot_compound_mean(time=time.rel, data=dlist[[name]], weights=pars$Q_sinunit, col=ccolors[name])
-
-# TODO: small inlet plot
-
-# Subset corresponding to flow
-# subset = split_sims[[5]]
-f_flow = 0.3
-plot_compounds = pv_compounds[2:length(pv_compounds)] # don't plot PV__gal
-
 create_plots = TRUE
 for (gal in gal_levels){
-  fname <- file.path(ma.settings$dir.base, 'results', 'dilution', sprintf('MultipleIndicator_Individual_gal%s.png', gal))
+  fname <- file.path(dir_out, sprintf('MultipleIndicator_Individual_gal%s.png', gal))
   startDevPlot(width=2000, height=500, file=fname, create_plots=create_plots)
-  inds = pars$f_flow == f_flow & pars$PP__gal == gal
+
+  # Subset corresponding to flow & galactose background  
+  inds = (pars$f_flow == f_flow & pars$PP__gal == gal)
   
   # create figure for every gal challenge
   par(mfrow=c(1,length(plot_compounds)) )
   for (name in plot_compounds){
     plot(numeric(0), numeric(0), type='n', 
-      main=name, xlab="time [s]", ylab="c [mM]", xlim=range(time.rel), ylim=c(0.0, 1.0))
-    plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], col=rgb(0.5,0.5,0.5, alpha=0.2))
-    plot_compound_mean(time=time.rel, data=as.matrix(dlist[[name]][, inds]), weights=pars$Q_sinunit[inds], col=ccolors[name])
+      main=name, xlab="time [s]", ylab="c [mM]", 
+      xlim=range(time.rel), ylim=c(0.0, 1.0))
+    plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], 
+                       col=rgb(0.5,0.5,0.5, alpha=0.2))
+    plot_compound_mean(time=time.rel, data=as.matrix(dlist[[name]][, inds]), weights=pars$Q_sinunit[inds], 
+                       col=ccolors[name])
   }
   par(mfrow=c(1,1))
   stopDevPlot(create_plots=create_plots)
 }
 
-
-
 ###########################################################################
-# Calculate mean time curves and sds 
+# Integrated dilution time curves and sds 
 ###########################################################################
-# Plotting subsets of the approximation matrix.
-# Creates the main dilution plot of the mean curves.
+
+# Create dilution plots of mean curves
 plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, scale=1.0, std=TRUE){
   weights <- pars$Q_sinunit
   
@@ -163,6 +111,13 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
     }
   }
 }
+
+###################################################################################
+# Dilution curves with experimental data
+###################################################################################
+# TODO: how is the concentration of the the dilute related to the dilution fraction
+# -> calculate via the total amount of tracer injected
+# Add legend
 
 split_info
 
@@ -186,19 +141,7 @@ plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale)
 legend("topright",  legend=compounds, fill=ccolors) 
 par(mfrow=c(1,1))
 
-# plotParameterHistogramFull(pars)
-# inds <- pars$f_flow==0.4 & pars$PP__gal == 0
-# table(inds)
-# plot(pars$Vol_pp[inds], pars$Q_sinunit[inds])
-# plot(pars$Q_sinunit[inds], pars$Q_sinunit[inds])
-# hist(pars$Q_sinunit, breaks=40)
-
-###################################################################################
-# Dilution curves with experimental data
-###################################################################################
-# TODO: how is the concentration of the the dilute related to the dilution fraction
-# -> calculate via the total amount of tracer injected
-# Add legend
+####################################################
 
 # Load experimental data
 gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
@@ -234,10 +177,9 @@ plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, corr
 plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
 
 
-# necessary to scale to same values
-
-
-
+###########################################################################
+# Boxplot of maximum times
+###########################################################################
 
 # calculate the max times
 calculateMaxTimes <- function(preprocess.mat, compounds, time.offset){
@@ -262,50 +204,6 @@ tmp <- calculateMaxTimes(data, compounds, 10.0)
 head(tmp)
 summary(tmp)
 
-
-
-# Create the boxplots with the mean curves
-createFullPlot <- function (maxtime, ccolors, time.offset, scale_f) {
-  if (create_plot_files){
-    png(filename=paste(ma.settings$dir.results, '/', task, "_MultipleIndicator_with_experimental_data.png", sep=""),
-        width = 1400, height = 1400, units = "px", bg = "white",  res = 150)
-  }
-  par(mfrow=c(2,1))
-  boxplot(maxtime, col=ccolors, horizontal=T,  ylim=c(0,20),
-          xaxt="n", # suppress the default x axis
-          yaxt="n", # suppress the default y axis
-          bty="n") # suppress the plotting frame
-  
-  # Plot curves
-  plot(numeric(0), numeric(0), xlim=c(0,20), ylim=c(0,20),
-       xlab="time [s]", ylab="10^3 x outflow fraction/ml")
-  
-  # plot the mean and std for time courses
-  for (kc in seq(1, length(compounds)) ){
-    name = paste("PV__", compounds[kc], sep="")
-    data <- preprocess.mat[[name]]  #+1E-06 fix for logscale
-    time <- as.numeric(rownames(data))-time.offset
-    
-    # plot the mean and std for time courses
-    rmean <- rowMeans(data)
-    rstd <- rowSds(data)
-    lines(time, rmean*scale_f, col=ccolors[kc], lwd=4)
-    lines(time, (rmean+rstd)*scale_f, col=ccolors[kc], lwd=1, lty=2)
-    lines(time, (rmean-rstd)*scale_f, col=ccolors[kc], lwd=1, lty=2)
-  }
-  
-  ## Add the experimental data from Goresky1983 & 1973 ##
-  plotDilutionData(gor1983, compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
-  plotDilutionData(gor1973[gor1973$condition=="A",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
-  plotDilutionData(gor1973[gor1973$condition=="B",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
-  plotDilutionData(gor1973[gor1973$condition=="C",], compounds=expcompounds, ccolors=expcolors, correctTime=TRUE)
-  legend("topright",  legend = expcompounds, fill=expcolors) 
-  par(mfrow=c(1,1))
-  if (create_plot_files){
-    dev.off()
-  }
-}
-
 createBoxPlot <- function (maxtime, ccolors, time.offset) {
   # Boxplot of the maxtimes
   if (create_plot_files){
@@ -318,71 +216,38 @@ createBoxPlot <- function (maxtime, ccolors, time.offset) {
   }
 }
 
-# create the plots
-create_plot_files = TRUE
-compounds = c('rbcM', 'alb', 'suc', 'h2oM')
-ccolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
-time.offset = 10.0  # peak start of input
+boxplot(maxtime, col=ccolors, horizontal=T,  ylim=c(0,20),
+        xaxt="n", # suppress the default x axis
+        yaxt="n", # suppress the default y axis
+        bty="n") # suppress the plotting frame
 
-expcompounds = c('RBC', 'albumin', 'sucrose', 'water')
-expcolors = c('red', 'darkgreen', 'darkorange', 'darkblue')
-gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
-summary(gor1973)
-# Units: time [s], compound: 1000*outflow fraction/ml
-gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
-summary(gor1983)
+###########################################################################
+# Plot all individual timecourses
+###########################################################################
+# This is the dimension-reduced data-set.
+# split the dataset under the given galactose challenge
+plot.ids = c('PP__gal', 'PV__gal') # plot the pp and pv galactose (background galactose)
+plot.colors = c( rgb(0.5,0.5,0.5, alpha=0.3), rgb(0,0,1.0, alpha=0.3) )
+names(plot.colors) <- plot.ids
 
-m1 = max(gor1983$outflow)
-m2 = max(gor1973[gor1973$condition=="A",'outflow'])
-m3 = max(gor1973[gor1973$condition=="B",'outflow'])
-m4 = max(gor1973[gor1973$condition=="C",'outflow'])
-scale_f = (m1+m2+m3+m4)/4;
-data <-   #+1E-06 fix for logscale
+# create subplot for the different background levels of galactose
+xlimits <- c(t_peak-5, t_peak+200)
+ylimits <- c(0.0, 1.2*max(as.numeric(gal_levels)))
+nrow = ceiling(sqrt(length(gal_levels)))
+par(mfrow=c(nrow, nrow))
+for (gal in gal_levels){
+  # empty plot
+  plot(numeric(0), numeric(0), xlim=xlimits, ylim=ylimits, 
+       main=paste(f.level, '=', gal), xlab='time [s]', ylab='concentration [mM]')
   
-  rmean_rbc <- rowMeans(preprocess.mat[['PV__rbcM']])
-scale_f <- scale_f/max(rmean_rbc);
-scale_f
-
-for (kt in seq(Ntask)){
-  task <- tasks[kt]
-  peak <- peaks[kt]
-  modelId <- paste('MultipleIndicator_', peak, '_', version, '_Nc20_Nf1', sep='')
-  parsfile <- file.path(ma.settings$dir.results, sname, 
-                        paste(task, '_', modelId, '_parameters.csv', sep=""))
-  # Load the data
-  load(file=outfileFromParsFile(parsfile))
-  # Calculate the max times
-  maxtime <- calculateMaxTimes(preprocess.mat, compounds, time.offset) 
-  print(summary(maxtime))
-  createFullPlot(maxtime, ccolors, time.offset=time.offset, scale_f)
-  # createBoxPlot(maxtime, ccolors, time.offset=time.offset)
-}
-
-
-############################################################
-# Plot single simulation
-############################################################
-# The galactose peaks come almost with the RBC peaks ?
-# why (in single simulation this is different)
-
-# sort the pars to find matching simulations
-pars.sorted <- pars[with(pars, order(y_cell, y_sin, L, y_dis, flow_sin, PP__gal)), ]
-head(pars.sorted)
-
-N=54
-plot(numeric(0), numeric(0), xlim=c(time.min, 1025), ylim=c(0,0.3))
-testIds = rownames(pars.sorted)[(1+N*5):(5+N*5)]
-for (simId in testIds){
-  for (kc in seq(length(compounds))){
-    compound <- compounds[kc]
-    print(compound)
-    id <- paste('PV__', compound, sep="")
-    print(id)
-    col <- ccolors[kc]
-    time <- p$x[[id]][[simId]]$time
-    tmp.data <- p$x[[id]][[simId]][[2]]
-    points(time, tmp.data, type='l', col=col)
-    tmp.tmax <- time[which.max(tmp.data)]
-    abline(v=tmp.tmax, col=col)
+  # find the simulation rows for the level &
+  # plot all the single simulations for the level
+  gal_rows <- which(pars[[f.level]]==gal)
+  for (k in gal_rows){
+    for (id in plot.ids){
+      points(p$x[[id]][[k]]$time, p$x[[id]][[k]][[2]], 
+             type='l', col=plot.colors[[id]])      
+    }
   }
 }
+par(mfrow=c(1,1))
