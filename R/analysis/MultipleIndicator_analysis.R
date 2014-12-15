@@ -13,7 +13,7 @@ library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 dir_out <- file.path(ma.settings$dir.base, 'results', 'dilution')
 
-folder <- '2014-12-13_T9'         # Multiple indicator data
+folder <- '2014-12-15_T12'         # Multiple indicator data
 t_peak <- 5000; t_end <- 10000    # [s] peak start time & total simulation time
 
 # Focus on interesting time for analysis
@@ -64,7 +64,7 @@ weights <- pars$Q_sinunit   # weighting with volume flow
 
 create_plots = TRUE
 for (gal in gal_levels){
-  fname <- file.path(dir_out, sprintf('MultipleIndicator_Individual_gal%s.png', gal))
+  fname <- file.path(dir_out, sprintf('MultipleIndicator_Individual_%s_gal%s.png', info$task, gal))
   startDevPlot(width=2000, height=500, file=fname, create_plots=create_plots)
 
   # Subset corresponding to flow & galactose background  
