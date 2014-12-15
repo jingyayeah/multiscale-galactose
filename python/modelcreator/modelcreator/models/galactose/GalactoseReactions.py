@@ -415,7 +415,7 @@ H2OTM = ReactionTemplate(
     'H2O M transport [c__]',
     'e__h2oM <-> c__h2oM',
     pars = [
-            ('H2OT_f', 0.8, 'mole_per_s'),
+            ('H2OT_f', 4.0, 'mole_per_s'),
             ('H2OT_k',  1.0, 'mM'),
     ],
     rules = [ # id, rule, unit
@@ -429,7 +429,7 @@ GLUT2_GAL = ReactionTemplate(
     'galactose transport [c__]',
     'e__gal <-> c__gal [e__galM, c__galM]',
     pars = [
-            ('GLUT2_f',    25.0,   'mole_per_s'),
+            ('GLUT2_f',    35.0,   'mole_per_s'),
             ('GLUT2_k_gal', 85.5, 'mM'),
             ('c__GLUT2_P',   1.0, 'mM'),
     ],

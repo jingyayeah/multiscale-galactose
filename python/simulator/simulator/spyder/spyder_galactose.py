@@ -183,7 +183,7 @@ plot(r)
 # Multiple Indicator Dilution
 #########################################################################  
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v50_Nc20_dilution.xml'
+sbml_file = folder + 'Galactose_v55_Nc20_dilution.xml'
 print sbml_file
 r = load_model(sbml_file)
 items = r.model.items()
@@ -201,11 +201,18 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 # { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0 },
+#p_list = [
+#    { "[PP__gal]" : 0.28, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0},
+#    { "[PP__gal]" : 12.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0},
+#    { "[PP__gal]" : 17.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0}
+#]
 p_list = [
-    { "[PP__gal]" : 0.28, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 25.0, "H2OT_f" : 0.7,},
-    { "[PP__gal]" : 12.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 25.0, "H2OT_f" : 0.7,},
-    { "[PP__gal]" : 17.5, "flow_sin" : 0.4*270E-6, "GLUT2_f" : 25.0, "H2OT_f" : 0.7,}
+    { "[PP__gal]" : 2.58, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 35.0},
+    { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 35.0},
+    { "[PP__gal]" : 19.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 35.0}
 ]
+
+
 inits = {}
 
 # s1 = simulation(r, sel, p1, inits)

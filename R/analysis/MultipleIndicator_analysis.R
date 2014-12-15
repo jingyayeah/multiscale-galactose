@@ -51,6 +51,7 @@ split_sims <- dlply(pars, factors, get_split_sims)
 split_info <- attr(split_sims, "split_labels")
 split_info
 
+
 ###########################################################################
 # Single curves with mean & SD
 ###########################################################################
@@ -121,8 +122,6 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
 # -> calculate via the total amount of tracer injected
 # Add legend
 
-split_info
-
 # plot mean dilution curves
 # subset = rownames(pars)
 subset = split_sims[[which(split_info$f_flow==0.3)]]
@@ -147,13 +146,9 @@ par(mfrow=c(1,1))
 
 # Load experimental data
 gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
-summary(gor1973)
 gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
-summary(gor1983)
-
 expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
 expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
-
 
 # scaling of the outflow curves for comparison
 m1 = max(gor1983$outflow)
@@ -161,13 +156,18 @@ m2 = max(gor1973[gor1973$condition=="A",'outflow'])
 m3 = max(gor1973[gor1973$condition=="B",'outflow'])
 m4 = max(gor1973[gor1973$condition=="C",'outflow'])
 scale = (m1+m2+m3+m4)/4;
-scale = 4.55*scale
-offset = 0
+
+scale = 5.8*scale  # 4.55 (0.4)
+subset = split_sims[[which(split_info$f_flow==0.3)]]
+offset =1
+
+# scale = 4.55*scale  # 4.55 (0.4)
+# subset = split_sims[[which(split_info$f_flow==0.4)]]
+# offset = -1
+
 
 time.range <- c(0, 27)
-split_sims
-split_info
-subset = split_sims[[which(split_info$f_flow==0.4)]]
+
 # normal plot
 plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,17), type='n',
      main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
