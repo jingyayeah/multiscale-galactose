@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="3000px" height="3000px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="ideograms">
+<path d="M1500.000,60.000 A1440.000,1440.000 40.000 0,1 2768.761,2181.062 L2795.193,2195.251 A1470.000,1470.000 0.000 0,0 1500.000,30.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:rgb(150,150,150);" />
+<text x="2735.8" y="760.8" font-size="39.0px" font-family="CMUBright-Roman" style="text-anchor:middle;fill:rgb(0,0,0);" transform="rotate(419.1,2735.8,760.8)" >SU1</text>
+<line x1='1500.0' y1='30.0' x2='1500.0' y2='15.0' style="stroke-width:2.0;stroke:rgb(0,0,0);stroke-linecap:round;fill:none;" />
+<text x="1509.5" y="5.0" font-size="26.0px" font-family="CMUBright-Roman" style="text-anchor:start;fill:rgb(0,0,0);" transform="rotate(270.0,1509.5,5.0)" >0</text>
+<path d="M1500.000,60.000 A1440.000,1440.000 40.000 0,1 2768.761,2181.062 L2795.193,2195.251 A1470.000,1470.000 0.000 0,0 1500.000,30.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:none;" />
+<path d="M2747.077,2220.000 A1440.000,1440.000 40.000 0,1 275.802,2258.248 L250.298,2274.045 A1470.000,1470.000 0.000 0,0 2773.057,2235.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:rgb(150,150,150);" />
+<text x="1522.8" y="2970.8" font-size="39.0px" font-family="CMUBright-Roman" style="text-anchor:middle;fill:rgb(0,0,0);" transform="rotate(-0.9,1522.8,2970.8)" >SU2</text>
+<path d="M2747.077,2220.000 A1440.000,1440.000 40.000 0,1 275.802,2258.248 L250.298,2274.045 A1470.000,1470.000 0.000 0,0 2773.057,2235.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:none;" />
+<path d="M252.923,2220.000 A1440.000,1440.000 40.000 0,1 1455.437,60.690 L1454.508,30.704 A1470.000,1470.000 0.000 0,0 226.943,2235.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:rgb(150,150,150);" />
+<text x="241.9" y="799.4" font-size="39.0px" font-family="CMUBright-Roman" style="text-anchor:middle;fill:rgb(0,0,0);" transform="rotate(-60.9,241.9,799.4)" >SU3</text>
+<path d="M252.923,2220.000 A1440.000,1440.000 40.000 0,1 1455.437,60.690 L1454.508,30.704 A1470.000,1470.000 0.000 0,0 226.943,2235.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:none;" />
+</g>
+<g id="plot0">
+<g id="plot0-axis">
+</g>
+<path d="M1500.000,146.400 A1353.600,1353.600 40.000 0,1 2692.635,2140.198 L2743.386,2167.441 A1411.200,1411.200 0.000 0,0 1500.000,88.800 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2672.252,2176.800 A1353.600,1353.600 40.000 0,1 349.254,2212.753 L300.286,2243.083 A1411.200,1411.200 0.000 0,0 2722.135,2205.600 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M327.748,2176.800 A1353.600,1353.600 40.000 0,1 1458.111,147.048 L1456.328,89.476 A1411.200,1411.200 0.000 0,0 277.865,2205.600 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot1">
+<g id="plot1-axis">
+</g>
+<path d="M1500.000,204.000 A1296.000,1296.000 40.000 0,1 2641.885,2112.956 L2692.635,2140.198 A1353.600,1353.600 0.000 0,0 1500.000,146.400 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2622.369,2148.000 A1296.000,1296.000 40.000 0,1 398.222,2182.423 L349.254,2212.753 A1353.600,1353.600 0.000 0,0 2672.252,2176.800 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M377.631,2148.000 A1296.000,1296.000 40.000 0,1 1459.893,204.621 L1458.111,147.048 A1353.600,1353.600 0.000 0,0 327.748,2176.800 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot2">
+<g id="plot2-axis">
+</g>
+<path d="M1500.000,261.600 A1238.400,1238.400 40.000 0,1 2591.134,2085.714 L2641.885,2112.956 A1296.000,1296.000 0.000 0,0 1500.000,204.000 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2572.486,2119.200 A1238.400,1238.400 40.000 0,1 447.190,2152.093 L398.222,2182.423 A1296.000,1296.000 0.000 0,0 2622.369,2148.000 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M427.514,2119.200 A1238.400,1238.400 40.000 0,1 1461.676,262.193 L1459.893,204.621 A1296.000,1296.000 0.000 0,0 377.631,2148.000 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot3">
+<g id="plot3-axis">
+</g>
+<path d="M1500.000,319.200 A1180.800,1180.800 40.000 0,1 2540.384,2058.471 L2591.134,2085.714 A1238.400,1238.400 0.000 0,0 1500.000,261.600 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2522.603,2090.400 A1180.800,1180.800 40.000 0,1 496.158,2121.763 L447.190,2152.093 A1238.400,1238.400 0.000 0,0 2572.486,2119.200 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M477.397,2090.400 A1180.800,1180.800 40.000 0,1 1463.458,319.766 L1461.676,262.193 A1238.400,1238.400 0.000 0,0 427.514,2119.200 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot4">
+<g id="plot4-axis">
+</g>
+<path d="M1500.000,376.800 A1123.200,1123.200 40.000 0,1 2489.634,2031.229 L2540.384,2058.471 A1180.800,1180.800 0.000 0,0 1500.000,319.200 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2472.720,2061.600 A1123.200,1123.200 40.000 0,1 545.126,2091.433 L496.158,2121.763 A1180.800,1180.800 0.000 0,0 2522.603,2090.400 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M527.280,2061.600 A1123.200,1123.200 40.000 0,1 1465.241,377.338 L1463.458,319.766 A1180.800,1180.800 0.000 0,0 477.397,2090.400 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot5">
+<g id="plot5-axis">
+</g>
+<path d="M1500.000,434.400 A1065.600,1065.600 40.000 0,1 2438.883,2003.986 L2489.634,2031.229 A1123.200,1123.200 0.000 0,0 1500.000,376.800 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2422.837,2032.800 A1065.600,1065.600 40.000 0,1 594.094,2061.104 L545.126,2091.433 A1123.200,1123.200 0.000 0,0 2472.720,2061.600 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M577.163,2032.800 A1065.600,1065.600 40.000 0,1 1467.023,434.910 L1465.241,377.338 A1123.200,1123.200 0.000 0,0 527.280,2061.600 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot6">
+<g id="plot6-axis">
+</g>
+<path d="M1500.000,492.000 A1008.000,1008.000 40.000 0,1 2388.133,1976.744 L2438.883,2003.986 A1065.600,1065.600 0.000 0,0 1500.000,434.400 Z" style="stroke-width:1.0;stroke:rgb(65,171,93);stroke-linecap:round;fill:rgb(65,171,93);" />
+<path d="M2372.954,2004.000 A1008.000,1008.000 40.000 0,1 643.062,2030.774 L594.094,2061.104 A1065.600,1065.600 0.000 0,0 2422.837,2032.800 Z" style="stroke-width:1.0;stroke:rgb(65,171,93);stroke-linecap:round;fill:rgb(65,171,93);" />
+<path d="M627.046,2004.000 A1008.000,1008.000 40.000 0,1 1468.806,492.483 L1467.023,434.910 A1065.600,1065.600 0.000 0,0 577.163,2032.800 Z" style="stroke-width:1.0;stroke:rgb(65,171,93);stroke-linecap:round;fill:rgb(65,171,93);" />
+</g>
+<g id="plot7">
+<g id="plot7-axis">
+</g>
+<path d="M1500.000,549.600 A950.400,950.400 40.000 0,1 2337.382,1949.501 L2388.133,1976.744 A1008.000,1008.000 0.000 0,0 1500.000,492.000 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2323.071,1975.200 A950.400,950.400 40.000 0,1 692.030,2000.444 L643.062,2030.774 A1008.000,1008.000 0.000 0,0 2372.954,2004.000 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M676.929,1975.200 A950.400,950.400 40.000 0,1 1470.588,550.055 L1468.806,492.483 A1008.000,1008.000 0.000 0,0 627.046,2004.000 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot8">
+<g id="plot8-axis">
+</g>
+<path d="M1500.000,607.200 A892.800,892.800 40.000 0,1 2286.632,1922.259 L2337.382,1949.501 A950.400,950.400 0.000 0,0 1500.000,549.600 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2273.187,1946.400 A892.800,892.800 40.000 0,1 740.997,1970.114 L692.030,2000.444 A950.400,950.400 0.000 0,0 2323.071,1975.200 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M726.813,1946.400 A892.800,892.800 40.000 0,1 1472.371,607.628 L1470.588,550.055 A950.400,950.400 0.000 0,0 676.929,1975.200 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot9">
+<g id="plot9-axis">
+</g>
+<path d="M1500.000,664.800 A835.200,835.200 40.000 0,1 2235.881,1895.016 L2286.632,1922.259 A892.800,892.800 0.000 0,0 1500.000,607.200 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2223.304,1917.600 A835.200,835.200 40.000 0,1 789.965,1939.784 L740.997,1970.114 A892.800,892.800 0.000 0,0 2273.187,1946.400 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M776.696,1917.600 A835.200,835.200 40.000 0,1 1474.153,665.200 L1472.371,607.628 A892.800,892.800 0.000 0,0 726.813,1946.400 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot10">
+<g id="plot10-axis">
+</g>
+<path d="M1500.000,722.400 A777.600,777.600 40.000 0,1 2185.131,1867.774 L2235.881,1895.016 A835.200,835.200 0.000 0,0 1500.000,664.800 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2173.421,1888.800 A777.600,777.600 40.000 0,1 838.933,1909.454 L789.965,1939.784 A835.200,835.200 0.000 0,0 2223.304,1917.600 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M826.579,1888.800 A777.600,777.600 40.000 0,1 1475.936,722.772 L1474.153,665.200 A835.200,835.200 0.000 0,0 776.696,1917.600 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot11">
+<g id="plot11-axis">
+</g>
+<path d="M1500.000,780.000 A720.000,720.000 40.000 0,1 2134.380,1840.531 L2185.131,1867.774 A777.600,777.600 0.000 0,0 1500.000,722.400 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2123.538,1860.000 A720.000,720.000 40.000 0,1 887.901,1879.124 L838.933,1909.454 A777.600,777.600 0.000 0,0 2173.421,1888.800 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M876.462,1860.000 A720.000,720.000 40.000 0,1 1477.718,780.345 L1475.936,722.772 A777.600,777.600 0.000 0,0 826.579,1888.800 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot12">
+<g id="plot12-axis">
+</g>
+<path d="M1500.000,837.600 A662.400,662.400 40.000 0,1 2083.630,1813.289 L2134.380,1840.531 A720.000,720.000 0.000 0,0 1500.000,780.000 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2073.655,1831.200 A662.400,662.400 40.000 0,1 936.869,1848.794 L887.901,1879.124 A720.000,720.000 0.000 0,0 2123.538,1860.000 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M926.345,1831.200 A662.400,662.400 40.000 0,1 1479.501,837.917 L1477.718,780.345 A720.000,720.000 0.000 0,0 876.462,1860.000 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot13">
+<g id="plot13-axis">
+</g>
+<path d="M1500.000,895.200 A604.800,604.800 40.000 0,1 2032.880,1786.046 L2083.630,1813.289 A662.400,662.400 0.000 0,0 1500.000,837.600 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M2023.772,1802.400 A604.800,604.800 40.000 0,1 985.837,1818.464 L936.869,1848.794 A662.400,662.400 0.000 0,0 2073.655,1831.200 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M976.228,1802.400 A604.800,604.800 40.000 0,1 1481.283,895.490 L1479.501,837.917 A662.400,662.400 0.000 0,0 926.345,1831.200 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot14">
+<g id="plot14-axis">
+</g>
+<path d="M1500.000,952.800 A547.200,547.200 40.000 0,1 1982.129,1758.804 L2032.880,1786.046 A604.800,604.800 0.000 0,0 1500.000,895.200 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1973.889,1773.600 A547.200,547.200 40.000 0,1 1034.805,1788.134 L985.837,1818.464 A604.800,604.800 0.000 0,0 2023.772,1802.400 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1026.111,1773.600 A547.200,547.200 40.000 0,1 1483.066,953.062 L1481.283,895.490 A604.800,604.800 0.000 0,0 976.228,1802.400 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot15">
+<g id="plot15-axis">
+</g>
+<path d="M1500.000,1010.400 A489.600,489.600 40.000 0,1 1931.379,1731.561 L1982.129,1758.804 A547.200,547.200 0.000 0,0 1500.000,952.800 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1924.006,1744.800 A489.600,489.600 40.000 0,1 1083.773,1757.804 L1034.805,1788.134 A547.200,547.200 0.000 0,0 1973.889,1773.600 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1075.994,1744.800 A489.600,489.600 40.000 0,1 1484.848,1010.635 L1483.066,953.062 A547.200,547.200 0.000 0,0 1026.111,1773.600 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot16">
+<g id="plot16-axis">
+</g>
+<path d="M1500.000,1068.000 A432.000,432.000 40.000 0,1 1880.628,1704.319 L1931.379,1731.561 A489.600,489.600 0.000 0,0 1500.000,1010.400 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1874.123,1716.000 A432.000,432.000 40.000 0,1 1132.741,1727.474 L1083.773,1757.804 A489.600,489.600 0.000 0,0 1924.006,1744.800 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1125.877,1716.000 A432.000,432.000 40.000 0,1 1486.631,1068.207 L1484.848,1010.635 A489.600,489.600 0.000 0,0 1075.994,1744.800 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot17">
+<g id="plot17-axis">
+</g>
+<path d="M1500.000,1125.600 A374.400,374.400 40.000 0,1 1829.878,1677.076 L1880.628,1704.319 A432.000,432.000 0.000 0,0 1500.000,1068.000 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1824.240,1687.200 A374.400,374.400 40.000 0,1 1181.709,1697.144 L1132.741,1727.474 A432.000,432.000 0.000 0,0 1874.123,1716.000 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1175.760,1687.200 A374.400,374.400 40.000 0,1 1488.414,1125.779 L1486.631,1068.207 A432.000,432.000 0.000 0,0 1125.877,1716.000 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot18">
+<g id="plot18-axis">
+</g>
+<path d="M1500.000,1183.200 A316.800,316.800 40.000 0,1 1779.127,1649.834 L1829.878,1677.076 A374.400,374.400 0.000 0,0 1500.000,1125.600 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1774.357,1658.400 A316.800,316.800 40.000 0,1 1230.677,1666.815 L1181.709,1697.144 A374.400,374.400 0.000 0,0 1824.240,1687.200 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1225.643,1658.400 A316.800,316.800 40.000 0,1 1490.196,1183.352 L1488.414,1125.779 A374.400,374.400 0.000 0,0 1175.760,1687.200 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot19">
+<g id="plot19-axis">
+</g>
+<path d="M1500.000,1240.800 A259.200,259.200 40.000 0,1 1728.377,1622.591 L1779.127,1649.834 A316.800,316.800 0.000 0,0 1500.000,1183.200 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1724.474,1629.600 A259.200,259.200 40.000 0,1 1279.644,1636.485 L1230.677,1666.815 A316.800,316.800 0.000 0,0 1774.357,1658.400 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1275.526,1629.600 A259.200,259.200 40.000 0,1 1491.979,1240.924 L1490.196,1183.352 A316.800,316.800 0.000 0,0 1225.643,1658.400 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot20">
+<g id="plot20-axis">
+</g>
+<path d="M1500.000,1298.400 A201.600,201.600 40.000 0,1 1677.627,1595.349 L1728.377,1622.591 A259.200,259.200 0.000 0,0 1500.000,1240.800 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1674.591,1600.800 A201.600,201.600 40.000 0,1 1328.612,1606.155 L1279.644,1636.485 A259.200,259.200 0.000 0,0 1724.474,1629.600 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1325.409,1600.800 A201.600,201.600 40.000 0,1 1493.761,1298.497 L1491.979,1240.924 A259.200,259.200 0.000 0,0 1275.526,1629.600 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot21">
+<g id="plot21-axis">
+</g>
+<path d="M1500.000,1356.000 A144.000,144.000 40.000 0,1 1626.876,1568.106 L1677.627,1595.349 A201.600,201.600 0.000 0,0 1500.000,1298.400 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1624.708,1572.000 A144.000,144.000 40.000 0,1 1377.580,1575.825 L1328.612,1606.155 A201.600,201.600 0.000 0,0 1674.591,1600.800 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1375.292,1572.000 A144.000,144.000 40.000 0,1 1495.544,1356.069 L1493.761,1298.497 A201.600,201.600 0.000 0,0 1325.409,1600.800 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<g id="plot22">
+<g id="plot22-axis">
+</g>
+<path d="M1500.000,1413.600 A86.400,86.400 40.000 0,1 1576.126,1540.864 L1626.876,1568.106 A144.000,144.000 0.000 0,0 1500.000,1356.000 Z" style="stroke-width:1.0;stroke:rgb(215,25,28);stroke-linecap:round;fill:rgb(215,25,28);" />
+<path d="M1574.825,1543.200 A86.400,86.400 40.000 0,1 1426.548,1545.495 L1377.580,1575.825 A144.000,144.000 0.000 0,0 1624.708,1572.000 Z" style="stroke-width:1.0;stroke:rgb(171,221,164);stroke-linecap:round;fill:rgb(171,221,164);" />
+<path d="M1425.175,1543.200 A86.400,86.400 40.000 0,1 1497.326,1413.641 L1495.544,1356.069 A144.000,144.000 0.000 0,0 1375.292,1572.000 Z" style="stroke-width:1.0;stroke:rgb(43,131,186);stroke-linecap:round;fill:rgb(43,131,186);" />
+</g>
+<defs>
+<pattern id="vline" width="10" height="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="10" style="stroke:black;stroke-width:5" /></pattern>
+<pattern id="hline-sparse" width="10" height="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="10" y2="0" style="stroke:black;stroke-width:2" /></pattern>
+<pattern id="checker" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="10" y2="0" style="stroke:black;stroke-width:5" /><line x1="0" y1="0" x2="0" y2="10" style="stroke:black;stroke-width:4" /></pattern>
+<pattern id="checker" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="10" y2="0" style="stroke:black;stroke-width:2" /><line x1="0" y1="0" x2="0" y2="10" style="stroke:black;stroke-width:2" /></pattern>
+<pattern id="vline-sparse" width="10" height="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="10" style="stroke:black;stroke-width:2" /></pattern>
+<pattern id="hline" width="10" height="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="10" y2="0" style="stroke:black;stroke-width:5" /></pattern>
+</defs>
+</svg>

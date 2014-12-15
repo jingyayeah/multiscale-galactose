@@ -58,8 +58,58 @@ dlist <- createApproximationMatrix(p$x, ids=ids, simIds=sim_ids, points=time, re
 dlist
 
 
+# Create circos karyotype data (simulations as chromosomes)
+# chr - hs1 1 0 249250621 chr1
+# chr - hs2 2 0 243199373 chr2
+
+f_kary <- file(file.path(out_dir, 'su_karyotype.txt'))
+lines <- character(length(sim_ids))
+for (k in seq_along(sim_ids)){
+  id <- sim_ids[k]
+  lines[k] <- sprintf('chr - %s SU%i %i %i grey', id, k, k-1, k)
+}
+writeLines(lines, f_kary)
+close(f_kary)
+
+# Write for every timepoint the PP, Nc (=20) and PV 2D tracks
+for (kt in 10:10){
+  for (name in names(dlist)){
+    cat(name, '\n')
+    
+    f <- file(file.path(out_dir, sprintf('%s.txt', name)))
+    lines <- character(length(sim_ids))
+    for (ks in seq_along(sim_ids)){
+      id <- sim_ids[ks]
+      value = dlist[[name]][ks, id]
+      value = max(1E-20, value)
+      lines[ks] <- sprintf('%s %i %i %f', id, ks, ks-1, value)
+    }
+    writeLines(lines, f_kary)
+    close(f_kary)  
+  }
+}
+  # The cell files
+  
+  
+  # The PV file
+  
+  
+  m <- matrix(data=NA, nrow=length(ids), ncol=length(sim_ids))
+  colnames(m) <- sim_ids
+  rownames(m) <- ids
+  # fill matrix
+  for (ks in seq_along(ids)){
+    id <- ids[ks]
+    m[ks, ] = dlist[[id]][ks, sim_ids]
+  }
+  # save
+  fname = file.path(out_dir, sprintf('cmat_%03i', kt))
+  write.table(m, file=fname, sep=',', quote=FALSE, row.names=TRUE)
+}
+
+
 # Create the circos output matrices for all timepoints
-for (kt in 1:length(time)){ 
+# for (kt in 1:length(time)){  
   m <- matrix(data=NA, nrow=length(ids), ncol=length(sim_ids))
   colnames(m) <- sim_ids
   rownames(m) <- ids
