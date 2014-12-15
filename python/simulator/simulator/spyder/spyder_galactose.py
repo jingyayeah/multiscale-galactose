@@ -242,40 +242,42 @@ sbml_file = folder + 'Galactose_v56_Nc20_dilution.xml'
 print sbml_file
 r = load_model(sbml_file)
 
-
-
 # additional changes for fitting the dilution curves
 # (now test the effects of changing variables in the model, i.e.
 # To understand the response it is necessary to integrate over the variation
 # in fluxes, i.e. simulation of the model for varying fluxes and than 
 # plotting the combined result
+import time
 import numpy as np
 from scipy import stats # Import the scipy.stats module
-import pylab as p
+import pylab as plt
 
+# Distribution of fluxes
 x = np.linspace(0.1, 1100, num=400) # values for x-axis
 mu = 5.4572075437    # dtmp['meanlog']
 sigma = 0.6178209697 # dtmp['sdlog']
 pdf = stats.lognorm.pdf(x, sigma, loc=0, scale=np.exp(mu))
-p.figure(figsize=(12,4.5))
-p.plot(x, pdf)
-flux1 = np.arange(start=0, stop=1100, step=100)
-flux2 = np.arange(start=50, stop=300, step=100)
+plt.figure(figsize=(12,4.5))
+plt.plot(x, pdf)
+flux1 = np.arange(start=0, stop=400, step=25)
+flux2 = np.arange(start=400, stop=1200, step=100)
+
 flux = np.concatenate((flux1, flux2), axis=0)
 flux = np.sort(flux)
 p_flux = stats.lognorm.pdf(flux, sigma, loc=0, scale=np.exp(mu))
-p.plot(flux, p_flux)
+plt.plot(flux, p_flux)
 
-# Now fluxes and probability weights exist
+# Now use fluxes for calculation and probabilities for weighting
 print flux
 print p_flux
+len(flux)
 
 # Crete the parameters for the simulation
 p_list = []
 for f in flux:
     d = dict()
     d["[PP__gal]"] = 2.58
-    d["flow_sin"] = f*1E-6
+    d["flow_sin"] = f*1E-6 * 0.4
     p_list.append(d)
 print p_list
 inits = {}
@@ -290,8 +292,6 @@ def flux_plots(f_list, selections, show=True):
     ids = ['PV__{}'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     
-   
-
     import pylab as p    
     for k, id in enumerate(ids):
         print id
@@ -311,6 +311,30 @@ def flux_plots(f_list, selections, show=True):
 
 flux_plots(f_list, sel)
 
+def average_results(f_list, weights, ids, time, selections):
+    from scipy import interpolate
+    res = np.zeros(shape=(len(time), len(ids)))  # store the averaged results    
+    for (k, id) in enumerate(ids):
+        print id
+        # create empty array
+        mat = np.zeros(shape =(len(time), len(f_list)))
+        
+        for ks, s in enumerate(f_list):
+            x = s[:,0]
+            # find in which place of the solution the component is encoded
+            i_sel = position_in_list(selections, '[{}]'.format(id))
+            if i_sel < 0:
+                raise Exception("{} not in selection".format(id))
+            y = s[:,i_sel]
+            f = interpolate.interp1d(x=x, y=y)
+            mat[:,ks] = f(time)
+        # average the matrix
+        av = np.average(mat, axis=1, weights=weights)
+        res[:, k] = av
+    
+    return res
+
+# make the average
 # make the integration of the results, i.e. the probability and flux weighted
 # summation
 y_sin = 4.4E-6 # [m] 
@@ -321,55 +345,27 @@ import pylab as plt
 plt.plot(flux, weights)
 plt.plot(flux, p_flux)
 
-# 
-data = np.arange(6).reshape((3,2))
-print data
-#array([[0, 1],
-#       [2, 3],
-#       [4, 5]])
-np.average(data, axis=1, weights=[1./4, 3./4])
-# array([ 0.75,  2.75,  4.75])
-
-# necessary to interpolate the timecourses before averaging
-tmp = f_list[0]
-
-
-from scipy import interpolate
-
-
-x = tmp[:,0]
-y = tmp[:,5]
-f = interpolate.interp1d(x=x, y=y)
-xnew = np.arange(4995, 5030, 0.05)
-ynew = f(xnew)
-plt.plot(x,y, 'o', xnew, ynew, '-')
-plt.xlim(4995, 5030)
-
-
-def average_results(f_list, weights, ids):
-    alist = [] # store the averaged results    
-    for k, id in enumerate(ids):
-        print id
-        # create empty array
-        res = np.zeros()        
-        
-        for s in f_list:
-            times = s[:,0]
-            # find in which place of the solution the component is encoded
-            i_sel = position_in_list(selections, '[{}]'.format(id))
-            if i_sel < 0:
-                raise Exception("{} not in selection".format(id))
-            series = s[:,i_sel]
-            name = selections[i_sel]
-            p.plot(times, series, color=cols[k], label=str(name))
-    
-    plt.plot(tmp[:,0], tmp[:,1])
-
-# make the average
 compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
 ids = ['PV__{}'.format(id) for id in compounds]    
 cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
-alist = average_results(f_list, weights, ids)
+time=np.arange(t_peak-5, t_peak+35, 0.05)
+av_mat = average_results(f_list, weights, ids, time, sel)
+
+
+# Plot the results
+def average_plots(time, av_mat):
+    ''' Plot of the dilution curves '''
+    compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
+    ids = ['PV__{}'.format(id) for id in compounds]    
+    cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     
+    import pylab as p    
+    for k, id in enumerate(ids):
+        print id
+        p.plot(time,av_mat[:,k] , color=cols[k], label=str(id))
 
+    p.ylim(0, 0.25)
+    p.xlim(t_peak, t_peak+25)
+    p.show()
 
+average_plots(time, av_mat)
