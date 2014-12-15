@@ -124,7 +124,7 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
 
 # plot mean dilution curves
 # subset = rownames(pars)
-subset = split_sims[[which(split_info$f_flow==0.3)]]
+subset = split_sims[[which(split_info$f_flow==0.4)]]
 scale = 1.0
 
 par(mfrow=c(2,1))
@@ -132,7 +132,7 @@ time.range <- c(0, 30)
 # normal plot
 plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,0.4*scale), type='n',
      main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale)
+plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale, std=FALSE)
 
 # log plot
 plot(numeric(0), numeric(0), log='y', xlim=time.range, ylim=c(1E-3,0.4*scale),

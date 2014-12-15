@@ -48,8 +48,7 @@ def simulation(r, selection, parameters, inits, absTol=1E-6, relTol=1E-6):
     changed = set_parameters(r, parameters)
     # in a second step set the initial changes
     set_inits(r, inits)
-        
-    print '*** simulate ***'    
+          
     # absTol is defined relative to the amounts
     absTol = absTol * min(r.model.getCompartmentVolumes())
     start = time.clock()
@@ -182,6 +181,7 @@ plot(r)
 #########################################################################    
 # Multiple Indicator Dilution
 #########################################################################  
+import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
 sbml_file = folder + 'Galactose_v56_Nc20_dilution.xml'
 print sbml_file
@@ -207,9 +207,12 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 #    { "[PP__gal]" : 17.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0}
 #]
 p_list = [
-    { "[PP__gal]" : 2.58, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 20.0},
-    { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 20.0},
-    { "[PP__gal]" : 19.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 20.0}
+    { "[PP__gal]" : 2.58, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 30.0, 'y_cell' :7.58E-06},
+    { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 30.0, 'y_cell' :7.58E-06},
+    { "[PP__gal]" : 19.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 30.0, 'y_cell' :7.58E-06},
+   #  { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :7.58E-06 },
+   # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :10E-06},
+   # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :15E-06}
 ]
 
 
@@ -223,20 +226,13 @@ dilution_plots_gal(s_list, r.selections, name='gal1pM')
 
 dilution_plots_gal(s_list, r.selections, name='gal1pM', xlim=[5000, 6000])
 dilution_plots_gal(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
-
-r.getInfo()
-
-s = r.getSimulationData()
-import pylab as p
-test = s[:,len(r.selections)-5]
-times = s[:,0]
-p.plot(time, test)
-del(times)
+# r.getInfo()
 
 
 #########################################################################    
 # Flux integration of curves
 #########################################################################  
+import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
 sbml_file = folder + 'Galactose_v56_Nc20_dilution.xml'
 print sbml_file
@@ -247,43 +243,10 @@ r = load_model(sbml_file)
 # To understand the response it is necessary to integrate over the variation
 # in fluxes, i.e. simulation of the model for varying fluxes and than 
 # plotting the combined result
-import time
+
 import numpy as np
 from scipy import stats # Import the scipy.stats module
 import pylab as plt
-
-# Distribution of fluxes
-x = np.linspace(0.1, 1100, num=400) # values for x-axis
-mu = 5.4572075437    # dtmp['meanlog']
-sigma = 0.6178209697 # dtmp['sdlog']
-pdf = stats.lognorm.pdf(x, sigma, loc=0, scale=np.exp(mu))
-plt.figure(figsize=(12,4.5))
-plt.plot(x, pdf)
-flux1 = np.arange(start=0, stop=400, step=25)
-flux2 = np.arange(start=400, stop=1200, step=100)
-
-flux = np.concatenate((flux1, flux2), axis=0)
-flux = np.sort(flux)
-p_flux = stats.lognorm.pdf(flux, sigma, loc=0, scale=np.exp(mu))
-plt.plot(flux, p_flux)
-
-# Now use fluxes for calculation and probabilities for weighting
-print flux
-print p_flux
-len(flux)
-
-# Crete the parameters for the simulation
-p_list = []
-for f in flux:
-    d = dict()
-    d["[PP__gal]"] = 2.58
-    d["flow_sin"] = f*1E-6 * 0.4
-    p_list.append(d)
-print p_list
-inits = {}
-sel = ['time']
-sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
-f_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
 
 # Plot the results
 def flux_plots(f_list, selections, show=True):
@@ -291,7 +254,6 @@ def flux_plots(f_list, selections, show=True):
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ids = ['PV__{}'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
-    
     import pylab as p    
     for k, id in enumerate(ids):
         print id
@@ -309,16 +271,15 @@ def flux_plots(f_list, selections, show=True):
         #p.ylim(0, 0.4)
         p.show()
 
-flux_plots(f_list, sel)
+
 
 def average_results(f_list, weights, ids, time, selections):
     from scipy import interpolate
     res = np.zeros(shape=(len(time), len(ids)))  # store the averaged results    
     for (k, id) in enumerate(ids):
-        print id
         # create empty array
         mat = np.zeros(shape =(len(time), len(f_list)))
-        
+        # fill matrix        
         for ks, s in enumerate(f_list):
             x = s[:,0]
             # find in which place of the solution the component is encoded
@@ -333,24 +294,6 @@ def average_results(f_list, weights, ids, time, selections):
         res[:, k] = av
     
     return res
-
-# make the average
-# make the integration of the results, i.e. the probability and flux weighted
-# summation
-y_sin = 4.4E-6 # [m] 
-Q_sinunit = np.pi * y_sin**2 * flux # [m³/s]
-weights = p_flux * Q_sinunit
-weights = weights/sum(weights)
-import pylab as plt
-plt.plot(flux, weights)
-plt.plot(flux, p_flux)
-
-compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-ids = ['PV__{}'.format(id) for id in compounds]    
-cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
-time=np.arange(t_peak-5, t_peak+35, 0.05)
-av_mat = average_results(f_list, weights, ids, time, sel)
-
 
 # Plot the results
 def average_plots(time, av_mat):
@@ -368,4 +311,57 @@ def average_plots(time, av_mat):
     p.xlim(t_peak, t_peak+25)
     p.show()
 
+
+
+##  Distribution of fluxes  ##################################################
+x = np.linspace(0.1, 1100, num=400) # values for x-axis
+mu = 5.4572075437    # dtmp['meanlog']
+sigma = 0.6178209697 # dtmp['sdlog']
+pdf = stats.lognorm.pdf(x, sigma, loc=0, scale=np.exp(mu))
+plt.figure(figsize=(12,4.5))
+plt.plot(x, pdf)
+flux1 = np.arange(start=0, stop=400, step=50)
+flux2 = np.arange(start=400, stop=1200, step=25)
+
+flux = np.concatenate((flux1, flux2), axis=0)
+flux = np.sort(flux)
+p_flux = stats.lognorm.pdf(flux, sigma, loc=0, scale=np.exp(mu))
+plt.plot(flux, p_flux)
+
+# Now use fluxes for calculation and probabilities for weighting
+print flux
+print p_flux # probability is caluclated based on original probability
+len(flux)
+
+##  Parameters  #############################################################
+# Crete the parameters for the simulation
+import time
+p_list = []
+for f in flux:
+    # 2.58, 14.8, 19.8
+    d = { "[PP__gal]" : 14.8, "flow_sin" : f*1E-6 * 0.4, "GLUT2_f" : 17.0, 'y_cell' :7.58E-06,
+         "GALK_PA" : 0.02}
+    p_list.append(d)
+
+inits = {}
+sel = ['time']
+sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
+f_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
+
+# make the average
+# make the integration of the results, i.e. the probability and flux weighted
+# summation
+y_sin = 4.4E-6 # [m] 
+Q_sinunit = np.pi * y_sin**2 * flux # [m³/s]
+weights = p_flux * Q_sinunit
+weights = weights/sum(weights)
+#plt.plot(flux, weights)
+# plt.plot(flux, p_flux)
+compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
+ids = ['PV__{}'.format(id) for id in compounds]    
+cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
+time=np.arange(t_peak-5, t_peak+35, 0.05)
+av_mat = average_results(f_list, weights, ids, time, sel)
+# plot single simulations & average results
+flux_plots(f_list, sel)
 average_plots(time, av_mat)

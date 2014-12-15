@@ -365,7 +365,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 56
+    VERSION = 57
     
     #----------------------------------------------------------------------#
     if (0):
@@ -432,7 +432,7 @@ if __name__ == "__main__":
         '''
         sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
         # PP__gal = (0.28, 12.5, 17.5) # [mM]
-        PP__gal = (2.58, 14.8, 19.8) # [mM]
+        PP__gal = (2.58, 14.8, 19.8)   # [mM]
         
         p_list = [ {'pid': 'PP__gal', 'values': PP__gal, 'unit': 'mM', 'ptype':BOUNDERY_INIT}]
         
@@ -443,7 +443,7 @@ if __name__ == "__main__":
         
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=500, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1000, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         
