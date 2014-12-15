@@ -287,8 +287,9 @@ f_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list
 def flux_plots(f_list, selections, show=True):
     ''' Plot of the dilution curves '''
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     ids = ['PV__{}'.format(id) for id in compounds]    
+    cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
+    
    
 
     import pylab as p    
@@ -323,14 +324,52 @@ plt.plot(flux, p_flux)
 # 
 data = np.arange(6).reshape((3,2))
 print data
-array([[0, 1],
-       [2, 3],
-       [4, 5]])
->>> np.average(data, axis=1, weights=[1./4, 3./4])
-array([ 0.75,  2.75,  4.75])
+#array([[0, 1],
+#       [2, 3],
+#       [4, 5]])
+np.average(data, axis=1, weights=[1./4, 3./4])
+# array([ 0.75,  2.75,  4.75])
+
+# necessary to interpolate the timecourses before averaging
+tmp = f_list[0]
 
 
-# 
+from scipy import interpolate
+
+
+x = tmp[:,0]
+y = tmp[:,5]
+f = interpolate.interp1d(x=x, y=y)
+xnew = np.arange(4995, 5030, 0.05)
+ynew = f(xnew)
+plt.plot(x,y, 'o', xnew, ynew, '-')
+plt.xlim(4995, 5030)
+
+
+def average_results(f_list, weights, ids):
+    alist = [] # store the averaged results    
+    for k, id in enumerate(ids):
+        print id
+        # create empty array
+        res = np.zeros()        
+        
+        for s in f_list:
+            times = s[:,0]
+            # find in which place of the solution the component is encoded
+            i_sel = position_in_list(selections, '[{}]'.format(id))
+            if i_sel < 0:
+                raise Exception("{} not in selection".format(id))
+            series = s[:,i_sel]
+            name = selections[i_sel]
+            p.plot(times, series, color=cols[k], label=str(name))
+    
+    plt.plot(tmp[:,0], tmp[:,1])
+
+# make the average
+compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
+ids = ['PV__{}'.format(id) for id in compounds]    
+cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
+alist = average_results(f_list, weights, ids)
     
 
 
