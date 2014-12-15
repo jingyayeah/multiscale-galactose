@@ -22,20 +22,17 @@ time = seq(from=t_peak-5, to=t_peak+50, by=0.25) # approximation time for plot
 
 # Select the ids for the approximation matrix
 # PP__s, H01__s, H02__s, ..., H20__s, PV__s
-compound = 'gal'
+compound = 'galM'
 ids = c(sprintf('PP__%s', compound), 
         sprintf('H%02i__%s', 1:20, compound),
         sprintf('PV__%s', compound))
 
 # problem that different ids can be used for preprocessing
-p <- preprocess_task(folder=folder, ids=ids, force=FALSE, out_name='circos') 
+p <- preprocess_task(folder=folder, ids=ids, force=TRUE, out_name='circos') 
 
 # Process the integration time curves
 info <- process_folder_info(folder)
 pars <- p$pars
-
-# Species in the dilution curves
-compounds = c('gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM')
 
 # Variation of background galactose levels for given tracer
 f.level = "PP__gal" 
@@ -56,7 +53,9 @@ ids
 length(sim_ids)
 dlist <- createApproximationMatrix(p$x, ids=ids, simIds=sim_ids, points=time, reverse=FALSE)
 dlist
+names(dlist)
 
+time
 
 # Create circos karyotype data (simulations as chromosomes)
 # chr - hs1 1 0 249250621 chr1
@@ -71,8 +70,11 @@ for (k in seq_along(sim_ids)){
 writeLines(lines, f_kary)
 close(f_kary)
 
+
+dlist[[1]]
+
 # Write for every timepoint the PP, Nc (=20) and PV 2D tracks
-for (kt in 10:10){
+for (kt in 30:30){
   for (name in names(dlist)){
     cat(name, '\n')
     
@@ -80,7 +82,7 @@ for (kt in 10:10){
     lines <- character(length(sim_ids))
     for (ks in seq_along(sim_ids)){
       id <- sim_ids[ks]
-      value = dlist[[name]][ks, id]
+      value = dlist[[name]][kt, id]
       value = max(1E-20, value)
       lines[ks] <- sprintf('%s %i %i %f', id, ks, ks-1, value)
     }

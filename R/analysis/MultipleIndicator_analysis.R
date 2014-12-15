@@ -13,14 +13,14 @@ library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 dir_out <- file.path(ma.settings$dir.base, 'results', 'dilution')
 
-folder <- '2014-12-15_T12'         # Multiple indicator data
+folder <- '2014-12-15_T14'         # Multiple indicator data
 t_peak <- 5000; t_end <- 10000    # [s] peak start time & total simulation time
 
 # Focus on interesting time for analysis
 time = seq(from=t_peak-5, to=t_peak+50, by=0.05)   # approximation time for plot
 
 info <- process_folder_info(folder)
-p <- preprocess_task(folder=folder, force=TRUE) 
+p <- preprocess_task(folder=folder, force=FALSE) 
 pars <- p$pars
 sim_ids <- rownames(pars)
 
@@ -155,11 +155,16 @@ m1 = max(gor1983$outflow)
 m2 = max(gor1973[gor1973$condition=="A",'outflow'])
 m3 = max(gor1973[gor1973$condition=="B",'outflow'])
 m4 = max(gor1973[gor1973$condition=="C",'outflow'])
-scale = (m1+m2+m3+m4)/4;
 
-scale = 5.8*scale  # 4.55 (0.4)
-subset = split_sims[[which(split_info$f_flow==0.3)]]
-offset =1
+scale = (m1+m2+m3+m4)/4;
+# scale = 5.8*scale  # 4.55 (0.4)
+# subset = split_sims[[which(split_info$f_flow==0.3)]]
+# offset =1
+
+scale = 5.0*scale  # 4.55 (0.4)
+subset = split_sims[[which(split_info$f_flow==0.35)]]
+offset = 0.5
+
 
 # scale = 4.55*scale  # 4.55 (0.4)
 # subset = split_sims[[which(split_info$f_flow==0.4)]]

@@ -183,7 +183,7 @@ plot(r)
 # Multiple Indicator Dilution
 #########################################################################  
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v55_Nc20_dilution.xml'
+sbml_file = folder + 'Galactose_v56_Nc20_dilution.xml'
 print sbml_file
 r = load_model(sbml_file)
 items = r.model.items()
@@ -207,9 +207,9 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 #    { "[PP__gal]" : 17.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0}
 #]
 p_list = [
-    { "[PP__gal]" : 2.58, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 35.0},
-    { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 35.0},
-    { "[PP__gal]" : 19.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 35.0}
+    { "[PP__gal]" : 2.58, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 20.0},
+    { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 20.0},
+    { "[PP__gal]" : 19.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 20.0}
 ]
 
 
@@ -233,5 +233,104 @@ times = s[:,0]
 p.plot(time, test)
 del(times)
 
+
+#########################################################################    
+# Flux integration of curves
+#########################################################################  
+folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
+sbml_file = folder + 'Galactose_v56_Nc20_dilution.xml'
+print sbml_file
+r = load_model(sbml_file)
+
+
+
 # additional changes for fitting the dilution curves
 # (now test the effects of changing variables in the model, i.e.
+# To understand the response it is necessary to integrate over the variation
+# in fluxes, i.e. simulation of the model for varying fluxes and than 
+# plotting the combined result
+import numpy as np
+from scipy import stats # Import the scipy.stats module
+import pylab as p
+
+x = np.linspace(0.1, 1100, num=400) # values for x-axis
+mu = 5.4572075437    # dtmp['meanlog']
+sigma = 0.6178209697 # dtmp['sdlog']
+pdf = stats.lognorm.pdf(x, sigma, loc=0, scale=np.exp(mu))
+p.figure(figsize=(12,4.5))
+p.plot(x, pdf)
+flux1 = np.arange(start=0, stop=1100, step=100)
+flux2 = np.arange(start=50, stop=300, step=100)
+flux = np.concatenate((flux1, flux2), axis=0)
+flux = np.sort(flux)
+p_flux = stats.lognorm.pdf(flux, sigma, loc=0, scale=np.exp(mu))
+p.plot(flux, p_flux)
+
+# Now fluxes and probability weights exist
+print flux
+print p_flux
+
+# Crete the parameters for the simulation
+p_list = []
+for f in flux:
+    d = dict()
+    d["[PP__gal]"] = 2.58
+    d["flow_sin"] = f*1E-6
+    p_list.append(d)
+print p_list
+inits = {}
+sel = ['time']
+sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
+f_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
+
+# Plot the results
+def flux_plots(f_list, selections, show=True):
+    ''' Plot of the dilution curves '''
+    compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
+    cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
+    ids = ['PV__{}'.format(id) for id in compounds]    
+   
+
+    import pylab as p    
+    for k, id in enumerate(ids):
+        print id
+        for s in f_list:
+            times = s[:,0]
+            # find in which place of the solution the component is encoded
+            i_sel = position_in_list(selections, '[{}]'.format(id))
+            if i_sel < 0:
+                raise Exception("{} not in selection".format(id))
+            series = s[:,i_sel]
+            name = selections[i_sel]
+            p.plot(times, series, color=cols[k], label=str(name))
+
+        p.xlim(t_peak-1, t_peak+30)
+        #p.ylim(0, 0.4)
+        p.show()
+
+flux_plots(f_list, sel)
+
+# make the integration of the results, i.e. the probability and flux weighted
+# summation
+y_sin = 4.4E-6 # [m] 
+Q_sinunit = np.pi * y_sin**2 * flux # [m³/s]
+weights = p_flux * Q_sinunit
+weights = weights/sum(weights)
+import pylab as plt
+plt.plot(flux, weights)
+plt.plot(flux, p_flux)
+
+# 
+data = np.arange(6).reshape((3,2))
+print data
+array([[0, 1],
+       [2, 3],
+       [4, 5]])
+>>> np.average(data, axis=1, weights=[1./4, 3./4])
+array([ 0.75,  2.75,  4.75])
+
+
+# 
+    
+
+
