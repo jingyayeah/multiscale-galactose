@@ -48,12 +48,24 @@ pars = [# id, value, unit, constant
 ]  
 assignments = [# id, assignment, unit       
                ]
+# TODO: write the rules for all the tracers
+# TODO: species rules
 rules = [# id, rule, unit
             ('c__scale', 'scale_f', '-'),   
-            ('c__nadp_tot', 'c__nadp + c__nadph', 'mM'),
-            ('c__adp_tot', 'c__atp + c__adp', 'mM'),
-            ('c__udp_tot', 'c__utp + c__udp + c__udpglc + c__udpgal + c__udpglcM + c__udpgalM', 'mM'),
-            ('c__phos_tot', '3 dimensionless *c__atp + 2 dimensionless *c__adp + 3 dimensionless *c__utp + 2 dimensionless *c__udp' +
+            
+            ('e__gal_tot', 'e__gal + e__galM', 'mM'),
+            ('c__gal_tot', 'c__gal + c__galM', 'mM'),
+            ('c__glc1p_tot', 'c__glc1p + c__glc1pM', 'mM'),
+            ('c__glc6p_tot', 'c__glc6p + c__glc6pM', 'mM'),
+            ('c__gal1p_tot', 'c__gal1p + c__gal1pM', 'mM'),
+            ('c__udpglc_tot', 'c__udpglc + c__udpglcM', 'mM'),
+            ('c__udpgal_tot', 'c__udpgal + c__udpgalM', 'mM'),
+            ('c__galtol_tot', 'c__galtol + c__galtolM', 'mM'),
+            
+            ('c__nadp_bal', 'c__nadp + c__nadph', 'mM'),
+            ('c__adp_bal', 'c__atp + c__adp', 'mM'),
+            ('c__udp_bal', 'c__utp + c__udp + c__udpglc + c__udpgal + c__udpglcM + c__udpgalM', 'mM'),
+            ('c__phos_bal', '3 dimensionless *c__atp + 2 dimensionless *c__adp + 3 dimensionless *c__utp + 2 dimensionless *c__udp' +
               '+ c__phos + 2 dimensionless *c__ppi + c__glc1p + c__glc6p + c__gal1p + 2 dimensionless*c__udpglc + 2 dimensionless *c__udpgal' +
                                                  '+ c__glc1pM + c__glc6pM + c__gal1pM + 2 dimensionless*c__udpglcM + 2 dimensionless *c__udpgalM', 'mM'),
 ]

@@ -47,6 +47,11 @@ units['m3'] = [(UNIT_KIND_METRE, 3.0, 0)]
 units['per_s'] = [(UNIT_KIND_SECOND, -1.0, 0)]
 units['mole_per_s'] = [(UNIT_KIND_MOLE, 1.0, 0), 
                        (UNIT_KIND_SECOND, -1.0, 0)]
+units['mole_per_s_per_mM'] = [(UNIT_KIND_MOLE, 0.0, 0), (UNIT_KIND_METRE, 3.0, 0),
+                       (UNIT_KIND_SECOND, -1.0, 0) ]
+units['mole_per_s_per_mM2'] = [(UNIT_KIND_MOLE, -1.0, 0), (UNIT_KIND_METRE, 6.0, 0), 
+                       (UNIT_KIND_SECOND, -1.0, 0) ]
+
 units['m_per_s'] = [(UNIT_KIND_METRE, 1.0, 0), 
                     (UNIT_KIND_SECOND, -1.0, 0)]
 units['m2_per_s'] = [(UNIT_KIND_METRE, 2.0, 0), 
