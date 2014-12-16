@@ -24,7 +24,7 @@ pars <- loadParameterFile(info$parsfile)
 
 time = seq(from=t_peak-5, to=t_peak+50, by=0.25) # approximation time for plot
 compound = 'galM'
-dir_out = file.path(ma.settings$dir.results, 'circos', info$task)
+dir_out = file.path(ma.settings$dir.results, 'circos', info$folder)
 dir.create(dir_out, showWarnings = FALSE)
 cat(dir_out, '\n')
 
@@ -98,6 +98,4 @@ for (k in seq_along(sim_ids)){
 }
 writeLines(lines, f_kary)
 close(f_kary)
-
-
 

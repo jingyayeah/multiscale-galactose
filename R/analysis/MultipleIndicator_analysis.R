@@ -13,7 +13,7 @@ library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 dir_out <- file.path(ma.settings$dir.base, 'results', 'dilution')
 
-folder <- '2014-12-15_T16'         # Multiple indicator data
+folder <- '2014-12-16_T16'         # Multiple indicator data
 t_peak <- 5000; t_end <- 10000    # [s] peak start time & total simulation time
 
 # Focus on interesting time for analysis
@@ -157,18 +157,18 @@ m3 = max(gor1973[gor1973$condition=="B",'outflow'])
 m4 = max(gor1973[gor1973$condition=="C",'outflow'])
 
 scale = (m1+m2+m3+m4)/4;
-# scale = 5.8*scale  # 4.55 (0.4)
-# subset = split_sims[[which(split_info$f_flow==0.3)]]
-# offset =1
+#scale = 5.8*scale  # 4.55 (0.4)
+#subset = split_sims[[which(split_info$f_flow==0.3)]]
+#offset =1
 
-scale = 5.0*scale  # 4.55 (0.4)
-subset = split_sims[[which(split_info$f_flow==0.35)]]
-offset = 0.5
+#scale = 5.0*scale  # 4.55 (0.4)
+#subset = split_sims[[which(split_info$f_flow==0.35)]]
+#offset = 0.5
 
 
-# scale = 4.55*scale  # 4.55 (0.4)
-# subset = split_sims[[which(split_info$f_flow==0.4)]]
-# offset = -1
+scale = 4.9*scale  # 4.55 (0.4)
+subset = split_sims[[which(split_info$f_flow==0.4)]]
+offset = 0
 
 
 time.range <- c(0, 27)
