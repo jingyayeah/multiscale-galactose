@@ -183,7 +183,7 @@ plot(r)
 #########################################################################  
 import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v56_Nc20_dilution.xml'
+sbml_file = folder + 'Galactose_v66_Nc20_dilution.xml'
 print sbml_file
 r = load_model(sbml_file)
 items = r.model.items()
@@ -234,7 +234,7 @@ dilution_plots_gal(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
 #########################################################################  
 import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v56_Nc20_dilution.xml'
+sbml_file = folder + 'Galactose_v66_Nc20_dilution.xml'
 print sbml_file
 r = load_model(sbml_file)
 
