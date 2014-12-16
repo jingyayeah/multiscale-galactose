@@ -13,7 +13,7 @@ library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 dir_out <- file.path(ma.settings$dir.base, 'results', 'dilution')
 
-folder <- '2014-12-15_T14'         # Multiple indicator data
+folder <- '2014-12-15_T16'         # Multiple indicator data
 t_peak <- 5000; t_end <- 10000    # [s] peak start time & total simulation time
 
 # Focus on interesting time for analysis
