@@ -56,7 +56,7 @@ IMP = ReactionTemplate(
     ],
     rules = [ # id, rule, unit
             ('c__IMP_Vmax', 'IMP_f * c__GALK_Vmax * c__IMP_P/REF_P', 'mole_per_s'),
-            ('c__IMP_dm', '(1 dimensionless + (c__gal1p + c__gal1pM)/IMP_k_gal1p)', '-'),
+            ('c__IMP_dm', '(1 dimensionless + c__gal1p_tot/IMP_k_gal1p)', '-'),
             ('c__IMP_Vf', 'c__IMP_Vmax/IMP_k_gal1p * c__gal1p_tot/c__IMP_dm', 'mole_per_s'),
     ],
     # formula, unit
@@ -106,9 +106,12 @@ ALDR = ReactionTemplate(
     ],
     rules = [ # id, rule, unit
             ('c__ALDR_Vmax', 'ALDR_f * c__GALK_Vmax * c__ALDR_P/REF_P', 'mole_per_s'),
-            ('c__ALDR_dm', '((1 dimensionless +(c__gal+c__galM)/ALDR_k_gal)*(1 dimensionless + c__nadph/ALDR_k_nadph) +(1 dimensionless +(c__galtol+c__galtolM)/ALDR_k_galtol)*(1 dimensionless +c__nadp/ALDR_k_nadp) -1 dimensionless)', '-'),
+            ('c__ALDR_dm', '((1 dimensionless +c__gal_tot/ALDR_k_gal)*(1 dimensionless + c__nadph/ALDR_k_nadph) +(1 dimensionless +c__galtol_tot/ALDR_k_galtol)*(1 dimensionless +c__nadp/ALDR_k_nadp) -1 dimensionless)', '-'),
+            ('c__ALDR_V', 'c__ALDR_Vmax/(ALDR_k_gal*ALDR_k_nadp)*1 dimensionless/c__ALDR_dm', 'mole_per_s_per_mM2'),
+            ('c__ALDR_Vf', 'c__ALDR_V*c__gal_tot*c__nadph', 'mole_per_s'),
+            ('c__ALDR_Vb', 'c__ALDR_V*c__galtol_tot*c__nadp/ALDR_keq', 'mole_per_s'),
     ],
-    formula = ('c__ALDR_Vmax/(ALDR_k_gal*ALDR_k_nadp) *(c__gal*c__nadph - c__galtol*c__nadp/ALDR_keq)/c__ALDR_dm', 'mole_per_s')
+    formula = ('c__gal/c__gal_tot * c__ALDR_Vf - c__galtol/c__galtol_tot * c__ALDR_Vb', 'mole_per_s')
 )
 
 ALDRM = ReactionTemplate(
@@ -117,7 +120,7 @@ ALDRM = ReactionTemplate(
     'c__galM + c__nadph <-> c__galtolM + c__nadp [c__gal, c__galtol]',
     pars = [],
     rules = [],
-    formula = ('c__ALDR_Vmax/(ALDR_k_gal*ALDR_k_nadp) *(c__galM*c__nadph - c__galtolM*c__nadp/ALDR_keq)/c__ALDR_dm', 'mole_per_s')
+    formula = ('c__galM/c__gal_tot * c__ALDR_Vf - c__galtolM/c__galtol_tot * c__ALDR_Vb', 'mole_per_s')
 )
 #############################################################################################
 NADPR = ReactionTemplate(
@@ -155,18 +158,22 @@ GALT = ReactionTemplate(
     ],
     rules = [ # id, rule, unit
             ('c__GALT_Vmax', 'c__GALT_P/REF_P * GALT_f*c__GALK_Vmax*GALT_vm', 'mole_per_s'),
-            ('c__GALT_dm', '((1 dimensionless +(c__gal1p + c__gal1pM)/GALT_k_gal1p)*(1 dimensionless +(c__udpglc + c__udpglcM)/GALT_k_udpglc + c__udp/GALT_ki_udp + c__utp/GALT_ki_utp)' +
-                        '+ (1 dimensionless +(c__glc1p + c__glc1pM)/GALT_k_glc1p)*(1 dimensionless +(c__udpgal + c__udpgalM)/GALT_k_udpgal) -1 dimensionless)', '-'),
+            ('c__GALT_dm', '((1 dimensionless + c__gal1p_tot/GALT_k_gal1p)*(1 dimensionless + c__udpglc_tot/GALT_k_udpglc + c__udp/GALT_ki_udp + c__utp/GALT_ki_utp)' +
+                        '+ (1 dimensionless + c__glc1p_tot/GALT_k_glc1p)*(1 dimensionless + c__udpgal_tot/GALT_k_udpgal) -1 dimensionless)', '-'),
+            ('c__GALT_V', 'c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) * 1 dimensionless/c__GALT_dm', 'mole_per_s_per_mM2'),
+            ('c__GALT_Vf', 'c__GALT_V*c__gal1p_tot*c__udpglc_tot', 'mole_per_s'),
+            ('c__GALT_Vb', 'c__GALT_V*c__glc1p_tot*c__udpgal_tot/GALT_keq', 'mole_per_s'),
     ],
-    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1p*c__udpglc - c__glc1p*c__udpgal/GALT_keq)/c__GALT_dm", 'mole_per_s')
+    formula = ("c__gal1p/c__gal1p_tot*c__udpglc/c__udpglc_tot * c__GALT_Vf - c__glc1p/c__glc1p_tot*c__udpgal/c__udpgal_tot * c__GALT_Vb", 'mole_per_s')
 )
+
 GALTM1 = ReactionTemplate(
     'c__GALTM1',
     'Galactose-1-phosphate uridyl transferase M1 [c__]',
     'c__gal1pM + c__udpglc <-> c__glc1p + c__udpgalM [c__utp, c__udp, c__gal1p, c__udpglcM, c__glc1pM, c__udpgal]',
     pars = [],
     rules = [],
-    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1pM*c__udpglc - c__glc1p*c__udpgalM/GALT_keq)/c__GALT_dm", 'mole_per_s')
+    formula = ("c__gal1pM/c__gal1p_tot*c__udpglc/c__udpglc_tot * c__GALT_Vf - c__glc1p/c__glc1p_tot*c__udpgalM/c__udpgal_tot * c__GALT_Vb", 'mole_per_s')
 )
 GALTM2 = ReactionTemplate(
     'c__GALTM2',
@@ -174,7 +181,7 @@ GALTM2 = ReactionTemplate(
     'c__gal1p + c__udpglcM <-> c__glc1pM + c__udpgal [c__utp, c__udp, c__gal1pM, c__udpglc, c__glc1p, c__udpgalM]',
     pars = [],
     rules = [],
-    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1p*c__udpglcM - c__glc1pM*c__udpgal/GALT_keq)/c__GALT_dm", 'mole_per_s')
+    formula = ("c__gal1p/c__gal1p_tot*c__udpglcM/c__udpglc_tot * c__GALT_Vf - c__glc1pM/c__glc1p_tot*c__udpgal/c__udpgal_tot * c__GALT_Vb", 'mole_per_s')
 )
 GALTM3 = ReactionTemplate(
     'c__GALTM3',
@@ -182,7 +189,7 @@ GALTM3 = ReactionTemplate(
     'c__gal1pM + c__udpglcM <-> c__glc1pM + c__udpgalM [c__utp, c__udp, c__gal1p, c__udpglc, c__glc1p, c__udpgal]',
     pars = [],
     rules = [],
-    formula = ("c__GALT_Vmax/(GALT_k_gal1p*GALT_k_udpglc) *(c__gal1pM*c__udpglcM - c__glc1pM*c__udpgalM/GALT_keq)/c__GALT_dm", 'mole_per_s')
+    formula = ("c__gal1pM/c__gal1p_tot*c__udpglcM/c__udpglc_tot * c__GALT_Vf - c__glc1pM/c__glc1p_tot*c__udpgalM/c__udpgal_tot * c__GALT_Vb", 'mole_per_s')
 )
 
 #############################################################################################
@@ -201,9 +208,12 @@ GALE = ReactionTemplate(
     ],
     rules = [ # id, rule, unit
             ('c__GALE_Vmax', 'GALE_f*c__GALK_Vmax*GALE_PA*GALE_kcat*c__GALE_P/REF_P', 'mole_per_s'),
-            ('c__GALE_dm', '(1 dimensionless + (c__udpglc + c__udpglcM)/GALE_k_udpglc + (c__udpgal + c__udpgalM)/GALE_k_udpgal)', '-'),
+            ('c__GALE_dm', '(1 dimensionless + c__udpglc_tot/GALE_k_udpglc + c__udpgal_tot/GALE_k_udpgal)', '-'),
+            ('c__GALE_V', 'c__GALE_Vmax/GALE_k_udpglc * 1 dimensionless/c__GALE_dm', 'mole_per_s_per_mM'),
+            ('c__GALE_Vf', 'c__GALE_V * c__udpglc_tot', 'mole_per_s'),
+            ('c__GALE_Vb', 'c__GALE_V * c__udpgal_tot/GALE_keq', 'mole_per_s'),
     ],
-    formula = ("c__GALE_Vmax/GALE_k_udpglc *(c__udpglc -c__udpgal/GALE_keq)/c__GALE_dm", 'mole_per_s')
+    formula = ("c__udpglc/c__udpglc_tot * c__GALE_Vf - c__udpgal/c__udpgal_tot * c__GALE_Vb", 'mole_per_s')
 )
 
 GALEM = ReactionTemplate(
@@ -212,7 +222,7 @@ GALEM = ReactionTemplate(
     'c__udpglcM <-> c__udpgalM [c__udpglc, c__udpgal]',
     pars = [],
     rules = [],
-    formula = ("c__GALE_Vmax/GALE_k_udpglc *(c__udpglcM -c__udpgalM/GALE_keq)/c__GALE_dm", 'mole_per_s')
+    formula = ("c__udpglcM/c__udpglc_tot * c__GALE_Vf - c__udpgalM/c__udpgal_tot * c__GALE_Vb", 'mole_per_s')
 )
 
 #############################################################################################
@@ -235,10 +245,13 @@ UGP = ReactionTemplate(
     ],
     rules = [ # id, rule, unit
             ('c__UGP_Vmax', 'UGP_f * c__GALK_Vmax*c__UGP_P/REF_P', 'mole_per_s'),
-            ('c__UGP_dm', '((1 dimensionless +c__utp/UGP_k_utp +(c__udpglc + c__udpglcM)/UGP_ki_udpglc)*(1 dimensionless +(c__glc1p + c__glc1pM)/UGP_k_glc1p +(c__gal1p+c__gal1pM)/UGP_k_gal1p)' +
-                '+ (1 dimensionless + (c__udpglc+ c__udpglcM)/UGP_k_udpglc + (c__udpgal + c__udpgalM)/UGP_k_udpgal +c__utp/UGP_ki_utp)*(1 dimensionless +c__ppi/UGP_k_ppi) -1 dimensionless)', '-'),
+            ('c__UGP_dm', '((1 dimensionless +c__utp/UGP_k_utp + c__udpglc_tot/UGP_ki_udpglc)*(1 dimensionless + c__glc1p_tot/UGP_k_glc1p + c__gal1p_tot/UGP_k_gal1p)' +
+                '+ (1 dimensionless + c__udpglc_tot/UGP_k_udpglc + c__udpgal_tot/UGP_k_udpgal + c__utp/UGP_ki_utp)*(1 dimensionless +c__ppi/UGP_k_ppi) -1 dimensionless)', '-'),
+            ('c__UGP_V', 'c__UGP_Vmax/(UGP_k_utp*UGP_k_glc1p) * 1 dimensionless/c__UGP_dm', 'mole_per_s_per_mM2'),
+            ('c__UGP_Vf', 'c__UGP_V * c__glc1p_tot*c__utp', 'mole_per_s'),
+            ('c__UGP_Vb', 'c__UGP_V * c__udpglc_tot*c__ppi/UGP_keq', 'mole_per_s'),
     ],
-    formula = ("c__UGP_Vmax/(UGP_k_utp*UGP_k_glc1p) *(c__glc1p*c__utp - c__udpglc*c__ppi/UGP_keq)/c__UGP_dm", 'mole_per_s')
+    formula = ("c__glc1p/c__glc1p_tot * c__UGP_Vf - c__udpglc/c__udpglc_tot*c__UGP_Vb", 'mole_per_s')
 )
 
 UGPM = ReactionTemplate(
@@ -247,7 +260,7 @@ UGPM = ReactionTemplate(
     'c__glc1pM + c__utp <-> c__udpglcM + c__ppi [c__glc1p, c__udpglc, c__gal1p, c__gal1pM, c__udpgal, c__udpgalM]',
     pars = [],
     rules = [],
-    formula = ("c__UGP_Vmax/(UGP_k_utp*UGP_k_glc1p) *(c__glc1pM*c__utp - c__udpglcM*c__ppi/UGP_keq)/c__UGP_dm", 'mole_per_s')
+    formula = ("c__glc1pM/c__glc1p_tot * c__UGP_Vf - c__udpglcM/c__udpglc_tot*c__UGP_Vb", 'mole_per_s')
 )
 #############################################################################################
 UGALP = ReactionTemplate(
