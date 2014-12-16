@@ -207,9 +207,9 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 #    { "[PP__gal]" : 17.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0}
 #]
 p_list = [
-    { "[PP__gal]" : 2.58, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 30.0, 'y_cell' :7.58E-06},
-    { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 30.0, 'y_cell' :7.58E-06},
-    { "[PP__gal]" : 19.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 30.0, 'y_cell' :7.58E-06},
+    { "[PP__gal]" : 2.58, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
+    { "[PP__gal]" : 14.8, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
+    { "[PP__gal]" : 19.8, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
    #  { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :7.58E-06 },
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :10E-06},
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :15E-06}
@@ -339,8 +339,8 @@ import time
 p_list = []
 for f in flux:
     # 2.58, 14.8, 19.8
-    d = { "[PP__gal]" : 14.8, "flow_sin" : f*1E-6 * 0.4, "GLUT2_f" : 17.0, 'y_cell' :7.58E-06,
-         "GALK_PA" : 0.02}
+    d = { "[PP__gal]" : 19.8, "flow_sin" : f*1E-6 * 0.4, "GLUT2_f" : 17.0, "GALK_PA" : 0.04, 
+    "y_end" : 2.2E-6}
     p_list.append(d)
 
 inits = {}
@@ -363,5 +363,5 @@ cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 time=np.arange(t_peak-5, t_peak+35, 0.05)
 av_mat = average_results(f_list, weights, ids, time, sel)
 # plot single simulations & average results
-flux_plots(f_list, sel)
+# flux_plots(f_list, sel)
 average_plots(time, av_mat)

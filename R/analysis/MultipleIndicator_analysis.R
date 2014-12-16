@@ -168,7 +168,7 @@ scale = (m1+m2+m3+m4)/4;
 
 scale = 4.9*scale  # 4.55 (0.4)
 subset = split_sims[[which(split_info$f_flow==0.4)]]
-offset = 0
+offset = 0.5
 
 
 time.range <- c(0, 27)
@@ -178,7 +178,7 @@ plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,17), type='n',
      main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
 plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale, std=FALSE)
 
-plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE, offset=offset)
+plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE, offset=offset-1)
 plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
 plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
 plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
