@@ -89,11 +89,10 @@ for (gal in gal_levels){
 ###########################################################################
 # Integrated dilution time curves and sds 
 ###########################################################################
-
 # Create dilution plots of mean curves
 # The individual dilution curves are weighted with the volume flow of the
 # respective sinusoidal units.
-plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, scale=1.0, std=TRUE){
+plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, scale=1.0, time_shift=0.0, std=TRUE){
   weights <- pars$Q_sinunit
   
   for (kc in seq(length(compounds))){
@@ -109,7 +108,7 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
       # cat('Simulation rows:', sim_rows, pars$sim[sim_rows], '\n')
       w <- weights[sim_rows]
       data <- scale * as.matrix(dlist[[id]][ ,sim_rows])
-      time = as.numeric(rownames(data))-t_peak
+      time = as.numeric(rownames(data))-t_peak + time_shift
       plot_compound_mean(time=time, data=data, weights=w, col=col, std=std)
     }
   }
@@ -118,12 +117,7 @@ plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, s
 ###################################################################################
 # Dilution curves with experimental data
 ###################################################################################
-# TODO: how is the concentration of the the dilute related to the dilution fraction
-# -> calculate via the total amount of tracer injected
-# Add legend
-
 # plot mean dilution curves
-# subset = rownames(pars)
 subset = split_sims[[which(split_info$f_flow==0.4)]]
 scale = 1.0
 
@@ -143,20 +137,24 @@ legend("topright",  legend=compounds, fill=ccolors)
 par(mfrow=c(1,1))
 
 ####################################################
-
 # Load experimental data
-gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
-gor1983 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1983_Fig1.csv"), sep="\t")
+d <- read.csv(file.path(ma.settings$dir.base, "results", "dilution", "Goresky_processed.csv"), sep="\t")
 expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
 expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 
-# scaling of the outflow curves for comparison
-m1 = max(gor1983$outflow)
-m2 = max(gor1973[gor1973$condition=="A",'outflow'])
-m3 = max(gor1973[gor1973$condition=="B",'outflow'])
-m4 = max(gor1973[gor1973$condition=="C",'outflow'])
+# normal plot experimental data
+plot(numeric(0), numeric(0), type='n',
+     xlim=c(0,25), ylim=c(0,16), 
+     xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973 & 1983")
+plotDilutionData(d[d$study=="gor1983",], expcompounds, expcolors)
+plotDilutionData(d[d$study=="gor1973" & d$condition=="A",], expcompounds, expcolors)
+plotDilutionData(d[d$study=="gor1973" & d$condition=="B",], expcompounds, expcolors)
+plotDilutionData(d[d$study=="gor1973" & d$condition=="C",], expcompounds, expcolors)
+legend("topright",  legend=expcompounds, fill=expcolors) 
 
-scale = (m1+m2+m3+m4)/4;
+# plot simulation
+max.rbc = max(d$outflow) # maximum of experimental rbc curves
+
 #scale = 5.8*scale  # 4.55 (0.4)
 #subset = split_sims[[which(split_info$f_flow==0.3)]]
 #offset =1
@@ -166,22 +164,10 @@ scale = (m1+m2+m3+m4)/4;
 #offset = 0.5
 
 
-scale = 4.9*scale  # 4.55 (0.4)
 subset = split_sims[[which(split_info$f_flow==0.4)]]
-offset = 0.5
-
-
-time.range <- c(0, 27)
-
-# normal plot
-plot(numeric(0), numeric(0), xlim=time.range, ylim=c(0,17), type='n',
-     main='Dilution Curves', xlab="Time [s]", ylab="Concentration [ml]")
-plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale, std=FALSE)
-
-plotDilutionData(gor1983, expcompounds, expcolors, correctTime=TRUE, offset=offset-1)
-plotDilutionData(gor1973[gor1973$condition=="A",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
-plotDilutionData(gor1973[gor1973$condition=="B",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
-plotDilutionData(gor1973[gor1973$condition=="C",], expcompounds, expcolors, correctTime=TRUE, offset=offset)
+scale = 4.9*max.rbc  
+time_shift = 0.5
+plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale, time_shift=time_shift, std=FALSE)
 
 
 ###########################################################################
