@@ -362,7 +362,7 @@ def plot_dilution_data(data):
     # p.xlim(t_peak, t_peak+25)
     p.show()      
 
-def plot_data_with_sim(data, av_mats, scale=1.0, time_shift=0.0):    
+def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0):    
     import pylab as p  
     # experimental data    
     exp_compounds = ['RBC', 'albumin', 'sucrose', 'water', 'galactose']
@@ -383,13 +383,45 @@ def plot_data_with_sim(data, av_mats, scale=1.0, time_shift=0.0):
     ids = ['PV__{}'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
-    import pylab as p  
     for av_mat in av_mats:
         for k, name in enumerate(ids):
-            p.plot(time+time_shift, scale*av_mat[:,k] , color=cols[k], label=str(name))
-    #p.ylim(0, 0.25)
-    p.xlim(t_peak, t_peak+25)
+            p.plot([(t+time_shift-t_peak) for t in timepoints], scale*av_mat[:,k] , color=cols[k], label=str(name))
+    # p.ylim(0, 0.25)
+    p.ylim(0, 17)
     p.show()
+
+def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0):    
+    import pylab as p  
+    # experimental data    
+    exp_compounds = ['galactose']
+    exp_colors = ['black']
+    
+    for k in range(len(data['time'])):
+        c = data['compound'][k]
+        if c not in exp_compounds:
+            continue
+        t = data['time'][k]
+        outflow = data['outflow'][k]
+        pos = position_in_list(exp_compounds, c)
+        if pos < 0:
+            continue
+        # plot data point        
+        p.plot(t, outflow, 'o', color=exp_colors[pos])               
+
+    # simulations
+    compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
+    ids = ['PV__{}'.format(id) for id in compounds]    
+    cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
+
+    for av_mat in av_mats:
+        for k, name in enumerate(ids):
+            if name != "PV__galM":
+                continue
+            p.plot([(t+time_shift-t_peak) for t in timepoints], scale*av_mat[:,k] , color=cols[k], label=str(name))
+    # p.ylim(0, 0.25)
+    p.ylim(0, 4)
+    p.show()
+
   
 
 ##  Distribution of fluxes  ##################################################
@@ -424,15 +456,19 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 # define the parameters for the simulation
 gal_p_list = []
 # 2.58, 14.8, 19.8
-for gal in [0.28, 12.5, 17.5]:
+# for gal in [0.28, 12.5, 17.5]:
+for gal in [0.28]:
     p_list = []
     for f in flux:
         
         d = { "[PP__gal]" : gal, 
-              "flow_sin" : f*1E-6 * 0.4, 
+              "flow_sin" : f*1E-6 * 0.4,               
+              "y_end" : 2.5E-6,
+              "y_cell" : 0.85*7.58E-6,
+              "L" : 450E-6,
+              "H2OT_f": 3.0,
               "GLUT2_f" : 17.0, 
-              "GALK_PA" : 0.04, 
-              "y_end" : 2.2E-6}        
+              "GALK_PA" : 0.05}        
         p_list.append(d)
     gal_p_list.append(p_list)
 
@@ -461,16 +497,16 @@ for f_list in gal_f_list:
     av_mats.append(average_results(f_list, weights, ids, timepoints, sel))
 # plot single simulations & average results
 # flux_plots(f_list, sel)
-average_plots(timepoints, av_mats)
+# average_plots(timepoints, av_mats)
 
 # load experimental data
 exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
 exp_data = load_dilution_data(exp_file)
-plot_dilution_data(exp_data)
+# plot_dilution_data(exp_data)
 
-plot_data_with_sim(exp_data, av_mats)
-
-
+# plot_data_with_sim(exp_data, timepoints, av_mats, scale=5.0*15.16943, time_shift=0.5)
+plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_shift=0.8)
+plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_shift=0.8)
  
               
 
