@@ -296,21 +296,19 @@ def average_results(f_list, weights, ids, time, selections):
     return res
 
 # Plot the results
-def average_plots(time, av_mat):
+def average_plots(time, av_mats):
     ''' Plot of the dilution curves '''
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ids = ['PV__{}'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     
-    import pylab as p    
-    for k, id in enumerate(ids):
-        print id
-        p.plot(time,av_mat[:,k] , color=cols[k], label=str(id))
-
+    import pylab as p  
+    for av_mat in av_mats:
+        for k, name in enumerate(ids):
+            p.plot(time,av_mat[:,k] , color=cols[k], label=str(name))
     p.ylim(0, 0.25)
     p.xlim(t_peak, t_peak+25)
     p.show()
-
 
 
 ##  Distribution of fluxes  ##################################################
@@ -321,7 +319,7 @@ pdf = stats.lognorm.pdf(x, sigma, loc=0, scale=np.exp(mu))
 plt.figure(figsize=(12,4.5))
 plt.plot(x, pdf)
 flux1 = np.arange(start=0, stop=400, step=50)
-flux2 = np.arange(start=400, stop=1200, step=25)
+flux2 = np.arange(start=400, stop=1200, step=50)
 
 flux = np.concatenate((flux1, flux2), axis=0)
 flux = np.sort(flux)
@@ -336,17 +334,33 @@ len(flux)
 ##  Parameters  #############################################################
 # Crete the parameters for the simulation
 import time
-p_list = []
-for f in flux:
-    # 2.58, 14.8, 19.8
-    d = { "[PP__gal]" : 19.8, "flow_sin" : f*1E-6 * 0.4, "GLUT2_f" : 17.0, "GALK_PA" : 0.04, 
-    "y_end" : 2.2E-6}
-    p_list.append(d)
 
+# general settings
 inits = {}
 sel = ['time']
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
-f_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
+
+# define the parameters for the simulation
+gal_p_list = []
+# 2.58, 14.8, 19.8
+for gal in [0.28, 12.5, 17.5]:
+    p_list = []
+    for f in flux:
+        
+        d = { "[PP__gal]" : gal, 
+              "flow_sin" : f*1E-6 * 0.4, 
+              "GLUT2_f" : 17.0, 
+              "GALK_PA" : 0.04, 
+              "y_end" : 2.2E-6}        
+        p_list.append(d)
+    gal_p_list.append(p_list)
+
+gal_f_list = []
+for p_list in gal_p_list:
+    print ' * Simulation *'
+    print p_list
+    f_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
+    gal_f_list.append(f_list)
 
 # make the average
 # make the integration of the results, i.e. the probability and flux weighted
@@ -360,8 +374,11 @@ weights = weights/sum(weights)
 compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
 ids = ['PV__{}'.format(id) for id in compounds]    
 cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
-time=np.arange(t_peak-5, t_peak+35, 0.05)
-av_mat = average_results(f_list, weights, ids, time, sel)
+timepoints=np.arange(t_peak-5, t_peak+35, 0.05)
+av_mats = []
+for f_list in gal_f_list:
+    av_mats.append(average_results(f_list, weights, ids, timepoints, sel))
 # plot single simulations & average results
 # flux_plots(f_list, sel)
-average_plots(time, av_mat)
+av_mats[0][1:10, 1:10]
+average_plots(timepoints, av_mats)
