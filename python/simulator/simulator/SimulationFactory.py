@@ -214,7 +214,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
     
     # adapt flow in samples with the given f_flows
     # f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
-    f_flows = (0.4, 0.35, 0.3)
+    f_flows = (0.5, 0.4)
     
     raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     
@@ -254,7 +254,7 @@ def make_galactose_flow(sbml_id, N, sampling):
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
-    f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
+    f_flows = (1.0, 0.6, 0.5, 0.4, 0.2, 0.05, 0.01)
     raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     
     # only test the max GEC
@@ -365,7 +365,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 57
+    VERSION = 67
     
     #----------------------------------------------------------------------#
     if (0):
@@ -384,7 +384,7 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         GEC curves.
         Galactose elimination under different flow distributions (scaled).
@@ -431,8 +431,8 @@ if __name__ == "__main__":
         PP__gal = (2.3, 5, 14.8, 19.8) # [mM]
         '''
         sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
-        # PP__gal = (0.28, 12.5, 17.5) # [mM]
-        PP__gal = (2.58, 14.8, 19.8)   # [mM]
+        PP__gal = (0.28, 12.5, 17.5) # [mM]
+        # PP__gal = (2.58, 14.8, 19.8)   # [mM]
         
         p_list = [ {'pid': 'PP__gal', 'values': PP__gal, 'unit': 'mM', 'ptype':BOUNDERY_INIT}]
         
@@ -443,7 +443,7 @@ if __name__ == "__main__":
         
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1000, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=100, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         

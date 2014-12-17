@@ -454,9 +454,7 @@ print flux
 print p_flux # probability is caluclated based on original probability
 len(flux)
 
-##  Parameters  #############################################################
-# Crete the parameters for the simulation
-import time
+##  Simulations for parameter fitting  ########################################
 
 # general settings
 inits = {}
@@ -470,17 +468,15 @@ for gal in [0.28, 12.5, 17.5]:
 # for gal in [0.28]:
     p_list = []
     for f in flux:
-        factor = 1.0
         d = { "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.50,               
-              "y_end" : 1.8E-6,
-              "y_cell" : 0.7*7.58E-6,
-              "L" : 600E-6,
-              "H2OT_f": 1/factor * 3.0,
-              "GLUT2_f" : 1/factor * 9.0, 
+              "y_dis" : 2.5E-6,
+              "y_cell" : 7.58E-6,
+              "L" : 500E-6,
+              "H2OT_f": 3.0,
+              "GLUT2_f" : 10.0, 
               "GLUT2_k_gal" : 27.8,
-              "GALK_PA" : 1/factor * 0.04,
-              "scale_f" : factor*6.4e-15} 
+              "GALK_PA" :  0.02} 
         p_list.append(d)
     gal_p_list.append(p_list)
 
@@ -494,10 +490,14 @@ for p_list in gal_p_list:
 # make the average
 # make the integration of the results, i.e. the probability and flux weighted
 # summation
-y_sin = 4.4E-6 # [m] 
-Q_sinunit = np.pi * y_sin**2 * flux # [m³/s]
+
+Q_sinunit = np.pi * r.y_sin**2 * flux # [m³/s]
 weights = p_flux * Q_sinunit
 weights = weights/sum(weights)
+
+#perfusion = r.Q_sinunit/r.Vol_sinunit * 60
+# print perfusion
+
 #plt.plot(flux, weights)
 # plt.plot(flux, p_flux)
 compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
@@ -516,15 +516,10 @@ exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processe
 exp_data = load_dilution_data(exp_file)
 # plot_dilution_data(exp_data)
 
-# plot_data_with_sim(exp_data, timepoints, av_mats, scale=5.0*15.16943, time_shift=0.5)
-
-# plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_shift=0.8)
-# plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_shift=0.8)
- 
-plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.9*15.16943, time_shift=0.8)
-plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.9*15.16943, time_shift=0.8)
+plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=1.3)
+plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=1.3)
               
-
+# !!! scale=4.3*15.16943, time_shift=1.3 !!!
 
 
 #### inhibition of GLUT2 

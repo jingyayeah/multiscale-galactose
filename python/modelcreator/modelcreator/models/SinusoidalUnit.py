@@ -76,7 +76,7 @@ pars.extend([
             ('L',           500E-6,   'm',      True),
             ('y_sin',       4.4E-6,   'm',      True),
             ('y_end',     0.165E-6, 'm',      True),
-            ('y_dis',       1.8E-6,   'm',      True),
+            ('y_dis',       2.5E-6,   'm',      True),
             ('y_cell',     7.58E-6,  'm',      True),
             ('flow_sin',    270E-6,   'm_per_s',True),
             ('N_fen',        10E12,   'per_m2', True),
