@@ -222,9 +222,9 @@ sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 #              "GALK_PA" : 0.05} 
 
 p_list = [
-    { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 25.0, 'GALK_PA' :0.01},
-    { "[PP__gal]" : 12.5, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 25.0, 'GALK_PA' :0.01},
-    { "[PP__gal]" : 17.5, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 25.0, 'GALK_PA' :0.01},
+    { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 9.0, 'GALK_PA' :0.01},
+    { "[PP__gal]" : 12.5, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 9.0, 'GALK_PA' :0.01},
+    { "[PP__gal]" : 17.5, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 9.0, 'GALK_PA' :0.01},
    #  { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :7.58E-06 },
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :10E-06},
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :15E-06}
@@ -466,20 +466,20 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 # define the parameters for the simulation
 gal_p_list = []
 # 2.58, 14.8, 19.8
-#for gal in [0.28, 12.5, 17.5]:
-for gal in [0.28]:
+for gal in [0.28, 12.5, 17.5]:
+# for gal in [0.28]:
     p_list = []
     for f in flux:
-        factor = 0.85
+        factor = 1.0
         d = { "[PP__gal]" : gal, 
-              "flow_sin" : f*1E-6 * 0.5,               
+              "flow_sin" : f*1E-6 * 0.50,               
               "y_end" : 1.8E-6,
               "y_cell" : 0.7*7.58E-6,
               "L" : 600E-6,
               "H2OT_f": 1/factor * 3.0,
-              "GLUT2_f" : 1/factor * 25.0, 
+              "GLUT2_f" : 1/factor * 9.0, 
               "GLUT2_k_gal" : 27.8,
-              #"GALK_PA" : 1/factor * 0.05,
+              "GALK_PA" : 1/factor * 0.04,
               "scale_f" : factor*6.4e-15} 
         p_list.append(d)
     gal_p_list.append(p_list)
@@ -517,9 +517,12 @@ exp_data = load_dilution_data(exp_file)
 # plot_dilution_data(exp_data)
 
 # plot_data_with_sim(exp_data, timepoints, av_mats, scale=5.0*15.16943, time_shift=0.5)
-plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_shift=0.8)
-plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_shift=0.8)
+
+# plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_shift=0.8)
+# plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_shift=0.8)
  
+plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.9*15.16943, time_shift=0.8)
+plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.9*15.16943, time_shift=0.8)
               
 
 
@@ -530,5 +533,7 @@ def GLUT2_inhibition(c,km):
     return 1.0/(1.0+2.0*c/km)    
     
 c = np.array((2.58,14.8, 19.8))
+GLUT2_inhibition(c, 27.8)
+c = np.array((0.28,12.5, 17.5))
 GLUT2_inhibition(c, 27.8)
 

@@ -154,7 +154,7 @@ legend("topright",  legend=expcompounds, fill=expcolors)
 
 # plot simulation
 max.rbc = max(d$outflow) # maximum of experimental rbc curves
-
+max.rbc
 #scale = 5.8*scale  # 4.55 (0.4)
 #subset = split_sims[[which(split_info$f_flow==0.3)]]
 #offset =1
