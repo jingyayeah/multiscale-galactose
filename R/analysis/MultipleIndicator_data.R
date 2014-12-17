@@ -121,7 +121,7 @@ d$time <- d$time_exp + d$time_shift
 
 # create combined dataset with corrected times
 fname <- file.path(ma.settings$dir.base, 'results', 'dilution', 'Goresky_processed.csv')
-write.table(d, file=fname, sep='\t', col.names=TRUE, row.names=FALSE)
+write.table(d, file=fname, sep='\t', col.names=TRUE, row.names=FALSE, quote=FALSE)
 
 create_plots = TRUE
 fname.plot <- paste(fname, '.png', sep='')

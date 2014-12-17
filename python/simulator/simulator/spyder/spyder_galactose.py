@@ -129,11 +129,15 @@ def dilution_plots(s_list, selections, show=True):
     p.show()
 
 def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
-    ''' Plot of the dilution curves '''
+    ''' Plot of the dilution curves.
+        Necessary to handle concentrations and fluxes.    
+    '''
     print '#'*80    
     print name
     print '#'*80
-    ids =  [item[1:(len(item)-1)] for item in selections if (item.startswith('[H') & item.endswith('__{}]'.format(name)))]
+    ids =  [item for item in selections if ( (item.startswith('[H') | item.startswith('H')) 
+                                    & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
+    
     print ids
     cols=['red', 'darkblue', 'darkgreen']   
 
@@ -143,7 +147,7 @@ def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
         times = s[:,0]
         for id in ids:
             # find in which place of the solution the component is encoded
-            i_sel = position_in_list(selections, '[{}]'.format(id))
+            i_sel = position_in_list(selections, id)
             if i_sel < 0:
                 raise Exception("{} not in selection".format(id))
             series = s[:,i_sel]
@@ -193,6 +197,7 @@ sel = ['time']
 sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # Store reactions
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
@@ -207,9 +212,9 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 #    { "[PP__gal]" : 17.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0}
 #]
 p_list = [
-    { "[PP__gal]" : 2.58, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
-    { "[PP__gal]" : 14.8, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
-    { "[PP__gal]" : 19.8, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
+    { "[PP__gal]" : 0.0, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
+    { "[PP__gal]" : 12.5, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
+    { "[PP__gal]" : 17.5, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
    #  { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :7.58E-06 },
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :10E-06},
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :15E-06}
@@ -222,7 +227,15 @@ inits = {}
 s_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
 dilution_plots(s_list, r.selections)
 dilution_plots_gal(s_list, r.selections, name='galM')
+dilution_plots_gal(s_list, r.selections, name='gal')
 dilution_plots_gal(s_list, r.selections, name='gal1pM')
+dilution_plots_gal(s_list, r.selections, name='gal1p')
+dilution_plots_gal(s_list, r.selections, name='GLUT2_GAL')
+dilution_plots_gal(s_list, r.selections, name='GLUT2_GALM', xlim=[t_peak-1, t_peak+4])
+dilution_plots_gal(s_list, r.selections, name='GALK')
+dilution_plots_gal(s_list, r.selections, name='GALKM')
+print sel
+
 
 dilution_plots_gal(s_list, r.selections, name='gal1pM', xlim=[5000, 6000])
 dilution_plots_gal(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
@@ -310,6 +323,74 @@ def average_plots(time, av_mats):
     p.xlim(t_peak, t_peak+25)
     p.show()
 
+# Load the Goresky experimental data and plot with the curves
+def load_dilution_data(fname):
+    data = dict()
+    # load all the lines
+    f = open(fname, 'r')
+    counter = 0
+    for line in f.readlines():
+        line = line.strip()
+        tokens = line.split('\t')
+        if (counter == 0):
+            header = tokens
+            print 'Header', header
+            for h in header:
+                data[h] = []
+        else: 
+            for k, h in enumerate(header):
+                data[h].append(tokens[k])
+        counter += 1
+    return data
+
+def plot_dilution_data(data):
+    compounds = ['RBC', 'albumin', 'sucrose', 'water', 'galactose']
+    colors = ['darkred', 'darkgreen', 'darkorange', 'darkblue', 'black']
+    
+    import pylab as p  
+    for k in range(len(data['time'])):
+        c = data['compound'][k]
+        t = data['time'][k]
+        outflow = data['outflow'][k]
+        pos = position_in_list(compounds, c)
+        if pos < 0:
+            continue
+        # plot data point        
+        p.plot(t, outflow, 'o', color=colors[pos])               
+
+    # p.ylim(0, 0.25)
+    # p.xlim(t_peak, t_peak+25)
+    p.show()      
+
+def plot_data_with_sim(data, av_mats, scale=1.0, time_shift=0.0):    
+    import pylab as p  
+    # experimental data    
+    exp_compounds = ['RBC', 'albumin', 'sucrose', 'water', 'galactose']
+    exp_colors = ['darkred', 'darkgreen', 'darkorange', 'darkblue', 'black']
+    
+    for k in range(len(data['time'])):
+        c = data['compound'][k]
+        t = data['time'][k]
+        outflow = data['outflow'][k]
+        pos = position_in_list(exp_compounds, c)
+        if pos < 0:
+            continue
+        # plot data point        
+        p.plot(t, outflow, 'o', color=exp_colors[pos])               
+
+    # simulations
+    compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
+    ids = ['PV__{}'.format(id) for id in compounds]    
+    cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
+
+    import pylab as p  
+    for av_mat in av_mats:
+        for k, name in enumerate(ids):
+            p.plot(time+time_shift, scale*av_mat[:,k] , color=cols[k], label=str(name))
+    #p.ylim(0, 0.25)
+    p.xlim(t_peak, t_peak+25)
+    p.show()
+  
 
 ##  Distribution of fluxes  ##################################################
 x = np.linspace(0.1, 1100, num=400) # values for x-axis
@@ -380,5 +461,19 @@ for f_list in gal_f_list:
     av_mats.append(average_results(f_list, weights, ids, timepoints, sel))
 # plot single simulations & average results
 # flux_plots(f_list, sel)
-av_mats[0][1:10, 1:10]
 average_plots(timepoints, av_mats)
+
+# load experimental data
+exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
+exp_data = load_dilution_data(exp_file)
+plot_dilution_data(exp_data)
+
+plot_data_with_sim(exp_data, av_mats)
+
+
+ 
+              
+
+
+
+
