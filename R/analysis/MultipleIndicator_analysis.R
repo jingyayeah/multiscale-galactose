@@ -13,7 +13,7 @@ library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 dir_out <- file.path(ma.settings$dir.base, 'results', 'dilution')
 
-folder <- '2014-12-16_T16'         # Multiple indicator data
+folder <- '2014-12-17_T20'         # Multiple indicator data
 t_peak <- 5000; t_end <- 10000    # [s] peak start time & total simulation time
 
 # Focus on interesting time for analysis
@@ -165,8 +165,8 @@ max.rbc
 
 
 subset = split_sims[[which(split_info$f_flow==0.4)]]
-scale = 4.9*max.rbc  
-time_shift = 0.5
+scale = 4.3*max.rbc  
+time_shift = 1.3
 plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale, time_shift=time_shift, std=FALSE)
 
 

@@ -186,6 +186,7 @@ GEC_curve_file <- function(task){
 #' @export
 calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000, 
                                  factors=c('f_flow', "gal_challenge", "N_fen", 'scale_f'),
+                                 # factors=c('f_flow', "N_fen", 'scale_f'),
                                  force=FALSE, B=1000){
   # Process the integration time curves
   processed <- preprocess_task(folder=folder, force=force) 
