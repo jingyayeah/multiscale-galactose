@@ -3,7 +3,7 @@
 \alias{plotDilutionData}
 \title{Plot single multiple-dilution indicator dataset.}
 \usage{
-plotDilutionData(data, compounds, ccolors, correctTime = FALSE, offset = 0)
+plotDilutionData(data, compounds, ccolors, time_shift = 0)
 }
 \arguments{
 \item{data}{dataset to be plotted}
@@ -11,6 +11,7 @@ plotDilutionData(data, compounds, ccolors, correctTime = FALSE, offset = 0)
 \item{correctTime}{set TRUE if the time should be corrected}
 }
 \description{
-Plot single multiple-dilution indicator dataset.
+Complete multiple indicator curves can be shifted via time_shift
+to integrate multiple datasets.
 }
 

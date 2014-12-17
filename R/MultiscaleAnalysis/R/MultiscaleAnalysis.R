@@ -52,7 +52,8 @@ preprocess.ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "P
 # main purpose for automatically generating the images
 # for the various xname, yname combinations of available data
 
-## Add an alpha value to a colour
+#' Add an alpha value to a colour
+#' @export
 add.alpha <- function(col, alpha=1){
   if(missing(col))
     stop("Please provide a vector of colours.")

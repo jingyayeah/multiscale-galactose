@@ -25,34 +25,32 @@ getDilutionDataMaxima <- function(data, compounds){
   maxima
 }
 
-#' Correct the dilutation times, so starting at first
+#' Calculation of time offset for experimental dilution curves
+#' based on RBC peak.
 #' 
+#' Extrapolated time of first appearance of RBC tracer.
+#' extrapolate between second and first point to zero
+#  correct curves, so that the diluation starts at time 0s + offset
 #' @export 
-correctDilutionTimes <- function(data, offset=0){
-  # extrapolate between second and first point to zero
-  # correct curves, so that the diluation starts at time 0s + offset
+rbc_time_offset <- function(data){
+  
   t1 <- data[data$compound == 'RBC',][1,1]
   t2 <- data[data$compound == 'RBC',][2,1]
   y1 <- data[data$compound == 'RBC',][1,2]
   y2 <- data[data$compound == 'RBC',][2,2]
-  t0 <- t2 - y2*(t2-t1)/(y2-y1) # coorection time
-  cat('t0 = ', t0, '\n')
-  dnew <- data
-  dnew$time <- dnew$time - t0 + offset
-  
-  return(dnew)
+  t0 <- t2 - y2*(t2-t1)/(y2-y1) # correction time via linear interpolation to zero
+  return (t0)
 }
 
 
 #' Plot single multiple-dilution indicator dataset.
 #' 
+#' Complete multiple indicator curves can be shifted via time_shift
+#' to integrate multiple datasets.
 #' @param data dataset to be plotted
 #' @param correctTime set TRUE if the time should be corrected
 #' @export 
-plotDilutionData <- function(data, compounds, ccolors, correctTime=FALSE, offset=0){
-  if (correctTime){
-    data <- correctDilutionTimes(data, offset=offset)
-  }
+plotDilutionData <- function(data, compounds, ccolors, time_shift=0){ 
   Nc = length(compounds)
   for (kc in seq(Nc)){
     compound <- compounds[kc]
@@ -60,9 +58,9 @@ plotDilutionData <- function(data, compounds, ccolors, correctTime=FALSE, offset
     # check for data for compound
     cdata = data[data$compound==compound,]
     if (nrow(cdata)>0){
-      points(cdata$time, cdata$outflow, col=ccolor)
-      lines(cdata$time, cdata$outflow, col=ccolor, lty=2, lwd=2)
-      legend("topright",  legend=compounds, fill=ccolors) 
+      
+      points(cdata$time+time_shift, cdata$outflow, col=ccolor, pch=21, bg=add.alpha(ccolor, 0.6), cex=1.2)
+      lines(cdata$time+time_shift, cdata$outflow, col=ccolor, lty=2, lwd=1)
     }
   }
 }

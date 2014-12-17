@@ -86,6 +86,56 @@ plotDilutionData(gor1973[gor1973$condition=="B",], compounds, ccolors, correctTi
 plotDilutionData(gor1973[gor1973$condition=="C",], compounds, ccolors, correctTime=TRUE)
 stopDevPlot()
 
+
+###############################################################
+# Data integration
+###############################################################
+gor1973.A <- gor1973[gor1973$condition=="A",]
+gor1973.B <- gor1973[gor1973$condition=="B",]
+gor1973.C <- gor1973[gor1973$condition=="C",]
+
+plot(numeric(0), numeric(0), 
+     xlim=c(0,30), ylim=c(0,16), 
+     xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973 & 1983")
+plotDilutionData(gor1983, compounds, ccolors, time_shift=-rbc_time_offset(gor1983))
+plotDilutionData(gor1973.A, compounds, ccolors, time_shift=-rbc_time_offset(gor1973.A)+0.75)
+plotDilutionData(gor1973.B, compounds, ccolors, time_shift=-rbc_time_offset(gor1973.B)+1.5)
+plotDilutionData(gor1973.C, compounds, ccolors, time_shift=-rbc_time_offset(gor1973.C)+1.5)
+legend("topright",  legend=compounds, fill=ccolors) 
+
+# create combined dataset with corrected times
+# necessary to timeshift individual experiments in different animals
+# to get identical start times for dilution curves
+gor1983$condition <- '-'
+gor1983$study <- 'gor1983'
+gor1983$time_shift <- -rbc_time_offset(gor1983)
+
+gor1973$study <- 'gor1973'
+gor1973$time_shift <- NA
+gor1973$time_shift[gor1973$condition == 'A'] <-   -rbc_time_offset(gor1973.A) + 0.75
+gor1973$time_shift[gor1973$condition == 'B'] <-  -rbc_time_offset(gor1973.B) + 1.5
+gor1973$time_shift[gor1973$condition == 'C'] <-  -rbc_time_offset(gor1973.C) + 1.5
+d = rbind(gor1983, gor1973)
+d$time_exp <- d$time
+d$time <- d$time_exp + d$time_shift
+
+# create combined dataset with corrected times
+fname <- file.path(ma.settings$dir.base, 'results', 'dilution', 'Goresky_processed.csv')
+write.table(d, file=fname, sep='\t', col.names=TRUE, row.names=FALSE)
+
+create_plots = TRUE
+fname.plot <- paste(fname, '.png', sep='')
+startDevPlot(file=fname.plot, width=1200, height=1200, create_plots=create_plots)
+plot(numeric(0), numeric(0), 
+     xlim=c(0,25), ylim=c(0,16), 
+     xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973 & 1983")
+plotDilutionData(d[d$study=="gor1983",], compounds, ccolors)
+plotDilutionData(d[d$study=="gor1973" & d$condition=="A",], compounds, ccolors)
+plotDilutionData(d[d$study=="gor1973" & d$condition=="B",], compounds, ccolors)
+plotDilutionData(d[d$study=="gor1973" & d$condition=="C",], compounds, ccolors)
+legend("topright",  legend=compounds, fill=ccolors, pt.bg=add.alpha(ccolors, 0.6)) 
+stopDevPlot(create_plot=TRUE)
+
 ###############################################################
 ## Villeneuve1996 ##
 # data is in log
