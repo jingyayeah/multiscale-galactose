@@ -211,10 +211,20 @@ sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 #    { "[PP__gal]" : 12.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0},
 #    { "[PP__gal]" : 17.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0}
 #]
+
+#        d = { "[PP__gal]" : gal, 
+#              "flow_sin" : f*1E-6 * 0.5,               
+#              "y_end" : 1.8E-6,
+#              "y_cell" : 0.7*7.58E-6,
+#              "L" : 600E-6,
+#              "H2OT_f": 3.0,
+#              "GLUT2_f" : 25.0, 
+#              "GALK_PA" : 0.05} 
+
 p_list = [
-    { "[PP__gal]" : 0.0, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
-    { "[PP__gal]" : 12.5, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
-    { "[PP__gal]" : 17.5, "flow_sin" : 1.0*270E-6, "GLUT2_f" : 17.0, 'GALK_PA' :0.04},
+    { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 25.0, 'GALK_PA' :0.01},
+    { "[PP__gal]" : 12.5, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 25.0, 'GALK_PA' :0.01},
+    { "[PP__gal]" : 17.5, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 25.0, 'GALK_PA' :0.01},
    #  { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :7.58E-06 },
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :10E-06},
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :15E-06}
@@ -456,19 +466,21 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 # define the parameters for the simulation
 gal_p_list = []
 # 2.58, 14.8, 19.8
-# for gal in [0.28, 12.5, 17.5]:
+#for gal in [0.28, 12.5, 17.5]:
 for gal in [0.28]:
     p_list = []
     for f in flux:
-        
+        factor = 0.85
         d = { "[PP__gal]" : gal, 
-              "flow_sin" : f*1E-6 * 0.4,               
-              "y_end" : 2.5E-6,
-              "y_cell" : 0.85*7.58E-6,
-              "L" : 450E-6,
-              "H2OT_f": 3.0,
-              "GLUT2_f" : 17.0, 
-              "GALK_PA" : 0.05}        
+              "flow_sin" : f*1E-6 * 0.5,               
+              "y_end" : 1.8E-6,
+              "y_cell" : 0.7*7.58E-6,
+              "L" : 600E-6,
+              "H2OT_f": 1/factor * 3.0,
+              "GLUT2_f" : 1/factor * 25.0, 
+              "GLUT2_k_gal" : 27.8,
+              #"GALK_PA" : 1/factor * 0.05,
+              "scale_f" : factor*6.4e-15} 
         p_list.append(d)
     gal_p_list.append(p_list)
 
@@ -512,4 +524,11 @@ plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.6*15.16943, time_s
 
 
 
+#### inhibition of GLUT2 
+
+def GLUT2_inhibition(c,km):
+    return 1.0/(1.0+2.0*c/km)    
+    
+c = np.array((2.58,14.8, 19.8))
+GLUT2_inhibition(c, 27.8)
 
