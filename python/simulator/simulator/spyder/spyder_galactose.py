@@ -139,7 +139,7 @@ def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
                                     & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
     
     print ids
-    cols=['red', 'darkblue', 'darkgreen']   
+    cols=['red', 'darkblue', 'darkgreen', 'gray', 'darkorgange', 'black']   
 
     # plot all the individual solutions    
     import pylab as p
@@ -187,7 +187,7 @@ plot(r)
 #########################################################################  
 import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v66_Nc20_dilution.xml'
+sbml_file = folder + 'Galactose_v67_Nc20_dilution.xml'
 print sbml_file
 r = load_model(sbml_file)
 items = r.model.items()
@@ -199,32 +199,27 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
-# Store reactions
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
-
 
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
-# { "[PP__gal]" : 0.28,  "scale_f" : 1.2*5.3e-15,  "flow_sin" : 180E-6, "GLUT2_f" : 4.0 },
-#p_list = [
-#    { "[PP__gal]" : 0.28, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0},
-#    { "[PP__gal]" : 12.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0},
-#    { "[PP__gal]" : 17.5, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 25.0}
-#]
-
-#        d = { "[PP__gal]" : gal, 
-#              "flow_sin" : f*1E-6 * 0.5,               
-#              "y_end" : 1.8E-6,
-#              "y_cell" : 0.7*7.58E-6,
-#              "L" : 600E-6,
-#              "H2OT_f": 3.0,
-#              "GLUT2_f" : 25.0, 
-#              "GALK_PA" : 0.05} 
 
 p_list = [
-    { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 9.0, 'GALK_PA' :0.01},
-    { "[PP__gal]" : 12.5, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 9.0, 'GALK_PA' :0.01},
-    { "[PP__gal]" : 17.5, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 9.0, 'GALK_PA' :0.01},
+  #  { "[PP__gal]" : 0.28, "flow_sin" : 0.5*0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.02, 'scale_f': 0.85*6.4e-15},
+  #  { "[PP__gal]" : 12.5, "flow_sin" : 0.5*0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.02, 'scale_f': 0.85*6.4e-15},
+  #  { "[PP__gal]" : 17.5, "flow_sin" : 0.5*0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.02, 'scale_f': 0.85*6.4e-15},
+
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15},
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.01, 'scale_f': 0.85*6.4e-15},
+   # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 5.0, 'GALK_PA' :0.02, 'scale_f': 0.85*6.4e-15},
+   # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 5.0, 'GALK_PA' :0.04, 'scale_f': 0.85*6.4e-15},
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.10, 'scale_f': 0.85*6.4e-15},
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :1.0, 'scale_f': 0.85*6.4e-15},
+   # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 2.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15},
+   # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 5.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15},
+   # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15},
+
+
    #  { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :7.58E-06 },
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :10E-06},
    # { "[PP__gal]" : 14.8, "flow_sin" : 0.35*270E-6, "GLUT2_f" : 10.0, 'y_cell' :15E-06}
@@ -236,14 +231,17 @@ inits = {}
 # s1 = simulation(r, sel, p1, inits)
 s_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
 dilution_plots(s_list, r.selections)
+
 dilution_plots_gal(s_list, r.selections, name='galM')
 dilution_plots_gal(s_list, r.selections, name='gal')
 dilution_plots_gal(s_list, r.selections, name='gal1pM')
 dilution_plots_gal(s_list, r.selections, name='gal1p')
+dilution_plots_gal(s_list, r.selections, name='galtol')
 dilution_plots_gal(s_list, r.selections, name='GLUT2_GAL')
 dilution_plots_gal(s_list, r.selections, name='GLUT2_GALM', xlim=[t_peak-1, t_peak+4])
 dilution_plots_gal(s_list, r.selections, name='GALK')
 dilution_plots_gal(s_list, r.selections, name='GALKM')
+
 print sel
 
 
@@ -257,7 +255,7 @@ dilution_plots_gal(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
 #########################################################################  
 import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v66_Nc20_dilution.xml'
+sbml_file = folder + 'Galactose_v67_Nc20_dilution_v02.xml'
 print sbml_file
 r = load_model(sbml_file)
 
@@ -464,19 +462,20 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 # define the parameters for the simulation
 gal_p_list = []
 # 2.58, 14.8, 19.8
-for gal in [0.28, 12.5, 17.5]:
-# for gal in [0.28]:
+#for gal in [0.28, 12.5, 17.5]:
+for gal in [0.28]:
     p_list = []
     for f in flux:
         d = { "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.50,               
-              "y_dis" : 2.5E-6,
-              "y_cell" : 7.58E-6,
-              "L" : 500E-6,
-              "H2OT_f": 3.0,
+              #"y_dis" : 2.5E-6,
+              #"y_cell" : 2*7.58E-6,
+              #"L" : 500E-6,
+              #"H2OT_f": 3.0,
               "GLUT2_f" : 10.0, 
-              "GLUT2_k_gal" : 27.8,
-              "GALK_PA" :  0.02} 
+              #"GLUT2_k_gal" : 27.8,
+              "GALK_PA" :  0.02,
+              "scale_f" : 0.84*6.4E-15} 
         p_list.append(d)
     gal_p_list.append(p_list)
 
@@ -508,7 +507,7 @@ av_mats = []
 for f_list in gal_f_list:
     av_mats.append(average_results(f_list, weights, ids, timepoints, sel))
 # plot single simulations & average results
-# flux_plots(f_list, sel)
+flux_plots(f_list, sel)
 # average_plots(timepoints, av_mats)
 
 # load experimental data
@@ -516,9 +515,10 @@ exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processe
 exp_data = load_dilution_data(exp_file)
 # plot_dilution_data(exp_data)
 
-plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=1.3)
-plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=1.3)
-              
+#plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=1.3)
+#plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=1.3)
+plot_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)
+plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)        
 # !!! scale=4.3*15.16943, time_shift=1.3 !!!
 
 
