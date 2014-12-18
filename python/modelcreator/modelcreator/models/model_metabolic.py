@@ -130,7 +130,7 @@ def createInitialAssignments(model, assignments, names):
         pid = data[0]
         unit = getUnitString(data[2])
         # Create parameter if not existing
-        if not model.getParameter(pid):
+        if (not model.getParameter(pid)) and (not model.getSpecies(pid)):
             createParameter(model, pid, unit, name=names.get(pid, None), value=None, constant=True)
         _createInitialAssignment(model, sid=pid, formula=data[1])
     
@@ -147,7 +147,7 @@ def createAssignmentRules(model, rules, names):
         pid = data[0]
         unit = getUnitString(data[2])
         # Create parameter if not existing
-        if not model.getParameter(pid):
+        if (not model.getParameter(pid)) and (not model.getSpecies(pid)):
             createParameter(model, pid, unit, name=names.get(pid, None), value=None, constant=False)
         _createAssignmentRule(model, sid=pid, formula=data[1])
             

@@ -18,7 +18,14 @@ def createDilutionEventData():
     base = ('{} mM'.format(0.0), ) * len(species)
     peak = ('y_peak',) * len(species);
     return createPeakEventData(species, base, peak)
-        
+
+def createDilutionGaussEventData():
+    species = ["PP__galM", "PP__rbcM", "PP__alb", "PP__h2oM", "PP__suc"]
+    # all species have the same peak height based on the duration
+    base = ('{} mM'.format(0.0), ) * len(species)
+    peak = ('peak',) * len(species);
+    return createGaussEventData(species, base, peak)
+
         
 def createPeakEventData(species, base, peak):
     ''' 
@@ -33,6 +40,18 @@ def createPeakEventData(species, base, peak):
                    createTriggerFromTime("t_peak_end"), createAssignmentsDict(species, base))
     return [ed1, ed2, ed3]
 
+
+def createGaussEventData(species, base, peak):
+    ''' 
+    Creates gauss dilution peak.
+    '''
+    ed1 = EventData("EDIL_0", "pre peak [PP]",
+                   createTriggerFromTime(0.0), {'in_peak': '0 dimensionless'})
+    ed2 = EventData("EDIL_1", "peak [PP]",
+                   createTriggerFromTime("t_peak-3 dimensionless *sigma_peak"), {'in_peak': '1 dimensionless'})
+    ed3 = EventData("EDIL_2", "post peak [PP]",
+                   createTriggerFromTime("t_peak+3 dimensionless *sigma_peak"), {'in_peak': '0 dimensionless'})
+    return [ed1, ed2, ed3]
 
 def createGalactoseChallengeEventData(tc_start, base_value=0.0, peak_variable='gal_challenge'):
     ed1 = EventData("ECHA_0", "pre challenge [PP]",

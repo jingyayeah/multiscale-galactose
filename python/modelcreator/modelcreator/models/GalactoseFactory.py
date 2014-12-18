@@ -9,15 +9,16 @@ Create the various SinusoidalUnit models of galactose metabolism,
 from modelcreator.models.model_cell import CellModel
 from modelcreator.models.model_tissue import TissueModel
     
-from modelcreator.events.event_factory import createDilutionEventData, createGalactoseChallengeEventData
+from modelcreator.events.event_factory import createDilutionEventData, createGalactoseChallengeEventData,\
+    createDilutionGaussEventData
 from modelcreator.events.event_factory import createGalactoseStepEventData
 
 
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 20
-    version = 70
+    Nc = 1
+    version = 73
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 
@@ -33,7 +34,7 @@ if __name__ == "__main__":
     del tm
     
     #---------------------------------------------------------------------------------
-    # [2] multiple dilution indicator
+    # [2A] multiple dilution indicator
     #    _
     # __| |__ (short rectangular peak in all periportal species)
     # The multiple dilution indicator peak is applied after the system has
@@ -41,6 +42,15 @@ if __name__ == "__main__":
     events = createDilutionEventData()
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='dilution', events=events)
+    tm.createModel()
+    tm.writeSBML()    
+    tm.storeInDatabase()
+    del tm, events
+    
+    # [2B] multiple dilution indicator (Gauss peak)
+    events = createDilutionGaussEventData()
+    tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
+                     cell_model=cell_model, simId='dilution_gauss', events=events)
     tm.createModel()
     tm.writeSBML()    
     tm.storeInDatabase()

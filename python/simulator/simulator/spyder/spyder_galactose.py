@@ -124,11 +124,11 @@ def dilution_plots(s_list, selections, show=True):
             p.plot(times, series, color=cols[k], label=str(name))
             # p.legend()
     # adapt the axis
-    p.xlim(t_peak-1, t_peak+30)
-    p.ylim(0, 0.06)
+    p.xlim(t_peak-5, t_peak+30)
+    # p.ylim(0, 0.06)
     p.show()
 
-def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
+def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-5, t_peak+30]):
     ''' Plot of the dilution curves.
         Necessary to handle concentrations and fluxes.    
     '''
@@ -137,6 +137,8 @@ def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
     print '#'*80
     ids =  [item for item in selections if ( (item.startswith('[H') | item.startswith('H')) 
                                     & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
+    if len(ids) == 0:
+        ids = [name, ]
     
     print ids
     cols=['red', 'darkblue', 'darkgreen', 'gray', 'darkorgange', 'black']   
@@ -187,7 +189,7 @@ plot(r)
 #########################################################################  
 import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v70_Nc20_dilution.xml'
+sbml_file = folder + 'Galactose_v72_Nc20_dilution_gauss.xml'
 print sbml_file
 r = load_model(sbml_file)
 items = r.model.items()
@@ -198,6 +200,7 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
+sel += ["peak"]
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
 
@@ -226,13 +229,19 @@ p_list = [
 ]
 
 
+
 inits = {}
 
 # s1 = simulation(r, sel, p1, inits)
-s_list = [simulation(r, sel, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list ]
+s_list = [simulation(r, sel, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list ]
 dilution_plots(s_list, r.selections)
 
-dilution_plots_gal(s_list, r.selections, name='galM')
+
+# matplotlib.mlab.csv2rec
+# TODO reading data with csv2rec('exampledata.txt', delimiter='\t')
+dilution_plots_gal(s_list, r.selections, name='peak', xlim=[t_peak-5, t_peak+5])
+
+dilution_plots_gal(s_list, r.selections, name='galM', xlim=[t_peak-10, t_peak+20])
 dilution_plots_gal(s_list, r.selections, name='gal')
 dilution_plots_gal(s_list, r.selections, name='gal1pM')
 dilution_plots_gal(s_list, r.selections, name='gal1p')
