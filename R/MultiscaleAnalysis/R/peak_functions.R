@@ -12,7 +12,7 @@ f1 <- function(t, t_peak=5, t_duration=0.5){
   c = numeric(length(t))
   
   c[t<t_peak] <- 0
-  c[t>=t_peak& t<t_peak+t_duration] <- 1/t_duration
+  c[t>=t_peak & t<t_peak+t_duration] <- 1/t_duration
   c[t>t_peak+t_duration] <- 0
   
   return(c)
@@ -33,7 +33,7 @@ f3 <- function(t, t_peak=5, t_duration=0.5){
 }
 
 
-t = seq(from=0, to=10, length.out=800)
+t = seq(from=4, to=7, length.out=800)
 y1 <- f1(t)
 y2 <- f2(t)
 y3 <- f3(t)

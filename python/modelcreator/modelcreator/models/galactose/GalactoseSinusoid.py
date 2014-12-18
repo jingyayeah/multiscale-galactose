@@ -58,7 +58,6 @@ names['nadph'] = 'NADPH'
 ##########################################################################
 # Diffusion Parameters
 ##########################################################################
-
 pars.extend(
             # diffusion constants [m^2/s]
             [
@@ -94,8 +93,27 @@ names['r_rbcM'] = 'effective radius rbc M*'
 
     
 ##########################################################################
-# Additional Parameters
+# Additional Parameters for Simulations
 ##########################################################################
-pars.append( ('gal_challenge',  0.0,    'mM',    True) )
+pars.extend([
+              ('gal_challenge',  0.0,    'mM',    True),
+              ('t_peak',         5000.0, 's',     True),
+              ('t_duration',     0.5,    's',     True),
+            ])
+
+rules.extend([
+             # id, assignment, unit
+            ('t_peak_end', 't_peak + t_duration', 's'),
+            ('y_peak', '1 mM_s/t_duration', 'mM'),
+            ("mu_peak", "t_peak + t_duration/2 dimensionless",  "s"),
+            ('sigma_peak',  "1 mM_s/(y_peak * sqrt(2 dimensionless*pi))", "s"),
+            ('peak',  "1 mM_s/(sigma_peak *sqrt(2 dimensionless*pi)) * exp(-(time-mu_peak)^2/(2 dimensionless * sigma_peak^2))", "mM"),
+            ])
     
-    
+names['gal_challenge'] = 'galactose challenge periportal'
+names['t_peak'] = 'time of dilution peak'
+names['t_duration'] = 'duration of dilution peak'    
+names['y_peak'] = 'peak height'
+names['mu_pean'] = 'mean location gauss peak'
+names['sigma_peak'] = 'sigma gauss peak'
+names['peak'] = 'concentration of gauss peak'

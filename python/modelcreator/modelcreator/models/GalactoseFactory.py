@@ -17,7 +17,7 @@ if __name__ == "__main__":
     
     # definition of cell model and tissue model
     Nc = 20
-    version = 67
+    version = 70
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 
@@ -31,7 +31,6 @@ if __name__ == "__main__":
     tm.writeSBML()   
     tm.storeInDatabase()
     del tm
-    # exit()
     
     #---------------------------------------------------------------------------------
     # [2] multiple dilution indicator
@@ -39,13 +38,14 @@ if __name__ == "__main__":
     # __| |__ (short rectangular peak in all periportal species)
     # The multiple dilution indicator peak is applied after the system has
     # reached steady state (<1000s) from initial non galactose conditions.
-    events = createDilutionEventData(time_start=5000.0, duration=0.5)
+    events = createDilutionEventData()
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='dilution', events=events)
     tm.createModel()
     tm.writeSBML()    
     tm.storeInDatabase()
     del tm, events
+    exit()
     
     #---------------------------------------------------------------------------------
     # [3] galactose challenge 

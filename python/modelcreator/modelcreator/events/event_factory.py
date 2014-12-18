@@ -2,6 +2,9 @@
 Functions for creating simulation events.
 Event information is stored as EventData.
 
+Necessary to create trigger events to guarantee proper integration
+even when using variable step sizes.
+
 @author: Matthias Koenig
 @date: 2014-07-29
 '''
@@ -9,28 +12,27 @@ Event information is stored as EventData.
 from eventdata import EventData     
         
         
-def createDilutionEventData(time_start, duration):
+def createDilutionEventData():
     species = ["PP__galM", "PP__rbcM", "PP__alb", "PP__h2oM", "PP__suc"]
     # all species have the same peak height based on the duration
     base = ('{} mM'.format(0.0), ) * len(species)
-    peak = ('{} mM'.format(1.0/duration),) * len(species);
-    return createPeakEventData(species, base, peak, time_start=time_start, duration=duration)
+    peak = ('y_peak',) * len(species);
+    return createPeakEventData(species, base, peak)
         
         
-def createPeakEventData(species, base, peak, time_start, duration):
+def createPeakEventData(species, base, peak):
     ''' 
     Creates a dilution peak in the given species beginning at the
     start time and with the provided duration.
     '''
-    time_end = time_start + duration
     ed1 = EventData("EDIL_0", "pre peak [PP]",
                    createTriggerFromTime(0.0), createAssignmentsDict(species, base))
     ed2 = EventData("EDIL_1", "peak [PP]",
-                   createTriggerFromTime(time_start), createAssignmentsDict(species, peak))
+                   createTriggerFromTime("t_peak"), createAssignmentsDict(species, peak))
     ed3 = EventData("EDIL_2", "post peak [PP]",
-                   createTriggerFromTime(time_end), createAssignmentsDict(species, base))
-
+                   createTriggerFromTime("t_peak_end"), createAssignmentsDict(species, base))
     return [ed1, ed2, ed3]
+
 
 def createGalactoseChallengeEventData(tc_start, base_value=0.0, peak_variable='gal_challenge'):
     ed1 = EventData("ECHA_0", "pre challenge [PP]",
@@ -61,7 +63,7 @@ def createAssignmentsDict(species, values):
 
 #####################################################################
 if __name__ == '__main__':
-    elist = createDilutionEventData(time_start=100.0, duration=5)
+    elist = createDilutionEventData()
     print '\n* Dilution *'
     for edata in elist:
         edata.info()

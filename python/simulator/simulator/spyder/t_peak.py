@@ -32,12 +32,13 @@ model_txt = """
     sigma = 1/(y_peak*sqrt(2*pi));
 
     
+    // Rule for the function 
     PP_S := 1/(sigma *sqrt(2*pi)) * exp(-(time-mu)^2/(2*sigma^2));    
     //PP_S' = -(time - mu)/(sigma^3*sqrt(2*pi)) * exp(- (time-mu)^2/(2*sigma^2));
     
     // PP_S := sin(time);
-    
-    //E1: at(time>4):  PP_S = PP_PEAK;  
+    // Additional events for triggering re-integration
+    E1: at(time>=t_peak-4*sigma):  K1=K1;  
 
     end
 """
@@ -69,5 +70,5 @@ r.reset()
 r.reset(SelectionRecord.ALL)
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
 s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=False, stiff=True, plot=True, maximumTimeStep=0.5)   
-
+print s
 

@@ -52,9 +52,7 @@ def simulation(r, selection, parameters, inits, absTol=1E-6, relTol=1E-6):
     # absTol is defined relative to the amounts
     absTol = absTol * min(r.model.getCompartmentVolumes())
     start = time.clock()
-    s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False)    
-    s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False,
-                   maximumTimeStep=0.5)   
+    s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False)      
     print 'Integration time:', (time.clock()- start)
     reset_changed(r, changed)
     
@@ -189,7 +187,7 @@ plot(r)
 #########################################################################  
 import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v67_Nc20_dilution.xml'
+sbml_file = folder + 'Galactose_v70_Nc20_dilution.xml'
 print sbml_file
 r = load_model(sbml_file)
 items = r.model.items()

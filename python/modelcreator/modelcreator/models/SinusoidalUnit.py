@@ -60,6 +60,9 @@ units['m3_per_s'] = [(UNIT_KIND_METRE, 3.0, 0),
                     (UNIT_KIND_SECOND, -1.0, 0)]
 units['mM']       = [(UNIT_KIND_MOLE, 1.0, 0), 
                     (UNIT_KIND_METRE, -3.0, 0)]
+units['mM_s']       = [(UNIT_KIND_MOLE, 1.0, 0), (UNIT_KIND_SECOND, 1.0, 0),
+                    (UNIT_KIND_METRE, -3.0, 0)]
+
 units['per_mM']   = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_MOLE, -1.0, 0)]
 units['per_m2']   = [(UNIT_KIND_METRE, -2.0, 0)]
@@ -84,6 +87,9 @@ pars.extend([
             
             ('rho_liv',     1.25E3,    'kg_per_m3', True), 
             ('f_tissue',     0.8, '-', True),
+            
+           #  ('f_tissue',     0.8, '-', True),
+            
 ])
 names['L'] = 'sinusoidal length'
 names['y_sin'] = 'sinusoidal radius'
