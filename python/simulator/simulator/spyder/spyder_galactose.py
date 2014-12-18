@@ -53,6 +53,8 @@ def simulation(r, selection, parameters, inits, absTol=1E-6, relTol=1E-6):
     absTol = absTol * min(r.model.getCompartmentVolumes())
     start = time.clock()
     s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False)    
+    s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False,
+                   maximumTimeStep=0.5)   
     print 'Integration time:', (time.clock()- start)
     reset_changed(r, changed)
     
