@@ -81,7 +81,13 @@ def position_in_list(list, y):
         if x == y:
             return k
     return -1
-
+    
+def selection_dict(selection):
+    d = {}
+    for k, s in enumerate(sel):
+        d[s] = k
+    return d
+    
 def dilution_plots(s_list, selections, show=True):
     ''' Plot of the dilution curves '''
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
@@ -108,10 +114,11 @@ def dilution_plots(s_list, selections, show=True):
             p.plot(times, series, color=cols[k], label=str(name))
             # p.legend()
     # adapt the axis
-    p.xlim(t_peak-1, t_peak+30)
-    p.ylim(0, 0.4)
+    p.xlim(t_peak-5, t_peak+30)
+    p.ylim(0, 0.5)
     p.show()
     
+    # Plot the peak
     for s in s_list:
         times = s[:,0]
         for k, id in enumerate(['PP__galM', 'PV__galM']):
@@ -124,8 +131,8 @@ def dilution_plots(s_list, selections, show=True):
             p.plot(times, series, color=cols[k], label=str(name))
             # p.legend()
     # adapt the axis
-    p.xlim(t_peak-5, t_peak+30)
-    # p.ylim(0, 0.06)
+    p.xlim(t_peak-5, t_peak+2)
+    p.ylim(0, 2.1)
     p.show()
 
 def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-5, t_peak+30]):
@@ -172,6 +179,8 @@ print r.model.items()
 sel = ['time']
 sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
+sel_dict = selection_dict(sel)
+
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # Store reactions
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
@@ -189,7 +198,7 @@ plot(r)
 #########################################################################  
 import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v72_Nc20_dilution_gauss.xml'
+sbml_file = folder + 'Galactose_v79_Nc20_dilution_gauss.xml'
 print sbml_file
 r = load_model(sbml_file)
 items = r.model.items()
@@ -201,6 +210,8 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += ["peak"]
+sel_dict = selection_dict(sel)
+
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
 
@@ -236,12 +247,21 @@ inits = {}
 s_list = [simulation(r, sel, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list ]
 dilution_plots(s_list, r.selections)
 
+# s1 = s_list[1]
+# import pylab as plt
+# plt.plot(s1[:, sel_dict['time']], s1[:, sel_dict['peak']])
+# plt.xlim([4995, 5010])
+# plt.show()
+
 
 # matplotlib.mlab.csv2rec
 # TODO reading data with csv2rec('exampledata.txt', delimiter='\t')
 dilution_plots_gal(s_list, r.selections, name='peak', xlim=[t_peak-5, t_peak+5])
 
 dilution_plots_gal(s_list, r.selections, name='galM', xlim=[t_peak-10, t_peak+20])
+
+dilution_plots_gal(s_list, r.selections, name='galM', xlim=[0, 20])
+
 dilution_plots_gal(s_list, r.selections, name='gal')
 dilution_plots_gal(s_list, r.selections, name='gal1pM')
 dilution_plots_gal(s_list, r.selections, name='gal1p')
@@ -264,7 +284,8 @@ dilution_plots_gal(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
 #########################################################################  
 import time
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
-sbml_file = folder + 'Galactose_v67_Nc20_dilution_v02.xml'
+# sbml_file = folder + 'Galactose_v67_Nc20_dilution_v02.xml'
+sbml_file = folder + 'Galactose_v79_Nc20_dilution_gauss.xml'
 print sbml_file
 r = load_model(sbml_file)
 
@@ -524,11 +545,15 @@ exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processe
 exp_data = load_dilution_data(exp_file)
 # plot_dilution_data(exp_data)
 
-#plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=1.3)
-#plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=1.3)
-plot_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)
-plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)        
-# !!! scale=4.3*15.16943, time_shift=1.3 !!!
+
+# rectangular peak
+# plot_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)
+# plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)        
+
+# gauss peak
+plot_data_with_sim(exp_data, timepoints, av_mats, scale=4*15.16943, time_shift=1.3)
+plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4*15.16943, time_shift=1.3)        
+
 
 
 #### inhibition of GLUT2 

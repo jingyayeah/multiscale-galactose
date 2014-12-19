@@ -97,10 +97,10 @@ names['r_rbcM'] = 'effective radius rbc M*'
 ##########################################################################
 pars.extend([
               ('gal_challenge',  0.0,    'mM',    True),
-              ('peak_status',    0.0,    '-',    True),
+              ('peak_type',      0.0,    '-',    False),
+              ('peak_status',    0.0,    '-',    False),
               ('t_peak',         5000.0, 's',     True),
               ('t_duration',     0.5,    's',     True),
-              ('in_peak',        0,      '-',     True),
             ])
 
 rules.extend([
@@ -109,8 +109,9 @@ rules.extend([
             ('y_peak', '1 mM_s/t_duration', 'mM'),
             ("mu_peak", "t_peak + t_duration/2 dimensionless",  "s"),
             ('sigma_peak',  "1 mM_s/(y_peak * sqrt(2 dimensionless*pi))", "s"),
-            ('peak',  "1 mM_s/(sigma_peak *sqrt(2 dimensionless*pi)) * exp(-(time-mu_peak)^2/(2 dimensionless * sigma_peak^2))", "mM"),
-            
+            ('peak_gauss',  "peak_status * 1 mM_s/(sigma_peak *sqrt(2 dimensionless*pi)) * exp(-(time-mu_peak)^2/(2 dimensionless * sigma_peak^2))", "mM"),
+            ('peak_rect',  "peak_status * y_peak", "mM"),
+            ('peak', "(1 dimensionless - peak_type)*peak_rect + peak_type * peak_gauss", "mM"),
             ('PP__galM',  "peak_status * peak", "mM"),
             ('PP__rbcM',  "peak_status * peak", "mM"),
             ('PP__alb',  "peak_status * peak", "mM"),
@@ -119,10 +120,12 @@ rules.extend([
             ])
     
 names['gal_challenge'] = 'galactose challenge periportal'
-names['t_peak'] = 'time of dilution peak'
-names['t_duration'] = 'duration of dilution peak'    
+names['t_peak'] = 'time of peak'
+names['t_peak_end'] = 'end time of peak'
+names['t_duration'] = 'duration of peak'    
 names['y_peak'] = 'peak height'
 names['mu_pean'] = 'mean location gauss peak'
 names['sigma_peak'] = 'sigma gauss peak'
 names['peak'] = 'concentration of gauss peak'
-names['peak_status'] = 'logical variable to trigger peak rule'
+names['peak_status'] = 'no peak (0), peak (1)'
+names['peak_type'] = 'type of peak (rectangular 0, gauss 1)'

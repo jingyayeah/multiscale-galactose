@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by libAntimony version v2.5.2 on 2014-12-18 17:06 with libSBML version 5.10.2. -->
+<!-- Created by libAntimony version v2.5.2 on 2014-12-19 11:56 with libSBML version 5.10.2. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model id="test" name="test">
     <listOfCompartments>

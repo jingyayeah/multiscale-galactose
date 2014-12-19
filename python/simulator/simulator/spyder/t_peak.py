@@ -71,4 +71,5 @@ r.reset(SelectionRecord.ALL)
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
 s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=False, stiff=True, plot=True, maximumTimeStep=0.5)   
 print s
-
+print s.colnames
+s['time']

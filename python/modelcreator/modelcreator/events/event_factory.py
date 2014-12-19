@@ -11,46 +11,37 @@ even when using variable step sizes.
 
 from eventdata import EventData     
         
-        
-def createDilutionEventData():
-    species = ["PP__galM", "PP__rbcM", "PP__alb", "PP__h2oM", "PP__suc"]
-    # all species have the same peak height based on the duration
-    base = ('{} mM'.format(0.0), ) * len(species)
-    peak = ('y_peak',) * len(species);
-    return createPeakEventData(species, base, peak)
-
-def createDilutionGaussEventData():
-    species = ["PP__galM", "PP__rbcM", "PP__alb", "PP__h2oM", "PP__suc"]
-    # all species have the same peak height based on the duration
-    base = ('{} mM'.format(0.0), ) * len(species)
-    peak = ('peak',) * len(species);
-    return createGaussEventData(species, base, peak)
-
-        
-def createPeakEventData(species, base, peak):
+                
+def createRectEventData():
     ''' 
     Creates a dilution peak in the given species beginning at the
     start time and with the provided duration.
     '''
     ed1 = EventData("EDIL_0", "pre peak [PP]",
-                   createTriggerFromTime(0.0), createAssignmentsDict(species, base))
+                   createTriggerFromTime(0.0), {'peak_status': '0 dimensionless',
+                                                'peak_type': '0 dimensionless'})
     ed2 = EventData("EDIL_1", "peak [PP]",
-                   createTriggerFromTime("t_peak"), createAssignmentsDict(species, peak))
+                   createTriggerFromTime("t_peak"), {'peak_status': '1 dimensionless',
+                                                     'peak_type': '0 dimensionless'})
     ed3 = EventData("EDIL_2", "post peak [PP]",
-                   createTriggerFromTime("t_peak_end"), createAssignmentsDict(species, base))
+                   createTriggerFromTime("t_peak_end"), {'peak_status': '0 dimensionless',
+                                                         'peak_type': '0 dimensionless'})
     return [ed1, ed2, ed3]
 
 
-def createGaussEventData(species, base, peak):
+def createGaussEventData():
     ''' 
     Creates gauss dilution peak.
     '''
     ed1 = EventData("EDIL_0", "pre peak [PP]",
-                   createTriggerFromTime(0.0), {'in_peak': '0 dimensionless'})
+                   createTriggerFromTime(0.0), {'peak_status': '0 dimensionless',
+                                                'peak_type': '1 dimensionless'})
     ed2 = EventData("EDIL_1", "peak [PP]",
-                   createTriggerFromTime("t_peak-3 dimensionless *sigma_peak"), {'in_peak': '1 dimensionless'})
+                   createTriggerFromTime("mu_peak-3 dimensionless*sigma_peak"), {'peak_status': '1 dimensionless',
+                                                                                 'peak_type': '1 dimensionless'})
     ed3 = EventData("EDIL_2", "post peak [PP]",
-                   createTriggerFromTime("t_peak+3 dimensionless *sigma_peak"), {'in_peak': '0 dimensionless'})
+                   createTriggerFromTime("mu_peak+3 dimensionless*sigma_peak"), {'peak_status': '0 dimensionless',
+                                                                                 'peak_type': '1 dimensionless'})
     return [ed1, ed2, ed3]
 
 def createGalactoseChallengeEventData(tc_start, base_value=0.0, peak_variable='gal_challenge'):
@@ -82,10 +73,16 @@ def createAssignmentsDict(species, values):
 
 #####################################################################
 if __name__ == '__main__':
-    elist = createDilutionEventData()
-    print '\n* Dilution *'
+    elist = createRectEventData()
+    print '\n* Rectangular peak *'
     for edata in elist:
         edata.info()
+        
+    elist = createGaussEventData()
+    print '\n* Gauss peak *'
+    for edata in elist:
+        edata.info()
+    exit()
     
     elist = createGalactoseChallengeEventData(tc_start=10, base_value=0.0)
     print '\n* Galactose Challenge *'

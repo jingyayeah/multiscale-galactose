@@ -1,6 +1,9 @@
 '''
 Create the various SinusoidalUnit models of galactose metabolism,
  i.e. models driven by different timecourse events.
+ 
+TODO: handle the SBML information via dictionaries instead of lists, 
+      information is than not depending on the length of list (more flexible).
     
 @author:  Matthias Koenig
 @date:    2014-07-28
@@ -9,16 +12,16 @@ Create the various SinusoidalUnit models of galactose metabolism,
 from modelcreator.models.model_cell import CellModel
 from modelcreator.models.model_tissue import TissueModel
     
-from modelcreator.events.event_factory import createDilutionEventData, createGalactoseChallengeEventData,\
-    createDilutionGaussEventData
+from modelcreator.events.event_factory import createGalactoseChallengeEventData,\
+    createRectEventData, createGaussEventData
 from modelcreator.events.event_factory import createGalactoseStepEventData
 
 
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 1
-    version = 74
+    Nc = 20
+    version = 79
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 
@@ -39,7 +42,7 @@ if __name__ == "__main__":
     # __| |__ (short rectangular peak in all periportal species)
     # The multiple dilution indicator peak is applied after the system has
     # reached steady state (<1000s) from initial non galactose conditions.
-    events = createDilutionEventData()
+    events = createRectEventData()
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='dilution', events=events)
     tm.createModel()
@@ -48,7 +51,7 @@ if __name__ == "__main__":
     del tm, events
     
     # [2B] multiple dilution indicator (Gauss peak)
-    events = createDilutionGaussEventData()
+    events = createGaussEventData()
     tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='dilution_gauss', events=events)
     tm.createModel()
