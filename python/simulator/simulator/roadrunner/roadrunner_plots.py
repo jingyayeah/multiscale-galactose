@@ -137,12 +137,10 @@ def plot_dilution_data(data):
         outflow = data['outflow'][k]
         pos = position_in_list(compounds, c)
         if pos < 0:
+            print 'Compound not found:', c
             continue
         # plot data point        
         p.plot(t, outflow, 'o', color=colors[pos])               
-
-    # p.ylim(0, 0.25)
-    # p.xlim(t_peak, t_peak+25)
     p.show()      
 
 def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):    

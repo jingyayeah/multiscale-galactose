@@ -9,9 +9,9 @@ Dilution Data.
 import roadrunner
 print roadrunner.__version__
 
-from roadrunner_tools import *
-
+import roadrunner_tools as rt
 import dilution_plots as dp
+reload(rt)
 reload(dp)
 
 #########################################################################    
@@ -32,16 +32,18 @@ T_PEAK = 5000
 
 sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
 # sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
-r = load_model(sbml_file)
+r = rt.load_model(sbml_file)
 
 # set selection
+compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']
 sel = ['time']
-sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
-sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
-sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
+sel += ['[PV__{}]'.format(item) for item in compounds]
+sel += ['[PP__{}]'.format(item) for item in compounds]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += ["peak"]
-sel_dict = set_selection(r, sel)
+r.selections = sel
 
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
@@ -56,29 +58,23 @@ p_list = [
 inits = {}
 
 # perform simulation
-s_list = [simulation(r, sel, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list]
-reload(dp)
+s_list = [rt.simulation(r, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list]
+
+# general plots 
 dp.dilution_plot(s_list, r.selections, xlim=None, ylim=None)
 dp.dilution_plot(s_list, r.selections)
 
-# s1 = s_list[1]
-# import pylab as plt
-# plt.plot(s1[:, sel_dict['time']], s1[:, sel_dict['peak']])
-# plt.xlim([4995, 5010])
-# plt.show()
 
-dp.dilution_plot_by_name(s_list, r.selections, name='peak', xlim=[t_peak-5, t_peak+5])
-dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[t_peak-10, t_peak+20])
+dp.dilution_plot_by_name(s_list, r.selections, name='peak', xlim=[T_PEAK-5, T_PEAK+5])
+dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20])
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[0, 20])
 dp.dilution_plot_by_name(s_list, r.selections, name='gal')
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM')
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1p')
 dp.dilution_plot_by_name(s_list, r.selections, name='galtol')
 dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GAL')
-dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GALM', xlim=[t_peak-1, t_peak+4])
+dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GALM', xlim=[T_PEAK-1, T_PEAK+4])
 dp.dilution_plot_by_name(s_list, r.selections, name='GALK')
 dp.dilution_plot_by_name(s_list, r.selections, name='GALKM')
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM', xlim=[5000, 6000])
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
-
-

@@ -18,8 +18,8 @@ def dilution_plot(s_list, selections, show=True,
     
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ccols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
-    pp_ids = ['PP__{}'.format(sid) for sid in compounds]    
-    pv_ids = ['PV__{}'.format(sid) for sid in compounds]
+    pp_ids = ['[PP__{}]'.format(sid) for sid in compounds]    
+    pv_ids = ['[PV__{}]'.format(sid) for sid in compounds]
     ids = pp_ids + pv_ids
     cols = ccols + ccols
     
@@ -30,8 +30,7 @@ def dilution_plot(s_list, selections, show=True,
     for s in s_list:
         times = s[:,0]
         for k, sid in enumerate(ids):
-
-            index = sel_dict.get('[{}]'.format(sid), None)
+            index = sel_dict.get(sid, None)
             if not index:
                 raise Exception("{} not in selection".format(sid))
             series = s[:, index]

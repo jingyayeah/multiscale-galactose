@@ -13,6 +13,7 @@ import numpy as np
 import galactose_functions as gf
 import roadrunner_tools as rt
 import roadrunner_plots as rp
+
 #########################################################################    
 
 VERSION = 79
@@ -22,8 +23,8 @@ T_PEAK = 5000
 #########################################################################    
 # Flux integration of curves
 #########################################################################  
-sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
-# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
+# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
+sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
 r = rt.load_model(sbml_file)
 
 
@@ -72,27 +73,32 @@ for k, p_list in enumerate(gal_p_list):
 #########################################################################    
 # Average
 #########################################################################  
+reload(gf)
+reload(rt)
+reload(rp)
+
 # Average via probability and flux weighted summation
 Q_sinunit = np.pi * r.y_sin**2 * flux # [m³/s]
 weights = p_flux * Q_sinunit
 weights = weights/sum(weights)
 
 compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-ids = ['PV__{}'.format(id) for id in compounds]    
+ids = ['[PV__{}]'.format(id) for id in compounds]    
 cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
 timepoints=np.arange(T_PEAK-5, T_PEAK+35, 0.05)
 av_mats = []
 for f_list in gal_f_list:
     av_mats.append(gf.average_results(f_list, weights, ids, timepoints, sel))
+
 # plot single simulations & average results
-rp.flux_plots(gal_f_list, sel)
-rp.average_plots(timepoints, av_mats)
+rp.flux_plots(f_list, sel, xlim=[T_PEAK-4, T_PEAK+20])
+rp.average_plots(timepoints, av_mats, [T_PEAK-4, T_PEAK+20])
 
 # load experimental data
 exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
 exp_data = rp.load_dilution_data(exp_file)
-# plot_dilution_data(exp_data)
+rp.plot_dilution_data(exp_data)
 
 # rectangular peak
 # plot_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)
