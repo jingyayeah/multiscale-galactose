@@ -223,12 +223,9 @@ p_list = [
   #  { "[PP__gal]" : 12.5, "flow_sin" : 0.5*0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.02, 'scale_f': 0.85*6.4e-15},
   #  { "[PP__gal]" : 17.5, "flow_sin" : 0.5*0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.02, 'scale_f': 0.85*6.4e-15},
 
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15},
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.01, 'scale_f': 0.85*6.4e-15},
-   # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 5.0, 'GALK_PA' :0.02, 'scale_f': 0.85*6.4e-15},
-   # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 5.0, 'GALK_PA' :0.04, 'scale_f': 0.85*6.4e-15},
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.10, 'scale_f': 0.85*6.4e-15},
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :1.0, 'scale_f': 0.85*6.4e-15},
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15, 't_duration':0.5},
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.02, 'scale_f': 0.85*6.4e-15, 't_duration':1.0},
+   
    # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 2.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15},
    # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 5.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15},
    # { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, "GLUT2_f" : 10.0, 'GALK_PA' :0.0, 'scale_f': 0.85*6.4e-15},
@@ -321,6 +318,29 @@ def flux_plots(f_list, selections, show=True):
         p.xlim(t_peak-1, t_peak+30)
         #p.ylim(0, 0.4)
         p.show()
+
+def flux_plot(f_list, selections, name, show=True):
+    print '#'*80, '\n', name, '\n', '#'*80
+    ids =  [item for item in selections if ( (item.startswith('[H') | item.startswith('H')) 
+                                    & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
+    if len(ids) == 0:
+        ids = [name, ]
+    print ids
+    sel_dict = selection_dict(selections)    
+    
+    import pylab as p    
+    for s in f_list:
+        times = s[:,0]
+        for id in ids:
+            # find in which place of the solution the component is encoded
+            i_sel = sel_dict.get(id, None)
+            if not i_sel:
+                raise Exception("{} not in selection".format(id))
+            series = s[:,i_sel]
+            p.plot(times, series, color='black')
+    p.xlim(t_peak-1, t_peak+30)
+    #p.ylim(0, 0.4)
+    p.show()
 
 
 
@@ -488,6 +508,10 @@ len(flux)
 inits = {}
 sel = ['time']
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
+sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
+sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
+
 
 # define the parameters for the simulation
 gal_p_list = []
@@ -496,7 +520,9 @@ gal_p_list = []
 for gal in [0.28]:
     p_list = []
     for f in flux:
-        d = { "[PP__gal]" : gal, 
+        d = { 
+              't_duration':1.0,
+              "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.50,               
               #"y_dis" : 2.5E-6,
               #"y_cell" : 2*7.58E-6,
@@ -504,7 +530,7 @@ for gal in [0.28]:
               #"H2OT_f": 3.0,
               "GLUT2_f" : 10.0, 
               #"GLUT2_k_gal" : 27.8,
-              "GALK_PA" :  0.02,
+              "GALK_PA" :  0.03,
               "scale_f" : 0.84*6.4E-15} 
         p_list.append(d)
     gal_p_list.append(p_list)
@@ -551,10 +577,13 @@ exp_data = load_dilution_data(exp_file)
 # plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)        
 
 # gauss peak
-plot_data_with_sim(exp_data, timepoints, av_mats, scale=4*15.16943, time_shift=1.3)
-plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4*15.16943, time_shift=1.3)        
+plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.1*15.16943, time_shift=1.4)
+plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.1*15.16943, time_shift=1.4)        
 
-
+print sel
+flux_plot(f_list, name='GLUT2_GALM', selections=sel)
+flux_plot(f_list, name='GALKM', selections=sel)
+flux_plot(f_list, name='galM', selections=sel)
 
 #### inhibition of GLUT2 
 
