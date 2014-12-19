@@ -36,7 +36,7 @@ class TissueModel(object):
         self.version = version
         self.simId = simId
         self.cellModel = cell_model
-        print self.cellModel.info()
+        # print self.cellModel.info()
         
         # tissue information fields
         for key, value in tissue_dict.iteritems():
@@ -45,7 +45,6 @@ class TissueModel(object):
    
         # sbml 
         self.id = self.createId()
-        print 'id', self.id
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
         self.model = self.doc.createModel()
         
@@ -57,7 +56,7 @@ class TissueModel(object):
             ('Nc', self.Nc, '-', True),
         )
     
-        print '*'*40, '\n', self.id, '\n', '*'*40
+        print '\n', '*'*40, '\n', self.id, '\n', '*'*40
     
     @staticmethod
     def createTissueDict(module_names):
@@ -106,14 +105,14 @@ class TissueModel(object):
         module = importlib.import_module(module_name)
         
         # get attributes from the class
-        print '***', module_name, '***'
+        print '\n***', module_name, '***'
         print module
         print dir(module)
 
         mdict = dict()
         for key in TissueModel._keys:
             if hasattr(module, key):
-                print 'set:', key
+                # print 'set:', key
                 mdict[key] = getattr(module, key)
             else:
                 print 'missing:', key
@@ -142,9 +141,9 @@ class TissueModel(object):
         self.createUnits()
         self.createExternalParameters()
         self.createInitialAssignments()
-        self.createAssignmentRules()
         self.createExternalCompartments()
         self.createExternalSpecies()
+        self.createAssignmentRules()
         self.createTransportReactions()
         self.createBoundaryConditions()
         

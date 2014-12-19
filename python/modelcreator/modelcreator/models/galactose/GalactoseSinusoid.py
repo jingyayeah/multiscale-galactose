@@ -97,6 +97,7 @@ names['r_rbcM'] = 'effective radius rbc M*'
 ##########################################################################
 pars.extend([
               ('gal_challenge',  0.0,    'mM',    True),
+              ('peak_status',    0.0,    '-',    True),
               ('t_peak',         5000.0, 's',     True),
               ('t_duration',     0.5,    's',     True),
               ('in_peak',        0,      '-',     True),
@@ -110,12 +111,11 @@ rules.extend([
             ('sigma_peak',  "1 mM_s/(y_peak * sqrt(2 dimensionless*pi))", "s"),
             ('peak',  "1 mM_s/(sigma_peak *sqrt(2 dimensionless*pi)) * exp(-(time-mu_peak)^2/(2 dimensionless * sigma_peak^2))", "mM"),
             
-            ('PP__galM',  "in_peak * peak", "mM"),
-            ('PP__rbcM',  "in_peak * peak", "mM"),
-            ('PP__alb',  "in_peak * peak", "mM"),
-            ('PP__h2oM',  "in_peak * peak", "mM"),
-            ('PP__suc',  "in_peak * peak", "mM"),
-            
+            ('PP__galM',  "peak_status * peak", "mM"),
+            ('PP__rbcM',  "peak_status * peak", "mM"),
+            ('PP__alb',  "peak_status * peak", "mM"),
+            ('PP__h2oM',  "peak_status * peak", "mM"),
+            ('PP__suc',  "peak_status * peak", "mM"),
             ])
     
 names['gal_challenge'] = 'galactose challenge periportal'
@@ -125,4 +125,4 @@ names['y_peak'] = 'peak height'
 names['mu_pean'] = 'mean location gauss peak'
 names['sigma_peak'] = 'sigma gauss peak'
 names['peak'] = 'concentration of gauss peak'
-names['in_peak'] = 'logical variable to trigger peak rule'
+names['peak_status'] = 'logical variable to trigger peak rule'

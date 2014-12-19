@@ -28,7 +28,7 @@ class CellModel(object):
         the given global variables of the module.
         '''
         # dynamically import module
-        print '***', module_name, '***'
+        print '\n***', module_name, '***'
         
         # cell_module = __import__(module_name)
         # problems with relative path settings
@@ -37,7 +37,7 @@ class CellModel(object):
         
         
         # get attributes from the class
-        print '***', cell_module, '***'
+        print cell_module
         print dir(cell_module)
         mdict = dict()
         for key in CellModel._keys:
