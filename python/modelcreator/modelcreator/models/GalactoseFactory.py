@@ -58,7 +58,6 @@ if __name__ == "__main__":
     tm.writeSBML()    
     tm.storeInDatabase()
     del tm, events
-    exit()
     
     #---------------------------------------------------------------------------------
     # [3] galactose challenge 
