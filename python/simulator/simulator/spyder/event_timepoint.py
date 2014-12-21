@@ -51,5 +51,5 @@ print 'Naive VarStep'
 r.reset()
 r.reset(SelectionRecord.ALL)
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
-s = r.simulate(0, 20, absolute=absTol, relative=relTol, variableStep=False, stiff=True, plot=True)   
+s = r.simulate(0, 20, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=True)   
 

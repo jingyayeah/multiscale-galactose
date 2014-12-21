@@ -5,10 +5,8 @@ Created on Thu Dec 18 12:39:41 2014
 @author: mkoenig
 """
 
-import numpy
 import roadrunner
 from roadrunner import SelectionRecord
-from roadrunner.roadrunner import Logger
 print roadrunner.__version__
 
 import antimony

@@ -30,8 +30,8 @@ T_PEAK = 5000
 # varying fluxes resulting from the flux distribution within the lobulus.
 # See below for the integrated flux weighted calculation.
 
-sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
-# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
+# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
+sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
 r = rt.load_model(sbml_file)
 
 # set selection
@@ -58,7 +58,7 @@ p_list = [
 inits = {}
 
 # perform simulation
-s_list = [rt.simulation(r, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list]
+s_list = [rt.simulation(r, p, inits, absTol=1E-6, relTol=1E-6) for p in p_list]
 
 # general plots 
 dp.dilution_plot(s_list, r.selections, xlim=None, ylim=None)

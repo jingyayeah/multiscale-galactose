@@ -37,10 +37,10 @@ def createGaussEventData():
                    createTriggerFromTime(0.0), {'peak_status': '0 dimensionless',
                                                 'peak_type': '1 dimensionless'})
     ed2 = EventData("EDIL_1", "peak [PP]",
-                   createTriggerFromTime("mu_peak-3 dimensionless*sigma_peak"), {'peak_status': '1 dimensionless',
+                   createTriggerFromTime("mu_peak-4 dimensionless*sigma_peak"), {'peak_status': '1 dimensionless',
                                                                                  'peak_type': '1 dimensionless'})
     ed3 = EventData("EDIL_2", "post peak [PP]",
-                   createTriggerFromTime("mu_peak+3 dimensionless*sigma_peak"), {'peak_status': '0 dimensionless',
+                   createTriggerFromTime("mu_peak+4 dimensionless*sigma_peak"), {'peak_status': '0 dimensionless',
                                                                                  'peak_type': '1 dimensionless'})
     return [ed1, ed2, ed3]
 
