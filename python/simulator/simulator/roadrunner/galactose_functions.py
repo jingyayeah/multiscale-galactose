@@ -13,9 +13,11 @@ from roadrunner_tools import selection_dict
 ##  Distribution of fluxes  ##################################################
 def flux_sample():
     # definition of fluxes
-    flux1 = np.arange(start=0.1, stop=450, step=50)
-    flux2 = np.arange(start=400, stop=1200, step=50)
-    flux = np.concatenate((flux1, flux2), axis=0)
+    #flux1 = np.arange(start=10, stop=200, step=25)
+    #flux2 = np.arange(start=200, stop=1000, step=100)
+    #flux = np.concatenate((flux1, flux2), axis=0)
+    flux = np.arange(start=10, stop=1220, step=50)
+    
     flux = np.sort(flux)
     return flux
 

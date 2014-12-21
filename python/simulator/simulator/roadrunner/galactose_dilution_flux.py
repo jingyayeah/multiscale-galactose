@@ -8,7 +8,6 @@ curves.
 @author: Matthias Koenig
 @date: 2014-12-19
 """
-import roadrunner
 import numpy as np
 import galactose_functions as gf
 import roadrunner_tools as rt
@@ -16,17 +15,16 @@ import roadrunner_plots as rp
 
 #########################################################################    
 
-VERSION = 79
+VERSION = 86
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
 #########################################################################    
 # Flux integration of curves
 #########################################################################  
-# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
 sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
+# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
 r = rt.load_model(sbml_file)
-
 
 # selection
 inits = {}
@@ -51,23 +49,24 @@ for gal in [0.28]:
     p_list = []
     for f in flux:
         d = { 
-              't_duration':1.0,
+              't_duration':0.5,
               "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.50,               
-              "y_dis" : 3.5E-6,
+              # "y_dis" : 3.5E-6,
               # "y_cell" : 2*7.58E-6,
               #"L" : 500E-6,
               #"H2OT_f": 3.0,
-              "GLUT2_f" : 10.0, 
+              # "GLUT2_f" : 10.0, 
               #"GLUT2_k_gal" : 27.8,
-              "GALK_PA" :  0.03,
-              "scale_f" : 0.84*6.4E-15} 
+              # "GALK_PA" :  0.03,
+              # "scale_f" : 0.84*6.4E-15}
+              }
         p_list.append(d)
     gal_p_list.append(p_list)
 
 gal_f_list = []
 for k, p_list in enumerate(gal_p_list):
-    f_list = [rt.simulation(r, parameters=p, inits=inits, absTol=1E-4, relTol=1E-4) for p in p_list]
+    f_list = [rt.simulation(r, parameters=p, inits=inits, absTol=1E-3, relTol=1E-3) for p in p_list]
     gal_f_list.append(f_list)
 
 #########################################################################    
@@ -105,8 +104,8 @@ rp.plot_dilution_data(exp_data)
 # plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)        
 
 # gauss peak
-rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=0.8)
-rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.3*15.16943, time_shift=0.8)        
+rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.4)
+rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.4)        
 
 # additional information
 rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel)

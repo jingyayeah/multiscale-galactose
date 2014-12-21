@@ -48,8 +48,7 @@ pars = [# id, value, unit, constant
 ]  
 assignments = [# id, assignment, unit       
                ]
-# TODO: write the rules for all the tracers
-# TODO: species rules
+
 rules = [# id, rule, unit
             ('c__scale', 'scale_f', '-'),   
             
@@ -83,8 +82,8 @@ reactions = (GALK, GALKM,
                  PGM1, PGM1M, 
                  GLY, GLYM,
                  GTFGAL, GTFGALM,
-                 GTFGLC, GTFGLCM)#,
-# H2OTM, GLUT2_GAL, GLUT2_GALM)
+                 GTFGLC, GTFGLCM,
+                 H2OTM, GLUT2_GAL, GLUT2_GALM)
     
 # metabolic events
 deficiencies_units = {

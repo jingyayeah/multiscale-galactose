@@ -150,7 +150,8 @@ def createAssignmentRules(model, rules, names):
         # Create parameter if not existing
         if (not model.getParameter(pid)) and (not model.getSpecies(pid)):
             createParameter(model, pid, unit, name=names.get(pid, None), value=None, constant=False)
-        _createAssignmentRule(model, sid=pid, formula=data[1])
+        if (not model.getRule(pid)):
+            _createAssignmentRule(model, sid=pid, formula=data[1])
             
 def _createAssignmentRule(model, sid, formula):
     rule = model.createAssignmentRule();

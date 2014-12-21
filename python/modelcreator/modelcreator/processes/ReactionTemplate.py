@@ -14,18 +14,26 @@ from modelcreator.models.model_metabolic import createParameter, createAssignmen
 
 from ReactionFactory import setKineticLaw
 
+
 class ReactionTemplate(object):
     
-    def __init__(self, rid, name, equation, pars, rules, formula):
+    def __init__(self, rid, name, equation, compartments, pars, rules, formula):
         self.rid = rid
         self.name = name
         self.equation = Equation(equation)
+        self.compartments = compartments
         self.pars = pars
         self.rules = rules
         self.formula = formula
     
     def createReactions(self, model, initData):
         ''' Create the reaction based on the given comps dictionary '''
+        # TODO: check if everything is initialized
+        # i.e. are all the comp keys in the init dict
+        
+        # TODO: get the allowed initDicts from the the initData for the given
+        # reaction and create this subset of reactions
+        
         for initDict in initData:
             self._createReaction(model, initDict)
     
@@ -42,13 +50,12 @@ class ReactionTemplate(object):
         rules = []
         for rule in self.rules:
             r_new = [initString(part, initDict) for part in rule]
-            rules.append(r_new)
+            rid = r_new[0]
+            if not self.model.getAssignmentRule(rid):   
+                rules.append(r_new)
         createAssignmentRules(self.model, rules, {})
     
-    def _createReaction(self, model, initDict):
-        # TODO: check if everything is initialized
-        # i.e. are all the comp keys in the init dict
-        
+    def _createReaction(self, model, initDict):        
         # parameters and rules
         self._createParameters(initDict)
         self._createRules(initDict)

@@ -17,7 +17,7 @@ reload(dp)
 #########################################################################    
 
 VERSION = 85
-NC = 2
+NC = 20
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
@@ -54,12 +54,12 @@ r.selections = sel
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = [
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.2*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6},
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6},
 ]
 inits = {}
 
 # perform simulation
-s_list = [rt.simulation(r, p, inits, absTol=1E-6, relTol=1E-6) for p in p_list]
+s_list = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list]
 
 # find the maximum of the peaks
 s = s_list[0]

@@ -350,29 +350,38 @@ class TissueModel(object):
     def createCellAssignmentRules(self):
         ''' Necessary to handle additional information. '''
         rules = []
-        rep_dicts = self.createCellReplacementDicts()
+        rep_dicts = self.createCellExtReplacementDicts()
         for rule in self.cellModel.rules:
             for d in rep_dicts:
                 r_new = [initString(rpart, d) for rpart in rule]
                 rules.append(r_new)
-    
         createAssignmentRules(self.model, rules, self.names)
     
-
     def createCellReplacementDicts(self):
-        ''' Definition of replacement information for 
-            initialization of the cell ids.
+        ''' Definition of replacement information for initialization of the cell ids.
+            Creates all possible combinations.
         '''
-        initData = []
+        init_data = []
         for k in self.cell_range():
             d = dict()
-            d['c__'] = getHepatocyteId(k) + '__'
-            d['e__'] = getDisseId(k) + '__'
-            initData.append(d)
-        return initData
+            d['c__'] = '{}__'.format(getHepatocyteId(k))
+            init_data.append(d)
+        return init_data
     
-
-
+    def createCellExtReplacementDicts(self):
+        ''' Definition of replacement information for initialization of the cell ids.
+            Creates all possible combinations.
+        '''
+        init_data = []
+        for k in self.cell_range():
+            for i in range( (k-1)*self.Nf+1, k*self.Nf+1):
+                d = dict()
+                d['c__'] = '{}__'.format(getHepatocyteId(k))
+                d['e__'] = '{}__'.format(getDisseId(i))
+                init_data.append(d)
+        return init_data
+    
+    
     def createBoundaryConditions(self):
         ''' Set constant in periportal. '''
         sdict = self.createExternalSpeciesDict()
@@ -382,11 +391,19 @@ class TissueModel(object):
                 s.setBoundaryCondition(True)
 
     def createCellReactions(self):
+        ''' Initializes the generic compartments with the actual
+            list of compartments for the given geometry.
+        '''
         # set the model for the template
         ReactionTemplate.model = self.model
         
         rep_dicts = self.createCellReplacementDicts()
         for r in self.cellModel.reactions:
+            # Get the right replacement dictionaries for the reactions
+            if ('c__' in r.compartments) and not ('e__' in r.compartments):
+                rep_dicts = self.createCellReplacementDicts()
+            if ('c__' in r.compartments) and ('e__' in r.compartments):
+                rep_dicts = self.createCellExtReplacementDicts()
             r.createReactions(self.model, rep_dicts)
                 
     def createTransportReactions(self):
