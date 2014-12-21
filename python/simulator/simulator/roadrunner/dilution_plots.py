@@ -46,7 +46,7 @@ def dilution_plot(s_list, selections, show=True,
         p.show()
     
 
-def dilution_plot_by_name(s_list, selections, name, xlim=[t_peak-5, t_peak+30]):
+def dilution_plot_by_name(s_list, selections, name, xlim=[t_peak-5, t_peak+30], comp_type='H'):
     ''' 
         Plot of the dilution curves.    
         TODO: fix the problems if not enough colors are provided.
@@ -54,7 +54,7 @@ def dilution_plot_by_name(s_list, selections, name, xlim=[t_peak-5, t_peak+30]):
     print '#'*80    
     print name
     print '#'*80
-    ids =  [item for item in selections if ( (item.startswith('[H') | item.startswith('H')) 
+    ids =  [item for item in selections if ( (item.startswith('[{}'.format(comp_type)) | item.startswith(comp_type)) 
                                     & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
     if len(ids) == 0:
         ids = [name, ]

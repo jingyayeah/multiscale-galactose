@@ -83,10 +83,8 @@ reactions = (GALK, GALKM,
                  PGM1, PGM1M, 
                  GLY, GLYM,
                  GTFGAL, GTFGALM,
-                 GTFGLC, GTFGLCM,
-                 H2OTM,
-                 GLUT2_GAL,
-                 GLUT2_GALM)
+                 GTFGLC, GTFGLCM)#,
+# H2OTM, GLUT2_GAL, GLUT2_GALM)
     
 # metabolic events
 deficiencies_units = {

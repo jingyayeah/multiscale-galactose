@@ -91,6 +91,8 @@ pars.extend([
            #  ('f_tissue',     0.8, '-', True),
             
 ])
+names['Nc'] = 'number of cells in sinusoidal unit'
+names['Nf'] = 'external compartments per cell'
 names['L'] = 'sinusoidal length'
 names['y_sin'] = 'sinusoidal radius'
 names['y_end'] = 'endothelial cell thickness'
@@ -114,7 +116,7 @@ names['gal_challenge'] = 'galactose challenge periportal'
 rules.extend([
             # id, assignment, unit
             ('x_cell', 'L/Nc', 'm'),
-            ('x_sin',  "x_cell", "m"),
+            ('x_sin',  "x_cell/Nf", "m"),
             ("A_sin", "pi*y_sin^2",  "m2"),
             ("A_dis", "pi*(y_sin+y_end+y_dis)^2 - pi*(y_sin+y_end)^2",  "m2"),
             ("A_sindis", "2 dimensionless *pi*y_sin*x_sin",  "m2"),

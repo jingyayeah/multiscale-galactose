@@ -16,7 +16,8 @@ reload(dp)
 
 #########################################################################    
 
-VERSION = 79
+VERSION = 85
+NC = 2
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
@@ -31,7 +32,7 @@ T_PEAK = 5000
 # See below for the integrated flux weighted calculation.
 
 # sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
-sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
+sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc{}_dilution.xml'.format(VERSION, NC)
 r = rt.load_model(sbml_file)
 
 # set selection
@@ -41,6 +42,8 @@ sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
 sel += ['[PV__{}]'.format(item) for item in compounds]
 sel += ['[PP__{}]'.format(item) for item in compounds]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += ["peak"]
 r.selections = sel
@@ -51,21 +54,34 @@ r.selections = sel
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = [
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6, 'Dsuc': 1.0*9.1E-10},
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6, 'Dsuc': 0.8*9.1E-10},
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6, 'Dsuc': 0.5*9.1E-10},
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.2*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6},
 ]
 inits = {}
 
 # perform simulation
 s_list = [rt.simulation(r, p, inits, absTol=1E-6, relTol=1E-6) for p in p_list]
 
+# find the maximum of the peaks
+s = s_list[0]
+sel_dic = rt.selection_dict(r.selections)
+for sid in ['[PV__{}]'.format(item) for item in compounds]:
+    index = sel_dic.get(sid, None)    
+    times = s[:, 0]
+    data = s[:, index]    
+    maximum = max(s[:, index])
+    max_index = [i for i, item in enumerate(data) if item == maximum]
+    max_time = times[max_index]
+    print sid, 'max:', maximum, 'time:', max_time
+
 # general plots 
-dp.dilution_plot(s_list, r.selections, xlim=None, ylim=None)
 dp.dilution_plot(s_list, r.selections)
 
 
 dp.dilution_plot_by_name(s_list, r.selections, name='peak', xlim=[T_PEAK-5, T_PEAK+5])
+dp.dilution_plot_by_name(s_list, r.selections, name='alb', comp_type='S', xlim=[T_PEAK-10, T_PEAK+20])
+dp.dilution_plot_by_name(s_list, r.selections, name='[D10__alb]', xlim=[T_PEAK-10, T_PEAK+20])
+dp.dilution_plot_by_name(s_list, r.selections, name='[PV__alb]', xlim=[T_PEAK-10, T_PEAK+20])
+
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20])
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[0, 20])
 dp.dilution_plot_by_name(s_list, r.selections, name='gal')

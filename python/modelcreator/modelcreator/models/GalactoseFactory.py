@@ -21,7 +21,8 @@ if __name__ == "__main__":
     
     # definition of cell model and tissue model
     Nc = 20
-    version = 79
+    Nf = 5
+    version = 85
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 
@@ -29,7 +30,7 @@ if __name__ == "__main__":
     #---------------------------------------------------------------------------------
     # [1] core model
     # Model without events. Basic model.
-    tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
+    tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='core', events=None)
     tm.createModel()
     tm.writeSBML()   
@@ -43,7 +44,7 @@ if __name__ == "__main__":
     # The multiple dilution indicator peak is applied after the system has
     # reached steady state (<1000s) from initial non galactose conditions.
     events = createRectEventData()
-    tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
+    tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='dilution', events=events)
     tm.createModel()
     tm.writeSBML()    
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     
     # [2B] multiple dilution indicator (Gauss peak)
     events = createGaussEventData()
-    tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
+    tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='dilution_gauss', events=events)
     tm.createModel()
     tm.writeSBML()    
@@ -67,7 +68,7 @@ if __name__ == "__main__":
     #    ________
     # __|
     events = createGalactoseChallengeEventData(tc_start=2000.0)
-    tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
+    tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='galchallenge', events=events)
     tm.createModel()
     tm.writeSBML()    
@@ -83,7 +84,7 @@ if __name__ == "__main__":
     #    _|   |
     # __|     |___
     events = createGalactoseStepEventData()
-    tm = TissueModel(Nc=Nc, version=version, tissue_dict=tdict, 
+    tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
                      cell_model=cell_model, simId='galstep', events=events)
     tm.createModel()
     tm.writeSBML()    

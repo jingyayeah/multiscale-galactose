@@ -26,13 +26,14 @@ class TissueModel(object):
     _keys = ['main_units', 'units', 'names',
             'pars', 'external', 'assignments', 'rules']
 
-    def __init__(self, Nc, version,
+    def __init__(self, Nc, Nf, version,
                  tissue_dict, cell_model, simId='core', events=None):
         '''
         Initialize with the tissue information dictionary and 
         the respective cell model used for creation.
         '''
         self.Nc = Nc
+        self.Nf = Nf
         self.version = version
         self.simId = simId
         self.cellModel = cell_model
@@ -52,8 +53,9 @@ class TissueModel(object):
         check(self.model.setName(self.id), 'set name')
         
         # add dynamical parameters
-        self.pars.append(
-            ('Nc', self.Nc, '-', True),
+        self.pars.extend(
+            [('Nc', self.Nc, '-', True),
+            ('Nf', self.Nf, '-', True),]
         )
     
         print '\n', '*'*40, '\n', self.id, '\n', '*'*40
@@ -130,7 +132,10 @@ class TissueModel(object):
     def cell_range(self):
         return range(1, self.Nc+1)
     
+    def comp_range(self):
+        return range(1, self.Nc*self.Nf+1)
     
+
     def info(self):
         for key in TissueModel._keys:
             print key, ' : ', getattr(self, key)
@@ -168,10 +173,10 @@ class TissueModel(object):
         # periportal
         comps[getPPId()] = (getPPName(), 3, 'm3', False, 'Vol_pp')
         # sinusoid
-        for k in self.cell_range():
+        for k in self.comp_range():
             comps[getSinusoidId(k)] = (getSinusoidName(k), 3, 'm3', False, 'Vol_sin')
         # disse
-        for k in self.cell_range():
+        for k in self.comp_range():
             comps[getDisseId(k)] = (getDisseName(k), 3, 'm3', False, 'Vol_dis')
         # perivenious
         comps[getPVId()] = (getPVName(), 3, 'm3', False, 'Vol_pv')
@@ -198,12 +203,13 @@ class TissueModel(object):
         sdict = dict()
         for data in self.external:
             (sid, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
-            
             name = self.names[sid]
+            # PP
             sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId(), boundaryCondition)
-            for k in self.cell_range():
+            for k in self.comp_range():
                 sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k), boundaryCondition)
                 sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k), boundaryCondition)
+            # PV
             sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId(), boundaryCondition)
         return sdict
     
@@ -394,10 +400,10 @@ class TissueModel(object):
             # flow PP -> S01 
             createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), flow=flow)
             # flow S[k] -> S[k+1] 
-            for k in range(1, self.Nc):
+            for k in range(1, self.Nc*self.Nf):
                 createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getSinusoidId(k+1), flow=flow)
-            # flow S[Nc] -> PV
-            createFlowReaction(self.model, sid, c_from=getSinusoidId(self.Nc), c_to=getPVId(), flow=flow)
+            # flow S[Nc*Nf] -> PV
+            createFlowReaction(self.model, sid, c_from=getSinusoidId(self.Nc*self.Nf), c_to=getPVId(), flow=flow)
             # flow PV ->
             createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=flow);
     
@@ -406,20 +412,20 @@ class TissueModel(object):
             sid = data[0]    
             # [1] sinusoid diffusion
             Dx_sin = 'Dx_sin_{}'.format(sid)
-            
             createDiffusionReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), D=Dx_sin)
-            for k in range(1, self.Nc):
+            
+            for k in range(1, self.Nc*self.Nf):
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getSinusoidId(k+1), D=Dx_sin)
-            createDiffusionReaction(self.model, sid, c_from=getSinusoidId(self.Nc), c_to=getPVId(), D=Dx_sin)
+            createDiffusionReaction(self.model, sid, c_from=getSinusoidId(self.Nc*self.Nf), c_to=getPVId(), D=Dx_sin)
             
             # [2] disse diffusion
             Dx_dis = 'Dx_dis_{}'.format(sid)
-            for k in range(1, self.Nc):
+            for k in range(1, self.Nc*self.Nf):
                 createDiffusionReaction(self.model, sid, c_from=getDisseId(k), c_to=getDisseId(k+1), D=Dx_dis)
             
             # [3] sinusoid - disse diffusion
             Dy_sindis = 'Dy_sindis_{}'.format(sid)
-            for k in range(1, self.Nc+1):
+            for k in self.comp_range():
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
     
     def createCellEvents(self):
