@@ -15,7 +15,7 @@ import roadrunner_plots as rp
 
 #########################################################################    
 
-VERSION = 86
+VERSION = 89
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
@@ -43,20 +43,20 @@ p_flux = gf.flux_probability(flux)
 # The parameters are extended via the fluxes. I.e. for all fluxes in the
 # flux sample the simulation is performed.
 
-#for gal in [0.28, 12.5, 17.5]:
+
 gal_p_list = []
-for gal in [0.28]:
+# for gal in [0.28]:
+for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flux:
         d = { 
               't_duration':0.5,
               "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.50,               
-              # "y_dis" : 3.5E-6,
-              # "y_cell" : 2*7.58E-6,
-              #"L" : 500E-6,
+              "y_cell" : 0.5*7.58E-6,
+              "scale_f" : 1.0*6.4E-15,           
               #"H2OT_f": 3.0,
-              # "GLUT2_f" : 10.0, 
+              "GLUT2_f" : 12.0, 
               #"GLUT2_k_gal" : 27.8,
               # "GALK_PA" :  0.03,
               # "scale_f" : 0.84*6.4E-15}
@@ -72,9 +72,6 @@ for k, p_list in enumerate(gal_p_list):
 #########################################################################    
 # Average
 #########################################################################  
-reload(gf)
-reload(rt)
-reload(rp)
 
 # Average via probability and flux weighted summation
 Q_sinunit = np.pi * r.y_sin**2 * flux # [m³/s]
@@ -97,13 +94,12 @@ rp.average_plots(timepoints, av_mats, [T_PEAK-4, T_PEAK+20])
 # load experimental data
 exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
 exp_data = rp.load_dilution_data(exp_file)
-rp.plot_dilution_data(exp_data)
+# rp.plot_dilution_data(exp_data)
 
 # rectangular peak
 # plot_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)
 # plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)        
 
-# gauss peak
 rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.4)
 rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.4)        
 

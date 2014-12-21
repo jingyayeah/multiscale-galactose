@@ -16,7 +16,7 @@ reload(dp)
 
 #########################################################################    
 
-VERSION = 85
+VERSION = 88
 NC = 20
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
