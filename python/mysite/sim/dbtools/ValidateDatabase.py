@@ -36,9 +36,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED, ERROR
 from sim.models import Task
 
-
-
-
 def unassignAssignedHangingSimulations(task=None, cutoff_minutes=10):
     unassignHangingSimulationsWithStatus(ASSIGNED, task, cutoff_minutes)
     
@@ -158,9 +155,9 @@ if __name__ == "__main__":
     #-----------------------------------------------
     #     Unassign hanging simulations
     #-----------------------------------------------
-    task = Task.objects.get(pk=20)
+    task = Task.objects.get(pk=2)
     #print task
-    unassignAssignedHangingSimulations(task=task, cutoff_minutes=1);
+    unassignAssignedHangingSimulations(task=task, cutoff_minutes=-1);
     # unassignErrorHangingSimulations(task=None, cutoff_minutes=-1);
     # unassignErrorHangingSimulations(cutoff_minutes=-1);
     
