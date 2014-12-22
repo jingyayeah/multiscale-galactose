@@ -74,7 +74,7 @@ DATABASES = {
         'NAME': 'multiscale-galactose',
         'USER': 'mkoenig',
         'PASSWORD': 'test',
-        'HOST': '10.39.34.27',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -92,6 +92,5 @@ USE_I18N = True
 USE_L10N = False
 
 USE_TZ = True
-
 
 
