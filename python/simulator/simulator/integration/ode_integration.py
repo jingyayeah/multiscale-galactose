@@ -111,9 +111,9 @@ def integrate_roadrunner(sims, keep_tmp=False):
     # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
     roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
     print roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX
-    print '*' * 80
-    print rr.getInfo()
-    print '*' * 80
+    # print '*' * 80
+    # print rr.getInfo()
+    # print '*' * 80
     
     # get changed parameters in SBML
     # pars = sims[0].parameters.all()
@@ -139,8 +139,8 @@ def integrate_roadrunner(sims, keep_tmp=False):
     
     # make a concentration backup
     conc_backup = dict()
-    for sid in rr.model.getBoundarySpeciesIds():
-        conc_backup[sid] = rr["[{}]".format(sid)]    
+    # for sid in rr.model.getBoundarySpeciesIds():
+    #    conc_backup[sid] = rr["[{}]".format(sid)]    
     for sid in rr.model.getFloatingSpeciesIds():
         conc_backup[sid] = rr["[{}]".format(sid)]
     
@@ -249,7 +249,7 @@ if __name__ == "__main__":
 
     from sim.models import Simulation
     # sims = [Simulation.objects.filter(task__pk=6)[0], ]
-    sims = [Simulation.objects.get(pk=10000), ]
+    sims = [Simulation.objects.get(pk=1), ]
     print '* Start integration *'
     print 'Simulation: ', sims
     integrate(sims, integrator=ROADRUNNER, keep_tmp=True)
