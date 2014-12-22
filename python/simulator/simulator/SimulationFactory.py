@@ -365,7 +365,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 67
+    VERSION = 89
     
     #----------------------------------------------------------------------#
     if (0):
@@ -437,13 +437,13 @@ if __name__ == "__main__":
         p_list = [ {'pid': 'PP__gal', 'values': PP__gal, 'unit': 'mM', 'ptype':BOUNDERY_INIT}]
         
         # mean sinusoid for comparison
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=0, sampling="mean")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1900, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=10, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         
