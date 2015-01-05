@@ -6,7 +6,7 @@ Testing the influence of paramter variation on the resulting dilution
 curves.
 
 @author: Matthias Koenig
-@date: 2014-12-19
+@date: 2015-01-05
 """
 import numpy as np
 import galactose_functions as gf
@@ -45,16 +45,17 @@ p_flux = gf.flux_probability(flux)
 
 
 gal_p_list = []
-# for gal in [0.28]:
-for gal in [0.28, 12.5, 17.5]:
+for gal in [0.28]:
+# for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flux:
         d = { 
               't_duration':0.5,
               "[PP__gal]" : gal, 
-              "flow_sin" : f*1E-6 * 0.50,               
-              "y_cell" : 0.5*7.58E-6,
-              "scale_f" : 1.0*6.4E-15,           
+              "flow_sin" : f*1E-6 * 0.5,    
+              "y_dis" : 2.5E-6,
+              "y_cell" : 0.4*7.58E-6,
+              "scale_f" : 1.4*6.4E-15,           
               #"H2OT_f": 3.0,
               "GLUT2_f" : 12.0, 
               #"GLUT2_k_gal" : 27.8,
@@ -102,6 +103,9 @@ exp_data = rp.load_dilution_data(exp_file)
 
 rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.4)
 rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.4)        
+
+rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.5*15.16943, time_shift=1.2)
+rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.5*15.16943, time_shift=1.2)   
 
 # additional information
 rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel)
