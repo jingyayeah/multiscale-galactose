@@ -3,14 +3,14 @@
 \alias{plotLogNormalDistribution}
 \title{Plot the log normal density distribution.}
 \usage{
-plotLogNormalDistribution(p.gen, name, maxvalue, N = 1000, lcolor = "blue")
+plotLogNormalDistribution(p.gen, name, max.value, N = 1000, lcolor = "blue")
 }
 \arguments{
 \item{p.gen}{information about the parameters}
 
 \item{name}{of the parameter}
 
-\item{maxvalue}{for calculation of distribution}
+\item{max.value}{for calculation of distribution}
 }
 \description{
 Plot the log normal density distribution.

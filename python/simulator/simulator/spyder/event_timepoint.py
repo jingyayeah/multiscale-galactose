@@ -53,3 +53,11 @@ r.reset(SelectionRecord.ALL)
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
 s = r.simulate(0, 20, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=True)   
 
+# Testing access via the names
+mat = r.getFullStoichiometryMatrix()
+print mat
+mat['J0']
+mat['S3']
+
+s['S3']
+s['PP_S']

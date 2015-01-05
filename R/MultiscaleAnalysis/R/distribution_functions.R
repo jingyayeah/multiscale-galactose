@@ -60,6 +60,7 @@ wt.sd <- function(x, wt){
 #' 
 #' The parameters are the reported mean and standard deviations from experiments.
 #' These data is used if no histograms are available to fit the distributions.
+#' Parameters are fitted in SI units.
 #' @export
 generateLogStandardParameters <- function(p.exp){
   name = p.exp$name
@@ -69,9 +70,9 @@ generateLogStandardParameters <- function(p.exp){
   scale_fac = p.exp$scale_fac
   scale_unit = p.exp$scale_unit
     
-  # meanlog and meanstd are for the scaled variables, i.e. in scale_units
-  meanlog = meanlog(mean*scale_fac, std*scale_fac)
-  sdlog   = stdlog(mean*scale_fac, std*scale_fac)
+  # meanlog and meanstd are for unscaled SI parameters
+  meanlog = meanlog(mean, std)
+  sdlog   = stdlog(mean, std)
   
   meanlog_error = rep(NA, length(meanlog))
   sdlog_error = rep(NA, length(sdlog))
@@ -113,40 +114,52 @@ getBreakPointsFromMidpoints <- function(midpoints){
                length.out=length(midpoints)+1)
 }
 
-#' Plot the histogramm of the data with the fit.
-#' @param p.gen information about the parameters
-#' @param data data underlying the histogram
-#' @param fit lognormal fit estimates from fitdistr
+#' Plot the histogramm of the data used for fitting the distributions.
 #' @export
-plotHistWithFit <- function(p.gen, name, data, midpoints, fit, histc=rgb(1.0, 0.0, 0.0, 0.25)){  
-  # plot the fit distribution
-  plotLogNormalDistribution(p.gen, name, 2*max(data$x))
+plotFitHistogram <- function(p.gen, name, data, midpoints, col=rgb(1.0, 0.0, 0.0, 0.25)){  
   
-  # plot the histogram
+  # plot the scaled histogram
   h <- hist(data$x, breaks=getBreakPointsFromMidpoints(midpoints), plot=FALSE)
-  plot(h, col=histc, freq=FALSE, add=T)
+  plot(h, col=col, freq=FALSE, add=T)
 }
+
+#' Plot parameter histogramm of the sinusoidal unit samples.
+#' @export
+plotParameterHistogram <- function(p.gen, name){
+  if (exists('pars')){
+    # add the parameter hist
+    hpars <- hist(pars[, name]/p.gen[name, 'scale_fac'],
+                  plot=FALSE, breaks=20)
+    plot(hpars, col=histcp, freq=FALSE, add=T)
+  }
+}
+
 
 #' Plot the log normal density distribution.
 #' @param p.gen information about the parameters
 #' @param name of the parameter
-#' @param maxvalue for calculation of distribution
+#' @param max.value for calculation of distribution
 #' @export
-plotLogNormalDistribution <- function(p.gen, name, maxvalue, N=1000, lcolor='blue'){
-  x <- seq(from=1E-12, to=maxvalue, length.out=N)
+plotLogNormalDistribution <- function(p.gen, name, max.value, N=1000, lcolor='blue'){
+  mean <- p.gen[name, "mean"]
+  std <- p.gen[name, "std"]
+  scale <- p.gen[name, "scale_fac"]
+  
+  # Calculate the SI distribution
+  x <- seq(from=1E-12, to=max.value, length.out=N)
   y <- dlnorm(x, 
               meanlog=p.gen[name, 'meanlog'], 
               sdlog=p.gen[name, 'sdlog'], 
               log = FALSE)
+  # Scale to desired values (area under curve constant)
+  x <- x/scale
+  y <- y*scale
   points(x,y, lty=1, type="l", lwd=3)
   
   # plot the mean and std lines
-  mean <- p.gen[name, "mean"]
-  std <- p.gen[name, "std"]
-  fac <- p.gen[name, "scale_fac"]
-  abline(v=mean*fac, lty=1, col=lcolor, lwd=2)
-  abline(v=(mean+std)*fac, lty=2, col=lcolor, lwd=1)
-  abline(v=(mean-std)*fac, lty=2, col=lcolor, lwd=1)
+  abline(v=mean/scale, lty=1, col=lcolor, lwd=2)
+  abline(v=(mean+std)/scale, lty=2, col=lcolor, lwd=1)
+  abline(v=(mean-std)/scale, lty=2, col=lcolor, lwd=1)
 }
 
 #' Get the axis label.

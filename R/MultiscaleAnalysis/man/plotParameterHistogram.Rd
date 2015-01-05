@@ -3,17 +3,21 @@
 \alias{plotParameterHistogram}
 \title{Plot parameter histogram}
 \usage{
-plotParameterHistogram(pars, name, breaks = 40)
+plotParameterHistogram(p.gen, name)
+
+plotParameterHistogram(p.gen, name)
 }
 \arguments{
-\item{pars}{Parameter data frame}
-
 \item{name}{of parameter}
+
+\item{pars}{Parameter data frame}
 }
 \value{
 hist information
 }
 \description{
 Plot parameter histogram
+
+Plot parameter histogramm of the sinusoidal unit samples.
 }
 

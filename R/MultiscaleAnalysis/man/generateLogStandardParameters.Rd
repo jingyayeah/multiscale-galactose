@@ -8,5 +8,6 @@ generateLogStandardParameters(p.exp)
 \description{
 The parameters are the reported mean and standard deviations from experiments.
 These data is used if no histograms are available to fit the distributions.
+Parameters are fitted in SI units.
 }
 
