@@ -21,7 +21,7 @@ samples for parameters (via LHS).
 
 
 @author:   Matthias Koenig
-@date:     2014-05-04
+@date:     2015-01-05
 '''
 import random
 import numpy as np
@@ -31,8 +31,9 @@ from sim.models import GLOBAL_PARAMETER
 
 def createParametersBySampling(dist_data, N, sampling):
     '''
-    Master function which creates the samples. 
-    Only function which should be called from the outside.
+    Master function which switches between methods to create
+    the samples. This function should be called from 
+    other modules.
     '''
     if (sampling == "distribution"):
         samples = _createSamplesByDistribution(dist_data, N);
@@ -44,7 +45,6 @@ def createParametersBySampling(dist_data, N, sampling):
         samples1 = _createSamplesByDistribution(dist_data, N/2);
         samples2 = _createSamplesByLHS(dist_data, N/2);
         samples = samples1 + samples2
-            
     return samples
 
 def _createSamplesByDistribution(dist_data, N=10):
@@ -64,18 +64,17 @@ def _createSamplesByDistribution(dist_data, N=10):
             # sigma = math.sqrt(math.log(std**2/m**2 + 1));
             mu = dtmp['meanlog']
             sigma = dtmp['sdlog']
-            # The fit parameter are for mum and mum/s, but parameters for the 
-            # ode have to be provided in m and m/s.
-            # TODO: fix this -> the parameter have to be fitted to the actual values, 
-            # no transformation which will break generality
-            value = npr.lognormal(mu, sigma) * 1E-6   
+            # all values are in 'unit'
+            value = npr.lognormal(mu, sigma) 
             s[pid] = ( pid, value, dtmp['unit'], GLOBAL_PARAMETER)
         
         samples.append(s)
     return samples
 
 def _createSamplesByMean(dist_data, N=1):
-    ''' Returns the mean parameters for the given distribution data. '''
+    ''' 
+    Returns mean parameters for the given distribution data. 
+    '''
     samples = [];
     for kn in xrange(N):
         s = dict()
