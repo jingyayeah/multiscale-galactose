@@ -139,9 +139,12 @@ cat(fname, '\n')
 ###############################################################
 # Load samples
 ###############################################################
-folder <- '2014-12-11_T15' # Multiple Indicator Data
+# folder <- '2014-12-11_T15' # Multiple Indicator Data
+folder <- '2015-01-05_T24' # Multiple Indicator Data
 p <- process_folder_info(folder)
+p
 pars <- loadParameterFile(p$parsfile)
+
 # The subset of f_flow == 1 is used. Here the flow is unscaled
 # equal to the flow given by the distributions.
 # Concentrate on the first PP__gal level (other levels are redundant 
@@ -167,7 +170,7 @@ plot(pars[, pnames], col=ccols, pch=15)
 # Create figures
 ###############################################################
 # Settings for plots
-create_plots = TRUE
+create_plots = FALSE
 histc = rgb(1.0, 0.0, 0.0, 0.25)
 histcp = rgb(0.0, 0.0, 1.0, 0.25)
 plot.width = 800 
@@ -195,7 +198,7 @@ plotLogNormalDistribution(p.gen, name, max.value=2*max.value)
 plotFitHistogram(p.gen, name, data=data[[name]]/scale, 
                 midpoints=as.numeric(colnames(Koo1975.all)), col=histc)
 # plot parameters
-plotParameterHistogram(p.gen, name)
+plotParsHistogram(p.gen, name)
 
 legend("topright",  legend = c('Data Koo1975', 'Simulation'), fill=c(histc, histcp))
 if (create_plots){
@@ -218,7 +221,7 @@ plot(numeric(0), numeric(0),  main="y_cell distribution",
 plotLogNormalDistribution(p.gen, name, max.value=2*max.value)
 plotFitHistogram(p.gen, name, data=data[[name]]/scale, 
                  midpoints=as.numeric(colnames(p.y_cell)), col=histc)
-plotParameterHistogram(p.gen, name)
+plotParsHistogram(p.gen, name)
 
 legend("topright",  legend = c('Data Puhl2003', 'Simulation'), fill=c(histc, histcp))
 if (create_plots){
@@ -240,7 +243,7 @@ plot(numeric(0), numeric(0),  main="Sinusoidal radius",
 plotLogNormalDistribution(p.gen, name, max.value=2*max.value)
 plotFitHistogram(p.gen, name, data=data[[name]]/scale, 
                  midpoints=as.numeric(colnames(p.y_sin)), col=histc)
-plotParameterHistogram(p.gen, name)
+plotParsHistogram(p.gen, name)
 
 legend("topright",  legend = c('Data Puhl2003', 'Simulation'), fill=c(histc, histcp))
 if (create_plots){
@@ -250,7 +253,7 @@ if (create_plots){
 ## y_dis ##
 name = 'y_dis'
 scale <- p.gen[name, 'scale_fac']
-max.value <- 3*scale
+max.value <- 5*scale
 if (create_plots){
   fname <- file.path(dir_out, paste('distribution_', name, '.png', sep=""))
   png(filename=fname, width=plot.width, height=plot.height, units=plot.units, bg=plot.bg, res=plot.res)
@@ -260,7 +263,7 @@ plot(numeric(0), numeric(0),  main="Width space of Disse",
      xlim=c(0, max.value/scale), ylim=c(0, 2.0))
 
 plotLogNormalDistribution(p.gen, name, max.value=2*max.value)
-plotParameterHistogram(p.gen, name)
+plotParsHistogram(p.gen, name)
 
 legend("topright",  legend = c('Simulation'), fill=c(histcp))
 if (create_plots){
@@ -280,7 +283,7 @@ plot(numeric(0), numeric(0),  main="Sinusoidal length",
      xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
      xlim=c(0, max.value/scale), ylim=c(0, 0.005))
 plotLogNormalDistribution(p.gen, name, max.value=2*max.value)
-plotParameterHistogram(p.gen, name)
+plotParsHistogram(p.gen, name)
 
 # add distribution
 plotLogNormalDistribution(p.gen, name, max.value=2*max.value)

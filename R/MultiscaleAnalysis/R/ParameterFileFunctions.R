@@ -54,6 +54,7 @@ plotParameterHistogramFull <- function(pars, all_pars=FALSE){
   }else{
     pnames <- getParameterNames(pars)
   }
+  cat('Parameters: ', pnames, '\n')
   Np <- length(pnames)
   Ndim <- ceiling(sqrt(Np))
   par(mfrow=c(Ndim,Ndim))
@@ -65,9 +66,6 @@ plotParameterHistogramFull <- function(pars, all_pars=FALSE){
 
 #' Plot parameter histogram
 #' 
-#' @param pars Parameter data frame
-#' @param name of parameter
-#' @return hist information
 #' @export
 plotParameterHistogram <- function(pars, name, breaks=40){
   x <- pars[,name] 

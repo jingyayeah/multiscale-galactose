@@ -125,7 +125,7 @@ plotFitHistogram <- function(p.gen, name, data, midpoints, col=rgb(1.0, 0.0, 0.0
 
 #' Plot parameter histogramm of the sinusoidal unit samples.
 #' @export
-plotParameterHistogram <- function(p.gen, name){
+plotParsHistogram <- function(p.gen, name){
   if (exists('pars')){
     # add the parameter hist
     hpars <- hist(pars[, name]/p.gen[name, 'scale_fac'],

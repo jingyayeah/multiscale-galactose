@@ -209,12 +209,12 @@ def make_galactose_core(sbml_id, N):
 
 #----------------------------------------------------------------------#
 def make_galactose_dilution(sbml_id, N, sampling):
-    info = 'Multiple-indicator dilution curves ({})'.format(sampling)
+    info = 'Multiple-indicator dilution curves II({})'.format(sampling)
     model = create_django_model(sbml_id, sync=True)
     
     # adapt flow in samples with the given f_flows
     # f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
-    f_flows = (0.5, 0.4)
+    f_flows = (1.0, 0.5, 0.4)
     
     raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     
@@ -443,7 +443,7 @@ if __name__ == "__main__":
         
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=10, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=1000, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
         
