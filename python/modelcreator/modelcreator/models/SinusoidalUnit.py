@@ -66,6 +66,7 @@ units['mM_s']       = [(UNIT_KIND_MOLE, 1.0, 0), (UNIT_KIND_SECOND, 1.0, 0),
 units['per_mM']   = [(UNIT_KIND_METRE, 3.0, 0), 
                     (UNIT_KIND_MOLE, -1.0, 0)]
 units['per_m2']   = [(UNIT_KIND_METRE, -2.0, 0)]
+units['per_m3']   = [(UNIT_KIND_METRE, -3.0, 0)]
 units['kg_per_m3']   = [(UNIT_KIND_KILOGRAM, 1.0, 0), 
                     (UNIT_KIND_METRE, -3.0, 0)]
 units['m3_per_skg']   = [(UNIT_KIND_METRE, 3.0, 0), 
@@ -80,16 +81,14 @@ pars.extend([
             ('y_sin',       4.4E-6,   'm',      True),
             ('y_end',     0.165E-6, 'm',      True),
             ('y_dis',       2.5E-6,   'm',      True),
-            ('y_cell',     7.58E-6,  'm',      True),
+            ('y_cell',     6.19E-6,  'm',      True),
             ('flow_sin',    270E-6,   'm_per_s',True),
             ('N_fen',        10E12,   'per_m2', True),
             ('r_fen',      53.5E-9,   'm',      True),
             
             ('rho_liv',     1.25E3,    'kg_per_m3', True), 
             ('f_tissue',     0.8, '-', True),
-            
-           #  ('f_tissue',     0.8, '-', True),
-            
+            ('f_cyto',       0.8, '-', True),
 ])
 names['Nc'] = 'number of cells in sinusoidal unit'
 names['Nf'] = 'external compartments per cell'
@@ -124,6 +123,7 @@ rules.extend([
             ("Vol_sin", "A_sin*x_sin",  "m3"),
             ("Vol_dis", "A_dis*x_sin",  "m3"),
             ("Vol_cell", "pi*x_cell*( (y_sin+y_end+y_dis+y_cell)^2-(y_sin+y_end+y_dis)^2 )", "m3"),
+            ("Vol_cyto", "f_cyto*Vol_cell",  "m3"),
             ("Vol_pp", "Vol_sin", "m3"),
             ("Vol_pv", "Vol_sin", "m3"),
             ("Vol_sinunit", "L*pi*(y_sin+y_end+y_dis+y_cell)^2", "m3"),
@@ -152,6 +152,7 @@ names['f_sin'] = 'sinusoidal fraction of volume'
 names['f_dis'] = 'Disse fraction of volume'
 names['f_cell'] = 'cell fraction of volume'
 names['Q_sinunit'] = 'volume flow sinusoid'
+names['f_cyto'] = 'cytosolic fraction of cell volume'
 names['f_fen'] = 'fenestration porosity'
     
 

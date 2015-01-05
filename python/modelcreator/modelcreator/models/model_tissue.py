@@ -189,7 +189,7 @@ class TissueModel(object):
         comps = dict()
         # hepatocyte compartments
         for k in self.cell_range():
-            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', False, 'Vol_cell')
+            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', False, 'Vol_cyto')
         return comps
 
     ##########################################################################

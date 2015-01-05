@@ -42,7 +42,7 @@ species = [
             ('c__nadph',            0.1,    'mM'),
 ]
 pars = [# id, value, unit, constant            
-            ('scale_f',   6.4E-15,   '-',    True),
+            ('scale_f',   0.5,   'per_m3',    True),
             ('REF_P',     1.0,      'mM',   True),
             ('deficiency',  0,      '-',    True),
 ]  
@@ -50,7 +50,7 @@ assignments = [# id, assignment, unit
                ]
 
 rules = [# id, rule, unit
-            ('c__scale', 'scale_f', '-'),   
+            ('c__scale', 'scale_f * Vol_cell', '-'),   
             
             ('e__gal_tot', 'e__gal + e__galM', 'mM'),
             ('c__gal_tot', 'c__gal + c__galM', 'mM'),

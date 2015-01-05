@@ -16,7 +16,7 @@ reload(dp)
 
 #########################################################################    
 
-VERSION = 88
+VERSION = 92
 NC = 20
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
@@ -54,7 +54,7 @@ r.selections = sel
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = [
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6},
+   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6, 'GALK_PA': 0.02},
 ]
 inits = {}
 
@@ -77,15 +77,17 @@ for sid in ['[PV__{}]'.format(item) for item in compounds]:
 dp.dilution_plot(s_list, r.selections)
 
 
-dp.dilution_plot_by_name(s_list, r.selections, name='peak', xlim=[T_PEAK-5, T_PEAK+5])
-dp.dilution_plot_by_name(s_list, r.selections, name='alb', comp_type='S', xlim=[T_PEAK-10, T_PEAK+20])
-dp.dilution_plot_by_name(s_list, r.selections, name='[D10__alb]', xlim=[T_PEAK-10, T_PEAK+20])
-dp.dilution_plot_by_name(s_list, r.selections, name='[PV__alb]', xlim=[T_PEAK-10, T_PEAK+20])
+# dp.dilution_plot_by_name(s_list, r.selections, name='peak', xlim=[T_PEAK-5, T_PEAK+5])
+# dp.dilution_plot_by_name(s_list, r.selections, name='alb', comp_type='S', xlim=[T_PEAK-10, T_PEAK+20])
+# dp.dilution_plot_by_name(s_list, r.selections, name='[D10__alb]', xlim=[T_PEAK-10, T_PEAK+20])
+
+dp.dilution_plot_by_name(s_list, r.selections, name='gal')
+dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM')
+dp.dilution_plot_by_name(s_list, r.selections, name='udpgalM')
+dp.dilution_plot_by_name(s_list, r.selections, name='udpglcM')
 
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20])
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[0, 20])
-dp.dilution_plot_by_name(s_list, r.selections, name='gal')
-dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM')
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1p')
 dp.dilution_plot_by_name(s_list, r.selections, name='galtol')
 dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GAL')

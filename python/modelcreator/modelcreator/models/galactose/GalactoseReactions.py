@@ -483,7 +483,7 @@ GLUT2_GAL = ReactionTemplate(
     'e__gal <-> c__gal [e__galM, c__galM]',
     compartments = ['c__', 'e__'],
     pars = [
-            ('GLUT2_f',    10.0,   'mole_per_s'),
+            ('GLUT2_f',    14.0,   'mole_per_s'),
             ('GLUT2_k_gal', 27.8, 'mM'),
             ('c__GLUT2_P',   1.0, 'mM'),
     ],

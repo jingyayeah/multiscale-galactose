@@ -90,15 +90,14 @@ colnames(p.fsd) <- Puhl2003.fig4$FSD    # [1/cm]
 barplot(p.fsd, main="FSD distribution", xlab="FSD [1/cm]", ylab="[%]")
 
 # cell layer [µm] 
-# the cell radius is calculated from the functional sinusoidal density
 p.y_cell <- p.fsd
-tmp <- 1E4/(2*Puhl2003.fig4$FSD) -1E6*(p.gen["y_sin", "mean"] + p.gen["y_dis", "mean"]) 
+# y_end = 0.165 # [µm]
+# y_cell = 1/2 * 1E4/391 - 1E6*(p.gen["y_sin", "mean"] + p.gen["y_dis", "mean"]) 
+# the cell radius is calculated from the functional sinusoidal density
+# by correcting for sinusoid radius and space of disse
+tmp <- 1E4/(2*Puhl2003.fig4$FSD) - 1E6*(p.gen["y_sin", "mean"] + p.gen["y_dis", "mean"]) 
 colnames(p.y_cell) <- t(tmp)
 rm(tmp)
-
-
-p.y_cell
-
 barplot(p.y_cell, main="y_cell distribution", xlab="y_cell [µm]", ylab="[%]")
 
 
@@ -222,7 +221,7 @@ if (create_plots){
 }
 plot(numeric(0), numeric(0),  main="y_cell distribution", 
      xlab=xlabByName(p.gen, name), ylab=ylabByName(p.gen, name),
-     xlim=c(4, 12), ylim=c(0, 0.8))
+     xlim=c(3, 11), ylim=c(0, 0.8))
 
 plotLogNormalDistribution(p.gen, name, max.value=2*max.value)
 plotFitHistogram(p.gen, name, data=data[[name]]/scale, 

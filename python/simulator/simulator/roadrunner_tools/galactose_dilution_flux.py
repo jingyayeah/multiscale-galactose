@@ -15,15 +15,15 @@ import roadrunner_plots as rp
 
 #########################################################################    
 
-VERSION = 89
+VERSION = 92
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
 #########################################################################    
 # Flux integration of curves
 #########################################################################  
-sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
-# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
+# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
+sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
 r = rt.load_model(sbml_file)
 
 # selection
@@ -43,24 +43,23 @@ p_flux = gf.flux_probability(flux)
 # The parameters are extended via the fluxes. I.e. for all fluxes in the
 # flux sample the simulation is performed.
 
+r.scale_f
 
 gal_p_list = []
-for gal in [0.28]:
-# for gal in [0.28, 12.5, 17.5]:
+# for gal in [0.28]:
+for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flux:
         d = { 
-              't_duration':0.5,
+              # 't_duration':0.5,
               "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.5,    
-              "y_dis" : 2.5E-6,
-              "y_cell" : 0.4*7.58E-6,
-              "scale_f" : 1.4*6.4E-15,           
-              #"H2OT_f": 3.0,
-              "GLUT2_f" : 12.0, 
-              #"GLUT2_k_gal" : 27.8,
-              # "GALK_PA" :  0.03,
-              # "scale_f" : 0.84*6.4E-15}
+              # "y_dis" : 2.5E-6,
+              "y_cell" : 0.8*6.19E-6,
+              "scale_f" : 1.0,           
+              "H2OT_f": 15.0,
+              "GLUT2_f" : 8.5, 
+              # "GALK_PA" :  0.02,
               }
         p_list.append(d)
     gal_p_list.append(p_list)
@@ -101,11 +100,15 @@ exp_data = rp.load_dilution_data(exp_file)
 # plot_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)
 # plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)        
 
-rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.4)
-rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.4)        
+rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)
+rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)        
 
 rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.5*15.16943, time_shift=1.2)
 rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.5*15.16943, time_shift=1.2)   
+
+rp.plot_dilution_data(exp_data)
+
+r.Vol_cell
 
 # additional information
 rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel)

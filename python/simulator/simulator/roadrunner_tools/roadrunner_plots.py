@@ -4,6 +4,7 @@ Created on Dec 19, 2014
 @author: mkoenig
 '''
 from roadrunner_tools import selection_dict, position_in_list
+import matplotlib
 
     
 def plot_all(r, show=True):
@@ -124,13 +125,14 @@ def load_dilution_data(fname):
                 data[h].append(tokens[k])
         counter += 1
     return data
-
+    
 
 def plot_dilution_data(data):
     compounds = ['RBC', 'albumin', 'sucrose', 'water', 'galactose']
     colors = ['darkred', 'darkgreen', 'darkorange', 'darkblue', 'black']
     
     import pylab as p  
+    # plot every single point
     for k in range(len(data['time'])):
         c = data['compound'][k]
         t = data['time'][k]
