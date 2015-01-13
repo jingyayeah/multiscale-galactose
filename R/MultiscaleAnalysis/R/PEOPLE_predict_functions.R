@@ -169,7 +169,7 @@ individual_vol_flow_plot <- function(person, vol, flow, data){
 #' 
 #' @export
 individual_plot <- function(person, vol, flow, data){
-  par(mfrow=c(2,2))
+  par(mfrow=c(1,2))
   individual_GEC_plot(person=person, data=data)
   individual_vol_flow_plot(person=person, vol=vol, flow=flow, data=data)
   par(mfrow=c(1,1))

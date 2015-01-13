@@ -21,7 +21,7 @@ for (name in fileset){
 }
 
 # Individual plot
-index <- 1
+index <- 2
 individual_plot(person=people[index, ], vol=volLiver[index, ], flow=flowLiver[index, ],
           data=GEC[index, ])
 
