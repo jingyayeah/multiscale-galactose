@@ -13,6 +13,7 @@ import galactose_functions as gf
 import roadrunner_tools as rt
 import roadrunner_plots as rp
 reload(rp)
+reload(gf)
 
 #########################################################################    
 
@@ -33,6 +34,7 @@ sel = ['time']
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel_dict = rt.set_selection(r, sel)
@@ -45,20 +47,24 @@ p_flux = gf.flux_probability(flux)
 # The parameters are extended via the fluxes. I.e. for all fluxes in the
 # flux sample the simulation is performed.
 
+#########################################################################    
+# Set parameters and integrate
+#########################################################################  
 gal_p_list = []
-# for gal in [0.28]:
-for gal in [0.28, 12.5, 17.5]:
+for gal in [0.28]:
+# for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flux:
         d = { 
               # 't_duration':0.5,
               "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.5,    
-              # "y_dis" : 2.5E-6,
-              "y_cell" : 0.8*6.19E-6,
+              "y_dis" : 2.5E-6,
+              "y_cell" : 1.4*6.19E-6,
               "scale_f" : 1.0,           
-              "H2OT_f": 15.0,
-              "GLUT2_f" : 8.5, 
+              "H2OT_f": 17.0,
+              "GLUT2_f" : 6, 
+              # "y_peak" : 0.5,
               # "GALK_PA" :  0.02,
               }
         p_list.append(d)
@@ -69,10 +75,14 @@ for k, p_list in enumerate(gal_p_list):
     f_list = [rt.simulation(r, parameters=p, inits=inits, absTol=1E-4, relTol=1E-4) for p in p_list]
     gal_f_list.append(f_list)
 
+# store the parameters
+with open("flux_plots/parameters.txt", 'wb') as f:
+    print>>f, p_list
+
+
 #########################################################################    
 # Average
 #########################################################################  
-
 # Average via probability and flux weighted summation
 Q_sinunit = np.pi * r.y_sin**2 * flux # [m³/s]
 weights = p_flux * Q_sinunit
@@ -82,35 +92,45 @@ compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
 ids = ['[PV__{}]'.format(id) for id in compounds]    
 cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
-timepoints=np.arange(T_PEAK-5, T_PEAK+35, 0.05)
+timepoints=np.arange(T_PEAK-5, T_PEAK+35, 0.01)
 av_mats = []
 for f_list in gal_f_list:
     av_mats.append(gf.average_results(f_list, weights, ids, timepoints, sel))
 
-# plot single simulations & average results
-rp.flux_plots(f_list, sel, xlim=[T_PEAK-4, T_PEAK+20])
-rp.average_plots(timepoints, av_mats, [T_PEAK-4, T_PEAK+20])
-
+#########################################################################    
+# Dilution data
+######################################################################### 
 # load experimental data
 exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
 exp_data = rp.load_dilution_data(exp_file)
 # rp.plot_dilution_data(exp_data)
 
-# rectangular peak
-# plot_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)
-# plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=20*4.3*15.16943, time_shift=1.3)        
+#########################################################################    
+# Plots
+######################################################################### 
+reload(rp)
+show_plots=True
 
-rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)
-rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)        
+# flux dependency of dilution profiles
+tlim = [T_PEAK-4, T_PEAK+20]
+rp.flux_plots(f_list, sel, xlim=tlim, show=show_plots)
+# average curves
+rp.average_plots(timepoints, av_mats, xlim=tlim, show=show_plots)
 
-rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.5*15.16943, time_shift=1.2)
-rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.5*15.16943, time_shift=1.2)   
+# plot with experimental data
+# rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)
+# rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)        
 
-rp.plot_dilution_data(exp_data)
+rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)
+rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)   
+ 
 
-r.Vol_cell
 
 # additional information
-rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel)
+# plot single timecourses
+rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel, comp_type="D")
 rp.flux_plot(f_list, name='GALKM', selections=sel)
-rp.flux_plot(f_list, name='galM', selections=sel, xlim=[0,500])
+rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim)
+
+rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim, comp_type="H")
+rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim, comp_type="D")

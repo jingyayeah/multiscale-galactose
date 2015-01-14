@@ -20,22 +20,22 @@ print roadrunner.__version__
 
 import roadrunner_tools as rt
 import dilution_plots as dp
-reload(rt)
-reload(dp)
 
 #########################################################################    
-
+# Load model
+#########################################################################    
 VERSION = 92
 NC = 20
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
-
 # sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
 sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc{}_dilution_gauss.xml'.format(VERSION, NC)
 r = rt.load_model(sbml_file)
 
-# set selection
+#########################################################################    
+# Set selection
+#########################################################################    
 compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']
 sel = ['time']
 sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
@@ -52,16 +52,23 @@ r.selections = sel
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
 
+#########################################################################    
+# Set parameters & simulate
+######################################################################### 
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = [
-   { "[PP__gal]" : 0.28, "flow_sin" : 0.5*270E-6, 't_duration':1.0, 'y_dis': 2.0E-6, 'GALK_PA': 0.02},
+   { "[PP__gal]" : 0.28, "flow_sin" : 1.5*0.5*270E-6, 't_duration':0.5, 'y_dis': 1.2E-6},
 ]
+
 inits = {}
 
 # perform simulation
 s_list = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list]
 
+#########################################################################    
+# Analyse peaks
+######################################################################### 
 # find the maximum of the peaks
 s = s_list[0]
 print '{:20s}{:10s}{:10s}'.format('sid', 'time', 'max')
@@ -74,9 +81,17 @@ for sid in ['[PV__{}]'.format(item) for item in compounds]:
     max_time = times[max_index[0]]
     print '{:20s}{:5.3f}  {:5.3f}'.format(sid, max_time, max_value)
 
-# general plots 
-reload(dp)
+#########################################################################    
+# Plots
+######################################################################### 
+import roadrunner_plots as rp
+# mean curve
 dp.dilution_plot_pppv(s_list, r.selections)
+
+# mean curve with data
+exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
+exp_data = rp.load_dilution_data(exp_file)
+rp.plot_dilution_data(exp_data)
 
 
 # dp.dilution_plot_by_name(s_list, r.selections, name='peak', xlim=[T_PEAK-5, T_PEAK+5])

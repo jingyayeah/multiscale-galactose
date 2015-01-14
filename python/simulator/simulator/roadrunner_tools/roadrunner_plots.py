@@ -3,8 +3,11 @@ Created on Dec 19, 2014
 
 @author: mkoenig
 '''
-from roadrunner_tools import position_in_list
+from roadrunner_tools import position_in_list, get_ids_from_selection
 
+#########################################################################    
+# General plots
+######################################################################### 
 def plot_all(r, show=True):
     '''
         Plot all timecourses in the last roadrunner integration.
@@ -25,7 +28,32 @@ def plot_all(r, show=True):
         p.show()
 
 
-def flux_plots(f_list, selections, xlim=None, ylim=None):
+#########################################################################    
+# Plots showing flux dependency
+######################################################################### 
+def flux_plot(f_list, selections, name, xlim=None, ylim=None, comp_type='H'):
+    '''
+    Plot a component of the flux curves.
+    '''
+    print '#'*80, '\n', name, '\n', '#'*80
+    ids = get_ids_from_selection(name, selections=selections, comp_type=comp_type)
+    print ids
+    
+    import pylab as p    
+    for s in f_list:
+        times = s['time']
+        for sid in ids:
+            p.plot(times, s[sid], color='black')
+    if xlim:
+        p.xlim(xlim)
+    if ylim:
+        p.ylim(ylim)
+    p.xlabel('time [s]')
+    p.ylabel(name)    
+    p.show()
+
+
+def flux_plots(f_list, selections, xlim=None, ylim=None, show=True):
     ''' 
     Plot perivenious dilution curves.
     '''
@@ -43,36 +71,13 @@ def flux_plots(f_list, selections, xlim=None, ylim=None):
         if ylim:
             p.ylim(ylim)
         p.xlabel('time [s]')
-        p.ylabel(sid)              
-        p.show()
+        p.ylabel(sid) 
+        p.savefig('flux_plots/flux_{}.png'.format(sid), dpi=200)
+        if show:
+            p.show()
 
 
-def flux_plot(f_list, selections, name, xlim=None, ylim=None):
-    '''
-    Plot a component of the flux curves.
-    '''
-    print '#'*80, '\n', name, '\n', '#'*80
-    ids =  [item for item in selections if ( (item.startswith('[H') | item.startswith('H')) 
-                                    & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
-    if len(ids) == 0:
-        ids = [name, ]
-    print ids
-    
-    import pylab as p    
-    for s in f_list:
-        times = s['time']
-        for sid in ids:
-            p.plot(times, s[sid], color='black')
-    if xlim:
-        p.xlim(xlim)
-    if ylim:
-        p.ylim(ylim)
-    p.xlabel('time [s]')
-    p.ylabel(name)    
-    p.show()
-
-
-def average_plots(time, av_mats, xlim=None, ylim=None):
+def average_plots(time, av_mats, xlim=None, ylim=None, show=True):
     ''' 
         Plot of the averate dilution curves 
     '''
@@ -88,7 +93,11 @@ def average_plots(time, av_mats, xlim=None, ylim=None):
         p.xlim(xlim)
     if ylim:
         p.ylim(ylim)
-    p.show()
+    p.xlabel('time [s]')
+    p.ylabel('outflow fraction') 
+    p.savefig('flux_plots/average_plots.png', dpi=200)
+    if show:
+        p.show()
 
 # Load the Goresky experimental data and plot with the curves
 # TODO reading data with csv2rec('exampledata.txt', delimiter='\t')
@@ -157,6 +166,10 @@ def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_p
             p.plot([(t+time_shift-t_peak) for t in timepoints], scale*av_mat[:,k] , color=cols[k], label=str(name))
     # p.ylim(0, 0.25)
     p.ylim(0, 17)
+    p.xlabel('time [s]')
+    p.ylabel('outflow fraction') 
+    p.savefig('flux_plots/dilution_01.png', dpi=200)    
+    
     p.show()
 
 def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):    
@@ -189,6 +202,10 @@ def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0,
             p.plot([(t+time_shift-t_peak) for t in timepoints], scale*av_mat[:,k] , color=cols[k], label=str(name))
     # p.ylim(0, 0.25)
     p.ylim(0, 4)
+    p.xlabel('time [s]')
+    p.ylabel('outflow fraction') 
+    p.savefig('flux_plots/dilution_02.png', dpi=200)        
+    
     p.show()
 
 

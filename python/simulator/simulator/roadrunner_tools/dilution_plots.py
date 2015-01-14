@@ -4,7 +4,7 @@ Created on Dec 19, 2014
 @author: mkoenig
 '''
 
-from roadrunner_tools import selection_dict
+from roadrunner_tools import get_ids_from_selection, position_in_list
 
 t_peak = 5000
 
@@ -17,6 +17,7 @@ def dilution_plot_pppv(s_list, selections, show=True,
     print '#'*80    
     print 'Dilution curves'
     print '#'*80
+        
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ccols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     
@@ -47,22 +48,10 @@ def dilution_plot_pppv(s_list, selections, show=True,
     if ylim:
         p.ylim(ylim)
     
-    p.savefig('plots/dilution_plot_pppv.png')
+    p.savefig('plots/dilution_plot_pppv.png', dpi=200)
     if show:
         p.show()
-    
-
-def get_ids_from_selection(name, selections, comp_type='H'):
-    '''
-    Returns the fitting ids from the selection.
-    '''
-    ids = [item for item in selections if ( (item.startswith('[{}'.format(comp_type)) | item.startswith(comp_type)) 
-                                    & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
-    if len(ids) == 0:
-        ids = [name, ]
-    return ids
-    
-    
+  
 
 def dilution_plot_by_name(s_list, selections, name, xlim=[t_peak-5, t_peak+30], comp_type='H'):
     ''' 
