@@ -3,10 +3,8 @@ Created on Dec 19, 2014
 
 @author: mkoenig
 '''
-from roadrunner_tools import selection_dict, position_in_list
-import matplotlib
+from roadrunner_tools import position_in_list
 
-    
 def plot_all(r, show=True):
     '''
         Plot all timecourses in the last roadrunner integration.
@@ -16,8 +14,7 @@ def plot_all(r, show=True):
     if s is None:
         raise Exception("no simulation result")
     
-    times = s[:,0]
-
+    times = s['time']
     selections = r.selections
     for i in range(1, len(selections)):
         series = s[:,i]
@@ -28,38 +25,31 @@ def plot_all(r, show=True):
         p.show()
 
 
-
 def flux_plots(f_list, selections, xlim=None, ylim=None):
     ''' 
-        Plot of the perivenious dilution curves. 
+    Plot perivenious dilution curves.
     '''
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ids = ['[PV__{}]'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     
-    sel_dict = selection_dict(selections)
-    
     import pylab as p    
     for k, sid in enumerate(ids):
         print sid
         for s in f_list:
-            times = s[:,0]
-            # find in which place of the solution the component is encoded
-            index = sel_dict.get(sid, None)
-            if not sid:
-                raise Exception("{} not in selection".format(id))
-            series = s[:, index]
-            name = selections[index]
-            p.plot(times, series, color=cols[k], label=str(name))
+            p.plot(s['time'], s[sid], color=cols[k], label=sid)
         if xlim:
             p.xlim(xlim)
         if ylim:
             p.ylim(ylim)
+        p.xlabel('time [s]')
+        p.ylabel(sid)              
         p.show()
+
 
 def flux_plot(f_list, selections, name, xlim=None, ylim=None):
     '''
-        Plot a component of the flux curves.
+    Plot a component of the flux curves.
     '''
     print '#'*80, '\n', name, '\n', '#'*80
     ids =  [item for item in selections if ( (item.startswith('[H') | item.startswith('H')) 
@@ -67,22 +57,18 @@ def flux_plot(f_list, selections, name, xlim=None, ylim=None):
     if len(ids) == 0:
         ids = [name, ]
     print ids
-    sel_dict = selection_dict(selections)    
     
     import pylab as p    
     for s in f_list:
-        times = s[:,0]
-        for id in ids:
-            # find in which place of the solution the component is encoded
-            i_sel = sel_dict.get(id, None)
-            if not i_sel:
-                raise Exception("{} not in selection".format(id))
-            series = s[:,i_sel]
-            p.plot(times, series, color='black')
+        times = s['time']
+        for sid in ids:
+            p.plot(times, s[sid], color='black')
     if xlim:
         p.xlim(xlim)
     if ylim:
         p.ylim(ylim)
+    p.xlabel('time [s]')
+    p.ylabel(name)    
     p.show()
 
 

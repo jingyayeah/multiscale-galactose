@@ -6,12 +6,13 @@ Testing the influence of paramter variation on the resulting dilution
 curves.
 
 @author: Matthias Koenig
-@date: 2015-01-05
+@date: 2015-01-14
 """
 import numpy as np
 import galactose_functions as gf
 import roadrunner_tools as rt
 import roadrunner_plots as rp
+reload(rp)
 
 #########################################################################    
 
@@ -33,6 +34,7 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
+sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel_dict = rt.set_selection(r, sel)
 
 # distribution of fluxes
@@ -42,8 +44,6 @@ p_flux = gf.flux_probability(flux)
 # Define the parameters
 # The parameters are extended via the fluxes. I.e. for all fluxes in the
 # flux sample the simulation is performed.
-
-r.scale_f
 
 gal_p_list = []
 # for gal in [0.28]:
@@ -66,7 +66,7 @@ for gal in [0.28, 12.5, 17.5]:
 
 gal_f_list = []
 for k, p_list in enumerate(gal_p_list):
-    f_list = [rt.simulation(r, parameters=p, inits=inits, absTol=1E-3, relTol=1E-3) for p in p_list]
+    f_list = [rt.simulation(r, parameters=p, inits=inits, absTol=1E-4, relTol=1E-4) for p in p_list]
     gal_f_list.append(f_list)
 
 #########################################################################    
@@ -113,4 +113,4 @@ r.Vol_cell
 # additional information
 rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel)
 rp.flux_plot(f_list, name='GALKM', selections=sel)
-rp.flux_plot(f_list, name='galM', selections=sel)
+rp.flux_plot(f_list, name='galM', selections=sel, xlim=[0,500])
