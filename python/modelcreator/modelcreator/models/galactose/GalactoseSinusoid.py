@@ -101,12 +101,13 @@ pars.extend([
               ('peak_status',    0.0,    '-',    False),
               ('t_peak',         5000.0, 's',     True),
               ('t_duration',     0.5,    's',     True),
+              ('peak_area',      1.0,    'mM_s',     True),
             ])
 
 rules.extend([
              # id, assignment, unit
             ('t_peak_end', 't_peak + t_duration', 's'),
-            ('y_peak', '1 mM_s/t_duration', 'mM'),
+            ('y_peak', 'peak_area/t_duration', 'mM'),
             ("mu_peak", "t_peak + t_duration/2 dimensionless",  "s"),
             ('sigma_peak',  "1 mM_s/(y_peak * sqrt(2 dimensionless*pi))", "s"),
             ('peak_gauss',  "peak_status * 1 mM_s/(sigma_peak *sqrt(2 dimensionless*pi)) * exp(-(time-mu_peak)^2/(2 dimensionless * sigma_peak^2))", "mM"),

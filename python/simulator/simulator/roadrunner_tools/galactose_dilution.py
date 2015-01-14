@@ -24,13 +24,13 @@ import dilution_plots as dp
 #########################################################################    
 # Load model
 #########################################################################    
-VERSION = 92
+VERSION = 93
 NC = 20
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
-# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
-sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc{}_dilution_gauss.xml'.format(VERSION, NC)
+sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
+# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc{}_dilution_gauss.xml'.format(VERSION, NC)
 r = rt.load_model(sbml_file)
 
 #########################################################################    
@@ -58,7 +58,8 @@ r.selections = sel
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = [
-   { "[PP__gal]" : 0.28, "flow_sin" : 1.5*0.5*270E-6, 't_duration':0.5, 'y_dis': 1.2E-6},
+   { "[PP__gal]" : 0.28, "flow_sin" : 1.5*0.5*270E-6, 't_duration':0.5, 'y_dis': 1.2E-6, 
+    "peak_area": 1.0},
 ]
 
 inits = {}
@@ -87,6 +88,8 @@ for sid in ['[PV__{}]'.format(item) for item in compounds]:
 import roadrunner_plots as rp
 # mean curve
 dp.dilution_plot_pppv(s_list, r.selections)
+# dp.dilution_plot_pppv(s_list, r.selections, ylim=[0,0.005])
+
 
 # mean curve with data
 exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
@@ -104,6 +107,7 @@ dp.dilution_plot_by_name(s_list, r.selections, name='udpgalM')
 dp.dilution_plot_by_name(s_list, r.selections, name='udpglcM')
 
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20])
+dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20], comp_type="D")
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[0, 20])
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1p')
 dp.dilution_plot_by_name(s_list, r.selections, name='galtol')

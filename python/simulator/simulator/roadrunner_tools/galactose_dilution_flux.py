@@ -51,19 +51,19 @@ p_flux = gf.flux_probability(flux)
 # Set parameters and integrate
 #########################################################################  
 gal_p_list = []
-for gal in [0.28]:
-# for gal in [0.28, 12.5, 17.5]:
+# for gal in [0.28]:
+for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flux:
         d = { 
               # 't_duration':0.5,
               "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.5,    
-              "y_dis" : 2.5E-6,
-              "y_cell" : 1.4*6.19E-6,
-              "scale_f" : 1.0,           
-              "H2OT_f": 17.0,
-              "GLUT2_f" : 6, 
+              "y_dis" : 2.7E-6,
+              "y_cell" : 1.2*6.19E-6,
+              "scale_f" : 0.85,           
+              "H2OT_f": 10.0,
+              "GLUT2_f" : 3.7, 
               # "y_peak" : 0.5,
               # "GALK_PA" :  0.02,
               }
@@ -121,8 +121,8 @@ rp.average_plots(timepoints, av_mats, xlim=tlim, show=show_plots)
 # rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)
 # rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)        
 
-rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)
-rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)   
+rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.0)
+rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.0)   
  
 
 
