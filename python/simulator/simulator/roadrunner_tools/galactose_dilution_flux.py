@@ -17,7 +17,7 @@ reload(gf)
 
 #########################################################################    
 
-VERSION = 92
+VERSION = 93
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
@@ -56,14 +56,14 @@ for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flux:
         d = { 
-              # 't_duration':0.5,
               "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.5,    
-              "y_dis" : 2.7E-6,
-              "y_cell" : 1.2*6.19E-6,
+              "y_dis" : 2.4E-6,
+              # "y_cell" : 0.7*6.19E-6,
+              "f_cyto" : 0.5,
               "scale_f" : 0.85,           
-              "H2OT_f": 10.0,
-              "GLUT2_f" : 3.7, 
+              "H2OT_f": 5.0,
+              "GLUT2_f" : 7, 
               # "y_peak" : 0.5,
               # "GALK_PA" :  0.02,
               }
@@ -121,8 +121,8 @@ rp.average_plots(timepoints, av_mats, xlim=tlim, show=show_plots)
 # rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)
 # rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)        
 
-rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.0)
-rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.9*15.16943, time_shift=1.0)   
+rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)
+rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)   
  
 
 

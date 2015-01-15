@@ -1,0 +1,13 @@
+        d = { 
+              # 't_duration':0.5,
+              "[PP__gal]" : gal, 
+              "flow_sin" : f*1E-6 * 0.5,    
+              "y_dis" : 2.4E-6,
+              # "y_cell" : 0.7*6.19E-6,
+              "f_cyto" : 0.55,
+              "scale_f" : 0.85,           
+              "H2OT_f": 5.0,
+              "GLUT2_f" : 7, 
+              # "y_peak" : 0.5,
+              # "GALK_PA" :  0.02,
+              }
