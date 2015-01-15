@@ -59,7 +59,6 @@ for gal in [0.28, 12.5, 17.5]:
               "[PP__gal]" : gal, 
               "flow_sin" : f*1E-6 * 0.5,    
               "y_dis" : 2.4E-6,
-              # "y_cell" : 0.7*6.19E-6,
               "f_cyto" : 0.5,
               "scale_f" : 0.85,           
               "H2OT_f": 5.0,

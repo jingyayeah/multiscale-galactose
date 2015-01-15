@@ -3,6 +3,13 @@ Galactose model for inclusion into sinusoidal unit.
 The metabolic models are specified in a generic format which is than
 included in the tissue scale model.
 
+Generic generation of the species depending on the compartment they
+are localized in. 
+e__x : extracellular compartment (Disse)
+h__x : hepatocyte compartment (total internal cell volume)
+c__x : cytosolic compartment (fraction of hepatocyte which is cytosol)
+
+
 
 Created on Jun 24, 2014
 @author: mkoenig
