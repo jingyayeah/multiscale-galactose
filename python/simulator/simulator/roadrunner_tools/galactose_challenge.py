@@ -45,10 +45,18 @@ r.selections = sel
 #########################################################################    
 # Set parameters & simulate
 ######################################################################### 
+flow_sin = 0.5 * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
+
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = [
-   { "gal_challenge" : 8, "flow_sin" : 0.5*270E-6},
+   { "gal_challenge" : 8, 
+     "flow_sin" : flow_sin,
+     "y_dis" : 2.4E-6,
+     "f_cyto" : 0.5,
+     "scale_f" : 0.85,           
+     "H2OT_f": 5.0,
+     "GLUT2_f" : 7, },
 ]
 
 inits = {}
@@ -61,6 +69,24 @@ p.plot(test['time'], test['[PV__gal]'])
 p.plot(test['time'], test['[PP__gal]'])
 
 # calculate the GEC for given simulation
+# removal
+Q_sinunit = np.pi * r.y_sin**2 * flow_sin # [m³/s]
+Vol_sinunit = r.Vol_sinunit
+print Q_sinunit
+# Removal
+R = Q_sinunit * (test['[PP__gal]'] - test['[PV__gal]'])
+# GEC per volume tissue [mmol/min/ml]
+
+GEC = R/r.Vol_sinunit*60/1000    # [mmole/min/ml(liv)]
+Q = Q_sinunit/r.Vol_sinunit*60   # [ml/min/ml(liv)]
+print GEC[len(GEC)-1]
+print Q
+
+
+p.plot(test['time'], R)
+p.plot(test['time'], GEC)
+
+
 
 #########################################################################    
 # Plots

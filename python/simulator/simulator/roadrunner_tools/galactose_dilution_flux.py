@@ -42,27 +42,29 @@ sel_dict = rt.set_selection(r, sel)
 # distribution of fluxes
 flux = gf.flux_sample()
 p_flux = gf.flux_probability(flux)
+flow_sin = 0.5 * 1E-6 * flux # [m/s] (scaling to calculate in correct volume flow range)
 
-# Define the parameters
-# The parameters are extended via the fluxes. I.e. for all fluxes in the
-# flux sample the simulation is performed.
 
 #########################################################################    
 # Set parameters and integrate
-#########################################################################  
+######################################################################### 
+# Define the parameters
+# The parameters are extended via the fluxes. I.e. for all fluxes in the
+# flux sample the simulation is performed.
+ 
 gal_p_list = []
 # for gal in [0.28]:
 for gal in [0.28, 12.5, 17.5]:
     p_list = []
-    for f in flux:
+    for f in flow_sin:
         d = { 
               "[PP__gal]" : gal, 
-              "flow_sin" : f*1E-6 * 0.5,    
+              "flow_sin" : f,    
               "y_dis" : 2.4E-6,
               "f_cyto" : 0.5,
-              "scale_f" : 0.85,           
+              "scale_f" : 0.85/1.68,           
               "H2OT_f": 5.0,
-              "GLUT2_f" : 7, 
+              "GLUT2_f" : 11, 
               # "y_peak" : 0.5,
               # "GALK_PA" :  0.02,
               }
@@ -83,7 +85,7 @@ with open("flux_plots/parameters.txt", 'wb') as f:
 # Average
 #########################################################################  
 # Average via probability and flux weighted summation
-Q_sinunit = np.pi * r.y_sin**2 * flux # [m³/s]
+Q_sinunit = np.pi * r.y_sin**2 * flow_sin # [m³/s]
 weights = p_flux * Q_sinunit
 weights = weights/sum(weights)
 
