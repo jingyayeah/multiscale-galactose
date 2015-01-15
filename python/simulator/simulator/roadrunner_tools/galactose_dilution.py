@@ -57,9 +57,19 @@ r.selections = sel
 ######################################################################### 
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
+
+s_fac = 100
+
 p_list = [
-   { "[PP__gal]" : 0.28, "flow_sin" : 1.5*0.5*270E-6, 't_duration':0.5, 'y_dis': 1.2E-6, 
-    "peak_area": 1.0},
+   { "[PP__gal]" : 0.28, 
+    "flow_sin" : 0.5*270E-6, 
+    "y_dis" : 2.4E-6,
+    "f_cyto" : 0.5,
+    "scale_f" : 0.85/1.68/s_fac,
+    "GALK_PA" : 0.02*s_fac*2,
+    "H2OT_f": 8.0,
+    "GLUT2_f" : 6*s_fac,         
+    },
 ]
 
 inits = {}
@@ -102,6 +112,7 @@ rp.plot_dilution_data(exp_data)
 # dp.dilution_plot_by_name(s_list, r.selections, name='[D10__alb]', xlim=[T_PEAK-10, T_PEAK+20])
 
 dp.dilution_plot_by_name(s_list, r.selections, name='gal')
+dp.dilution_plot_by_name(s_list, r.selections, name='galM')
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM')
 dp.dilution_plot_by_name(s_list, r.selections, name='udpgalM')
 dp.dilution_plot_by_name(s_list, r.selections, name='udpglcM')

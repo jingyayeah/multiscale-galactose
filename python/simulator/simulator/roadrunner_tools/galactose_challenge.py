@@ -53,10 +53,12 @@ p_list = [
    { "gal_challenge" : 8, 
      "flow_sin" : flow_sin,
      "y_dis" : 2.4E-6,
-     "f_cyto" : 0.5,
-     "scale_f" : 0.85,           
-     "H2OT_f": 5.0,
-     "GLUT2_f" : 7, },
+              "f_cyto" : 0.5,
+              "scale_f" : 0.85*0.5 /4,
+              "GALK_PA" : 0.02*4,
+              "H2OT_f": 8.0,
+              "GLUT2_f" : 12*4,
+    },
 ]
 
 inits = {}
@@ -85,7 +87,7 @@ print Q
 
 p.plot(test['time'], R)
 p.plot(test['time'], GEC)
-
+GEC
 
 
 #########################################################################    

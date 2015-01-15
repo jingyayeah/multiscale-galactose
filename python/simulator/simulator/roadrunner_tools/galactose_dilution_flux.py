@@ -62,11 +62,10 @@ for gal in [0.28, 12.5, 17.5]:
               "flow_sin" : f,    
               "y_dis" : 2.4E-6,
               "f_cyto" : 0.5,
-              "scale_f" : 0.85/1.68,           
-              "H2OT_f": 5.0,
-              "GLUT2_f" : 11, 
-              # "y_peak" : 0.5,
-              # "GALK_PA" :  0.02,
+              "scale_f" : 0.425,
+              # "GALK_PA" : 0.02,
+              "H2OT_f": 8.0,
+              "GLUT2_f" : 14, 
               }
         p_list.append(d)
     gal_p_list.append(p_list)
