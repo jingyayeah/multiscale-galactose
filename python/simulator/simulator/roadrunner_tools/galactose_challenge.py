@@ -4,13 +4,12 @@
 # Galactose Challenge / Clearance
 #########################################################################  
 Steady state clearance of galactose under given galactose challenge.
+Here the clearance parameters and the GEC can be calculated from the model.
 
 @author: Matthias Koenig
 @date: 2014-01-15
 '''
 import roadrunner
-print roadrunner.__version__
-
 import roadrunner_tools as rt
 import dilution_plots as dp
 
@@ -41,92 +40,99 @@ sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel += ["peak"]
 r.selections = sel
 
-
 #########################################################################    
 # Set parameters & simulate
 ######################################################################### 
-flow_sin = 0.5 * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
+import numpy as np
+flow_sin = np.arange(start=0, stop=0.8, step=0.05) * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
 
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
-p_list = [
-   { "gal_challenge" : 8, 
-     "flow_sin" : flow_sin,
-     "y_dis" : 2.4E-6,
+p_list = []
+for f in flow_sin:
+    d = { "gal_challenge" : 8, 
+              "flow_sin" : f,
+              "y_dis" : 2.4E-6,
               "f_cyto" : 0.5,
               "scale_f" : 0.85*0.5 /4,
               "GALK_PA" : 0.02*4,
               "H2OT_f": 8.0,
               "GLUT2_f" : 12*4,
-    },
-]
+             }
+    p_list.append(d)
 
 inits = {}
 
 # perform simulation
 s_list = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list]
-import pylab as p
-test = s_list[0]
-p.plot(test['time'], test['[PV__gal]'])
-p.plot(test['time'], test['[PP__gal]'])
+
+#########################################################################    
+# Calculate clearance parameters
+######################################################################### 
 
 # calculate the GEC for given simulation
-# removal
+import numpy as np
 Q_sinunit = np.pi * r.y_sin**2 * flow_sin # [m³/s]
 Vol_sinunit = r.Vol_sinunit
-print Q_sinunit
+
 # Removal
-R = Q_sinunit * (test['[PP__gal]'] - test['[PV__gal]'])
-# GEC per volume tissue [mmol/min/ml]
+GEC = np.zeros(len(flow_sin))
+Q = np.zeros(len(flow_sin))
 
-GEC = R/r.Vol_sinunit*60/1000    # [mmole/min/ml(liv)]
-Q = Q_sinunit/r.Vol_sinunit*60   # [ml/min/ml(liv)]
-print GEC[len(GEC)-1]
-print Q
+for k,s in enumerate(s_list):
+    R = Q_sinunit[k] * (s['[PP__gal]'] - s['[PV__gal]'])
+    GEC[k] = R[len(R)-1]/r.Vol_sinunit*60/1000    # [mmole/min/ml(liv)]
+    Q[k] = Q_sinunit[k]/r.Vol_sinunit*60   # [ml/min/ml(liv)]
 
-
-p.plot(test['time'], R)
-p.plot(test['time'], GEC)
-GEC
+print 'GEC:', GEC, '[mmole/min/ml(liv)]'
+print 'Q: {} [ml/min/ml(liv)]'.format(Q)
 
 
 #########################################################################    
-# Plots
+# Figures
 ######################################################################### 
-import roadrunner_plots as rp
+
+# PP - PV gal difference
+import pylab as p
+for s in s_list:
+    p.plot(s['time'], s['[PP__gal]'], '-b')    
+    p.plot(s['time'], s['[PV__gal]'], '-k')    
+p.xlim([0, 10000])
+p.title('PP and PV galactose')
+p.xlabel('time [s]')
+p.ylabel('galactose [mM]')
+p.show()
 
 
+# Add line for the used flow factor in dilution
+f_fac = 0.45
+Q_fac = np.pi * r.y_sin**2 * f_fac * r.flow_sin/r.Vol_sinunit*60 # [m³/s]
+print 'Q_fac:', Q_fac
+
+# GEC curve
+import pylab as p
+p.plot(Q, GEC, '-k')
+p.plot(Q, GEC, 'ok')
+p.plot([Q_fac, Q_fac], [0, max(GEC)])
+p.xlabel('Q [ml/min/ml(liv)]')
+p.ylabel('GEC [mmole/min/ml(liv)]')
+p.title('GEC vs. Perfusion')
+p.show()
 
 
-# mean curve
-dp.dilution_plot_pppv(s_list, r.selections)
-# dp.dilution_plot_pppv(s_list, r.selections, ylim=[0,0.005])
+# Real GEC value liver
+f_vol = 0.8 # [-] volume which is parenchyma
+vol_liv = 1650 # [ml] reference volume liver
 
+print 'Q_fac cor:', Q_fac * f_vol
 
-# mean curve with data
-exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
-exp_data = rp.load_dilution_data(exp_file)
-rp.plot_dilution_data(exp_data)
+p.plot(f_vol*Q, GEC*vol_liv, '-k')
+p.plot(f_vol*Q, GEC*vol_liv, 'ok')
+p.plot([f_vol*Q_fac, f_vol*Q_fac], [0, max(GEC)*vol_liv])
+p.xlabel('P [ml/min/ml(liv)]')
+p.ylabel('GEC liver [mmole/min]')
+p.title('GEC liver vs. Perfusion')
+p.show()
+print 'Perfusion', f_vol*Q, '[ml/min/ml(liv)]'
+print 'GEC liver',  GEC*vol_liv, '[mmole/min]'
 
-
-# dp.dilution_plot_by_name(s_list, r.selections, name='peak', xlim=[T_PEAK-5, T_PEAK+5])
-# dp.dilution_plot_by_name(s_list, r.selections, name='alb', comp_type='S', xlim=[T_PEAK-10, T_PEAK+20])
-# dp.dilution_plot_by_name(s_list, r.selections, name='[D10__alb]', xlim=[T_PEAK-10, T_PEAK+20])
-
-dp.dilution_plot_by_name(s_list, r.selections, name='gal')
-dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM')
-dp.dilution_plot_by_name(s_list, r.selections, name='udpgalM')
-dp.dilution_plot_by_name(s_list, r.selections, name='udpglcM')
-
-dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20])
-dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20], comp_type="D")
-dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[0, 20])
-dp.dilution_plot_by_name(s_list, r.selections, name='gal1p')
-dp.dilution_plot_by_name(s_list, r.selections, name='galtol')
-dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GAL', comp_type='D')
-dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GALM', xlim=[T_PEAK-1, T_PEAK+4], comp_type='D')
-dp.dilution_plot_by_name(s_list, r.selections, name='GALK')
-dp.dilution_plot_by_name(s_list, r.selections, name='GALKM')
-dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM', xlim=[5000, 6000])
-dp.dilution_plot_by_name(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
-dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[0, 6000])
