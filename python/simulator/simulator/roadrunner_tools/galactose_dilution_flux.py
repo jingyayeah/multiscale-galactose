@@ -16,7 +16,6 @@ reload(rp)
 reload(gf)
 
 #########################################################################    
-
 VERSION = 93
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
@@ -42,8 +41,8 @@ sel_dict = rt.set_selection(r, sel)
 # distribution of fluxes
 flux = gf.flux_sample()
 p_flux = gf.flux_probability(flux)
-flow_sin = 0.5 * 1E-6 * flux # [m/s] (scaling to calculate in correct volume flow range)
-
+f_fac = 0.45
+flow_sin = f_fac * flux * 1E-6 # [m/s] (scaling to calculate in correct volume flow range)
 
 #########################################################################    
 # Set parameters and integrate
@@ -51,7 +50,9 @@ flow_sin = 0.5 * 1E-6 * flux # [m/s] (scaling to calculate in correct volume flo
 # Define the parameters
 # The parameters are extended via the fluxes. I.e. for all fluxes in the
 # flux sample the simulation is performed.
- 
+
+
+
 gal_p_list = []
 # for gal in [0.28]:
 for gal in [0.28, 12.5, 17.5]:
@@ -60,25 +61,25 @@ for gal in [0.28, 12.5, 17.5]:
         d = { 
               "[PP__gal]" : gal, 
               "flow_sin" : f,    
-              "y_dis" : 2.4E-6,
+              "y_dis" : 2.0E-6,
+              "y_cell" : 6.19E-6,
               "f_cyto" : 0.5,
               "scale_f" : 0.425,
               # "GALK_PA" : 0.02,
               "H2OT_f": 8.0,
-              "GLUT2_f" : 14, 
+              "GLUT2_f" : 16, 
               }
         p_list.append(d)
     gal_p_list.append(p_list)
 
 gal_f_list = []
 for k, p_list in enumerate(gal_p_list):
-    f_list = [rt.simulation(r, parameters=p, inits=inits, absTol=1E-4, relTol=1E-4) for p in p_list]
+    f_list = [rt.simulation(r, parameters=p, inits=inits, absTol=1E-3, relTol=1E-3) for p in p_list]
     gal_f_list.append(f_list)
 
 # store the parameters
 with open("flux_plots/parameters.txt", 'wb') as f:
     print>>f, p_list
-
 
 #########################################################################    
 # Average
@@ -124,7 +125,6 @@ rp.average_plots(timepoints, av_mats, xlim=tlim, show=show_plots)
 rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)
 rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)   
  
-
 
 # additional information
 # plot single timecourses

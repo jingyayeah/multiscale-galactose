@@ -28,7 +28,7 @@ def dilution_plot_pppv(s_list, selections, show=True,
     print ids
     
     import pylab as p
-    p.figure(1, figsize=(9,6))
+    # p.figure(1, figsize=(9,6))
     for s in s_list:
         times = s['time']
         for k, sid in enumerate(ids):
@@ -66,7 +66,7 @@ def dilution_plot_by_name(s_list, selections, name, xlim=[t_peak-5, t_peak+30], 
     print ids
   
     import pylab as p
-    p.figure(1, figsize=(9,6))
+    # p.figure(1, figsize=(9,6))
     for ks, s in enumerate(s_list):
         times = s['time']
         for sid in ids:

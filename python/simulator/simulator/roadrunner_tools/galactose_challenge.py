@@ -19,7 +19,6 @@ import dilution_plots as dp
 VERSION = 93
 NC = 20
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
-T_PEAK = 5000
 
 sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_galchallenge.xml'.format(VERSION)
 r = rt.load_model(sbml_file)
@@ -33,7 +32,6 @@ sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
 sel += ['[PV__{}]'.format(item) for item in compounds]
 sel += ['[PP__{}]'.format(item) for item in compounds]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
-sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
@@ -54,10 +52,10 @@ for f in flow_sin:
               "flow_sin" : f,
               "y_dis" : 2.4E-6,
               "f_cyto" : 0.5,
-              "scale_f" : 0.85*0.5 /4,
-              "GALK_PA" : 0.02*4,
+              "scale_f" : 0.425,
+              # "GALK_PA" : 0.02,
               "H2OT_f": 8.0,
-              "GLUT2_f" : 12*4,
+              "GLUT2_f" : 14, 
              }
     p_list.append(d)
 
@@ -133,6 +131,6 @@ p.xlabel('P [ml/min/ml(liv)]')
 p.ylabel('GEC liver [mmole/min]')
 p.title('GEC liver vs. Perfusion')
 p.show()
-print 'Perfusion', f_vol*Q, '[ml/min/ml(liv)]'
-print 'GEC liver',  GEC*vol_liv, '[mmole/min]'
+# print 'Perfusion', f_vol*Q, '[ml/min/ml(liv)]'
+# print 'GEC liver',  GEC*vol_liv, '[mmole/min]'
 

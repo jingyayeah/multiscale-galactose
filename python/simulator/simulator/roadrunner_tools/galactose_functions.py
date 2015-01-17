@@ -15,7 +15,7 @@ def flux_sample():
     # definition of fluxes
     
     # flux = np.arange(start=10, stop=1220, step=50)
-    flux = np.arange(start=10, stop=650, step=50)    
+    flux = np.arange(start=10, stop=750, step=50)    
     
     flux = np.sort(flux)
     return flux
