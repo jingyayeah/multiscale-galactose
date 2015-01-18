@@ -16,7 +16,7 @@ reload(rp)
 reload(gf)
 
 #########################################################################    
-VERSION = 96
+VERSION = 97
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
@@ -43,7 +43,7 @@ reload(gf)
 flux = gf.flux_sample() # [m/s]
 print flux
 p_flux = gf.flux_probability(flux)
-f_fac = 0.45
+f_fac = 0.5
 flow_sin = f_fac * flux # [m/s] (scaling to calculate in correct volume flow range)
 
 #########################################################################    
@@ -61,14 +61,14 @@ for gal in [0.28, 12.5, 17.5]:
         d = { 
               "[PP__gal]" : gal, 
               "flow_sin" : f,    
-              #"y_dis" : 2.0E-6,
-              #"y_cell" : 6.19E-6,
+              "y_dis" : 2.3E-6,
+              # "y_cell" : 8.39E-6,
               
-              #"f_cyto" : 0.5,
-              #"scale_f" : 0.57,
+              # "f_cyto" : 0.4,
+              # "scale_f" : 0.43,
               #"GALK_PA" : 0.024,
-              #"GLUT2_f" : 10.0,              
-              #"H2OT_f": 8.0,               
+              # "GLUT2_f" : 10.0,              
+              # "H2OT_f": 5.0,               
               }
         p_list.append(d)
     gal_p_list.append(p_list)
@@ -118,13 +118,10 @@ tlim = [T_PEAK-4, T_PEAK+20]
 # rp.flux_plots(f_list, sel, xlim=tlim, show=show_plots)
 # average curves
 # rp.average_plots(timepoints, av_mats, xlim=tlim, show=show_plots)
+    
 
-# plot with experimental data
-# rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)
-# rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.5)        
-
-rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)
-rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=3.8*15.16943, time_shift=1.0)   
+rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=0.8)
+rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=0.8)   
  
 
 # additional information

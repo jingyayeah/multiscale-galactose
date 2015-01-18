@@ -15,7 +15,7 @@ import roadrunner_tools as rt
 #########################################################################    
 # Load model
 #########################################################################    
-VERSION = 93
+VERSION = 97
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_galchallenge.xml'.format(VERSION)
 r = rt.load_model(sbml_file)
@@ -46,14 +46,16 @@ flow_sin = np.arange(start=0, stop=0.8, step=0.05) * r.flow_sin # [m/s] (scaling
 p_list = []
 for f in flow_sin:
     d = { "gal_challenge" : 8,  
-              "flow_sin" : f,    
-              "y_dis" : 2.0E-6,
-              "y_cell" : 6.19E-6,
-              "f_cyto" : 0.5,
-              "scale_f" : 0.57,
-              "GALK_PA" : 0.02*1.2,
-              "GLUT2_f" : 10.0,              
-              "H2OT_f": 8.0,      
+              "flow_sin" : f,     
+
+              "y_dis" : 2.3E-6,
+              # "y_cell" : 8.39E-6,
+              
+              # "f_cyto" : 0.4,
+              # "scale_f" : 0.43,
+              #"GALK_PA" : 0.024,
+              # "GLUT2_f" : 10.0,              
+              # "H2OT_f": 5.0,         
              }
     p_list.append(d)
 
@@ -70,8 +72,7 @@ s_list = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list]
 import numpy as np
 Q_sinunit = np.pi * r.y_sin**2 * flow_sin # [m³/s]
 Vol_sinunit = r.Vol_sinunit   # has to be calculated with the actual variables
-print Vol_sinunit
-r.L * np.pi * (r.y_sin + r.y_end + r.y_dis + r.y_cell*1.2)**2
+print (r.L * np.pi * (r.y_sin + r.y_end + r.y_dis + r.y_cell*1.4)**2)/r.Vol_sinunit
 
 
 
@@ -121,15 +122,15 @@ p.show()
 
 
 # Real GEC value liver
-f_vol = 0.75 # [-] volume which is parenchyma
+f_vol = 0.8 # [-] volume which is parenchyma
 vol_liv = 1500 # [ml] reference volume liver
 
-print 'Q_fac cor:', f_vol * Q_fac 
+print 'Q_fac cor:', Q_fac/f_vol 
 print 'GEC cor:', f_vol*max(GEC)*vol_liv
 
 p.plot(f_vol*Q, f_vol*GEC*vol_liv, '-k')
 p.plot(f_vol*Q, f_vol*GEC*vol_liv, 'ok')
-p.plot([f_vol*Q_fac, f_vol*Q_fac], [0, f_vol*max(GEC)*vol_liv])
+p.plot([Q_fac/f_vol, Q_fac/f_vol], [0, f_vol*max(GEC)*vol_liv])
 p.xlabel('P [ml/min/ml(liv)]')
 p.ylabel('GEC liver [mmole/min]')
 p.title('GEC liver vs. Perfusion')

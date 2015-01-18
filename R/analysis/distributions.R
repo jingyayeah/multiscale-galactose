@@ -61,7 +61,7 @@ dev.off()
 
 ###  fit data in SI units  ###
 name = 'flow_sin'
-# Koo1975.data <- Koo1975.all[c('branching', 'direct') ,] # only use the branching and direct sinusoids
+Koo1975.data <- Koo1975.all[c('branching', 'direct') ,] # only use the branching and direct sinusoids
 data[[name]] <- createDataFromHistogramm(Koo1975.data) * p.gen[name, 'scale_fac']
 fit[[name]] <- fitdistr(data[[name]]$x, "lognormal")
 p.gen <- storeFitData(p.gen, fit[[name]], name)
@@ -112,12 +112,11 @@ p.y_cell <- p.fsd
 # y_end = 0.165 # [µm]
 # y_cell = 1/2 * 1E4/391 - 1E6*(p.gen["y_sin", "mean"] + p.gen["y_dis", "mean"]) 
 # the cell radius is calculated from the functional sinusoidal density
-# by correcting for sinusoid radius and space of disse
-tmp <- 1E4/(2*Puhl2003.fig4$FSD) - 1E6*(p.gen["y_sin", "mean"] + p.gen["y_dis", "mean"]) 
+# by correcting for sinusoid radius
+tmp <- 1E4/(2*Puhl2003.fig4$FSD) - 1E6*(p.gen["y_sin", "mean"]) 
 colnames(p.y_cell) <- t(tmp)
 rm(tmp)
 barplot(p.y_cell, main="y_cell distribution", xlab="y_cell [µm]", ylab="[%]")
-
 
 # sinusoidal diameter [µm]
 p.dia <- rbind(t(Puhl2003.fig3$percent))
@@ -193,7 +192,7 @@ plot(pars[, pnames], col=ccols, pch=15)
 # Create figures
 ###############################################################
 # Settings for plots
-create_plots = FALSE
+create_plots = TRUE
 histc = rgb(1.0, 0.0, 0.0, 0.25)
 histcp = rgb(0.0, 0.0, 1.0, 0.25)
 plot.width = 800 
