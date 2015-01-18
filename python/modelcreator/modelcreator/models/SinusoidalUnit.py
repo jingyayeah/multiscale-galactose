@@ -80,15 +80,15 @@ pars.extend([
             ('L',           500E-6,   'm',      True),
             ('y_sin',       4.4E-6,   'm',      True),
             ('y_end',     0.165E-6, 'm',      True),
-            ('y_dis',       2.5E-6,   'm',      True),
+            ('y_dis',       2.0E-6,   'm',      True),
             ('y_cell',     6.19E-6,  'm',      True),
-            ('flow_sin',    270E-6,   'm_per_s',True),
+            ('flow_sin',    229E-6,   'm_per_s',True),
             ('N_fen',        10E12,   'per_m2', True),
             ('r_fen',      53.5E-9,   'm',      True),
             
             ('rho_liv',     1.25E3,    'kg_per_m3', True), 
             ('f_tissue',     0.8, '-', True),
-            ('f_cyto',       0.8, '-', True),
+            ('f_cyto',       0.5, '-', True),
 ])
 names['Nc'] = 'number of cells in sinusoidal unit'
 names['Nf'] = 'external compartments per cell'

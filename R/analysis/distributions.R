@@ -61,9 +61,27 @@ dev.off()
 
 ###  fit data in SI units  ###
 name = 'flow_sin'
-data[[name]] <- createDataFromHistogramm(Koo1975.all) * p.gen[name, 'scale_fac']
+# Koo1975.data <- Koo1975.all[c('branching', 'direct') ,] # only use the branching and direct sinusoids
+data[[name]] <- createDataFromHistogramm(Koo1975.data) * p.gen[name, 'scale_fac']
 fit[[name]] <- fitdistr(data[[name]]$x, "lognormal")
 p.gen <- storeFitData(p.gen, fit[[name]], name)
+p.gen
+
+# Distribution goes fast to zero
+# Koo1975.all
+# Koo1975.data
+# data[["flow_sin"]]
+# fit[["flow_sin"]]
+# 
+# xdata <- as.numeric(colnames(Koo1975.data))
+# ydata <- colSums(Koo1975.data)
+# xdata
+# 
+# x <- seq(from=1E-6, to=1000E-6, length.out=200)
+# plot(xdata*1E-6, ydata)
+# abline(h=0)
+# lines(x, 1.2/30*dlnorm(x, meanlog = -8.4, sdlog = 0.45))
+# lines(x, 1.2/30*dlnorm(x, meanlog = -8.38, sdlog = 0.54), col='red')
 
 
 ## y_cell and y_sin ###########################################

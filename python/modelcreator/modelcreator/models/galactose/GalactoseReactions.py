@@ -17,7 +17,7 @@ GALK = ReactionTemplate(
     'c__gal + c__atp <-> c__gal1p + c__adp [c__galM, c__gal1pM]',
     compartments = ['c__'],
     pars = [
-            ('GALK_PA',      0.02,    'mole'),
+            ('GALK_PA',      0.024,    'mole'),
             ('GALK_keq',     50,       '-'),
             ('GALK_k_gal1p', 1.5,     'mM'),
             ('GALK_k_adp',   0.8,     'mM'),
@@ -467,7 +467,7 @@ H2OTM = ReactionTemplate(
     'e__h2oM <-> c__h2oM',
     compartments = ['c__', 'e__'],
     pars = [
-            ('H2OT_f', 3.0, 'mole_per_s'),
+            ('H2OT_f', 8.0, 'mole_per_s'),
             ('H2OT_k',  1.0, 'mM'),
     ],
     rules = [ # id, rule, unit
@@ -483,7 +483,7 @@ GLUT2_GAL = ReactionTemplate(
     'e__gal <-> c__gal [e__galM, c__galM]',
     compartments = ['c__', 'e__'],
     pars = [
-            ('GLUT2_f',    14.0,   'mole_per_s'),
+            ('GLUT2_f',    10.0,   'mole_per_s'),
             ('GLUT2_k_gal', 27.8, 'mM'),
             ('c__GLUT2_P',   1.0, 'mM'),
     ],

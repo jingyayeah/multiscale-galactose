@@ -16,7 +16,7 @@ reload(rp)
 reload(gf)
 
 #########################################################################    
-VERSION = 93
+VERSION = 96
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
@@ -39,10 +39,12 @@ sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel_dict = rt.set_selection(r, sel)
 
 # distribution of fluxes
-flux = gf.flux_sample()
+reload(gf)
+flux = gf.flux_sample() # [m/s]
+print flux
 p_flux = gf.flux_probability(flux)
 f_fac = 0.45
-flow_sin = f_fac * flux * 1E-6 # [m/s] (scaling to calculate in correct volume flow range)
+flow_sin = f_fac * flux # [m/s] (scaling to calculate in correct volume flow range)
 
 #########################################################################    
 # Set parameters and integrate
@@ -50,7 +52,6 @@ flow_sin = f_fac * flux * 1E-6 # [m/s] (scaling to calculate in correct volume f
 # Define the parameters
 # The parameters are extended via the fluxes. I.e. for all fluxes in the
 # flux sample the simulation is performed.
-
 
 gal_p_list = []
 # for gal in [0.28]:
@@ -60,13 +61,14 @@ for gal in [0.28, 12.5, 17.5]:
         d = { 
               "[PP__gal]" : gal, 
               "flow_sin" : f,    
-              "y_dis" : 2.0E-6,
-              "y_cell" : 6.19E-6,
-              "f_cyto" : 0.5,
-              "scale_f" : 0.57,
-              "GALK_PA" : 0.02*1.2,
-              "GLUT2_f" : 10.0,              
-              "H2OT_f": 8.0,               
+              #"y_dis" : 2.0E-6,
+              #"y_cell" : 6.19E-6,
+              
+              #"f_cyto" : 0.5,
+              #"scale_f" : 0.57,
+              #"GALK_PA" : 0.024,
+              #"GLUT2_f" : 10.0,              
+              #"H2OT_f": 8.0,               
               }
         p_list.append(d)
     gal_p_list.append(p_list)

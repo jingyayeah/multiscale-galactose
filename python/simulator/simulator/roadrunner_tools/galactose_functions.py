@@ -13,20 +13,21 @@ from roadrunner_tools import selection_dict
 ##  Distribution of fluxes  ##################################################
 def flux_sample():
     # definition of fluxes
-    
-    # flux = np.arange(start=10, stop=1220, step=50)
-    flux = np.arange(start=10, stop=750, step=50)    
+    # flux = np.arange(start=10, stop=750, step=50) *1E-6
+    flux = np.arange(start=10, stop=800, step=50) *1E-6
     
     flux = np.sort(flux)
     return flux
 
 
 def flux_probability(flux):
-    # TODO: fix the SI bug => all values and parameter fits in SI units
     import pylab as plt
-    x = np.linspace(0.1, 1100, num=400) # values for x-axis
-    mu = 5.4572075437    # dtmp['meanlog']
-    sigma = 0.6178209697 # dtmp['sdlog']
+    x = np.linspace(0.1E-6, 1100E-6, num=400) # values for x-axis
+    # mu = -8.358303    # dtmp['meanlog']
+    # sigma = 0.6178210 # dtmp['sdlog']
+    mu = -8.383090    # dtmp['meanlog']
+    sigma = 0.5468566 # dtmp['sdlog']
+    
     pdf = stats.lognorm.pdf(x, sigma, loc=0, scale=np.exp(mu))
     plt.figure(figsize=(12,4.5))
     plt.plot(x, pdf)
@@ -34,6 +35,7 @@ def flux_probability(flux):
     p_flux = stats.lognorm.pdf(flux, sigma, loc=0, scale=np.exp(mu))
     plt.plot(flux, p_flux)
     return p_flux
+    
 
  
 def average_results(f_list, weights, ids, time, selections):
