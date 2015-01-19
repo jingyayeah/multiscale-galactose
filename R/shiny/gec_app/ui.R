@@ -4,39 +4,48 @@ library(shiny)
 shinyUI(fluidPage(
   fluidRow(
       img(src = "virtual-liver.png", width=150),
-      h1("Personalized GEC calculation")
+      h1("Personalized GEC calculation (beta)")
       ),
   
   sidebarLayout(
     sidebarPanel(
-      helpText("Calculate individualized GEC range based 
-        on personal information."),
+      #helpText("Calculate individualized GEC range based 
+      #  on personal information."),
       selectInput("gender", label = h3("Gender"), 
                   choices = list("male" = "male", "female" = "female"), selected = 1),
-      numericInput("age", 
-                   label = h3("Age [years]"), 
-                   value = 50),
-      numericInput("height", 
-                   label = h3("Height [cm]"), 
-                   value = 170),
-      numericInput("bodyweight", 
-                   label = h3("Bodyweight [kg]"), 
-                   value = 70),
+      sliderInput("age", label = h3("Age [years]"),
+                  min = 0, max = 100, value = 50),
+      #numericInput("age", 
+      #             label = h3("Age [years]"), 
+      #             value = 50),
+      sliderInput("height", label = h3("Height [cm]"),
+                  min = 40, max = 220, value = 170),
+      #numericInput("height", 
+      #             label = h3("Height [cm]"), 
+      #             value = 170),
+      sliderInput("bodyweight", label = h3("Bodyweight [kg]"),
+                  min = 2, max = 140, value = 70),
+      
+      #numericInput("bodyweight", 
+      #             label = h3("Bodyweight [kg]"), 
+      #             value = 70),
       actionButton("calculate", label = "Calculate")
     
 
     ),
     mainPanel(h3("Information"),
-              p("Calculation of individualized galactose elimination capacity (GEC)."),
-              code("GEC"),
+              p("Calculate your individualized galactose elimination capacity (GEC)."),
+              p("Based on a comparable population sample the distribution of liver volumes
+                and liver blood flows within this sample are calculated. This information is than used
+                to scale the GEC per tissue and perfusion function."),
+              # code("GEC"),
               h3("Results"),
               textOutput("gender"),
-              verbatimTextOutput("age"),
-              verbatimTextOutput("height"),
-              verbatimTextOutput("bodyweight"),
+              textOutput("age"),
+              textOutput("height"),
+              textOutput("bodyweight"),
               plotOutput("hist")
-              ),
-              
+              ),    
   )
   
 ))
