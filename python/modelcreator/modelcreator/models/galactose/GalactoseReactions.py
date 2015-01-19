@@ -464,8 +464,8 @@ GTFGLCM = ReactionTemplate(
 H2OTM = ReactionTemplate(
     'e__H2OM',
     'H2O M transport [e__]',
-    'e__h2oM <-> c__h2oM',
-    compartments = ['c__', 'e__'],
+    'e__h2oM <-> h__h2oM',
+    compartments = ['c__', 'h__', 'e__'],
     pars = [
             ('H2OT_f', 8.0, 'mole_per_s'),
             ('H2OT_k',  1.0, 'mM'),
@@ -473,7 +473,7 @@ H2OTM = ReactionTemplate(
     rules = [ # id, rule, unit
             ('c__H2OT_Vmax', 'H2OT_f/Nf * c__scale', 'mole_per_s'),
     ],
-    formula = ('c__H2OT_Vmax/H2OT_k * (e__h2oM - c__h2oM)', 'mole_per_s')
+    formula = ('c__H2OT_Vmax/H2OT_k * (e__h2oM - h__h2oM)', 'mole_per_s')
 )
 
 #############################################################################################

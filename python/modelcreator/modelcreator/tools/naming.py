@@ -32,6 +32,8 @@ def getDisseId(k):
     return 'D{:0>2d}'.format(k)
 def getHepatocyteId(k):
     return 'H{:0>2d}'.format(k)
+def getCytosolId(k):
+    return 'C{:0>2d}'.format(k)
 
 def getPPName():
     return '[{}] periportal'.format(getPPId())
@@ -43,6 +45,10 @@ def getDisseName(k):
     return '[{}] disse'.format(getDisseId(k))
 def getHepatocyteName(k):
     return '[{}] hepatocyte'.format(getHepatocyteId(k))
+def getCytosolName(k):
+    return '[{}] cytosol'.format(getCytosolId(k))
+
+
 
 # Species
 SEPARATOR = "__"
@@ -58,6 +64,8 @@ def getDisseSpeciesId(sid, k):
     return createLocalizedId(getDisseId(k), sid)
 def getHepatocyteSpeciesId(sid, k):
     return createLocalizedId(getHepatocyteId(k), sid)
+def getCytosolSpeciesId(sid, k):
+    return createLocalizedId(getCytosolId(k), sid)
 
 def createLocalizedId(cid, sid):
     return SEPARATOR.join([cid, sid])
@@ -77,6 +85,8 @@ def getSinusoidSpeciesName(name, k):
 def getDisseSpeciesName(name, k):
     return '[{}] {}'.format(getDisseId(k), name)
 def getHepatocyteSpeciesName(name, k):
+    return '[{}] {}'.format(getHepatocyteId(k), name)
+def getCytosolSpeciesName(name, k):
     return '[{}] {}'.format(getHepatocyteId(k), name)
 
 # Reactions

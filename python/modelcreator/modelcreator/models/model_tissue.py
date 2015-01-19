@@ -189,7 +189,8 @@ class TissueModel(object):
         comps = dict()
         # hepatocyte compartments
         for k in self.cell_range():
-            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', False, 'Vol_cyto')
+            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', False, 'Vol_cell')
+            comps[getCytosolId(k)] = (getCytosolName(k), 3, 'm3', False, 'Vol_cyto')
         return comps
 
     ##########################################################################
@@ -224,9 +225,12 @@ class TissueModel(object):
             for k in self.cell_range():
                 # TODO: only covers species in cytosol (has to work with arbitrary number of compartments)
                 # necessary to have a mapping of the compartments to the functions which generate id and names
-                if full_id.startswith('c__'):
+                if full_id.startswith('h__'):
                     sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units, 
-                                                             getHepatocyteId(k), boundaryCondition)    
+                                                             getHepatocyteId(k), boundaryCondition)  
+                if full_id.startswith('c__'):
+                    sdict[getCytosolSpeciesId(sid, k)] = (getCytosolSpeciesName(name, k), init, units, 
+                                                             getCytosolId(k), boundaryCondition)    
         return sdict
     
     def getItemsFromSpeciesData(self, data):
@@ -364,7 +368,8 @@ class TissueModel(object):
         init_data = []
         for k in self.cell_range():
             d = dict()
-            d['c__'] = '{}__'.format(getHepatocyteId(k))
+            d['h__'] = '{}__'.format(getHepatocyteId(k))
+            d['c__'] = '{}__'.format(getCytosolId(k))
             init_data.append(d)
         return init_data
     
@@ -376,7 +381,8 @@ class TissueModel(object):
         for k in self.cell_range():
             for i in range( (k-1)*self.Nf+1, k*self.Nf+1):
                 d = dict()
-                d['c__'] = '{}__'.format(getHepatocyteId(k))
+                d['h__'] = '{}__'.format(getHepatocyteId(k))
+                d['c__'] = '{}__'.format(getCytosolId(k))
                 d['e__'] = '{}__'.format(getDisseId(i))
                 init_data.append(d)
         return init_data
