@@ -7,15 +7,14 @@ Steady state clearance of galactose under given galactose challenge.
 Here the clearance parameters and the GEC can be calculated from the model.
 
 @author: Matthias Koenig
-@date: 2014-01-15
+@date: 2014-01-19
 '''
-
 import roadrunner_tools as rt
 
 #########################################################################    
 # Load model
 #########################################################################    
-VERSION = 97
+VERSION = 100
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_galchallenge.xml'.format(VERSION)
 r = rt.load_model(sbml_file)
@@ -39,22 +38,23 @@ r.selections = sel
 # Set parameters & simulate
 ######################################################################### 
 import numpy as np
-flow_sin = np.arange(start=0, stop=0.8, step=0.05) * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
+f_sin1 = np.arange(start=0, stop=0.3, step=0.05) * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
+f_sin2 = np.arange(start=0.3, stop=1.6, step=0.3) * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
+flow_sin = np.concatenate((f_sin1, f_sin2))
 
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
 p_list = []
 for f in flow_sin:
-    d = { "gal_challenge" : 8,  
+    d = { "gal_challenge" : 20,  
               "flow_sin" : f,     
-
-              "y_dis" : 2.3E-6,
-              # "y_cell" : 8.39E-6,
+              # "y_dis" : 2.3E-6,
+              #"y_cell" : 8.39E-6*1.12,
               
-              # "f_cyto" : 0.4,
-              # "scale_f" : 0.43,
+              #"f_cyto" : 0.4,
+              #"scale_f" : 0.45/1.1,
               #"GALK_PA" : 0.024,
-              # "GLUT2_f" : 10.0,              
+              #"GLUT2_f" : 7.5,              
               # "H2OT_f": 5.0,         
              }
     p_list.append(d)
@@ -72,7 +72,8 @@ s_list = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list]
 import numpy as np
 Q_sinunit = np.pi * r.y_sin**2 * flow_sin # [m³/s]
 Vol_sinunit = r.Vol_sinunit   # has to be calculated with the actual variables
-print (r.L * np.pi * (r.y_sin + r.y_end + r.y_dis + r.y_cell*1.4)**2)/r.Vol_sinunit
+f_modvol = (r.L * np.pi * (r.y_sin + r.y_end + r.y_dis + 8.39E-6*1.12)**2)/r.Vol_sinunit
+print f_modvol
 
 
 
@@ -106,7 +107,7 @@ p.show()
 
 
 # Add line for the used flow factor in dilution
-f_fac = 0.45
+f_fac = 0.5
 Q_fac = np.pi * r.y_sin**2 * f_fac * r.flow_sin/r.Vol_sinunit*60 # [m³/s]
 print 'Q_fac:', Q_fac
 
@@ -137,4 +138,8 @@ p.title('GEC liver vs. Perfusion')
 p.show()
 # print 'Perfusion', f_vol*Q, '[ml/min/ml(liv)]'
 # print 'GEC liver',  GEC*vol_liv, '[mmole/min]'
+
+print 'Q_fac cor:', Q_fac/f_vol/f_modvol
+print 'GEC cor:', f_vol*max(GEC)*vol_liv/f_modvol
+
 

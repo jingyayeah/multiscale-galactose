@@ -20,7 +20,7 @@ names(gender.cols) <- gender.levels
 # Datasets
 ##############################################
 # preprocess
-marG2 <- read.csv(file.path(ma.settings$dir.expdata, "marchesini", "Koenig_G2_v1.csv"), sep="\t")
+marG2 <- read.csv(file.path(ma.settings$dir.expdata, "raw_data", "marchesini", "Koenig_G2_v1.csv"), sep="\t")
 marG2$GECkg <- marG2$GEC/marG2$bodyweight
 marG2$gender <- as.character(marG2$sex)
 marG2$gender[marG2$gender=='M'] <- 'male'
