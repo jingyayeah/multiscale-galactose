@@ -20,3 +20,10 @@ runApp("my_app2", display.mode = "showcase")
 # Shiny Galery
 system.file("examples", package="shiny")
 runExample("02_text")
+
+install.packages(c("maps", "mapproj"))
+library(maps)
+library(mapproj)
+source("census-app/helpers.R")
+counties <- readRDS("census-app/data/counties.rds")
+percent_map(counties$white, "darkgreen", "% white")
