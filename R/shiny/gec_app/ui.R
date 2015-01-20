@@ -8,13 +8,13 @@ shinyUI(fluidPage(
            img(src = "virtual-liver.png", width=150)
     ),
     column(10,
-           h2("Galatose Elimination Capacity (GEC)") 
+           h2("Galactose Elimination Capacity (GEC)") 
     )
   ),
   sidebarLayout(
     sidebarPanel(
-      helpText("Calculate individual reference range of your liver function based hepatic 
-               galactose elimination capacity (GEC)."),
+      helpText("Calculate the individual reference range of your liver function based on hepatic 
+               Galactose Elimination Capacity (GEC)."),
       selectInput("gender", label = h4("Gender"), 
                   choices = list("male" = "male", "female" = "female"), selected = 1),
       sliderInput("age", label = h4("Age [years]"),
