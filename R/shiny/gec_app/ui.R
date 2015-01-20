@@ -4,22 +4,24 @@ library(shiny)
 shinyUI(fluidPage(
   
   fluidRow(
-    img(src = "virtual-liver.png", width=150),
-    h1("Individual Liver Function"), 
-    h2("Galatose Elimination Capacity (GEC)")
+    column(2,
+           img(src = "virtual-liver.png", width=150)
+    ),
+    column(10,
+           h2("Galatose Elimination Capacity (GEC)") 
+    )
   ),
-    
   sidebarLayout(
     sidebarPanel(
-      #helpText("Calculate individualized GEC range based 
-      #  on personal information."),
-      selectInput("gender", label = h3("Gender"), 
+      helpText("Calculate individual reference range of your liver function based hepatic 
+               galactose elimination capacity (GEC)."),
+      selectInput("gender", label = h4("Gender"), 
                   choices = list("male" = "male", "female" = "female"), selected = 1),
-      sliderInput("age", label = h3("Age [years]"),
+      sliderInput("age", label = h4("Age [years]"),
                   min = 0, max = 100, value = 50),
-      sliderInput("height", label = h3("Height [cm]"),
+      sliderInput("height", label = h4("Height [cm]"),
                   min = 40, max = 220, value = 170),
-      sliderInput("bodyweight", label = h3("Bodyweight [kg]"),
+      sliderInput("bodyweight", label = h4("Bodyweight [kg]"),
                   min = 2, max = 140, value = 70),
       submitButton("Calculate")
     ),
@@ -29,7 +31,7 @@ shinyUI(fluidPage(
                            h4("Person"),
                            tableOutput("person"),
                            h4("GEC Reference Range [2.5% - 97.5%]"),
-                           tableOutput("gec"),
+                           textOutput("gec"),
                            h4("Summary"),
                            verbatimTextOutput("summary"),
                            h4("Plots"),

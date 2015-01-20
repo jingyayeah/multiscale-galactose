@@ -41,13 +41,18 @@ shinyServer( function(input, output) {
                     flowLiver=t(liver.info$flowLiver), GEC=t(GEC), GECkg=t(GECkg))
     
   }) 
-  # Show the first "n" observations
+  # Show the person
   output$person <- renderTable({
     d <- datasetInput()
     person <- d$person
     data.frame(sex=person$sex, age=person$age, bodyweight=person$bodyweight, height=person$height)
   })
-  
+  # Show GEC range
+  output$gec <- renderText({ 
+    d <- datasetInput()
+    q <- quantile(d$GEC, probs = c(0.025, 0.25, 0.5, 0.75, 0.975))
+    sprintf("[%.2f - %.2f]", q[1], q[5])
+  })
   
   # Generate a summary of the dataset
   output$summary <- renderPrint({
@@ -56,17 +61,11 @@ shinyServer( function(input, output) {
     summary(d2)
   })
   
-
-  
-  
+  # Make the plot
   output$hist <- renderPlot({
     d <- datasetInput()
     individual_plot(person=d$person, vol=d$volLiver, flow=d$flowLiver,
                     data=d$GEC)
   })
-  
 
-  
-  
-  
 })

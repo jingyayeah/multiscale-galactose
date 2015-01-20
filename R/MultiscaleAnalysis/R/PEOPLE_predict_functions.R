@@ -83,7 +83,7 @@ individual_GEC_plot <- function(person, data){
   p.max <- max(h.max, d.max)
   
   # empty plot
-  plot(numeric(0), numeric(0), type='n', xlim=c(0,5), ylim=c(0, 1.2*p.max), 
+  plot(numeric(0), numeric(0), type='n', xlim=c(0,5), ylim=c(0, 1.3*p.max), 
        main="GEC reference range [2.5% - 97.5%]",
        xlab="GEC [mmol/min]", ylab="probability", font.lab=2)
   
@@ -142,7 +142,7 @@ individual_vol_flow_plot <- function(person, vol, flow, data){
   # empty plot
   plot(numeric(0), numeric(0), xlim=lim$volLiver, ylim=lim$flowLiver,
        xlab=lab$volLiver, ylab=lab$flowLiver, type='n',
-       main="flowLiver ~ volLiver")
+       main="Simulated reference data", , font.lab=2)
   abline(a=0, b=1, col='gray')
   points(vol, flow, pch=21, bg=rgb(0,0,0, 0.1), col="black", cex=1*data/max(data))
   # rugs
