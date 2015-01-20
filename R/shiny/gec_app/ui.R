@@ -2,12 +2,13 @@ library(shiny)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-  fluidRow(
-      img(src = "virtual-liver.png", width=150),
-      h1("Individual Liver Function"), 
-      h2("Galatose Elimination Capacity (GEC)")
-      ),
   
+  fluidRow(
+    img(src = "virtual-liver.png", width=150),
+    h1("Individual Liver Function"), 
+    h2("Galatose Elimination Capacity (GEC)")
+  ),
+    
   sidebarLayout(
     sidebarPanel(
       #helpText("Calculate individualized GEC range based 
@@ -21,26 +22,32 @@ shinyUI(fluidPage(
       sliderInput("bodyweight", label = h3("Bodyweight [kg]"),
                   min = 2, max = 140, value = 70),
       submitButton("Calculate")
-    
-
     ),
     mainPanel(
-              h3("Results"),
-              h4("Person"),
-              tableOutput("person"),
-              h4("GEC Reference Range [2.5% - 97.5%]"),
-              tableOutput("gec"),
-              h4("Summary"),
-              verbatimTextOutput("summary"),
-              h4("Plots"),
-              plotOutput("hist"),
-              
-              h3("Information"),
-              p("Calculate your individualized galactose elimination capacity (GEC)."),
-              p("Based on a comparable population sample the distribution of liver volumes
-                and liver blood flows within this sample are calculated. This information is than used
-                to scale the GEC per tissue and perfusion function.")
-              ),    
+      tabsetPanel(type = "tabs", 
+                  tabPanel("Results", 
+                           h4("Person"),
+                           tableOutput("person"),
+                           h4("GEC Reference Range [2.5% - 97.5%]"),
+                           tableOutput("gec"),
+                           h4("Summary"),
+                           verbatimTextOutput("summary"),
+                           h4("Plots"),
+                           plotOutput("hist")
+                  ), 
+                  tabPanel("About", 
+                           h4("Information"),
+                           p("Calculate your individualized galactose elimination capacity (GEC)."),
+                           p("Based on a comparable population sample the distribution of liver volumes
+                                and liver blood flows within this sample are calculated. This information is than used
+                                to scale the GEC per tissue and perfusion function."),
+                           h4("Version"),
+                           p("0.8 beta"),
+                           h4("Contact"),
+                           p("matthias.koenig@charite.de")
+                  
+                  )
+      )     
+    )
   )
-  
 ))

@@ -20,6 +20,12 @@ shinyServer( function(input, output) {
 #   })
   
   datasetInput <- reactive({
+    # Create a Progress object
+    progress <- shiny::Progress$new()
+    progress$set(message = "Computing GEC range ...", value = 0)
+    # Close the progress when this reactive exits (even if there's an error)
+    on.exit(progress$close())
+    
     person <- data.frame(study='None', sex=input$gender, age=input$age, bodyweight=input$bodyweight, height=input$height, 
                BSA=NA, volLiver=NA, volLiverkg=NA, stringsAsFactors=FALSE)
     
@@ -30,6 +36,7 @@ shinyServer( function(input, output) {
                               flowLiver=liver.info$flowLiver)
     GEC <- GEC.info$values
     GECkg <- GEC/input$bodyweight
+    progress$set(message="... done.", value = 1)
     dataset <- list(person=person, volLiver=t(liver.info$volLiver), 
                     flowLiver=t(liver.info$flowLiver), GEC=t(GEC), GECkg=t(GECkg))
     
