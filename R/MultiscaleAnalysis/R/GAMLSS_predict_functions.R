@@ -61,6 +61,34 @@ load_models_for_prediction <- function(dir=file.path(ma.settings$dir.base, "resu
   return(fit.models) 
 }
 
+#' Save shiny fit models.
+#' 
+#' @export
+save_shiny_fit_models <- function(dir=file.path(ma.settings$dir.base, "results", 'gamlss'),
+      file=file.path(ma.settings$dir.code, "shiny", 'gec_app', 'data', 'gamlss', 'fit_models.Rdata')){ 
+  fit.models <- list()
+  load(file=file.path(dir, 'volLiver_age_models.Rdata'))
+  fit.models$volLiver_age <- models
+  load(file=file.path(dir, 'volLiver_bodyweight_models.Rdata'))
+  fit.models$volLiver_bodyweight <- models
+  load(file=file.path(dir, 'volLiver_height_models.Rdata'))
+  fit.models$volLiver_height <- models
+  load(file=file.path(dir, 'flowLiver_volLiver_models.Rdata'))
+  fit.models$flowLiver_volLiver <- models
+  load(file=file.path(dir, 'flowLiver_age_models.Rdata'))
+  fit.models$flowLiver_age <- models
+  cat(names(fit.models), '\n')
+  save(fit.models, file=file) 
+}
+
+#' Load shiny fit models.
+#' 
+#' @export
+load_shiny_fit_models <- function(file=file.path(ma.settings$dir.code, "shiny", 'gec_app', 'data', 'gamlss', 'fit_models.Rdata')){ 
+  load(file=file)
+  return(fit.models)
+}
+
 ################################################################################
 # Density factories
 ################################################################################

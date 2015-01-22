@@ -4,13 +4,13 @@
 * using session charset: UTF-8
 * checking for file ‘MultiscaleAnalysis/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘MultiscaleAnalysis’ version ‘0.3’
+* this is package ‘MultiscaleAnalysis’ version ‘0.3.3’
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
 Package suggested but not available: ‘NA’
 
 Depends: includes the non-default packages:
-  ‘data.table’ ‘plyr’ ‘gamlss’ ‘libSBML’ ‘matrixStats’ ‘ggplot2’
+  ‘plyr’ ‘data.table’ ‘matrixStats’ ‘gamlss’ ‘ggplot2’ ‘libSBML’
 Adding so many packages to the search path is excessive and importing
 selectively is preferable.
 
