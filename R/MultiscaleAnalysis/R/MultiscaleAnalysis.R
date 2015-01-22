@@ -11,10 +11,8 @@
 library('methods')
 library('plyr')
 library('data.table')
+library('matrixStats')
 library('gamlss')
-library('libSBML')
-library('matrixStats');
-library('ggplot2')
 
 # Set this as base folder, where the project was checked out to 
 dir.base = '/home/mkoenig/multiscale-galactose'
@@ -108,4 +106,3 @@ lim = list(age = c(0, 100),
   flowLiverkg = c(0, 90),
   perfusion = c(0, 2)
 )
-################################################################

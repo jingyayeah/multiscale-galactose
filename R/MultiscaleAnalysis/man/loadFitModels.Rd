@@ -2,11 +2,11 @@
 % Please edit documentation in R/GAMLSS_functions.R
 \name{loadFitModels}
 \alias{loadFitModels}
-\title{Load the models}
+\title{Load single GAMLSS correlation model.}
 \usage{
 loadFitModels(xname, yname)
 }
 \description{
-Load the models
+Load single GAMLSS correlation model.
 }
 

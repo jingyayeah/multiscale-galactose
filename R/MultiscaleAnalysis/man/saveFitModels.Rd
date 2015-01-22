@@ -2,11 +2,11 @@
 % Please edit documentation in R/GAMLSS_functions.R
 \name{saveFitModels}
 \alias{saveFitModels}
-\title{Save the models}
+\title{Save single GAMLSS correlation model.}
 \usage{
 saveFitModels(models, xname, yname)
 }
 \description{
-Save the models
+Save single GAMLSS correlation model.
 }
 

@@ -1,7 +1,7 @@
 Package: MultiscaleAnalysis
 Type: Package
-Title: Analysis of multiscale liver model.
-Version: 0.3.3
+Title: Multiscale Liver Model.
+Version: 0.3.4
 Date: 2015-01-21
 Author: Matthias Koenig
 Maintainer: Matthias Koenig <konigmatt@googlemail.com>
@@ -9,12 +9,11 @@ Depends:
     R (>= 3.0.2),
     methods,
     plyr,
-    data.table,
     matrixStats,
     gamlss,
+Suggests:
+    data.table,
     ggplot2,
     libSBML,
-Suggests:
-    NA
-Description: NA
-License: NA
+Description: This is the package accompanying the Multiscale Galactose Liver Model.
+License: GPL-2

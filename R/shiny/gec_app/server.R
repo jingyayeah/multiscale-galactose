@@ -16,7 +16,7 @@ shinyServer( function(input, output) {
     person <- data.frame(study='None', sex=input$gender, age=input$age, bodyweight=input$bodyweight, height=input$height, 
                BSA=NA, volLiver=NA, volLiverkg=NA, stringsAsFactors=FALSE)
         
-    liver.info <- predict_liver_people(person, Nsample=2000, Ncores=1)
+    liver.info <- predict_liver_people(person, Nsample=2000, Ncores=1, debug=FALSE)
     GEC.info <- calculate_GEC(GEC_f, 
                               volLiver=liver.info$volLiver,
                               flowLiver=liver.info$flowLiver)
