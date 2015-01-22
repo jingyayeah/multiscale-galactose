@@ -1,4 +1,15 @@
-#' Calculation of the centiles
+################################################################
+# Centile functions 
+################################################################
+# Working with GAMLSS centile functions. 
+#
+# author: Matthias Koenig
+# date: 2014-12-12
+################################################################
+
+
+#' Calculation of the centiles.
+#' 
 #' @export
 qCentiles <- function (obj, newdata=NULL, cent = c(0.4, 2, 10, 25, 50, 75, 90, 98, 99.6) ){
   if (!is.gamlss(obj)) 
@@ -42,8 +53,9 @@ qCentiles <- function (obj, newdata=NULL, cent = c(0.4, 2, 10, 25, 50, 75, 90, 9
   return(centiles)
 }
 
-#' Create plots for centiles
-#' Make this work generally without depending on the variable name
+#' Create plots for centiles.
+#' 
+#' Make this work generally without depending on the variable name.
 #' @param model GAMLSS model
 #' @export
 plotCentiles <- function(model, d, xname, yname, 

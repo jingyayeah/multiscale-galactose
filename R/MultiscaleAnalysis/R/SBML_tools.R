@@ -1,17 +1,26 @@
 ################################################################
-## SBML Functions
+## SBML Tools
 ################################################################
 # Functions to read additional information from the SBML file.
 # All necessary parameters for calculation should be available 
 # in the underlying SBML model of the sinusoidal unit.
 # Here functions for the information retrieval from the SBML.
 #
+# Uses information from the SBML to extend the parameter 
+# structure.
+#
 # author: Matthias Koenig
-# date: 2014-11-14
+# date: 2015-01-21
 ################################################################
 
+##################
+# Parameter Sets #
+##################
 
-#' Parameters which are fixed in the model
+#' Get fixed parameters in the model.
+#' 
+#' Fixed parameters are all parameters which are listed in 
+#' the parameter names from the parameter structure.
 #' @param pars parameter structure
 #' @param all_ps parameters in model
 #' @export
@@ -19,7 +28,8 @@ getFixedParameters <- function (pars, all_ps) {
   fixed_ps = setdiff(all_ps, getParameterNames(pars))
 }
 
-#' All parameters which are varied, i.e. depend on sample
+#' Get parameters which are varied.
+#' 
 #' @param pars parameter structure
 #' @param all_ps parameters in model
 #' @export
@@ -28,21 +38,28 @@ getVariableParameters <- function (pars, all_ps) {
   var_ps = setdiff(all_ps, fixed_ps)
 }
 
-#' Load the model from the SBML file. 
+#######################
+# SBML parameter sets #
+#######################
+
+#' Load SBML model from file. 
 #' @param filename Filename of the SBML file
+#' @return SBML model structure
 #' @export
 loadSBMLModel <- function(filename){
-  doc        = readSBML(filename);
+  doc = readSBML(filename);
   errors   = SBMLDocument_getNumErrors(doc);
   SBMLDocument_printErrors(doc);
   model = SBMLDocument_getModel(doc);
 }
 
-#' Parameter ids in the sbml model
-#' @param filename SBML filename
+#' Parameter ids in the sbml model.
+#' 
+#' Gets all ids from the listOfParameters.
+#' @param model SBML model
+#' @return character vector of parameter ids
 #' @export
 getAllSBMLParameterIdsFromModel <- function (model) {
-  # Get all parameter names from model
   lofp <- Model_getListOfParameters(model)
   Np <- ListOf_size(lofp)
   model_pids <- character(Np)
@@ -53,9 +70,16 @@ getAllSBMLParameterIdsFromModel <- function (model) {
   model_pids
 }
 
+#' Extend paramter structure with SBML information.
+#' 
 #' Create extended data frame with the calculated values based
 #' on the information from the SBML.
+#' The formulas for calculation are hard coded and have to be 
+#' updated with the respective model version.
 #'@param pars parameter structure
+#'@param fixed_ps fixed parameter names
+#'@param model SBML model structure
+#'@return extended parameter structure
 #'@export
 extendParameterStructure <- function(pars, fixed_ps, model){
   X <- pars

@@ -2,11 +2,11 @@
 % Please edit documentation in R/plot_functions.R
 \name{stopDevPlot}
 \alias{stopDevPlot}
-\title{Stop the plot generation}
+\title{Stop a general plot}
 \usage{
 stopDevPlot(create_plots = T)
 }
 \description{
-Stop the plot generation
+Stop a general plot
 }
 

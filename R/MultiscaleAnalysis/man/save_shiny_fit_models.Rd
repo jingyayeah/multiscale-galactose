@@ -4,9 +4,8 @@
 \alias{save_shiny_fit_models}
 \title{Save shiny fit models.}
 \usage{
-save_shiny_fit_models(dir = file.path(ma.settings$dir.base, "results",
-  "gamlss"), file = file.path(ma.settings$dir.code, "shiny", "gec_app",
-  "data", "gamlss", "fit_models.Rdata"))
+save_shiny_fit_models(dir = ma.settings$dir.shiny,
+  file = file.path(ma.settings$dir.shiny, "fit_models.Rdata"))
 }
 \description{
 Save the subset of GAMLSS models necessary for the individual predictions of

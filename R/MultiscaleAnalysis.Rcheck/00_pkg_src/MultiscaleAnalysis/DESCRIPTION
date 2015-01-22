@@ -1,13 +1,14 @@
 Package: MultiscaleAnalysis
 Type: Package
-Title: Analysis of multiscale liver model.
-Version: 0.3.3
+Title: Multiscale Liver Model.
+Version: 0.3.5
 Date: 2015-01-21
 Author: Matthias Koenig
 Maintainer: Matthias Koenig <konigmatt@googlemail.com>
-Depends: R (>= 3.0.2), methods, plyr, data.table, matrixStats, gamlss,
-        ggplot2, libSBML,
-Suggests: NA
-Description: NA
-License: NA
-Packaged: 2015-01-21 14:02:19 UTC; mkoenig
+Description: MultiscaleAnalysis is the package accompanying the Multiscale Galactose Liver Model. Functionality for Galactose Elimination Capacity (GEC) calculation is provided.
+Depends: R (>= 3.0.2), methods, plyr, matrixStats, gamlss, grid,
+        parallel,
+Suggests: data.table, ggplot2, libSBML,
+License: GPL-2
+URL: http://livermetabolism.com
+Packaged: 2015-01-22 20:58:15 UTC; mkoenig

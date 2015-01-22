@@ -1,10 +1,11 @@
 ################################################################
-## Distribution functions 
+# Distribution functions 
 ################################################################
 #
 # author: Matthias Koenig
 # date: 2014-12-12
 ################################################################
+
 #' Calculate the stdlog for log-normal distribution from given mean and std.
 #' 
 #' @param m mean

@@ -4,8 +4,7 @@
 \alias{load_models_for_prediction}
 \title{Load all GAMLSS correlation models.}
 \usage{
-load_models_for_prediction(dir = file.path(ma.settings$dir.base, "results",
-  "gamlss"))
+load_models_for_prediction(dir = ma.settings$dir.gamlss)
 }
 \description{
 Load all GAMLSS correlation models.

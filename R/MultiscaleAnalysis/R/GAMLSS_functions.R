@@ -15,32 +15,31 @@
 # date: 2015-01-21
 ################################################################################
 
+
+
 #' Save single GAMLSS correlation model.
 #' 
 #'@export
 saveFitModels <- function(models, xname, yname){
-  dir <- file.path(ma.settings$dir.base, "results", "gamlss")
-  r_fname <- file.path(dir, sprintf('%s_%s_models.Rdata', yname, xname))
-  print( sprintf('%s ~ %s -> %s', yname, xname, r_fname) )
-  save('models', file=r_fname)
+  f <- file.path(ma.settings$dir.gamlss, sprintf('%s_%s_models.Rdata', yname, xname))
+  cat(sprintf('%s ~ %s -> %s', yname, xname, f), '\n')
+  save('models', file=f)
 }
 
 #' Load single GAMLSS correlation model.
 #' 
 #'@export
 loadFitModels <- function(xname, yname){
-  dir <- file.path(ma.settings$dir.base, "results", "gamlss")
-  r_fname <- file.path(dir, sprintf('%s_%s_models.Rdata', yname, xname))
-  print( sprintf('%s ~ %s -> %s', yname, xname, r_fname) )
-  load(file=r_fname)
+  f <- file.path(ma.settings$dir.gamlss, sprintf('%s_%s_models.Rdata', yname, xname))
+  cat(sprintf('%s ~ %s -> %s', yname, xname, f), '\n')
+  load(file=f)
   return(models)
 }
-
 
 #' Load all GAMLSS correlation models.
 #' 
 #' @export
-load_models_for_prediction <- function(dir=file.path(ma.settings$dir.base, "results", 'gamlss')){ 
+load_models_for_prediction <- function(dir=ma.settings$dir.gamlss){ 
   fit.models <- list()
   load(file=file.path(dir, 'volLiver_age_models.Rdata'))
   fit.models$volLiver_age <- models
@@ -85,8 +84,8 @@ load_models_for_prediction <- function(dir=file.path(ma.settings$dir.base, "resu
 #' Save the subset of GAMLSS models necessary for the individual predictions of 
 #' galactose elimination capacity.
 #' @export
-save_shiny_fit_models <- function(dir=file.path(ma.settings$dir.base, "results", 'gamlss'),
-      file=file.path(ma.settings$dir.code, "shiny", 'gec_app', 'data', 'gamlss', 'fit_models.Rdata')){ 
+save_shiny_fit_models <- function(dir=ma.settings$dir.shiny,
+      file=file.path(ma.settings$dir.shiny, 'fit_models.Rdata')){ 
   fit.models <- list()
   load(file=file.path(dir, 'volLiver_age_models.Rdata'))
   fit.models$volLiver_age <- models
@@ -106,7 +105,7 @@ save_shiny_fit_models <- function(dir=file.path(ma.settings$dir.base, "results",
 #' 
 #' Load the subset of GAMLSS models necessary for individual predictions.
 #' @export
-load_shiny_fit_models <- function(file=file.path(ma.settings$dir.code, "shiny", 'gec_app', 'data', 'gamlss', 'fit_models.Rdata')){ 
+load_shiny_fit_models <- function(file=file.path(ma.settings$dir.shiny, 'fit_models.Rdata')){ 
   load(file=file)
   return(fit.models)
 }

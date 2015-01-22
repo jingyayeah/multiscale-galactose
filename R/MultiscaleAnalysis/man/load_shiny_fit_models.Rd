@@ -4,8 +4,8 @@
 \alias{load_shiny_fit_models}
 \title{Load shiny fit models.}
 \usage{
-load_shiny_fit_models(file = file.path(ma.settings$dir.code, "shiny",
-  "gec_app", "data", "gamlss", "fit_models.Rdata"))
+load_shiny_fit_models(file = file.path(ma.settings$dir.shiny,
+  "fit_models.Rdata"))
 }
 \description{
 Load the subset of GAMLSS models necessary for individual predictions.
