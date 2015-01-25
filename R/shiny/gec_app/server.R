@@ -23,6 +23,7 @@ shinyServer( function(input, output) {
     GEC <- GEC.info$values
     GECkg <- GEC/input$bodyweight
     progress$set(message="... done.", value = 1)
+    # browser()
     dataset <- list(person=person, volLiver=t(liver.info$volLiver), 
                     flowLiver=t(liver.info$flowLiver), GEC=t(GEC), GECkg=t(GECkg))
     

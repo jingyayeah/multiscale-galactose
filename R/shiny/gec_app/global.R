@@ -1,4 +1,5 @@
 library('MultiscaleAnalysis')
+
 cat(sprintf('MultiscaleAnalysis v%s', packageVersion('MultiscaleAnalysis')[1]))
 
 # GAMLSS models
