@@ -119,46 +119,7 @@ shinyServer( function(input, output) {
   }
   }
 
-  individual_GEC_box <- function(person, data, gec_exp=NA){
-    # boundaries for plot
-    min.value = min(data)
-    max.value = max(data)
-    if (!is.na(gec_exp)){
-      min.value <- min(gec_exp, min.value)
-      max.value <- max(gec_exp, max.value)
-    }
-    
-    # normal ranges
-    q <- quantile(data, probs=c(0.025, 0.975, 0.5) )
-    #
-    # xlim=c(min.value-0.1, max.value+0.1)
-    plot(numeric(0), numeric(0), type='n', yaxt='n', xlim=c(min.value-0.2, max.value+0.2), ylim=c(0.7, 1.3), 
-         main=sprintf('[%1.2f - %1.2f] mmole/min\n median %1.2f\n ', q[1], q[2], q[3]),
-         xlab="GEC [mmole/min]", ylab="", font.lab=2, cex.lab=1.3, cex.main=1.5)
-    
 
-    
-    box <- boxplot(data, notch=FALSE, col=(rgb(0,0,0,0.2)), range=0, horizontal=TRUE, add=TRUE, plot=FALSE)
-    box$stats <- matrix(quantile(data, c(0.025, 0.25, 0.5, 0.75, 0.975)), nrow=5, ncol=1)
-    bxp(z=box, notch=FALSE, range=0, ylim=c(0,5), horizontal=TRUE, add=TRUE, at=c(1.0), lty=1)
-    
-    
-    # Plot polygons
-    span = 0.75
-    qdata <- quantile(data, c(0.025, .975))
-    polygon(x=c(qdata[1]-span, qdata[1], qdata[1], qdata[1]-span), y=c(0, 0, 2, 2), col=rgb(1,0,0,0.1), border=rgb(1,0,0,0))
-    polygon(x=c(qdata[2]+span, qdata[2], qdata[2], qdata[2]+span), y=c(0, 0, 2, 2), col=rgb(1,0,0,0.1), border=rgb(1,0,0,0))
-    
-    # Plot the experimental value
-    if (!is.na(gec_exp)){
-      col <- 'darkgreen'
-      if ((gec_exp < q[1])|(gec_exp > q[2])){
-        col <- 'red'
-      }
-      abline(v = gec_exp, lwd=3, col=col  ) 
-    }
-    
-  }
   
 
 
