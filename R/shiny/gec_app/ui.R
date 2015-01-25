@@ -30,18 +30,32 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
     mainPanel(
       tabsetPanel(type = "tabs", 
                   tabPanel("Results", 
-                           h4("Person"),
-                           tableOutput("person"),
                            
-                           h4("GEC Reference Range [2.5% - 97.5%]"),
-                           imageOutput("icon", width = "100%", height = "100%", inline = FALSE),
-                           textOutput("gec"),
-                           
+                           h4("GEC Reference Range"),
+                           fluidRow(
+                             column(1,
+                                    # imageOutput("icon", width = "100%", height = "100%", inline = FALSE)
+                                    htmlOutput("icon_html", inline = FALSE)
+                             ),
+                             column(4,
+                                    textOutput("gender"),
+                                    textOutput("age"),
+                                    textOutput("height"),
+                                    textOutput("bodyweight"),
+                                    textOutput("bsa")
+                             ),
+                             column(4,
+                                    p(strong("GEC Range [2.5% - 97.5%]")),
+                                    strong(textOutput("gec"))
+                                    
+                             )
+                           ),
+                           h4("Details"),
+                           plotOutput("hist"),
                            
                            h4("Summary"),
-                           verbatimTextOutput("summary"),
-                           h4("Plots"),
-                           plotOutput("hist")
+                           verbatimTextOutput("summary")
+                           
                   ), 
                   tabPanel("About", 
                            h4("Information"),
