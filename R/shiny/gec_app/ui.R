@@ -29,33 +29,43 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
     ),
     mainPanel(
       tabsetPanel(type = "tabs", 
-                  tabPanel("Results", 
-                           
-                           h4("GEC Reference Range"),
+                  tabPanel("Results",
+                           p(),
                            fluidRow(
                              column(1,
                                     # imageOutput("icon", width = "100%", height = "100%", inline = FALSE)
                                     htmlOutput("icon_html", inline = FALSE)
                              ),
-                             column(4,
+                             column(3,
                                     textOutput("gender"),
                                     textOutput("age"),
                                     textOutput("height"),
                                     textOutput("bodyweight"),
                                     textOutput("bsa")
                              ),
-                             column(4,
-                                    p(strong("GEC Range [2.5% - 97.5%]")),
-                                    strong(textOutput("gec"))
-                                    
+                             column(6,
+                                    h4("GEC Reference Range [2.5% - 97.5%]"),
+                                    plotOutput("gec_box", height = 200)
                              )
                            ),
                            h4("Details"),
-                           plotOutput("hist"),
+                           fluidRow(
+                             column(5,
+                                    plotOutput("gec_hist")
+                             ),
+                             column(5,
+                                    plotOutput("flow_vol")
+                             )
+                           )
                            
-                           h4("Summary"),
-                           verbatimTextOutput("summary")
-                           
+#                            fluidRow(
+#                              column(5,
+#                                     plotOutput("gec_hist")
+#                              ),
+#                              column(5,
+#                                     verbatimTextOutput("summary")
+#                              )
+#                            )  
                   ), 
                   tabPanel("About", 
                            h4("Information"),

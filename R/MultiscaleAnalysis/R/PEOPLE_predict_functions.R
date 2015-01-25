@@ -42,6 +42,7 @@ create_all_people <- function(names){
 #' Calculate body surface area (BSA) [m^2] from bodyweight [kg] and height [cm].
 #' 
 #' Using DuBois formula
+#'@export
 calculateBSA <- function(bodyweight_kg, height_cm){
   return (0.007184*height_cm^0.725*bodyweight_kg^0.425)
 }
@@ -76,6 +77,9 @@ predict_volume_and_flow <- function(people, out_dir, Nsample=1000, Ncores=11){
 # Plots for individual analysis
 ############################################################################
 
+
+
+
 #' Plot individual GEC prediction.
 #' 
 #' @export
@@ -91,12 +95,13 @@ individual_GEC_plot <- function(person, data){
   
   # empty plot
   plot(numeric(0), numeric(0), type='n', xlim=c(0,5), ylim=c(0, 1.3*p.max), 
-       main="GEC reference range [2.5% - 97.5%]",
+       # main="GEC reference range [2.5% - 97.5%]",
        xlab="GEC [mmol/min]", ylab="probability", font.lab=2)
   
   qdata <- quantile(data, c(0.025, 0.5, .975))
   
   # person info
+  
   person.info <- with(person, sprintf(' %s\n %1.0f years\n %1.1f kg\n %1.0f cm\n %1.2f m^2', sex, age, bodyweight,height, BSA))
   x.text=0
   if (qdata[2] < 2.5){ x.text = 3.7 }
@@ -149,7 +154,8 @@ individual_vol_flow_plot <- function(person, vol, flow, data){
   # empty plot
   plot(numeric(0), numeric(0), xlim=lim$volLiver, ylim=lim$flowLiver,
        xlab=lab$volLiver, ylab=lab$flowLiver, type='n',
-       main="Simulated reference data", , font.lab=2)
+       #main="Simulated reference data",
+       font.lab=2)
   abline(a=0, b=1, col='gray')
   points(vol, flow, pch=21, bg=rgb(0,0,0, 0.1), col="black", cex=1*data/max(data))
   # rugs

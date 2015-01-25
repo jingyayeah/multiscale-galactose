@@ -37,8 +37,7 @@ getGender <- function(dat){
 
 
   
-# Calculate body mass index (BMI) [kg/m^2] from bodyweight [kg] and height [m].
-# bodyweight/(height)^2
+
 
 saveRawData <- function(data, dir=NULL){
   if (is.null(dir)){
