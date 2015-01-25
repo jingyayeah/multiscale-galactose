@@ -35,11 +35,7 @@ getGender <- function(dat){
  return(gender)
 }
 
-# Calculate body surface area (BSA) [m^2] from bodyweight [kg] and height [cm].
-calculateBSA <- function(bodyweight_kg, height_cm){
-  # DuBois formula
-  return (0.007184*height_cm^0.725*bodyweight_kg^0.425)
-}
+
   
 # Calculate body mass index (BMI) [kg/m^2] from bodyweight [kg] and height [m].
 # bodyweight/(height)^2

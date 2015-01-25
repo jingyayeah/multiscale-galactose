@@ -1,7 +1,7 @@
 library(shiny)
 
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
+shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
   
   fluidRow(
     column(2,

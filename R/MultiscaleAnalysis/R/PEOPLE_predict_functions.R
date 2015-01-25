@@ -39,6 +39,13 @@ create_all_people <- function(names){
   return ( do.call("rbind", df_list) )  
 }
 
+#' Calculate body surface area (BSA) [m^2] from bodyweight [kg] and height [cm].
+#' 
+#' Using DuBois formula
+calculateBSA <- function(bodyweight_kg, height_cm){
+  return (0.007184*height_cm^0.725*bodyweight_kg^0.425)
+}
+
 ##############################################################################
 # Predict liver volume & flow for people
 ##############################################################################

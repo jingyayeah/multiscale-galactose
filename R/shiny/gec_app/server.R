@@ -13,8 +13,9 @@ shinyServer( function(input, output) {
     # Close the progress when this reactive exits (even if there's an error)
     on.exit(progress$close())
     
+    BSA <- calculateBSA(bodyweight_kg=input$bodyweight, height_cm=input$height)
     person <- data.frame(study='None', sex=input$gender, age=input$age, bodyweight=input$bodyweight, height=input$height, 
-               BSA=NA, volLiver=NA, volLiverkg=NA, stringsAsFactors=FALSE)
+               BSA=BSA, volLiver=NA, volLiverkg=NA, stringsAsFactors=FALSE)
         
     liver.info <- predict_liver_people(person, Nsample=2000, Ncores=1, debug=FALSE)
     GEC.info <- calculate_GEC(GEC_f, 
@@ -32,7 +33,8 @@ shinyServer( function(input, output) {
   output$person <- renderTable({
     d <- datasetInput()
     person <- d$person
-    data.frame(sex=person$sex, age=person$age, bodyweight=person$bodyweight, height=person$height)
+    data.frame(sex=person$sex, age=person$age, bodyweight=person$bodyweight, height=person$height,
+               BSA=person$BSA)
   })
   # Show GEC range
   output$gec <- renderText({ 
