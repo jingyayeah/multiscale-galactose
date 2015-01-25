@@ -13,8 +13,8 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
   ),
   sidebarLayout(
     sidebarPanel(
-      helpText("Calculate the individual reference range of your liver function based on hepatic 
-               Galactose Elimination Capacity (GEC)."),
+      helpText("Calculate your individual liver function based on your hepatic 
+               Galactose Elimination Capacity (GEC). Provide an experimental GEC value for evaluation."),
       selectInput("gender", label = h4("Gender"), 
                   choices = list("male" = "male", "female" = "female"), selected = 1),
       sliderInput("age", label = h4("Age [years]"),
@@ -23,6 +23,8 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
                   min = 40, max = 220, value = 170),
       sliderInput("bodyweight", label = h4("Bodyweight [kg]"),
                   min = 2, max = 140, value = 70),
+      numericInput("gec", label = h4("GEC [mmole/min]"), 
+                          value = NA),  
       submitButton("Calculate")
     ),
     mainPanel(
@@ -30,8 +32,12 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
                   tabPanel("Results", 
                            h4("Person"),
                            tableOutput("person"),
+                           
                            h4("GEC Reference Range [2.5% - 97.5%]"),
+                           imageOutput("icon", width = "100%", height = "100%", inline = FALSE),
                            textOutput("gec"),
+                           
+                           
                            h4("Summary"),
                            verbatimTextOutput("summary"),
                            h4("Plots"),

@@ -7,6 +7,9 @@ GEC_f <- GEC_functions(task='T1')
 shinyServer( function(input, output) {
   
   datasetInput <- reactive({
+   
+    
+    
     # Create a Progress object
     progress <- shiny::Progress$new()
     progress$set(message = "Computing GEC range ...", value = 0)
@@ -43,6 +46,27 @@ shinyServer( function(input, output) {
     sprintf("[%.2f - %.2f]", q[1], q[5])
   })
   
+  # Show icon of test status
+  output$icon <- renderImage({
+    d <- datasetInput()
+    q <- quantile(d$GEC, probs = c(0.025, 0.975))
+    
+  # When input$n is 1, filename is ./images/image1.jpeg
+    status <- 'healthy'
+    if (!is.na(input$gec)){
+      if(input$gec <q[1] | input$gec>q[2]){
+        status <- 'disease'
+      }
+    }
+    name <- paste(input$gender, '_', status, '.png', sep="")
+    filename <- normalizePath(file.path('./www', name))
+    print(filename)
+  
+    list(src = filename, contentType = 'image/png')
+  }, deleteFile = FALSE)
+  
+  
+  
   # Generate a summary of the dataset
   output$summary <- renderPrint({
     d <- datasetInput();
@@ -52,6 +76,16 @@ shinyServer( function(input, output) {
   
   # Make the plot
   output$hist <- renderPlot({
+    # Validate experimental GEC data if provided
+    if (!is.na(input$gec)){
+      print(input$gec>5)
+      print(input$gec<0)
+      print(input$gec<0 | input$gec>5)
+      validate(
+          need((input$gec>=0 & input$gec<=5), 'Experimental GEC should be between 0 and 5 [mmol/min]')
+        )
+    }
+
     d <- datasetInput()
     individual_plot(person=d$person, vol=d$volLiver, flow=d$flowLiver,
                     data=d$GEC)
