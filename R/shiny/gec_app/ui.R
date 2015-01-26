@@ -41,7 +41,7 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
                                     textOutput("age"),
                                     textOutput("height"),
                                     textOutput("bodyweight"),
-                                    textOutput("bsa")
+                                    htmlOutput("bsa")
                              ),
                              column(6,
                                     h4("GEC Reference Range [2.5% - 97.5%]"),

@@ -62,9 +62,9 @@ shinyServer( function(input, output) {
   output$bodyweight <- renderText({ 
     sprintf("%d kg", input$bodyweight)
   })
-  output$bsa <- renderText({ 
+  output$bsa <- renderUI({ 
     person <- personInput()
-    sprintf("%1.2f m<sup>2</sup>", person$BSA)
+    HTML(sprintf("%1.2f m<sup>2</sup>", person$BSA))
   })
   
   # Create test icon depending on GEC status
