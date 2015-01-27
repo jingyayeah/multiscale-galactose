@@ -106,13 +106,9 @@ shinyServer( function(input, output) {
     summary(d2)
   })
   
-  # Validation function
-  validate_GEC <- function(){
   # Validate experimental GEC data if provided
+  validate_GEC <- function(){
   if (!is.na(input$gec)){
-    # print(input$gec>5)
-    # print(input$gec<0)
-    # print(input$gec<0 | input$gec>5)
     validate(
       need((input$gec>=0 & input$gec<=5), 'Experimental GEC should be between 0 and 5 [mmol/min]')
     )
@@ -120,10 +116,7 @@ shinyServer( function(input, output) {
   }
 
 
-  
-
-
-  # Make the plot
+  # Boxplot of GEC range
   output$gec_box <- renderPlot({
    validate_GEC()
    d <- datasetInput()
@@ -131,24 +124,27 @@ shinyServer( function(input, output) {
    
    })
 
-  # Make the plot
+  # Histogram with additional information for GEC range
   output$gec_hist <- renderPlot({
     validate_GEC()
-
     d <- datasetInput()
     # individual_plot(person=d$person, vol=d$volLiver, flow=d$flowLiver,
     #                data=d$GEC)
     
     individual_GEC_plot(person=d$person, data=d$GEC)
   })
-  
- output$flow_vol <- renderPlot({
-  validate_GEC()
-  d <- datasetInput()
-  individual_vol_flow_plot(person=d$person, vol=d$volLiver, flow=d$flowLiver, data=d$GEC)
- })
+   
+  # Histogram of predicted volumes and bloodflow
+  output$flow_vol <- renderPlot({
+   validate_GEC()
+   d <- datasetInput()
+   individual_vol_flow_plot(person=d$person, vol=d$volLiver, flow=d$flowLiver, data=d$GEC)
+  })
 
-
+  # GEC curves used for prediction
+  output$gec_function <- renderPlot({
+    plot_GEC_function(GEC_f)
+  })
 
 
 })

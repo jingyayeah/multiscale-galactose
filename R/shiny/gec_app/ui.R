@@ -1,5 +1,12 @@
 library(shiny)
 
+disclaimer_model = "This prediction software is based on a predictive computational model."
+disclaimer = "The software is provided \"AS IS\", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort
+or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software."
+
+
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
   
@@ -13,8 +20,7 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
   ),
   sidebarLayout(
     sidebarPanel(
-      helpText("Calculate your individual liver function based on your hepatic 
-               Galactose Elimination Capacity (GEC). Provide an experimental GEC value for evaluation."),
+      
       selectInput("gender", label = h4("Gender"), 
                   choices = list("male" = "male", "female" = "female"), selected = 1),
       sliderInput("age", label = h4("Age [years]"),
@@ -26,7 +32,7 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
       numericInput("gec", label = h4("GEC [mmole/min]"), 
                           value = NA),  
       submitButton("Calculate")
-    ),
+    ), 
     mainPanel(
       tabsetPanel(type = "tabs", 
                   tabPanel("Results",
@@ -48,7 +54,6 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
                                     plotOutput("gec_box", height = 200)
                              )
                            ),
-                           h4("Details"),
                            fluidRow(
                              column(5,
                                     plotOutput("gec_hist")
@@ -56,28 +61,42 @@ shinyUI(fluidPage(theme = "bootstrap-cosmo.css",
                              column(5,
                                     plotOutput("flow_vol")
                              )
-                           )
+                           ),
+                           fluidRow(
+                             column(5,
+                                    plotOutput("gec_function")
+                             ),
+                             column(5,
+                                    p()
+                             )
+                           ),  
+                           tags$small(tags$small(tags$b(helpText("Disclaimer")))),
+                           tags$small(tags$small(helpText(disclaimer_model))),
+                           tags$small(tags$small(helpText(disclaimer)))
                            
-#                            fluidRow(
-#                              column(5,
-#                                     plotOutput("gec_hist")
-#                              ),
-#                              column(5,
-#                                     verbatimTextOutput("summary")
-#                              )
-#                            )  
                   ), 
                   tabPanel("About", 
+                           # TODO: add references to the literature & cohort data used for model fitting
+                           # TODO: add references to the actual model publication & model
+                           # TODO: justify the text in paragraphs with css
                            h4("Information"),
-                           p("Calculate your individualized galactose elimination capacity (GEC)."),
-                           p("Based on a comparable population sample the distribution of liver volumes
-                                and liver blood flows within this sample are calculated. This information is than used
-                                to scale the GEC per tissue and perfusion function."),
-                           h4("Version"),
-                           p("0.8 beta"),
+                           p("The galactose elimination capacity (GEC) is an established liver function test, which measures the
+                             ability of the liver to clear galactose."),
+                           p("This application calculates your expected normal range of galactose clearance by the liver. The
+                             individual GEC is calculated based on predictive computational models
+                             for the distribution of liver volumes and hepatic blood flow for a population sample with the identical 
+                             anthromorphic features, i.e. the same gender, age, height and bodyweight."),
+                           p("This application allows a personalized evaluation of the measured GEC."),
+                           
                            h4("Contact"),
-                           p("matthias.koenig@charite.de")
-                  
+                           p("For any questions, comments and suggestions please contact matthias.koenig@charite.de"),
+                           h4("Version"),
+                           p("GEC App v0.81 beta"),
+                           tags$br(),
+                           tags$br(),
+                           tags$small(tags$small(tags$b(helpText("Disclaimer")))),
+                           tags$small(tags$small(helpText(disclaimer_model))),
+                           tags$small(tags$small(helpText(disclaimer)))
                   )
       )     
     )
