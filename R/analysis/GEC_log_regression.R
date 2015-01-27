@@ -14,13 +14,9 @@
 
 # load the correlation data
 
-
-
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
-
-
 
 
 # Read data into standard data frame for prediction.
@@ -75,13 +71,49 @@ summary(df)
 df$healthy = as.factor(df$status == 'healthy')
 summary(df)
 
-hist(df$GEC[df$healthy==TRUE], breaks =20, xlim=c(0,5), xlab=lab[['GEC']])
-hist(df$GEC[df$healthy==FALSE], breaks =20, xlim=c(0,5), xlab=lab[['GEC']], col='red', add=TRUE)
+par(mfrow = c(1,2))
+bins = 15
+hist(df$GEC[df$healthy==TRUE], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']])
+hist(df$GEC[df$healthy==FALSE], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col='red', add=TRUE)
 
-hist(df$GECkg[df$healthy==TRUE], breaks =20, xlim=c(0,0.2), xlab=lab[['GECkg']])
-hist(df$GECkg[df$healthy==FALSE], breaks =20, xlim=c(0,0.2), xlab=lab[['GECkg']], col='red', add=TRUE)
+hist(df$GECkg[df$healthy==TRUE], breaks=bins, xlim=c(0,0.2), xlab=lab[['GECkg']])
+hist(df$GECkg[df$healthy==FALSE], breaks=bins, xlim=c(0,0.2), xlab=lab[['GECkg']], col='red', add=TRUE)
 # TODO: check for disease data in the trainings data & use if available
 # TODO: use Marchesini data
+par(mfrow = c(1,1))
 
+### Logistic regression GEC
+fit1 <- glm(healthy ~ GEC, data = df, family = "binomial")
+summary(fit1)
+
+# install.packages('ROCR')
+library(ROCR)
+# http://rocr.bioinf.mpi-sb.mpg.de/
+fitpreds = predict(fit1, newdata=df, type="response")
+fitpred = prediction(fitpreds, df$healthy)
+fitperf = performance(fitpred,"tpr","fpr")
+
+plot(fitperf,col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC")
+abline(a=0,b=1,lwd=2,lty=2,col="gray")
+abline(v=0,lwd=2,lty=1,col="gray")
+abline(v=1,lwd=2,lty=1,col="gray")
+abline(h=0,lwd=2,lty=1,col="gray")
+abline(h=1,lwd=2,lty=1,col="gray")
+
+### Logistic regression GECkg
+fit2 <- glm(healthy ~ GECkg, data = df, family = "binomial")
+summary(fit2)
+
+# http://rocr.bioinf.mpi-sb.mpg.de/
+fitpreds = predict(fit2, newdata=df, type="response")
+fitpred = prediction(fitpreds, df$healthy)
+fitperf = performance(fitpred,"tpr","fpr")
+
+plot(fitperf,col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GECkg")
+abline(a=0,b=1,lwd=2,lty=2,col="gray")
+abline(v=0,lwd=2,lty=1,col="gray")
+abline(v=1,lwd=2,lty=1,col="gray")
+abline(h=0,lwd=2,lty=1,col="gray")
+abline(h=1,lwd=2,lty=1,col="gray")
 
 
