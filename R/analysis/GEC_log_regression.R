@@ -1,24 +1,22 @@
 ################################################################################
 # Prediction Evaluation
 ################################################################################
-# Classification of subjects based on available GEC.
+# Classification of subjects based on available GEC or GECkg.
 #
 # author: Matthias Koenig
 # date: 2014-12-05
 ################################################################################
-
-# Perform the classification for GEC & GECkg
-
-# 1. Create a prediction dataset consisting of GEC value & disease/health state
-# i.e. dataset which can be used for classification
-
-# load the correlation data
-
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
+# 1. Create a prediction dataset consisting of GEC value & disease/health state
+# i.e. dataset which can be used for classification.
+# The classification is based on healthy / liver disease.
 
+############################################
+# Data Preparation Functions
+############################################
 # Read data into standard data frame for prediction.
 prepare_data <- function(data, fields){
   df <- data.frame(matrix(NA, ncol=length(fields), nrow=nrow(data)) )
@@ -41,10 +39,10 @@ prepare_GEC_data <- function(name){
 }
 
 ############################################
-# GEC [mmol/min] & GECkg [mmol/min/kgbw] 
+# A Digitized data
 ############################################
+# GEC [mmol/min] & GECkg [mmol/min/kgbw] 
 # install.packages('reshape')
-# Additional status is necessary, i.e. healthy or disease so that the classification is working.
 
 ## tyg1963 (age, bodyweight, [GEC, GECkg])
 ## sch1986.tab1 (sex, age, bodyweight, [GEC, GECkg])
@@ -54,6 +52,7 @@ prepare_GEC_data <- function(name){
 ## sch1968.fig1 (age, [GECkg])
 ## lan2011 (age, [GECkg])
 
+# create one combined data.frame
 names <- c('mar1988', 'tyg1963', 'sch1986.tab1', 'duc1979', 'duf1992', 'sch1986.fig1', 'lan2011')
 df.list <- list(length(names))
 for (k in 1:length(names)){
@@ -62,43 +61,71 @@ for (k in 1:length(names)){
   cat(nrow(df), '\n')
   df.list[[k]] <- df
 }
-
 library('reshape')
 df <- reshape::merge_all(df.list)
-head(df, 20)
+# create the classification outcome
 df$status <- as.factor(df$status)
+df$disease = as.numeric(df$status != 'healthy')
 summary(df)
-df$healthy = as.factor(df$status == 'healthy')
-summary(df)
+table(df$disease)
 
+# plot overview over the available data
 par(mfrow = c(1,2))
-bins = 15
-hist(df$GEC[df$healthy==TRUE], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']])
-hist(df$GEC[df$healthy==FALSE], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col='red', add=TRUE)
+bins = seq(from=0, to=5, by=0.25)
+hist(df$GEC[df$disease==1], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(1,0,0,0.5), freq=FALSE)
+hist(df$GEC[df$disease==0], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(0.5,0.5,0.5, 0.5), freq=FALSE, add=TRUE)
 
-hist(df$GECkg[df$healthy==TRUE], breaks=bins, xlim=c(0,0.2), xlab=lab[['GECkg']])
-hist(df$GECkg[df$healthy==FALSE], breaks=bins, xlim=c(0,0.2), xlab=lab[['GECkg']], col='red', add=TRUE)
-# TODO: check for disease data in the trainings data & use if available
-# TODO: use Marchesini data
+bins = seq(from=0, to=0.2, by=0.01)
+hist(df$GECkg[df$disease==1], breaks=bins, xlim=c(0,0.2), xlab=lab[['GECkg']], freq=FALSE, col=rgb(1,0,0,0.5))
+hist(df$GECkg[df$disease==0], breaks=bins, xlim=c(0,0.2), xlab=lab[['GECkg']], freq=FALSE, col=rgb(0.5,0.5,0.5, 0.5), add=TRUE)
 par(mfrow = c(1,1))
 
 ### Logistic regression GEC
-fit1 <- glm(healthy ~ GEC, data = df, family = "binomial")
+fit1 <- glm(disease ~ GEC, data = df, family = "binomial")
 summary(fit1)
+
+# Probability for disease
+df$rankP <- predict(fit1, newdata = df, type = "response")
+
+
+par(mfrow = c(1,2))
+# Create plot of the predicted values from the data
+fit1_c <- data.frame(GEC=seq(from=0, to=5, by=0.1))
+fit1_c$rankP <- predict(fit1, newdata = fit1_c, type = "response")
+
+plot(df$GEC, df$rankP, xlim=c(0,5), xlab=lab[['GEC']], ylim=c(-0.1,1.1),
+     main='Logistic regression: disease ~ GEC',
+     ylab='probability liver disease')
+lines(fit1_c$GEC, fit1_c$rankP)
+points(df$GEC, df$disease, pch=21, col="black", bg=rgb(0,0,1, 0.5))
+
 
 # install.packages('ROCR')
 library(ROCR)
 # http://rocr.bioinf.mpi-sb.mpg.de/
 fitpreds = predict(fit1, newdata=df, type="response")
-fitpred = prediction(fitpreds, df$healthy)
+fitpred = prediction(fitpreds, df$disease)
 fitperf = performance(fitpred,"tpr","fpr")
-
 plot(fitperf,col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC")
 abline(a=0,b=1,lwd=2,lty=2,col="gray")
-abline(v=0,lwd=2,lty=1,col="gray")
-abline(v=1,lwd=2,lty=1,col="gray")
-abline(h=0,lwd=2,lty=1,col="gray")
-abline(h=1,lwd=2,lty=1,col="gray")
+par(mfrow = c(1,1))
+
+#########################################################
+# Make the predictions based on the GEC App
+#########################################################
+person <- df[2,]
+person
+# now predict the range for the person
+
+
+
+
+#########################################################
+
+disease.fit1 <- predict(fit1, type = "response", newdata=df)
+head(disease.fit1)
+head(df)
+
 
 ### Logistic regression GECkg
 fit2 <- glm(healthy ~ GECkg, data = df, family = "binomial")
