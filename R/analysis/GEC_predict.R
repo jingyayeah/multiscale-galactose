@@ -14,7 +14,7 @@ rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
-GEC_f <- GEC_functions(task='T54')
+GEC_f <- GEC_functions(task='T1')
 
 ########################################################################################
 # Predict additional GEC data [mmol/min] & GECkg [mmol/min/kg]

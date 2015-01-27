@@ -1,0 +1,17 @@
+study	subject	status	age	sex	GECmg	GEC	CPC	diagnosis
+duf1992	1	normal	25	M	NA	NA	NA	Normal volunteer
+duf1992	2	normal	29	M	7.1	2.76	NA	Normal volunteer
+duf1992	3	normal	29	M	7.4	2.88	NA	Normal volunteer
+duf1992	4	normal	33	F	7.2	2.80	NA	Normal volunteer
+duf1992	5	normal	38	M	6.1	2.37	NA	Normal volunteer
+duf1992	6	normal	44	M	8.1	3.15	NA	Normal volunteer
+duf1992	7	cirrhosis	23	M	3	1.17	13	Cryptogenic cirrhosis
+duf1992	8	cirrhosis	29	F	4.7	1.83	6	Autoimune hepatitis
+duf1992	9	cirrhosis	35	M	3.2	1.24	7	Chronic hepatitis B
+duf1992	10	cirrhosis	45	M	3.9	1.52	6	Cryptogenic cirrhosis
+duf1992	11	cirrhosis	54	M	4.9	1.91	7	Chronic hepatitis B and C
+duf1992	12	cirrhosis	57	M	5.1	1.98	5	Chronic hepatitis B
+duf1992	13	cirrhosis	58	F	3.5	1.36	9	Chronic hepatitis C
+duf1992	14	cirrhosis	61	F	3	1.17	10	Autoimune hepatitis
+duf1992	15	cirrhosis	70	F	3	1.17	6	Cryptogenic cirrhosis
+

@@ -36,9 +36,6 @@ getGender <- function(dat){
 }
 
 
-  
-
-
 saveRawData <- function(data, dir=NULL){
   if (is.null(dir)){
     dir <- file.path(ma.settings$dir.base, "results", "raw")
@@ -172,13 +169,14 @@ duc1979$BSA <- calculateBSA(bodyweight_kg=duc1979$bodyweight, height_cm=duc1979$
 saveRawData(duc1979)
 head(duc1979)
 
+
 # age [years], sex [M,F], GECmg [mg/min/kg], GEC [mmol/min/kg] 
 # age [years], gender [male, female], GECkg [mmole/min/kg]
 duf1992 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Dufour1992_Tab1.csv"), sep="\t")
 duf1992$dtype <- 'individual'
 duf1992$gender <- getGender(duf1992)
 duf1992$GECkg <- duf1992$GECmg/180
-duf1992 <- duf1992[duf1992$state=='normal', ]
+duf1992 <- duf1992[duf1992$status=='healthy', ]
 duf1992 <- duf1992[!is.na(duf1992$GEC), ] # filter cases without GEC
 saveRawData(duf1992)
 head(duf1992)
@@ -259,6 +257,7 @@ lan2011$dtype <- 'individual'
 lan2011$gender <- getGender(lan2011)
 lan2011$GECmumolkg <- lan2011$GEC
 lan2011$GECkg <- lan2011$GECkg/1000
+summary(lan2011)
 lan2011 <- lan2011[lan2011$status=='healthy', ]
 saveRawData(lan2011)
 head(lan2011)
@@ -282,6 +281,7 @@ mar1988 <- data.frame(subject=mar1988$subject,
                       volLiver=mar1988$volLiver[order(mar1988$subject)])
 mar1988$dtype <- 'individual'
 mar1988$study = 'mar1988'
+mar1988$status = 'healthy'
 mar1988$gender = 'all'
 saveRawData(mar1988)
 head(mar1988)
@@ -357,7 +357,7 @@ tyg1958$dtype <- 'individual'
 tyg1958$gender = getGender(tyg1958)
 tyg1958$flowLiver <- tyg1958$bloodflowBS
 tyg1958$flowLiverkg <- tyg1958$bloodflowBS/tyg1958$bodyweight
-tyg1958 <- tyg1958[tyg1958$state=='healthy', ]          # reduce to healthy
+tyg1958 <- tyg1958[tyg1958$status=='healthy', ]          # reduce to healthy
 tyg1958 <- tyg1958[-which(tyg1958$exp %in% c(11,22)), ] # remove strange outlier
 tyg1958 <- tyg1958[!is.na(tyg1958$flowLiver), ]
 saveRawData(tyg1958)
@@ -368,7 +368,7 @@ tyg1963 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Tygstrup1963.csv"
 tyg1963$dtype <- 'individual'
 tyg1963$gender = getGender(tyg1963)
 tyg1963$GECkg <- tyg1963$GEC/tyg1963$bodyweight
-tyg1963 <- tyg1963[tyg1963$state=='healthy', ] # filter cirrhosis out
+tyg1963 <- tyg1963[tyg1963$status=='healthy', ] # filter cirrhosis out
 saveRawData(tyg1963)
 head(tyg1963)
 
@@ -701,7 +701,11 @@ saveData <- function(data, dir=NULL){
             sep="\t", col.names=TRUE)
 }
 ########################################################################################
-create_plots = T
+create_plots = F
+
+combine_data <- function(names, status='healthy'){
+  
+}
 
 ############################################
 # GEC [mmol/min] vs. age [years]

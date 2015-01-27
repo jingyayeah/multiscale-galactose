@@ -1,5 +1,5 @@
-study	sex	state	n	age	ageMin	ageMax	bodyweight	bodyweightSd	volLiver	volLiverSd	volLiverkg	volLiverkgSd
-swi1978	U	young normal	15	24.5	20	29	67	12	1303	289	19.4	1.9
-swi1978	U	elderly normal	11	80.5	75	86	58	9	990	166	15.3	3.8
-swi1978	U	elderly hospitalised	10	79.5	70	89	56	11	838	242	15.6	3.9
+study	status	sex	state	n	age	ageMin	ageMax	bodyweight	bodyweightSd	volLiver	volLiverSd	volLiverkg	volLiverkgSd
+swi1978	healthy	U	young normal	15	24.5	20	29	67	12	1303	289	19.4	1.9
+swi1978	healthy	U	elderly normal	11	80.5	75	86	58	9	990	166	15.3	3.8
+swi1978	hospitalized	U	elderly hospitalised	10	79.5	70	89	56	11	838	242	15.6	3.9
 

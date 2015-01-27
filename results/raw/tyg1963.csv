@@ -1,4 +1,4 @@
-study	sex	case	state	age	bodyweight	gSingle	vol	GECmg	GEC	dtype	gender	GECkg
+study	sex	case	status	age	bodyweight	gSingle	vol	GECmg	GEC	dtype	gender	GECkg
 tyg1963	U	JH	healthy	17	73	-48.5	14.9	644	3.58	individual	all	0.049041095890411
 tyg1963	U	IR	healthy	28	70	-55.2	13.5	642	3.57	individual	all	0.051
 tyg1963	U	SC	healthy	37	76	-50.5	13.1	590	3.28	individual	all	0.0431578947368421
