@@ -1,11 +1,11 @@
 [1] "### Data ###"
-    study              gender            bodyweight      flowLiver         dtype          
- Length:802         Length:802         Min.   : 3.90   Min.   : 220.2   Length:802        
- Class :character   Class :character   1st Qu.:35.72   1st Qu.: 852.5   Class :character  
- Mode  :character   Mode  :character   Median :58.00   Median :1081.1   Mode  :character  
-                                       Mean   :54.16   Mean   :1105.9                     
-                                       3rd Qu.:71.09   3rd Qu.:1300.9                     
-                                       Max.   :97.60   Max.   :2500.0                     
+    study              gender            bodyweight      flowLiver         dtype                 status   
+ Length:802         Length:802         Min.   : 3.90   Min.   : 220.2   Length:802         healthy  :802  
+ Class :character   Class :character   1st Qu.:35.72   1st Qu.: 852.5   Class :character   alcohol  :  0  
+ Mode  :character   Mode  :character   Median :58.00   Median :1081.1   Mode  :character   cirrhosis:  0  
+                                       Mean   :54.16   Mean   :1105.9                      hepatitis:  0  
+                                       3rd Qu.:71.09   3rd Qu.:1300.9                                     
+                                       Max.   :97.60   Max.   :2500.0                                     
 [1] "### Linear Regression Model ###"
 
 Call:

@@ -1,1243 +1,1243 @@
-study	gender	BSA	flowLiverkg	dtype
-she1950	male	1.68	22.1311475409836	individual
-she1950	male	1.87	23.134328358209	individual
-she1950	male	1.91	32.2857142857143	individual
-she1950	male	1.75	26.0166666666667	individual
-she1950	male	1.72	25.6031746031746	individual
-she1950	male	1.53	24.3478260869565	individual
-she1950	female	1.65	24.6666666666667	individual
-she1950	male	1.93	34.7222222222222	individual
-she1950	male	1.53	24.7272727272727	individual
-she1950	male	1.56	25.8333333333333	individual
-she1950	male	1.71	22.3448275862069	individual
-she1950	male	1.78	29.8461538461538	individual
-she1950	female	1.5	25.8	individual
-she1950	male	1.57	18.6666666666667	individual
-she1950	male	1.77	19.4153846153846	individual
-she1950	male	1.74	25	individual
-she1950	male	1.72	16.6666666666667	individual
-she1950	male	1.66	30.8771929824561	individual
-she1950	male	1.44	28.75	individual
-she1950	male	1.55	16.8888888888889	individual
-she1950	male	1.53	32.5833333333333	individual
-she1950	male	1.56	25.0204081632653	individual
-she1950	male	1.79	22.6119402985075	individual
-she1950	male	1.79	21.7391304347826	individual
-she1950	male	1.5	33.9772727272727	individual
-she1950	male	1.57	18.16	individual
-she1950	male	1.93	19.4078947368421	individual
-she1950	male	1.46	22.0851063829787	individual
-she1950	male	1.7	21.6666666666667	individual
-she1950	female	1.64	21.1666666666667	individual
-she1950	male	1.69	14.8245614035088	individual
-she1950	male	1.56	21.0204081632653	individual
-tyg1957	male	1.8	22.7272727272727	individual
-tyg1957	male	1.82	25.6692913385827	individual
-tyg1957	male	1.68	21.3333333333333	individual
-tyg1957	male	1.65	26.654740608229	individual
-tyg1957	male	1.89	16.7310167310167	individual
-tyg1957	male	1.63	22.962962962963	individual
-tyg1957	male	1.54	24.9500998003992	individual
-tyg1957	male	1.89	17.8977272727273	individual
-tyg1957	male	1.68	33.9011925042589	individual
-tyg1957	male	1.84	26.1410788381743	individual
-tyg1957	male	1.77	13.6054421768707	individual
-tyg1957	male	1.66	25.6637168141593	individual
-tyg1957	male	1.71	18.9081225033289	individual
-cat2010	male	0.41	42.3605625	individual
-cat2010	female	0.461	46.2778125	individual
-cat2010	female	0.395	58.119375	individual
-cat2010	female	0.388	43.6295625	individual
-cat2010	female	0.437	44.643	individual
-cat2010	female	0.395	34.615875	individual
-cat2010	female	0.429	43.3561875	individual
-cat2010	female	0.452	49.09425	individual
-cat2010	female	0.48	35.665875	individual
-cat2010	male	0.465	43.0194375	individual
-cat2010	male	0.454	41.75775	individual
-cat2010	male	0.512	49.216125	individual
-cat2010	female	0.501	51.9680625	individual
-cat2010	female	0.448	45.2938125	individual
-cat2010	male	0.481	33.1771875	individual
-cat2010	male	0.548	38.3715	individual
-cat2010	female	0.51	44.101875	individual
-cat2010	female	0.448	49.9456875	individual
-cat2010	male	0.516	46.3490625	individual
-cat2010	male	0.481	48.108375	individual
-cat2010	male	0.542	50.528625	individual
-cat2010	female	0.472	52.1353125	individual
-cat2010	male	0.567	37.3918125	individual
-cat2010	female	0.502	44.049	individual
-cat2010	male	0.568	39.48	individual
-cat2010	female	0.544	46.220625	individual
-cat2010	female	0.523	42.049875	individual
-cat2010	male	0.592	32.1984375	individual
-cat2010	male	0.579	44.419125	individual
-cat2010	female	0.474	65.157	individual
-cat2010	female	0.581	40.3333125	individual
-cat2010	female	0.537	42.9564375	individual
-cat2010	male	0.635	40.011375	individual
-cat2010	female	0.601	37.105125	individual
-cat2010	female	0.615	63.2660625	individual
-cat2010	male	0.604	49.5016875	individual
-cat2010	male	0.569	43.2560625	individual
-cat2010	male	0.686	41.121375	individual
-cat2010	female	0.549	56.140875	individual
-cat2010	female	0.569	39.925125	individual
-cat2010	female	0.582	40.0528125	individual
-cat2010	male	0.602	40.7416875	individual
-cat2010	female	0.524	52.786875	individual
-cat2010	female	0.605	36.2694375	individual
-cat2010	female	0.573	39.2390625	individual
-cat2010	male	0.544	43.0250625	individual
-cat2010	male	0.554	47.8936875	individual
-cat2010	female	0.573	52.5020625	individual
-cat2010	female	0.635	37.2354375	individual
-cat2010	female	0.619	49.24425	individual
-cat2010	male	0.627	39.82725	individual
-cat2010	female	0.655	49.878	individual
-cat2010	female	0.594	42.682125	individual
-cat2010	female	0.579	51.1910625	individual
-cat2010	female	0.662	37.6089375	individual
-cat2010	female	0.567	50.2614375	individual
-cat2010	male	0.64	29.953125	individual
-cat2010	female	0.69	35.7585	individual
-cat2010	male	0.594	34.101375	individual
-cat2010	male	0.676	32.3836875	individual
-cat2010	male	0.753	30.696375	individual
-cat2010	female	0.558	37.153875	individual
-cat2010	female	0.579	41.92875	individual
-cat2010	female	0.592	52.518375	individual
-cat2010	female	0.627	50.008875	individual
-cat2010	female	0.541	40.000125	individual
-cat2010	male	0.529	45.195	individual
-cat2010	male	0.63	42.6264375	individual
-cat2010	female	0.563	58.9486875	individual
-cat2010	female	0.585	46.1870625	individual
-cat2010	female	0.651	42.4681875	individual
-cat2010	male	0.821	25.40925	individual
-cat2010	female	0.613	38.2130625	individual
-cat2010	female	0.616	33.790875	individual
-cat2010	male	0.707	40.573875	individual
-cat2010	male	0.546	40.8455625	individual
-cat2010	male	0.701	38.545875	individual
-cat2010	female	0.688	49.1439375	individual
-cat2010	male	0.687	50.2051875	individual
-cat2010	male	0.766	47.464125	individual
-cat2010	male	0.643	38.455875	individual
-cat2010	female	0.599	40.5114375	individual
-cat2010	male	0.675	37.51425	individual
-cat2010	male	0.681	35.6900625	individual
-cat2010	male	0.712	39.4220625	individual
-cat2010	male	0.548	48.1711875	individual
-cat2010	female	0.586	32.8576875	individual
-cat2010	male	0.757	38.127	individual
-cat2010	male	0.64	53.1991875	individual
-cat2010	male	0.684	39.548625	individual
-cat2010	male	0.712	37.8290625	individual
-cat2010	female	0.545	61.0325625	individual
-cat2010	male	0.63	48.94275	individual
-cat2010	female	0.629	41.252625	individual
-cat2010	female	0.744	49.5943125	individual
-cat2010	female	0.807	34.923	individual
-cat2010	male	0.598	54.910125	individual
-cat2010	male	0.676	36.1160625	individual
-cat2010	male	0.782	34.0025625	individual
-cat2010	female	0.57	44.96025	individual
-cat2010	male	0.652	58.77075	individual
-cat2010	female	0.701	47.07	individual
-cat2010	male	0.651	50.3491875	individual
-cat2010	female	0.602	38.6210625	individual
-cat2010	female	0.646	43.0895625	individual
-cat2010	female	0.752	38.7208125	individual
-cat2010	male	0.712	34.9681875	individual
-cat2010	female	0.734	30.9165	individual
-cat2010	male	0.746	50.55	individual
-cat2010	female	0.81	31.5054375	individual
-cat2010	male	0.733	36.1471875	individual
-cat2010	male	0.727	42.8836875	individual
-cat2010	male	0.72	45.8383125	individual
-cat2010	male	0.697	32.7395625	individual
-cat2010	female	0.719	31.0869375	individual
-cat2010	female	0.607	40.7248125	individual
-cat2010	male	0.585	52.460625	individual
-cat2010	male	0.682	41.7920625	individual
-cat2010	female	0.709	31.13175	individual
-cat2010	male	0.658	50.0851875	individual
-cat2010	female	0.696	32.4804375	individual
-cat2010	female	0.653	48.555	individual
-cat2010	male	0.708	34.61175	individual
-cat2010	female	0.769	28.9914375	individual
-cat2010	male	0.604	46.4866875	individual
-cat2010	male	0.734	29.406375	individual
-cat2010	male	0.907	21.467625	individual
-cat2010	female	0.653	38.7965625	individual
-cat2010	male	0.759	40.416	individual
-cat2010	female	0.735	37.9539375	individual
-cat2010	female	0.663	39.87825	individual
-cat2010	male	0.724	32.1043125	individual
-cat2010	male	0.673	42.4411875	individual
-cat2010	male	0.665	49.1881875	individual
-cat2010	male	0.74	34.8721875	individual
-cat2010	female	0.573	78.8015625	individual
-cat2010	male	0.722	47.229	individual
-cat2010	male	0.681	52.2009375	individual
-cat2010	female	0.652	40.2615	individual
-cat2010	male	0.732	48.0795	individual
-cat2010	male	0.834	24.5754375	individual
-cat2010	female	0.659	70.762125	individual
-cat2010	male	0.685	53.728875	individual
-cat2010	male	0.823	37.762875	individual
-cat2010	female	0.707	32.3011875	individual
-cat2010	male	0.792	32.2925625	individual
-cat2010	female	0.723	36.7948125	individual
-cat2010	male	0.717	32.85825	individual
-cat2010	female	0.651	44.9904375	individual
-cat2010	male	0.706	46.18725	individual
-cat2010	female	0.696	28.75875	individual
-cat2010	male	0.707	53.8951875	individual
-cat2010	male	0.68	50.041875	individual
-cat2010	male	0.682	42.7995	individual
-cat2010	female	0.713	44.6458125	individual
-cat2010	female	0.65	46.70025	individual
-cat2010	male	0.742	35.572875	individual
-cat2010	female	0.738	36.142125	individual
-cat2010	male	0.773	46.5285	individual
-cat2010	female	0.69	34.14525	individual
-cat2010	male	0.744	41.70675	individual
-cat2010	male	0.737	33.6294375	individual
-cat2010	female	0.677	41.0203125	individual
-cat2010	male	0.692	49.7985	individual
-cat2010	female	0.666	50.436	individual
-cat2010	male	0.621	55.7638125	individual
-cat2010	male	0.706	47.9415	individual
-cat2010	female	0.685	45.7498125	individual
-cat2010	male	0.693	42.9451875	individual
-cat2010	male	0.747	39.9845625	individual
-cat2010	female	0.665	52.951875	individual
-cat2010	female	0.673	44.00925	individual
-cat2010	female	0.837	26.0544375	individual
-cat2010	female	0.72	44.0805	individual
-cat2010	female	0.685	32.3026875	individual
-cat2010	male	0.628	56.1178125	individual
-cat2010	male	0.776	34.6291875	individual
-cat2010	male	0.688	51.03525	individual
-cat2010	male	0.696	53.3131875	individual
-cat2010	male	0.715	43.053375	individual
-cat2010	female	0.688	53.9128125	individual
-cat2010	male	0.676	37.3074375	individual
-cat2010	female	0.697	35.7110625	individual
-cat2010	male	0.66	32.944125	individual
-cat2010	female	0.695	38.1290625	individual
-cat2010	female	0.701	35.8558125	individual
-cat2010	female	0.653	32.5771875	individual
-cat2010	female	0.743	36.2623125	individual
-cat2010	female	0.735	40.2590625	individual
-cat2010	female	0.699	29.0896875	individual
-cat2010	male	0.679	46.395375	individual
-cat2010	male	0.739	37.47225	individual
-cat2010	male	0.706	38.675625	individual
-cat2010	male	0.758	51.264375	individual
-cat2010	female	0.647	46.578375	individual
-cat2010	male	0.701	38.446875	individual
-cat2010	female	0.602	46.567875	individual
-cat2010	male	0.663	44.2989375	individual
-cat2010	male	0.695	48.5716875	individual
-cat2010	female	0.777	29.67075	individual
-cat2010	male	0.752	46.581	individual
-cat2010	female	0.77	26.9445	individual
-cat2010	female	0.705	40.810125	individual
-cat2010	female	0.691	47.979	individual
-cat2010	male	0.733	63.9654375	individual
-cat2010	male	0.67	36.295875	individual
-cat2010	male	0.684	40.791	individual
-cat2010	female	0.697	46.221375	individual
-cat2010	male	0.776	55.6963125	individual
-cat2010	male	0.755	44.263875	individual
-cat2010	female	0.659	40.391625	individual
-cat2010	male	0.747	39.0211875	individual
-cat2010	male	0.695	36.507375	individual
-cat2010	female	0.825	32.5569375	individual
-cat2010	female	0.708	33.1614375	individual
-cat2010	male	0.956	30.3568125	individual
-cat2010	male	0.718	27.882	individual
-cat2010	female	0.678	47.991375	individual
-cat2010	male	0.713	44.20425	individual
-cat2010	male	0.738	38.8250625	individual
-cat2010	male	0.685	38.75475	individual
-cat2010	female	0.711	36.169125	individual
-cat2010	male	0.742	39.7100625	individual
-cat2010	male	0.734	43.7775	individual
-cat2010	male	0.803	37.262625	individual
-cat2010	female	0.827	43.15875	individual
-cat2010	male	0.935	33.9016875	individual
-cat2010	female	0.634	47.5921875	individual
-cat2010	female	0.701	52.56825	individual
-cat2010	male	0.767	44.9409375	individual
-cat2010	female	0.695	41.076375	individual
-cat2010	female	0.714	59.90025	individual
-cat2010	male	0.743	34.0730625	individual
-cat2010	female	0.65	59.522625	individual
-cat2010	female	0.738	43.8031875	individual
-cat2010	female	0.717	37.881375	individual
-cat2010	male	0.742	38.6386875	individual
-cat2010	male	0.712	47.5610625	individual
-cat2010	male	0.702	45.3339375	individual
-cat2010	female	0.85	43.9051875	individual
-cat2010	female	0.657	46.622625	individual
-cat2010	male	0.638	54.7213125	individual
-cat2010	male	0.993	29.256375	individual
-cat2010	female	0.781	35.2858125	individual
-cat2010	female	0.699	42.2045625	individual
-cat2010	female	0.67	47.5254375	individual
-cat2010	male	0.725	36.1141875	individual
-cat2010	male	0.711	30.472125	individual
-cat2010	male	0.836	43.659375	individual
-cat2010	female	0.789	33.9564375	individual
-cat2010	male	0.821	45.016125	individual
-cat2010	female	0.761	38.513625	individual
-cat2010	male	0.702	32.2588125	individual
-cat2010	male	0.727	43.89525	individual
-cat2010	female	0.808	41.75475	individual
-cat2010	male	0.861	41.876625	individual
-cat2010	female	0.751	40.3876875	individual
-cat2010	male	0.728	35.8333125	individual
-cat2010	male	0.694	39.9703125	individual
-cat2010	male	0.901	31.8493125	individual
-cat2010	male	0.687	38.0090625	individual
-cat2010	male	0.799	36.145125	individual
-cat2010	female	0.717	39.4183125	individual
-cat2010	female	0.714	32.9090625	individual
-cat2010	male	0.572	49.3989375	individual
-cat2010	female	0.821	25.447125	individual
-cat2010	female	0.762	45.546375	individual
-cat2010	female	0.712	37.5410625	individual
-cat2010	female	0.677	52.946625	individual
-cat2010	female	0.836	42.295875	individual
-cat2010	male	0.786	39.955125	individual
-cat2010	male	0.778	51.07275	individual
-cat2010	male	0.719	38.6285625	individual
-cat2010	male	1.041	31.16925	individual
-cat2010	female	0.706	46.6580625	individual
-cat2010	male	0.892	34.1919375	individual
-cat2010	female	0.727	30.9823125	individual
-cat2010	female	0.692	99.353625	individual
-cat2010	female	0.843	39.6613125	individual
-cat2010	female	0.792	40.7844375	individual
-cat2010	female	0.759	49.051125	individual
-cat2010	female	0.77	42.0361875	individual
-cat2010	male	0.734	59.190375	individual
-cat2010	male	0.914	33.1809375	individual
-cat2010	male	0.757	31.911375	individual
-cat2010	male	0.718	45.7839375	individual
-cat2010	male	0.811	46.436625	individual
-cat2010	female	0.761	45.4460625	individual
-cat2010	male	0.866	36.13575	individual
-cat2010	male	0.756	23.8235625	individual
-cat2010	female	0.686	42.8593125	individual
-cat2010	male	0.806	27.277875	individual
-cat2010	male	0.798	38.59425	individual
-cat2010	male	0.692	42.211125	individual
-cat2010	male	1.238	20.5194375	individual
-cat2010	male	0.692	49.171125	individual
-cat2010	male	0.702	37.4173125	individual
-cat2010	male	0.646	44.8393125	individual
-cat2010	female	0.762	45.970875	individual
-cat2010	male	0.711	44.7905625	individual
-cat2010	female	0.702	30.6615	individual
-cat2010	male	0.761	38.874375	individual
-cat2010	female	0.789	45.344625	individual
-cat2010	male	0.785	29.2273125	individual
-cat2010	male	0.772	44.965875	individual
-cat2010	male	0.74	39.6165	individual
-cat2010	male	0.734	53.2933125	individual
-cat2010	male	0.847	40.2556875	individual
-cat2010	male	0.856	51.56025	individual
-cat2010	male	0.83	40.7000625	individual
-cat2010	female	0.776	42.50325	individual
-cat2010	male	0.818	44.364	individual
-cat2010	male	0.689	54.9264375	individual
-cat2010	female	0.815	37.6790625	individual
-cat2010	male	0.699	51.1464375	individual
-cat2010	female	0.703	41.13075	individual
-cat2010	male	0.779	35.5245	individual
-cat2010	male	0.725	39.6999375	individual
-cat2010	female	0.747	38.4615	individual
-cat2010	male	0.755	36.1449375	individual
-cat2010	female	0.771	43.5789375	individual
-cat2010	male	0.699	31.2309375	individual
-cat2010	male	0.605	32.0420625	individual
-cat2010	male	0.786	49.491	individual
-cat2010	male	0.677	32.4508125	individual
-cat2010	male	0.762	30.916125	individual
-cat2010	female	0.714	44.18625	individual
-cat2010	female	0.798	33.7059375	individual
-cat2010	male	0.877	28.6171875	individual
-cat2010	male	0.81	30.0975	individual
-cat2010	male	0.725	37.1401875	individual
-cat2010	male	0.652	53.4103125	individual
-cat2010	female	0.769	43.048875	individual
-cat2010	female	0.703	32.9956875	individual
-cat2010	female	0.807	45.108375	individual
-cat2010	female	0.786	38.2670625	individual
-cat2010	female	0.88	34.5230625	individual
-cat2010	female	0.801	32.58825	individual
-cat2010	female	0.799	48.7299375	individual
-cat2010	male	0.813	40.3074375	individual
-cat2010	female	0.815	36.520875	individual
-cat2010	male	0.857	40.112625	individual
-cat2010	male	0.76	40.2429375	individual
-cat2010	male	0.742	35.9581875	individual
-cat2010	female	0.817	34.35825	individual
-cat2010	male	0.966	30.487125	individual
-cat2010	male	0.716	49.377375	individual
-cat2010	male	0.764	37.43175	individual
-cat2010	male	0.964	40.6644375	individual
-cat2010	male	0.752	47.81625	individual
-cat2010	male	0.822	35.6911875	individual
-cat2010	male	0.909	49.2155625	individual
-cat2010	male	0.761	31.7855625	individual
-cat2010	male	0.762	42.6211875	individual
-cat2010	female	0.834	35.7339375	individual
-cat2010	female	0.811	31.8774375	individual
-cat2010	male	0.894	33.669375	individual
-cat2010	male	1.009	30.626625	individual
-cat2010	male	0.73	39.7648125	individual
-cat2010	female	0.734	44.735625	individual
-cat2010	male	0.716	41.578875	individual
-cat2010	male	0.938	28.0875	individual
-cat2010	male	0.772	37.64475	individual
-cat2010	male	0.807	38.96625	individual
-cat2010	female	0.701	50.6458125	individual
-cat2010	male	0.765	29.8509375	individual
-cat2010	male	0.887	31.0160625	individual
-cat2010	male	0.702	38.3004375	individual
-cat2010	male	0.956	32.239125	individual
-cat2010	female	0.84	31.472625	individual
-cat2010	male	0.972	31.1355	individual
-cat2010	male	0.739	34.5585	individual
-cat2010	male	0.835	37.6595625	individual
-cat2010	male	0.83	37.5380625	individual
-cat2010	male	0.752	37.231125	individual
-cat2010	female	0.73	37.5538125	individual
-cat2010	male	0.777	35.7211875	individual
-cat2010	female	0.771	48.18375	individual
-cat2010	male	0.791	31.0524375	individual
-cat2010	male	0.97	25.9719375	individual
-cat2010	male	0.757	49.2013125	individual
-cat2010	female	0.81	33.234375	individual
-cat2010	male	0.918	31.318125	individual
-cat2010	female	0.99	45.6223125	individual
-cat2010	male	0.903	25.4150625	individual
-cat2010	male	0.851	27.5443125	individual
-cat2010	male	0.91	35.92875	individual
-cat2010	male	0.805	40.940625	individual
-cat2010	female	0.728	30.7513125	individual
-cat2010	male	0.876	40.5369375	individual
-cat2010	female	0.739	40.04325	individual
-cat2010	female	0.831	49.7235	individual
-cat2010	male	0.812	33.0691875	individual
-cat2010	female	0.752	34.2459375	individual
-cat2010	female	0.893	35.097375	individual
-cat2010	female	0.788	50.3955	individual
-cat2010	male	0.752	34.0723125	individual
-cat2010	male	0.809	35.26125	individual
-cat2010	male	0.832	31.2680625	individual
-cat2010	male	0.909	30.252375	individual
-cat2010	female	0.855	39.7873125	individual
-cat2010	female	0.886	36.08025	individual
-cat2010	female	0.89	37.851	individual
-cat2010	male	0.824	46.426125	individual
-cat2010	female	0.78	30.603	individual
-cat2010	female	0.809	34.8673125	individual
-cat2010	male	0.828	30.942	individual
-cat2010	male	0.833	41.0690625	individual
-cat2010	male	0.897	39.9763125	individual
-cat2010	male	1.02	29.5305	individual
-cat2010	male	0.733	30.574125	individual
-cat2010	female	0.775	42.264375	individual
-cat2010	female	0.937	28.0415625	individual
-cat2010	male	0.809	44.804625	individual
-cat2010	male	0.772	37.859625	individual
-cat2010	female	0.913	32.509875	individual
-cat2010	female	0.804	30.64875	individual
-cat2010	male	0.803	35.2370625	individual
-cat2010	female	0.854	36.0339375	individual
-cat2010	female	0.956	44.9518125	individual
-cat2010	female	0.802	30.82275	individual
-cat2010	female	0.744	33.72825	individual
-cat2010	male	0.839	46.288125	individual
-cat2010	male	1.113	24.2161875	individual
-cat2010	female	0.754	45.7179375	individual
-cat2010	female	0.869	36.230625	individual
-cat2010	male	0.856	49.7743125	individual
-cat2010	male	0.758	35.677125	individual
-cat2010	male	0.78	26.0225625	individual
-cat2010	male	0.773	53.8209375	individual
-cat2010	female	0.76	30.839625	individual
-cat2010	male	0.921	31.395	individual
-cat2010	female	0.972	35.3385	individual
-cat2010	female	1.041	39.3920625	individual
-cat2010	female	0.804	38.78325	individual
-cat2010	male	0.763	39.4155	individual
-cat2010	female	0.779	48.5998125	individual
-cat2010	female	0.849	30.3624375	individual
-cat2010	female	0.696	47.8490625	individual
-cat2010	male	0.816	45.2266875	individual
-cat2010	male	0.883	25.4229375	individual
-cat2010	male	0.889	33.919875	individual
-cat2010	female	0.791	42.8085	individual
-cat2010	male	0.905	29.3180625	individual
-cat2010	female	0.828	37.8508125	individual
-cat2010	female	0.771	38.40675	individual
-cat2010	male	0.817	31.1116875	individual
-cat2010	male	1.106	37.342875	individual
-cat2010	male	1.079	25.6996875	individual
-cat2010	female	0.906	42.75675	individual
-cat2010	male	1.149	21.2769375	individual
-cat2010	male	0.895	29.8018125	individual
-cat2010	female	0.884	32.80275	individual
-cat2010	male	1.038	27.5716875	individual
-cat2010	male	0.791	32.8288125	individual
-cat2010	male	0.937	27.54525	individual
-cat2010	male	0.826	47.59725	individual
-cat2010	female	0.699	43.601625	individual
-cat2010	male	0.819	27.5679375	individual
-cat2010	female	0.787	33.123375	individual
-cat2010	male	0.854	30.8476875	individual
-cat2010	male	0.798	35.1915	individual
-cat2010	female	0.788	39.4265625	individual
-cat2010	male	0.998	25.69725	individual
-cat2010	male	0.906	37.244625	individual
-cat2010	female	0.876	24.2218125	individual
-cat2010	male	0.886	39.4141875	individual
-cat2010	female	0.864	27.8323125	individual
-cat2010	male	0.863	40.1161875	individual
-cat2010	female	0.934	26.01225	individual
-cat2010	male	0.737	36.74775	individual
-cat2010	female	0.845	43.6438125	individual
-cat2010	female	0.802	35.4598125	individual
-cat2010	male	0.902	30.5623125	individual
-cat2010	female	0.81	35.0011875	individual
-cat2010	male	0.843	44.2395	individual
-cat2010	male	0.844	30.95625	individual
-cat2010	female	0.928	39.235875	individual
-cat2010	female	0.826	44.6184375	individual
-cat2010	male	0.777	33.4336875	individual
-cat2010	male	0.946	25.1960625	individual
-cat2010	female	0.923	36.881625	individual
-cat2010	female	0.797	36.0309375	individual
-cat2010	male	1.042	30.8175	individual
-cat2010	male	0.781	44.0885625	individual
-cat2010	female	0.954	30.9200625	individual
-cat2010	female	0.837	32.0919375	individual
-cat2010	male	1.153	24.992625	individual
-cat2010	male	0.851	27.50475	individual
-cat2010	male	0.905	34.873875	individual
-cat2010	male	0.921	37.8658125	individual
-cat2010	female	0.792	31.6381875	individual
-cat2010	male	0.876	38.8921875	individual
-cat2010	female	0.871	33.612375	individual
-cat2010	female	1.006	29.9878125	individual
-cat2010	female	0.872	40.671	individual
-cat2010	male	0.874	28.3940625	individual
-cat2010	female	0.833	31.008375	individual
-cat2010	male	0.935	25.8860625	individual
-cat2010	male	0.858	38.98125	individual
-cat2010	female	0.846	44.658	individual
-cat2010	female	0.749	26.3525625	individual
-cat2010	female	0.782	39.8855625	individual
-cat2010	female	0.793	36.167625	individual
-cat2010	male	0.909	45.277875	individual
-cat2010	male	0.959	37.9801875	individual
-cat2010	male	0.736	35.942625	individual
-cat2010	male	1.018	34.5875625	individual
-cat2010	male	0.837	57.999	individual
-cat2010	male	0.766	42.1696875	individual
-cat2010	male	0.758	41.7075	individual
-cat2010	female	1.09	28.747875	individual
-cat2010	female	0.93	41.1493125	individual
-cat2010	female	0.735	43.2256875	individual
-cat2010	male	0.771	32.64825	individual
-cat2010	male	0.963	34.6185	individual
-cat2010	male	0.805	32.352375	individual
-cat2010	male	0.894	34.35	individual
-cat2010	male	1.072	18.916125	individual
-cat2010	male	0.965	34.086375	individual
-cat2010	female	0.954	31.41525	individual
-cat2010	male	0.958	38.0128125	individual
-cat2010	female	0.839	33.5595	individual
-cat2010	male	1.107	28.011	individual
-cat2010	male	0.929	28.3820625	individual
-cat2010	female	0.727	51.4005	individual
-cat2010	male	0.909	51.324375	individual
-cat2010	male	0.856	38.078625	individual
-cat2010	male	0.866	30.4183125	individual
-cat2010	female	0.828	42.195375	individual
-cat2010	male	0.779	40.014375	individual
-cat2010	male	0.797	40.918875	individual
-cat2010	male	0.797	48.541125	individual
-cat2010	male	0.842	36.26775	individual
-cat2010	male	1.059	31.2256875	individual
-cat2010	female	0.912	30.003	individual
-cat2010	male	0.807	42.4959375	individual
-cat2010	male	0.951	28.9846875	individual
-cat2010	female	0.783	32.9098125	individual
-cat2010	male	0.856	47.3415	individual
-cat2010	male	0.937	41.81775	individual
-cat2010	male	0.844	43.5729375	individual
-cat2010	male	0.847	42.750375	individual
-cat2010	male	0.905	30.196125	individual
-cat2010	female	0.858	35.3589375	individual
-cat2010	male	1.202	24.6855	individual
-cat2010	male	1.04	26.9475	individual
-cat2010	male	0.958	32.7335625	individual
-cat2010	male	0.894	42.961875	individual
-cat2010	male	0.814	46.3520625	individual
-cat2010	male	0.904	30.823125	individual
-cat2010	male	0.954	28.293	individual
-cat2010	male	0.887	28.653	individual
-cat2010	male	1.017	35.050125	individual
-cat2010	female	0.881	44.73375	individual
-cat2010	male	0.953	29.669625	individual
-cat2010	male	0.873	32.528625	individual
-cat2010	male	1.048	37.708125	individual
-cat2010	male	0.849	37.5991875	individual
-cat2010	male	0.807	50.9859375	individual
-cat2010	female	0.793	30.7245	individual
-cat2010	female	1.161	28.0348125	individual
-cat2010	male	1.017	27.497625	individual
-cat2010	female	0.761	45.3105	individual
-cat2010	male	0.855	40.242375	individual
-cat2010	female	0.816	32.6379375	individual
-cat2010	female	0.915	34.61475	individual
-cat2010	female	0.923	31.9753125	individual
-cat2010	female	0.837	43.5005625	individual
-cat2010	male	1.146	26.6780625	individual
-cat2010	male	0.729	39.20775	individual
-cat2010	male	0.919	31.899	individual
-cat2010	female	0.828	43.4630625	individual
-cat2010	male	1.076	28.5345	individual
-cat2010	female	0.874	33.048375	individual
-cat2010	male	0.762	54.400875	individual
-cat2010	female	0.852	38.3895	individual
-cat2010	male	0.908	39.4794375	individual
-cat2010	female	0.83	38.010375	individual
-cat2010	female	0.799	37.16025	individual
-cat2010	male	0.928	54.5000625	individual
-cat2010	male	0.779	33.0024375	individual
-cat2010	male	0.953	28.2429375	individual
-cat2010	male	0.787	44.1560625	individual
-cat2010	male	0.853	29.6866875	individual
-cat2010	male	0.866	33.46875	individual
-cat2010	female	0.977	31.1015625	individual
-cat2010	male	0.862	35.5216875	individual
-cat2010	male	1.187	28.627875	individual
-cat2010	male	0.945	32.161875	individual
-cat2010	female	0.774	32.288625	individual
-cat2010	female	0.89	54.7228125	individual
-cat2010	male	0.834	42.7734375	individual
-cat2010	female	0.922	27.5604375	individual
-cat2010	male	0.971	35.0236875	individual
-cat2010	male	0.79	60.11625	individual
-cat2010	female	0.772	36.216375	individual
-cat2010	male	0.884	36.33075	individual
-cat2010	female	0.98	36.11325	individual
-cat2010	male	0.916	27.5385	individual
-cat2010	male	0.962	30.136125	individual
-cat2010	female	0.994	40.6520625	individual
-cat2010	female	0.922	43.0055625	individual
-cat2010	female	1.041	33.5761875	individual
-cat2010	female	0.747	35.088375	individual
-cat2010	male	0.969	26.8310625	individual
-cat2010	male	1.108	26.6514375	individual
-cat2010	female	0.969	18.81825	individual
-cat2010	male	0.999	27.9253125	individual
-cat2010	male	1.147	33.1040625	individual
-cat2010	male	0.964	26.810625	individual
-cat2010	female	0.909	23.4298125	individual
-cat2010	female	1.15	24.7468125	individual
-cat2010	female	0.877	31.971375	individual
-cat2010	male	0.936	27.1250625	individual
-cat2010	female	0.951	34.309875	individual
-cat2010	male	0.907	31.668	individual
-cat2010	male	0.887	29.091	individual
-cat2010	female	0.905	33.961125	individual
-cat2010	male	1.088	33.3395625	individual
-cat2010	female	0.773	43.9965	individual
-cat2010	female	0.904	33.700125	individual
-cat2010	male	0.935	37.150125	individual
-cat2010	male	1.041	31.4236875	individual
-cat2010	female	0.956	23.150625	individual
-cat2010	female	0.842	33.26625	individual
-cat2010	female	0.776	34.5755625	individual
-cat2010	male	0.937	40.0494375	individual
-cat2010	male	0.859	28.0561875	individual
-cat2010	male	0.849	45.614625	individual
-cat2010	female	1.041	29.54325	individual
-cat2010	male	1.11	30.640125	individual
-cat2010	female	0.805	41.4765	individual
-cat2010	male	0.878	38.065875	individual
-cat2010	male	0.917	35.749875	individual
-cat2010	female	0.848	35.2318125	individual
-cat2010	male	0.946	45.3301875	individual
-cat2010	male	1.085	28.309125	individual
-cat2010	female	0.773	37.1203125	individual
-cat2010	female	0.911	43.1525625	individual
-cat2010	male	0.86	38.565	individual
-cat2010	female	0.879	41.334	individual
-cat2010	female	0.894	43.0749375	individual
-cat2010	male	0.848	31.5301875	individual
-cat2010	male	0.949	35.9724375	individual
-cat2010	female	1.006	34.2444375	individual
-cat2010	male	0.937	46.902375	individual
-cat2010	female	0.853	28.4176875	individual
-cat2010	female	0.922	39.96225	individual
-cat2010	male	0.942	37.6531875	individual
-cat2010	male	0.873	35.7343125	individual
-cat2010	male	0.95	32.6775	individual
-cat2010	female	0.931	28.9659375	individual
-cat2010	male	1.383	20.3535	individual
-cat2010	female	0.959	30.6165	individual
-cat2010	female	0.974	30.779625	individual
-cat2010	female	1.008	25.34925	individual
-cat2010	female	0.918	38.96625	individual
-cat2010	male	0.932	28.9655625	individual
-cat2010	female	0.976	27.8325	individual
-cat2010	female	0.964	43.272	individual
-cat2010	male	1.225	21.319125	individual
-cat2010	male	0.93	33.364125	individual
-cat2010	female	0.878	51.422625	individual
-cat2010	female	0.968	38.949375	individual
-cat2010	female	1.01	29.26125	individual
-cat2010	male	1.098	26.3739375	individual
-cat2010	male	1	31.7355	individual
-cat2010	male	0.876	42.574125	individual
-cat2010	female	1.046	34.565625	individual
-cat2010	female	1.084	41.196375	individual
-cat2010	female	1.126	31.4563125	individual
-cat2010	male	0.654	53.0293125	individual
-cat2010	male	1.205	27.911625	individual
-cat2010	female	0.956	36.871875	individual
-cat2010	female	0.996	29.637375	individual
-cat2010	male	1.039	34.2345	individual
-cat2010	male	0.903	40.4694375	individual
-cat2010	female	0.87	45.534375	individual
-cat2010	female	0.853	35.22525	individual
-cat2010	male	0.982	40.6824375	individual
-cat2010	male	1.118	31.2860625	individual
-cat2010	male	0.865	40.9760625	individual
-cat2010	male	0.863	35.088	individual
-cat2010	male	0.83	33.1276875	individual
-cat2010	male	0.969	30.49575	individual
-cat2010	male	1.071	30.5668125	individual
-cat2010	female	1.329	35.7605625	individual
-cat2010	male	0.906	38.4781875	individual
-cat2010	female	0.889	22.752375	individual
-cat2010	male	1.102	23.46	individual
-cat2010	male	1.188	26.2880625	individual
-cat2010	female	0.974	46.3021875	individual
-cat2010	male	1.075	32.904375	individual
-cat2010	female	0.905	33.4535625	individual
-cat2010	male	0.933	28.807875	individual
-cat2010	female	0.918	42.8240625	individual
-cat2010	male	0.885	36.5385	individual
-cat2010	male	1.293	22.2519375	individual
-cat2010	female	1.156	29.94975	individual
-cat2010	male	0.89	39.6285	individual
-cat2010	female	0.689	61.6914375	individual
-cat2010	male	0.9	66.65175	individual
-cat2010	female	0.834	33.7625625	individual
-cat2010	male	1.225	24.8833125	individual
-cat2010	male	1.168	39.04125	individual
-cat2010	male	0.95	33.854625	individual
-cat2010	female	1.053	24.1275	individual
-cat2010	female	1.062	32.2284375	individual
-cat2010	female	0.777	36.645375	individual
-cat2010	female	0.936	32.4285	individual
-cat2010	male	0.969	30.5754375	individual
-cat2010	female	1.187	29.297625	individual
-cat2010	female	0.881	32.2425	individual
-cat2010	female	0.918	23.578125	individual
-cat2010	female	0.825	37.6224375	individual
-cat2010	male	0.937	36.1423125	individual
-cat2010	female	0.785	57.1531875	individual
-cat2010	male	0.953	43.146375	individual
-cat2010	female	1.204	24.619875	individual
-cat2010	male	1.046	43.263	individual
-cat2010	male	1.242	31.808625	individual
-cat2010	male	0.977	34.6453125	individual
-cat2010	male	0.948	39.0373125	individual
-cat2010	female	0.922	31.137375	individual
-cat2010	female	0.838	47.1800625	individual
-cat2010	female	1.091	26.706	individual
-cat2010	male	1.164	30.0508125	individual
-cat2010	female	0.909	30.73575	individual
-cat2010	female	1.035	34.8395625	individual
-cat2010	male	1.137	37.14	individual
-cat2010	male	0.824	29.212125	individual
-cat2010	male	0.887	39.95325	individual
-cat2010	female	0.936	32.5396875	individual
-cat2010	male	0.949	31.5879375	individual
-cat2010	female	0.913	27.913875	individual
-cat2010	male	0.991	41.0428125	individual
-cat2010	female	1.091	33.065625	individual
-cat2010	male	1.01	40.7379375	individual
-cat2010	male	1.06	32.6915625	individual
-cat2010	male	1.072	26.092125	individual
-cat2010	female	0.878	37.6816875	individual
-cat2010	female	1.237	28.3299375	individual
-cat2010	female	0.993	30.0943125	individual
-cat2010	male	0.933	45.38325	individual
-cat2010	female	0.962	22.0149375	individual
-cat2010	female	0.874	49.966125	individual
-cat2010	male	1.449	23.8344375	individual
-cat2010	female	1.113	28.1295	individual
-cat2010	female	0.886	46.6839375	individual
-cat2010	male	1.094	30.6763125	individual
-cat2010	female	1.022	26.28075	individual
-cat2010	female	0.934	32.303625	individual
-cat2010	female	0.938	37.263	individual
-cat2010	male	1.264	28.5980625	individual
-cat2010	male	1.101	23.1345	individual
-cat2010	male	0.919	29.9510625	individual
-cat2010	male	1.106	31.1930625	individual
-cat2010	male	0.929	40.02075	individual
-cat2010	female	0.925	36.436875	individual
-cat2010	female	1.239	26.48625	individual
-cat2010	male	1.121	32.922375	individual
-cat2010	male	0.889	31.452375	individual
-cat2010	male	0.981	29.756625	individual
-cat2010	female	0.949	36.33975	individual
-cat2010	male	0.892	35.8305	individual
-cat2010	male	0.965	34.9700625	individual
-cat2010	male	1.152	31.9213125	individual
-cat2010	female	1	39.012	individual
-cat2010	female	0.863	41.3698125	individual
-cat2010	male	0.972	25.3944375	individual
-cat2010	male	0.923	32.6525625	individual
-cat2010	male	1.406	25.4625	individual
-cat2010	female	1.181	25.449	individual
-cat2010	female	0.932	31.8399375	individual
-cat2010	female	1.023	40.44225	individual
-cat2010	male	1.169	25.248375	individual
-cat2010	female	0.93	39.021375	individual
-cat2010	female	1.169	35.385	individual
-cat2010	male	1.008	41.001	individual
-cat2010	male	1.294	21.6995625	individual
-cat2010	male	1.133	29.12325	individual
-cat2010	female	0.86	47.3518125	individual
-cat2010	male	1.032	34.986	individual
-cat2010	female	1.218	33.8008125	individual
-cat2010	male	1.164	18.6658125	individual
-cat2010	female	1.002	27.271875	individual
-cat2010	female	1.099	31.0078125	individual
-cat2010	female	1.09	29.38275	individual
-cat2010	male	1.35	27.422625	individual
-cat2010	female	1.085	45.741	individual
-cat2010	male	1.016	25.8650625	individual
-cat2010	female	0.957	34.6546875	individual
-cat2010	female	0.968	29.492625	individual
-cat2010	male	0.996	30.139125	individual
-cat2010	female	0.951	26.2779375	individual
-cat2010	male	1.159	27.5244375	individual
-cat2010	male	1.083	41.125125	individual
-cat2010	female	0.884	43.14525	individual
-cat2010	female	0.95	37.6695	individual
-cat2010	female	1.164	25.3115625	individual
-cat2010	male	1.1	36.7393125	individual
-cat2010	male	1.284	28.9185	individual
-cat2010	female	0.979	29.71875	individual
-cat2010	male	1.093	41.24475	individual
-cat2010	male	0.794	39.516	individual
-cat2010	female	1.124	32.9649375	individual
-cat2010	female	1.026	33.810375	individual
-cat2010	male	1.097	28.473375	individual
-cat2010	male	1.102	29.2168125	individual
-cat2010	male	0.938	25.733625	individual
-cat2010	female	0.893	31.90125	individual
-cat2010	male	0.87	40.589625	individual
-cat2010	male	1.107	31.55925	individual
-cat2010	female	1.057	22.349625	individual
-cat2010	male	1.036	28.9314375	individual
-cat2010	female	0.988	47.698875	individual
-cat2010	female	1.061	32.97975	individual
-cat2010	female	1.016	48.9523125	individual
-cat2010	female	0.998	33.362625	individual
-cat2010	male	1.111	25.9764375	individual
-cat2010	male	1.435	25.7945625	individual
-cat2010	female	1.047	33.4695	individual
-cat2010	female	1.009	22.721625	individual
-cat2010	female	0.866	60.8581875	individual
-cat2010	male	1.004	30.805125	individual
-cat2010	male	1.568	20.6158125	individual
-cat2010	male	0.942	40.69725	individual
-cat2010	female	0.927	45.0605625	individual
-cat2010	male	0.929	28.5943125	individual
-cat2010	male	1.037	23.365125	individual
-cat2010	female	1.165	34.69125	individual
-cat2010	male	0.913	33.579375	individual
-cat2010	male	1.217	19.861125	individual
-cat2010	female	0.961	24.5595	individual
-cat2010	male	1.021	27.664125	individual
-cat2010	male	1.119	28.36125	individual
-cat2010	female	1.227	19.7255625	individual
-cat2010	female	1.035	47.781	individual
-cat2010	female	1.239	23.248875	individual
-cat2010	male	0.845	27.669	individual
-cat2010	female	1.2	34.840125	individual
-cat2010	male	0.891	43.3779375	individual
-cat2010	male	0.931	41.06625	individual
-cat2010	male	1.023	23.0653125	individual
-cat2010	female	1.11	41.5363125	individual
-cat2010	male	1.313	31.596	individual
-cat2010	male	0.95	40.5255	individual
-cat2010	female	1.155	25.8721875	individual
-cat2010	male	1.052	30.4995	individual
-cat2010	male	0.952	27.576375	individual
-cat2010	male	1.046	25.8384375	individual
-cat2010	male	0.966	27.38175	individual
-cat2010	male	1.114	30.7261875	individual
-cat2010	male	1.199	38.21625	individual
-cat2010	male	1.089	19.7536875	individual
-cat2010	male	1.117	23.980125	individual
-cat2010	female	0.903	31.129875	individual
-cat2010	female	1.178	22.6276875	individual
-cat2010	male	1.057	39.7981875	individual
-cat2010	female	1.131	31.8924375	individual
-cat2010	male	1.009	33.6568125	individual
-cat2010	female	1.096	37.0051875	individual
-cat2010	female	1.24	22.6910625	individual
-cat2010	male	0.97	44.603625	individual
-cat2010	female	1.197	29.52225	individual
-cat2010	male	0.874	33.7215	individual
-cat2010	male	1.173	30.6106875	individual
-cat2010	female	1.163	25.29825	individual
-cat2010	male	1.35	24.9669375	individual
-cat2010	male	0.881	47.5003125	individual
-cat2010	male	1.398	26.383125	individual
-cat2010	female	1.055	28.11975	individual
-cat2010	male	1.082	31.88775	individual
-cat2010	male	0.88	30.7794375	individual
-cat2010	male	1.358	24.9721875	individual
-cat2010	female	1.01	33.05325	individual
-cat2010	female	1.329	35.0064375	individual
-cat2010	female	1.25	30.1831875	individual
-cat2010	male	1.044	31.9993125	individual
-cat2010	male	1.453	16.0978125	individual
-cat2010	female	1.199	30.603	individual
-cat2010	male	1.006	35.844375	individual
-cat2010	male	1.289	26.675625	individual
-cat2010	male	0.98	25.8838125	individual
-cat2010	female	0.959	35.4838125	individual
-cat2010	male	1.156	26.894625	individual
-cat2010	female	1.12	33.458625	individual
-cat2010	female	0.882	34.73475	individual
-cat2010	male	1.013	35.694	individual
-cat2010	male	1.252	32.2981875	individual
-cat2010	female	0.937	47.0083125	individual
-cat2010	male	1.197	34.7971875	individual
-cat2010	female	1.093	26.837625	individual
-cat2010	female	1.085	31.5264375	individual
-cat2010	female	1.142	29.575125	individual
-cat2010	female	1.386	43.2939375	individual
-cat2010	male	1.005	38.195625	individual
-cat2010	female	0.991	38.9311875	individual
-cat2010	male	1	23.160375	individual
-cat2010	female	1.239	31.917375	individual
-cat2010	male	0.909	41.5261875	individual
-cat2010	male	1.041	39.9515625	individual
-cat2010	female	1.341	27.9425625	individual
-cat2010	male	1.311	28.310625	individual
-cat2010	male	1.308	19.2710625	individual
-cat2010	female	1.188	31.9906875	individual
-cat2010	female	1.261	25.8736875	individual
-cat2010	female	0.905	28.206	individual
-cat2010	male	1.093	34.247625	individual
-cat2010	male	1.114	26.1230625	individual
-cat2010	male	1.03	32.3360625	individual
-cat2010	female	0.987	34.358625	individual
-cat2010	male	0.977	31.0831875	individual
-cat2010	male	0.922	30.6305625	individual
-cat2010	female	1.058	31.153125	individual
-cat2010	male	1.233	30.9826875	individual
-cat2010	female	1.331	21.8825625	individual
-cat2010	male	1.119	35.04375	individual
-cat2010	male	1.029	25.5823125	individual
-cat2010	female	1.128	30.957375	individual
-cat2010	male	1.055	27.359625	individual
-cat2010	male	1.034	38.5993125	individual
-cat2010	male	1.224	38.08725	individual
-cat2010	male	1.225	28.4064375	individual
-cat2010	male	0.915	29.5231875	individual
-cat2010	female	0.948	34.2939375	individual
-cat2010	male	1.288	28.6940625	individual
-cat2010	female	1.121	28.89975	individual
-cat2010	female	1	42.509625	individual
-cat2010	female	1.014	30.47925	individual
-cat2010	male	1.114	29.7208125	individual
-cat2010	male	1.162	40.502625	individual
-cat2010	female	1.001	32.8059375	individual
-cat2010	female	1.738	24.87375	individual
-cat2010	female	1.224	52.6995	individual
-cat2010	male	1.032	41.6300625	individual
-cat2010	male	0.943	30.4224375	individual
-cat2010	female	1.016	31.5106875	individual
-cat2010	male	1.005	33.3961875	individual
-cat2010	male	1.113	26.460375	individual
-cat2010	female	1.124	34.1484375	individual
-cat2010	male	1.024	24.516375	individual
-cat2010	female	1.026	29.639625	individual
-cat2010	female	1.077	30.6301875	individual
-cat2010	female	0.95	34.483125	individual
-cat2010	female	1.122	28.1225625	individual
-cat2010	female	0.985	27.0590625	individual
-cat2010	male	1.03	28.929	individual
-cat2010	female	1.406	26.7035625	individual
-cat2010	female	1.074	25.5635625	individual
-cat2010	male	0.958	44.5899375	individual
-cat2010	male	0.969	51.6898125	individual
-cat2010	female	1.007	27.888	individual
-cat2010	male	1.007	35.9476875	individual
-cat2010	female	1.11	35.5284375	individual
-cat2010	female	1.156	28.521	individual
-cat2010	female	1.078	46.784625	individual
-cat2010	male	1.399	19.41075	individual
-cat2010	female	1.178	33.4445625	individual
-cat2010	male	0.991	50.1984375	individual
-cat2010	male	1.23	17.27925	individual
-cat2010	female	1.174	19.2905625	individual
-cat2010	female	1.03	40.3275	individual
-cat2010	female	0.988	28.6093125	individual
-cat2010	male	1.515	25.839375	individual
-cat2010	female	0.948	29.3919375	individual
-cat2010	male	1.044	26.9038125	individual
-cat2010	female	1.053	35.70825	individual
-cat2010	female	0.94	36.37275	individual
-cat2010	female	1.37	29.562375	individual
-cat2010	male	1.257	29.6495625	individual
-cat2010	male	1.221	28.0875	individual
-cat2010	male	1.12	24.7711875	individual
-cat2010	male	1.255	21.013125	individual
-cat2010	female	1.234	36.6553125	individual
-cat2010	male	1.374	23.763375	individual
-cat2010	female	1.59	23.0655	individual
-cat2010	male	1.322	31.5759375	individual
-cat2010	male	1.131	29.3769375	individual
-cat2010	male	1.605	25.4911875	individual
-cat2010	male	1.07	27.1201875	individual
-cat2010	male	1.771	21.099375	individual
-cat2010	male	1.01	36.762375	individual
-cat2010	male	1.293	24.6654375	individual
-cat2010	male	1.184	27.0645	individual
-cat2010	female	1.103	29.32425	individual
-cat2010	male	1.051	32.1740625	individual
-cat2010	male	0.936	38.16225	individual
-cat2010	male	1.362	23.6289375	individual
-cat2010	female	1.062	30.94125	individual
-cat2010	male	1.457	21.046125	individual
-cat2010	male	1.049	35.445375	individual
-cat2010	male	1.433	15.2229375	individual
-cat2010	male	1.102	31.3115625	individual
-cat2010	male	1.386	26.5453125	individual
-cat2010	female	1.033	39.128625	individual
-cat2010	male	1.141	30.4981875	individual
-cat2010	male	1.327	29.29875	individual
-cat2010	female	1.522	20.8531875	individual
-cat2010	male	1.124	27.256125	individual
-cat2010	female	1.383	26.7075	individual
-cat2010	male	1.241	32.2306875	individual
-cat2010	female	1.098	30.3320625	individual
-cat2010	female	1.177	24.4786875	individual
-cat2010	female	1.021	29.474625	individual
-cat2010	male	1.097	20.139	individual
-cat2010	female	1.328	29.418375	individual
-cat2010	male	0.908	34.948125	individual
-cat2010	male	1.483	18.834375	individual
-cat2010	male	1.149	27.91275	individual
-cat2010	female	0.968	27.73725	individual
-cat2010	female	1.129	28.27275	individual
-cat2010	male	1.586	14.208	individual
-cat2010	female	1.256	18.320625	individual
-cat2010	female	1.241	23.473125	individual
-cat2010	female	1.154	19.407	individual
-cat2010	female	1.346	18.31875	individual
-cat2010	male	1.336	25.5703125	individual
-cat2010	female	1.224	39.751875	individual
-cat2010	female	0.94	37.1776875	individual
-cat2010	female	1.296	25.009125	individual
-cat2010	female	1.227	28.3374375	individual
-cat2010	male	1.305	27.3380625	individual
-cat2010	male	1.228	22.380375	individual
-cat2010	male	1.251	17.8711875	individual
-cat2010	female	1.121	31.04925	individual
-cat2010	female	1.265	29.0385	individual
-cat2010	male	1.057	16.6940625	individual
-cat2010	male	0.969	41.503125	individual
-cat2010	male	1.523	32.9295	individual
-cat2010	female	1.286	28.2189375	individual
-cat2010	female	1.429	28.4985	individual
-cat2010	male	1.042	30.3650625	individual
-cat2010	female	1.044	63.1340625	individual
-cat2010	female	1.265	24.791625	individual
-cat2010	female	1.271	23.3210625	individual
-cat2010	male	0.978	40.287	individual
-cat2010	female	1.316	38.419125	individual
-cat2010	male	0.961	32.9634375	individual
-cat2010	male	1.636	25.491	individual
-cat2010	male	1.459	15.9691875	individual
-cat2010	female	1.294	25.810875	individual
-cat2010	female	1.29	25.7004375	individual
-cat2010	male	1.51	15.52425	individual
-cat2010	male	1.573	19.2736875	individual
-cat2010	male	1.058	29.629125	individual
-cat2010	female	1.191	29.8089375	individual
-cat2010	male	1.095	26.467875	individual
-cat2010	male	1.217	25.749	individual
-cat2010	female	1.306	30.256875	individual
-cat2010	female	1.225	34.751625	individual
-cat2010	male	1.069	37.1431875	individual
-cat2010	female	1.344	28.366875	individual
-cat2010	male	0.953	27.3	individual
-cat2010	male	1.571	30.3106875	individual
-cat2010	female	1.243	39.8480625	individual
-cat2010	female	1.535	20.4324375	individual
-cat2010	male	1.487	33.518625	individual
-cat2010	male	1.151	22.9816875	individual
-cat2010	female	1.58	24.9440625	individual
-cat2010	female	1.096	42.562875	individual
-cat2010	male	1.398	22.4544375	individual
-cat2010	female	1.031	24.064875	individual
-cat2010	female	1.161	28.02825	individual
-cat2010	male	1.101	39.9894375	individual
-cat2010	female	1.236	42.5175	individual
-cat2010	male	1.386	18.6286875	individual
-cat2010	female	1.445	24.8595	individual
-cat2010	male	1.335	29.2423125	individual
-cat2010	female	1.206	27.501375	individual
-cat2010	female	1.282	27.8401875	individual
-cat2010	female	1.078	28.3231875	individual
-cat2010	female	1.194	26.260875	individual
-cat2010	male	1.257	22.5285	individual
-cat2010	male	1.424	24.0564375	individual
-cat2010	female	1.494	25.097625	individual
-cat2010	male	1.682	12.390375	individual
-cat2010	male	1.057	40.258875	individual
-cat2010	male	1.051	26.127	individual
-cat2010	male	1.384	22.677375	individual
-cat2010	female	1.446	35.832375	individual
-cat2010	male	1.322	23.6518125	individual
-cat2010	female	1.196	33.243	individual
-cat2010	male	1.369	19.3861875	individual
-cat2010	female	1.102	29.7688125	individual
-cat2010	female	1.354	21.1528125	individual
-cat2010	female	1.231	28.9153125	individual
-cat2010	female	1.339	27.4605	individual
-cat2010	male	1.508	20.006625	individual
-cat2010	female	1.215	42.5319375	individual
-cat2010	male	1.098	32.4455625	individual
-cat2010	male	1.139	29.3885625	individual
-cat2010	male	1.214	22.924125	individual
-cat2010	male	1.081	30.613125	individual
-cat2010	male	1.316	17.92275	individual
-cat2010	female	1.061	44.73525	individual
-cat2010	female	1.165	30.1055625	individual
-cat2010	female	1.231	35.6773125	individual
-cat2010	female	1.199	37.5541875	individual
-cat2010	male	1.37	27.0373125	individual
-cat2010	female	1.302	28.5315	individual
-cat2010	female	1.442	21.856875	individual
-cat2010	female	1.683	20.1673125	individual
-cat2010	male	1.116	37.4105625	individual
-cat2010	male	1.166	24.109875	individual
-cat2010	female	1.258	33.3106875	individual
-cat2010	male	1.19	27.8030625	individual
-cat2010	female	1.206	29.195625	individual
-cat2010	male	1.139	30.6975	individual
-cat2010	male	1.621	18.246375	individual
-cat2010	male	1.539	23.949	individual
-cat2010	female	1.294	30.946125	individual
-cat2010	male	1.173	36.8655	individual
-cat2010	female	1.01	30.015375	individual
-cat2010	female	1.133	39.700125	individual
-cat2010	female	1.227	17.1225	individual
-cat2010	female	1.282	27.399	individual
-cat2010	female	1.303	28.021875	individual
-cat2010	female	1.406	24.6976875	individual
-cat2010	male	1.279	32.4954375	individual
-cat2010	male	1.3	30.5375625	individual
-cat2010	male	1.25	24.1198125	individual
-cat2010	male	1.255	19.18575	individual
-cat2010	male	1.176	28.678125	individual
-cat2010	male	1.302	36.1471875	individual
-cat2010	male	1.203	26.8336875	individual
-cat2010	male	1.342	24.3534375	individual
-cat2010	male	1.203	24.938625	individual
-cat2010	male	1.068	33.8805	individual
-cat2010	female	1.278	24.4370625	individual
-cat2010	female	1.404	23.40975	individual
-cat2010	male	1.352	20.278125	individual
-cat2010	male	1.054	32.7601875	individual
-cat2010	male	1.09	37.85775	individual
-cat2010	male	1.604	18.6369375	individual
-cat2010	male	1.352	27.3118125	individual
-cat2010	female	1.306	24.0695625	individual
-cat2010	male	1.333	17.27775	individual
-cat2010	male	1.139	28.0550625	individual
-cat2010	male	1.44	15.8229375	individual
-cat2010	male	1.767	22.9115625	individual
-cat2010	male	1.129	22.7469375	individual
-cat2010	male	1.408	27.2495625	individual
-cat2010	male	1.209	29.3758125	individual
-cat2010	female	1.45	29.6191875	individual
-cat2010	male	1.115	29.871	individual
-cat2010	female	1.002	37.114125	individual
-cat2010	female	1.278	29.7751875	individual
-cat2010	female	1.31	28.8065625	individual
-cat2010	female	1.543	27.0530625	individual
-cat2010	male	1.497	27.2394375	individual
-cat2010	male	1.38	25.764375	individual
-cat2010	female	1.391	26.53575	individual
-cat2010	female	1.731	23.584125	individual
-cat2010	female	1.294	21.3105	individual
-cat2010	female	1.132	33.7089375	individual
-cat2010	male	1.384	22.2975	individual
-cat2010	female	1.206	42.3511875	individual
-cat2010	male	1.209	31.5961875	individual
-cat2010	male	1.473	17.2104375	individual
-cat2010	female	1.62	29.8348125	individual
-cat2010	female	1.227	27.474	individual
-cat2010	male	1.361	18.1280625	individual
-cat2010	female	1.168	21.3590625	individual
-cat2010	female	1.488	18.3845625	individual
-cat2010	female	1.367	27.0211875	individual
-cat2010	male	1.092	29.0600625	individual
-cat2010	female	1.174	32.0484375	individual
-cat2010	male	1.726	21.0823125	individual
-cat2010	female	1.417	24.65475	individual
-cat2010	female	1.31	19.555125	individual
-cat2010	male	1.185	28.7795625	individual
-cat2010	female	1.28	28.1679375	individual
-cat2010	female	1.271	25.0779375	individual
-cat2010	male	1.478	21.6285	individual
-cat2010	male	1.394	26.7050625	individual
-cat2010	female	1.421	27.704625	individual
-cat2010	male	1.284	23.59575	individual
-cat2010	male	1.202	42.0819375	individual
-cat2010	female	1.323	29.498625	individual
-cat2010	female	1.27	27.7554375	individual
-cat2010	female	1.322	26.71275	individual
-cat2010	female	1.586	24.310125	individual
-cat2010	female	1.324	31.0651875	individual
-cat2010	female	1.03	32.2453125	individual
-cat2010	male	1.259	26.42025	individual
-cat2010	female	1.318	30.723	individual
-cat2010	female	1.377	40.95075	individual
-cat2010	female	1.519	31.0974375	individual
-cat2010	male	1.335	24.1546875	individual
-cat2010	female	1.401	30.1925625	individual
-cat2010	male	1.501	26.31075	individual
-cat2010	male	1.14	44.165625	individual
-cat2010	male	1.248	34.5845625	individual
-cat2010	male	1.744	25.8230625	individual
-cat2010	female	1.174	37.9183125	individual
+study	gender	BSA	flowLiverkg	dtype	status
+she1950	female	1.5	25.8	individual	healthy
+she1950	female	1.64	21.1666666666667	individual	healthy
+she1950	female	1.65	24.6666666666667	individual	healthy
+she1950	male	1.44	28.75	individual	healthy
+she1950	male	1.46	22.0851063829787	individual	healthy
+she1950	male	1.5	33.9772727272727	individual	healthy
+she1950	male	1.53	24.3478260869565	individual	healthy
+she1950	male	1.53	24.7272727272727	individual	healthy
+she1950	male	1.53	32.5833333333333	individual	healthy
+she1950	male	1.55	16.8888888888889	individual	healthy
+she1950	male	1.56	21.0204081632653	individual	healthy
+she1950	male	1.56	25.0204081632653	individual	healthy
+she1950	male	1.56	25.8333333333333	individual	healthy
+she1950	male	1.57	18.16	individual	healthy
+she1950	male	1.57	18.6666666666667	individual	healthy
+she1950	male	1.66	30.8771929824561	individual	healthy
+she1950	male	1.68	22.1311475409836	individual	healthy
+she1950	male	1.69	14.8245614035088	individual	healthy
+she1950	male	1.7	21.6666666666667	individual	healthy
+she1950	male	1.71	22.3448275862069	individual	healthy
+she1950	male	1.72	16.6666666666667	individual	healthy
+she1950	male	1.72	25.6031746031746	individual	healthy
+she1950	male	1.74	25	individual	healthy
+she1950	male	1.75	26.0166666666667	individual	healthy
+she1950	male	1.77	19.4153846153846	individual	healthy
+she1950	male	1.78	29.8461538461538	individual	healthy
+she1950	male	1.79	21.7391304347826	individual	healthy
+she1950	male	1.79	22.6119402985075	individual	healthy
+she1950	male	1.87	23.134328358209	individual	healthy
+she1950	male	1.91	32.2857142857143	individual	healthy
+she1950	male	1.93	19.4078947368421	individual	healthy
+she1950	male	1.93	34.7222222222222	individual	healthy
+tyg1958	male	1.54	24.9500998003992	individual	healthy
+tyg1958	male	1.63	22.962962962963	individual	healthy
+tyg1958	male	1.65	26.654740608229	individual	healthy
+tyg1958	male	1.66	25.6637168141593	individual	healthy
+tyg1958	male	1.68	21.3333333333333	individual	healthy
+tyg1958	male	1.68	33.9011925042589	individual	healthy
+tyg1958	male	1.71	18.9081225033289	individual	healthy
+tyg1958	male	1.77	13.6054421768707	individual	healthy
+tyg1958	male	1.8	22.7272727272727	individual	healthy
+tyg1958	male	1.82	25.6692913385827	individual	healthy
+tyg1958	male	1.84	26.1410788381743	individual	healthy
+tyg1958	male	1.89	16.7310167310167	individual	healthy
+tyg1958	male	1.89	17.8977272727273	individual	healthy
+cat2010	female	0.388	43.6295625	individual	healthy
+cat2010	female	0.395	34.615875	individual	healthy
+cat2010	female	0.395	58.119375	individual	healthy
+cat2010	female	0.429	43.3561875	individual	healthy
+cat2010	female	0.437	44.643	individual	healthy
+cat2010	female	0.448	45.2938125	individual	healthy
+cat2010	female	0.448	49.9456875	individual	healthy
+cat2010	female	0.452	49.09425	individual	healthy
+cat2010	female	0.461	46.2778125	individual	healthy
+cat2010	female	0.472	52.1353125	individual	healthy
+cat2010	female	0.474	65.157	individual	healthy
+cat2010	female	0.48	35.665875	individual	healthy
+cat2010	female	0.501	51.9680625	individual	healthy
+cat2010	female	0.502	44.049	individual	healthy
+cat2010	female	0.51	44.101875	individual	healthy
+cat2010	female	0.523	42.049875	individual	healthy
+cat2010	female	0.524	52.786875	individual	healthy
+cat2010	female	0.537	42.9564375	individual	healthy
+cat2010	female	0.541	40.000125	individual	healthy
+cat2010	female	0.544	46.220625	individual	healthy
+cat2010	female	0.545	61.0325625	individual	healthy
+cat2010	female	0.549	56.140875	individual	healthy
+cat2010	female	0.558	37.153875	individual	healthy
+cat2010	female	0.563	58.9486875	individual	healthy
+cat2010	female	0.567	50.2614375	individual	healthy
+cat2010	female	0.569	39.925125	individual	healthy
+cat2010	female	0.57	44.96025	individual	healthy
+cat2010	female	0.573	39.2390625	individual	healthy
+cat2010	female	0.573	52.5020625	individual	healthy
+cat2010	female	0.573	78.8015625	individual	healthy
+cat2010	female	0.579	41.92875	individual	healthy
+cat2010	female	0.579	51.1910625	individual	healthy
+cat2010	female	0.581	40.3333125	individual	healthy
+cat2010	female	0.582	40.0528125	individual	healthy
+cat2010	female	0.585	46.1870625	individual	healthy
+cat2010	female	0.586	32.8576875	individual	healthy
+cat2010	female	0.592	52.518375	individual	healthy
+cat2010	female	0.594	42.682125	individual	healthy
+cat2010	female	0.599	40.5114375	individual	healthy
+cat2010	female	0.601	37.105125	individual	healthy
+cat2010	female	0.602	38.6210625	individual	healthy
+cat2010	female	0.602	46.567875	individual	healthy
+cat2010	female	0.605	36.2694375	individual	healthy
+cat2010	female	0.607	40.7248125	individual	healthy
+cat2010	female	0.613	38.2130625	individual	healthy
+cat2010	female	0.615	63.2660625	individual	healthy
+cat2010	female	0.616	33.790875	individual	healthy
+cat2010	female	0.619	49.24425	individual	healthy
+cat2010	female	0.627	50.008875	individual	healthy
+cat2010	female	0.629	41.252625	individual	healthy
+cat2010	female	0.634	47.5921875	individual	healthy
+cat2010	female	0.635	37.2354375	individual	healthy
+cat2010	female	0.646	43.0895625	individual	healthy
+cat2010	female	0.647	46.578375	individual	healthy
+cat2010	female	0.65	46.70025	individual	healthy
+cat2010	female	0.65	59.522625	individual	healthy
+cat2010	female	0.651	42.4681875	individual	healthy
+cat2010	female	0.651	44.9904375	individual	healthy
+cat2010	female	0.652	40.2615	individual	healthy
+cat2010	female	0.653	32.5771875	individual	healthy
+cat2010	female	0.653	38.7965625	individual	healthy
+cat2010	female	0.653	48.555	individual	healthy
+cat2010	female	0.655	49.878	individual	healthy
+cat2010	female	0.657	46.622625	individual	healthy
+cat2010	female	0.659	40.391625	individual	healthy
+cat2010	female	0.659	70.762125	individual	healthy
+cat2010	female	0.662	37.6089375	individual	healthy
+cat2010	female	0.663	39.87825	individual	healthy
+cat2010	female	0.665	52.951875	individual	healthy
+cat2010	female	0.666	50.436	individual	healthy
+cat2010	female	0.67	47.5254375	individual	healthy
+cat2010	female	0.673	44.00925	individual	healthy
+cat2010	female	0.677	41.0203125	individual	healthy
+cat2010	female	0.677	52.946625	individual	healthy
+cat2010	female	0.678	47.991375	individual	healthy
+cat2010	female	0.685	32.3026875	individual	healthy
+cat2010	female	0.685	45.7498125	individual	healthy
+cat2010	female	0.686	42.8593125	individual	healthy
+cat2010	female	0.688	49.1439375	individual	healthy
+cat2010	female	0.688	53.9128125	individual	healthy
+cat2010	female	0.689	61.6914375	individual	healthy
+cat2010	female	0.69	34.14525	individual	healthy
+cat2010	female	0.69	35.7585	individual	healthy
+cat2010	female	0.691	47.979	individual	healthy
+cat2010	female	0.692	99.353625	individual	healthy
+cat2010	female	0.695	38.1290625	individual	healthy
+cat2010	female	0.695	41.076375	individual	healthy
+cat2010	female	0.696	28.75875	individual	healthy
+cat2010	female	0.696	32.4804375	individual	healthy
+cat2010	female	0.696	47.8490625	individual	healthy
+cat2010	female	0.697	35.7110625	individual	healthy
+cat2010	female	0.697	46.221375	individual	healthy
+cat2010	female	0.699	29.0896875	individual	healthy
+cat2010	female	0.699	42.2045625	individual	healthy
+cat2010	female	0.699	43.601625	individual	healthy
+cat2010	female	0.701	35.8558125	individual	healthy
+cat2010	female	0.701	47.07	individual	healthy
+cat2010	female	0.701	50.6458125	individual	healthy
+cat2010	female	0.701	52.56825	individual	healthy
+cat2010	female	0.702	30.6615	individual	healthy
+cat2010	female	0.703	32.9956875	individual	healthy
+cat2010	female	0.703	41.13075	individual	healthy
+cat2010	female	0.705	40.810125	individual	healthy
+cat2010	female	0.706	46.6580625	individual	healthy
+cat2010	female	0.707	32.3011875	individual	healthy
+cat2010	female	0.708	33.1614375	individual	healthy
+cat2010	female	0.709	31.13175	individual	healthy
+cat2010	female	0.711	36.169125	individual	healthy
+cat2010	female	0.712	37.5410625	individual	healthy
+cat2010	female	0.713	44.6458125	individual	healthy
+cat2010	female	0.714	32.9090625	individual	healthy
+cat2010	female	0.714	44.18625	individual	healthy
+cat2010	female	0.714	59.90025	individual	healthy
+cat2010	female	0.717	37.881375	individual	healthy
+cat2010	female	0.717	39.4183125	individual	healthy
+cat2010	female	0.719	31.0869375	individual	healthy
+cat2010	female	0.72	44.0805	individual	healthy
+cat2010	female	0.723	36.7948125	individual	healthy
+cat2010	female	0.727	30.9823125	individual	healthy
+cat2010	female	0.727	51.4005	individual	healthy
+cat2010	female	0.728	30.7513125	individual	healthy
+cat2010	female	0.73	37.5538125	individual	healthy
+cat2010	female	0.734	30.9165	individual	healthy
+cat2010	female	0.734	44.735625	individual	healthy
+cat2010	female	0.735	37.9539375	individual	healthy
+cat2010	female	0.735	40.2590625	individual	healthy
+cat2010	female	0.735	43.2256875	individual	healthy
+cat2010	female	0.738	36.142125	individual	healthy
+cat2010	female	0.738	43.8031875	individual	healthy
+cat2010	female	0.739	40.04325	individual	healthy
+cat2010	female	0.743	36.2623125	individual	healthy
+cat2010	female	0.744	33.72825	individual	healthy
+cat2010	female	0.744	49.5943125	individual	healthy
+cat2010	female	0.747	35.088375	individual	healthy
+cat2010	female	0.747	38.4615	individual	healthy
+cat2010	female	0.749	26.3525625	individual	healthy
+cat2010	female	0.751	40.3876875	individual	healthy
+cat2010	female	0.752	34.2459375	individual	healthy
+cat2010	female	0.752	38.7208125	individual	healthy
+cat2010	female	0.754	45.7179375	individual	healthy
+cat2010	female	0.759	49.051125	individual	healthy
+cat2010	female	0.76	30.839625	individual	healthy
+cat2010	female	0.761	38.513625	individual	healthy
+cat2010	female	0.761	45.3105	individual	healthy
+cat2010	female	0.761	45.4460625	individual	healthy
+cat2010	female	0.762	45.546375	individual	healthy
+cat2010	female	0.762	45.970875	individual	healthy
+cat2010	female	0.769	28.9914375	individual	healthy
+cat2010	female	0.769	43.048875	individual	healthy
+cat2010	female	0.77	26.9445	individual	healthy
+cat2010	female	0.77	42.0361875	individual	healthy
+cat2010	female	0.771	38.40675	individual	healthy
+cat2010	female	0.771	43.5789375	individual	healthy
+cat2010	female	0.771	48.18375	individual	healthy
+cat2010	female	0.772	36.216375	individual	healthy
+cat2010	female	0.773	37.1203125	individual	healthy
+cat2010	female	0.773	43.9965	individual	healthy
+cat2010	female	0.774	32.288625	individual	healthy
+cat2010	female	0.775	42.264375	individual	healthy
+cat2010	female	0.776	34.5755625	individual	healthy
+cat2010	female	0.776	42.50325	individual	healthy
+cat2010	female	0.777	29.67075	individual	healthy
+cat2010	female	0.777	36.645375	individual	healthy
+cat2010	female	0.779	48.5998125	individual	healthy
+cat2010	female	0.78	30.603	individual	healthy
+cat2010	female	0.781	35.2858125	individual	healthy
+cat2010	female	0.782	39.8855625	individual	healthy
+cat2010	female	0.783	32.9098125	individual	healthy
+cat2010	female	0.785	57.1531875	individual	healthy
+cat2010	female	0.786	38.2670625	individual	healthy
+cat2010	female	0.787	33.123375	individual	healthy
+cat2010	female	0.788	39.4265625	individual	healthy
+cat2010	female	0.788	50.3955	individual	healthy
+cat2010	female	0.789	33.9564375	individual	healthy
+cat2010	female	0.789	45.344625	individual	healthy
+cat2010	female	0.791	42.8085	individual	healthy
+cat2010	female	0.792	31.6381875	individual	healthy
+cat2010	female	0.792	40.7844375	individual	healthy
+cat2010	female	0.793	30.7245	individual	healthy
+cat2010	female	0.793	36.167625	individual	healthy
+cat2010	female	0.797	36.0309375	individual	healthy
+cat2010	female	0.798	33.7059375	individual	healthy
+cat2010	female	0.799	37.16025	individual	healthy
+cat2010	female	0.799	48.7299375	individual	healthy
+cat2010	female	0.801	32.58825	individual	healthy
+cat2010	female	0.802	30.82275	individual	healthy
+cat2010	female	0.802	35.4598125	individual	healthy
+cat2010	female	0.804	30.64875	individual	healthy
+cat2010	female	0.804	38.78325	individual	healthy
+cat2010	female	0.805	41.4765	individual	healthy
+cat2010	female	0.807	34.923	individual	healthy
+cat2010	female	0.807	45.108375	individual	healthy
+cat2010	female	0.808	41.75475	individual	healthy
+cat2010	female	0.809	34.8673125	individual	healthy
+cat2010	female	0.81	31.5054375	individual	healthy
+cat2010	female	0.81	33.234375	individual	healthy
+cat2010	female	0.81	35.0011875	individual	healthy
+cat2010	female	0.811	31.8774375	individual	healthy
+cat2010	female	0.815	36.520875	individual	healthy
+cat2010	female	0.815	37.6790625	individual	healthy
+cat2010	female	0.816	32.6379375	individual	healthy
+cat2010	female	0.817	34.35825	individual	healthy
+cat2010	female	0.821	25.447125	individual	healthy
+cat2010	female	0.825	32.5569375	individual	healthy
+cat2010	female	0.825	37.6224375	individual	healthy
+cat2010	female	0.826	44.6184375	individual	healthy
+cat2010	female	0.827	43.15875	individual	healthy
+cat2010	female	0.828	37.8508125	individual	healthy
+cat2010	female	0.828	42.195375	individual	healthy
+cat2010	female	0.828	43.4630625	individual	healthy
+cat2010	female	0.83	38.010375	individual	healthy
+cat2010	female	0.831	49.7235	individual	healthy
+cat2010	female	0.833	31.008375	individual	healthy
+cat2010	female	0.834	33.7625625	individual	healthy
+cat2010	female	0.834	35.7339375	individual	healthy
+cat2010	female	0.836	42.295875	individual	healthy
+cat2010	female	0.837	26.0544375	individual	healthy
+cat2010	female	0.837	32.0919375	individual	healthy
+cat2010	female	0.837	43.5005625	individual	healthy
+cat2010	female	0.838	47.1800625	individual	healthy
+cat2010	female	0.839	33.5595	individual	healthy
+cat2010	female	0.84	31.472625	individual	healthy
+cat2010	female	0.842	33.26625	individual	healthy
+cat2010	female	0.843	39.6613125	individual	healthy
+cat2010	female	0.845	43.6438125	individual	healthy
+cat2010	female	0.846	44.658	individual	healthy
+cat2010	female	0.848	35.2318125	individual	healthy
+cat2010	female	0.849	30.3624375	individual	healthy
+cat2010	female	0.85	43.9051875	individual	healthy
+cat2010	female	0.852	38.3895	individual	healthy
+cat2010	female	0.853	28.4176875	individual	healthy
+cat2010	female	0.853	35.22525	individual	healthy
+cat2010	female	0.854	36.0339375	individual	healthy
+cat2010	female	0.855	39.7873125	individual	healthy
+cat2010	female	0.858	35.3589375	individual	healthy
+cat2010	female	0.86	47.3518125	individual	healthy
+cat2010	female	0.863	41.3698125	individual	healthy
+cat2010	female	0.864	27.8323125	individual	healthy
+cat2010	female	0.866	60.8581875	individual	healthy
+cat2010	female	0.869	36.230625	individual	healthy
+cat2010	female	0.87	45.534375	individual	healthy
+cat2010	female	0.871	33.612375	individual	healthy
+cat2010	female	0.872	40.671	individual	healthy
+cat2010	female	0.874	33.048375	individual	healthy
+cat2010	female	0.874	49.966125	individual	healthy
+cat2010	female	0.876	24.2218125	individual	healthy
+cat2010	female	0.877	31.971375	individual	healthy
+cat2010	female	0.878	37.6816875	individual	healthy
+cat2010	female	0.878	51.422625	individual	healthy
+cat2010	female	0.879	41.334	individual	healthy
+cat2010	female	0.88	34.5230625	individual	healthy
+cat2010	female	0.881	32.2425	individual	healthy
+cat2010	female	0.881	44.73375	individual	healthy
+cat2010	female	0.882	34.73475	individual	healthy
+cat2010	female	0.884	32.80275	individual	healthy
+cat2010	female	0.884	43.14525	individual	healthy
+cat2010	female	0.886	36.08025	individual	healthy
+cat2010	female	0.886	46.6839375	individual	healthy
+cat2010	female	0.889	22.752375	individual	healthy
+cat2010	female	0.89	37.851	individual	healthy
+cat2010	female	0.89	54.7228125	individual	healthy
+cat2010	female	0.893	31.90125	individual	healthy
+cat2010	female	0.893	35.097375	individual	healthy
+cat2010	female	0.894	43.0749375	individual	healthy
+cat2010	female	0.903	31.129875	individual	healthy
+cat2010	female	0.904	33.700125	individual	healthy
+cat2010	female	0.905	28.206	individual	healthy
+cat2010	female	0.905	33.4535625	individual	healthy
+cat2010	female	0.905	33.961125	individual	healthy
+cat2010	female	0.906	42.75675	individual	healthy
+cat2010	female	0.909	23.4298125	individual	healthy
+cat2010	female	0.909	30.73575	individual	healthy
+cat2010	female	0.911	43.1525625	individual	healthy
+cat2010	female	0.912	30.003	individual	healthy
+cat2010	female	0.913	27.913875	individual	healthy
+cat2010	female	0.913	32.509875	individual	healthy
+cat2010	female	0.915	34.61475	individual	healthy
+cat2010	female	0.918	23.578125	individual	healthy
+cat2010	female	0.918	38.96625	individual	healthy
+cat2010	female	0.918	42.8240625	individual	healthy
+cat2010	female	0.922	27.5604375	individual	healthy
+cat2010	female	0.922	31.137375	individual	healthy
+cat2010	female	0.922	39.96225	individual	healthy
+cat2010	female	0.922	43.0055625	individual	healthy
+cat2010	female	0.923	31.9753125	individual	healthy
+cat2010	female	0.923	36.881625	individual	healthy
+cat2010	female	0.925	36.436875	individual	healthy
+cat2010	female	0.927	45.0605625	individual	healthy
+cat2010	female	0.928	39.235875	individual	healthy
+cat2010	female	0.93	39.021375	individual	healthy
+cat2010	female	0.93	41.1493125	individual	healthy
+cat2010	female	0.931	28.9659375	individual	healthy
+cat2010	female	0.932	31.8399375	individual	healthy
+cat2010	female	0.934	26.01225	individual	healthy
+cat2010	female	0.934	32.303625	individual	healthy
+cat2010	female	0.936	32.4285	individual	healthy
+cat2010	female	0.936	32.5396875	individual	healthy
+cat2010	female	0.937	28.0415625	individual	healthy
+cat2010	female	0.937	47.0083125	individual	healthy
+cat2010	female	0.938	37.263	individual	healthy
+cat2010	female	0.94	36.37275	individual	healthy
+cat2010	female	0.94	37.1776875	individual	healthy
+cat2010	female	0.948	29.3919375	individual	healthy
+cat2010	female	0.948	34.2939375	individual	healthy
+cat2010	female	0.949	36.33975	individual	healthy
+cat2010	female	0.95	34.483125	individual	healthy
+cat2010	female	0.95	37.6695	individual	healthy
+cat2010	female	0.951	26.2779375	individual	healthy
+cat2010	female	0.951	34.309875	individual	healthy
+cat2010	female	0.954	30.9200625	individual	healthy
+cat2010	female	0.954	31.41525	individual	healthy
+cat2010	female	0.956	23.150625	individual	healthy
+cat2010	female	0.956	36.871875	individual	healthy
+cat2010	female	0.956	44.9518125	individual	healthy
+cat2010	female	0.957	34.6546875	individual	healthy
+cat2010	female	0.959	30.6165	individual	healthy
+cat2010	female	0.959	35.4838125	individual	healthy
+cat2010	female	0.961	24.5595	individual	healthy
+cat2010	female	0.962	22.0149375	individual	healthy
+cat2010	female	0.964	43.272	individual	healthy
+cat2010	female	0.968	27.73725	individual	healthy
+cat2010	female	0.968	29.492625	individual	healthy
+cat2010	female	0.968	38.949375	individual	healthy
+cat2010	female	0.969	18.81825	individual	healthy
+cat2010	female	0.972	35.3385	individual	healthy
+cat2010	female	0.974	30.779625	individual	healthy
+cat2010	female	0.974	46.3021875	individual	healthy
+cat2010	female	0.976	27.8325	individual	healthy
+cat2010	female	0.977	31.1015625	individual	healthy
+cat2010	female	0.979	29.71875	individual	healthy
+cat2010	female	0.98	36.11325	individual	healthy
+cat2010	female	0.985	27.0590625	individual	healthy
+cat2010	female	0.987	34.358625	individual	healthy
+cat2010	female	0.988	28.6093125	individual	healthy
+cat2010	female	0.988	47.698875	individual	healthy
+cat2010	female	0.99	45.6223125	individual	healthy
+cat2010	female	0.991	38.9311875	individual	healthy
+cat2010	female	0.993	30.0943125	individual	healthy
+cat2010	female	0.994	40.6520625	individual	healthy
+cat2010	female	0.996	29.637375	individual	healthy
+cat2010	female	0.998	33.362625	individual	healthy
+cat2010	female	1	39.012	individual	healthy
+cat2010	female	1	42.509625	individual	healthy
+cat2010	female	1.001	32.8059375	individual	healthy
+cat2010	female	1.002	27.271875	individual	healthy
+cat2010	female	1.002	37.114125	individual	healthy
+cat2010	female	1.006	29.9878125	individual	healthy
+cat2010	female	1.006	34.2444375	individual	healthy
+cat2010	female	1.007	27.888	individual	healthy
+cat2010	female	1.008	25.34925	individual	healthy
+cat2010	female	1.009	22.721625	individual	healthy
+cat2010	female	1.01	29.26125	individual	healthy
+cat2010	female	1.01	30.015375	individual	healthy
+cat2010	female	1.01	33.05325	individual	healthy
+cat2010	female	1.014	30.47925	individual	healthy
+cat2010	female	1.016	31.5106875	individual	healthy
+cat2010	female	1.016	48.9523125	individual	healthy
+cat2010	female	1.021	29.474625	individual	healthy
+cat2010	female	1.022	26.28075	individual	healthy
+cat2010	female	1.023	40.44225	individual	healthy
+cat2010	female	1.026	29.639625	individual	healthy
+cat2010	female	1.026	33.810375	individual	healthy
+cat2010	female	1.03	32.2453125	individual	healthy
+cat2010	female	1.03	40.3275	individual	healthy
+cat2010	female	1.031	24.064875	individual	healthy
+cat2010	female	1.033	39.128625	individual	healthy
+cat2010	female	1.035	34.8395625	individual	healthy
+cat2010	female	1.035	47.781	individual	healthy
+cat2010	female	1.041	29.54325	individual	healthy
+cat2010	female	1.041	33.5761875	individual	healthy
+cat2010	female	1.041	39.3920625	individual	healthy
+cat2010	female	1.044	63.1340625	individual	healthy
+cat2010	female	1.046	34.565625	individual	healthy
+cat2010	female	1.047	33.4695	individual	healthy
+cat2010	female	1.053	24.1275	individual	healthy
+cat2010	female	1.053	35.70825	individual	healthy
+cat2010	female	1.055	28.11975	individual	healthy
+cat2010	female	1.057	22.349625	individual	healthy
+cat2010	female	1.058	31.153125	individual	healthy
+cat2010	female	1.061	32.97975	individual	healthy
+cat2010	female	1.061	44.73525	individual	healthy
+cat2010	female	1.062	30.94125	individual	healthy
+cat2010	female	1.062	32.2284375	individual	healthy
+cat2010	female	1.074	25.5635625	individual	healthy
+cat2010	female	1.077	30.6301875	individual	healthy
+cat2010	female	1.078	28.3231875	individual	healthy
+cat2010	female	1.078	46.784625	individual	healthy
+cat2010	female	1.084	41.196375	individual	healthy
+cat2010	female	1.085	31.5264375	individual	healthy
+cat2010	female	1.085	45.741	individual	healthy
+cat2010	female	1.09	28.747875	individual	healthy
+cat2010	female	1.09	29.38275	individual	healthy
+cat2010	female	1.091	26.706	individual	healthy
+cat2010	female	1.091	33.065625	individual	healthy
+cat2010	female	1.093	26.837625	individual	healthy
+cat2010	female	1.096	37.0051875	individual	healthy
+cat2010	female	1.096	42.562875	individual	healthy
+cat2010	female	1.098	30.3320625	individual	healthy
+cat2010	female	1.099	31.0078125	individual	healthy
+cat2010	female	1.102	29.7688125	individual	healthy
+cat2010	female	1.103	29.32425	individual	healthy
+cat2010	female	1.11	35.5284375	individual	healthy
+cat2010	female	1.11	41.5363125	individual	healthy
+cat2010	female	1.113	28.1295	individual	healthy
+cat2010	female	1.12	33.458625	individual	healthy
+cat2010	female	1.121	28.89975	individual	healthy
+cat2010	female	1.121	31.04925	individual	healthy
+cat2010	female	1.122	28.1225625	individual	healthy
+cat2010	female	1.124	32.9649375	individual	healthy
+cat2010	female	1.124	34.1484375	individual	healthy
+cat2010	female	1.126	31.4563125	individual	healthy
+cat2010	female	1.128	30.957375	individual	healthy
+cat2010	female	1.129	28.27275	individual	healthy
+cat2010	female	1.131	31.8924375	individual	healthy
+cat2010	female	1.132	33.7089375	individual	healthy
+cat2010	female	1.133	39.700125	individual	healthy
+cat2010	female	1.142	29.575125	individual	healthy
+cat2010	female	1.15	24.7468125	individual	healthy
+cat2010	female	1.154	19.407	individual	healthy
+cat2010	female	1.155	25.8721875	individual	healthy
+cat2010	female	1.156	28.521	individual	healthy
+cat2010	female	1.156	29.94975	individual	healthy
+cat2010	female	1.161	28.02825	individual	healthy
+cat2010	female	1.161	28.0348125	individual	healthy
+cat2010	female	1.163	25.29825	individual	healthy
+cat2010	female	1.164	25.3115625	individual	healthy
+cat2010	female	1.165	30.1055625	individual	healthy
+cat2010	female	1.165	34.69125	individual	healthy
+cat2010	female	1.168	21.3590625	individual	healthy
+cat2010	female	1.169	35.385	individual	healthy
+cat2010	female	1.174	19.2905625	individual	healthy
+cat2010	female	1.174	32.0484375	individual	healthy
+cat2010	female	1.174	37.9183125	individual	healthy
+cat2010	female	1.177	24.4786875	individual	healthy
+cat2010	female	1.178	22.6276875	individual	healthy
+cat2010	female	1.178	33.4445625	individual	healthy
+cat2010	female	1.181	25.449	individual	healthy
+cat2010	female	1.187	29.297625	individual	healthy
+cat2010	female	1.188	31.9906875	individual	healthy
+cat2010	female	1.191	29.8089375	individual	healthy
+cat2010	female	1.194	26.260875	individual	healthy
+cat2010	female	1.196	33.243	individual	healthy
+cat2010	female	1.197	29.52225	individual	healthy
+cat2010	female	1.199	30.603	individual	healthy
+cat2010	female	1.199	37.5541875	individual	healthy
+cat2010	female	1.2	34.840125	individual	healthy
+cat2010	female	1.204	24.619875	individual	healthy
+cat2010	female	1.206	27.501375	individual	healthy
+cat2010	female	1.206	29.195625	individual	healthy
+cat2010	female	1.206	42.3511875	individual	healthy
+cat2010	female	1.215	42.5319375	individual	healthy
+cat2010	female	1.218	33.8008125	individual	healthy
+cat2010	female	1.224	39.751875	individual	healthy
+cat2010	female	1.224	52.6995	individual	healthy
+cat2010	female	1.225	34.751625	individual	healthy
+cat2010	female	1.227	17.1225	individual	healthy
+cat2010	female	1.227	19.7255625	individual	healthy
+cat2010	female	1.227	27.474	individual	healthy
+cat2010	female	1.227	28.3374375	individual	healthy
+cat2010	female	1.231	28.9153125	individual	healthy
+cat2010	female	1.231	35.6773125	individual	healthy
+cat2010	female	1.234	36.6553125	individual	healthy
+cat2010	female	1.236	42.5175	individual	healthy
+cat2010	female	1.237	28.3299375	individual	healthy
+cat2010	female	1.239	23.248875	individual	healthy
+cat2010	female	1.239	26.48625	individual	healthy
+cat2010	female	1.239	31.917375	individual	healthy
+cat2010	female	1.24	22.6910625	individual	healthy
+cat2010	female	1.241	23.473125	individual	healthy
+cat2010	female	1.243	39.8480625	individual	healthy
+cat2010	female	1.25	30.1831875	individual	healthy
+cat2010	female	1.256	18.320625	individual	healthy
+cat2010	female	1.258	33.3106875	individual	healthy
+cat2010	female	1.261	25.8736875	individual	healthy
+cat2010	female	1.265	24.791625	individual	healthy
+cat2010	female	1.265	29.0385	individual	healthy
+cat2010	female	1.27	27.7554375	individual	healthy
+cat2010	female	1.271	23.3210625	individual	healthy
+cat2010	female	1.271	25.0779375	individual	healthy
+cat2010	female	1.278	24.4370625	individual	healthy
+cat2010	female	1.278	29.7751875	individual	healthy
+cat2010	female	1.28	28.1679375	individual	healthy
+cat2010	female	1.282	27.399	individual	healthy
+cat2010	female	1.282	27.8401875	individual	healthy
+cat2010	female	1.286	28.2189375	individual	healthy
+cat2010	female	1.29	25.7004375	individual	healthy
+cat2010	female	1.294	21.3105	individual	healthy
+cat2010	female	1.294	25.810875	individual	healthy
+cat2010	female	1.294	30.946125	individual	healthy
+cat2010	female	1.296	25.009125	individual	healthy
+cat2010	female	1.302	28.5315	individual	healthy
+cat2010	female	1.303	28.021875	individual	healthy
+cat2010	female	1.306	24.0695625	individual	healthy
+cat2010	female	1.306	30.256875	individual	healthy
+cat2010	female	1.31	19.555125	individual	healthy
+cat2010	female	1.31	28.8065625	individual	healthy
+cat2010	female	1.316	38.419125	individual	healthy
+cat2010	female	1.318	30.723	individual	healthy
+cat2010	female	1.322	26.71275	individual	healthy
+cat2010	female	1.323	29.498625	individual	healthy
+cat2010	female	1.324	31.0651875	individual	healthy
+cat2010	female	1.328	29.418375	individual	healthy
+cat2010	female	1.329	35.0064375	individual	healthy
+cat2010	female	1.329	35.7605625	individual	healthy
+cat2010	female	1.331	21.8825625	individual	healthy
+cat2010	female	1.339	27.4605	individual	healthy
+cat2010	female	1.341	27.9425625	individual	healthy
+cat2010	female	1.344	28.366875	individual	healthy
+cat2010	female	1.346	18.31875	individual	healthy
+cat2010	female	1.354	21.1528125	individual	healthy
+cat2010	female	1.367	27.0211875	individual	healthy
+cat2010	female	1.37	29.562375	individual	healthy
+cat2010	female	1.377	40.95075	individual	healthy
+cat2010	female	1.383	26.7075	individual	healthy
+cat2010	female	1.386	43.2939375	individual	healthy
+cat2010	female	1.391	26.53575	individual	healthy
+cat2010	female	1.401	30.1925625	individual	healthy
+cat2010	female	1.404	23.40975	individual	healthy
+cat2010	female	1.406	24.6976875	individual	healthy
+cat2010	female	1.406	26.7035625	individual	healthy
+cat2010	female	1.417	24.65475	individual	healthy
+cat2010	female	1.421	27.704625	individual	healthy
+cat2010	female	1.429	28.4985	individual	healthy
+cat2010	female	1.442	21.856875	individual	healthy
+cat2010	female	1.445	24.8595	individual	healthy
+cat2010	female	1.446	35.832375	individual	healthy
+cat2010	female	1.45	29.6191875	individual	healthy
+cat2010	female	1.488	18.3845625	individual	healthy
+cat2010	female	1.494	25.097625	individual	healthy
+cat2010	female	1.519	31.0974375	individual	healthy
+cat2010	female	1.522	20.8531875	individual	healthy
+cat2010	female	1.535	20.4324375	individual	healthy
+cat2010	female	1.543	27.0530625	individual	healthy
+cat2010	female	1.58	24.9440625	individual	healthy
+cat2010	female	1.586	24.310125	individual	healthy
+cat2010	female	1.59	23.0655	individual	healthy
+cat2010	female	1.62	29.8348125	individual	healthy
+cat2010	female	1.683	20.1673125	individual	healthy
+cat2010	female	1.731	23.584125	individual	healthy
+cat2010	female	1.738	24.87375	individual	healthy
+cat2010	male	0.41	42.3605625	individual	healthy
+cat2010	male	0.454	41.75775	individual	healthy
+cat2010	male	0.465	43.0194375	individual	healthy
+cat2010	male	0.481	33.1771875	individual	healthy
+cat2010	male	0.481	48.108375	individual	healthy
+cat2010	male	0.512	49.216125	individual	healthy
+cat2010	male	0.516	46.3490625	individual	healthy
+cat2010	male	0.529	45.195	individual	healthy
+cat2010	male	0.542	50.528625	individual	healthy
+cat2010	male	0.544	43.0250625	individual	healthy
+cat2010	male	0.546	40.8455625	individual	healthy
+cat2010	male	0.548	38.3715	individual	healthy
+cat2010	male	0.548	48.1711875	individual	healthy
+cat2010	male	0.554	47.8936875	individual	healthy
+cat2010	male	0.567	37.3918125	individual	healthy
+cat2010	male	0.568	39.48	individual	healthy
+cat2010	male	0.569	43.2560625	individual	healthy
+cat2010	male	0.572	49.3989375	individual	healthy
+cat2010	male	0.579	44.419125	individual	healthy
+cat2010	male	0.585	52.460625	individual	healthy
+cat2010	male	0.592	32.1984375	individual	healthy
+cat2010	male	0.594	34.101375	individual	healthy
+cat2010	male	0.598	54.910125	individual	healthy
+cat2010	male	0.602	40.7416875	individual	healthy
+cat2010	male	0.604	46.4866875	individual	healthy
+cat2010	male	0.604	49.5016875	individual	healthy
+cat2010	male	0.605	32.0420625	individual	healthy
+cat2010	male	0.621	55.7638125	individual	healthy
+cat2010	male	0.627	39.82725	individual	healthy
+cat2010	male	0.628	56.1178125	individual	healthy
+cat2010	male	0.63	42.6264375	individual	healthy
+cat2010	male	0.63	48.94275	individual	healthy
+cat2010	male	0.635	40.011375	individual	healthy
+cat2010	male	0.638	54.7213125	individual	healthy
+cat2010	male	0.64	29.953125	individual	healthy
+cat2010	male	0.64	53.1991875	individual	healthy
+cat2010	male	0.643	38.455875	individual	healthy
+cat2010	male	0.646	44.8393125	individual	healthy
+cat2010	male	0.651	50.3491875	individual	healthy
+cat2010	male	0.652	53.4103125	individual	healthy
+cat2010	male	0.652	58.77075	individual	healthy
+cat2010	male	0.654	53.0293125	individual	healthy
+cat2010	male	0.658	50.0851875	individual	healthy
+cat2010	male	0.66	32.944125	individual	healthy
+cat2010	male	0.663	44.2989375	individual	healthy
+cat2010	male	0.665	49.1881875	individual	healthy
+cat2010	male	0.67	36.295875	individual	healthy
+cat2010	male	0.673	42.4411875	individual	healthy
+cat2010	male	0.675	37.51425	individual	healthy
+cat2010	male	0.676	32.3836875	individual	healthy
+cat2010	male	0.676	36.1160625	individual	healthy
+cat2010	male	0.676	37.3074375	individual	healthy
+cat2010	male	0.677	32.4508125	individual	healthy
+cat2010	male	0.679	46.395375	individual	healthy
+cat2010	male	0.68	50.041875	individual	healthy
+cat2010	male	0.681	35.6900625	individual	healthy
+cat2010	male	0.681	52.2009375	individual	healthy
+cat2010	male	0.682	41.7920625	individual	healthy
+cat2010	male	0.682	42.7995	individual	healthy
+cat2010	male	0.684	39.548625	individual	healthy
+cat2010	male	0.684	40.791	individual	healthy
+cat2010	male	0.685	38.75475	individual	healthy
+cat2010	male	0.685	53.728875	individual	healthy
+cat2010	male	0.686	41.121375	individual	healthy
+cat2010	male	0.687	38.0090625	individual	healthy
+cat2010	male	0.687	50.2051875	individual	healthy
+cat2010	male	0.688	51.03525	individual	healthy
+cat2010	male	0.689	54.9264375	individual	healthy
+cat2010	male	0.692	42.211125	individual	healthy
+cat2010	male	0.692	49.171125	individual	healthy
+cat2010	male	0.692	49.7985	individual	healthy
+cat2010	male	0.693	42.9451875	individual	healthy
+cat2010	male	0.694	39.9703125	individual	healthy
+cat2010	male	0.695	36.507375	individual	healthy
+cat2010	male	0.695	48.5716875	individual	healthy
+cat2010	male	0.696	53.3131875	individual	healthy
+cat2010	male	0.697	32.7395625	individual	healthy
+cat2010	male	0.699	31.2309375	individual	healthy
+cat2010	male	0.699	51.1464375	individual	healthy
+cat2010	male	0.701	38.446875	individual	healthy
+cat2010	male	0.701	38.545875	individual	healthy
+cat2010	male	0.702	32.2588125	individual	healthy
+cat2010	male	0.702	37.4173125	individual	healthy
+cat2010	male	0.702	38.3004375	individual	healthy
+cat2010	male	0.702	45.3339375	individual	healthy
+cat2010	male	0.706	38.675625	individual	healthy
+cat2010	male	0.706	46.18725	individual	healthy
+cat2010	male	0.706	47.9415	individual	healthy
+cat2010	male	0.707	40.573875	individual	healthy
+cat2010	male	0.707	53.8951875	individual	healthy
+cat2010	male	0.708	34.61175	individual	healthy
+cat2010	male	0.711	30.472125	individual	healthy
+cat2010	male	0.711	44.7905625	individual	healthy
+cat2010	male	0.712	34.9681875	individual	healthy
+cat2010	male	0.712	37.8290625	individual	healthy
+cat2010	male	0.712	39.4220625	individual	healthy
+cat2010	male	0.712	47.5610625	individual	healthy
+cat2010	male	0.713	44.20425	individual	healthy
+cat2010	male	0.715	43.053375	individual	healthy
+cat2010	male	0.716	41.578875	individual	healthy
+cat2010	male	0.716	49.377375	individual	healthy
+cat2010	male	0.717	32.85825	individual	healthy
+cat2010	male	0.718	27.882	individual	healthy
+cat2010	male	0.718	45.7839375	individual	healthy
+cat2010	male	0.719	38.6285625	individual	healthy
+cat2010	male	0.72	45.8383125	individual	healthy
+cat2010	male	0.722	47.229	individual	healthy
+cat2010	male	0.724	32.1043125	individual	healthy
+cat2010	male	0.725	36.1141875	individual	healthy
+cat2010	male	0.725	37.1401875	individual	healthy
+cat2010	male	0.725	39.6999375	individual	healthy
+cat2010	male	0.727	42.8836875	individual	healthy
+cat2010	male	0.727	43.89525	individual	healthy
+cat2010	male	0.728	35.8333125	individual	healthy
+cat2010	male	0.729	39.20775	individual	healthy
+cat2010	male	0.73	39.7648125	individual	healthy
+cat2010	male	0.732	48.0795	individual	healthy
+cat2010	male	0.733	30.574125	individual	healthy
+cat2010	male	0.733	36.1471875	individual	healthy
+cat2010	male	0.733	63.9654375	individual	healthy
+cat2010	male	0.734	29.406375	individual	healthy
+cat2010	male	0.734	43.7775	individual	healthy
+cat2010	male	0.734	53.2933125	individual	healthy
+cat2010	male	0.734	59.190375	individual	healthy
+cat2010	male	0.736	35.942625	individual	healthy
+cat2010	male	0.737	33.6294375	individual	healthy
+cat2010	male	0.737	36.74775	individual	healthy
+cat2010	male	0.738	38.8250625	individual	healthy
+cat2010	male	0.739	34.5585	individual	healthy
+cat2010	male	0.739	37.47225	individual	healthy
+cat2010	male	0.74	34.8721875	individual	healthy
+cat2010	male	0.74	39.6165	individual	healthy
+cat2010	male	0.742	35.572875	individual	healthy
+cat2010	male	0.742	35.9581875	individual	healthy
+cat2010	male	0.742	38.6386875	individual	healthy
+cat2010	male	0.742	39.7100625	individual	healthy
+cat2010	male	0.743	34.0730625	individual	healthy
+cat2010	male	0.744	41.70675	individual	healthy
+cat2010	male	0.746	50.55	individual	healthy
+cat2010	male	0.747	39.0211875	individual	healthy
+cat2010	male	0.747	39.9845625	individual	healthy
+cat2010	male	0.752	34.0723125	individual	healthy
+cat2010	male	0.752	37.231125	individual	healthy
+cat2010	male	0.752	46.581	individual	healthy
+cat2010	male	0.752	47.81625	individual	healthy
+cat2010	male	0.753	30.696375	individual	healthy
+cat2010	male	0.755	36.1449375	individual	healthy
+cat2010	male	0.755	44.263875	individual	healthy
+cat2010	male	0.756	23.8235625	individual	healthy
+cat2010	male	0.757	31.911375	individual	healthy
+cat2010	male	0.757	38.127	individual	healthy
+cat2010	male	0.757	49.2013125	individual	healthy
+cat2010	male	0.758	35.677125	individual	healthy
+cat2010	male	0.758	41.7075	individual	healthy
+cat2010	male	0.758	51.264375	individual	healthy
+cat2010	male	0.759	40.416	individual	healthy
+cat2010	male	0.76	40.2429375	individual	healthy
+cat2010	male	0.761	31.7855625	individual	healthy
+cat2010	male	0.761	38.874375	individual	healthy
+cat2010	male	0.762	30.916125	individual	healthy
+cat2010	male	0.762	42.6211875	individual	healthy
+cat2010	male	0.762	54.400875	individual	healthy
+cat2010	male	0.763	39.4155	individual	healthy
+cat2010	male	0.764	37.43175	individual	healthy
+cat2010	male	0.765	29.8509375	individual	healthy
+cat2010	male	0.766	42.1696875	individual	healthy
+cat2010	male	0.766	47.464125	individual	healthy
+cat2010	male	0.767	44.9409375	individual	healthy
+cat2010	male	0.771	32.64825	individual	healthy
+cat2010	male	0.772	37.64475	individual	healthy
+cat2010	male	0.772	37.859625	individual	healthy
+cat2010	male	0.772	44.965875	individual	healthy
+cat2010	male	0.773	46.5285	individual	healthy
+cat2010	male	0.773	53.8209375	individual	healthy
+cat2010	male	0.776	34.6291875	individual	healthy
+cat2010	male	0.776	55.6963125	individual	healthy
+cat2010	male	0.777	33.4336875	individual	healthy
+cat2010	male	0.777	35.7211875	individual	healthy
+cat2010	male	0.778	51.07275	individual	healthy
+cat2010	male	0.779	33.0024375	individual	healthy
+cat2010	male	0.779	35.5245	individual	healthy
+cat2010	male	0.779	40.014375	individual	healthy
+cat2010	male	0.78	26.0225625	individual	healthy
+cat2010	male	0.781	44.0885625	individual	healthy
+cat2010	male	0.782	34.0025625	individual	healthy
+cat2010	male	0.785	29.2273125	individual	healthy
+cat2010	male	0.786	39.955125	individual	healthy
+cat2010	male	0.786	49.491	individual	healthy
+cat2010	male	0.787	44.1560625	individual	healthy
+cat2010	male	0.79	60.11625	individual	healthy
+cat2010	male	0.791	31.0524375	individual	healthy
+cat2010	male	0.791	32.8288125	individual	healthy
+cat2010	male	0.792	32.2925625	individual	healthy
+cat2010	male	0.794	39.516	individual	healthy
+cat2010	male	0.797	40.918875	individual	healthy
+cat2010	male	0.797	48.541125	individual	healthy
+cat2010	male	0.798	35.1915	individual	healthy
+cat2010	male	0.798	38.59425	individual	healthy
+cat2010	male	0.799	36.145125	individual	healthy
+cat2010	male	0.803	35.2370625	individual	healthy
+cat2010	male	0.803	37.262625	individual	healthy
+cat2010	male	0.805	32.352375	individual	healthy
+cat2010	male	0.805	40.940625	individual	healthy
+cat2010	male	0.806	27.277875	individual	healthy
+cat2010	male	0.807	38.96625	individual	healthy
+cat2010	male	0.807	42.4959375	individual	healthy
+cat2010	male	0.807	50.9859375	individual	healthy
+cat2010	male	0.809	35.26125	individual	healthy
+cat2010	male	0.809	44.804625	individual	healthy
+cat2010	male	0.81	30.0975	individual	healthy
+cat2010	male	0.811	46.436625	individual	healthy
+cat2010	male	0.812	33.0691875	individual	healthy
+cat2010	male	0.813	40.3074375	individual	healthy
+cat2010	male	0.814	46.3520625	individual	healthy
+cat2010	male	0.816	45.2266875	individual	healthy
+cat2010	male	0.817	31.1116875	individual	healthy
+cat2010	male	0.818	44.364	individual	healthy
+cat2010	male	0.819	27.5679375	individual	healthy
+cat2010	male	0.821	25.40925	individual	healthy
+cat2010	male	0.821	45.016125	individual	healthy
+cat2010	male	0.822	35.6911875	individual	healthy
+cat2010	male	0.823	37.762875	individual	healthy
+cat2010	male	0.824	29.212125	individual	healthy
+cat2010	male	0.824	46.426125	individual	healthy
+cat2010	male	0.826	47.59725	individual	healthy
+cat2010	male	0.828	30.942	individual	healthy
+cat2010	male	0.83	33.1276875	individual	healthy
+cat2010	male	0.83	37.5380625	individual	healthy
+cat2010	male	0.83	40.7000625	individual	healthy
+cat2010	male	0.832	31.2680625	individual	healthy
+cat2010	male	0.833	41.0690625	individual	healthy
+cat2010	male	0.834	24.5754375	individual	healthy
+cat2010	male	0.834	42.7734375	individual	healthy
+cat2010	male	0.835	37.6595625	individual	healthy
+cat2010	male	0.836	43.659375	individual	healthy
+cat2010	male	0.837	57.999	individual	healthy
+cat2010	male	0.839	46.288125	individual	healthy
+cat2010	male	0.842	36.26775	individual	healthy
+cat2010	male	0.843	44.2395	individual	healthy
+cat2010	male	0.844	30.95625	individual	healthy
+cat2010	male	0.844	43.5729375	individual	healthy
+cat2010	male	0.845	27.669	individual	healthy
+cat2010	male	0.847	40.2556875	individual	healthy
+cat2010	male	0.847	42.750375	individual	healthy
+cat2010	male	0.848	31.5301875	individual	healthy
+cat2010	male	0.849	37.5991875	individual	healthy
+cat2010	male	0.849	45.614625	individual	healthy
+cat2010	male	0.851	27.50475	individual	healthy
+cat2010	male	0.851	27.5443125	individual	healthy
+cat2010	male	0.853	29.6866875	individual	healthy
+cat2010	male	0.854	30.8476875	individual	healthy
+cat2010	male	0.855	40.242375	individual	healthy
+cat2010	male	0.856	38.078625	individual	healthy
+cat2010	male	0.856	47.3415	individual	healthy
+cat2010	male	0.856	49.7743125	individual	healthy
+cat2010	male	0.856	51.56025	individual	healthy
+cat2010	male	0.857	40.112625	individual	healthy
+cat2010	male	0.858	38.98125	individual	healthy
+cat2010	male	0.859	28.0561875	individual	healthy
+cat2010	male	0.86	38.565	individual	healthy
+cat2010	male	0.861	41.876625	individual	healthy
+cat2010	male	0.862	35.5216875	individual	healthy
+cat2010	male	0.863	35.088	individual	healthy
+cat2010	male	0.863	40.1161875	individual	healthy
+cat2010	male	0.865	40.9760625	individual	healthy
+cat2010	male	0.866	30.4183125	individual	healthy
+cat2010	male	0.866	33.46875	individual	healthy
+cat2010	male	0.866	36.13575	individual	healthy
+cat2010	male	0.87	40.589625	individual	healthy
+cat2010	male	0.873	32.528625	individual	healthy
+cat2010	male	0.873	35.7343125	individual	healthy
+cat2010	male	0.874	28.3940625	individual	healthy
+cat2010	male	0.874	33.7215	individual	healthy
+cat2010	male	0.876	38.8921875	individual	healthy
+cat2010	male	0.876	40.5369375	individual	healthy
+cat2010	male	0.876	42.574125	individual	healthy
+cat2010	male	0.877	28.6171875	individual	healthy
+cat2010	male	0.878	38.065875	individual	healthy
+cat2010	male	0.88	30.7794375	individual	healthy
+cat2010	male	0.881	47.5003125	individual	healthy
+cat2010	male	0.883	25.4229375	individual	healthy
+cat2010	male	0.884	36.33075	individual	healthy
+cat2010	male	0.885	36.5385	individual	healthy
+cat2010	male	0.886	39.4141875	individual	healthy
+cat2010	male	0.887	28.653	individual	healthy
+cat2010	male	0.887	29.091	individual	healthy
+cat2010	male	0.887	31.0160625	individual	healthy
+cat2010	male	0.887	39.95325	individual	healthy
+cat2010	male	0.889	31.452375	individual	healthy
+cat2010	male	0.889	33.919875	individual	healthy
+cat2010	male	0.89	39.6285	individual	healthy
+cat2010	male	0.891	43.3779375	individual	healthy
+cat2010	male	0.892	34.1919375	individual	healthy
+cat2010	male	0.892	35.8305	individual	healthy
+cat2010	male	0.894	33.669375	individual	healthy
+cat2010	male	0.894	34.35	individual	healthy
+cat2010	male	0.894	42.961875	individual	healthy
+cat2010	male	0.895	29.8018125	individual	healthy
+cat2010	male	0.897	39.9763125	individual	healthy
+cat2010	male	0.9	66.65175	individual	healthy
+cat2010	male	0.901	31.8493125	individual	healthy
+cat2010	male	0.902	30.5623125	individual	healthy
+cat2010	male	0.903	25.4150625	individual	healthy
+cat2010	male	0.903	40.4694375	individual	healthy
+cat2010	male	0.904	30.823125	individual	healthy
+cat2010	male	0.905	29.3180625	individual	healthy
+cat2010	male	0.905	30.196125	individual	healthy
+cat2010	male	0.905	34.873875	individual	healthy
+cat2010	male	0.906	37.244625	individual	healthy
+cat2010	male	0.906	38.4781875	individual	healthy
+cat2010	male	0.907	21.467625	individual	healthy
+cat2010	male	0.907	31.668	individual	healthy
+cat2010	male	0.908	34.948125	individual	healthy
+cat2010	male	0.908	39.4794375	individual	healthy
+cat2010	male	0.909	30.252375	individual	healthy
+cat2010	male	0.909	41.5261875	individual	healthy
+cat2010	male	0.909	45.277875	individual	healthy
+cat2010	male	0.909	49.2155625	individual	healthy
+cat2010	male	0.909	51.324375	individual	healthy
+cat2010	male	0.91	35.92875	individual	healthy
+cat2010	male	0.913	33.579375	individual	healthy
+cat2010	male	0.914	33.1809375	individual	healthy
+cat2010	male	0.915	29.5231875	individual	healthy
+cat2010	male	0.916	27.5385	individual	healthy
+cat2010	male	0.917	35.749875	individual	healthy
+cat2010	male	0.918	31.318125	individual	healthy
+cat2010	male	0.919	29.9510625	individual	healthy
+cat2010	male	0.919	31.899	individual	healthy
+cat2010	male	0.921	31.395	individual	healthy
+cat2010	male	0.921	37.8658125	individual	healthy
+cat2010	male	0.922	30.6305625	individual	healthy
+cat2010	male	0.923	32.6525625	individual	healthy
+cat2010	male	0.928	54.5000625	individual	healthy
+cat2010	male	0.929	28.3820625	individual	healthy
+cat2010	male	0.929	28.5943125	individual	healthy
+cat2010	male	0.929	40.02075	individual	healthy
+cat2010	male	0.93	33.364125	individual	healthy
+cat2010	male	0.931	41.06625	individual	healthy
+cat2010	male	0.932	28.9655625	individual	healthy
+cat2010	male	0.933	28.807875	individual	healthy
+cat2010	male	0.933	45.38325	individual	healthy
+cat2010	male	0.935	25.8860625	individual	healthy
+cat2010	male	0.935	33.9016875	individual	healthy
+cat2010	male	0.935	37.150125	individual	healthy
+cat2010	male	0.936	27.1250625	individual	healthy
+cat2010	male	0.936	38.16225	individual	healthy
+cat2010	male	0.937	27.54525	individual	healthy
+cat2010	male	0.937	36.1423125	individual	healthy
+cat2010	male	0.937	40.0494375	individual	healthy
+cat2010	male	0.937	41.81775	individual	healthy
+cat2010	male	0.937	46.902375	individual	healthy
+cat2010	male	0.938	25.733625	individual	healthy
+cat2010	male	0.938	28.0875	individual	healthy
+cat2010	male	0.942	37.6531875	individual	healthy
+cat2010	male	0.942	40.69725	individual	healthy
+cat2010	male	0.943	30.4224375	individual	healthy
+cat2010	male	0.945	32.161875	individual	healthy
+cat2010	male	0.946	25.1960625	individual	healthy
+cat2010	male	0.946	45.3301875	individual	healthy
+cat2010	male	0.948	39.0373125	individual	healthy
+cat2010	male	0.949	31.5879375	individual	healthy
+cat2010	male	0.949	35.9724375	individual	healthy
+cat2010	male	0.95	32.6775	individual	healthy
+cat2010	male	0.95	33.854625	individual	healthy
+cat2010	male	0.95	40.5255	individual	healthy
+cat2010	male	0.951	28.9846875	individual	healthy
+cat2010	male	0.952	27.576375	individual	healthy
+cat2010	male	0.953	27.3	individual	healthy
+cat2010	male	0.953	28.2429375	individual	healthy
+cat2010	male	0.953	29.669625	individual	healthy
+cat2010	male	0.953	43.146375	individual	healthy
+cat2010	male	0.954	28.293	individual	healthy
+cat2010	male	0.956	30.3568125	individual	healthy
+cat2010	male	0.956	32.239125	individual	healthy
+cat2010	male	0.958	32.7335625	individual	healthy
+cat2010	male	0.958	38.0128125	individual	healthy
+cat2010	male	0.958	44.5899375	individual	healthy
+cat2010	male	0.959	37.9801875	individual	healthy
+cat2010	male	0.961	32.9634375	individual	healthy
+cat2010	male	0.962	30.136125	individual	healthy
+cat2010	male	0.963	34.6185	individual	healthy
+cat2010	male	0.964	26.810625	individual	healthy
+cat2010	male	0.964	40.6644375	individual	healthy
+cat2010	male	0.965	34.086375	individual	healthy
+cat2010	male	0.965	34.9700625	individual	healthy
+cat2010	male	0.966	27.38175	individual	healthy
+cat2010	male	0.966	30.487125	individual	healthy
+cat2010	male	0.969	26.8310625	individual	healthy
+cat2010	male	0.969	30.49575	individual	healthy
+cat2010	male	0.969	30.5754375	individual	healthy
+cat2010	male	0.969	41.503125	individual	healthy
+cat2010	male	0.969	51.6898125	individual	healthy
+cat2010	male	0.97	25.9719375	individual	healthy
+cat2010	male	0.97	44.603625	individual	healthy
+cat2010	male	0.971	35.0236875	individual	healthy
+cat2010	male	0.972	25.3944375	individual	healthy
+cat2010	male	0.972	31.1355	individual	healthy
+cat2010	male	0.977	31.0831875	individual	healthy
+cat2010	male	0.977	34.6453125	individual	healthy
+cat2010	male	0.978	40.287	individual	healthy
+cat2010	male	0.98	25.8838125	individual	healthy
+cat2010	male	0.981	29.756625	individual	healthy
+cat2010	male	0.982	40.6824375	individual	healthy
+cat2010	male	0.991	41.0428125	individual	healthy
+cat2010	male	0.991	50.1984375	individual	healthy
+cat2010	male	0.993	29.256375	individual	healthy
+cat2010	male	0.996	30.139125	individual	healthy
+cat2010	male	0.998	25.69725	individual	healthy
+cat2010	male	0.999	27.9253125	individual	healthy
+cat2010	male	1	23.160375	individual	healthy
+cat2010	male	1	31.7355	individual	healthy
+cat2010	male	1.004	30.805125	individual	healthy
+cat2010	male	1.005	33.3961875	individual	healthy
+cat2010	male	1.005	38.195625	individual	healthy
+cat2010	male	1.006	35.844375	individual	healthy
+cat2010	male	1.007	35.9476875	individual	healthy
+cat2010	male	1.008	41.001	individual	healthy
+cat2010	male	1.009	30.626625	individual	healthy
+cat2010	male	1.009	33.6568125	individual	healthy
+cat2010	male	1.01	36.762375	individual	healthy
+cat2010	male	1.01	40.7379375	individual	healthy
+cat2010	male	1.013	35.694	individual	healthy
+cat2010	male	1.016	25.8650625	individual	healthy
+cat2010	male	1.017	27.497625	individual	healthy
+cat2010	male	1.017	35.050125	individual	healthy
+cat2010	male	1.018	34.5875625	individual	healthy
+cat2010	male	1.02	29.5305	individual	healthy
+cat2010	male	1.021	27.664125	individual	healthy
+cat2010	male	1.023	23.0653125	individual	healthy
+cat2010	male	1.024	24.516375	individual	healthy
+cat2010	male	1.029	25.5823125	individual	healthy
+cat2010	male	1.03	28.929	individual	healthy
+cat2010	male	1.03	32.3360625	individual	healthy
+cat2010	male	1.032	34.986	individual	healthy
+cat2010	male	1.032	41.6300625	individual	healthy
+cat2010	male	1.034	38.5993125	individual	healthy
+cat2010	male	1.036	28.9314375	individual	healthy
+cat2010	male	1.037	23.365125	individual	healthy
+cat2010	male	1.038	27.5716875	individual	healthy
+cat2010	male	1.039	34.2345	individual	healthy
+cat2010	male	1.04	26.9475	individual	healthy
+cat2010	male	1.041	31.16925	individual	healthy
+cat2010	male	1.041	31.4236875	individual	healthy
+cat2010	male	1.041	39.9515625	individual	healthy
+cat2010	male	1.042	30.3650625	individual	healthy
+cat2010	male	1.042	30.8175	individual	healthy
+cat2010	male	1.044	26.9038125	individual	healthy
+cat2010	male	1.044	31.9993125	individual	healthy
+cat2010	male	1.046	25.8384375	individual	healthy
+cat2010	male	1.046	43.263	individual	healthy
+cat2010	male	1.048	37.708125	individual	healthy
+cat2010	male	1.049	35.445375	individual	healthy
+cat2010	male	1.051	26.127	individual	healthy
+cat2010	male	1.051	32.1740625	individual	healthy
+cat2010	male	1.052	30.4995	individual	healthy
+cat2010	male	1.054	32.7601875	individual	healthy
+cat2010	male	1.055	27.359625	individual	healthy
+cat2010	male	1.057	16.6940625	individual	healthy
+cat2010	male	1.057	39.7981875	individual	healthy
+cat2010	male	1.057	40.258875	individual	healthy
+cat2010	male	1.058	29.629125	individual	healthy
+cat2010	male	1.059	31.2256875	individual	healthy
+cat2010	male	1.06	32.6915625	individual	healthy
+cat2010	male	1.068	33.8805	individual	healthy
+cat2010	male	1.069	37.1431875	individual	healthy
+cat2010	male	1.07	27.1201875	individual	healthy
+cat2010	male	1.071	30.5668125	individual	healthy
+cat2010	male	1.072	18.916125	individual	healthy
+cat2010	male	1.072	26.092125	individual	healthy
+cat2010	male	1.075	32.904375	individual	healthy
+cat2010	male	1.076	28.5345	individual	healthy
+cat2010	male	1.079	25.6996875	individual	healthy
+cat2010	male	1.081	30.613125	individual	healthy
+cat2010	male	1.082	31.88775	individual	healthy
+cat2010	male	1.083	41.125125	individual	healthy
+cat2010	male	1.085	28.309125	individual	healthy
+cat2010	male	1.088	33.3395625	individual	healthy
+cat2010	male	1.089	19.7536875	individual	healthy
+cat2010	male	1.09	37.85775	individual	healthy
+cat2010	male	1.092	29.0600625	individual	healthy
+cat2010	male	1.093	34.247625	individual	healthy
+cat2010	male	1.093	41.24475	individual	healthy
+cat2010	male	1.094	30.6763125	individual	healthy
+cat2010	male	1.095	26.467875	individual	healthy
+cat2010	male	1.097	20.139	individual	healthy
+cat2010	male	1.097	28.473375	individual	healthy
+cat2010	male	1.098	26.3739375	individual	healthy
+cat2010	male	1.098	32.4455625	individual	healthy
+cat2010	male	1.1	36.7393125	individual	healthy
+cat2010	male	1.101	23.1345	individual	healthy
+cat2010	male	1.101	39.9894375	individual	healthy
+cat2010	male	1.102	23.46	individual	healthy
+cat2010	male	1.102	29.2168125	individual	healthy
+cat2010	male	1.102	31.3115625	individual	healthy
+cat2010	male	1.106	31.1930625	individual	healthy
+cat2010	male	1.106	37.342875	individual	healthy
+cat2010	male	1.107	28.011	individual	healthy
+cat2010	male	1.107	31.55925	individual	healthy
+cat2010	male	1.108	26.6514375	individual	healthy
+cat2010	male	1.11	30.640125	individual	healthy
+cat2010	male	1.111	25.9764375	individual	healthy
+cat2010	male	1.113	24.2161875	individual	healthy
+cat2010	male	1.113	26.460375	individual	healthy
+cat2010	male	1.114	26.1230625	individual	healthy
+cat2010	male	1.114	29.7208125	individual	healthy
+cat2010	male	1.114	30.7261875	individual	healthy
+cat2010	male	1.115	29.871	individual	healthy
+cat2010	male	1.116	37.4105625	individual	healthy
+cat2010	male	1.117	23.980125	individual	healthy
+cat2010	male	1.118	31.2860625	individual	healthy
+cat2010	male	1.119	28.36125	individual	healthy
+cat2010	male	1.119	35.04375	individual	healthy
+cat2010	male	1.12	24.7711875	individual	healthy
+cat2010	male	1.121	32.922375	individual	healthy
+cat2010	male	1.124	27.256125	individual	healthy
+cat2010	male	1.129	22.7469375	individual	healthy
+cat2010	male	1.131	29.3769375	individual	healthy
+cat2010	male	1.133	29.12325	individual	healthy
+cat2010	male	1.137	37.14	individual	healthy
+cat2010	male	1.139	28.0550625	individual	healthy
+cat2010	male	1.139	29.3885625	individual	healthy
+cat2010	male	1.139	30.6975	individual	healthy
+cat2010	male	1.14	44.165625	individual	healthy
+cat2010	male	1.141	30.4981875	individual	healthy
+cat2010	male	1.146	26.6780625	individual	healthy
+cat2010	male	1.147	33.1040625	individual	healthy
+cat2010	male	1.149	21.2769375	individual	healthy
+cat2010	male	1.149	27.91275	individual	healthy
+cat2010	male	1.151	22.9816875	individual	healthy
+cat2010	male	1.152	31.9213125	individual	healthy
+cat2010	male	1.153	24.992625	individual	healthy
+cat2010	male	1.156	26.894625	individual	healthy
+cat2010	male	1.159	27.5244375	individual	healthy
+cat2010	male	1.162	40.502625	individual	healthy
+cat2010	male	1.164	18.6658125	individual	healthy
+cat2010	male	1.164	30.0508125	individual	healthy
+cat2010	male	1.166	24.109875	individual	healthy
+cat2010	male	1.168	39.04125	individual	healthy
+cat2010	male	1.169	25.248375	individual	healthy
+cat2010	male	1.173	30.6106875	individual	healthy
+cat2010	male	1.173	36.8655	individual	healthy
+cat2010	male	1.176	28.678125	individual	healthy
+cat2010	male	1.184	27.0645	individual	healthy
+cat2010	male	1.185	28.7795625	individual	healthy
+cat2010	male	1.187	28.627875	individual	healthy
+cat2010	male	1.188	26.2880625	individual	healthy
+cat2010	male	1.19	27.8030625	individual	healthy
+cat2010	male	1.197	34.7971875	individual	healthy
+cat2010	male	1.199	38.21625	individual	healthy
+cat2010	male	1.202	24.6855	individual	healthy
+cat2010	male	1.202	42.0819375	individual	healthy
+cat2010	male	1.203	24.938625	individual	healthy
+cat2010	male	1.203	26.8336875	individual	healthy
+cat2010	male	1.205	27.911625	individual	healthy
+cat2010	male	1.209	29.3758125	individual	healthy
+cat2010	male	1.209	31.5961875	individual	healthy
+cat2010	male	1.214	22.924125	individual	healthy
+cat2010	male	1.217	19.861125	individual	healthy
+cat2010	male	1.217	25.749	individual	healthy
+cat2010	male	1.221	28.0875	individual	healthy
+cat2010	male	1.224	38.08725	individual	healthy
+cat2010	male	1.225	21.319125	individual	healthy
+cat2010	male	1.225	24.8833125	individual	healthy
+cat2010	male	1.225	28.4064375	individual	healthy
+cat2010	male	1.228	22.380375	individual	healthy
+cat2010	male	1.23	17.27925	individual	healthy
+cat2010	male	1.233	30.9826875	individual	healthy
+cat2010	male	1.238	20.5194375	individual	healthy
+cat2010	male	1.241	32.2306875	individual	healthy
+cat2010	male	1.242	31.808625	individual	healthy
+cat2010	male	1.248	34.5845625	individual	healthy
+cat2010	male	1.25	24.1198125	individual	healthy
+cat2010	male	1.251	17.8711875	individual	healthy
+cat2010	male	1.252	32.2981875	individual	healthy
+cat2010	male	1.255	19.18575	individual	healthy
+cat2010	male	1.255	21.013125	individual	healthy
+cat2010	male	1.257	22.5285	individual	healthy
+cat2010	male	1.257	29.6495625	individual	healthy
+cat2010	male	1.259	26.42025	individual	healthy
+cat2010	male	1.264	28.5980625	individual	healthy
+cat2010	male	1.279	32.4954375	individual	healthy
+cat2010	male	1.284	23.59575	individual	healthy
+cat2010	male	1.284	28.9185	individual	healthy
+cat2010	male	1.288	28.6940625	individual	healthy
+cat2010	male	1.289	26.675625	individual	healthy
+cat2010	male	1.293	22.2519375	individual	healthy
+cat2010	male	1.293	24.6654375	individual	healthy
+cat2010	male	1.294	21.6995625	individual	healthy
+cat2010	male	1.3	30.5375625	individual	healthy
+cat2010	male	1.302	36.1471875	individual	healthy
+cat2010	male	1.305	27.3380625	individual	healthy
+cat2010	male	1.308	19.2710625	individual	healthy
+cat2010	male	1.311	28.310625	individual	healthy
+cat2010	male	1.313	31.596	individual	healthy
+cat2010	male	1.316	17.92275	individual	healthy
+cat2010	male	1.322	23.6518125	individual	healthy
+cat2010	male	1.322	31.5759375	individual	healthy
+cat2010	male	1.327	29.29875	individual	healthy
+cat2010	male	1.333	17.27775	individual	healthy
+cat2010	male	1.335	24.1546875	individual	healthy
+cat2010	male	1.335	29.2423125	individual	healthy
+cat2010	male	1.336	25.5703125	individual	healthy
+cat2010	male	1.342	24.3534375	individual	healthy
+cat2010	male	1.35	24.9669375	individual	healthy
+cat2010	male	1.35	27.422625	individual	healthy
+cat2010	male	1.352	20.278125	individual	healthy
+cat2010	male	1.352	27.3118125	individual	healthy
+cat2010	male	1.358	24.9721875	individual	healthy
+cat2010	male	1.361	18.1280625	individual	healthy
+cat2010	male	1.362	23.6289375	individual	healthy
+cat2010	male	1.369	19.3861875	individual	healthy
+cat2010	male	1.37	27.0373125	individual	healthy
+cat2010	male	1.374	23.763375	individual	healthy
+cat2010	male	1.38	25.764375	individual	healthy
+cat2010	male	1.383	20.3535	individual	healthy
+cat2010	male	1.384	22.2975	individual	healthy
+cat2010	male	1.384	22.677375	individual	healthy
+cat2010	male	1.386	18.6286875	individual	healthy
+cat2010	male	1.386	26.5453125	individual	healthy
+cat2010	male	1.394	26.7050625	individual	healthy
+cat2010	male	1.398	22.4544375	individual	healthy
+cat2010	male	1.398	26.383125	individual	healthy
+cat2010	male	1.399	19.41075	individual	healthy
+cat2010	male	1.406	25.4625	individual	healthy
+cat2010	male	1.408	27.2495625	individual	healthy
+cat2010	male	1.424	24.0564375	individual	healthy
+cat2010	male	1.433	15.2229375	individual	healthy
+cat2010	male	1.435	25.7945625	individual	healthy
+cat2010	male	1.44	15.8229375	individual	healthy
+cat2010	male	1.449	23.8344375	individual	healthy
+cat2010	male	1.453	16.0978125	individual	healthy
+cat2010	male	1.457	21.046125	individual	healthy
+cat2010	male	1.459	15.9691875	individual	healthy
+cat2010	male	1.473	17.2104375	individual	healthy
+cat2010	male	1.478	21.6285	individual	healthy
+cat2010	male	1.483	18.834375	individual	healthy
+cat2010	male	1.487	33.518625	individual	healthy
+cat2010	male	1.497	27.2394375	individual	healthy
+cat2010	male	1.501	26.31075	individual	healthy
+cat2010	male	1.508	20.006625	individual	healthy
+cat2010	male	1.51	15.52425	individual	healthy
+cat2010	male	1.515	25.839375	individual	healthy
+cat2010	male	1.523	32.9295	individual	healthy
+cat2010	male	1.539	23.949	individual	healthy
+cat2010	male	1.568	20.6158125	individual	healthy
+cat2010	male	1.571	30.3106875	individual	healthy
+cat2010	male	1.573	19.2736875	individual	healthy
+cat2010	male	1.586	14.208	individual	healthy
+cat2010	male	1.604	18.6369375	individual	healthy
+cat2010	male	1.605	25.4911875	individual	healthy
+cat2010	male	1.621	18.246375	individual	healthy
+cat2010	male	1.636	25.491	individual	healthy
+cat2010	male	1.682	12.390375	individual	healthy
+cat2010	male	1.726	21.0823125	individual	healthy
+cat2010	male	1.744	25.8230625	individual	healthy
+cat2010	male	1.767	22.9115625	individual	healthy
+cat2010	male	1.771	21.099375	individual	healthy

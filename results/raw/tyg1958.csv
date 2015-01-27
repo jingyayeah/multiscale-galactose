@@ -12,3 +12,8 @@ tyg1958	21	H.J.	M	38	72.3	1.84	healthy	arterial hypertension	1530	85	1890	NA	0.8
 tyg1958	23	H.W.	M	50	73.5	1.77	healthy	pulmonary fibrosis	1370	92	1000	NA	1.38	323	1.7944444444	23.5	1.3055555556	individual	male	1000	13.6054421768707
 tyg1958	24	R.R.	M	39	56.5	1.66	healthy	chronic indigestion	1080	94	1450	NA	0.75	310	1.7222222222	28.6	1.5888888889	individual	male	1450	25.6637168141593
 tyg1958	25	K.M.	M	30	75.1	1.71	healthy	chronic indigestion	1100	86	1420	NA	0.77	311	1.7277777778	28.2	1.5666666667	individual	male	1420	18.9081225033289
+tyg1958	29	H.C.	M	43	NA	NA	cirrhosis	cirrhosis of the liver (mild)	1610	76	1650	2120	NA	219	1.2166666667	13.6	0.7555555556	individual	male	1650	NA
+tyg1958	30	A.A.	M	66	NA	NA	cirrhosis	cirrhosis of the liver (mild)	1050	63	1740	1660	NA	206	1.1444444444	19.7	1.0944444444	individual	male	1740	NA
+tyg1958	31	P.A.	M	67	NA	NA	cirrhosis	cirrhosis of the liver (moderate)	670	68	960	990	NA	296	1.6444444444	44	2.4444444444	individual	male	960	NA
+tyg1958	33	A.L.	F	57	NA	NA	cirrhosis	cirrhosis of the liver (severe)	730	63	580	1160	NA	209	1.1611111111	28.7	1.5944444444	individual	female	580	NA
+tyg1958	19	A.J.	M	32	NA	NA	alcohol	alcohol ingestion 20 g.	540	39	1070	1350	NA	147	0.8166666667	27.3	1.5166666667	individual	male	1070	NA

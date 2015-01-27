@@ -118,6 +118,7 @@ head(bra1952)
 # age [years], sex [M,F], bodyweight [kg], height [cm], BSA [m^2], cardiac_output [mL/min], cardiac_outputkg [ml/min/kg]
 cat.factor <- 0.75 # data is overestimating the blood flow in comparison to Simmone1997
 cat2010 <- read.csv(file.path(ma.settings$dir.expdata, 'raw_data', "cattermole", "Koenig_Cattermole2009.csv"), sep="\t")
+head(cat2010)
 cat2010$dtype <- 'individual'
 cat2010$gender <- getGender(cat2010)
 cat2010$flowLiver <- cat2010$CO * f_co_fraction * cat.factor # [ml/min]
@@ -176,7 +177,7 @@ duf1992 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Dufour1992_Tab1.c
 duf1992$dtype <- 'individual'
 duf1992$gender <- getGender(duf1992)
 duf1992$GECkg <- duf1992$GECmg/180
-duf1992 <- duf1992[duf1992$status=='healthy', ]
+# duf1992 <- duf1992[duf1992$status=='healthy', ]
 duf1992 <- duf1992[!is.na(duf1992$GEC), ] # filter cases without GEC
 saveRawData(duf1992)
 head(duf1992)
@@ -257,17 +258,17 @@ lan2011$dtype <- 'individual'
 lan2011$gender <- getGender(lan2011)
 lan2011$GECmumolkg <- lan2011$GEC
 lan2011$GECkg <- lan2011$GECkg/1000
-summary(lan2011)
-lan2011 <- lan2011[lan2011$status=='healthy', ]
+# lan2011 <- lan2011[lan2011$status=='healthy', ]
 saveRawData(lan2011)
 head(lan2011)
+summary(lan2011)
 
 # age [years], Sex [M], BSA [m^2], EHBF [ml/min]
 lee1962 <- read.csv(file.path(ma.settings$dir.expdata, "liver_bloodflow", "Leevy1962_Tab1.csv"), sep="\t")
 lee1962$dtype <- 'individual'
 lee1962$gender <- getGender(lee1962)
 lee1962$flowLiver <- lee1962$BSP_EHBF
-lee1962 <- lee1962[lee1962$status=='healthy', ]
+# lee1962 <- lee1962[lee1962$status=='healthy', ]
 saveRawData(lee1962)
 head(lee1962)
 
@@ -357,7 +358,7 @@ tyg1958$dtype <- 'individual'
 tyg1958$gender = getGender(tyg1958)
 tyg1958$flowLiver <- tyg1958$bloodflowBS
 tyg1958$flowLiverkg <- tyg1958$bloodflowBS/tyg1958$bodyweight
-tyg1958 <- tyg1958[tyg1958$status=='healthy', ]          # reduce to healthy
+# tyg1958 <- tyg1958[tyg1958$status=='healthy', ]          # reduce to healthy
 tyg1958 <- tyg1958[-which(tyg1958$exp %in% c(11,22)), ] # remove strange outlier
 tyg1958 <- tyg1958[!is.na(tyg1958$flowLiver), ]
 saveRawData(tyg1958)
@@ -368,7 +369,7 @@ tyg1963 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Tygstrup1963.csv"
 tyg1963$dtype <- 'individual'
 tyg1963$gender = getGender(tyg1963)
 tyg1963$GECkg <- tyg1963$GEC/tyg1963$bodyweight
-tyg1963 <- tyg1963[tyg1963$status=='healthy', ] # filter cirrhosis out
+# tyg1963 <- tyg1963[tyg1963$status=='healthy', ] # filter cirrhosis out
 saveRawData(tyg1963)
 head(tyg1963)
 
@@ -511,25 +512,29 @@ makeFigure <- function(data, m1, main, xname, yname,
   plot(numeric(0), numeric(0), xlim=xlim, ylim=ylim, 
        main=main, xlab=xlab, ylab=ylab)
   studies <- levels(as.factor(data$study))
+  
+  
+  g <- gender.cols()
+  
   # plot the individual gender data
-  for (k in 1:length(gender.levels)){
+  for (k in 1:length(g$levels)){
     
     # plot individual studies
     
     for (s in seq_along(studies)){
-      cat(gender.levels[k], studies[s], '\n')
-      inds.in <- which(data$study==studies[s] & data$gender == gender.levels[k] & data$dtype == 'individual')
-      points(data[inds.in, xname], data[inds.in, yname], col=gender.cols[k], bg=gender.cols[k], 
+      cat(g$levels[k], studies[s], '\n')
+      inds.in <- which(data$study==studies[s] & data$gender == g$levels[k] & data$dtype == 'individual')
+      points(data[inds.in, xname], data[inds.in, yname], col=g$cols[k], bg=g$cols[k], 
            pch=((20+s)%%26), cex=0.8)
-      inds.po <- which(data$study==studies[s] & data$gender == gender.levels[k] & data$dtype == 'population')
-      points(data[inds.po, xname], data[inds.po, yname], col=gender.cols[k], 
+      inds.po <- which(data$study==studies[s] & data$gender == g$levels[k] & data$dtype == 'population')
+      points(data[inds.po, xname], data[inds.po, yname], col=g$cols[k], 
            pch=((20+s)%%26), cex=0.8)
     }
   }
-  legend("topright",  legend=c(gender.levels, studies), col=c(gender.cols, rep('black', length(studies))), 
-         pt.bg=c(gender.cols, rep('black', length(studies))),
-        pch=c(rep(1, length(gender.levels)), ((20+seq_along(studies))%%26) ) )
-  # legend("topleft",  legend=gender.levels, fill=gender.cols) 
+  legend("topright",  legend=c(g$levels, studies), col=c(g$cols, rep('black', length(studies))), 
+         pt.bg=c(g$cols, rep('black', length(studies))),
+        pch=c(rep(1, length(g$levels)), ((20+seq_along(studies))%%26) ) )
+  # legend("topleft",  legend=g$levels, fill=g$cols) 
   
   # Plot linear regression information
   if (!is.null(m1)){
@@ -585,10 +590,11 @@ getRangeType <- function(dat, xname, yname){
 
 # Add the population data segments to the plot
 addPopulationSegments <- function(dat, xname, yname){
+    g <- gender.cols()
     types <- getRangeType(dat, xname, yname)    
     for (k in 1:nrow(dat)){
         sex <- dat$gender[k]
-        col <- gender.cols[which(gender.levels == sex)]
+        col <- g$cols[which(g$levels == sex)]
         
         xmean <- dat[k, xname]
         ymean <- dat[k, yname]
@@ -701,26 +707,42 @@ saveData <- function(data, dir=NULL){
             sep="\t", col.names=TRUE)
 }
 ########################################################################################
-create_plots = F
+create_plots = T
 
-combine_data <- function(names, status='healthy'){
-  
+# Combine the data for the given list of data frames based
+# on the xname and yname
+combine_data <- function(df.list, status='healthy'){
+  selection <- c('study', 'gender', xname, yname, 'dtype', 'status')
+  for (k in 1:length(df.list)){
+    # reduce to selection
+    df <- df.list[[k]]
+    df <- df[, selection]
+    # only healthy data
+    if (status == 'healthy'){
+      df <- df[status=='healthy',]
+    }
+    # remove the NA
+    df <- df[complete.cases(df), ]
+    # store again
+    df.list[[k]] <- df
+  }
+  library('reshape')
+  df <- reshape::merge_all(df.list)
+  return(df)
 }
 
 ############################################
 # GEC [mmol/min] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'GEC'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-# individual subject data
-data <- rbind( mar1988[, selection],
-               tyg1963[, selection],
-               sch1986.tab1[, selection],
-               # win1965[, selection], # outlier compare to other datasets
-               duc1979[, selection],
-               duf1992[, selection])
-
-data <- data[complete.cases(data), ]  # remove NA
+data <- combine_data(list(
+  mar1988, 
+  tyg1963, 
+  sch1986.tab1, 
+  # win1965 # outlier compared to other datasets
+  duc1979, 
+  duf1992
+))
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -730,15 +752,15 @@ makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 # GECkg [mmol/min/kgbw] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'GECkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( lan2011[, selection],
-               duc1979[, selection],
-               tyg1963[, selection],
-               sch1986.fig1[, selection], 
-               # sch1986.tab1[, c('study', 'gender', 'age', 'GECkg')], # already ploted via sch1986.fig1
-               # win1965[, selection],  # outlier compare to other datasets
-               duf1992[, selection])
-data <- data[complete.cases(data), ]  # remove NA
+data <- combine_data(list(
+  lan2011,
+  duc1979,
+  tyg1963,
+  sch1986.fig1, 
+  # sch1986.tab1, # already part of dataset via sch1986.fig1
+  # win1965[, selection],  # outlier compare to other datasets
+  duf1992
+  ))
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -748,8 +770,9 @@ makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 # GEC [mmol/min] vs. volLiver [ml]
 ############################################
 xname <- 'volLiver'; yname <- 'GEC'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( mar1988[, selection])
+data <- combine_data(list(
+  mar1988
+))
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -759,8 +782,9 @@ makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 # GEC [mmol/min] vs. flowLiver [ml/min]
 ############################################
 xname <- 'flowLiver'; yname <- 'GEC'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( win1965[, selection]) # outlier compare to other datasets
+data <- combine_data(list(
+  win1965  # outlier compare to other datasets
+))
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -770,19 +794,19 @@ makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 # volLiver [ml] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( mar1988[, selection],
-               wyn1989[, selection],
-               naw1998[, selection],
-               boy1933[, selection],
-               hei1999[, selection])
-
+data <- combine_data(list(
+  mar1988,
+  wyn1989,
+  naw1998,
+  boy1933,
+  hei1999
+))
 # data <- addRandomizedPopulationData(data, alt1962) # no range/Sd for volLiver
 # data <- addRandomizedPopulationData(data, tom1965)
 # data <- addRandomizedPopulationData(data, kay1987)
 saveData(data)
-par(mfrow=c(1,1))
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
+
 # points(hei1999[[xname]], hei1999[[yname]], col='black', bg='black', pch=21, cex=1.5)
 # points(wyn1989[[xname]], wyn1989[[yname]], col='black', bg='black', pch=21, cex=1.5)
 # points(naw1998[[xname]], naw1998[[yname]], col='black', bg='black', pch=21, cex=1.5)
@@ -790,54 +814,32 @@ makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 #addPopulationSegments(tom1965, xname, yname)
 #addPopulationSegments(kay1987, xname, yname)
 
-
-############################################
-# volLiver [ml] vs. age [years] and bodyweight [kg]
-############################################
-# x1name <- 'age'; x2name <- 'bodyweight'; yname <- 'volLiver'
-# selection <- c('study', 'gender', x1name, x2name, yname, 'dtype')
-# data <- rbind(wyn1989[, selection] ,
-#               naw1998[, selection], 
-#               hei1999[, selection])
-# require("rgl")
-# require("RColorBrewer")
-# colors <- rep(NA, nrow(data))
-# colors[data$gender=='male'] <- rgb(0,0,1, alpha=0.5)
-# colors[data$gender=='female'] <- rgb(1,0,0, alpha=0.5)
-# plot3d(data$age, data$bodyweight, data$volLiver, 
-#        col=colors, pch=symbols, size=5) 
-# data1 <- data[data$gender=="male", ]
-# data2 <- data[data$gender=="female", ]
-# plot3d(data1$age, data1$bodyweight, data1$volLiver, 
-#        pch=symbols, size=5, col='blue') 
-# plot3d(data2$age, data2$bodyweight, data2$volLiver, 
-#        pch=symbols, size=5, col='red') 
-# decorate3d()
-
 ############################################
 # volLiverkg [ml/kg] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'volLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(wyn1989[, selection] ,
-              naw1998[, selection],
-              ura1995.fig3[, selection],
-              hei1999[, selection])
+data <- combine_data(list(
+  wyn1989,
+  naw1998,
+  ura1995.fig3,
+  hei1999
+))
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # points(ura1995.fig3[[xname]], ura1995.fig3[[yname]], col='black', bg='black', pch=21, cex=1.5)
-points(wyn1989[[xname]], wyn1989[[yname]], col='black', bg='black', pch=21, cex=1.5)
+# points(wyn1989[[xname]], wyn1989[[yname]], col='black', bg='black', pch=21, cex=1.5)
 
 ############################################
 # volLiver [ml] vs. BSA [m^2]
 ############################################
 xname <- 'BSA'; yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(naw1998[, selection],
-              hei1999[, selection],
-              ura1995.fig2[, selection],
-              vau2002.fig1[, selection],
-              yos2003[,selection])
+data <- combine_data(list(
+  naw1998,
+  hei1999,
+  ura1995.fig2,
+  vau2002.fig1,
+  yos2003
+))
 
 # data <- addRandomizedPopulationData(data, del1968.fig4)
 saveData(data)
@@ -849,9 +851,10 @@ makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # volLiverkg [ml/kg] vs. BSA [m^2]
 ############################################
 xname <- 'BSA'; yname <- 'volLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(naw1998[, selection],
-              hei1999[, selection])
+data <- combine_data(list(
+  naw1998,
+  hei1999
+))
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 
@@ -859,11 +862,12 @@ makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # volLiver [ml] vs. bodyweight [kg]
 ############################################
 xname <- 'bodyweight'; yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(naw1998[, selection],
-              vau2002.fig2[, selection],
-              wyn1989[, selection],
-              hei1999[, selection])
+data <- combine_data(list(
+  naw1998,
+  vau2002.fig2,
+  wyn1989,
+  hei1999
+))
 # data <- addRandomizedPopulationData(data, del1968.fig1)
 # data <- addRandomizedPopulationData(data, tom1965)
 saveData(data)
@@ -875,11 +879,12 @@ addPopulationSegments(tom1965, xname, yname)
 # volLiverkg [ml/kg] vs. bodyweight [kg]
 ############################################
 xname <- 'bodyweight'; yname <- 'volLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(naw1998[, selection],
-              vau2002.fig2[, selection],
-              wyn1989[, selection],
-              hei1999[, selection])
+data <- combine_data(list(
+  naw1998,
+  vau2002.fig2,
+  wyn1989,
+  hei1999
+))
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 
@@ -887,9 +892,10 @@ makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # volLiver [ml] vs. height [cm]
 ############################################
 xname <- 'height'; yname <- 'volLiver'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(naw1998[, selection],
-              hei1999[, selection])
+data <- combine_data(list(
+  naw1998,
+  hei1999
+))
 # data <- addRandomizedPopulationData(data, del1968.fig3)
 # data <- addRandomizedPopulationData(data, gra2000.tab1)
 saveData(data)
@@ -901,9 +907,10 @@ addPopulationSegments(gra2000.tab1, xname, yname)
 # volLiverkg [ml/kg] vs. height [cm]
 ############################################
 xname <- 'height'; yname <- 'volLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(naw1998[, selection],
-              hei1999[, selection])
+data <- combine_data(list(
+  naw1998,
+  hei1999
+))
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 
@@ -911,17 +918,18 @@ makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # flowLiver [ml/min] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( win1965[, selection], 
-               wyn1989[, selection],
-               bra1945[, selection],
-               bra1952[, selection],
-               zol1999[, selection],
-               she1950[, selection],
-               wyn1990[, selection],
-               tyg1958[, selection],
-               cat2010[, selection],     # estimate via cardiac output
-               ircp2001.co[, selection]) # estimate via cardiac output
+data <- combine_data(list(
+  win1965, 
+  wyn1989,
+  bra1945,
+  bra1952,
+  zol1999,
+  she1950,
+  wyn1990,
+  tyg1958,
+  cat2010,     # estimate via cardiac output
+  ircp2001.co  # estimate via cardiac output
+))
 saveData(data)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # points(lee1962[[xname]], lee1962[[yname]], col='black', bg='black', pch=21, cex=1.5)
@@ -930,13 +938,14 @@ makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # flowLiverkg [ml/min/kg] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'flowLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( win1965[, selection], 
-               wyn1989[, selection],
-               she1950[, selection],
-               zol1993[, selection],
-               tyg1958[, selection],
-               cat2010[, selection]) # estimate via cardiac output
+data <- combine_data(list(
+  win1965, 
+  wyn1989,
+  she1950,
+  zol1993,
+  tyg1958,
+  cat2010  # estimate via cardiac output
+))
 saveData(data)
 # m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
@@ -946,52 +955,49 @@ makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 # flowLiver [ml/min] vs. bodyweight [kg]
 ############################################
 xname <- 'bodyweight'; yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(wyn1989[, selection],
-              tyg1958[, selection],
-              she1950[, selection],
-              sim1997[, selection], # estimate via cardiac output
-              cat2010[, selection]) # estimate via cardiac output
-
-data <- rbind(wyn1989[, selection],
-              tyg1958[, selection],
-              she1950[, selection],
-              sim1997[, selection])
-
+data <- combine_data(list(
+  wyn1989,
+  tyg1958,
+  she1950,
+  sim1997   # estimate via cardiac output
+  # cat2010 # estimate via cardiac output
+))
 saveData(data)
 m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 # points(sim1997[[xname]], sim1997[[yname]], col='black', bg='black', pch=21, cex=1.5)
-points(cat2010[[xname]], cat2010[[yname]], col='black', bg='black', pch=21, cex=0.8)
-grid()
+# points(cat2010[[xname]], cat2010[[yname]], col='black', bg='black', pch=21, cex=0.8)
+
+
 ############################################
 # flowLiverkg [ml/min] vs. bodyweight [kg]
 ############################################
 xname <- 'bodyweight'; yname <- 'flowLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(  wyn1989[, selection],
-                tyg1958[, selection],
-                she1950[, selection],
-                sim1997[, selection], # estimate via cardiac output
-                cat2010[, selection]) # estimate via cardiac output
+data <- combine_data(list(
+  wyn1989,
+  tyg1958,
+  she1950,
+  sim1997, # estimate via cardiac output
+  cat2010  # estimate via cardiac output
+))
 saveData(data)
 
-m1 <- linear_regression(data, xname, yname)
-makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
+# m1 <- linear_regression(data, xname, yname)
+makeFigureFull(data, m1=NULL, xname, yname, create_plots=create_plots)
 #points(she1950[[xname]], she1950[[yname]], col='black', bg='black', pch=21, cex=1.5)
 
 
 ############################################
 # flowLiver [ml/min] vs. BSA [m^2]
 ############################################
-xname <- 'BSA'
-yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(bra1945[, selection],
-              bra1952[, selection],
-              she1950[, selection],
-              tyg1958[, selection],
-              cat2010[, selection]) # estimate via cardiac output
+xname <- 'BSA'; yname <- 'flowLiver'
+data <- combine_data(list(
+  bra1945,
+  bra1952,
+  she1950,
+  tyg1958,
+  cat2010  # estimate via cardiac output
+))
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -1001,12 +1007,12 @@ makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 ############################################
 # flowLiverkg [ml/min/kg] vs. BSA [m^2]
 ############################################
-xname <- 'BSA'
-yname <- 'flowLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(she1950[, selection],
-              tyg1958[, selection],
-              cat2010[, selection]) # estimate via cardiac output
+xname <- 'BSA'; yname <- 'flowLiverkg'
+data <- combine_data(list(
+  she1950,
+  tyg1958,
+  cat2010 # estimate via cardiac output
+))
 saveData(data)
 # m1 <- linear_regression(data, xname, yname)
 makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
@@ -1014,10 +1020,10 @@ makeFigureFull(data, NULL, xname, yname, create_plots=create_plots)
 ############################################
 # flowLiver [ml/min] vs. volLiver [ml]
 ############################################
-xname <- 'volLiver'
-yname <- 'flowLiver'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(wyn1989[, selection])
+xname <- 'volLiver'; yname <- 'flowLiver'
+data <- combine_data(list(
+  wyn1989
+))
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -1026,10 +1032,10 @@ makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 ############################################
 # flowLiverkg [ml/min/kg] vs. volLiverkg [ml/kg]
 ############################################
-xname <- 'volLiverkg'
-yname <- 'flowLiverkg'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind(wyn1989[, selection])
+xname <- 'volLiverkg'; yname <- 'flowLiverkg'
+data <- combine_data(list(
+  wyn1989
+))
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)
@@ -1039,8 +1045,9 @@ makeFigureFull(data, m1, xname, yname, create_plots=create_plots)
 # perfusion [ml/min/ml] vs. age [years]
 ############################################
 xname <- 'age'; yname <- 'perfusion'
-selection <- c('study', 'gender', xname, yname, 'dtype')
-data <- rbind( wyn1989[, selection])
+data <- combine_data(list(
+  wyn1989
+))
 saveData(data)
 
 m1 <- linear_regression(data, xname, yname)

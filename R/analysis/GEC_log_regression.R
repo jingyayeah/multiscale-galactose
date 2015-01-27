@@ -39,7 +39,7 @@ prepare_data <- function(data, fields){
 # Prepare data for the GEC prediction.
 prepare_GEC_data <- function(name){
   fields <- c('study', 'gender', 'age', 'bodyweight', 'height', 'BSA', 
-              'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg', 'GEC', 'GECkg')
+              'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg', 'GEC', 'GECkg', 'status')
   data <- loadRawData(name)
   df <- prepare_data(data, fields)
 }
@@ -63,7 +63,6 @@ df.list <- list(length(names))
 for (k in 1:length(names)){
   name <- names[k]
   df <- prepare_GEC_data(name)
-  df$status <- 'healthy'
   cat(nrow(df), '\n')
   df.list[[k]] <- df
 }
@@ -71,12 +70,16 @@ for (k in 1:length(names)){
 library('reshape')
 df <- reshape::merge_all(df.list)
 head(df, 20)
+df$status <- as.factor(df$status)
 summary(df)
-df
+df$healthy = as.factor(df$status == 'healthy')
+summary(df)
 
-hist(df$GEC, breaks =20, xlim=c(0,5), xlab=lab[['GEC']])
-hist(df$GECkg, breaks =20, xlim=c(0,0.2), xlab=lab[['GECkg']])
+hist(df$GEC[df$healthy==TRUE], breaks =20, xlim=c(0,5), xlab=lab[['GEC']])
+hist(df$GEC[df$healthy==FALSE], breaks =20, xlim=c(0,5), xlab=lab[['GEC']], col='red', add=TRUE)
 
+hist(df$GECkg[df$healthy==TRUE], breaks =20, xlim=c(0,0.2), xlab=lab[['GECkg']])
+hist(df$GECkg[df$healthy==FALSE], breaks =20, xlim=c(0,0.2), xlab=lab[['GECkg']], col='red', add=TRUE)
 # TODO: check for disease data in the trainings data & use if available
 # TODO: use Marchesini data
 

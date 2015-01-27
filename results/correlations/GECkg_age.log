@@ -1,11 +1,11 @@
 [1] "### Data ###"
-     study       gender               age              GECkg            dtype          
- lan2011:10   Length:140         Min.   : 0.4691   Min.   :0.02077   Length:140        
- duc1979:13   Class :character   1st Qu.:22.6667   1st Qu.:0.03667   Class :character  
- tyg1963:18   Mode  :character   Median :25.4752   Median :0.04062   Mode  :character  
- sch1986:94                      Mean   :32.8685   Mean   :0.04144                     
- duf1992: 5                      3rd Qu.:38.1454   3rd Qu.:0.04433                     
-                                 Max.   :88.5106   Max.   :0.08466                     
+     study       gender               age              GECkg            dtype                     status   
+ lan2011:40   Length:183         Min.   : 0.2638   Min.   :0.01616   Length:183         healthy      :140  
+ duc1979:13   Class :character   1st Qu.:19.6879   1st Qu.:0.03516   Class :character   liver disease: 30  
+ tyg1963:22   Mode  :character   Median :24.6241   Median :0.04029   Mode  :character   cirrhosis    : 13  
+ sch1986:94                      Mean   :29.7013   Mean   :0.04094                                         
+ duf1992:14                      3rd Qu.:37.9504   3rd Qu.:0.04493                                         
+                                 Max.   :88.5106   Max.   :0.09613                                         
 [1] "### Linear Regression Model ###"
 
 Call:
@@ -13,16 +13,16 @@ lm(formula = formula, data = data)
 
 Residuals:
       Min        1Q    Median        3Q       Max 
--0.013333 -0.004846 -0.000955  0.004355  0.037154 
+-0.025993 -0.005559 -0.000455  0.005177  0.047616 
 
 Coefficients:
               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  4.760e-02  1.260e-03  37.782  < 2e-16 ***
-age         -1.874e-04  3.356e-05  -5.582 1.22e-07 ***
+(Intercept)  4.858e-02  1.362e-03   35.66  < 2e-16 ***
+age         -2.574e-04  3.847e-05   -6.69 2.69e-10 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.007199 on 138 degrees of freedom
-Multiple R-squared:  0.1842,	Adjusted R-squared:  0.1783 
-F-statistic: 31.16 on 1 and 138 DF,  p-value: 1.216e-07
+Residual standard error: 0.01003 on 181 degrees of freedom
+Multiple R-squared:  0.1983,	Adjusted R-squared:  0.1938 
+F-statistic: 44.76 on 1 and 181 DF,  p-value: 2.689e-10
 

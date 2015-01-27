@@ -1,11 +1,11 @@
 [1] "### Data ###"
-    study              gender            bodyweight     flowLiverkg        dtype          
- Length:1999        Length:1999        Min.   : 3.90   Min.   : 6.938   Length:1999       
- Class :character   Class :character   1st Qu.:20.70   1st Qu.:21.594   Class :character  
- Mode  :character   Mode  :character   Median :29.82   Median :29.640   Mode  :character  
-                                       Mean   :37.05   Mean   :30.328                     
-                                       3rd Qu.:51.81   3rd Qu.:37.854                     
-                                       Max.   :97.60   Max.   :99.354                     
+    study              gender            bodyweight     flowLiverkg        dtype                 status    
+ Length:1999        Length:1999        Min.   : 3.90   Min.   : 6.938   Length:1999        healthy  :1999  
+ Class :character   Class :character   1st Qu.:20.70   1st Qu.:21.594   Class :character   alcohol  :   0  
+ Mode  :character   Mode  :character   Median :29.82   Median :29.640   Mode  :character   cirrhosis:   0  
+                                       Mean   :37.05   Mean   :30.328                      hepatitis:   0  
+                                       3rd Qu.:51.81   3rd Qu.:37.854                                      
+                                       Max.   :97.60   Max.   :99.354                                      
 [1] "### Linear Regression Model ###"
 
 Call:

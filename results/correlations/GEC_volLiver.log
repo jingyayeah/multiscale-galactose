@@ -1,11 +1,11 @@
 [1] "### Data ###"
-    study              gender             volLiver           GEC           dtype          
- Length:50          Length:50          Min.   : 714.8   Min.   :1.481   Length:50         
- Class :character   Class :character   1st Qu.: 994.1   1st Qu.:2.048   Class :character  
- Mode  :character   Mode  :character   Median :1144.0   Median :2.334   Mode  :character  
-                                       Mean   :1147.4   Mean   :2.404                     
-                                       3rd Qu.:1251.4   3rd Qu.:2.865                     
-                                       Max.   :1604.1   Max.   :3.817                     
+    study              gender             volLiver           GEC           dtype              status         
+ Length:50          Length:50          Min.   : 714.8   Min.   :1.481   Length:50          Length:50         
+ Class :character   Class :character   1st Qu.: 994.1   1st Qu.:2.048   Class :character   Class :character  
+ Mode  :character   Mode  :character   Median :1144.0   Median :2.334   Mode  :character   Mode  :character  
+                                       Mean   :1147.4   Mean   :2.404                                        
+                                       3rd Qu.:1251.4   3rd Qu.:2.865                                        
+                                       Max.   :1604.1   Max.   :3.817                                        
 [1] "### Linear Regression Model ###"
 
 Call:

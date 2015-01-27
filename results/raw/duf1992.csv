@@ -4,3 +4,12 @@ duf1992	3	healthy	29	M	7.4	2.88	NA	Normal volunteer	individual	male	0.0411111111
 duf1992	4	healthy	33	F	7.2	2.8	NA	Normal volunteer	individual	female	0.04
 duf1992	5	healthy	38	M	6.1	2.37	NA	Normal volunteer	individual	male	0.0338888888888889
 duf1992	6	healthy	44	M	8.1	3.15	NA	Normal volunteer	individual	male	0.045
+duf1992	7	cirrhosis	23	M	3	1.17	13	Cryptogenic cirrhosis	individual	male	0.0166666666666667
+duf1992	8	cirrhosis	29	F	4.7	1.83	6	Autoimune hepatitis	individual	female	0.0261111111111111
+duf1992	9	cirrhosis	35	M	3.2	1.24	7	Chronic hepatitis B	individual	male	0.0177777777777778
+duf1992	10	cirrhosis	45	M	3.9	1.52	6	Cryptogenic cirrhosis	individual	male	0.0216666666666667
+duf1992	11	cirrhosis	54	M	4.9	1.91	7	Chronic hepatitis B and C	individual	male	0.0272222222222222
+duf1992	12	cirrhosis	57	M	5.1	1.98	5	Chronic hepatitis B	individual	male	0.0283333333333333
+duf1992	13	cirrhosis	58	F	3.5	1.36	9	Chronic hepatitis C	individual	female	0.0194444444444444
+duf1992	14	cirrhosis	61	F	3	1.17	10	Autoimune hepatitis	individual	female	0.0166666666666667
+duf1992	15	cirrhosis	70	F	3	1.17	6	Cryptogenic cirrhosis	individual	female	0.0166666666666667

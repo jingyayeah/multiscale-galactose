@@ -71,7 +71,7 @@ gender.cols = function(){
   
   cols.base = c(rgb(0,0,0, alpha=1.0), rgb(0,0,1, alpha=1.0), rgb(1,0,0, alpha=1.0))
   names(cols.base) = levels
-  cols = add.alpha(cols_base, 0.5)
+  cols = add.alpha(cols.base, 0.5)
   cols.light = add.alpha(cols.base, 0.1)
   
   list(levels=levels, 

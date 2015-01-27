@@ -1,100 +1,113 @@
-study	gender	age	GEC	dtype
-mar1988	all	26	3.4685013	individual
-mar1988	all	27	3.8168833	individual
-mar1988	all	28	3.2035513	individual
-mar1988	all	31	3.4914849	individual
-mar1988	all	39	2.2680347	individual
-mar1988	all	41	2.074731	individual
-mar1988	all	44	2.4957273	individual
-mar1988	all	45	2.9258478	individual
-mar1988	all	46	3.0286689	individual
-mar1988	all	46	3.529883	individual
-mar1988	all	51	2.4173412	individual
-mar1988	all	52	2.04957	individual
-mar1988	all	52	3.133944	individual
-mar1988	all	52	3.318158	individual
-mar1988	all	54	2.889489	individual
-mar1988	all	55	3.033231	individual
-mar1988	all	56	1.7651963	individual
-mar1988	all	57	2.2771935	individual
-mar1988	all	58	2.8812978	individual
-mar1988	all	59	1.9302976	individual
-mar1988	all	61	2.0541668	individual
-mar1988	all	61	2.3303494	individual
-mar1988	all	61	2.5350585	individual
-mar1988	all	62	2.7503436	individual
-mar1988	all	62	2.3412364	individual
-mar1988	all	64	2.3624918	individual
-mar1988	all	64	2.0557566	individual
-mar1988	all	64	2.0980601	individual
-mar1988	all	67	2.4357972	individual
-mar1988	all	67	2.8143518	individual
-mar1988	all	68	2.3750033	individual
-mar1988	all	71	2.898233	individual
-mar1988	all	71	2.6323152	individual
-mar1988	all	71	2.1412623	individual
-mar1988	all	72	1.4870436	individual
-mar1988	all	76	2.5018446	individual
-mar1988	all	77	2.3386443	individual
-mar1988	all	77	1.6737115	individual
-mar1988	all	78	2.3290017	individual
-mar1988	all	79	1.5008683	individual
-mar1988	all	80	2.3095434	individual
-mar1988	all	81	2.033879	individual
-mar1988	all	81	1.85993	individual
-mar1988	all	81	1.4814447	individual
-mar1988	all	83	2.0961592	individual
-mar1988	all	84	1.5442433	individual
-mar1988	all	85	1.943915	individual
-mar1988	all	86	1.5453147	individual
-mar1988	all	89	2.048084	individual
-mar1988	all	90	1.680209	individual
-tyg1963	all	17	3.58	individual
-tyg1963	all	28	3.57	individual
-tyg1963	all	37	3.28	individual
-tyg1963	all	47	3.23	individual
-tyg1963	all	27	3.19	individual
-tyg1963	all	42	2.96	individual
-tyg1963	all	39	2.65	individual
-tyg1963	all	48	2.39	individual
-tyg1963	all	38	2.12	individual
-tyg1963	all	25	3.38	individual
-tyg1963	all	54	3.31	individual
-tyg1963	all	36	3.13	individual
-tyg1963	all	19	2.84	individual
-tyg1963	all	43	2.81	individual
-tyg1963	all	23	2.26	individual
-tyg1963	all	30	2.18	individual
-tyg1963	all	44	2.04	individual
-tyg1963	all	55	1.89	individual
-sch1986	male	88	1.21277777777778	individual
-sch1986	male	85	2.09444444444444	individual
-sch1986	female	82	2.55111111111111	individual
-sch1986	female	81	1.86111111111111	individual
-sch1986	male	81	1.92	individual
-sch1986	female	80	1.8	individual
-sch1986	female	78	2.24	individual
-sch1986	female	77	2.3	individual
-sch1986	male	76	2.41111111111111	individual
-sch1986	female	75	2.40611111111111	individual
-sch1986	female	71	1.57333333333333	individual
-sch1986	male	71	3.53555555555556	individual
-sch1986	male	71	3.22	individual
-duc1979	all	20	2.77	individual
-duc1979	all	26	2.3	individual
-duc1979	all	27	2.34	individual
-duc1979	all	22	2.23	individual
-duc1979	all	22	3	individual
-duc1979	all	20	3.56	individual
-duc1979	all	27	2.42	individual
-duc1979	all	23	2.7	individual
-duc1979	all	23	2.37	individual
-duc1979	all	31	3.12	individual
-duc1979	all	26	2.53	individual
-duc1979	all	24	2.16	individual
-duc1979	all	29	3.72	individual
-duf1992	male	29	2.76	individual
-duf1992	male	29	2.88	individual
-duf1992	female	33	2.8	individual
-duf1992	male	38	2.37	individual
-duf1992	male	44	3.15	individual
+study	gender	age	GEC	dtype	status
+duc1979	all	20	2.77	individual	healthy
+duc1979	all	20	3.56	individual	healthy
+duc1979	all	22	2.23	individual	healthy
+duc1979	all	22	3	individual	healthy
+duc1979	all	23	2.37	individual	healthy
+duc1979	all	23	2.7	individual	healthy
+duc1979	all	24	2.16	individual	healthy
+duc1979	all	26	2.3	individual	healthy
+duc1979	all	26	2.53	individual	healthy
+duc1979	all	27	2.34	individual	healthy
+duc1979	all	27	2.42	individual	healthy
+duc1979	all	29	3.72	individual	healthy
+duc1979	all	31	3.12	individual	healthy
+duf1992	female	29	1.83	individual	cirrhosis
+duf1992	female	33	2.8	individual	healthy
+duf1992	female	58	1.36	individual	cirrhosis
+duf1992	female	61	1.17	individual	cirrhosis
+duf1992	female	70	1.17	individual	cirrhosis
+duf1992	male	23	1.17	individual	cirrhosis
+duf1992	male	29	2.76	individual	healthy
+duf1992	male	29	2.88	individual	healthy
+duf1992	male	35	1.24	individual	cirrhosis
+duf1992	male	38	2.37	individual	healthy
+duf1992	male	44	3.15	individual	healthy
+duf1992	male	45	1.52	individual	cirrhosis
+duf1992	male	54	1.91	individual	cirrhosis
+duf1992	male	57	1.98	individual	cirrhosis
+mar1988	all	26	3.4685013	individual	healthy
+mar1988	all	27	3.8168833	individual	healthy
+mar1988	all	28	3.2035513	individual	healthy
+mar1988	all	31	3.4914849	individual	healthy
+mar1988	all	39	2.2680347	individual	healthy
+mar1988	all	41	2.074731	individual	healthy
+mar1988	all	44	2.4957273	individual	healthy
+mar1988	all	45	2.9258478	individual	healthy
+mar1988	all	46	3.0286689	individual	healthy
+mar1988	all	46	3.529883	individual	healthy
+mar1988	all	51	2.4173412	individual	healthy
+mar1988	all	52	2.04957	individual	healthy
+mar1988	all	52	3.133944	individual	healthy
+mar1988	all	52	3.318158	individual	healthy
+mar1988	all	54	2.889489	individual	healthy
+mar1988	all	55	3.033231	individual	healthy
+mar1988	all	56	1.7651963	individual	healthy
+mar1988	all	57	2.2771935	individual	healthy
+mar1988	all	58	2.8812978	individual	healthy
+mar1988	all	59	1.9302976	individual	healthy
+mar1988	all	61	2.0541668	individual	healthy
+mar1988	all	61	2.3303494	individual	healthy
+mar1988	all	61	2.5350585	individual	healthy
+mar1988	all	62	2.3412364	individual	healthy
+mar1988	all	62	2.7503436	individual	healthy
+mar1988	all	64	2.0557566	individual	healthy
+mar1988	all	64	2.0980601	individual	healthy
+mar1988	all	64	2.3624918	individual	healthy
+mar1988	all	67	2.4357972	individual	healthy
+mar1988	all	67	2.8143518	individual	healthy
+mar1988	all	68	2.3750033	individual	healthy
+mar1988	all	71	2.1412623	individual	healthy
+mar1988	all	71	2.6323152	individual	healthy
+mar1988	all	71	2.898233	individual	healthy
+mar1988	all	72	1.4870436	individual	healthy
+mar1988	all	76	2.5018446	individual	healthy
+mar1988	all	77	1.6737115	individual	healthy
+mar1988	all	77	2.3386443	individual	healthy
+mar1988	all	78	2.3290017	individual	healthy
+mar1988	all	79	1.5008683	individual	healthy
+mar1988	all	80	2.3095434	individual	healthy
+mar1988	all	81	1.4814447	individual	healthy
+mar1988	all	81	1.85993	individual	healthy
+mar1988	all	81	2.033879	individual	healthy
+mar1988	all	83	2.0961592	individual	healthy
+mar1988	all	84	1.5442433	individual	healthy
+mar1988	all	85	1.943915	individual	healthy
+mar1988	all	86	1.5453147	individual	healthy
+mar1988	all	89	2.048084	individual	healthy
+mar1988	all	90	1.680209	individual	healthy
+sch1986	female	71	1.57333333333333	individual	healthy
+sch1986	female	75	2.40611111111111	individual	healthy
+sch1986	female	77	2.3	individual	healthy
+sch1986	female	78	2.24	individual	healthy
+sch1986	female	80	1.8	individual	healthy
+sch1986	female	81	1.86111111111111	individual	healthy
+sch1986	female	82	2.55111111111111	individual	healthy
+sch1986	male	71	3.22	individual	healthy
+sch1986	male	71	3.53555555555556	individual	healthy
+sch1986	male	76	2.41111111111111	individual	healthy
+sch1986	male	81	1.92	individual	healthy
+sch1986	male	85	2.09444444444444	individual	healthy
+sch1986	male	88	1.21277777777778	individual	healthy
+tyg1963	all	17	3.58	individual	healthy
+tyg1963	all	18	1.97	individual	cirrhosis
+tyg1963	all	19	2.84	individual	healthy
+tyg1963	all	23	2.26	individual	healthy
+tyg1963	all	25	3.38	individual	healthy
+tyg1963	all	27	3.19	individual	healthy
+tyg1963	all	28	3.57	individual	healthy
+tyg1963	all	30	2.18	individual	healthy
+tyg1963	all	36	3.13	individual	healthy
+tyg1963	all	37	3.28	individual	healthy
+tyg1963	all	38	2.12	individual	healthy
+tyg1963	all	39	2.65	individual	healthy
+tyg1963	all	42	1.39	individual	cirrhosis
+tyg1963	all	42	2.96	individual	healthy
+tyg1963	all	43	2.81	individual	healthy
+tyg1963	all	44	2.04	individual	healthy
+tyg1963	all	45	1.68	individual	cirrhosis
+tyg1963	all	47	3.23	individual	healthy
+tyg1963	all	48	2.39	individual	healthy
+tyg1963	all	50	1.4	individual	cirrhosis
+tyg1963	all	54	3.31	individual	healthy
+tyg1963	all	55	1.89	individual	healthy

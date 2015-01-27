@@ -1,784 +1,784 @@
-study	gender	age	volLiverkg	dtype
-wyn1989	female	24	20.5	individual
-wyn1989	male	24	17.3	individual
-wyn1989	male	27	16.6	individual
-wyn1989	female	27	20.6	individual
-wyn1989	male	28	20.4	individual
-wyn1989	female	28	25.6	individual
-wyn1989	male	28	19.6	individual
-wyn1989	female	28	29.1	individual
-wyn1989	male	29	21	individual
-wyn1989	male	29	21.7	individual
-wyn1989	male	29	20.4	individual
-wyn1989	female	29	19.8	individual
-wyn1989	male	30	15.9	individual
-wyn1989	female	32	19.7	individual
-wyn1989	female	33	29.6	individual
-wyn1989	female	33	23	individual
-wyn1989	female	33	18.3	individual
-wyn1989	male	33	20.6	individual
-wyn1989	female	36	25.8	individual
-wyn1989	male	37	20.9	individual
-wyn1989	male	41	23.5	individual
-wyn1989	female	42	20.5	individual
-wyn1989	female	42	24.7	individual
-wyn1989	male	42	22.9	individual
-wyn1989	male	43	17.6	individual
-wyn1989	male	45	24	individual
-wyn1989	female	45	14.8	individual
-wyn1989	female	46	20.5	individual
-wyn1989	female	46	22.8	individual
-wyn1989	male	51	17	individual
-wyn1989	male	53	15.3	individual
-wyn1989	female	54	20.7	individual
-wyn1989	female	55	14	individual
-wyn1989	male	55	18.9	individual
-wyn1989	female	56	21	individual
-wyn1989	female	57	22.7	individual
-wyn1989	female	59	15.4	individual
-wyn1989	male	59	22.4	individual
-wyn1989	male	62	16.6	individual
-wyn1989	male	63	19.6	individual
-wyn1989	male	63	15.5	individual
-wyn1989	female	64	15.4	individual
-wyn1989	female	64	15.8	individual
-wyn1989	female	65	16.1	individual
-wyn1989	male	65	14.5	individual
-wyn1989	female	66	19.8	individual
-wyn1989	female	68	16.7	individual
-wyn1989	male	68	12.8	individual
-wyn1989	male	70	13.6	individual
-wyn1989	male	71	18.2	individual
-wyn1989	male	71	19.5	individual
-wyn1989	male	71	13.9	individual
-wyn1989	female	72	16.1	individual
-wyn1989	male	75	17.1	individual
-wyn1989	male	75	16.4	individual
-wyn1989	female	76	15.3	individual
-wyn1989	female	78	17.8	individual
-wyn1989	female	79	13.9	individual
-wyn1989	male	79	14.9	individual
-wyn1989	female	80	13.8	individual
-wyn1989	male	84	15.9	individual
-wyn1989	female	87	14.2	individual
-wyn1989	male	90	13.8	individual
-wyn1989	male	91	13.9	individual
-wyn1989	female	91	16.9	individual
-naw1998	male	75	16.9577464788732	individual
-naw1998	male	69	21	individual
-naw1998	male	60	18.1282051282051	individual
-naw1998	male	51	19.6265060240964	individual
-naw1998	male	39	19.8452380952381	individual
-naw1998	male	72	19.9350649350649	individual
-naw1998	male	65	19.8194444444444	individual
-naw1998	male	53	18.531914893617	individual
-naw1998	male	64	20.3977272727273	individual
-naw1998	male	63	18.3048780487805	individual
-naw1998	male	63	21.0277777777778	individual
-naw1998	male	46	26.1710526315789	individual
-naw1998	male	76	22.8448275862069	individual
-naw1998	male	25	21.1842105263158	individual
-naw1998	female	42	19.8181818181818	individual
-naw1998	female	67	17.0138888888889	individual
-naw1998	female	55	19.5	individual
-naw1998	female	75	21.7833333333333	individual
-naw1998	female	47	22.1304347826087	individual
-naw1998	female	71	18.6478873239437	individual
-naw1998	female	43	18.8589743589744	individual
-ura1995	all	0.7092945	46.996796	individual
-ura1995	all	1.1846669	46.094902	individual
-ura1995	all	0.51455593	42.29761	individual
-ura1995	all	0.46621147	41.49781	individual
-ura1995	all	1.9878386	39.091743	individual
-ura1995	all	0.5577304	37.397476	individual
-ura1995	all	0.1765073	37.099003	individual
-ura1995	all	0.36616647	36.198254	individual
-ura1995	all	0.74684536	35.896732	individual
-ura1995	all	0.36544085	35.398262	individual
-ura1995	all	-0.063491836	34.99998	individual
-ura1995	all	0.74557555	34.49675	individual
-ura1995	all	1.2213107	33.99485	individual
-ura1995	all	0.6970496	33.496952	individual
-ura1995	all	0.74367076	32.396774	individual
-ura1995	all	0.7902012	31.196596	individual
-ura1995	all	0.4573226	31.697924	individual
-ura1995	all	0.4087967	30.698126	individual
-ura1995	all	0.45568997	29.897943	individual
-ura1995	all	0.5977303	28.997383	individual
-ura1995	all	0.93060887	28.496056	individual
-ura1995	all	1.1671613	26.795122	individual
-ura1995	all	1.4089745	30.894123	individual
-ura1995	all	1.9816709	32.29182	individual
-ura1995	all	2.934502	32.788006	individual
-ura1995	all	2.747473	36.588726	individual
-ura1995	all	4.936853	35.37998	individual
-ura1995	all	8.081876	37.76738	individual
-ura1995	all	5.9828353	33.575806	individual
-ura1995	all	7.0761647	31.471449	individual
-ura1995	all	5.8851485	30.876219	individual
-ura1995	all	5.5991635	30.577364	individual
-ura1995	all	3.9752238	25.183903	individual
-ura1995	all	6.928773	26.472078	individual
-ura1995	all	6.736393	24.372864	individual
-ura1995	all	7.7840986	24.468672	individual
-ura1995	all	8.4543	28.365961	individual
-ura1995	all	8.449856	23.466017	individual
-ura1995	all	8.449312	22.866024	individual
-ura1995	all	10.02137	23.55973	individual
-ura1995	all	9.784817	25.260664	individual
-ura1995	all	10.310711	27.558542	individual
-ura1995	all	12.549977	28.849575	individual
-ura1995	all	12.4040365	25.450186	individual
-ura1995	all	12.498639	24.749813	individual
-ura1995	all	12.019004	20.951761	individual
-ura1995	all	12.301906	17.850653	individual
-ura1995	all	12.876688	21.548325	individual
-ura1995	all	12.8303385	22.9485	individual
-ura1995	all	13.544259	22.545647	individual
-ura1995	all	13.923396	20.544146	individual
-ura1995	all	13.92131	18.244173	individual
-ura1995	all	14.966748	15.84001	individual
-ura1995	all	14.160493	19.443207	individual
-ura1995	all	14.922214	19.240162	individual
-ura1995	all	15.921847	18.836166	individual
-ura1995	all	16.96919	18.531979	individual
-ura1995	all	17.873495	18.028366	individual
-ura1995	all	17.01808	19.931772	individual
-ura1995	all	16.971186	20.731953	individual
-ura1995	all	14.876771	21.640324	individual
-ura1995	all	14.734459	22.240889	individual
-ura1995	all	14.973641	23.439922	individual
-ura1995	all	15.213006	24.838955	individual
-ura1995	all	15.544161	22.437649	individual
-ura1995	all	17.068419	22.931547	individual
-ura1995	all	18.211363	23.026976	individual
-ura1995	all	18.356396	25.426376	individual
-ura1995	all	18.97517	25.123903	individual
-ura1995	all	18.829048	21.524515	individual
-ura1995	all	18.970543	20.023962	individual
-ura1995	all	20.40047	21.51823	individual
-ura1995	all	20.493803	19.417873	individual
-ura1995	all	21.683004	18.013128	individual
-ura1995	all	22.97316	22.907928	individual
-ura1995	all	22.972343	22.007938	individual
-ura1995	all	22.876833	21.708323	individual
-ura1995	all	23.447716	21.106045	individual
-ura1995	all	22.92282	19.908154	individual
-ura1995	all	23.922544	19.604156	individual
-ura1995	all	24.970522	19.999962	individual
-ura1995	all	24.923265	20.400148	individual
-ura1995	all	26.92471	21.99213	individual
-ura1995	all	26.01714	18.895784	individual
-ura1995	all	25.969158	18.49598	individual
-ura1995	all	26.969063	18.391981	individual
-ura1995	all	27.780127	20.088722	individual
-ura1995	all	27.018858	20.791763	individual
-hei1999	female	2e-04	49.7297297297297	individual
-hei1999	male	3e-04	24.5161290322581	individual
-hei1999	male	7e-04	28.8888888888889	individual
-hei1999	female	0.001	38	individual
-hei1999	male	0.0011	33.25	individual
-hei1999	male	0.0015	25.1162790697674	individual
-hei1999	male	0.0016	37.25	individual
-hei1999	female	0.002	34.1818181818182	individual
-hei1999	female	0.002	48	individual
-hei1999	male	0.002	35.5555555555556	individual
-hei1999	female	0.0023	23.7142857142857	individual
-hei1999	male	0.0023	107.5	individual
-hei1999	male	0.003	37.8378378378378	individual
-hei1999	male	0.003	24	individual
-hei1999	male	0.003	39.3684210526316	individual
-hei1999	male	0.007	32.4324324324324	individual
-hei1999	female	0.01	32.5333333333333	individual
-hei1999	female	0.01	34.9767441860465	individual
-hei1999	female	0.01	42.6666666666667	individual
-hei1999	female	0.01	36.3243243243243	individual
-hei1999	male	0.01	29.0909090909091	individual
-hei1999	male	0.01	32.48	individual
-hei1999	female	0.01	28.4651162790698	individual
-hei1999	male	0.01	31.3513513513514	individual
-hei1999	female	0.01	33.3333333333333	individual
-hei1999	male	0.01	32.2222222222222	individual
-hei1999	female	0.011	38.2439024390244	individual
-hei1999	male	0.011	37.3333333333333	individual
-hei1999	male	0.012	35.3454545454545	individual
-hei1999	male	0.012	27.5	individual
-hei1999	male	0.012	26.6666666666667	individual
-hei1999	male	0.012	41.8604651162791	individual
-hei1999	female	0.012	31.25	individual
-hei1999	female	0.012	35.7647058823529	individual
-hei1999	female	0.012	24.7272727272727	individual
-hei1999	male	0.012	37	individual
-hei1999	female	0.012	63.2	individual
-hei1999	male	0.012	34.7368421052632	individual
-hei1999	male	0.0122	33.0566037735849	individual
-hei1999	female	0.013	26.6666666666667	individual
-hei1999	male	0.013	32	individual
-hei1999	female	0.013	28	individual
-hei1999	male	0.013	37.3333333333333	individual
-hei1999	female	0.013	32.8	individual
-hei1999	female	0.02	35.52	individual
-hei1999	male	0.02	27.3333333333333	individual
-hei1999	female	0.02	35.4	individual
-hei1999	male	0.02	29.3333333333333	individual
-hei1999	female	0.02	30.4761904761905	individual
-hei1999	female	0.02	31.7090909090909	individual
-hei1999	female	0.02	38.4761904761905	individual
-hei1999	male	0.02	25.7333333333333	individual
-hei1999	male	0.02	70.7692307692308	individual
-hei1999	male	0.02	26	individual
-hei1999	male	0.02	24.32	individual
-hei1999	male	0.02	28	individual
-hei1999	male	0.02	38.88	individual
-hei1999	male	0.02	30.72	individual
-hei1999	female	0.02	36.5454545454545	individual
-hei1999	male	0.02	36.972972972973	individual
-hei1999	male	0.02	32.3809523809524	individual
-hei1999	female	0.02	35	individual
-hei1999	male	0.02	28.5090909090909	individual
-hei1999	female	0.02	25.531914893617	individual
-hei1999	male	0.02	37.6923076923077	individual
-hei1999	male	0.02	43.0769230769231	individual
-hei1999	female	0.02	34.3111111111111	individual
-hei1999	male	0.02	29.7674418604651	individual
-hei1999	female	0.02	31.2	individual
-hei1999	male	0.02	31	individual
-hei1999	male	0.02	23	individual
-hei1999	female	0.02	25.2307692307692	individual
-hei1999	male	0.02	32.8727272727273	individual
-hei1999	male	0.02	26.4	individual
-hei1999	male	0.02	22.1538461538462	individual
-hei1999	female	0.02	33.3333333333333	individual
-hei1999	male	0.02	29.6	individual
-hei1999	female	0.02	36.8	individual
-hei1999	male	0.02	29.0909090909091	individual
-hei1999	male	0.02	31.4285714285714	individual
-hei1999	male	0.02	28.4444444444444	individual
-hei1999	male	0.02	25.4545454545455	individual
-hei1999	male	0.02	26	individual
-hei1999	male	0.02	22.2857142857143	individual
-hei1999	male	0.02	29.8666666666667	individual
-hei1999	male	0.02	28.3636363636364	individual
-hei1999	female	0.02	34.7169811320755	individual
-hei1999	male	0.02	34.4	individual
-hei1999	female	0.02	31.6981132075472	individual
-hei1999	male	0.022	25.9047619047619	individual
-hei1999	male	0.022	27.4461538461538	individual
-hei1999	male	0.022	32.3076923076923	individual
-hei1999	male	0.022	37.5757575757576	individual
-hei1999	male	0.022	28.3076923076923	individual
-hei1999	female	0.022	33.7777777777778	individual
-hei1999	male	0.022	35.0545454545455	individual
-hei1999	male	0.022	25.7297297297297	individual
-hei1999	female	0.022	33.9393939393939	individual
-hei1999	female	0.022	28.8	individual
-hei1999	male	0.022	27.6923076923077	individual
-hei1999	male	0.022	28	individual
-hei1999	female	0.022	23.4285714285714	individual
-hei1999	male	0.03	32.4705882352941	individual
-hei1999	female	0.03	36.5714285714286	individual
-hei1999	male	0.03	18.88	individual
-hei1999	male	0.03	51.1515151515152	individual
-hei1999	female	0.03	33.9555555555556	individual
-hei1999	male	0.03	27.4509803921569	individual
-hei1999	male	0.03	30.5084745762712	individual
-hei1999	male	0.03	24.1379310344828	individual
-hei1999	male	0.03	31.4666666666667	individual
-hei1999	female	0.03	31.4181818181818	individual
-hei1999	female	0.03	34.3111111111111	individual
-hei1999	male	0.03	33.0666666666667	individual
-hei1999	female	0.03	28.936170212766	individual
-hei1999	female	0.03	26.2153846153846	individual
-hei1999	female	0.03	31.68	individual
-hei1999	male	0.03	31.0769230769231	individual
-hei1999	female	0.03	26.6666666666667	individual
-hei1999	female	0.03	29.3333333333333	individual
-hei1999	female	0.03	30.8	individual
-hei1999	male	0.03	30.1333333333333	individual
-hei1999	female	0.03	23.3333333333333	individual
-hei1999	female	0.03	22.8571428571429	individual
-hei1999	male	0.03	27.5555555555556	individual
-hei1999	female	0.03	19.3333333333333	individual
-hei1999	female	0.03	25.9459459459459	individual
-hei1999	male	0.03	30.7096774193548	individual
-hei1999	male	0.03	30.2666666666667	individual
-hei1999	male	0.03	32.6666666666667	individual
-hei1999	male	0.03	24.5714285714286	individual
-hei1999	male	0.03	29.3953488372093	individual
-hei1999	female	0.03	49	individual
-hei1999	male	0.03	29.8181818181818	individual
-hei1999	male	0.03	26.5333333333333	individual
-hei1999	male	0.03	29.6774193548387	individual
-hei1999	male	0.03	28.1538461538462	individual
-hei1999	female	0.03	22.8363636363636	individual
-hei1999	male	0.03	32.5818181818182	individual
-hei1999	male	0.03	21.7142857142857	individual
-hei1999	female	0.03	32.3333333333333	individual
-hei1999	male	0.03	31.6417910447761	individual
-hei1999	female	0.03	28	individual
-hei1999	male	0.03	31.5428571428571	individual
-hei1999	male	0.032	30.4	individual
-hei1999	female	0.032	31.4838709677419	individual
-hei1999	female	0.032	48	individual
-hei1999	male	0.032	29.2307692307692	individual
-hei1999	male	0.032	24.6153846153846	individual
-hei1999	male	0.04	36.1904761904762	individual
-hei1999	male	0.04	42.2222222222222	individual
-hei1999	female	0.04	30.5	individual
-hei1999	female	0.04	34.2857142857143	individual
-hei1999	female	0.04	27.906976744186	individual
-hei1999	male	0.04	30	individual
-hei1999	male	0.04	26	individual
-hei1999	male	0.04	20.48	individual
-hei1999	male	0.04	33.7777777777778	individual
-hei1999	male	0.04	30.4	individual
-hei1999	male	0.04	27.1428571428571	individual
-hei1999	male	0.04	27.6470588235294	individual
-hei1999	female	0.04	35.5555555555556	individual
-hei1999	male	0.04	35.3066666666667	individual
-hei1999	female	0.04	32.5818181818182	individual
-hei1999	female	0.04	38.2352941176471	individual
-hei1999	male	0.04	27.2	individual
-hei1999	male	0.04	33.92	individual
-hei1999	male	0.04	33.3333333333333	individual
-hei1999	male	0.04	34.4615384615385	individual
-hei1999	male	0.04	42.5806451612903	individual
-hei1999	female	0.04	26.1333333333333	individual
-hei1999	male	0.04	31.3333333333333	individual
-hei1999	female	0.042	31.1111111111111	individual
-hei1999	female	0.042	30.0235294117647	individual
-hei1999	female	0.05	33.92	individual
-hei1999	female	0.05	26.24	individual
-hei1999	male	0.05	31.3846153846154	individual
-hei1999	male	0.05	32.64	individual
-hei1999	male	0.05	30.2	individual
-hei1999	male	0.05	28.4444444444444	individual
-hei1999	male	0.05	30.2857142857143	individual
-hei1999	male	0.05	32	individual
-hei1999	male	0.05	29.2682926829268	individual
-hei1999	female	0.05	25.28	individual
-hei1999	female	0.05	29	individual
-hei1999	male	0.05	41.5094339622642	individual
-hei1999	male	0.05	25.6	individual
-hei1999	male	0.05	27.4285714285714	individual
-hei1999	female	0.05	36	individual
-hei1999	female	0.05	36.2666666666667	individual
-hei1999	male	0.05	30.08	individual
-hei1999	female	0.05	28.3870967741935	individual
-hei1999	male	0.05	29.3333333333333	individual
-hei1999	male	0.05	23.2380952380952	individual
-hei1999	male	0.05	29.2173913043478	individual
-hei1999	male	0.052	31.304347826087	individual
-hei1999	male	0.052	32.3692307692308	individual
-hei1999	female	0.052	34.8	individual
-hei1999	male	0.052	23.3333333333333	individual
-hei1999	male	0.06	27.8787878787879	individual
-hei1999	female	0.06	22.4	individual
-hei1999	female	0.06	42.8571428571429	individual
-hei1999	male	0.06	22.8571428571429	individual
-hei1999	female	0.06	33.75	individual
-hei1999	male	0.06	27.52	individual
-hei1999	male	0.06	27.7	individual
-hei1999	female	0.06	30.1866666666667	individual
-hei1999	male	0.06	41.8666666666667	individual
-hei1999	female	0.06	27.1111111111111	individual
-hei1999	female	0.06	35.4782608695652	individual
-hei1999	male	0.06	24	individual
-hei1999	female	0.06	23.3333333333333	individual
-hei1999	female	0.06	28.1333333333333	individual
-hei1999	male	0.06	42.9333333333333	individual
-hei1999	female	0.06	28.5301204819277	individual
-hei1999	female	0.06	31.0588235294118	individual
-hei1999	female	0.06	32.2461538461538	individual
-hei1999	male	0.062	27.3734939759036	individual
-hei1999	male	0.07	31.36	individual
-hei1999	female	0.07	25	individual
-hei1999	male	0.07	29.3333333333333	individual
-hei1999	male	0.07	36.3076923076923	individual
-hei1999	male	0.07	26	individual
-hei1999	female	0.07	38.1538461538462	individual
-hei1999	female	0.072	26.3157894736842	individual
-hei1999	male	0.08	21.7777777777778	individual
-hei1999	female	0.08	38.8235294117647	individual
-hei1999	female	0.08	31.7460317460317	individual
-hei1999	female	0.08	28	individual
-hei1999	female	0.08	28.8	individual
-hei1999	female	0.08	28	individual
-hei1999	male	0.08	29.6470588235294	individual
-hei1999	male	0.08	32.9411764705882	individual
-hei1999	female	0.083	36.6197183098592	individual
-hei1999	female	0.09	35.04	individual
-hei1999	female	0.09	33.5	individual
-hei1999	male	0.1	40	individual
-hei1999	male	0.1	36.7058823529412	individual
-hei1999	female	0.1	42.5	individual
-hei1999	female	0.11	28	individual
-hei1999	female	0.11	22.2222222222222	individual
-hei1999	female	0.11	32.8	individual
-hei1999	male	0.4	22.7826086956522	individual
-hei1999	male	1	23.8857142857143	individual
-hei1999	female	1	26.4533333333333	individual
-hei1999	female	1	58.1818181818182	individual
-hei1999	female	1	34.4	individual
-hei1999	male	1	43.0769230769231	individual
-hei1999	male	1	30.5454545454545	individual
-hei1999	male	1.01	44.2105263157895	individual
-hei1999	male	1.02	26.1333333333333	individual
-hei1999	male	1.02	28.8	individual
-hei1999	female	1.02	29.4545454545455	individual
-hei1999	female	1.03	32.8	individual
-hei1999	male	1.04	33.664	individual
-hei1999	female	1.04	18.6666666666667	individual
-hei1999	male	1.06	48	individual
-hei1999	male	1.06	30.3571428571429	individual
-hei1999	male	1.06	27.1407407407407	individual
-hei1999	female	1.06	30.6666666666667	individual
-hei1999	male	1.06	34.6666666666667	individual
-hei1999	male	1.06	30.2608695652174	individual
-hei1999	male	1.06	27.328	individual
-hei1999	male	1.06	25.6	individual
-hei1999	female	1.06	24	individual
-hei1999	male	1.07	30.08	individual
-hei1999	male	1.08	28.5217391304348	individual
-hei1999	female	1.08	22.08	individual
-hei1999	female	1.08	37.5384615384615	individual
-hei1999	male	1.09	45.4095238095238	individual
-hei1999	male	1.09	21.3333333333333	individual
-hei1999	male	1.11	32	individual
-hei1999	male	2	28.8	individual
-hei1999	male	2	25.0909090909091	individual
-hei1999	male	2	40.6153846153846	individual
-hei1999	male	2	27.6129032258065	individual
-hei1999	female	2	34.5806451612903	individual
-hei1999	female	2	26.6666666666667	individual
-hei1999	male	2	34.08	individual
-hei1999	male	2	44.2666666666667	individual
-hei1999	male	2	33.6	individual
-hei1999	female	2	30.4888888888889	individual
-hei1999	female	2	34.9090909090909	individual
-hei1999	male	2	27.0315789473684	individual
-hei1999	female	2	28.3076923076923	individual
-hei1999	male	2	32.5714285714286	individual
-hei1999	female	2	28.3076923076923	individual
-hei1999	female	2	27.52	individual
-hei1999	male	2	33.7777777777778	individual
-hei1999	male	2	38.4	individual
-hei1999	male	2.02	26.4	individual
-hei1999	male	2.03	35.3684210526316	individual
-hei1999	male	2.05	35.7333333333333	individual
-hei1999	female	2.06	43.8260869565217	individual
-hei1999	male	2.06	32	individual
-hei1999	male	2.06	33.1428571428571	individual
-hei1999	male	2.06	29.0206896551724	individual
-hei1999	male	2.08	21.6	individual
-hei1999	male	2.09	26.4615384615385	individual
-hei1999	male	2.09	32.3809523809524	individual
-hei1999	female	2.5	38	individual
-hei1999	male	3	37.2571428571429	individual
-hei1999	male	3	19.3488372093023	individual
-hei1999	male	3	32.4444444444444	individual
-hei1999	male	3	22.3448275862069	individual
-hei1999	female	3	21.7777777777778	individual
-hei1999	male	3	22.5	individual
-hei1999	male	3	25.1666666666667	individual
-hei1999	female	3	34.9090909090909	individual
-hei1999	female	3.06	20	individual
-hei1999	male	3.06	31	individual
-hei1999	male	4	25.4117647058824	individual
-hei1999	male	4	30.7692307692308	individual
-hei1999	female	4	28.6010362694301	individual
-hei1999	male	4	21	individual
-hei1999	female	4	42.6666666666667	individual
-hei1999	male	4	22.4	individual
-hei1999	male	4.06	29.3333333333333	individual
-hei1999	female	5	28.2222222222222	individual
-hei1999	male	5	26.1538461538462	individual
-hei1999	male	5	24.8888888888889	individual
-hei1999	male	5	32	individual
-hei1999	female	5	33.2229299363057	individual
-hei1999	male	5	32.4363636363636	individual
-hei1999	male	5	23.4545454545455	individual
-hei1999	male	5	25.2903225806452	individual
-hei1999	male	6	36.8888888888889	individual
-hei1999	female	6	30.9333333333333	individual
-hei1999	female	6	22.8765957446809	individual
-hei1999	female	6	34.6666666666667	individual
-hei1999	female	6	25.1914893617021	individual
-hei1999	male	6	36.7619047619048	individual
-hei1999	male	7	28.3	individual
-hei1999	female	7	16.5882352941176	individual
-hei1999	female	7	27.6363636363636	individual
-hei1999	female	8	20.3333333333333	individual
-hei1999	female	8	35.4	individual
-hei1999	male	8	19.68	individual
-hei1999	female	8	26.7169811320755	individual
-hei1999	male	8	19.2156862745098	individual
-hei1999	female	9	21.1428571428571	individual
-hei1999	male	9	24	individual
-hei1999	male	9	33.5384615384615	individual
-hei1999	male	9	32.6274509803922	individual
-hei1999	female	9	27.0588235294118	individual
-hei1999	female	9	31.0175438596491	individual
-hei1999	female	10	22.6478873239437	individual
-hei1999	female	10	21.3894736842105	individual
-hei1999	male	11	23.8367346938776	individual
-hei1999	male	11	22.2222222222222	individual
-hei1999	male	11	21.728	individual
-hei1999	male	12	18.8936170212766	individual
-hei1999	male	12	24	individual
-hei1999	female	12	26.7142857142857	individual
-hei1999	female	12	28.8888888888889	individual
-hei1999	female	12	21.1851851851852	individual
-hei1999	male	12	38.8571428571429	individual
-hei1999	female	13	22.7272727272727	individual
-hei1999	male	13	21.3	individual
-hei1999	female	13	35.4117647058824	individual
-hei1999	male	13	21.4883720930233	individual
-hei1999	male	13	26.1818181818182	individual
-hei1999	female	13	20.5538461538462	individual
-hei1999	female	14	27.1304347826087	individual
-hei1999	female	14	20.3529411764706	individual
-hei1999	male	14	20	individual
-hei1999	female	14	16.2909090909091	individual
-hei1999	male	14	24.6315789473684	individual
-hei1999	male	14	17.2307692307692	individual
-hei1999	male	14	18.7368421052632	individual
-hei1999	male	14	24.780487804878	individual
-hei1999	female	14	17.6842105263158	individual
-hei1999	male	14	14.5649484536082	individual
-hei1999	male	15	17.9692307692308	individual
-hei1999	female	15	19.5929824561404	individual
-hei1999	female	15	18.3529411764706	individual
-hei1999	female	15	19.0588235294118	individual
-hei1999	male	15	41.3793103448276	individual
-hei1999	female	15	18.0689655172414	individual
-hei1999	female	15	18.88	individual
-hei1999	female	15	19.672131147541	individual
-hei1999	male	15	18.0266666666667	individual
-hei1999	female	15	20.5090909090909	individual
-hei1999	male	15	21.04	individual
-hei1999	male	15	11.3333333333333	individual
-hei1999	male	15	19.36	individual
-hei1999	female	16	16.24	individual
-hei1999	female	16	18.656	individual
-hei1999	male	16	17.2413793103448	individual
-hei1999	female	16	25.4755555555556	individual
-hei1999	female	16	16.24	individual
-hei1999	male	16	13.7721518987342	individual
-hei1999	male	16	18.4103896103896	individual
-hei1999	male	16	22.1333333333333	individual
-hei1999	male	16	29.9220779220779	individual
-hei1999	male	16	34.6902654867257	individual
-hei1999	male	16	25.25	individual
-hei1999	female	16	18.6666666666667	individual
-hei1999	female	16	18.1960784313725	individual
-hei1999	male	16	28.3943661971831	individual
-hei1999	male	16	32.1240310077519	individual
-hei1999	male	19	27	individual
-hei1999	male	19	20.8395061728395	individual
-hei1999	male	19	19.9466666666667	individual
-hei1999	male	19	21.4320987654321	individual
-hei1999	male	19	20.8	individual
-hei1999	male	19	27	individual
-hei1999	male	20	19.0588235294118	individual
-hei1999	male	20	28.2	individual
-hei1999	male	20	15.5294117647059	individual
-hei1999	male	20	19.3	individual
-hei1999	male	21	19.9024390243902	individual
-hei1999	male	21	20.2352941176471	individual
-hei1999	male	21	16.8101265822785	individual
-hei1999	male	21	19.0454545454545	individual
-hei1999	male	21	18.6666666666667	individual
-hei1999	male	22	22.05	individual
-hei1999	male	22	21.5	individual
-hei1999	male	22	22.72	individual
-hei1999	male	22	26.3291139240506	individual
-hei1999	male	22	20.4878048780488	individual
-hei1999	male	22	20.687898089172	individual
-hei1999	male	22	17.1627906976744	individual
-hei1999	male	22	16.2	individual
-hei1999	male	23	19.7647058823529	individual
-hei1999	male	23	22.3030303030303	individual
-hei1999	male	23	16	individual
-hei1999	male	24	30.7368421052632	individual
-hei1999	male	25	18.9268292682927	individual
-hei1999	male	25	16.4705882352941	individual
-hei1999	male	25	20.1951219512195	individual
-hei1999	male	25	20.433734939759	individual
-hei1999	male	26	18.6046511627907	individual
-hei1999	male	26	37.4358974358974	individual
-hei1999	male	26	20.0506329113924	individual
-hei1999	male	26	19.7727272727273	individual
-hei1999	male	26	21.45	individual
-hei1999	male	26	21.3333333333333	individual
-hei1999	male	27	20.3589743589744	individual
-hei1999	male	27	16.6871165644172	individual
-hei1999	male	27	22.5	individual
-hei1999	male	27	20.2	individual
-hei1999	male	27	15.0315789473684	individual
-hei1999	male	28	19.2	individual
-hei1999	male	28	15.8961038961039	individual
-hei1999	male	29	22.4303797468354	individual
-hei1999	male	30	20.9066666666667	individual
-hei1999	male	30	23.7922077922078	individual
-hei1999	male	30	18.4615384615385	individual
-hei1999	male	30	24.3478260869565	individual
-hei1999	male	30	20.5619047619048	individual
-hei1999	male	30	16.3076923076923	individual
-hei1999	male	30	20.1025641025641	individual
-hei1999	male	30	19.5	individual
-hei1999	male	31	19.1111111111111	individual
-hei1999	female	31	19.7	individual
-hei1999	male	31	15.0588235294118	individual
-hei1999	male	31	22.8051948051948	individual
-hei1999	male	31	12.1806451612903	individual
-hei1999	male	31	21.8181818181818	individual
-hei1999	male	31	24.3	individual
-hei1999	male	32	25.0864197530864	individual
-hei1999	male	32	13.8105263157895	individual
-hei1999	male	32	20.046511627907	individual
-hei1999	male	32	17.8461538461538	individual
-hei1999	male	32	19.8117647058824	individual
-hei1999	male	32	16.1025641025641	individual
-hei1999	male	32	19.0588235294118	individual
-hei1999	male	32	16.7	individual
-hei1999	male	32	21.4634146341463	individual
-hei1999	male	33	22.9268292682927	individual
-hei1999	male	33	26.4390243902439	individual
-hei1999	male	33	25.1210191082803	individual
-hei1999	male	34	18.4210526315789	individual
-hei1999	male	35	23.7777777777778	individual
-hei1999	male	35	26.5730994152047	individual
-hei1999	male	35	20	individual
-hei1999	male	35	23.4074074074074	individual
-hei1999	male	36	21.15	individual
-hei1999	male	36	18.379746835443	individual
-hei1999	male	36	16.4235294117647	individual
-hei1999	male	36	19.5555555555556	individual
-hei1999	male	37	21.4358974358974	individual
-hei1999	male	37	24.1025641025641	individual
-hei1999	male	37	15.5609756097561	individual
-hei1999	male	37	21.4012738853503	individual
-hei1999	male	37	20.4938271604938	individual
-hei1999	male	37	22.6835443037975	individual
-hei1999	male	37	21.8666666666667	individual
-hei1999	male	38	21.8095238095238	individual
-hei1999	male	38	29.2658227848101	individual
-hei1999	male	39	22.8705882352941	individual
-hei1999	male	39	21.3756613756614	individual
-hei1999	male	39	23.2307692307692	individual
-hei1999	male	39	23.4666666666667	individual
-hei1999	male	39	21.0632911392405	individual
-hei1999	male	39	21.585798816568	individual
-hei1999	male	40	17.1733333333333	individual
-hei1999	male	40	19.1052631578947	individual
-hei1999	male	41	18.4615384615385	individual
-hei1999	male	41	20.3151515151515	individual
-hei1999	male	41	21.0424242424242	individual
-hei1999	male	42	22.3	individual
-hei1999	male	42	31.6842105263158	individual
-hei1999	male	42	20.6842105263158	individual
-hei1999	male	42	25.1139240506329	individual
-hei1999	male	43	16	individual
-hei1999	male	43	18.25	individual
-hei1999	male	43	20.16	individual
-hei1999	male	43	22.1538461538462	individual
-hei1999	male	43	20.0506329113924	individual
-hei1999	female	44	16.8205128205128	individual
-hei1999	male	44	20.125786163522	individual
-hei1999	male	45	17.2467532467532	individual
-hei1999	male	45	23.6	individual
-hei1999	male	46	18.3255813953488	individual
-hei1999	male	46	24.2736842105263	individual
-hei1999	male	46	34.7619047619048	individual
-hei1999	male	46	20.9230769230769	individual
-hei1999	male	46	22.0857142857143	individual
-hei1999	male	46	16.6265060240964	individual
-hei1999	male	47	16.9350649350649	individual
-hei1999	male	48	16.64	individual
-hei1999	male	48	22.5822784810127	individual
-hei1999	male	49	21.0526315789474	individual
-hei1999	male	49	17.8313253012048	individual
-hei1999	male	49	22.4415584415584	individual
-hei1999	male	50	14.9135802469136	individual
-hei1999	male	50	17.8461538461538	individual
-hei1999	male	51	17.8823529411765	individual
-hei1999	male	51	20.9756097560976	individual
-hei1999	male	51	20.4210526315789	individual
-hei1999	male	52	21.4146341463415	individual
-hei1999	male	52	14.7692307692308	individual
-hei1999	male	52	15.0649350649351	individual
-hei1999	male	52	24.2506024096386	individual
-hei1999	male	53	18.2123456790123	individual
-hei1999	male	53	20.0519480519481	individual
-hei1999	male	53	16.5263157894737	individual
-hei1999	male	53	23.493670886076	individual
-hei1999	male	53	32.8674698795181	individual
-hei1999	male	54	21.9108280254777	individual
-hei1999	male	54	17.8074074074074	individual
-hei1999	male	54	19.0573248407643	individual
-hei1999	male	54	19.8726114649682	individual
-hei1999	male	55	24.8447204968944	individual
-hei1999	male	56	18.8051948051948	individual
-hei1999	male	56	17.8227848101266	individual
-hei1999	male	56	23.0243902439024	individual
-hei1999	male	56	20.6545454545455	individual
-hei1999	male	57	20.2666666666667	individual
-hei1999	male	57	17.5263157894737	individual
-hei1999	male	57	17.6100628930818	individual
-hei1999	male	57	19.3170731707317	individual
-hei1999	male	57	12.987012987013	individual
-hei1999	male	58	15.9036144578313	individual
-hei1999	male	58	16.7088607594937	individual
-hei1999	male	60	19.7	individual
-hei1999	male	60	23.9503105590062	individual
-hei1999	male	60	24.3116883116883	individual
-hei1999	male	60	20.8426666666667	individual
-hei1999	male	60	19.52	individual
-hei1999	male	60	22.7142857142857	individual
-hei1999	male	61	22.6835443037975	individual
-hei1999	male	61	13.6688741721854	individual
-hei1999	male	61	15.8117647058824	individual
-hei1999	male	61	21.6533333333333	individual
-hei1999	male	61	16.7901234567901	individual
-hei1999	male	62	16.7368421052632	individual
-hei1999	male	62	22.6153846153846	individual
-hei1999	male	63	19.6078431372549	individual
-hei1999	male	64	23.9036144578313	individual
-hei1999	male	64	17.5384615384615	individual
-hei1999	male	64	23.2911392405063	individual
-hei1999	male	65	18.95	individual
-hei1999	male	65	17.6842105263158	individual
-hei1999	male	66	23	individual
-hei1999	male	66	16.9350649350649	individual
-hei1999	male	66	20.5128205128205	individual
-hei1999	male	67	21.2	individual
-hei1999	male	68	15.6744186046512	individual
-hei1999	male	68	16	individual
-hei1999	female	71	21.2682926829268	individual
-hei1999	male	71	20.75	individual
-hei1999	male	71	19.1604938271605	individual
-hei1999	male	71	17.0126582278481	individual
-hei1999	male	72	16.6933333333333	individual
-hei1999	male	72	16.2012578616352	individual
-hei1999	male	73	19.5949367088608	individual
-hei1999	male	73	18.974358974359	individual
-hei1999	male	74	19.0379746835443	individual
-hei1999	male	74	19.6842105263158	individual
-hei1999	male	74	19.6842105263158	individual
-hei1999	male	74	16.987012987013	individual
-hei1999	male	75	19.6626506024096	individual
-hei1999	male	75	17.3935483870968	individual
-hei1999	male	75	20	individual
-hei1999	male	76	17.1282051282051	individual
-hei1999	male	77	26.2564102564103	individual
-hei1999	male	77	14.88	individual
-hei1999	male	80	18.5714285714286	individual
-hei1999	female	80	18.7317073170732	individual
-hei1999	male	81	16.8878048780488	individual
-hei1999	male	82	12.2439024390244	individual
-hei1999	male	84	24.0529801324503	individual
-hei1999	male	87	16.4	individual
-hei1999	male	87	16.1066666666667	individual
-hei1999	male	88	14.1772151898734	individual
-hei1999	male	88	14.6506024096386	individual
+study	gender	age	volLiverkg	dtype	status
+hei1999	female	2e-04	49.7297297297297	individual	healthy
+hei1999	female	0.001	38	individual	healthy
+hei1999	female	0.002	34.1818181818182	individual	healthy
+hei1999	female	0.002	48	individual	healthy
+hei1999	female	0.0023	23.7142857142857	individual	healthy
+hei1999	female	0.01	28.4651162790698	individual	healthy
+hei1999	female	0.01	32.5333333333333	individual	healthy
+hei1999	female	0.01	33.3333333333333	individual	healthy
+hei1999	female	0.01	34.9767441860465	individual	healthy
+hei1999	female	0.01	36.3243243243243	individual	healthy
+hei1999	female	0.01	42.6666666666667	individual	healthy
+hei1999	female	0.011	38.2439024390244	individual	healthy
+hei1999	female	0.012	24.7272727272727	individual	healthy
+hei1999	female	0.012	31.25	individual	healthy
+hei1999	female	0.012	35.7647058823529	individual	healthy
+hei1999	female	0.012	63.2	individual	healthy
+hei1999	female	0.013	26.6666666666667	individual	healthy
+hei1999	female	0.013	28	individual	healthy
+hei1999	female	0.013	32.8	individual	healthy
+hei1999	female	0.02	25.2307692307692	individual	healthy
+hei1999	female	0.02	25.531914893617	individual	healthy
+hei1999	female	0.02	30.4761904761905	individual	healthy
+hei1999	female	0.02	31.2	individual	healthy
+hei1999	female	0.02	31.6981132075472	individual	healthy
+hei1999	female	0.02	31.7090909090909	individual	healthy
+hei1999	female	0.02	33.3333333333333	individual	healthy
+hei1999	female	0.02	34.3111111111111	individual	healthy
+hei1999	female	0.02	34.7169811320755	individual	healthy
+hei1999	female	0.02	35	individual	healthy
+hei1999	female	0.02	35.4	individual	healthy
+hei1999	female	0.02	35.52	individual	healthy
+hei1999	female	0.02	36.5454545454545	individual	healthy
+hei1999	female	0.02	36.8	individual	healthy
+hei1999	female	0.02	38.4761904761905	individual	healthy
+hei1999	female	0.022	23.4285714285714	individual	healthy
+hei1999	female	0.022	28.8	individual	healthy
+hei1999	female	0.022	33.7777777777778	individual	healthy
+hei1999	female	0.022	33.9393939393939	individual	healthy
+hei1999	female	0.03	19.3333333333333	individual	healthy
+hei1999	female	0.03	22.8363636363636	individual	healthy
+hei1999	female	0.03	22.8571428571429	individual	healthy
+hei1999	female	0.03	23.3333333333333	individual	healthy
+hei1999	female	0.03	25.9459459459459	individual	healthy
+hei1999	female	0.03	26.2153846153846	individual	healthy
+hei1999	female	0.03	26.6666666666667	individual	healthy
+hei1999	female	0.03	28	individual	healthy
+hei1999	female	0.03	28.936170212766	individual	healthy
+hei1999	female	0.03	29.3333333333333	individual	healthy
+hei1999	female	0.03	30.8	individual	healthy
+hei1999	female	0.03	31.4181818181818	individual	healthy
+hei1999	female	0.03	31.68	individual	healthy
+hei1999	female	0.03	32.3333333333333	individual	healthy
+hei1999	female	0.03	33.9555555555556	individual	healthy
+hei1999	female	0.03	34.3111111111111	individual	healthy
+hei1999	female	0.03	36.5714285714286	individual	healthy
+hei1999	female	0.03	49	individual	healthy
+hei1999	female	0.032	31.4838709677419	individual	healthy
+hei1999	female	0.032	48	individual	healthy
+hei1999	female	0.04	26.1333333333333	individual	healthy
+hei1999	female	0.04	27.906976744186	individual	healthy
+hei1999	female	0.04	30.5	individual	healthy
+hei1999	female	0.04	32.5818181818182	individual	healthy
+hei1999	female	0.04	34.2857142857143	individual	healthy
+hei1999	female	0.04	35.5555555555556	individual	healthy
+hei1999	female	0.04	38.2352941176471	individual	healthy
+hei1999	female	0.042	30.0235294117647	individual	healthy
+hei1999	female	0.042	31.1111111111111	individual	healthy
+hei1999	female	0.05	25.28	individual	healthy
+hei1999	female	0.05	26.24	individual	healthy
+hei1999	female	0.05	28.3870967741935	individual	healthy
+hei1999	female	0.05	29	individual	healthy
+hei1999	female	0.05	33.92	individual	healthy
+hei1999	female	0.05	36	individual	healthy
+hei1999	female	0.05	36.2666666666667	individual	healthy
+hei1999	female	0.052	34.8	individual	healthy
+hei1999	female	0.06	22.4	individual	healthy
+hei1999	female	0.06	23.3333333333333	individual	healthy
+hei1999	female	0.06	27.1111111111111	individual	healthy
+hei1999	female	0.06	28.1333333333333	individual	healthy
+hei1999	female	0.06	28.5301204819277	individual	healthy
+hei1999	female	0.06	30.1866666666667	individual	healthy
+hei1999	female	0.06	31.0588235294118	individual	healthy
+hei1999	female	0.06	32.2461538461538	individual	healthy
+hei1999	female	0.06	33.75	individual	healthy
+hei1999	female	0.06	35.4782608695652	individual	healthy
+hei1999	female	0.06	42.8571428571429	individual	healthy
+hei1999	female	0.07	25	individual	healthy
+hei1999	female	0.07	38.1538461538462	individual	healthy
+hei1999	female	0.072	26.3157894736842	individual	healthy
+hei1999	female	0.08	28	individual	healthy
+hei1999	female	0.08	28	individual	healthy
+hei1999	female	0.08	28.8	individual	healthy
+hei1999	female	0.08	31.7460317460317	individual	healthy
+hei1999	female	0.08	38.8235294117647	individual	healthy
+hei1999	female	0.083	36.6197183098592	individual	healthy
+hei1999	female	0.09	33.5	individual	healthy
+hei1999	female	0.09	35.04	individual	healthy
+hei1999	female	0.1	42.5	individual	healthy
+hei1999	female	0.11	22.2222222222222	individual	healthy
+hei1999	female	0.11	28	individual	healthy
+hei1999	female	0.11	32.8	individual	healthy
+hei1999	female	1	26.4533333333333	individual	healthy
+hei1999	female	1	34.4	individual	healthy
+hei1999	female	1	58.1818181818182	individual	healthy
+hei1999	female	1.02	29.4545454545455	individual	healthy
+hei1999	female	1.03	32.8	individual	healthy
+hei1999	female	1.04	18.6666666666667	individual	healthy
+hei1999	female	1.06	24	individual	healthy
+hei1999	female	1.06	30.6666666666667	individual	healthy
+hei1999	female	1.08	22.08	individual	healthy
+hei1999	female	1.08	37.5384615384615	individual	healthy
+hei1999	female	2	26.6666666666667	individual	healthy
+hei1999	female	2	27.52	individual	healthy
+hei1999	female	2	28.3076923076923	individual	healthy
+hei1999	female	2	28.3076923076923	individual	healthy
+hei1999	female	2	30.4888888888889	individual	healthy
+hei1999	female	2	34.5806451612903	individual	healthy
+hei1999	female	2	34.9090909090909	individual	healthy
+hei1999	female	2.06	43.8260869565217	individual	healthy
+hei1999	female	2.5	38	individual	healthy
+hei1999	female	3	21.7777777777778	individual	healthy
+hei1999	female	3	34.9090909090909	individual	healthy
+hei1999	female	3.06	20	individual	healthy
+hei1999	female	4	28.6010362694301	individual	healthy
+hei1999	female	4	42.6666666666667	individual	healthy
+hei1999	female	5	28.2222222222222	individual	healthy
+hei1999	female	5	33.2229299363057	individual	healthy
+hei1999	female	6	22.8765957446809	individual	healthy
+hei1999	female	6	25.1914893617021	individual	healthy
+hei1999	female	6	30.9333333333333	individual	healthy
+hei1999	female	6	34.6666666666667	individual	healthy
+hei1999	female	7	16.5882352941176	individual	healthy
+hei1999	female	7	27.6363636363636	individual	healthy
+hei1999	female	8	20.3333333333333	individual	healthy
+hei1999	female	8	26.7169811320755	individual	healthy
+hei1999	female	8	35.4	individual	healthy
+hei1999	female	9	21.1428571428571	individual	healthy
+hei1999	female	9	27.0588235294118	individual	healthy
+hei1999	female	9	31.0175438596491	individual	healthy
+hei1999	female	10	21.3894736842105	individual	healthy
+hei1999	female	10	22.6478873239437	individual	healthy
+hei1999	female	12	21.1851851851852	individual	healthy
+hei1999	female	12	26.7142857142857	individual	healthy
+hei1999	female	12	28.8888888888889	individual	healthy
+hei1999	female	13	20.5538461538462	individual	healthy
+hei1999	female	13	22.7272727272727	individual	healthy
+hei1999	female	13	35.4117647058824	individual	healthy
+hei1999	female	14	16.2909090909091	individual	healthy
+hei1999	female	14	17.6842105263158	individual	healthy
+hei1999	female	14	20.3529411764706	individual	healthy
+hei1999	female	14	27.1304347826087	individual	healthy
+hei1999	female	15	18.0689655172414	individual	healthy
+hei1999	female	15	18.3529411764706	individual	healthy
+hei1999	female	15	18.88	individual	healthy
+hei1999	female	15	19.0588235294118	individual	healthy
+hei1999	female	15	19.5929824561404	individual	healthy
+hei1999	female	15	19.672131147541	individual	healthy
+hei1999	female	15	20.5090909090909	individual	healthy
+hei1999	female	16	16.24	individual	healthy
+hei1999	female	16	16.24	individual	healthy
+hei1999	female	16	18.1960784313725	individual	healthy
+hei1999	female	16	18.656	individual	healthy
+hei1999	female	16	18.6666666666667	individual	healthy
+hei1999	female	16	25.4755555555556	individual	healthy
+hei1999	female	31	19.7	individual	healthy
+hei1999	female	44	16.8205128205128	individual	healthy
+hei1999	female	71	21.2682926829268	individual	healthy
+hei1999	female	80	18.7317073170732	individual	healthy
+hei1999	male	3e-04	24.5161290322581	individual	healthy
+hei1999	male	7e-04	28.8888888888889	individual	healthy
+hei1999	male	0.0011	33.25	individual	healthy
+hei1999	male	0.0015	25.1162790697674	individual	healthy
+hei1999	male	0.0016	37.25	individual	healthy
+hei1999	male	0.002	35.5555555555556	individual	healthy
+hei1999	male	0.0023	107.5	individual	healthy
+hei1999	male	0.003	24	individual	healthy
+hei1999	male	0.003	37.8378378378378	individual	healthy
+hei1999	male	0.003	39.3684210526316	individual	healthy
+hei1999	male	0.007	32.4324324324324	individual	healthy
+hei1999	male	0.01	29.0909090909091	individual	healthy
+hei1999	male	0.01	31.3513513513514	individual	healthy
+hei1999	male	0.01	32.2222222222222	individual	healthy
+hei1999	male	0.01	32.48	individual	healthy
+hei1999	male	0.011	37.3333333333333	individual	healthy
+hei1999	male	0.012	26.6666666666667	individual	healthy
+hei1999	male	0.012	27.5	individual	healthy
+hei1999	male	0.012	34.7368421052632	individual	healthy
+hei1999	male	0.012	35.3454545454545	individual	healthy
+hei1999	male	0.012	37	individual	healthy
+hei1999	male	0.012	41.8604651162791	individual	healthy
+hei1999	male	0.0122	33.0566037735849	individual	healthy
+hei1999	male	0.013	32	individual	healthy
+hei1999	male	0.013	37.3333333333333	individual	healthy
+hei1999	male	0.02	22.1538461538462	individual	healthy
+hei1999	male	0.02	22.2857142857143	individual	healthy
+hei1999	male	0.02	23	individual	healthy
+hei1999	male	0.02	24.32	individual	healthy
+hei1999	male	0.02	25.4545454545455	individual	healthy
+hei1999	male	0.02	25.7333333333333	individual	healthy
+hei1999	male	0.02	26	individual	healthy
+hei1999	male	0.02	26	individual	healthy
+hei1999	male	0.02	26.4	individual	healthy
+hei1999	male	0.02	27.3333333333333	individual	healthy
+hei1999	male	0.02	28	individual	healthy
+hei1999	male	0.02	28.3636363636364	individual	healthy
+hei1999	male	0.02	28.4444444444444	individual	healthy
+hei1999	male	0.02	28.5090909090909	individual	healthy
+hei1999	male	0.02	29.0909090909091	individual	healthy
+hei1999	male	0.02	29.3333333333333	individual	healthy
+hei1999	male	0.02	29.6	individual	healthy
+hei1999	male	0.02	29.7674418604651	individual	healthy
+hei1999	male	0.02	29.8666666666667	individual	healthy
+hei1999	male	0.02	30.72	individual	healthy
+hei1999	male	0.02	31	individual	healthy
+hei1999	male	0.02	31.4285714285714	individual	healthy
+hei1999	male	0.02	32.3809523809524	individual	healthy
+hei1999	male	0.02	32.8727272727273	individual	healthy
+hei1999	male	0.02	34.4	individual	healthy
+hei1999	male	0.02	36.972972972973	individual	healthy
+hei1999	male	0.02	37.6923076923077	individual	healthy
+hei1999	male	0.02	38.88	individual	healthy
+hei1999	male	0.02	43.0769230769231	individual	healthy
+hei1999	male	0.02	70.7692307692308	individual	healthy
+hei1999	male	0.022	25.7297297297297	individual	healthy
+hei1999	male	0.022	25.9047619047619	individual	healthy
+hei1999	male	0.022	27.4461538461538	individual	healthy
+hei1999	male	0.022	27.6923076923077	individual	healthy
+hei1999	male	0.022	28	individual	healthy
+hei1999	male	0.022	28.3076923076923	individual	healthy
+hei1999	male	0.022	32.3076923076923	individual	healthy
+hei1999	male	0.022	35.0545454545455	individual	healthy
+hei1999	male	0.022	37.5757575757576	individual	healthy
+hei1999	male	0.03	18.88	individual	healthy
+hei1999	male	0.03	21.7142857142857	individual	healthy
+hei1999	male	0.03	24.1379310344828	individual	healthy
+hei1999	male	0.03	24.5714285714286	individual	healthy
+hei1999	male	0.03	26.5333333333333	individual	healthy
+hei1999	male	0.03	27.4509803921569	individual	healthy
+hei1999	male	0.03	27.5555555555556	individual	healthy
+hei1999	male	0.03	28.1538461538462	individual	healthy
+hei1999	male	0.03	29.3953488372093	individual	healthy
+hei1999	male	0.03	29.6774193548387	individual	healthy
+hei1999	male	0.03	29.8181818181818	individual	healthy
+hei1999	male	0.03	30.1333333333333	individual	healthy
+hei1999	male	0.03	30.2666666666667	individual	healthy
+hei1999	male	0.03	30.5084745762712	individual	healthy
+hei1999	male	0.03	30.7096774193548	individual	healthy
+hei1999	male	0.03	31.0769230769231	individual	healthy
+hei1999	male	0.03	31.4666666666667	individual	healthy
+hei1999	male	0.03	31.5428571428571	individual	healthy
+hei1999	male	0.03	31.6417910447761	individual	healthy
+hei1999	male	0.03	32.4705882352941	individual	healthy
+hei1999	male	0.03	32.5818181818182	individual	healthy
+hei1999	male	0.03	32.6666666666667	individual	healthy
+hei1999	male	0.03	33.0666666666667	individual	healthy
+hei1999	male	0.03	51.1515151515152	individual	healthy
+hei1999	male	0.032	24.6153846153846	individual	healthy
+hei1999	male	0.032	29.2307692307692	individual	healthy
+hei1999	male	0.032	30.4	individual	healthy
+hei1999	male	0.04	20.48	individual	healthy
+hei1999	male	0.04	26	individual	healthy
+hei1999	male	0.04	27.1428571428571	individual	healthy
+hei1999	male	0.04	27.2	individual	healthy
+hei1999	male	0.04	27.6470588235294	individual	healthy
+hei1999	male	0.04	30	individual	healthy
+hei1999	male	0.04	30.4	individual	healthy
+hei1999	male	0.04	31.3333333333333	individual	healthy
+hei1999	male	0.04	33.3333333333333	individual	healthy
+hei1999	male	0.04	33.7777777777778	individual	healthy
+hei1999	male	0.04	33.92	individual	healthy
+hei1999	male	0.04	34.4615384615385	individual	healthy
+hei1999	male	0.04	35.3066666666667	individual	healthy
+hei1999	male	0.04	36.1904761904762	individual	healthy
+hei1999	male	0.04	42.2222222222222	individual	healthy
+hei1999	male	0.04	42.5806451612903	individual	healthy
+hei1999	male	0.05	23.2380952380952	individual	healthy
+hei1999	male	0.05	25.6	individual	healthy
+hei1999	male	0.05	27.4285714285714	individual	healthy
+hei1999	male	0.05	28.4444444444444	individual	healthy
+hei1999	male	0.05	29.2173913043478	individual	healthy
+hei1999	male	0.05	29.2682926829268	individual	healthy
+hei1999	male	0.05	29.3333333333333	individual	healthy
+hei1999	male	0.05	30.08	individual	healthy
+hei1999	male	0.05	30.2	individual	healthy
+hei1999	male	0.05	30.2857142857143	individual	healthy
+hei1999	male	0.05	31.3846153846154	individual	healthy
+hei1999	male	0.05	32	individual	healthy
+hei1999	male	0.05	32.64	individual	healthy
+hei1999	male	0.05	41.5094339622642	individual	healthy
+hei1999	male	0.052	23.3333333333333	individual	healthy
+hei1999	male	0.052	31.304347826087	individual	healthy
+hei1999	male	0.052	32.3692307692308	individual	healthy
+hei1999	male	0.06	22.8571428571429	individual	healthy
+hei1999	male	0.06	24	individual	healthy
+hei1999	male	0.06	27.52	individual	healthy
+hei1999	male	0.06	27.7	individual	healthy
+hei1999	male	0.06	27.8787878787879	individual	healthy
+hei1999	male	0.06	41.8666666666667	individual	healthy
+hei1999	male	0.06	42.9333333333333	individual	healthy
+hei1999	male	0.062	27.3734939759036	individual	healthy
+hei1999	male	0.07	26	individual	healthy
+hei1999	male	0.07	29.3333333333333	individual	healthy
+hei1999	male	0.07	31.36	individual	healthy
+hei1999	male	0.07	36.3076923076923	individual	healthy
+hei1999	male	0.08	21.7777777777778	individual	healthy
+hei1999	male	0.08	29.6470588235294	individual	healthy
+hei1999	male	0.08	32.9411764705882	individual	healthy
+hei1999	male	0.1	36.7058823529412	individual	healthy
+hei1999	male	0.1	40	individual	healthy
+hei1999	male	0.4	22.7826086956522	individual	healthy
+hei1999	male	1	23.8857142857143	individual	healthy
+hei1999	male	1	30.5454545454545	individual	healthy
+hei1999	male	1	43.0769230769231	individual	healthy
+hei1999	male	1.01	44.2105263157895	individual	healthy
+hei1999	male	1.02	26.1333333333333	individual	healthy
+hei1999	male	1.02	28.8	individual	healthy
+hei1999	male	1.04	33.664	individual	healthy
+hei1999	male	1.06	25.6	individual	healthy
+hei1999	male	1.06	27.1407407407407	individual	healthy
+hei1999	male	1.06	27.328	individual	healthy
+hei1999	male	1.06	30.2608695652174	individual	healthy
+hei1999	male	1.06	30.3571428571429	individual	healthy
+hei1999	male	1.06	34.6666666666667	individual	healthy
+hei1999	male	1.06	48	individual	healthy
+hei1999	male	1.07	30.08	individual	healthy
+hei1999	male	1.08	28.5217391304348	individual	healthy
+hei1999	male	1.09	21.3333333333333	individual	healthy
+hei1999	male	1.09	45.4095238095238	individual	healthy
+hei1999	male	1.11	32	individual	healthy
+hei1999	male	2	25.0909090909091	individual	healthy
+hei1999	male	2	27.0315789473684	individual	healthy
+hei1999	male	2	27.6129032258065	individual	healthy
+hei1999	male	2	28.8	individual	healthy
+hei1999	male	2	32.5714285714286	individual	healthy
+hei1999	male	2	33.6	individual	healthy
+hei1999	male	2	33.7777777777778	individual	healthy
+hei1999	male	2	34.08	individual	healthy
+hei1999	male	2	38.4	individual	healthy
+hei1999	male	2	40.6153846153846	individual	healthy
+hei1999	male	2	44.2666666666667	individual	healthy
+hei1999	male	2.02	26.4	individual	healthy
+hei1999	male	2.03	35.3684210526316	individual	healthy
+hei1999	male	2.05	35.7333333333333	individual	healthy
+hei1999	male	2.06	29.0206896551724	individual	healthy
+hei1999	male	2.06	32	individual	healthy
+hei1999	male	2.06	33.1428571428571	individual	healthy
+hei1999	male	2.08	21.6	individual	healthy
+hei1999	male	2.09	26.4615384615385	individual	healthy
+hei1999	male	2.09	32.3809523809524	individual	healthy
+hei1999	male	3	19.3488372093023	individual	healthy
+hei1999	male	3	22.3448275862069	individual	healthy
+hei1999	male	3	22.5	individual	healthy
+hei1999	male	3	25.1666666666667	individual	healthy
+hei1999	male	3	32.4444444444444	individual	healthy
+hei1999	male	3	37.2571428571429	individual	healthy
+hei1999	male	3.06	31	individual	healthy
+hei1999	male	4	21	individual	healthy
+hei1999	male	4	22.4	individual	healthy
+hei1999	male	4	25.4117647058824	individual	healthy
+hei1999	male	4	30.7692307692308	individual	healthy
+hei1999	male	4.06	29.3333333333333	individual	healthy
+hei1999	male	5	23.4545454545455	individual	healthy
+hei1999	male	5	24.8888888888889	individual	healthy
+hei1999	male	5	25.2903225806452	individual	healthy
+hei1999	male	5	26.1538461538462	individual	healthy
+hei1999	male	5	32	individual	healthy
+hei1999	male	5	32.4363636363636	individual	healthy
+hei1999	male	6	36.7619047619048	individual	healthy
+hei1999	male	6	36.8888888888889	individual	healthy
+hei1999	male	7	28.3	individual	healthy
+hei1999	male	8	19.2156862745098	individual	healthy
+hei1999	male	8	19.68	individual	healthy
+hei1999	male	9	24	individual	healthy
+hei1999	male	9	32.6274509803922	individual	healthy
+hei1999	male	9	33.5384615384615	individual	healthy
+hei1999	male	11	21.728	individual	healthy
+hei1999	male	11	22.2222222222222	individual	healthy
+hei1999	male	11	23.8367346938776	individual	healthy
+hei1999	male	12	18.8936170212766	individual	healthy
+hei1999	male	12	24	individual	healthy
+hei1999	male	12	38.8571428571429	individual	healthy
+hei1999	male	13	21.3	individual	healthy
+hei1999	male	13	21.4883720930233	individual	healthy
+hei1999	male	13	26.1818181818182	individual	healthy
+hei1999	male	14	14.5649484536082	individual	healthy
+hei1999	male	14	17.2307692307692	individual	healthy
+hei1999	male	14	18.7368421052632	individual	healthy
+hei1999	male	14	20	individual	healthy
+hei1999	male	14	24.6315789473684	individual	healthy
+hei1999	male	14	24.780487804878	individual	healthy
+hei1999	male	15	11.3333333333333	individual	healthy
+hei1999	male	15	17.9692307692308	individual	healthy
+hei1999	male	15	18.0266666666667	individual	healthy
+hei1999	male	15	19.36	individual	healthy
+hei1999	male	15	21.04	individual	healthy
+hei1999	male	15	41.3793103448276	individual	healthy
+hei1999	male	16	13.7721518987342	individual	healthy
+hei1999	male	16	17.2413793103448	individual	healthy
+hei1999	male	16	18.4103896103896	individual	healthy
+hei1999	male	16	22.1333333333333	individual	healthy
+hei1999	male	16	25.25	individual	healthy
+hei1999	male	16	28.3943661971831	individual	healthy
+hei1999	male	16	29.9220779220779	individual	healthy
+hei1999	male	16	32.1240310077519	individual	healthy
+hei1999	male	16	34.6902654867257	individual	healthy
+hei1999	male	19	19.9466666666667	individual	healthy
+hei1999	male	19	20.8	individual	healthy
+hei1999	male	19	20.8395061728395	individual	healthy
+hei1999	male	19	21.4320987654321	individual	healthy
+hei1999	male	19	27	individual	healthy
+hei1999	male	19	27	individual	healthy
+hei1999	male	20	15.5294117647059	individual	healthy
+hei1999	male	20	19.0588235294118	individual	healthy
+hei1999	male	20	19.3	individual	healthy
+hei1999	male	20	28.2	individual	healthy
+hei1999	male	21	16.8101265822785	individual	healthy
+hei1999	male	21	18.6666666666667	individual	healthy
+hei1999	male	21	19.0454545454545	individual	healthy
+hei1999	male	21	19.9024390243902	individual	healthy
+hei1999	male	21	20.2352941176471	individual	healthy
+hei1999	male	22	16.2	individual	healthy
+hei1999	male	22	17.1627906976744	individual	healthy
+hei1999	male	22	20.4878048780488	individual	healthy
+hei1999	male	22	20.687898089172	individual	healthy
+hei1999	male	22	21.5	individual	healthy
+hei1999	male	22	22.05	individual	healthy
+hei1999	male	22	22.72	individual	healthy
+hei1999	male	22	26.3291139240506	individual	healthy
+hei1999	male	23	16	individual	healthy
+hei1999	male	23	19.7647058823529	individual	healthy
+hei1999	male	23	22.3030303030303	individual	healthy
+hei1999	male	24	30.7368421052632	individual	healthy
+hei1999	male	25	16.4705882352941	individual	healthy
+hei1999	male	25	18.9268292682927	individual	healthy
+hei1999	male	25	20.1951219512195	individual	healthy
+hei1999	male	25	20.433734939759	individual	healthy
+hei1999	male	26	18.6046511627907	individual	healthy
+hei1999	male	26	19.7727272727273	individual	healthy
+hei1999	male	26	20.0506329113924	individual	healthy
+hei1999	male	26	21.3333333333333	individual	healthy
+hei1999	male	26	21.45	individual	healthy
+hei1999	male	26	37.4358974358974	individual	healthy
+hei1999	male	27	15.0315789473684	individual	healthy
+hei1999	male	27	16.6871165644172	individual	healthy
+hei1999	male	27	20.2	individual	healthy
+hei1999	male	27	20.3589743589744	individual	healthy
+hei1999	male	27	22.5	individual	healthy
+hei1999	male	28	15.8961038961039	individual	healthy
+hei1999	male	28	19.2	individual	healthy
+hei1999	male	29	22.4303797468354	individual	healthy
+hei1999	male	30	16.3076923076923	individual	healthy
+hei1999	male	30	18.4615384615385	individual	healthy
+hei1999	male	30	19.5	individual	healthy
+hei1999	male	30	20.1025641025641	individual	healthy
+hei1999	male	30	20.5619047619048	individual	healthy
+hei1999	male	30	20.9066666666667	individual	healthy
+hei1999	male	30	23.7922077922078	individual	healthy
+hei1999	male	30	24.3478260869565	individual	healthy
+hei1999	male	31	12.1806451612903	individual	healthy
+hei1999	male	31	15.0588235294118	individual	healthy
+hei1999	male	31	19.1111111111111	individual	healthy
+hei1999	male	31	21.8181818181818	individual	healthy
+hei1999	male	31	22.8051948051948	individual	healthy
+hei1999	male	31	24.3	individual	healthy
+hei1999	male	32	13.8105263157895	individual	healthy
+hei1999	male	32	16.1025641025641	individual	healthy
+hei1999	male	32	16.7	individual	healthy
+hei1999	male	32	17.8461538461538	individual	healthy
+hei1999	male	32	19.0588235294118	individual	healthy
+hei1999	male	32	19.8117647058824	individual	healthy
+hei1999	male	32	20.046511627907	individual	healthy
+hei1999	male	32	21.4634146341463	individual	healthy
+hei1999	male	32	25.0864197530864	individual	healthy
+hei1999	male	33	22.9268292682927	individual	healthy
+hei1999	male	33	25.1210191082803	individual	healthy
+hei1999	male	33	26.4390243902439	individual	healthy
+hei1999	male	34	18.4210526315789	individual	healthy
+hei1999	male	35	20	individual	healthy
+hei1999	male	35	23.4074074074074	individual	healthy
+hei1999	male	35	23.7777777777778	individual	healthy
+hei1999	male	35	26.5730994152047	individual	healthy
+hei1999	male	36	16.4235294117647	individual	healthy
+hei1999	male	36	18.379746835443	individual	healthy
+hei1999	male	36	19.5555555555556	individual	healthy
+hei1999	male	36	21.15	individual	healthy
+hei1999	male	37	15.5609756097561	individual	healthy
+hei1999	male	37	20.4938271604938	individual	healthy
+hei1999	male	37	21.4012738853503	individual	healthy
+hei1999	male	37	21.4358974358974	individual	healthy
+hei1999	male	37	21.8666666666667	individual	healthy
+hei1999	male	37	22.6835443037975	individual	healthy
+hei1999	male	37	24.1025641025641	individual	healthy
+hei1999	male	38	21.8095238095238	individual	healthy
+hei1999	male	38	29.2658227848101	individual	healthy
+hei1999	male	39	21.0632911392405	individual	healthy
+hei1999	male	39	21.3756613756614	individual	healthy
+hei1999	male	39	21.585798816568	individual	healthy
+hei1999	male	39	22.8705882352941	individual	healthy
+hei1999	male	39	23.2307692307692	individual	healthy
+hei1999	male	39	23.4666666666667	individual	healthy
+hei1999	male	40	17.1733333333333	individual	healthy
+hei1999	male	40	19.1052631578947	individual	healthy
+hei1999	male	41	18.4615384615385	individual	healthy
+hei1999	male	41	20.3151515151515	individual	healthy
+hei1999	male	41	21.0424242424242	individual	healthy
+hei1999	male	42	20.6842105263158	individual	healthy
+hei1999	male	42	22.3	individual	healthy
+hei1999	male	42	25.1139240506329	individual	healthy
+hei1999	male	42	31.6842105263158	individual	healthy
+hei1999	male	43	16	individual	healthy
+hei1999	male	43	18.25	individual	healthy
+hei1999	male	43	20.0506329113924	individual	healthy
+hei1999	male	43	20.16	individual	healthy
+hei1999	male	43	22.1538461538462	individual	healthy
+hei1999	male	44	20.125786163522	individual	healthy
+hei1999	male	45	17.2467532467532	individual	healthy
+hei1999	male	45	23.6	individual	healthy
+hei1999	male	46	16.6265060240964	individual	healthy
+hei1999	male	46	18.3255813953488	individual	healthy
+hei1999	male	46	20.9230769230769	individual	healthy
+hei1999	male	46	22.0857142857143	individual	healthy
+hei1999	male	46	24.2736842105263	individual	healthy
+hei1999	male	46	34.7619047619048	individual	healthy
+hei1999	male	47	16.9350649350649	individual	healthy
+hei1999	male	48	16.64	individual	healthy
+hei1999	male	48	22.5822784810127	individual	healthy
+hei1999	male	49	17.8313253012048	individual	healthy
+hei1999	male	49	21.0526315789474	individual	healthy
+hei1999	male	49	22.4415584415584	individual	healthy
+hei1999	male	50	14.9135802469136	individual	healthy
+hei1999	male	50	17.8461538461538	individual	healthy
+hei1999	male	51	17.8823529411765	individual	healthy
+hei1999	male	51	20.4210526315789	individual	healthy
+hei1999	male	51	20.9756097560976	individual	healthy
+hei1999	male	52	14.7692307692308	individual	healthy
+hei1999	male	52	15.0649350649351	individual	healthy
+hei1999	male	52	21.4146341463415	individual	healthy
+hei1999	male	52	24.2506024096386	individual	healthy
+hei1999	male	53	16.5263157894737	individual	healthy
+hei1999	male	53	18.2123456790123	individual	healthy
+hei1999	male	53	20.0519480519481	individual	healthy
+hei1999	male	53	23.493670886076	individual	healthy
+hei1999	male	53	32.8674698795181	individual	healthy
+hei1999	male	54	17.8074074074074	individual	healthy
+hei1999	male	54	19.0573248407643	individual	healthy
+hei1999	male	54	19.8726114649682	individual	healthy
+hei1999	male	54	21.9108280254777	individual	healthy
+hei1999	male	55	24.8447204968944	individual	healthy
+hei1999	male	56	17.8227848101266	individual	healthy
+hei1999	male	56	18.8051948051948	individual	healthy
+hei1999	male	56	20.6545454545455	individual	healthy
+hei1999	male	56	23.0243902439024	individual	healthy
+hei1999	male	57	12.987012987013	individual	healthy
+hei1999	male	57	17.5263157894737	individual	healthy
+hei1999	male	57	17.6100628930818	individual	healthy
+hei1999	male	57	19.3170731707317	individual	healthy
+hei1999	male	57	20.2666666666667	individual	healthy
+hei1999	male	58	15.9036144578313	individual	healthy
+hei1999	male	58	16.7088607594937	individual	healthy
+hei1999	male	60	19.52	individual	healthy
+hei1999	male	60	19.7	individual	healthy
+hei1999	male	60	20.8426666666667	individual	healthy
+hei1999	male	60	22.7142857142857	individual	healthy
+hei1999	male	60	23.9503105590062	individual	healthy
+hei1999	male	60	24.3116883116883	individual	healthy
+hei1999	male	61	13.6688741721854	individual	healthy
+hei1999	male	61	15.8117647058824	individual	healthy
+hei1999	male	61	16.7901234567901	individual	healthy
+hei1999	male	61	21.6533333333333	individual	healthy
+hei1999	male	61	22.6835443037975	individual	healthy
+hei1999	male	62	16.7368421052632	individual	healthy
+hei1999	male	62	22.6153846153846	individual	healthy
+hei1999	male	63	19.6078431372549	individual	healthy
+hei1999	male	64	17.5384615384615	individual	healthy
+hei1999	male	64	23.2911392405063	individual	healthy
+hei1999	male	64	23.9036144578313	individual	healthy
+hei1999	male	65	17.6842105263158	individual	healthy
+hei1999	male	65	18.95	individual	healthy
+hei1999	male	66	16.9350649350649	individual	healthy
+hei1999	male	66	20.5128205128205	individual	healthy
+hei1999	male	66	23	individual	healthy
+hei1999	male	67	21.2	individual	healthy
+hei1999	male	68	15.6744186046512	individual	healthy
+hei1999	male	68	16	individual	healthy
+hei1999	male	71	17.0126582278481	individual	healthy
+hei1999	male	71	19.1604938271605	individual	healthy
+hei1999	male	71	20.75	individual	healthy
+hei1999	male	72	16.2012578616352	individual	healthy
+hei1999	male	72	16.6933333333333	individual	healthy
+hei1999	male	73	18.974358974359	individual	healthy
+hei1999	male	73	19.5949367088608	individual	healthy
+hei1999	male	74	16.987012987013	individual	healthy
+hei1999	male	74	19.0379746835443	individual	healthy
+hei1999	male	74	19.6842105263158	individual	healthy
+hei1999	male	74	19.6842105263158	individual	healthy
+hei1999	male	75	17.3935483870968	individual	healthy
+hei1999	male	75	19.6626506024096	individual	healthy
+hei1999	male	75	20	individual	healthy
+hei1999	male	76	17.1282051282051	individual	healthy
+hei1999	male	77	14.88	individual	healthy
+hei1999	male	77	26.2564102564103	individual	healthy
+hei1999	male	80	18.5714285714286	individual	healthy
+hei1999	male	81	16.8878048780488	individual	healthy
+hei1999	male	82	12.2439024390244	individual	healthy
+hei1999	male	84	24.0529801324503	individual	healthy
+hei1999	male	87	16.1066666666667	individual	healthy
+hei1999	male	87	16.4	individual	healthy
+hei1999	male	88	14.1772151898734	individual	healthy
+hei1999	male	88	14.6506024096386	individual	healthy
+naw1998	female	42	19.8181818181818	individual	healthy
+naw1998	female	43	18.8589743589744	individual	healthy
+naw1998	female	47	22.1304347826087	individual	healthy
+naw1998	female	55	19.5	individual	healthy
+naw1998	female	67	17.0138888888889	individual	healthy
+naw1998	female	71	18.6478873239437	individual	healthy
+naw1998	female	75	21.7833333333333	individual	healthy
+naw1998	male	25	21.1842105263158	individual	healthy
+naw1998	male	39	19.8452380952381	individual	healthy
+naw1998	male	46	26.1710526315789	individual	healthy
+naw1998	male	51	19.6265060240964	individual	healthy
+naw1998	male	53	18.531914893617	individual	healthy
+naw1998	male	60	18.1282051282051	individual	healthy
+naw1998	male	63	18.3048780487805	individual	healthy
+naw1998	male	63	21.0277777777778	individual	healthy
+naw1998	male	64	20.3977272727273	individual	healthy
+naw1998	male	65	19.8194444444444	individual	healthy
+naw1998	male	69	21	individual	healthy
+naw1998	male	72	19.9350649350649	individual	healthy
+naw1998	male	75	16.9577464788732	individual	healthy
+naw1998	male	76	22.8448275862069	individual	healthy
+ura1995	all	-0.063491836	34.99998	individual	healthy
+ura1995	all	0.1765073	37.099003	individual	healthy
+ura1995	all	0.36544085	35.398262	individual	healthy
+ura1995	all	0.36616647	36.198254	individual	healthy
+ura1995	all	0.4087967	30.698126	individual	healthy
+ura1995	all	0.45568997	29.897943	individual	healthy
+ura1995	all	0.4573226	31.697924	individual	healthy
+ura1995	all	0.46621147	41.49781	individual	healthy
+ura1995	all	0.51455593	42.29761	individual	healthy
+ura1995	all	0.5577304	37.397476	individual	healthy
+ura1995	all	0.5977303	28.997383	individual	healthy
+ura1995	all	0.6970496	33.496952	individual	healthy
+ura1995	all	0.7092945	46.996796	individual	healthy
+ura1995	all	0.74367076	32.396774	individual	healthy
+ura1995	all	0.74557555	34.49675	individual	healthy
+ura1995	all	0.74684536	35.896732	individual	healthy
+ura1995	all	0.7902012	31.196596	individual	healthy
+ura1995	all	0.93060887	28.496056	individual	healthy
+ura1995	all	1.1671613	26.795122	individual	healthy
+ura1995	all	1.1846669	46.094902	individual	healthy
+ura1995	all	1.2213107	33.99485	individual	healthy
+ura1995	all	1.4089745	30.894123	individual	healthy
+ura1995	all	1.9816709	32.29182	individual	healthy
+ura1995	all	1.9878386	39.091743	individual	healthy
+ura1995	all	2.747473	36.588726	individual	healthy
+ura1995	all	2.934502	32.788006	individual	healthy
+ura1995	all	3.9752238	25.183903	individual	healthy
+ura1995	all	4.936853	35.37998	individual	healthy
+ura1995	all	5.5991635	30.577364	individual	healthy
+ura1995	all	5.8851485	30.876219	individual	healthy
+ura1995	all	5.9828353	33.575806	individual	healthy
+ura1995	all	6.736393	24.372864	individual	healthy
+ura1995	all	6.928773	26.472078	individual	healthy
+ura1995	all	7.0761647	31.471449	individual	healthy
+ura1995	all	7.7840986	24.468672	individual	healthy
+ura1995	all	8.081876	37.76738	individual	healthy
+ura1995	all	8.449312	22.866024	individual	healthy
+ura1995	all	8.449856	23.466017	individual	healthy
+ura1995	all	8.4543	28.365961	individual	healthy
+ura1995	all	9.784817	25.260664	individual	healthy
+ura1995	all	10.02137	23.55973	individual	healthy
+ura1995	all	10.310711	27.558542	individual	healthy
+ura1995	all	12.019004	20.951761	individual	healthy
+ura1995	all	12.301906	17.850653	individual	healthy
+ura1995	all	12.4040365	25.450186	individual	healthy
+ura1995	all	12.498639	24.749813	individual	healthy
+ura1995	all	12.549977	28.849575	individual	healthy
+ura1995	all	12.8303385	22.9485	individual	healthy
+ura1995	all	12.876688	21.548325	individual	healthy
+ura1995	all	13.544259	22.545647	individual	healthy
+ura1995	all	13.92131	18.244173	individual	healthy
+ura1995	all	13.923396	20.544146	individual	healthy
+ura1995	all	14.160493	19.443207	individual	healthy
+ura1995	all	14.734459	22.240889	individual	healthy
+ura1995	all	14.876771	21.640324	individual	healthy
+ura1995	all	14.922214	19.240162	individual	healthy
+ura1995	all	14.966748	15.84001	individual	healthy
+ura1995	all	14.973641	23.439922	individual	healthy
+ura1995	all	15.213006	24.838955	individual	healthy
+ura1995	all	15.544161	22.437649	individual	healthy
+ura1995	all	15.921847	18.836166	individual	healthy
+ura1995	all	16.96919	18.531979	individual	healthy
+ura1995	all	16.971186	20.731953	individual	healthy
+ura1995	all	17.01808	19.931772	individual	healthy
+ura1995	all	17.068419	22.931547	individual	healthy
+ura1995	all	17.873495	18.028366	individual	healthy
+ura1995	all	18.211363	23.026976	individual	healthy
+ura1995	all	18.356396	25.426376	individual	healthy
+ura1995	all	18.829048	21.524515	individual	healthy
+ura1995	all	18.970543	20.023962	individual	healthy
+ura1995	all	18.97517	25.123903	individual	healthy
+ura1995	all	20.40047	21.51823	individual	healthy
+ura1995	all	20.493803	19.417873	individual	healthy
+ura1995	all	21.683004	18.013128	individual	healthy
+ura1995	all	22.876833	21.708323	individual	healthy
+ura1995	all	22.92282	19.908154	individual	healthy
+ura1995	all	22.972343	22.007938	individual	healthy
+ura1995	all	22.97316	22.907928	individual	healthy
+ura1995	all	23.447716	21.106045	individual	healthy
+ura1995	all	23.922544	19.604156	individual	healthy
+ura1995	all	24.923265	20.400148	individual	healthy
+ura1995	all	24.970522	19.999962	individual	healthy
+ura1995	all	25.969158	18.49598	individual	healthy
+ura1995	all	26.01714	18.895784	individual	healthy
+ura1995	all	26.92471	21.99213	individual	healthy
+ura1995	all	26.969063	18.391981	individual	healthy
+ura1995	all	27.018858	20.791763	individual	healthy
+ura1995	all	27.780127	20.088722	individual	healthy
+wyn1989	female	24	20.5	individual	healthy
+wyn1989	female	27	20.6	individual	healthy
+wyn1989	female	28	25.6	individual	healthy
+wyn1989	female	28	29.1	individual	healthy
+wyn1989	female	29	19.8	individual	healthy
+wyn1989	female	32	19.7	individual	healthy
+wyn1989	female	33	18.3	individual	healthy
+wyn1989	female	33	23	individual	healthy
+wyn1989	female	33	29.6	individual	healthy
+wyn1989	female	36	25.8	individual	healthy
+wyn1989	female	42	20.5	individual	healthy
+wyn1989	female	42	24.7	individual	healthy
+wyn1989	female	45	14.8	individual	healthy
+wyn1989	female	46	20.5	individual	healthy
+wyn1989	female	46	22.8	individual	healthy
+wyn1989	female	54	20.7	individual	healthy
+wyn1989	female	55	14	individual	healthy
+wyn1989	female	56	21	individual	healthy
+wyn1989	female	57	22.7	individual	healthy
+wyn1989	female	59	15.4	individual	healthy
+wyn1989	female	64	15.4	individual	healthy
+wyn1989	female	64	15.8	individual	healthy
+wyn1989	female	65	16.1	individual	healthy
+wyn1989	female	66	19.8	individual	healthy
+wyn1989	female	68	16.7	individual	healthy
+wyn1989	female	72	16.1	individual	healthy
+wyn1989	female	76	15.3	individual	healthy
+wyn1989	female	78	17.8	individual	healthy
+wyn1989	female	79	13.9	individual	healthy
+wyn1989	female	80	13.8	individual	healthy
+wyn1989	female	87	14.2	individual	healthy
+wyn1989	female	91	16.9	individual	healthy
+wyn1989	male	24	17.3	individual	healthy
+wyn1989	male	27	16.6	individual	healthy
+wyn1989	male	28	19.6	individual	healthy
+wyn1989	male	28	20.4	individual	healthy
+wyn1989	male	29	20.4	individual	healthy
+wyn1989	male	29	21	individual	healthy
+wyn1989	male	29	21.7	individual	healthy
+wyn1989	male	30	15.9	individual	healthy
+wyn1989	male	33	20.6	individual	healthy
+wyn1989	male	37	20.9	individual	healthy
+wyn1989	male	41	23.5	individual	healthy
+wyn1989	male	42	22.9	individual	healthy
+wyn1989	male	43	17.6	individual	healthy
+wyn1989	male	45	24	individual	healthy
+wyn1989	male	51	17	individual	healthy
+wyn1989	male	53	15.3	individual	healthy
+wyn1989	male	55	18.9	individual	healthy
+wyn1989	male	59	22.4	individual	healthy
+wyn1989	male	62	16.6	individual	healthy
+wyn1989	male	63	15.5	individual	healthy
+wyn1989	male	63	19.6	individual	healthy
+wyn1989	male	65	14.5	individual	healthy
+wyn1989	male	68	12.8	individual	healthy
+wyn1989	male	70	13.6	individual	healthy
+wyn1989	male	71	13.9	individual	healthy
+wyn1989	male	71	18.2	individual	healthy
+wyn1989	male	71	19.5	individual	healthy
+wyn1989	male	75	16.4	individual	healthy
+wyn1989	male	75	17.1	individual	healthy
+wyn1989	male	79	14.9	individual	healthy
+wyn1989	male	84	15.9	individual	healthy
+wyn1989	male	90	13.8	individual	healthy
+wyn1989	male	91	13.9	individual	healthy

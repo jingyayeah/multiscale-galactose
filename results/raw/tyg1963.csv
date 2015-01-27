@@ -8,6 +8,8 @@ tyg1963	U	GN	healthy	42	55	-52.9	11	533	2.96	individual	all	0.0538181818181818
 tyg1963	U	AA	healthy	39	65	-50.6	11.4	477	2.65	individual	all	0.0407692307692308
 tyg1963	U	AL	healthy	48	65	-30.2	15.6	430	2.39	individual	all	0.0367692307692308
 tyg1963	U	GP	healthy	38	49	-26.5	15.2	381	2.12	individual	all	0.043265306122449
+tyg1963	U	MP	cirrhosis	18	58	-36.6	11	354	1.97	individual	all	0.0339655172413793
+tyg1963	U	PR	cirrhosis	42	86	-16.7	19.6	251	1.39	individual	all	0.0161627906976744
 tyg1963	U	EJ	healthy	25	91	-50.6	14.2	609	3.38	individual	all	0.0371428571428571
 tyg1963	U	HI	healthy	54	79	-44.9	14.1	596	3.31	individual	all	0.0418987341772152
 tyg1963	U	VC	healthy	36	52	-44.7	13.6	563	3.13	individual	all	0.0601923076923077
@@ -17,3 +19,5 @@ tyg1963	U	SJ	healthy	23	62	-39	12.1	407	2.26	individual	all	0.0364516129032258
 tyg1963	U	EP	healthy	30	62	-30.8	14.3	392	2.18	individual	all	0.0351612903225806
 tyg1963	U	PN	healthy	44	59	-33.9	12.8	367	2.04	individual	all	0.0345762711864407
 tyg1963	U	KB	healthy	55	59	-31.7	12.9	341	1.89	individual	all	0.0320338983050847
+tyg1963	U	MR	cirrhosis	45	44	-23.6	13.5	302	1.68	individual	all	0.0381818181818182
+tyg1963	U	KH	cirrhosis	50	75	-14.9	18	252	1.4	individual	all	0.0186666666666667

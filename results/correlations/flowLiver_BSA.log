@@ -1,11 +1,11 @@
 [1] "### Data ###"
-     study         gender               BSA          flowLiver         dtype          
- bra1945:  23   Length:1356        Min.   :0.388   Min.   : 238.8   Length:1356       
- bra1952:  91   Class :character   1st Qu.:0.777   1st Qu.: 687.8   Class :character  
- she1950:  32   Mode  :character   Median :0.953   Median : 852.2   Mode  :character  
- tyg1957:  13                      Mean   :1.041   Mean   : 919.1                     
- cat2010:1197                      3rd Qu.:1.225   3rd Qu.:1077.5                     
-                                   Max.   :2.210   Max.   :2500.0                     
+     study         gender               BSA          flowLiver         dtype                 status    
+ bra1945:  23   Length:1356        Min.   :0.388   Min.   : 238.8   Length:1356        healthy  :1356  
+ bra1952:  91   Class :character   1st Qu.:0.777   1st Qu.: 687.8   Class :character   alcohol  :   0  
+ she1950:  32   Mode  :character   Median :0.953   Median : 852.2   Mode  :character   cirrhosis:   0  
+ tyg1958:  13                      Mean   :1.041   Mean   : 919.1                      hepatitis:   0  
+ cat2010:1197                      3rd Qu.:1.225   3rd Qu.:1077.5                                      
+                                   Max.   :2.210   Max.   :2500.0                                      
 [1] "### Linear Regression Model ###"
 
 Call:
