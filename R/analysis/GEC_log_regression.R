@@ -164,6 +164,7 @@ index <- complete.cases(pred)
 index
 
 # Now predicted and calculate values which can be used for the contingency table
+# calculate the contingency table & ROC curve
 
 
 x.values = c(0.03030303, 0.07070707, 0.09090909, 0.1515152, 0.2020202, 0.2828283, 0.3838384)
@@ -188,8 +189,7 @@ abline(v=p1$GEC, lwd=2, col="red")
 quantile(GEC, probs = c(0.05))
 
 
-
-p1
+# TODO: now with the full Marchesini dataset
 
 
 #########################################################
