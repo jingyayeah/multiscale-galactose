@@ -80,6 +80,14 @@ calculate_GEC_from_raw <- function(p){
 pdata <- calculate_GEC_from_raw(data)
 head(pdata)
 
+# Set the disease status
+pdata$disease <- 1
+pdata$disease[pdata$status=='N'] <- 0
+head(pdata)
+
+save('pdata', file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
+load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
+
 ########################################
 # Create plot
 ########################################
@@ -105,6 +113,9 @@ g.info <- gender.cols()
 p <- ggplot() + geom_point(aes(x=pdata$age, y=pdata$GEC, color=pdata$status)) + geom_point(aes(x=gec_data$age, y=gec_data$GEC, size=1.2, alpha=0.9)) + xlim(0,100) + ylim(0,5) + xlab("G2 age [years]") +
   ylab("G2 GEC [mmole/min]")
 p
+
+
+
 
 
 # get the first time, value & concentration

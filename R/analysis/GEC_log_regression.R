@@ -36,6 +36,23 @@ head(df)
 # save the data for reuse
 save_classification_data(data=df, name='GEC_classification')
 
+load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
+head(df)
+head(pdata)
+
+df2 <- pdata[, c('sex', 'age', 'bodyweight', 'GEC', 'status', 'disease')]
+df2$study <- 'marexp'
+df2[, c('height', 'BSA', 'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg')] <- NA
+df2$GECkg <- df2$GEC/df2$bodyweight
+head(df)
+head(df2)
+
+# combine datasets
+names <- c('study', 'sex', 'age', 'bodyweight', 'height', 'BSA', 'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg', 'GEC', 'GECkg', 'status', 'disease')
+data <- rbind( df[, names], df2[,names])
+summary(data)
+
+table(data$disease)
 
 ################
 # Plots        #
@@ -43,21 +60,27 @@ save_classification_data(data=df, name='GEC_classification')
 
 # plot overview over the available data
 par(mfrow = c(1,2))
-bins = seq(from=0, to=5, by=0.25)
-hist(df$GEC[df$disease==1], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(1,0,0,0.5), freq=FALSE)
-hist(df$GEC[df$disease==0], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(0.5,0.5,0.5, 0.5), freq=FALSE, add=TRUE)
+bins = seq(from=0, to=5, by=0.07)
+hist(data$GEC[data$disease==1], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(1,0,0,0.5), freq=FALSE)
+hist(data$GEC[data$disease==0], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(0.5,0.5,0.5, 0.5), freq=FALSE, add=TRUE)
 
-bins = seq(from=0, to=0.2, by=0.01)
-hist(df$GECkg[df$disease==1], breaks=bins, xlim=c(0,0.2), xlab=lab[['GECkg']], freq=FALSE, col=rgb(1,0,0,0.5))
-hist(df$GECkg[df$disease==0], breaks=bins, xlim=c(0,0.2), xlab=lab[['GECkg']], freq=FALSE, col=rgb(0.5,0.5,0.5, 0.5), add=TRUE)
+bins = seq(from=0, to=0.12, by=0.001)
+hist(data$GECkg[data$disease==1], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(1,0,0,0.5))
+hist(data$GECkg[data$disease==0], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(0.5,0.5,0.5, 0.5), add=TRUE)
 par(mfrow = c(1,1))
 
 ### Logistic regression GEC
-fit1 <- glm(disease ~ GEC, data = df, family = "binomial")
+fit1 <- glm(disease ~ GEC, data = data, family = "binomial")
 summary(fit1)
 
+fit2 <- glm(disease ~ GEC + bodyweight, data = data, family = "binomial")
+summary(fit2)
+
+fit3 <- glm(disease ~ GEC + bodyweight + age, data = data, family = "binomial")
+summary(fit3)
+
 # Probability for disease
-df$rankP <- predict(fit1, newdata = df, type = "response")
+data$rankP <- predict(fit1, newdata = data, type = "response")
 
 
 par(mfrow = c(1,2))
@@ -65,27 +88,32 @@ par(mfrow = c(1,2))
 fit1_c <- data.frame(GEC=seq(from=0, to=5, by=0.1))
 fit1_c$rankP <- predict(fit1, newdata = fit1_c, type = "response")
 
-plot(df$GEC, df$rankP, xlim=c(0,5), xlab=lab[['GEC']], ylim=c(-0.1,1.1),
+plot(data$GEC, data$rankP, xlim=c(0,5), xlab=lab[['GEC']], ylim=c(-0.1,1.1),
      main='Logistic regression: disease ~ GEC',
      ylab='probability liver disease')
 lines(fit1_c$GEC, fit1_c$rankP)
-points(df$GEC, df$disease, pch=21, col="black", bg=rgb(0,0,1, 0.5))
+points(data$GEC, data$disease, pch=21, col="black", bg=rgb(0,0,1, 0.5))
 
 
 # install.packages('ROCR')
 library(ROCR)
 # http://rocr.bioinf.mpi-sb.mpg.de/
-fitpreds = predict(fit1, newdata=df, type="response")
-fitpred = prediction(fitpreds, df$disease)
-fitperf = performance(fitpred,"tpr","fpr")
-plot(fitperf,col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC")
+plot(fitperf,col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC", type='n',
+     xlim=c(0,1), ylim=c(0,1))
 abline(a=0,b=1,lwd=2,lty=2,col="gray")
-par(mfrow = c(1,1))
+
+fitpreds = predict(fit1, newdata=data, type="response")
+fitpred = prediction(fitpreds, data$disease)
+fitperf = performance(fitpred,"tpr","fpr")
+plot(fitperf, col='darkgreen', add=TRUE)
+
+
 
 x.values = c(0.03030303, 0.07070707, 0.09090909, 0.1515152, 0.2020202, 0.2828283, 0.3838384)
 y.values = c(0.6153846, 0.7692308, 0.8461538, 0.8461538, 0.8461538,  1.0, 1.0)
 points(x.values, y.values, pch=22, col='black', bg='red')
 lines(x.values, y.values, col='red')
+par(mfrow = c(1,1))
 
 #########################################################
 # Make the predictions based on the GEC App
