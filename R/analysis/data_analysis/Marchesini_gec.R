@@ -21,69 +21,90 @@ data$date <- NULL
 data$birth <- NULL
 rownames(data)<- 1:nrow(data)
 
-head(data)
-summary(data)
-
-
-
 # calculate the dose based on bodyweight and 
 # injected dose of 500mg/kg (bodyweight)
 data$dose <- 0.5 * data$bodyweight # [g]
+
 head(data)
+summary(data)
 
+calculate_GEC_from_raw <- function(p){
+  # time and absorbance matrix
+  t.mat <- as.matrix(data[, paste('t', 1:6, sep="")])
+  k.mat <- as.matrix(data[, paste('k', 1:6, sep="")])
+  
+  # find the indeces for first and last value
+  first <- rep(NA, nrow(data))
+  last <- rep(NA, nrow(data))
+  for (k in 1:nrow(data)){
+    inds <- which(! is.na(t.mat[k, ]) & !is.na(k.mat[k, ]))  
+    first[k] <- inds[1]
+    last[k] <- inds[length(inds)]  
+  }
+  p$first <- first
+  p$last <- last
+  
+  # now calculate data
+  k_loss = 0.1           # 10 % urinary loss
+  p$U <- k_loss * p$dose # [g] urinary loss
+  
+  for (k in 1:nrow(data)){
+    p$tf[k] <- t.mat[k, first[k]]   # [min] first time point
+    p$kf[k] <- k.mat[k, first[k]]   # [uv] first absorbance
+    p$tl[k] <- t.mat[k, last[k]]    # [min] first time point
+    p$kl[k] <- k.mat[k, last[k]]    # [uv] first absorbance
+  }
+  p$cf <- p$kf * p$L     # [mg/dl] first concentration
+  p$cl <- p$kl * p$L     # [mg/dl] first concentration
+  
+  # differences between first and last
+  p$t_delta <- p$tl - p$tf # [min]
+  p$c_delta <- p$cl - p$cf # [mg/dl]
+  
+  # calculate slope for decrease
+  p$m <- p$c_delta/p$t_delta # [mg/dl/min]
+  
+  # time intercept with abcissa
+  p$ta <- -p$cf/p$m + p$tf   # [min]
+  
+  # removal Q
+  p$Q <- (p$dose - p$U)/(p$ta + 7)  # [g/min]
+  
+  # GEC (unit conversion)
+  Mgal = 180   # [g/mol] molecular weight galactose
+  p$GEC <- p$Q/Mgal * 1000
+  
+  return(p)
+}
 
-# create time matrix
-t.mat <- as.matrix(data[, paste('t', 1:6, sep="")])
-head(t.mat)
-k.mat <- as.matrix(data[, paste('k', 1:6, sep="")])
-head(k.mat)
+pdata <- calculate_GEC_from_raw(data)
+head(pdata)
 
-k <- 1
-t.vec <- t.mat[k, ]
-k.vec <- k.mat[k, ]
-p <- data[k, ] 
+########################################
+# Create plot
+########################################
+library(ggplot2)
 
-# find the indeces for first and last value
-inds <- which(!is.na(t.vec) & !is.na(k.vec))
-first <- inds[1]
-last <- inds[length(inds)]
-
-# now calculate data
-k_loss = 0.1           # 10 % urinary loss
-p$U <- k_loss * p$dose # [g] urinary loss
-p$tf <- t.vec[first]   # [min] first time point
-p$kf <- k.vec[first]   # [uv] first absorbance
-p$cf <- p$kf * p$L     # [mg/dl] first concentration
-
-p$tl <- t.vec[last]    # [min] first time point
-p$kl <- k.vec[last]    # [uv] first absorbance
-p$cl <- p$kl * p$L     # [mg/dl] first concentration
-
-# differences between first and last
-p$t_delta <- p$tl - p$tf # [min]
-p$c_delta <- p$cl - p$cf # [mg/dl]
-
-# calculate slope for decrease
-p$m <- p$c_delta/p$t_delta # [mg/dl/min]
-
-# time intercept with abcissa
-p$ta <- -p$cf/p$m + p$tf   # [min]
-
-# removal Q
-p$Q <- (p$dose - p$U)/(p$ta + 7)  # [g/min]
-
-# GEC (unit conversion)
-Mgal = 180   # [g/mol] molecular weight galactose
-p$GEC <- p$Q/Mgal * 1000
-p$GEC
-
-head(p)
-
-
-
+# plot GEC depending on type
+g <- ggplot(pdata, aes(age, GEC, color=status))
+p <- g + geom_point() + facet_grid(.~status)
+p
 
 # create value matrix
+p <- ggplot() + geom_point(aes(x=pdata$age, y=pdata$GEC, color=pdata$status)) + xlim(0,100) + ylim(0,5) + xlab("G2 age [years]") +
+  ylab("G2 GEC [mmole/min]") 
+p
 
+gec_data.all <- load_classification_data(name='GEC_classification')
+head(gec_data)
+
+gec_data <- gec_data.all[gec_data.all$status=="healthy", ]
+
+g.info <- gender.cols()
+
+p <- ggplot() + geom_point(aes(x=pdata$age, y=pdata$GEC, color=pdata$status)) + geom_point(aes(x=gec_data$age, y=gec_data$GEC, size=1.2, alpha=0.9)) + xlim(0,100) + ylim(0,5) + xlab("G2 age [years]") +
+  ylab("G2 GEC [mmole/min]")
+p
 
 
 # get the first time, value & concentration
