@@ -1,12 +1,11 @@
 ################################################################
-# Preprocess File Functions
+# Correlation Functions
 ################################################################
-# These are preprocess file functions.
+# Functions to work with the raw digitized data and creating
+# the combined corrlation data from the multiple sources.
 # 
-# TODO: what is still used here and what is completely obolete ???
-#
 # author: Matthias Koenig
-# date: 2014-11-11
+# date: 2015-01-28
 ################################################################
 
 ###########################################
@@ -62,7 +61,7 @@ saveRawData <- function(data, name, dir=getRawDir()){
 #' This loads the the experimental datasets.
 #' example: loadRawData('duc1979')
 #'@export
-loadRawData <- function(name, dir=get_raw_dir()){
+loadRawData <- function(name, dir=getRawDir()){
   r_fname <- file.path(dir, sprintf('%s.Rdata', name))
   cat('Load: ', r_fname, '\n')
   load(file=r_fname)
@@ -191,6 +190,8 @@ linear_regression <- function(data, xname, yname){
 #' 
 #' @export
 plot_correlation_data <- function(data, m1, xname, yname, create_plots=F){
+  
+  
   xlab <- lab[[xname]]; ylab <- lab[[yname]]
   xlim <- lim[[xname]]; ylim <- lim[[yname]]
   main <- sprintf('%s vs. %s', yname, xname)

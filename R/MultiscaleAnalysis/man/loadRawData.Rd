@@ -4,7 +4,7 @@
 \alias{loadRawData}
 \title{Load the processed raw data for the given name.}
 \usage{
-loadRawData(name, dir = get_raw_dir())
+loadRawData(name, dir = getRawDir())
 }
 \description{
 This loads the the experimental datasets.

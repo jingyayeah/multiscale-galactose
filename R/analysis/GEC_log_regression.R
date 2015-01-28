@@ -4,43 +4,20 @@
 # Classification of subjects based on available GEC or GECkg.
 #
 # author: Matthias Koenig
-# date: 2014-12-05
+# date: 2014-01-28
 ################################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
+############################################
+# Classification data
+############################################
 # 1. Create a prediction dataset consisting of GEC value & disease/health state
 # i.e. dataset which can be used for classification.
 # The classification is based on healthy / liver disease.
-
-############################################
-# Data Preparation Functions
-############################################
-# Read data into standard data frame for prediction.
-prepare_data <- function(data, fields){
-  df <- data.frame(matrix(NA, ncol=length(fields), nrow=nrow(data)) )
-  names(df) <- fields
-  for (k in 1:length(fields)){
-    name <- fields[k]
-    if (name %in% names(data)){
-      df[ ,k] <- data[[name]] 
-    }
-  }
-  return(df)
-}
-
-# Prepare data for the GEC prediction.
-prepare_GEC_data <- function(name){
-  fields <- c('study', 'gender', 'age', 'bodyweight', 'height', 'BSA', 
-              'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg', 'GEC', 'GECkg', 'status')
-  data <- loadRawData(name)
-  df <- prepare_data(data, fields)
-}
-
-############################################
-# A Digitized data
-############################################
+#
+# All Digitized data for GEC & GECkg
 # GEC [mmol/min] & GECkg [mmol/min/kgbw] 
 # install.packages('reshape')
 
@@ -52,28 +29,17 @@ prepare_GEC_data <- function(name){
 ## sch1968.fig1 (age, [GECkg])
 ## lan2011 (age, [GECkg])
 
-# create one combined data.frame
 names <- c('mar1988', 'tyg1963', 'sch1986.tab1', 'duc1979', 'duf1992', 'sch1986.fig1', 'lan2011')
-df.list <- list(length(names))
-for (k in 1:length(names)){
-  name <- names[k]
-  df <- prepare_GEC_data(name)
-  cat(nrow(df), '\n')
-  df.list[[k]] <- df
-}
-library('reshape')
-df <- reshape::merge_all(df.list)
+df <- classification_data_raw(names)
+head(df)
 
-# create the classification outcome (liver disease) & check that binary classifier
-df$status <- as.factor(df$status)
-df$disease = as.numeric(df$status != 'healthy')
-summary(df)
-table(df$disease)
-# rename gender -> sex
-names(df)[names(df)=='gender'] = 'sex'
-table(df$sex)
+# save the data for reuse
+save_classification_data(data=df, name='GEC_classification')
 
 
+################
+# Plots        #
+################
 
 # plot overview over the available data
 par(mfrow = c(1,2))
