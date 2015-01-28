@@ -1,4 +1,4 @@
-study	gender	age	GECkg	dtype	status
+study	sex	age	GECkg	dtype	status
 lan2011	all	0.26384366	0.096127365	individual	liver disease
 lan2011	all	0.4397394	0.067005165	individual	liver disease
 lan2011	all	0.46905538	0.084664375	individual	healthy

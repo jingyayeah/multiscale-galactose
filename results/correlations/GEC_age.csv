@@ -1,4 +1,4 @@
-study	gender	age	GEC	dtype	status
+study	sex	age	GEC	dtype	status
 duc1979	all	20	2.77	individual	healthy
 duc1979	all	20	3.56	individual	healthy
 duc1979	all	22	2.23	individual	healthy

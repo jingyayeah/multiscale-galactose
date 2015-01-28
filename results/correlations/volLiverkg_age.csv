@@ -1,4 +1,4 @@
-study	gender	age	volLiverkg	dtype	status
+study	sex	age	volLiverkg	dtype	status
 hei1999	female	2e-04	49.7297297297297	individual	healthy
 hei1999	female	0.001	38	individual	healthy
 hei1999	female	0.002	34.1818181818182	individual	healthy

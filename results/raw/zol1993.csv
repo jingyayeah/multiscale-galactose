@@ -1,6 +1,6 @@
-study	status	sex	age	liverBloodflowPerBodyweight	dtype	gender	flowLiverkg
-zol1993	healthy	M	29	22	individual	male	22
-zol1993	healthy	M	25	21.7	individual	male	21.7
-zol1993	healthy	F	25	20	individual	female	20
-zol1993	healthy	M	28	24.2	individual	male	24.2
-zol1993	healthy	F	26	26.4	individual	female	26.4
+study	status	sex	age	liverBloodflowPerBodyweight	flowLiverkg	dtype
+zol1993	healthy	male	29	22	22	individual
+zol1993	healthy	male	25	21.7	21.7	individual
+zol1993	healthy	female	25	20	20	individual
+zol1993	healthy	male	28	24.2	24.2	individual
+zol1993	healthy	female	26	26.4	26.4	individual

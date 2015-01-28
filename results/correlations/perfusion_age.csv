@@ -1,4 +1,4 @@
-study	gender	age	perfusion	dtype	status
+study	sex	age	perfusion	dtype	status
 wyn1989	female	24	1.18	individual	healthy
 wyn1989	male	24	1.26	individual	healthy
 wyn1989	male	27	1.34	individual	healthy

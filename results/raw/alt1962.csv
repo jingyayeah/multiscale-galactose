@@ -1,45 +1,45 @@
-study	status	sex	n	age	ageMin	ageMax	liverWeight	dtype	gender	volLiver	volLiverSd	ageRange
-alt1962	healthy	M	63	0.2	0	0.4	0.124	population	male	99.2	NA	0.2
-alt1962	healthy	M	37	0.7	0.5	0.9	0.3	population	male	240	NA	0.2
-alt1962	healthy	M	34	1.45	1	1.9	0.4	population	male	320	NA	0.45
-alt1962	healthy	M	24	2.45	2	2.9	0.46	population	male	368	NA	0.45
-alt1962	healthy	M	27	3.45	3	3.9	0.51	population	male	408	NA	0.45
-alt1962	healthy	M	26	4.45	4	4.9	0.555	population	male	444	NA	0.45
-alt1962	healthy	M	27	5.45	5	5.9	0.595	population	male	476	NA	0.45
-alt1962	healthy	M	20	6.45	6	6.9	0.63	population	male	504	NA	0.45
-alt1962	healthy	M	16	7.45	7	7.9	0.665	population	male	532	NA	0.45
-alt1962	healthy	M	13	8.45	8	8.9	0.715	population	male	572	NA	0.45
-alt1962	healthy	M	16	9.45	9	9.9	0.77	population	male	616	NA	0.45
-alt1962	healthy	M	8	10.45	10	10.9	0.85	population	male	680	NA	0.45
-alt1962	healthy	M	4	11.45	11	11.9	0.95	population	male	760	NA	0.45
-alt1962	healthy	M	14	12.45	12	12.9	1.05	population	male	840	NA	0.45
-alt1962	healthy	M	8	13.45	13	13.9	1.15	population	male	920	NA	0.45
-alt1962	healthy	M	8	14.45	14	14.9	1.24	population	male	992	NA	0.45
-alt1962	healthy	M	12	15.45	15	15.9	1.315	population	male	1052	NA	0.45
-alt1962	healthy	M	7	16.45	16	16.9	1.38	population	male	1104	NA	0.449999999999999
-alt1962	healthy	M	19	17.45	17	17.9	1.45	population	male	1160	NA	0.449999999999999
-alt1962	healthy	M	14	18.45	18	18.9	1.51	population	male	1208	NA	0.449999999999999
-alt1962	healthy	M	24	19.45	19	19.9	1.58	population	male	1264	NA	0.449999999999999
-alt1962	healthy	M	9	20.45	20	20.9	1.63	population	male	1304	NA	0.449999999999999
-alt1962	healthy	F	36	0.2	0	0.4	0.125	population	female	100	NA	0.2
-alt1962	healthy	F	5	0.7	0.5	0.9	0.24	population	female	192	NA	0.2
-alt1962	healthy	F	14	1.45	1	1.9	0.39	population	female	312	NA	0.45
-alt1962	healthy	F	11	2.45	2	2.9	0.45	population	female	360	NA	0.45
-alt1962	healthy	F	12	3.45	3	3.9	0.5	population	female	400	NA	0.45
-alt1962	healthy	F	13	4.45	4	4.9	0.55	population	female	440	NA	0.45
-alt1962	healthy	F	9	5.45	5	5.9	0.59	population	female	472	NA	0.45
-alt1962	healthy	F	8	6.45	6	6.9	0.635	population	female	508	NA	0.45
-alt1962	healthy	F	6	7.45	7	7.9	0.685	population	female	548	NA	0.45
-alt1962	healthy	F	9	8.45	8	8.9	0.745	population	female	596	NA	0.45
-alt1962	healthy	F	5	9.45	9	9.9	0.81	population	female	648	NA	0.45
-alt1962	healthy	F	5	10.45	10	10.9	0.88	population	female	704	NA	0.45
-alt1962	healthy	F	8	11.45	11	11.9	0.96	population	female	768	NA	0.45
-alt1962	healthy	F	8	12.45	12	12.9	1.08	population	female	864	NA	0.45
-alt1962	healthy	F	3	13.45	13	13.9	1.18	population	female	944	NA	0.45
-alt1962	healthy	F	4	14.45	14	14.9	1.27	population	female	1016	NA	0.45
-alt1962	healthy	F	7	15.45	15	15.9	1.33	population	female	1064	NA	0.45
-alt1962	healthy	F	7	16.45	16	16.9	1.36	population	female	1088	NA	0.449999999999999
-alt1962	healthy	F	7	17.45	17	17.9	1.38	population	female	1104	NA	0.449999999999999
-alt1962	healthy	F	9	18.45	18	18.9	1.395	population	female	1116	NA	0.449999999999999
-alt1962	healthy	F	9	19.45	19	19.9	1.405	population	female	1124	NA	0.449999999999999
-alt1962	healthy	F	7	20.45	20	20.9	1.415	population	female	1132	NA	0.449999999999999
+study	status	sex	n	age	ageMin	ageMax	liverWeight	volLiver	volLiverSd	ageRange	dtype
+alt1962	healthy	male	63	0.2	0	0.4	0.124	99.2	NA	0.2	population
+alt1962	healthy	male	37	0.7	0.5	0.9	0.3	240	NA	0.2	population
+alt1962	healthy	male	34	1.45	1	1.9	0.4	320	NA	0.45	population
+alt1962	healthy	male	24	2.45	2	2.9	0.46	368	NA	0.45	population
+alt1962	healthy	male	27	3.45	3	3.9	0.51	408	NA	0.45	population
+alt1962	healthy	male	26	4.45	4	4.9	0.555	444	NA	0.45	population
+alt1962	healthy	male	27	5.45	5	5.9	0.595	476	NA	0.45	population
+alt1962	healthy	male	20	6.45	6	6.9	0.63	504	NA	0.45	population
+alt1962	healthy	male	16	7.45	7	7.9	0.665	532	NA	0.45	population
+alt1962	healthy	male	13	8.45	8	8.9	0.715	572	NA	0.45	population
+alt1962	healthy	male	16	9.45	9	9.9	0.77	616	NA	0.45	population
+alt1962	healthy	male	8	10.45	10	10.9	0.85	680	NA	0.45	population
+alt1962	healthy	male	4	11.45	11	11.9	0.95	760	NA	0.45	population
+alt1962	healthy	male	14	12.45	12	12.9	1.05	840	NA	0.45	population
+alt1962	healthy	male	8	13.45	13	13.9	1.15	920	NA	0.45	population
+alt1962	healthy	male	8	14.45	14	14.9	1.24	992	NA	0.45	population
+alt1962	healthy	male	12	15.45	15	15.9	1.315	1052	NA	0.45	population
+alt1962	healthy	male	7	16.45	16	16.9	1.38	1104	NA	0.449999999999999	population
+alt1962	healthy	male	19	17.45	17	17.9	1.45	1160	NA	0.449999999999999	population
+alt1962	healthy	male	14	18.45	18	18.9	1.51	1208	NA	0.449999999999999	population
+alt1962	healthy	male	24	19.45	19	19.9	1.58	1264	NA	0.449999999999999	population
+alt1962	healthy	male	9	20.45	20	20.9	1.63	1304	NA	0.449999999999999	population
+alt1962	healthy	female	36	0.2	0	0.4	0.125	100	NA	0.2	population
+alt1962	healthy	female	5	0.7	0.5	0.9	0.24	192	NA	0.2	population
+alt1962	healthy	female	14	1.45	1	1.9	0.39	312	NA	0.45	population
+alt1962	healthy	female	11	2.45	2	2.9	0.45	360	NA	0.45	population
+alt1962	healthy	female	12	3.45	3	3.9	0.5	400	NA	0.45	population
+alt1962	healthy	female	13	4.45	4	4.9	0.55	440	NA	0.45	population
+alt1962	healthy	female	9	5.45	5	5.9	0.59	472	NA	0.45	population
+alt1962	healthy	female	8	6.45	6	6.9	0.635	508	NA	0.45	population
+alt1962	healthy	female	6	7.45	7	7.9	0.685	548	NA	0.45	population
+alt1962	healthy	female	9	8.45	8	8.9	0.745	596	NA	0.45	population
+alt1962	healthy	female	5	9.45	9	9.9	0.81	648	NA	0.45	population
+alt1962	healthy	female	5	10.45	10	10.9	0.88	704	NA	0.45	population
+alt1962	healthy	female	8	11.45	11	11.9	0.96	768	NA	0.45	population
+alt1962	healthy	female	8	12.45	12	12.9	1.08	864	NA	0.45	population
+alt1962	healthy	female	3	13.45	13	13.9	1.18	944	NA	0.45	population
+alt1962	healthy	female	4	14.45	14	14.9	1.27	1016	NA	0.45	population
+alt1962	healthy	female	7	15.45	15	15.9	1.33	1064	NA	0.45	population
+alt1962	healthy	female	7	16.45	16	16.9	1.36	1088	NA	0.449999999999999	population
+alt1962	healthy	female	7	17.45	17	17.9	1.38	1104	NA	0.449999999999999	population
+alt1962	healthy	female	9	18.45	18	18.9	1.395	1116	NA	0.449999999999999	population
+alt1962	healthy	female	9	19.45	19	19.9	1.405	1124	NA	0.449999999999999	population
+alt1962	healthy	female	7	20.45	20	20.9	1.415	1132	NA	0.449999999999999	population

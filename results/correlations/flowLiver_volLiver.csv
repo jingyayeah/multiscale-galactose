@@ -1,4 +1,4 @@
-study	gender	volLiver	flowLiver	dtype	status
+study	sex	volLiver	flowLiver	dtype	status
 wyn1989	female	1067	1260	individual	healthy
 wyn1989	male	1211	1526	individual	healthy
 wyn1989	male	1291	1734	individual	healthy

@@ -1,4 +1,4 @@
-study	gender	age	flowLiverkg	dtype	status
+study	sex	age	flowLiverkg	dtype	status
 win1965	female	17	25.8928571428571	individual	healthy
 win1965	female	49	32.4489795918367	individual	healthy
 win1965	male	19	21.125	individual	healthy

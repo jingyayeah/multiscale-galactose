@@ -1,5 +1,5 @@
 [1] "### Data ###"
-    study              gender               age            GEC           dtype              status         
+    study               sex                 age            GEC           dtype              status         
  Length:112         Length:112         Min.   :17.0   Min.   :1.170   Length:112         Length:112        
  Class :character   Class :character   1st Qu.:31.0   1st Qu.:1.963   Class :character   Class :character  
  Mode  :character   Mode  :character   Median :53.0   Median :2.341   Mode  :character   Mode  :character  

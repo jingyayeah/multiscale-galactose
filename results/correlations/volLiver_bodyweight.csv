@@ -1,4 +1,4 @@
-study	gender	bodyweight	volLiver	dtype	status
+study	sex	bodyweight	volLiver	dtype	status
 naw1998	female	55	1090	individual	healthy
 naw1998	female	58	1131	individual	healthy
 naw1998	female	60	1307	individual	healthy

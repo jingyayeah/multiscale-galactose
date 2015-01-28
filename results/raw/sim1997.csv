@@ -1,693 +1,693 @@
-study	status	sex	ageClass	ageMin	ageMax	bodyweight	COkg	CO	dtype	gender	flowLiver	flowLiverkg
-sim1997	healthy	U	0 to 17 years	0	17	3.9	225.96	880.67	individual	all	220.1675	56.49
-sim1997	healthy	U	0 to 17 years	0	17	6.87	234.3	1608.75	individual	all	402.1875	58.575
-sim1997	healthy	U	0 to 17 years	0	17	12.81	246.17	3153.05	individual	all	788.2625	61.5425
-sim1997	healthy	U	0 to 17 years	0	17	4.77	220.81	1054.24	individual	all	263.56	55.2025
-sim1997	healthy	U	0 to 17 years	0	17	7.68	218.81	1680.76	individual	all	420.19	54.7025
-sim1997	healthy	U	0 to 17 years	0	17	11.81	224.42	2651.55	individual	all	662.8875	56.105
-sim1997	healthy	U	0 to 17 years	0	17	16.81	234.54	3943.86	individual	all	985.965	58.635
-sim1997	healthy	U	0 to 17 years	0	17	8.85	208.49	1846.07	individual	all	461.5175	52.1225
-sim1997	healthy	U	0 to 17 years	0	17	9.74	198.17	1929.55	individual	all	482.3875	49.5425
-sim1997	healthy	U	0 to 17 years	0	17	17.77	221.12	3930.05	individual	all	982.5125	55.28
-sim1997	healthy	U	0 to 17 years	0	17	21.33	219.14	4675.06	individual	all	1168.765	54.785
-sim1997	healthy	U	0 to 17 years	0	17	25.91	217.87	5645.06	individual	all	1411.265	54.4675
-sim1997	healthy	U	0 to 17 years	0	17	17.71	215.26	3811.55	individual	all	952.8875	53.815
-sim1997	healthy	U	0 to 17 years	0	17	15.76	202.79	3195.97	individual	all	798.9925	50.6975
-sim1997	healthy	U	0 to 17 years	0	17	17.8	200.09	3560.71	individual	all	890.1775	50.0225
-sim1997	healthy	U	0 to 17 years	0	17	16.86	196.61	3314.05	individual	all	828.5125	49.1525
-sim1997	healthy	U	0 to 17 years	0	17	22.88	201.93	4619.7	individual	all	1154.925	50.4825
-sim1997	healthy	U	0 to 17 years	0	17	21.72	195.01	4236.14	individual	all	1059.035	48.7525
-sim1997	healthy	U	0 to 17 years	0	17	19.83	195.31	3873.81	individual	all	968.4525	48.8275
-sim1997	healthy	U	0 to 17 years	0	17	18.68	188.38	3518.97	individual	all	879.7425	47.095
-sim1997	healthy	U	0 to 17 years	0	17	15.78	184.86	2916.94	individual	all	729.235	46.215
-sim1997	healthy	U	0 to 17 years	0	17	15.79	175.21	2766.41	individual	all	691.6025	43.8025
-sim1997	healthy	U	0 to 17 years	0	17	12.75	166.52	2122.8	individual	all	530.7	41.63
-sim1997	healthy	U	0 to 17 years	0	17	14.86	160.01	2378.03	individual	all	594.5075	40.0025
-sim1997	healthy	U	0 to 17 years	0	17	12.77	148.58	1897.06	individual	all	474.265	37.145
-sim1997	healthy	U	0 to 17 years	0	17	15.79	102.11	1612.74	individual	all	403.185	25.5275
-sim1997	healthy	U	0 to 17 years	0	17	17.82	112.5	2004.41	individual	all	501.1025	28.125
-sim1997	healthy	U	0 to 17 years	0	17	16.94	119.72	2027.8	individual	all	506.95	29.93
-sim1997	healthy	U	0 to 17 years	0	17	17.73	121.46	2154.13	individual	all	538.5325	30.365
-sim1997	healthy	U	0 to 17 years	0	17	18.75	122.87	2303.76	individual	all	575.94	30.7175
-sim1997	healthy	U	0 to 17 years	0	17	15.77	129	2033.84	individual	all	508.46	32.25
-sim1997	healthy	U	0 to 17 years	0	17	18.74	136.31	2553.95	individual	all	638.4875	34.0775
-sim1997	healthy	U	0 to 17 years	0	17	17.85	150.43	2685.06	individual	all	671.265	37.6075
-sim1997	healthy	U	0 to 17 years	0	17	18.72	151.49	2835.75	individual	all	708.9375	37.8725
-sim1997	healthy	U	0 to 17 years	0	17	18.62	174.24	3244.83	individual	all	811.2075	43.56
-sim1997	healthy	U	0 to 17 years	0	17	19.78	177.37	3508.65	individual	all	877.1625	44.3425
-sim1997	healthy	U	0 to 17 years	0	17	20.72	180.16	3733.22	individual	all	933.305	45.04
-sim1997	healthy	U	0 to 17 years	0	17	21.3	183.27	3903.68	individual	all	975.92	45.8175
-sim1997	healthy	U	0 to 17 years	0	17	21.73	186.04	4043.18	individual	all	1010.795	46.51
-sim1997	healthy	U	0 to 17 years	0	17	23.84	184.37	4395.43	individual	all	1098.8575	46.0925
-sim1997	healthy	U	0 to 17 years	0	17	23.85	179.2	4273.11	individual	all	1068.2775	44.8
-sim1997	healthy	U	0 to 17 years	0	17	23.12	180.56	4174.19	individual	all	1043.5475	45.14
-sim1997	healthy	U	0 to 17 years	0	17	22.83	177.45	4051.33	individual	all	1012.8325	44.3625
-sim1997	healthy	U	0 to 17 years	0	17	21.82	175.35	3825.65	individual	all	956.4125	43.8375
-sim1997	healthy	U	0 to 17 years	0	17	21.6	172.25	3720.87	individual	all	930.2175	43.0625
-sim1997	healthy	U	0 to 17 years	0	17	22.33	170.54	3808.17	individual	all	952.0425	42.635
-sim1997	healthy	U	0 to 17 years	0	17	21.68	169.14	3666.72	individual	all	916.68	42.285
-sim1997	healthy	U	0 to 17 years	0	17	19.79	171.51	3393.78	individual	all	848.445	42.8775
-sim1997	healthy	U	0 to 17 years	0	17	20.81	168.78	3511.77	individual	all	877.9425	42.195
-sim1997	healthy	U	0 to 17 years	0	17	20.81	166.02	3454.86	individual	all	863.715	41.505
-sim1997	healthy	U	0 to 17 years	0	17	19.73	158.75	3131.93	individual	all	782.9825	39.6875
-sim1997	healthy	U	0 to 17 years	0	17	19.74	152.55	3010.49	individual	all	752.6225	38.1375
-sim1997	healthy	U	0 to 17 years	0	17	19.88	149.79	2978.32	individual	all	744.58	37.4475
-sim1997	healthy	U	0 to 17 years	0	17	20.82	152.57	3177.21	individual	all	794.3025	38.1425
-sim1997	healthy	U	0 to 17 years	0	17	21.26	156.72	3331.19	individual	all	832.7975	39.18
-sim1997	healthy	U	0 to 17 years	0	17	21.76	161.22	3507.91	individual	all	876.9775	40.305
-sim1997	healthy	U	0 to 17 years	0	17	23.86	168.51	4020.14	individual	all	1005.035	42.1275
-sim1997	healthy	U	0 to 17 years	0	17	22.92	159.17	3648.8	individual	all	912.2	39.7925
-sim1997	healthy	U	0 to 17 years	0	17	22.85	155.72	3558.98	individual	all	889.745	38.93
-sim1997	healthy	U	0 to 17 years	0	17	22.86	152.97	3496.39	individual	all	874.0975	38.2425
-sim1997	healthy	U	0 to 17 years	0	17	21.77	153.97	3351.54	individual	all	837.885	38.4925
-sim1997	healthy	U	0 to 17 years	0	17	21.7	151.56	3288.34	individual	all	822.085	37.89
-sim1997	healthy	U	0 to 17 years	0	17	21.7	148.46	3221.5	individual	all	805.375	37.115
-sim1997	healthy	U	0 to 17 years	0	17	21.78	145.35	3165.24	individual	all	791.31	36.3375
-sim1997	healthy	U	0 to 17 years	0	17	20.83	145.33	3027.54	individual	all	756.885	36.3325
-sim1997	healthy	U	0 to 17 years	0	17	21.71	141.9	3080.33	individual	all	770.0825	35.475
-sim1997	healthy	U	0 to 17 years	0	17	22.79	143.65	3274.54	individual	all	818.635	35.9125
-sim1997	healthy	U	0 to 17 years	0	17	22.72	147.79	3357.44	individual	all	839.36	36.9475
-sim1997	healthy	U	0 to 17 years	0	17	23.67	144.02	3408.33	individual	all	852.0825	36.005
-sim1997	healthy	U	0 to 17 years	0	17	24.46	145.07	3549	individual	all	887.25	36.2675
-sim1997	healthy	U	0 to 17 years	0	17	24.24	151.28	3666.74	individual	all	916.685	37.82
-sim1997	healthy	U	0 to 17 years	0	17	24.89	158.19	3936.51	individual	all	984.1275	39.5475
-sim1997	healthy	U	0 to 17 years	0	17	25.83	159.24	4112.98	individual	all	1028.245	39.81
-sim1997	healthy	U	0 to 17 years	0	17	25.9	162.69	4213.3	individual	all	1053.325	40.6725
-sim1997	healthy	U	0 to 17 years	0	17	25.82	167.87	4334.08	individual	all	1083.52	41.9675
-sim1997	healthy	U	0 to 17 years	0	17	28.93	180.35	5217.31	individual	all	1304.3275	45.0875
-sim1997	healthy	U	0 to 17 years	0	17	30.82	174.54	5379.7	individual	all	1344.925	43.635
-sim1997	healthy	U	0 to 17 years	0	17	32.86	168.38	5533.4	individual	all	1383.35	42.095
-sim1997	healthy	U	0 to 17 years	0	17	28.87	164.49	4749.26	individual	all	1187.315	41.1225
-sim1997	healthy	U	0 to 17 years	0	17	29.02	160.7	4663.84	individual	all	1165.96	40.175
-sim1997	healthy	U	0 to 17 years	0	17	26.56	153.74	4083.49	individual	all	1020.8725	38.435
-sim1997	healthy	U	0 to 17 years	0	17	28.81	154.14	4441.05	individual	all	1110.2625	38.535
-sim1997	healthy	U	0 to 17 years	0	17	30.99	154.89	4799.75	individual	all	1199.9375	38.7225
-sim1997	healthy	U	0 to 17 years	0	17	29.76	152.79	4546.43	individual	all	1136.6075	38.1975
-sim1997	healthy	U	0 to 17 years	0	17	29.69	149.34	4433.48	individual	all	1108.37	37.335
-sim1997	healthy	U	0 to 17 years	0	17	30.92	149.71	4629.37	individual	all	1157.3425	37.4275
-sim1997	healthy	U	0 to 17 years	0	17	30.78	145.92	4491.37	individual	all	1122.8425	36.48
-sim1997	healthy	U	0 to 17 years	0	17	31.65	143.18	4532.31	individual	all	1133.0775	35.795
-sim1997	healthy	U	0 to 17 years	0	17	32.74	143.89	4711.61	individual	all	1177.9025	35.9725
-sim1997	healthy	U	0 to 17 years	0	17	33.47	143.91	4816.69	individual	all	1204.1725	35.9775
-sim1997	healthy	U	0 to 17 years	0	17	34.2	143.58	4910.06	individual	all	1227.515	35.895
-sim1997	healthy	U	0 to 17 years	0	17	35.72	145.69	5203.92	individual	all	1300.98	36.4225
-sim1997	healthy	U	0 to 17 years	0	17	37.67	152.98	5763.03	individual	all	1440.7575	38.245
-sim1997	healthy	U	0 to 17 years	0	17	40.8	145.81	5949.53	individual	all	1487.3825	36.4525
-sim1997	healthy	U	0 to 17 years	0	17	42.91	146.21	6273.53	individual	all	1568.3825	36.5525
-sim1997	healthy	U	0 to 17 years	0	17	42.04	140.67	5914.14	individual	all	1478.535	35.1675
-sim1997	healthy	U	0 to 17 years	0	17	38.99	141.29	5509.01	individual	all	1377.2525	35.3225
-sim1997	healthy	U	0 to 17 years	0	17	34.78	140.84	4898.44	individual	all	1224.61	35.21
-sim1997	healthy	U	0 to 17 years	0	17	34.13	136.34	4653.53	individual	all	1163.3825	34.085
-sim1997	healthy	U	0 to 17 years	0	17	33.85	131.16	4439.38	individual	all	1109.845	32.79
-sim1997	healthy	U	0 to 17 years	0	17	35	134.64	4712.98	individual	all	1178.245	33.66
-sim1997	healthy	U	0 to 17 years	0	17	34.87	127.39	4441.87	individual	all	1110.4675	31.8475
-sim1997	healthy	U	0 to 17 years	0	17	35.8	135.35	4845.81	individual	all	1211.4525	33.8375
-sim1997	healthy	U	0 to 17 years	0	17	34.65	129.11	4473.43	individual	all	1118.3575	32.2775
-sim1997	healthy	U	0 to 17 years	0	17	37.04	134	4963.12	individual	all	1240.78	33.5
-sim1997	healthy	U	0 to 17 years	0	17	36.32	129.15	4690.55	individual	all	1172.6375	32.2875
-sim1997	healthy	U	0 to 17 years	0	17	36.98	125.72	4648.52	individual	all	1162.13	31.43
-sim1997	healthy	U	0 to 17 years	0	17	36.69	120.89	4435.27	individual	all	1108.8175	30.2225
-sim1997	healthy	U	0 to 17 years	0	17	37.42	117.46	4395.13	individual	all	1098.7825	29.365
-sim1997	healthy	U	0 to 17 years	0	17	37.79	113.67	4295.26	individual	all	1073.815	28.4175
-sim1997	healthy	U	0 to 17 years	0	17	38	115.4	4385.54	individual	all	1096.385	28.85
-sim1997	healthy	U	0 to 17 years	0	17	40.82	125.47	5122.16	individual	all	1280.54	31.3675
-sim1997	healthy	U	0 to 17 years	0	17	39.88	122	4865.74	individual	all	1216.435	30.5
-sim1997	healthy	U	0 to 17 years	0	17	39.89	118.55	4728.65	individual	all	1182.1625	29.6375
-sim1997	healthy	U	0 to 17 years	0	17	39.89	113.72	4536.68	individual	all	1134.17	28.43
-sim1997	healthy	U	0 to 17 years	0	17	40.84	109.61	4476.48	individual	all	1119.12	27.4025
-sim1997	healthy	U	0 to 17 years	0	17	40.84	107.54	4392.22	individual	all	1098.055	26.885
-sim1997	healthy	U	0 to 17 years	0	17	42.8	106.9	4575.66	individual	all	1143.915	26.725
-sim1997	healthy	U	0 to 17 years	0	17	43.82	109.68	4805.97	individual	all	1201.4925	27.42
-sim1997	healthy	U	0 to 17 years	0	17	44.83	110.05	4934	individual	all	1233.5	27.5125
-sim1997	healthy	U	0 to 17 years	0	17	46.71	118.37	5529.53	individual	all	1382.3825	29.5925
-sim1997	healthy	U	0 to 17 years	0	17	47.85	142.19	6803.88	individual	all	1700.97	35.5475
-sim1997	healthy	U	0 to 17 years	0	17	49.97	133.28	6659.27	individual	all	1664.8175	33.32
-sim1997	healthy	U	0 to 17 years	0	17	50.86	113.99	5797.17	individual	all	1449.2925	28.4975
-sim1997	healthy	U	0 to 17 years	0	17	51.52	108.14	5571.2	individual	all	1392.8	27.035
-sim1997	healthy	U	0 to 17 years	0	17	51.74	100.56	5203.37	individual	all	1300.8425	25.14
-sim1997	healthy	U	0 to 17 years	0	17	52.84	98.52	5205.21	individual	all	1301.3025	24.63
-sim1997	healthy	U	0 to 17 years	0	17	52.92	89.9	4757.19	individual	all	1189.2975	22.475
-sim1997	healthy	U	0 to 17 years	0	17	53.93	93.03	5016.98	individual	all	1254.245	23.2575
-sim1997	healthy	U	0 to 17 years	0	17	54.87	98.57	5408.23	individual	all	1352.0575	24.6425
-sim1997	healthy	U	0 to 17 years	0	17	53.77	103.37	5558.53	individual	all	1389.6325	25.8425
-sim1997	healthy	U	0 to 17 years	0	17	53.83	119.23	6418.21	individual	all	1604.5525	29.8075
-sim1997	healthy	U	0 to 17 years	0	17	60.78	135.61	8242.69	individual	all	2060.6725	33.9025
-sim1997	healthy	U	0 to 17 years	0	17	55.97	87.21	4881.37	individual	all	1220.3425	21.8025
-sim1997	healthy	U	0 to 17 years	0	17	56.92	83.44	4749.47	individual	all	1187.3675	20.86
-sim1997	healthy	U	0 to 17 years	0	17	58.87	87.97	5179.38	individual	all	1294.845	21.9925
-sim1997	healthy	U	0 to 17 years	0	17	60.83	94.23	5731.71	individual	all	1432.9275	23.5575
-sim1997	healthy	U	0 to 17 years	0	17	61.92	94.6	5857.3	individual	all	1464.325	23.65
-sim1997	healthy	U	0 to 17 years	0	17	63.87	101.54	6485.58	individual	all	1621.395	25.385
-sim1997	healthy	U	0 to 17 years	0	17	67.87	96.47	6547.21	individual	all	1636.8025	24.1175
-sim1997	healthy	U	0 to 17 years	0	17	66.94	85.41	5717.14	individual	all	1429.285	21.3525
-sim1997	healthy	U	0 to 17 years	0	17	78.99	90.53	7150.59	individual	all	1787.6475	22.6325
-sim1997	healthy	U	0 to 17 years	0	17	84.89	75.84	6437.96	individual	all	1609.49	18.96
-sim1997	healthy	U	0 to 17 years	0	17	93.33	61.91	5777.57	individual	all	1444.3925	15.4775
-sim1997	healthy	U	0 to 17 years	0	17	86.94	54.17	4709.49	individual	all	1177.3725	13.5425
-sim1997	healthy	U	0 to 17 years	0	17	84.03	64.44	5414.88	individual	all	1353.72	16.11
-sim1997	healthy	U	0 to 17 years	0	17	80.98	62.3	5044.97	individual	all	1261.2425	15.575
-sim1997	healthy	U	0 to 17 years	0	17	80.99	49.2	3984.58	individual	all	996.145	12.3
-sim1997	healthy	U	0 to 17 years	0	17	82.02	41.64	3414.82	individual	all	853.705	10.41
-sim1997	healthy	U	0 to 17 years	0	17	78.07	62.23	4858.53	individual	all	1214.6325	15.5575
-sim1997	healthy	U	0 to 17 years	0	17	74	68.34	5057.08	individual	all	1264.27	17.085
-sim1997	healthy	U	0 to 17 years	0	17	72.94	45.9	3347.64	individual	all	836.91	11.475
-sim1997	healthy	U	0 to 17 years	0	17	67.97	68.54	4658.7	individual	all	1164.675	17.135
-sim1997	healthy	U	0 to 17 years	0	17	66.89	66.1	4421.02	individual	all	1105.255	16.525
-sim1997	healthy	U	0 to 17 years	0	17	67.91	59.23	4022.03	individual	all	1005.5075	14.8075
-sim1997	healthy	U	0 to 17 years	0	17	69.97	39.28	2747.89	individual	all	686.9725	9.82
-sim1997	healthy	U	0 to 17 years	0	17	68.8	41.32	2842.59	individual	all	710.6475	10.33
-sim1997	healthy	U	0 to 17 years	0	17	64.94	49.84	3236.99	individual	all	809.2475	12.46
-sim1997	healthy	U	0 to 17 years	0	17	63.95	27.75	1774.65	individual	all	443.6625	6.9375
-sim1997	healthy	U	0 to 17 years	0	17	61.91	34.6	2141.93	individual	all	535.4825	8.65
-sim1997	healthy	U	0 to 17 years	0	17	62.84	48.76	3063.88	individual	all	765.97	12.19
-sim1997	healthy	U	0 to 17 years	0	17	60.81	48.36	2940.8	individual	all	735.2	12.09
-sim1997	healthy	U	0 to 17 years	0	17	59.86	49.03	2935.03	individual	all	733.7575	12.2575
-sim1997	healthy	U	0 to 17 years	0	17	63.99	60.86	3893.94	individual	all	973.485	15.215
-sim1997	healthy	U	0 to 17 years	0	17	60.55	79.39	4807.56	individual	all	1201.89	19.8475
-sim1997	healthy	U	0 to 17 years	0	17	59.92	65.24	3908.87	individual	all	977.2175	16.31
-sim1997	healthy	U	0 to 17 years	0	17	60.86	63.19	3846.07	individual	all	961.5175	15.7975
-sim1997	healthy	U	0 to 17 years	0	17	58.98	54.87	3236.5	individual	all	809.125	13.7175
-sim1997	healthy	U	0 to 17 years	0	17	56.88	55.51	3157.24	individual	all	789.31	13.8775
-sim1997	healthy	U	0 to 17 years	0	17	56.87	60.68	3451.08	individual	all	862.77	15.17
-sim1997	healthy	U	0 to 17 years	0	17	56.87	65.17	3705.7	individual	all	926.425	16.2925
-sim1997	healthy	U	0 to 17 years	0	17	55.92	64.45	3604.38	individual	all	901.095	16.1125
-sim1997	healthy	U	0 to 17 years	0	17	55.85	68.24	3811.17	individual	all	952.7925	17.06
-sim1997	healthy	U	0 to 17 years	0	17	57.8	71.74	4146.78	individual	all	1036.695	17.935
-sim1997	healthy	U	0 to 17 years	0	17	56.93	74.82	4259.49	individual	all	1064.8725	18.705
-sim1997	healthy	U	0 to 17 years	0	17	54.74	82.7	4527.11	individual	all	1131.7775	20.675
-sim1997	healthy	U	0 to 17 years	0	17	54.82	73.39	4023.62	individual	all	1005.905	18.3475
-sim1997	healthy	U	0 to 17 years	0	17	53.81	72.33	3892.11	individual	all	973.0275	18.0825
-sim1997	healthy	U	0 to 17 years	0	17	52.8	67.48	3562.77	individual	all	890.6925	16.87
-sim1997	healthy	U	0 to 17 years	0	17	53.82	63.71	3428.84	individual	all	857.21	15.9275
-sim1997	healthy	U	0 to 17 years	0	17	51.72	57.46	2971.46	individual	all	742.865	14.365
-sim1997	healthy	U	0 to 17 years	0	17	51.72	54.01	2793.33	individual	all	698.3325	13.5025
-sim1997	healthy	U	0 to 17 years	0	17	47.88	44.6	2135.76	individual	all	533.94	11.15
-sim1997	healthy	U	0 to 17 years	0	17	47.8	49.77	2379.45	individual	all	594.8625	12.4425
-sim1997	healthy	U	0 to 17 years	0	17	45.77	48.69	2228.7	individual	all	557.175	12.1725
-sim1997	healthy	U	0 to 17 years	0	17	45.84	52.14	2390.2	individual	all	597.55	13.035
-sim1997	healthy	U	0 to 17 years	0	17	46.78	58.37	2730.49	individual	all	682.6225	14.5925
-sim1997	healthy	U	0 to 17 years	0	17	45.76	60.42	2764.57	individual	all	691.1425	15.105
-sim1997	healthy	U	0 to 17 years	0	17	45.32	65.23	2956.23	individual	all	739.0575	16.3075
-sim1997	healthy	U	0 to 17 years	0	17	44.81	65.22	2922.52	individual	all	730.63	16.305
-sim1997	healthy	U	0 to 17 years	0	17	44.95	69.71	3133.33	individual	all	783.3325	17.4275
-sim1997	healthy	U	0 to 17 years	0	17	45.24	74.89	3387.49	individual	all	846.8725	18.7225
-sim1997	healthy	U	0 to 17 years	0	17	46.69	69.75	3256.79	individual	all	814.1975	17.4375
-sim1997	healthy	U	0 to 17 years	0	17	48	69.09	3316.42	individual	all	829.105	17.2725
-sim1997	healthy	U	0 to 17 years	0	17	47.71	65.63	3131.74	individual	all	782.935	16.4075
-sim1997	healthy	U	0 to 17 years	0	17	48.87	75.66	3697.32	individual	all	924.33	18.915
-sim1997	healthy	U	0 to 17 years	0	17	48.86	79.11	3865.53	individual	all	966.3825	19.7775
-sim1997	healthy	U	0 to 17 years	0	17	51.78	70.22	3635.52	individual	all	908.88	17.555
-sim1997	healthy	U	0 to 17 years	0	17	50.82	84.33	4285.45	individual	all	1071.3625	21.0825
-sim1997	healthy	U	0 to 17 years	0	17	50.89	88.47	4501.85	individual	all	1125.4625	22.1175
-sim1997	healthy	U	0 to 17 years	0	17	48.92	93.25	4561.77	individual	all	1140.4425	23.3125
-sim1997	healthy	U	0 to 17 years	0	17	47.83	93.57	4475.39	individual	all	1118.8475	23.3925
-sim1997	healthy	U	0 to 17 years	0	17	47.91	87.36	4185.53	individual	all	1046.3825	21.84
-sim1997	healthy	U	0 to 17 years	0	17	47.41	75.63	3585.77	individual	all	896.4425	18.9075
-sim1997	healthy	U	0 to 17 years	0	17	46.75	81.13	3793.1	individual	all	948.275	20.2825
-sim1997	healthy	U	0 to 17 years	0	17	45.88	86.28	3958.28	individual	all	989.57	21.57
-sim1997	healthy	U	0 to 17 years	0	17	45	89.36	4021.52	individual	all	1005.38	22.34
-sim1997	healthy	U	0 to 17 years	0	17	43.78	77.26	3382.67	individual	all	845.6675	19.315
-sim1997	healthy	U	0 to 17 years	0	17	43.64	69.67	3040.84	individual	all	760.21	17.4175
-sim1997	healthy	U	0 to 17 years	0	17	44.92	97.64	4385.91	individual	all	1096.4775	24.41
-sim1997	healthy	U	0 to 17 years	0	17	44.92	102.46	4602.23	individual	all	1150.5575	25.615
-sim1997	healthy	U	0 to 17 years	0	17	44.91	105.22	4725.82	individual	all	1181.455	26.305
-sim1997	healthy	U	0 to 17 years	0	17	43.75	102.78	4497	individual	all	1124.25	25.695
-sim1997	healthy	U	0 to 17 years	0	17	41.87	99.29	4157.04	individual	all	1039.26	24.8225
-sim1997	healthy	U	0 to 17 years	0	17	40.42	100.29	4053.12	individual	all	1013.28	25.0725
-sim1997	healthy	U	0 to 17 years	0	17	39.84	98.2	3912.1	individual	all	978.025	24.55
-sim1997	healthy	U	0 to 17 years	0	17	39.84	91.31	3638.04	individual	all	909.51	22.8275
-sim1997	healthy	U	0 to 17 years	0	17	39.78	86.48	3439.79	individual	all	859.9475	21.62
-sim1997	healthy	U	0 to 17 years	0	17	40.8	82.71	3374.32	individual	all	843.58	20.6775
-sim1997	healthy	U	0 to 17 years	0	17	41.81	82.73	3459.43	individual	all	864.8575	20.6825
-sim1997	healthy	U	0 to 17 years	0	17	42.03	80.33	3376.43	individual	all	844.1075	20.0825
-sim1997	healthy	U	0 to 17 years	0	17	40.81	74.09	3023.31	individual	all	755.8275	18.5225
-sim1997	healthy	U	0 to 17 years	0	17	39.79	78.2	3111.31	individual	all	777.8275	19.55
-sim1997	healthy	U	0 to 17 years	0	17	39.78	81.31	3234.51	individual	all	808.6275	20.3275
-sim1997	healthy	U	0 to 17 years	0	17	38.98	82.32	3209.04	individual	all	802.26	20.58
-sim1997	healthy	U	0 to 17 years	0	17	37.75	76.08	2872.5	individual	all	718.125	19.02
-sim1997	healthy	U	0 to 17 years	0	17	38.42	61.27	2354.32	individual	all	588.58	15.3175
-sim1997	healthy	U	0 to 17 years	0	17	37.84	59.53	2253.06	individual	all	563.265	14.8825
-sim1997	healthy	U	0 to 17 years	0	17	35.82	48.8	1748.01	individual	all	437.0025	12.2
-sim1997	healthy	U	0 to 17 years	0	17	35.73	63.28	2261.17	individual	all	565.2925	15.82
-sim1997	healthy	U	0 to 17 years	0	17	31.89	60.77	1937.86	individual	all	484.465	15.1925
-sim1997	healthy	U	0 to 17 years	0	17	30.87	64.19	1981.53	individual	all	495.3825	16.0475
-sim1997	healthy	U	0 to 17 years	0	17	30.86	69.02	2130.19	individual	all	532.5475	17.255
-sim1997	healthy	U	0 to 17 years	0	17	25.86	63.73	1647.85	individual	all	411.9625	15.9325
-sim1997	healthy	U	0 to 17 years	0	17	22.72	74.69	1697.12	individual	all	424.28	18.6725
-sim1997	healthy	U	0 to 17 years	0	17	23.81	74.37	1770.92	individual	all	442.73	18.5925
-sim1997	healthy	U	0 to 17 years	0	17	25.92	75.8	1964.49	individual	all	491.1225	18.95
-sim1997	healthy	U	0 to 17 years	0	17	29.77	76.93	2289.7	individual	all	572.425	19.2325
-sim1997	healthy	U	0 to 17 years	0	17	30.93	75.23	2326.77	individual	all	581.6925	18.8075
-sim1997	healthy	U	0 to 17 years	0	17	30.85	80.4	2480.4	individual	all	620.1	20.1
-sim1997	healthy	U	0 to 17 years	0	17	31.72	83.18	2638.39	individual	all	659.5975	20.795
-sim1997	healthy	U	0 to 17 years	0	17	32.67	76.31	2492.97	individual	all	623.2425	19.0775
-sim1997	healthy	U	0 to 17 years	0	17	34.85	73.26	2553.13	individual	all	638.2825	18.315
-sim1997	healthy	U	0 to 17 years	0	17	35.8	73.97	2647.74	individual	all	661.935	18.4925
-sim1997	healthy	U	0 to 17 years	0	17	35.86	79.49	2850.59	individual	all	712.6475	19.8725
-sim1997	healthy	U	0 to 17 years	0	17	35.79	82.93	2967.86	individual	all	741.965	20.7325
-sim1997	healthy	U	0 to 17 years	0	17	34.77	83.25	2894.65	individual	all	723.6625	20.8125
-sim1997	healthy	U	0 to 17 years	0	17	33.75	84.95	2867.22	individual	all	716.805	21.2375
-sim1997	healthy	U	0 to 17 years	0	17	34.84	88.77	3092.46	individual	all	773.115	22.1925
-sim1997	healthy	U	0 to 17 years	0	17	35.71	88.45	3158.29	individual	all	789.5725	22.1125
-sim1997	healthy	U	0 to 17 years	0	17	36.87	85.72	3160.64	individual	all	790.16	21.43
-sim1997	healthy	U	0 to 17 years	0	17	36.87	90.89	3350.86	individual	all	837.715	22.7225
-sim1997	healthy	U	0 to 17 years	0	17	37.73	94.36	3560.64	individual	all	890.16	23.59
-sim1997	healthy	U	0 to 17 years	0	17	36.86	93.99	3464.96	individual	all	866.24	23.4975
-sim1997	healthy	U	0 to 17 years	0	17	35.77	94.31	3373.93	individual	all	843.4825	23.5775
-sim1997	healthy	U	0 to 17 years	0	17	36.86	99.17	3655.08	individual	all	913.77	24.7925
-sim1997	healthy	U	0 to 17 years	0	17	37.73	101.6	3833.09	individual	all	958.2725	25.4
-sim1997	healthy	U	0 to 17 years	0	17	34.82	100.15	3487.64	individual	all	871.91	25.0375
-sim1997	healthy	U	0 to 17 years	0	17	34.17	98.41	3362.92	individual	all	840.73	24.6025
-sim1997	healthy	U	0 to 17 years	0	17	32.8	93.9	3079.49	individual	all	769.8725	23.475
-sim1997	healthy	U	0 to 17 years	0	17	31.71	91.11	2889.18	individual	all	722.295	22.7775
-sim1997	healthy	U	0 to 17 years	0	17	29.83	84.86	2531.26	individual	all	632.815	21.215
-sim1997	healthy	U	0 to 17 years	0	17	29.61	81.75	2420.99	individual	all	605.2475	20.4375
-sim1997	healthy	U	0 to 17 years	0	17	27.94	85.5	2388.97	individual	all	597.2425	21.375
-sim1997	healthy	U	0 to 17 years	0	17	24.89	85.43	2126.35	individual	all	531.5875	21.3575
-sim1997	healthy	U	0 to 17 years	0	17	23.73	82.3	1953.06	individual	all	488.265	20.575
-sim1997	healthy	U	0 to 17 years	0	17	23.8	84.37	2008.14	individual	all	502.035	21.0925
-sim1997	healthy	U	0 to 17 years	0	17	21.69	88.45	1918.74	individual	all	479.685	22.1125
-sim1997	healthy	U	0 to 17 years	0	17	21.69	90.52	1963.42	individual	all	490.855	22.63
-sim1997	healthy	U	0 to 17 years	0	17	20.88	96.02	2005.4	individual	all	501.35	24.005
-sim1997	healthy	U	0 to 17 years	0	17	20.88	98.78	2062.72	individual	all	515.68	24.695
-sim1997	healthy	U	0 to 17 years	0	17	19.86	101.17	2009.49	individual	all	502.3725	25.2925
-sim1997	healthy	U	0 to 17 years	0	17	21.74	106.73	2320.87	individual	all	580.2175	26.6825
-sim1997	healthy	U	0 to 17 years	0	17	19.85	111.17	2206.92	individual	all	551.73	27.7925
-sim1997	healthy	U	0 to 17 years	0	17	19.85	115.65	2295.36	individual	all	573.84	28.9125
-sim1997	healthy	U	0 to 17 years	0	17	20.87	113.95	2377.69	individual	all	594.4225	28.4875
-sim1997	healthy	U	0 to 17 years	0	17	21.73	117.42	2551.97	individual	all	637.9925	29.355
-sim1997	healthy	U	0 to 17 years	0	17	20.71	128.09	2652.06	individual	all	663.015	32.0225
-sim1997	healthy	U	0 to 17 years	0	17	21.43	131.55	2818.87	individual	all	704.7175	32.8875
-sim1997	healthy	U	0 to 17 years	0	17	22.88	133.66	3057.78	individual	all	764.445	33.415
-sim1997	healthy	U	0 to 17 years	0	17	23.82	134.37	3200.83	individual	all	800.2075	33.5925
-sim1997	healthy	U	0 to 17 years	0	17	23.75	136.78	3248	individual	all	812	34.195
-sim1997	healthy	U	0 to 17 years	0	17	25.7	140.97	3623.15	individual	all	905.7875	35.2425
-sim1997	healthy	U	0 to 17 years	0	17	25.85	138.56	3581.68	individual	all	895.42	34.64
-sim1997	healthy	U	0 to 17 years	0	17	26.07	136.15	3549.44	individual	all	887.36	34.0375
-sim1997	healthy	U	0 to 17 years	0	17	28.83	136.9	3946.84	individual	all	986.71	34.225
-sim1997	healthy	U	0 to 17 years	0	17	28.9	143.46	4145.18	individual	all	1036.295	35.865
-sim1997	healthy	U	0 to 17 years	0	17	29.77	142.79	4250.4	individual	all	1062.6	35.6975
-sim1997	healthy	U	0 to 17 years	0	17	29.84	138.65	4137.96	individual	all	1034.49	34.6625
-sim1997	healthy	U	0 to 17 years	0	17	30.93	139.02	4300.43	individual	all	1075.1075	34.755
-sim1997	healthy	U	0 to 17 years	0	17	32.69	122.86	4016.67	individual	all	1004.1675	30.715
-sim1997	healthy	U	0 to 17 years	0	17	33.21	117.35	3897.04	individual	all	974.26	29.3375
-sim1997	healthy	U	0 to 17 years	0	17	34.95	115.33	4030.99	individual	all	1007.7475	28.8325
-sim1997	healthy	U	0 to 17 years	0	17	34.81	109.81	3822.73	individual	all	955.6825	27.4525
-sim1997	healthy	U	0 to 17 years	0	17	33.87	109.44	3706.66	individual	all	926.665	27.36
-sim1997	healthy	U	0 to 17 years	0	17	32.78	109.76	3597.85	individual	all	899.4625	27.44
-sim1997	healthy	U	0 to 17 years	0	17	31.76	110.08	3496.39	individual	all	874.0975	27.52
-sim1997	healthy	U	0 to 17 years	0	17	31.77	105.94	3365.43	individual	all	841.3575	26.485
-sim1997	healthy	U	0 to 17 years	0	17	32.79	101.48	3327.47	individual	all	831.8675	25.37
-sim1997	healthy	U	0 to 17 years	0	17	31.85	96.98	3088.65	individual	all	772.1625	24.245
-sim1997	healthy	U	0 to 17 years	0	17	30.98	99.02	3067.37	individual	all	766.8425	24.755
-sim1997	healthy	U	0 to 17 years	0	17	29.82	92.79	2767.04	individual	all	691.76	23.1975
-sim1997	healthy	U	0 to 17 years	0	17	24.81	92.67	2299.1	individual	all	574.775	23.1675
-sim1997	healthy	U	0 to 17 years	0	17	27.35	97.9	2677.24	individual	all	669.31	24.475
-sim1997	healthy	U	0 to 17 years	0	17	25.96	100.28	2603.71	individual	all	650.9275	25.07
-sim1997	healthy	U	0 to 17 years	0	17	25.89	104.07	2694.16	individual	all	673.54	26.0175
-sim1997	healthy	U	0 to 17 years	0	17	24.8	103.36	2563.12	individual	all	640.78	25.84
-sim1997	healthy	U	0 to 17 years	0	17	23.85	111.61	2661.42	individual	all	665.355	27.9025
-sim1997	healthy	U	0 to 17 years	0	17	22.9	113.31	2594.81	individual	all	648.7025	28.3275
-sim1997	healthy	U	0 to 17 years	0	17	22.75	116.76	2656.3	individual	all	664.075	29.19
-sim1997	healthy	U	0 to 17 years	0	17	23.69	117.47	2783.32	individual	all	695.83	29.3675
-sim1997	healthy	U	0 to 17 years	0	17	24.56	118.18	2903.06	individual	all	725.765	29.545
-sim1997	healthy	U	0 to 17 years	0	17	23.69	124.71	2953.93	individual	all	738.4825	31.1775
-sim1997	healthy	U	0 to 17 years	0	17	24.34	127.48	3102.59	individual	all	775.6475	31.87
-sim1997	healthy	U	0 to 17 years	0	17	24.92	129.57	3228.27	individual	all	807.0675	32.3925
-sim1997	healthy	U	0 to 17 years	0	17	25.14	126.81	3187.67	individual	all	796.9175	31.7025
-sim1997	healthy	U	0 to 17 years	0	17	25	117.5	2937.66	individual	all	734.415	29.375
-sim1997	healthy	U	0 to 17 years	0	17	24.86	113.01	2809.63	individual	all	702.4075	28.2525
-sim1997	healthy	U	0 to 17 years	0	17	25.3	110.61	2798.36	individual	all	699.59	27.6525
-sim1997	healthy	U	0 to 17 years	0	17	26.83	107.89	2894.36	individual	all	723.59	26.9725
-sim1997	healthy	U	0 to 17 years	0	17	27.27	102.38	2791.85	individual	all	697.9625	25.595
-sim1997	healthy	U	0 to 17 years	0	17	27.85	102.05	2842.15	individual	all	710.5375	25.5125
-sim1997	healthy	U	0 to 17 years	0	17	28.36	104.13	2952.82	individual	all	738.205	26.0325
-sim1997	healthy	U	0 to 17 years	0	17	27.92	106.88	2983.85	individual	all	745.9625	26.72
-sim1997	healthy	U	0 to 17 years	0	17	26.74	118.58	3171.11	individual	all	792.7775	29.645
-sim1997	healthy	U	0 to 17 years	0	17	27.97	126.88	3548.74	individual	all	887.185	31.72
-sim1997	healthy	U	0 to 17 years	0	17	29.71	127.96	3801.72	individual	all	950.43	31.99
-sim1997	healthy	U	0 to 17 years	0	17	28.92	124.84	3609.64	individual	all	902.41	31.21
-sim1997	healthy	U	0 to 17 years	0	17	27.9	120.67	3367.13	individual	all	841.7825	30.1675
-sim1997	healthy	U	0 to 17 years	0	17	27.83	116.88	3253.23	individual	all	813.3075	29.22
-sim1997	healthy	U	0 to 17 years	0	17	28.92	117.59	3401.17	individual	all	850.2925	29.3975
-sim1997	healthy	U	0 to 17 years	0	17	29.79	116.93	3483.81	individual	all	870.9525	29.2325
-sim1997	healthy	U	0 to 17 years	0	17	29.87	114.51	3420.56	individual	all	855.14	28.6275
-sim1997	healthy	U	0 to 17 years	0	17	29.8	112.44	3350.79	individual	all	837.6975	28.11
-sim1997	healthy	U	0 to 17 years	0	17	29.88	106.58	3184.57	individual	all	796.1425	26.645
-sim1997	healthy	U	0 to 17 years	0	17	29.74	103.48	3077.06	individual	all	769.265	25.87
-sim1997	healthy	U	0 to 17 years	0	17	30.89	108.33	3346.76	individual	all	836.69	27.0825
-sim1997	healthy	U	0 to 17 years	0	17	30.88	124.19	3834.67	individual	all	958.6675	31.0475
-sim1997	healthy	U	0 to 17 years	0	17	31.82	120.77	3843.36	individual	all	960.84	30.1925
-sim1997	healthy	U	0 to 17 years	0	17	31.83	117.67	3744.99	individual	all	936.2475	29.4175
-sim1997	healthy	U	0 to 17 years	0	17	31.83	115.6	3679.4	individual	all	919.85	28.9
-sim1997	healthy	U	18 to 85 years	18	85	34.81	117.39	4085.87	individual	all	1021.4675	29.3475
-sim1997	healthy	U	18 to 85 years	18	85	35.62	101.55	3617.32	individual	all	904.33	25.3875
-sim1997	healthy	U	18 to 85 years	18	85	37.79	111.26	4204.34	individual	all	1051.085	27.815
-sim1997	healthy	U	18 to 85 years	18	85	40.73	78.22	3186.06	individual	all	796.515	19.555
-sim1997	healthy	U	18 to 85 years	18	85	43.4	92.43	4011.47	individual	all	1002.8675	23.1075
-sim1997	healthy	U	18 to 85 years	18	85	42.64	60.68	2587.38	individual	all	646.845	15.17
-sim1997	healthy	U	18 to 85 years	18	85	43.93	68.99	3031.14	individual	all	757.785	17.2475
-sim1997	healthy	U	18 to 85 years	18	85	44.87	72.81	3267.23	individual	all	816.8075	18.2025
-sim1997	healthy	U	18 to 85 years	18	85	47.36	61.83	2928.14	individual	all	732.035	15.4575
-sim1997	healthy	U	18 to 85 years	18	85	47.87	60.12	2877.75	individual	all	719.4375	15.03
-sim1997	healthy	U	18 to 85 years	18	85	48.74	61.18	2981.52	individual	all	745.38	15.295
-sim1997	healthy	U	18 to 85 years	18	85	49.9	63.96	3191.45	individual	all	797.8625	15.99
-sim1997	healthy	U	18 to 85 years	18	85	48.8	66.35	3238.13	individual	all	809.5325	16.5875
-sim1997	healthy	U	18 to 85 years	18	85	47.57	65.98	3138.42	individual	all	784.605	16.495
-sim1997	healthy	U	18 to 85 years	18	85	47.56	73.91	3515.06	individual	all	878.765	18.4775
-sim1997	healthy	U	18 to 85 years	18	85	46.97	82.17	3859.52	individual	all	964.88	20.5425
-sim1997	healthy	U	18 to 85 years	18	85	46.68	80.44	3754.99	individual	all	938.7475	20.11
-sim1997	healthy	U	18 to 85 years	18	85	50	99.83	4991.6	individual	all	1247.9	24.9575
-sim1997	healthy	U	18 to 85 years	18	85	49.8	88.44	4404.17	individual	all	1101.0425	22.11
-sim1997	healthy	U	18 to 85 years	18	85	55.5	118.24	6562.32	individual	all	1640.58	29.56
-sim1997	healthy	U	18 to 85 years	18	85	49.8	81.55	4061.36	individual	all	1015.34	20.3875
-sim1997	healthy	U	18 to 85 years	18	85	50.02	79.48	3976.07	individual	all	994.0175	19.87
-sim1997	healthy	U	18 to 85 years	18	85	50.6	80.53	4075.22	individual	all	1018.805	20.1325
-sim1997	healthy	U	18 to 85 years	18	85	50.82	82.26	4180.5	individual	all	1045.125	20.565
-sim1997	healthy	U	18 to 85 years	18	85	51.18	80.89	4140.34	individual	all	1035.085	20.2225
-sim1997	healthy	U	18 to 85 years	18	85	52.05	85.39	4444.86	individual	all	1111.215	21.3475
-sim1997	healthy	U	18 to 85 years	18	85	51.84	75.73	3926.32	individual	all	981.58	18.9325
-sim1997	healthy	U	18 to 85 years	18	85	52.21	72.98	3810.48	individual	all	952.62	18.245
-sim1997	healthy	U	18 to 85 years	18	85	51.79	61.25	3171.92	individual	all	792.98	15.3125
-sim1997	healthy	U	18 to 85 years	18	85	52.37	57.82	3027.88	individual	all	756.97	14.455
-sim1997	healthy	U	18 to 85 years	18	85	52.3	54.71	2861.47	individual	all	715.3675	13.6775
-sim1997	healthy	U	18 to 85 years	18	85	54.78	43.74	2395.98	individual	all	598.995	10.935
-sim1997	healthy	U	18 to 85 years	18	85	54.32	67.52	3667.68	individual	all	916.92	16.88
-sim1997	healthy	U	18 to 85 years	18	85	53.58	80.6	4318.84	individual	all	1079.71	20.15
-sim1997	healthy	U	18 to 85 years	18	85	52.39	111.61	5846.78	individual	all	1461.695	27.9025
-sim1997	healthy	U	18 to 85 years	18	85	54.43	104.42	5683.14	individual	all	1420.785	26.105
-sim1997	healthy	U	18 to 85 years	18	85	53.71	99.57	5347.64	individual	all	1336.91	24.8925
-sim1997	healthy	U	18 to 85 years	18	85	55.67	97.21	5411.4	individual	all	1352.85	24.3025
-sim1997	healthy	U	18 to 85 years	18	85	56.47	99.29	5606.74	individual	all	1401.685	24.8225
-sim1997	healthy	U	18 to 85 years	18	85	57.05	98.96	5645.6	individual	all	1411.4	24.74
-sim1997	healthy	U	18 to 85 years	18	85	56.55	93.09	5263.75	individual	all	1315.9375	23.2725
-sim1997	healthy	U	18 to 85 years	18	85	54.73	92.36	5054.68	individual	all	1263.67	23.09
-sim1997	healthy	U	18 to 85 years	18	85	54.22	94.41	5119.03	individual	all	1279.7575	23.6025
-sim1997	healthy	U	18 to 85 years	18	85	54.01	89.23	4819.36	individual	all	1204.84	22.3075
-sim1997	healthy	U	18 to 85 years	18	85	55.89	91.35	5105.84	individual	all	1276.46	22.8375
-sim1997	healthy	U	18 to 85 years	18	85	54.67	79.94	4370.44	individual	all	1092.61	19.985
-sim1997	healthy	U	18 to 85 years	18	85	54.75	76.49	4187.86	individual	all	1046.965	19.1225
-sim1997	healthy	U	18 to 85 years	18	85	55.26	76.85	4246.44	individual	all	1061.61	19.2125
-sim1997	healthy	U	18 to 85 years	18	85	55.76	81.69	4554.97	individual	all	1138.7425	20.4225
-sim1997	healthy	U	18 to 85 years	18	85	56.63	78.61	4451.87	individual	all	1112.9675	19.6525
-sim1997	healthy	U	18 to 85 years	18	85	56.92	81.03	4612.29	individual	all	1153.0725	20.2575
-sim1997	healthy	U	18 to 85 years	18	85	56.99	85.86	4892.97	individual	all	1223.2425	21.465
-sim1997	healthy	U	18 to 85 years	18	85	57.06	88.62	5056.45	individual	all	1264.1125	22.155
-sim1997	healthy	U	18 to 85 years	18	85	59.01	99.7	5883.05	individual	all	1470.7625	24.925
-sim1997	healthy	U	18 to 85 years	18	85	59.02	92.11	5436.17	individual	all	1359.0425	23.0275
-sim1997	healthy	U	18 to 85 years	18	85	58	90.02	5221.3	individual	all	1305.325	22.505
-sim1997	healthy	U	18 to 85 years	18	85	58.44	88.65	5180.67	individual	all	1295.1675	22.1625
-sim1997	healthy	U	18 to 85 years	18	85	58.95	85.91	5064.1	individual	all	1266.025	21.4775
-sim1997	healthy	U	18 to 85 years	18	85	58.59	83.83	4911.37	individual	all	1227.8425	20.9575
-sim1997	healthy	U	18 to 85 years	18	85	57.94	81.74	4735.99	individual	all	1183.9975	20.435
-sim1997	healthy	U	18 to 85 years	18	85	58.73	83.14	4883.31	individual	all	1220.8275	20.785
-sim1997	healthy	U	18 to 85 years	18	85	56.86	71.03	4038.59	individual	all	1009.6475	17.7575
-sim1997	healthy	U	18 to 85 years	18	85	57.73	68.29	3942.65	individual	all	985.6625	17.0725
-sim1997	healthy	U	18 to 85 years	18	85	57.88	67.6	3912.91	individual	all	978.2275	16.9
-sim1997	healthy	U	18 to 85 years	18	85	57.45	60.35	3467.35	individual	all	866.8375	15.0875
-sim1997	healthy	U	18 to 85 years	18	85	57.69	45.53	2626.45	individual	all	656.6125	11.3825
-sim1997	healthy	U	18 to 85 years	18	85	58.83	57.63	3390.46	individual	all	847.615	14.4075
-sim1997	healthy	U	18 to 85 years	18	85	58.62	59	3458.36	individual	all	864.59	14.75
-sim1997	healthy	U	18 to 85 years	18	85	58.68	62.11	3644.67	individual	all	911.1675	15.5275
-sim1997	healthy	U	18 to 85 years	18	85	58.97	66.6	3927.17	individual	all	981.7925	16.65
-sim1997	healthy	U	18 to 85 years	18	85	59.03	73.84	4359.08	individual	all	1089.77	18.46
-sim1997	healthy	U	18 to 85 years	18	85	59.48	69.02	4105.14	individual	all	1026.285	17.255
-sim1997	healthy	U	18 to 85 years	18	85	59.48	65.57	3900.3	individual	all	975.075	16.3925
-sim1997	healthy	U	18 to 85 years	18	85	60.42	65.94	3984.39	individual	all	996.0975	16.485
-sim1997	healthy	U	18 to 85 years	18	85	61	66.3	4044.57	individual	all	1011.1425	16.575
-sim1997	healthy	U	18 to 85 years	18	85	60.72	60.43	3669.37	individual	all	917.3425	15.1075
-sim1997	healthy	U	18 to 85 years	18	85	61.01	58.71	3582.27	individual	all	895.5675	14.6775
-sim1997	healthy	U	18 to 85 years	18	85	60.8	54.92	3338.79	individual	all	834.6975	13.73
-sim1997	healthy	U	18 to 85 years	18	85	60.65	53.19	3226.13	individual	all	806.5325	13.2975
-sim1997	healthy	U	18 to 85 years	18	85	60.22	50.07	3015.6	individual	all	753.9	12.5175
-sim1997	healthy	U	18 to 85 years	18	85	60.16	38.69	2327.88	individual	all	581.97	9.6725
-sim1997	healthy	U	18 to 85 years	18	85	60.53	36.98	2238.18	individual	all	559.545	9.245
-sim1997	healthy	U	18 to 85 years	18	85	63.57	42.57	2706.16	individual	all	676.54	10.6425
-sim1997	healthy	U	18 to 85 years	18	85	62.76	54.27	3406.19	individual	all	851.5475	13.5675
-sim1997	healthy	U	18 to 85 years	18	85	62.03	57.36	3558.01	individual	all	889.5025	14.34
-sim1997	healthy	U	18 to 85 years	18	85	62.9	57.73	3630.99	individual	all	907.7475	14.4325
-sim1997	healthy	U	18 to 85 years	18	85	62.53	60.82	3803.36	individual	all	950.84	15.205
-sim1997	healthy	U	18 to 85 years	18	85	61.73	64.59	3987.49	individual	all	996.8725	16.1475
-sim1997	healthy	U	18 to 85 years	18	85	62.75	63.58	3989.86	individual	all	997.465	15.895
-sim1997	healthy	U	18 to 85 years	18	85	62.39	64.95	4052.18	individual	all	1013.045	16.2375
-sim1997	healthy	U	18 to 85 years	18	85	63.62	66.02	4200	individual	all	1050	16.505
-sim1997	healthy	U	18 to 85 years	18	85	64.42	67.76	4364.92	individual	all	1091.23	16.94
-sim1997	healthy	U	18 to 85 years	18	85	64.85	68.12	4417.46	individual	all	1104.365	17.03
-sim1997	healthy	U	18 to 85 years	18	85	65.07	70.54	4589.52	individual	all	1147.38	17.635
-sim1997	healthy	U	18 to 85 years	18	85	65.87	68.49	4511.02	individual	all	1127.755	17.1225
-sim1997	healthy	U	18 to 85 years	18	85	65.72	67.1	4410.29	individual	all	1102.5725	16.775
-sim1997	healthy	U	18 to 85 years	18	85	65.36	67.1	4385.35	individual	all	1096.3375	16.775
-sim1997	healthy	U	18 to 85 years	18	85	65.87	65.04	4284.13	individual	all	1071.0325	16.26
-sim1997	healthy	U	18 to 85 years	18	85	64.93	64.33	4176.53	individual	all	1044.1325	16.0825
-sim1997	healthy	U	18 to 85 years	18	85	64.57	63.63	4108.12	individual	all	1027.03	15.9075
-sim1997	healthy	U	18 to 85 years	18	85	63.7	62.23	3963.58	individual	all	990.895	15.5575
-sim1997	healthy	U	18 to 85 years	18	85	63.19	61.87	3909.4	individual	all	977.35	15.4675
-sim1997	healthy	U	18 to 85 years	18	85	63.55	60.15	3822.97	individual	all	955.7425	15.0375
-sim1997	healthy	U	18 to 85 years	18	85	64.93	58.81	3818.66	individual	all	954.665	14.7025
-sim1997	healthy	U	18 to 85 years	18	85	66.02	58.84	3884.46	individual	all	971.115	14.71
-sim1997	healthy	U	18 to 85 years	18	85	65.73	57.1	3753.68	individual	all	938.42	14.275
-sim1997	healthy	U	18 to 85 years	18	85	64.65	55.35	3578.43	individual	all	894.6075	13.8375
-sim1997	healthy	U	18 to 85 years	18	85	63.85	52.23	3335.01	individual	all	833.7525	13.0575
-sim1997	healthy	U	18 to 85 years	18	85	65.67	46.76	3070.7	individual	all	767.675	11.69
-sim1997	healthy	U	18 to 85 years	18	85	66.55	42.99	2860.62	individual	all	715.155	10.7475
-sim1997	healthy	U	18 to 85 years	18	85	66.84	45.41	3034.79	individual	all	758.6975	11.3525
-sim1997	healthy	U	18 to 85 years	18	85	66.25	53.67	3555.3	individual	all	888.825	13.4175
-sim1997	healthy	U	18 to 85 years	18	85	66.68	54.02	3602.36	individual	all	900.59	13.505
-sim1997	healthy	U	18 to 85 years	18	85	67.12	52.65	3534.11	individual	all	883.5275	13.1625
-sim1997	healthy	U	18 to 85 years	18	85	67.48	57.15	3856.05	individual	all	964.0125	14.2875
-sim1997	healthy	U	18 to 85 years	18	85	67.56	51.63	3487.94	individual	all	871.985	12.9075
-sim1997	healthy	U	18 to 85 years	18	85	68.14	51.64	3518.89	individual	all	879.7225	12.91
-sim1997	healthy	U	18 to 85 years	18	85	72.5	49.34	3576.69	individual	all	894.1725	12.335
-sim1997	healthy	U	18 to 85 years	18	85	67.99	49.92	3394.02	individual	all	848.505	12.48
-sim1997	healthy	U	18 to 85 years	18	85	69.01	49.6	3422.69	individual	all	855.6725	12.4
-sim1997	healthy	U	18 to 85 years	18	85	70.03	49.97	3498.96	individual	all	874.74	12.4925
-sim1997	healthy	U	18 to 85 years	18	85	70.47	44.8	3157.27	individual	all	789.3175	11.2
-sim1997	healthy	U	18 to 85 years	18	85	71.92	46.22	3323.99	individual	all	830.9975	11.555
-sim1997	healthy	U	18 to 85 years	18	85	70.9	51.37	3641.7	individual	all	910.425	12.8425
-sim1997	healthy	U	18 to 85 years	18	85	71.84	53.8	3865.1	individual	all	966.275	13.45
-sim1997	healthy	U	18 to 85 years	18	85	73.88	43.16	3188.98	individual	all	797.245	10.79
-sim1997	healthy	U	18 to 85 years	18	85	74.9	42.5	3183.08	individual	all	795.77	10.625
-sim1997	healthy	U	18 to 85 years	18	85	77.15	42.55	3282.94	individual	all	820.735	10.6375
-sim1997	healthy	U	18 to 85 years	18	85	76.13	46.67	3552.64	individual	all	888.16	11.6675
-sim1997	healthy	U	18 to 85 years	18	85	75.55	49.75	3758.76	individual	all	939.69	12.4375
-sim1997	healthy	U	18 to 85 years	18	85	74.89	52.5	3931.5	individual	all	982.875	13.125
-sim1997	healthy	U	18 to 85 years	18	85	74.74	55.6	4155.39	individual	all	1038.8475	13.9
-sim1997	healthy	U	18 to 85 years	18	85	74.3	57.66	4283.98	individual	all	1070.995	14.415
-sim1997	healthy	U	18 to 85 years	18	85	74.74	58.7	4387.14	individual	all	1096.785	14.675
-sim1997	healthy	U	18 to 85 years	18	85	75.1	58.36	4383.24	individual	all	1095.81	14.59
-sim1997	healthy	U	18 to 85 years	18	85	75.46	59.75	4509.09	individual	all	1127.2725	14.9375
-sim1997	healthy	U	18 to 85 years	18	85	74.52	60.07	4476.65	individual	all	1119.1625	15.0175
-sim1997	healthy	U	18 to 85 years	18	85	74.23	61.1	4535.4	individual	all	1133.85	15.275
-sim1997	healthy	U	18 to 85 years	18	85	74.73	63.53	4747.61	individual	all	1186.9025	15.8825
-sim1997	healthy	U	18 to 85 years	18	85	75.67	64.93	4913.59	individual	all	1228.3975	16.2325
-sim1997	healthy	U	18 to 85 years	18	85	76.04	60.46	4597.27	individual	all	1149.3175	15.115
-sim1997	healthy	U	18 to 85 years	18	85	76.55	60.81	4655.31	individual	all	1163.8275	15.2025
-sim1997	healthy	U	18 to 85 years	18	85	76.84	61.85	4752.94	individual	all	1188.235	15.4625
-sim1997	healthy	U	18 to 85 years	18	85	77.28	59.45	4594.33	individual	all	1148.5825	14.8625
-sim1997	healthy	U	18 to 85 years	18	85	77.64	58.43	4536.35	individual	all	1134.0875	14.6075
-sim1997	healthy	U	18 to 85 years	18	85	77.28	57.73	4461.2	individual	all	1115.3	14.4325
-sim1997	healthy	U	18 to 85 years	18	85	77.28	55.66	4301.44	individual	all	1075.36	13.915
-sim1997	healthy	U	18 to 85 years	18	85	77.58	52.91	4104.32	individual	all	1026.08	13.2275
-sim1997	healthy	U	18 to 85 years	18	85	76.92	51.86	3989.01	individual	all	997.2525	12.965
-sim1997	healthy	U	18 to 85 years	18	85	77.36	49.8	3852.48	individual	all	963.12	12.45
-sim1997	healthy	U	18 to 85 years	18	85	77.87	48.09	3744.58	individual	all	936.145	12.0225
-sim1997	healthy	U	18 to 85 years	18	85	78.31	46.72	3658.42	individual	all	914.605	11.68
-sim1997	healthy	U	18 to 85 years	18	85	77.07	47.03	3625.01	individual	all	906.2525	11.7575
-sim1997	healthy	U	18 to 85 years	18	85	78.88	51.21	4040.06	individual	all	1010.015	12.8025
-sim1997	healthy	U	18 to 85 years	18	85	79.25	50.88	4032.04	individual	all	1008.01	12.72
-sim1997	healthy	U	18 to 85 years	18	85	79.32	54.67	4336.52	individual	all	1084.13	13.6675
-sim1997	healthy	U	18 to 85 years	18	85	80.41	46.77	3760.9	individual	all	940.225	11.6925
-sim1997	healthy	U	18 to 85 years	18	85	80.92	46.44	3757.78	individual	all	939.445	11.61
-sim1997	healthy	U	18 to 85 years	18	85	82.89	45.45	3767.06	individual	all	941.765	11.3625
-sim1997	healthy	U	18 to 85 years	18	85	80.41	51.25	4121.12	individual	all	1030.28	12.8125
-sim1997	healthy	U	18 to 85 years	18	85	80.33	53.66	4311.03	individual	all	1077.7575	13.415
-sim1997	healthy	U	18 to 85 years	18	85	81.06	54.72	4435.22	individual	all	1108.805	13.68
-sim1997	healthy	U	18 to 85 years	18	85	81.79	52.66	4307.29	individual	all	1076.8225	13.165
-sim1997	healthy	U	18 to 85 years	18	85	82.51	55.1	4546.01	individual	all	1136.5025	13.775
-sim1997	healthy	U	18 to 85 years	18	85	83.75	56.16	4703.09	individual	all	1175.7725	14.04
-sim1997	healthy	U	18 to 85 years	18	85	84.69	53.08	4495.39	individual	all	1123.8475	13.27
-sim1997	healthy	U	18 to 85 years	18	85	86	55.87	4804.56	individual	all	1201.14	13.9675
-sim1997	healthy	U	18 to 85 years	18	85	88.46	57.65	5100.19	individual	all	1275.0475	14.4125
-sim1997	healthy	U	18 to 85 years	18	85	89.92	55.27	4970.19	individual	all	1242.5475	13.8175
-sim1997	healthy	U	18 to 85 years	18	85	92.1	51.88	4778.07	individual	all	1194.5175	12.97
-sim1997	healthy	U	18 to 85 years	18	85	93.93	41.58	3905.3	individual	all	976.325	10.395
-sim1997	healthy	U	18 to 85 years	18	85	93.98	60.89	5722.37	individual	all	1430.5925	15.2225
-sim1997	healthy	U	18 to 85 years	18	85	93.91	62.96	5911.93	individual	all	1477.9825	15.74
-sim1997	healthy	U	18 to 85 years	18	85	96.15	70.6	6787.75	individual	all	1696.9375	17.65
-sim1997	healthy	U	18 to 85 years	18	85	97.6	72.01	7028.22	individual	all	1757.055	18.0025
-sim1997	healthy	U	18 to 85 years	18	85	93.46	72.26	6753.01	individual	all	1688.2525	18.065
-sim1997	healthy	U	18 to 85 years	18	85	93.17	70.52	6570.86	individual	all	1642.715	17.63
-sim1997	healthy	U	18 to 85 years	18	85	89.84	65.62	5894.71	individual	all	1473.6775	16.405
-sim1997	healthy	U	18 to 85 years	18	85	88.97	64.22	5713.05	individual	all	1428.2625	16.055
-sim1997	healthy	U	18 to 85 years	18	85	88.68	63.86	5663.22	individual	all	1415.805	15.965
-sim1997	healthy	U	18 to 85 years	18	85	86.06	63.8	5490.83	individual	all	1372.7075	15.95
-sim1997	healthy	U	18 to 85 years	18	85	86.13	69.32	5970.41	individual	all	1492.6025	17.33
-sim1997	healthy	U	18 to 85 years	18	85	87.14	69.35	6043.03	individual	all	1510.7575	17.3375
-sim1997	healthy	U	18 to 85 years	18	85	87.14	71.76	6253.19	individual	all	1563.2975	17.94
-sim1997	healthy	U	18 to 85 years	18	85	87.06	81.41	7087.63	individual	all	1771.9075	20.3525
-sim1997	healthy	U	18 to 85 years	18	85	89.08	90.08	8024.73	individual	all	2006.1825	22.52
-sim1997	healthy	U	18 to 85 years	18	85	85.9	82.42	7079.39	individual	all	1769.8475	20.605
-sim1997	healthy	U	18 to 85 years	18	85	84.08	84.1	7070.88	individual	all	1767.72	21.025
-sim1997	healthy	U	18 to 85 years	18	85	84.66	79.63	6741.81	individual	all	1685.4525	19.9075
-sim1997	healthy	U	18 to 85 years	18	85	84.52	78.25	6613.49	individual	all	1653.3725	19.5625
-sim1997	healthy	U	18 to 85 years	18	85	84.59	76.52	6473.62	individual	all	1618.405	19.13
-sim1997	healthy	U	18 to 85 years	18	85	84.3	77.9	6566.96	individual	all	1641.74	19.475
-sim1997	healthy	U	18 to 85 years	18	85	83.94	74.79	6277.69	individual	all	1569.4225	18.6975
-sim1997	healthy	U	18 to 85 years	18	85	82.85	74.41	6165.51	individual	all	1541.3775	18.6025
-sim1997	healthy	U	18 to 85 years	18	85	83	76.83	6376.75	individual	all	1594.1875	19.2075
-sim1997	healthy	U	18 to 85 years	18	85	82.49	76.82	6336.68	individual	all	1584.17	19.205
-sim1997	healthy	U	18 to 85 years	18	85	81.47	78.86	6424.96	individual	all	1606.24	19.715
-sim1997	healthy	U	18 to 85 years	18	85	80.89	77.47	6266.56	individual	all	1566.64	19.3675
-sim1997	healthy	U	18 to 85 years	18	85	82.69	90.27	7464.78	individual	all	1866.195	22.5675
-sim1997	healthy	U	18 to 85 years	18	85	82.33	93.71	7714.82	individual	all	1928.705	23.4275
-sim1997	healthy	U	18 to 85 years	18	85	81.81	97.84	8004.29	individual	all	2001.0725	24.46
-sim1997	healthy	U	18 to 85 years	18	85	81.96	99.22	8131.69	individual	all	2032.9225	24.805
-sim1997	healthy	U	18 to 85 years	18	85	81.01	102.65	8315.14	individual	all	2078.785	25.6625
-sim1997	healthy	U	18 to 85 years	18	85	81.53	94.73	7722.62	individual	all	1930.655	23.6825
-sim1997	healthy	U	18 to 85 years	18	85	81.53	92.66	7554.16	individual	all	1888.54	23.165
-sim1997	healthy	U	18 to 85 years	18	85	80.66	89.19	7193.93	individual	all	1798.4825	22.2975
-sim1997	healthy	U	18 to 85 years	18	85	79.79	83.65	6674.82	individual	all	1668.705	20.9125
-sim1997	healthy	U	18 to 85 years	18	85	79.93	94.34	7540.68	individual	all	1885.17	23.585
-sim1997	healthy	U	18 to 85 years	18	85	79.2	96.39	7634.43	individual	all	1908.6075	24.0975
-sim1997	healthy	U	18 to 85 years	18	85	79.35	88.81	7047.51	individual	all	1761.8775	22.2025
-sim1997	healthy	U	18 to 85 years	18	85	78.63	85.69	6737.92	individual	all	1684.48	21.4225
-sim1997	healthy	U	18 to 85 years	18	85	77.47	85.32	6609.5	individual	all	1652.375	21.33
-sim1997	healthy	U	18 to 85 years	18	85	78.05	81.88	6391.33	individual	all	1597.8325	20.47
-sim1997	healthy	U	18 to 85 years	18	85	78.06	74.64	5826.71	individual	all	1456.6775	18.66
-sim1997	healthy	U	18 to 85 years	18	85	78.07	69.82	5450.23	individual	all	1362.5575	17.455
-sim1997	healthy	U	18 to 85 years	18	85	79.59	67.09	5340.27	individual	all	1335.0675	16.7725
-sim1997	healthy	U	18 to 85 years	18	85	81.12	65.41	5305.84	individual	all	1326.46	16.3525
-sim1997	healthy	U	18 to 85 years	18	85	82	61.29	5025.56	individual	all	1256.39	15.3225
-sim1997	healthy	U	18 to 85 years	18	85	81.85	59.91	4903.57	individual	all	1225.8925	14.9775
-sim1997	healthy	U	18 to 85 years	18	85	80.4	63.32	5090.74	individual	all	1272.685	15.83
-sim1997	healthy	U	18 to 85 years	18	85	79.67	63.3	5043.36	individual	all	1260.84	15.825
-sim1997	healthy	U	18 to 85 years	18	85	79.89	59.86	4782.33	individual	all	1195.5825	14.965
-sim1997	healthy	U	18 to 85 years	18	85	79.1	57.77	4569.47	individual	all	1142.3675	14.4425
-sim1997	healthy	U	18 to 85 years	18	85	78.37	56.37	4418.14	individual	all	1104.535	14.0925
-sim1997	healthy	U	18 to 85 years	18	85	78.44	58.1	4557.5	individual	all	1139.375	14.525
-sim1997	healthy	U	18 to 85 years	18	85	79.02	62.25	4919.07	individual	all	1229.7675	15.5625
-sim1997	healthy	U	18 to 85 years	18	85	78.65	63.97	5031.27	individual	all	1257.8175	15.9925
-sim1997	healthy	U	18 to 85 years	18	85	78.22	65.34	5110.36	individual	all	1277.59	16.335
-sim1997	healthy	U	18 to 85 years	18	85	76.76	66.68	5118.56	individual	all	1279.64	16.67
-sim1997	healthy	U	18 to 85 years	18	85	76.76	68.06	5224.34	individual	all	1306.085	17.015
-sim1997	healthy	U	18 to 85 years	18	85	76.32	69.08	5272.76	individual	all	1318.19	17.27
-sim1997	healthy	U	18 to 85 years	18	85	76.1	71.84	5467.04	individual	all	1366.76	17.96
-sim1997	healthy	U	18 to 85 years	18	85	77.19	76.35	5892.98	individual	all	1473.245	19.0875
-sim1997	healthy	U	18 to 85 years	18	85	76.61	77.02	5900.32	individual	all	1475.08	19.255
-sim1997	healthy	U	18 to 85 years	18	85	76.45	83.57	6389.22	individual	all	1597.305	20.8925
-sim1997	healthy	U	18 to 85 years	18	85	77.24	91.18	7042.77	individual	all	1760.6925	22.795
-sim1997	healthy	U	18 to 85 years	18	85	77.16	98.41	7594.07	individual	all	1898.5175	24.6025
-sim1997	healthy	U	18 to 85 years	18	85	75.5	94.93	7166.68	individual	all	1791.67	23.7325
-sim1997	healthy	U	18 to 85 years	18	85	74.47	109.04	8119.67	individual	all	2029.9175	27.26
-sim1997	healthy	U	18 to 85 years	18	85	75.22	83.2	6257.9	individual	all	1564.475	20.8
-sim1997	healthy	U	18 to 85 years	18	85	74.94	75.26	5639.6	individual	all	1409.9	18.815
-sim1997	healthy	U	18 to 85 years	18	85	75.16	68.71	5164.49	individual	all	1291.1225	17.1775
-sim1997	healthy	U	18 to 85 years	18	85	74.87	66.98	5015.04	individual	all	1253.76	16.745
-sim1997	healthy	U	18 to 85 years	18	85	74.51	67.66	5041.4	individual	all	1260.35	16.915
-sim1997	healthy	U	18 to 85 years	18	85	74.51	70.76	5272.4	individual	all	1318.1	17.69
-sim1997	healthy	U	18 to 85 years	18	85	73.86	67.64	4996.01	individual	all	1249.0025	16.91
-sim1997	healthy	U	18 to 85 years	18	85	73.56	69.02	5077.22	individual	all	1269.305	17.255
-sim1997	healthy	U	18 to 85 years	18	85	73.34	71.43	5238.65	individual	all	1309.6625	17.8575
-sim1997	healthy	U	18 to 85 years	18	85	72.98	72.45	5287.49	individual	all	1321.8725	18.1125
-sim1997	healthy	U	18 to 85 years	18	85	73.63	74.19	5462.82	individual	all	1365.705	18.5475
-sim1997	healthy	U	18 to 85 years	18	85	73.41	75.57	5547.42	individual	all	1386.855	18.8925
-sim1997	healthy	U	18 to 85 years	18	85	72.9	77.62	5658.77	individual	all	1414.6925	19.405
-sim1997	healthy	U	18 to 85 years	18	85	74.07	76.27	5648.99	individual	all	1412.2475	19.0675
-sim1997	healthy	U	18 to 85 years	18	85	74.21	78.34	5813.69	individual	all	1453.4225	19.585
-sim1997	healthy	U	18 to 85 years	18	85	72.31	91.4	6608.81	individual	all	1652.2025	22.85
-sim1997	healthy	U	18 to 85 years	18	85	73.62	80.4	5919.3	individual	all	1479.825	20.1
-sim1997	healthy	U	18 to 85 years	18	85	73.18	84.53	6185.97	individual	all	1546.4925	21.1325
-sim1997	healthy	U	18 to 85 years	18	85	73.69	87.3	6432.87	individual	all	1608.2175	21.825
-sim1997	healthy	U	18 to 85 years	18	85	72.6	86.24	6260.86	individual	all	1565.215	21.56
-sim1997	healthy	U	18 to 85 years	18	85	71.95	88.98	6401.57	individual	all	1600.3925	22.245
-sim1997	healthy	U	18 to 85 years	18	85	71.43	92.76	6626.05	individual	all	1656.5125	23.19
-sim1997	healthy	U	18 to 85 years	18	85	72.45	96.58	6996.55	individual	all	1749.1375	24.145
-sim1997	healthy	U	18 to 85 years	18	85	72.66	95.55	6942.91	individual	all	1735.7275	23.8875
-sim1997	healthy	U	18 to 85 years	18	85	71.07	95.16	6763.05	individual	all	1690.7625	23.79
-sim1997	healthy	U	18 to 85 years	18	85	70.55	101.36	7151.07	individual	all	1787.7675	25.34
-sim1997	healthy	U	18 to 85 years	18	85	70.41	102.73	7233.06	individual	all	1808.265	25.6825
-sim1997	healthy	U	18 to 85 years	18	85	69.25	100.64	6968.72	individual	all	1742.18	25.16
-sim1997	healthy	U	18 to 85 years	18	85	64.74	107.08	6931.99	individual	all	1732.9975	26.77
-sim1997	healthy	U	18 to 85 years	18	85	61.19	97.68	5977.1	individual	all	1494.275	24.42
-sim1997	healthy	U	18 to 85 years	18	85	60.03	94.9	5696.61	individual	all	1424.1525	23.725
-sim1997	healthy	U	18 to 85 years	18	85	63.58	97.74	6214.88	individual	all	1553.72	24.435
-sim1997	healthy	U	18 to 85 years	18	85	64.82	95.7	6203.58	individual	all	1550.895	23.925
-sim1997	healthy	U	18 to 85 years	18	85	67.14	96.45	6475.98	individual	all	1618.995	24.1125
-sim1997	healthy	U	18 to 85 years	18	85	68.45	95.45	6533.51	individual	all	1633.3775	23.8625
-sim1997	healthy	U	18 to 85 years	18	85	69.11	91.32	6311.43	individual	all	1577.8575	22.83
-sim1997	healthy	U	18 to 85 years	18	85	70.14	83.76	5874.69	individual	all	1468.6725	20.94
-sim1997	healthy	U	18 to 85 years	18	85	70.65	81.02	5723.5	individual	all	1430.875	20.255
-sim1997	healthy	U	18 to 85 years	18	85	71.88	80.36	5776.15	individual	all	1444.0375	20.09
-sim1997	healthy	U	18 to 85 years	18	85	71.23	76.89	5477.18	individual	all	1369.295	19.2225
-sim1997	healthy	U	18 to 85 years	18	85	71.24	71.72	5109.14	individual	all	1277.285	17.93
-sim1997	healthy	U	18 to 85 years	18	85	71.17	69.65	4956.73	individual	all	1239.1825	17.4125
-sim1997	healthy	U	18 to 85 years	18	85	71.17	66.55	4736.09	individual	all	1184.0225	16.6375
-sim1997	healthy	U	18 to 85 years	18	85	71.97	67.6	4865.01	individual	all	1216.2525	16.9
-sim1997	healthy	U	18 to 85 years	18	85	72.4	68.99	4994.99	individual	all	1248.7475	17.2475
-sim1997	healthy	U	18 to 85 years	18	85	73.42	63.84	4687.54	individual	all	1171.885	15.96
-sim1997	healthy	U	18 to 85 years	18	85	73.86	63.16	4665.25	individual	all	1166.3125	15.79
-sim1997	healthy	U	18 to 85 years	18	85	73.21	59.35	4345.37	individual	all	1086.3425	14.8375
-sim1997	healthy	U	18 to 85 years	18	85	72.49	58.3	4226.08	individual	all	1056.52	14.575
-sim1997	healthy	U	18 to 85 years	18	85	72.84	63.14	4599.24	individual	all	1149.81	15.785
-sim1997	healthy	U	18 to 85 years	18	85	72.41	62.44	4521.08	individual	all	1130.27	15.61
-sim1997	healthy	U	18 to 85 years	18	85	71.97	62.43	4493.12	individual	all	1123.28	15.6075
-sim1997	healthy	U	18 to 85 years	18	85	70.96	61.71	4379.02	individual	all	1094.755	15.4275
-sim1997	healthy	U	18 to 85 years	18	85	71.18	58.27	4147.63	individual	all	1036.9075	14.5675
-sim1997	healthy	U	18 to 85 years	18	85	70.96	56.89	4036.77	individual	all	1009.1925	14.2225
-sim1997	healthy	U	18 to 85 years	18	85	70.24	55.14	3873.23	individual	all	968.3075	13.785
-sim1997	healthy	U	18 to 85 years	18	85	69.22	55.81	3863.17	individual	all	965.7925	13.9525
-sim1997	healthy	U	18 to 85 years	18	85	68.56	62.69	4298.02	individual	all	1074.505	15.6725
-sim1997	healthy	U	18 to 85 years	18	85	69.07	61.32	4235.56	individual	all	1058.89	15.33
-sim1997	healthy	U	18 to 85 years	18	85	69.36	61.33	4253.86	individual	all	1063.465	15.3325
-sim1997	healthy	U	18 to 85 years	18	85	69.36	63.4	4397.22	individual	all	1099.305	15.85
-sim1997	healthy	U	18 to 85 years	18	85	69.72	65.82	4588.97	individual	all	1147.2425	16.455
-sim1997	healthy	U	18 to 85 years	18	85	70.01	66.86	4680.93	individual	all	1170.2325	16.715
-sim1997	healthy	U	18 to 85 years	18	85	70.66	65.5	4628.37	individual	all	1157.0925	16.375
-sim1997	healthy	U	18 to 85 years	18	85	70.81	68.26	4833.26	individual	all	1208.315	17.065
-sim1997	healthy	U	18 to 85 years	18	85	70	71.69	5018.52	individual	all	1254.63	17.9225
-sim1997	healthy	U	18 to 85 years	18	85	69.78	79.96	5579.34	individual	all	1394.835	19.99
-sim1997	healthy	U	18 to 85 years	18	85	68.98	78.91	5442.87	individual	all	1360.7175	19.7275
-sim1997	healthy	U	18 to 85 years	18	85	69.34	77.88	5400.49	individual	all	1350.1225	19.47
-sim1997	healthy	U	18 to 85 years	18	85	68.99	70.29	4848.89	individual	all	1212.2225	17.5725
-sim1997	healthy	U	18 to 85 years	18	85	69.28	67.53	4678.89	individual	all	1169.7225	16.8825
-sim1997	healthy	U	18 to 85 years	18	85	68.7	68.21	4686.02	individual	all	1171.505	17.0525
-sim1997	healthy	U	18 to 85 years	18	85	67.25	64.38	4329.78	individual	all	1082.445	16.095
-sim1997	healthy	U	18 to 85 years	18	85	66.74	63.34	4227.26	individual	all	1056.815	15.835
-sim1997	healthy	U	18 to 85 years	18	85	67.25	68.18	4584.59	individual	all	1146.1475	17.045
-sim1997	healthy	U	18 to 85 years	18	85	67.83	70.95	4812.05	individual	all	1203.0125	17.7375
-sim1997	healthy	U	18 to 85 years	18	85	67.9	73.36	4981.02	individual	all	1245.255	18.34
-sim1997	healthy	U	18 to 85 years	18	85	67.68	74.74	5057.91	individual	all	1264.4775	18.685
-sim1997	healthy	U	18 to 85 years	18	85	67.24	76.45	5140.43	individual	all	1285.1075	19.1125
-sim1997	healthy	U	18 to 85 years	18	85	66.37	72.64	4820.97	individual	all	1205.2425	18.16
-sim1997	healthy	U	18 to 85 years	18	85	65.72	72.28	4749.83	individual	all	1187.4575	18.07
-sim1997	healthy	U	18 to 85 years	18	85	65.79	74.69	4913.8	individual	all	1228.45	18.6725
-sim1997	healthy	U	18 to 85 years	18	85	65.28	73.64	4807.58	individual	all	1201.895	18.41
-sim1997	healthy	U	18 to 85 years	18	85	63.98	71.89	4599.14	individual	all	1149.785	17.9725
-sim1997	healthy	U	18 to 85 years	18	85	62.6	71.17	4454.75	individual	all	1113.6875	17.7925
-sim1997	healthy	U	18 to 85 years	18	85	62.09	71.15	4417.81	individual	all	1104.4525	17.7875
-sim1997	healthy	U	18 to 85 years	18	85	61.8	68.73	4247.72	individual	all	1061.93	17.1825
-sim1997	healthy	U	18 to 85 years	18	85	61.22	70.44	4312.35	individual	all	1078.0875	17.61
-sim1997	healthy	U	18 to 85 years	18	85	60.48	81.46	4926.64	individual	all	1231.66	20.365
-sim1997	healthy	U	18 to 85 years	18	85	61.5	73.21	4502.7	individual	all	1125.675	18.3025
-sim1997	healthy	U	18 to 85 years	18	85	60.92	75.95	4627.15	individual	all	1156.7875	18.9875
-sim1997	healthy	U	18 to 85 years	18	85	61.71	80.46	4965.29	individual	all	1241.3225	20.115
-sim1997	healthy	U	18 to 85 years	18	85	60.84	81.81	4977.7	individual	all	1244.425	20.4525
-sim1997	healthy	U	18 to 85 years	18	85	59.97	83.17	4987.74	individual	all	1246.935	20.7925
-sim1997	healthy	U	18 to 85 years	18	85	62.52	74.96	4686.32	individual	all	1171.58	18.74
-sim1997	healthy	U	18 to 85 years	18	85	62.88	76.35	4800.7	individual	all	1200.175	19.0875
-sim1997	healthy	U	18 to 85 years	18	85	63.17	78.42	4953.85	individual	all	1238.4625	19.605
-sim1997	healthy	U	18 to 85 years	18	85	64.19	76.38	4902.53	individual	all	1225.6325	19.095
-sim1997	healthy	U	18 to 85 years	18	85	64.99	76.74	4987.17	individual	all	1246.7925	19.185
-sim1997	healthy	U	18 to 85 years	18	85	65.49	77.79	5094.65	individual	all	1273.6625	19.4475
-sim1997	healthy	U	18 to 85 years	18	85	65.78	80.55	5298.94	individual	all	1324.735	20.1375
-sim1997	healthy	U	18 to 85 years	18	85	66.94	81.62	5463.57	individual	all	1365.8925	20.405
-sim1997	healthy	U	18 to 85 years	18	85	67.96	82.33	5595.03	individual	all	1398.7575	20.5825
-sim1997	healthy	U	18 to 85 years	18	85	68.1	86.47	5888.64	individual	all	1472.16	21.6175
-sim1997	healthy	U	18 to 85 years	18	85	66.64	88.51	5898.4	individual	all	1474.6	22.1275
-sim1997	healthy	U	18 to 85 years	18	85	66.13	89.87	5943.69	individual	all	1485.9225	22.4675
-sim1997	healthy	U	18 to 85 years	18	85	64.98	87.78	5703.21	individual	all	1425.8025	21.945
-sim1997	healthy	U	18 to 85 years	18	85	64.25	86.03	5527.73	individual	all	1381.9325	21.5075
-sim1997	healthy	U	18 to 85 years	18	85	62.8	88.41	5551.93	individual	all	1387.9825	22.1025
-sim1997	healthy	U	18 to 85 years	18	85	63.02	83.94	5289.45	individual	all	1322.3625	20.985
-sim1997	healthy	U	18 to 85 years	18	85	63.75	83.26	5307.62	individual	all	1326.905	20.815
-sim1997	healthy	U	18 to 85 years	18	85	74.42	79.38	5908.06	individual	all	1477.015	19.845
+study	status	sex	ageClass	ageMin	ageMax	bodyweight	COkg	CO	flowLiver	flowLiverkg	dtype
+sim1997	healthy	all	0 to 17 years	0	17	3.9	225.96	880.67	220.1675	56.49	individual
+sim1997	healthy	all	0 to 17 years	0	17	6.87	234.3	1608.75	402.1875	58.575	individual
+sim1997	healthy	all	0 to 17 years	0	17	12.81	246.17	3153.05	788.2625	61.5425	individual
+sim1997	healthy	all	0 to 17 years	0	17	4.77	220.81	1054.24	263.56	55.2025	individual
+sim1997	healthy	all	0 to 17 years	0	17	7.68	218.81	1680.76	420.19	54.7025	individual
+sim1997	healthy	all	0 to 17 years	0	17	11.81	224.42	2651.55	662.8875	56.105	individual
+sim1997	healthy	all	0 to 17 years	0	17	16.81	234.54	3943.86	985.965	58.635	individual
+sim1997	healthy	all	0 to 17 years	0	17	8.85	208.49	1846.07	461.5175	52.1225	individual
+sim1997	healthy	all	0 to 17 years	0	17	9.74	198.17	1929.55	482.3875	49.5425	individual
+sim1997	healthy	all	0 to 17 years	0	17	17.77	221.12	3930.05	982.5125	55.28	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.33	219.14	4675.06	1168.765	54.785	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.91	217.87	5645.06	1411.265	54.4675	individual
+sim1997	healthy	all	0 to 17 years	0	17	17.71	215.26	3811.55	952.8875	53.815	individual
+sim1997	healthy	all	0 to 17 years	0	17	15.76	202.79	3195.97	798.9925	50.6975	individual
+sim1997	healthy	all	0 to 17 years	0	17	17.8	200.09	3560.71	890.1775	50.0225	individual
+sim1997	healthy	all	0 to 17 years	0	17	16.86	196.61	3314.05	828.5125	49.1525	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.88	201.93	4619.7	1154.925	50.4825	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.72	195.01	4236.14	1059.035	48.7525	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.83	195.31	3873.81	968.4525	48.8275	individual
+sim1997	healthy	all	0 to 17 years	0	17	18.68	188.38	3518.97	879.7425	47.095	individual
+sim1997	healthy	all	0 to 17 years	0	17	15.78	184.86	2916.94	729.235	46.215	individual
+sim1997	healthy	all	0 to 17 years	0	17	15.79	175.21	2766.41	691.6025	43.8025	individual
+sim1997	healthy	all	0 to 17 years	0	17	12.75	166.52	2122.8	530.7	41.63	individual
+sim1997	healthy	all	0 to 17 years	0	17	14.86	160.01	2378.03	594.5075	40.0025	individual
+sim1997	healthy	all	0 to 17 years	0	17	12.77	148.58	1897.06	474.265	37.145	individual
+sim1997	healthy	all	0 to 17 years	0	17	15.79	102.11	1612.74	403.185	25.5275	individual
+sim1997	healthy	all	0 to 17 years	0	17	17.82	112.5	2004.41	501.1025	28.125	individual
+sim1997	healthy	all	0 to 17 years	0	17	16.94	119.72	2027.8	506.95	29.93	individual
+sim1997	healthy	all	0 to 17 years	0	17	17.73	121.46	2154.13	538.5325	30.365	individual
+sim1997	healthy	all	0 to 17 years	0	17	18.75	122.87	2303.76	575.94	30.7175	individual
+sim1997	healthy	all	0 to 17 years	0	17	15.77	129	2033.84	508.46	32.25	individual
+sim1997	healthy	all	0 to 17 years	0	17	18.74	136.31	2553.95	638.4875	34.0775	individual
+sim1997	healthy	all	0 to 17 years	0	17	17.85	150.43	2685.06	671.265	37.6075	individual
+sim1997	healthy	all	0 to 17 years	0	17	18.72	151.49	2835.75	708.9375	37.8725	individual
+sim1997	healthy	all	0 to 17 years	0	17	18.62	174.24	3244.83	811.2075	43.56	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.78	177.37	3508.65	877.1625	44.3425	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.72	180.16	3733.22	933.305	45.04	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.3	183.27	3903.68	975.92	45.8175	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.73	186.04	4043.18	1010.795	46.51	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.84	184.37	4395.43	1098.8575	46.0925	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.85	179.2	4273.11	1068.2775	44.8	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.12	180.56	4174.19	1043.5475	45.14	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.83	177.45	4051.33	1012.8325	44.3625	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.82	175.35	3825.65	956.4125	43.8375	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.6	172.25	3720.87	930.2175	43.0625	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.33	170.54	3808.17	952.0425	42.635	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.68	169.14	3666.72	916.68	42.285	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.79	171.51	3393.78	848.445	42.8775	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.81	168.78	3511.77	877.9425	42.195	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.81	166.02	3454.86	863.715	41.505	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.73	158.75	3131.93	782.9825	39.6875	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.74	152.55	3010.49	752.6225	38.1375	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.88	149.79	2978.32	744.58	37.4475	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.82	152.57	3177.21	794.3025	38.1425	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.26	156.72	3331.19	832.7975	39.18	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.76	161.22	3507.91	876.9775	40.305	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.86	168.51	4020.14	1005.035	42.1275	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.92	159.17	3648.8	912.2	39.7925	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.85	155.72	3558.98	889.745	38.93	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.86	152.97	3496.39	874.0975	38.2425	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.77	153.97	3351.54	837.885	38.4925	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.7	151.56	3288.34	822.085	37.89	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.7	148.46	3221.5	805.375	37.115	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.78	145.35	3165.24	791.31	36.3375	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.83	145.33	3027.54	756.885	36.3325	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.71	141.9	3080.33	770.0825	35.475	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.79	143.65	3274.54	818.635	35.9125	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.72	147.79	3357.44	839.36	36.9475	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.67	144.02	3408.33	852.0825	36.005	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.46	145.07	3549	887.25	36.2675	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.24	151.28	3666.74	916.685	37.82	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.89	158.19	3936.51	984.1275	39.5475	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.83	159.24	4112.98	1028.245	39.81	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.9	162.69	4213.3	1053.325	40.6725	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.82	167.87	4334.08	1083.52	41.9675	individual
+sim1997	healthy	all	0 to 17 years	0	17	28.93	180.35	5217.31	1304.3275	45.0875	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.82	174.54	5379.7	1344.925	43.635	individual
+sim1997	healthy	all	0 to 17 years	0	17	32.86	168.38	5533.4	1383.35	42.095	individual
+sim1997	healthy	all	0 to 17 years	0	17	28.87	164.49	4749.26	1187.315	41.1225	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.02	160.7	4663.84	1165.96	40.175	individual
+sim1997	healthy	all	0 to 17 years	0	17	26.56	153.74	4083.49	1020.8725	38.435	individual
+sim1997	healthy	all	0 to 17 years	0	17	28.81	154.14	4441.05	1110.2625	38.535	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.99	154.89	4799.75	1199.9375	38.7225	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.76	152.79	4546.43	1136.6075	38.1975	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.69	149.34	4433.48	1108.37	37.335	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.92	149.71	4629.37	1157.3425	37.4275	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.78	145.92	4491.37	1122.8425	36.48	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.65	143.18	4532.31	1133.0775	35.795	individual
+sim1997	healthy	all	0 to 17 years	0	17	32.74	143.89	4711.61	1177.9025	35.9725	individual
+sim1997	healthy	all	0 to 17 years	0	17	33.47	143.91	4816.69	1204.1725	35.9775	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.2	143.58	4910.06	1227.515	35.895	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.72	145.69	5203.92	1300.98	36.4225	individual
+sim1997	healthy	all	0 to 17 years	0	17	37.67	152.98	5763.03	1440.7575	38.245	individual
+sim1997	healthy	all	0 to 17 years	0	17	40.8	145.81	5949.53	1487.3825	36.4525	individual
+sim1997	healthy	all	0 to 17 years	0	17	42.91	146.21	6273.53	1568.3825	36.5525	individual
+sim1997	healthy	all	0 to 17 years	0	17	42.04	140.67	5914.14	1478.535	35.1675	individual
+sim1997	healthy	all	0 to 17 years	0	17	38.99	141.29	5509.01	1377.2525	35.3225	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.78	140.84	4898.44	1224.61	35.21	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.13	136.34	4653.53	1163.3825	34.085	individual
+sim1997	healthy	all	0 to 17 years	0	17	33.85	131.16	4439.38	1109.845	32.79	individual
+sim1997	healthy	all	0 to 17 years	0	17	35	134.64	4712.98	1178.245	33.66	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.87	127.39	4441.87	1110.4675	31.8475	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.8	135.35	4845.81	1211.4525	33.8375	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.65	129.11	4473.43	1118.3575	32.2775	individual
+sim1997	healthy	all	0 to 17 years	0	17	37.04	134	4963.12	1240.78	33.5	individual
+sim1997	healthy	all	0 to 17 years	0	17	36.32	129.15	4690.55	1172.6375	32.2875	individual
+sim1997	healthy	all	0 to 17 years	0	17	36.98	125.72	4648.52	1162.13	31.43	individual
+sim1997	healthy	all	0 to 17 years	0	17	36.69	120.89	4435.27	1108.8175	30.2225	individual
+sim1997	healthy	all	0 to 17 years	0	17	37.42	117.46	4395.13	1098.7825	29.365	individual
+sim1997	healthy	all	0 to 17 years	0	17	37.79	113.67	4295.26	1073.815	28.4175	individual
+sim1997	healthy	all	0 to 17 years	0	17	38	115.4	4385.54	1096.385	28.85	individual
+sim1997	healthy	all	0 to 17 years	0	17	40.82	125.47	5122.16	1280.54	31.3675	individual
+sim1997	healthy	all	0 to 17 years	0	17	39.88	122	4865.74	1216.435	30.5	individual
+sim1997	healthy	all	0 to 17 years	0	17	39.89	118.55	4728.65	1182.1625	29.6375	individual
+sim1997	healthy	all	0 to 17 years	0	17	39.89	113.72	4536.68	1134.17	28.43	individual
+sim1997	healthy	all	0 to 17 years	0	17	40.84	109.61	4476.48	1119.12	27.4025	individual
+sim1997	healthy	all	0 to 17 years	0	17	40.84	107.54	4392.22	1098.055	26.885	individual
+sim1997	healthy	all	0 to 17 years	0	17	42.8	106.9	4575.66	1143.915	26.725	individual
+sim1997	healthy	all	0 to 17 years	0	17	43.82	109.68	4805.97	1201.4925	27.42	individual
+sim1997	healthy	all	0 to 17 years	0	17	44.83	110.05	4934	1233.5	27.5125	individual
+sim1997	healthy	all	0 to 17 years	0	17	46.71	118.37	5529.53	1382.3825	29.5925	individual
+sim1997	healthy	all	0 to 17 years	0	17	47.85	142.19	6803.88	1700.97	35.5475	individual
+sim1997	healthy	all	0 to 17 years	0	17	49.97	133.28	6659.27	1664.8175	33.32	individual
+sim1997	healthy	all	0 to 17 years	0	17	50.86	113.99	5797.17	1449.2925	28.4975	individual
+sim1997	healthy	all	0 to 17 years	0	17	51.52	108.14	5571.2	1392.8	27.035	individual
+sim1997	healthy	all	0 to 17 years	0	17	51.74	100.56	5203.37	1300.8425	25.14	individual
+sim1997	healthy	all	0 to 17 years	0	17	52.84	98.52	5205.21	1301.3025	24.63	individual
+sim1997	healthy	all	0 to 17 years	0	17	52.92	89.9	4757.19	1189.2975	22.475	individual
+sim1997	healthy	all	0 to 17 years	0	17	53.93	93.03	5016.98	1254.245	23.2575	individual
+sim1997	healthy	all	0 to 17 years	0	17	54.87	98.57	5408.23	1352.0575	24.6425	individual
+sim1997	healthy	all	0 to 17 years	0	17	53.77	103.37	5558.53	1389.6325	25.8425	individual
+sim1997	healthy	all	0 to 17 years	0	17	53.83	119.23	6418.21	1604.5525	29.8075	individual
+sim1997	healthy	all	0 to 17 years	0	17	60.78	135.61	8242.69	2060.6725	33.9025	individual
+sim1997	healthy	all	0 to 17 years	0	17	55.97	87.21	4881.37	1220.3425	21.8025	individual
+sim1997	healthy	all	0 to 17 years	0	17	56.92	83.44	4749.47	1187.3675	20.86	individual
+sim1997	healthy	all	0 to 17 years	0	17	58.87	87.97	5179.38	1294.845	21.9925	individual
+sim1997	healthy	all	0 to 17 years	0	17	60.83	94.23	5731.71	1432.9275	23.5575	individual
+sim1997	healthy	all	0 to 17 years	0	17	61.92	94.6	5857.3	1464.325	23.65	individual
+sim1997	healthy	all	0 to 17 years	0	17	63.87	101.54	6485.58	1621.395	25.385	individual
+sim1997	healthy	all	0 to 17 years	0	17	67.87	96.47	6547.21	1636.8025	24.1175	individual
+sim1997	healthy	all	0 to 17 years	0	17	66.94	85.41	5717.14	1429.285	21.3525	individual
+sim1997	healthy	all	0 to 17 years	0	17	78.99	90.53	7150.59	1787.6475	22.6325	individual
+sim1997	healthy	all	0 to 17 years	0	17	84.89	75.84	6437.96	1609.49	18.96	individual
+sim1997	healthy	all	0 to 17 years	0	17	93.33	61.91	5777.57	1444.3925	15.4775	individual
+sim1997	healthy	all	0 to 17 years	0	17	86.94	54.17	4709.49	1177.3725	13.5425	individual
+sim1997	healthy	all	0 to 17 years	0	17	84.03	64.44	5414.88	1353.72	16.11	individual
+sim1997	healthy	all	0 to 17 years	0	17	80.98	62.3	5044.97	1261.2425	15.575	individual
+sim1997	healthy	all	0 to 17 years	0	17	80.99	49.2	3984.58	996.145	12.3	individual
+sim1997	healthy	all	0 to 17 years	0	17	82.02	41.64	3414.82	853.705	10.41	individual
+sim1997	healthy	all	0 to 17 years	0	17	78.07	62.23	4858.53	1214.6325	15.5575	individual
+sim1997	healthy	all	0 to 17 years	0	17	74	68.34	5057.08	1264.27	17.085	individual
+sim1997	healthy	all	0 to 17 years	0	17	72.94	45.9	3347.64	836.91	11.475	individual
+sim1997	healthy	all	0 to 17 years	0	17	67.97	68.54	4658.7	1164.675	17.135	individual
+sim1997	healthy	all	0 to 17 years	0	17	66.89	66.1	4421.02	1105.255	16.525	individual
+sim1997	healthy	all	0 to 17 years	0	17	67.91	59.23	4022.03	1005.5075	14.8075	individual
+sim1997	healthy	all	0 to 17 years	0	17	69.97	39.28	2747.89	686.9725	9.82	individual
+sim1997	healthy	all	0 to 17 years	0	17	68.8	41.32	2842.59	710.6475	10.33	individual
+sim1997	healthy	all	0 to 17 years	0	17	64.94	49.84	3236.99	809.2475	12.46	individual
+sim1997	healthy	all	0 to 17 years	0	17	63.95	27.75	1774.65	443.6625	6.9375	individual
+sim1997	healthy	all	0 to 17 years	0	17	61.91	34.6	2141.93	535.4825	8.65	individual
+sim1997	healthy	all	0 to 17 years	0	17	62.84	48.76	3063.88	765.97	12.19	individual
+sim1997	healthy	all	0 to 17 years	0	17	60.81	48.36	2940.8	735.2	12.09	individual
+sim1997	healthy	all	0 to 17 years	0	17	59.86	49.03	2935.03	733.7575	12.2575	individual
+sim1997	healthy	all	0 to 17 years	0	17	63.99	60.86	3893.94	973.485	15.215	individual
+sim1997	healthy	all	0 to 17 years	0	17	60.55	79.39	4807.56	1201.89	19.8475	individual
+sim1997	healthy	all	0 to 17 years	0	17	59.92	65.24	3908.87	977.2175	16.31	individual
+sim1997	healthy	all	0 to 17 years	0	17	60.86	63.19	3846.07	961.5175	15.7975	individual
+sim1997	healthy	all	0 to 17 years	0	17	58.98	54.87	3236.5	809.125	13.7175	individual
+sim1997	healthy	all	0 to 17 years	0	17	56.88	55.51	3157.24	789.31	13.8775	individual
+sim1997	healthy	all	0 to 17 years	0	17	56.87	60.68	3451.08	862.77	15.17	individual
+sim1997	healthy	all	0 to 17 years	0	17	56.87	65.17	3705.7	926.425	16.2925	individual
+sim1997	healthy	all	0 to 17 years	0	17	55.92	64.45	3604.38	901.095	16.1125	individual
+sim1997	healthy	all	0 to 17 years	0	17	55.85	68.24	3811.17	952.7925	17.06	individual
+sim1997	healthy	all	0 to 17 years	0	17	57.8	71.74	4146.78	1036.695	17.935	individual
+sim1997	healthy	all	0 to 17 years	0	17	56.93	74.82	4259.49	1064.8725	18.705	individual
+sim1997	healthy	all	0 to 17 years	0	17	54.74	82.7	4527.11	1131.7775	20.675	individual
+sim1997	healthy	all	0 to 17 years	0	17	54.82	73.39	4023.62	1005.905	18.3475	individual
+sim1997	healthy	all	0 to 17 years	0	17	53.81	72.33	3892.11	973.0275	18.0825	individual
+sim1997	healthy	all	0 to 17 years	0	17	52.8	67.48	3562.77	890.6925	16.87	individual
+sim1997	healthy	all	0 to 17 years	0	17	53.82	63.71	3428.84	857.21	15.9275	individual
+sim1997	healthy	all	0 to 17 years	0	17	51.72	57.46	2971.46	742.865	14.365	individual
+sim1997	healthy	all	0 to 17 years	0	17	51.72	54.01	2793.33	698.3325	13.5025	individual
+sim1997	healthy	all	0 to 17 years	0	17	47.88	44.6	2135.76	533.94	11.15	individual
+sim1997	healthy	all	0 to 17 years	0	17	47.8	49.77	2379.45	594.8625	12.4425	individual
+sim1997	healthy	all	0 to 17 years	0	17	45.77	48.69	2228.7	557.175	12.1725	individual
+sim1997	healthy	all	0 to 17 years	0	17	45.84	52.14	2390.2	597.55	13.035	individual
+sim1997	healthy	all	0 to 17 years	0	17	46.78	58.37	2730.49	682.6225	14.5925	individual
+sim1997	healthy	all	0 to 17 years	0	17	45.76	60.42	2764.57	691.1425	15.105	individual
+sim1997	healthy	all	0 to 17 years	0	17	45.32	65.23	2956.23	739.0575	16.3075	individual
+sim1997	healthy	all	0 to 17 years	0	17	44.81	65.22	2922.52	730.63	16.305	individual
+sim1997	healthy	all	0 to 17 years	0	17	44.95	69.71	3133.33	783.3325	17.4275	individual
+sim1997	healthy	all	0 to 17 years	0	17	45.24	74.89	3387.49	846.8725	18.7225	individual
+sim1997	healthy	all	0 to 17 years	0	17	46.69	69.75	3256.79	814.1975	17.4375	individual
+sim1997	healthy	all	0 to 17 years	0	17	48	69.09	3316.42	829.105	17.2725	individual
+sim1997	healthy	all	0 to 17 years	0	17	47.71	65.63	3131.74	782.935	16.4075	individual
+sim1997	healthy	all	0 to 17 years	0	17	48.87	75.66	3697.32	924.33	18.915	individual
+sim1997	healthy	all	0 to 17 years	0	17	48.86	79.11	3865.53	966.3825	19.7775	individual
+sim1997	healthy	all	0 to 17 years	0	17	51.78	70.22	3635.52	908.88	17.555	individual
+sim1997	healthy	all	0 to 17 years	0	17	50.82	84.33	4285.45	1071.3625	21.0825	individual
+sim1997	healthy	all	0 to 17 years	0	17	50.89	88.47	4501.85	1125.4625	22.1175	individual
+sim1997	healthy	all	0 to 17 years	0	17	48.92	93.25	4561.77	1140.4425	23.3125	individual
+sim1997	healthy	all	0 to 17 years	0	17	47.83	93.57	4475.39	1118.8475	23.3925	individual
+sim1997	healthy	all	0 to 17 years	0	17	47.91	87.36	4185.53	1046.3825	21.84	individual
+sim1997	healthy	all	0 to 17 years	0	17	47.41	75.63	3585.77	896.4425	18.9075	individual
+sim1997	healthy	all	0 to 17 years	0	17	46.75	81.13	3793.1	948.275	20.2825	individual
+sim1997	healthy	all	0 to 17 years	0	17	45.88	86.28	3958.28	989.57	21.57	individual
+sim1997	healthy	all	0 to 17 years	0	17	45	89.36	4021.52	1005.38	22.34	individual
+sim1997	healthy	all	0 to 17 years	0	17	43.78	77.26	3382.67	845.6675	19.315	individual
+sim1997	healthy	all	0 to 17 years	0	17	43.64	69.67	3040.84	760.21	17.4175	individual
+sim1997	healthy	all	0 to 17 years	0	17	44.92	97.64	4385.91	1096.4775	24.41	individual
+sim1997	healthy	all	0 to 17 years	0	17	44.92	102.46	4602.23	1150.5575	25.615	individual
+sim1997	healthy	all	0 to 17 years	0	17	44.91	105.22	4725.82	1181.455	26.305	individual
+sim1997	healthy	all	0 to 17 years	0	17	43.75	102.78	4497	1124.25	25.695	individual
+sim1997	healthy	all	0 to 17 years	0	17	41.87	99.29	4157.04	1039.26	24.8225	individual
+sim1997	healthy	all	0 to 17 years	0	17	40.42	100.29	4053.12	1013.28	25.0725	individual
+sim1997	healthy	all	0 to 17 years	0	17	39.84	98.2	3912.1	978.025	24.55	individual
+sim1997	healthy	all	0 to 17 years	0	17	39.84	91.31	3638.04	909.51	22.8275	individual
+sim1997	healthy	all	0 to 17 years	0	17	39.78	86.48	3439.79	859.9475	21.62	individual
+sim1997	healthy	all	0 to 17 years	0	17	40.8	82.71	3374.32	843.58	20.6775	individual
+sim1997	healthy	all	0 to 17 years	0	17	41.81	82.73	3459.43	864.8575	20.6825	individual
+sim1997	healthy	all	0 to 17 years	0	17	42.03	80.33	3376.43	844.1075	20.0825	individual
+sim1997	healthy	all	0 to 17 years	0	17	40.81	74.09	3023.31	755.8275	18.5225	individual
+sim1997	healthy	all	0 to 17 years	0	17	39.79	78.2	3111.31	777.8275	19.55	individual
+sim1997	healthy	all	0 to 17 years	0	17	39.78	81.31	3234.51	808.6275	20.3275	individual
+sim1997	healthy	all	0 to 17 years	0	17	38.98	82.32	3209.04	802.26	20.58	individual
+sim1997	healthy	all	0 to 17 years	0	17	37.75	76.08	2872.5	718.125	19.02	individual
+sim1997	healthy	all	0 to 17 years	0	17	38.42	61.27	2354.32	588.58	15.3175	individual
+sim1997	healthy	all	0 to 17 years	0	17	37.84	59.53	2253.06	563.265	14.8825	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.82	48.8	1748.01	437.0025	12.2	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.73	63.28	2261.17	565.2925	15.82	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.89	60.77	1937.86	484.465	15.1925	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.87	64.19	1981.53	495.3825	16.0475	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.86	69.02	2130.19	532.5475	17.255	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.86	63.73	1647.85	411.9625	15.9325	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.72	74.69	1697.12	424.28	18.6725	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.81	74.37	1770.92	442.73	18.5925	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.92	75.8	1964.49	491.1225	18.95	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.77	76.93	2289.7	572.425	19.2325	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.93	75.23	2326.77	581.6925	18.8075	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.85	80.4	2480.4	620.1	20.1	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.72	83.18	2638.39	659.5975	20.795	individual
+sim1997	healthy	all	0 to 17 years	0	17	32.67	76.31	2492.97	623.2425	19.0775	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.85	73.26	2553.13	638.2825	18.315	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.8	73.97	2647.74	661.935	18.4925	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.86	79.49	2850.59	712.6475	19.8725	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.79	82.93	2967.86	741.965	20.7325	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.77	83.25	2894.65	723.6625	20.8125	individual
+sim1997	healthy	all	0 to 17 years	0	17	33.75	84.95	2867.22	716.805	21.2375	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.84	88.77	3092.46	773.115	22.1925	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.71	88.45	3158.29	789.5725	22.1125	individual
+sim1997	healthy	all	0 to 17 years	0	17	36.87	85.72	3160.64	790.16	21.43	individual
+sim1997	healthy	all	0 to 17 years	0	17	36.87	90.89	3350.86	837.715	22.7225	individual
+sim1997	healthy	all	0 to 17 years	0	17	37.73	94.36	3560.64	890.16	23.59	individual
+sim1997	healthy	all	0 to 17 years	0	17	36.86	93.99	3464.96	866.24	23.4975	individual
+sim1997	healthy	all	0 to 17 years	0	17	35.77	94.31	3373.93	843.4825	23.5775	individual
+sim1997	healthy	all	0 to 17 years	0	17	36.86	99.17	3655.08	913.77	24.7925	individual
+sim1997	healthy	all	0 to 17 years	0	17	37.73	101.6	3833.09	958.2725	25.4	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.82	100.15	3487.64	871.91	25.0375	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.17	98.41	3362.92	840.73	24.6025	individual
+sim1997	healthy	all	0 to 17 years	0	17	32.8	93.9	3079.49	769.8725	23.475	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.71	91.11	2889.18	722.295	22.7775	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.83	84.86	2531.26	632.815	21.215	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.61	81.75	2420.99	605.2475	20.4375	individual
+sim1997	healthy	all	0 to 17 years	0	17	27.94	85.5	2388.97	597.2425	21.375	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.89	85.43	2126.35	531.5875	21.3575	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.73	82.3	1953.06	488.265	20.575	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.8	84.37	2008.14	502.035	21.0925	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.69	88.45	1918.74	479.685	22.1125	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.69	90.52	1963.42	490.855	22.63	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.88	96.02	2005.4	501.35	24.005	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.88	98.78	2062.72	515.68	24.695	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.86	101.17	2009.49	502.3725	25.2925	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.74	106.73	2320.87	580.2175	26.6825	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.85	111.17	2206.92	551.73	27.7925	individual
+sim1997	healthy	all	0 to 17 years	0	17	19.85	115.65	2295.36	573.84	28.9125	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.87	113.95	2377.69	594.4225	28.4875	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.73	117.42	2551.97	637.9925	29.355	individual
+sim1997	healthy	all	0 to 17 years	0	17	20.71	128.09	2652.06	663.015	32.0225	individual
+sim1997	healthy	all	0 to 17 years	0	17	21.43	131.55	2818.87	704.7175	32.8875	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.88	133.66	3057.78	764.445	33.415	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.82	134.37	3200.83	800.2075	33.5925	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.75	136.78	3248	812	34.195	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.7	140.97	3623.15	905.7875	35.2425	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.85	138.56	3581.68	895.42	34.64	individual
+sim1997	healthy	all	0 to 17 years	0	17	26.07	136.15	3549.44	887.36	34.0375	individual
+sim1997	healthy	all	0 to 17 years	0	17	28.83	136.9	3946.84	986.71	34.225	individual
+sim1997	healthy	all	0 to 17 years	0	17	28.9	143.46	4145.18	1036.295	35.865	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.77	142.79	4250.4	1062.6	35.6975	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.84	138.65	4137.96	1034.49	34.6625	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.93	139.02	4300.43	1075.1075	34.755	individual
+sim1997	healthy	all	0 to 17 years	0	17	32.69	122.86	4016.67	1004.1675	30.715	individual
+sim1997	healthy	all	0 to 17 years	0	17	33.21	117.35	3897.04	974.26	29.3375	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.95	115.33	4030.99	1007.7475	28.8325	individual
+sim1997	healthy	all	0 to 17 years	0	17	34.81	109.81	3822.73	955.6825	27.4525	individual
+sim1997	healthy	all	0 to 17 years	0	17	33.87	109.44	3706.66	926.665	27.36	individual
+sim1997	healthy	all	0 to 17 years	0	17	32.78	109.76	3597.85	899.4625	27.44	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.76	110.08	3496.39	874.0975	27.52	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.77	105.94	3365.43	841.3575	26.485	individual
+sim1997	healthy	all	0 to 17 years	0	17	32.79	101.48	3327.47	831.8675	25.37	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.85	96.98	3088.65	772.1625	24.245	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.98	99.02	3067.37	766.8425	24.755	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.82	92.79	2767.04	691.76	23.1975	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.81	92.67	2299.1	574.775	23.1675	individual
+sim1997	healthy	all	0 to 17 years	0	17	27.35	97.9	2677.24	669.31	24.475	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.96	100.28	2603.71	650.9275	25.07	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.89	104.07	2694.16	673.54	26.0175	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.8	103.36	2563.12	640.78	25.84	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.85	111.61	2661.42	665.355	27.9025	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.9	113.31	2594.81	648.7025	28.3275	individual
+sim1997	healthy	all	0 to 17 years	0	17	22.75	116.76	2656.3	664.075	29.19	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.69	117.47	2783.32	695.83	29.3675	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.56	118.18	2903.06	725.765	29.545	individual
+sim1997	healthy	all	0 to 17 years	0	17	23.69	124.71	2953.93	738.4825	31.1775	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.34	127.48	3102.59	775.6475	31.87	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.92	129.57	3228.27	807.0675	32.3925	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.14	126.81	3187.67	796.9175	31.7025	individual
+sim1997	healthy	all	0 to 17 years	0	17	25	117.5	2937.66	734.415	29.375	individual
+sim1997	healthy	all	0 to 17 years	0	17	24.86	113.01	2809.63	702.4075	28.2525	individual
+sim1997	healthy	all	0 to 17 years	0	17	25.3	110.61	2798.36	699.59	27.6525	individual
+sim1997	healthy	all	0 to 17 years	0	17	26.83	107.89	2894.36	723.59	26.9725	individual
+sim1997	healthy	all	0 to 17 years	0	17	27.27	102.38	2791.85	697.9625	25.595	individual
+sim1997	healthy	all	0 to 17 years	0	17	27.85	102.05	2842.15	710.5375	25.5125	individual
+sim1997	healthy	all	0 to 17 years	0	17	28.36	104.13	2952.82	738.205	26.0325	individual
+sim1997	healthy	all	0 to 17 years	0	17	27.92	106.88	2983.85	745.9625	26.72	individual
+sim1997	healthy	all	0 to 17 years	0	17	26.74	118.58	3171.11	792.7775	29.645	individual
+sim1997	healthy	all	0 to 17 years	0	17	27.97	126.88	3548.74	887.185	31.72	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.71	127.96	3801.72	950.43	31.99	individual
+sim1997	healthy	all	0 to 17 years	0	17	28.92	124.84	3609.64	902.41	31.21	individual
+sim1997	healthy	all	0 to 17 years	0	17	27.9	120.67	3367.13	841.7825	30.1675	individual
+sim1997	healthy	all	0 to 17 years	0	17	27.83	116.88	3253.23	813.3075	29.22	individual
+sim1997	healthy	all	0 to 17 years	0	17	28.92	117.59	3401.17	850.2925	29.3975	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.79	116.93	3483.81	870.9525	29.2325	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.87	114.51	3420.56	855.14	28.6275	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.8	112.44	3350.79	837.6975	28.11	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.88	106.58	3184.57	796.1425	26.645	individual
+sim1997	healthy	all	0 to 17 years	0	17	29.74	103.48	3077.06	769.265	25.87	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.89	108.33	3346.76	836.69	27.0825	individual
+sim1997	healthy	all	0 to 17 years	0	17	30.88	124.19	3834.67	958.6675	31.0475	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.82	120.77	3843.36	960.84	30.1925	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.83	117.67	3744.99	936.2475	29.4175	individual
+sim1997	healthy	all	0 to 17 years	0	17	31.83	115.6	3679.4	919.85	28.9	individual
+sim1997	healthy	all	18 to 85 years	18	85	34.81	117.39	4085.87	1021.4675	29.3475	individual
+sim1997	healthy	all	18 to 85 years	18	85	35.62	101.55	3617.32	904.33	25.3875	individual
+sim1997	healthy	all	18 to 85 years	18	85	37.79	111.26	4204.34	1051.085	27.815	individual
+sim1997	healthy	all	18 to 85 years	18	85	40.73	78.22	3186.06	796.515	19.555	individual
+sim1997	healthy	all	18 to 85 years	18	85	43.4	92.43	4011.47	1002.8675	23.1075	individual
+sim1997	healthy	all	18 to 85 years	18	85	42.64	60.68	2587.38	646.845	15.17	individual
+sim1997	healthy	all	18 to 85 years	18	85	43.93	68.99	3031.14	757.785	17.2475	individual
+sim1997	healthy	all	18 to 85 years	18	85	44.87	72.81	3267.23	816.8075	18.2025	individual
+sim1997	healthy	all	18 to 85 years	18	85	47.36	61.83	2928.14	732.035	15.4575	individual
+sim1997	healthy	all	18 to 85 years	18	85	47.87	60.12	2877.75	719.4375	15.03	individual
+sim1997	healthy	all	18 to 85 years	18	85	48.74	61.18	2981.52	745.38	15.295	individual
+sim1997	healthy	all	18 to 85 years	18	85	49.9	63.96	3191.45	797.8625	15.99	individual
+sim1997	healthy	all	18 to 85 years	18	85	48.8	66.35	3238.13	809.5325	16.5875	individual
+sim1997	healthy	all	18 to 85 years	18	85	47.57	65.98	3138.42	784.605	16.495	individual
+sim1997	healthy	all	18 to 85 years	18	85	47.56	73.91	3515.06	878.765	18.4775	individual
+sim1997	healthy	all	18 to 85 years	18	85	46.97	82.17	3859.52	964.88	20.5425	individual
+sim1997	healthy	all	18 to 85 years	18	85	46.68	80.44	3754.99	938.7475	20.11	individual
+sim1997	healthy	all	18 to 85 years	18	85	50	99.83	4991.6	1247.9	24.9575	individual
+sim1997	healthy	all	18 to 85 years	18	85	49.8	88.44	4404.17	1101.0425	22.11	individual
+sim1997	healthy	all	18 to 85 years	18	85	55.5	118.24	6562.32	1640.58	29.56	individual
+sim1997	healthy	all	18 to 85 years	18	85	49.8	81.55	4061.36	1015.34	20.3875	individual
+sim1997	healthy	all	18 to 85 years	18	85	50.02	79.48	3976.07	994.0175	19.87	individual
+sim1997	healthy	all	18 to 85 years	18	85	50.6	80.53	4075.22	1018.805	20.1325	individual
+sim1997	healthy	all	18 to 85 years	18	85	50.82	82.26	4180.5	1045.125	20.565	individual
+sim1997	healthy	all	18 to 85 years	18	85	51.18	80.89	4140.34	1035.085	20.2225	individual
+sim1997	healthy	all	18 to 85 years	18	85	52.05	85.39	4444.86	1111.215	21.3475	individual
+sim1997	healthy	all	18 to 85 years	18	85	51.84	75.73	3926.32	981.58	18.9325	individual
+sim1997	healthy	all	18 to 85 years	18	85	52.21	72.98	3810.48	952.62	18.245	individual
+sim1997	healthy	all	18 to 85 years	18	85	51.79	61.25	3171.92	792.98	15.3125	individual
+sim1997	healthy	all	18 to 85 years	18	85	52.37	57.82	3027.88	756.97	14.455	individual
+sim1997	healthy	all	18 to 85 years	18	85	52.3	54.71	2861.47	715.3675	13.6775	individual
+sim1997	healthy	all	18 to 85 years	18	85	54.78	43.74	2395.98	598.995	10.935	individual
+sim1997	healthy	all	18 to 85 years	18	85	54.32	67.52	3667.68	916.92	16.88	individual
+sim1997	healthy	all	18 to 85 years	18	85	53.58	80.6	4318.84	1079.71	20.15	individual
+sim1997	healthy	all	18 to 85 years	18	85	52.39	111.61	5846.78	1461.695	27.9025	individual
+sim1997	healthy	all	18 to 85 years	18	85	54.43	104.42	5683.14	1420.785	26.105	individual
+sim1997	healthy	all	18 to 85 years	18	85	53.71	99.57	5347.64	1336.91	24.8925	individual
+sim1997	healthy	all	18 to 85 years	18	85	55.67	97.21	5411.4	1352.85	24.3025	individual
+sim1997	healthy	all	18 to 85 years	18	85	56.47	99.29	5606.74	1401.685	24.8225	individual
+sim1997	healthy	all	18 to 85 years	18	85	57.05	98.96	5645.6	1411.4	24.74	individual
+sim1997	healthy	all	18 to 85 years	18	85	56.55	93.09	5263.75	1315.9375	23.2725	individual
+sim1997	healthy	all	18 to 85 years	18	85	54.73	92.36	5054.68	1263.67	23.09	individual
+sim1997	healthy	all	18 to 85 years	18	85	54.22	94.41	5119.03	1279.7575	23.6025	individual
+sim1997	healthy	all	18 to 85 years	18	85	54.01	89.23	4819.36	1204.84	22.3075	individual
+sim1997	healthy	all	18 to 85 years	18	85	55.89	91.35	5105.84	1276.46	22.8375	individual
+sim1997	healthy	all	18 to 85 years	18	85	54.67	79.94	4370.44	1092.61	19.985	individual
+sim1997	healthy	all	18 to 85 years	18	85	54.75	76.49	4187.86	1046.965	19.1225	individual
+sim1997	healthy	all	18 to 85 years	18	85	55.26	76.85	4246.44	1061.61	19.2125	individual
+sim1997	healthy	all	18 to 85 years	18	85	55.76	81.69	4554.97	1138.7425	20.4225	individual
+sim1997	healthy	all	18 to 85 years	18	85	56.63	78.61	4451.87	1112.9675	19.6525	individual
+sim1997	healthy	all	18 to 85 years	18	85	56.92	81.03	4612.29	1153.0725	20.2575	individual
+sim1997	healthy	all	18 to 85 years	18	85	56.99	85.86	4892.97	1223.2425	21.465	individual
+sim1997	healthy	all	18 to 85 years	18	85	57.06	88.62	5056.45	1264.1125	22.155	individual
+sim1997	healthy	all	18 to 85 years	18	85	59.01	99.7	5883.05	1470.7625	24.925	individual
+sim1997	healthy	all	18 to 85 years	18	85	59.02	92.11	5436.17	1359.0425	23.0275	individual
+sim1997	healthy	all	18 to 85 years	18	85	58	90.02	5221.3	1305.325	22.505	individual
+sim1997	healthy	all	18 to 85 years	18	85	58.44	88.65	5180.67	1295.1675	22.1625	individual
+sim1997	healthy	all	18 to 85 years	18	85	58.95	85.91	5064.1	1266.025	21.4775	individual
+sim1997	healthy	all	18 to 85 years	18	85	58.59	83.83	4911.37	1227.8425	20.9575	individual
+sim1997	healthy	all	18 to 85 years	18	85	57.94	81.74	4735.99	1183.9975	20.435	individual
+sim1997	healthy	all	18 to 85 years	18	85	58.73	83.14	4883.31	1220.8275	20.785	individual
+sim1997	healthy	all	18 to 85 years	18	85	56.86	71.03	4038.59	1009.6475	17.7575	individual
+sim1997	healthy	all	18 to 85 years	18	85	57.73	68.29	3942.65	985.6625	17.0725	individual
+sim1997	healthy	all	18 to 85 years	18	85	57.88	67.6	3912.91	978.2275	16.9	individual
+sim1997	healthy	all	18 to 85 years	18	85	57.45	60.35	3467.35	866.8375	15.0875	individual
+sim1997	healthy	all	18 to 85 years	18	85	57.69	45.53	2626.45	656.6125	11.3825	individual
+sim1997	healthy	all	18 to 85 years	18	85	58.83	57.63	3390.46	847.615	14.4075	individual
+sim1997	healthy	all	18 to 85 years	18	85	58.62	59	3458.36	864.59	14.75	individual
+sim1997	healthy	all	18 to 85 years	18	85	58.68	62.11	3644.67	911.1675	15.5275	individual
+sim1997	healthy	all	18 to 85 years	18	85	58.97	66.6	3927.17	981.7925	16.65	individual
+sim1997	healthy	all	18 to 85 years	18	85	59.03	73.84	4359.08	1089.77	18.46	individual
+sim1997	healthy	all	18 to 85 years	18	85	59.48	69.02	4105.14	1026.285	17.255	individual
+sim1997	healthy	all	18 to 85 years	18	85	59.48	65.57	3900.3	975.075	16.3925	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.42	65.94	3984.39	996.0975	16.485	individual
+sim1997	healthy	all	18 to 85 years	18	85	61	66.3	4044.57	1011.1425	16.575	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.72	60.43	3669.37	917.3425	15.1075	individual
+sim1997	healthy	all	18 to 85 years	18	85	61.01	58.71	3582.27	895.5675	14.6775	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.8	54.92	3338.79	834.6975	13.73	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.65	53.19	3226.13	806.5325	13.2975	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.22	50.07	3015.6	753.9	12.5175	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.16	38.69	2327.88	581.97	9.6725	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.53	36.98	2238.18	559.545	9.245	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.57	42.57	2706.16	676.54	10.6425	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.76	54.27	3406.19	851.5475	13.5675	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.03	57.36	3558.01	889.5025	14.34	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.9	57.73	3630.99	907.7475	14.4325	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.53	60.82	3803.36	950.84	15.205	individual
+sim1997	healthy	all	18 to 85 years	18	85	61.73	64.59	3987.49	996.8725	16.1475	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.75	63.58	3989.86	997.465	15.895	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.39	64.95	4052.18	1013.045	16.2375	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.62	66.02	4200	1050	16.505	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.42	67.76	4364.92	1091.23	16.94	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.85	68.12	4417.46	1104.365	17.03	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.07	70.54	4589.52	1147.38	17.635	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.87	68.49	4511.02	1127.755	17.1225	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.72	67.1	4410.29	1102.5725	16.775	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.36	67.1	4385.35	1096.3375	16.775	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.87	65.04	4284.13	1071.0325	16.26	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.93	64.33	4176.53	1044.1325	16.0825	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.57	63.63	4108.12	1027.03	15.9075	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.7	62.23	3963.58	990.895	15.5575	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.19	61.87	3909.4	977.35	15.4675	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.55	60.15	3822.97	955.7425	15.0375	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.93	58.81	3818.66	954.665	14.7025	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.02	58.84	3884.46	971.115	14.71	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.73	57.1	3753.68	938.42	14.275	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.65	55.35	3578.43	894.6075	13.8375	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.85	52.23	3335.01	833.7525	13.0575	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.67	46.76	3070.7	767.675	11.69	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.55	42.99	2860.62	715.155	10.7475	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.84	45.41	3034.79	758.6975	11.3525	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.25	53.67	3555.3	888.825	13.4175	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.68	54.02	3602.36	900.59	13.505	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.12	52.65	3534.11	883.5275	13.1625	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.48	57.15	3856.05	964.0125	14.2875	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.56	51.63	3487.94	871.985	12.9075	individual
+sim1997	healthy	all	18 to 85 years	18	85	68.14	51.64	3518.89	879.7225	12.91	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.5	49.34	3576.69	894.1725	12.335	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.99	49.92	3394.02	848.505	12.48	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.01	49.6	3422.69	855.6725	12.4	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.03	49.97	3498.96	874.74	12.4925	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.47	44.8	3157.27	789.3175	11.2	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.92	46.22	3323.99	830.9975	11.555	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.9	51.37	3641.7	910.425	12.8425	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.84	53.8	3865.1	966.275	13.45	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.88	43.16	3188.98	797.245	10.79	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.9	42.5	3183.08	795.77	10.625	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.15	42.55	3282.94	820.735	10.6375	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.13	46.67	3552.64	888.16	11.6675	individual
+sim1997	healthy	all	18 to 85 years	18	85	75.55	49.75	3758.76	939.69	12.4375	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.89	52.5	3931.5	982.875	13.125	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.74	55.6	4155.39	1038.8475	13.9	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.3	57.66	4283.98	1070.995	14.415	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.74	58.7	4387.14	1096.785	14.675	individual
+sim1997	healthy	all	18 to 85 years	18	85	75.1	58.36	4383.24	1095.81	14.59	individual
+sim1997	healthy	all	18 to 85 years	18	85	75.46	59.75	4509.09	1127.2725	14.9375	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.52	60.07	4476.65	1119.1625	15.0175	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.23	61.1	4535.4	1133.85	15.275	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.73	63.53	4747.61	1186.9025	15.8825	individual
+sim1997	healthy	all	18 to 85 years	18	85	75.67	64.93	4913.59	1228.3975	16.2325	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.04	60.46	4597.27	1149.3175	15.115	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.55	60.81	4655.31	1163.8275	15.2025	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.84	61.85	4752.94	1188.235	15.4625	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.28	59.45	4594.33	1148.5825	14.8625	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.64	58.43	4536.35	1134.0875	14.6075	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.28	57.73	4461.2	1115.3	14.4325	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.28	55.66	4301.44	1075.36	13.915	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.58	52.91	4104.32	1026.08	13.2275	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.92	51.86	3989.01	997.2525	12.965	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.36	49.8	3852.48	963.12	12.45	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.87	48.09	3744.58	936.145	12.0225	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.31	46.72	3658.42	914.605	11.68	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.07	47.03	3625.01	906.2525	11.7575	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.88	51.21	4040.06	1010.015	12.8025	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.25	50.88	4032.04	1008.01	12.72	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.32	54.67	4336.52	1084.13	13.6675	individual
+sim1997	healthy	all	18 to 85 years	18	85	80.41	46.77	3760.9	940.225	11.6925	individual
+sim1997	healthy	all	18 to 85 years	18	85	80.92	46.44	3757.78	939.445	11.61	individual
+sim1997	healthy	all	18 to 85 years	18	85	82.89	45.45	3767.06	941.765	11.3625	individual
+sim1997	healthy	all	18 to 85 years	18	85	80.41	51.25	4121.12	1030.28	12.8125	individual
+sim1997	healthy	all	18 to 85 years	18	85	80.33	53.66	4311.03	1077.7575	13.415	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.06	54.72	4435.22	1108.805	13.68	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.79	52.66	4307.29	1076.8225	13.165	individual
+sim1997	healthy	all	18 to 85 years	18	85	82.51	55.1	4546.01	1136.5025	13.775	individual
+sim1997	healthy	all	18 to 85 years	18	85	83.75	56.16	4703.09	1175.7725	14.04	individual
+sim1997	healthy	all	18 to 85 years	18	85	84.69	53.08	4495.39	1123.8475	13.27	individual
+sim1997	healthy	all	18 to 85 years	18	85	86	55.87	4804.56	1201.14	13.9675	individual
+sim1997	healthy	all	18 to 85 years	18	85	88.46	57.65	5100.19	1275.0475	14.4125	individual
+sim1997	healthy	all	18 to 85 years	18	85	89.92	55.27	4970.19	1242.5475	13.8175	individual
+sim1997	healthy	all	18 to 85 years	18	85	92.1	51.88	4778.07	1194.5175	12.97	individual
+sim1997	healthy	all	18 to 85 years	18	85	93.93	41.58	3905.3	976.325	10.395	individual
+sim1997	healthy	all	18 to 85 years	18	85	93.98	60.89	5722.37	1430.5925	15.2225	individual
+sim1997	healthy	all	18 to 85 years	18	85	93.91	62.96	5911.93	1477.9825	15.74	individual
+sim1997	healthy	all	18 to 85 years	18	85	96.15	70.6	6787.75	1696.9375	17.65	individual
+sim1997	healthy	all	18 to 85 years	18	85	97.6	72.01	7028.22	1757.055	18.0025	individual
+sim1997	healthy	all	18 to 85 years	18	85	93.46	72.26	6753.01	1688.2525	18.065	individual
+sim1997	healthy	all	18 to 85 years	18	85	93.17	70.52	6570.86	1642.715	17.63	individual
+sim1997	healthy	all	18 to 85 years	18	85	89.84	65.62	5894.71	1473.6775	16.405	individual
+sim1997	healthy	all	18 to 85 years	18	85	88.97	64.22	5713.05	1428.2625	16.055	individual
+sim1997	healthy	all	18 to 85 years	18	85	88.68	63.86	5663.22	1415.805	15.965	individual
+sim1997	healthy	all	18 to 85 years	18	85	86.06	63.8	5490.83	1372.7075	15.95	individual
+sim1997	healthy	all	18 to 85 years	18	85	86.13	69.32	5970.41	1492.6025	17.33	individual
+sim1997	healthy	all	18 to 85 years	18	85	87.14	69.35	6043.03	1510.7575	17.3375	individual
+sim1997	healthy	all	18 to 85 years	18	85	87.14	71.76	6253.19	1563.2975	17.94	individual
+sim1997	healthy	all	18 to 85 years	18	85	87.06	81.41	7087.63	1771.9075	20.3525	individual
+sim1997	healthy	all	18 to 85 years	18	85	89.08	90.08	8024.73	2006.1825	22.52	individual
+sim1997	healthy	all	18 to 85 years	18	85	85.9	82.42	7079.39	1769.8475	20.605	individual
+sim1997	healthy	all	18 to 85 years	18	85	84.08	84.1	7070.88	1767.72	21.025	individual
+sim1997	healthy	all	18 to 85 years	18	85	84.66	79.63	6741.81	1685.4525	19.9075	individual
+sim1997	healthy	all	18 to 85 years	18	85	84.52	78.25	6613.49	1653.3725	19.5625	individual
+sim1997	healthy	all	18 to 85 years	18	85	84.59	76.52	6473.62	1618.405	19.13	individual
+sim1997	healthy	all	18 to 85 years	18	85	84.3	77.9	6566.96	1641.74	19.475	individual
+sim1997	healthy	all	18 to 85 years	18	85	83.94	74.79	6277.69	1569.4225	18.6975	individual
+sim1997	healthy	all	18 to 85 years	18	85	82.85	74.41	6165.51	1541.3775	18.6025	individual
+sim1997	healthy	all	18 to 85 years	18	85	83	76.83	6376.75	1594.1875	19.2075	individual
+sim1997	healthy	all	18 to 85 years	18	85	82.49	76.82	6336.68	1584.17	19.205	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.47	78.86	6424.96	1606.24	19.715	individual
+sim1997	healthy	all	18 to 85 years	18	85	80.89	77.47	6266.56	1566.64	19.3675	individual
+sim1997	healthy	all	18 to 85 years	18	85	82.69	90.27	7464.78	1866.195	22.5675	individual
+sim1997	healthy	all	18 to 85 years	18	85	82.33	93.71	7714.82	1928.705	23.4275	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.81	97.84	8004.29	2001.0725	24.46	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.96	99.22	8131.69	2032.9225	24.805	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.01	102.65	8315.14	2078.785	25.6625	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.53	94.73	7722.62	1930.655	23.6825	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.53	92.66	7554.16	1888.54	23.165	individual
+sim1997	healthy	all	18 to 85 years	18	85	80.66	89.19	7193.93	1798.4825	22.2975	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.79	83.65	6674.82	1668.705	20.9125	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.93	94.34	7540.68	1885.17	23.585	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.2	96.39	7634.43	1908.6075	24.0975	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.35	88.81	7047.51	1761.8775	22.2025	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.63	85.69	6737.92	1684.48	21.4225	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.47	85.32	6609.5	1652.375	21.33	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.05	81.88	6391.33	1597.8325	20.47	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.06	74.64	5826.71	1456.6775	18.66	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.07	69.82	5450.23	1362.5575	17.455	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.59	67.09	5340.27	1335.0675	16.7725	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.12	65.41	5305.84	1326.46	16.3525	individual
+sim1997	healthy	all	18 to 85 years	18	85	82	61.29	5025.56	1256.39	15.3225	individual
+sim1997	healthy	all	18 to 85 years	18	85	81.85	59.91	4903.57	1225.8925	14.9775	individual
+sim1997	healthy	all	18 to 85 years	18	85	80.4	63.32	5090.74	1272.685	15.83	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.67	63.3	5043.36	1260.84	15.825	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.89	59.86	4782.33	1195.5825	14.965	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.1	57.77	4569.47	1142.3675	14.4425	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.37	56.37	4418.14	1104.535	14.0925	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.44	58.1	4557.5	1139.375	14.525	individual
+sim1997	healthy	all	18 to 85 years	18	85	79.02	62.25	4919.07	1229.7675	15.5625	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.65	63.97	5031.27	1257.8175	15.9925	individual
+sim1997	healthy	all	18 to 85 years	18	85	78.22	65.34	5110.36	1277.59	16.335	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.76	66.68	5118.56	1279.64	16.67	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.76	68.06	5224.34	1306.085	17.015	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.32	69.08	5272.76	1318.19	17.27	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.1	71.84	5467.04	1366.76	17.96	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.19	76.35	5892.98	1473.245	19.0875	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.61	77.02	5900.32	1475.08	19.255	individual
+sim1997	healthy	all	18 to 85 years	18	85	76.45	83.57	6389.22	1597.305	20.8925	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.24	91.18	7042.77	1760.6925	22.795	individual
+sim1997	healthy	all	18 to 85 years	18	85	77.16	98.41	7594.07	1898.5175	24.6025	individual
+sim1997	healthy	all	18 to 85 years	18	85	75.5	94.93	7166.68	1791.67	23.7325	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.47	109.04	8119.67	2029.9175	27.26	individual
+sim1997	healthy	all	18 to 85 years	18	85	75.22	83.2	6257.9	1564.475	20.8	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.94	75.26	5639.6	1409.9	18.815	individual
+sim1997	healthy	all	18 to 85 years	18	85	75.16	68.71	5164.49	1291.1225	17.1775	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.87	66.98	5015.04	1253.76	16.745	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.51	67.66	5041.4	1260.35	16.915	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.51	70.76	5272.4	1318.1	17.69	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.86	67.64	4996.01	1249.0025	16.91	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.56	69.02	5077.22	1269.305	17.255	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.34	71.43	5238.65	1309.6625	17.8575	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.98	72.45	5287.49	1321.8725	18.1125	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.63	74.19	5462.82	1365.705	18.5475	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.41	75.57	5547.42	1386.855	18.8925	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.9	77.62	5658.77	1414.6925	19.405	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.07	76.27	5648.99	1412.2475	19.0675	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.21	78.34	5813.69	1453.4225	19.585	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.31	91.4	6608.81	1652.2025	22.85	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.62	80.4	5919.3	1479.825	20.1	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.18	84.53	6185.97	1546.4925	21.1325	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.69	87.3	6432.87	1608.2175	21.825	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.6	86.24	6260.86	1565.215	21.56	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.95	88.98	6401.57	1600.3925	22.245	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.43	92.76	6626.05	1656.5125	23.19	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.45	96.58	6996.55	1749.1375	24.145	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.66	95.55	6942.91	1735.7275	23.8875	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.07	95.16	6763.05	1690.7625	23.79	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.55	101.36	7151.07	1787.7675	25.34	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.41	102.73	7233.06	1808.265	25.6825	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.25	100.64	6968.72	1742.18	25.16	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.74	107.08	6931.99	1732.9975	26.77	individual
+sim1997	healthy	all	18 to 85 years	18	85	61.19	97.68	5977.1	1494.275	24.42	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.03	94.9	5696.61	1424.1525	23.725	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.58	97.74	6214.88	1553.72	24.435	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.82	95.7	6203.58	1550.895	23.925	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.14	96.45	6475.98	1618.995	24.1125	individual
+sim1997	healthy	all	18 to 85 years	18	85	68.45	95.45	6533.51	1633.3775	23.8625	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.11	91.32	6311.43	1577.8575	22.83	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.14	83.76	5874.69	1468.6725	20.94	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.65	81.02	5723.5	1430.875	20.255	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.88	80.36	5776.15	1444.0375	20.09	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.23	76.89	5477.18	1369.295	19.2225	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.24	71.72	5109.14	1277.285	17.93	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.17	69.65	4956.73	1239.1825	17.4125	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.17	66.55	4736.09	1184.0225	16.6375	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.97	67.6	4865.01	1216.2525	16.9	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.4	68.99	4994.99	1248.7475	17.2475	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.42	63.84	4687.54	1171.885	15.96	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.86	63.16	4665.25	1166.3125	15.79	individual
+sim1997	healthy	all	18 to 85 years	18	85	73.21	59.35	4345.37	1086.3425	14.8375	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.49	58.3	4226.08	1056.52	14.575	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.84	63.14	4599.24	1149.81	15.785	individual
+sim1997	healthy	all	18 to 85 years	18	85	72.41	62.44	4521.08	1130.27	15.61	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.97	62.43	4493.12	1123.28	15.6075	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.96	61.71	4379.02	1094.755	15.4275	individual
+sim1997	healthy	all	18 to 85 years	18	85	71.18	58.27	4147.63	1036.9075	14.5675	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.96	56.89	4036.77	1009.1925	14.2225	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.24	55.14	3873.23	968.3075	13.785	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.22	55.81	3863.17	965.7925	13.9525	individual
+sim1997	healthy	all	18 to 85 years	18	85	68.56	62.69	4298.02	1074.505	15.6725	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.07	61.32	4235.56	1058.89	15.33	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.36	61.33	4253.86	1063.465	15.3325	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.36	63.4	4397.22	1099.305	15.85	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.72	65.82	4588.97	1147.2425	16.455	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.01	66.86	4680.93	1170.2325	16.715	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.66	65.5	4628.37	1157.0925	16.375	individual
+sim1997	healthy	all	18 to 85 years	18	85	70.81	68.26	4833.26	1208.315	17.065	individual
+sim1997	healthy	all	18 to 85 years	18	85	70	71.69	5018.52	1254.63	17.9225	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.78	79.96	5579.34	1394.835	19.99	individual
+sim1997	healthy	all	18 to 85 years	18	85	68.98	78.91	5442.87	1360.7175	19.7275	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.34	77.88	5400.49	1350.1225	19.47	individual
+sim1997	healthy	all	18 to 85 years	18	85	68.99	70.29	4848.89	1212.2225	17.5725	individual
+sim1997	healthy	all	18 to 85 years	18	85	69.28	67.53	4678.89	1169.7225	16.8825	individual
+sim1997	healthy	all	18 to 85 years	18	85	68.7	68.21	4686.02	1171.505	17.0525	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.25	64.38	4329.78	1082.445	16.095	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.74	63.34	4227.26	1056.815	15.835	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.25	68.18	4584.59	1146.1475	17.045	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.83	70.95	4812.05	1203.0125	17.7375	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.9	73.36	4981.02	1245.255	18.34	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.68	74.74	5057.91	1264.4775	18.685	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.24	76.45	5140.43	1285.1075	19.1125	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.37	72.64	4820.97	1205.2425	18.16	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.72	72.28	4749.83	1187.4575	18.07	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.79	74.69	4913.8	1228.45	18.6725	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.28	73.64	4807.58	1201.895	18.41	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.98	71.89	4599.14	1149.785	17.9725	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.6	71.17	4454.75	1113.6875	17.7925	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.09	71.15	4417.81	1104.4525	17.7875	individual
+sim1997	healthy	all	18 to 85 years	18	85	61.8	68.73	4247.72	1061.93	17.1825	individual
+sim1997	healthy	all	18 to 85 years	18	85	61.22	70.44	4312.35	1078.0875	17.61	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.48	81.46	4926.64	1231.66	20.365	individual
+sim1997	healthy	all	18 to 85 years	18	85	61.5	73.21	4502.7	1125.675	18.3025	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.92	75.95	4627.15	1156.7875	18.9875	individual
+sim1997	healthy	all	18 to 85 years	18	85	61.71	80.46	4965.29	1241.3225	20.115	individual
+sim1997	healthy	all	18 to 85 years	18	85	60.84	81.81	4977.7	1244.425	20.4525	individual
+sim1997	healthy	all	18 to 85 years	18	85	59.97	83.17	4987.74	1246.935	20.7925	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.52	74.96	4686.32	1171.58	18.74	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.88	76.35	4800.7	1200.175	19.0875	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.17	78.42	4953.85	1238.4625	19.605	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.19	76.38	4902.53	1225.6325	19.095	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.99	76.74	4987.17	1246.7925	19.185	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.49	77.79	5094.65	1273.6625	19.4475	individual
+sim1997	healthy	all	18 to 85 years	18	85	65.78	80.55	5298.94	1324.735	20.1375	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.94	81.62	5463.57	1365.8925	20.405	individual
+sim1997	healthy	all	18 to 85 years	18	85	67.96	82.33	5595.03	1398.7575	20.5825	individual
+sim1997	healthy	all	18 to 85 years	18	85	68.1	86.47	5888.64	1472.16	21.6175	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.64	88.51	5898.4	1474.6	22.1275	individual
+sim1997	healthy	all	18 to 85 years	18	85	66.13	89.87	5943.69	1485.9225	22.4675	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.98	87.78	5703.21	1425.8025	21.945	individual
+sim1997	healthy	all	18 to 85 years	18	85	64.25	86.03	5527.73	1381.9325	21.5075	individual
+sim1997	healthy	all	18 to 85 years	18	85	62.8	88.41	5551.93	1387.9825	22.1025	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.02	83.94	5289.45	1322.3625	20.985	individual
+sim1997	healthy	all	18 to 85 years	18	85	63.75	83.26	5307.62	1326.905	20.815	individual
+sim1997	healthy	all	18 to 85 years	18	85	74.42	79.38	5908.06	1477.015	19.845	individual

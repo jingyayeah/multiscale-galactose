@@ -1,19 +1,19 @@
-study	exp	initials	sex	age	bodyweight	BSA	status	diagnosis	galclearance	extraction	bloodflowBS	bloodFlowGal	clFraction	infusionRatemg	infusionRate	galAmg	galA	dtype	gender	flowLiver	flowLiverkg
-tyg1958	12	K.M.	M	36	66	1.8	healthy	neurosis	1670	91	1500	NA	1.12	284	1.5777777778	17	0.9444444444	individual	male	1500	22.7272727272727
-tyg1958	13	G.C.	M	47	63.5	1.82	healthy	bronchitis	1890	92	1630	NA	1.26	378	2.1	20	1.1111111111	individual	male	1630	25.6692913385827
-tyg1958	14	C.H.	M	19	60	1.68	healthy	pulmon. stenosis (operated)	1700	88	1280	NA	1.34	381	2.1166666667	22.4	1.2444444444	individual	male	1280	21.3333333333333
-tyg1958	15	O.M.	M	40	55.9	1.65	healthy	thrombophlebitis	1180	73	1490	NA	0.79	370	2.0555555556	31.4	1.7444444444	individual	male	1490	26.654740608229
-tyg1958	16	A.N.	M	35	77.7	1.89	healthy	neurosis	1230	82	1300	NA	0.95	308	1.7111111111	25	1.3888888889	individual	male	1300	16.7310167310167
-tyg1958	17	T.H.	M	14	54	1.63	healthy	thyrotoxicosis (moderate)	1500	90	1240	NA	1.21	342	1.9	22.7	1.2611111111	individual	male	1240	22.962962962963
-tyg1958	18	B.H	M	46	50.1	1.54	healthy	gastric ulcer	1300	86	1250	NA	0.84	303	1.6833333333	23.3	1.2944444444	individual	male	1250	24.9500998003992
-tyg1958	19	A.J.	M	32	70.4	1.89	healthy	chronic indigestion	1510	90	1260	NA	1.2	348	1.9333333333	22.7	1.2611111111	individual	male	1260	17.8977272727273
-tyg1958	20	J.T.	M	29	58.7	1.68	healthy	aortic incompetence	1120	91	1990	NA	0.56	164	0.9111111111	14.7	0.8166666667	individual	male	1990	33.9011925042589
-tyg1958	21	H.J.	M	38	72.3	1.84	healthy	arterial hypertension	1530	85	1890	NA	0.81	324	1.8	21.2	1.1777777778	individual	male	1890	26.1410788381743
-tyg1958	23	H.W.	M	50	73.5	1.77	healthy	pulmonary fibrosis	1370	92	1000	NA	1.38	323	1.7944444444	23.5	1.3055555556	individual	male	1000	13.6054421768707
-tyg1958	24	R.R.	M	39	56.5	1.66	healthy	chronic indigestion	1080	94	1450	NA	0.75	310	1.7222222222	28.6	1.5888888889	individual	male	1450	25.6637168141593
-tyg1958	25	K.M.	M	30	75.1	1.71	healthy	chronic indigestion	1100	86	1420	NA	0.77	311	1.7277777778	28.2	1.5666666667	individual	male	1420	18.9081225033289
-tyg1958	29	H.C.	M	43	NA	NA	cirrhosis	cirrhosis of the liver (mild)	1610	76	1650	2120	NA	219	1.2166666667	13.6	0.7555555556	individual	male	1650	NA
-tyg1958	30	A.A.	M	66	NA	NA	cirrhosis	cirrhosis of the liver (mild)	1050	63	1740	1660	NA	206	1.1444444444	19.7	1.0944444444	individual	male	1740	NA
-tyg1958	31	P.A.	M	67	NA	NA	cirrhosis	cirrhosis of the liver (moderate)	670	68	960	990	NA	296	1.6444444444	44	2.4444444444	individual	male	960	NA
-tyg1958	33	A.L.	F	57	NA	NA	cirrhosis	cirrhosis of the liver (severe)	730	63	580	1160	NA	209	1.1611111111	28.7	1.5944444444	individual	female	580	NA
-tyg1958	19	A.J.	M	32	NA	NA	alcohol	alcohol ingestion 20 g.	540	39	1070	1350	NA	147	0.8166666667	27.3	1.5166666667	individual	male	1070	NA
+study	exp	initials	sex	age	bodyweight	BSA	status	diagnosis	galclearance	extraction	bloodflowBS	bloodFlowGal	clFraction	infusionRatemg	infusionRate	galAmg	galA	flowLiver	flowLiverkg	dtype
+tyg1958	12	K.M.	male	36	66	1.8	healthy	neurosis	1670	91	1500	NA	1.12	284	1.5777777778	17	0.9444444444	1500	22.7272727272727	individual
+tyg1958	13	G.C.	male	47	63.5	1.82	healthy	bronchitis	1890	92	1630	NA	1.26	378	2.1	20	1.1111111111	1630	25.6692913385827	individual
+tyg1958	14	C.H.	male	19	60	1.68	healthy	pulmon. stenosis (operated)	1700	88	1280	NA	1.34	381	2.1166666667	22.4	1.2444444444	1280	21.3333333333333	individual
+tyg1958	15	O.M.	male	40	55.9	1.65	healthy	thrombophlebitis	1180	73	1490	NA	0.79	370	2.0555555556	31.4	1.7444444444	1490	26.654740608229	individual
+tyg1958	16	A.N.	male	35	77.7	1.89	healthy	neurosis	1230	82	1300	NA	0.95	308	1.7111111111	25	1.3888888889	1300	16.7310167310167	individual
+tyg1958	17	T.H.	male	14	54	1.63	healthy	thyrotoxicosis (moderate)	1500	90	1240	NA	1.21	342	1.9	22.7	1.2611111111	1240	22.962962962963	individual
+tyg1958	18	B.H	male	46	50.1	1.54	healthy	gastric ulcer	1300	86	1250	NA	0.84	303	1.6833333333	23.3	1.2944444444	1250	24.9500998003992	individual
+tyg1958	19	A.J.	male	32	70.4	1.89	healthy	chronic indigestion	1510	90	1260	NA	1.2	348	1.9333333333	22.7	1.2611111111	1260	17.8977272727273	individual
+tyg1958	20	J.T.	male	29	58.7	1.68	healthy	aortic incompetence	1120	91	1990	NA	0.56	164	0.9111111111	14.7	0.8166666667	1990	33.9011925042589	individual
+tyg1958	21	H.J.	male	38	72.3	1.84	healthy	arterial hypertension	1530	85	1890	NA	0.81	324	1.8	21.2	1.1777777778	1890	26.1410788381743	individual
+tyg1958	23	H.W.	male	50	73.5	1.77	healthy	pulmonary fibrosis	1370	92	1000	NA	1.38	323	1.7944444444	23.5	1.3055555556	1000	13.6054421768707	individual
+tyg1958	24	R.R.	male	39	56.5	1.66	healthy	chronic indigestion	1080	94	1450	NA	0.75	310	1.7222222222	28.6	1.5888888889	1450	25.6637168141593	individual
+tyg1958	25	K.M.	male	30	75.1	1.71	healthy	chronic indigestion	1100	86	1420	NA	0.77	311	1.7277777778	28.2	1.5666666667	1420	18.9081225033289	individual
+tyg1958	29	H.C.	male	43	NA	NA	cirrhosis	cirrhosis of the liver (mild)	1610	76	1650	2120	NA	219	1.2166666667	13.6	0.7555555556	1650	NA	individual
+tyg1958	30	A.A.	male	66	NA	NA	cirrhosis	cirrhosis of the liver (mild)	1050	63	1740	1660	NA	206	1.1444444444	19.7	1.0944444444	1740	NA	individual
+tyg1958	31	P.A.	male	67	NA	NA	cirrhosis	cirrhosis of the liver (moderate)	670	68	960	990	NA	296	1.6444444444	44	2.4444444444	960	NA	individual
+tyg1958	33	A.L.	female	57	NA	NA	cirrhosis	cirrhosis of the liver (severe)	730	63	580	1160	NA	209	1.1611111111	28.7	1.5944444444	580	NA	individual
+tyg1958	19	A.J.	male	32	NA	NA	alcohol	alcohol ingestion 20 g.	540	39	1070	1350	NA	147	0.8166666667	27.3	1.5166666667	1070	NA	individual

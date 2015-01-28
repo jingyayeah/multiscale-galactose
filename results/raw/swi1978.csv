@@ -1,3 +1,3 @@
-study	status	sex	state	n	age	ageMin	ageMax	bodyweight	bodyweightSd	volLiver	volLiverSd	volLiverkg	volLiverkgSd	dtype	gender	ageRange
-swi1978	healthy	U	young normal	15	24.5	20	29	67	12	1303	289	19.4	1.9	population	all	4.5
-swi1978	healthy	U	elderly normal	11	80.5	75	86	58	9	990	166	15.3	3.8	population	all	5.5
+study	status	sex	state	n	age	ageMin	ageMax	bodyweight	bodyweightSd	volLiver	volLiverSd	volLiverkg	volLiverkgSd	ageRange	dtype
+swi1978	healthy	all	young normal	15	24.5	20	29	67	12	1303	289	19.4	1.9	4.5	population
+swi1978	healthy	all	elderly normal	11	80.5	75	86	58	9	990	166	15.3	3.8	5.5	population

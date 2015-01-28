@@ -1,5 +1,5 @@
 [1] "### Data ###"
-    study              gender             volLiver      flowLiver       dtype               status  
+    study               sex               volLiver      flowLiver       dtype               status  
  Length:65          Length:65          Min.   : 650   Min.   : 500   Length:65          healthy:65  
  Class :character   Class :character   1st Qu.:1029   1st Qu.:1049   Class :character               
  Mode  :character   Mode  :character   Median :1222   Median :1297   Mode  :character               

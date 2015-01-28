@@ -1,4 +1,4 @@
-study	gender	age	flowLiver	dtype	status
+study	sex	age	flowLiver	dtype	status
 win1965	female	17	1450	individual	healthy
 win1965	female	49	1590	individual	healthy
 win1965	male	19	1690	individual	healthy

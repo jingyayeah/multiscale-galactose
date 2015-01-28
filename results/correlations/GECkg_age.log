@@ -1,5 +1,5 @@
 [1] "### Data ###"
-     study       gender               age              GECkg            dtype                     status   
+     study        sex                 age              GECkg            dtype                     status   
  lan2011:40   Length:183         Min.   : 0.2638   Min.   :0.01616   Length:183         healthy      :140  
  duc1979:13   Class :character   1st Qu.:19.6879   1st Qu.:0.03516   Class :character   liver disease: 30  
  tyg1963:22   Mode  :character   Median :24.6241   Median :0.04029   Mode  :character   cirrhosis    : 13  

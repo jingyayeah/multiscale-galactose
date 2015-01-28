@@ -1,4 +1,4 @@
-study	gender	BSA	volLiver	dtype	status
+study	sex	BSA	volLiver	dtype	status
 naw1998	female	1.51	1090	individual	healthy
 naw1998	female	1.64	1131	individual	healthy
 naw1998	female	1.64	1307	individual	healthy

@@ -70,9 +70,9 @@ stopDevPlot <- function(){
 #######################################################
 # Data preprocessing
 #######################################################
-fname <- file.path(ma.settings$dir.base, "results", 'correlations', sprintf("%s_%s.Rdata", yname, xname))
-print(fname)
-load(file=fname)
+
+
+data <- load_correlation_data(xname, yname)
 
 # data processing (change names, remove NAs, create factors)
 names(data)[names(data) == 'gender'] <- 'sex'

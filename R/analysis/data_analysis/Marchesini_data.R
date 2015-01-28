@@ -11,10 +11,9 @@ library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 create_plots = F
 
-gender.levels <- c('all', 'male', 'female')
-gender.cols = c(rgb(0,0,0,0.5), rgb(0,0,1,0.5), rgb(1,0,0,0.5))
-# gender.cols = c(rgb(0,0,0,0.5), rgb(0,0,0,0.5), rgb(0,0,0,0.5))
-names(gender.cols) <- gender.levels
+# Visualization options for gender
+g <- gender.cols()
+
 
 ##############################################
 # Datasets
@@ -28,10 +27,11 @@ marG2$gender[marG2$gender=='F'] <- 'female'
 marG2$gender[marG2$gender=='A'] <- 'all'
 
 # filter
-marG2 <- marG2[marG2$A != 0.514, ] # filter out the high dose data
+# marG2 <- marG2[marG2$A != 0.514, ] # filter out the high dose data
 head(marG2)
 
 # GEC~age data
+loadRawData
 fname <- file.path(ma.settings$dir.expdata, "processed", sprintf("%s_%s.Rdata", 'GEC', 'age'))
 load(file=fname)
 GEC_age <- data 

@@ -1,10 +1,10 @@
-study	status	sex	age	liverBloodflow	dtype	gender	flowLiver
-wyn1990	healthy	U	20.2	1800.0244	individual	all	1800.0244
-wyn1990	healthy	U	26.2	2086.5347	individual	all	2086.5347
-wyn1990	healthy	U	29.8	2538.783	individual	all	2538.783
-wyn1990	healthy	U	47.9	2027.5415	individual	all	2027.5415
-wyn1990	healthy	U	43.1	1382.087	individual	all	1382.087
-wyn1990	healthy	U	67.4	1396.7986	individual	all	1396.7986
-wyn1990	healthy	U	69.5	1420.2346	individual	all	1420.2346
-wyn1990	healthy	U	71.5	1107.7224	individual	all	1107.7224
-wyn1990	healthy	U	82.7	958.5777	individual	all	958.5777
+study	status	sex	age	liverBloodflow	flowLiver	dtype
+wyn1990	healthy	all	20.2	1800.0244	1800.0244	individual
+wyn1990	healthy	all	26.2	2086.5347	2086.5347	individual
+wyn1990	healthy	all	29.8	2538.783	2538.783	individual
+wyn1990	healthy	all	47.9	2027.5415	2027.5415	individual
+wyn1990	healthy	all	43.1	1382.087	1382.087	individual
+wyn1990	healthy	all	67.4	1396.7986	1396.7986	individual
+wyn1990	healthy	all	69.5	1420.2346	1420.2346	individual
+wyn1990	healthy	all	71.5	1107.7224	1107.7224	individual
+wyn1990	healthy	all	82.7	958.5777	958.5777	individual

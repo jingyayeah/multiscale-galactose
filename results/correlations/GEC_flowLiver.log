@@ -1,5 +1,5 @@
 [1] "### Data ###"
-     study      gender            flowLiver         GEC           dtype               status 
+     study       sex              flowLiver         GEC           dtype               status 
  win1965:7   Length:7           Min.   :1450   Min.   :1.180   Length:7           healthy:7  
              Class :character   1st Qu.:1535   1st Qu.:1.702   Class :character              
              Mode  :character   Median :1690   Median :1.880   Mode  :character              

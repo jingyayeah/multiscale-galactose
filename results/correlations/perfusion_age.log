@@ -1,5 +1,5 @@
 [1] "### Data ###"
-    study              gender               age          perfusion        dtype               status  
+    study               sex                 age          perfusion        dtype               status  
  Length:65          Length:65          Min.   :24.00   Min.   :0.600   Length:65          healthy:65  
  Class :character   Class :character   1st Qu.:33.00   1st Qu.:0.960   Class :character               
  Mode  :character   Mode  :character   Median :55.00   Median :1.060   Mode  :character               

@@ -1,4 +1,4 @@
-study	gender	bodyweight	flowLiver	dtype	status
+study	sex	bodyweight	flowLiver	dtype	status
 she1950	female	50	1290	individual	healthy
 she1950	female	60	1270	individual	healthy
 she1950	female	60	1480	individual	healthy

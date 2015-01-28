@@ -1,5 +1,5 @@
 [1] "### Data ###"
-    study              gender            volLiverkg     flowLiverkg       dtype               status  
+    study               sex              volLiverkg     flowLiverkg       dtype               status  
  Length:65          Length:65          Min.   :12.80   Min.   :10.90   Length:65          healthy:65  
  Class :character   Class :character   1st Qu.:15.50   1st Qu.:16.40   Class :character               
  Mode  :character   Mode  :character   Median :18.20   Median :20.10   Mode  :character               

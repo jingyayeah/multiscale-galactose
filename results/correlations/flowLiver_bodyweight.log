@@ -1,5 +1,5 @@
 [1] "### Data ###"
-    study              gender            bodyweight      flowLiver         dtype                 status   
+    study               sex              bodyweight      flowLiver         dtype                 status   
  Length:802         Length:802         Min.   : 3.90   Min.   : 220.2   Length:802         healthy  :802  
  Class :character   Class :character   1st Qu.:35.72   1st Qu.: 852.5   Class :character   alcohol  :  0  
  Mode  :character   Mode  :character   Median :58.00   Median :1081.1   Mode  :character   cirrhosis:  0  
