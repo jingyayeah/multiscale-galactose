@@ -44,7 +44,8 @@ df2 <- pdata[, c('sex', 'age', 'bodyweight', 'GEC', 'status', 'disease')]
 df2$study <- 'marexp'
 df2[, c('height', 'BSA', 'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg')] <- NA
 df2$GECkg <- df2$GEC/df2$bodyweight
-head(df)
+df2$sex <- process_sex(df2)
+
 head(df2)
 
 # combine datasets
@@ -107,6 +108,15 @@ fitpred = prediction(fitpreds, data$disease)
 fitperf = performance(fitpred,"tpr","fpr")
 plot(fitperf, col='darkgreen', add=TRUE)
 
+fitpreds = predict(fit3, newdata=data, type="response")
+fitpred = prediction(fitpreds, data$disease)
+fitperf = performance(fitpred,"tpr","fpr")
+plot(fitperf, col='red', add=TRUE)
+
+fitpreds = predict(fit2, newdata=data, type="response")
+fitpred = prediction(fitpreds, data$disease)
+fitperf = performance(fitpred,"tpr","fpr")
+plot(fitperf, col='black', add=TRUE)
 
 
 x.values = c(0.03030303, 0.07070707, 0.09090909, 0.1515152, 0.2020202, 0.2828283, 0.3838384)
@@ -127,7 +137,8 @@ GEC_f <- GEC_functions(task='T1')
 
 
 # make the predictions
-liver.info <- predict_liver_people(df, Nsample=2000, Ncores=1, debug=TRUE)
+
+liver.info <- predict_liver_people(df2[1:10, ], Nsample=2000, Ncores=1, debug=TRUE)
 GEC.info <- calculate_GEC(GEC_f, 
                           volLiver=liver.info$volLiver,
                           flowLiver=liver.info$flowLiver)

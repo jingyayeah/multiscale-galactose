@@ -85,6 +85,7 @@ pdata$disease <- 1
 pdata$disease[pdata$status=='N'] <- 0
 head(pdata)
 
+
 save('pdata', file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
 load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
 

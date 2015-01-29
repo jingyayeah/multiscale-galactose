@@ -4,7 +4,7 @@
 \alias{save_classification_data}
 \title{Saves classification data.}
 \usage{
-save_classification_data(data, dir = get_classifiction_dir())
+save_classification_data(data, name, dir = get_classification_dir())
 }
 \description{
 Saves classification data.
