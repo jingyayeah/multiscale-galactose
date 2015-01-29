@@ -57,6 +57,9 @@ p
 #################################
 # Time dependency galactose
 #################################
+
+
+
 names(marG2)
 plot(marG2$t.20, marG2$k.20, xlim=c(0,100), ylim=c(0,1000)) 
 points(marG2$t.2, marG2$k.2) 

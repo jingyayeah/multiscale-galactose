@@ -1,33 +1,57 @@
 ################################################################
 ## Calculate the GEC values from Marchesini Raw data
 ################################################################
-# GEC curves from Marchesini
+# Galactose injection with subsequent calculation of the 
+# galactose elimination capacity (GEC) from galactose over 
+# time.
 #
 # author: Matthias Koenig
-# date: 2014-11-17
+# date: 2014-01-29
 ################################################################
-
-# load data
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
 
+######################
+# Data preparation
+######################
 raw <- read.csv(file.path(ma.settings$dir.expdata, "raw_data", "marchesini", "Koenig_core.csv"), sep="\t")
 head(raw)
 
-# make copy and remove unnecessary columns
+# make copy, remove unnecessary columns, canonical sex
 data <- raw
 data$date <- NULL
 data$birth <- NULL
-rownames(data)<- 1:nrow(data)
+data$sex <- process_sex(data)
+
+# set disease status
+data$disease <- 1
+data$disease[data$status=='N'] <- 0
 
 # calculate the dose based on bodyweight and 
 # injected dose of 500mg/kg (bodyweight)
 data$dose <- 0.5 * data$bodyweight # [g]
 
+
+# Filter data based on status
+# E = liver disease (were repeatedly used in studies in cirrhosis/chronic hepatitis/HCC)
+# N = controls (with different age; they were used in studies in aging); 
+# O=???? (uncertain); 
+# R = resection for primary or secondary liver cancer; 
+# T=thyroid diseases (both hypo and hyperthyroidism)
+# => remove O and T
+data <- data[data$status!='O', ]
+data <- data[data$status!='T', ]
+
+# renumber
+rownames(data)<- 1:nrow(data)
+
 head(data)
 summary(data)
 
+######################
+# Calculate GEC
+######################
 calculate_GEC_from_raw <- function(p){
   # time and absorbance matrix
   t.mat <- as.matrix(data[, paste('t', 1:6, sep="")])
@@ -78,49 +102,57 @@ calculate_GEC_from_raw <- function(p){
 }
 
 pdata <- calculate_GEC_from_raw(data)
-head(pdata)
-
-# Set the disease status
-pdata$disease <- 1
-pdata$disease[pdata$status=='N'] <- 0
-head(pdata)
-
-
 save('pdata', file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
-load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
+head(pdata)
 
 ########################################
-# Create plot
+# GEC ~ age
 ########################################
+# Load the rest of the classification data
+gec_data.all <- load_classification_data(name='GEC_classification')
+gec_data <- gec_data.all[gec_data.all$status=="healthy", ]
+head(gec_data)
+
+
 library(ggplot2)
 
-# plot GEC depending on type
+# plot GEC depending on status & age
 g <- ggplot(pdata, aes(age, GEC, color=status))
 p <- g + geom_point() + facet_grid(.~status)
 p
 
-# create value matrix
-p <- ggplot() + geom_point(aes(x=pdata$age, y=pdata$GEC, color=pdata$status)) + xlim(0,100) + ylim(0,5) + xlab("G2 age [years]") +
-  ylab("G2 GEC [mmole/min]") 
+# GEC vs age
+p <- ggplot() + geom_point(aes(x=pdata$age, y=pdata$GEC, color=pdata$status)) + xlim(0,100) + ylim(0,5) + xlab("age [years]") +
+  ylab("GEC [mmole/min]") 
 p
+p + geom_point(aes(x=gec_data$age, y=gec_data$GEC, size=1.2, alpha=0.9))
 
-gec_data.all <- load_classification_data(name='GEC_classification')
-head(gec_data)
-
-gec_data <- gec_data.all[gec_data.all$status=="healthy", ]
-
-g.info <- gender.cols()
-
-p <- ggplot() + geom_point(aes(x=pdata$age, y=pdata$GEC, color=pdata$status)) + geom_point(aes(x=gec_data$age, y=gec_data$GEC, size=1.2, alpha=0.9)) + xlim(0,100) + ylim(0,5) + xlab("G2 age [years]") +
-  ylab("G2 GEC [mmole/min]")
-p
-
-
-
-
-
-# get the first time, value & concentration
+#################################
+# Time dependency galactose
+#################################
+# time and concentration matrix
+samples <- 6
+t.mat <- as.matrix(pdata[, paste('t', 1:samples, sep="")]) # [min]
+k.mat <- as.matrix(pdata[, paste('k', 1:samples, sep="")])
+c.mat <- k.mat
+colnames(c.mat) <- paste('c', 1:samples, sep="")
+for (k in 1:samples){
+  c.mat[ ,k] <- c.mat[ ,k]*pdata$L/180*10  # [mg/dl] -> [mM]
+}
+head(c.mat)
 
 
-
-# get the last time, dose & concentration
+par(mfrow=c(1,2))
+for (status in unique(pdata$disease)){
+  r = (pdata$disease==status)
+  plot(t.mat[r, ], c.mat[r, ], 
+       xlab='time [min]', ylab='galactose [mM]',
+       xlim = c(0,90), ylim = c(0, 14),
+       main=paste("GEC single injection, disease =", status) , pch=21, col="black", bg=rgb(0.5,0.5,0.5,0.5), cex=0.5)
+  for (k in 1:nrow(t.mat)){
+    if (r[k] == TRUE){
+      lines(t.mat[k, ], c.mat[k, ], col=rgb(0,0,0,0.2))
+    }
+  }
+}
+par(mfrow=c(1,1))
