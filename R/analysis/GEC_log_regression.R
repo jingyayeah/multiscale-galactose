@@ -171,25 +171,163 @@ write.table(d.table, file=file.path(ma.settings$dir.base, 'results', 'classifica
 # Here the full dataset is used, i.e. no split in trainings & validation dataset.
 # Do some proper cross-validation => measure performance on validation data-set
 
-# TODO: list of models based on formula
+# Create binomial models with full dataset
 m <- list()
-m[[1]] <- glm(formula[[1]], data=d[[1]], family="binomial")
-summary(m[[1]])
-library('ggplot2')
+for (k in seq_along(formula)){
+  # fit model with the full dataset
+  m[[k]] <- glm(formula[[k]], data=d[[k]], family="binomial")  
+}
+names(m) <- ids
 
-m2 <- glm(disease ~ GEC + bodyweight, data=d2, family="binomial")
-summary(m2)
-m3 <- glm(disease ~ GEC + bodyweight + sex, data=d3, family="binomial")
-summary(m3)
-m4 <- glm(disease ~ GEC + bodyweight + age, data=d4, family="binomial")
-summary(m4)
-m5 <- glm(disease ~ GEC + bodyweight + sex + age, data=d5, family="binomial")
-summary(m5)
+lapply(m, summary)
 
 # confidence intervals, bootstrap, crossvalidation
 d1 <- d[[1]]
 f <- formula[[1]]
 m1 <- glm(disease ~ GEC + bodyweight, data=d1, family="binomial")
+
+
+##############################################################################
+# Testing predictive value of model
+##############################################################################
+# Various methods available: 
+# * split sample (training & test data)
+# * cross-validation (k-fold)
+# * bootstrapping
+
+# (Steyerberg2001) We found that split-sample analyses gave overly pessimistic estimates of performance,
+# with large variability. Cross-validation on 10% of the sample had low bias and low variability, 
+# but was not suitable for all performance measures. Internal validity could best be estimated with bootstrapping, 
+# which provided stable estimates with low bias. We conclude that split-sample validation
+# is inefficient, and recommend bootstrapping for estimation of internal validity of a predictive logistic 
+# regression model.
+# Note that the following functions in the rms package facilitates cross-validation and bootstrapping 
+# for validating models: ols, validate, calibrate.
+
+## Cross-Validation (k-fold & leave-one-out) ##
+# The drawback to leave-one-out CV is subtle but often decisive. Since each training
+# set has n 􀀀 1 points, any two training sets must share n 􀀀 2 points. The models fit
+# to those training sets tend to be strongly correlated with each other. Even though
+# we are averaging n out-of-sample forecasts, those are correlated forecasts, so we are
+# not really averaging away all that much noise. With k-fold CV, on the other hand,
+# the fraction of data shared between any two training sets is just k􀀀2
+# k􀀀1 , not n􀀀2 n􀀀1 , so even though the number of terms being averaged is smaller, they are less correlated.
+
+## split-sample ##
+# do a repeated split in training and test data 
+# - fit the model
+# - test the trainings data set
+
+# splitdf function will return a list of training and testing sets
+splitdf <- function(dataframe, seed=NULL) {
+  if (!is.null(seed)) set.seed(seed)
+  index <- 1:nrow(dataframe)
+  trainindex <- sample(index, trunc(length(index)/2))
+  trainset <- dataframe[trainindex, ]
+  testset <- dataframe[-trainindex, ]
+  list(trainset=trainset,testset=testset)
+}
+
+#apply the function
+splits <- splitdf(d1, seed=808)
+summary(splits)
+lapply(splits,nrow)
+lapply(splits,head, 20)
+fun_1 <- function(df){
+  table(df$study)
+}
+lapply(splits, fun_1)
+
+plot(numeric(0), numeric(0), col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC", type='n',
+     xlim=c(0,1), ylim=c(0,1))
+abline(a=0,b=1,lwd=2,lty=2,col="gray")
+m[[1]] <- glm(formula[[1]], data=d1, family="binomial")
+fitpreds = predict(m1, newdata=d1, type="response")
+fitpred = prediction(fitpreds, d1$disease)
+fitperf = performance(fitpred,"tpr","fpr")
+plot(fitperf, col='darkgreen', add=TRUE, lwd="2")
+
+set.seed(1234)
+N = 20
+for (k in 1:20){
+  splits <- splitdf(d1)
+  m.cv <- glm(formula[[1]], data=splits$trainset, family="binomial")
+  fitpreds = predict(m.cv, newdata=splits$testset, type="response")
+  fitpred = prediction(fitpreds, splits$testset$disease)
+  fitperf = performance(fitpred,"tpr","fpr")
+  plot(fitperf, col='lightgreen', add=TRUE, lwd="1")
+}
+
+# Bootstrap Model fitting
+library('boot')
+
+
+# bootstrap calculation of function
+m_bootstrap <- function(df, formula, B=100){
+  # fit all the bootstrap models
+  m <- as.list(rep(NA, B))
+  
+  # calculate for bootstrap samples
+  N <- nrow(df)
+  for (k in 1:B){
+    inds <- sample(seq(1,N), size=N, replace=TRUE)
+    # create the bootstrap data.frame
+    df.boot <- df[inds, ]
+    print(model with bootstrap data
+    m[[k]] <- glm(formula, data=df.boot, family="binomial")
+  }
+  return(m)
+}
+
+plot_bootstrap <- function(df, formula, B=100, col='gray'){
+  m.boot <- m_bootstrap(df, formula, B=B)
+  for (m.b in m.boot){
+    # prinds = predict(m.b, newdata=df, type="response")
+    fitpred = prediction(fitpreds, df$disease)
+    fitperf = performance(fitpred,"tpr","fpr")
+    plot(fitperf, col=col, add=TRUE, lwd="1")  
+  }
+}
+
+cols <- c('darkgreen', 'darkorange', 'darkred', 'darkblue', 'darkmagenta')
+
+for (k in seq_along(formula)){
+  col = add.alpha(cols[k], 0.2)
+  plot_bootstrap(d[[k]], formula[[k]], B=100, cols[k]) 
+
+
+
+
+
+
+# Calculate bootstrap sd for confidence intervals
+d2.se <- ddply(parscl, c("gal_challenge", 'f_flow'), f_bootstrap, funct=sd, B=1000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # The predict() command can calculate confidence intervals for the predicted values

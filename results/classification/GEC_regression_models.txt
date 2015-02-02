@@ -1,0 +1,131 @@
+$m1
+
+Call:
+glm(formula = formula[[k]], family = "binomial", data = d[[k]])
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.6821   0.1943   0.3414   0.5390   2.5910  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)   6.5480     0.3973   16.48   <2e-16 ***
+GEC          -2.4563     0.1755  -13.99   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1097.19  on 1123  degrees of freedom
+Residual deviance:  802.32  on 1122  degrees of freedom
+AIC: 806.32
+
+Number of Fisher Scoring iterations: 5
+
+
+$m2
+
+Call:
+glm(formula = formula[[k]], family = "binomial", data = d[[k]])
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-2.90215   0.09412   0.20019   0.40096   2.62709  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.14732    0.67327   1.704   0.0884 .  
+GEC         -3.86072    0.28711 -13.447   <2e-16 ***
+bodyweight   0.12866    0.01381   9.313   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 899.61  on 1059  degrees of freedom
+Residual deviance: 535.68  on 1057  degrees of freedom
+AIC: 541.68
+
+Number of Fisher Scoring iterations: 6
+
+
+$m3
+
+Call:
+glm(formula = formula[[k]], family = "binomial", data = d[[k]])
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-2.94792   0.09592   0.18238   0.37471   2.60490  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.68729    0.76638   2.202   0.0277 *  
+GEC         -3.97383    0.32853 -12.096  < 2e-16 ***
+bodyweight   0.12614    0.01643   7.678 1.61e-14 ***
+sexmale      0.02166    0.28509   0.076   0.9394    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 727.31  on 989  degrees of freedom
+Residual deviance: 447.98  on 986  degrees of freedom
+AIC: 455.98
+
+Number of Fisher Scoring iterations: 6
+
+
+$m4
+
+Call:
+glm(formula = formula[[k]], family = "binomial", data = d[[k]])
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.2810   0.0549   0.1188   0.2543   2.8845  
+
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.367762   1.248967   1.095    0.273    
+GEC         -4.820001   0.514466  -9.369  < 2e-16 ***
+bodyweight   0.156578   0.022654   6.912 4.79e-12 ***
+age          0.007017   0.011435   0.614    0.539    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 468.33  on 720  degrees of freedom
+Residual deviance: 226.16  on 717  degrees of freedom
+AIC: 234.16
+
+Number of Fisher Scoring iterations: 7
+
+
+$m5
+
+Call:
+glm(formula = formula[[k]], family = "binomial", data = d[[k]])
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-3.05890   0.05472   0.10940   0.22635   2.52391  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  5.49805    1.67465   3.283  0.00103 ** 
+GEC         -4.57020    0.57183  -7.992 1.32e-15 ***
+bodyweight   0.12140    0.02604   4.662 3.13e-06 ***
+sexmale      1.02121    0.46458   2.198  0.02794 *  
+age         -0.03943    0.01553  -2.539  0.01112 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 304.38  on 680  degrees of freedom
+Residual deviance: 172.20  on 676  degrees of freedom
+AIC: 182.2
+
+Number of Fisher Scoring iterations: 7
