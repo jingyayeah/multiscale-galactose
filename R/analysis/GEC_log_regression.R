@@ -119,21 +119,6 @@ d_subset <- function(data, subset){
   return(data[v,])
 }
 
-# d1 <- d_subset(data, c('disease', "GEC"))
-# head(d1, 20)
-# d2 <- d_subset(data, c('disease', 'GEC', 'bodyweight'))
-# d3 <- d_subset(data, c('disease', 'GEC', 'sex'))
-# d3 <- d3[d3$sex != 'all', ]
-# count(d3$disease)
-# tmp <- d3[d3$disease == 0, c('disease', 'GEC', 'bodyweight', 'sex') ]
-# 
-# d4 <- d_subset(data, c('disease', 'GEC', 'bodyweight', 'age'))
-# count(d4$disease)
-#  # make sure that male/female subset
-# d5 <- d_subset(data, c('disease', 'GEC', 'bodyweight', 'sex', 'age'))
-# d5 <- d5[d5$sex != 'all', ]
-# count(d5$disease)
-
 # get the data subsets corresponding to the data
 d <- list()
 for (k in seq_along(formula)){
@@ -258,9 +243,6 @@ for (k in 1:20){
   plot(fitperf, col='lightgreen', add=TRUE, lwd="1")
 }
 
-# Bootstrap Model fitting
-library('boot')
-
 
 # bootstrap calculation of function
 m_bootstrap <- function(df, formula, B=100){
@@ -273,7 +255,7 @@ m_bootstrap <- function(df, formula, B=100){
     inds <- sample(seq(1,N), size=N, replace=TRUE)
     # create the bootstrap data.frame
     df.boot <- df[inds, ]
-    print(model with bootstrap data
+    # fit model with bootstrap data
     m[[k]] <- glm(formula, data=df.boot, family="binomial")
   }
   return(m)
@@ -281,19 +263,62 @@ m_bootstrap <- function(df, formula, B=100){
 
 plot_bootstrap <- function(df, formula, B=100, col='gray'){
   m.boot <- m_bootstrap(df, formula, B=B)
-  for (m.b in m.boot){
-    # prinds = predict(m.b, newdata=df, type="response")
-    fitpred = prediction(fitpreds, df$disease)
-    fitperf = performance(fitpred,"tpr","fpr")
-    plot(fitperf, col=col, add=TRUE, lwd="1")  
+  
+  pp <- as.list(rep(NA, B)) # predictions
+  ll <- as.list(rep(NA, B)) # labels
+  for (k in 1:B){
+    pp[[k]] = predict(m.boot[[k]], newdata=df, type="response")
+    ll[[k]] = df$disease
   }
+  
+#   for (m.b in m.boot){
+#     fitpreds = predict(m.b, newdata=df, type="response")
+#     fitpred = prediction(fitpreds, df$disease)
+#     fitperf = performance(fitpred,"tpr","fpr")
+#     plot(fitperf, col=col, add=TRUE, lwd="1")  
+#     
+#     tpr <- attr(fitperf, 'x.values')[[1]]
+#     fpr <- attr(fitperf, 'x.values')[[1]]
+#   }
+  
+  pred<- prediction(pp, ll)
+  perf <- performance(pred, "tpr", "fpr")
+  plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.2), add=T)
+  plot(perf, avg= "threshold", colorize=F, lwd=3, col=col, add=T)
+  
+ return(list(pp=pp, ll=ll))
 }
 
-cols <- c('darkgreen', 'darkorange', 'darkred', 'darkblue', 'darkmagenta')
+# tmp <- plot_bootstrap(d[[2]], formula[[2]], B=100, col=col[2])  
 
+cols <- c('darkgreen', 'darkorange', 'darkred', 'darkblue', 'darkmagenta')
 for (k in seq_along(formula)){
-  col = add.alpha(cols[k], 0.2)
-  plot_bootstrap(d[[k]], formula[[k]], B=100, cols[k]) 
+  col = add.alpha(cols[k], 1.0)
+  plot_bootstrap(d[[k]], formula[[k]], B=100, col)  
+}
+
+# TODO: add legend with formula
+# TODO: color of bootstrap runs corresponding to average of runs
+# TODO: what is going on with dataset 1 ? No variance in bootstrap
+# TODO: calculate the mean & se of the bootstraps (proper shading of regions)
+
+
+# Working with data in ROCR
+str(fitperf)
+attr(fitperf, 'x.name')
+attr(fitperf, 'y.name')
+plot(attr(fitperf, 'x.values')[[1]], attr(fitperf, 'y.values')[[1]])
+
+str(fitpred)
+tmp = performance(fitpred,"tpr")
+str(tmp)
+plot(attr(tmp$x.values, tmp$y.values))
+attr(tmp, 'x.values')
+attr(tmp, 'y.values')
+
+
+
+
 
 
 
@@ -302,31 +327,6 @@ for (k in seq_along(formula)){
 
 # Calculate bootstrap sd for confidence intervals
 d2.se <- ddply(parscl, c("gal_challenge", 'f_flow'), f_bootstrap, funct=sd, B=1000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -353,8 +353,18 @@ points(d1$GEC, d1$disease, pch=21, col="black", bg=rgb(0,0,1, 0.5))
 
 
 # install.packages('ROCR')
-library(ROCR)
 # http://rocr.bioinf.mpi-sb.mpg.de/
+library(ROCR)
+# ROC curves:
+#  measure="tpr", x.measure="fpr".
+# Precision/recall graphs:
+#  measure="prec", x.measure="rec".
+# Sensitivity/specificity plots:
+#  measure="sens", x.measure="spec".
+# Lift charts:
+#  measure="lift", x.measure="rpp".
+
+
 
 # store models & data in list
 
@@ -384,7 +394,7 @@ plot(fitperf, col='black', add=TRUE)
 x.values = c(0.03030303, 0.07070707, 0.09090909, 0.1515152, 0.2020202, 0.2828283, 0.3838384)
 y.values = c(0.6153846, 0.7692308, 0.8461538, 0.8461538, 0.8461538,  1.0, 1.0)
 points(x.values, y.values, pch=22, col='black', bg='red')
-lines(x.values, y.values, col='red')
+lines(x.values, y.values, col='red', lwd=3)
 par(mfrow = c(1,1))
 
 #########################################################
