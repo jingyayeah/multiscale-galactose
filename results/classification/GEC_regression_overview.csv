@@ -1,0 +1,6 @@
+id	formula	H	D	C
+m1	disease ~ GEC	215	909	1124
+m2	disease ~ GEC + bodyweight	160	900	1060
+m3	disease ~ GEC + bodyweight + sex	119	871	990
+m4	disease ~ GEC + bodyweight + age	72	649	721
+m5	disease ~ GEC + bodyweight + sex + age	40	641	681

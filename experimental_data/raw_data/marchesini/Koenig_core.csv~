@@ -1,4 +1,4 @@
-id	name	sex	status	date	birth	age	bodyweight	L	n	t-20	t-2	t-3	t-4	t-5	t-6	k-20	k-2	k-3	k-4	k-5	k-6
+id	name	sex	status	date	birth	age	bodyweight	L	n	t1	t2	t3	t4	t5	t6	k1	k2	k3	k4	k5	k6
 M1	Abatecola Giuseppe	M	E	1983-07-11	NA	NA	68.0 	0.278	5 	20 	30 	35 	40 	45 	NA	442 	357 	311 	274 	240 	NA
 M2	Abella Gaetano	M	E	1983-05-20	1936-01-28	47.3	60.0 	0.278	6 	20 	25 	30 	35 	40 	45 	444 	444 	397 	384 	370 	339 
 M3	Abella Gaetano	M	E	1983-07-04	1936-01-28	47.4	60.0 	0.278	6 	20 	25 	30 	35 	40 	45 	366 	353 	332 	320 	290 	274 

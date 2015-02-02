@@ -43,6 +43,7 @@ save_classification_data(data=df, name='GEC_classification')
 # data
 load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
 head(pdata)
+summary(as.factor(pdata$sex))
 
 df2 <- pdata[, c('sex', 'age', 'bodyweight', 'GEC', 'status', 'disease')]
 df2$study <- 'marexp'
@@ -73,6 +74,10 @@ hist(data$GECkg[data$disease==1], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg'
 hist(data$GECkg[data$disease==0], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(0.5,0.5,0.5, 0.5), add=TRUE)
 par(mfrow = c(1,1))
 
+nrow(data)
+summary(data)
+summary(as.factor(data$sex))
+
 
 ##############################################
 #   Logistic regression GEC
@@ -96,12 +101,6 @@ names(formula) <- ids
 formula
 
 ## Data subsets ##
-# Create data subsets for the respective models, so that a fair comparison on the same datasets can be made
-d_subset <- function(data, subset){
-  v <- complete.cases(data[, subset])
-  return(data[v,])
-}
-
 # get the necessary subset from the formula
 subset_from_formula <- function(f){
   s <- strsplit(f, '~')[[1]]
@@ -114,20 +113,26 @@ subset_from_formula <- function(f){
   return(c(left, right))
 }
 
+# Create data subsets for the respective models, so that a fair comparison on the same datasets can be made
+d_subset <- function(data, subset){
+  v <- complete.cases(data[, subset])
+  return(data[v,])
+}
 
 # d1 <- d_subset(data, c('disease', "GEC"))
 # head(d1, 20)
 # d2 <- d_subset(data, c('disease', 'GEC', 'bodyweight'))
-d3 <- d_subset(data, c('disease', 'GEC', 'sex'))
-d3 <- d3[d3$sex != 'all', ]
-count(d3$disease)
-d3[d3$disease == 0, c('disease', 'GEC', 'sex') ]
-
-
-# d4 <- d_subset(data, c('disease', 'GEC', 'age'))
-# # make sure that male/female subset
-# d5 <- d_subset(data, c('disease', 'GEC', 'sex', 'age'))
+# d3 <- d_subset(data, c('disease', 'GEC', 'sex'))
+# d3 <- d3[d3$sex != 'all', ]
+# count(d3$disease)
+# tmp <- d3[d3$disease == 0, c('disease', 'GEC', 'bodyweight', 'sex') ]
+# 
+# d4 <- d_subset(data, c('disease', 'GEC', 'bodyweight', 'age'))
+# count(d4$disease)
+#  # make sure that male/female subset
+# d5 <- d_subset(data, c('disease', 'GEC', 'bodyweight', 'sex', 'age'))
 # d5 <- d5[d5$sex != 'all', ]
+# count(d5$disease)
 
 # get the data subsets corresponding to the data
 d <- list()
@@ -144,11 +149,10 @@ for (k in seq_along(formula)){
 names(d) <- ids
 summary(d)
 
-head(d[[1]])
-
 # Create an overview table of the data
 tmp <- rep(NA, length(formula))
-d.table <- data.frame(formula=as.matrix(formula), H=tmp, D=tmp, C=tmp)
+d.table <- data.frame(id=ids, formula=as.character(formula), H=tmp, D=tmp, C=tmp)
+d.table
 rownames(d.table) <- ids
 for (k in seq_along(d)){
   d.tmp <- d[[k]]
@@ -157,30 +161,22 @@ for (k in seq_along(d)){
   C = nrow(d.tmp)
   d.table[k, c('H', 'D', 'C')] <- c(H, D, C)
 }
+
+# save csv
 d.table
-
-head(d[[5]], 30)
-
-table(d1$disease)
-nrow(d1)
-
-table(d2$disease)
-nrow(d2)
-
-table(d3$disease)
-nrow(d3)
-
-table(d4$disease)
-nrow(d4)
-
-table(d5$disease)
-nrow(d5)
+write.table(d.table, file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_regression_overview.csv'), 
+            sep="\t", quote=FALSE, row.names=FALSE)
 
 ## Logistic regression ##
 # Here the full dataset is used, i.e. no split in trainings & validation dataset.
 # Do some proper cross-validation => measure performance on validation data-set
-m1 <- glm("disease ~ GEC", data=d1, family="binomial")
-summary(m1)
+
+# TODO: list of models based on formula
+m <- list()
+m[[1]] <- glm(formula[[1]], data=d[[1]], family="binomial")
+summary(m[[1]])
+library('ggplot2')
+
 m2 <- glm(disease ~ GEC + bodyweight, data=d2, family="binomial")
 summary(m2)
 m3 <- glm(disease ~ GEC + bodyweight + sex, data=d3, family="binomial")
@@ -189,6 +185,16 @@ m4 <- glm(disease ~ GEC + bodyweight + age, data=d4, family="binomial")
 summary(m4)
 m5 <- glm(disease ~ GEC + bodyweight + sex + age, data=d5, family="binomial")
 summary(m5)
+
+# confidence intervals, bootstrap, crossvalidation
+d1 <- d[[1]]
+f <- formula[[1]]
+m1 <- glm(disease ~ GEC + bodyweight, data=d1, family="binomial")
+
+
+# The predict() command can calculate confidence intervals for the predicted values
+a <- predict(mod1, interval="confidence") 
+
 
 
 # m1 analysis, i.e. plot of the probabilities
