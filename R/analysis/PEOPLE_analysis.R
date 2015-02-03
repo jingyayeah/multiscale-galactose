@@ -2,10 +2,10 @@
 # Analyse PEOPLE prediction with experimental data
 ################################################################################
 # Create figures of cohort predictions in combination with experimental 
-# data. Examples are the NHANES data and the information from cat2010 & hei1999.
+# data.
 #
 # author: Matthias Koenig
-# date: 2014-12-07
+# date: 2014-02-03
 ################################################################################
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
@@ -78,6 +78,8 @@ stopDevPlot <- function(){
 
 ################################################################################
 ## load respective data ##
+
+# TODO: use the load correlation functions
 fname <- file.path(ma.settings$dir.base, "results", "correlations", sprintf("%s_%s.Rdata", yname, xname))
 print(fname)
 load(file=fname)
@@ -113,7 +115,7 @@ rm(data)
 #######################################################
 create_plots = T
 # sprintf("/home/mkoenig/Desktop/data/TEST_nhanes_%s_%s.png", xname, yname)
-png.file <- file.path(ma.settings$dir.base, 'results', sprintf("nhanes_%s_%s.png", yname, xname))
+png.file <- file.path(ma.settings$dir.base, 'results', 'population', sprintf("nhanes_%s_%s.png", yname, xname))
 startDevPlot(width=2000, height=1000, file=png.file)
 par(mfrow=c(1,3))
 for (k in 1:3){

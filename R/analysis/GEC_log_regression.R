@@ -417,7 +417,11 @@ disease_predictor <- function(GEC_exp, GEC, q=0.05){
 # GAMLSS models
 fit.models <- load_models_for_prediction()
 # GEC function
-GEC_f <- GEC_functions(task='T1')
+task = 'T1'
+GEC_f <- GEC_functions(task=task)
+fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', sprintf('GEC_curve_%s.png', task))
+plot_GEC_function(GEC_f)
+dev.off()
 
 # -------------------------------
 # Prediction with GEC app
@@ -431,7 +435,7 @@ GEC.info <- calculate_GEC(GEC_f,
 GEC <- GEC.info$values
 
 
-# ROC curve #
+# ROC curve - GEC App#
 fname <- file.path(ma.settings$dir.base, 'results', 'classification', 'ROC.png')
 png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
 plot_empty_roc()
