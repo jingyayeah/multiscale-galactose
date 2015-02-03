@@ -158,27 +158,63 @@ for (k in seq_along(formula)){
 names(m.all) <- ids
 lapply(m.all, summary)
 
-# ROC curve
+
+# plot the simple regression model
+# Probability for disease
+
+
+
+# Create plot of the predicted values from the data
+d_m1 <- list()
+d_m1$rankP <- predict(m1, newdata = d1, type = "response")
+d1_c <- data.frame(GEC=seq(from=0, to=5, by=0.1))
+d1_c$rankP <- predict(m1, newdata = d1_c, type = "response")
+
+plot(d1$GEC, d1$rankP, xlim=c(0,5), xlab=lab[['GEC']], ylim=c(-0.1,1.1),
+     main='Logistic regression: disease ~ GEC',
+     ylab='probability liver disease')
+lines(d1_c$GEC, d1_c$rankP)
+points(d1$GEC, d1$disease, pch=21, col="black", bg=rgb(0,0,1, 0.5))
+
+
+
+#------------------------------
+# ROC curves
+#------------------------------
+# http://rocr.bioinf.mpi-sb.mpg.de/
+# ROC curves:
+#  measure="tpr", x.measure="fpr".
+# Precision/recall graphs:
+#  measure="prec", x.measure="rec".
+# Sensitivity/specificity plots:
+#  measure="sens", x.measure="spec".
+# Lift charts:
+#  measure="lift", x.measure="rpp".
+
+# install.packages('ROCR')
+library(ROCR)
 cols <- c('darkgreen', 'darkorange', 'darkred', 'darkblue', 'darkmagenta')
 cols <- add.alpha(cols, 0.7)
 names(cols) <- ids
 
-plot(numeric(0), numeric(0),main="ROC Curve for Logistic:  GEC", 
+plot_best_roc <- function(){
+ plot(numeric(0), numeric(0),main="ROC Curve for Logistic:  GEC", 
      type='n', xlim=c(0,1), ylim=c(0,1),
      xlab="False positive rate",
-     ylab="True positive rate", )
-abline(a=0,b=1,lwd=2,lty=2,col="gray")
-for (id in ids){
+     ylab="True positive rate")
+ abline(a=0,b=1,lwd=2,lty=2,col="gray")
+ for (id in ids){
   fitpreds = predict(m.all[[id]], newdata=d[[id]], type="response")
   fitpred = prediction(fitpreds, (d[[id]])$disease)
   fitperf = performance(fitpred,"tpr","fpr")
   plot(fitperf, col=cols[[id]], add=TRUE, lwd="2")
-}
-legend('bottomright', legend=as.character(formula), 
+ }
+ legend('bottomright', legend=as.character(formula), 
        lty=rep(1,length(ids)), lwd=rep(2, length(ids)), col=cols)
-
+}
+plot_best_roc()
 ##############################################################################
-# Realistic case - Bootstrap
+# Realistic case 
 ##############################################################################
 # Various methods available for testing the predictive capability 
 # * split sample (training & test data)
@@ -196,21 +232,13 @@ legend('bottomright', legend=as.character(formula),
 #
 # => Bootstrap as method of choice
 
-plot(numeric(0), numeric(0), col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC", type='n',
-     xlim=c(0,1), ylim=c(0,1))
-abline(a=0,b=1,lwd=2,lty=2,col="gray")
-m[[1]] <- glm(formula[[1]], data=d1, family="binomial")
-fitpreds = predict(m1, newdata=d1, type="response")
-fitpred = prediction(fitpreds, d1$disease)
-fitperf = performance(fitpred,"tpr","fpr")
-plot(fitperf, col='darkgreen', add=TRUE, lwd="2")
-
-
-
-# bootstrap calculation of function
+#------------------------------
+# Bootstrap
+#------------------------------
+# bootstrap model fitting based on data and formula
 m_bootstrap <- function(df, formula, B=100){
   # fit all the bootstrap models
-  m <- as.list(rep(NA, B))
+  m.boot <- as.list(rep(NA, B))
   
   # calculate for bootstrap samples
   N <- nrow(df)
@@ -219,146 +247,100 @@ m_bootstrap <- function(df, formula, B=100){
     # create the bootstrap data.frame
     df.boot <- df[inds, ]
     # fit model with bootstrap data
-    m[[k]] <- glm(formula, data=df.boot, family="binomial")
+    m.boot[[k]] <- glm(formula, data=df.boot, family="binomial")
   }
-  return(m)
+  return(m.boot)
 }
 
 plot_bootstrap <- function(df, formula, B=100, col='gray'){
   m.boot <- m_bootstrap(df, formula, B=B)
-  
   pp <- as.list(rep(NA, B)) # predictions
   ll <- as.list(rep(NA, B)) # labels
   for (k in 1:B){
     pp[[k]] = predict(m.boot[[k]], newdata=df, type="response")
     ll[[k]] = df$disease
   }
-  
-#   for (m.b in m.boot){
-#     fitpreds = predict(m.b, newdata=df, type="response")
-#     fitpred = prediction(fitpreds, df$disease)
-#     fitperf = performance(fitpred,"tpr","fpr")
-#     plot(fitperf, col=col, add=TRUE, lwd="1")  
-#     
-#     tpr <- attr(fitperf, 'x.values')[[1]]
-#     fpr <- attr(fitperf, 'x.values')[[1]]
-#   }
-  
+    
   pred<- prediction(pp, ll)
   perf <- performance(pred, "tpr", "fpr")
-  plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.2), add=T)
+  # plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.2), add=T)
   plot(perf, avg= "threshold", colorize=F, lwd=3, col=col, add=T)
-  
- return(list(pp=pp, ll=ll))
 }
 
-# tmp <- plot_bootstrap(d[[2]], formula[[2]], B=100, col=col[2])  
-
-cols <- c('darkgreen', 'darkorange', 'darkred', 'darkblue', 'darkmagenta')
+plot_best_roc()
 for (k in seq_along(formula)){
-  col = add.alpha(cols[k], 1.0)
+  col = add.alpha(cols[k], 0.5)
   plot_bootstrap(d[[k]], formula[[k]], B=100, col)  
 }
 
-# TODO: add legend with formula
-# TODO: color of bootstrap runs corresponding to average of runs
-# TODO: what is going on with dataset 1 ? No variance in bootstrap
-# TODO: calculate the mean & se of the bootstraps (proper shading of regions)
+#------------------------------
+# Split sample
+#------------------------------
+# splitdf function will return a list of training and testing sets
+splitdf <- function(df, seed=NULL) {
+  if (!is.null(seed)) set.seed(seed)
+  index <- 1:nrow(df)
+  trainindex <- sample(index, trunc(length(index)/2))
+  trainset <- df[trainindex, ]
+  testset <- df[-trainindex, ]
+  list(trainset=trainset,testset=testset)
+}
 
+# split sample
+m_split_sample <- function(df, formula, B=100){
+  # fit all the bootstrap models
+  m.split <- as.list(rep(NA, B))
+  splits <- as.list(rep(NA, B))
+  
+  # calculate split sample model
+  N <- nrow(df)
+  for (k in 1:B){
+    splits[[k]] <- splitdf(df)
+    m.split[[k]] <- glm(formula, data=splits[[k]]$trainset, family="binomial")
+  }
+  return(list(m.split=m.split, splits=splits))
+}
 
-# Working with data in ROCR
-str(fitperf)
-attr(fitperf, 'x.name')
-attr(fitperf, 'y.name')
-plot(attr(fitperf, 'x.values')[[1]], attr(fitperf, 'y.values')[[1]])
+plot_split_sample <- function(df, formula, B=100, col='gray'){
+  res <- m_split_sample(df, formula, B=B)
+  m.split <- res$m.split
+  splits <- res$splits
+  pp <- as.list(rep(NA, B)) # predictions
+  ll <- as.list(rep(NA, B)) # labels
+  for (k in 1:B){
+    pp[[k]] = predict(m.split[[k]], newdata=splits[[k]]$testset, type="response")
+    ll[[k]] = (splits[[k]]$testset)$disease
+  }
+  pred<- prediction(pp, ll)
+  perf <- performance(pred, "tpr", "fpr")
+  # plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.2), add=T)
+  plot(perf, avg= "threshold", colorize=F, lwd=3, col=col, add=T, lty=2)
+}
 
-str(fitpred)
-tmp = performance(fitpred,"tpr")
-str(tmp)
-plot(attr(tmp$x.values, tmp$y.values))
-attr(tmp, 'x.values')
-attr(tmp, 'y.values')
+plot_best_roc()
+plot(numeric(0), numeric(0),main="ROC Curve for Logistic:  GEC", 
+     type='n', xlim=c(0,1), ylim=c(0,1),
+     xlab="False positive rate",
+     ylab="True positive rate")
 
-
-
-
-
-
-
-
-
-
-# Calculate bootstrap sd for confidence intervals
-d2.se <- ddply(parscl, c("gal_challenge", 'f_flow'), f_bootstrap, funct=sd, B=1000)
-
-
-
-# The predict() command can calculate confidence intervals for the predicted values
-a <- predict(mod1, interval="confidence") 
-
-
-
-# m1 analysis, i.e. plot of the probabilities
-
-# Probability for disease
-d1$rankP <- predict(m1, newdata = d1, type = "response")
-
-par(mfrow = c(1,2))
-# Create plot of the predicted values from the data
-d1_c <- data.frame(GEC=seq(from=0, to=5, by=0.1))
-d1_c$rankP <- predict(m1, newdata = d1_c, type = "response")
-
-plot(d1$GEC, d1$rankP, xlim=c(0,5), xlab=lab[['GEC']], ylim=c(-0.1,1.1),
-     main='Logistic regression: disease ~ GEC',
-     ylab='probability liver disease')
-lines(d1_c$GEC, d1_c$rankP)
-points(d1$GEC, d1$disease, pch=21, col="black", bg=rgb(0,0,1, 0.5))
-
-
-# install.packages('ROCR')
-# http://rocr.bioinf.mpi-sb.mpg.de/
-library(ROCR)
-# ROC curves:
-#  measure="tpr", x.measure="fpr".
-# Precision/recall graphs:
-#  measure="prec", x.measure="rec".
-# Sensitivity/specificity plots:
-#  measure="sens", x.measure="spec".
-# Lift charts:
-#  measure="lift", x.measure="rpp".
+for (k in seq_along(formula)){
+  col = add.alpha(cols[k], 0.5)
+  plot_split_sample(d[[k]], formula[[k]], B=100, col)  
+  plot_bootstrap(d[[k]], formula[[k]], B=100, col)  
+}
 
 
 
-# store models & data in list
-
-fitpreds = predict(m1, newdata=d1, type="response")
-fitpred = prediction(fitpreds, d1$disease)
-m1.perf = performance(fitpred,"tpr","fpr")
-
-fitpreds = predict(fit3, newdata=data, type="response")
-fitpred = prediction(fitpreds, data$disease)
-fitperf = performance(fitpred,"tpr","fpr")
-
-plot(m1.perf, col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC", type='n',
-     xlim=c(0,1), ylim=c(0,1))
-abline(a=0,b=1,lwd=2,lty=2,col="gray")
-plot(m1.perf, col='darkgreen', add=TRUE)
 
 
-
-plot(fitperf, col='red', add=TRUE)
-
-fitpreds = predict(fit2, newdata=data, type="response")
-fitpred = prediction(fitpreds, data$disease)
-fitperf = performance(fitpred,"tpr","fpr")
-plot(fitperf, col='black', add=TRUE)
-
+# TODO: color of bootstrap runs corresponding to average of runs &
+# mean/se of the bootstraps (shading of regions)
 
 x.values = c(0.03030303, 0.07070707, 0.09090909, 0.1515152, 0.2020202, 0.2828283, 0.3838384)
 y.values = c(0.6153846, 0.7692308, 0.8461538, 0.8461538, 0.8461538,  1.0, 1.0)
 points(x.values, y.values, pch=22, col='black', bg='red')
 lines(x.values, y.values, col='red', lwd=3)
-par(mfrow = c(1,1))
+
 
 #########################################################
 # Make the predictions based on the GEC App
