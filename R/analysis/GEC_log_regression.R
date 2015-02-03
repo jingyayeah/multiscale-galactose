@@ -6,7 +6,7 @@
 # methods of logistic regression.
 #
 # author: Matthias Koenig
-# date: 2014-02-02
+# date: 2014-02-03
 ################################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
@@ -20,10 +20,10 @@ setwd(ma.settings$dir.base)
 # i.e. dataset which can be used for classification.
 # The classification is based on healthy / liver disease.
 #
-# All Digitized data for GEC & GECkg
-# GEC [mmol/min] & GECkg [mmol/min/kgbw] 
-# install.packages('reshape')
 
+##  All Digitized data for GEC & GECkg ##
+
+# GEC [mmol/min] & GECkg [mmol/min/kgbw] 
 ## tyg1963 (age, bodyweight, [GEC, GECkg])
 ## sch1986.tab1 (sex, age, bodyweight, [GEC, GECkg])
 ## win1965 (sex, age, bodyweight, BSA, flowLiver, [GEC, GECkg] [NOT USED]
@@ -31,20 +31,14 @@ setwd(ma.settings$dir.base)
 ## duf2005 (sex, age, [GEC, GECkg])
 ## sch1968.fig1 (age, [GECkg])
 ## lan2011 (age, [GECkg])
-
 names <- c('mar1988', 'tyg1963', 'sch1986.tab1', 'duc1979', 'duf1992', 'sch1986.fig1', 'lan2011')
 df <- classification_data_raw(names)
+save_classification_data(data=df, name='GEC_classification') # save the data for reuse
 head(df)
 
-# save the data for reuse
-save_classification_data(data=df, name='GEC_classification')
-
-# Load the Marchesini classification data & integrate with remaining classification
-# data
+##  Marchesini data  ##
+# Load the Marchesini classification data & integrate with remaining classification data
 load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
-head(pdata)
-summary(as.factor(pdata$sex))
-
 df2 <- pdata[, c('sex', 'age', 'bodyweight', 'GEC', 'status', 'disease')]
 df2$study <- 'marexp'
 df2[, c('height', 'BSA', 'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg')] <- NA
@@ -52,7 +46,7 @@ df2$GECkg <- df2$GEC/df2$bodyweight
 df2$sex <- process_sex(df2)
 head(df2)
 
-# combine datasets
+##  combine datasets ##
 names <- c('study', 'sex', 'age', 'bodyweight', 'height', 'BSA', 'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg', 'GEC', 'GECkg', 'status', 'disease')
 data <- rbind( df[, names], df2[,names])
 summary(data)
@@ -63,7 +57,7 @@ table(data$disease)
 ################
 #   Plots        
 ################
-# plot overview over the available data
+# overview available data
 par(mfrow = c(1,2))
 bins = seq(from=0, to=5, by=0.07)
 hist(data$GEC[data$disease==1], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(1,0,0,0.5), freq=FALSE)
@@ -74,28 +68,28 @@ hist(data$GECkg[data$disease==1], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg'
 hist(data$GECkg[data$disease==0], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(0.5,0.5,0.5, 0.5), add=TRUE)
 par(mfrow = c(1,1))
 
-nrow(data)
 summary(data)
-summary(as.factor(data$sex))
-
 
 ##############################################
 #   Logistic regression GEC
 ##############################################
-# Create 3 logistic regression models using different subsets of the data.
+# Create logistic regression models using different subsets of the data.
 # m1 : disease ~ GEC
 # m2 : disease ~ GEC + bodyweight
 # m3 : disease ~ GEC + bodyweight + sex
 # m4 : disease ~ GEC + bodyweight + age
 # m5 : disease ~ GEC + bodyweight + sex + age
 
-
-## Formulas ##
+#------------------------------
+# Model and data preparation
+#------------------------------
+# formulas
 formula <- list('disease ~ GEC', 
              'disease ~ GEC + bodyweight', 
              'disease ~ GEC + bodyweight + sex',
              'disease ~ GEC + bodyweight + age',
              'disease ~ GEC + bodyweight + sex + age')
+# model ids
 ids <- paste('m', 1:length(formula), sep='')
 names(formula) <- ids
 formula
@@ -137,7 +131,7 @@ summary(d)
 # Create an overview table of the data
 tmp <- rep(NA, length(formula))
 d.table <- data.frame(id=ids, formula=as.character(formula), H=tmp, D=tmp, C=tmp)
-d.table
+rm(tmp)
 rownames(d.table) <- ids
 for (k in seq_along(d)){
   d.tmp <- d[[k]]
@@ -152,30 +146,41 @@ d.table
 write.table(d.table, file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_regression_overview.csv'), 
             sep="\t", quote=FALSE, row.names=FALSE)
 
-## Logistic regression ##
-# Here the full dataset is used, i.e. no split in trainings & validation dataset.
-# Do some proper cross-validation => measure performance on validation data-set
-
+#------------------------------
+# Best case model
+#------------------------------
 # Create binomial models with full dataset
-m <- list()
+# These are the best case scenarios, overfitted to the full dataset
+m.all <- list()
 for (k in seq_along(formula)){
-  # fit model with the full dataset
-  m[[k]] <- glm(formula[[k]], data=d[[k]], family="binomial")  
+  m.all[[k]] <- glm(formula[[k]], data=d[[k]], family="binomial")  
 }
-names(m) <- ids
+names(m.all) <- ids
+lapply(m.all, summary)
 
-lapply(m, summary)
+# ROC curve
+cols <- c('darkgreen', 'darkorange', 'darkred', 'darkblue', 'darkmagenta')
+cols <- add.alpha(cols, 0.7)
+names(cols) <- ids
 
-# confidence intervals, bootstrap, crossvalidation
-d1 <- d[[1]]
-f <- formula[[1]]
-m1 <- glm(disease ~ GEC + bodyweight, data=d1, family="binomial")
-
+plot(numeric(0), numeric(0),main="ROC Curve for Logistic:  GEC", 
+     type='n', xlim=c(0,1), ylim=c(0,1),
+     xlab="False positive rate",
+     ylab="True positive rate", )
+abline(a=0,b=1,lwd=2,lty=2,col="gray")
+for (id in ids){
+  fitpreds = predict(m.all[[id]], newdata=d[[id]], type="response")
+  fitpred = prediction(fitpreds, (d[[id]])$disease)
+  fitperf = performance(fitpred,"tpr","fpr")
+  plot(fitperf, col=cols[[id]], add=TRUE, lwd="2")
+}
+legend('bottomright', legend=as.character(formula), 
+       lty=rep(1,length(ids)), lwd=rep(2, length(ids)), col=cols)
 
 ##############################################################################
-# Testing predictive value of model
+# Realistic case - Bootstrap
 ##############################################################################
-# Various methods available: 
+# Various methods available for testing the predictive capability 
 # * split sample (training & test data)
 # * cross-validation (k-fold)
 # * bootstrapping
@@ -188,40 +193,8 @@ m1 <- glm(disease ~ GEC + bodyweight, data=d1, family="binomial")
 # regression model.
 # Note that the following functions in the rms package facilitates cross-validation and bootstrapping 
 # for validating models: ols, validate, calibrate.
-
-## Cross-Validation (k-fold & leave-one-out) ##
-# The drawback to leave-one-out CV is subtle but often decisive. Since each training
-# set has n 􀀀 1 points, any two training sets must share n 􀀀 2 points. The models fit
-# to those training sets tend to be strongly correlated with each other. Even though
-# we are averaging n out-of-sample forecasts, those are correlated forecasts, so we are
-# not really averaging away all that much noise. With k-fold CV, on the other hand,
-# the fraction of data shared between any two training sets is just k􀀀2
-# k􀀀1 , not n􀀀2 n􀀀1 , so even though the number of terms being averaged is smaller, they are less correlated.
-
-## split-sample ##
-# do a repeated split in training and test data 
-# - fit the model
-# - test the trainings data set
-
-# splitdf function will return a list of training and testing sets
-splitdf <- function(dataframe, seed=NULL) {
-  if (!is.null(seed)) set.seed(seed)
-  index <- 1:nrow(dataframe)
-  trainindex <- sample(index, trunc(length(index)/2))
-  trainset <- dataframe[trainindex, ]
-  testset <- dataframe[-trainindex, ]
-  list(trainset=trainset,testset=testset)
-}
-
-#apply the function
-splits <- splitdf(d1, seed=808)
-summary(splits)
-lapply(splits,nrow)
-lapply(splits,head, 20)
-fun_1 <- function(df){
-  table(df$study)
-}
-lapply(splits, fun_1)
+#
+# => Bootstrap as method of choice
 
 plot(numeric(0), numeric(0), col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC", type='n',
      xlim=c(0,1), ylim=c(0,1))
@@ -232,16 +205,6 @@ fitpred = prediction(fitpreds, d1$disease)
 fitperf = performance(fitpred,"tpr","fpr")
 plot(fitperf, col='darkgreen', add=TRUE, lwd="2")
 
-set.seed(1234)
-N = 20
-for (k in 1:20){
-  splits <- splitdf(d1)
-  m.cv <- glm(formula[[1]], data=splits$trainset, family="binomial")
-  fitpreds = predict(m.cv, newdata=splits$testset, type="response")
-  fitpred = prediction(fitpreds, splits$testset$disease)
-  fitperf = performance(fitpred,"tpr","fpr")
-  plot(fitperf, col='lightgreen', add=TRUE, lwd="1")
-}
 
 
 # bootstrap calculation of function
