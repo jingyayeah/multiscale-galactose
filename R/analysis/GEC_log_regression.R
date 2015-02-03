@@ -317,36 +317,45 @@ plot_split_sample <- function(df, formula, B=100, col='gray'){
   plot(perf, avg= "threshold", colorize=F, lwd=3, col=col, add=T, lty=2)
 }
 
-plot_best_roc()
-plot(numeric(0), numeric(0),main="ROC Curve for Logistic:  GEC", 
+plot_empty_roc <- function(){
+  plot(numeric(0), numeric(0),main="ROC Curve for Logistic:  GEC", 
      type='n', xlim=c(0,1), ylim=c(0,1),
      xlab="False positive rate",
      ylab="True positive rate")
-
-for (k in seq_along(formula)){
-  col = add.alpha(cols[k], 0.5)
-  plot_split_sample(d[[k]], formula[[k]], B=100, col)  
-  plot_bootstrap(d[[k]], formula[[k]], B=100, col)  
+}
+plot_split_roc <- function(){
+  for (k in seq_along(formula)){
+    col = add.alpha(cols[k], 0.5)
+    plot_split_sample(d[[k]], formula[[k]], B=100, col)  
+  }
+}
+plot_bootstrap_roc <- function(){
+  for (k in seq_along(formula)){
+    col = add.alpha(cols[k], 0.5)
+    plot_bootstrap(d[[k]], formula[[k]], B=100, col)  
+  }
 }
 
+plot_best_roc()
 
-
-
-
+plot_empty_roc()
+plot_split_roc()
+plot_bootstrap_roc()
 # TODO: color of bootstrap runs corresponding to average of runs &
 # mean/se of the bootstraps (shading of regions)
 
+
+#########################################################
+# Predictions based on the GEC App
+#########################################################
+# prediction of GEC range for the persons
+# Make a fair comparison on the same subset of data (delete additional information?)
 x.values = c(0.03030303, 0.07070707, 0.09090909, 0.1515152, 0.2020202, 0.2828283, 0.3838384)
 y.values = c(0.6153846, 0.7692308, 0.8461538, 0.8461538, 0.8461538,  1.0, 1.0)
 points(x.values, y.values, pch=22, col='black', bg='red')
 lines(x.values, y.values, col='red', lwd=3)
 
 
-#########################################################
-# Make the predictions based on the GEC App
-#########################################################
-# prediction of GEC range for the persons
-# Make a fair comparison on the same subset of data (delete additional information?)
 
 # GAMLSS models
 fit.models <- load_models_for_prediction()
@@ -355,8 +364,8 @@ GEC_f <- GEC_functions(task='T1')
 
 
 # make the predictions
-
-liver.info <- predict_liver_people(df2[1:10, ], Nsample=2000, Ncores=1, debug=TRUE)
+summary(df)
+liver.info <- predict_liver_people(df, Nsample=2000, Ncores=1, debug=TRUE)
 GEC.info <- calculate_GEC(GEC_f, 
                           volLiver=liver.info$volLiver,
                           flowLiver=liver.info$flowLiver)
@@ -364,6 +373,9 @@ GEC <- GEC.info$values
 
 # Calculate disease status based on the simulated GEC
 # data and the actual experimental value.
+# Here the predicted distribution of expected values is transformed into a predictor, i.e. 
+# a numerical range of values.
+# Depending on the cutoff different
 predict_disease_status <- function(GECexp, GEC, probs=c(0.025, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4)){
     disease <- matrix(NA, nrow=length(GECexp), ncol=length(probs))
     colnames(disease) = probs
@@ -379,12 +391,40 @@ predict_disease_status <- function(GECexp, GEC, probs=c(0.025, 0.05, 0.1, 0.15, 
     }
     return(list(disease=disease, probs=probs))
 }
-res <- predict_disease_status(df$GEC, GEC.info$values)
-res
-head(res$disease, 20)
-pred <- as.data.frame(res$disease)
-index <- complete.cases(pred)
-index
+
+disease_predictor <- function(GEC_exp, GEC, q=0.05){
+  N <- length(GEC_exp)
+  predictor <- rep(NA, N)
+  mean_gec <- rep(NA, N)
+  sd_gec <- rep(NA, N)
+  q_gec <- rep(NA, N)
+  
+  # predict every row
+  for (k in 1:length(GEC_exp)){
+    q_gec[k] <- quantile(GEC[k, ], probs=q)
+    mean_gec[k] <- mean(GEC[k, ])
+    sd_gec[k] <- sd(GEC[k, ])
+    cat('mean:', mean_gec[k], 'sd:', sd_gec[k], 'GEC:', GEC_exp[k], '\n')
+  }
+  # predictor = abs(mean_gec - GEC_exp)/sd_gec
+  predictor = (q_gec - GEC_exp)/sd_gec 
+  return(list(predictor=predictor, gec_exp=GEC_exp, mean_gec=mean_gec, sd_gec=sd_gec))
+}
+
+# Create ROC curve
+
+# plot_best_roc()
+
+plot_empty_roc()
+# plot_split_roc()
+plot_bootstrap_roc()
+
+res <- disease_predictor(df$GEC, GEC.info$values, q=0.005)
+fitpreds = res$predictor
+fitpred = prediction(fitpreds, df$disease)
+fitperf = performance(fitpred,"tpr","fpr")
+plot(fitperf, col="black", add=TRUE, lwd="3")
+
 
 # Now predicted and calculate values which can be used for the contingency table
 # calculate the contingency table & ROC curve
@@ -395,9 +435,6 @@ y.values = c(0.6153846, 0.7692308, 0.8461538, 0.8461538, 0.8461538,  1.0, 1.0)
 plot(x.values, y.values)
 
 
-
-real <- matrix( rep(df$disease[index], ncol(pred)), ncol=ncol(pred) )
-
 fitpred = prediction(pred[index, ], real)
 fitperf = performance(fitpred,"tpr","fpr")
 fitperf
@@ -407,36 +444,11 @@ attr(fitperf, 'x.values')
 plot(attr(fitperf, 'x.values'),attr(fitperf, 'y.values'), col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC")
 
 
-hist(GEC)
-abline(v=p1$GEC, lwd=2, col="red")
-quantile(GEC, probs = c(0.05))
-
 
 # TODO: now with the full Marchesini dataset
 
 
 #########################################################
 
-disease.fit1 <- predict(fit1, type = "response", newdata=df)
-head(disease.fit1)
-head(df)
-
-
-### Logistic regression GECkg
-fit2 <- glm(healthy ~ GECkg, data = df, family = "binomial")
-summary(fit2)
-
-# http://rocr.bioinf.mpi-sb.mpg.de/
-fitpreds = predict(fit2, newdata=df, type="response")
-
-fitpred = prediction(fitpreds, df$healthy)
-fitperf = performance(fitpred,"tpr","fpr")
-
-plot(fitperf,col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GECkg")
-abline(a=0,b=1,lwd=2,lty=2,col="gray")
-abline(v=0,lwd=2,lty=1,col="gray")
-abline(v=1,lwd=2,lty=1,col="gray")
-abline(h=0,lwd=2,lty=1,col="gray")
-abline(h=1,lwd=2,lty=1,col="gray")
 
 
