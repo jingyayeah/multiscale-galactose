@@ -226,12 +226,30 @@ plot_best_roc <- function(){
   fitpreds = predict(m.all[[id]], newdata=d[[id]], type="response")
   fitpred = prediction(fitpreds, (d[[id]])$disease)
   fitperf = performance(fitpred,"tpr","fpr")
-  plot(fitperf, col=cols[k], add=TRUE, lwd="2")
+  plot(fitperf, col=cols[k], add=TRUE, lwd=1, lty=4)
+  auc = performance(fitpred,"auc")
+  auc_value = attr(auc, 'y.values')[[1]]
+  cat('Best-AUC', auc_value, ' : ', ids[k], formula[[k]], '\n' )
  }
+}
+
+best_auc <- function(){
+  auc <- rep(NA, length(ids))
+  names(auc) <- ids
+  for (k in seq_along(ids)){
+    id <- ids[k]
+    fitpreds = predict(m.all[[id]], newdata=d[[id]], type="response")
+    fitpred = prediction(fitpreds, (d[[id]])$disease)
+    aucperf = performance(fitpred,"auc")
+    auc[k] = attr(aucperf, 'y.values')[[1]]
+  }
+  auc
 }
 
 plot_empty_roc()
 plot_best_roc()
+auc_best <- best_auc()
+auc_best
 ##############################################################################
 # Realistic case 
 ##############################################################################
@@ -283,8 +301,8 @@ plot_bootstrap <- function(df, formula, B=100, col='gray'){
   pred<- prediction(pp, ll)
   perf <- performance(pred, "tpr", "fpr")
   
-  plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.05), add=T)
-  plot(perf, avg= "treshold", colorize=F, lwd=3, col=col, add=T)
+  # plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.05), add=T)
+  plot(perf, avg= "treshold", colorize=F, lty=3, lwd=1, col=col, add=T)
 }
 
 plot_bootstrap_roc <- function(){
@@ -340,8 +358,8 @@ plot_split_sample <- function(df, formula, B=100, col='gray'){
   }
   pred<- prediction(pp, ll)
   perf <- performance(pred, "tpr", "fpr")
-  plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.2), add=T)
-  plot(perf, avg= "threshold", colorize=F, lwd=3, col=col, add=T, lty=2)
+  # plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.2), add=T)
+  plot(perf, avg= "threshold", colorize=F, lwd=1, col=col, add=T, lty=1)
 }
 
 
@@ -406,26 +424,20 @@ GEC_f <- GEC_functions(task='T1')
 # -------------------------------
 str(data)
 liver.info <- predict_liver_people(data, Nsample=2000, Ncores=1, debug=TRUE)
+save(liver.info, file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
 GEC.info <- calculate_GEC(GEC_f, 
                           volLiver=liver.info$volLiver,
                           flowLiver=liver.info$flowLiver)
 GEC <- GEC.info$values
 
 
-# plot all
+# ROC curve #
+fname <- file.path(ma.settings$dir.base, 'results', 'classification', 'ROC.png')
+png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
 plot_empty_roc()
 plot_split_roc()
-# plot_bootstrap_roc()
-# plot_best_roc()
-
-# ROC for full data prediction
-res <- disease_predictor(data$GEC, GEC, q=0.05)
-fitpreds = res$predictor
-fitpred = prediction(fitpreds, data$disease)
-fitperf = performance(fitpred,"tpr","fpr")
-plot(fitperf, col="black", add=TRUE, lwd="2")
-auc = performance(fitpred,"auc")
-print(auc)
+plot_bootstrap_roc()
+plot_best_roc()
 
 # prediction for corresponding subsets of data
 for (k in 1:length(formula)){
@@ -433,9 +445,20 @@ for (k in 1:length(formula)){
   fitpreds = res$predictor
   fitpred = prediction(fitpreds, d[[k]]$disease)
   fitperf = performance(fitpred,"tpr","fpr")
-  plot(fitperf, col=cols[k], add=TRUE, lwd="2")
-  
+  plot(fitperf, col=cols[k], add=TRUE, lwd=2)
   auc = performance(fitpred,"auc")
   auc_value = attr(auc, 'y.values')[[1]]
   cat('GEC predictor-AUC', auc_value, ' : ', ids[k], formula[[k]], '\n' )
 }
+dev.off()
+
+# ROC for full data prediction
+res <- disease_predictor(data$GEC, GEC, q=0.05)
+fitpreds = res$predictor
+fitpred = prediction(fitpreds, data$disease)
+fitperf = performance(fitpred,"tpr","fpr")
+plot(fitperf, col="black", add=TRUE, lwd=4)
+auc = performance(fitpred,"auc")
+print(auc)
+
+
