@@ -282,8 +282,9 @@ plot_bootstrap <- function(df, formula, B=100, col='gray'){
     
   pred<- prediction(pp, ll)
   perf <- performance(pred, "tpr", "fpr")
+  
   plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.05), add=T)
-  plot(perf, avg= "threshold", colorize=F, lwd=3, col=col, add=T)
+  plot(perf, avg= "treshold", colorize=F, lwd=3, col=col, add=T)
 }
 
 plot_bootstrap_roc <- function(){
@@ -295,7 +296,9 @@ plot_bootstrap_roc <- function(){
 
 plot_empty_roc()
 plot_best_roc()
-plot_bootstrap_roc()
+auc <- plot_bootstrap_roc()
+str(auc)
+
 
 #------------------------------
 # Split sample
@@ -378,14 +381,11 @@ disease_predictor <- function(GEC_exp, GEC, q=0.05){
   
   # predict every row
   for (k in 1:length(GEC_exp)){
-    cat(k, '\n')
-    
     # TODO: fix prediction bug => why single NA in special case???
     q_gec[k] <- quantile(GEC[k, ], probs=q, na.rm = TRUE)
     
     mean_gec[k] <- mean(GEC[k, ])
     sd_gec[k] <- sd(GEC[k, ])
-    cat('mean:', mean_gec[k], 'sd:', sd_gec[k], 'GEC:', GEC_exp[k], '\n')
   }
   # predictor = abs(mean_gec - GEC_exp)/sd_gec
   # predictor = (q_gec - GEC_exp)/sd_gec 
@@ -424,14 +424,18 @@ fitpreds = res$predictor
 fitpred = prediction(fitpreds, data$disease)
 fitperf = performance(fitpred,"tpr","fpr")
 plot(fitperf, col="black", add=TRUE, lwd="2")
+auc = performance(fitpred,"auc")
+print(auc)
 
 # prediction for corresponding subsets of data
 for (k in 1:length(formula)){
-  indices <- inds[[k]]
-  res <- disease_predictor(d[[k]]$GEC, GEC[indices, ], q=0.05)
-  
+  res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.05)
   fitpreds = res$predictor
   fitpred = prediction(fitpreds, d[[k]]$disease)
   fitperf = performance(fitpred,"tpr","fpr")
   plot(fitperf, col=cols[k], add=TRUE, lwd="2")
+  
+  auc = performance(fitpred,"auc")
+  auc_value = attr(auc, 'y.values')[[1]]
+  cat('GEC predictor-AUC', auc_value, ' : ', ids[k], formula[[k]], '\n' )
 }
