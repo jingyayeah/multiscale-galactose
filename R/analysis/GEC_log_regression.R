@@ -355,43 +355,11 @@ y.values = c(0.6153846, 0.7692308, 0.8461538, 0.8461538, 0.8461538,  1.0, 1.0)
 points(x.values, y.values, pch=22, col='black', bg='red')
 lines(x.values, y.values, col='red', lwd=3)
 
-
-
-# GAMLSS models
-fit.models <- load_models_for_prediction()
-# GEC function
-GEC_f <- GEC_functions(task='T1')
-
-
-# make the predictions
-summary(df)
-liver.info <- predict_liver_people(df, Nsample=2000, Ncores=1, debug=TRUE)
-GEC.info <- calculate_GEC(GEC_f, 
-                          volLiver=liver.info$volLiver,
-                          flowLiver=liver.info$flowLiver)
-GEC <- GEC.info$values
-
 # Calculate disease status based on the simulated GEC
 # data and the actual experimental value.
 # Here the predicted distribution of expected values is transformed into a predictor, i.e. 
 # a numerical range of values.
 # Depending on the cutoff different
-predict_disease_status <- function(GECexp, GEC, probs=c(0.025, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4)){
-    disease <- matrix(NA, nrow=length(GECexp), ncol=length(probs))
-    colnames(disease) = probs
-    
-    # predict every row
-    for (k in 1:length(GECexp)){
-      q <- quantile(GEC[k, ], probs=probs)
-      # cat('q=', q, '\tGEC=', GECexp[k], '\n')
-    
-      if (!is.na(GECexp[k])){
-        disease[k, ] = as.numeric(GECexp[k]<q)
-      }
-    }
-    return(list(disease=disease, probs=probs))
-}
-
 disease_predictor <- function(GEC_exp, GEC, q=0.05){
   N <- length(GEC_exp)
   predictor <- rep(NA, N)
@@ -411,7 +379,22 @@ disease_predictor <- function(GEC_exp, GEC, q=0.05){
   return(list(predictor=predictor, gec_exp=GEC_exp, mean_gec=mean_gec, sd_gec=sd_gec))
 }
 
-# Create ROC curve
+# GAMLSS models
+fit.models <- load_models_for_prediction()
+# GEC function
+GEC_f <- GEC_functions(task='T1')
+
+
+# ROC curves for prediction
+# -------------------------------
+# Prediction with first subset
+# -------------------------------
+summary(df)
+liver.info <- predict_liver_people(df, Nsample=2000, Ncores=1, debug=TRUE)
+GEC.info <- calculate_GEC(GEC_f, 
+                          volLiver=liver.info$volLiver,
+                          flowLiver=liver.info$flowLiver)
+GEC <- GEC.info$values
 
 # plot_best_roc()
 
@@ -425,30 +408,16 @@ fitpred = prediction(fitpreds, df$disease)
 fitperf = performance(fitpred,"tpr","fpr")
 plot(fitperf, col="black", add=TRUE, lwd="3")
 
+# -------------------------------
+# Marchesini predictions
+# -------------------------------
+head(data)
+mar_df <- data[data$study=='marexp',]
+head(mar_df)
+mar_df[1,]
+df[1,]
+liver.info <- predict_liver_people(data, Nsample=2000, Ncores=1, debug=TRUE)
 
-# Now predicted and calculate values which can be used for the contingency table
-# calculate the contingency table & ROC curve
-
-
-x.values = c(0.03030303, 0.07070707, 0.09090909, 0.1515152, 0.2020202, 0.2828283, 0.3838384)
-y.values = c(0.6153846, 0.7692308, 0.8461538, 0.8461538, 0.8461538,  1.0, 1.0)
-plot(x.values, y.values)
-
-
-fitpred = prediction(pred[index, ], real)
-fitperf = performance(fitpred,"tpr","fpr")
-fitperf
-
-attr(fitperf, 'x.values')
-
-plot(attr(fitperf, 'x.values'),attr(fitperf, 'y.values'), col="darkgreen",lwd=2,main="ROC Curve for Logistic:  GEC")
-
-
-
-# TODO: now with the full Marchesini dataset
-
-
-#########################################################
 
 
 

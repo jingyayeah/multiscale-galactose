@@ -181,13 +181,16 @@ f_d.factory.bodyweight <- function(pars){
 #' anthropomorhic information. Handle these cases so that 
 #' the combined probability distributions can be calculated correctly.
 #' @export
-prepare_fds <- function(f_ds){
+prepare_fds <- function(f_ds, debug=TRUE){
   # For the calculation of the distributions these have to be put to the 1 function
   for (k in 1:length(f_ds)){   
     if (!is.function( f_ds[[k]] ) ){
       if(is.na(f_ds[[k]])){ 
-        message(sprintf('Link function not available: %s', names(f_ds)[k]))
+        
         f_ds[[k]] <- function(x){1} 
+        if (debug == TRUE){
+          message(sprintf('Link function not available: %s', names(f_ds)[k]))
+        }
       }
     }
   }
@@ -209,7 +212,7 @@ f_d.combined <- function(x, pars, yname){
       f_ds[[name]] <- f_d.factory.bodyweight(pars[[name]])
     }
   }
-  f_ds <- prepare_fds(f_ds)
+  f_ds <- prepare_fds(f_ds, debug=FALSE)
   
   # unnormalized combined density
   f_d.raw <- function(x) {
@@ -422,6 +425,7 @@ predict_liver_person.fast <- function(person, Nsample){
               xname=plist$xname)
     # replace
     pars.flowLiver[['flowLiver_volLiver']] <- p
+
     # sample from distribution
     f_d2 <- f_d.flowLiver.c(pars=pars.flowLiver)
     rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
