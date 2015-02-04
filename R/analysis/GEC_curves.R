@@ -37,7 +37,8 @@ for (folder in folders){
 ################################################################
 ## Figures for flow and galactose dependency
 ################################################################
-folder <- '2015-02-04_T1'
+folder20 <- '2015-02-04_T1'
+folder60 <- '2015-02-04_T5'
 info <- process_folder_info(folder)
 str(info)
 t_peak=2000 
@@ -46,22 +47,23 @@ t_end=10000
 
 # factors=c('f_flow', "N_fen", 'scale_f'),
 
+# Calculate all the individual points, i.e. split the data frame on the given
+# factor variables
+library(plyr)
+factors=c('f_flow', "gal_challenge")
 
 # [1] get the full extended data frame necessary for calculation
 # in case of aging simulations multiple data frames will be necessary
 # for the different ages.
  
 # Calculate the galactose clearance parameters
-processed <- preprocess_task(folder=folder, force=FALSE) 
+processed <- preprocess_task(folder=folder20, force=FALSE) 
 parscl <- extend_with_galactose_clearance(processed=processed, t_peak=t_peak, t_end=t_end)
-str(parscl)
+df_int20 <- ddply(parscl, factors, f_integrate_GE)
 
-# Calculate all the individual points, i.e. split the data frame on the given
-# factor variables
-library(plyr)
-factors=c('f_flow', "gal_challenge")
-
-df_int <- ddply(parscl, factors, f_integrate_GE)
+processed <- preprocess_task(folder=folder60, force=FALSE) 
+parscl <- extend_with_galactose_clearance(processed=processed, t_peak=t_peak, t_end=t_end)
+df_int60 <- ddply(parscl, factors, f_integrate_GE)
 
 ###################################
 # Plots
@@ -75,7 +77,7 @@ gal_levels
 f_levels <- as.numeric(levels(as.factor(df_int$f_flow)))
 f_levels
 
-
+par(mfrow=c(2,2))
 #--------------------------------------------
 # [A] GE ~ perfusion (various galactose)
 #--------------------------------------------
@@ -124,7 +126,7 @@ for (g in gal_levels){
   points(d$Q_per_vol_units, d$CL.mean*f_unit, pch=21, col='black', bg=rgb(0,0,1,0.5))  
   lines(d$Q_per_vol_units, d$CL.mean*f_unit, col='black', lwd=2)  
 }
-
+par(mfrow=c(1,1))
 
 
 str(test)
