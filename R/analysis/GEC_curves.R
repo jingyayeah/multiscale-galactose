@@ -1,7 +1,9 @@
 ################################################################
-## Galactose Clearance & Elimination Curves
+## Galactose Elimination
 ################################################################
-# Calculates the galactose clearance for given region of interest
+# Calculates the galactose clearance, elimination, extraction
+# fraction, ... for set of simulations (i.e. sample from underlying
+# distribution)
 # and perfusion. Creates response curves for the calculation of GEC
 # for given tissue perfusion.
 #
@@ -11,24 +13,28 @@
 # to calculate the actual GEC for the given region.
 #
 # author: Matthias Koenig
-# date: 2014-12-06
+# date: 2014-01-04
 ################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
+library('libSBML')
 setwd(ma.settings$dir.base)
 
 # Set of GEC curves to create from simulations
-# '2014-11-30_T1'  # normal GEC ~ f_flow
-# '2014-12-03_T3'  # normal GEC ~ f_flow, N_fen (ageing)
-# '2014-12-08_T5'  
-# '2014-12-07_T6'  # normal GEC ~ f_flow, f_scale (metabolic scaling, mean)
+# folders <- c('2014-12-08_T1', # GEC ~ f_flow (metabolic scaling)
+#              '2014-12-08_T2', # GEC ~ f_flow (metabolic scaling, mean)
+#              '2014-12-08_T3', # GEC ~ f_flow (aging)
+#              '2014-12-08_T4', # GEC ~ f_flow (aging, mean)
+#              '2014-12-08_T5', # GEC ~ f_flow (baseline)
+#              '2014-12-08_T6') # GEC ~ f_flow (baseline, mean)
 
-folders <- c('2014-12-08_T1', # GEC ~ f_flow (metabolic scaling)
-             '2014-12-08_T2', # GEC ~ f_flow (metabolic scaling, mean)
-             '2014-12-08_T3', # GEC ~ f_flow (aging)
-             '2014-12-08_T4', # GEC ~ f_flow (aging, mean)
-             '2014-12-08_T5', # GEC ~ f_flow (baseline)
-             '2014-12-08_T6') # GEC ~ f_flow (baseline, mean)
+folders <- c('2015-02-04_T1', # GEC ~ f_flow, galactose (baseline)
+             '2015-02-04_T2')  # GEC ~ f_flow, galactose (baseline, mean)
+             # '2014-12-08_T3', # GEC ~ f_flow (aging)
+             # '2014-12-08_T4', # GEC ~ f_flow (aging, mean)
+             # '2014-12-08_T5', # GEC ~ f_flow (Vmax)
+             # '2014-12-08_T6') # GEC ~ f_flow (Vmax, mean)
+
 for (folder in folders){
   assign(folder, calculate_GEC_curves(folder))
 }

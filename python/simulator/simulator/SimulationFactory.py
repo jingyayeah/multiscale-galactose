@@ -388,6 +388,9 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     # GALACTOSE CHALLANGE
     #----------------------------------------------------------------------#
+    # TODO: run all simulations under the same flow and galactose conditions
+    #    i.e. the aging & varying metabolic capacity
+    
     if (1):
         '''
         Galactose elimination curves. 
@@ -425,6 +428,8 @@ if __name__ == "__main__":
         # mean sinusoidal unit
         task, samples = make_galactose_metabolic_change(sbml_id, N=1, sampling='mean')
    
+    #----------------------------------------------------------------------#
+    # MULTIPLE INDICATOR DILUTION CURVES
     #----------------------------------------------------------------------#
     if (0):
         '''

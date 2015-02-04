@@ -5,7 +5,9 @@ Version: 0.4.1
 Date: 2015-02-02
 Author: Matthias Koenig
 Maintainer: Matthias Koenig <konigmatt@googlemail.com>
-Description: MultiscaleAnalysis is the package accompanying the Multiscale Galactose Liver Model. Functionality for Galactose Elimination Capacity (GEC) calculation is provided.
+Description: MultiscaleAnalysis is the package accompanying the Multiscale
+    Galactose Liver Model. Functionality for Galactose Elimination Capacity
+    (GEC) calculation is provided.
 Depends:
     R (>= 3.0.2),
     methods,
