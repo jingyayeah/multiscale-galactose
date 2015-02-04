@@ -383,13 +383,13 @@ if __name__ == "__main__":
     gal_challenge = (0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 4.0, 6.0, 8.0,)
     
     # sample from distribution
-    dist_samples = make_galatose_flow_samples(N=10, sampling='distribution', 
+    dist_samples = make_galatose_flow_samples(N=100, sampling='distribution', 
                                              f_flows=f_flows, gal_challenge=gal_challenge)
     # mean sinusoidal unit
     mean_samples = make_galatose_flow_samples(N=1, sampling='mean', 
                                              f_flows=f_flows, gal_challenge=gal_challenge)
     
-    if (0):
+    if (1):
         '''
         Galactose elimination curves. 
         The simple galactose elimination curve is calculated by scaling the
@@ -406,7 +406,7 @@ if __name__ == "__main__":
                                       samples=mean_samples)
 
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
@@ -435,7 +435,7 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     # MULTIPLE INDICATOR DILUTION CURVES
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves
@@ -461,8 +461,9 @@ if __name__ == "__main__":
         [task, raw_samples] = make_galactose_dilution(sbml_id, N=1000, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
-        
 
+    #----------------------------------------------------------------------#
+    # GALACTOSEMIAS
     #----------------------------------------------------------------------#
     if (0):
         ''' Galactose challenge in galactosemias. '''
