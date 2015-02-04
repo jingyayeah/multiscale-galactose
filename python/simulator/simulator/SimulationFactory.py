@@ -259,7 +259,7 @@ def make_galactose_flow(sbml_id, N, sampling):
     
     # only test the max GEC
     # gal_challenge = (8.0, 2.0, 0.5)
-    gal_challenge = (8.0,)
+    gal_challenge = (0.01, 0.1, 0.2, 0.5, 1.0, 2.0, 4.0, 8.0,)
     samples = setParameterValuesInSamples(raw_samples, 
                 [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'ptype':GLOBAL_PARAMETER}])
     
@@ -365,8 +365,10 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 89
+    VERSION = 103
     
+    #----------------------------------------------------------------------#
+    # TEST NETWORKS
     #----------------------------------------------------------------------#
     if (0):
         print 'make demo'
@@ -384,10 +386,14 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    if (0):
+    # GALACTOSE CHALLANGE
+    #----------------------------------------------------------------------#
+    if (1):
         '''
-        GEC curves.
-        Galactose elimination under different flow distributions (scaled).
+        Galactose elimination curves. 
+        The simple galactose elimination curve is calculated by scaling the
+        flow distributions to various mean flow values. These curves have
+        to be calculated for varying galactose challenges.
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution
@@ -409,8 +415,8 @@ if __name__ == "__main__":
    
     #----------------------------------------------------------------------#
     if (0):
-        ''' GEC curves under different metabolic capacity of galactose metabolism. 
-            Change in the maximal scale of metabolism
+        ''' GEC curves under varying metabolic capacity of galactose metabolism. 
+            Change in the maximal scale of metabolism.
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
         # sample from distribution & add additional changes in aging
@@ -420,7 +426,7 @@ if __name__ == "__main__":
         task, samples = make_galactose_metabolic_change(sbml_id, N=1, sampling='mean')
    
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves
