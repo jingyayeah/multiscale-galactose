@@ -100,8 +100,9 @@ f_integrate_GE <- function(x){
   # General calculations
   # ------------------------
   # number of samples
-  N_sunits <- length(x$Vol_sinunit)
+  N <- length(x$Vol_sinunit)
   
+  # Here integrated values over the sample of sinusoidal units are calculated.
   # total volume (sinusoidal unit volume)
   sum.Vol_sinunit <- sum(x$Vol_sinunit) # [m^3]
   # total flow
@@ -126,26 +127,63 @@ f_integrate_GE <- function(x){
   Vol_sinunit$mean <- mean(x$Vol_sinunit)
   Vol_sinunit$sd <- sd(x$Vol_sinunit)
   
-  # flow
-  Vol_sinunit <- list()
-  mean.Q_sinunit <- mean(x$Q_sinunit) # [m^3/sec]
-  sd.Q_sinunit <- sd(x$Q_sinunit)     # [m^3/sec]
-  # removal
-  mean.R <- mean(x$R) # [mole/sec]
-  sd.R <- sd(x$R)     # [mole/sec]
-  # pp - pv difference
-  mean.DG <- mean(x$DG) # [mmole/L]
-  sd.DG <- sd(x$DG)     # [mmole/L]
-  # Extraction ratio
-  mean.ER <- mean(x$ER) # [-]
-  sd.ER <- sd(x$ER)     # [-]
+  Q_sinunit <- list()
+  Q_sinunit$name <- 'Blood flow of sinusoidal unit'
+  Q_sinunit$unit <- 'm^3/sec'
+  Q_sinunit$mean <- mean(x$Q_sinunit) # [m^3/sec]
+  Q_sinunit$sd <- sd(x$Q_sinunit)     # [m^3/sec]
   
-  data.frame(N_sunits,
-             mean.Vol_sinunit, mean.Q_sinunit, mean.R, mean.DG, mean.ER,
-             sd.Vol_sinunit, sd.Q_sinunit, sd.R, sd.DG, sd.ER,
-             sum.Vol_sinunit, sum.Q_sinunit, sum.R,
-             Q_per_vol, R_per_vol,
-             Q_per_vol_units, R_per_vol_units)
+  c_in <- list()
+  c_in$name <- 'PP galactose'
+  c_in$unit <- 'mmol/L'
+  c_in$mean <- mean(x$c_in)
+  c_in$sd <- sd(x$c_in)    
+  
+  c_out <- list()
+  c_out$name <- 'PV galactose'
+  c_out$unit <- 'mmol/L'
+  c_out$mean <- mean(x$c_out)
+  c_out$sd <- sd(x$c_out)
+  
+  CL <- list()
+  CL$name <- 'Clearance'
+  CL$unit <- 'm^3/sec'
+  CL$mean <- mean(x$CL)
+  CL$sd <- sd(x$CL)    
+  
+  R <- list()
+  R$name <- 'Removal'
+  R$unit <- 'mole/sec'
+  R$mean <- mean(x$R) # [mole/sec]
+  R$sd <- sd(x$R)     # [mole/sec]
+  
+  # pp - pv difference
+  DG <- list()
+  DG$name <- 'Galactose difference (PP - PV)'
+  DG$unit <- 'mmole/L'
+  DG$mean <- mean(x$DG) # [mmole/L]
+  DG$sd <- sd(x$DG)     # [mmole/L]
+  
+  # Extraction ratio
+  ER <- list()
+  ER$name <- 'Extraction ratio'
+  ER$unit <- '-'
+  ER$mean <- mean(x$ER) # [-]
+  ER$sd <- sd(x$ER)     # [-]
+  
+  data.frame(N=N,
+       Vol_sinunit=Vol_sinunit,
+       Q_sinunit=Q_sinunit,
+       c_in=c_in,
+       c_out=c_out,
+       CL=CL,
+       R=R,
+       DG=DG,
+       ER=ER,
+       Q_per_vol=Q_per_vol, 
+       R_per_vol=R_per_vol,
+       Q_per_vol_units=Q_per_vol_units, 
+       R_per_vol_units=R_per_vol_units)
 }
 
 
