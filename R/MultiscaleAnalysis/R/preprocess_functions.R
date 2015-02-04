@@ -10,6 +10,17 @@
 # date: 2014-12-07
 ################################################################
 
+#' Timecourses for ids loaded from the full set of data via preprocessing
+#' The ids have to be part of the dictionary of the available names, which
+#' is available in the SBML or via the CSV/Rdata.
+#' fname <- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[1])
+#' ids.dict <- names(data)
+#' In standard analysis only the periportal and perivenious concentrations are used
+#' @export
+preprocess.ids <- c("PP__alb", "PP__gal", "PP__galM", "PP__h2oM", "PP__rbcM", "PP__suc",
+                    "PV__alb", "PV__gal", "PV__galM", "PV__h2oM", "PV__rbcM", "PV__suc")
+
+
 #' Process folder information.
 #' 
 #' From the folder information all the additional information can be created.
