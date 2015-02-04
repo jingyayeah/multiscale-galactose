@@ -16,7 +16,7 @@ reload(rp)
 reload(gf)
 
 #########################################################################    
-VERSION = 100
+VERSION = 103
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
@@ -54,8 +54,8 @@ flow_sin = f_fac * flux # [m/s] (scaling to calculate in correct volume flow ran
 # flux sample the simulation is performed.
 
 gal_p_list = []
-# for gal in [0.28]:
-for gal in [0.28, 12.5, 17.5]:
+for gal in [0.28]:
+# for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flow_sin:
         d = { 
@@ -68,7 +68,7 @@ for gal in [0.28, 12.5, 17.5]:
               # "scale_f" : 0.45/1.1,
               #"GALK_PA" : 0.024,
               # "GLUT2_f" : 7.5,              
-              # "H2OT_f": 5.0,            
+              "H2OT_f": 0.5,            
               }
         p_list.append(d)
     gal_p_list.append(p_list)
@@ -115,7 +115,7 @@ show_plots=True
 
 # flux dependency of dilution profiles
 tlim = [T_PEAK-4, T_PEAK+20]
-# rp.flux_plots(f_list, sel, xlim=tlim, show=show_plots)
+rp.flux_plots(f_list, sel, xlim=tlim, show=show_plots)
 # average curves
 # rp.average_plots(timepoints, av_mats, xlim=tlim, show=show_plots)
     
