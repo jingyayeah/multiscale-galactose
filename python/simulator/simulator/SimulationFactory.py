@@ -248,21 +248,20 @@ def make_galactose_challenge(sbml_id, N, sampling):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-
-def make_galactose_flow(sbml_id, N, sampling):        
-    info = 'Galactose clearance under given perfusion ({}).'.format(sampling)
-    model = create_django_model(sbml_id, sync=True)
-    
+def make_galatose_flow_samples(N, sampling, f_flows, gal_challenge):
     # adapt flow in samples with the given f_flows
-    f_flows = (1.0, 0.6, 0.5, 0.4, 0.2, 0.05, 0.01)
     raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     
-    # only test the max GEC
-    # gal_challenge = (8.0, 2.0, 0.5)
-    gal_challenge = (0.01, 0.1, 0.2, 0.5, 1.0, 2.0, 4.0, 8.0,)
+    # Set given galactose challenge   
     samples = setParameterValuesInSamples(raw_samples, 
                 [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'ptype':GLOBAL_PARAMETER}])
-    
+    return samples
+
+
+def make_elimination_curve(sbml_id, sampling, samples):        
+    info = 'Galactose elimination ({}).'.format(sampling)
+    model = create_django_model(sbml_id, sync=True)
+        
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
     integration = Integration.get_or_create_integration(settings)
@@ -272,33 +271,31 @@ def make_galactose_flow(sbml_id, N, sampling):
     return (task, samples)
 
 #----------------------------------------------------------------------#
-def make_galactose_aging(sbml_id, N, sampling):        
-    info = 'Galactose clearance under given perfusion for different age({}).'.format(sampling)
+def make_galactose_aging(sbml_id, sampling, samples):        
+    
     model = create_django_model(sbml_id, sync=True)
-    
-    # adapt flow in samples with the given f_flows
-    f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
-    raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
-    
-    # only test max GEC
-    gal_challenge = (8.0,)
-    samples = setParameterValuesInSamples(raw_samples, 
-                [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'ptype':GLOBAL_PARAMETER}])
-    
+        
     # age represents : [20, 40, 60, 80, 100]
-    y_end = [165E-9*x for x in [1, 1.375, 1.75, 2.125, 2.5]]  # [nm]
-    N_fen = [1E13*x for x in [1, 0.5, 0.25, 0.125, 0.0625]]  # [1/m^2]
-    p_list = [ {'pid': 'y_end', 'values': y_end, 'unit': 'nm', 'ptype':GLOBAL_PARAMETER},
-                   {'pid': 'N_fen', 'values': N_fen, 'unit': 'per_m2', 'ptype':GLOBAL_PARAMETER}]
-    samples = setParameterValuesInSamples(samples, p_list)
+    # [1, 1.375, 1.75, 2.125, 2.5]
+    # [1, 0.5, 0.25, 0.125, 0.0625]
     
-    # simulations
-    settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
-    integration = Integration.get_or_create_integration(settings)
-    task = create_task(model, integration, info=info)
-    createSimulationsForSamples(task, samples)
+    # age represents : [60, 80, 100]
+    age = [60, 80, 100]
+    y_end = [165E-9*x for x in [1.75, 2.125, 2.5]]  # [nm]
+    N_fen = [1E13*x for x in [0.25, 0.125, 0.0625]]  # [1/m^2]
+    for k in range(len(y_end)):
+        info = 'Galactose elimination age {} ({}).'.format(age[k], sampling)
+        p_list = [ {'pid': 'y_end', 'values': (y_end[k],) , 'unit': 'nm', 'ptype':GLOBAL_PARAMETER},
+                   {'pid': 'N_fen', 'values': (N_fen[k],), 'unit': 'per_m2', 'ptype':GLOBAL_PARAMETER}]
+        nsamples = setParameterValuesInSamples(samples, p_list)
+        
+        # simulations
+        settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
+        integration = Integration.get_or_create_integration(settings)
+        task = create_task(model, integration, info=info)
+        createSimulationsForSamples(task, nsamples)
 
-    return (task, samples)
+    return None
 
 #----------------------------------------------------------------------#
 def make_galactose_metabolic_change(sbml_id, N, sampling):        
@@ -388,8 +385,17 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     # GALACTOSE CHALLANGE
     #----------------------------------------------------------------------#
-    # TODO: run all simulations under the same flow and galactose conditions
-    #    i.e. the aging & varying metabolic capacity
+    # run all simulations under the same flow and galactose conditions
+    #    especially the the aging & varying metabolic capacity
+    f_flows = (1.0, 0.8, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
+    gal_challenge = (0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 4.0, 6.0, 8.0,)
+    
+    # sample from distribution
+    dist_samples = make_galatose_flow_samples(N=10, sampling='distribution', 
+                                             f_flows=f_flows, gal_challenge=gal_challenge)
+    # mean sinusoidal unit
+    mean_samples = make_galatose_flow_samples(N=1, sampling='mean', 
+                                             f_flows=f_flows, gal_challenge=gal_challenge)
     
     if (1):
         '''
@@ -399,22 +405,26 @@ if __name__ == "__main__":
         to be calculated for varying galactose challenges.
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        # sample from distribution
-        task, samples = make_galactose_flow(sbml_id, N=100, sampling='distribution')
+        # samples
+        task = make_elimination_curve(sbml_id, sampling='distribution', 
+                                      samples=dist_samples)
+        
         # mean sinusoidal unit
-        task, samples = make_galactose_flow(sbml_id, N=1, sampling='mean')
+        task = make_elimination_curve(sbml_id, sampling='mean', 
+                                      samples=mean_samples)
 
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
         sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
-        # sample from distribution & add additional changes in aging
-        task, samples = make_galactose_aging(sbml_id, N=100, sampling='distribution')
-        
+        # samples
+        make_galactose_aging(sbml_id, sampling='distribution', 
+                                    samples=dist_samples)
         # mean sinusoidal unit
-        task, samples = make_galactose_aging(sbml_id, N=1, sampling='mean')
+        make_galactose_aging(sbml_id, sampling='mean',
+                                             samples=mean_samples)
    
     #----------------------------------------------------------------------#
     if (0):
