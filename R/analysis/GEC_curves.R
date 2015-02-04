@@ -20,14 +20,8 @@ library('MultiscaleAnalysis')
 library('libSBML')
 setwd(ma.settings$dir.base)
 
-# Set of GEC curves to create from simulations
-# folders <- c('2014-12-08_T1', # GEC ~ f_flow (metabolic scaling)
-#              '2014-12-08_T2', # GEC ~ f_flow (metabolic scaling, mean)
-#              '2014-12-08_T3', # GEC ~ f_flow (aging)
-#              '2014-12-08_T4', # GEC ~ f_flow (aging, mean)
-#              '2014-12-08_T5', # GEC ~ f_flow (baseline)
-#              '2014-12-08_T6') # GEC ~ f_flow (baseline, mean)
-
+# Preprocess all the files
+# ! Force update if additional simulations are performed !
 folders <- c('2015-02-04_T1', # GEC ~ f_flow, galactose (baseline)
              '2015-02-04_T2')  # GEC ~ f_flow, galactose (baseline, mean)
              # '2014-12-08_T3', # GEC ~ f_flow (aging)
@@ -38,6 +32,50 @@ folders <- c('2015-02-04_T1', # GEC ~ f_flow, galactose (baseline)
 for (folder in folders){
   assign(folder, calculate_GEC_curves(folder))
 }
+
+
+################################################################
+## Figures for flow and galactose dependency
+################################################################
+folder <- '2015-02-04_T1'
+info <- process_folder_info(folder)
+str(info)
+t_peak=2000 
+t_end=10000 
+
+
+# factors=c('f_flow', "N_fen", 'scale_f'),
+
+
+# [1] get the full extended data frame necessary for calculation
+# in case of aging simulations multiple data frames will be necessary
+# for the different ages.
+ 
+# Calculate the galactose clearance parameters
+processed <- preprocess_task(folder=folder, force=FALSE) 
+parscl <- extend_with_galactose_clearance(processed=processed, t_peak=t_peak, t_end=t_end)
+str(parscl)
+
+# Calculate all the individual points, i.e. split the data frame on the given
+# factor variables
+library(plyr)
+factors=c('f_flow', "gal_challenge")
+
+cat('Calculate mean GEC\n')
+
+d.mean <- ddply(parscl, factors, f_integrate_GEC)
+
+str(res)
+str(res$GEC_curves)
+
+
+
+# TODO: necessary to calculate the various GE curves
+GEC_f <- GEC_functions(task=info$task)
+plot_GEC_function(GEC_f)
+
+
+
 
 
 str(GEC_f)
@@ -53,9 +91,12 @@ d.mean[, c('f_flow', 'N_fen', 'R_per_vol_units')]
 rm(list=ls())
 
 par(mfrow=c(1,2))
-folder <- '2014-12-17_T17'
+folder <- '2015-02-04_T1'
 info <- process_folder_info(folder)
+str(info)
+
 res <- calculate_GEC_curves(folder, force=FALSE, B=10)
+# TODO: necessary to calculate the various GE curves
 GEC_f <- GEC_functions(task=info$task)
 plot_GEC_function(GEC_f)
 names(GEC_f)

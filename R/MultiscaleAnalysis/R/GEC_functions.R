@@ -90,9 +90,15 @@ extend_with_galactose_clearance <- function(processed, t_peak, t_end){
 #' Q_per_vol & R_per_vol are the perfusion of the region of interest and
 #' the corresponding removal of galactose per region of interest.
 #' Be aware of the units !
+#' 
+#' Calculates: mean, sd, q
+#' 
 #' @param x Called with extended parameter data.frame containing clearance per sinusoidal unit.
 #' @export
-f_integrate_GEC <- function(x){  
+f_integrate_GE <- function(x){  
+  # ------------------------
+  # General calculations
+  # ------------------------
   # number of samples
   N_sunits <- length(x$Vol_sinunit)
   
@@ -111,11 +117,17 @@ f_integrate_GEC <- function(x){
   Q_per_vol_units <- Q_per_vol*60                 # [ml/min/ml(liv)]
   R_per_vol_units <- R_per_vol*60/1000            # [mmole/min/ml(liv)]
   
-  ## mean, sd over sinusoidal unit samples
-  # volume (sinusoidal 
-  mean.Vol_sinunit <- mean(x$Vol_sinunit) # [m^3]
-  sd.Vol_sinunit <- sd(x$Vol_sinunit)     # [m^3]
+  # ---------------------------------------------------
+  # mean, sd, quantiles for sample of sinusoidal units
+  # ---------------------------------------------------
+  Vol_sinunit <- list()
+  Vol_sinunit$name <- 'Volume of sinusoidal unit'
+  Vol_sinunit$unit <- 'm^3'
+  Vol_sinunit$mean <- mean(x$Vol_sinunit)
+  Vol_sinunit$sd <- sd(x$Vol_sinunit)
+  
   # flow
+  Vol_sinunit <- list()
   mean.Q_sinunit <- mean(x$Q_sinunit) # [m^3/sec]
   sd.Q_sinunit <- sd(x$Q_sinunit)     # [m^3/sec]
   # removal
@@ -194,7 +206,6 @@ calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000,
    stop(sprintf('Folder does not exist: %s', fname)) 
   }
   
-  
   # Process the integration time curves
   processed <- preprocess_task(folder=folder, force=force) 
   
@@ -219,6 +230,7 @@ calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000,
 }
 
 #' Create the GEC functions from the given GEC task data.
+#' The functions have to be calculated based on the subsets.
 #'
 #'@export
 GEC_functions <- function(task){
