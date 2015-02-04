@@ -17,6 +17,7 @@ results/nhanes/nhanes_GECkg.Rdata
 
 *.Rhistory
 .~*
+*~
 *.sh~
 *.pyc
 *.dot
