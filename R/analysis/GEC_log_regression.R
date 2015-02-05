@@ -250,6 +250,22 @@ plot_empty_roc()
 plot_best_roc()
 auc_best <- best_auc()
 auc_best
+
+plot_mer1991 <- function(){
+  mer1991 <- read.csv(file.path(ma.settings$dir.expdata, 'GEC', 'Merkel1991.csv'), sep="\t")
+  with(mer1991, {
+    subset <- (mer1991$predictor == 'GEC')
+    points(fpr[subset], tpr[subset], pch=15, col='black')
+    lines(fpr[subset], tpr[subset], col='black')
+    subset <- (d$predictor == 'Pugh')
+    points(fpr[subset], tpr[subset], pch=3, col='black')
+    lines(fpr[subset], tpr[subset], col='black', lty=2)
+  })  
+}
+
+
+
+
 ##############################################################################
 # Realistic case 
 ##############################################################################

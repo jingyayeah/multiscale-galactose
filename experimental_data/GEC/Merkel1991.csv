@@ -1,4 +1,4 @@
-study	status	sex	predictor	tpr	fpr	fpr
+study	status	sex	predictor	fpr	tpr	cutoff
 mer1991	cirrhosis	U	GEC	0	0	
 mer1991	cirrhosis	U	GEC	0.0026455026	0.2559055	
 mer1991	cirrhosis	U	GEC	0.022486772	0.41338584	
