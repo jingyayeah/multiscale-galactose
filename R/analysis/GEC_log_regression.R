@@ -420,6 +420,7 @@ fit.models <- load_models_for_prediction()
 task = 'T1'
 GEC_f <- GEC_functions(task=task)
 fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', sprintf('GEC_curve_%s.png', task))
+png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
 plot_GEC_function(GEC_f)
 dev.off()
 
