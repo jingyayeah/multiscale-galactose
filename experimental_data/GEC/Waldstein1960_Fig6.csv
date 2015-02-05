@@ -1,0 +1,22 @@
+study	status	sex	subject	time	Peq	Phv
+wal1960	healthy	male	1	10	12.222344	5.539863
+wal1960	healthy	male	1	15	12.143603	6.228584
+wal1960	healthy	male	1	20	20.280869	6.040305
+wal1960	healthy	male	1	25	23.708723	5.9615645
+wal1960	healthy	male	1	30	24.725357	3.1450882
+wal1960	healthy	male	1	35	27.165976	4.374497
+wal1960	healthy	male	1	40	28.730995	5.945816
+wal1960	healthy	male	1	50	28.684452	6.118346
+wal1960	healthy	male	1	60	35.31899	9.138149
+wal1960	healthy	male	1	70	39.21509	9.749529
+wal1960	healthy	male	2	5	4.0595613	20.736677
+wal1960	healthy	male	2	10	5.595611	30.83072
+wal1960	healthy	male	2	15	7.0219436	NA
+wal1960	healthy	male	2	20	10.094044	NA
+wal1960	healthy	male	2	25	11.739812	NA
+wal1960	healthy	male	2	30	15.799373	33.90282
+wal1960	healthy	male	2	35	19.749216	NA
+wal1960	healthy	male	2	40	21.175549	51.677116
+wal1960	healthy	male	2	46	24.796238	NA
+wal1960	healthy	male	2	50	26.661442	65.17242
+

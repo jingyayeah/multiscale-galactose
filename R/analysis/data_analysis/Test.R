@@ -37,4 +37,4 @@ plot(gal, CLH, xlab='Galactose Peq [mM]', ylab='Hepatic Clearance [ml/min]',
 par(mfrow=c(1,2))
 dev.off()
 
-startDevPlot
+d <- read.csv("Waldstein1960_Fig6.csv", sep="\t")
