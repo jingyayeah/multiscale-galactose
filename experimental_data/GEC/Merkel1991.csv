@@ -1,0 +1,20 @@
+study	status	sex	predictor	tpr	fpr	fpr
+mer1991	cirrhosis	U	GEC	0	0	
+mer1991	cirrhosis	U	GEC	0.0026455026	0.2559055	
+mer1991	cirrhosis	U	GEC	0.022486772	0.41338584	
+mer1991	cirrhosis	U	GEC	0.08068783	0.60367453	>3.1
+mer1991	cirrhosis	U	GEC	0.21164021	0.7729659	>2.5
+mer1991	cirrhosis	U	GEC	0.4021164	0.8832021	>1.9
+mer1991	cirrhosis	U	GEC	0.6322751	0.9133858	
+mer1991	cirrhosis	U	GEC	0.84391534	1	
+mer1991	cirrhosis	U	GEC	1	1	
+mer1991	cirrhosis	U	Pugh	0	0	
+mer1991	cirrhosis	U	Pugh	0.0013227513	0.09317585	
+mer1991	cirrhosis	U	Pugh	0.0013227513	0.164042	
+mer1991	cirrhosis	U	Pugh	0.007936508	0.30052492	
+mer1991	cirrhosis	U	Pugh	0.04232804	0.46981627	>10
+mer1991	cirrhosis	U	Pugh	0.14285715	0.5288714	>9
+mer1991	cirrhosis	U	Pugh	0.3042328	0.7703412	>8
+mer1991	cirrhosis	U	Pugh	0.5132275	0.9107612	
+mer1991	cirrhosis	U	Pugh	1	1	
+
