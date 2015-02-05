@@ -1,0 +1,6 @@
+rm(list=ls())
+library('MultiscaleAnalysis')
+setwd(file.path(ma.settings$dir.exp, 'GEC'))
+d <- read.csv("Keiding1988.csv", sep="\t")
+head(d)
+plot(d$ca, d$cv, xlim=c(0,120), ylim=c(0,120))
