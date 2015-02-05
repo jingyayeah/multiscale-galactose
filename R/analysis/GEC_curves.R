@@ -22,23 +22,27 @@ setwd(ma.settings$dir.base)
 
 # Preprocess all the files
 # ! Force update if additional simulations are performed !
-folders <- c('2015-02-04_T1', # GEC ~ f_flow, galactose (baseline)
-             '2015-02-04_T2')  # GEC ~ f_flow, galactose (baseline, mean)
+folders <- c('2015-02-05_T1', # GEC ~ f_flow, galactose (baseline)
+             '2015-02-05_T2')  # GEC ~ f_flow, galactose (baseline, mean)
              # '2014-12-08_T3', # GEC ~ f_flow (aging)
              # '2014-12-08_T4', # GEC ~ f_flow (aging, mean)
              # '2014-12-08_T5', # GEC ~ f_flow (Vmax)
              # '2014-12-08_T6') # GEC ~ f_flow (Vmax, mean)
 
-for (folder in folders){
-  assign(folder, calculate_GEC_curves(folder))
+folders <- paste('2015-02-05_T', 1:24, sep="")
+folders
+
+for (f in folders){
+  preprocess_task(folder=f, force=FALSE) 
+  # assign(folder, calculate_GEC_curves(folder))
 }
 
 
 ################################################################
 ## Figures for flow and galactose dependency
 ################################################################
-folder20 <- '2015-02-04_T1'
-folder60 <- '2015-02-04_T5'
+folder20 <- '2015-02-05_T3'
+folder60 <- '2015-02-05_T4'
 info <- process_folder_info(folder)
 str(info)
 t_peak=2000 
@@ -72,9 +76,9 @@ df_int60 <- ddply(parscl, factors, f_integrate_GE)
 # TODO: bold axis, write the concentatration values
 # TODO: boxplot of values for individual sinusoidal units
 # TODO: 
-gal_levels <- as.numeric(levels(as.factor(df_int$gal_challenge )))
+gal_levels <- as.numeric(levels(as.factor(df_int20$gal_challenge )))
 gal_levels
-f_levels <- as.numeric(levels(as.factor(df_int$f_flow)))
+f_levels <- as.numeric(levels(as.factor(df_int20$f_flow)))
 f_levels
 
 par(mfrow=c(2,2))

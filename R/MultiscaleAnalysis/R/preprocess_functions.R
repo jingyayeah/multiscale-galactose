@@ -10,6 +10,29 @@
 # date: 2014-12-07
 ################################################################
 
+#' @export
+readData <- function(fname){
+  library('data.table')
+  # read data
+  data <- fread(fname, header=T, sep=',')
+  
+  # replace 'X..' if header given via '# '
+  names(data) <- gsub('X..', '', names(data))
+  names(data) <- gsub('#', '', names(data))
+  names(data) <- gsub('\\[', '', names(data))
+  names(data) <- gsub('\\]', '', names(data))
+  
+  # necessary to trim
+  setnames(data, trim(colnames(data)))
+  
+  # fix strange behavior via cast
+  data <- as.data.frame(data)
+  # save the data 
+  
+  save(data, file=paste(fname, '.Rdata', sep=''))
+}
+
+
 #' Timecourses for ids loaded from the full set of data via preprocessing
 #' The ids have to be part of the dictionary of the available names, which
 #' is available in the SBML or via the CSV/Rdata.
