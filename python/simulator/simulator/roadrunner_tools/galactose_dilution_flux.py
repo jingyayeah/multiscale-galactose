@@ -54,8 +54,8 @@ flow_sin = f_fac * flux # [m/s] (scaling to calculate in correct volume flow ran
 # flux sample the simulation is performed.
 
 gal_p_list = []
-for gal in [0.28]:
-# for gal in [0.28, 12.5, 17.5]:
+# for gal in [0.28]:
+for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flow_sin:
         d = { 

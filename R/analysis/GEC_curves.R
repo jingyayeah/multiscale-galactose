@@ -43,8 +43,8 @@ for (f in folders){
 ################################################################
 folder20 <- '2015-02-05_T3'
 folder60 <- '2015-02-05_T4'
-info <- process_folder_info(folder)
-str(info)
+folder100 <- '2015-02-05_T6'
+folder60 <- folder100
 t_peak=2000 
 t_end=10000 
 
