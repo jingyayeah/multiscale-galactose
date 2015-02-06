@@ -20,21 +20,22 @@ with(d, {
     lines(fpr[subset], tpr[subset], col='black', lty=2)
 })
 
-d <- read.csv("Waldstein1960_Tab1.csv", sep="\t")
-head(d)
-attach(d)
+wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
+head(wal1960)
 fname <- file.path(ma.settings$dir.base, 'results', 'Waldstein1960.png')
 cat(fname, '\n')
-png(filename=fname, width=1600, height=800, res=150,
-    units = "px", bg = "white")
+# png(filename=fname, width=1600, height=800, res=150,
+#     units = "px", bg = "white")
 par(mfrow=c(1,2))
-plot(gal, R, xlab='Galactose Peq [mM]', ylab='Removal [mmole/min]', 
+plot(wal1960$gal, wal1960$R, xlab='Galactose Peq [mM]', ylab='Removal [mmole/min]', 
      pch=21, col='black', bg='gray', font.lab=2,
      ylim=c(0,3.0), xlim=c(0,8))
-plot(gal, CLH, xlab='Galactose Peq [mM]', ylab='Hepatic Clearance [ml/min]', 
+plot(wal1960$gal, wal1960$CLH, xlab='Galactose Peq [mM]', ylab='Hepatic Clearance [ml/min]', 
      pch=21, col='black', bg='gray', font.lab=2,
      ylim=c(0,3000))
 par(mfrow=c(1,2))
 dev.off()
+
+# dev.off()
 
 d <- read.csv("Waldstein1960_Fig6.csv", sep="\t")

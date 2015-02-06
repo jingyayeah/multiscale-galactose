@@ -55,8 +55,8 @@ extend_with_galactose_clearance <- function(processed, t_peak, t_end){
   # c_in = 'PP__gal'[end]     # [mmol/L]
   # c_out = 'PV_gal[end]'     # [mmol/L]
   # R = F*(c_in - c_out)      # [m^3/sec * mmol/L] = [mol/sec]
-  # ER = (c_in - c_out)/c_in  # [-]
   # CL = R/c_in               # [m^3/sec]
+  # ER = (c_in - c_out)/c_in  # [-]
   # DG = (c_in - c_out)       # [mmol/L]
   
   c_in <- as.vector(mlist$PP__gal)   # [mmol/L]
@@ -109,14 +109,18 @@ f_integrate_GE <- function(x){
   sum.Q_sinunit <- sum(x$Q_sinunit)     # [m^3/sec]
   # total removal
   sum.R <- sum(x$R) # [mole/sec]
+  # total clearance
+  sum.CL <- sum(x$CL) # [mole/sec]
   
   ## normalize to volume 
   Q_per_vol <- sum.Q_sinunit/sum.Vol_sinunit     # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)] 
   R_per_vol <- sum.R/sum.Vol_sinunit             # [mole/sec/m^3(liv)]
+  CL_per_vol <- sum.CL/sum.Vol_sinunit           # [m^3/sec/m^3(liv)]
   
   ## proper units for flow and clearance
   Q_per_vol_units <- Q_per_vol*60                 # [ml/min/ml(liv)]
   R_per_vol_units <- R_per_vol*60/1000            # [mmole/min/ml(liv)]
+  CL_per_vol_units <- CL_per_vol*60               # [ml/min/ml(liv)]
   
   # ---------------------------------------------------
   # mean, sd, quantiles for sample of sinusoidal units
@@ -182,8 +186,10 @@ f_integrate_GE <- function(x){
        ER=ER,
        Q_per_vol=Q_per_vol, 
        R_per_vol=R_per_vol,
+       CL_per_vol=CL_per_vol,
        Q_per_vol_units=Q_per_vol_units, 
-       R_per_vol_units=R_per_vol_units)
+       R_per_vol_units=R_per_vol_units,
+       CL_per_vol_units=CL_per_vol_units)
 }
 
 
