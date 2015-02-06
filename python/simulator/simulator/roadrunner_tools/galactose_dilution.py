@@ -24,7 +24,7 @@ import dilution_plots as dp
 #########################################################################    
 # Load model
 #########################################################################    
-VERSION = 93
+VERSION = 103
 NC = 20
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
@@ -43,8 +43,10 @@ sel += ['[PV__{}]'.format(item) for item in compounds]
 sel += ['[PP__{}]'.format(item) for item in compounds]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('C')]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
+sel += [item for item in r.model.getReactionIds() if item.startswith('C')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel += ["peak"]
 r.selections = sel
@@ -74,7 +76,7 @@ p_list = [
 inits = {}
 
 # perform simulation
-s_list = [rt.simulation(r, p, inits, absTol=1E-6, relTol=1E-6) for p in p_list]
+s_list = [rt.simulation(r, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list]
 
 #########################################################################    
 # Analyse peaks
@@ -113,14 +115,22 @@ rp.plot_dilution_data(exp_data)
 
 dp.dilution_plot_by_name(s_list, r.selections, name='[PP__galM]')
 dp.dilution_plot_by_name(s_list, r.selections, name='[PV__galM]')
+dp.dilution_plot_by_name(s_list, r.selections, name='galM', comp_type='D')
+dp.dilution_plot_by_name(s_list, r.selections, name='galM', comp_type='S')
+dp.dilution_plot_by_name(s_list, r.selections, name='galM', comp_type='C')
+dp.dilution_plot_by_name(s_list, r.selections, name='gal', comp_type='C')
+dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM', comp_type="C")
+dp.dilution_plot_by_name(s_list, r.selections, name='udpgalM', comp_type="C")
+
+
 dp.dilution_plot_by_name(s_list, r.selections, name='[PV__alb]')
 dp.dilution_plot_by_name(s_list, r.selections, name='[PV__rbcM]')
 
-dp.dilution_plot_by_name(s_list, r.selections, name='gal')
-dp.dilution_plot_by_name(s_list, r.selections, name='galM')
+dp.dilution_plot_by_name(s_list, r.selections, name='gal', comp_type='C')
+dp.dilution_plot_by_name(s_list, r.selections, name='galM', comp_type='C')
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', comp_type='D')
 
-dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM')
+dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM', comp_type="C")
 dp.dilution_plot_by_name(s_list, r.selections, name='udpgalM')
 dp.dilution_plot_by_name(s_list, r.selections, name='udpglcM')
 

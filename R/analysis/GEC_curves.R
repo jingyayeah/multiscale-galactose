@@ -129,7 +129,6 @@ for (g in gal_levels){
 #--------------------------------------------
 # [D] CL ~ perfusion (various galactose)
 #--------------------------------------------
-df_int$CL.unit
 f_unit <- 1E6*60   # [m^3/sec] -> [ml/min]
 plot(df_int20$Q_per_vol_units, df_int20$CL.mean*f_unit, type='n',
      xlab='Perfusion [ml/min/ml liver tissue]',
