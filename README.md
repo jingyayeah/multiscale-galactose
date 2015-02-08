@@ -4,7 +4,9 @@ multiscale-galactose
 Copyright 2015
 
 M. König & HG. Holzhütter
+
 Charite Berlin, Computational Systems Biochemistry, 10117 Berlin, Germany
+
 https://www.livermetabolism.com/contact.html
 
 *multiscale-galactose features*
@@ -13,9 +15,10 @@ https://www.livermetabolism.com/contact.html
   * Django code (database layer, simulation management)
   * Simulation code & libRoadRunner integration
 
-## Availability & Licence
+# Availability & Licence
 multiscale-galactose is an open source project. Please contact the authors for further information.
 
-## Acknowledgements
+# Acknowledgements
 This work is funded by Virtual Liver Network (VLN)
+
 http://www.virtual-liver.de/
