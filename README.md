@@ -1,20 +1,21 @@
 multiscale-galactose
 ====================
-## Multiscale model of hepatic galactose metabolism
-Copyright 2014
+## A Multiscale Computational Model Predicts Human Liver Function From Single-Cell Metabolism
+Copyright 2015
 
-M. Koenig & HG. Holzhuetter
+M. König & HG. Holzhütter
 Charite Berlin, Computational Systems Biochemistry, 10117 Berlin, Germany
+https://www.livermetabolism.com/contact.html
 
 *multiscale-galactose features*
-  * SBML model of galactose metabolism (sinusoidal unit)
-  * django database layer 
-  * analysis scripts
-  * supports either RoadRunner or COPASI as simulation backend
+  * SBML model of human hepatic galactose metabolism (hepatocyte & sinusoidal unit)
+  * All analysis scripts (R, python)
+  * Django code (database layer, simulation management)
+  * Simulation code & libRoadRunner integration
 
 ## Availability & Licence
-multiscale-galactose is licensed for free as an open source project for use in other 
-applications
+multiscale-galactose is an open source project. Please contact the authors for further information.
 
 ## Acknowledgements
 This work is funded by Virtual Liver Network (VLN)
+http://www.virtual-liver.de/
