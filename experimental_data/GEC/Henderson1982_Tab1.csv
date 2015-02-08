@@ -1,0 +1,31 @@
+study	id	n	sex	status	status_detail	bodyweight	CL	CLSD	albumin	[U/dl]	bilirubin	alkphos	pt_time	ascites	encephalopathy	op	portal_perfusion
+hen1982	NA	11	U	healthy	healthy	64-91	1378	218	>3.5	<40	<1.0	30-95	<+2	0	0	0	I
+hen1982	12	1	U	cirrhosis	alcoholic cirrhosis	68	482	NA	2.8	41	2.5	255	4.4	0	0	0	III
+hen1982	13	1	U	cirrhosis	posthepatitis cirrhosis	85	636	NA	3.4	46	2.1	140	3.1	0	+	Mescocaval	IV
+hen1982	14	1	U	cirrhosis	posthepatitis cirrhosis	64	638	NA	3.3	43	2.1	139	2.7	0	0	DSRS	IV
+hen1982	15	1	U	cirrhosis	posthepatitis cirrhosis	72	698	NA	3.2	45	1.6	120	3	0	+	Mescocaval	iV
+hen1982	16	1	U	cirrhosis	alcoholic cirrhosis	65	715	NA	2.1	127	3.4	201	5	+++	+	0	a
+hen1982	17	1	U	cirrhosis	alcoholic cirrhosis	103	776	NA	4.1	45	2.4	108	0.7	0	0	DSRS	III
+hen1982	18	1	U	cirrhosis	alcoholic cirrhosis	70	780	NA	3.3	25	1.3	77	3.2	+	0	0	II
+hen1982	19	1	U	cirrhosis	alcoholic cirrhosis	65	794	NA	4.2	66	1.6	95	2.5	+	+	DSRS	II
+hen1982	20	1	U	cirrhosis	posthepatitis cirrhosis	86	803	NA	3.1	81	2.4	98	3	0	0	Mescocaval	IV
+hen1982	21	1	U	cirrhosis	alcoholic cirrhosis	81	815	NA	3.8	30	0.7	70	0.1	0	0	0	a
+hen1982	22	1	U	cirrhosis	posthepatitis cirrhosis	62	826	NA	3.5	66	1.6	460	1.7	0	0	DSRS	III
+hen1982	23	1	U	cirrhosis	posthepatitis cirrhosis	64	863	NA	3.1	54	1.2	143	2.5	0	0	DSRS	IV
+hen1982	24	1	U	cirrhosis	alcoholic cirrhosis	81	884	NA	3.5	28	0.7	127	3.1	++	0	DSRS	I
+hen1982	25	1	U	cirrhosis	alcoholic cirrhosis	85	932	NA	3.9	39	0.8	110	2.1	0	0	Portacaval	IV
+hen1982	26	1	U	cirrhosis	posthepatitis cirrhosis	76	932	NA	3.3	49	3	113	2.4	+	0	DSRS	II
+hen1982	27	1	U	cirrhosis	alcoholic cirrhosis	86	936	NA	3.3	129	4.7	239	3	0	0	DSRS	II
+hen1982	28	1	U	cirrhosis	alcoholic cirrhosis	70	984	NA	2.2	135	1.7	117	4	++	0	0	a
+hen1982	29	1	U	cirrhosis	posthepatitis cirrhosis	67	987	NA	4.1	35	1.3	53	2.3	0	0	0	I
+hen1982	30	1	U	cirrhosis	alcoholic cirrhosis	49	12282	NA	3.2	36	1.1	172	0	0	+	Portacaval	IV
+hen1982	31	1	U	cirrhosis	alcoholic cirrhosis	84	1342	NA	3.7	142	2.6	191	2.5	0	0	DSRS	I
+hen1982	32	1	U	cirrhosis	alcoholic cirrhosis	96	1457	NA	3.7	43	0.7	79	1.3	+	0	0	I
+hen1982	33	1	U	cirrhosis	alcoholic cirrhosis	110	1623	NA	3.4	35	0.9	146	1.7	0	0	DSRS	IV
+hen1982	34	1	U	hepatitis	chronic active hepatitis	45	784	NA	2.8	140	23.2	210	10	++	0	0	a
+hen1982	35	1	U	hepatitis	alcoholic cirrhosis	71	1031	NA	2.7	438	30.1	341	5	++	0	0	a
+hen1982	36	1	U	hepatitis	chronic active hepatitis	60	1071	NA	2.5	200	8.2	170	10	++	0	Mescocaval	IV
+hen1982	37	1	U	hepatitis	Acute	65	1165	NA	3.1	2690	24.3	209	1	0	0	0	a
+hen1982	38	1	U	hepatitis	chronic active hepatitis	70	1467	NA	2.6	338	5	257	4	++	0	0	a
+hen1982	39	1	U	hepatitis	Acute	53	1600	NA	3.4	605	33.9	165	4	+	0	0	a
+

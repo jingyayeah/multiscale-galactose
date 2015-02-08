@@ -7,6 +7,12 @@ setwd(file.path(ma.settings$dir.exp, 'GEC'))
 ########################################################################
 # Combined data (GE, ER, CL)
 ########################################################################
+# TODO: unify colors & symbols for datasets
+# TODO: add legend for data
+# TODO: bold plot & create figure
+# TODO: add error bars were available
+
+# Read data
 kei1988 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Keiding1988.csv"), sep="\t")
 head(kei1988)
 
@@ -19,6 +25,10 @@ head(tyg1954)
 
 wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
 head(wal1960)
+
+hen1982 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab4.csv"), sep="\t")
+hen1982 <- hen1982[hen1982$status == 'healthy', ]
+head(hen1982)
 
 # [1] Galactose elimination / removal
 # -----------------------------------------------------
@@ -59,7 +69,8 @@ plot(tyg1958$ca, tyg1958$ER,
      # xlim=c(0, 3),
      ylim=c(0, 1),
      xlim=c(0, 5))
-points(kei1988$ca, kei1988$ER, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
+points(kei1988$ca, kei1988$ER, pch=21, col='black', bg=rgb(0,0,1, 0.5)) 
+points(hen1982$css, hen1982$ER, pch=21, col='black', bg=rgb(1,0,0, 0.5)) 
 par(mfrow=c(1,1))
 
 # [3] Clearance
@@ -73,6 +84,7 @@ plot(tyg1958$ca, tyg1958$CL,
 points(wal1960$gal, wal1960$CLH, pch=21, col='black', bg='gray')
 points(kei1988$ca, kei1988$HCL, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
 points(kei1988$ca, kei1988$SCL, pch=22, col='black', bg=rgb(0,0,1.0, 0.5)) 
+points(hen1982$css, hen1982$CL, pch=21, col='black', bg=rgb(1,0,0, 0.5)) 
 
 plot(tyg1958$bloodflowBS, tyg1958$CL,
      xlab="Blood flow [ml/min]",
@@ -93,6 +105,7 @@ plot(tyg1958$ca, tyg1958$cv,
      ylim=c(0, 7))
 points(tyg1954$ca, tyg1954$cv, pch=21, bg='darkgreen')
 points(kei1988$ca, kei1988$cv, pch=21, col='black', bg=rgb(0,0,1, 0.5)) 
+points(hen1982$css, hen1982$chv, pch=21, col='black', bg=rgb(1,0,0, 0.5)) 
 
 ########################################################################
 # Merkel ROC curve data
