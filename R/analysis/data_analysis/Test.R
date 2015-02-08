@@ -2,6 +2,24 @@ rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(file.path(ma.settings$dir.exp, 'GEC'))
 
+########################################################################
+# Urin galactose clearance
+########################################################################
+# Estimated as ~ 10% in Tystrup
+wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
+head(wal1960)
+
+plot(numeric(0), numeric(0), type='n',
+     xlab="Galactose arteriell [mmol/L]",
+     ylab="Urin galactose elimination [mmol/min]",
+     xlim=c(0, 10), 
+     ylim=c(0, 3),
+     font.lab = 2)
+warnings()
+points(wal1960$gal, wal1960$U, pch=21, col='black', bg='gray')
+points(wal1960$gal, wal1960$R, pch=21, col='black', bg='red')
+
+
 
 
 ########################################################################
@@ -39,6 +57,8 @@ plot(tyg1958$bloodflowBS, tyg1958$GE,
      ylab="Galactose elimination [mmol/min]",
      xlim=c(0, 3200), 
      ylim=c(0, 3))
+
+points(tyg1958$bloodflowBS, tyg1958$GE) 
 points(kei1988$bloodFlow, kei1988$HE, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
 
 
@@ -52,7 +72,7 @@ points(wal1960$gal, wal1960$R, pch=21, col='black', bg='gray')
 points(kei1988$ca, kei1988$HE, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
 par(mfrow=c(1,1))
 
-# [2] Galactose extracton ratio
+# [2] Galactose extraction ratio ER
 # -----------------------------------------------------
 par(mfrow=c(1,2))
 plot(tyg1958$bloodflowBS, tyg1958$ER,
@@ -76,15 +96,24 @@ par(mfrow=c(1,1))
 # [3] Clearance
 # -----------------------------------------------------
 par(mfrow=c(1,2))
-plot(tyg1958$ca, tyg1958$CL,
+plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Galactose arteriell [mmol/L]",
      ylab="Galactose clearance [ml/min]",
      xlim=c(0, 10),
      ylim=c(0, 3200))
-points(wal1960$gal, wal1960$CLH, pch=21, col='black', bg='gray')
+points(tyg1958$ca, tyg1958$CL)
 points(kei1988$ca, kei1988$HCL, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
-points(kei1988$ca, kei1988$SCL, pch=22, col='black', bg=rgb(0,0,1.0, 0.5)) 
+# points(kei1988$ca, kei1988$SCL, pch=22, col='black', bg=rgb(0,0,1.0, 0.5)) 
 points(hen1982$css, hen1982$CL, pch=21, col='black', bg=rgb(1,0,0, 0.5)) 
+
+# points(wal1960$gal, wal1960$CLH, pch=21, col='black', bg='gray')
+CL_new <- (wal1960$R - 0.2*wal1960$gal/(wal1960$gal+0.1))/wal1960$gal *1000 
+points(wal1960$gal, CL_new, pch=21, col='black', bg='darkgreen')
+
+# TODO: proper correction of all the values (what )
+
+
+
 
 plot(tyg1958$bloodflowBS, tyg1958$CL,
      xlab="Blood flow [ml/min]",
