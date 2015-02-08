@@ -4,9 +4,7 @@ multiscale-galactose
 Copyright 2015
 
 M. König & HG. Holzhütter
-
 Charite Berlin, Computational Systems Biochemistry, 10117 Berlin, Germany
-
 https://www.livermetabolism.com/contact.html
 
 *multiscale-galactose features*
@@ -20,5 +18,4 @@ multiscale-galactose is an open source project. Please contact the authors for f
 
 # Acknowledgements
 This work is funded by Virtual Liver Network (VLN)
-
 http://www.virtual-liver.de/
