@@ -1,4 +1,4 @@
-study	exp	initials	sex	age	bodyweight	BSA	status	diagnosis	galclearance	extraction	bloodflowBS	bloodFlowGal	clFraction	infusionRatemg	infusionRate	galAmg	galA
+study	exp	initials	sex	age	bodyweight	BSA	status	diagnosis	CL	ER	bloodflowBS	bloodFlowGal	CLFraction	infusionRatemg	infusionRate	camg	ca
 tyg1958	1	K.S.	M	20	65	1.88	healthy	gastritis	1010	NA	NA	NA	NA	267	1.4833333333	26.5	1.4722222222
 tyg1958	2	M.J.	M	23	62	1.76	healthy	normal	1020	NA	NA	NA	NA	309	1.7166666667	30.2	1.6777777778
 tyg1958	3	S.D.	M	45	52.6	1.55	healthy	coarctation	1390	NA	NA	NA	NA	273	1.5166666667	19.6	1.0888888889
