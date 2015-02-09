@@ -15,12 +15,8 @@ plot(numeric(0), numeric(0), type='n',
      xlim=c(0, 10), 
      ylim=c(0, 3),
      font.lab = 2)
-warnings()
 points(wal1960$gal, wal1960$U, pch=21, col='black', bg='gray')
 points(wal1960$gal, wal1960$R, pch=21, col='black', bg='red')
-
-
-
 
 ########################################################################
 # Combined data (GE, ER, CL)
@@ -48,49 +44,58 @@ hen1982 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab4.cs
 hen1982 <- hen1982[hen1982$status == 'healthy', ]
 head(hen1982)
 
+win1965 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Winkler1965.csv"), sep="\t")
+head(win1965)
+
+# TODO: proper correction for all R & CL values,
+# if not based on ca-cv differences
+
+
 # [1] Galactose elimination / removal
 # -----------------------------------------------------
 # Q * (ca - cv)
 par(mfrow=c(1,2))
-plot(tyg1958$bloodflowBS, tyg1958$GE,
+plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Blood flow [ml/min]",
      ylab="Galactose elimination [mmol/min]",
      xlim=c(0, 3200), 
      ylim=c(0, 3))
-
 points(tyg1958$bloodflowBS, tyg1958$GE) 
 points(kei1988$bloodFlow, kei1988$HE, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
+points(win1965$flowLiver, win1965$GE, pch=22, bg='red') 
 
-
-plot(tyg1958$ca, tyg1958$GE,
+plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Galactose arteriell [mmol/L]",
      ylab="Galactose elimination [mmol/min]",
-     # xlim=c(0, 3),
      xlim=c(0, 10), 
      ylim=c(0, 3))
+points(tyg1958$ca, tyg1958$GE)
 points(wal1960$gal, wal1960$R, pch=21, col='black', bg='gray')
 points(kei1988$ca, kei1988$HE, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
+points(win1965$ca, win1965$GE, pch=22, bg='red')
 par(mfrow=c(1,1))
 
 # [2] Galactose extraction ratio ER
 # -----------------------------------------------------
 par(mfrow=c(1,2))
-plot(tyg1958$bloodflowBS, tyg1958$ER,
+plot(numeric(0), numeric(0), type='n', font.lab=2, 
      xlab="Blood flow [ml/min]",
      ylab="Galactose extraction ratio [-]",
-     # xlim=c(0, 3),
      ylim=c(0, 1),
      xlim=c(0, 3200))
+points(tyg1958$bloodflowBS, tyg1958$ER)
 points(kei1988$bloodFlow, kei1988$ER, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
+points(win1965$flowLiver, win1965$ER, pch=22, bg='red')
 
-plot(tyg1958$ca, tyg1958$ER,
+plot(numeric(0), numeric(0), type='n', font.lab=2, 
      xlab="Galactose arteriell [mmol/L]",
      ylab="Galactose extraction ratio [-]",
-     # xlim=c(0, 3),
      ylim=c(0, 1),
      xlim=c(0, 5))
+points(tyg1958$ca, tyg1958$ER)
 points(kei1988$ca, kei1988$ER, pch=21, col='black', bg=rgb(0,0,1, 0.5)) 
 points(hen1982$css, hen1982$ER, pch=21, col='black', bg=rgb(1,0,0, 0.5)) 
+points(win1965$ca, win1965$ER, pch=22, bg='red')
 par(mfrow=c(1,1))
 
 # [3] Clearance
@@ -105,36 +110,38 @@ points(tyg1958$ca, tyg1958$CL)
 points(kei1988$ca, kei1988$HCL, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
 # points(kei1988$ca, kei1988$SCL, pch=22, col='black', bg=rgb(0,0,1.0, 0.5)) 
 points(hen1982$css, hen1982$CL, pch=21, col='black', bg=rgb(1,0,0, 0.5)) 
+points(win1965$ca, win1965$CL, pch=22, bg='red')
 
 # points(wal1960$gal, wal1960$CLH, pch=21, col='black', bg='gray')
 CL_new <- (wal1960$R - 0.2*wal1960$gal/(wal1960$gal+0.1))/wal1960$gal *1000 
 points(wal1960$gal, CL_new, pch=21, col='black', bg='darkgreen')
 
-# TODO: proper correction of all the values (what )
 
 
-
-
-plot(tyg1958$bloodflowBS, tyg1958$CL,
+plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Blood flow [ml/min]",
      ylab="Galactose clearance [ml/min]",
-     # xlim=c(0, 3),
      xlim=c(0, 3200),
      ylim=c(0, 2600))
+points(tyg1958$bloodflowBS, tyg1958$CL)
 points(kei1988$bloodFlow, kei1988$HCL, pch=21, col='black', bg=rgb(0,0,1.0, 0.5)) 
+points(win1965$flowLiver, win1965$CL, pch=22, bg='red')
 par(mfrow=c(1,1))
 
 # cv ~ ca (cv = ca*(1-ER) )
 # -----------------------------------------------------
-plot(tyg1958$ca, tyg1958$cv,
+plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Galactose arteriell [mmol/L]",
      ylab="Galactose venous [mmol/L]",
-     # xlim=c(0, 3),
      xlim=c(0, 8),
      ylim=c(0, 7))
+points(tyg1958$ca, tyg1958$cv)
 points(tyg1954$ca, tyg1954$cv, pch=21, bg='darkgreen')
 points(kei1988$ca, kei1988$cv, pch=21, col='black', bg=rgb(0,0,1, 0.5)) 
 points(hen1982$css, hen1982$chv, pch=21, col='black', bg=rgb(1,0,0, 0.5)) 
+points(win1965$ca, win1965$cv, pch=22, bg='red')
+
+
 
 ########################################################################
 # Merkel ROC curve data

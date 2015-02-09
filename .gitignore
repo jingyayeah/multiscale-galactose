@@ -16,6 +16,7 @@ results/nhanes/nhanes_GEC.Rdata
 results/nhanes/nhanes_GECkg.Rdata
 
 *.Rhistory
+*.RData
 .~*
 *~
 *.sh~
