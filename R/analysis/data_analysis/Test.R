@@ -237,6 +237,7 @@ par(mfrow=c(1,2))
 plot(wal1960$gal, wal1960$R, xlab='Galactose Peq [mM]', ylab='Removal [mmole/min]', 
      pch=21, col='black', bg='gray', font.lab=2,
      ylim=c(0,3.0), xlim=c(0,8))
+abline(v=0.5)
 plot(wal1960$gal, wal1960$CLH, xlab='Galactose Peq [mM]', ylab='Hepatic Clearance [ml/min]', 
      pch=21, col='black', bg='gray', font.lab=2,
      ylim=c(0,3000))
