@@ -39,181 +39,192 @@ for (f in folders){
 
 
 ################################################################
-## Figures for flow and galactose dependency
+# Figures 
+#   Galactose Elimination (GE), 
+#   Extraction Ration (ER)
+#   Clearance (CL)
+#   Perivenous galactose (CL)
 ################################################################
-folder20 <- '2015-02-05_T3'
-folder60 <- '2015-02-05_T4'
-folder100 <- '2015-02-05_T6'
-folder60 <- folder100
-t_peak=2000 
-t_end=10000 
+# Preprocess raw data and integrate over the sinusoidal units
+fs <- list()
+fs$normal20 <- '2015-02-05_T3'
+fs$normal60 <- '2015-02-05_T4'
+fs$normal100 <- '2015-02-05_T6'
+names(fs)
 
-
-# factors=c('f_flow', "N_fen", 'scale_f'),
-
-# Calculate all the individual points, i.e. split the data frame on the given
-# factor variables
+# Calculate all the individual points, i.e. split data frame on factors
 library(plyr)
-factors=c('f_flow', "gal_challenge")
+factors <- c('f_flow', "gal_challenge")
+t_peak <- 2000 
+t_end <- 10000 
 
-# [1] get the full extended data frame necessary for calculation
-# in case of aging simulations multiple data frames will be necessary
-# for the different ages.
+processed <- list()
+dfs <- list()
+for (name in names(fs)){
+  cat(name, '\n')
+  # preprocess raw data
+  processed[[name]] <- preprocess_task(folder=fs[[name]], force=FALSE)
+  # additional parameters in data frame
+  parscl <- extend_with_galactose_clearance(processed=processed[[name]], t_peak=t_peak, t_end=t_end)
+  # perform integration over the sinusoidal units
+  dfs[[name]] <- ddply(parscl, factors, f_integrate_GE)
+}
  
-# Calculate the galactose clearance parameters
-processed <- preprocess_task(folder=folder20, force=FALSE) 
-parscl <- extend_with_galactose_clearance(processed=processed, t_peak=t_peak, t_end=t_end)
-df_int20 <- ddply(parscl, factors, f_integrate_GE)
-
-processed <- preprocess_task(folder=folder60, force=FALSE) 
-parscl <- extend_with_galactose_clearance(processed=processed, t_peak=t_peak, t_end=t_end)
-df_int60 <- ddply(parscl, factors, f_integrate_GE)
-head(df_int60)
-
 
 ###################################
 # Plots
 ###################################
 
-
-
-
-
 # TODO: fix the concentration values
 # TODO: bold axis, write the concentatration values
 # TODO: boxplot of values for individual sinusoidal units
 # TODO: 
+# TODO: GE in µmol
 
-
-gal_levels <- as.numeric(levels(as.factor(df_int20$gal_challenge )))
-gal_levels
-f_levels <- as.numeric(levels(as.factor(df_int20$f_flow)))
-f_levels
 fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination.png')
-png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 165)
+png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
 par(mfrow=c(2,4))
+
+# In the plots the individual data points for the simulated 
+# steady state galactose levels and flows
+gal_levels <- as.numeric(levels(as.factor(dfs[[1]]$gal_challenge )))
+gal_levels
+f_levels <- as.numeric(levels(as.factor(dfs[[1]]$f_flow)))
+f_levels
+
+labels <- list(
+  Q_per_vol_units = 'Perfusion (P) [ml/min/ml(liver)]',
+  R_per_vol_units = 'Galactose Elimination (GE) [mmol/min/ml(liver)]',
+  c_in.mean = 'Periportal galactose (ci) [mmol/L]',
+  c_out.mean = 'Perivenous galactose (co) [mmol/L]',
+  ER.mean = 'Extraction Ratio (ER) [-]',
+  CL_per_vol_units = 'Clearance (CL) [ml/min/ml liver tissue]'
+)
+limits <- list(
+  Q_per_vol_units = c(0,3),
+  R_per_vol_units = c(0,0.0025),
+  c_in.mean = c(0,9),
+  c_out.mean = c(0,8),
+  ER.mean = c(0,1),
+  CL_per_vol_units = c(0,1.3)
+)
+
+colors <- c("black", rgb(0,0,1,0.5), rgb(1,0,0,0.5))
+names(colors) <- names(fs)
+pchs <- rep(21, length(colors))
+names(pchs) <- names(fs)
+texts <- c('20 years', '60 years', '100 years')
+names(texts) <- names(fs)
+
+empty_plot <- function(xname, yname){
+  plot(numeric(0), numeric(0), type='n', font.lab=2,
+       xlab=labels[[xname]],
+       ylab=labels[[yname]],
+       xlim=limits[[xname]],
+       ylim=limits[[yname]])
+}
+
+plot_data <- function(xname, yname, variable, levels){
+  
+  for (k in 1:length(dfs)){
+    for (level in levels){
+      name <- names(dfs)[length(dfs)+1-k]
+      d <- dfs[[name]]
+      d <- d[d[[variable]] == level, ]
+      col <- colors[[name]]
+      pch <- pchs[[name]]
+      points(d[[xname]], d[[yname]], pch=pch, col=col, bg=col)  
+      lines(d[[xname]], d[[yname]], col=col, lwd=1)  
+      # text
+      Np = length(d[[xname]])
+      if (k==1){
+        t_level = level
+        if (variable == 'f_flow'){
+          t_level = sprintf('%1.2f', d$Q_per_vol_units[1])
+        }
+        text(1.1*d[[xname]][Np], d[[yname]][Np], labels=as.character(t_level), cex=0.7, font=2)
+      }
+    }
+  }
+}
+
+add_legend <- function(loc="topleft"){
+  legend(loc, legend=texts, col=colors, pt.bg=colors, pch=pchs, cex=0.8, lwd=1, bty='n')
+}
+
 #--------------------------------------------
 # [A] GE ~ perfusion (various galactose)
 #--------------------------------------------
-plot(df_int20$Q_per_vol_units, df_int20$R_per_vol_units, type='n',
-     xlab='Perfusion [ml/min/ml liver tissue]',
-     ylab='Galactose Elimination (GE) per tissue [mmol/min/ml liver tissue]', font.lab=2)
-
-for (gal in gal_levels){
-  
-  d <- df_int20[df_int20$gal_challenge == gal, ]
-  points(d$Q_per_vol_units, d$R_per_vol_units, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$Q_per_vol_units, d$R_per_vol_units, col='black', lwd=2)  
-  d <- df_int60[df_int60$gal_challenge == gal, ]
-  points(d$Q_per_vol_units, d$R_per_vol_units, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$Q_per_vol_units, d$R_per_vol_units, col='red', lwd=2) 
-}
-
+xname = 'Q_per_vol_units'
+yname = 'R_per_vol_units'
+empty_plot(xname, yname)
+plot_data(xname, yname, 
+          variable='gal_challenge', levels=gal_levels)
+add_legend()
 #--------------------------------------------
 # [B] GE ~ galactose (various perfusion)
 #--------------------------------------------
-plot(df_int20$c_in.mean, df_int20$R_per_vol_units, type='n',
-     xlab='Periportal galactose [mmol/L]',
-     ylab='Galactose Elimination (GE) per tissue [mmol/min/ml liver tissue]', font.lab=2)
-for (f in f_levels){
-  d <- df_int20[df_int20$f_flow == f, ]
-  points(d$c_in.mean, d$R_per_vol_units, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$c_in.mean, d$R_per_vol_units, col='black', lwd=2)  
-  d <- df_int60[df_int60$f_flow == f, ]
-  points(d$c_in.mean, d$R_per_vol_units, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$c_in.mean, d$R_per_vol_units, col='red', lwd=2)  
-}
-
+xname = 'c_in.mean'
+yname = 'R_per_vol_units'
+empty_plot(xname, yname)
+plot_data(xname, yname, 
+          variable='f_flow', levels=f_levels)
+add_legend()
 #--------------------------------------------
 # [C] ER ~ perfusion (various galactose)
 #--------------------------------------------
-plot(df_int20$Q_per_vol_units, df_int20$ER.mean, type='n',
-     xlab='Perfusion [ml/min/ml liver tissue]',
-     ylab='Extraction Ratio [-]', font.lab=2)
-for (g in gal_levels){
-  d <- df_int20[df_int20$gal_challenge == g, ]
-  points(d$Q_per_vol_units, d$ER.mean, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$Q_per_vol_units, d$ER.mean, col='black', lwd=2)  
-  d <- df_int60[df_int60$gal_challenge == g, ]
-  points(d$Q_per_vol_units, d$ER.mean, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$Q_per_vol_units, d$ER.mean, col='red', lwd=2)  
-}
-
+xname = 'Q_per_vol_units'
+yname = 'ER.mean'
+empty_plot(xname, yname)
+plot_data(xname, yname, 
+          variable='gal_challenge', levels=gal_levels)
+add_legend("topright")
 #--------------------------------------------
 # [D] ER ~ galactose (various perfusion)
 #--------------------------------------------
-plot(df_int20$c_in.mean, df_int20$ER.mean, type='n',
-     xlab='Periportal galactose [mM]',
-     ylab='Extraction Ratio [-]', font.lab=2)
-for (f in f_levels){
-  d <- df_int20[df_int20$f_flow == f, ]
-  points(d$c_in.mean, d$ER.mean, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$c_in.mean, d$ER.mean, col='black', lwd=2)  
-  d <- df_int60[df_int60$f_flow == f, ]
-  points(d$c_in.mean, d$ER.mean, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$c_in.mean, d$ER.mean, col='red', lwd=2)  
-}
-
+xname = 'c_in.mean'
+yname = 'ER.mean'
+empty_plot(xname, yname)
+plot_data(xname, yname, 
+          variable='f_flow', levels=f_levels)
+add_legend('bottomleft')
 #--------------------------------------------
 # [E] CL ~ perfusion (various galactose)
 #--------------------------------------------
-plot(df_int20$Q_per_vol_units, df_int20$CL_per_vol_units, type='n',
-     xlab='Perfusion [ml/min/ml liver tissue]',
-     ylab='Clearance [ml/min/ml liver tissue]', font.lab=2)
-for (g in gal_levels){
-  d <- df_int20[df_int20$gal_challenge == g, ]
-  points(d$Q_per_vol_units, d$CL_per_vol_units, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$Q_per_vol_units, d$CL_per_vol_units, col='black', lwd=2)  
-  d <- df_int60[df_int60$gal_challenge == g, ]
-  points(d$Q_per_vol_units, d$CL_per_vol_units, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$Q_per_vol_units, d$CL_per_vol_units, col='red', lwd=2)  
-}
-
+xname = 'Q_per_vol_units'
+yname = 'CL_per_vol_units'
+empty_plot(xname, yname)
+plot_data(xname, yname, 
+          variable='gal_challenge', levels=gal_levels)
+add_legend('topleft')
 #--------------------------------------------
 # [F] CL ~ galactose (various perfusion)
 #--------------------------------------------
-plot(df_int20$c_in.mean, df_int20$CL_per_vol_units, type='n',
-     xlab='Periportal galactose [mM]',
-     ylab='Clearance [ml/min]', font.lab=2)
-for (f in f_levels){
-  d <- df_int20[df_int20$f_flow == f, ]
-  points(d$c_in.mean, d$CL_per_vol_units, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$c_in.mean, d$CL_per_vol_units, col='black', lwd=2)  
-  d <- df_int60[df_int60$f_flow == f, ]
-  points(d$c_in.mean, d$CL_per_vol_units, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$c_in.mean, d$CL_per_vol_units, col='red', lwd=2)  
-}
-
+xname = 'c_in.mean'
+yname = 'CL_per_vol_units'
+empty_plot(xname, yname)
+plot_data(xname, yname, 
+          variable='f_flow', levels=f_levels)
+add_legend('topright')
 #--------------------------------------------
 # [G] c_out ~ perfusion (various galactose)
 #--------------------------------------------
-plot(df_int20$Q_per_vol_units, df_int20$c_out.mean, type='n',
-     xlab='Perfusion [ml/min/ml liver tissue]',
-     ylab='Perivenous galactose [mM]', font.lab=2)
-for (g in gal_levels){
-  d <- df_int20[df_int20$gal_challenge == g, ]
-  points(d$Q_per_vol_units, d$c_out.mean, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$Q_per_vol_units, d$c_out.mean, col='black', lwd=2)  
-  d <- df_int60[df_int60$gal_challenge == g, ]
-  points(d$Q_per_vol_units, d$c_out.mean, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$Q_per_vol_units, d$c_out.mean, col='red', lwd=2)  
-}
-
-
+xname = 'Q_per_vol_units'
+yname = 'c_out.mean'
+empty_plot(xname, yname)
+plot_data(xname, yname, 
+          variable='gal_challenge', levels=gal_levels)
+add_legend('topleft')
 #--------------------------------------------
 # [H] c_out ~ galactose (various perfusion)
 #--------------------------------------------
-plot(df_int20$c_in.mean, df_int20$c_out.mean, type='n',
-     xlab='Periportal galactose [mM]',
-     ylab='Perivenous galactose [mM]', font.lab=2)
-for (f in f_levels){
-  d <- df_int20[df_int20$f_flow == f, ]
-  points(d$c_in.mean, d$c_out.mean, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$c_in.mean, d$c_out.mean, col='black', lwd=2)  
-  d <- df_int60[df_int60$f_flow == f, ]
-  points(d$c_in.mean, d$c_out.mean, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$c_in.mean, d$c_out.mean, col='red', lwd=2)  
-}
+xname = 'c_in.mean'
+yname = 'c_out.mean'
+empty_plot(xname, yname)
+abline(a = 0, b=1, col='gray')
+plot_data(xname, yname, 
+          variable='f_flow', levels=f_levels)
+add_legend('topleft')
 
 par(mfrow=c(1,1))
 dev.off()
