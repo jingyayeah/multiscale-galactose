@@ -37,6 +37,8 @@ for (f in folders){
   # assign(folder, calculate_GEC_curves(folder))
 }
 
+# TODO: calculate the GEC curves depending on age
+
 
 ################################################################
 # Figures 
@@ -74,13 +76,7 @@ for (name in names(fs)){
 ###################################
 # Plots
 ###################################
-
-# TODO: fix the concentration values
-# TODO: bold axis, write the concentatration values
-# TODO: boxplot of values for individual sinusoidal units
-# TODO: 
 # TODO: GE in µmol
-
 fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination.png')
 png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
 par(mfrow=c(2,4))
@@ -152,6 +148,9 @@ add_legend <- function(loc="topleft"){
   legend(loc, legend=texts, col=colors, pt.bg=colors, pch=pchs, cex=0.8, lwd=1, bty='n')
 }
 
+###################################
+# AGE PLOTS
+###################################
 #--------------------------------------------
 # [A] GE ~ perfusion (various galactose)
 #--------------------------------------------
@@ -230,8 +229,9 @@ par(mfrow=c(1,1))
 dev.off()
 
 ###########################################################################################
-# EXPERIMENTAL DATA HUMAN
+# AGE PLOTS WITH EXPERIMENTAL DATA
 ###########################################################################################
+
 wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
 # vol_liv = 1500/1.25 # [ml]
 vol_liv <- 1500*0.8
