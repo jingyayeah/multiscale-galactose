@@ -60,30 +60,27 @@ factors <- c('f_flow', "gal_challenge")
 t_peak <- 2000 
 t_end <- 10000 
 
-processed <- list()
 parscl <- list()
 dfs <- list()
 for (name in names(fs)){
   cat(name, '\n')
   # preprocess raw data
-  processed[[name]] <- preprocess_task(folder=fs[[name]], force=FALSE)
-}
-for (name in names(fs)){
+  processed <- preprocess_task(folder=fs[[name]], force=FALSE)
   # additional parameters in data frame
-  parscl[[name]] <- extend_with_galactose_clearance(processed=processed[[name]], t_peak=t_peak, t_end=t_end)
+  parscl[[name]] <- extend_with_galactose_clearance(processed=processed, t_peak=t_peak, t_end=t_end)
   # perform integration over the sinusoidal units
-  dfs[[name]] <- ddply(parscl[[name]], factors, f_integrate_GE)
+  dfs[[name]] <- ddply(parscl[[name]], factors, 
+                       f_integrate_GE, f_tissue=0.8, vol_liver=1500)
 }
- 
+
 
 ###################################
 # Plots
 ###################################
-do_plot = FALSE
+do_plot = TRUE
 if (do_plot){
   fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination.png')
   png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
-  par(mfrow=c(2,4))
 }
 
 # In the plots the individual data points for the simulated 
@@ -95,22 +92,29 @@ f_levels
 
 labels <- list(
   Q_per_vol_units = 'Perfusion (P) [ml/min/ml(liver)]',
-  R_per_vol_units = 'Galactose Elimination (GE) [mmol/min/ml(liver)]',
+  Q_abs_vol_units = 'Blood flow (Q) [ml/min]',
+  R_per_vol_units = 'Galactose Elimination (GE) [µmol/min/ml(liver)]',
+  R_abs_vol_units = 'Galactose Elimination (GE) [mmol/min]',
+  CL_per_vol_units = 'Clearance (CL) [ml/min/ml(liver)]',
+  CL_abs_vol_units = 'Clearance (CL) [ml/min]',
   c_in.mean = 'Periportal galactose (ci) [mmol/L]',
   c_out.mean = 'Perivenous galactose (co) [mmol/L]',
-  ER.mean = 'Extraction Ratio (ER) [-]',
-  CL_per_vol_units = 'Clearance (CL) [ml/min/ml liver tissue]'
+  ER.mean = 'Extraction Ratio (ER) [-]'
 )
 limits <- list(
-  Q_per_vol_units = c(0,3),
-  R_per_vol_units = c(0,0.0025),
+  Q_per_vol_units = c(0,2.5),
+  Q_abs_vol_units = c(0,4000),
+  R_per_vol_units = c(0, 2.2),
+  R_abs_vol_units = c(0, 3.0),
+  CL_per_vol_units = c(0,1.1),
+  CL_abs_vol_units = c(0,3000),
   c_in.mean = c(0,9),
   c_out.mean = c(0,8),
-  ER.mean = c(0,1),
-  CL_per_vol_units = c(0,1.3)
+  ER.mean = c(0,1)
 )
 
-colors <- c("black", rgb(0,0,1,0.5), rgb(1,0,0,0.5))
+
+colors <- c("black", rgb(0.5,0.5,0.5,0.5), rgb(1,0,0,0.5))
 names(colors) <- names(fs)
 pchs <- rep(21, length(colors))
 names(pchs) <- names(fs)
@@ -138,7 +142,7 @@ plot_data <- function(xname, yname, variable, levels){
       lines(d[[xname]], d[[yname]], col=col, lwd=1)  
       # text
       Np = length(d[[xname]])
-      if (k==1){
+      if (k==length(dfs)){
         t_level = level
         if (variable == 'f_flow'){
           t_level = sprintf('%1.2f', d$Q_per_vol_units[1])
@@ -149,6 +153,7 @@ plot_data <- function(xname, yname, variable, levels){
   }
 }
 
+
 add_legend <- function(loc="topleft"){
   legend(loc, legend=texts, col=colors, pt.bg=colors, pch=pchs, cex=0.8, lwd=1, bty='n')
 }
@@ -156,6 +161,7 @@ add_legend <- function(loc="topleft"){
 ###################################
 # AGE PLOTS
 ###################################
+par(mfrow=c(2,4))
 #--------------------------------------------
 # [A] GE ~ perfusion (various galactose)
 #--------------------------------------------
@@ -180,6 +186,7 @@ add_legend()
 xname = 'Q_per_vol_units'
 yname = 'ER.mean'
 empty_plot(xname, yname)
+abline(h=1, col='gray')
 plot_data(xname, yname, 
           variable='gal_challenge', levels=gal_levels)
 add_legend("topright")
@@ -189,6 +196,7 @@ add_legend("topright")
 xname = 'c_in.mean'
 yname = 'ER.mean'
 empty_plot(xname, yname)
+abline(h=1, col='gray')
 plot_data(xname, yname, 
           variable='f_flow', levels=f_levels)
 add_legend('bottomleft')
@@ -229,7 +237,7 @@ abline(a = 0, b=1, col='gray')
 plot_data(xname, yname, 
           variable='f_flow', levels=f_levels)
 add_legend('topleft')
-
+#--------------------------------------------
 par(mfrow=c(1,1))
 
 if (do_plot){
@@ -271,73 +279,203 @@ add_exp_legend <- function(loc="topleft", subset){
 
 # To bring experimental data and the caculated curves together,
 # the per volume response has to be scaled to the total liver.
-# Assumption of liver volume and parenchymal fraction as
-f_liv = 0.8               # parenchymal fraction of liver
-vol_liv <- 1500 * f_liv
+# Assumption of liver volume
+
+plot_data_exp <- function(xname, yname, variable, levels){
+  for (level in levels){
+    name <- names(dfs)[1]
+    d <- dfs[[name]]
+    d <- d[d[[variable]] == level, ]
+    col <- colors[[name]]
+    pch <- pchs[[name]]
+    # points(d[[xname]], d[[yname]], pch=pch, col=col, bg=col)  
+    lines(d[[xname]], d[[yname]], col=col, lwd=1)  
+    # text
+    Np = length(d[[xname]])
+    t_level = level
+    if (variable == 'f_flow'){
+      t_level = sprintf('%2.0f', d$Q_abs_vol_units[1])
+    }
+    text(1.1*d[[xname]][Np], d[[yname]][Np], labels=as.character(t_level), cex=0.7, font=2)
+  }
+}
+
+if (do_plot){
+  fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination_with_exp.png')
+  png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
+}
+par(mfrow=c(2,4))
+#--------------------------------------------
+# [A] GE ~ perfusion (various galactose)
+#--------------------------------------------
+xname = 'Q_abs_vol_units'
+yname = 'R_abs_vol_units'
+empty_plot(xname, yname)
+plot_data_exp(xname, yname, 
+          variable='gal_challenge', levels=gal_levels)
+points(tyg1958$bloodflowBS, tyg1958$GE, 
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]]) 
+points(kei1988$bloodFlow, kei1988$HE, 
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(win1965$flowLiver, win1965$GE, 
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(hen1982$bloodflow, hen1982$GE, 
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+add_exp_legend(subset=c("tyg1958","kei1988", "win1965", "hen1982"))
 
 
-
-par(mfrow=c(1,2))
 #--------------------------------------------
 # [B] GE ~ galactose (various perfusion)
 #--------------------------------------------
-plot(df_int20$c_in.mean, df_int20$R_per_vol_units * vol_liv, type='n',
-     xlab='Periportal galactose [mmol/L]',
-     ylab='Galactose Elimination (GE) [mmol/min]',
-     font.lab=2)
-for (f in c(0.5)){
-  d <- df_int20[df_int20$f_flow == f, ]
-  points(d$c_in.mean, d$R_per_vol_units * vol_liv, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$c_in.mean, d$R_per_vol_units * vol_liv, col='black', lwd=2)  
-  d <- df_int60[df_int60$f_flow == f, ]
-  points(d$c_in.mean, d$R_per_vol_units * vol_liv, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$c_in.mean, d$R_per_vol_units * vol_liv, col='red', lwd=2)  
-}
-points(wal1960$gal, wal1960$R, pch=21, col='black', bg='gray')
-abline(h=3.2, col='red')
+xname = 'c_in.mean'
+yname = 'R_abs_vol_units'
+empty_plot(xname, yname)
+plot_data_exp(xname, yname, 
+          variable='f_flow', levels=f_levels)
+points(tyg1958$ca, tyg1958$GE,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(wal1960$gal, wal1960$R, 
+       bg=exp_bg[["wal1960"]], col=exp_cols[["wal1960"]], pch=exp_pchs[["wal1960"]])
+points(kei1988$ca, kei1988$HE,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(win1965$ca, win1965$GE,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(hen1982$css, hen1982$GE, 
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+add_exp_legend("bottomright", subset=c("tyg1958","wal1960", "kei1988", "win1965", "hen1982"))
 
+#--------------------------------------------
+# [C] ER ~ perfusion (various galactose)
+#--------------------------------------------
+xname = 'Q_abs_vol_units'
+yname = 'ER.mean'
+empty_plot(xname, yname)
+abline(h=1, col='gray')
+plot_data_exp(xname, yname, 
+          variable='gal_challenge', levels=gal_levels)
+points(tyg1958$bloodflowBS, tyg1958$ER,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(kei1988$bloodFlow, kei1988$ER,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(win1965$flowLiver, win1965$ER,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(hen1982$bloodflow, hen1982$ER,
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+abline(h=1, col="gray")
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982"))
+#--------------------------------------------
+# [D] ER ~ galactose (various perfusion)
+#--------------------------------------------
+xname = 'c_in.mean'
+yname = 'ER.mean'
+empty_plot(xname, yname)
+abline(h=1, col='gray')
+plot_data_exp(xname, yname, 
+          variable='f_flow', levels=f_levels)
+points(tyg1958$ca, tyg1958$ER,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(kei1988$ca, kei1988$ER,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(hen1982$css, hen1982$ER,
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(win1965$ca, win1965$ER,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+abline(h=1, col="gray")
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "hen1982", "win1965"))
+#--------------------------------------------
+# [E] CL ~ perfusion (various galactose)
+#--------------------------------------------
+xname = 'Q_abs_vol_units'
+yname = 'CL_abs_vol_units'
+empty_plot(xname, yname)
+plot_data_exp(xname, yname, 
+          variable='gal_challenge', levels=gal_levels)
+points(tyg1958$bloodflowBS, tyg1958$CL,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(kei1988$bloodFlow, kei1988$HCL,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(win1965$flowLiver, win1965$CL,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(hen1982$bloodflow, hen1982$CL,
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+add_exp_legend("topleft", subset=c("tyg1958","kei1988", "win1965", "hen1982"))
 #--------------------------------------------
 # [F] CL ~ galactose (various perfusion)
 #--------------------------------------------
-plot(df_int20$c_in.mean, df_int20$CL_per_vol_units * vol_liv, type='n',
-     xlab='Periportal galactose [mM]',
-     ylab='Clearance [ml/min]',
-     font.lab=2)
-for (f in c(0.5)){
-  d <- df_int20[df_int20$f_flow == f, ]
-  points(d$c_in.mean, d$CL_per_vol_units * vol_liv, pch=21, col='black', bg=rgb(0,0,1,0.5))  
-  lines(d$c_in.mean, d$CL_per_vol_units * vol_liv, col='black', lwd=2)  
-  d <- df_int60[df_int60$f_flow == f, ]
-  points(d$c_in.mean, d$CL_per_vol_units * vol_liv, pch=21, col='black', bg=rgb(1,0,0,0.5))  
-  lines(d$c_in.mean, d$CL_per_vol_units * vol_liv, col='red', lwd=2)  
-}
-
-points(wal1960$gal, wal1960$CLH, pch=21, col='black', bg='gray')
+xname = 'c_in.mean'
+yname = 'CL_abs_vol_units'
+empty_plot(xname, yname)
+plot_data_exp(xname, yname, 
+          variable='f_flow', levels=f_levels)
+points(tyg1958$ca, tyg1958$CL,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(kei1988$ca, kei1988$HCL,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+# points(kei1988$ca, kei1988$SCL, pch=22, col='black', bg=rgb(0,0,1.0, 0.5)) 
+points(hen1982$css, hen1982$CL, 
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(win1965$ca, win1965$CL,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+# points(wal1960$gal, wal1960$CLH, pch=21, col='black', bg='gray')
+# CL_new <- (wal1960$R - 0.2*wal1960$gal/(wal1960$gal+0.1))/wal1960$gal *1000 
+points(wal1960$gal, wal1960$CLH,
+       bg=exp_bg[["wal1960"]], col=exp_cols[["wal1960"]], pch=exp_pchs[["wal1960"]])
+add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960"))
+#--------------------------------------------
+# [G] c_out ~ perfusion (various galactose)
+#--------------------------------------------
+xname = 'Q_abs_vol_units'
+yname = 'c_out.mean'
+empty_plot(xname, yname)
+plot_data_exp(xname, yname, 
+          variable='gal_challenge', levels=gal_levels)
+points(tyg1958$bloodflowBS, tyg1958$cv,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(kei1988$bloodFlow, kei1988$cv,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(win1965$flowLiver, win1965$cv,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(hen1982$bloodflow, hen1982$chv,
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(rep(1500, nrow(tyg1954)), tyg1954$cv,
+        bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+# points(rep(1500, nrow(tyg1954)), tyg1954$cv, pch=7)
+add_exp_legend("topleft", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
+#--------------------------------------------
+# [H] c_out ~ galactose (various perfusion)
+#--------------------------------------------
+xname = 'c_in.mean'
+yname = 'c_out.mean'
+empty_plot(xname, yname)
+abline(a = 0, b=1, col='gray')
+plot_data_exp(xname, yname, 
+          variable='f_flow', levels=f_levels)
+points(tyg1958$ca, tyg1958$cv,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(tyg1954$ca, tyg1954$cv,
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+points(kei1988$ca, kei1988$cv,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(hen1982$css, hen1982$chv,
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(win1965$ca, win1965$cv,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+add_exp_legend("topleft", subset=c("tyg1958", "tyg1954", "kei1988", "hen1982", "win1965"))
+#--------------------------------------------
 par(mfrow=c(1,1))
 
+if (do_plot){
+  dev.off()
+}
 
 
-str(test)
-head(test)
 
-str(res)
-str(res$GEC_curves)
-
-
+################################################################
 
 # TODO: necessary to calculate the various GE curves
 GEC_f <- GEC_functions(task=info$task)
 plot_GEC_function(GEC_f)
 
-
-
-
-
-str(GEC_f)
-names(GEC_f)
-
-d.mean <- GEC_f$d.mean
-d.mean[, c('f_flow', 'N_fen', 'R_per_vol_units')]
 
 ################################################################
 ## Normal Galactose Clearance & Elimination (20 years)
@@ -357,7 +495,6 @@ plot_GEC_function(GEC_f)
 names(GEC_f)
 GEC_f$d.mean[, c('f_flow', 'Q_per_vol_units')]
 
-
 folder <- '2014-12-17_T18'
 info <- process_folder_info(folder)
 res <- calculate_GEC_curves(folder, force=FALSE, B=10)
@@ -374,71 +511,6 @@ p1 <- ggplot(d.mean, aes(f_flow, R_per_vol_units*1500)) + geom_point() + geom_li
 p2 <- ggplot(d.mean, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + facet_grid(~ scale_f)
 p3 <- ggplot(d.mean, aes(Q_per_vol_units, R_per_vol_units*1500)) + geom_point() + geom_line()+ ylim(0,5) +facet_grid(~ scale_f)
 multiplot(p1, p2, p3, cols=3)
-
-
-################################################################
-## Galactose Clearance & Elimination Curves (Ageing)
-################################################################
-# Create GEC curves in aging.
-# Multiple processing of the individual GEC curves.
-rm(list=ls())
-
-par(mfrow=c(1,2))
-folder <- '2014-12-08_T3'
-info <- process_folder_info(folder)
-res <- calculate_GEC_curves(folder, force=TRUE, B=10)
-GEC_f <- GEC_functions(task=info$task)
-plot_GEC_function(GEC_f)
-
-folder <- '2014-12-08_T4'
-info <- process_folder_info(folder)
-res <- calculate_GEC_curves(folder, force=TRUE, B=10)
-GEC_f <- GEC_functions(task=info$task)
-plot_GEC_function(GEC_f)
-par(mfrow=c(1,1))
-
-
-
-task <- 'T4'
-load(file=GEC_curve_file(task))
-d.mean <- GEC_curves$d.mean
-d.se <- GEC_curves$d.se
-
-
-add_age <- function(data, age.levels=c(20, 40, 60, 80, 100)){
-  # add the age to the data frame
-  N_fen.levels <- unique(data$N_fen)
-  N_fen.levels <- N_fen.levels[order(N_fen.levels, decreasing=TRUE)]
-  age.levels <- c(20, 40, 60, 80, 100)
-  
-  data$age <- NA
-  for (k in seq_along(age.levels)){
-    data$age[data$N_fen == N_fen.levels[k]] <- age.levels[k]
-  }
-  # add the base age
-  tmp <- data[ data$age == 20, ]
-  tmp$age <- 0
-  data <- rbind(data, tmp)
-  # reorder
-  data <- data[with(data, order(f_flow, age)), ]
-  return(data)
-}
-d.mean <- add_age(d.mean)
-d.se <- add_age(d.se)
-
-plot(numeric(0), numeric(0), xlim=range(d.mean$Q_per_vol_units), ylim=range(d.mean$R_per_vol_units)*1500, type='n',
-     main="Effect of ageing on GEC", xlab='Q_per_vol_units', ylab='R_per_vol_units')
-for (age in c(0, 20, 40, 60, 80, 100)){
-  inds <- which(d.mean$age == age)
-  with(d.mean, lines(Q_per_vol_units[inds], R_per_vol_units[inds]*1500) )
-}
-
-
-p1 <- ggplot(d.mean, aes(f_flow, R_per_vol_units*1500)) + geom_point() + geom_line() + facet_grid(~ age)
-p2 <- ggplot(d.mean, aes(f_flow, Q_per_vol_units)) + geom_point() + geom_line() + facet_grid(~ age)
-p3 <- ggplot(d.mean, aes(Q_per_vol_units, R_per_vol_units*1500)) + geom_point() + geom_line()+ ylim(0,5) +facet_grid(~ age)
-multiplot(p1, p2, p3, cols=3)
-
 
 ################################################################
 ## Galactose Clearance & Elimination Curves (Expression Changes)

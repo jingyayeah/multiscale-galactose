@@ -106,7 +106,7 @@ extend_with_galactose_clearance <- function(processed, t_peak, t_end){
 #' @param x Called with extended parameter data.frame containing clearance per sinusoidal unit.
 #' @param f_tissue Parenchymal tissue fractions
 #' @export
-f_integrate_GE <- function(x, f_tissue=0.8){  
+f_integrate_GE <- function(x, f_tissue=0.8, vol_liver=1500){  
   # ------------------------
   # General calculations
   # ------------------------
@@ -134,6 +134,11 @@ f_integrate_GE <- function(x, f_tissue=0.8){
   Q_per_vol_units <- Q_per_vol*60                 # [ml/min/ml(tissue)]
   R_per_vol_units <- R_per_vol*60                 # [µmole/min/ml(tissue)]
   CL_per_vol_units <- CL_per_vol*60               # [ml/min/ml(tissue)]
+  
+  ## create absolute values with liver volume
+  Q_abs_vol_units <- Q_per_vol_units*vol_liver      # [ml/min]
+  R_abs_vol_units <- R_per_vol_units*vol_liver/1000 # [mmole/min]
+  CL_abs_vol_units <- CL_per_vol_units*vol_liver    # [ml/min/ml(tissue)]
   
   # ---------------------------------------------------
   # mean, sd, quantiles for sample of sinusoidal units
@@ -202,7 +207,10 @@ f_integrate_GE <- function(x, f_tissue=0.8){
        CL_per_vol=CL_per_vol,
        Q_per_vol_units=Q_per_vol_units, 
        R_per_vol_units=R_per_vol_units,
-       CL_per_vol_units=CL_per_vol_units)
+       CL_per_vol_units=CL_per_vol_units,
+       Q_abs_vol_units=Q_abs_vol_units, 
+       R_abs_vol_units=R_abs_vol_units,
+       CL_abs_vol_units=CL_abs_vol_units)
 }
 
 
