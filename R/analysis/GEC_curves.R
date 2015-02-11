@@ -15,6 +15,8 @@
 # author: Matthias Koenig
 # date: 2014-01-04
 ################################################################
+# TODO: create the GEC functions
+
 rm(list=ls())
 library('MultiscaleAnalysis')
 library('libSBML')
@@ -37,9 +39,6 @@ for (f in folders){
   # assign(folder, calculate_GEC_curves(folder))
 }
 
-# TODO: calculate the GEC curves depending on age
-
-
 ################################################################
 # Figures 
 #   Galactose Elimination (GE), 
@@ -48,10 +47,11 @@ for (f in folders){
 #   Perivenous galactose (CL)
 ################################################################
 # Preprocess raw data and integrate over the sinusoidal units
-fs <- list()
-fs$normal20 <- '2015-02-05_T3'
-fs$normal60 <- '2015-02-05_T4'
-fs$normal100 <- '2015-02-05_T6'
+fs <- list(
+  normal20 = '2015-02-05_T3',
+  normal60 = '2015-02-05_T4',
+  normal100 = '2015-02-05_T6'
+)
 names(fs)
 
 # Calculate all the individual points, i.e. split data frame on factors
@@ -61,25 +61,30 @@ t_peak <- 2000
 t_end <- 10000 
 
 processed <- list()
+parscl <- list()
 dfs <- list()
 for (name in names(fs)){
   cat(name, '\n')
   # preprocess raw data
   processed[[name]] <- preprocess_task(folder=fs[[name]], force=FALSE)
+}
+for (name in names(fs)){
   # additional parameters in data frame
-  parscl <- extend_with_galactose_clearance(processed=processed[[name]], t_peak=t_peak, t_end=t_end)
+  parscl[[name]] <- extend_with_galactose_clearance(processed=processed[[name]], t_peak=t_peak, t_end=t_end)
   # perform integration over the sinusoidal units
-  dfs[[name]] <- ddply(parscl, factors, f_integrate_GE)
+  dfs[[name]] <- ddply(parscl[[name]], factors, f_integrate_GE)
 }
  
 
 ###################################
 # Plots
 ###################################
-# TODO: GE in µmol
-fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination.png')
-png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
-par(mfrow=c(2,4))
+do_plot = FALSE
+if (do_plot){
+  fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination.png')
+  png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
+  par(mfrow=c(2,4))
+}
 
 # In the plots the individual data points for the simulated 
 # steady state galactose levels and flows
@@ -226,7 +231,10 @@ plot_data(xname, yname,
 add_legend('topleft')
 
 par(mfrow=c(1,1))
-dev.off()
+
+if (do_plot){
+  dev.off()
+}
 
 ###########################################################################################
 # AGE PLOTS WITH EXPERIMENTAL DATA

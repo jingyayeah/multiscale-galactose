@@ -13,6 +13,31 @@
 # date: 2014-12-06
 ################################################################
 
+#' Calculate half maximal times from the processed data
+#' @export
+calc_half_max_time <- function(processed, t_peak, t_end){
+  ids <- processed$ids
+  pars <- processed$pars
+  x <- processed$x
+  simIds = rownames(pars)
+  
+  # steady state values for the ids
+  mlist <- createApproximationMatrix(x, ids=ids, simIds=simIds, points=c(t_end), reverse=FALSE)
+  
+  # half maximal time, i.e. time to reach half steady state value
+  
+  t_half <- rep(NA, length(simIds))
+  names(t_half) <- simIds
+  Nsim <- length(simIds)
+  # interpolate the half maximal time
+  for(ks in seq(Nsim)){
+    # fit the point
+    points <- c( 0.5*mlist$PV__gal[[ks]] )
+    data.interp <- approx(x$PV__gal[[ks]][, 2], x$PV__gal[[ks]][, 1], xout=points, method="linear")
+    t_half[ks] <- data.interp[[2]] - t_peak
+  }
+  return (as.vector(t_half)) # [s]
+}
 
 ###########################################################################
 # Galactose clearance by individual sinusoidal unit
@@ -36,19 +61,7 @@ extend_with_galactose_clearance <- function(processed, t_peak, t_end){
   
   # steady state values for the ids
   mlist <- createApproximationMatrix(x, ids=ids, simIds=simIds, points=c(t_end), reverse=FALSE)
-  
-  # half maximal time, i.e. time to reach half steady state value
-  t_half <- rep(NA, length(simIds))
-  names(t_half) <- simIds
-  Nsim <- length(simIds)
-  # interpolate the half maximal time
-  for(ks in seq(Nsim)){
-    # fit the point
-    points <- c( 0.5*mlist$PV__gal[[ks]] )
-    data.interp <- approx(x$PV__gal[[ks]][, 2], x$PV__gal[[ks]][, 1], xout=points, method="linear")
-    t_half[ks] <- data.interp[[2]] - t_peak
-  }
-  
+    
   # Clearance parameters for the system #
   #-------------------------------------
   # F = Q_sinunit             # [m^3/sec]
@@ -63,10 +76,8 @@ extend_with_galactose_clearance <- function(processed, t_peak, t_end){
   c_out <- as.vector(mlist$PV__gal)  # [mmol/L]
   
   parscl <- pars  
-  parscl$t_half <- as.vector(t_half) # [s]
   parscl$c_in <- c_in
   parscl$c_out <- c_out
-  
   parscl$R <- parscl$Q_sinunit * (c_in - c_out)
   parscl$ER <- (c_in - c_out)/c_in
   parscl$CL <- parscl$Q_sinunit * (c_in - c_out)/c_in
@@ -77,7 +88,6 @@ extend_with_galactose_clearance <- function(processed, t_peak, t_end){
   
   return(parscl)
 }
-
 
 ###########################################################################
 # Calculation of GEC curves
@@ -94,8 +104,9 @@ extend_with_galactose_clearance <- function(processed, t_peak, t_end){
 #' Calculates: mean, sd, q
 #' 
 #' @param x Called with extended parameter data.frame containing clearance per sinusoidal unit.
+#' @param f_tissue Parenchymal tissue fractions
 #' @export
-f_integrate_GE <- function(x){  
+f_integrate_GE <- function(x, f_tissue=0.8){  
   # ------------------------
   # General calculations
   # ------------------------
@@ -105,22 +116,24 @@ f_integrate_GE <- function(x){
   # Here integrated values over the sample of sinusoidal units are calculated.
   # total volume (sinusoidal unit volume)
   sum.Vol_sinunit <- sum(x$Vol_sinunit) # [m^3]
+  # total volume of tissue (sinusoidal unit and the corresponding larger vessels)
+  sum.Vol_tissue <- sum.Vol_sinunit/f_tissue  # [m^3]
   # total flow
   sum.Q_sinunit <- sum(x$Q_sinunit)     # [m^3/sec]
   # total removal
   sum.R <- sum(x$R) # [mole/sec]
   # total clearance
-  sum.CL <- sum(x$CL) # [mole/sec]
+  sum.CL <- sum(x$CL) # [m^3/sec]
   
-  ## normalize to volume 
-  Q_per_vol <- sum.Q_sinunit/sum.Vol_sinunit     # [m^3/sec/m^3(liv)] = [ml/sec/ml(liv)] 
-  R_per_vol <- sum.R/sum.Vol_sinunit             # [mole/sec/m^3(liv)]
-  CL_per_vol <- sum.CL/sum.Vol_sinunit           # [m^3/sec/m^3(liv)]
+  ## values normalized to volume 
+  Q_per_vol <- sum.Q_sinunit/sum.Vol_tissue      # [m^3/sec/m^3(tissue)] = [ml/sec/ml(tissue)] 
+  R_per_vol <- sum.R/sum.Vol_tissue              # [mole/sec/m^3(tissue)]
+  CL_per_vol <- sum.CL/sum.Vol_tissue            # [m^3/sec/m^3(tissue)]
   
   ## proper units for flow and clearance
-  Q_per_vol_units <- Q_per_vol*60                 # [ml/min/ml(liv)]
-  R_per_vol_units <- R_per_vol*60/1000            # [mmole/min/ml(liv)]
-  CL_per_vol_units <- CL_per_vol*60               # [ml/min/ml(liv)]
+  Q_per_vol_units <- Q_per_vol*60                 # [ml/min/ml(tissue)]
+  R_per_vol_units <- R_per_vol*60                 # [µmole/min/ml(tissue)]
+  CL_per_vol_units <- CL_per_vol*60               # [ml/min/ml(tissue)]
   
   # ---------------------------------------------------
   # mean, sd, quantiles for sample of sinusoidal units

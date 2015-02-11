@@ -55,8 +55,11 @@ add_exp_legend <- function(loc="topleft", subset){
   legend(loc, legend=gsub("19", "", subset), col=exp_cols[subset], pt.bg=exp_bg[subset], pch=exp_pchs[subset], cex=0.8, bty='n')
 }
 
-fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination_experiments.png')
-png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
+do_plot = FALSE
+if (do_plot){
+  fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination_experiments.png')
+  png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
+}
 par(mfrow=c(2,4))
 
 # [1] Galactose elimination
@@ -181,10 +184,10 @@ points(win1965$flowLiver, win1965$cv,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$chv,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-points(rep(1500, nrow(tyg1954)), tyg1954$cv,
-       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
-points(rep(1500, nrow(tyg1954)), tyg1954$cv, pch=7)
-add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
+# points(rep(1500, nrow(tyg1954)), tyg1954$cv,
+#        bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+# points(rep(1500, nrow(tyg1954)), tyg1954$cv, pch=7)
+add_exp_legend("topleft", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
 
 plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Galactose arteriell [mmol/L]",
@@ -204,7 +207,9 @@ points(win1965$ca, win1965$cv,
 add_exp_legend("topleft", subset=c("tyg1958", "tyg1954", "kei1988", "hen1982", "win1965"))
 
 par(mfrow=c(1,1))
-dev.off()
+if (do_plot){
+  dev.off()
+}
 
 
 
