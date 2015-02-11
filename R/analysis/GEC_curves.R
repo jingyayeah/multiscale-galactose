@@ -231,10 +231,43 @@ dev.off()
 ###########################################################################################
 # AGE PLOTS WITH EXPERIMENTAL DATA
 ###########################################################################################
-
+# Read data #
+kei1988 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Keiding1988.csv"), sep="\t")
+tyg1958 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Tygstrup1958.csv"), sep="\t")
+tyg1958 <- tyg1958[tyg1958$status=='healthy',]
+tyg1954 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Tygstrup1954.csv"), sep="\t")
 wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
-# vol_liv = 1500/1.25 # [ml]
-vol_liv <- 1500*0.8
+hen1982 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab4.csv"), sep="\t")
+hen1982 <- hen1982[hen1982$status == 'healthy', ]
+win1965 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Winkler1965.csv"), sep="\t")
+head(win1965)
+
+exp <- list(
+  kei1988=kei1988,
+  tyg1958=tyg1958,
+  tyg1954=tyg1954,
+  wal1960=wal1960,
+  hen1982=hen1982,
+  win1965=win1965
+)
+exp_pchs <- rep(22,length(exp))
+names(exp_pchs) <- names(exp)
+exp_bg <- c('red', 'darkgreen', 'darkorange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
+names(exp_bg) <- names(exp)
+exp_cols <- rep('black', length(exp))
+names(exp_cols) <- names(exp)
+
+add_exp_legend <- function(loc="topleft", subset){
+  legend(loc, legend=gsub("19", "", subset), col=exp_cols[subset], pt.bg=exp_bg[subset], pch=exp_pchs[subset], cex=0.8, bty='n')
+}
+
+# To bring experimental data and the caculated curves together,
+# the per volume response has to be scaled to the total liver.
+# Assumption of liver volume and parenchymal fraction as
+f_liv = 0.8               # parenchymal fraction of liver
+vol_liv <- 1500 * f_liv
+
+
 
 par(mfrow=c(1,2))
 #--------------------------------------------

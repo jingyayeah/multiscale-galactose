@@ -22,31 +22,19 @@ points(wal1960$gal, wal1960$R, pch=21, col='black', bg='red')
 ########################################################################
 # Combined data (GE, ER, CL)
 ########################################################################
-# TODO: unify colors & symbols for datasets
-# TODO: add legend for data
 # TODO: add error bars were available
+# TODO: correction of all GE & CL values, when not based on ca-cv differences
 
 # Read data #
 kei1988 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Keiding1988.csv"), sep="\t")
-head(kei1988)
-
 tyg1958 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Tygstrup1958.csv"), sep="\t")
 tyg1958 <- tyg1958[tyg1958$status=='healthy',]
-head(tyg1958)
-
 tyg1954 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Tygstrup1954.csv"), sep="\t")
-head(tyg1954)
-
 wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
-head(wal1960)
-
 hen1982 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab4.csv"), sep="\t")
 hen1982 <- hen1982[hen1982$status == 'healthy', ]
-head(hen1982)
-
 win1965 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Winkler1965.csv"), sep="\t")
 head(win1965)
-
 
 exp <- list(
  kei1988=kei1988,
@@ -62,9 +50,6 @@ exp_bg <- c('red', 'darkgreen', 'darkorange', 'blue', 'brown', rgb(0.3, 0.3, 0.3
 names(exp_bg) <- names(exp)
 exp_cols <- rep('black', length(exp))
 names(exp_cols) <- names(exp)
-
-# TODO: proper correction for all R & CL values,
-# if not based on ca-cv differences
 
 add_exp_legend <- function(loc="topleft", subset){
   legend(loc, legend=gsub("19", "", subset), col=exp_cols[subset], pt.bg=exp_bg[subset], pch=exp_pchs[subset], cex=0.8, bty='n')
@@ -146,6 +131,21 @@ add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "hen1982", "win1965"
 # [3] Clearance
 # -----------------------------------------------------
 plot(numeric(0), numeric(0), type='n', font.lab=2,
+     xlab="Blood flow [ml/min]",
+     ylab="Galactose clearance [ml/min]",
+     xlim=c(0, 3200),
+     ylim=c(0, 2600))
+points(tyg1958$bloodflowBS, tyg1958$CL,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(kei1988$bloodFlow, kei1988$HCL,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(win1965$flowLiver, win1965$CL,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(hen1982$bloodflow, hen1982$CL,
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982"))
+
+plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Galactose arteriell [mmol/L]",
      ylab="Galactose clearance [ml/min]",
      xlim=c(0, 10),
@@ -166,40 +166,8 @@ points(wal1960$gal, wal1960$CLH,
 add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960"))
 
 
-plot(numeric(0), numeric(0), type='n', font.lab=2,
-     xlab="Blood flow [ml/min]",
-     ylab="Galactose clearance [ml/min]",
-     xlim=c(0, 3200),
-     ylim=c(0, 2600))
-points(tyg1958$bloodflowBS, tyg1958$CL,
-       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
-points(kei1988$bloodFlow, kei1988$HCL,
-       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
-points(win1965$flowLiver, win1965$CL,
-       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-points(hen1982$bloodflow, hen1982$CL,
-       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982"))
-
 # cv ~ ca (cv = ca*(1-ER) )
 # -----------------------------------------------------
-plot(numeric(0), numeric(0), type='n', font.lab=2,
-     xlab="Galactose arteriell [mmol/L]",
-     ylab="Galactose venous [mmol/L]",
-     xlim=c(0, 8),
-     ylim=c(0, 7))
-points(tyg1958$ca, tyg1958$cv,
-       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
-points(tyg1954$ca, tyg1954$cv,
-       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
-points(kei1988$ca, kei1988$cv,
-       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
-points(hen1982$css, hen1982$chv,
-       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-points(win1965$ca, win1965$cv,
-       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-add_exp_legend("topleft", subset=c("tyg1958", "tyg1954", "kei1988", "hen1982", "win1965"))
-
 plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Blood flow [ml/min]",
      ylab="Galactose venous [mmol/L]",
@@ -218,8 +186,28 @@ points(rep(1500, nrow(tyg1954)), tyg1954$cv,
 points(rep(1500, nrow(tyg1954)), tyg1954$cv, pch=7)
 add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
 
+plot(numeric(0), numeric(0), type='n', font.lab=2,
+     xlab="Galactose arteriell [mmol/L]",
+     ylab="Galactose venous [mmol/L]",
+     xlim=c(0, 8),
+     ylim=c(0, 7))
+points(tyg1958$ca, tyg1958$cv,
+       bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
+points(tyg1954$ca, tyg1954$cv,
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+points(kei1988$ca, kei1988$cv,
+       bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+points(hen1982$css, hen1982$chv,
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(win1965$ca, win1965$cv,
+       bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+add_exp_legend("topleft", subset=c("tyg1958", "tyg1954", "kei1988", "hen1982", "win1965"))
+
 par(mfrow=c(1,1))
 dev.off()
+
+
+
 
 ########################################################################
 # Merkel ROC curve data
