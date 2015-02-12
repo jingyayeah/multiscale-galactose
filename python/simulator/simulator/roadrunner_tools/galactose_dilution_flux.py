@@ -59,6 +59,7 @@ for gal in [0.28, 12.5, 17.5]:
         d = copy.deepcopy(settings.D_TEMPLATE) 
         d["[PP__gal]"] = gal
         d["flow_sin"] = f
+        d["scale_f"] = r.scale_f/2    # dog half GEC 
         p_list.append(d)
     gal_p_list.append(p_list)
 

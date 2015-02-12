@@ -23,7 +23,7 @@ GALK = ReactionTemplate(
             ('GALK_k_adp',   0.8,     'mM'),
             ('GALK_ki_gal1p', 5.3,    'mM'),
             ('GALK_kcat',     8.7,    'per_s'),
-            ('GALK_k_gal',   0.97,    'mM'),
+            ('GALK_k_gal',   0.14,    'mM'),
             ('GALK_k_atp',   0.034,   'mM'),
             ('c__GALK_P',    1.0,     'mM'),
     ],
