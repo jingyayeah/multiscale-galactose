@@ -17,7 +17,7 @@ rm(list=ls())
 library('MultiscaleAnalysis')
 library('libSBML')
 setwd(ma.settings$dir.base)
-do_plot = TRUE
+
 
 # Preprocess raw data and integrate over the sinusoidal units
 factors <- c('f_flow', "gal_challenge")
@@ -34,6 +34,7 @@ rm(tmp)
 #   Clearance (CL)
 #   Perivenous galactose (CL)
 ################################################################
+do_plot = TRUE
 if (do_plot){
   fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination.png')
   png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
@@ -61,8 +62,8 @@ limits <- list(
   Q_per_vol_units = c(0,2.5),
   Q_abs_vol_units = c(0,4000),
   R_per_vol_units = c(0, 2.2),
-  R_abs_vol_units = c(0, 3.0),
-  CL_per_vol_units = c(0,1.1),
+  R_abs_vol_units = c(0, 3.5),
+  CL_per_vol_units = c(0,1.8),
   CL_abs_vol_units = c(0,3000),
   c_in.mean = c(0,9),
   c_out.mean = c(0,8),

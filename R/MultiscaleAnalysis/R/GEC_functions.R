@@ -10,48 +10,20 @@
 # information.
 # 
 # author: Matthias Koenig
-# date: 2014-12-06
+# date: 2014-12-12
 ################################################################
 
-#' Calculate half maximal times from the processed data
-#' @export
-calc_half_max_time <- function(processed, t_peak, t_end){
-  ids <- processed$ids
-  pars <- processed$pars
-  x <- processed$x
-  simIds = rownames(pars)
-  
-  # steady state values for the ids
-  mlist <- createApproximationMatrix(x, ids=ids, simIds=simIds, points=c(t_end), reverse=FALSE)
-  
-  # half maximal time, i.e. time to reach half steady state value
-  
-  t_half <- rep(NA, length(simIds))
-  names(t_half) <- simIds
-  Nsim <- length(simIds)
-  # interpolate the half maximal time
-  for(ks in seq(Nsim)){
-    # fit the point
-    points <- c( 0.5*mlist$PV__gal[[ks]] )
-    data.interp <- approx(x$PV__gal[[ks]][, 2], x$PV__gal[[ks]][, 1], xout=points, method="linear")
-    t_half[ks] <- data.interp[[2]] - t_peak
-  }
-  return (as.vector(t_half)) # [s]
-}
 
-###########################################################################
-# Galactose clearance by individual sinusoidal unit
-###########################################################################
-#' Calculates clearance information for sinusoidal unit.
+#' Calculate clearance information for individual sinusoidal units.
 #' 
-#' Here the central calculation of clearance for a sinusoidal unit based
-#' on the periportal and perivenious steady state concentration 
-#' differences is performed. For ever sinusoidal unit the data is calculated.
-#' In a first step the timecourse matrix is approximated for the 
-#' steady state data point (tend), which is necessary due to the variable
-#' time steps in the individual integrations.
-#' In a second step the actual clearance parameters are calculated based
-#' on the steady state concentration matrix.
+#' Galactose elimination (R), Clearance (CL), extraction ratio (ER) and
+#' galactose difference (DG=ci-co) are calculated for all sinusoidal units
+#' individually.  
+#' For the calculation the timecourse matrix is interpolated to get the 
+#' steady state value at exactly t_end. This is necessary due to the variable
+#' step sizes of the integration (different step sizes for all solutions).
+#' With the steady state concentrations of periportal galactose (PP__gal) and
+#' perivenous galactose (PV__gal) the elimination values are calculated.
 #' @export
 extend_with_galactose_clearance <- function(processed, t_end){
   ids <- processed$ids
@@ -211,6 +183,36 @@ f_integrate_GE <- function(x, f_tissue=0.8, vol_liver=1500){
        Q_abs_vol_units=Q_abs_vol_units, 
        R_abs_vol_units=R_abs_vol_units,
        CL_abs_vol_units=CL_abs_vol_units)
+}
+
+
+#' Calculate half maximal times from the processed data
+#' 
+#' Preprocessing of the half maximal time from the response curves, i.e. 
+#' how fast is the half maximum reached after galactose challenge.
+#' @export
+calc_half_max_time <- function(processed, t_peak, t_end){
+  ids <- processed$ids
+  pars <- processed$pars
+  x <- processed$x
+  simIds = rownames(pars)
+  
+  # steady state values for the ids
+  mlist <- createApproximationMatrix(x, ids=ids, simIds=simIds, points=c(t_end), reverse=FALSE)
+  
+  # half maximal time, i.e. time to reach half steady state value
+  
+  t_half <- rep(NA, length(simIds))
+  names(t_half) <- simIds
+  Nsim <- length(simIds)
+  # interpolate the half maximal time
+  for(ks in seq(Nsim)){
+    # fit the point
+    points <- c( 0.5*mlist$PV__gal[[ks]] )
+    data.interp <- approx(x$PV__gal[[ks]][, 2], x$PV__gal[[ks]][, 1], xout=points, method="linear")
+    t_half[ks] <- data.interp[[2]] - t_peak
+  }
+  return (as.vector(t_half)) # [s]
 }
 
 

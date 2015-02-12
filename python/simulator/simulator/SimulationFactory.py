@@ -214,7 +214,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
     
     # adapt flow in samples with the given f_flows
     # f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
-    f_flows = (1.0, 0.5, 0.4)
+    f_flows = (0.6, 0.5, 0.4)
     
     raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     
@@ -359,7 +359,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 106
+    VERSION = 107
     
     #----------------------------------------------------------------------#
     # TEST NETWORKS
@@ -394,7 +394,7 @@ if __name__ == "__main__":
     mean_samples = make_galatose_flow_samples(N=1, sampling='mean', 
                                              f_flows=f_flows, gal_challenge=gal_challenge)
     
-    if (1):
+    if (0):
         '''
         Galactose elimination curves. 
         The simple galactose elimination curve is calculated by scaling the
@@ -440,7 +440,7 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     # MULTIPLE INDICATOR DILUTION CURVES
     #----------------------------------------------------------------------#
-    if (0):
+    if (1):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves
@@ -460,8 +460,9 @@ if __name__ == "__main__":
         [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         
+        scale_dog = 0.31/2
+        samples = setParameterInSamples(samples, "scale_f", scale_dog, 'per_m3', GLOBAL_PARAMETER)
         
-        # setParameterInSamples(samples, "scale_f", 0.37/2, unit, ptype)
         createSimulationsForSamples(task, samples)
         
         
