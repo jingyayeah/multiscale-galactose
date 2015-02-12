@@ -7,22 +7,18 @@ Steady state clearance of galactose under given galactose challenge.
 Here the clearance parameters and the GEC can be calculated from the model.
 
 @author: Matthias Koenig
-@date: 2014-01-19
+@date: 2015-02-12
 '''
+import copy
+import numpy as np
+import galactose_settings as settings
 import roadrunner_tools as rt
-
-
-
-
-
-
+reload(settings)
 
 #########################################################################    
 # Load model
 #########################################################################    
-VERSION = 104
-SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
-sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_galchallenge.xml'.format(VERSION)
+sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_galchallenge.xml'.format(settings.VERSION)
 r = rt.load_model(sbml_file)
 
 #########################################################################    
@@ -43,7 +39,8 @@ r.selections = sel
 #########################################################################    
 # Set parameters & simulate
 ######################################################################### 
-import numpy as np
+reload(settings)
+
 # flow dependency
 f_sin1 = np.arange(start=0, stop=0.3, step=0.05) * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
 f_sin2 = np.arange(start=0.3, stop=1.6, step=0.3) * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
@@ -53,35 +50,23 @@ gal_challenge = np.arange(start=0, stop=9.0, step=1.0)
 
 inits = {}
 # template of general parameter changes
-import copy
-d_template = {
-              "gal_challenge" : 8,  
-              "flow_sin" : 0.5 * r.flow_sin,  
-              "GALK_k_gal": 0.14,
-              # "y_dis" : 2.3E-6,
-              #"y_cell" : 8.39E-6*1.12,
-              #"f_cyto" : 0.4,
-              "scale_f" : 0.41/1.1,
-              #"GALK_PA" : 0.024,
-              #"GLUT2_f" : 7.5,              
-              # "H2OT_f": 5.0,         
-}
 
 # flow dependency
 p_list = []
 for f in flow_sin:
-    d2 = copy.deepcopy(d_template)    
-    d2["flow_sin"] = f
-    p_list.append(d2)
+    d = copy.deepcopy(settings.D_TEMPLATE)    
+    d["flow_sin"] = f
+    p_list.append(d)
 print '# Flow Dependency #'
 s_list = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in p_list]
 
 # gal dependency
 pgal_list = []
 for gal in gal_challenge:
-    d2 = copy.deepcopy(d_template)    
-    d2["gal_challenge"] = gal
-    pgal_list.append(d2)
+    d = copy.deepcopy(settings.D_TEMPLATE)    
+    d["gal_challenge"] = gal
+    d["flow_sin"] = settings.F_FLOW * r.flow_sin  
+    pgal_list.append(d)
 print '# Galactose Dependency #'
 # perform simulation
 sgal_list = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in pgal_list]
@@ -151,8 +136,8 @@ p.show()
 vol_liv = 1500 # [ml] reference volume liver
 print 'GEC [mmole/min]:', max(GE)*vol_liv
 
-p.plot(Q*vol_liv, GE*vol_liv, '-k')
-p.plot(Q*vol_liv, GE*vol_liv, 'ok')
+p.plot(P*vol_liv, GE*vol_liv, '-k')
+p.plot(P*vol_liv, GE*vol_liv, 'ok')
 p.xlabel('Q [ml/min]')
 p.ylabel('GE [mmole/min]')
 p.title('GEC vs. Perfusion')

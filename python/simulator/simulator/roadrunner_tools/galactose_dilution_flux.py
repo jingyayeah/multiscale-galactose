@@ -9,22 +9,21 @@ curves.
 @date: 2015-01-14
 """
 import numpy as np
+import copy
 import galactose_functions as gf
 import roadrunner_tools as rt
 import roadrunner_plots as rp
+import galactose_settings as settings
+
+reload(settings)
 reload(rp)
 reload(gf)
-
-#########################################################################    
-VERSION = 104
-SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
-T_PEAK = 5000
 
 #########################################################################    
 # Flux integration of curves
 #########################################################################  
 # sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
-sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
+sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(settings.VERSION)
 r = rt.load_model(sbml_file)
 
 # selection
@@ -41,7 +40,6 @@ sel_dict = rt.set_selection(r, sel)
 # distribution of fluxes
 reload(gf)
 flux = gf.flux_sample() # [m/s]
-print flux
 p_flux = gf.flux_probability(flux)
 f_fac = 0.5
 flow_sin = f_fac * flux # [m/s] (scaling to calculate in correct volume flow range)
@@ -52,25 +50,15 @@ flow_sin = f_fac * flux # [m/s] (scaling to calculate in correct volume flow ran
 # Define the parameters
 # The parameters are extended via the fluxes. I.e. for all fluxes in the
 # flux sample the simulation is performed.
-
+reload(settings)
 gal_p_list = []
 # for gal in [0.28]:
 for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for f in flow_sin:
-        d = { 
-              "[PP__gal]" : gal, 
-              "flow_sin" : f,    
-              # "y_dis" : 2.3E-6,
-              # "y_cell" : 8.39E-6*1.12,
-              
-              # "f_cyto" : 0.4,
-              # "scale_f" : 0.45/1.1,
-              #"GALK_PA" : 0.024,
-              # "GLUT2_f" : 7.5,              
-              "H2OT_f": 0.5,
-              "GALK_k_gal": 0.15
-              }
+        d = copy.deepcopy(settings.D_TEMPLATE) 
+        d["[PP__gal]"] = gal
+        d["flow_sin"] = f
         p_list.append(d)
     gal_p_list.append(p_list)
 
@@ -95,7 +83,7 @@ compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
 ids = ['[PV__{}]'.format(id) for id in compounds]    
 cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
-timepoints=np.arange(T_PEAK-5, T_PEAK+35, 0.01)
+timepoints=np.arange(settings.T_PEAK-5, settings.T_PEAK+35, 0.01)
 av_mats = []
 for f_list in gal_f_list:
     av_mats.append(gf.average_results(f_list, weights, ids, timepoints, sel))
@@ -115,7 +103,7 @@ reload(rp)
 show_plots=True
 
 # flux dependency of dilution profiles
-tlim = [T_PEAK-4, T_PEAK+20]
+tlim = [settings.T_PEAK-4, settings.T_PEAK+20]
 rp.flux_plots(f_list, sel, xlim=tlim, show=show_plots)
 # average curves
 # rp.average_plots(timepoints, av_mats, xlim=tlim, show=show_plots)

@@ -14,22 +14,16 @@ Dilution Data.
 @author: Matthias Koenig
 @date: 2014-12-19
 '''
-
-import roadrunner
-print roadrunner.__version__
-
+import copy
+import galactose_settings as settings
 import roadrunner_tools as rt
 import dilution_plots as dp
+reload(settings)
 
 #########################################################################    
 # Load model
 #########################################################################    
-VERSION = 103
-NC = 20
-SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
-T_PEAK = 5000
-
-sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(VERSION)
+sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(settings.VERSION)
 # sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc{}_dilution_gauss.xml'.format(VERSION, NC)
 r = rt.load_model(sbml_file)
 
@@ -57,23 +51,15 @@ r.selections = sel
 #########################################################################    
 # Set parameters & simulate
 ######################################################################### 
-# set the boundary concentrations
-# PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
-
-p_list = [
-   { "[PP__gal]" : 0.28, 
-    "flow_sin" : 0.45*270E-6, 
-              "y_dis" : 2.0E-6,
-              "y_cell" : 6.19E-6,
-              "f_cyto" : 0.5*1.2,
-              "scale_f" : 0.425/1.2,
-              # "GALK_PA" : 0.02,
-              "H2OT_f": 8.0,
-              "GLUT2_f" : 6,     
-    },
-]
-
+reload(settings)
 inits = {}
+p_list = []
+
+d = copy.deepcopy(settings.D_TEMPLATE)    
+d["[PP__gal]"] = 0.28
+d["flow_sin"] = settings.F_FLOW * r.flow_sin  
+p_list.append(d)
+print d
 
 # perform simulation
 s_list = [rt.simulation(r, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list]
@@ -131,16 +117,16 @@ dp.dilution_plot_by_name(s_list, r.selections, name='galM', comp_type='C')
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', comp_type='D')
 
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM', comp_type="C")
-dp.dilution_plot_by_name(s_list, r.selections, name='udpgalM')
-dp.dilution_plot_by_name(s_list, r.selections, name='udpglcM')
+dp.dilution_plot_by_name(s_list, r.selections, name='udpgalM', comp_type="C")
+dp.dilution_plot_by_name(s_list, r.selections, name='udpglcM', comp_type="C")
 
-dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20])
-dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[T_PEAK-10, T_PEAK+20], comp_type="D")
+dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[settings.T_PEAK-10, settings.T_PEAK+20])
+dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[settings.T_PEAK-10, settings.T_PEAK+20], comp_type="D")
 dp.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[0, 20])
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1p')
 dp.dilution_plot_by_name(s_list, r.selections, name='galtol')
 dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GAL', comp_type='D')
-dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GALM', xlim=[T_PEAK-1, T_PEAK+4], comp_type='D')
+dp.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GALM', xlim=[settings.T_PEAK-1, settings.T_PEAK+4], comp_type='D')
 dp.dilution_plot_by_name(s_list, r.selections, name='GALK')
 dp.dilution_plot_by_name(s_list, r.selections, name='GALKM')
 dp.dilution_plot_by_name(s_list, r.selections, name='gal1pM', xlim=[5000, 6000])
