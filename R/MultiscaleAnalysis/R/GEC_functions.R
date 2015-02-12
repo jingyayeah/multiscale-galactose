@@ -53,7 +53,7 @@ calc_half_max_time <- function(processed, t_peak, t_end){
 #' In a second step the actual clearance parameters are calculated based
 #' on the steady state concentration matrix.
 #' @export
-extend_with_galactose_clearance <- function(processed, t_peak, t_end){
+extend_with_galactose_clearance <- function(processed, t_end){
   ids <- processed$ids
   pars <- processed$pars
   x <- processed$x

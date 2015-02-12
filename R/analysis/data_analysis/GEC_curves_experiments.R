@@ -1,30 +1,20 @@
+################################################################
+# Experimentell data for GE curves
+################################################################
+# author: Matthias Koenig
+# date: 2015-02-12
+################################################################
+# TODO: add error bars were available
+# TODO: correction of all GE & CL values, when not based on ca-cv differences
+
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(file.path(ma.settings$dir.exp, 'GEC'))
-
-########################################################################
-# Urin galactose clearance
-########################################################################
-# Estimated as ~ 10% in Tystrup
-wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
-head(wal1960)
-
-plot(numeric(0), numeric(0), type='n',
-     xlab="Galactose arteriell [mmol/L]",
-     ylab="Urin galactose elimination [mmol/min]",
-     xlim=c(0, 10), 
-     ylim=c(0, 3),
-     font.lab = 2)
-points(wal1960$gal, wal1960$U, pch=21, col='black', bg='gray')
-points(wal1960$gal, wal1960$R, pch=21, col='black', bg='red')
-
+do_plot = FALSE
 
 ########################################################################
 # Combined data (GE, ER, CL)
 ########################################################################
-# TODO: add error bars were available
-# TODO: correction of all GE & CL values, when not based on ca-cv differences
-
 # Read data #
 kei1988 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Keiding1988.csv"), sep="\t")
 tyg1958 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Tygstrup1958.csv"), sep="\t")
@@ -55,7 +45,7 @@ add_exp_legend <- function(loc="topleft", subset){
   legend(loc, legend=gsub("19", "", subset), col=exp_cols[subset], pt.bg=exp_bg[subset], pch=exp_pchs[subset], cex=0.8, bty='n')
 }
 
-do_plot = FALSE
+
 if (do_plot){
   fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination_experiments.png')
   png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
@@ -210,113 +200,3 @@ par(mfrow=c(1,1))
 if (do_plot){
   dev.off()
 }
-
-
-
-
-########################################################################
-# Merkel ROC curve data
-d <- read.csv("Merkel1991.csv", sep="\t")
-head(d)
-summary(d)
-with(d, {
-  plot(fpr, tpr, type='n')
-    subset <- (d$predictor == 'GEC')
-    points(fpr[subset], tpr[subset], pch=15, col='black')
-    lines(fpr[subset], tpr[subset], col='black')
-    subset <- (d$predictor == 'Pugh')
-    points(fpr[subset], tpr[subset], pch=3, col='black')
-    lines(fpr[subset], tpr[subset], col='black', lty=2)
-})
-
-
-#############################################################################
-# Keiding1988
-#############################################################################
-kei1988 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Keiding1988.csv"), sep="\t")
-head(kei1988)
-
-# Hepatic clearance ~ perfusion
-vol_liv = 1500   # [ml]
-plot(kei1988$bloodFlow, kei1988$HCL, 
-     xlab="Liver bloodflow [ml/min]", 
-     ylab="Hepatic Clearance [ml/min]",
-     xlim=c(0,1800),
-     ylim=c(0, 1800))
-
-plot(kei1988$bloodFlow/vol_liv, kei1988$HCL, 
-     xlab="Liver bloodflow [ml/min]", 
-     ylab="Hepatic Clearance [ml/min]",
-     xlim=c(0,1.2),
-     ylim=c(0, 1800))
-for (k in 1:nrow(kei1988)){
-  # horizontal
-  lines(kei1988$bloodFlow[k]/vol_liv+c(-1,1)*kei1988$bloodFlowSE[k]/vol_liv, rep(kei1988$HCL[k],2) )
-  # vertical
-  lines(rep(kei1988$bloodFlow[k]/vol_liv, 2), kei1988$HCL[k] + c(-1,2)*kei1988$HCLSE[k])
-}
-
-# Artial and venous concentration 
-plot(kei1988$bloodFlow/vol_liv, kei1988$ca-kei1988$cv, 
-     xlab="Liver bloodflow [ml/min]", 
-     ylab="ca-cv [mmol/L]",
-     xlim=c(0,1.2),
-     ylim=c(0, 0.2))
-
-# Hepatic extraction fraction
-plot(kei1988$bloodFlow/vol_liv, kei1988$ER, 
-     main="Hepatic extraction ratio",
-     xlab="Liver bloodflow [ml/min]", 
-     ylab="ER [-]",
-     xlim=c(0,1.2),
-     ylim=c(0, 1.1))
-
-# Hepatic elimination
-plot(kei1988$ca, kei1988$HE, 
-     main="Hepatic elimination",
-     xlab="Galactose ca [mmol/L]", 
-     ylab="Hepatic elimination [mmol/min]",
-     xlim=c(0,0.2),
-     ylim=c(0,0.2))
-for (k in 1:nrow(kei1988)){
-  # horizontal
-  lines(kei1988$ca[k]+c(-1,1)*kei1988$caSE[k], rep(kei1988$HE[k],2) )
-  # vertical
-  lines(rep(kei1988$ca[k], 2), kei1988$HE[k] + c(-1,2)*kei1988$HESE[k])
-}
-
-# Systemic clearance ~ Hepatic clearance
-# Correction necessary for low galactose concentration
-plot(kei1988$HCL, kei1988$SCL, 
-     xlab="Systemic Clearance [ml/min]", 
-     ylab="Hepatic Clearance [ml/min]",
-     xlim=c(0,2000),
-     ylim=c(0, 2000))
-abline(a = 0, b=1)
-
-plot(kei1988$ca, kei1988$SCL-kei1988$HCL,
-     xlim=c(0,0.150),
-     ylim=c(0,1000))
-
-########################################################################
-wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
-
-# fname <- file.path(ma.settings$dir.base, 'results', 'Waldstein1960.png')
-# png(filename=fname, width=1600, height=800, res=150,
-#     units = "px", bg = "white")
-par(mfrow=c(1,2))
-plot(wal1960$gal, wal1960$R, xlab='Galactose Peq [mM]', ylab='Removal [mmole/min]', 
-     pch=21, col='black', bg='gray', font.lab=2,
-     ylim=c(0,3.0), xlim=c(0,8))
-abline(v=0.5)
-plot(wal1960$gal, wal1960$CLH, xlab='Galactose Peq [mM]', ylab='Hepatic Clearance [ml/min]', 
-     pch=21, col='black', bg='gray', font.lab=2,
-     ylim=c(0,3000))
-par(mfrow=c(1,2))
-dev.off()
-
-
-
-# dev.off()
-
-d <- read.csv("Waldstein1960_Fig6.csv", sep="\t")

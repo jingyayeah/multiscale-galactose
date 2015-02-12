@@ -3,7 +3,7 @@
 \alias{extend_with_galactose_clearance}
 \title{Calculates clearance information for sinusoidal unit.}
 \usage{
-extend_with_galactose_clearance(processed, t_peak, t_end)
+extend_with_galactose_clearance(processed, t_end)
 }
 \description{
 Here the central calculation of clearance for a sinusoidal unit based

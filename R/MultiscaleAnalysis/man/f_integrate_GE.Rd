@@ -10,10 +10,12 @@ Q_per_vol & R_per_vol are the perfusion of the region of interest and
 the corresponding removal of galactose per region of interest.
 Be aware of the units !}
 \usage{
-f_integrate_GE(x)
+f_integrate_GE(x, f_tissue = 0.8, vol_liver = 1500)
 }
 \arguments{
 \item{x}{Called with extended parameter data.frame containing clearance per sinusoidal unit.}
+
+\item{f_tissue}{Parenchymal tissue fractions}
 }
 \description{
 Calculates: mean, sd, q
