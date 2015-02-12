@@ -38,8 +38,77 @@ f_levels
 # region is calculated, or in the complete liver.
 # TODO: use the typical observed perfusion fluctuations for prediction.
 
-# f(P, ci, age) = f(perfusion, galactose, age) 
+# f(P, ci, age) = f(perfusion, galactose, age)
+
+ages <- as.numeric(gsub("normal", "", names(age_dfs)))
+
+subset_GE <- function(df){
+  d <- df[, c("c_in.mean", "Q_per_vol_units","R_per_vol_units")]
+  names(d) <- c("gal", "P", "GE")
+  return(d)
+}
+
+GE_dfs <- lapply(age_dfs, subset_GE)
+
+d <- GE_dfs[[1]]
+head(d)
+library(mgcv)
+
+# test data
+N = 20
+x <- seq(0, 2.5, length.out=N)
+y <- seq(0, 8.0, length.out=N)
+x = rep(x, each=N)
+y = rep(y, N)
+dnew <- data.frame(P=x, gal=y)
+
+
+## isotropic thin plate spline smoother
+b <- gam(GE~s(P, gal), data=d)
+dnew$z <- predict(b, newdata=dnew)
+
+## tensor product smoother
+b <- gam(GE~te(PE, gal))
+dnew$z <- predict(b,newdata=dnew)
+
+## pure regression splines
+b <- gam(GE~s(P, gal, k=10), data=d)
+dnew$z <- predict(b, newdata=dnew)
+
+library(lattice)
+p <- wireframe(z ~ x * y, data=dnew)
+npanel <- c(4, 2)
+rotx <- c(-50, -80)
+rotz <- seq(30, 300, length = npanel[1]+1)
+update(p[rep(1, prod(npanel))], layout = npanel,
+               panel = function(..., screen) {
+                 panel.wireframe(..., screen = list(z = rotz[current.column()],
+                                                    x = rotx[current.row()]))
+})
+          
+          
+
+
+## variant tensor product smoother
+b <- gam(Y~t2(X[,1],X[,2]))
+predict(b,newdata=list(X=W))
+
+# ... these would all result in penalized regression spline fits with
+# smoothing parameters estimated (by GCV, by default). If you don't want
+# penalization then use, e.g. s(X[,1],X[,2],fx=TRUE) to get pure
+# regression spline (`k' argument to s, te and t2 controls spline basis
+# dimension --- see docs).
+
+
+
 # ? Strategy ?
+# multivariate splines
+create_GE_function <- function(GE_dfs, ages, perfusion, galactose, age){
+  
+  
+  
+  
+}
 
 
 # TODO: necessary to calculate the various GE curves
