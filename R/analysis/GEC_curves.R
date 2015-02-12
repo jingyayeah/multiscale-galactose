@@ -268,9 +268,10 @@ exp <- list(
 )
 exp_pchs <- rep(22,length(exp))
 names(exp_pchs) <- names(exp)
-exp_bg <- c('red', 'darkgreen', 'darkorange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
+exp_bg <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
 names(exp_bg) <- names(exp)
-exp_cols <- rep('black', length(exp))
+exp_cols <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
+# exp_cols <- rep('black', length(exp))
 names(exp_cols) <- names(exp)
 
 add_exp_legend <- function(loc="topleft", subset){
