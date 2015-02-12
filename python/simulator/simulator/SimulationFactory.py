@@ -280,9 +280,14 @@ def make_galactose_aging(sbml_id, sampling, samples):
     # [1, 0.5, 0.25, 0.125, 0.0625]
     
     # age represents : [60, 80, 100]
-    age = [20, 60, 80, 100]
-    y_end = [165E-9*x for x in [1, 1.75, 2.125, 2.5]]  # [nm]
-    N_fen = [1E13*x for x in [1, 0.25, 0.125, 0.0625]]  # [1/m^2]
+    # age = [20, 60, 80, 100]
+    # y_end = [165E-9*x for x in [1, 1.75, 2.125, 2.5]]  # [nm]
+    # N_fen = [1E13*x for x in [1, 0.25, 0.125, 0.0625]]  # [1/m^2]
+    age = [20, 60, 100]
+    y_end = [165E-9*x for x in [1, 1.75, 2.5]]  # [nm]
+    N_fen = [1E13*x for x in [1, 0.25, 0.0625]]  # [1/m^2]
+    
+    
     for k in range(len(y_end)):
         info = 'Galactose elimination age {} ({}).'.format(age[k], sampling)
         p_list = [ {'pid': 'y_end', 'values': (y_end[k],) , 'unit': 'nm', 'ptype':GLOBAL_PARAMETER},
@@ -354,7 +359,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 104
+    VERSION = 106
     
     #----------------------------------------------------------------------#
     # TEST NETWORKS
@@ -375,7 +380,7 @@ if __name__ == "__main__":
         derive_deficiency_simulations(task, samples, deficiencies)
  
     #----------------------------------------------------------------------#
-    # GALACTOSE CHALLANGE
+    # GALACTOSE CHALLENGE
     #----------------------------------------------------------------------#
     # run all simulations under the same flow and galactose conditions
     #    especially the the aging & varying metabolic capacity
@@ -419,7 +424,7 @@ if __name__ == "__main__":
                                              samples=mean_samples)
    
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         ''' GEC curves under varying metabolic capacity of galactose metabolism. 
             Change in the maximal scale of metabolism.
         '''
@@ -435,7 +440,7 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     # MULTIPLE INDICATOR DILUTION CURVES
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves
@@ -454,6 +459,9 @@ if __name__ == "__main__":
         # mean sinusoid for comparison
         [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
         samples = setParameterValuesInSamples(raw_samples, p_list)
+        
+        
+        # setParameterInSamples(samples, "scale_f", 0.37/2, unit, ptype)
         createSimulationsForSamples(task, samples)
         
         
