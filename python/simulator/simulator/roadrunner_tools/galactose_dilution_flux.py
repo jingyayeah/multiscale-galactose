@@ -16,7 +16,7 @@ reload(rp)
 reload(gf)
 
 #########################################################################    
-VERSION = 103
+VERSION = 104
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
@@ -68,7 +68,8 @@ for gal in [0.28, 12.5, 17.5]:
               # "scale_f" : 0.45/1.1,
               #"GALK_PA" : 0.024,
               # "GLUT2_f" : 7.5,              
-              "H2OT_f": 0.5,            
+              "H2OT_f": 0.5,
+              "GALK_k_gal": 0.15
               }
         p_list.append(d)
     gal_p_list.append(p_list)

@@ -69,7 +69,7 @@ p_list = [
               "scale_f" : 0.425/1.2,
               # "GALK_PA" : 0.02,
               "H2OT_f": 8.0,
-              "GLUT2_f" : 6,      
+              "GLUT2_f" : 6,     
     },
 ]
 

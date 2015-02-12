@@ -104,9 +104,9 @@ deficiencies_units = {
                  'GALE_k_udpglc':'mM',
 }
 deficiencies = {
-        0 : {'GALK_kcat':8.7, 'GALK_k_gal':0.97, 'GALK_k_atp':0.034,
-             'GALT_vm':  804,  'GALT_k_gal1p':1.25, 'GALT_k_udpglc':0.95,
-             'GALE_kcat': 36,  'GALE_k_udpglc':0.069
+        0 : {# 'GALK_kcat':8.7, 'GALK_k_gal':0.97, 'GALK_k_atp':0.034,
+             # 'GALT_vm':  804,  'GALT_k_gal1p':1.25, 'GALT_k_udpglc':0.95,
+             # 'GALE_kcat': 36,  'GALE_k_udpglc':0.069
              },  
         1 : {'GALK_kcat':2.0, 'GALK_k_gal':7.7, 'GALK_k_atp':0.130},  
         2 : {'GALK_kcat':3.9, 'GALK_k_gal':0.43, 'GALK_k_atp':0.110}, 

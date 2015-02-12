@@ -354,7 +354,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 103
+    VERSION = 104
     
     #----------------------------------------------------------------------#
     # TEST NETWORKS
