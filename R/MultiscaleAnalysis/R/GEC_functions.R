@@ -1,13 +1,12 @@
 ################################################################
-# GEC calculation functions
+# GE calculation functions
 ################################################################
-# Calculation of GEC curves and GEC values from given GEC
+# Calculation of elimination and clearance information from 
+# steady state timecourses for sinusoidal units.
 # curves.
 #
-# TODO: handle the dependencies of GEC curves of given anthropomorphic
-# information. For instance the change in GEC with aging.
-# I.e. the actual GEC value depends on GEC function depending on people 
-# information.
+# Creation of GE response curves. Prediction of GE via these 
+# response curves.
 # 
 # author: Matthias Koenig
 # date: 2014-12-12
@@ -216,198 +215,60 @@ calc_half_max_time <- function(processed, t_peak, t_end){
 }
 
 
-#' Bootstrap of the calculation function.
-#' The number of samples in the bootstrap corresponds to the available samples.
-#' @export
-f_integrate_GEC_bootstrap <- function(dset, funct, B=1000){
-  # bootstraping the function on the given dataset
-  dset.mean <- f_integrate_GEC(dset)
-  
-  # calculate for bootstrap samples
-  N <- nrow(dset)
-  dset.boot <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=B))
-  names(dset.boot) <- names(dset.mean)
-  
-  for (k in seq(1,B)){
-    # create the sample by replacement
-    # these are the indices of the rows to take from the orignal dataframe
-    inds <- sample(seq(1,N), size=N, replace=TRUE)
-    
-    # create the bootstrap data.frame
-    df.boot <- dset[inds, ]
-    # calculate the values for the bootstrap df
-    dset.boot[k, ] <- f_integrate_GEC(df.boot)[1, ]
-  }
-  # now the function can be applied on the bootstrap set
-  dset.funct <- data.frame(matrix(NA, ncol=ncol(dset.mean), nrow=1))
-  names(dset.funct) <- names(dset.mean)
-  for (i in seq(1,ncol(dset.mean))){
-    dset.funct[1,i] <- funct(dset.boot[,i])
-  }
-  return(dset.funct)
-}
-
-
-#' Get GEC curve file name for given task.
-#' 
-#' @export
-GEC_curve_file <- function(task){
-  dir <- file.path(ma.settings$dir.base, 'results', 'GEC_curves')
-  file.path(dir, sprintf('GEC_curve_%s.Rdata', task))
-}
-
-#' Calculate GEC curves for task folder.
-#' 
-#' Integrates over the available simulations and calculates the individual
-#' GEC for the combinations of provided factors.
-#' Folders have the format: 
-#' 
-#' @export
-calculate_GEC_curves <- function(folder, t_peak=2000, t_end=10000, 
-                                 factors=c('f_flow', "gal_challenge", "N_fen", 'scale_f'),
-                                 # factors=c('f_flow', "N_fen", 'scale_f'),
-                                 force=FALSE, B=1000){
-  # Test if folder exists
-  fname <- file.path(ma.settings$dir.results, folder)
-  if (!file.exists(fname)){
-   stop(sprintf('Folder does not exist: %s', fname)) 
-  }
-  
-  # Process the integration time curves
-  processed <- preprocess_task(folder=folder, force=force) 
-  
-  # Calculate the galactose clearance parameters
-  parscl <- extend_with_galactose_clearance(processed=processed, t_peak, t_end=t_end)
-  
-  # Perform analysis split by factors.
-  # Generates the necessary data points for the interpolation of the GEC
-  # curves and creates an estimate of error via bootstrap.
-  cat('Calculate mean GEC\n')
-  d.mean <- ddply(parscl, factors, f_integrate_GEC)
-  cat('Calculate se GEC (bootstrap)\n')
-  d.se <- ddply(parscl, factors, f_integrate_GEC_bootstrap, funct=sd, B=B)
-  
-  # save the GEC curves 
-  GEC_curves <- list(d.mean=d.mean, d.se=d.se)
-  GEC.file <- GEC_curve_file(processed$info[['task']])
-  cat(GEC.file, '\n')
-  save('parscl', 'GEC_curves', file=GEC.file)  
-  
-  return( list(parscl=parscl, GEC_curves=GEC_curves, GEC.file=GEC.file) )
-}
-
-#' Create the GEC functions from the given GEC task data.
-#' The functions have to be calculated based on the subsets.
-#'
-#'@export
-GEC_functions <- function(task){
-  # Load the GEC data points
-  load(file=GEC_curve_file(task))
-  d.mean <- GEC_curves$d.mean
-  d.se <- GEC_curves$d.se
-  
-  # create spline fits
-  Qvol <- d.mean$Q_per_vol_units     # perfusion [ml/min/ml]
-  Rvol <- d.mean$R_per_vol_units     # GEC clearance [mmol/min/ml]
-  Rvol.se <- d.se$R_per_vol_units    # GEC standard error (bootstrap) [mmol/min/ml]
-  f <- splinefun(Qvol, Rvol)
-  f.se <- splinefun(Qvol, Rvol.se)  
-  
-  return(list(f=f, f.se=f.se, d.mean=d.mean, d.se=d.se))
-}
-
-#' Plot single GEC function.
-#' 
-#' @export
-plot_GEC_function <- function(GEC_f){
-  f <- GEC_f$f
-  f.se <- GEC_f$f.se
-  d.mean <- GEC_f$d.mean
-  d.se <- GEC_f$d.se
-  
-  x <- d.mean$Q_per_vol_units
-  y <- d.mean$R_per_vol_units
-  y.se <- d.se$R_per_vol_units
-  
-  plot(x, y, type='n',main='Galactose clearance ~ perfusion', 
-       xlab='Liver perfusion [ml/min/ml]', ylab='GEC per volume tissue [mmol/min/ml]', font=1, font.lab=2, ylim=c(0,1.5*max(y)))
-  
-  x.grid <- seq(from=0, to=max(x), length.out=100)
-  fx <- f(x.grid)
-  fx.se <- f.se(x.grid)
-  
-  xp <- c(x.grid, rev(x.grid))
-  yp <- c(fx+2*fx.se, rev(fx-2*fx.se))
-  polygon(xp,yp, col = rgb(0,0,0, 0.3), border = NA)
-  # lines(x, y+2*y.se, col=rgb(0,0,0, 0.8))
-  # lines(x, y-2*y.se, col=rgb(0,0,0, 0.8))
-  points(x, y, pch=21, col='black', bg=rgb(0,0,0, 0.8))
-  # lines(x, y, col='black', lwd=2)
-  # add spline functions
- 
-  lines(x.grid, fx, col='blue', lwd=2)
-  lines(x.grid, fx+2*fx.se, col='black')
-  lines(x.grid, fx-2*fx.se, col='black')
-  
-  legend('topleft', legend=c('mean GEC (Ns=1000 sinusoidal units)', '+-2SE (bootstrap, Nb=1000)',
-                                 'GEC spline function'), 
-         lty=c(1, 1, 1), col=c('black', rgb(0,0,0,0.8), 'blue'), lwd=c(2,1,2))
-}
-
 #################################################################################
-# Using GEC curves for calculation of GEC
+# GE response curves for prediction of GE and GEkg (GEC and GECkg)
 #################################################################################
 
-#' Calculates GEC for given vectors of liver volume and blood flow.
-#'
+#' Predicts galactose elimination (GE) for given vectors of liver volume and blood flow
+#' based on GE response functions.
+#' 
+#' Under high galactose concentrations, i.e. gal=8.0mM, the maximal galactose elimination
+#' rate is reached (GEC).
 #'@export
-calculate_GEC <- function(GEC_f, volLiver, flowLiver, f_tissue=0.8){  
-  # calculate parenchyma perfusion
-  perfusion <- flowLiver/(f_tissue*volLiver) # [ml/min/ml]
+predict_GE <- function(GEC_f, volLiver, flowLiver, galactose=8.0, age=20){
+  # perfusion by given liver volume and flow
+  perfusion <- flowLiver/volLiver # [ml/min/ml]
   
   # GEC per volume based on perfusion
-  # GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
-  GEC_per_vol <- GEC_f$f(perfusion) # [mmol/min/ml]
+  GE_per_vol <- GE_f$f(perfusion, galactose, age) # [mmol/min/ml]
   
   # GEC for complete liver
-  # GEC curves are for liver tissue. No correction for the large vessel structure
-  # has been applied. Here the metabolic capacity of combined sinusoidal units.
-  GEC <- GEC_per_vol * f_tissue*volLiver   # [mmol/min]
-  return(list(values=GEC, perfusion=perfusion, GEC_per_vol=GEC_per_vol, f_tissue=f_tissue))
+  GE <- GE_per_vol * volLiver  # [mmol/min]
+  return(list(GE=GE, 
+              perfusion=perfusion, 
+              galactose=galactose,
+              age=age,
+              GE_per_vol=GE_per_vol))
 }
 
-#' Calculates GECkg for given vectors of liver volume and blood flow.
-#'
-#'@export
-calculate_GECkg <- function(volLiverkg, flowLiverkg, f_tissue=0.8){  
-  # parenchyma perfusion
-  perfusion <- flowLiverkg/(f_tissue*volLiverkg)  # [ml/min/ml]
-  # GEC per volume based on perfusion
-  # GEC_per_vol <- rnorm(1, mean=GEC_f$f_GEC(perfusion), sd=GEC_f$f_GEC.se(perfusion)) # mmol/min/ml
-  GEC_per_vol <- GEC_f$f(perfusion)  # [mmol/min/ml]
-  
-  # GEC for liver per kg
-  # GEC curves are for liver tissue. No correction for the large vessel structure
-  # has been applied. Here the metabolic capacity of combined sinusoidal units.
-  GECkg <- GEC_per_vol * f_tissue * volLiverkg  # [mmol/min/kg]
-  return(list(values=GECkg, perfusion=perfusion, GEC_per_vol=GEC_per_vol, f_tissue=f_tissue))
-}
-
-
-#' Calculate quantiles for the data.
+#' Predicts galactose elimination per bodyweight (GEkg) 
+#' for given vectors of liver volume and blood flow based on GE response functions.
 #' 
+#' Under high galactose concentrations, i.e. gal=8.0mM, the maximal galactose elimination
+#' rate is reached (GEC).
 #'@export
-calc_quantiles <- function(data, q.values=c(0.025, 0.25, 0.5, 0.75, 0.975)){
-  qdata <- apply(data, 1, quantile, q.values)
-  return ( t(qdata) )
+predict_GEkg <- function(volLiverkg, flowLiverkg, galactose=8.0, age=20){  
+  perfusion <- flowLiverkg/volLiverkg  # [ml/min/ml]
+  # GEC per volume based on perfusion
+  GE_per_vol <- GEC_f$f(perfusion)  # [mmol/min/ml]
+  
+  # GE per body weight
+  GEkg <- GE_per_vol * volLiverkg  # [mmol/min/kg]
+  return(list(GEkg=GEkg,
+              perfusion=perfusion, 
+              galactose=galactose,
+              age=age,
+              GE_per_vol=GE_per_vol))
 }
 
-#' Predict GEC and GECkg for people.
+#' Predict GE and GEkg for multiple people.
 #' 
 #' Predicts the GEC and GECkg for given people. Calculates the 
 #' quantiles and stores some of the individual samples
 #'@export
-predict_GEC <- function(people, GEC_f, volLiver, flowLiver, out_dir){
+predict_GE_people <- function(people, GEC_f, volLiver, flowLiver, out_dir, galactose=8.0){
+  stop('Not implemented')
+  # TODO: get the age from the people data
   GEC_all <- calculate_GEC(GEC_f, volLiver, flowLiver)
   GEC <- GEC_all$values
   m.bodyweight <- matrix(rep(people$bodyweight, ncol(GEC)),
@@ -425,5 +286,12 @@ predict_GEC <- function(people, GEC_f, volLiver, flowLiver, out_dir){
   
   files$GECkg <- file.path(out_dir, 'GECkg.Rdata')
   save(GECkg, file=files$GECkg)
-  
+}
+
+#' Calculate quantiles for the data.
+#' 
+#'@export
+calc_quantiles <- function(data, q.values=c(0.025, 0.25, 0.5, 0.75, 0.975)){
+  qdata <- apply(data, 1, quantile, q.values)
+  return ( t(qdata) )
 }
