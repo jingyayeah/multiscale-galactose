@@ -2,6 +2,8 @@ install.packages('akima')
 library(akima)
 library(rgl)
 data(akima)
+head(akima)
+
 # data
 rgl.spheres(akima$x,akima$z , akima$y,0.5,color="red")
 rgl.bbox()

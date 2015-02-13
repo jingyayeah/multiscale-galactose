@@ -29,10 +29,62 @@ gal_levels
 f_levels <- as.numeric(levels(as.factor(dfs[[1]]$f_flow)))
 f_levels
 
+# Create the subset for interpolation/fitting
+GE_dfs <- lapply(dfs, subset_GE)
+names(GE_dfs) <- names(dfs)
+
 # Akima interpolation
+library(akima)
+library(rgl)
 
+# interpp points:
+data = as.list(GE_dfs[[1]])
+names(data) <- c("x", "y", "z") # gal, P, GE
+head(data)
 
+rgl.spheres(data$x, data$z, data$y, 0.05, color="red")
+rgl.bbox()
 
+# bivariate linear interpolation
+# interp:
+akima.li <- interp(data$x, data$y, data$z,
+                   xo=seq(min(data$x), max(data$x), length = 100),
+                   yo=seq(min(data$y), max(data$y), length = 100))
+# interp surface:
+rgl.surface(akima.li$x, akima.li$y, akima.li$z, color="green",alpha=c(0.5))
+
+# interpp:
+# i.e. interpolation of new data
+akima.p <- interpp(data$x, data$y, data$z,
+                   runif(200,min(data$x),max(data$x)),
+                   runif(200,min(data$y),max(data$y)))
+# interpp points:
+rgl.points(akima.p$x,akima.p$z, akima.p$y,size=5,color="yellow")
+
+# bivariate cubic spline interpolation
+# interp:
+akima.si <- interp(data$x, data$y, data$z,
+                   xo=seq(min(data$x), max(data$x), length = 100),
+                   yo=seq(min(data$y), max(data$y), length = 100),
+                   linear = FALSE, extrap = TRUE)
+
+interp.new
+akima.si <- with(data, interp(x,2*y,z, linear=FALSE, extrap=TRUE))
+str(akima.si)
+akima.si$z
+
+test <- interp(rnorm(10),rnorm(10),rnorm(10), linear=FALSE, extrap=TRUE)
+str(test)
+
+# interp surface:
+with(test, rgl.surface(x, y, z, color="blue", alpha=c(0.5)))
+# interpp:
+akima.sp <- interpp(data$x, data$y, data$z,
+                    runif(200,min(data$x),max(data$x)),
+                    runif(200,min(data$y),max(data$y)),
+                    linear = FALSE, extrap = TRUE)
+# interpp points:
+rgl.points(akima.sp$x,akima.sp$z, akima.sp$y,size=4,color="yellow")
 
 
 
@@ -46,8 +98,7 @@ f_levels
 # via fage(P, ci)
 
 
-GE_dfs <- lapply(dfs, subset_GE)
-names(GE_dfs) <- names(dfs)
+
 ages <- as.numeric(gsub("normal", "", names(dfs)))
 models <- fit_GE_models(GE_dfs)
 lapply(models, summary)
