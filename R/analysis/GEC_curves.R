@@ -63,11 +63,12 @@ rgl.points(akima.p$x,akima.p$z, akima.p$y,size=5,color="yellow")
 
 # bivariate cubic spline interpolation
 # interp:
-akima.si <- interp(data$x, data$y, data$z,
-                   xo=seq(min(data$x), max(data$x), length = 100),
-                   yo=seq(min(data$y), max(data$y), length = 100),
-                   linear = FALSE, extrap = TRUE)
-
+names(data) <- c("y", "x", "z")
+akima.si <- with(data, interp(x, y, z,
+                   xo=seq(min(x), max(x), length = 40),
+                   yo=seq(min(y), max(y), length = 40),
+                   linear = FALSE, extrap = TRUE))
+str(akima.si)
 interp.new
 akima.si <- with(data, interp(x,2*y,z, linear=FALSE, extrap=TRUE))
 str(akima.si)
