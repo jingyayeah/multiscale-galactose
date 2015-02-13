@@ -5,10 +5,8 @@
 # (and GE)
 #
 # author: Matthias Koenig
-# date: 2015-02-12
+# date: 2015-02-13
 ################################################################
-# TODO: create the GEC functions
-
 
 rm(list=ls())
 library('MultiscaleAnalysis')
@@ -32,26 +30,141 @@ f_levels <- as.numeric(levels(as.factor(dfs[[1]]$f_flow)))
 f_levels
 
 
-# Now the response curves exist
-# make the spline curves
-# Via the GE response function the GE in homogeneous perfused liver
-# region is calculated, or in the complete liver.
-# TODO: use the typical observed perfusion fluctuations for prediction.
+# Apply multivariate spline fitting to the response curves.
+# For the different ages different 2D splines are fitted. 
+# An age dependent interpolation is performed to calculate the response
+# according to age.
 
 # f(P, ci, age) = f(perfusion, galactose, age)
+# via fage(P, ci)
 
-ages <- as.numeric(gsub("normal", "", names(age_dfs)))
-
+ages <- as.numeric(gsub("normal", "", names(dfs)))
 subset_GE <- function(df){
   d <- df[, c("c_in.mean", "Q_per_vol_units","R_per_vol_units")]
   names(d) <- c("gal", "P", "GE")
   return(d)
 }
-
-GE_dfs <- lapply(age_dfs, subset_GE)
+GE_dfs <- lapply(dfs, subset_GE)
 
 d <- GE_dfs[[1]]
 head(d)
+
+# ? Strategy ?
+# multivariate splines
+create_GE_function <- function(GE_dfs, df_ages, P=NA, gal=NA, age=NA){
+  library(crs)  
+  # fit the f_age(P,gal) for all ages
+  models <- list()
+  for (k in length(GE_dfs)){
+    name <- names(GE_dfs)[k]
+    df <- GE_dfs[[k]]
+    x1 <- d$gal
+    x2 <- d$P
+    y <- d$GE
+    models[[name]] <- crs(GE~P+gal, data=df)  
+  }
+  
+  GE_f <- function(P, gal){
+    # Here functions have to be combined
+    res <- predict(models[[1]], newdata=data.frame(p, gal))
+    return res
+  }
+  
+  # return a function which combines the different model results
+  return(list(models,
+              GE_f))  
+}
+models <- create_GE_function(GE_dfs, ages)
+lapply(models, summary)
+summary(model)
+
+## Prediction of data
+num.eval=50
+x1.seq <- seq(min(x1),max(x1),length=num.eval)
+x2.seq <- seq(min(x2),max(x2),length=num.eval)
+x.grid <- expand.grid(x1.seq,x2.seq)
+newdata <- data.frame(x1=x.grid[,1],x2=x.grid[,2])
+
+y0.mat <- matrix(predict(model,newdata=newdata),num.eval,num.eval)
+y0 <- predict(model,newdata=newdata)
+
+
+
+
+# TODO: necessary to calculate the various GE curves
+GEC_f <- GEC_functions(task=info$task)
+plot_GEC_function(GEC_f)
+calculate_GEC_curves(folder, force=FALSE, B=10)
+
+##########################################
+# CRS spline fitting
+##########################################
+library('crs')
+
+## Estimate a model with specified degree, segments, and bandwidth
+x1 <- d$gal
+x2 <- d$P
+y <- d$GE
+model <- crs(y~x1+x2,degree=c(5,5),
+             segments=c(1,1),
+             lambda=0.1,
+             cv="none",
+             kernel=TRUE)
+
+model <- crs(y~x1+x2)
+summary(model)
+
+## Prediction of data
+num.eval=50
+x1.seq <- seq(min(x1),max(x1),length=num.eval)
+x2.seq <- seq(min(x2),max(x2),length=num.eval)
+x.grid <- expand.grid(x1.seq,x2.seq)
+newdata <- data.frame(x1=x.grid[,1],x2=x.grid[,2])
+
+y0.mat <- matrix(predict(model,newdata=newdata),num.eval,num.eval)
+y0 <- predict(model,newdata=newdata)
+
+dnew <- data.frame(gal=x.grid[,1], P=x.grid[,2], GE=y0)
+head(dnew)
+library(lattice)
+p <- wireframe(GE ~ gal * P, data=dnew)
+npanel <- c(4, 2)
+rotx <- c(-50, -80)
+rotz <- seq(30, 300, length = npanel[1]+1)
+update(p[rep(1, prod(npanel))], layout = npanel,
+       panel = function(..., screen) {
+         panel.wireframe(..., screen = list(z = rotz[current.column()],
+                                            x = rotx[current.row()]))
+       })
+summary(dnew)
+
+par(new=FALSE)
+pmat = persp(x=x1.seq,y=x2.seq, z=y0.mat,
+      xlab="x1",ylab="x2",zlab="y",
+      ticktype="detailed",      
+      border="gray",
+      theta=45,phi=45)
+# check the difference between model and prediction
+points(trans3d(x1, x2, y, pmat))
+
+y1 <- predict(model,newdata=data.frame(x1, x2))
+par(mfrow=c(2,1))
+plot(y, y-y1)
+plot(y, y1)
+par(mfrow=c(1,1))
+
+
+
+persp(x=x1.seq,y=x2.seq, z=y0.mat-0.2,
+      xlab="x1",ylab="x2",zlab="y",
+      ticktype="detailed",      
+      border="gray",
+      theta=45,phi=45, new=FALSE)
+
+
+##########################################
+# MGCV gam - spline fitting
+##########################################
 library(mgcv)
 
 # test data
@@ -62,6 +175,8 @@ x = rep(x, each=N)
 y = rep(y, N)
 dnew <- data.frame(P=x, gal=y)
 
+
+# Now proper spline fitting
 
 ## isotropic thin plate spline smoother
 b <- gam(GE~s(P, gal), data=d)
@@ -86,9 +201,6 @@ update(p[rep(1, prod(npanel))], layout = npanel,
                                                     x = rotx[current.row()]))
 })
           
-          
-
-
 ## variant tensor product smoother
 b <- gam(Y~t2(X[,1],X[,2]))
 predict(b,newdata=list(X=W))
@@ -98,26 +210,6 @@ predict(b,newdata=list(X=W))
 # penalization then use, e.g. s(X[,1],X[,2],fx=TRUE) to get pure
 # regression spline (`k' argument to s, te and t2 controls spline basis
 # dimension --- see docs).
-
-
-
-# ? Strategy ?
-# multivariate splines
-create_GE_function <- function(GE_dfs, ages, perfusion, galactose, age){
-  
-  
-  
-  
-}
-
-
-# TODO: necessary to calculate the various GE curves
-GEC_f <- GEC_functions(task=info$task)
-plot_GEC_function(GEC_f)
-calculate_GEC_curves(folder, force=FALSE, B=10)
-
-
-
 
 
 

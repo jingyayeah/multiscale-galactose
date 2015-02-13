@@ -6,6 +6,7 @@
 calc_half_max_time(processed, t_peak, t_end)
 }
 \description{
-Calculate half maximal times from the processed data
+Preprocessing of the half maximal time from the response curves, i.e.
+how fast is the half maximum reached after galactose challenge.
 }
 

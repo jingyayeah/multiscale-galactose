@@ -16,7 +16,7 @@ from PrepareAnalysis import prepareDataForAnalysis
 
 
 #task_pks = (1, 2, ) 
-task_pks = range(25, 33)
+task_pks = range(35, 43)
 
 if __name__ == "__main__":
     print task_pks

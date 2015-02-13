@@ -4,7 +4,7 @@
 \title{Preprocess set of data.frame of GE folders.}
 \usage{
 integrate_GE_folders(df_folders, factors = c("f_flow", "gal_challenge"),
-  force = FALSE, tend = 10000, f_tissue = 0.8, vol_liver = 1500)
+  force = FALSE, t_end = 10000, f_tissue = 0.8, vol_liver = 1500)
 }
 \description{
 Preprocess set of data.frame of GE folders.
