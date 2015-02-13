@@ -29,6 +29,13 @@ gal_levels
 f_levels <- as.numeric(levels(as.factor(dfs[[1]]$f_flow)))
 f_levels
 
+# Akima interpolation
+
+
+
+
+
+
 
 # Apply multivariate spline fitting to the response curves.
 # For the different ages different 2D splines are fitted. 
@@ -38,45 +45,76 @@ f_levels
 # f(P, ci, age) = f(perfusion, galactose, age)
 # via fage(P, ci)
 
-ages <- as.numeric(gsub("normal", "", names(dfs)))
-subset_GE <- function(df){
-  d <- df[, c("c_in.mean", "Q_per_vol_units","R_per_vol_units")]
-  names(d) <- c("gal", "P", "GE")
-  return(d)
-}
+
 GE_dfs <- lapply(dfs, subset_GE)
-
-d <- GE_dfs[[1]]
-head(d)
-
-# ? Strategy ?
-# multivariate splines
-create_GE_function <- function(GE_dfs, df_ages, P=NA, gal=NA, age=NA){
-  library(crs)  
-  # fit the f_age(P,gal) for all ages
-  models <- list()
-  for (k in length(GE_dfs)){
-    name <- names(GE_dfs)[k]
-    df <- GE_dfs[[k]]
-    x1 <- d$gal
-    x2 <- d$P
-    y <- d$GE
-    models[[name]] <- crs(GE~P+gal, data=df)  
-  }
-  
-  GE_f <- function(P, gal){
-    # Here functions have to be combined
-    res <- predict(models[[1]], newdata=data.frame(p, gal))
-    return res
-  }
-  
-  # return a function which combines the different model results
-  return(list(models,
-              GE_f))  
-}
-models <- create_GE_function(GE_dfs, ages)
+names(GE_dfs) <- names(dfs)
+ages <- as.numeric(gsub("normal", "", names(dfs)))
+models <- fit_GE_models(GE_dfs)
 lapply(models, summary)
-summary(model)
+
+
+m <- crs(GE~P+gal, 
+         # lambda=c(5, 5),
+         # degree=c(3,3),
+         basis="tensor",
+         data=GE_dfs[[1]]) 
+plot_GE_model(m, GE_dfs[[1]])
+
+P = seq(from=0.1, to=2.0, by=0.1) 
+gal = rep(8, length(P))
+predict(m, newdata=data.frame(P, gal))
+plot(P, predict(m, newdata=data.frame(P, gal)))
+points(GE_dfs[[1]]$P, GE_dfs[[1]]$GE, col='blue')
+plot(m)
+
+# Plot GE response curves
+par(mfrow=c(3,3))
+for (k in 1:3){
+  m <- models[[k]]
+  df <- GE_dfs[[k]]
+  plot_GE_model(m, df)
+}
+for (k in 1:3){
+  m <- models[[k]]
+  df <- GE_dfs[[k]]
+  p <- predict(m, newdata=df)
+  plot(df$GE, (p-df$GE)/df$GE*100)  
+}
+for (k in 1:3){
+  m <- models[[k]]
+  df <- GE_dfs[[k]]
+  p <- predict(m, newdata=df)
+  plot(df$gal, (p-df$GE)/df$GE*100)  
+}
+par(mfrow=c(1,1))
+
+
+# Get the response function
+f1 <- create_GE_function(models, ages)
+test <- f1(P=1, gal=8, age=NA)
+test[1]
+test <- f1(P=1, gal=8, age=20)
+test[1]
+test <- f1(P=1, gal=8, age=80)
+test[1]
+test <- f1(P=1, gal=8, age=100)
+test[1]
+
+test <- f1(P=2, gal=2, age=20)
+test[1]
+test <- f1(P=2, gal=2, age=100)
+test[1]
+
+test <- f1(P=c(0.1, 0.2, 0.3), gal=rep(2,3), age=100)
+test
+
+P = seq(from=0.1, to=2.4, by=0.1) 
+gal = rep(8, length(P))
+plot(P, f1(P, gal, age=20))
+points(GE_dfs[[1]]$P, GE_dfs[[1]]$GE, col='blue')
+
+
+
 
 ## Prediction of data
 num.eval=50

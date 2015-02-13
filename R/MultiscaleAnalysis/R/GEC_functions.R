@@ -214,9 +214,106 @@ calc_half_max_time <- function(processed, t_peak, t_end){
   return (as.vector(t_half)) # [s]
 }
 
+#################################################################################
+# GE response curves
+#################################################################################
+
+#' Create subset for GE response curves from integrated data.frame.
+#' 
+#' @export
+subset_GE <- function(df){
+  d <- df[, c("c_in.mean", "Q_per_vol_units","R_per_vol_units")]
+  names(d) <- c("gal", "P", "GE")
+  return(d)
+}
+
+#' Fit the GE response with multivariate splines.
+#' 
+#' @export
+fit_GE_models <- function(GE_dfs){
+  library(crs)  
+  # fit the f_age(P,gal) for all ages
+  models <- list()
+  for (k in 1:length(GE_dfs)){
+    # specify the degrees
+    # models[[k]] <- crs(GE~P+gal, 
+    #                    degree=c(3,3),
+    #                    segments=c(1,1),
+    #                    monotone=TRUE,
+    #                    data=GE_dfs[[k]])  
+    models[[k]] <- crs(GE~P+gal,
+                       # basis="tensor",
+                       data=GE_dfs[[k]]) 
+  }
+  names(models) <- names(GE_dfs)
+  return(models)
+}
+
+#' Plot a fitted GE model.
+#' 
+#' @export
+plot_GE_model <- function(model, GE_df){
+  P <- GE_df$P
+  gal <- GE_df$gal
+  num.eval = 50
+  P.seq <- seq(min(P),max(P),length=num.eval)
+  gal.seq <- seq(min(gal),max(gal),length=num.eval)
+  x.grid <- expand.grid(P.seq,gal.seq)
+  newdata <- data.frame(P=x.grid[,1],gal=x.grid[,2])
+  
+  y0.mat <- matrix(predict(model,newdata=newdata),num.eval,num.eval)
+  y0 <- predict(model,newdata=newdata)
+  
+  persp(x=P.seq,y=gal.seq, z=y0.mat,
+        xlab="x1",ylab="x2",zlab="y",
+        ticktype="detailed",      
+        border="gray",
+        theta=45,phi=45)
+  
+  y0 <- predict(model,newdata=data.frame(P=c(1), gal=c(1)))
+  cat(y0)
+}
+
+#' GE response function for prediction
+#' 
+#' @export
+create_GE_function <- function(models, ages){
+  GE_f <- function(P, gal, age){
+    # Predict the age models
+    predictions <- list()
+    for (k in 1:length(models)){
+      predictions[[k]] <- predict(models[[k]], newdata=data.frame(P, gal))  
+    } 
+    
+    if (is.na(age)){
+      # if no age specified return 20 years
+      warning('No age specified, using GE curve for age=20 [years]')
+      return(predictions[[1]])
+    }
+    
+    # linear interpolation
+    if (age <= ages[1]){
+      res <- predictions[[1]]
+      # warning(sprintf("age <= %s", ages[1]))
+    } else if (age > ages[1] & age <= ages[2]){
+      res <- predictions[[1]] + (age-ages[1])/(ages[2]-ages[1])*(predictions[[2]]-predictions[[1]])
+      # warning(sprintf("age between %s and %s", ages[1], ages[2]))
+    } else if (age > ages[2] & age <= ages[3]){
+      res <- predictions[[2]] + (age-ages[2])/(ages[3]-ages[2])*(predictions[[3]]-predictions[[2]])
+      # warning(sprintf("age between %s and %s", ages[2], ages[3]))
+    } else if (age > ages[3]){
+      res <- predictions[[3]]
+      # warning(sprintf("age > %s", ages[3]))
+    }
+    return(res)
+  }
+  
+  # return a function which combines the different model results
+  return(GE_f)  
+}
 
 #################################################################################
-# GE response curves for prediction of GE and GEkg (GEC and GECkg)
+# GE predictions
 #################################################################################
 
 #' Predicts galactose elimination (GE) for given vectors of liver volume and blood flow
