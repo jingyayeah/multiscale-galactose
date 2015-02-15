@@ -1,8 +1,8 @@
 Package: MultiscaleAnalysis
 Type: Package
 Title: Multiscale Liver Model.
-Version: 0.4.3
-Date: 2015-02-12
+Version: 0.4.4
+Date: 2015-02-15
 Author: Matthias Koenig
 Maintainer: Matthias Koenig <konigmatt@googlemail.com>
 Description: MultiscaleAnalysis is the package accompanying the Multiscale

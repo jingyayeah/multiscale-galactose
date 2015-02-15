@@ -34,58 +34,85 @@ GE_dfs <- lapply(dfs, subset_GE)
 names(GE_dfs) <- names(dfs)
 
 # Akima interpolation
+# Linear or cubic spline interpolation for irregular gridded data
+# install.packages('akima')
+# install.packages('rgl')
 library(akima)
 library(rgl)
 
-# interpp points:
-data = as.list(GE_dfs[[1]])
-names(data) <- c("x", "y", "z") # gal, P, GE
-head(data)
 
-rgl.spheres(data$x, data$z, data$y, 0.05, color="red")
+interpolate_linear_GE <- function(df){
+  # interpp points:
+  data = as.list(df)
+  names(data) <- c("x", "y", "z") # gal, P, GE
+  head(data)
+  
+  rgl.spheres(data$x, data$z, data$y, 0.05, color="red")
+  rgl.bbox()
+  
+  # bivariate linear interpolation
+  # interp:
+  num.eval <- 100
+  akima.li <- interp(data$x, data$y, data$z,
+                     xo=seq(min(data$x), max(data$x), length = num.eval),
+                     yo=seq(min(data$y), max(data$y), length = num.eval))
+
+  #  linear = FALSE, extrap = TRUE
+    
+  
+  # interp surface:
+  rgl.surface(akima.li$x, akima.li$y, akima.li$z, color="green",alpha=c(0.5))
+  
+  # interpp:
+  # i.e. interpolation of new data
+  akima.p <- interpp(data$x, data$y, data$z,
+                     runif(200,min(data$x),max(data$x)),
+                     runif(200,min(data$y),max(data$y)),
+                     linear = FALSE, extrap = TRUE)
+  # interpp points:
+  rgl.points(akima.p$x,akima.p$z, akima.p$y,size=5,color="yellow")  
+}
+df <- GE_dfs[[1]]
+str(df)
+interpolate_linear_GE(df)
+
+
+logdf <- df
+logdf$gal <- log(df$gal)
+logdf$P <- log(df$P)
+logdf$GE <- log(df$GE)
+
+# try the bicubic interpolation
+
+head(df)
+
+x <- as.numeric(levels(as.factor(df$gal)))
+y <- as.numeric(levels(as.factor(df$P)))
+tol <- 1E-8
+z <- matrix(NA, length(x), length(y))
+for (k in 1:nrow(df)){
+  i <- which(abs(x-df$gal[k])<tol)[1]
+  j <- which(abs(y-df$P[k])<tol)[1]
+  z[i,j] <- df$GE[k]
+}
+x
+y
+z
+num.eval=20
+test.bi <- bicubic(x, y, z,
+                    seq(min(x), max(x), length = num.eval),
+                    seq(min(y), max(y), length = num.eval))
+test.bi <- bicubic.grid(x,y,z,
+                        c(min(x), max(x)), c(min(y), max(y)), 0.1, 0.1 )
+str(test.bi)
+
+test.bi
+
+rgl.spheres(x, z, y, 0.05, color="red")
 rgl.bbox()
-
-# bivariate linear interpolation
-# interp:
-akima.li <- interp(data$x, data$y, data$z,
-                   xo=seq(min(data$x), max(data$x), length = 100),
-                   yo=seq(min(data$y), max(data$y), length = 100))
-# interp surface:
-rgl.surface(akima.li$x, akima.li$y, akima.li$z, color="green",alpha=c(0.5))
-
-# interpp:
-# i.e. interpolation of new data
-akima.p <- interpp(data$x, data$y, data$z,
-                   runif(200,min(data$x),max(data$x)),
-                   runif(200,min(data$y),max(data$y)))
-# interpp points:
-rgl.points(akima.p$x,akima.p$z, akima.p$y,size=5,color="yellow")
-
-# bivariate cubic spline interpolation
-# interp:
-names(data) <- c("y", "x", "z")
-akima.si <- with(data, interp(x, y, z,
-                   xo=seq(min(x), max(x), length = 40),
-                   yo=seq(min(y), max(y), length = 40),
-                   linear = FALSE, extrap = TRUE))
-str(akima.si)
-interp.new
-akima.si <- with(data, interp(x,2*y,z, linear=FALSE, extrap=TRUE))
-str(akima.si)
-akima.si$z
-
-test <- interp(rnorm(10),rnorm(10),rnorm(10), linear=FALSE, extrap=TRUE)
-str(test)
-
-# interp surface:
-with(test, rgl.surface(x, y, z, color="blue", alpha=c(0.5)))
-# interpp:
-akima.sp <- interpp(data$x, data$y, data$z,
-                    runif(200,min(data$x),max(data$x)),
-                    runif(200,min(data$y),max(data$y)),
-                    linear = FALSE, extrap = TRUE)
-# interpp points:
-rgl.points(akima.sp$x,akima.sp$z, akima.sp$y,size=4,color="yellow")
+rgl.surface(test.bi$x, test.bi$z, test.bi$y, color="green",alpha=c(0.5))
+image(test.bi)
+contour(test.bi, add=TRUE)
 
 
 
