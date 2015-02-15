@@ -107,6 +107,7 @@ f_GE <- f_GE_factory(f_GES_age)
 fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
 save(f_GE, file=fname)
 
+
 # Create some control plots
 # TODO
 gal <- seq(from=0, to=8.0, by=0.5)
@@ -122,3 +123,8 @@ plot(gal, test20, bg='black', pch=21)
 points(gal, test60, bg='gray', pch=21)
 points(gal, test100, bg="red", pch=21)
 
+# Test function for prediction
+rm(list=ls())
+fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
+load(file=fname)
+f_GE(gal=8.0, P=1, age=20)*1500

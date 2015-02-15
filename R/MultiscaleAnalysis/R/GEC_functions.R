@@ -259,20 +259,31 @@ xyz2matrix <- function(x,y,z, tol=1E-8){
 #' Under high galactose concentrations, i.e. gal=8.0mM, the maximal galactose elimination
 #' rate is reached (GEC).
 #'@export
-predict_GE <- function(f_GE, volLiver, flowLiver, galactose=8.0, age=20){
+predict_GEC <- function(f_GE, volLiver, flowLiver, ages){
+  Np = nrow(volLiver) # people
+  Nr = ncol(volLiver) # repeats
+  if (nrow(flowLiver) != Np) 
+    stop("volLiver and flowLiver of x differs!")
+  if (length(ages) != Np) 
+    stop("nrow(volLiver) and length(ages) differs!")
+  
   # perfusion by given liver volume and flow
   perfusion <- flowLiver/volLiver # [ml/min/ml]
   
-  # GEC per volume based on perfusion
-  GE_per_vol <- f_GE(P=perfusion, gal=galactose, age=age) # [mmol/min/ml]
-  
+  GE_per_vol <- matrix(NA, nrow=Np, ncol=Nr)
+  for (k in 1:Np){
+    # GEC per volume based on perfusion
+    P = perfusion[k, ]
+    gal = rep(8.0, Nr)
+    if (any(is.na(P))){
+      warning("NA in perfusion values, GE skipped", k)
+    } else {
+      GE_per_vol[k, ] <- f_GE(P=P, gal=gal, age=ages[k]) # [µmol/min/ml]  
+    }
+  }
   # GEC for complete liver
-  GE <- GE_per_vol * volLiver  # [mmol/min]
-  return(list(GE=GE, 
-              perfusion=perfusion, 
-              galactose=galactose,
-              age=age,
-              GE_per_vol=GE_per_vol))
+  GE <- GE_per_vol * volLiver/1000  # [mmol/min] ([µmol/min/ml * ml])
+  return(GE)
 }
 
 #' Predicts galactose elimination per bodyweight (GEkg) 
@@ -281,19 +292,30 @@ predict_GE <- function(f_GE, volLiver, flowLiver, galactose=8.0, age=20){
 #' Under high galactose concentrations, i.e. gal=8.0mM, the maximal galactose elimination
 #' rate is reached (GEC).
 #'@export
-predict_GEkg <- function(f_GE, volLiverkg, flowLiverkg, galactose=8.0, age=20){  
+predict_GEkg <- function(f_GE, volLiverkg, flowLiverkg, ages){  
+  Np = nrow(volLiverkg) # people
+  Nr = ncol(volLiverkg) # repeats
+  if (nrow(flowLiverkg) != Np) 
+    stop("volLiverkg and flowLiverkg of x differs!")
+  if (length(ages) != Np) 
+    stop("nrow(volLiverkg) and length(ages) differs!")
+  
   perfusion <- flowLiverkg/volLiverkg  # [ml/min/ml]
-  # GEC per volume based on perfusion
-  # TODO: make vector
-  GE_per_vol <- f_GE(P=perfusion, gal=galactose, age=age)  # [mmol/min/ml]
+  
+  # GECkg per volume based on perfusion
+  for (k in 1:Np){
+    P = perfusion[k, ]
+    gal = rep(8.0, Nr)
+    if (any(is.na(P))){
+      warning("NA in perfusion values, GE skipped", k)
+    } else {
+      GE_per_vol[k, ] <- f_GE(P=P, gal=gal, age=ages[k]) # [µmol/min/ml]  
+    }
+  }
   
   # GE per body weight
-  GEkg <- GE_per_vol * volLiverkg  # [mmol/min/kg]
-  return(list(GEkg=GEkg,
-              perfusion=perfusion, 
-              galactose=galactose,
-              age=age,
-              GE_per_vol=GE_per_vol))
+  GEkg <- GE_per_vol * volLiverkg/1000  # [mmol/min/kg]
+  return(GECkg)
 }
 
 #' Predict GE and GEkg for multiple people.

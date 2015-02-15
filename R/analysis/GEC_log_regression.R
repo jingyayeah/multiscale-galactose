@@ -430,26 +430,35 @@ disease_predictor <- function(GEC_exp, GEC, q=0.05){
 # TODO: plots of the predictor, i.e. histogram of normal and diesease
 # plots for optimization of decision
 
+# ---------------------------------------------
+# Prediction of liver volumes & blood flows
+# ---------------------------------------------
 # GAMLSS models
 fit.models <- load_models_for_prediction()
-# GEC function
-task = 'T1'
-GEC_f <- GEC_functions(task=task)
-fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', sprintf('GEC_curve_%s.png', task))
-png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
-plot_GEC_function(GEC_f)
-dev.off()
-
-# -------------------------------
-# Prediction with GEC app
-# -------------------------------
+# Predict
 str(data)
 liver.info <- predict_liver_people(data, Nsample=2000, Ncores=1, debug=TRUE)
 save(liver.info, file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
-GEC.info <- calculate_GEC(GEC_f, 
-                          volLiver=liver.info$volLiver,
-                          flowLiver=liver.info$flowLiver)
-GEC <- GEC.info$values
+load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
+str(liver.info)
+
+# ---------------------------------------------
+# Calculation of GEC (multiscale-model)
+# ---------------------------------------------
+# GEC function
+fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
+load(file=fname)
+f_GE(gal=8.0, P=1, age=20)
+
+str(liver.info)
+class(liver.info$volLiver)
+
+GEC <- predict_GEC(f_GE, 
+                       volLiver=liver.info$volLiver, 
+                       flowLiver=liver.info$flowLiver,
+                       ages=data$age)
+hist(GEC,
+     xlab='GEC [mmol/min]')
 
 
 # ROC curve - GEC App#
@@ -461,7 +470,8 @@ plot_bootstrap_roc()
 plot_best_roc()
 
 # prediction for corresponding subsets of data
-for (k in 1:length(formula)){
+# for (k in 1:length(formula)){
+for (k in 1:5){
   res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.05)
   fitpreds = res$predictor
   fitpred = prediction(fitpreds, d[[k]]$disease)
