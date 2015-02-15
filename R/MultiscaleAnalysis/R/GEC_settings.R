@@ -7,31 +7,37 @@
 # author: Matthias Koenig
 # date: 2015-02-12
 ################################################################
-#' Definition of GE curves for aging dependency.
+
+#' Returns the current model version
+#' 
+#' @export
+model_version <- function(){
+  version = 107
+  return(version)
+}
+
+#' Definition of GE curves for age dependency.
+#' Depends on model. Update this folder when model is updated.
 #' 
 #' @export
 get_age_GE_folders <- function(){
-  fs <- list(
-    # VERSION 103
-    # normal20 = '2015-02-05_T3',  # GEC ~ f_flow, gal (20 years)
-    # normal60 = '2015-02-05_T4',  # GEC ~ f_flow, gal (60 years)
-    # normal100 = '2015-02-05_T6'  # GEC ~ f_flow, gal (100 years)
-    
-    # VERSION 106
-    # normal20 = '2015-02-12_T27',  # GEC ~ f_flow, gal (20 years)
-    # normal60 = '2015-02-12_T28',  # GEC ~ f_flow, gal (60 years)
-    # normal100 = '2015-02-12_T29'  # GEC ~ f_flow, gal (100 years)
-    
-    # VERSION 107
-    normal20 = '2015-02-13_T35',  # GEC ~ f_flow, gal (20 years)
-    normal60 = '2015-02-13_T36',  # GEC ~ f_flow, gal (60 years)
-    normal100 = '2015-02-13_T37'  # GEC ~ f_flow, gal (100 years)
-    
-    # VERSION 106 MEAN
-    # normal20 = '2015-02-12_T30',  # GEC ~ f_flow, gal (20 years)
-    # normal60 = '2015-02-12_T31',  # GEC ~ f_flow, gal (60 years)
-    # normal100 = '2015-02-12_T32'  # GEC ~ f_flow, gal (100 years)
-  )
+  version <- model_version()
+  if (version==106){
+    fs <- list( 
+      # VERSION 106
+      normal20 = '2015-02-12_T27',  # GEC ~ f_flow, gal (20 years)
+      normal60 = '2015-02-12_T28',  # GEC ~ f_flow, gal (60 years)
+      normal100 = '2015-02-12_T29'  # GEC ~ f_flow, gal (100 years)
+    )  
+  }
+  if (version==107){
+    fs <- list( 
+      # VERSION 107
+      normal20 = '2015-02-13_T35',  # GEC ~ f_flow, gal (20 years)
+      normal60 = '2015-02-13_T36',  # GEC ~ f_flow, gal (60 years)
+      normal100 = '2015-02-13_T37'  # GEC ~ f_flow, gal (100 years)
+    )  
+  }
   return(fs)
 }
 

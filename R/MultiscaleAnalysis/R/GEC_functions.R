@@ -227,107 +227,44 @@ subset_GE <- function(df){
   return(d)
 }
 
-#' Fit the GE response with multivariate splines.
+#' X,Y,Z data to matrix for bicubic sline interpolation
 #' 
 #' @export
-fit_GE_models <- function(GE_dfs){
-  library(crs)  
-  # fit the f_age(P,gal) for all ages
-  models <- list()
-  for (k in 1:length(GE_dfs)){
-    # specify the degrees
-    # models[[k]] <- crs(GE~P+gal, 
-    #                    degree=c(3,3),
-    #                    segments=c(1,1),
-    #                    monotone=TRUE,
-    #                    data=GE_dfs[[k]])  
-    models[[k]] <- crs(GE~P+gal,
-                       # basis="tensor",
-                       data=GE_dfs[[k]]) 
+xyz2matrix <- function(x,y,z, tol=1E-8){
+  # takes x, y, z in vecor format and creates the matrix out of it
+  N <- length(x)
+  if (length(y) != N) 
+    stop("y and length of x differs!")
+  if (length(z) != N) 
+    stop("z and length of x differs!")
+  
+  xm <- as.numeric(levels(as.factor(x)))
+  ym <- as.numeric(levels(as.factor(y)))
+  zm <- matrix(NA, length(xm), length(ym))
+  for (k in 1:N){
+    i <- which(abs(xm-x[k])<tol)[1]
+    j <- which(abs(ym-y[k])<tol)[1]
+    zm[i,j] <- z[k]
   }
-  names(models) <- names(GE_dfs)
-  return(models)
+  return(list(xm=xm, ym=ym, zm=zm))
 }
 
-#' Plot a fitted GE model.
-#' 
-#' @export
-plot_GE_model <- function(model, GE_df){
-  P <- GE_df$P
-  gal <- GE_df$gal
-  num.eval = 50
-  P.seq <- seq(min(P),max(P),length=num.eval)
-  gal.seq <- seq(min(gal),max(gal),length=num.eval)
-  x.grid <- expand.grid(P.seq,gal.seq)
-  newdata <- data.frame(P=x.grid[,1],gal=x.grid[,2])
-  
-  y0.mat <- matrix(predict(model,newdata=newdata),num.eval,num.eval)
-  y0 <- predict(model,newdata=newdata)
-  
-  persp(x=P.seq,y=gal.seq, z=y0.mat,
-        xlab="x1",ylab="x2",zlab="y",
-        ticktype="detailed",      
-        border="gray",
-        theta=45,phi=45)
-  
-  y0 <- predict(model,newdata=data.frame(P=c(1), gal=c(1)))
-  cat(y0)
-}
-
-#' GE response function for prediction
-#' 
-#' @export
-create_GE_function <- function(models, ages){
-  GE_f <- function(P, gal, age){
-    # Predict the age models
-    predictions <- list()
-    for (k in 1:length(models)){
-      predictions[[k]] <- predict(models[[k]], newdata=data.frame(P, gal))  
-    } 
-    
-    if (is.na(age)){
-      # if no age specified return 20 years
-      warning('No age specified, using GE curve for age=20 [years]')
-      return(predictions[[1]])
-    }
-    
-    # linear interpolation
-    if (age <= ages[1]){
-      res <- predictions[[1]]
-      # warning(sprintf("age <= %s", ages[1]))
-    } else if (age > ages[1] & age <= ages[2]){
-      res <- predictions[[1]] + (age-ages[1])/(ages[2]-ages[1])*(predictions[[2]]-predictions[[1]])
-      # warning(sprintf("age between %s and %s", ages[1], ages[2]))
-    } else if (age > ages[2] & age <= ages[3]){
-      res <- predictions[[2]] + (age-ages[2])/(ages[3]-ages[2])*(predictions[[3]]-predictions[[2]])
-      # warning(sprintf("age between %s and %s", ages[2], ages[3]))
-    } else if (age > ages[3]){
-      res <- predictions[[3]]
-      # warning(sprintf("age > %s", ages[3]))
-    }
-    return(res)
-  }
-  
-  # return a function which combines the different model results
-  return(GE_f)  
-}
 
 #################################################################################
 # GE predictions
 #################################################################################
-
 #' Predicts galactose elimination (GE) for given vectors of liver volume and blood flow
 #' based on GE response functions.
 #' 
 #' Under high galactose concentrations, i.e. gal=8.0mM, the maximal galactose elimination
 #' rate is reached (GEC).
 #'@export
-predict_GE <- function(GEC_f, volLiver, flowLiver, galactose=8.0, age=20){
+predict_GE <- function(f_GE, volLiver, flowLiver, galactose=8.0, age=20){
   # perfusion by given liver volume and flow
   perfusion <- flowLiver/volLiver # [ml/min/ml]
   
   # GEC per volume based on perfusion
-  GE_per_vol <- GE_f$f(perfusion, galactose, age) # [mmol/min/ml]
+  GE_per_vol <- f_GE(P=perfusion, gal=galactose, age=age) # [mmol/min/ml]
   
   # GEC for complete liver
   GE <- GE_per_vol * volLiver  # [mmol/min]
@@ -344,10 +281,11 @@ predict_GE <- function(GEC_f, volLiver, flowLiver, galactose=8.0, age=20){
 #' Under high galactose concentrations, i.e. gal=8.0mM, the maximal galactose elimination
 #' rate is reached (GEC).
 #'@export
-predict_GEkg <- function(volLiverkg, flowLiverkg, galactose=8.0, age=20){  
+predict_GEkg <- function(f_GE, volLiverkg, flowLiverkg, galactose=8.0, age=20){  
   perfusion <- flowLiverkg/volLiverkg  # [ml/min/ml]
   # GEC per volume based on perfusion
-  GE_per_vol <- GEC_f$f(perfusion)  # [mmol/min/ml]
+  # TODO: make vector
+  GE_per_vol <- f_GE(P=perfusion, gal=galactose, age=age)  # [mmol/min/ml]
   
   # GE per body weight
   GEkg <- GE_per_vol * volLiverkg  # [mmol/min/kg]
@@ -363,11 +301,13 @@ predict_GEkg <- function(volLiverkg, flowLiverkg, galactose=8.0, age=20){
 #' Predicts the GEC and GECkg for given people. Calculates the 
 #' quantiles and stores some of the individual samples
 #'@export
-predict_GE_people <- function(people, GEC_f, volLiver, flowLiver, out_dir, galactose=8.0){
+predict_GE_people <- function(people, f_GE, volLiver, flowLiver, out_dir, galactose=8.0){
   stop('Not implemented')
   # TODO: get the age from the people data
-  GEC_all <- calculate_GEC(GEC_f, volLiver, flowLiver)
-  GEC <- GEC_all$values
+  
+  GEC_all <- predict_GEC(f_GE, volLiver, flowLiver)
+  
+  
   m.bodyweight <- matrix(rep(people$bodyweight, ncol(GEC)),
                          nrow=nrow(GEC), ncol=ncol(GEC))
   GECkg <- GEC/m.bodyweight
