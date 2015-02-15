@@ -29,9 +29,6 @@ gal_levels
 f_levels <- as.numeric(levels(as.factor(dfs[[1]]$f_flow)))
 f_levels
 
-# Create the subset for interpolation/fitting
-GE_dfs <- lapply(dfs, subset_GE)
-names(GE_dfs) <- names(dfs)
 
 # Akima interpolation
 # Linear or cubic spline interpolation for irregular gridded data
@@ -40,41 +37,94 @@ names(GE_dfs) <- names(dfs)
 library(akima)
 library(rgl)
 
-
-interpolate_linear_GE <- function(df){
-  # interpp points:
-  data = as.list(df)
-  names(data) <- c("x", "y", "z") # gal, P, GE
-  head(data)
+xyz2matrix <- function(x,y,z, tol=1E-8){
+  # takes x, y, z in vecor format and creates the matrix out of it
+  N <- length(x)
+  if (length(y) != N) 
+    stop("y and length of x differs!")
+  if (length(z) != N) 
+    stop("z and length of x differs!")
   
-  rgl.spheres(data$x, data$z, data$y, 0.05, color="red")
-  rgl.bbox()
-  
-  # bivariate linear interpolation
-  # interp:
-  num.eval <- 100
-  akima.li <- interp(data$x, data$y, data$z,
-                     xo=seq(min(data$x), max(data$x), length = num.eval),
-                     yo=seq(min(data$y), max(data$y), length = num.eval))
-
-  #  linear = FALSE, extrap = TRUE
-    
-  
-  # interp surface:
-  rgl.surface(akima.li$x, akima.li$y, akima.li$z, color="green",alpha=c(0.5))
-  
-  # interpp:
-  # i.e. interpolation of new data
-  akima.p <- interpp(data$x, data$y, data$z,
-                     runif(200,min(data$x),max(data$x)),
-                     runif(200,min(data$y),max(data$y)),
-                     linear = FALSE, extrap = TRUE)
-  # interpp points:
-  rgl.points(akima.p$x,akima.p$z, akima.p$y,size=5,color="yellow")  
+  xm <- as.numeric(levels(as.factor(x)))
+  ym <- as.numeric(levels(as.factor(y)))
+  zm <- matrix(NA, length(xm), length(ym))
+  for (k in 1:N){
+    i <- which(abs(xm-x[k])<tol)[1]
+    j <- which(abs(ym-y[k])<tol)[1]
+    zm[i,j] <- z[k]
+  }
+  return(list(xm=xm, ym=ym, zm=zm))
 }
+
+# create data structure for interpolation
+# Create the subset for interpolation/fitting
+GE_dfs <- lapply(dfs, subset_GE)
+names(GE_dfs) <- names(dfs)
+str(GE_dfs)
+# data structures for bicubic spline
+GE_mats <- list()
+for (name in names(GE_dfs)){
+  print(name)
+  df <- GE_dfs[[name]]
+  GE_mats[[name]] <- xyz2matrix(df[[1]], df[[2]], df[[3]])
+}
+str(GE_mats)
+
+
+f_GE_interpolated <- function(m){
+  f_GE <- function(gal0, P0){
+    res <- bicubic(m$xm, m$ym, m$zm, x0=gal0, y0=P0)
+    names(res) <- c('gal', 'P', 'GE')
+    return(res)
+  }
+  return(f_GE)
+}
+f_GES <- list()
+for (name in names(GE_mats)){
+  f_GES[[name]] <- f_GE_interpolated(GE_mats[[name]])
+}
+f_GES 
+str(f_GES)
+f_GES[[1]](1,1)
+f_GES[[2]](1,1)
+f_GES[[3]](1,1)
+
+rm(m)
+f1 <- f_GE_interpolated(GE_mats[[1]])
+f1(1,1)
+f2 <- f_GE_interpolated(GE_mats[[2]])
+f2(1,1)
+
+
+str(GE_mats)
+for (f in f_GES){
+  print(f(0.1, 0.1)$GE)
+}
+
+
+
+xyz.mat <- xyz2matrix(df$gal, df$P, df$GE)
+num.eval=20
+
+# bicubic (This function produces a list of interpolated points)
+interpolate_bicubic(xm, ym, zm, x0, y0){
+  res <- bicubic(xm, ym, zm, x0, y0)
+}
+
+
+interpolate_linear <- function(x, y, z, x0, y0){
+  # use linear interpolation of akima
+  p <- interpp(x, y, z,
+                     x0, y0, linear = TRUE)
+}
+
+
+
 df <- GE_dfs[[1]]
 str(df)
 interpolate_linear_GE(df)
+rgl.spheres(data$x, data$z, data$y, 0.05, color="red")
+rgl.bbox()
 
 
 logdf <- df
@@ -86,31 +136,24 @@ logdf$GE <- log(df$GE)
 
 head(df)
 
-x <- as.numeric(levels(as.factor(df$gal)))
-y <- as.numeric(levels(as.factor(df$P)))
-tol <- 1E-8
-z <- matrix(NA, length(x), length(y))
-for (k in 1:nrow(df)){
-  i <- which(abs(x-df$gal[k])<tol)[1]
-  j <- which(abs(y-df$P[k])<tol)[1]
-  z[i,j] <- df$GE[k]
-}
-x
-y
-z
+
+
+xyz.mat <- xyz2matrix(df$gal, df$P, df$GE)
 num.eval=20
-test.bi <- bicubic(x, y, z,
+
+# bicubic (This function produces a list of interpolated points)
+test.bi <- with(xyz.mat, bicubic(x, y, z,
                     seq(min(x), max(x), length = num.eval),
-                    seq(min(y), max(y), length = num.eval))
-test.bi <- bicubic.grid(x,y,z,
-                        c(min(x), max(x)), c(min(y), max(y)), 0.1, 0.1 )
-str(test.bi)
+                    seq(min(y), max(y), length = num.eval)))
+head(test.bi)
+# bicubic grid
+test.bi <- with(xyz.mat, bicubic.grid(x,y,z,
+                        c(min(x), max(x)), c(min(y), max(y)), 0.1, 0.1 ))
 
-test.bi
-
-rgl.spheres(x, z, y, 0.05, color="red")
+rgl.spheres(df$gal, df$GE, df$P, 0.05, color="red")
 rgl.bbox()
-rgl.surface(test.bi$x, test.bi$z, test.bi$y, color="green",alpha=c(0.5))
+rgl.surface(test.bi$x, test.bi$y, test.bi$z, color="green",alpha=c(0.5))
+
 image(test.bi)
 contour(test.bi, add=TRUE)
 
