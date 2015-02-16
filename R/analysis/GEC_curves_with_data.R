@@ -18,7 +18,6 @@ library('MultiscaleAnalysis')
 library('libSBML')
 setwd(ma.settings$dir.base)
 
-
 # Preprocess raw data and integrate over the sinusoidal units
 factors <- c('f_flow', "gal_challenge")
 fs <- get_age_GE_folders()
@@ -212,8 +211,28 @@ tyg1954 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Tygstrup1954.csv"), s
 wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
 hen1982 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab4.csv"), sep="\t")
 hen1982 <- hen1982[hen1982$status == 'healthy', ]
+hen1982.tab2 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab2.csv"), sep="\t")
 win1965 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Winkler1965.csv"), sep="\t")
-head(win1965)
+
+# Correction wal1960
+wal1960$Rbase <- calculate_Rbase(wal1960$gal)
+wal1960$GEcor = wal1960$R - wal1960$Rbase
+wal1960$CLcor = wal1960$CLH - wal1960$Rbase/wal1960$gal*1000 
+# Correction tyg1954
+tyg1954$Rbase <- calculate_Rbase(tyg1954$ca)
+tyg1954$GEcor = tyg1954$GEEst - tyg1954$Rbase
+tyg1954$CLcor = tyg1954$CLEst - tyg1954$Rbase/tyg1954$ca*1000 
+# Correction tyg1958
+tyg1958$Rbase <- calculate_Rbase(tyg1958$ca)
+tyg1958$GEcor = tyg1958$GE - tyg1958$Rbase
+tyg1958$CLcor = tyg1958$CL - tyg1958$Rbase/tyg1958$ca*1000 
+# Correction hen1982
+hen1982$Rbase <- calculate_Rbase(hen1982$css)
+hen1982$GEcor = hen1982$GE - hen1982$Rbase
+hen1982$CLcor = hen1982$CL - hen1982$Rbase/hen1982$css*1000 
+hen1982.tab2$Rbase <- calculate_Rbase(hen1982.tab2$css)
+hen1982.tab2$GEcor = hen1982.tab2$GE - hen1982.tab2$Rbase
+hen1982.tab2$CLcor = hen1982.tab2$CL - hen1982.tab2$Rbase/hen1982.tab2$css*1000 
 
 exp <- list(
   kei1988=kei1988,
@@ -271,16 +290,24 @@ yname = 'R_abs_vol_units'
 empty_plot(xname, yname)
 plot_data_exp(xname, yname, 
           variable='gal_challenge', levels=gal_levels)
-points(tyg1958$bloodflowBS, tyg1958$GE, 
+points(tyg1958$bloodflowBS, tyg1958$GEcor, 
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]]) 
-points(kei1988$bloodFlow, kei1988$HE, 
+points(kei1988$bloodFlow, kei1988$HE,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$bloodFlow-kei1988$bloodFlowSE, kei1988$HE,
+         kei1988$bloodFlow+kei1988$bloodFlowSE, kei1988$HE,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$bloodFlow, kei1988$HE-kei1988$HESE,
+         kei1988$bloodFlow, kei1988$HE+kei1988$HESE,
+         col=exp_cols[["kei1988"]])
 points(win1965$flowLiver, win1965$GE, 
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-points(hen1982$bloodflow, hen1982$GE, 
+points(hen1982$bloodflow, hen1982$GEcor, 
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-add_exp_legend(subset=c("tyg1958","kei1988", "win1965", "hen1982"))
-
+points(tyg1954$bloodflowEst, tyg1954$GEcor, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$bloodflowEst, tyg1954$GEcor, col=exp_cols[["tyg1954"]])
+add_exp_legend(subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
 
 #--------------------------------------------
 # [B] GE ~ galactose (various perfusion)
@@ -290,17 +317,31 @@ yname = 'R_abs_vol_units'
 empty_plot(xname, yname)
 plot_data_exp(xname, yname, 
           variable='f_flow', levels=f_levels)
-points(tyg1958$ca, tyg1958$GE,
+points(tyg1958$ca, tyg1958$GEcor,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
-points(wal1960$gal, wal1960$R, 
+points(wal1960$gal, wal1960$GEcor,
        bg=exp_bg[["wal1960"]], col=exp_cols[["wal1960"]], pch=exp_pchs[["wal1960"]])
+segments(wal1960$gal-wal1960$galSd, wal1960$GEcor,
+         wal1960$gal+wal1960$galSd, wal1960$GEcor,
+         col=exp_cols[["wal1960"]])
 points(kei1988$ca, kei1988$HE,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$ca-kei1988$caSE, kei1988$HE,
+         kei1988$ca+kei1988$caSE, kei1988$HE,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$bloodFlow, kei1988$HE-kei1988$HESE,
+         kei1988$bloodFlow, kei1988$HE+kei1988$HESE,
+         col=exp_cols[["kei1988"]])
 points(win1965$ca, win1965$GE,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-points(hen1982$css, hen1982$GE, 
+points(hen1982$css, hen1982$GEcor, 
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-add_exp_legend("bottomright", subset=c("tyg1958","wal1960", "kei1988", "win1965", "hen1982"))
+points(hen1982.tab2$css, hen1982.tab2$GEcor, 
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(tyg1954$ca, tyg1954$GEcor, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$ca, tyg1954$GEcor, col=exp_cols[["tyg1954"]])
+add_exp_legend("bottomright", subset=c("tyg1958","wal1960", "kei1988", "win1965", "hen1982", "tyg1954"))
 
 #--------------------------------------------
 # [C] ER ~ perfusion (various galactose)
@@ -315,12 +356,22 @@ points(tyg1958$bloodflowBS, tyg1958$ER,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
 points(kei1988$bloodFlow, kei1988$ER,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$bloodFlow-kei1988$bloodFlowSE, kei1988$ER,
+         kei1988$bloodFlow+kei1988$bloodFlowSE, kei1988$ER,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$bloodFlow, kei1988$ER-kei1988$ERSE,
+         kei1988$bloodFlow, kei1988$ER+kei1988$ERSE,
+         col=exp_cols[["kei1988"]])
 points(win1965$flowLiver, win1965$ER,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$ER,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(tyg1954$bloodflowEst, tyg1954$ER, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$bloodflowEst, tyg1954$ER, col=exp_cols[["tyg1954"]])
 abline(h=1, col="gray")
-add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982"))
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
+
 #--------------------------------------------
 # [D] ER ~ galactose (various perfusion)
 #--------------------------------------------
@@ -329,17 +380,27 @@ yname = 'ER.mean'
 empty_plot(xname, yname)
 abline(h=1, col='gray')
 plot_data_exp(xname, yname, 
-          variable='f_flow', levels=f_levels)
+              variable='f_flow', levels=f_levels)
 points(tyg1958$ca, tyg1958$ER,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
 points(kei1988$ca, kei1988$ER,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$ca-kei1988$caSE, kei1988$ER,
+         kei1988$ca+kei1988$caSE, kei1988$ER,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$ca, kei1988$ER-kei1988$ERSE,
+         kei1988$ca, kei1988$ER+kei1988$ERSE,
+         col=exp_cols[["kei1988"]])
 points(hen1982$css, hen1982$ER,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
 points(win1965$ca, win1965$ER,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(tyg1954$ca, tyg1954$ER,
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$ca, tyg1954$ER, col=exp_cols[["tyg1954"]])
 abline(h=1, col="gray")
-add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "hen1982", "win1965"))
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "tyg1954"))
+
 #--------------------------------------------
 # [E] CL ~ perfusion (various galactose)
 #--------------------------------------------
@@ -348,15 +409,25 @@ yname = 'CL_abs_vol_units'
 empty_plot(xname, yname)
 plot_data_exp(xname, yname, 
           variable='gal_challenge', levels=gal_levels)
-points(tyg1958$bloodflowBS, tyg1958$CL,
+points(tyg1958$bloodflowBS, tyg1958$CLcor,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
 points(kei1988$bloodFlow, kei1988$HCL,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$bloodFlow-kei1988$bloodFlowSE, kei1988$HCL,
+         kei1988$bloodFlow+kei1988$bloodFlowSE, kei1988$HCL,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$bloodFlow, kei1988$HCL-kei1988$HCLSE,
+         kei1988$bloodFlow, kei1988$HCL+kei1988$HCLSE,
+         col=exp_cols[["kei1988"]])
 points(win1965$flowLiver, win1965$CL,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-points(hen1982$bloodflow, hen1982$CL,
+points(hen1982$bloodflow, hen1982$CLcor,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-add_exp_legend("topleft", subset=c("tyg1958","kei1988", "win1965", "hen1982"))
+points(tyg1954$bloodflowEst, tyg1954$CLcor, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$bloodflowEst, tyg1954$CLcor, col=exp_cols[["tyg1954"]])
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
+
 #--------------------------------------------
 # [F] CL ~ galactose (various perfusion)
 #--------------------------------------------
@@ -365,20 +436,31 @@ yname = 'CL_abs_vol_units'
 empty_plot(xname, yname)
 plot_data_exp(xname, yname, 
           variable='f_flow', levels=f_levels)
-points(tyg1958$ca, tyg1958$CL,
+points(tyg1958$ca, tyg1958$CLcor,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
 points(kei1988$ca, kei1988$HCL,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
-# points(kei1988$ca, kei1988$SCL, pch=22, col='black', bg=rgb(0,0,1.0, 0.5)) 
-points(hen1982$css, hen1982$CL, 
+segments(kei1988$ca-kei1988$caSE, kei1988$HCL,
+         kei1988$ca+kei1988$caSE, kei1988$HCL,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$ca, kei1988$HCL-kei1988$HCLSE,
+         kei1988$ca, kei1988$HCL+kei1988$HCLSE,
+         col=exp_cols[["kei1988"]])
+points(hen1982$css, hen1982$CLcor, 
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(hen1982.tab2$css, hen1982.tab2$CLcor, 
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
 points(win1965$ca, win1965$CL,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-# points(wal1960$gal, wal1960$CLH, pch=21, col='black', bg='gray')
-# CL_new <- (wal1960$R - 0.2*wal1960$gal/(wal1960$gal+0.1))/wal1960$gal *1000 
-points(wal1960$gal, wal1960$CLH,
+points(tyg1954$ca, tyg1954$CLcor, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$ca, tyg1954$CLcor, col=exp_cols[["tyg1954"]])
+points(wal1960$gal, wal1960$CLcor,
        bg=exp_bg[["wal1960"]], col=exp_cols[["wal1960"]], pch=exp_pchs[["wal1960"]])
-add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960"))
+segments(wal1960$gal-wal1960$galSd, wal1960$CLcor,
+         wal1960$gal+wal1960$galSd, wal1960$CLcor,
+         col=exp_cols[["wal1960"]])
+add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960", "tyg1954"))
 #--------------------------------------------
 # [G] c_out ~ perfusion (various galactose)
 #--------------------------------------------
@@ -391,13 +473,19 @@ points(tyg1958$bloodflowBS, tyg1958$cv,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
 points(kei1988$bloodFlow, kei1988$cv,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$bloodFlow-kei1988$bloodFlowSE, kei1988$cv,
+         kei1988$bloodFlow+kei1988$bloodFlowSE, kei1988$cv,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$bloodFlow, kei1988$cv-kei1988$cvSE,
+         kei1988$bloodFlow, kei1988$cv+kei1988$cvSE,
+         col=exp_cols[["kei1988"]])
 points(win1965$flowLiver, win1965$cv,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$chv,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-points(rep(1500, nrow(tyg1954)), tyg1954$cv,
-        bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
-# points(rep(1500, nrow(tyg1954)), tyg1954$cv, pch=7)
+points(tyg1954$bloodflowEst, tyg1954$cv, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$bloodflowEst, tyg1954$cv, col=exp_cols[["tyg1954"]])
 add_exp_legend("topleft", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
 #--------------------------------------------
 # [H] c_out ~ galactose (various perfusion)
@@ -410,15 +498,22 @@ plot_data_exp(xname, yname,
           variable='f_flow', levels=f_levels)
 points(tyg1958$ca, tyg1958$cv,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
-points(tyg1954$ca, tyg1954$cv,
-       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
 points(kei1988$ca, kei1988$cv,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$ca-kei1988$caSE, kei1988$cv,
+         kei1988$ca+kei1988$caSE, kei1988$cv,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$ca, kei1988$cv-kei1988$cvSE,
+         kei1988$ca, kei1988$cv+kei1988$cvSE,
+         col=exp_cols[["kei1988"]])
 points(hen1982$css, hen1982$chv,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
 points(win1965$ca, win1965$cv,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-add_exp_legend("topleft", subset=c("tyg1958", "tyg1954", "kei1988", "hen1982", "win1965"))
+points(tyg1954$ca, tyg1954$cv,
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$ca, tyg1954$cv, col=exp_cols[["tyg1954"]])
+add_exp_legend("topleft", subset=c("tyg1958", "kei1988", "hen1982", "win1965", "tyg1954"))
 #--------------------------------------------
 par(mfrow=c(1,1))
 

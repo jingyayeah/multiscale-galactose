@@ -215,9 +215,43 @@ calc_half_max_time <- function(processed, t_peak, t_end){
 }
 
 #################################################################################
-# GE response curves
+# Systematic galactose clearance
 #################################################################################
 
+#' If the galactose elimination was not calculated based
+#' on periportal - perivenious concentration differences, it is necessary to 
+#' correct the value for basal galactose removal by extraheptic tissues (~3%).
+#' This has large effects on the clearance calculation.
+#' Based on the Keiding1988 data this basal removal can be estimated assuming
+#' similar removal kinetics for the extrahepatic tissues than for the liver
+#' (also cleared by galactokinase)
+#' @export
+calculate_f_Rbase <- function(){
+  GALK_km = 0.2  # [mM] resulting kinetics of galactose elimination
+  gal_eq = 0.113  # [mM] (Keiding1988)
+  Rb_eq = 41      # [µmol/min] Basal rate at gal_eq (Keiding1988)
+  Vmax_Rb = Rb_eq * (gal_eq + GALK_km)/gal_eq/1000 # [mmol/min]
+  cat(sprintf('Basal extrahepatic removal rate\n Vmax_Rb = %2.3f [mmol/min]\n', Vmax_Rb))
+  
+  f_Rbase <- function(gal){
+    return(Vmax_Rb * gal/(gal+GALK_km))
+  }
+  return(list(f_Rbase=f_Rbase,
+              GALK_km = GALK_km,
+              Vmax_Rb = Vmax_Rb))
+}
+
+
+#' Calculate the actual basal rate for given galactos concentration
+#' Returns galactose remvoal in [mmol/min].
+#' @export
+calculate_Rbase <- function(gal, f=calculate_f_Rbase()){
+  f$f_Rbase(gal) # [mmol/min]
+}
+
+#################################################################################
+# GE response curves
+#################################################################################
 #' Create subset for GE response curves from integrated data.frame.
 #' 
 #' @export

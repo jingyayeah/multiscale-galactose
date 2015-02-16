@@ -9,34 +9,7 @@ library('MultiscaleAnalysis')
 setwd(file.path(ma.settings$dir.exp, 'GEC'))
 do_plot = TRUE
 
-# If the galactose elimination was not calculated based
-# on periportal - perivenious concentration differences, it is necessary to 
-# correct the value for basal galactose removal by extraheptic tissues (~3%).
-# This has large effects on the clearance calculation.
-# Based on the Keiding1988 data this basal removal can be estimated assuming
-# similar removal kinetics for the extrahepatic tissues than for the liver
-# (also cleared by galactokinase)
-calculate_f_Rbase <- function(){
-  GALK_km = 0.2  # [mM] resulting kinetics of galactose elimination
-  gal_eq = 0.113  # [mM] (Keiding1988)
-  Rb_eq = 41      # [µmol/min] Basal rate at gal_eq (Keiding1988)
-  Vmax_Rb = Rb_eq * (gal_eq + GALK_km)/gal_eq/1000 # [mmol/min]
-  cat(sprintf('Basal extrahepatic removal rate\n Vmax_Rb = %2.3f [mmol/min]\n', Vmax_Rb))
-  
-  f_Rbase <- function(gal){
-    return(Vmax_Rb * gal/(gal+GALK_km))
-  }
-  return(list(f_Rbase=f_Rbase,
-              GALK_km = GALK_km,
-              Vmax_Rb = Vmax_Rb))
-}
-f_Rbase <- calculate_f_Rbase()$f_Rbase
-
-# Calculate the actual basal rate for given galactos concentration
-# Returns galactose remvoal in [mmol/min].
-calculate_Rbase <- function(gal, f=calculate_f_Rbase()){
-  f$f_Rbase(gal) # [mmol/min]
-}
+# Function for correcting for systemic galactose clearance
 gal <- seq(from=0, to=8.0, by=0.1)
 Rbase <- calculate_Rbase(gal=gal)
 plot(gal, Rbase, 
@@ -110,6 +83,8 @@ hen1982.tab2$CLcor/hen1982.tab2$CL
 # Errorbars available in the following datasets
 # kei1988 (ca, cv, ER, GE)
 # wal1960 (Peq-> ca)
+
+# Create one combined dataset 
 
 exp <- list(
  kei1988=kei1988,
@@ -304,7 +279,6 @@ segments(wal1960$gal-wal1960$galSd, wal1960$CLcor,
          wal1960$gal+wal1960$galSd, wal1960$CLcor,
          col=exp_cols[["wal1960"]])
 add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960", "tyg1954"))
-
 
 # cv ~ ca (cv = ca*(1-ER) )
 # -----------------------------------------------------
