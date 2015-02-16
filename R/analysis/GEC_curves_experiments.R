@@ -10,7 +10,7 @@
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(file.path(ma.settings$dir.exp, 'GEC'))
-do_plot = FALSE
+do_plot = TRUE
 
 # If the galactose elimination was not calculated based
 # on periportal - perivenious concentration differences, it is necessary to 
@@ -24,23 +24,28 @@ calculate_f_Rbase <- function(){
   gal_eq = 0.113  # [mM] (Keiding1988)
   Rb_eq = 41      # [µmol/min] Basal rate at gal_eq (Keiding1988)
   Vmax_Rb = Rb_eq * (gal_eq + GALK_km)/gal_eq # [µmol/min]
-  cat(sprintf('Basal extrahepatic removal rate\n Rb = %2.3f [µmol/min]\n', Vmax_Rb))
+  cat(sprintf('Basal extrahepatic removal rate\n Vmax_Rb = %2.3f [µmol/min]\n', Vmax_Rb))
   
   f_Rbase <- function(gal){
     return(Vmax_Rb * gal/(gal+GALK_km))
   }
-  print('hello')
   return(list(f_Rbase=f_Rbase,
               GALK_km = GALK_km,
               Vmax_Rb = Vmax_Rb))
 }
-calculate_Vmax_Rbase()
-test
+f_Rbase <- calculate_f_Rbase()$f_Rbase
 
 # Calculate the actual basal rate for given galactos concentration
-calculate_Rbase <- function(gal, f_Rbase=calculate_Vmax_Rbase()){
-  
+calculate_Rbase <- function(gal, f=calculate_f_Rbase()){
+  f$f_Rbase(gal)
 }
+gal <- seq(from=0, to=8.0, by=0.1)
+Rbase <- calculate_Rbase(gal=gal)
+plot(gal, Rbase, 
+     xlab='galactose [mM]', ylab='Rbase [µmol/min]', 
+     pch=21, bg='gray', cex=0.8,
+     font.lab=2)
+lines(gal, Rbase)
 
 
 
@@ -55,8 +60,24 @@ tyg1954 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Tygstrup1954.csv"), s
 wal1960 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Waldstein1960_Tab1.csv"), sep="\t")
 hen1982 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab4.csv"), sep="\t")
 hen1982 <- hen1982[hen1982$status == 'healthy', ]
+hen1982.tab2 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab2.csv"), sep="\t")
+head(hen1982.tab2)
 win1965 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Winkler1965.csv"), sep="\t")
 head(win1965)
+
+# Which data has to be corrected?
+# Necessary to correct the actual Rhep=GE & Clearance calculated from it
+# (no) kei1988 (Clearance based on ci-co)
+# (yes CL, no GE) tyg1958 (Clearance based on I/ci, GE via ci-co) 
+# (no) tyg1954 (CL & GE estimated via ci-co)
+# (yes) wal1960 (GE & CLH via infusion rate)
+# (yes) hen1982 (CL & GE vi infusion rate)
+win1965
+
+# Which data has errorbars?
+# kei1988 (ca, cv, ER, GE)
+# wal1960 (Peq-> ca)
+
 
 exp <- list(
  kei1988=kei1988,
@@ -68,10 +89,12 @@ exp <- list(
 )
 exp_pchs <- rep(22,length(exp))
 names(exp_pchs) <- names(exp)
-exp_bg <- c('red', 'darkgreen', 'darkorange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
+exp_bg <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
 names(exp_bg) <- names(exp)
-exp_cols <- rep('black', length(exp))
+exp_cols <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
 names(exp_cols) <- names(exp)
+
+
 
 add_exp_legend <- function(loc="topleft", subset){
   legend(loc, legend=gsub("19", "", subset), col=exp_cols[subset], pt.bg=exp_bg[subset], pch=exp_pchs[subset], cex=0.8, bty='n')
@@ -100,7 +123,12 @@ points(win1965$flowLiver, win1965$GE,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$GE, 
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-add_exp_legend(subset=c("tyg1958","kei1988", "win1965", "hen1982"))
+points(hen1982$bloodflow, hen1982$GE, 
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(tyg1954$bloodflowEst, tyg1954$GEEst, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$bloodflowEst, tyg1954$GEEst, col=exp_cols[["tyg1954"]])
+add_exp_legend(subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
 
 plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Galactose arteriell [mmol/L]",
@@ -117,7 +145,10 @@ points(win1965$ca, win1965$GE,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$css, hen1982$GE, 
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-add_exp_legend("bottomright", subset=c("tyg1958","wal1960", "kei1988", "win1965", "hen1982"))
+points(tyg1954$ca, tyg1954$GEEst, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$ca, tyg1954$GEEst, col=exp_cols[["tyg1954"]])
+add_exp_legend("bottomright", subset=c("tyg1958","wal1960", "kei1988", "win1965", "hen1982", "tyg1954"))
 
 # [2] Galactose extraction ratio ER
 # -----------------------------------------------------
@@ -134,8 +165,11 @@ points(win1965$flowLiver, win1965$ER,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$ER,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(tyg1954$bloodflowEst, tyg1954$ER, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$bloodflowEst, tyg1954$ER, col=exp_cols[["tyg1954"]])
 abline(h=1, col="gray")
-add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982"))
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
 
 plot(numeric(0), numeric(0), type='n', font.lab=2, 
      xlab="Galactose arteriell [mmol/L]",
@@ -150,8 +184,12 @@ points(hen1982$css, hen1982$ER,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
 points(win1965$ca, win1965$ER,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(tyg1954$ca, tyg1954$ER,
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$ca, tyg1954$ER, col=exp_cols[["tyg1954"]])
 abline(h=1, col="gray")
-add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "hen1982", "win1965"))
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "tyg1954"))
+
 
 # [3] Clearance
 # -----------------------------------------------------
@@ -168,7 +206,10 @@ points(win1965$flowLiver, win1965$CL,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$CL,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982"))
+points(tyg1954$bloodflowEst, tyg1954$CLEst, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$bloodflowEst, tyg1954$CLEst, col=exp_cols[["tyg1954"]])
+add_exp_legend("bottomright", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
 
 plot(numeric(0), numeric(0), type='n', font.lab=2,
      xlab="Galactose arteriell [mmol/L]",
@@ -182,13 +223,16 @@ points(kei1988$ca, kei1988$HCL,
 # points(kei1988$ca, kei1988$SCL, pch=22, col='black', bg=rgb(0,0,1.0, 0.5)) 
 points(hen1982$css, hen1982$CL, 
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(hen1982.tab2$css, hen1982.tab2$CL, 
+       bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
 points(win1965$ca, win1965$CL,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-# points(wal1960$gal, wal1960$CLH, pch=21, col='black', bg='gray')
-# CL_new <- (wal1960$R - 0.2*wal1960$gal/(wal1960$gal+0.1))/wal1960$gal *1000 
+points(tyg1954$ca, tyg1954$CLEst, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$ca, tyg1954$CLEst, col=exp_cols[["tyg1954"]])
 points(wal1960$gal, wal1960$CLH,
        bg=exp_bg[["wal1960"]], col=exp_cols[["wal1960"]], pch=exp_pchs[["wal1960"]])
-add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960"))
+add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960", "tyg1954"))
 
 
 # cv ~ ca (cv = ca*(1-ER) )
@@ -206,9 +250,9 @@ points(win1965$flowLiver, win1965$cv,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$chv,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
-# points(rep(1500, nrow(tyg1954)), tyg1954$cv,
-#        bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
-# points(rep(1500, nrow(tyg1954)), tyg1954$cv, pch=7)
+points(tyg1954$bloodflowEst, tyg1954$cv, 
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$bloodflowEst, tyg1954$cv, col=exp_cols[["tyg1954"]])
 add_exp_legend("topleft", subset=c("tyg1958","kei1988", "win1965", "hen1982", "tyg1954"))
 
 plot(numeric(0), numeric(0), type='n', font.lab=2,
@@ -218,15 +262,16 @@ plot(numeric(0), numeric(0), type='n', font.lab=2,
      ylim=c(0, 7))
 points(tyg1958$ca, tyg1958$cv,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
-points(tyg1954$ca, tyg1954$cv,
-       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
 points(kei1988$ca, kei1988$cv,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
 points(hen1982$css, hen1982$chv,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
 points(win1965$ca, win1965$cv,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
-add_exp_legend("topleft", subset=c("tyg1958", "tyg1954", "kei1988", "hen1982", "win1965"))
+points(tyg1954$ca, tyg1954$cv,
+       bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
+lines(tyg1954$ca, tyg1954$cv, col=exp_cols[["tyg1954"]])
+add_exp_legend("topleft", subset=c("tyg1958", "kei1988", "hen1982", "win1965", "tyg1954"))
 
 par(mfrow=c(1,1))
 if (do_plot){
