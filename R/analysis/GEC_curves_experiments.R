@@ -125,7 +125,25 @@ if (do_plot){
   fname <- file.path(ma.settings$dir.base, 'results', 'Galactose_elimination_experiments.png')
   png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
 }
+
+
+plot_errorbars <- function(x, xSE=NA, y, ySE=NA, col='gray'){
+  
+  # plot horizontal
+  if (!is.na(xSE)){
+    for(i in 1:length(x)) {
+      
+      segments(x[i],low , x[i], up)
+      
+    }  
+  }
+  
+}
+
+
 par(mfrow=c(2,4))
+
+par(mfrow=c(1,1))
 
 # [1] Galactose elimination
 # -----------------------------------------------------
@@ -137,8 +155,14 @@ plot(numeric(0), numeric(0), type='n', font.lab=2,
      ylim=c(0, 3))
 points(tyg1958$bloodflowBS, tyg1958$GE, 
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]]) 
-points(kei1988$bloodFlow, kei1988$HE, 
+points(kei1988$bloodFlow, kei1988$HE,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$bloodFlow-kei1988$bloodFlowSE, kei1988$HE,
+         kei1988$bloodFlow+kei1988$bloodFlowSE, kei1988$HE,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$bloodFlow, kei1988$HE-kei1988$HESE,
+         kei1988$bloodFlow, kei1988$HE+kei1988$HESE,
+         col=exp_cols[["kei1988"]])
 points(win1965$flowLiver, win1965$GE, 
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$GE, 
@@ -161,6 +185,11 @@ points(wal1960$gal, wal1960$GEcor,
        bg=exp_bg[["wal1960"]], col=exp_cols[["wal1960"]], pch=exp_pchs[["wal1960"]])
 points(kei1988$ca, kei1988$HE,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$ca-kei1988$caSE, kei1988$HE,
+         kei1988$ca+kei1988$caSE, kei1988$HE,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$bloodFlow, kei1988$HE-kei1988$HESE,
+         kei1988$bloodFlow, kei1988$HE+kei1988$HESE,
 points(win1965$ca, win1965$GE,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$css, hen1982$GE, 
@@ -181,6 +210,12 @@ points(tyg1958$bloodflowBS, tyg1958$ER,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
 points(kei1988$bloodFlow, kei1988$ER,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
+segments(kei1988$bloodFlow-kei1988$bloodFlowSE, kei1988$ER,
+         kei1988$bloodFlow+kei1988$bloodFlowSE, kei1988$ER,
+         col=exp_cols[["kei1988"]])
+segments(kei1988$bloodFlow, kei1988$ER-kei1988$ERSE,
+         kei1988$bloodFlow, kei1988$ER+kei1988$ERSE,
+         col=exp_cols[["kei1988"]])
 points(win1965$flowLiver, win1965$ER,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
 points(hen1982$bloodflow, hen1982$ER,
