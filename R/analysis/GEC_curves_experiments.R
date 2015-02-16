@@ -20,11 +20,11 @@ do_plot = TRUE
 # similar removal kinetics for the extrahepatic tissues than for the liver
 # (also cleared by galactokinase)
 calculate_f_Rbase <- function(){
-  GALK_km = 0.14  # [mM] see refs in kinetic model
+  GALK_km = 0.5  # [mM] resulting kinetics of galactose elimination
   gal_eq = 0.113  # [mM] (Keiding1988)
   Rb_eq = 41      # [µmol/min] Basal rate at gal_eq (Keiding1988)
-  Vmax_Rb = Rb_eq * (gal_eq + GALK_km)/gal_eq # [µmol/min]
-  cat(sprintf('Basal extrahepatic removal rate\n Vmax_Rb = %2.3f [µmol/min]\n', Vmax_Rb))
+  Vmax_Rb = Rb_eq * (gal_eq + GALK_km)/gal_eq/1000 # [mmol/min]
+  cat(sprintf('Basal extrahepatic removal rate\n Vmax_Rb = %2.3f [mmol/min]\n', Vmax_Rb))
   
   f_Rbase <- function(gal){
     return(Vmax_Rb * gal/(gal+GALK_km))
@@ -36,13 +36,14 @@ calculate_f_Rbase <- function(){
 f_Rbase <- calculate_f_Rbase()$f_Rbase
 
 # Calculate the actual basal rate for given galactos concentration
+# Returns galactose remvoal in [mmol/min].
 calculate_Rbase <- function(gal, f=calculate_f_Rbase()){
-  f$f_Rbase(gal)
+  f$f_Rbase(gal) # [mmol/min]
 }
 gal <- seq(from=0, to=8.0, by=0.1)
 Rbase <- calculate_Rbase(gal=gal)
 plot(gal, Rbase, 
-     xlab='galactose [mM]', ylab='Rbase [µmol/min]', 
+     xlab='galactose [mM]', ylab='Rbase [mmol/min]', 
      pch=21, bg='gray', cex=0.8,
      font.lab=2)
 lines(gal, Rbase)
@@ -73,17 +74,28 @@ head(win1965)
 # Corrrection necessary if estimation via peripheral blood concentration
 # or via the infusion rate => After correction for the urinary loss is 
 # still measuring systemic clearance & hepatic clearance
+
+# (yes) wal1960 (GE & CLH via infusion rate, and periphereal c)
 # (yes CL, no GE) tyg1958 (Clearance based on I/ci, GE via ca-co) 
 # (yes) tyg1954 (CL & GE estimated via cp-co)
-# (yes) wal1960 (GE & CLH via infusion rate, and periphereal c)
 # (yes) hen1982 (CL & GE vi infusion rate)
 
+# Correction wal1960
+head(wal1960)
+names(wal1960)
+wal1960$Rbase <- calculate_Rbase(wal1960$Peq)
+wal1960$GEcor = wal1960$R - wal1960$Rbase
+wal1960$CLcor = wal1960$CLH - wal1960$Rbase/wal1960$gal*1000 
+head(wal1960)
+wal1960$CLcor/wal1960$CLH
 
 # Which data has errorbars?
 # kei1988 (ca, cv, ER, GE)
 # wal1960 (Peq-> ca)
 
 
+
+# ? is this needed
 exp <- list(
  kei1988=kei1988,
  tyg1958=tyg1958,
@@ -92,6 +104,9 @@ exp <- list(
  hen1982=hen1982,
  win1965=win1965
 )
+
+
+
 exp_pchs <- rep(22,length(exp))
 names(exp_pchs) <- names(exp)
 exp_bg <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
@@ -142,7 +157,7 @@ plot(numeric(0), numeric(0), type='n', font.lab=2,
      ylim=c(0, 3))
 points(tyg1958$ca, tyg1958$GE,
        bg=exp_bg[["tyg1958"]], col=exp_cols[["tyg1958"]], pch=exp_pchs[["tyg1958"]])
-points(wal1960$gal, wal1960$R, 
+points(wal1960$gal, wal1960$GEcor, 
        bg=exp_bg[["wal1960"]], col=exp_cols[["wal1960"]], pch=exp_pchs[["wal1960"]])
 points(kei1988$ca, kei1988$HE,
        bg=exp_bg[["kei1988"]], col=exp_cols[["kei1988"]], pch=exp_pchs[["kei1988"]])
@@ -235,7 +250,7 @@ points(win1965$ca, win1965$CL,
 points(tyg1954$ca, tyg1954$CLEst, 
        bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
 lines(tyg1954$ca, tyg1954$CLEst, col=exp_cols[["tyg1954"]])
-points(wal1960$gal, wal1960$CLH,
+points(wal1960$gal, wal1960$CLcor,
        bg=exp_bg[["wal1960"]], col=exp_cols[["wal1960"]], pch=exp_pchs[["wal1960"]])
 add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960", "tyg1954"))
 
