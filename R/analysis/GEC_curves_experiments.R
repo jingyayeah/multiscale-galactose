@@ -67,12 +67,17 @@ head(win1965)
 
 # Which data has to be corrected?
 # Necessary to correct the actual Rhep=GE & Clearance calculated from it
-# (no) kei1988 (Clearance based on ci-co)
-# (yes CL, no GE) tyg1958 (Clearance based on I/ci, GE via ci-co) 
-# (no) tyg1954 (CL & GE estimated via ci-co)
-# (yes) wal1960 (GE & CLH via infusion rate)
+# (no) kei1988 (Clearance based on ca-co, femoral artery)
+# (no) win1965 (CL & GE via ca-co difference, femoral artery)
+
+# Corrrection necessary if estimation via peripheral blood concentration
+# or via the infusion rate => After correction for the urinary loss is 
+# still measuring systemic clearance & hepatic clearance
+# (yes CL, no GE) tyg1958 (Clearance based on I/ci, GE via ca-co) 
+# (yes) tyg1954 (CL & GE estimated via cp-co)
+# (yes) wal1960 (GE & CLH via infusion rate, and periphereal c)
 # (yes) hen1982 (CL & GE vi infusion rate)
-win1965
+
 
 # Which data has errorbars?
 # kei1988 (ca, cv, ER, GE)
