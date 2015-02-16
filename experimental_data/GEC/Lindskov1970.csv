@@ -1,0 +1,10 @@
+study	status	sex	case	Img	GEArt	GECap	GEVen	tArt	tCap	tVen
+lin1970	healthy	F	1	350	2.2	2.01	NA	22.5	17.9	NA
+lin1970	healthy	M	2	350	2.86	2.96	2.73	16.5	16.3	19.2
+lin1970	healthy	F	3	350	2.46	2.44	2.4	13.7	13.6	18.5
+lin1970	healthy	M	4	350	2.02	1.89	NA	25.3	25.5	NA
+lin1970	healthy	M	5	350	2.39	2.36	1.98	19.4	18.9	29.2
+lin1970	cirrhosis	M	6	350	2.49	2.47	2.39	20.4	20.1	22.8
+lin1970	cirrhosis	M	7	350	0.87	0.91	0.79	65.5	57.9	77.2
+lin1970	cirrhosis	F	8	350	1.34	1.4	1.35	33.4	32	35.4
+
