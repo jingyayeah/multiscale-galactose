@@ -213,6 +213,11 @@ hen1982 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab4.cs
 hen1982 <- hen1982[hen1982$status == 'healthy', ]
 hen1982.tab2 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Henderson1982_Tab2.csv"), sep="\t")
 win1965 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Winkler1965.csv"), sep="\t")
+pal1965 <- read.csv(file.path(ma.settings$dir.exp, 'GEC', "Palu1965_Fig6.csv"), sep="\t")
+pal1965 <- pal1965[pal1965$status=='healthy', ]
+# filter outliers
+pal1965 <- pal1965[pal1965$GE<3.2, ]
+pal1965 <- pal1965[!(pal1965$GE<2.3 & pal1965$Peq>3), ] 
 
 # Correction wal1960
 wal1960$Rbase <- calculate_Rbase(wal1960$gal)
@@ -233,6 +238,10 @@ hen1982$CLcor = hen1982$CL - hen1982$Rbase/hen1982$css*1000
 hen1982.tab2$Rbase <- calculate_Rbase(hen1982.tab2$css)
 hen1982.tab2$GEcor = hen1982.tab2$GE - hen1982.tab2$Rbase
 hen1982.tab2$CLcor = hen1982.tab2$CL - hen1982.tab2$Rbase/hen1982.tab2$css*1000 
+# Correction pal1965
+pal1965$Rbase <- calculate_Rbase(pal1965$Peq)
+pal1965$GEcor = pal1965$GE - pal1965$Rbase
+pal1965$CLcor = pal1965$CL - pal1965$Rbase/pal1965$Peq*1000 
 
 exp <- list(
   kei1988=kei1988,
@@ -240,14 +249,15 @@ exp <- list(
   tyg1954=tyg1954,
   wal1960=wal1960,
   hen1982=hen1982,
-  win1965=win1965
+  win1965=win1965,
+  pal1965=pal1965
 )
+
 exp_pchs <- rep(22,length(exp))
 names(exp_pchs) <- names(exp)
-exp_bg <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
+exp_bg <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3), 'magenta')
 names(exp_bg) <- names(exp)
-exp_cols <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3))
-# exp_cols <- rep('black', length(exp))
+exp_cols <- c('red', 'darkgreen', 'orange', 'blue', 'brown', rgb(0.3, 0.3, 0.3), 'magenta')
 names(exp_cols) <- names(exp)
 
 add_exp_legend <- function(loc="topleft", subset){
@@ -338,10 +348,12 @@ points(hen1982$css, hen1982$GEcor,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
 points(hen1982.tab2$css, hen1982.tab2$GEcor, 
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
+points(pal1965$Peq, pal1965$GEcor, 
+       bg=exp_bg[["pal1965"]], col=exp_cols[["pal1965"]], pch=exp_pchs[["pal1965"]])
 points(tyg1954$ca, tyg1954$GEcor, 
        bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
 lines(tyg1954$ca, tyg1954$GEcor, col=exp_cols[["tyg1954"]])
-add_exp_legend("bottomright", subset=c("tyg1958","wal1960", "kei1988", "win1965", "hen1982", "tyg1954"))
+add_exp_legend("bottomright", subset=c("tyg1958","wal1960", "kei1988", "win1965", "hen1982", "tyg1954", "pal1965"))
 
 #--------------------------------------------
 # [C] ER ~ perfusion (various galactose)
@@ -452,6 +464,8 @@ points(hen1982.tab2$css, hen1982.tab2$CLcor,
        bg=exp_bg[["hen1982"]], col=exp_cols[["hen1982"]], pch=exp_pchs[["hen1982"]])
 points(win1965$ca, win1965$CL,
        bg=exp_bg[["win1965"]], col=exp_cols[["win1965"]], pch=exp_pchs[["win1965"]])
+points(pal1965$Peq, pal1965$CLcor, 
+       bg=exp_bg[["pal1965"]], col=exp_cols[["pal1965"]], pch=exp_pchs[["pal1965"]])
 points(tyg1954$ca, tyg1954$CLcor, 
        bg=exp_bg[["tyg1954"]], col=exp_cols[["tyg1954"]], pch=exp_pchs[["tyg1954"]])
 lines(tyg1954$ca, tyg1954$CLcor, col=exp_cols[["tyg1954"]])
@@ -460,7 +474,7 @@ points(wal1960$gal, wal1960$CLcor,
 segments(wal1960$gal-wal1960$galSd, wal1960$CLcor,
          wal1960$gal+wal1960$galSd, wal1960$CLcor,
          col=exp_cols[["wal1960"]])
-add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960", "tyg1954"))
+add_exp_legend("topright", subset=c("tyg1958","kei1988", "hen1982", "win1965", "wal1960", "tyg1954", "pal1965"))
 #--------------------------------------------
 # [G] c_out ~ perfusion (various galactose)
 #--------------------------------------------
