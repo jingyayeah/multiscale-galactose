@@ -68,7 +68,7 @@ names(f_GES_age) <- names(GE_mats)
 # test
 for (f in f_GES_age){
   print(f(1, 1)$GE)
-}
+} 
 
 # Factory for the GE function based on the age interpolation
 # functions.

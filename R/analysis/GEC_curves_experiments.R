@@ -4,13 +4,45 @@
 # author: Matthias Koenig
 # date: 2015-02-12
 ################################################################
-# TODO: add error bars were available
+# TODO: add error bars were available (Keiding1988)
 # TODO: correction of all GE & CL values, when not based on ca-cv differences
 
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(file.path(ma.settings$dir.exp, 'GEC'))
 do_plot = FALSE
+
+# If the galactose elimination was not calculated based
+# on periportal - perivenious concentration differences, it is necessary to 
+# correct the value for basal galactose removal by extraheptic tissues (~3%).
+# This has large effects on the clearance calculation.
+# Based on the Keiding1988 data this basal removal can be estimated assuming
+# similar removal kinetics for the extrahepatic tissues than for the liver
+# (also cleared by galactokinase)
+calculate_f_Rbase <- function(){
+  GALK_km = 0.14  # [mM] see refs in kinetic model
+  gal_eq = 0.113  # [mM] (Keiding1988)
+  Rb_eq = 41      # [µmol/min] Basal rate at gal_eq (Keiding1988)
+  Vmax_Rb = Rb_eq * (gal_eq + GALK_km)/gal_eq # [µmol/min]
+  cat(sprintf('Basal extrahepatic removal rate\n Rb = %2.3f [µmol/min]\n', Vmax_Rb))
+  
+  f_Rbase <- function(gal){
+    return(Vmax_Rb * gal/(gal+GALK_km))
+  }
+  print('hello')
+  return(list(f_Rbase=f_Rbase,
+              GALK_km = GALK_km,
+              Vmax_Rb = Vmax_Rb))
+}
+calculate_Vmax_Rbase()
+test
+
+# Calculate the actual basal rate for given galactos concentration
+calculate_Rbase <- function(gal, f_Rbase=calculate_Vmax_Rbase()){
+  
+}
+
+
 
 ########################################################################
 # Combined data (GE, ER, CL)
