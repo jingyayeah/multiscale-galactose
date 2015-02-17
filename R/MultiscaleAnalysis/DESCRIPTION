@@ -1,8 +1,8 @@
 Package: MultiscaleAnalysis
 Type: Package
 Title: Multiscale Liver Model.
-Version: 0.4.4
-Date: 2015-02-15
+Version: 0.4.5
+Date: 2015-02-17
 Author: Matthias Koenig
 Maintainer: Matthias Koenig <konigmatt@googlemail.com>
 Description: MultiscaleAnalysis is the package accompanying the Multiscale
@@ -15,6 +15,7 @@ Depends:
     matrixStats,
     gamlss,
     grid,
+    akima,
     parallel,
 Suggests:
     data.table,

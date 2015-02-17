@@ -434,6 +434,51 @@ predict_liver_person.fast <- function(person, Nsample){
   return(list(volLiver=volLiver, flowLiver=flowLiver))
 }
 
+#' Predict liver volume per bodyweight and bloodflow per bodyweight for person.
+#' 
+#' @export
+predict_liverkg_person.fast <- function(person, Nsample){
+  volLiverkg = rep(NA, Nsample)
+  flowLiverkg = rep(NA, Nsample)
+  
+  # predict base
+  pars.volLiverkg <- f_d.volLiverkg.pars(person)
+  pars.flowLiverkg <- f_d.flowLiverkg.pars(person)
+  
+  # [1]
+  # individual combined probability density for liver volume
+  f_d1 <- f_d.volLiverkg.c(pars=pars.volLiverkg)
+  # rejection sampling of liver volume
+  rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
+  volLiverkg <- rs1$values
+  
+  # [2]
+  # predict all the response functions for given liver volumes at once 
+  p1 <- person
+  p1$volLiverkg <- volLiverkg
+  plist <- f_d.parameters(models=fit.models[['flowLiverkg_volLiverkg']], xname='volLiverkg', person=p1)
+  
+  # now for ever liver volume the blood flow
+  # individual combined probability density for blood flow  
+  for (k in 1:Nsample){
+    # generate 
+    p <- list(link=plist$link, 
+              mu=plist$mu[k],
+              sigma=plist$sigma[k],
+              nu=plist$nu[k],
+              xname=plist$xname)
+    # replace
+    pars.flowLiverkg[['flowLiverkg_volLiverkg']] <- p
+    
+    # sample from distribution
+    f_d2 <- f_d.flowLiverkg.c(pars=pars.flowLiverkg)
+    rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
+    flowLiverkg[k] <- rs2$values[1]
+  }
+  return(list(volLiverkg=volLiverkg, flowLiverkg=flowLiverkg))
+}
+
+
 # volLiver <- 1:10
 # p1 <- person
 # p1$volLiver <- volLiver
@@ -532,6 +577,53 @@ predict_liver_people <- function(people, Nsample, Ncores=1, debug=TRUE){
     }
   }
   return(list(volLiver=volLiver, flowLiver=flowLiver))
+}
+
+#' Predict liver volume per bodyweight and bloodflow per bodyweight for people.
+#' 
+#' @export
+predict_liverkg_people <- function(people, Nsample, Ncores=1, debug=TRUE){
+  names <- names(people)
+  if( !("sex" %in% names)) {warning("sex missing in data")}
+  if( !("age" %in% names)) {warning("age missing in data")}
+  if( !("bodyweight" %in% names)) {warning("bodyweight missing in data")}
+  if( !("height" %in% names)) {warning("height missing in data")}
+  if( !("BSA" %in% names)) {warning("BSA missing in data")}
+  
+  # create empty matrix
+  Np = nrow(people)
+  volLiverkg <- matrix(NA, nrow=Np, ncol=Nsample)
+  flowLiverkg <- matrix(NA, nrow=Np, ncol=Nsample)
+  
+  workerFunc <- function(i){
+    # predict_liver_person(people[i, ], Nsample)
+    if (debug){
+      cat(sprintf('%1.3f\n', i/Np))
+    }
+    predict_liverkg_person.fast(as.list(people[i, ]), Nsample)
+  }
+  
+  if (Ncores == 1){
+    for (k in 1:Np){
+      ptm <- proc.time()
+      res <- workerFunc(k)
+      volLiverkg[k, ] <- res$volLiverkg
+      flowLiverkg[k, ] <- res$flowLiverkg
+      if (debug){
+        cat(k, '\n') 
+        time <- proc.time() - ptm
+        print(time)
+      }
+    }
+  } else {
+    library(parallel)
+    res <- mclapply(1:Np, workerFunc, mc.cores=Ncores, mc.silent=FALSE, mc.preschedule=TRUE)
+    for (k in 1:Np){
+      volLiverkg[k, ] <- res[[k]]$volLiverkg
+      flowLiverkg[k, ] <- res[[k]]$flowLiverkg
+    }
+  }
+  return(list(volLiverkg=volLiverkg, flowLiverkg=flowLiverkg))
 }
 
 

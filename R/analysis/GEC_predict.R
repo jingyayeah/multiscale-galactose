@@ -5,12 +5,11 @@
 # Here the methods are applied to datasets which are combinations of 
 # antropomorphic information and GEC or GECkg measurements.
 #
-# TODO: compare the availability of additional information, i.e. different 
-# subsets of available information.
-#
 # author: Matthias Koenig
 # date: 2015-02-17
 ################################################################################
+# TODO: compare the availability of additional information, i.e. different 
+# subsets of available information.
 
 # Load all the necessary functions for predictions
 rm(list=ls())
@@ -46,19 +45,20 @@ liver.GEC <- predict_liver_people(dp.GEC, Nsample=2000, Ncores=1, debug=TRUE)
 str(liver.GEC)
 
 # Predict volLiverkg and flowLiverkg
-# TODO: implement the volLiverkg and flowLiverkg prediction functions
+liver.GECkg <- predict_liverkg_people(dp.GECkg, Nsample=2000, Ncores=1, debug=TRUE)
+str(liver.GECkg)
 
 
 # save(liver.info, file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
 # load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
 
-
 # ---------------------------------------------
 # Calculation of GEC & GECkg (multiscale-model)
 # ---------------------------------------------
 # GEC function
-fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
-load(file=fname)
+file_GE_f <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
+load(file=file_GE_f)
+library('akima')
 f_GE(gal=8.0, P=1, age=20)
 
 GEC.mat <- predict_GEC(f_GE, 
@@ -66,17 +66,24 @@ GEC.mat <- predict_GEC(f_GE,
                    flowLiver=liver.GEC$flowLiver,
                    ages=dp.GEC$age)
 
-# TODO: predict GECkg from volLiverkg and flowLiverkg
-# GECkg <- predict_GECkg(f_GE, 
-#                   volLiverkg=liver.info$volLiverkg, 
-#                   flowLiverkg=liver.info$flowLiver,
-#                   ages=dp$age)
+GECkg.mat <- predict_GECkg(f_GE, 
+                       volLiverkg=liver.GECkg$volLiverkg, 
+                       flowLiverkg=liver.GECkg$flowLiverkg,
+                       ages=dp.GECkg$age)
 
+# Create prediction data frame
+pred <- dp.GEC
+pred$pGEC <- rowMeans(GEC.mat) # mean prediction
+pred$pGECSd <- rowSds(GEC.mat) # mean prediction
 
-# Create an evaluation table
-prediction <- dp.GEC
-prediction$pGEC <- rowMeans(GEC.mat) # mean prediction
-prediction$pGECSd <- rowSds(GEC.mat) # mean prediction
+predkg <- dp.GECkg
+predkg$pGECkg <- rowMeans(GECkg.mat) # mean prediction
+predkg$pGECkgSd <- rowSds(GECkg.mat) # mean prediction
+
+plot(predkg$GECkg, predkg$pGECkg,
+     xlim=c(0,0.10),
+     ylim=c(0,0.10))
+abline(a=0, b=1, col="gray")
 
 # information for plotting
 studies <- levels(as.factor(dp$study))
@@ -98,12 +105,19 @@ labels <- list(
   GEC = 'GEC experiment [mmol/min]',
   pGEC = 'GEC predicted [mmol/min]',
   dGEC = 'GEC predicted - experiment [mmol/min]',
+  GECkg = 'GECkg experiment [mmol/min/kg]',
+  pGECkg = 'GECkg predicted [mmol/min/kg]',
+  dGECkg = 'GEC predicted - experiment [mmol/min/kg]',
+  
   age = 'Age [years]'
 )
 limits <- list(
   GEC = c(1,4.5),
   pGEC = c(1,4.5),
   dGEC = c(-2,2),
+  GECkg = c(0,0.1),
+  pGECkg = c(0,0.1),
+  dGECkg = c(-0.05,0.05),
   age = c(0,100)
 )
 
@@ -119,72 +133,89 @@ empty_plot <- function(xname, yname){
 # GEC plot
 ########################
 par(mfrow=c(2,2))
+
+# GEC predicted ~ GEC experiment
 empty_plot("GEC", "pGEC")
 abline(a = 0, b=1, col="gray")
 for (study in studies){
-  d <- prediction[prediction$study==study, ]
+  d <- pred[pred$study==study, ]
   segments(d$GEC, d$pGEC-d$pGECSd, d$GEC, d$pGEC+d$pGECSd,
            col=exp_cols[[study]])
 }
 for (study in studies){
   cat(study, '\n')
-  d <- prediction[prediction$study==study, ]
+  d <- pred[pred$study==study, ]
   points(d$GEC, d$pGEC,
          bg=exp_bg[[study]], col=exp_cols[[study]], pch=exp_pchs[[study]])  
 }
 subset=levels(as.factor(prediction$study))
 add_exp_legend(subset=subset)
 
-
+# GEC residues ~ GEC experiment
 empty_plot("GEC", "dGEC")
 abline(h=0, col="gray")
 for (study in studies){
-  d <- prediction[prediction$study==study, ]
+  d <- pred[pred$study==study, ]
   segments(d$GEC, d$pGEC-d$GEC-d$pGECSd, d$GEC, d$pGEC-d$GEC+d$pGECSd,
            col=exp_cols[[study]])
 }
 for (study in studies){
   cat(study, '\n')
-  d <- prediction[prediction$study==study, ]
+  d <- pred[pred$study==study, ]
   points(d$GEC, d$pGEC-d$GEC,
          bg=exp_bg[[study]], col=exp_cols[[study]], pch=exp_pchs[[study]])  
 }
 subset=levels(as.factor(prediction$study))
 add_exp_legend("topright", subset=subset)
 
+# plot(dp.GEC$age, GEC.m-dp.GEC$GEC,
+#      xlab='age',
+#      ylab='GEC predicted-experiment',
+#      xlim=c(0,100),
+#      ylim=c(-2,2), pch=21, bg=rgb(0,0,1,0.5), cex=0.8)
+# abline(h= 0, col="gray")
+# segments(dp.GEC$age, GEC.m-dp.GEC$GEC-GEC.sd, dp.GEC$age, GEC.m-dp.GEC$GEC+GEC.sd, 
+#          col=rgb(0,0,0,0.4))
 
-empty_plot("GEC", "dGEC")
-abline(h=0, col="gray")
+# par(mfrow=c(1,1))
+
+#########################
+# GECkg plot
+########################
+# GEC predicted ~ GEC experiment
+empty_plot("GECkg", "pGECkg")
+abline(a = 0, b=1, col="gray")
+for (study in studies){
+  d <- predkg[predkg$study==study, ]
+  segments(d$GECkg, d$pGECkg-d$pGECkgSd, d$GECkg, d$pGECkg+d$pGECkgSd,
+           col=exp_cols[[study]])
+}
 for (study in studies){
   cat(study, '\n')
-  d <- prediction[prediction$study==study & prediction$sex=='female', ]
-  
-  points(d$GEC, d$pGEC-d$GEC,
+  d <- predkg[predkg$study==study, ]
+  points(d$GECkg, d$pGECkg,
          bg=exp_bg[[study]], col=exp_cols[[study]], pch=exp_pchs[[study]])  
 }
-subset=levels(as.factor(prediction$study))
+subset=levels(as.factor(predkg$study))
+add_exp_legend(subset=subset)
+
+# GEC residues ~ GEC experiment
+empty_plot("GECkg", "dGECkg")
+abline(h=0, col="gray")
+for (study in studies){
+  d <- predkg[predkg$study==study, ]
+  segments(d$GECkg, d$pGECkg-d$GECkg-d$pGECkgSd, d$GECkg, d$pGECkg-d$GECkg+d$pGECkgSd,
+           col=exp_cols[[study]])
+}
+for (study in studies){
+  cat(study, '\n')
+  d <- predkg[predkg$study==study, ]
+  points(d$GECkg, d$pGECkg-d$GECkg,
+         bg=exp_bg[[study]], col=exp_cols[[study]], pch=exp_pchs[[study]])  
+}
+subset=levels(as.factor(predkg$study))
 add_exp_legend("topright", subset=subset)
 
-count(prediction$sex)
-
-
-plot(dp.GEC$age, GEC.m-dp.GEC$GEC,
-     xlab='age',
-     ylab='GEC predicted-experiment',
-     xlim=c(0,100),
-     ylim=c(-2,2), pch=21, bg=rgb(0,0,1,0.5), cex=0.8)
-abline(h= 0, col="gray")
-segments(dp.GEC$age, GEC.m-dp.GEC$GEC-GEC.sd, dp.GEC$age, GEC.m-dp.GEC$GEC+GEC.sd, 
-         col=rgb(0,0,0,0.4))
 
 par(mfrow=c(1,1))
 
-
-plot(dp.GEC$GEC, GEC.m,
-     xlab='GEC experiment',
-     ylab='GEC predicted',
-     xlim=c(0,5),
-     ylim=c(0,5), pch=21, bg=rgb(0,0,1,0.5), cex=0.8)
-abline(a = 0, b=1, col="gray")
-segments(dp.GEC$GEC, GEC.m-GEC.sd, dp.GEC$GEC, GEC.m+GEC.sd, 
-         col=rgb(0,0,0,0.4))

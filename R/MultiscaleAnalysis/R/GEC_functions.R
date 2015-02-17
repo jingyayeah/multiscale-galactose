@@ -289,6 +289,7 @@ xyz2matrix <- function(x,y,z, tol=1E-8){
 #################################################################################
 #' Predicts galactose elimination (GE) for given vectors of liver volume and blood flow
 #' based on GE response functions.
+#' TODO: unify predict_GEC & predict GE
 #' 
 #' Under high galactose concentrations, i.e. gal=8.0mM, the maximal galactose elimination
 #' rate is reached (GEC).
@@ -316,8 +317,8 @@ predict_GEC <- function(f_GE, volLiver, flowLiver, ages){
     }
   }
   # GEC for complete liver
-  GE <- GE_per_vol * volLiver/1000  # [mmol/min] ([µmol/min/ml * ml])
-  return(GE)
+  GEC <- GE_per_vol * volLiver/1000  # [mmol/min] ([µmol/min/ml * ml])
+  return(GEC)
 }
 
 #' Predicts galactose elimination per bodyweight (GEkg) 
@@ -337,6 +338,7 @@ predict_GECkg <- function(f_GE, volLiverkg, flowLiverkg, ages){
   perfusion <- flowLiverkg/volLiverkg  # [ml/min/ml]
   
   # GECkg per volume based on perfusion
+  GE_per_vol <- matrix(NA, nrow=Np, ncol=Nr)
   for (k in 1:Np){
     P = perfusion[k, ]
     gal = rep(8.0, Nr)
@@ -348,7 +350,7 @@ predict_GECkg <- function(f_GE, volLiverkg, flowLiverkg, ages){
   }
   
   # GE per body weight
-  GEkg <- GE_per_vol * volLiverkg/1000  # [mmol/min/kg]
+  GECkg <- GE_per_vol * volLiverkg/1000  # [mmol/min/kg]
   return(GECkg)
 }
 
