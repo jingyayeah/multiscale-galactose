@@ -80,12 +80,9 @@ predkg <- dp.GECkg
 predkg$pGECkg <- rowMeans(GECkg.mat) # mean prediction
 predkg$pGECkgSd <- rowSds(GECkg.mat) # mean prediction
 
-plot(predkg$GECkg, predkg$pGECkg,
-     xlim=c(0,0.10),
-     ylim=c(0,0.10))
-abline(a=0, b=1, col="gray")
-
-# information for plotting
+# ---------------------------------------------
+# Information for plotting
+# ---------------------------------------------
 studies <- levels(as.factor(dp$study))
 studies
 exp_pchs <- rep(22,length(studies))
@@ -115,9 +112,9 @@ limits <- list(
   GEC = c(1,4.5),
   pGEC = c(1,4.5),
   dGEC = c(-2,2),
-  GECkg = c(0,0.1),
-  pGECkg = c(0,0.1),
-  dGECkg = c(-0.05,0.05),
+  GECkg = c(0.015,0.09),
+  pGECkg = c(0.015,0.09),
+  dGECkg = c(-0.03,0.03),
   age = c(0,100)
 )
 
@@ -129,9 +126,17 @@ empty_plot <- function(xname, yname){
        ylim=limits[[yname]])
 }
 
+# dp[dp$study=="duc1979",]
+# with(predkg[predkg$study=="duc1979",], plot(GECkg, pGECkg, xlim=c(0,0.1), ylim=c(0,0.1)))
+
 #########################
 # GEC plot
 ########################
+do_plot=TRUE
+if (do_plot){
+  fname <- file.path(ma.settings$dir.base, 'results', 'GEC_prediction.png')
+  png(filename=fname, width=1800, height=1800, units = "px", bg = "white",  res = 120)
+}
 par(mfrow=c(2,2))
 
 # GEC predicted ~ GEC experiment
@@ -165,7 +170,7 @@ for (study in studies){
   points(d$GEC, d$pGEC-d$GEC,
          bg=exp_bg[[study]], col=exp_cols[[study]], pch=exp_pchs[[study]])  
 }
-subset=levels(as.factor(prediction$study))
+subset=levels(as.factor(pred$study))
 add_exp_legend("topright", subset=subset)
 
 # plot(dp.GEC$age, GEC.m-dp.GEC$GEC,
@@ -215,7 +220,8 @@ for (study in studies){
 }
 subset=levels(as.factor(predkg$study))
 add_exp_legend("topright", subset=subset)
-
-
 par(mfrow=c(1,1))
+if (do_plot){
+  dev.off()
+}
 
