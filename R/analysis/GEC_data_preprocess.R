@@ -6,7 +6,7 @@
 # Here the experimental data is prepared to use in models.
 #
 # author: Matthias Koenig
-# date: 2014-01-28
+# date: 2015-02-17
 ###############################################################
 
 rm(list=ls())

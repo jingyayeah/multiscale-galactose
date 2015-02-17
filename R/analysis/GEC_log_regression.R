@@ -54,6 +54,8 @@ summary(data)
 
 # binary classifier (disease = 0/1)
 table(data$disease)
+save_classification_data(data=data, name='GEC_prediction') # save the data for reuse
+
 
 ################
 #   Plots        

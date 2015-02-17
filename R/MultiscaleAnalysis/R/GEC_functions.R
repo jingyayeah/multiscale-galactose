@@ -326,7 +326,7 @@ predict_GEC <- function(f_GE, volLiver, flowLiver, ages){
 #' Under high galactose concentrations, i.e. gal=8.0mM, the maximal galactose elimination
 #' rate is reached (GEC).
 #'@export
-predict_GEkg <- function(f_GE, volLiverkg, flowLiverkg, ages){  
+predict_GECkg <- function(f_GE, volLiverkg, flowLiverkg, ages){  
   Np = nrow(volLiverkg) # people
   Nr = ncol(volLiverkg) # repeats
   if (nrow(flowLiverkg) != Np) 
