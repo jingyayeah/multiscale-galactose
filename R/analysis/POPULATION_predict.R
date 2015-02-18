@@ -74,9 +74,7 @@ with(people.raw,
      }
 )
 
-
 # linear regression
-# formula <- 'exp_volLiver ~ age + bodyweight + BSA'
 formula <- 'exp_volLiver ~ age + bodyweight + height'
 model <- glm(formula, data=people.raw, family="gaussian")  
 summary(model)
@@ -98,7 +96,8 @@ GEC.volLiver <- predict_GEC(f_GE,
 
 m.volLiver <- rowMeans(info.volLiver$volLiver)
 sd.volLiver <- rowSds(info.volLiver$volLiver)
-str(GEC.volLiver)
+qlow.volLiver <- rowQuantiles(info.volLiver$volLiver, probs=0.05)
+qhigh.volLiver <- rowQuantiles(info.volLiver$volLiver, probs=0.95)
 # psize <- 2* people.volLiver$bodyweight/max(people.volLiver$bodyweight)
 # psize <- 2* people.volLiver$BSA/max(people.volLiver$BSA, na.rm = TRUE)
 # psize[is.na(psize)] <- 0
@@ -108,8 +107,12 @@ par(mfrow=c(2,2))
 plot(people.volLiver$exp_volLiver, m.volLiver, pch=21, bg=rgb(1,0,0,0.5),
      xlim=c(0,3000), ylim=c(0,3000), cex=psize)
 abline(a=0, b=1, col='black', lwd=2)
+# SD segments
 # segments(people.volLiver$exp_volLiver, m.volLiver-sd.volLiver,
-#         people.volLiver$exp_volLiver, m.volLiver+sd.volLiver, col='gray')
+#          people.volLiver$exp_volLiver, m.volLiver+sd.volLiver, col=rgb(1,0,0,0.4))
+# 95% segments
+segments(people.volLiver$exp_volLiver, qlow.volLiver,
+         people.volLiver$exp_volLiver, qhigh.volLiver, col=rgb(1,0,0,0.4))
 
 plot(people.volLiver$exp_volLiver, m.volLiver-people.volLiver$exp_volLiver, 
      cex=psize, pch=21, bg=rgb(1,0,0,0.5),

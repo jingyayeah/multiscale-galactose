@@ -6,7 +6,7 @@
 # Here the experimental data is prepared to use in models.
 #
 # author: Matthias Koenig
-# date: 2015-02-17
+# date: 2015-02-18
 ###############################################################
 
 rm(list=ls())
@@ -301,8 +301,8 @@ head(vau2002.fig2)
 win1965 <- read.csv(file.path(ma.settings$dir.expdata, "GEC", "Winkler1965.csv"), sep="\t")
 win1965$flowLiverkg <- win1965$flowLiver/win1965$bodyweight
 win1965$BSA <- calculateBSA(bodyweight_kg=win1965$bodyweight, height_cm=win1965$height)
-win1965$GECkg <- win1965$GEC/win1965$bodyweight
-win1965 <- win1965[!is.na(win1965$GEC), ] # filter cases without GEC
+win1965$GEkg <- win1965$GE/win1965$bodyweight
+# win1965 <- win1965[!is.na(win1965$GE), ] # filter cases without GEC
 win1965 <- process_data_and_save(win1965, dtype='individual')
 head(win1965)
 
@@ -375,7 +375,6 @@ data <- combine_data(list(
   mar1988, 
   tyg1963, 
   sch1986.tab1, 
-  # win1965 # outlier compared to other datasets
   duc1979, 
   duf1992
 ))
@@ -394,7 +393,6 @@ data <- combine_data(list(
   tyg1963,
   sch1986.fig1, 
   # sch1986.tab1, # already part of dataset via sch1986.fig1
-  # win1965[, selection],  # outlier compare to other datasets
   duf1992
   ))
 save_correlation_data(data)
