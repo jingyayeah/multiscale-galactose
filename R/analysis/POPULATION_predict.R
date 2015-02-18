@@ -31,13 +31,42 @@ f_GE(gal=8.0, P=1, age=20)
 cat('* PREDICT RAW *\n')
 
 # Predict liver information & GEC for datasets used in model building
-people.raw <- create_all_people(c('hei1999', 'cat2010'))
-people.raw <- people.raw[1:10, ]
-info.raw <- predict_volume_and_flow(people=people.raw, out_dir=dir.raw)
-GEC.raw <- predict_GEC(f_GE, 
-            volLiver=info.raw$volLiver, 
-            flowLiver=info.raw$flowLiver,
-            ages=people.raw$age)
+# liver volume
+people.raw <- create_all_people(c('mar1988',
+                                  'cat2010',
+                                  'wyn1989',
+                                  'naw1998',
+                                  'boy1933',
+                                  'hei1999'
+                                  ))
+# store the experimental volumes
+people.raw$exp_volLiver <- people.raw$volLiver
+people.raw$exp_volLiverkg <- people.raw$volLiverkg
+# clear so that volumes are predicted
+people.raw$volLiver <- NA
+people.raw$volLiverkg <- NA
+# reduce to proper subsets
+people.volLiver <- people.raw[!is.na(people.raw$exp_volLiver), ]     # 1051
+people.volLiverkg <- people.raw[!is.na(people.raw$exp_volLiverkg), ] # 695
+str(people.volLiver)
+str(people.volLiverkg)
+
+info.volLiver <- predict_liver_people(people.volLiver, Nsample=1000, Ncores=11)
+GEC.volLiver <- predict_GEC(f_GE, 
+            volLiver=info.volLiver$volLiver, 
+            flowLiver=info.volLiver$flowLiver,
+            ages=people.volLiver$age)
+str(GEC.volLiver)
+par(mfrow=c(1,2))
+plot(people.volLiver$exp_volLiver, rowMeans(info.volLiver$volLiver), cex=0.7, pch=21, bg=rgb(1,0,0,0.5),
+     xlim=c(0,3000), ylim=c(0,3000))
+abline(a=0, b=1, col='black', lwd=2)
+
+plot(people.volLiver$exp_volLiver, rowMeans(info.volLiver$volLiver)-people.volLiver$exp_volLiver, cex=0.7, pch=21, bg=rgb(1,0,0,0.5),
+     xlim=c(0,3000), ylim=c(-1500,1500))
+abline(h=0, col='black', lwd=2)
+par(mfrow=c(1,1))
+
 
 ################################
 # Predict NHANES cohort

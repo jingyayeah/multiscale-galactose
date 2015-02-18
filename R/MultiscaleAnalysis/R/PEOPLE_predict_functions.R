@@ -21,13 +21,21 @@ dir.nhanes <- file.path(ma.settings$dir.base, 'results', 'nhanes')
 ##############################################################################
 # Create people
 ##############################################################################
-#' Create the people data frame used for prediction 
+#' Creates anthropomorphic people data from given studies.
 #' 
 #'@export
 create_people_from_raw <- function(name){
   x <- loadRawData(name)
-  people <- with(x, data.frame(study=study, sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA,
-                           volLiver=NA, volLiverkg=NA, stringsAsFactors=FALSE))
+  # read core
+  people <- with(x, data.frame(study=study, sex=sex, stringsAsFactors=FALSE))
+  fields <- c('age', 'bodyweight', 'height', 'BSA', 'volLiver', 'volLiverkg')
+  for (f in fields){
+    if (f %in% names(x)){
+      people[[f]] <- x[[f]]
+    } else {
+      people[[f]] <- NA
+    }
+  }
   return(people)
 }
 
