@@ -32,13 +32,19 @@ cat('* PREDICT RAW *\n')
 
 # Predict liver information & GEC for datasets used in model building
 # liver volume
+people.raw <- create_all_people(c(
+                                  'wyn1989',
+                                  'hei1999'
+                                  ))
 people.raw <- create_all_people(c('mar1988',
                                   'cat2010',
                                   'wyn1989',
                                   'naw1998',
                                   'boy1933',
                                   'hei1999'
-                                  ))
+))
+
+
 # store the experimental volumes
 people.raw$exp_volLiver <- people.raw$volLiver
 people.raw$exp_volLiverkg <- people.raw$volLiverkg
@@ -46,23 +52,38 @@ people.raw$exp_volLiverkg <- people.raw$volLiverkg
 people.raw$volLiver <- NA
 people.raw$volLiverkg <- NA
 # reduce to proper subsets
-people.volLiver <- people.raw[!is.na(people.raw$exp_volLiver), ]     # 1051
-people.volLiverkg <- people.raw[!is.na(people.raw$exp_volLiverkg), ] # 695
+people.volLiver <- people.raw[!is.na(people.raw$exp_volLiver), ]     # 1051 (674)
+people.volLiverkg <- people.raw[!is.na(people.raw$exp_volLiverkg), ] # 695 (674)
 str(people.volLiver)
 str(people.volLiverkg)
+
+
+people.volLiver[1,]
+f_d.volLiver.pars(people.volLiver[1,])
 
 info.volLiver <- predict_liver_people(people.volLiver, Nsample=1000, Ncores=11)
 GEC.volLiver <- predict_GEC(f_GE, 
             volLiver=info.volLiver$volLiver, 
             flowLiver=info.volLiver$flowLiver,
             ages=people.volLiver$age)
-str(GEC.volLiver)
-par(mfrow=c(1,2))
-plot(people.volLiver$exp_volLiver, rowMeans(info.volLiver$volLiver), cex=0.7, pch=21, bg=rgb(1,0,0,0.5),
-     xlim=c(0,3000), ylim=c(0,3000))
-abline(a=0, b=1, col='black', lwd=2)
 
-plot(people.volLiver$exp_volLiver, rowMeans(info.volLiver$volLiver)-people.volLiver$exp_volLiver, cex=0.7, pch=21, bg=rgb(1,0,0,0.5),
+
+m.volLiver <- rowMeans(info.volLiver$volLiver)
+sd.volLiver <- rowSds(info.volLiver$volLiver)
+str(GEC.volLiver)
+# psize <- 2* people.volLiver$bodyweight/max(people.volLiver$bodyweight)
+psize <- 2* people.volLiver$BSA/max(people.volLiver$BSA, na.rm = TRUE)
+psize[is.na(psize)] <- 0
+
+par(mfrow=c(1,2))
+plot(people.volLiver$exp_volLiver, m.volLiver, pch=21, bg=rgb(1,0,0,0.5),
+     xlim=c(0,3000), ylim=c(0,3000), cex=psize)
+abline(a=0, b=1, col='black', lwd=2)
+# segments(people.volLiver$exp_volLiver, m.volLiver-sd.volLiver,
+#         people.volLiver$exp_volLiver, m.volLiver+sd.volLiver, col='gray')
+
+plot(people.volLiver$exp_volLiver, m.volLiver-people.volLiver$exp_volLiver, 
+     cex=psize*2, pch=21, bg=rgb(1,0,0,0.5),
      xlim=c(0,3000), ylim=c(-1500,1500))
 abline(h=0, col='black', lwd=2)
 par(mfrow=c(1,1))
