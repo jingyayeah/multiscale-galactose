@@ -2,7 +2,8 @@
 \name{predict_GEC}
 \alias{predict_GEC}
 \title{Predicts galactose elimination (GE) for given vectors of liver volume and blood flow
-based on GE response functions.}
+based on GE response functions.
+TODO: unify predict_GEC & predict GE}
 \usage{
 predict_GEC(f_GE, volLiver, flowLiver, ages)
 }

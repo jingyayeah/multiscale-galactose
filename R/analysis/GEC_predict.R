@@ -41,11 +41,11 @@ summary(dp.GECkg)
 # GAMLSS models
 fit.models <- load_models_for_prediction()
 # Predict volLiver and flowLiver
-liver.GEC <- predict_liver_people(dp.GEC, Nsample=2000, Ncores=1, debug=TRUE)
+liver.GEC <- predict_liver_people(dp.GEC, Nsample=2000, Ncores=10, debug=TRUE)
 str(liver.GEC)
 
 # Predict volLiverkg and flowLiverkg
-liver.GECkg <- predict_liverkg_people(dp.GECkg, Nsample=2000, Ncores=1, debug=TRUE)
+liver.GECkg <- predict_liverkg_people(dp.GECkg, Nsample=2000, Ncores=10, debug=TRUE)
 str(liver.GECkg)
 
 
@@ -75,11 +75,18 @@ GECkg.mat <- predict_GECkg(f_GE,
 pred <- dp.GEC
 pred$pGEC <- rowMeans(GEC.mat) # mean prediction
 pred$pGECSd <- rowSds(GEC.mat) # mean prediction
+pred$pvolLiver <- rowMeans(liver.GEC$volLiver) # mean prediction
+pred$pvolLiverSd <- rowSds(liver.GEC$volLiver) # mean prediction
+pred$pflowLiver <- rowMeans(liver.GEC$flowLiver) # mean prediction
+pred$pflowLiverSd <- rowSds(liver.GEC$flowLiver) # mean prediction
 
 predkg <- dp.GECkg
 predkg$pGECkg <- rowMeans(GECkg.mat) # mean prediction
 predkg$pGECkgSd <- rowSds(GECkg.mat) # mean prediction
-
+predkg$pvolLiverkg <- rowMeans(liver.GECkg$volLiverkg) # mean prediction
+predkg$pvolLiverkgSd <- rowSds(liver.GECkg$volLiverkg) # mean prediction
+predkg$pflowLiverkg <- rowMeans(liver.GECkg$flowLiverkg) # mean prediction
+predkg$pflowLiverkgSd <- rowSds(liver.GECkg$flowLiverkg) # mean prediction
 # ---------------------------------------------
 # Information for plotting
 # ---------------------------------------------
@@ -129,10 +136,49 @@ empty_plot <- function(xname, yname){
 # dp[dp$study=="duc1979",]
 # with(predkg[predkg$study=="duc1979",], plot(GECkg, pGECkg, xlim=c(0,0.1), ylim=c(0,0.1)))
 
+
+do_plot=TRUE
+if (do_plot){
+  fname <- file.path(ma.settings$dir.base, 'results', 'volLiver_prediction.png')
+  png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
+}
+par(mfrow=c(1,2))
+plot(pred$volLiver, pred$pvolLiver, pch=21, bg='gray', font.lab=2,
+     xlim=c(0,1800),
+     ylim=c(0,1800),
+     xlab="volLiver experiment [ml]",
+     ylab="volLiver predicted [ml]"
+)
+abline(a=0, b=1, col="gray", lwd=2)
+
+plot(pred$volLiver, pred$pvolLiver-pred$volLiver, pch=21, bg='gray', font.lab=2,
+     xlim=c(0,1800),
+     ylim=c(-500, 500),
+     xlab="volLiver experiment [ml]",
+     ylab="volLiver predicted-experiment [ml]"
+)
+abline(h=0, col="gray", lwd=2)
+if (do_plot){
+  dev.off()
+}
+
+# Evaluate how many are correct predicted
+evaluate_prediction <- function(df, exp_name="GEC", pre_name="pGEC", preSd_name="pGECSd"){
+  high <- df[[exp_name]]> df[[pre_name]]+df[[preSd_name]]
+  low <- df[[exp_name]]< df[[pre_name]]-df[[preSd_name]]
+  out <- high | low
+  data.frame(high, low, out)
+}
+test <- evaluate_prediction(pred, exp_name="volLiver", pre_name="pvolLiver", preSd_name="pvolLiverSd")
+count(test)
+
+
+###############################################################
+
 #########################
 # GEC plot
 ########################
-do_plot=TRUE
+do_plot=FALSE
 if (do_plot){
   fname <- file.path(ma.settings$dir.base, 'results', 'GEC_prediction.png')
   png(filename=fname, width=1800, height=1800, units = "px", bg = "white",  res = 120)
