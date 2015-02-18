@@ -5,12 +5,11 @@
 # the models used for the individual predictions of the 2D correlations.
 #
 # author: Matthias Koenig
-# date: 2014-12-04
+# date: 2014-02-18
 ################################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
-source(file.path(ma.settings$dir.code, 'analysis', 'data_information.R'))
 
 dsets <- c('GEC_age', 'GECkg_age',  
            'volLiver_age', 'volLiverkg_age',
@@ -63,6 +62,8 @@ dataOverview <- function(df){
 
 
 # Create the table
+g <- gender.cols()
+
 Nr <- length(dsets)
 res.table <- data.frame(character(Nr*3), character(Nr*3), character(Nr*3), character(Nr*3), 
                         character(Nr*3), character(Nr*3), numeric(Nr*3), numeric(Nr*3), 
@@ -76,8 +77,8 @@ for (k in 1:Nr){
  xname <- xy.names$xname; yname <- xy.names$yname
  # load the model and get information
  models <- loadFitModels(xname=xname, yname=yname)
- for (si in 1:length(gender.levels)){
-   sex <- gender.levels[si]
+ for (si in 1:length(g$levels)){
+   sex <- g$levels[si]
    m <- models[[sprintf('fit.%s', sex)]]
    df <- models[[sprintf('df.%s', sex)]]
    if(is.null(m)){
@@ -95,9 +96,9 @@ for (k in 1:Nr){
 
 # save the table
 # replace sex
-res.table$sex[res.table$sex==gender.levels[1]] <- 'A'
-res.table$sex[res.table$sex==gender.levels[2]] <- 'M'
-res.table$sex[res.table$sex==gender.levels[3]] <- 'F'
+res.table$sex[res.table$sex==g$levels[1]] <- 'A'
+res.table$sex[res.table$sex==g$levels[2]] <- 'M'
+res.table$sex[res.table$sex==g$levels[3]] <- 'F'
 
 t_fname <- file.path(ma.settings$dir.base, "results", "GAMLSS_models_table.csv")
 cat('Table:', t_fname, '\n')

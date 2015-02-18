@@ -66,7 +66,8 @@ gender.cols = function(){
   levels = c('all', 'male', 'female')
   names(levels) = levels
   
-  symbols = c(21, 22, 23)
+  # symbols = c(21, 22, 23)
+  symbols = rep(22, 3)
   names(symbols) = levels
   
   cols.base = c(rgb(0,0,0, alpha=1.0), rgb(0,0,1, alpha=1.0), rgb(1,0,0, alpha=1.0))

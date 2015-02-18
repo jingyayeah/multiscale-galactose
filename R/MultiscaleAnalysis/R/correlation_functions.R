@@ -102,7 +102,7 @@ load_correlation_data <- function(xname, yname, dir=get_correlation_dir()){
     dir <- get_correlation_dir()
   }
   fname <- file.path(dir, sprintf("%s_%s.Rdata", yname, xname))
-  cat('Load :', r_fname, '\n')
+  cat('Load :', fname, '\n')
   load(file=fname)
   return(data)
 }
