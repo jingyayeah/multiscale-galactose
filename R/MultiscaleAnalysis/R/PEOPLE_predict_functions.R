@@ -26,7 +26,7 @@ dir.nhanes <- file.path(ma.settings$dir.base, 'results', 'nhanes')
 #'@export
 create_people_from_raw <- function(name){
   x <- loadRawData(name)
-  people <- with(x, data.frame(study=study, sex=gender, age=age, bodyweight=bodyweight, height=height, BSA=BSA,
+  people <- with(x, data.frame(study=study, sex=sex, age=age, bodyweight=bodyweight, height=height, BSA=BSA,
                            volLiver=NA, volLiverkg=NA, stringsAsFactors=FALSE))
   return(people)
 }

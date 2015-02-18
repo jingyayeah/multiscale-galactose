@@ -7,7 +7,7 @@
 # is calculated.
 #
 # author: Matthias Koenig
-# date: 2014-12-05
+# date: 2015-02-18
 ################################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
@@ -19,26 +19,25 @@ setwd(ma.settings$dir.base)
 fit.models <- load_models_for_prediction()
 
 ################################
-# GEC function to use
+# GEC function (f_GE)
 ################################
-GEC_f <- GEC_functions(task='T1')
-names(GEC_f)
-plot_GEC_function(GEC_f)
+file_GE_f <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
+load(file=file_GE_f)
+f_GE(gal=8.0, P=1, age=20)
 
 ################################
 # Predict RAW people
 ################################
 cat('* PREDICT RAW *\n')
-# Predict the information from cohort data used for model generation.
-# These cover subsets not available in the NHANES data, namely very young and
-# very old persons.
+
+# Predict liver information & GEC for datasets used in model building
 people.raw <- create_all_people(c('hei1999', 'cat2010'))
 people.raw <- people.raw[1:10, ]
-
 info.raw <- predict_volume_and_flow(people=people.raw, out_dir=dir.raw)
-predict_GEC(people.raw, GEC_f=GEC_f, 
-            volLiver=info.raw$volLiver, flowLiver=info.raw$flowLiver, 
-            out_dir=dir.raw)
+GEC.raw <- predict_GEC(f_GE, 
+            volLiver=info.raw$volLiver, 
+            flowLiver=info.raw$flowLiver,
+            ages=people.raw$age)
 
 ################################
 # Predict NHANES cohort
@@ -49,16 +48,19 @@ load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdat
 people.nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
 people.nhanes$volLiver <- NA
 people.nhanes$volLiverkg <- NA
-people.nhanes <- people.nhanes[1:10, ]
+# people.nhanes <- people.nhanes[1:10, ]
 rm(data)
 
 info.nhanes <- predict_volume_and_flow(people=people.nhanes, out_dir=dir.nhanes)
-predict_GEC(people.nhanes, GEC_f=GEC_f,
-            volLiver=info.nhanes$volLiver, flowLiver=info.nhanes$flowLiver,
-            out_dir=dir.nhanes)
+GEC = predict_GEC(f_GE,
+                  volLiver=info.nhanes$volLiver, 
+                  flowLiver=info.nhanes$flowLiver,
+                  age=people.nhanes$age)
+save(GEC, file=file.path(dir.nhanes, 'GEC.Rdata'))
 
-# test loading
-
+# -------------------------------------
+# Loading and working with dataset
+# -------------------------------------
 load(file=file.path(dir.nhanes, 'volLiver.Rdata'))
 load(file=file.path(dir.nhanes, 'flowLiver.Rdata'))
 load(file=file.path(dir.nhanes, 'GEC.Rdata'))
@@ -70,7 +72,7 @@ head(flowLiver[, 1:5])
 cat('# GEC #')
 head(GEC[, 1:5])
 
-index <- 1
+index <- 2
 individual_plot(person=people.nhanes[index, ], 
                 vol=volLiver[1, ], flow=flowLiver[1,], 
                 data=GEC[1, ])
