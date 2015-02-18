@@ -180,7 +180,8 @@ if (dataset == 'volLiver_age'){
   par(mfrow=c(1,3))
   # all
   fit.all.nosigma <- gamlss(volLiver ~ cs(age,4), family=BCCG, weights=weights, data=df.all, method=mixed(2,10))
-  fit.all <- gamlss(volLiver ~ cs(age,4), sigma.formula=~age, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma)
+  fit.all <- gamlss(volLiver ~ cs(age,4), sigma.formula=~age, family=BCCG, weights=weights, data=df.all, start.from=fit.all.nosigma,
+                    method=mixed(2,10))
   plotCentiles(model=fit.all, d=df.all, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=g$cols[['all']])
@@ -192,6 +193,8 @@ if (dataset == 'volLiver_age'){
   plotCentiles(model=fit.male, d=df.male, xname=xname, yname=yname,
                main=main, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, 
                pcol=g$cols[['male']])
+  # test predictions
+  mu <- predict(fit.male, what = "mu", type = "response", newdata=data.frame(age=c(20)), data=df.male)
   # female
   fit.female <- gamlss(volLiver ~ cs(age,4), family=BCCG, weights=weights, data=df.female)
   plotCentiles(model=fit.female, d=df.female, xname=xname, yname=yname,

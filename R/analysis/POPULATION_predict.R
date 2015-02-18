@@ -40,10 +40,10 @@ people.raw <- create_all_people(c('mar1988',
                                   'hei1999'
 ))
 
-people.raw <- create_all_people(c(
-                                  'wyn1989',
-                                  'hei1999'
-                                  ))
+# people.raw <- create_all_people(c(
+#                                   'wyn1989',
+#                                   'hei1999'
+#                                   ))
 
                
 # store the experimental volumes
@@ -60,7 +60,6 @@ str(people.volLiver)
 str(people.volLiverkg)
 
 # look for the correlations 
-head(people.raw)
 with(people.raw, 
      {
        par(mfrow=c(1,3))
@@ -81,13 +80,13 @@ summary(model)
 reg.volLiver <- predict(model, newdata = people.raw, type = "response")
 
 plot(people.raw$exp_volLiver, reg.volLiver, pch=21, bg=rgb(1,0,0,0.5),
-     xlim=c(0,3000), ylim=c(0,3000), cex=psize)
+     xlim=c(0,3000), ylim=c(0,3000), cex=0.7)
 abline(a=0, b=1, col='black', lwd=2) 
 
 # which functions used
-f_d.volLiver.pars(people.volLiver[1,])
+f_d.volLiver.pars(people.volLiver[1,], sex_split=FALSE)
 
-info.volLiver <- predict_liver_people(people.volLiver, Nsample=1000, Ncores=11)
+info.volLiver <- predict_liver_people(people.volLiver, Nsample=1000, sex_split=FALSE, Ncores=11)
 GEC.volLiver <- predict_GEC(f_GE, 
             volLiver=info.volLiver$volLiver, 
             flowLiver=info.volLiver$flowLiver,
@@ -111,8 +110,8 @@ abline(a=0, b=1, col='black', lwd=2)
 # segments(people.volLiver$exp_volLiver, m.volLiver-sd.volLiver,
 #          people.volLiver$exp_volLiver, m.volLiver+sd.volLiver, col=rgb(1,0,0,0.4))
 # 95% segments
-segments(people.volLiver$exp_volLiver, qlow.volLiver,
-         people.volLiver$exp_volLiver, qhigh.volLiver, col=rgb(1,0,0,0.4))
+#segments(people.volLiver$exp_volLiver, qlow.volLiver,
+#         people.volLiver$exp_volLiver, qhigh.volLiver, col=rgb(1,0,0,0.4))
 
 plot(people.volLiver$exp_volLiver, m.volLiver-people.volLiver$exp_volLiver, 
      cex=psize, pch=21, bg=rgb(1,0,0,0.5),

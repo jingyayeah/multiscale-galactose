@@ -9,6 +9,7 @@
 # date: 2014-02-03
 ################################################################################
 rm(list=ls())
+# install.packages('ROCR')
 library('MultiscaleAnalysis')
 print(packageVersion('MultiscaleAnalysis'))
 setwd(ma.settings$dir.base)
@@ -61,16 +62,20 @@ save_classification_data(data=data, name='GEC_prediction') # save the data for r
 #   Plots        
 ################
 # overview available data
-par(mfrow = c(1,2))
-bins = seq(from=0, to=5, by=0.07)
-hist(data$GEC[data$disease==1], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(1,0,0,0.5), freq=FALSE)
-hist(data$GEC[data$disease==0], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(0.5,0.5,0.5, 0.5), freq=FALSE, add=TRUE)
+create_GEC_histogram <- function(data){
+  par(mfrow = c(1,2))
+  bins = seq(from=0, to=5, by=0.07)
+  hist(data$GEC[data$disease==1], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(1,0,0,0.5), freq=FALSE)
+  hist(data$GEC[data$disease==0], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(0.5,0.5,0.5, 0.5), freq=FALSE, add=TRUE)
 
-bins = seq(from=0, to=0.12, by=0.001)
-hist(data$GECkg[data$disease==1], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(1,0,0,0.5))
-hist(data$GECkg[data$disease==0], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(0.5,0.5,0.5, 0.5), add=TRUE)
-par(mfrow = c(1,1))
-rm(bins)
+  bins = seq(from=0, to=0.12, by=0.001)
+  hist(data$GECkg[data$disease==1], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(1,0,0,0.5))
+  hist(data$GECkg[data$disease==0], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(0.5,0.5,0.5, 0.5), add=TRUE)
+  par(mfrow = c(1,1))
+  rm(bins)
+}
+create_GEC_histogram(data)
+
 summary(data)
 
 
@@ -89,10 +94,13 @@ summary(data)
 #------------------------------
 # formulas
 formula <- list('disease ~ GEC', 
+             'disease ~ GEC + age',
              'disease ~ GEC + bodyweight', 
-             'disease ~ GEC + bodyweight + sex',
-             'disease ~ GEC + bodyweight + age',
-             'disease ~ GEC + bodyweight + sex + age')
+             'disease ~ GEC + age + bodyweight')
+
+             # 'disease ~ GEC + bodyweight + sex',
+             # 'disease ~ GEC + age + sex',
+             # 'disease ~ GEC + age + bodyweight + sex')
 # model ids
 ids <- paste('m', 1:length(formula), sep='')
 names(formula) <- ids
@@ -208,7 +216,7 @@ create_m1_plot()
 
 # install.packages('ROCR')
 library(ROCR)
-cols <- c('darkgreen', 'darkorange', 'darkred', 'darkblue', 'darkmagenta')
+cols <- c('darkgreen', 'darkorange', 'red', 'blue', 'magenta', 'brown', 'black')
 cols <- add.alpha(cols, 0.7)
 names(cols) <- ids
 
@@ -228,7 +236,7 @@ plot_best_roc <- function(){
   fitpreds = predict(m.all[[id]], newdata=d[[id]], type="response")
   fitpred = prediction(fitpreds, (d[[id]])$disease)
   fitperf = performance(fitpred,"tpr","fpr")
-  plot(fitperf, col=cols[k], add=TRUE, lwd=1, lty=4)
+  plot(fitperf, col=cols[k], add=TRUE, lwd=2, lty=2)
   auc = performance(fitpred,"auc")
   auc_value = attr(auc, 'y.values')[[1]]
   cat('Best-AUC', auc_value, ' : ', ids[k], formula[[k]], '\n' )
@@ -252,20 +260,6 @@ plot_empty_roc()
 plot_best_roc()
 auc_best <- best_auc()
 auc_best
-
-plot_mer1991 <- function(){
-  mer1991 <- read.csv(file.path(ma.settings$dir.expdata, 'GEC', 'Merkel1991.csv'), sep="\t")
-  with(mer1991, {
-    subset <- (mer1991$predictor == 'GEC')
-    points(fpr[subset], tpr[subset], pch=15, col='black')
-    lines(fpr[subset], tpr[subset], col='black')
-    subset <- (d$predictor == 'Pugh')
-    points(fpr[subset], tpr[subset], pch=3, col='black')
-    lines(fpr[subset], tpr[subset], col='black', lty=2)
-  })  
-}
-
-
 
 
 ##############################################################################
@@ -319,22 +313,29 @@ plot_bootstrap <- function(df, formula, B=100, col='gray'){
   pred<- prediction(pp, ll)
   perf <- performance(pred, "tpr", "fpr")
   
-  # plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.05), add=T)
-  plot(perf, avg= "treshold", colorize=F, lty=3, lwd=1, col=col, add=T)
+  plot(perf, lty=1, col=col, add=T)
+  # plot(perf, avg= "treshold", colorize=F, lty=3, lwd=1, col=col, add=T)
+  auc = performance(pred,"auc")
 }
 
 plot_bootstrap_roc <- function(){
+  auc <- list()
   for (k in seq_along(formula)){
     col = add.alpha(cols[k], 0.5)
-    plot_bootstrap(d[[k]], formula[[k]], B=100, col)  
+    auc_k = plot_bootstrap(d[[k]], formula[[k]], B=100, col)  
+    auc[[k]] = as.numeric(attr(auc_k, 'y.values') )
+    cat('Bootstrap-AUC', mean(auc[[k]]), ' : ', ids[k], formula[[k]], '\n')
   }
+  return(auc)
 }
+
 
 plot_empty_roc()
 plot_best_roc()
 auc <- plot_bootstrap_roc()
-str(auc)
-
+lapply(auc, mean)
+lapply(auc, sd)
+ids
 
 #------------------------------
 # Split sample
@@ -378,13 +379,17 @@ plot_split_sample <- function(df, formula, B=100, col='gray'){
   perf <- performance(pred, "tpr", "fpr")
   # plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.2), add=T)
   plot(perf, avg= "threshold", colorize=F, lwd=1, col=col, add=T, lty=1)
+  auc = performance(pred,"auc")
 }
 
 
 plot_split_roc <- function(){
+  auc <- list()
   for (k in seq_along(formula)){
     col = add.alpha(cols[k], 0.5)
-    plot_split_sample(d[[k]], formula[[k]], B=100, col)  
+    auc_k <- plot_split_sample(d[[k]], formula[[k]], B=100, col)  
+    auc[[k]] = as.numeric(attr(auc_k, 'y.values') )
+    cat('SplitSample-AUC', mean(auc[[k]]), ' : ', ids[k], formula[[k]], '\n')
   }
 }
 
@@ -418,6 +423,9 @@ disease_predictor <- function(GEC_exp, GEC, q=0.05){
   # predict every row
   for (k in 1:length(GEC_exp)){
     # TODO: fix prediction bug => why single NA in special case???
+    if (any(is.na(GEC[k, ])))
+      warning('NAs in predicted GEC')
+           
     q_gec[k] <- quantile(GEC[k, ], probs=q, na.rm = TRUE)
     
     mean_gec[k] <- mean(GEC[k, ])
@@ -439,42 +447,40 @@ disease_predictor <- function(GEC_exp, GEC, q=0.05){
 fit.models <- load_models_for_prediction()
 # Predict
 str(data)
-liver.info <- predict_liver_people(data, Nsample=2000, Ncores=1, debug=TRUE)
-save(liver.info, file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
-load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
-str(liver.info)
+liver.info <- predict_liver_people(data, Nsample=2000, Ncores=11, sex_split=FALSE, debug=TRUE)
+# save(liver.info, file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
+# load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
+
 
 # ---------------------------------------------
 # Calculation of GEC (multiscale-model)
 # ---------------------------------------------
-# GEC function
+# load latest GEC function
 fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
 load(file=fname)
-f_GE(gal=8.0, P=1, age=20)
-
-str(liver.info)
-class(liver.info$volLiver)
-
 GEC <- predict_GEC(f_GE, 
                        volLiver=liver.info$volLiver, 
                        flowLiver=liver.info$flowLiver,
                        ages=data$age)
+summary(data)
 hist(GEC,
      xlab='GEC [mmol/min]')
 
 
-# ROC curve - GEC App#
+# ROC curve - GEC App #
 fname <- file.path(ma.settings$dir.base, 'results', 'classification', 'ROC.png')
 png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
+
 plot_empty_roc()
-plot_split_roc()
+# plot_split_roc()
 plot_bootstrap_roc()
 plot_best_roc()
 
+
 # prediction for corresponding subsets of data
-# for (k in 1:length(formula)){
-for (k in 1:5){
-  res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.05)
+
+for (k in 1:length(formula)){
+  res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.01)
   fitpreds = res$predictor
   fitpred = prediction(fitpreds, d[[k]]$disease)
   fitperf = performance(fitpred,"tpr","fpr")
@@ -485,6 +491,7 @@ for (k in 1:5){
 }
 dev.off()
 
+
 # ROC for full data prediction
 res <- disease_predictor(data$GEC, GEC, q=0.05)
 fitpreds = res$predictor
@@ -494,4 +501,6 @@ plot(fitperf, col="black", add=TRUE, lwd=4)
 auc = performance(fitpred,"auc")
 print(auc)
 
-
+test <- which(is.na(GEC[,1]))
+print(test)
+test[1] %in% indices[[1]]
