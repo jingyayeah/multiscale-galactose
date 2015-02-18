@@ -32,10 +32,6 @@ cat('* PREDICT RAW *\n')
 
 # Predict liver information & GEC for datasets used in model building
 # liver volume
-people.raw <- create_all_people(c(
-                                  'wyn1989',
-                                  'hei1999'
-                                  ))
 people.raw <- create_all_people(c('mar1988',
                                   'cat2010',
                                   'wyn1989',
@@ -44,8 +40,14 @@ people.raw <- create_all_people(c('mar1988',
                                   'hei1999'
 ))
 
+people.raw <- create_all_people(c(
+                                  'wyn1989',
+                                  'hei1999'
+                                  ))
 
+               
 # store the experimental volumes
+summary(people.raw)
 people.raw$exp_volLiver <- people.raw$volLiver
 people.raw$exp_volLiverkg <- people.raw$volLiverkg
 # clear so that volumes are predicted
@@ -57,8 +59,34 @@ people.volLiverkg <- people.raw[!is.na(people.raw$exp_volLiverkg), ] # 695 (674)
 str(people.volLiver)
 str(people.volLiverkg)
 
+# look for the correlations 
+head(people.raw)
+with(people.raw, 
+     {
+       par(mfrow=c(1,3))
+       plot(age, bodyweight, cex=2*exp_volLiver/max(exp_volLiver, na.rm=TRUE), 
+                      pch=21, bg=rgb(1,0,0,0.5) )
+       plot(bodyweight, BSA, cex=2*exp_volLiver/max(exp_volLiver, na.rm=TRUE), 
+                      pch=21, bg=rgb(1,0,0,0.5) )
+       plot(bodyweight, height, cex=2*exp_volLiver/max(exp_volLiver, na.rm=TRUE), 
+                      pch=21, bg=rgb(1,0,0,0.5) )
+       par(mfrow=c(1,1))
+     }
+)
 
-people.volLiver[1,]
+
+# linear regression
+# formula <- 'exp_volLiver ~ age + bodyweight + BSA'
+formula <- 'exp_volLiver ~ age + bodyweight + height'
+model <- glm(formula, data=people.raw, family="gaussian")  
+summary(model)
+reg.volLiver <- predict(model, newdata = people.raw, type = "response")
+
+plot(people.raw$exp_volLiver, reg.volLiver, pch=21, bg=rgb(1,0,0,0.5),
+     xlim=c(0,3000), ylim=c(0,3000), cex=psize)
+abline(a=0, b=1, col='black', lwd=2) 
+
+# which functions used
 f_d.volLiver.pars(people.volLiver[1,])
 
 info.volLiver <- predict_liver_people(people.volLiver, Nsample=1000, Ncores=11)
@@ -72,10 +100,11 @@ m.volLiver <- rowMeans(info.volLiver$volLiver)
 sd.volLiver <- rowSds(info.volLiver$volLiver)
 str(GEC.volLiver)
 # psize <- 2* people.volLiver$bodyweight/max(people.volLiver$bodyweight)
-psize <- 2* people.volLiver$BSA/max(people.volLiver$BSA, na.rm = TRUE)
-psize[is.na(psize)] <- 0
+# psize <- 2* people.volLiver$BSA/max(people.volLiver$BSA, na.rm = TRUE)
+# psize[is.na(psize)] <- 0
+psize = 0.7
 
-par(mfrow=c(1,2))
+par(mfrow=c(2,2))
 plot(people.volLiver$exp_volLiver, m.volLiver, pch=21, bg=rgb(1,0,0,0.5),
      xlim=c(0,3000), ylim=c(0,3000), cex=psize)
 abline(a=0, b=1, col='black', lwd=2)
@@ -83,9 +112,15 @@ abline(a=0, b=1, col='black', lwd=2)
 #         people.volLiver$exp_volLiver, m.volLiver+sd.volLiver, col='gray')
 
 plot(people.volLiver$exp_volLiver, m.volLiver-people.volLiver$exp_volLiver, 
-     cex=psize*2, pch=21, bg=rgb(1,0,0,0.5),
+     cex=psize, pch=21, bg=rgb(1,0,0,0.5),
      xlim=c(0,3000), ylim=c(-1500,1500))
 abline(h=0, col='black', lwd=2)
+
+# Linear regression model
+plot(people.raw$exp_volLiver, reg.volLiver, pch=21, bg=rgb(1,0,0,0.5),
+     xlim=c(0,3000), ylim=c(0,3000), cex=psize)
+abline(a=0, b=1, col='black', lwd=2) 
+
 par(mfrow=c(1,1))
 
 

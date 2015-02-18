@@ -230,8 +230,7 @@ f_d.combined <- function(x, pars, yname){
 f_d.volLiver.pars <- function(person){ 
   pars = list()
   # for(xname in c('age', 'bodyweight', 'height', 'BSA')){
-  # for(xname in c('age', 'bodyweight', 'height')){
-  for(xname in c('age', 'bodyweight')){
+  for(xname in c('age', 'bodyweight', 'height')){
     name <- sprintf('volLiver_%s', xname)
     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
   }
