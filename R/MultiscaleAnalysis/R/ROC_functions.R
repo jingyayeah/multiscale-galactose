@@ -117,3 +117,22 @@ create_m1_plot <- function(m.all, d){
 #--------------------------------------
 # Bootstrap models
 #--------------------------------------
+#' Bootstrap calculation of model fitting based on data and formula
+#'
+#' @export 
+m_bootstrap <- function(df, formula, B=100){
+  # fit all the bootstrap models
+  m.boot <- as.list(rep(NA, B))
+  
+  # calculate for bootstrap samples
+  N <- nrow(df)
+  for (k in 1:B){
+    inds <- sample(seq(1,N), size=N, replace=TRUE)
+    # create the bootstrap data.frame
+    df.boot <- df[inds, ]
+    # fit model with bootstrap data
+    m.boot[[k]] <- glm(formula, data=df.boot, family="binomial")
+  }
+  return(m.boot)
+}
+

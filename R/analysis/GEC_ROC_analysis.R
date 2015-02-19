@@ -80,7 +80,7 @@ formula <- list(
   # 'disease ~ GEC + age + bodyweight + sex')
 
 # model ids
-ids <- paste('m', 1:length(formula), sep='')
+ids <- paste('M', 1:length(formula), sep='')
 names(formula) <- ids
 formula
 # model colors
@@ -132,6 +132,9 @@ short_formula <- function(formula){
   # do all the replacements
   sf <- formula
   sf = gsub('disease', 'LD', formula)
+  for (k in 1:length(formula)){
+    sf[k] = gsub('LD', sprintf('%s : LD', names(formula)[k]), sf[k])  
+  }
   return(sf)
 }
 
@@ -147,39 +150,32 @@ plot_empty_roc <- function(){
   legend('bottomright', 
          legend=c(short_formula(formula), rep('LD multiscale', Nm)), 
          lty=c(rep(2,Nm), rep(1,Nm)), 
-         lwd=c(rep(2,Nm), rep(2, Nm)), 
+         lwd=c(rep(1,Nm), rep(2, Nm)), 
          col=c(cols[1:Nm], cols[1:Nm]), 
          cex=0.7, bty='n')
 }
 plot_empty_roc()
 
 plot_best_roc <- function(){
+ auc <- rep(NA, length(ids))
+ names(auc) <- ids
  for (k in seq_along(ids)){
   id <- ids[k]
+  # ROC
   fitpreds = predict(m.best[[id]], newdata=d[[id]], type="response")
   fitpred = prediction(fitpreds, (d[[id]])$disease)
   fitperf = performance(fitpred,"tpr","fpr")
-  plot(fitperf, col=cols[k], add=TRUE, lwd=2, lty=2)
+  plot(fitperf, col=cols[k], add=TRUE, lwd=1, lty=2)
+  # AUC
+  aucperf = performance(fitpred,"auc")
+  auc[k] = attr(aucperf, 'y.values')[[1]]
+  cat('Best-AUC', auc[k], ' : ', ids[k], formula[[k]], '\n' )
  }
-}
-
-best_auc <- function(){
-  auc <- rep(NA, length(ids))
-  names(auc) <- ids
-  for (k in seq_along(ids)){
-    id <- ids[k]
-    fitpreds = predict(m.all[[id]], newdata=d[[id]], type="response")
-    fitpred = prediction(fitpreds, (d[[id]])$disease)
-    aucperf = performance(fitpred,"auc")
-    auc[k] = attr(aucperf, 'y.values')[[1]]
-    cat('Best-AUC', auc[k], ' : ', ids[k], formula[[k]], '\n' )
-  }
-  auc
+ return(auc)
 }
 
 plot_empty_roc()
-plot_best_roc()
-auc_best <- best_auc()
+auc_best <- plot_best_roc()
 auc_best
 
 
@@ -205,24 +201,7 @@ auc_best
 #------------------------------
 # Bootstrap
 #------------------------------
-# bootstrap model fitting based on data and formula
-m_bootstrap <- function(df, formula, B=100){
-  # fit all the bootstrap models
-  m.boot <- as.list(rep(NA, B))
-  
-  # calculate for bootstrap samples
-  N <- nrow(df)
-  for (k in 1:B){
-    inds <- sample(seq(1,N), size=N, replace=TRUE)
-    # create the bootstrap data.frame
-    df.boot <- df[inds, ]
-    # fit model with bootstrap data
-    m.boot[[k]] <- glm(formula, data=df.boot, family="binomial")
-  }
-  return(m.boot)
-}
-
-plot_bootstrap <- function(df, formula, B=100, col='gray'){
+plot_bootstrap <- function(df, formula, B=10, col='gray'){
   m.boot <- m_bootstrap(df, formula, B=B)
   pp <- as.list(rep(NA, B)) # predictions
   ll <- as.list(rep(NA, B)) # labels
@@ -234,8 +213,10 @@ plot_bootstrap <- function(df, formula, B=100, col='gray'){
   pred<- prediction(pp, ll)
   perf <- performance(pred, "tpr", "fpr")
   
-  plot(perf, lty=1, col=col, add=T)
-  # plot(perf, avg= "treshold", colorize=F, lty=3, lwd=1, col=col, add=T)
+  # single bootstrap curves
+  # plot(perf, lty=1, col=add.alpha(col,0.2), add=T)
+  # average bootstrap curve
+  plot(perf, avg= "threshold", colorize=F, lwd=1, col=col, add=T, lty=2)
   auc = performance(pred,"auc")
 }
 
@@ -247,15 +228,17 @@ plot_bootstrap_roc <- function(){
     auc[[k]] = as.numeric(attr(auc_k, 'y.values') )
     cat('Bootstrap-AUC', mean(auc[[k]]), ' : ', ids[k], formula[[k]], '\n')
   }
+  names(auc) <- names(formula)
   return(auc)
 }
 
 
 plot_empty_roc()
-plot_best_roc()
-auc <- plot_bootstrap_roc()
-lapply(auc, mean)
-lapply(auc, sd)
+best_auc <- plot_best_roc()
+bootstrap_auc <- plot_bootstrap_roc()
+# Calculate the bootstrap mean and SD
+lapply(bootstrap_auc, mean)
+lapply(bootstrap_auc, sd)
 ids
 
 #------------------------------
