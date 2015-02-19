@@ -136,3 +136,68 @@ m_bootstrap <- function(df, formula, B=100){
   return(m.boot)
 }
 
+#--------------------------------------
+# Split sample models
+#--------------------------------------
+#' Splits dataset randomly into 50% training and testing set.
+#' 
+#' @export
+splitdf <- function(df, seed=NULL) {
+  if (!is.null(seed)) set.seed(seed)
+  index <- 1:nrow(df)
+  trainindex <- sample(index, trunc(length(index)/2))
+  trainset <- df[trainindex, ]
+  testset <- df[-trainindex, ]
+  list(trainset=trainset,testset=testset)
+}
+
+#' Split sample calculation of model fitting based on data and formula
+#'
+#' @export 
+m_split_sample <- function(df, formula, B=100){
+  m.split <- as.list(rep(NA, B))
+  splits <- as.list(rep(NA, B))
+  # calculate split sample model
+  N <- nrow(df)
+  for (k in 1:B){
+    splits[[k]] <- splitdf(df)
+    m.split[[k]] <- glm(formula, data=splits[[k]]$trainset, family="binomial")
+  }
+  return(list(m.split=m.split, splits=splits))
+}
+
+#--------------------------------------
+# Multiscale Model Classification
+#--------------------------------------
+#' Predict liver disease based on multiscale-model predictions of GEC.
+#' 
+#' The GEC multiscale classifier works via comparing the predicted GEC range 
+#' with the experimental value and uses the location of the experimental
+#' data relative to the theoretical prediction based on the anthropomorphic
+#' features for evaluation.
+#' 
+#' @export
+disease_predictor <- function(GEC_exp, GEC, q=0.05){
+  N <- length(GEC_exp)
+  predictor <- rep(NA, N)
+  mean_gec <- rep(NA, N)
+  sd_gec <- rep(NA, N)
+  q_gec <- rep(NA, N)
+  
+  # predict every row
+  for (k in 1:length(GEC_exp)){
+    # TODO: fix prediction bug => why single NA in special case???
+    if (any(is.na(GEC[k, ])))
+      warning('NAs in predicted GEC')
+    
+    q_gec[k] <- quantile(GEC[k, ], probs=q, na.rm = TRUE)
+    
+    mean_gec[k] <- mean(GEC[k, ])
+    sd_gec[k] <- sd(GEC[k, ])
+  }
+  # predictor = abs(mean_gec - GEC_exp)/sd_gec
+  predictor = (q_gec - GEC_exp)/sd_gec 
+  # predictor = (q_gec - GEC_exp)
+  
+  return(list(predictor=predictor, gec_exp=GEC_exp, mean_gec=mean_gec, sd_gec=sd_gec))
+}

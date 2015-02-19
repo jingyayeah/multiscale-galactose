@@ -146,6 +146,8 @@ plot_empty_roc <- function(){
        xlab="False positive rate",
        ylab="True positive rate")
   abline(a=0,b=1,lwd=2,lty=1,col="gray")
+  abline(h=1, lwd=2,lty=1,col="gray")
+  abline(v=0, lwd=2,lty=1,col="gray")
   Nm = length(formula)
   legend('bottomright', 
          legend=c(short_formula(formula), rep('LD multiscale', Nm)), 
@@ -178,10 +180,9 @@ plot_empty_roc()
 auc_best <- plot_best_roc()
 auc_best
 
-
-##############################################################################
-# Realistic case 
-##############################################################################
+#--------------------------------------------
+# Model evaluation (logistic regression)
+#--------------------------------------------
 # Various methods available for testing the predictive capability 
 # * split sample (training & test data)
 # * cross-validation (k-fold)
@@ -201,7 +202,7 @@ auc_best
 #------------------------------
 # Bootstrap
 #------------------------------
-plot_bootstrap <- function(df, formula, B=10, col='gray'){
+plot_bootstrap <- function(df, formula, B=100, col='gray'){
   m.boot <- m_bootstrap(df, formula, B=B)
   pp <- as.list(rep(NA, B)) # predictions
   ll <- as.list(rep(NA, B)) # labels
@@ -232,43 +233,17 @@ plot_bootstrap_roc <- function(){
   return(auc)
 }
 
-
 plot_empty_roc()
 best_auc <- plot_best_roc()
 bootstrap_auc <- plot_bootstrap_roc()
 # Calculate the bootstrap mean and SD
-lapply(bootstrap_auc, mean)
-lapply(bootstrap_auc, sd)
-ids
+bootstrap_auc.m <- lapply(bootstrap_auc, mean)
+bootstrap_auc.sd <- lapply(bootstrap_auc, sd)
+
 
 #------------------------------
 # Split sample
 #------------------------------
-# splitdf function will return a list of training and testing sets
-splitdf <- function(df, seed=NULL) {
-  if (!is.null(seed)) set.seed(seed)
-  index <- 1:nrow(df)
-  trainindex <- sample(index, trunc(length(index)/2))
-  trainset <- df[trainindex, ]
-  testset <- df[-trainindex, ]
-  list(trainset=trainset,testset=testset)
-}
-
-# split sample
-m_split_sample <- function(df, formula, B=100){
-  # fit all the bootstrap models
-  m.split <- as.list(rep(NA, B))
-  splits <- as.list(rep(NA, B))
-  
-  # calculate split sample model
-  N <- nrow(df)
-  for (k in 1:B){
-    splits[[k]] <- splitdf(df)
-    m.split[[k]] <- glm(formula, data=splits[[k]]$trainset, family="binomial")
-  }
-  return(list(m.split=m.split, splits=splits))
-}
-
 plot_split_sample <- function(df, formula, B=100, col='gray'){
   res <- m_split_sample(df, formula, B=B)
   m.split <- res$m.split
@@ -282,10 +257,9 @@ plot_split_sample <- function(df, formula, B=100, col='gray'){
   pred<- prediction(pp, ll)
   perf <- performance(pred, "tpr", "fpr")
   # plot(perf, lty=1, col=rgb(0.5,0.5,0.5,0.2), add=T)
-  plot(perf, avg= "threshold", colorize=F, lwd=1, col=col, add=T, lty=1)
+  plot(perf, avg= "threshold", colorize=F, lwd=1, col=col, add=T, lty=2)
   auc = performance(pred,"auc")
 }
-
 
 plot_split_roc <- function(){
   auc <- list()
@@ -295,69 +269,39 @@ plot_split_roc <- function(){
     auc[[k]] = as.numeric(attr(auc_k, 'y.values') )
     cat('SplitSample-AUC', mean(auc[[k]]), ' : ', ids[k], formula[[k]], '\n')
   }
+  names(auc) <- names(formula)
+  auc
 }
 
-
-plot_best_roc()
 plot_empty_roc()
-auc <- plot_split_roc()
-
-# TODO: color of bootstrap runs corresponding to average of runs &
-# mean/se of the bootstraps (shading of regions)
+split_auc <- plot_split_roc()
+# Calculate the bootstrap mean and SD
+split_auc.m <- lapply(split_auc, mean)
+split_auc.sd <- lapply(split_auc, sd)
 
 
 #########################################################
-# Predictions based on the GEC App
+# Multiscale Model GEC Predictions (GEC App)
 #########################################################
-# prediction of GEC range for the persons
-# Make a fair comparison on the same subset of data
+# GEC range based on predicted distributions of liver volumes,
+# blood flows and GEC age function is calculated.
 
-# Calculate disease status based on the simulated GEC
-# data and the actual experimental value.
-# Here the predicted distribution of expected values is transformed into a predictor, i.e. 
-# a numerical range of values.
-# Depending on the cutoff different
-disease_predictor <- function(GEC_exp, GEC, q=0.05){
-  N <- length(GEC_exp)
-  predictor <- rep(NA, N)
-  mean_gec <- rep(NA, N)
-  sd_gec <- rep(NA, N)
-  q_gec <- rep(NA, N)
-  
-  # predict every row
-  for (k in 1:length(GEC_exp)){
-    # TODO: fix prediction bug => why single NA in special case???
-    if (any(is.na(GEC[k, ])))
-      warning('NAs in predicted GEC')
-           
-    q_gec[k] <- quantile(GEC[k, ], probs=q, na.rm = TRUE)
-    
-    mean_gec[k] <- mean(GEC[k, ])
-    sd_gec[k] <- sd(GEC[k, ])
-  }
-  # predictor = abs(mean_gec - GEC_exp)/sd_gec
-  # predictor = (q_gec - GEC_exp)/sd_gec 
-  predictor = (q_gec - GEC_exp)
-  return(list(predictor=predictor, gec_exp=GEC_exp, mean_gec=mean_gec, sd_gec=sd_gec))
-}
+# TODO: why NAs in some prediction (fix bug, probably due to certain combinations
+#   of anthropomorphic features)
 
-# TODO: plots of the predictor, i.e. histogram of normal and diesease
-# plots for optimization of decision
 
-# ---------------------------------------------
-# Prediction of liver volumes & blood flows
-# ---------------------------------------------
+# -------------------------------------------------------
+# Predict distributions of liver volumes & blood flows
+# -------------------------------------------------------
 # GAMLSS models
 fit.models <- load_models_for_prediction()
-# Predict
-str(data)
+# Predict the full dataset (one predictor can handle all the information)
 liver.info <- predict_liver_people(data, Nsample=2000, Ncores=11, sex_split=FALSE, debug=TRUE)
 # save(liver.info, file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
 # load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
 
-
 # ---------------------------------------------
-# Calculation of GEC (multiscale-model)
+# Predict GEC based on Multiscale-Model
 # ---------------------------------------------
 # load latest GEC function
 fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
@@ -370,7 +314,6 @@ summary(data)
 hist(GEC,
      xlab='GEC [mmol/min]')
 
-
 # ---------------------------------------------
 # Create the ROC curve
 # ---------------------------------------------
@@ -382,11 +325,11 @@ if (do_plot){
 plot_empty_roc()
 # plot_split_roc()
 plot_bootstrap_roc()
-# plot_best_roc()
+plot_best_roc()
 
 # prediction for corresponding subsets of data
 for (k in 1:length(formula)){
-  res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.01)
+  res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.1)
   fitpreds = res$predictor
   fitpred = prediction(fitpreds, d[[k]]$disease)
   fitperf = performance(fitpred,"tpr","fpr")
@@ -399,16 +342,22 @@ if (do_plot){
   dev.off()
 }
 
-
 # ROC for full data prediction
-res <- disease_predictor(data$GEC, GEC, q=0.05)
-fitpreds = res$predictor
-fitpred = prediction(fitpreds, data$disease)
-fitperf = performance(fitpred,"tpr","fpr")
-plot(fitperf, col="black", add=TRUE, lwd=4)
-auc = performance(fitpred,"auc")
-print(auc)
+# res <- disease_predictor(data$GEC, GEC, q=0.05)
+# fitpreds = res$predictor
+# fitpred = prediction(fitpreds, data$disease)
+# fitperf = performance(fitpred,"tpr","fpr")
+# plot(fitperf, col="black", add=TRUE, lwd=4)
+# auc = performance(fitpred,"auc")
+# print(auc)
 
-test <- which(is.na(GEC[,1]))
-print(test)
-test[1] %in% indices[[1]]
+# ---------------------------------------------
+# Create AUC table
+# ---------------------------------------------
+# AUC & data table for evaluation
+auc <- data.frame(best_auc, t(bootstrap_auc.m), t(bootstrap_auc.sd), 
+                  t(split_auc.m), t(split_auc.sd))
+auc
+rbind
+
+
