@@ -1,44 +1,42 @@
 ################################################################################
 # Prediction Evaluation
 ################################################################################
-# Classification of subjects based on available GEC or GECkg.
-# Comparison of multiscale model based classification prediction vs. standard
-# methods of logistic regression.
+# Classification of liver status for individual subjects based on their GEC or
+# GECkg result. The prediction via the multiscale-model is compared to 
+# standard logistic regression models on the same datasets.
 #
 # author: Matthias Koenig
-# date: 2014-02-03
+# date: 2015-02-19
 ################################################################################
 rm(list=ls())
-# install.packages('ROCR')
 library('MultiscaleAnalysis')
-print(packageVersion('MultiscaleAnalysis'))
+library('ROCR')
 setwd(ma.settings$dir.base)
 
 ############################################
 # Classification data
 ############################################
-# 1. Create a prediction dataset consisting of GEC value & disease/health state
-# i.e. dataset which can be used for classification.
-# The classification is based on healthy / liver disease.
-#
+# Creating the datasets fr prediction consisting of GEC/GECkg values, 
+# binary liver disease status (disease/healthy) and additional 
+# subsets of anthropomorphic information.
+# Classification data consists of a series of digitized publications and
+# the retrospective evaluation of the data from Marchesini et al.
 
-##  All Digitized data for GEC & GECkg ##
-
-# GEC [mmol/min] & GECkg [mmol/min/kgbw] 
-## tyg1963 (age, bodyweight, [GEC, GECkg])
-## sch1986.tab1 (sex, age, bodyweight, [GEC, GECkg])
-## win1965 (sex, age, bodyweight, BSA, flowLiver, [GEC, GECkg] [NOT USED]
-## duc1979 (sex, age, bodyweight BSA, [GEC, GECkg])
-## duf2005 (sex, age, [GEC, GECkg])
-## sch1968.fig1 (age, [GECkg])
-## lan2011 (age, [GECkg])
+# Data for GEC [mmol/min] & GECkg [mmol/min/kgbw] 
+# tyg1963 (age, bodyweight, [GEC, GECkg])
+# sch1986.tab1 (sex, age, bodyweight, [GEC, GECkg])
+# win1965 (sex, age, bodyweight, BSA, flowLiver, [GEC, GECkg] [NOT USED]
+# duc1979 (sex, age, bodyweight BSA, [GEC, GECkg])
+# duf2005 (sex, age, [GEC, GECkg])
+# sch1968.fig1 (age, [GECkg])
+# lan2011 (age, [GECkg])
 names <- c('mar1988', 'tyg1963', 'sch1986.tab1', 'duc1979', 'duf1992', 'sch1986.fig1', 'lan2011')
 df <- classification_data_raw(names)
 save_classification_data(data=df, name='GEC_classification') # save the data for reuse
 head(df)
 
-##  Marchesini data  ##
-# Load the Marchesini classification data & integrate with remaining classification data
+# Marchesini data
+# Load Marchesini classification data & integrate with remaining classification data
 load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_marchesini.Rdata'))
 df2 <- pdata[, c('sex', 'age', 'bodyweight', 'GEC', 'status', 'disease')]
 df2$study <- 'marexp'
@@ -47,127 +45,56 @@ df2$GECkg <- df2$GEC/df2$bodyweight
 df2$sex <- process_sex(df2)
 head(df2)
 
-##  combine datasets ##
+# Combining datasets
 names <- c('study', 'sex', 'age', 'bodyweight', 'height', 'BSA', 'volLiver', 'volLiverkg', 'flowLiver', 'flowLiverkg', 'GEC', 'GECkg', 'status', 'disease')
 data <- rbind( df[, names], df2[,names])
 rm(df, df2, pdata, names)
 summary(data)
 
-# binary classifier (disease = 0/1)
+# Test if classifier disease if really binary (disease = 0/1)
 table(data$disease)
-save_classification_data(data=data, name='GEC_prediction') # save the data for reuse
+save_classification_data(data=data, name='GEC_prediction')
 
-
-################
-#   Plots        
-################
-# overview available data
-create_GEC_histogram <- function(data){
-  par(mfrow = c(1,2))
-  bins = seq(from=0, to=5, by=0.07)
-  hist(data$GEC[data$disease==1], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(1,0,0,0.5), freq=FALSE)
-  hist(data$GEC[data$disease==0], breaks=bins, xlim=c(0,5), xlab=lab[['GEC']], col=rgb(0.5,0.5,0.5, 0.5), freq=FALSE, add=TRUE)
-
-  bins = seq(from=0, to=0.12, by=0.001)
-  hist(data$GECkg[data$disease==1], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(1,0,0,0.5))
-  hist(data$GECkg[data$disease==0], breaks=bins, xlim=c(0,0.12), xlab=lab[['GECkg']], freq=FALSE, col=rgb(0.5,0.5,0.5, 0.5), add=TRUE)
-  par(mfrow = c(1,1))
-  rm(bins)
-}
+#----------------------------
+# Overview complete dataset
+#----------------------------
 create_GEC_histogram(data)
-
 summary(data)
-
 
 ##############################################
 #   Logistic regression GEC
 ##############################################
-# Create logistic regression models using different subsets of the data.
-# m1 : disease ~ GEC
-# m2 : disease ~ GEC + bodyweight
-# m3 : disease ~ GEC + bodyweight + sex
-# m4 : disease ~ GEC + bodyweight + age
-# m5 : disease ~ GEC + bodyweight + sex + age
-
 #------------------------------
 # Model and data preparation
 #------------------------------
-# formulas
-formula <- list('disease ~ GEC', 
-             'disease ~ GEC + age',
-             'disease ~ GEC + bodyweight', 
-             'disease ~ GEC + age + bodyweight')
+# Create logistic regression models with different predictors.
+# Sex was never significant so is not used in any of the models.
+formula <- list(
+  'disease ~ GEC', 
+  'disease ~ GEC + age',
+  'disease ~ GEC + bodyweight', 
+  'disease ~ GEC + age + bodyweight')
 
-             # 'disease ~ GEC + bodyweight + sex',
-             # 'disease ~ GEC + age + sex',
-             # 'disease ~ GEC + age + bodyweight + sex')
+  # 'disease ~ GEC + bodyweight + sex',
+  # 'disease ~ GEC + age + sex',
+  # 'disease ~ GEC + age + bodyweight + sex')
+
 # model ids
 ids <- paste('m', 1:length(formula), sep='')
 names(formula) <- ids
 formula
+# model colors
+cols <- c('darkgreen', 'darkorange', 'red', 'blue', 'magenta', 'brown', 'black')
+# cols <- add.alpha(cols, 0.7)
+names(cols) <- ids
 
-## Data subsets ##
-# get the necessary subset from the formula
-subset_from_formula <- function(f){
-  s <- strsplit(f, '~')[[1]]
-  left <- trim(s[1])
-  if (grepl('+', s[2])){
-    right <- trim(strsplit(s[2], '\\+')[[1]])
-  } else {
-    right <- trim(s[2])
-  }
-  return(c(left, right))
-}
-
-# Create data subsets for the respective models, so that a fair comparison on the same datasets can be made
-d_subset <- function(data, subset){
-  indices <- complete.cases(data[, subset])
-  list(df=data[indices,], 
-       indices=indices)
-}
-
-# get the data subsets corresponding to the data
-create_data_subset <- function(data, formula){
-  d <- list()
-  indices <- list()
-  for (k in seq_along(formula)){
-    f <- formula[[k]]
-    ss <- subset_from_formula(f)  
-    d.ss <- d_subset(data, ss)
-    d.tmp <- d.ss$df
-    indices[[k]] <- d.ss$indices
-    # if sex part of model, remove the all (only male/female)
-    if ('sex' %in% ss){
-      d.tmp <- d.tmp[d.tmp$sex != 'all', ]
-    }
-    d[[k]] <- d.tmp
-  }
-  names(d) <- ids
-  names(indices) <- ids
-  list(d=d, indices=indices)
-}
+# data subsets corresponding to formulas
 subsets <- create_data_subset(data, formula)
-d <- subsets$d
-indices <- subsets$indices
+d <- subsets$d              # data subset
+indices <- subsets$indices  # indices in the full dataset
 rm(subsets)
 
-
-# Create an overview table of the data
-create_subset_table <- function(d, formula){
-  tmp <- rep(NA, length(formula))
-  d.table <- data.frame(id=ids, formula=as.character(formula), H=tmp, D=tmp, C=tmp)
-  rm(tmp)
-  rownames(d.table) <- ids
-  for (k in seq_along(d)){
-    d.tmp <- d[[k]]
-    H <- sum(d.tmp$disease == 0)
-    D <- sum(d.tmp$disease == 1)
-    C = nrow(d.tmp)
-    d.table[k, c('H', 'D', 'C')] <- c(H, D, C)
-  }
-  d.table  
-}
-# save csv
+# overview table for data subsets
 d.table <- create_subset_table(d, formula)
 write.table(d.table, file=file.path(ma.settings$dir.base, 'results', 'classification', 'GEC_regression_overview.csv'), 
             sep="\t", quote=FALSE, row.names=FALSE)
@@ -176,30 +103,17 @@ print(d.table)
 #------------------------------
 # Best case model
 #------------------------------
-# Create binomial models with full dataset
+# Create logistic regression models from formula
 # These are the best case scenarios, overfitted to the full dataset
-m.all <- list()
+m.best <- list()
 for (k in seq_along(formula)){
-  m.all[[k]] <- glm(formula[[k]], data=d[[k]], family="binomial")  
+  m.best[[k]] <- glm(formula[[k]], data=d[[k]], family="binomial")  
 }
-names(m.all) <- ids
-# lapply(m.all, summary)
+names(m.best) <- ids
+lapply(m.best, summary)
 
-
-# Create plot of the predicted values from the data
-create_m1_plot <- function(){
-  d_m1 <- list()
-  d_m1$rankP <- predict(m.all[[1]], newdata = d[[1]], type = "response")
-  d1_c <- data.frame(GEC=seq(from=0, to=5, by=0.1))
-  d1_c$rankP <- predict(m.all[[1]], newdata = d1_c, type = "response")
-  
-  plot(d[[1]]$GEC, d[[1]]$rankP, xlim=c(0,5), xlab=lab[['GEC']], ylim=c(-0.1,1.1),
-       main='Logistic regression: disease ~ GEC',
-       ylab='probability liver disease')
-  lines(d1_c$GEC, d1_c$rankP)
-  points(d[[1]]$GEC, d[[1]]$disease, pch=21, col="black", bg=rgb(0,0,1, 0.5))  
-}
-create_m1_plot()
+# Overview baseline prediction (m1)
+create_m1_plot(m.best, d)
 
 #------------------------------
 # ROC curves
@@ -214,32 +128,38 @@ create_m1_plot()
 # Lift charts:
 #  measure="lift", x.measure="rpp".
 
-# install.packages('ROCR')
-library(ROCR)
-cols <- c('darkgreen', 'darkorange', 'red', 'blue', 'magenta', 'brown', 'black')
-cols <- add.alpha(cols, 0.7)
-names(cols) <- ids
+short_formula <- function(formula){
+  # do all the replacements
+  sf <- formula
+  sf = gsub('disease', 'LD', formula)
+  return(sf)
+}
 
 plot_empty_roc <- function(){
-  plot(numeric(0), numeric(0),main="ROC Curve for Logistic:  GEC", 
+  plot(numeric(0), numeric(0),
+       # main="ROC Curve for Logistic:  GEC", 
        type='n', xlim=c(0,1), ylim=c(0,1),
+       font.lab=2,
        xlab="False positive rate",
        ylab="True positive rate")
-  abline(a=0,b=1,lwd=2,lty=2,col="gray")
-  legend('bottomright', legend=as.character(formula), 
-         lty=rep(1,length(ids)), lwd=rep(2, length(ids)), col=cols)
+  abline(a=0,b=1,lwd=2,lty=1,col="gray")
+  Nm = length(formula)
+  legend('bottomright', 
+         legend=c(short_formula(formula), rep('LD multiscale', Nm)), 
+         lty=c(rep(2,Nm), rep(1,Nm)), 
+         lwd=c(rep(2,Nm), rep(2, Nm)), 
+         col=c(cols[1:Nm], cols[1:Nm]), 
+         cex=0.7, bty='n')
 }
+plot_empty_roc()
 
 plot_best_roc <- function(){
  for (k in seq_along(ids)){
   id <- ids[k]
-  fitpreds = predict(m.all[[id]], newdata=d[[id]], type="response")
+  fitpreds = predict(m.best[[id]], newdata=d[[id]], type="response")
   fitpred = prediction(fitpreds, (d[[id]])$disease)
   fitperf = performance(fitpred,"tpr","fpr")
   plot(fitperf, col=cols[k], add=TRUE, lwd=2, lty=2)
-  auc = performance(fitpred,"auc")
-  auc_value = attr(auc, 'y.values')[[1]]
-  cat('Best-AUC', auc_value, ' : ', ids[k], formula[[k]], '\n' )
  }
 }
 
@@ -252,6 +172,7 @@ best_auc <- function(){
     fitpred = prediction(fitpreds, (d[[id]])$disease)
     aucperf = performance(fitpred,"auc")
     auc[k] = attr(aucperf, 'y.values')[[1]]
+    cat('Best-AUC', auc[k], ' : ', ids[k], formula[[k]], '\n' )
   }
   auc
 }
@@ -396,7 +317,7 @@ plot_split_roc <- function(){
 
 plot_best_roc()
 plot_empty_roc()
-plot_split_roc()
+auc <- plot_split_roc()
 
 # TODO: color of bootstrap runs corresponding to average of runs &
 # mean/se of the bootstraps (shading of regions)
@@ -467,18 +388,20 @@ hist(GEC,
      xlab='GEC [mmol/min]')
 
 
-# ROC curve - GEC App #
-fname <- file.path(ma.settings$dir.base, 'results', 'classification', 'ROC.png')
-png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
-
+# ---------------------------------------------
+# Create the ROC curve
+# ---------------------------------------------
+do_plot = FALSE
+if (do_plot){
+  fname <- file.path(ma.settings$dir.base, 'results', 'classification', 'ROC.png')
+  png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
+}
 plot_empty_roc()
 # plot_split_roc()
 plot_bootstrap_roc()
-plot_best_roc()
-
+# plot_best_roc()
 
 # prediction for corresponding subsets of data
-
 for (k in 1:length(formula)){
   res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.01)
   fitpreds = res$predictor
@@ -489,7 +412,9 @@ for (k in 1:length(formula)){
   auc_value = attr(auc, 'y.values')[[1]]
   cat('GEC predictor-AUC', auc_value, ' : ', ids[k], formula[[k]], '\n' )
 }
-dev.off()
+if (do_plot){
+  dev.off()
+}
 
 
 # ROC for full data prediction
