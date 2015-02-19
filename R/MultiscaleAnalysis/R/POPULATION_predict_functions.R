@@ -58,35 +58,32 @@ calculateBSA <- function(bodyweight_kg, height_cm){
 ##############################################################################
 # Predict liver volume & flow for people
 ##############################################################################
-#' Predict liver volume and blod flow.
-#' 
-#'@export
-predict_volume_and_flow <- function(people, out_dir, Nsample=1000, Ncores=11){
-    # liver.info <- predict_liver_people(people[1:10,], 1000, Ncores=4)
-  
-    ptm <- proc.time()
-    liver.info <- predict_liver_people(people, Nsample, Ncores=Ncores)
-    time <- proc.time() - ptm
-    print(time)
-    
-    cat('* Saving data *\n')
-    volLiver <- liver.info$volLiver
-    flowLiver <- liver.info$flowLiver
-    vol_path <- file.path(out_dir, 'volLiver.Rdata')
-    flow_path <- file.path(out_dir, 'flowLiver.Rdata')
-    cat(vol_path, '\n')
-    cat(flow_path, '\n')
-    save('volLiver', file=vol_path)
-    save('flowLiver', file=flow_path)  
-    return(liver.info)
-}
+# Predict liver volume and blod flow.
+# 
+#@export
+# predict_volume_and_flow <- function(people, out_dir, Nsample=1000, Ncores=11){
+#     # liver.info <- predict_liver_people(people[1:10,], 1000, Ncores=4)
+#   
+#     ptm <- proc.time()
+#     liver.info <- predict_liver_people(people, Nsample, Ncores=Ncores)
+#     time <- proc.time() - ptm
+#     print(time)
+#     
+#     cat('* Saving data *\n')
+#     volLiver <- liver.info$volLiver
+#     flowLiver <- liver.info$flowLiver
+#     vol_path <- file.path(out_dir, 'volLiver.Rdata')
+#     flow_path <- file.path(out_dir, 'flowLiver.Rdata')
+#     cat(vol_path, '\n')
+#     cat(flow_path, '\n')
+#     save('volLiver', file=vol_path)
+#     save('flowLiver', file=flow_path)  
+#     return(liver.info)
+# }
 
 ############################################################################
 # Plots for individual analysis
 ############################################################################
-
-
-
 
 #' Plot individual GEC prediction.
 #' 

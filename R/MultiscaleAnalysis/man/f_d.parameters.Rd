@@ -3,7 +3,7 @@
 \alias{f_d.parameters}
 \title{Factory to create various probability densities from individual models.}
 \usage{
-f_d.parameters(models, xname, person)
+f_d.parameters(models, xname, person, sex_split = TRUE)
 }
 \description{
 The prediction is computational expensive. The parameters for the distribution

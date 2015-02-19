@@ -54,6 +54,7 @@ data <- rbind( df[, names], df2[,names])
 rm(df, df2, pdata, names)
 summary(data)
 
+
 # Test if classifier disease if really binary (disease = 0/1)
 table(data$disease)
 save_classification_data(data=data, name='GEC_prediction')

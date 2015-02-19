@@ -39,12 +39,6 @@ people.raw <- create_all_people(c('mar1988',
                                   'boy1933',
                                   'hei1999'
 ))
-
-# people.raw <- create_all_people(c(
-#                                   'wyn1989',
-#                                   'hei1999'
-#                                   ))
-
                
 # store the experimental volumes
 summary(people.raw)
@@ -125,41 +119,3 @@ abline(a=0, b=1, col='black', lwd=2)
 
 par(mfrow=c(1,1))
 
-
-################################
-# Predict NHANES cohort
-################################
-cat('* PREDICT NHANES *\n')
-# prepare NHANES people
-load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
-people.nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
-people.nhanes$volLiver <- NA
-people.nhanes$volLiverkg <- NA
-# people.nhanes <- people.nhanes[1:10, ]
-rm(data)
-
-info.nhanes <- predict_volume_and_flow(people=people.nhanes, out_dir=dir.nhanes)
-GEC = predict_GEC(f_GE,
-                  volLiver=info.nhanes$volLiver, 
-                  flowLiver=info.nhanes$flowLiver,
-                  age=people.nhanes$age)
-save(GEC, file=file.path(dir.nhanes, 'GEC.Rdata'))
-
-# -------------------------------------
-# Loading and working with dataset
-# -------------------------------------
-load(file=file.path(dir.nhanes, 'volLiver.Rdata'))
-load(file=file.path(dir.nhanes, 'flowLiver.Rdata'))
-load(file=file.path(dir.nhanes, 'GEC.Rdata'))
-
-cat('# Liver Volume #')
-head(volLiver[, 1:5])
-cat('# Liver Blood Flow #')
-head(flowLiver[, 1:5])
-cat('# GEC #')
-head(GEC[, 1:5])
-
-index <- 2
-individual_plot(person=people.nhanes[index, ], 
-                vol=volLiver[1, ], flow=flowLiver[1,], 
-                data=GEC[1, ])

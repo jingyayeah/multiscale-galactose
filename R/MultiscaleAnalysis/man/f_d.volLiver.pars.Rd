@@ -3,7 +3,7 @@
 \alias{f_d.volLiver.pars}
 \title{Calculate the liver volume distribution parameters for person.}
 \usage{
-f_d.volLiver.pars(person)
+f_d.volLiver.pars(person, sex_split)
 }
 \description{
 Calculate the liver volume distribution parameters for person.

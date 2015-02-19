@@ -79,6 +79,7 @@ create_data_subset <- function(data, formula){
 }
 
 #' Create overview table of data subsets
+#' 
 #' @export 
 create_subset_table <- function(d, formula){
   tmp <- rep(NA, length(formula))
@@ -99,6 +100,7 @@ create_subset_table <- function(d, formula){
 # Best models (full data for training)
 #--------------------------------------
 #' Create plot of the predicted values for baseline model m1
+#' 
 #' @export
 create_m1_plot <- function(m.all, d){
   
@@ -142,7 +144,7 @@ m_bootstrap <- function(df, formula, B=100){
 #' Splits dataset randomly into 50% training and testing set.
 #' 
 #' @export
-splitdf <- function(df, seed=NULL) {
+splitdf <- function(df, seed=NULL){
   if (!is.null(seed)) set.seed(seed)
   index <- 1:nrow(df)
   trainindex <- sample(index, trunc(length(index)/2))

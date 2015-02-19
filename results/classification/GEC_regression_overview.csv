@@ -1,5 +1,5 @@
-id	formula	H	D	C
-M1	disease ~ GEC	215	909	1124
-M2	disease ~ GEC + age	127	658	785
-M3	disease ~ GEC + bodyweight	160	900	1060
-M4	disease ~ GEC + age + bodyweight	72	649	721
+id	formula	N	H	LD
+M1	disease ~ GEC	1124	215	909
+M2	disease ~ GEC + age	785	127	658
+M3	disease ~ GEC + bodyweight	1060	160	900
+M4	disease ~ GEC + age + bodyweight	721	72	649

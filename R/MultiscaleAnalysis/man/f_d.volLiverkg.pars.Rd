@@ -3,7 +3,7 @@
 \alias{f_d.volLiverkg.pars}
 \title{Calculate the liver volume per bodyweight distributions for person.}
 \usage{
-f_d.volLiverkg.pars(person)
+f_d.volLiverkg.pars(person, sex_split)
 }
 \description{
 Calculate the liver volume per bodyweight distributions for person.

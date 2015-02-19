@@ -3,7 +3,7 @@
 \alias{f_d.flowLiverkg.pars}
 \title{Calculate the liver bloodflow per bodyweight distributions for person.}
 \usage{
-f_d.flowLiverkg.pars(person)
+f_d.flowLiverkg.pars(person, sex_split)
 }
 \description{
 Calculate the liver bloodflow per bodyweight distributions for person.

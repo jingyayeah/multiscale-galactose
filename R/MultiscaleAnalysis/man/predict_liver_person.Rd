@@ -4,7 +4,7 @@
 \title{Predict liver volume and bloodflow for person.
 ! Use the fast version whenever possible !}
 \usage{
-predict_liver_person(person, Nsample)
+predict_liver_person(person, Nsample, sex_split)
 }
 \description{
 Predict liver volume and bloodflow for person.
