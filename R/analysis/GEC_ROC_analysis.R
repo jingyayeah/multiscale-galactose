@@ -364,7 +364,7 @@ do_plot = TRUE
 if (do_plot){
   fname <- file.path(ma.settings$dir.base, 'results', 'classification', 'ROC.png')
   cat(fname, '\n')
-  png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
+  png(filename=fname, width=2000, height=2000, units = "px", bg = "white",  res = 300)
 }
 plot_empty_roc()
 auc_bootstrap <- plot_bootstrap_roc()
