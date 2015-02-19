@@ -55,6 +55,8 @@ calculateBSA <- function(bodyweight_kg, height_cm){
   return (0.007184*height_cm^0.725*bodyweight_kg^0.425)
 }
 
+
+
 ##############################################################################
 # Predict liver volume & flow for people
 ##############################################################################

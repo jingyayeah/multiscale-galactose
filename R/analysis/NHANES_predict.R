@@ -13,7 +13,6 @@ library('MultiscaleAnalysis')
 setwd(ma.settings$dir.base)
 
 cat('# PREDICT NHANES #\n')
-dir_nhanes <- file.path(ma.settings$dir.base, 'results', 'nhanes')
 
 # -------------------------------------
 # GAMLSS models
@@ -31,14 +30,17 @@ load(file=file_GE_f)
 # Predict NHANES cohort
 # -------------------------------------
 # prepare NHANES people
-load(file=file.path(ma.settings$dir.base, 'results', 'nhanes', 'nhanes_data.Rdata'))
+load(file=file.path(dir.nhanes, 'nhanes_data.Rdata'))
 people.nhanes <- data[, c('SEQN', 'sex', 'bodyweight', 'age', 'height', 'BSA')]
 people.nhanes$volLiver <- NA
 people.nhanes$volLiverkg <- NA
 # people.nhanes <- people.nhanes[1:10, ]
+save(people.nhanes, file=file.path(dir.nhanes, 'nhanes_people.Rdata'))
 rm(data)
 
 # prediction
+warning("NHANES prediction takes ~20 minutes")
+
 ptm <- proc.time()
 info <- predict_liver_people(people.nhanes, Nsample=1000, sex_split=FALSE, Ncores=11)
 time <- proc.time() - ptm
@@ -48,8 +50,8 @@ print(time)
 cat('* Saving data *\n')
 volLiver <- info$volLiver
 flowLiver <- info$flowLiver
-vol_path <- file.path(dir_nhanes, 'volLiver.Rdata')
-flow_path <- file.path(dir_nhanes, 'flowLiver.Rdata')
+vol_path <- file.path(dir.nhanes, 'nhanes_volLiver.Rdata')
+flow_path <- file.path(dir.nhanes, 'nhanes_flowLiver.Rdata')
 cat(vol_path, '\n')
 cat(flow_path, '\n')
 save('volLiver', file=vol_path)
@@ -60,15 +62,15 @@ GEC = predict_GEC(f_GE,
                   volLiver=volLiver, 
                   flowLiver=flowLiver,
                   age=people.nhanes$age)
-save(GEC, file=file.path(dir.nhanes, 'GEC.Rdata'))
+save(GEC, file=file.path(dir.nhanes, 'nhanes_GEC.Rdata'))
 
 # -------------------------------------
 # Loading and working with dataset
 # -------------------------------------
 rm(volLiver, flowLiver, GEC)
-load(file=file.path(dir_nhanes, 'volLiver.Rdata'))
-load(file=file.path(dir_nhanes, 'flowLiver.Rdata'))
-load(file=file.path(dir_nhanes, 'GEC.Rdata'))
+load(file=file.path(dir.nhanes, 'nhanes_volLiver.Rdata'))
+load(file=file.path(dir.nhanes, 'nhanes_flowLiver.Rdata'))
+load(file=file.path(dir.nhanes, 'nhanes_GEC.Rdata'))
 
 cat('# Liver Volume #')
 head(volLiver[, 1:5])
