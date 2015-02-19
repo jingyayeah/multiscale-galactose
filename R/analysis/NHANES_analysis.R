@@ -8,9 +8,6 @@
 # date: 2015-02-19
 ################################################################################
 
-
-
-################################################################################
 if (!exists('dataset')){
 dataset <- 'GEC_age'
 # dataset <- 'GECkg_age'
@@ -30,6 +27,7 @@ dataset <- 'GEC_age'
 
 # dataset <- 'volLiver_flowLiver'
 }
+
 ################################################################################
 # Plot helpers
 name.parts <- strsplit(dataset, '_')
@@ -54,13 +52,10 @@ stopDevPlot <- function(){
 }
 
 ################################################################################
-## load respective data ##
-
-# TODO: use the load correlation functions
-fname <- file.path(ma.settings$dir.base, "results", "correlations", sprintf("%s_%s.Rdata", yname, xname))
-print(fname)
-load(file=fname)
-head(data)
+# load data
+data = load_correlation_data(xname=xname, yname=yname)
+# reduce to healthy
+data <- data[data$status == 'healthy', ]
 
 # data processing (change names, remove NAs, create factors)
 names(data)[names(data) == 'gender'] <- 'sex'
@@ -112,9 +107,9 @@ for (k in 1:3){
   plot(d[, xname], d[, yname], type='n',
        main=sprintf('%s', df.names[k]), xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, font.lab=2, cex.lab=1.0)
   
-
-  # plot selection of individual samples
-  for (k_sample in 1:5){  
+  # single NHANES prediction (first Nsingle points) 
+  Nsingle = 5
+  for (k_sample in 1:Nsingle){  
       y <- get(yname)
       if (k==2)
         y <- y[nhanes$sex == 'male', ]
@@ -125,19 +120,18 @@ for (k in 1:3){
              col=rgb(0.6, 0.6, 0.6, 1), bg=rgb(0.6, 0.6, 0.6, 1), pch=21, cex=0.4)
   }
   
-  # mean nhanes of Monte Carlo or experimental data
-  points(nhanes.d[[xname]], nhanes.d[[yname]], col="black", bg="black", pch=21, cex=0.4)
+  # mean NHANES prediction
+  points(nhanes.d[[xname]], nhanes.d[[yname]], col=rgb(0.4, 0.4, 0.4, 1), bg=rgb(0.4, 0.4, 0.4, 1), pch=21, cex=0.4)
   
-  # plot experimental data points
+  # experimental data points
   inds.in <- which(d$dtype == 'individual')
-  #points(d[inds.in, xname], d[inds.in, yname], col='blue', bg='blue', pch=21)
-  points(d[inds.in, xname], d[inds.in, yname], col=rgb(0,0,1, 0.7), bg=rgb(0,0,1, 0.7), pch=21, cex=1.0)
+  points(d[inds.in, xname], d[inds.in, yname], col='black', bg=rgb(0,0,1, 0.7), pch=22, cex=1.0)
   
-  legend('bottomright', bty="n", cex=0.8, legend=c('NHANES single prediction','NHANES mean prediction', 'experimental data'), 
-         col=c('red', 'black', 'white'), pt.bg=c('red', 'black', 'blue'), pch=c(21,21,21), pt.cex=c(0.5, 0.5, 1)) 
-         
-  #rug(d[inds.in, xname], side=1, col="black"); rug(d[inds.in, yname], side=2, col="black")
-  
+  # legend
+  legend('bottomright', bty="n", cex=1.0, legend=c('NHANES single prediction','NHANES mean prediction', 'experimental data'), 
+         col=c(rgb(0.6, 0.6, 0.6, 1), rgb(0.4, 0.4, 0.4, 1), 'black'), 
+         pt.bg=c(rgb(0.6, 0.6, 0.6, 1), rgb(0.4, 0.4, 0.4, 1), 'blue'), 
+         pch=c(21,21,22), pt.cex=c(1, 1, 1))   
 }
 par(mfrow=c(1,1))
 stopDevPlot()

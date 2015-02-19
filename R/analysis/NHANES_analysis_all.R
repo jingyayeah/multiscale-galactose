@@ -45,6 +45,7 @@ perfusion = matrix(NA, nrow=Nr, ncol=Nc)
 for(k in 1:Nr){
   volLiverkg[k, ] = volLiver[k, ]/nhanes$bodyweight[k]
   flowLiverkg[k, ] = flowLiver[k, ]/nhanes$bodyweight[k]
+  GECkg[k, ] = GEC[k, ]/nhanes$bodyweight[k]
   perfusion[k, ] = flowLiver[k, ]/volLiver[k, ]
 }
 
@@ -68,8 +69,8 @@ nhanes$perfusion <- nhanes$flowLiver/nhanes$volLiver
 #--------------------------------
 # Create single dataset
 #--------------------------------
-dataset = "GEC_age"
-source(file.path(ma.settings$dir.code, 'analysis', 'NHANES_analysis.R'))
+# dataset = "GECkg_age"
+# source(file.path(ma.settings$dir.code, 'analysis', 'NHANES_analysis.R'))
 
 
 ################################################################################
