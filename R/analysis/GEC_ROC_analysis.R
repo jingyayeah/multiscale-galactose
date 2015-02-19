@@ -8,6 +8,9 @@
 # author: Matthias Koenig
 # date: 2015-02-19
 ################################################################################
+# TODO: set seed for final calculation
+
+
 rm(list=ls())
 library('MultiscaleAnalysis')
 library('ROCR')
@@ -159,8 +162,7 @@ plot_empty_roc <- function(){
 plot_empty_roc()
 
 plot_best_roc <- function(){
- auc <- rep(NA, length(ids))
- names(auc) <- ids
+ auc <- list()
  for (k in seq_along(ids)){
   id <- ids[k]
   # ROC
@@ -170,9 +172,10 @@ plot_best_roc <- function(){
   plot(fitperf, col=cols[k], add=TRUE, lwd=1, lty=2)
   # AUC
   aucperf = performance(fitpred,"auc")
-  auc[k] = attr(aucperf, 'y.values')[[1]]
-  cat('Best-AUC', auc[k], ' : ', ids[k], formula[[k]], '\n' )
+  auc[[k]] = attr(aucperf, 'y.values')[[1]]
+  cat('Best-AUC', auc[[k]], ' : ', ids[k], formula[[k]], '\n' )
  }
+ names(auc) <- names(formula)
  return(auc)
 }
 
@@ -306,58 +309,70 @@ liver.info <- predict_liver_people(data, Nsample=2000, Ncores=11, sex_split=FALS
 # load latest GEC function
 fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
 load(file=fname)
-GEC <- predict_GEC(f_GE, 
+
+# perform prediction
+pGEC <- predict_GEC(f_GE, 
                        volLiver=liver.info$volLiver, 
                        flowLiver=liver.info$flowLiver,
                        ages=data$age)
-summary(data)
-hist(GEC,
-     xlab='GEC [mmol/min]')
 
-# ---------------------------------------------
-# Create the ROC curve
-# ---------------------------------------------
-do_plot = FALSE
-if (do_plot){
-  fname <- file.path(ma.settings$dir.base, 'results', 'classification', 'ROC.png')
-  png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
+# plot the ROC curves for the prediction
+plot_multiscale_roc <- function(pGEC){
+  auc <- list()
+  for (k in seq_along(formula)){
+    res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.1)
+    fitpreds = res$predictor
+    fitpred = prediction(fitpreds, d[[k]]$disease)
+    fitperf = performance(fitpred,"tpr","fpr")
+    plot(fitperf, col=cols[k], add=TRUE, lwd=2)
+    auc_k = performance(fitpred,"auc")
+    auc[[k]] = as.numeric(attr(auc_k, 'y.values'))[[1]]
+    cat('GEC predictor-AUC', auc[[k]], ' : ', ids[k], formula[[k]], '\n' )
+  }
+  names(auc) <- names(formula)
+  return(auc)
 }
-plot_empty_roc()
-# plot_split_roc()
-plot_bootstrap_roc()
-plot_best_roc()
-
-# prediction for corresponding subsets of data
-for (k in 1:length(formula)){
-  res <- disease_predictor(d[[k]]$GEC, GEC[indices[[k]], ], q=0.1)
-  fitpreds = res$predictor
-  fitpred = prediction(fitpreds, d[[k]]$disease)
-  fitperf = performance(fitpred,"tpr","fpr")
-  plot(fitperf, col=cols[k], add=TRUE, lwd=2)
-  auc = performance(fitpred,"auc")
-  auc_value = attr(auc, 'y.values')[[1]]
-  cat('GEC predictor-AUC', auc_value, ' : ', ids[k], formula[[k]], '\n' )
-}
-if (do_plot){
-  dev.off()
-}
-
-# ROC for full data prediction
-# res <- disease_predictor(data$GEC, GEC, q=0.05)
-# fitpreds = res$predictor
-# fitpred = prediction(fitpreds, data$disease)
-# fitperf = performance(fitpred,"tpr","fpr")
-# plot(fitperf, col="black", add=TRUE, lwd=4)
-# auc = performance(fitpred,"auc")
-# print(auc)
 
 # ---------------------------------------------
 # Create AUC table
 # ---------------------------------------------
 # AUC & data table for evaluation
-auc <- data.frame(best_auc, t(bootstrap_auc.m), t(bootstrap_auc.sd), 
-                  t(split_auc.m), t(split_auc.sd))
-auc
-rbind
+auc_best
+auc_bootstrap.m <- lapply(auc_bootstrap, mean)
+auc_bootstrap.sd <- lapply(auc_bootstrap, sd)
+auc_split.m <- lapply(auc_split, mean)
+auc_split.sd <- lapply(auc_split, sd)
 
+rdigits <- 3
+dids <- paste('D', 1:4, sep='')
+d.table <- create_subset_table(d, formula)
+auc_table <- data.frame(data=dids)
+auc_table[,c('N', 'H', 'LD')] <- d.table[, c('N', 'H', 'LD')]
+auc_table$AUC_multiscale <- round(as.numeric(auc_multiscale), rdigits)
+auc_table$M <- ids
+# auc_table$AUC_M_best <- round(as.numeric(auc_best), rdigits)
+auc_table$M_bootstrap <- round(as.numeric(auc_bootstrap.m), rdigits)
+auc_table$M_bootstrapSd <- round(as.numeric(auc_bootstrap.sd), rdigits)
+auc_table
+
+# ---------------------------------------------
+# Full ROC curve
+# ---------------------------------------------
+# install.packages('plotrix')
+library('plotrix')
+do_plot = TRUE
+if (do_plot){
+  fname <- file.path(ma.settings$dir.base, 'results', 'classification', 'ROC.png')
+  cat(fname, '\n')
+  png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res = 150)
+}
+plot_empty_roc()
+auc_bootstrap <- plot_bootstrap_roc()
+# auc_split <- plot_split_roc()
+# auc_best <- plot_best_roc()
+auc_multiscale <- plot_multiscale_roc()
+addtable2plot(0.3, 0.5, auc_table, cex=0.7)
+if (do_plot){
+  dev.off()
+}
 

@@ -82,15 +82,15 @@ create_data_subset <- function(data, formula){
 #' @export 
 create_subset_table <- function(d, formula){
   tmp <- rep(NA, length(formula))
-  d.table <- data.frame(id=ids, formula=as.character(formula), H=tmp, D=tmp, C=tmp)
+  d.table <- data.frame(id=ids, formula=as.character(formula), N=tmp, H=tmp, LD=tmp)
   rm(tmp)
   rownames(d.table) <- ids
   for (k in seq_along(d)){
     d.tmp <- d[[k]]
+    N = nrow(d.tmp)
     H <- sum(d.tmp$disease == 0)
-    D <- sum(d.tmp$disease == 1)
-    C = nrow(d.tmp)
-    d.table[k, c('H', 'D', 'C')] <- c(H, D, C)
+    LD <- sum(d.tmp$disease == 1)
+    d.table[k, c('N', 'H', 'LD')] <- c(N, H, LD)
   }
   d.table  
 }
