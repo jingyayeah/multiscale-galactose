@@ -102,16 +102,13 @@ GECkg.mat <- predict_GECkg(f_GE,
                        flowLiverkg=liver.GECkg$flowLiverkg,
                        ages=dp.GECkg$age)
 
-
-
-summary(dp.flowLiver$flowLiver)
 #-------------------------------------
 # Evaluation plots
 #-------------------------------------
-prediction_plot <- function(name, unit, exp, pred.mat, do_plot=FALSE){
+prediction_plot <- function(name, unit, exp, pred.mat, ages, do_plot=FALSE){
   if (do_plot){
-    fname <- file.path(ma.settings$dir.base, 'results', sprintf('%s_prediction.png', name))
-    png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
+    fname <- file.path(ma.settings$dir.base, 'results', sprintf('Prediction_%s.png', name))
+    png(filename=fname, width=2200, height=1000, units = "px", bg = "white",  res = 120)
   }
   
   m <- rowMeans(pred.mat)
@@ -119,10 +116,10 @@ prediction_plot <- function(name, unit, exp, pred.mat, do_plot=FALSE){
   value_max <- max(c(max(exp), max(m)))
   
   col='black'
-  bg=rgb(1,1,1, 0.5)
+  bg=rgb(1,0,0, 0.5)
   
   # prediction vs. experiment
-  par(mfrow=c(1,2))
+  par(mfrow=c(1,3))
   plot(exp, m, pch=22, col=col, bg=bg, font.lab=2,
        xlim=c(0,value_max),
        ylim=c(0,value_max),
@@ -130,6 +127,7 @@ prediction_plot <- function(name, unit, exp, pred.mat, do_plot=FALSE){
        ylab=sprintf('%s predicted [%s]', name, unit)
   )
   abline(a=0, b=1, col="gray", lwd=2)
+  text(x=0.1*value_max, y=0.9*value_max, labels=sprintf('N = %d', length(exp)))
   
   # residuals vs. experiment
   diff = m-exp
@@ -141,14 +139,31 @@ prediction_plot <- function(name, unit, exp, pred.mat, do_plot=FALSE){
        ylab=sprintf('%s predicted - experiment [%s]', name, unit)
   )
   abline(h=0, col="gray", lwd=2)
+  text(x=0.1*value_max, y=0.9*diff_max, labels=sprintf('N = %d', length(exp)))
+  
+  # residuals vs. age             
+  plot(ages, diff, pch=22, col=col, bg=bg, font.lab=2,
+       xlim=c(0,100),
+       ylim=c(-diff_max, diff_max),
+       xlab='age [years]',
+       ylab=sprintf('%s predicted - experiment [%s]', name, unit)
+  )
+  abline(h=0, col="gray", lwd=2)
+  text(x=10, y=0.9*diff_max, labels=sprintf('N = %d', length(exp)))
+  # add a linear regression
+  mreg =lm(diff~ages)
+  abline(mreg, col='blue')
+  par(mfrow=c(1,1))
+  
   if (do_plot){
     dev.off()
   }
 }
-prediction_plot('flowLiver', 'ml/min', dp.flowLiver$flowLiver, liver.flowLiver$flowLiver)
-prediction_plot('volLiver', 'ml', dp.volLiver$volLiver, liver.volLiver$volLiver)
-prediction_plot('GEC', 'mmol/min', dp.GEC$GEC, GEC.mat$GEC)
-prediction_plot('GECkg', 'ml/min', dp.flowLiver$flowLiver, liver.flowLiver$flowLiver)
+do_plot=TRUE
+prediction_plot('flowLiver', 'ml/min', dp.flowLiver$flowLiver, liver.flowLiver$flowLiver, ages=dp.flowLiver$age, do_plot=do_plot)
+prediction_plot('volLiver', 'ml', dp.volLiver$volLiver, liver.volLiver$volLiver, ages=dp.volLiver$age, do_plot=do_plot)
+prediction_plot('GEC', 'mmol/min', dp.GEC$GEC, GEC.mat, ages=dp.GEC$age, do_plot=do_plot)
+prediction_plot('GECkg', 'mmol/min/kg', dp.GECkg$GECkg, GECkg.mat, ages=dp.GECkg$age, do_plot=do_plot)
 
 
 
