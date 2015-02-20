@@ -35,6 +35,8 @@ summary(dp.GEC)
 dp.GECkg <- dp[!is.na(dp$GECkg), ]
 summary(dp.GECkg)
 
+rm(dp, data)
+
 # Dataset for prediction of liver volume
 names <- c('mar1988', 
            'wyn1989',
@@ -55,7 +57,7 @@ names <- c('win1965',
            'wyn1990',
            'tyg1958')
 dp.flowLiver <- classification_data_raw(names)
-dp.flowLiver <- dp.volLiver[dp.flowLiver$status == "healthy", ]
+dp.flowLiver <- dp.flowLiver[dp.flowLiver$status == "healthy", ]
 summary(dp.flowLiver)
 
 # ---------------------------------------------
@@ -100,7 +102,64 @@ GECkg.mat <- predict_GECkg(f_GE,
                        flowLiverkg=liver.GECkg$flowLiverkg,
                        ages=dp.GECkg$age)
 
+
+
+summary(dp.flowLiver$flowLiver)
+#-------------------------------------
+# Evaluation plots
+#-------------------------------------
+prediction_plot <- function(name, unit, exp, pred.mat, do_plot=FALSE){
+  if (do_plot){
+    fname <- file.path(ma.settings$dir.base, 'results', sprintf('%s_prediction.png', name))
+    png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
+  }
+  
+  m <- rowMeans(pred.mat)
+  sd <- rowSds(pred.mat)
+  value_max <- max(c(max(exp), max(m)))
+  
+  col='black'
+  bg=rgb(1,1,1, 0.5)
+  
+  # prediction vs. experiment
+  par(mfrow=c(1,2))
+  plot(exp, m, pch=22, col=col, bg=bg, font.lab=2,
+       xlim=c(0,value_max),
+       ylim=c(0,value_max),
+       xlab=sprintf('%s experiment [%s]', name, unit),
+       ylab=sprintf('%s predicted [%s]', name, unit)
+  )
+  abline(a=0, b=1, col="gray", lwd=2)
+  
+  # residuals vs. experiment
+  diff = m-exp
+  diff_max <- max(abs(diff))                
+  plot(exp, diff, pch=22, col=col, bg=bg, font.lab=2,
+       xlim=c(0,value_max),
+       ylim=c(-diff_max, diff_max),
+       xlab=sprintf('%s experiment [%s]', name, unit),
+       ylab=sprintf('%s predicted - experiment [%s]', name, unit)
+  )
+  abline(h=0, col="gray", lwd=2)
+  if (do_plot){
+    dev.off()
+  }
+}
+prediction_plot('flowLiver', 'ml/min', dp.flowLiver$flowLiver, liver.flowLiver$flowLiver)
+prediction_plot('volLiver', 'ml', dp.volLiver$volLiver, liver.volLiver$volLiver)
+prediction_plot('GEC', 'mmol/min', dp.GEC$GEC, GEC.mat$GEC)
+prediction_plot('GECkg', 'ml/min', dp.flowLiver$flowLiver, liver.flowLiver$flowLiver)
+
+
+
+##############################################################################
+# More sophisticated evaluation of the GEC prediction
+##############################################################################
+
 # Create prediction data frame
+# the actual calculation of mean, sd and quantiles has to be performed in the
+# comparison with experimental data
+
 pred <- dp.GEC
 pred$pGEC <- rowMeans(GEC.mat) # mean prediction
 pred$pGECSd <- rowSds(GEC.mat) # mean prediction
@@ -116,9 +175,7 @@ predkg$pvolLiverkg <- rowMeans(liver.GECkg$volLiverkg) # mean prediction
 predkg$pvolLiverkgSd <- rowSds(liver.GECkg$volLiverkg) # mean prediction
 predkg$pflowLiverkg <- rowMeans(liver.GECkg$flowLiverkg) # mean prediction
 predkg$pflowLiverkgSd <- rowSds(liver.GECkg$flowLiverkg) # mean prediction
-# ---------------------------------------------
-# Information for plotting
-# ---------------------------------------------
+
 studies <- levels(as.factor(dp$study))
 studies
 exp_pchs <- rep(22,length(studies))
@@ -162,35 +219,6 @@ empty_plot <- function(xname, yname){
        ylim=limits[[yname]])
 }
 
-# dp[dp$study=="duc1979",]
-# with(predkg[predkg$study=="duc1979",], plot(GECkg, pGECkg, xlim=c(0,0.1), ylim=c(0,0.1)))
-
-
-do_plot=TRUE
-if (do_plot){
-  fname <- file.path(ma.settings$dir.base, 'results', 'volLiver_prediction.png')
-  png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 120)
-}
-par(mfrow=c(1,2))
-plot(pred$volLiver, pred$pvolLiver, pch=21, bg='gray', font.lab=2,
-     xlim=c(0,1800),
-     ylim=c(0,1800),
-     xlab="volLiver experiment [ml]",
-     ylab="volLiver predicted [ml]"
-)
-abline(a=0, b=1, col="gray", lwd=2)
-
-plot(pred$volLiver, pred$pvolLiver-pred$volLiver, pch=21, bg='gray', font.lab=2,
-     xlim=c(0,1800),
-     ylim=c(-500, 500),
-     xlab="volLiver experiment [ml]",
-     ylab="volLiver predicted-experiment [ml]"
-)
-abline(h=0, col="gray", lwd=2)
-if (do_plot){
-  dev.off()
-}
-
 # Evaluate how many are correct predicted
 evaluate_prediction <- function(df, exp_name="GEC", pre_name="pGEC", preSd_name="pGECSd"){
   high <- df[[exp_name]]> df[[pre_name]]+df[[preSd_name]]
@@ -201,12 +229,9 @@ evaluate_prediction <- function(df, exp_name="GEC", pre_name="pGEC", preSd_name=
 test <- evaluate_prediction(pred, exp_name="volLiver", pre_name="pvolLiver", preSd_name="pvolLiverSd")
 count(test)
 
-
-###############################################################
-
-#########################
+#------------------------------
 # GEC plot
-########################
+#------------------------------
 do_plot=FALSE
 if (do_plot){
   fname <- file.path(ma.settings$dir.base, 'results', 'GEC_prediction.png')
@@ -248,20 +273,9 @@ for (study in studies){
 subset=levels(as.factor(pred$study))
 add_exp_legend("topright", subset=subset)
 
-# plot(dp.GEC$age, GEC.m-dp.GEC$GEC,
-#      xlab='age',
-#      ylab='GEC predicted-experiment',
-#      xlim=c(0,100),
-#      ylim=c(-2,2), pch=21, bg=rgb(0,0,1,0.5), cex=0.8)
-# abline(h= 0, col="gray")
-# segments(dp.GEC$age, GEC.m-dp.GEC$GEC-GEC.sd, dp.GEC$age, GEC.m-dp.GEC$GEC+GEC.sd, 
-#          col=rgb(0,0,0,0.4))
-
-# par(mfrow=c(1,1))
-
-#########################
+#------------------------------
 # GECkg plot
-########################
+#------------------------------
 # GEC predicted ~ GEC experiment
 empty_plot("GECkg", "pGECkg")
 abline(a = 0, b=1, col="gray")
@@ -299,4 +313,3 @@ par(mfrow=c(1,1))
 if (do_plot){
   dev.off()
 }
-
