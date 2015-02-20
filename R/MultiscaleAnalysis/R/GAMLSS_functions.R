@@ -439,13 +439,13 @@ predict_liver_person.fast <- function(person, Nsample, sex_split){
 #' Predict liver volume per bodyweight and bloodflow per bodyweight for person.
 #' 
 #' @export
-predict_liverkg_person.fast <- function(person, Nsample){
+predict_liverkg_person.fast <- function(person, Nsample, sex_split){
   volLiverkg = rep(NA, Nsample)
   flowLiverkg = rep(NA, Nsample)
   
   # predict base
-  pars.volLiverkg <- f_d.volLiverkg.pars(person)
-  pars.flowLiverkg <- f_d.flowLiverkg.pars(person)
+  pars.volLiverkg <- f_d.volLiverkg.pars(person, sex_split)
+  pars.flowLiverkg <- f_d.flowLiverkg.pars(person, sex_split)
   
   # [1]
   # individual combined probability density for liver volume
@@ -537,7 +537,7 @@ predict_liver_person <- function(person, Nsample, sex_split){
 #' Predict liver volume and bloodflow for people.
 #' 
 #' @export
-predict_liver_people <- function(people, Nsample, sex_split, Ncores=1, debug=TRUE){
+predict_liver_people <- function(people, Nsample, sex_split=FALSE, Ncores=1, debug=TRUE){
   names <- names(people)
   if( !("sex" %in% names)) {warning("sex missing in data")}
   if( !("age" %in% names)) {warning("age missing in data")}
@@ -584,7 +584,7 @@ predict_liver_people <- function(people, Nsample, sex_split, Ncores=1, debug=TRU
 #' Predict liver volume per bodyweight and bloodflow per bodyweight for people.
 #' 
 #' @export
-predict_liverkg_people <- function(people, Nsample, Ncores=1, debug=TRUE){
+predict_liverkg_people <- function(people, Nsample, sex_split=FALSE, Ncores=1, debug=TRUE){
   names <- names(people)
   if( !("sex" %in% names)) {warning("sex missing in data")}
   if( !("age" %in% names)) {warning("age missing in data")}
@@ -602,7 +602,7 @@ predict_liverkg_people <- function(people, Nsample, Ncores=1, debug=TRUE){
     if (debug){
       cat(sprintf('%1.3f\n', i/Np))
     }
-    predict_liverkg_person.fast(as.list(people[i, ]), Nsample)
+    predict_liverkg_person.fast(as.list(people[i, ]), Nsample, sex_split)
   }
   
   if (Ncores == 1){

@@ -52,6 +52,7 @@ str(GE_mats)
 
 # Create the age depenent interpolation functions
 f_GE_interpolated <- function(mat){
+  force(mat) # !handle the lazy evaluation
   f_GE <- function(gal, P){
     res <- bicubic(mat$xm, mat$ym, mat$zm, x0=gal, y0=P)
     names(res) <- c('gal', 'P', 'GE')

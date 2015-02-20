@@ -6,7 +6,7 @@
 # antropomorphic information and GEC or GECkg measurements.
 #
 # author: Matthias Koenig
-# date: 2015-02-17
+# date: 2015-02-19
 ################################################################################
 # TODO: compare the availability of additional information, i.e. different 
 # subsets of available information.
@@ -35,22 +35,51 @@ summary(dp.GEC)
 dp.GECkg <- dp[!is.na(dp$GECkg), ]
 summary(dp.GECkg)
 
+# Dataset for prediction of liver volume
+names <- c('mar1988', 
+           'wyn1989',
+           'naw1998',
+           'boy1933',
+           'hei1999')
+dp.volLiver <- classification_data_raw(names)
+dp.volLiver <- dp.volLiver[dp.volLiver$status == "healthy", ]
+summary(dp.volLiver)
+
+# Dataset for prediction of liver flow
+names <- c('win1965', 
+           'wyn1989',
+           'bra1945',
+           'bra1952',
+           'zol1999',
+           'she1950',
+           'wyn1990',
+           'tyg1958')
+dp.flowLiver <- classification_data_raw(names)
+dp.flowLiver <- dp.volLiver[dp.flowLiver$status == "healthy", ]
+summary(dp.flowLiver)
+
 # ---------------------------------------------
 # Prediction of liver volumes & blood flows
 # ---------------------------------------------
 # GAMLSS models
 fit.models <- load_models_for_prediction()
-# Predict volLiver and flowLiver
-liver.GEC <- predict_liver_people(dp.GEC, Nsample=2000, Ncores=10, debug=TRUE)
+predict_settings <- list(Nsample=2000, Ncores=11, debug=TRUE)
+
+# GEC
+liver.GEC <- do.call(predict_liver_people, c( list(people=dp.GEC), predict_settings) )
 str(liver.GEC)
 
-# Predict volLiverkg and flowLiverkg
-liver.GECkg <- predict_liverkg_people(dp.GECkg, Nsample=2000, Ncores=10, debug=TRUE)
+# GECkg
+liver.GECkg <- do.call(predict_liverkg_people, c( list(people=dp.GECkg), predict_settings) )
 str(liver.GECkg)
 
+# volLiver
+liver.volLiver <- do.call(predict_liver_people, c( list(people=dp.volLiver), predict_settings) )
+str(liver.volLiver)
 
-# save(liver.info, file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
-# load(file=file.path(ma.settings$dir.base, 'results', 'classification', 'liver.info.Rdata'))
+# flowLiver
+liver.flowLiver <- do.call(predict_liver_people, c( list(people=dp.flowLiver), predict_settings) )
+str(liver.flowLiver)
 
 # ---------------------------------------------
 # Calculation of GEC & GECkg (multiscale-model)

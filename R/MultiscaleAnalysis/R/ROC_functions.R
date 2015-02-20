@@ -141,7 +141,7 @@ m_bootstrap <- function(df, formula, B=100){
 #--------------------------------------
 # Split sample models
 #--------------------------------------
-#' Splits dataset randomly into 50% training and testing set.
+#' Splits dataset randomly into 1/2 training and testing set.
 #' 
 #' @export
 splitdf <- function(df, seed=NULL){
