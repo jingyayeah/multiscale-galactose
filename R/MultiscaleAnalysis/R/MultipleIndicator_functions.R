@@ -169,7 +169,7 @@ plot_compound_mean <- function(time, data, weights, col, std=TRUE, max_vals=TRUE
     # plot mean & mean+sd
     lines(time, r.wmeans, col=col, lwd=2, lty=1)
     if (std){
-      lines(time, r.wmeans+r.wsds, col=col, lwd=1, lty=1)
+      lines(time, r.wmeans+r.wsds, col=col, lwd=2, lty=2)
     }
     
     # lines for the max values

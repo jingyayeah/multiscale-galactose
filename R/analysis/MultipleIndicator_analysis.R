@@ -87,11 +87,52 @@ for (gal in gal_levels){
   stopDevPlot(create_plots=create_plots)
 }
 
+###################################################################################
+# Single dilution cuves for one compound
+###################################################################################
+do_plot = TRUE
+name <- 'PV__alb'
+
+if (do_plot){
+  fname <- file.path(dir_out, 'MultipleIndicator_Single.png')
+  cat(fname, '\n')
+  png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 150)
+}
+
+par(mfrow=c(1,2))
+sin_col = rgb(0,0,0, alpha=0.1)
+# normal plot
+plot(numeric(0), numeric(0), type='n', 
+     xlab="time [s]", ylab=sprintf('%s [mM]', name), 
+       xlim=c(0,40), ylim=c(0.0, 1.0), font.lab=2)
+plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], 
+                       col=sin_col)
+plot_compound_mean(time=time.rel, data=as.matrix(dlist[[name]][, inds]), weights=pars$Q_sinunit[inds], 
+                     col=ccolors[name], max_vals=FALSE)
+legend("topright",bty='n', cex=0.8,
+       legend=c('mean albumin PV', 'SD albumin PV', 'single sinusoid albumin PV'), 
+       lwd=c(2,2,1),
+       lty=c(1,2,1),
+       col=c(ccolors[name], ccolors[name], rgb(0,0,0,0.5)) ) 
+# log plot
+plot(numeric(0), numeric(0), type='n', 
+     xlab="time [s]", ylab=sprintf('%s [mM]', name), 
+     xlim=c(0,40), log='y', ylim=c(1E-3,1), font.lab=2)
+plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], 
+                     col=sin_col)
+plot_compound_mean(time=time.rel, data=as.matrix(dlist[[name]][, inds]), weights=pars$Q_sinunit[inds], 
+                   col=ccolors[name], max_vals=FALSE)
+
+par(mfrow=c(1,1))
+if (do_plot){
+  dev.off()
+}
+
+
 
 ###################################################################################
-# Dilution curves with experimental data
+# Mean dilution curves 
 ###################################################################################
-# plot mean dilution curves
 subset = split_sims[[which(split_info$f_flow==f_flow)]]
 scale = 1.0
 
@@ -110,7 +151,9 @@ plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale)
 legend("topright",  legend=compounds, fill=ccolors) 
 par(mfrow=c(1,1))
 
-####################################################
+###################################################################################
+# Dilution curves with experimental data
+###################################################################################
 # Load experimental data
 d <- read.csv(file.path(ma.settings$dir.base, "results", "dilution", "Goresky_processed.csv"), sep="\t")
 expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
