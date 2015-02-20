@@ -21,7 +21,6 @@ t_end <- 10000               # [s] simulation time
 info <- process_folder_info(folder)
 pars <- loadParameterFile(info$parsfile)
 
-
 time = seq(from=t_peak-5, to=t_peak+50, by=0.25) # approximation time for plot
 compound = 'galM'
 dir_out = file.path(ma.settings$dir.results, 'circos', info$folder)

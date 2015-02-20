@@ -5,9 +5,8 @@
 # The Goresky data is simulated.
 #
 # author: Matthias Koenig
-# date: 2014-11-17
+# date: 2015-02-20
 ################################################################
-
 rm(list=ls())
 library(MultiscaleAnalysis)
 setwd(ma.settings$dir.results)
@@ -30,10 +29,12 @@ ccolors = c('darkred', 'darkgreen', 'gray', 'darkorange', 'darkblue', 'black')
 # C: galactose 225mg/100ml | glucose 103 mg/100ml
 # gor1973.C <- gor1973[gor1973$condition == 'C',]
 
+# TODO: calculate the timeshift
+
 gor1973 <- read.csv(file.path(ma.settings$dir.expdata, "dilution_indicator", "Goresky1973_Fig1.csv"), sep="\t")
 summary(gor1973)
 
-plotDilutionDataGoresky1973 <- function(correctTime=FALSE){
+plotDilutionDataGoresky1973 <- function(time_shift=0){
   #plot the curves, i.e compound against time
   condition.levels = levels(gor1973$condition);
   par(mfrow=c(length(condition.levels),1))
@@ -44,7 +45,7 @@ plotDilutionDataGoresky1973 <- function(correctTime=FALSE){
          xlim=c(0,30), ylim=c(0,16), 
          xlab="time [s]", ylab="10^3 x outflow fraction/ml", main=name)
     data <- gor1973[gor1973$condition == condition, ]
-    plotDilutionData(data, compounds, ccolors, correctTime=correctTime)
+    plotDilutionData(data, compounds, ccolors, time_shift=time_shift)
   }
   par(mfrow=c(1,1))  
 }

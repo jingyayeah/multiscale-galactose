@@ -6,20 +6,22 @@
 # multiple indicator response curves.
 #
 # author: Matthias Koenig
-# date: 2014-12-13
+# date: 2015-02-20
 ################################################################
 rm(list=ls())
 library('MultiscaleAnalysis')
+library('libSBML')
 setwd(ma.settings$dir.base)
 dir_out <- file.path(ma.settings$dir.base, 'results', 'dilution')
 
-folder <- '2014-12-17_T20'         # Multiple indicator data
+folder <- '2015-02-13_T42'         # Multiple indicator data
 t_peak <- 5000; t_end <- 10000    # [s] peak start time & total simulation time
 
 # Focus on interesting time for analysis
 time = seq(from=t_peak-5, to=t_peak+50, by=0.05)   # approximation time for plot
 
 info <- process_folder_info(folder)
+info
 p <- preprocess_task(folder=folder, force=FALSE) 
 pars <- p$pars
 sim_ids <- rownames(pars)
@@ -51,7 +53,6 @@ split_sims <- dlply(pars, factors, get_split_sims)
 split_info <- attr(split_sims, "split_labels")
 split_info
 
-
 ###########################################################################
 # Single curves with mean & SD
 ###########################################################################
@@ -59,7 +60,7 @@ split_info
 pv_compounds = paste('PV__', compounds, sep='')
 plot_compounds = pv_compounds[2:length(pv_compounds)] # don't plot PV__gal
 
-f_flow = 0.4    # correction of flow from liver to tissue
+f_flow = 0.5    
 time.rel <- time-t_peak
 weights <- pars$Q_sinunit   # weighting with volume flow
 
@@ -78,7 +79,7 @@ for (gal in gal_levels){
       main=name, xlab="time [s]", ylab="c [mM]", 
       xlim=range(time.rel), ylim=c(0.0, 1.0))
     plot_compound_curves(time=time.rel, data=dlist[[name]][, inds], weights=pars$Q_sinunit[inds], 
-                       col=rgb(0.5,0.5,0.5, alpha=0.2))
+                       col=rgb(0.5,0.5,0.5, alpha=0.1))
     plot_compound_mean(time=time.rel, data=as.matrix(dlist[[name]][, inds]), weights=pars$Q_sinunit[inds], 
                        col=ccolors[name])
   }
@@ -86,39 +87,12 @@ for (gal in gal_levels){
   stopDevPlot(create_plots=create_plots)
 }
 
-###########################################################################
-# Integrated dilution time curves and sds 
-###########################################################################
-# Create dilution plots of mean curves
-# The individual dilution curves are weighted with the volume flow of the
-# respective sinusoidal units.
-plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, scale=1.0, time_shift=0.0, std=TRUE){
-  weights <- pars$Q_sinunit
-  
-  for (kc in seq(length(compounds))){
-    compound <- compounds[kc]
-    col <- ccolors[kc]
-    id <- paste('PV__', compound, sep='')
-    
-    # different levels
-    plot.levels <- levels(as.factor(pars[[f.level]]))
-    for (p.level in plot.levels){
-      # get subset of data belonging to galactose level and the subset
-      sim_rows <- intersect(which(pars[[f.level]]==p.level), which(rownames(pars) %in% subset))
-      # cat('Simulation rows:', sim_rows, pars$sim[sim_rows], '\n')
-      w <- weights[sim_rows]
-      data <- scale * as.matrix(dlist[[id]][ ,sim_rows])
-      time = as.numeric(rownames(data))-t_peak + time_shift
-      plot_compound_mean(time=time, data=data, weights=w, col=col, std=std)
-    }
-  }
-}
 
 ###################################################################################
 # Dilution curves with experimental data
 ###################################################################################
 # plot mean dilution curves
-subset = split_sims[[which(split_info$f_flow==0.4)]]
+subset = split_sims[[which(split_info$f_flow==f_flow)]]
 scale = 1.0
 
 par(mfrow=c(2,1))
@@ -142,33 +116,62 @@ d <- read.csv(file.path(ma.settings$dir.base, "results", "dilution", "Goresky_pr
 expcompounds = c('galactose', 'RBC', 'albumin', 'sucrose', 'water')
 expcolors = c('black', 'red', 'darkgreen', 'darkorange', 'darkblue')
 
-# normal plot experimental data
+#-----------------------------
+# Plot all components
+#-----------------------------
+do_plot = TRUE
+if (do_plot){
+  fname <- file.path(dir_out, 'MultipleIndicator_Mean.png')
+  cat(fname, '\n')
+  png(filename=fname, width=1800, height=1000, units = "px", bg = "white",  res = 150)
+}
+
+par(mfrow=c(1,2))
 plot(numeric(0), numeric(0), type='n',
-     xlim=c(0,25), ylim=c(0,16), 
-     xlab="time [s]", ylab="10^3 x outflow fraction/ml", main="Goresky1973 & 1983")
+     xlim=c(0,30), ylim=c(0,16), 
+     xlab="time [s]", ylab="10^3 x outflow fraction/ml", font.lab=2)
 plotDilutionData(d[d$study=="gor1983",], expcompounds, expcolors)
 plotDilutionData(d[d$study=="gor1973" & d$condition=="A",], expcompounds, expcolors)
 plotDilutionData(d[d$study=="gor1973" & d$condition=="B",], expcompounds, expcolors)
 plotDilutionData(d[d$study=="gor1973" & d$condition=="C",], expcompounds, expcolors)
-legend("topright",  legend=expcompounds, fill=expcolors) 
 
 # plot simulation
 max.rbc = max(d$outflow) # maximum of experimental rbc curves
 max.rbc
-#scale = 5.8*scale  # 4.55 (0.4)
-#subset = split_sims[[which(split_info$f_flow==0.3)]]
-#offset =1
+scale = 4.1*max.rbc
+time_shift = 1.7
+subset = split_sims[[which(split_info$f_flow==0.5)]]
+plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale, time_shift=time_shift, std=FALSE, max_vals=FALSE)
 
-#scale = 5.0*scale  # 4.55 (0.4)
-#subset = split_sims[[which(split_info$f_flow==0.35)]]
-#offset = 0.5
+Nc=length(expcompounds)
+legend("topright",  
+       legend=expcompounds,
+       pch=rep(22, Nc),
+       col=expcolors,
+       pt.bg=add.alpha(expcolors, 0.7),
+       lty=rep(2, Nc),
+       cex=0.8, bty='n') 
 
+#-----------------------------
+# Plot galactose
+#-----------------------------
+igal = 1
+plot(numeric(0), numeric(0), type='n',
+     xlim=c(0,30), ylim=c(0,3), 
+     xlab="time [s]", ylab="10^3 x outflow fraction/ml", font.lab=2)
+plotDilutionData(d[d$study=="gor1983",], expcompounds[igal], expcolors[igal])
+plotDilutionData(d[d$study=="gor1973" & d$condition=="A",], expcompounds[igal], expcolors[igal])
+plotDilutionData(d[d$study=="gor1973" & d$condition=="B",], expcompounds[igal], expcolors[igal])
+plotDilutionData(d[d$study=="gor1973" & d$condition=="C",], expcompounds[igal], expcolors[igal])
 
-subset = split_sims[[which(split_info$f_flow==0.4)]]
-scale = 4.3*max.rbc  
-time_shift = 1.3
-plot_mean_curves(dlist, pars, subset, f.level, compounds, ccolors, scale=scale, time_shift=time_shift, std=FALSE)
-
+# plot simulation
+plot_mean_curves(dlist, pars, subset, f.level, compounds[2], ccolors[2], 
+                 scale=scale, time_shift=time_shift, std=FALSE, max_vals=FALSE)
+text(x=rep(0.7, 3), y=c(1.3, 2.5, 2.9), labels=c('0.28mM', '12.5mM', '17.5mM'), cex=0.8, font.lab=2)
+par(mfrow=c(1,1))
+if (do_plot){
+  dev.off()
+}
 
 ###########################################################################
 # Boxplot of maximum times

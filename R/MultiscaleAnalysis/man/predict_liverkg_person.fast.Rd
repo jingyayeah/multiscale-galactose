@@ -3,7 +3,7 @@
 \alias{predict_liverkg_person.fast}
 \title{Predict liver volume per bodyweight and bloodflow per bodyweight for person.}
 \usage{
-predict_liverkg_person.fast(person, Nsample)
+predict_liverkg_person.fast(person, Nsample, sex_split)
 }
 \description{
 Predict liver volume per bodyweight and bloodflow per bodyweight for person.

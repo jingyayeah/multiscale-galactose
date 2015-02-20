@@ -1,16 +1,2 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="3000px" height="3000px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="ideograms">
-<path d="M1500.000,60.000 A1440.000,1440.000 40.000 0,1 2768.761,2181.062 L2795.193,2195.251 A1470.000,1470.000 0.000 0,0 1500.000,30.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:rgb(150,150,150);" />
-<text x="2735.8" y="760.8" font-size="39.0px" font-family="CMUBright-Roman" style="text-anchor:middle;fill:rgb(0,0,0);" transform="rotate(419.1,2735.8,760.8)" >SU1</text>
-<line x1='1500.0' y1='30.0' x2='1500.0' y2='15.0' style="stroke-width:2.0;stroke:rgb(0,0,0);stroke-linecap:round;fill:none;" />
-<text x="1509.5" y="5.0" font-size="26.0px" font-family="CMUBright-Roman" style="text-anchor:start;fill:rgb(0,0,0);" transform="rotate(270.0,1509.5,5.0)" >0</text>
-<path d="M1500.000,60.000 A1440.000,1440.000 40.000 0,1 2768.761,2181.062 L2795.193,2195.251 A1470.000,1470.000 0.000 0,0 1500.000,30.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:none;" />
-<path d="M2747.077,2220.000 A1440.000,1440.000 40.000 0,1 275.802,2258.248 L250.298,2274.045 A1470.000,1470.000 0.000 0,0 2773.057,2235.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:rgb(150,150,150);" />
-<text x="1522.8" y="2970.8" font-size="39.0px" font-family="CMUBright-Roman" style="text-anchor:middle;fill:rgb(0,0,0);" transform="rotate(-0.9,1522.8,2970.8)" >SU2</text>
-<path d="M2747.077,2220.000 A1440.000,1440.000 40.000 0,1 275.802,2258.248 L250.298,2274.045 A1470.000,1470.000 0.000 0,0 2773.057,2235.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:none;" />
-<path d="M252.923,2220.000 A1440.000,1440.000 40.000 0,1 1455.437,60.690 L1454.508,30.704 A1470.000,1470.000 0.000 0,0 226.943,2235.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:rgb(150,150,150);" />
-<text x="241.9" y="799.4" font-size="39.0px" font-family="CMUBright-Roman" style="text-anchor:middle;fill:rgb(0,0,0);" transform="rotate(-60.9,241.9,799.4)" >SU3</text>
-<path d="M252.923,2220.000 A1440.000,1440.000 40.000 0,1 1455.437,60.690 L1454.508,30.704 A1470.000,1470.000 0.000 0,0 226.943,2235.000 Z" style="stroke-width:2.0;stroke:rgb(115,115,115);stroke-linecap:round;fill:none;" />
-</g>

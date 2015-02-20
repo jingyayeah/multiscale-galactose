@@ -3,7 +3,8 @@
 \alias{predict_liver_people}
 \title{Predict liver volume and bloodflow for people.}
 \usage{
-predict_liver_people(people, Nsample, sex_split, Ncores = 1, debug = TRUE)
+predict_liver_people(people, Nsample, sex_split = FALSE, Ncores = 1,
+  debug = TRUE)
 }
 \description{
 Predict liver volume and bloodflow for people.

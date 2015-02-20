@@ -3,7 +3,8 @@
 \alias{predict_liverkg_people}
 \title{Predict liver volume per bodyweight and bloodflow per bodyweight for people.}
 \usage{
-predict_liverkg_people(people, Nsample, Ncores = 1, debug = TRUE)
+predict_liverkg_people(people, Nsample, sex_split = FALSE, Ncores = 1,
+  debug = TRUE)
 }
 \description{
 Predict liver volume per bodyweight and bloodflow per bodyweight for people.
