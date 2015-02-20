@@ -128,8 +128,6 @@ if (do_plot){
   dev.off()
 }
 
-
-
 ###################################################################################
 # Mean dilution curves 
 ###################################################################################
@@ -219,9 +217,8 @@ if (do_plot){
 ###########################################################################
 # Boxplot of maximum times
 ###########################################################################
-
 # calculate the max times
-calculateMaxTimes <- function(preprocess.mat, compounds, time.offset){
+calculateMaxTimes <- function(preprocess.mat, compounds){
   Nsim = ncol(preprocess.mat[[1]])
   maxtime <- data.frame(tmp=numeric(Nsim))
   for (kc in seq(1, length(compounds)) ){
@@ -232,34 +229,24 @@ calculateMaxTimes <- function(preprocess.mat, compounds, time.offset){
     maxtime[[name]] <- numeric(Nsim)    
     # find the max values for all simulations
     for (k in seq(1, Nsim)){
-      maxtime[[name]][k] = time[ which.max(data[,k]) ]- time.offset
+      maxtime[[name]][k] = time[ which.max(data[,k]) ]
     }
   }
   maxtime$tmp <- NULL
   maxtime
 }
+maxtimes <- calculateMaxTimes(dlist, compounds)
+head(maxtimes)
 
-tmp <- calculateMaxTimes(data, compounds, 10.0)
-head(tmp)
-summary(tmp)
-
-createBoxPlot <- function (maxtime, ccolors, time.offset) {
-  # Boxplot of the maxtimes
-  if (create_plot_files){
-    png(filename=paste(ma.settings$dir.results, '/', task, "_Boxplot_MaxTimes", sep=""),
-        width = 1000, height = 1000, units = "px", bg = "white",  res = 150)
-  }
-  boxplot(maxtime-time.offset, col=ccolors, horizontal=T, xlab="time [s]")
-  if (create_plot_files){
-    dev.off()
-  }
-}
-
-boxplot(maxtime, col=ccolors, horizontal=T,  ylim=c(0,20),
-        xaxt="n", # suppress the default x axis
-        yaxt="n", # suppress the default y axis
-        bty="n") # suppress the plotting frame
-
+subset <- 3:6
+png(filename=file.path(dir_out, "Boxplot_MaxTimes"),
+    width = 1000, height = 400, units = "px", bg = "white",  res = 150)
+boxplot(maxtimes[, subset]-t_peak, col=ccolors[subset], horizontal=T, pch=21, bg='gray', cex=0.8,
+        xaxt="n",   # suppress the default x axis
+        yaxt="n",   # suppress the default y axis
+        bty="n",
+        ylim=c(0,30)) 
+dev.off()
 ###########################################################################
 # Plot all individual timecourses
 ###########################################################################
