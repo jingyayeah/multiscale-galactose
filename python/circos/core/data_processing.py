@@ -143,15 +143,17 @@ def create_track_files(folder, sim_ids, track_ids, mat):
     return None
 
 def create_all_track_files(sim_ids, track_ids, times, circos_mat):
+    time_folders = []
     # create for every time point all the track files
     for (ktime, tid) in enumerate(times):        
-        tfolder = os.path.join(folder, '{:03d}'.format(ktime) )
-        if not os.path.exists(tfolder):
-            os.makedirs(tfolder)
-        create_track_files(folder=tfolder, 
+        time_folder = os.path.join(folder, '{:03d}'.format(ktime) )
+        if not os.path.exists(time_folder):
+            os.makedirs(time_folder)
+        create_track_files(folder=time_folder, 
                    sim_ids=sim_ids, track_ids=track_ids, 
                    mat=circos_mat[:,:,ktime])
-    return None
+        time_folders.append(time_folder)
+    return time_folders
 
 ############################################################################
 if __name__ == '__main__':
@@ -206,20 +208,100 @@ if __name__ == '__main__':
     # create the circos files
     create_karyotype_file(folder, sim_ids)
     
-    create_all_track_files(sim_ids=sim_ids, track_ids=track_ids, times=times, 
+    time_folders = create_all_track_files(sim_ids=sim_ids, track_ids=track_ids, times=times, 
                            circos_mat=circos_mat)
+    time_folders
     track_ids
     times
 
     
-    def create_plot_file(time):
+    def create_plot_file(ktime, folder, time_folder, track_ids):
         ''' 
         Creates the circos plot file for a single timepoint.
         '''
-        pass
+        lines = []
+        lines.append('<plots>')
+        lines.append('type = heatmap')
+        lines.append('min = 0')
+        lines.append('max = 0.20')
+        lines.append('spacing = 0.2r')
+                
+        # Create the plot tracks
+        Ntracks = len(track_ids)
+        upper = 0.98
+        lower = 0.06
+        dist = (upper-lower)/Ntracks
+        for (k, track_id) in enumerate(track_ids):
+            r1 = upper - k*dist
+            r0 = upper - (k+1)*dist+0.005
+            lines.append('<plot>')
+            lines.append('file = {}/track_{:02}.txt'.format(time_folder, k))
+            lines.append('r1 = {:1.4f}r'.format(r1))
+            lines.append('r0 = {:1.4f}r'.format(r0))
+            lines.append('</plot>')
+        
+        lines.append('</plots>')
+        lines.append('')
+        # write the file
+        pfile = os.path.join(folder, 'plots_{:03}.conf'.format(ktime))
+        f = open(pfile, 'w')
+        f.write('\n'.join(lines))
+        f.close()
+        return pfile
     
     
-    def create_all_plot_files(times, track_ids)
+    def create_all_plot_files(folder, time_folders, track_ids):
+        plot_files = []
+        for (ktime, tf) in enumerate(time_folders):
+            pfile = create_plot_file(ktime, folder, time_folder=tf, track_ids=track_ids)
+            plot_files.append(pfile)
+        return plot_files
+    
+    def create_circos_file(ktime, folder):
+        ''' 
+        Creates the circos plot file for a single timepoint.
+        '''
+        lines = [
+            'chromosomes_units = 1',
+            'karyotype = karyotype_galactose.txt',
+            '<<include ../ideogram.conf>>',
+            '<<include ../ticks.conf>>',
+            '<image>',
+            '<<include etc/image.conf>> ',
+            '</image>',
+            '<<include etc/colors_fonts_patterns.conf>> ',
+            '<<include etc/housekeeping.conf>>',
+            '<<include plots_{:03d}.conf>>'.format(ktime, ktime),
+        ]
+        
+        # write the file
+        fname = os.path.join(folder, 'circos_{:03d}.conf'.format(ktime))
+        f = open(fname, 'w')
+        f.write('\n'.join(lines))
+        f.close()
+        return fname
+    
+    def create_all_circos_files(folder, time_folders):
+        files = []
+        for (ktime, tf) in enumerate(time_folders):
+            cfile = create_circos_file(ktime, folder)
+            files.append(cfile)
+        return files
+
+    create_all_circos_files(folder, time_folders)
+    
+    # Create the images
+    from subprocess import call
+    for (ktime, t) in enumerate(times):
+        call(["ls", "-l"])
+        
+        
+
+    
+
+
+
+
 
     def create_circos_conf(time):
         pass
