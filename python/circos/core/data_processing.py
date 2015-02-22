@@ -54,29 +54,25 @@ def create_track_ids_for_compound(cid='galM', compartment='C', Nc=20):
     return ids
     
     
-def interpolate_csv(f_list, weights, ids, time, selections):
-    
-    from scipy import interpolate
-    sel_dict = selection_dict(selections)
-    
-    res = np.zeros(shape=(len(time), len(ids)))  # store the averaged results    
-    for (k, sid) in enumerate(ids):
-        # create empty array
-        mat = np.zeros(shape =(len(time), len(f_list)))
-        # fill matrix        
-        for ks, s in enumerate(f_list):
-            x = s[:,0]
-            # find in which place of the solution the component is encoded
-            index = sel_dict.get(sid, None)
-            if not index:
-                raise Exception("{} not in selection".format(sid))
-            y = s[:,index]
-            f = interpolate.interp1d(x=x, y=y)
-            mat[:,ks] = f(time)
-        # average the matrix
-        av = np.average(mat, axis=1, weights=weights)
-        res[:, k] = av
-    return res
+def get_dataframes(sim_ids):
+    '''
+    Reads the CSV data into Panda DataFrames.
+    '''
+    df_dict = {}
+    for sid in sim_ids:
+        tc = Timecourse.objects.get(simulation=sid)
+        # unzip the tar.gz (make csv available)
+        if not os.path.exists(tc.file.path):
+            tc.unzip()
+        # read the file
+        df = pd.io.parsers.read_csv(tc.file.path, sep=',', header=0)
+        # rename the columns    
+        rdict = renaming_dict(df.columns)
+        df = df.rename(columns=rdict)
+        # store the DataFrame
+        df_dict[sid] = df
+    return(df_dict)
+
 
 def renaming_dict(old_names):
     # create replacement dict    
@@ -95,54 +91,53 @@ if __name__ == '__main__':
     The resulting matrix has the dimensions
     [Nsims, Ntracks, Ntimes]    
     '''
-    
-    track_ids = create_track_ids_for_compound('galM', compartment="H")
-    print track_ids
+    # select model variables to write into circos
+    track_ids = create_track_ids_for_compound('galM', compartment="C")
     Ntracks = len(track_ids)    
+    print track_ids
     
-    # get a subset of simulation ids
+    # simulations to visualize
     # TODO: filter the panda DataFrame to the subset for visualization
     pars = read_parameters_for_task(task_id=1)
     sim_ids = pars['sim']
     print sim_ids
     Nsims = len(sim_ids)
     
-    # which timepoints to generate
-    Ntimes = 21
+    # timepoints to generate
+    Ntimes = 41
     t_start = 5000
     t_end = 5020
     import numpy as np
     times = np.linspace(start=t_start, stop=t_end, num=Ntimes)
     times
     
-    # get the csv files
-    df_dict = {}
-    for sid in sim_ids:
-        tc = Timecourse.objects.get(simulation=sid)
-        # unzip the tar.gz (make csv available)
-        if not os.path.exists(tc.file.path):
-            tc.unzip()
-        # read the file
-        df = pd.io.parsers.read_csv(tc.file.path, sep=',', header=0)
-        # rename the columns    
-        rdict = renaming_dict(df.columns)
-        df = df.rename(columns=rdict)
-        # store the DataFrame
-        df_dict[sid] = df
+    # get the panda DataFrames for all simulations
+    df_dict = get_dataframes(sim_ids)
 
-    df_dict.keys()
+    # create empty matrix template    
+    circos_mat = np.empty([Nsims, Ntracks, Ntimes])    
     
     # interpolate the data and fill the circos matrix
-    
-    
+    from scipy import interpolate
+    for ks, sid in enumerate(df_dict.keys()):
+        df = df_dict[sid]
 
-    
-    
-    
+        for (kt, tid) in enumerate(track_ids):
+            # check if tid in the results
+            x = df['time']
+            y = df[tid]
+            f = interpolate.interp1d(x=x, y=y)
+            circos_mat[ks, kt, :] = f(times)
 
-        
-    data = np.empty()
-    # open csv and interpolate the time points
-    # i.e. fill the matrix
+    # average the matrix (TODO: for pv outflow concentration)
+    # av = np.average(mat, axis=1, weights=weights)
+ 
+    import pylab as p    
+    for ks, sid in enumerate(sorted(df_dict.keys())):
+        for kt, tid in enumerate(track_ids):
+            p.plot(times, circos_mat[ks, kt,:])
+            p.ylim=[0,0.4]
+        p.show()
     
+    # create the circos files
 
