@@ -30,9 +30,18 @@ def getParameterFilenameForTask(task, folder=None):
 def createParameterFileForTask(task, folder=None):
     fname = getParameterFilenameForTask(task, folder=folder)
     f = file(fname, 'w')
-    f.write(createParameterInfoForTask(task))
+    f.write(createParameterStringInfoForTask(task))
     f.close()
     return fname
+
+def createParameterStringInfoForTask(task):
+    data = createParameterInfoForTask(task)
+    # create the content
+    header = data.keys()
+    lines = ['# ' + ", ".join(header)]
+    for k in xrange(len(data['sim'])):
+        lines +=  [", ".join([str(data[key][k]) for key in header])]
+    return "\n".join(lines)
 
 def createParameterInfoForTask(task):
     '''
@@ -70,14 +79,8 @@ def createParameterInfoForTask(task):
         if ( len(data[key]) != len(data['sim']) ):
             print 'ERROR - wrong number of parameters'
     
-    # create the content
-    header = data.keys()
-    lines = ['# ' + ", ".join(header)]
-    for k in xrange(len(data['sim'])):
-        lines +=  [", ".join([str(data[key][k]) for key in header])]
-    
     print 'time: ', (time.clock() - start)
-    return "\n".join(lines)
+    return data
         
     
 if __name__ == "__main__":
