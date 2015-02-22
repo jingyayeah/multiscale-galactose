@@ -202,7 +202,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
         
             # Store Timecourse Results
             tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
-            numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.6E')
+            numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.12E')
             storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
 
             # reset parameter changes
@@ -248,8 +248,8 @@ if __name__ == "__main__":
     # os.remove(tc.file.path)
 
     from sim.models import Simulation
-    # sims = [Simulation.objects.filter(task__pk=6)[0], ]
-    sims = [Simulation.objects.get(pk=7), ]
+    sim_ids = range(1,10)
+    sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
     print '* Start integration *'
     print 'Simulation: ', sims
     integrate(sims, integrator=ROADRUNNER, keep_tmp=True)
