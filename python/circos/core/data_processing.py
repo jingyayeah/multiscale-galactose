@@ -22,14 +22,6 @@ import pandas as pd
 import sim.analysis.ParameterFiles as pf
 from sim.models import Task, Timecourse
 
-sim_ids = [] # simulations
-pars = []    # parameters of the simulations
-
-
-# for every timepoint all the circos tracks have to be generated
-
-# definition of the chromosomes
-
 
 def read_parameters_for_task(task_id):
     '''
@@ -162,7 +154,11 @@ if __name__ == '__main__':
     The resulting matrix has the dimensions
     [Nsims, Ntracks, Ntimes]    
     '''
-    task_id = 1  
+    task_id = 2
+    f_level = 0.5
+    gal_level = 0.28    
+    eps = 1E-10    
+    
     folder = os.path.join(sim.PathSettings.MULTISCALE_GALACTOSE_RESULTS, 'circos', 'T{}'.format(task_id))
     if not os.path.exists(folder):
         os.makedirs(folder)
@@ -176,9 +172,14 @@ if __name__ == '__main__':
     # simulations to visualize
     # TODO: filter the panda DataFrame to the subset for visualization
     pars = read_parameters_for_task(task_id=task_id)
+    pars.info()
     print(pars)
     sim_ids = pars['sim']
-    print sim_ids
+    if (task_id == 2):
+        # filter subset of data corresponding to selected galactose
+        # and flow level
+        sim_ids = sim_ids[(abs(pars.f_flow-f_level)<eps) & (abs(pars.PP__gal-gal_level)<eps)]
+    
     Nsims = len(sim_ids)
     
     # timepoints to generate
@@ -197,12 +198,12 @@ if __name__ == '__main__':
 
     # average the matrix (TODO: for pv outflow concentration)
     # av = np.average(mat, axis=1, weights=weights) 
-    import pylab as p    
-    for (ks, sid) in enumerate(sorted(df_dict.keys())):
-        for kt, tid in enumerate(track_ids):
-            p.plot(times, circos_mat[ks, kt,:])
-            p.ylim=[0,0.4]
-        p.show()
+    #import pylab as p    
+    #for (ks, sid) in enumerate(sorted(df_dict.keys())):
+    #    for kt, tid in enumerate(track_ids):
+    #        p.plot(times, circos_mat[ks, kt,:])
+    #        p.ylim=[0,0.4]
+    #    p.show()
      
     
     # create the circos files
@@ -257,17 +258,23 @@ if __name__ == '__main__':
             plot_files.append(pfile)
         return plot_files
     
+    create_all_plot_files(folder, time_folders, track_ids)    
+    
     def create_circos_file(ktime, folder):
         ''' 
         Creates the circos plot file for a single timepoint.
         '''
         lines = [
             'chromosomes_units = 1',
+            'background = black',
+            'color = black, spectral-7-div, grey',
+            # 'color = ylgnbu-9-seq-rev,ylorrd-9-seq',
             'karyotype = karyotype_galactose.txt',
             '<<include ../ideogram.conf>>',
             '<<include ../ticks.conf>>',
             '<image>',
             '<<include etc/image.conf>> ',
+            'radius* = 700p',
             '</image>',
             '<<include etc/colors_fonts_patterns.conf>> ',
             '<<include etc/housekeeping.conf>>',
@@ -290,30 +297,9 @@ if __name__ == '__main__':
 
     create_all_circos_files(folder, time_folders)
     
-    # Create the images
-    from subprocess import call
-    for (ktime, t) in enumerate(times):
-        call(["ls", "-l"])
-        
-        
-
-    
-
-
-
-
-
-    def create_circos_conf(time):
-        pass
-
-    def create_colors():
-        pass
-
-
-    def create_circos_plot(time):
-        pass    
-    
-    
-    
+    import colorbrewer as cb
+    help(cb)
+    cb.Set1
+    cb.read_colorbrewer(
     
 
