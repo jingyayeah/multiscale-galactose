@@ -91,6 +91,8 @@ if __name__ == '__main__':
     The resulting matrix has the dimensions
     [Nsims, Ntracks, Ntimes]    
     '''
+    task_id = 1    
+    
     # select model variables to write into circos
     track_ids = create_track_ids_for_compound('galM', compartment="C")
     Ntracks = len(track_ids)    
@@ -98,7 +100,7 @@ if __name__ == '__main__':
     
     # simulations to visualize
     # TODO: filter the panda DataFrame to the subset for visualization
-    pars = read_parameters_for_task(task_id=1)
+    pars = read_parameters_for_task(task_id=task_id)
     sim_ids = pars['sim']
     print sim_ids
     Nsims = len(sim_ids)
@@ -140,4 +142,38 @@ if __name__ == '__main__':
         p.show()
     
     # create the circos files
+    folder = sim.PathSettings.MULTISCALE_GALACTOSE_RESULTS + '/circos/' + 'T{}'.format(task_id)
+    print(folder)
+    
+    
+    def create_karyotype_file(folder, sim_ids):
+        '''
+        Write the Karyotypes
+        '''
+        fname = folder + "/karyotype_galactose.txt"
+        print fname
+        k_f = open(fname , 'w')
+        for k, sid in enumerate(sim_ids):
+            k_f.write('chr - s{} {} 0 1 s{}\n'.format(sid, k, sid) )
+        k_f.close()
+
+    create_karyotype_file(folder, sim_ids)
+
+
+    def create_plots_conf(time):
+        pass
+
+    def create_circos_conf(time):
+        pass
+
+    def create_colors():
+        pass
+
+
+    def create_circos_plot(time):
+        pass    
+    
+    
+    
+    
 
