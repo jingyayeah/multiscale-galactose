@@ -411,7 +411,7 @@ if __name__ == "__main__":
                                       samples=mean_samples)
 
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
@@ -467,7 +467,7 @@ if __name__ == "__main__":
         
         
         # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=2000, sampling="distribution")
+        [task, raw_samples] = make_galactose_dilution(sbml_id, N=100, sampling="distribution")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         createSimulationsForSamples(task, samples)
 
