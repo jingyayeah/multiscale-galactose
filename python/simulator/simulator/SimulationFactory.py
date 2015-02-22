@@ -214,7 +214,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
     
     # adapt flow in samples with the given f_flows
     # f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
-    f_flows = (0.6, 0.5, 0.4)
+    f_flows = (1.0, 0.5, 0.25)
     
     raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     
