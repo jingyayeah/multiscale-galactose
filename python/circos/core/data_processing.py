@@ -15,10 +15,11 @@ Q_sinunit = np.pi * r.y_sin**2 * flow_sin # [m3/s]
 '''
 
 import sim.PathSettings
+import os
 from pandas import Series, DataFrame
 import pandas as pd
 import sim.analysis.ParameterFiles as pf
-from sim.models import Task, Simulation, Timecourse
+from sim.models import Task, Timecourse
 
 sim_ids = [] # simulations
 pars = []    # parameters of the simulations
@@ -115,27 +116,30 @@ if __name__ == '__main__':
     times
     
     # get the csv files
+    df_dict = {}
     for sid in sim_ids:
         tc = Timecourse.objects.get(simulation=sid)
-        print tc.file.path
-        # load the file and interpolate
-    # unzp the file        
+        # unzip the tar.gz (make csv available)
+        if not os.path.exists(tc.file.path):
+            tc.unzip()
+        # read the file
+        df = pd.io.parsers.read_csv(tc.file.path, sep=',', header=0)
+        # rename the columns    
+        rdict = renaming_dict(df.columns)
+        df = df.rename(columns=rdict)
+        # store the DataFrame
+        df_dict[sid] = df
+
+    df_dict.keys()
     
-    # read the file
-    df = pandas.io.parsers.read_csv(tc.file.path, sep=',', header=0)
-    # rename the columns    
-    rdict = renaming_dict(df.columns)
-    df = df.rename(columns=rdict)
-    
+    # interpolate the data and fill the circos matrix
     
     
 
     
     
     
-    
 
-    help(pandas.io.parsers.read_csv)
         
     data = np.empty()
     # open csv and interpolate the time points

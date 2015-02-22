@@ -456,16 +456,29 @@ class Timecourse(models.Model):
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
     
+    def _get_zip_file(self):
+        f = self.file.path
+        return (f[:-3] + 'tar.gz')
+    
     def zip(self):
         ''' tar.gz the file '''    
         f = self.file.path
-        f_tar = f[:-3] + 'tar.gz'
-        tar = tarfile.open(f_tar, "w:gz")
+        tar = tarfile.open(self.zip_file, "w:gz")
         tar.add(f, arcname=os.path.basename(f))
+        tar.close()
+        
+    def unzip(self):
+        ''' tar.gz the file '''    
+        tar = tarfile.open(self.zip_file, 'r:gz')
+        dirname = os.path.dirname(self.zip_file)
+        print tar.getmembers()
+        tar.extractall(path=dirname)   
         tar.close()
     
     def rdata(self):
         rpack.readData(self.file.path)
+    
+    zip_file = property(_get_zip_file)
     
 #     def _unzip_csv(self):
 #         ''' Simulation did not finish '''

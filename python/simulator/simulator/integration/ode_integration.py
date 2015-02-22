@@ -249,7 +249,7 @@ if __name__ == "__main__":
 
     from sim.models import Simulation
     # sims = [Simulation.objects.filter(task__pk=6)[0], ]
-    sims = [Simulation.objects.get(pk=1), ]
+    sims = [Simulation.objects.get(pk=7), ]
     print '* Start integration *'
     print 'Simulation: ', sims
     integrate(sims, integrator=ROADRUNNER, keep_tmp=True)
