@@ -9,6 +9,7 @@ Pa_per_mmHg = 133.322
 Pa = 28.4   # [mmHg] (28.4, 32) arterial pressure
 Pb = 12     # [mmHg] venous pressure
 P0 = 20     # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
+
 nu = 0.0012  # [Pa*s] viscosity
 R = 3E-6    # [m] radius capillary
 L = 600E-6  # [m] capilary length
@@ -18,6 +19,20 @@ r  = 50E-9  # [m] pore radius
 l = 0.6E-6  # [m] pore length (capillary thickness)
 Np = 1.3E12 # [1/m^2] pores density number of pores per unit area
 # Np = 10E12 # [1/m^2] pores density number of pores per unit area
+
+
+# Actual sinusoidal values
+sinusoid = TRUE
+if (sinusoid){
+  cat('# Hepatic Sinusoid Simulation #')
+  R = 4.4E-6 # [m]
+  L = 500E-6 # [m]
+  l = 1.65E-7 # [m]
+  Np = 1E13 # [1/m^2]
+  r = 5.35E-8 # [m]
+}
+
+
 
 W = 8*nu/(pi*R^4) # [Pa*s/m^4] specific hydraulic resistance
 w = 4*nu*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores
@@ -76,11 +91,32 @@ abline(h=0)
 par(mfrow=c(1,1))
 
 # How to calculate the flow velocity from the blood flow ?
-# How to calculate the pressure from the flow velocity ?
+
 # flow velocity [m/s]
-v_f <- function(){
-  
+v_f <- function(x){
+  Q <- Q_f(x) # [m^3/s]
+  A <- pi*R^2
+  v <- Q/A
+  return(v)
 }
+
+Q_f(0)
+A <- pi*R^2
+cat('A = ', A, ' [m^2]\n')
+Q_f(0)/A
+cat('v = ', Q_f(0)/A, ' [m/s]\n')
+
+
+
+curve(v_f, from=0, to=L, font.lab=2,
+      main='Flow throw pores',
+      xlab='x [m]', ylab='v(x) [m/s]',
+      xlim=c(0,L), ylim=c(0,0.004))
+abline(h=0)
+
+# Dependency between pressure and blood flow (at portal end)
+
+
 
 
 # filtration and reabsorption processes
