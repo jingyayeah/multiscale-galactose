@@ -10,7 +10,7 @@ Pa = 28.4   # [mmHg] (28.4, 32) arterial pressure
 Pb = 12     # [mmHg] venous pressure
 P0 = 20     # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
 
-nu = 0.0012  # [Pa*s] viscosity
+nu = 0.0012  # [Pa*s] viscosity (adaption of viscosity to actual values)
 R = 3E-6    # [m] radius capillary
 L = 600E-6  # [m] capilary length
 r  = 50E-9  # [m] pore radius
@@ -25,13 +25,15 @@ Np = 1.3E12 # [1/m^2] pores density number of pores per unit area
 sinusoid = TRUE
 if (sinusoid){
   cat('# Hepatic Sinusoid Simulation #')
+  Pa = 7   # [mmHg] (28.4, 32) arterial pressure
+  Pb = 3     # [mmHg] venous pressure
+  P0 = 0.5*(Pa+Pb)     # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
   R = 4.4E-6 # [m]
   L = 500E-6 # [m]
   l = 1.65E-7 # [m]
   Np = 1E13 # [1/m^2]
   r = 5.35E-8 # [m]
 }
-
 
 
 W = 8*nu/(pi*R^4) # [Pa*s/m^4] specific hydraulic resistance
