@@ -7,9 +7,9 @@ Created on Thu Dec 18 12:39:41 2014
 
 import roadrunner
 from roadrunner import SelectionRecord
-print roadrunner.__version__
+print roadrunner.getVersionStr()
 
-import antimony
+import libantimony
 model_txt = """
     model test()
     // Reactions
@@ -40,9 +40,9 @@ model_txt = """
 
     end
 """
-model = antimony.loadString(model_txt)
+model = libantimony.loadString(model_txt)
 sbml_file = 'test_peak.xml'
-antimony.writeSBMLFile('test_peak.xml', 'test')
+libantimony.writeSBMLFile('test_peak.xml', 'test')
 
 r = roadrunner.RoadRunner(sbml_file)
 
