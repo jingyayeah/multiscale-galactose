@@ -3,6 +3,22 @@
 
 
 # important parameters and typical values
+# mean pressure in HA is around 100mmHg. 
+# The resistance of th e HA bed is around 30-40 times that of the
+# portal venous bed. 
+# see [Rappaport -> 161]
+# portal pressure depends primarily on the state of constriction or
+# dilatatation of the mesenteric and splenic arterioles and on the 
+# intrahepatic resistance.
+# Normal hepatic arterial pressure is already greatly reduced within the
+# sinusoids and has little influence on the portal pressure [Rappaport -> 264,265]
+# Modeling of resistance [??] 
+# Presinusoidal & sinusoidal portal hypertension also occur depending on the the 
+# site of hindrance factor.
+# [Rappaport 286 -> hepatic venous pressure]
+
+# Pa 50mm H20
+# Pv 10mm H20 [Rappaport 122, 123, 291]
 
 # pressure boundary conditions (converted to pascal)
 Pa_per_mmHg = 133.322
@@ -10,6 +26,7 @@ Pa = 28.4   # [mmHg] (28.4, 32) arterial pressure
 Pb = 12     # [mmHg] venous pressure
 P0 = 20     # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
 
+hr = 1 # 20     # [-] hepatic resistance to flow
 nu = 0.0012  # [Pa*s] viscosity (adaption of viscosity to actual values)
 R = 3E-6    # [m] radius capillary
 L = 600E-6  # [m] capilary length
@@ -22,11 +39,12 @@ Np = 1.3E12 # [1/m^2] pores density number of pores per unit area
 
 
 # Actual sinusoidal values
+# Rappaport: low hydrostatic pressure sinusois of 2-3mmHg
 sinusoid = TRUE
 if (sinusoid){
   cat('# Hepatic Sinusoid Simulation #')
   Pa = 7   # [mmHg] (28.4, 32) arterial pressure
-  Pb = 3     # [mmHg] venous pressure
+  Pb = 2     # [mmHg] venous pressure
   P0 = 0.5*(Pa+Pb)     # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
   R = 4.4E-6 # [m]
   L = 500E-6 # [m]
@@ -36,8 +54,13 @@ if (sinusoid){
 }
 
 
-W = 8*nu/(pi*R^4) # [Pa*s/m^4] specific hydraulic resistance
-w = 4*nu*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores
+# W = 8*nu/(pi*R^4) # [Pa*s/m^4] specific hydraulic resistance
+# w = 4*nu*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores
+
+W = 8*nu*hr/(pi*R^4) # [Pa*s/m^4] specific hydraulic resistance
+w = 4*nu*hr*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores
+
+
 
 lambda = sqrt(w/W) # [m]
 lambda
@@ -101,6 +124,14 @@ v_f <- function(x){
   v <- Q/A
   return(v)
 }
+
+x <- seq(from=0, to=L, length.out = 100)
+Qres <- Q_f(x)
+max(Qres)
+min(Qres)
+max(Qres)/min(Qres)
+
+plot(x, Qres, ylim=c(0, max(Qres)))
 
 Q_f(0)
 A <- pi*R^2
