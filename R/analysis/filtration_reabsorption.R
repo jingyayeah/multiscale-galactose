@@ -1,66 +1,55 @@
-# Model equation for filtration and reabsorption
-# based on Kozlova2000
+#---------------------------------------------------------------
+# Pressure - Flow - Model
+#---------------------------------------------------------------
+# Model of pressure and flow dependency in the sinusoidal 
+# unit based on Kozlova2000 solutions for filtration and
+# reabsorption.
+#
+# author: Matthias Koenig
+# date: 2014-03-05
+#---------------------------------------------------------------
 
-
-# important parameters and typical values
-# mean pressure in HA is around 100mmHg. 
-# The resistance of th e HA bed is around 30-40 times that of the
-# portal venous bed. 
-# see [Rappaport -> 161]
-# portal pressure depends primarily on the state of constriction or
-# dilatatation of the mesenteric and splenic arterioles and on the 
-# intrahepatic resistance.
-# Normal hepatic arterial pressure is already greatly reduced within the
-# sinusoids and has little influence on the portal pressure [Rappaport -> 264,265]
-# Modeling of resistance [??] 
-# Presinusoidal & sinusoidal portal hypertension also occur depending on the the 
-# site of hindrance factor.
-# [Rappaport 286 -> hepatic venous pressure]
-
-# Pa 50mm H20
-# Pv 10mm H20 [Rappaport 122, 123, 291]
-
-# pressure boundary conditions (converted to pascal)
+# --------------------------------
+# Model Parameters 
+# --------------------------------
+# [1] Kozlova2000 model
+# pressures
 Pa_per_mmHg = 133.322
 Pa = 28.4   # [mmHg] (28.4, 32) arterial pressure
 Pb = 12     # [mmHg] venous pressure
 P0 = 20     # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
 
-hr = 1 # 20     # [-] hepatic resistance to flow
-nu = 0.0012  # [Pa*s] viscosity (adaption of viscosity to actual values)
+# resistance
+nu = 0.0012  # [Pa*s=Poise] viscosity
+
+# geometry
 R = 3E-6    # [m] radius capillary
 L = 600E-6  # [m] capilary length
-r  = 50E-9  # [m] pore radius
-# r  = 54E-9  # [m] pore radius (10, 100, 250)
-
+r  = 100E-9  # [m] pore radius (10, 100, 250)
 l = 0.6E-6  # [m] pore length (capillary thickness)
 Np = 1.3E12 # [1/m^2] pores density number of pores per unit area
-# Np = 10E12 # [1/m^2] pores density number of pores per unit area
 
-
-# Actual sinusoidal values
-# Rappaport: low hydrostatic pressure sinusois of 2-3mmHg
+# [2] Actual sinusoidal values
 sinusoid = TRUE
 if (sinusoid){
   cat('# Hepatic Sinusoid Simulation #')
-  Pa = 7   # [mmHg] (28.4, 32) arterial pressure
-  Pb = 2     # [mmHg] venous pressure
-  P0 = 0.5*(Pa+Pb)     # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
+  Pa = 5.0   # [mmHg] portal pressure
+  Pb = 2.0   # [mmHg] central pressure
+  P0 = 0.5*(Pa+Pb)  # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
+  
+  # viscosity, so that the actual blood flows are correct
+  nu = 0.015
+  
+  # TODO: check the model values
   R = 4.4E-6 # [m]
   L = 500E-6 # [m]
   l = 1.65E-7 # [m]
-  Np = 1E13 # [1/m^2]
+  Np = 10E12 # [1/m^2]
   r = 5.35E-8 # [m]
 }
 
-
-# W = 8*nu/(pi*R^4) # [Pa*s/m^4] specific hydraulic resistance
-# w = 4*nu*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores
-
-W = 8*nu*hr/(pi*R^4) # [Pa*s/m^4] specific hydraulic resistance
-w = 4*nu*hr*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores
-
-
+W = 8*nu/(pi*R^4)          # [Pa*s/m^4] specific hydraulic resistance
+w = 4*nu*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores
 
 lambda = sqrt(w/W) # [m]
 lambda
