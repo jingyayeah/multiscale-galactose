@@ -21,6 +21,8 @@ P0 = 20     # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
 
 # resistance
 nu = 0.0012  # [Pa*s=Poise] viscosity
+nu_blood = nu
+nu_plasma = nu
 
 # geometry
 R = 3E-6    # [m] radius capillary
@@ -33,14 +35,15 @@ Np = 1.3E12 # [1/m^2] pores density number of pores per unit area
 sinusoid = TRUE
 if (sinusoid){
   cat('# Hepatic Sinusoid Simulation #')
-  Pa = 5.0   # [mmHg] portal pressure
+  Pa = 5   # [mmHg] portal pressure
   Pb = 2.0   # [mmHg] central pressure
   P0 = 0.5*(Pa+Pb)  # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
   
   # viscosity, so that the actual blood flows are correct
-  nu = 0.015
+  nu_f = 10            # [-] flow dependent viscosity in capillaries (~ Factor 3 at 100µm/s)
+  nu_plasma = 0.0018 * nu_f # [Pa*s]
+  # nu_blood = 0.006 * nu_f # * nu_f 
   
-  # TODO: check the model values
   R = 4.4E-6 # [m]
   L = 500E-6 # [m]
   l = 1.65E-7 # [m]
@@ -48,9 +51,10 @@ if (sinusoid){
   r = 5.35E-8 # [m]
 }
 
-W = 8*nu/(pi*R^4)          # [Pa*s/m^4] specific hydraulic resistance
-w = 4*nu*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores
-
+W = 8*nu_plasma/(pi*R^4)          # [Pa*s/m^4] specific hydraulic resistance (blood)
+W
+w = 4*nu_plasma*l/(pi^2*r^4*R*Np) # [Pa*s/m^2] hydraulic resistance of all pores (plasma)
+w
 lambda = sqrt(w/W) # [m]
 lambda
 lambda2 = sqrt(R^3*l/(2*pi*r^4*Np)) #[m]
@@ -98,7 +102,7 @@ curve(Q_f, from=0, to=L, font.lab=2,
 abline(h=0)
 
 curve(q_f, from=0, to=L, font.lab=2,
-      main='Flow throw pores',
+      main='Flow through pores',
       xlab='x [m]', ylab='q(x) [m^2/s]',
       xlim=c(0,L))
 abline(h=0)
@@ -120,7 +124,6 @@ max(Qres)
 min(Qres)
 max(Qres)/min(Qres)
 
-plot(x, Qres, ylim=c(0, max(Qres)))
 
 Q_f(0)
 A <- pi*R^2
@@ -128,7 +131,7 @@ cat('A = ', A, ' [m^2]\n')
 Q_f(0)/A
 cat('v = ', Q_f(0)/A, ' [m/s]\n')
 
-
+plot(x, Qres, ylim=c(0, max(Qres)))
 
 curve(v_f, from=0, to=L, font.lab=2,
       main='Flow throw pores',
