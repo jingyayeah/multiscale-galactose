@@ -33,24 +33,23 @@ head(p_flow)
 
 # Additional derived parameters
 derived_pars <- function(p){
-  attach(p)
   p$Pa_per_mmHg = 133.322  # [Pa/mmHg]
-  p$P0 = 0.5*(Pa+Pb)       # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
-  p$nu = nu_plasma * nu_f  # [Pa*s]
+  p$P0 = 0.5*(p$Pa+p$Pb)       # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
+  p$nu = p$nu_plasma * p$nu_f  # [Pa*s]
   
-  p$W = 8*p$nu/(pi*y_sin^4)            # [Pa*s/m^4] specific hydraulic resistance (blood)
-  p$w = 4*p$nu*y_end/(pi^2*r_fen^4*y_sin*N_fen)  # [Pa*s/m^2] hydraulic resistance of all pores (plasma)
+  p$W = 8*p$nu/(pi*p$y_sin^4)            # [Pa*s/m^4] specific hydraulic resistance (blood)
+  p$w = 4*p$nu*p$y_end/(pi^2*p$r_fen^4*p$y_sin*p$N_fen)  # [Pa*s/m^2] hydraulic resistance of all pores (plasma)
   
   p$lambda = sqrt(p$w/p$W) # [m]
-  p$lambda2 = sqrt(y_sin^3*y_end/(2*pi*r_fen^4*N_fen)) #[m]
-  detach(p)
-  if (p$lambda != p$lambda2){
-    stop('Lambda calculation failed.')
+  p$lambda2 = sqrt(p$y_sin^3*p$y_end/(2*pi*p$r_fen^4*p$N_fen)) #[m]
+  
+  if (abs(p$lambda-p$lambda2)>1E-8){
+    warning('Lambda calculation failed.')
   }
-    
   return(p)
 }
 p_new <- derived_pars(p_flow)
+
 
 y = with(p_new, p_new$lambda)
 
@@ -88,6 +87,14 @@ q_f <- function(x, p){
   return(y)
 }
 
+# flow velocity [m/s]
+v_f <- function(x, p){
+  Q <- Q_f(x,p) # [m^3/s]
+  A <- pi*p$y_sin^2
+  v <- Q/A
+  return(v)
+}
+
 par(mfrow=c(3,1))
 x <- seq(from=0, to=p_new$L, length.out=40)
 plot(x, P_f(x, p_new), type='l',
@@ -112,18 +119,137 @@ plot(x, q_f(x, p_new), type='l',
 abline(h=0)
 par(mfrow=c(1,1))
 
-# How to calculate the flow velocity from the blood flow ?
+v = v_f(x, p_new)
+plot(x, v, type='l',
+     font.lab=2,
+     main='flow velocity',
+     xlab='x [m]', ylab='v(x) [m/s]',
+     xlim=c(0,p_new$L),
+     ylim=c(0,1E-3))
+abline(h=0)
+abline(h=mean(v), lty=2)
+cat('y_flow = ', mean(v), ' [m/s]\n')
+par(mfrow=c(1,1))
 
-# flow velocity [m/s]
-v_f <- function(x){
-  Q <- Q_f(x) # [m^3/s]
-  A <- pi*R^2
-  v <- Q/A
-  return(v)
+#####################################################################
+# Sampling from distributions
+# load distributions
+
+
+library(MultiscaleAnalysis)
+
+dir_out <- file.path(ma.settings$dir.base, 'results', 'distributions')
+fname <- file.path(dir_out, 'distribution_fit_data.csv')
+p.gen <-read.csv(file=fname)
+head(p.gen)
+# sample from the distributions
+# L, y_sin, y_dis, y_cell
+
+vnames <- c('L', 'y_sin', 'y_dis', 'y_cell')
+Nsample = 1000
+p_set <- list()
+for (name in vnames){
+  cat(name, '\n')
+  meanlog <- p.gen[p.gen$name==name, "meanlog"]
+  sdlog <- p.gen[p.gen$name==name, "sdlog"]
+  
+  # scale <- p.gen[name, "scale_fac"]
+  y <- rlnorm(Nsample,
+              meanlog=meanlog, 
+              sdlog=sdlog)
+  p_set[[name]] = y
+}
+p_set <- as.data.frame(p_set)
+names(p_set) <- vnames
+str(p_set)
+
+name <- 'L'
+hist(y, ylim=c(0,1500))
+
+# TODO: reduce the width of L distribution
+hist(p_set[,1])
+hist(p_set[,2])
+
+# Calculate the new parameters
+names(p_flow)
+pflow_set <- as.list(rep(NA, Nsample))
+for (k in 1:Nsample){
+  p_new <- p_flow
+  p_new$L <- p_set$L[k]
+  p_new$y_sin <- p_set$y_sin[k]
+  p_new$y_dis <- p_set$y_dis[k]
+  p_new$y_cell <- p_set$y_cell[k]
+  p_new <- derived_pars(p_new)
+  pflow_set[[k]] <- p_new
+}
+head(pflow_set, 3)
+
+# Plot the resulting distribution depending on the parameters
+
+par(mfrow=c(3,1))
+
+Lmax = max(p_set$L)
+# P(x) ---------------------------------------------------
+plot(numeric(0), numeric(0), type='n',
+     font.lab=2,
+     main='Pressure along capillary',
+     xlab='x [m]', ylab='P(x) [mmHg]',
+     xlim=c(0, Lmax), ylim=c(0, 5))
+abline(h=0)
+for (k in 1:Nsample){
+  p <- pflow_set[[k]]
+  x <- seq(from=0, to=p$L, length.out=40)
+  lines(x, P_f(x, p), col=rgb(0,0,1, 0.5))
 }
 
-x <- seq(from=0, to=L, length.out = 100)
-Qres <- Q_f(x)
-max(Qres)
-min(Qres)
-max(Qres)/min(Qres)
+# Q(x) ---------------------------------------------------
+plot(numeric(0), numeric(0), type='n',
+     font.lab=2,
+     main='Flow along capillary',
+     xlab='x [m]', ylab='Q(x) [m^3/s]',
+     xlim=c(0,Lmax), ylim=c(0,1E-13))
+abline(h=0)
+for (k in 1:Nsample){
+  p <- pflow_set[[k]]
+  x <- seq(from=0, to=p$L, length.out=40)
+  lines(x, Q_f(x, p), col=rgb(0,0,1, 0.5))
+}
+
+# q(x) ---------------------------------------------------
+plot(numeric(0), numeric(0), type='n',
+     font.lab=2,
+     main='Flow through pores',
+     xlab='x [m]', ylab='q(x) [m^2/s]',
+     xlim=c(0,Lmax), ylim=c(-1E-10, 1E-10))
+abline(h=0)
+for (p in pflow_set){
+  x <- seq(from=0, to=p$L, length.out=40)
+  lines(x, q_f(x, p), col=rgb(0,0,1, 0.5))
+}
+
+par(mfrow=c(1,1))
+
+
+v = v_f(x, p_new)
+plot(x, v, type='l',
+     font.lab=2,
+     main='flow velocity',
+     xlab='x [m]', ylab='v(x) [m/s]',
+     xlim=c(0,p_new$L),
+     ylim=c(0,1E-3))
+abline(h=0)
+
+
+curve(v_f, from=0, to=L, font.lab=2,
+      main='Flow throw pores',
+      xlab='x [m]', ylab='v(x) [m/s]',
+      xlim=c(0,L), ylim=c(0,0.004))
+abline(h=0)
+
+#
+flow <- rep(NA, Nsample)
+for (k in 1:Nsample){
+  p <- pflow_set[[k]]
+  flow[k] = v_f(0, p)
+}
+hist(flow, breaks = 20, xlim=c(0, max(flow)))
