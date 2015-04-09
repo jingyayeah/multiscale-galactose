@@ -95,6 +95,7 @@ v_f <- function(x, p){
   return(v)
 }
 
+# Figure: Pressure and flow profiles
 par(mfrow=c(3,1))
 x <- seq(from=0, to=p_new$L, length.out=40)
 plot(x, P_f(x, p_new), type='l',
@@ -119,6 +120,7 @@ plot(x, q_f(x, p_new), type='l',
 abline(h=0)
 par(mfrow=c(1,1))
 
+# Flow velocity in capillary
 v = v_f(x, p_new)
 plot(x, v, type='l',
      font.lab=2,
@@ -129,12 +131,11 @@ plot(x, v, type='l',
 abline(h=0)
 abline(h=mean(v), lty=2)
 cat('y_flow = ', mean(v), ' [m/s]\n')
-par(mfrow=c(1,1))
+
 
 #####################################################################
 # Sampling from distributions
 # load distributions
-
 
 library(MultiscaleAnalysis)
 
@@ -142,9 +143,10 @@ dir_out <- file.path(ma.settings$dir.base, 'results', 'distributions')
 fname <- file.path(dir_out, 'distribution_fit_data.csv')
 p.gen <-read.csv(file=fname)
 head(p.gen)
-# sample from the distributions
-# L, y_sin, y_dis, y_cell
 
+# Create parameter samples from the underlying parameter
+# distributions
+# L, y_sin, y_dis, y_cell
 vnames <- c('L', 'y_sin', 'y_dis', 'y_cell')
 Nsample = 1000
 p_set <- list()
@@ -163,14 +165,11 @@ p_set <- as.data.frame(p_set)
 names(p_set) <- vnames
 str(p_set)
 
+# example histogram
 name <- 'L'
-hist(y, ylim=c(0,1500))
+hist(p_set[[name]], xlim=c(0, max(p_set[[name]])))
 
-# TODO: reduce the width of L distribution
-hist(p_set[,1])
-hist(p_set[,2])
-
-# Calculate the new parameters
+# Create the list of parameters
 names(p_flow)
 pflow_set <- as.list(rep(NA, Nsample))
 for (k in 1:Nsample){
@@ -184,22 +183,28 @@ for (k in 1:Nsample){
 }
 head(pflow_set, 3)
 
-# Plot the resulting distribution depending on the parameters
-
+# Plot the resulting distributions of pressure and flow
+# gradients along the sinusoidal units for the given 
+# set of parameters.
 par(mfrow=c(3,1))
 
 Lmax = max(p_set$L)
+Pmax = p_flow$Pa
+Qmax = 1E-13
+qmax = 2E-10
+lcol = rgb(0.5,0.5,0.5, 0.5)
+
 # P(x) ---------------------------------------------------
 plot(numeric(0), numeric(0), type='n',
      font.lab=2,
      main='Pressure along capillary',
      xlab='x [m]', ylab='P(x) [mmHg]',
-     xlim=c(0, Lmax), ylim=c(0, 5))
+     xlim=c(0, Lmax), ylim=c(0, Pmax))
 abline(h=0)
 for (k in 1:Nsample){
   p <- pflow_set[[k]]
   x <- seq(from=0, to=p$L, length.out=40)
-  lines(x, P_f(x, p), col=rgb(0,0,1, 0.5))
+  lines(x, P_f(x, p), col=lcol)
 }
 
 # Q(x) ---------------------------------------------------
@@ -207,12 +212,12 @@ plot(numeric(0), numeric(0), type='n',
      font.lab=2,
      main='Flow along capillary',
      xlab='x [m]', ylab='Q(x) [m^3/s]',
-     xlim=c(0,Lmax), ylim=c(0,1E-13))
+     xlim=c(0,Lmax), ylim=c(0, Qmax))
 abline(h=0)
 for (k in 1:Nsample){
   p <- pflow_set[[k]]
   x <- seq(from=0, to=p$L, length.out=40)
-  lines(x, Q_f(x, p), col=rgb(0,0,1, 0.5))
+  lines(x, Q_f(x, p), col=lcol)
 }
 
 # q(x) ---------------------------------------------------
@@ -220,16 +225,16 @@ plot(numeric(0), numeric(0), type='n',
      font.lab=2,
      main='Flow through pores',
      xlab='x [m]', ylab='q(x) [m^2/s]',
-     xlim=c(0,Lmax), ylim=c(-1E-10, 1E-10))
+     xlim=c(0,Lmax), ylim=c(-qmax, qmax))
 abline(h=0)
 for (p in pflow_set){
   x <- seq(from=0, to=p$L, length.out=40)
-  lines(x, q_f(x, p), col=rgb(0,0,1, 0.5))
+  lines(x, q_f(x, p), col=lcol)
 }
-
 par(mfrow=c(1,1))
 
 
+# Figure: flow velocity
 v = v_f(x, p_new)
 plot(x, v, type='l',
      font.lab=2,
@@ -239,17 +244,29 @@ plot(x, v, type='l',
      ylim=c(0,1E-3))
 abline(h=0)
 
-
 curve(v_f, from=0, to=L, font.lab=2,
       main='Flow throw pores',
       xlab='x [m]', ylab='v(x) [m/s]',
       xlim=c(0,L), ylim=c(0,0.004))
 abline(h=0)
 
-#
+# and flow velocity histogram based on constant pressure
 flow <- rep(NA, Nsample)
 for (k in 1:Nsample){
   p <- pflow_set[[k]]
   flow[k] = v_f(0, p)
 }
-hist(flow, breaks = 20, xlim=c(0, 1.5E-3))
+hist(flow, breaks = 20, xlim=c(0, 1.5E-3), ylim=c(0,250), col=rgb(0.5, 0.5, 0.5, 0.5))
+
+# experimental data
+name = 'flow_sin'
+meanlog <- p.gen[p.gen$name=='flow_sin', "meanlog"]
+sdlog <- p.gen[p.gen$name=='flow_sin', "sdlog"]
+
+# scale <- p.gen[name, "scale_fac"]
+flow_exp <- rlnorm(Nsample,
+            meanlog=meanlog, 
+            sdlog=sdlog)
+hist(flow_exp, breaks = 20, add=TRUE)
+
+
