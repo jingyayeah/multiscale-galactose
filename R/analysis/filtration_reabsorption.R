@@ -4,6 +4,8 @@
 # Model of pressure and flow dependency in the sinusoidal 
 # unit based on Kozlova2000 solutions for filtration and
 # reabsorption.
+# This implements the original Kozlova model with the respective 
+# parametrization.
 #
 # author: Matthias Koenig
 # date: 2014-03-05
@@ -125,12 +127,6 @@ min(Qres)
 max(Qres)/min(Qres)
 
 
-Q_f(0)
-A <- pi*R^2
-cat('A = ', A, ' [m^2]\n')
-Q_f(0)/A
-cat('v = ', Q_f(0)/A, ' [m/s]\n')
-
 plot(x, Qres, ylim=c(0, max(Qres)))
 
 curve(v_f, from=0, to=L, font.lab=2,
@@ -138,11 +134,3 @@ curve(v_f, from=0, to=L, font.lab=2,
       xlab='x [m]', ylab='v(x) [m/s]',
       xlim=c(0,L), ylim=c(0,0.004))
 abline(h=0)
-
-# Dependency between pressure and blood flow (at portal end)
-
-
-
-
-# filtration and reabsorption processes
-# q(x) [m^3/s] - flow perpendicular to sinusoid 
