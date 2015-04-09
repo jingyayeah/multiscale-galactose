@@ -16,7 +16,7 @@ rm(list=ls())
 
 # Create standard parameters for calculation
 p_flow <- list(
-  Pa = 5,            # [mmHg] portal pressure
+  Pa = 10,            # [mmHg] portal pressure
   Pb = 2.0,          # [mmHg] central pressure
   
   # viscosity, so that the actual blood flows are correct
@@ -252,4 +252,4 @@ for (k in 1:Nsample){
   p <- pflow_set[[k]]
   flow[k] = v_f(0, p)
 }
-hist(flow, breaks = 20, xlim=c(0, max(flow)))
+hist(flow, breaks = 20, xlim=c(0, 1.5E-3))
