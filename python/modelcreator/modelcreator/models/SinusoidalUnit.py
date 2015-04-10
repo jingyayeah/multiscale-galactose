@@ -78,6 +78,10 @@ units = {
     'Pa' : [(UNIT_KIND_PASCAL, 1.0)],
     'Pa_s' : [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0)],
     'mmHg' : [(UNIT_KIND_PASCAL, 1.0, 0, 133.322)],
+    'Pa_s_per_m4' : [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0),
+                     (UNIT_KIND_METRE, -4.0)],
+    'Pa_s_per_m2' : [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0),
+                     (UNIT_KIND_METRE, -2.0)],
 }
 
 ##########################################################################
@@ -155,6 +159,11 @@ rules.extend([
             ("f_fen", "N_fen*pi*(r_fen)^2", '-'),
             # ("m_liv", "rho_liv * Vol_liv", "kg"),
             # ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
+            ("P0", "0.5 dimensionless * (Pa+Pb)", 'mmHg'),
+            ("nu", "nu_f * nu_plasma", 'Pa_s'),
+            ("W", "8 dimensionless * nu/(pi*y_sin^4)", 'Pa_s_per_m4'),
+            ("w", "4 dimensionless *nu*y_end/(pi^2* r_fen^4*y_sin*N_fen)", 'Pa_s_per_m2'),
+            ("lambda", "sqrt(w/W)", 'm'),
 ])
 
 names['x_cell'] = 'length cell compartment'
@@ -175,6 +184,10 @@ names['f_cell'] = 'cell fraction of volume'
 names['Q_sinunit'] = 'volume flow sinusoid'
 names['f_cyto'] = 'cytosolic fraction of cell volume'
 names['f_fen'] = 'fenestration porosity'
+names['P0'] = 'resulting oncotic pressure P0 = Poc-Pot'
+names['nu'] = 'hepatic viscosity'
+names['W'] = 'specific hydraulic resistance capillary'
+names['w'] = 'specific hydraulic resistance of all pores'
     
 
 ##########################################################################
