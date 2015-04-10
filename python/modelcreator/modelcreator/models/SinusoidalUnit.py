@@ -56,7 +56,6 @@ units = {
                        (UNIT_KIND_SECOND, -1.0) ],
     'mole_per_s_per_mM2' : [(UNIT_KIND_MOLE, -1.0), (UNIT_KIND_METRE, 6.0), 
                        (UNIT_KIND_SECOND, -1.0) ],
-         
     'm_per_s' : [(UNIT_KIND_METRE, 1.0), 
                     (UNIT_KIND_SECOND, -1.0)],
     'm2_per_s' : [(UNIT_KIND_METRE, 2.0), 
@@ -77,11 +76,15 @@ units = {
                     (UNIT_KIND_KILOGRAM, -1.0), (UNIT_KIND_SECOND, -1.0)],
     'Pa' : [(UNIT_KIND_PASCAL, 1.0)],
     'Pa_s' : [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0)],
-    'mmHg' : [(UNIT_KIND_PASCAL, 1.0, 0, 133.322)],
     'Pa_s_per_m4' : [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0),
                      (UNIT_KIND_METRE, -4.0)],
+    'Pa_s_per_m3' : [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0),
+                     (UNIT_KIND_METRE, -3.0)],
     'Pa_s_per_m2' : [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0),
                      (UNIT_KIND_METRE, -2.0)],
+    'm6_per_Pa2_s2' : [(UNIT_KIND_PASCAL, -2.0), (UNIT_KIND_SECOND, -2.0),
+                     (UNIT_KIND_METRE, 6.0)],
+    
 }
 
 ##########################################################################
@@ -91,9 +94,9 @@ pars.extend([
             # id, value, unit, constant
             ('L',           500E-6,   'm',      True),
             ('y_sin',       4.4E-6,   'm',      True),
-            ('y_end',     0.165E-6, 'm',      True),
+            ('y_end',     0.165E-6,   'm',      True),
             ('y_dis',       2.3E-6,   'm',      True),
-            ('y_cell',     9.40E-6,  'm',      True),
+            ('y_cell',     9.40E-6,   'm',      True),
             ('flow_sin',    229E-6,   'm_per_s',True),
             ('N_fen',        10E12,   'per_m2', True),
             ('r_fen',      53.5E-9,   'm',      True),
@@ -102,8 +105,8 @@ pars.extend([
             ('f_tissue',     0.8, '-', True),
             ('f_cyto',       0.4, '-', True),
             
-            ('Pa',       10.0, 'mmHg', True),
-            ('Pb',       2.0, 'mmHg', True),
+            ('Pa',       1333.22, 'Pa', True), # 1mmHg = 133.322
+            ('Pb',       266.64,  'Pa', True), 
             ('nu_f',     10.0, '-', True),
             ('nu_plasma', 0.0018, 'Pa_s', True),
 ])
@@ -159,7 +162,7 @@ rules.extend([
             ("f_fen", "N_fen*pi*(r_fen)^2", '-'),
             # ("m_liv", "rho_liv * Vol_liv", "kg"),
             # ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
-            ("P0", "0.5 dimensionless * (Pa+Pb)", 'mmHg'),
+            ("P0", "0.5 dimensionless * (Pa+Pb)", 'Pa'),
             ("nu", "nu_f * nu_plasma", 'Pa_s'),
             ("W", "8 dimensionless * nu/(pi*y_sin^4)", 'Pa_s_per_m4'),
             ("w", "4 dimensionless *nu*y_end/(pi^2* r_fen^4*y_sin*N_fen)", 'Pa_s_per_m2'),

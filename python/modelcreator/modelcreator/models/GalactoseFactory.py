@@ -22,7 +22,7 @@ if __name__ == "__main__":
     # definition of cell model and tissue model
     Nc = 2
     Nf = 1
-    version = 113
+    version = 118
     cell_model = CellModel.createModel('galactose.GalactoseCell')
     tdict = TissueModel.createTissueDict(['SinusoidalUnit', 
                                           'galactose.GalactoseSinusoid']) 

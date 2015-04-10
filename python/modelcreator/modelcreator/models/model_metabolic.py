@@ -146,6 +146,9 @@ def _createInitialAssignment(model, sid, formula):
     assignment = model.createInitialAssignment();
     assignment.setSymbol(sid);
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
+    if not astnode:
+        print('Formula could not be parsed:', formula)
+        print(libsbml.getLastParseL3Error())
     assignment.setMath(astnode);   
          
 ## AssignmentRules ##
@@ -164,7 +167,10 @@ def _createAssignmentRule(model, sid, formula):
     rule = model.createAssignmentRule();
     rule.setVariable(sid);
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
-    rule.setMath(astnode);   
+    if not astnode:
+        print('Formula could not be parsed:', formula)
+        print(libsbml.getLastParseL3Error())
+    rule.setMath(astnode);
 
 ######################################
 # Deficiency Events (Galactosemias)
