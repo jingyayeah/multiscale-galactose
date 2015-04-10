@@ -415,8 +415,31 @@ class TissueModel(object):
             r.createReactions(self.model, rep_dicts)
                 
     def createTransportReactions(self):
+        self.createFlowRules()
         self.createFlowReactions()
         self.createDiffusionReactions()
+
+    def createFlowRules(self):
+        ''' Creates the rules for positions Si_x, pressures Si_P,
+            capillary flow Si_Q and pore flow Si_q.
+        
+        '''    
+        rules = [
+                     ('PP_x', '0 m', 'm'),
+                     ('PV_x', 'L', 'm'),
+                    ] 
+        # midpoint hepatocyte locations
+        for k in range(1, self.Nc*self.Nf+1):
+            r = ('{}_x'.format(getSinusoidId(k)), '({} dimensionless/Nc-0.5 dimensionless)*L'.format(k), 'm')
+            rules.append(r)
+        # in between locations
+        for k in range(1, self.Nc*self.Nf):
+            r = ('{}{}_x'.format(getSinusoidId(k), getSinusoidId(k+1)), '({} dimensionless/Nc)*L'.format(k), 'm')
+            rules.append(r)
+            
+        # pressures 
+        
+        createAssignmentRules(self.model, rules, {})
 
     def createFlowReactions(self):
         flow = 'flow_sin * A_sin'     # [m3/s] volume flow
