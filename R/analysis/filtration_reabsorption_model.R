@@ -14,7 +14,6 @@ rm(list=ls())
 # Create standard parameters from SBML model
 # TODO: read the necessary parameters from the SBML
 p_flow <- koz_parameters()
-p_flow$nu_f = 10
 
 head(p_flow)
 p_new <- koz_derived_parameters(p_flow)
@@ -81,7 +80,6 @@ Nsample = 1000
 # L, y_sin, y_dis, y_cell
 create_parameter_samples <- function(Nsample){
   vnames <- c('L', 'y_sin', 'y_dis', 'y_cell')
-  
   p_set <- list()
   for (name in vnames){
     # cat(name, '\n')
