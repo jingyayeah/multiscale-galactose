@@ -21,7 +21,14 @@ def createUnitDefinition(model, uid, units):
     for data in units:
         kind = data[0]
         exponent = data[1]
-        _createUnit(unitdef, kind, exponent)
+        scale = 0
+        multiplier = 1.0
+        if len(data)>2:
+            scale = data[2]
+        if len(data>3):
+            multiplier = data[3]
+            
+        _createUnit(unitdef, kind, exponent, scale, multiplier)
              
 def _createUnit(unitdef, kind, exponent, scale=0, multiplier=1.0):
     unit = unitdef.createUnit()

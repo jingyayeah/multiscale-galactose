@@ -301,8 +301,10 @@ class TissueModel(object):
     
     ## Units ##
     def createUnits(self):
+        # creates all the individual unit definitions
         for key, value in self.units.iteritems():
             createUnitDefinition(self.model, key, value)
+        # sets the main units of model
         setMainUnits(self.model, self.main_units)
     
     ## Compartments ##

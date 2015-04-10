@@ -18,7 +18,7 @@ from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM
 
 #########################################################################
-main_units = dict()
+
 units = dict()
 names = dict()
 pars = []
@@ -29,48 +29,58 @@ rules = []
 #########################################################################
 # Main Units
 ##########################################################################
-main_units['time'] = 's'
-main_units['extent'] = UNIT_KIND_MOLE
-main_units['substance'] = UNIT_KIND_MOLE
-main_units['length'] = 'm'
-main_units['area'] = 'm2'
-main_units['volume'] = 'm3'
-    
+main_units = {
+    'time' : 's',
+    'extent' : UNIT_KIND_MOLE,
+    'substance' : UNIT_KIND_MOLE,
+    'length' : 'm',
+    'area' : 'm2',
+    'volume' : 'm3',
+}
 #########################################################################
 # Units
-##########################################################################  
-units['s'] = [(UNIT_KIND_SECOND, 1.0, 0)]
-units['kg'] = [(UNIT_KIND_KILOGRAM, 1.0, 0)]
-units['m'] = [(UNIT_KIND_METRE, 1.0, 0)]
-units['m2'] = [(UNIT_KIND_METRE, 2.0, 0)]
-units['m3'] = [(UNIT_KIND_METRE, 3.0, 0)]
-units['per_s'] = [(UNIT_KIND_SECOND, -1.0, 0)]
-units['mole_per_s'] = [(UNIT_KIND_MOLE, 1.0, 0), 
-                       (UNIT_KIND_SECOND, -1.0, 0)]
-units['mole_per_s_per_mM'] = [(UNIT_KIND_METRE, 3.0, 0),
-                       (UNIT_KIND_SECOND, -1.0, 0) ]
-units['mole_per_s_per_mM2'] = [(UNIT_KIND_MOLE, -1.0, 0), (UNIT_KIND_METRE, 6.0, 0), 
-                       (UNIT_KIND_SECOND, -1.0, 0) ]
-
-units['m_per_s'] = [(UNIT_KIND_METRE, 1.0, 0), 
-                    (UNIT_KIND_SECOND, -1.0, 0)]
-units['m2_per_s'] = [(UNIT_KIND_METRE, 2.0, 0), 
-                    (UNIT_KIND_SECOND, -1.0, 0)]
-units['m3_per_s'] = [(UNIT_KIND_METRE, 3.0, 0), 
-                    (UNIT_KIND_SECOND, -1.0, 0)]
-units['mM']       = [(UNIT_KIND_MOLE, 1.0, 0), 
-                    (UNIT_KIND_METRE, -3.0, 0)]
-units['mM_s']       = [(UNIT_KIND_MOLE, 1.0, 0), (UNIT_KIND_SECOND, 1.0, 0),
-                    (UNIT_KIND_METRE, -3.0, 0)]
-
-units['per_mM']   = [(UNIT_KIND_METRE, 3.0, 0), 
-                    (UNIT_KIND_MOLE, -1.0, 0)]
-units['per_m2']   = [(UNIT_KIND_METRE, -2.0, 0)]
-units['per_m3']   = [(UNIT_KIND_METRE, -3.0, 0)]
-units['kg_per_m3']   = [(UNIT_KIND_KILOGRAM, 1.0, 0), 
-                    (UNIT_KIND_METRE, -3.0, 0)]
-units['m3_per_skg']   = [(UNIT_KIND_METRE, 3.0, 0), 
-                    (UNIT_KIND_KILOGRAM, -1.0, 0), (UNIT_KIND_SECOND, -1.0, 0)]
+##########################################################################
+# units (kind, exponent, scale=0, multiplier=1.0)
+# u_new = (multiplier  
+units = {
+    's' : [(UNIT_KIND_SECOND, 1.0)],
+    'kg' : [(UNIT_KIND_KILOGRAM, 1.0)],
+    'm' : [(UNIT_KIND_METRE, 1.0)],
+    'm2' : [(UNIT_KIND_METRE, 2.0)],
+    'm3' : [(UNIT_KIND_METRE, 3.0)],
+    'per_s' : [(UNIT_KIND_SECOND, -1.0)],
+    'mole_per_s' : [(UNIT_KIND_MOLE, 1.0), 
+                       (UNIT_KIND_SECOND, -1.0)],
+    'mole_per_s_per_mM' : [(UNIT_KIND_METRE, 3.0),
+                       (UNIT_KIND_SECOND, -1.0) ],
+    'mole_per_s_per_mM2' : [(UNIT_KIND_MOLE, -1.0), (UNIT_KIND_METRE, 6.0), 
+                       (UNIT_KIND_SECOND, -1.0) ],
+         
+    'm_per_s' : [(UNIT_KIND_METRE, 1.0), 
+                    (UNIT_KIND_SECOND, -1.0)],
+    'm2_per_s' : [(UNIT_KIND_METRE, 2.0), 
+                    (UNIT_KIND_SECOND, -1.0)],
+    'm3_per_s' : [(UNIT_KIND_METRE, 3.0), 
+                    (UNIT_KIND_SECOND, -1.0)],
+    'mM' : [(UNIT_KIND_MOLE, 1.0, 0), 
+                    (UNIT_KIND_METRE, -3.0)],
+    'mM_s' : [(UNIT_KIND_MOLE, 1.0), (UNIT_KIND_SECOND, 1.0),
+                    (UNIT_KIND_METRE, -3.0)],
+    'per_mM' : [(UNIT_KIND_METRE, 3.0), 
+                    (UNIT_KIND_MOLE, -1.0)],
+    'per_m2' : [(UNIT_KIND_METRE, -2.0)],
+    'per_m3' : [(UNIT_KIND_METRE, -3.0)],
+    'kg_per_m3' : [(UNIT_KIND_KILOGRAM, 1.0), 
+                    (UNIT_KIND_METRE, -3.0)],
+    'm3_per_skg' : [(UNIT_KIND_METRE, 3.0), 
+                    (UNIT_KIND_KILOGRAM, -1.0), (UNIT_KIND_SECOND, -1.0)],
+    'Pa' : [(UNIT_KIND_KILOGRAM, 1.0), 
+                    (UNIT_KIND_METRE, -1.0),  (UNIT_KIND_SECOND, -2.0)],
+    'Pa_s' : [(UNIT_KIND_KILOGRAM, 1.0), 
+                    (UNIT_KIND_METRE, -1.0),  (UNIT_KIND_SECOND, -1.0)],
+    'mmHg' : [(UNIT_KIND_KILOGRAM, 1.0), 
+                    (UNIT_KIND_METRE, -1.0),  (UNIT_KIND_SECOND, -2.0)],
+}
 
 ##########################################################################
 # Parameters
@@ -89,6 +99,12 @@ pars.extend([
             ('rho_liv',     1.25E3,    'kg_per_m3', True), 
             ('f_tissue',     0.8, '-', True),
             ('f_cyto',       0.4, '-', True),
+            
+            ('Pa',       10.0, 'mmHg', True),
+            ('Pb',       2.0, 'mmHg', True),
+            ('Pa_per_mmHg', 133.322, 'Pa_per_mmHg', True),
+            ('nu_f',     10.0, '-', True),
+            ('nu_plasma', 0.0018, 'Pa_s', True),
 ])
 names['Nc'] = 'number of cells in sinusoidal unit'
 names['Nf'] = 'external compartments per cell'
@@ -103,6 +119,14 @@ names['r_fen'] = 'fenestration radius'
 
 names['rho_liv'] = 'liver density'
 names['f_tissue'] = 'parenchymal fraction of liver'
+names['f_cyto'] = 'cytosolic fraction of hepatocyte'
+
+names['Pa'] = 'pressure periportal'
+names['Pb'] = 'pressure perivenious'
+names['Pa_per_mmHg'] = 'conversion factor between Pa and mmHg'
+names['nu_f'] = 'viscosity factor for sinusoidal resistance'
+names['nu_plasma'] = 'plasma viscosity'
+
 names['Nc'] = 'hepatocytes in sinusoid'
 names['scale_f'] = 'metabolic scaling factor'
 names['REF_P'] = 'reference protein amount'
