@@ -16,6 +16,7 @@ Important features:
 '''
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM
+from _libsbml import UNIT_KIND_PASCAL, UNIT_KIND_DIMENSIONLESS
 
 #########################################################################
 
@@ -74,12 +75,9 @@ units = {
                     (UNIT_KIND_METRE, -3.0)],
     'm3_per_skg' : [(UNIT_KIND_METRE, 3.0), 
                     (UNIT_KIND_KILOGRAM, -1.0), (UNIT_KIND_SECOND, -1.0)],
-    'Pa' : [(UNIT_KIND_KILOGRAM, 1.0), 
-                    (UNIT_KIND_METRE, -1.0),  (UNIT_KIND_SECOND, -2.0)],
-    'Pa_s' : [(UNIT_KIND_KILOGRAM, 1.0), 
-                    (UNIT_KIND_METRE, -1.0),  (UNIT_KIND_SECOND, -1.0)],
-    'mmHg' : [(UNIT_KIND_KILOGRAM, 1.0), 
-                    (UNIT_KIND_METRE, -1.0),  (UNIT_KIND_SECOND, -2.0)],
+    'Pa' : [(UNIT_KIND_PASCAL, 1.0)],
+    'Pa_s' : [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0)],
+    'mmHg' : [(UNIT_KIND_PASCAL, 1.0, 0, 133.322)],
 }
 
 ##########################################################################
@@ -102,7 +100,6 @@ pars.extend([
             
             ('Pa',       10.0, 'mmHg', True),
             ('Pb',       2.0, 'mmHg', True),
-            ('Pa_per_mmHg', 133.322, 'Pa_per_mmHg', True),
             ('nu_f',     10.0, '-', True),
             ('nu_plasma', 0.0018, 'Pa_s', True),
 ])

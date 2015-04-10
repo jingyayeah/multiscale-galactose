@@ -25,7 +25,7 @@ def createUnitDefinition(model, uid, units):
         multiplier = 1.0
         if len(data)>2:
             scale = data[2]
-        if len(data>3):
+        if len(data)>3:
             multiplier = data[3]
             
         _createUnit(unitdef, kind, exponent, scale, multiplier)
