@@ -14,7 +14,7 @@ koz_parameters <- function(){
   p_flow <- list(
     Pa = 10,            # [mmHg] portal pressure
     Pb = 2.0,           # [mmHg] central pressure
-    Pa_per_mmHg = 133.322      # [Pa/mmHg]
+    Pa_per_mmHg = 133.322,     # [Pa/mmHg]
   
     # viscosity, so that the actual blood flows are correct
     nu_f = 10,            # [-] flow dependent viscosity in capillaries (~ Factor 3 at 100µm/s)

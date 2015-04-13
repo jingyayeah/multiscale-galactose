@@ -148,13 +148,6 @@ def get_Q(r):
         
     return (x, Q)
 
-x_Q, Q = get_Q(r)
-p.plot(x_Q, Q)
-p.plot(x_q, Q_pore)
-p.xlabel('L [m]')
-p.ylabel('Q [m^3/s]')
-p.ylim([0,1.1*max(Q)])
-
 def get_q(r):
     ''' Pore flow vector. '''
     Nc = int(r.Nc)
@@ -169,17 +162,30 @@ def get_q(r):
         x[k] = r[getPositionId(sid)]
     return (x, q)
 
-x, q = get_q(r)
-p.plot(x, q)
+# check that the flows per volume are balanced
+x_Q, Q = get_Q(r)
+p.plot(x_Q, Q, 'o-')
+p.plot(x_q, Q_pore, 'o')
+p.plot(x_q, -np.diff(Q), '-')
+p.xlabel('L [m]')
+p.ylabel('Q [m^3/s]')
+p.ylim([-0.4*max(Q),1.1*max(Q)])
+
+
+x_q, q = get_q(r)
+p.plot(x_q, q)
 p.xlabel('L [m]')
 p.ylabel('q [m^2/s]')
 p.ylim([1.1*min(q),1.1*max(q)])
 
 Q_pore = q*r['x_sin']
-p.plot(x, Q_pore)
+p.plot(x_q, Q_pore)
 p.xlabel('L [m]')
 p.ylabel('Q_pore [m^3/s]')
 p.ylim([1.1*min(Q_pore),1.1*max(Q_pore)])
+
+p.plot(x_Q, Q/r['A_sin'])
+
 
 
 

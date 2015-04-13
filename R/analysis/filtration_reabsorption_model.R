@@ -8,8 +8,9 @@
 # author: Matthias Koenig
 # date: 2014-03-05
 #---------------------------------------------------------------
-library('MultiscaleAnalysis')
 rm(list=ls())
+library('MultiscaleAnalysis')
+
 
 # Create standard parameters from SBML model
 # TODO: read the necessary parameters from the SBML
@@ -19,7 +20,7 @@ head(p_flow)
 p_new <- koz_derived_parameters(p_flow)
 
 # Figure: Pressure and flow profiles
-x <- seq(from=0, to=p_new$L, length.out=40)
+x <- seq(from=0, to=p_new$L, length.out=51)
 par(mfrow=c(2,2))
 # pressure along capillary
 plot(x, P_f(x, p_new), type='l',
@@ -59,6 +60,22 @@ par(mfrow=c(1,1))
 
 cat('y_flow = ', mean(v), ' [m/s]\n')
 cat('max/mean v_flow = ', max(v)/mean(v), ' [-]\n')
+
+#
+
+# Balancing of the flow decrease (dQ = -q dx) 
+# the decrease in flow along the capillary is completely due to the flow through the pores
+# of the capillary
+# The two lines should be approximately identical.
+N = length(x)
+plot(x[1:(N-1)], Q_f(x, p_new)[2:N]-Q_f(x, p_new)[1:(N-1)] , type='l',
+     font.lab=2,
+     main='Flow along capillary',
+     xlab='x [m]', ylab='Q(x) [m^3/s]',
+     xlim=c(0,p_new$L)) #, ylim=c(-1E12, 1E-12))
+
+lines(x[1:(N-1)], -q_f(x, p_new)[1:(N-1)]*(x[2]-x[1]), type='l', col='blue')
+abline(h=0)
 
 
 #####################################################################
