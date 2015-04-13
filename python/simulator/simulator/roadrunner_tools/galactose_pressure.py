@@ -70,40 +70,53 @@ sim = s_list[0]
 ######################################################################### 
 from pandas import DataFrame
 import pandas as pd
-# create the global variable DataFrame
+# create the global parameter DataFrame
 parameters = DataFrame({'value': r.model.getGlobalParameterValues()}, 
                        index = r.model.getGlobalParameterIds())
-parameters                       
-                     
-# read model values from the parameter data frame
-
 Nc = int(parameters.ix['Nc'].value)
-# simpler vid
+# much simpler access via direct querying of the roadrunner object
 
-Nc
-r.model.S01__galM
-# simpler via direct lookup of the attributes
-r.Nc
-r['Nc']
 
 # Create vector of pressures, capillary flows and pore flows
 # [PP, S01, S02, ..., SNc, PV] pressure
 # Pore flows q
                      
 from modelcreator.tools.naming import *
-getPPId()
 
 import pylab as p
-x = np.zeros()
 
-# TODO: plot the pressure & flow profile
-Nc = int(r.Nc)
-P = np.zeros(Nc+2)
-for k in xrange(Nc):
-    p_str = getPressureId(getSinusoidId(k+1))
-    print(p_str)
-    P[k+1] = r[p_str]    
-p.plot(P)
+# plot the pressure & flow profile
+def getPressureVector(r):
+    ''' Get the pressure vector with respective 
+        positions from the model.'''
+    Nc = int(r.Nc)
+    P = np.zeros(Nc+2)
+    x = np.zeros(Nc+2)
+    # PP and PV pressure
+    pp_id = getPPId()
+    pv_id = getPVId()
+    P[0] = r[getPressureId(pv_id)]
+    P[P.size-1] = r[getPressureId(pp_id)]    
+    x[0] = r[getPositionId(pp_id)]
+    x[Nc+1] = r[getPositionId(pv_id)]
+    
+    # midpoint sinusoidal pressure
+    for k in xrange(Nc):
+        s_id = getSinusoidId(k+1)
+        # pressure
+        p_str = getPressureId(s_id)
+        P[k+1] = r[p_str]
+        # position        
+        x_str = getPositionId(s_id)
+        x[k+1] = r[x_str]
+        
+    return (x, P)
+
+# plot in mmHg
+x, P = getPressureVector(r)
+f_mmHg = 322
+P = P/f_mmHg
+p.plot(x, P)
 
 r.PP_P
 r.S01_P

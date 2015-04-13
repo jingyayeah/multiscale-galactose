@@ -432,11 +432,11 @@ class TissueModel(object):
                     ] 
         # position midpoint hepatocyte
         for k in range(1, self.Nc*self.Nf+1):
-            r = (getPositionId(getSinusoidId(k)), '({} dimensionless/Nc-0.5 dimensionless)*L'.format(k), 'm')
+            r = (getPositionId(getSinusoidId(k)), '({} dimensionless-0.5 dimensionless)*x_sin'.format(k), 'm')
             rules.append(r)
         # position in between hepatocytes
         for k in range(1, self.Nc*self.Nf):
-            r = (getPositionId(getSinusoidId(k), getSinusoidId(k+1)), '({} dimensionless/Nc)*L'.format(k), 'm')
+            r = (getPositionId(getSinusoidId(k), getSinusoidId(k+1)), '{} dimensionless*x_sin'.format(k), 'm')
             rules.append(r)
             
         # pressures 
