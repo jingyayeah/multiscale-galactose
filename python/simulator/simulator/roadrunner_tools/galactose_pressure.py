@@ -43,7 +43,6 @@ sel += ["peak"]
 r.selections = sel
 
 
-
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
 
