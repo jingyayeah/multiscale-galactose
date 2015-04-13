@@ -83,8 +83,6 @@ Nc = int(parameters.ix['Nc'].value)
                      
 from modelcreator.tools.naming import *
 
-import pylab as p
-
 # plot the pressure & flow profile
 def get_P(r):
     ''' Get the pressure vector with respective 
@@ -111,15 +109,6 @@ def get_P(r):
         x[k+1] = r[x_str]
         
     return (x, P)
-
-# plot pressure in mmHg
-x, P = get_P(r)
-f_mmHg = 133.322
-P = P/f_mmHg
-p.plot(x, P)
-p.xlabel('L [m]')
-p.ylabel('P [mmHg]')
-p.ylim([0,1.1*max(P)])
 
 def get_Q(r):
     ''' Capillary flow vector. '''
@@ -162,30 +151,64 @@ def get_q(r):
         x[k] = r[getPositionId(sid)]
     return (x, q)
 
-# check that the flows per volume are balanced
-x_Q, Q = get_Q(r)
-p.plot(x_Q, Q, 'o-')
-p.plot(x_q, Q_pore, 'o')
-p.plot(x_q, -np.diff(Q), '-')
-p.xlabel('L [m]')
-p.ylabel('Q [m^3/s]')
-p.ylim([-0.4*max(Q),1.1*max(Q)])
 
+import pylab as plt
+# plt.figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+f, ax = plt.subplots(2, 2)
 
-x_q, q = get_q(r)
-p.plot(x_q, q)
-p.xlabel('L [m]')
-p.ylabel('q [m^2/s]')
-p.ylim([1.1*min(q),1.1*max(q)])
+# [0, 0] Pressure along sinusoidal unit [mmHg]
+x, P = get_P(r)
+f_mmHg = 133.322
+P = P/f_mmHg
+
+ax[0, 0].plot(x, P)
+ax[0, 0].set_xlabel('L [m]')
+ax[0, 0].set_ylabel('P [mmHg]')
+ax[0, 0].set_ylim([0,1.1*max(P)])
+
+# Flows
+x_Q, Q = get_Q(r)  # [m^3/s] volume flow (capillary)
+x_q, q = get_q(r)  # [m^2/s] area flow
+# check balance of volume flows 
+ax[0, 1].plot(x_Q, Q, 'o-')
+ax[0, 1].plot(x_q, Q_pore, 'o')
+ax[0, 1].plot(x_q, -np.diff(Q), '-')
+ax[0, 1].set_xlabel('L [m]')
+ax[0, 1].set_ylabel('Q [m^3/s]')
+ax[0, 1].set_ylim([-0.4*max(Q),1.1*max(Q)])
+
+# area flow
+ax[1, 0].plot(x_q, q)
+ax[1, 0].set_xlabel('L [m]')
+ax[1, 0].set_ylabel('q [m^2/s]')
+ax[1, 0].set_ylim([1.1*min(q),1.1*max(q)])
 
 Q_pore = q*r['x_sin']
-p.plot(x_q, Q_pore)
-p.xlabel('L [m]')
-p.ylabel('Q_pore [m^3/s]')
-p.ylim([1.1*min(Q_pore),1.1*max(Q_pore)])
+ax[1, 1].plot(x_q, Q_pore)
+ax[1, 1].set_xlabel('L [m]')
+ax[1, 1].set_ylabel('Q_pore [m^3/s]')
+ax[1, 1].set_ylim([1.1*min(Q_pore),1.1*max(Q_pore)])
 
-p.plot(x_Q, Q/r['A_sin'])
+fig = plt.gcf()
+fig.set_size_inches(8,8)
+plt.show()
+
+##########################################################################
+# TODO: make a pressure flow figure (with arrows)
+##########################################################################
+
+from matplotlib.patches import Polygon
+plt.plot([-1,-1, 21, 21], [0,3,0,3], 'o')
+
+plt.gca().add_patch(plt.Rectangle((1,1),width=1,height=1,
+                    color='grey', edgecolor='black' ))
 
 
+Qtest = plt.quiver( x_Q, 1.5*np.ones_like(x_Q), Q, np.zeros_like(Q), units='inches')
+Qtest = plt.quiver( x_q, 1.0*np.ones_like(x_q), np.zeros_like(q), -q, units='inches')
+fig = plt.gcf()
+fig.set_size_inches(12,4)
+plt.ylim([0,3])
 
-
+plt.show()
+# ?plt.quiver
