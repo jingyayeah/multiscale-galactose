@@ -86,7 +86,7 @@ from modelcreator.tools.naming import *
 import pylab as p
 
 # plot the pressure & flow profile
-def getPressureVector(r):
+def get_P(r):
     ''' Get the pressure vector with respective 
         positions from the model.'''
     Nc = int(r.Nc)
@@ -95,8 +95,8 @@ def getPressureVector(r):
     # PP and PV pressure
     pp_id = getPPId()
     pv_id = getPVId()
-    P[0] = r[getPressureId(pv_id)]
-    P[P.size-1] = r[getPressureId(pp_id)]    
+    P[0] = r[getPressureId(pp_id)]
+    P[P.size-1] = r[getPressureId(pv_id)]    
     x[0] = r[getPositionId(pp_id)]
     x[Nc+1] = r[getPositionId(pv_id)]
     
@@ -112,25 +112,74 @@ def getPressureVector(r):
         
     return (x, P)
 
-# plot in mmHg
-x, P = getPressureVector(r)
-f_mmHg = 322
+# plot pressure in mmHg
+x, P = get_P(r)
+f_mmHg = 133.322
 P = P/f_mmHg
 p.plot(x, P)
+p.xlabel('L [m]')
+p.ylabel('P [mmHg]')
+p.ylim([0,1.1*max(P)])
 
-r.PP_P
-r.S01_P
+def get_Q(r):
+    ''' Capillary flow vector. '''
+    Nc = int(r.Nc)
+    Q = np.zeros(Nc+1)
+    x = np.zeros(Nc+1)
+    # PP and PV pressure
+    pp_id = getPPId()
+    pv_id = getPVId()
+    Q[0] = r[getQFlowId(pp_id)]
+    Q[Q.size-1] = r[getQFlowId(pv_id)]    
+    
+    x[0] = r[getPositionId(pp_id)]
+    x[Q.size-1] = r[getPositionId(pv_id)]
+    
+    # midpoint sinusoidal pressure
+    for k in xrange(Nc-1):
+        sid1 = getSinusoidId(k+1)
+        sid2 = getSinusoidId(k+2)
+        # flow
+        Q_str = getQFlowId(sid1, sid2)
+        Q[k+1] = r[Q_str]
+        # position      
+        x_str = getPositionId(sid1, sid2)
+        x[k+1] = r[x_str]
+        
+    return (x, Q)
 
+x_Q, Q = get_Q(r)
+p.plot(x_Q, Q)
+p.plot(x_q, Q_pore)
+p.xlabel('L [m]')
+p.ylabel('Q [m^3/s]')
+p.ylim([0,1.1*max(Q)])
 
-Q = 
+def get_q(r):
+    ''' Pore flow vector. '''
+    Nc = int(r.Nc)
+    q = np.zeros(Nc)
+    x = np.zeros(Nc)
+    # midpoint pore flows
+    for k in xrange(Nc):
+        sid = getSinusoidId(k+1)
+        # flow
+        q[k] = r[getqFlowId(sid)]
+        # position      
+        x[k] = r[getPositionId(sid)]
+    return (x, q)
 
-                   
-                    
-                     
+x, q = get_q(r)
+p.plot(x, q)
+p.xlabel('L [m]')
+p.ylabel('q [m^2/s]')
+p.ylim([1.1*min(q),1.1*max(q)])
 
-
-
-
+Q_pore = q*r['x_sin']
+p.plot(x, Q_pore)
+p.xlabel('L [m]')
+p.ylabel('Q_pore [m^3/s]')
+p.ylim([1.1*min(Q_pore),1.1*max(Q_pore)])
 
 
 
