@@ -6,7 +6,9 @@ Created on Thu Feb 12 11:58:16 2015
 """
 
 # Model version to use
-VERSION = 106
+# VERSION = 107 # flow constant
+VERSION = 123 # pressure model
+
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 

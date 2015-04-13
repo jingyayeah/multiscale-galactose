@@ -20,7 +20,7 @@ from modelcreator.events.event_factory import createGalactoseStepEventData
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 2
+    Nc = 20
     Nf = 1
     version = 123
     cell_model = CellModel.createModel('galactose.GalactoseCell')
@@ -36,7 +36,6 @@ if __name__ == "__main__":
     tm.writeSBML()   
     tm.storeInDatabase()
     del tm
-    exit()
     
     #---------------------------------------------------------------------------------
     # [2A] multiple dilution indicator
