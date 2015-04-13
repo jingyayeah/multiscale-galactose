@@ -423,6 +423,8 @@ class TissueModel(object):
     def createFlowRules(self):
         ''' Creates the rules for positions Si_x, pressures Si_P,
             capillary flow Si_Q and pore flow Si_q.
+            These parameters are used afterwards to calculate the actual flow
+            values.
         '''    
         rules = [
                      (getPositionId(getPPId()), '0 m', 'm'),
@@ -445,10 +447,11 @@ class TissueModel(object):
             x_str = getPositionId(vid)
             P_str = getPressureId(vid)
             rules.append((P_str, P_formula.format(x_str, x_str), 'Pa')) 
-        # in between
-        for k in range(1, self.Nc*self.Nf):
-            x_str = getPositionId(getSinusoidId(k), getSinusoidId(k+1))
-            P_str = getPressureId(getSinusoidId(k), getSinusoidId(k+1))
+        # midpoint
+        for k in self.comp_range():
+            x_str = getPositionId(getSinusoidId(k))
+            P_str = getPressureId(getSinusoidId(k))
+            rules.append((P_str, P_formula.format(x_str, x_str), 'Pa'))
             
         # capillary flow 
         Q_formula = '-1 dimensionless/sqrt(W*w) * ( (-(Pb-P0) + (Pa-P0)*exp(-L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp( {}/lambda)\
