@@ -417,6 +417,7 @@ class TissueModel(object):
     def createTransportReactions(self):
         self.createFlowRules()
         self.createFlowReactions()
+        self.createFlowPoreReactions()
         self.createDiffusionReactions()
 
     def createFlowRules(self):
@@ -457,22 +458,18 @@ class TissueModel(object):
             x_str = getPositionId(vid)
             Q_str = getQFlowId(vid)
             rules.append((Q_str, Q_formula.format(x_str, x_str), 'm3_per_s'))
-        # in between locations
+        # between locations
         for k in range(1, self.Nc*self.Nf):
             x_str = '{}{}_x'.format(getSinusoidId(k), getSinusoidId(k+1))
             Q_str = '{}{}_Q'.format(getSinusoidId(k), getSinusoidId(k+1))
             rules.append((Q_str, Q_formula.format(x_str, x_str), 'm3_per_s'))
         
-        # pore flow 
+        # pore flow (only along sinusoid, not in PP and PV) 
         q_formula = '1 dimensionless/w  * ( (-(Pb-P0) + (Pa-P0)*exp(-L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp( {}/lambda) \
         + ( (Pb-P0) - (Pa-P0)*exp( L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp(-{}/lambda) )'
-        # PP, PV
-        for vid in [getPPId(), getPVId()]:
-            x_str = getPositionId(vid)
-            q_str = getqFlowId(vid)
-            rules.append((q_str, q_formula.format(x_str, x_str), 'm2_per_s'))
-        # in between locations
-        for k in range(1, self.Nc*self.Nf):
+        
+        # midpoint
+        for k in self.comp_range():
             x_str = '{}_x'.format(getSinusoidId(k))
             q_str = '{}_q'.format(getSinusoidId(k))
             rules.append((q_str, q_formula.format(x_str, x_str), 'm2_per_s'))
@@ -488,7 +485,7 @@ class TissueModel(object):
         for data in self.external:
             sid = data[0]    
             # flow PP -> S01
-            Q_str = getQFlowId(getPPId())
+            Q_str = getQFlowId(getPPId()) # [m3/s] local volume flow
             createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), flow=Q_str) # [m3/s] local volume flow
             # flow S[k] -> S[k+1] 
             for k in range(1, self.Nc*self.Nf):
@@ -501,8 +498,17 @@ class TissueModel(object):
             createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=Q_str);
     
     def createFlowPoreReactions(self):
-        # TODO: implement the filtration and reabsorption
-        pass
+        ''' Filtration and reabsorption reactions through pores. '''
+        for data in self.external:
+            sid = data[0]      
+            if sid in ["rbcM"]: 
+                continue   # only create for substances fitting through pores
+            
+            # flow S[k] -> D[k] 
+            for k in self.comp_range():
+                Q_str = getqFlowId(getSinusoidId(k)) + ' * {}'.format('x_sin')  # [m2/s] * [m] (area flow) 
+                createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), flow=Q_str)
+    
     
     def createDiffusionReactions(self):        
         for data in self.external:
