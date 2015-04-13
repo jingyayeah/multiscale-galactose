@@ -424,45 +424,53 @@ class TissueModel(object):
             capillary flow Si_Q and pore flow Si_q.
         '''    
         rules = [
-                     ('PP_x', '0 m', 'm'),
-                     ('PV_x', 'L', 'm'),
+                     (getPositionId(getPPId()), '0 m', 'm'),
+                     (getPositionId(getPVId()), 'L', 'm'),
                     ] 
-        # midpoint hepatocyte locations
+        # position midpoint hepatocyte
         for k in range(1, self.Nc*self.Nf+1):
-            r = ('{}_x'.format(getSinusoidId(k)), '({} dimensionless/Nc-0.5 dimensionless)*L'.format(k), 'm')
+            r = (getPositionId(getSinusoidId(k)), '({} dimensionless/Nc-0.5 dimensionless)*L'.format(k), 'm')
             rules.append(r)
-        # in between locations
+        # position in between hepatocytes
         for k in range(1, self.Nc*self.Nf):
-            r = ('{}{}_x'.format(getSinusoidId(k), getSinusoidId(k+1)), '({} dimensionless/Nc)*L'.format(k), 'm')
+            r = (getPositionId(getSinusoidId(k), getSinusoidId(k+1)), '({} dimensionless/Nc)*L'.format(k), 'm')
             rules.append(r)
             
         # pressures 
         P_formula = '(-(Pb-P0) + (Pa-P0)*exp(-L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp( {}/lambda)\
                  + ( (Pb-P0) - (Pa-P0)*exp( L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp(-{}/lambda) + P0'
-        rules.append(('PP_P', P_formula.format('PP_x', 'PP_x'), 'Pa'))
-        rules.append(('PV_P', P_formula.format('PV_x', 'PV_x'), 'Pa'))
-        # in between locations
+        # PP, PV
+        for vid in [getPPId(), getPVId()]:
+            x_str = getPositionId(vid)
+            P_str = getPressureId(vid)
+            rules.append((P_str, P_formula.format(x_str, x_str), 'Pa')) 
+        # in between
         for k in range(1, self.Nc*self.Nf):
-            x_str = '{}{}_x'.format(getSinusoidId(k), getSinusoidId(k+1))
-            P_str = '{}{}_P'.format(getSinusoidId(k), getSinusoidId(k+1))
-            rules.append((P_str, P_formula.format(x_str, x_str), 'Pa'))
-        
+            x_str = getPositionId(getSinusoidId(k), getSinusoidId(k+1))
+            P_str = getPressureId(getSinusoidId(k), getSinusoidId(k+1))
+            
         # capillary flow 
         Q_formula = '-1 dimensionless/sqrt(W*w) * ( (-(Pb-P0) + (Pa-P0)*exp(-L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp( {}/lambda)\
         - ( (Pb-P0) - (Pa-P0)*exp( L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp(-{}/lambda) )'
-        rules.append(('PP_Q', Q_formula.format('PP_x', 'PP_x'), 'm3_per_s'))
-        rules.append(('PV_Q', Q_formula.format('PV_x', 'PV_x'), 'm3_per_s'))
+        # PP, PV
+        for vid in [getPPId(), getPVId()]:
+            x_str = getPositionId(vid)
+            Q_str = getQFlowId(vid)
+            rules.append((Q_str, Q_formula.format(x_str, x_str), 'm3_per_s'))
         # in between locations
         for k in range(1, self.Nc*self.Nf):
             x_str = '{}{}_x'.format(getSinusoidId(k), getSinusoidId(k+1))
-            Q_str = '{}{}_P'.format(getSinusoidId(k), getSinusoidId(k+1))
+            Q_str = '{}{}_Q'.format(getSinusoidId(k), getSinusoidId(k+1))
             rules.append((Q_str, Q_formula.format(x_str, x_str), 'm3_per_s'))
         
         # pore flow 
         q_formula = '1 dimensionless/w  * ( (-(Pb-P0) + (Pa-P0)*exp(-L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp( {}/lambda) \
         + ( (Pb-P0) - (Pa-P0)*exp( L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp(-{}/lambda) )'
-        rules.append(('PP_q', q_formula.format('PP_x', 'PP_x'), 'm2_per_s'))
-        rules.append(('PV_q', q_formula.format('PV_x', 'PV_x'), 'm2_per_s'))
+        # PP, PV
+        for vid in [getPPId(), getPVId()]:
+            x_str = getPositionId(vid)
+            q_str = getqFlowId(vid)
+            rules.append((q_str, q_formula.format(x_str, x_str), 'm2_per_s'))
         # in between locations
         for k in range(1, self.Nc*self.Nf):
             x_str = '{}_x'.format(getSinusoidId(k))
@@ -472,19 +480,25 @@ class TissueModel(object):
         createAssignmentRules(self.model, rules, {})
 
     def createFlowReactions(self):
-        # TODO: now use the local flow for calculation
-        flow = 'flow_sin * A_sin'     # [m3/s] volume flow
+        '''
+        Creates the local flow reactions based on the local volume flows.
+        The amount of substance transported via the volume flow is calculated.
+        '''
+        # flow = 'flow_sin * A_sin'     # [m3/s] global volume flow (converts to local volume flow in pressure model)
         for data in self.external:
             sid = data[0]    
-            # flow PP -> S01 
-            createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), flow=flow)
+            # flow PP -> S01
+            Q_str = getQFlowId(getPPId())
+            createFlowReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), flow=Q_str) # [m3/s] local volume flow
             # flow S[k] -> S[k+1] 
             for k in range(1, self.Nc*self.Nf):
-                createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getSinusoidId(k+1), flow=flow)
+                Q_str = getQFlowId(getSinusoidId(k), getSinusoidId(k+1))
+                createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getSinusoidId(k+1), flow=Q_str)
             # flow S[Nc*Nf] -> PV
-            createFlowReaction(self.model, sid, c_from=getSinusoidId(self.Nc*self.Nf), c_to=getPVId(), flow=flow)
+            Q_str = getQFlowId(getPVId())
+            createFlowReaction(self.model, sid, c_from=getSinusoidId(self.Nc*self.Nf), c_to=getPVId(), flow=Q_str)
             # flow PV ->
-            createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=flow);
+            createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=Q_str);
     
     def createFlowPoreReactions(self):
         # TODO: implement the filtration and reabsorption

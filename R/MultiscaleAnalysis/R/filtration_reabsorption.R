@@ -14,6 +14,7 @@ koz_parameters <- function(){
   p_flow <- list(
     Pa = 10,            # [mmHg] portal pressure
     Pb = 2.0,           # [mmHg] central pressure
+    Pa_per_mmHg = 133.322      # [Pa/mmHg]
   
     # viscosity, so that the actual blood flows are correct
     nu_f = 10,            # [-] flow dependent viscosity in capillaries (~ Factor 3 at 100µm/s)
@@ -32,7 +33,7 @@ koz_parameters <- function(){
 #' base parameters.
 #' @export
 koz_derived_parameters <- function(p){
-  p$Pa_per_mmHg = 133.322      # [Pa/mmHg]
+  
   p$P0 = 0.5*(p$Pa+p$Pb)       # [mmHg] P0 = Poc-Pot, resulting oncotic pressure
   p$nu = p$nu_plasma * p$nu_f  # [Pa*s]
   

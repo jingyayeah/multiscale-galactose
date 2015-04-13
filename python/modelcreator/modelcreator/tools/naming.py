@@ -89,6 +89,29 @@ def getHepatocyteSpeciesName(name, k):
 def getCytosolSpeciesName(name, k):
     return '[{}] {}'.format(getHepatocyteId(k), name)
 
+
+def getTemplateId(pid, sid1, sid2):
+    if not sid2:
+        # returns the midpoint position id of the volume
+        return '{}_{}'.format(sid1, pid)
+    else:
+        # returns the between position id for two volumes
+        return '{}{}_{}'.format(sid1, sid2, pid)
+
+# Parameters (position, pressure, flow)
+def getPositionId(sid1, sid2=None):
+    return getTemplateId('x', sid1, sid2)
+    
+def getPressureId(sid1, sid2=None):
+    return getTemplateId('P', sid1, sid2)
+        
+def getqFlowId(sid1, sid2=None):
+    return getTemplateId('q', sid1, sid2)
+    
+def getQFlowId(sid1, sid2=None):
+    return getTemplateId('Q', sid1, sid2)
+    
+
 # Reactions
 def createFlowId(c_from, c_to, sid):
     return 'F_{}{}_{}'.format(c_from, c_to, sid)
