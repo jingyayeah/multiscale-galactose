@@ -89,7 +89,6 @@ fname <- file.path(dir_out, 'distribution_fit_data.csv')
 p.gen <-read.csv(file=fname)
 head(p.gen)
 
-
 Nsample = 1000
 
 # Create parameter samples from the underlying parameter
@@ -129,7 +128,7 @@ for (k in 1:Nsample){
   p_new$y_sin <- p_set$y_sin[k]
   p_new$y_dis <- p_set$y_dis[k]
   p_new$y_cell <- p_set$y_cell[k]
-  p_new <- derived_pars(p_new)
+  p_new <- koz_derived_parameters(p_new)
   pflow_set[[k]] <- p_new
 }
 head(pflow_set, 3)
@@ -181,6 +180,8 @@ plot_pressure_flow_distribution <- function(pflow_set, Lmax=1000E-6, Pmax=40, Qm
   par(mfrow=c(1,1))
 }
 plot_pressure_flow_distribution(pflow_set)
+pflow_set
+
 
 # Figure: flow velocity
 v = v_f(x, p_new)
@@ -238,10 +239,26 @@ for (k in 1:Nsample){
   p_new$y_sin <- p_set$y_sin[k]
   p_new$y_dis <- p_set$y_dis[k]
   p_new$y_cell <- p_set$y_cell[k]
-  p_new <- derived_pars(p_new)
+  p_new <- koz_derived_parameters(p_new)
   pflow_set[[k]] <- p_new
 }
 plot_pressure_flow_distribution(pflow_set, Pmax=30, qmax=4E-10)
+
+
+# what are the correlations between the various parameters?
+# pressure and flow are highly correlated (linear)
+test <- data.frame(flow = rep(NA, Nsample), 
+                   Pa = rep(NA, Nsample))
+test$flow <- rep(NA, Nsample)
+test$Pa <- rep(NA, Nsample)
+for (k in 1:Nsample){
+  p <- pflow_set[[k]]
+  test$flow[k] = v_f(0, p)
+  test$Pa[k] = p$Pa
+}
+plot(test)
+
+
 
 
 # flow velocity histogram based on constant pressure
@@ -261,6 +278,7 @@ flow_exp <- rlnorm(Nsample,
 hist(flow_exp, breaks=bins, add=TRUE, col=rgb(0,0,1,0.5))
 
 
+
 ################################
 # Perform the optimization
 ################################
@@ -270,6 +288,11 @@ f_Pa <- function(m, s, Pb, Nsample){
                            meanlog=meanlog(m=m, std=s), 
                            sdlog=stdlog(m=m, std=s))
 }
+
+
+P_vec = f_Pa(m=4.4, s=2.82, Pb=2.0, Nsample=1000)
+hist(P_vec, breaks=40, xlim=c(0,50), col=rgb(1,0,0,0.5),
+     xlable="Portal Pressure [mmHg]")
 
 
 f_objective <- function(m, s, Nsample){
@@ -328,6 +351,9 @@ m_start = 4.40
 m_bounds = c(m_start-1.5, m_start+1.5)
 s_start = 2.82
 s_bounds = c(s_start-1, s_start+1)
+
+cat('Pressure [mmHg] mean = ', m_start, ', meanlog = ', meanlog(m_start, s_start), '\n')
+cat('std = ', s_start, ', stdlog = ', stdlog(m_start, s_start), '\n')
 
 Nsample=3000
 Nopt_m=20

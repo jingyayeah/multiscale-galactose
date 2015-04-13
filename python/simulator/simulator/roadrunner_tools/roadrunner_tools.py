@@ -100,6 +100,10 @@ def simulation(r, parameters, inits, absTol=1E-8, relTol=1E-8):
     s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False)      
     print 'Integration time:', (time.clock()- start)
     
+    # For reading out variables, put them into the selection
+    # or apply the changes again to the model.
+    # print 'PP_Q', r['PP_Q']
+    
     # reset parameter changes    
     _set_parameters(r, changed)
     r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
