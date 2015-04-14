@@ -10,6 +10,7 @@ the given geometry.
 """
 import numpy as np
 import copy
+import pylab as plt
 import galactose_functions as gf
 import roadrunner_tools as rt
 import roadrunner_plots as rp
@@ -33,23 +34,25 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
-sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
+sel += [item for item in r.model.getReactionIds() if item.startswith('C')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
-sel += ['PP_Q']
+sel += ['PP_Q', 'Q_sinunit', 'Vol_sinunit', 'Pa']
+
 sel_dict = rt.set_selection(r, sel)
 
 # distribution of pressures
 reload(gf)
-
 pressure = gf.pressure_sample() # [mmHg]
 p_pressure = gf.pressure_probability(pressure)
 
 f_Pa_per_mmHg = 133.322
 pressure = pressure * f_Pa_per_mmHg # [Pa]
 
-# TODO: The volume flow becomes challenging now
-# f_fac = 0.5
-f_fac = 1.0
+# TODO: The volume flow becomes challenging
+# TODO: Recalculate the necessary factor to account for scaling of local 
+# perfusion to global perfusion
+# f_fac = 0.5 (before)
+f_fac = 0.9
 
 # Not simple scaling, but scaling from the offset of perivenious flow
 # TODO
@@ -72,7 +75,7 @@ for gal in [0.28, 12.5, 17.5]:
         d = copy.deepcopy(settings.D_TEMPLATE) 
         d["[PP__gal]"] = gal
         d["Pa"] = pa
-        d["scale_f"] = r.scale_f/2    # dog half GEC 
+        d["scale_f"] = r.scale_f/2    # dog half GEC of human
         p_list.append(d)
     gal_p_list.append(p_list)
 print(gal_p_list)
@@ -90,16 +93,24 @@ with open("flux_plots/parameters.txt", 'wb') as f:
 #########################################################################    
 # Average
 #########################################################################  
-# Average via probability and flux weighted summation
-# Get the actual flux for the given simulation
+# Average via probability and flux weighted summation with volume flows
+# from simulation
 
-# TODO: Necessary to readout variables during the integration for the subsequent
-# calculation
-# Q_sinunit = PP_Q
-# 
-Q_sinunit = np.pi * r.y_sin**2 * flow_sin # [m³/s]
-weights = p_flux * Q_sinunit
+# flow is constant in simulation, so readout of first element is sufficient
+def get_par_from_solutions(name, solutions):
+    return [sol[name][0] for sol in solutions]
+Q_sinunit = get_par_from_solutions('Q_sinunit', f_list)
+Pa = get_par_from_solutions('Pa', f_list)
+
+plt.plot(pressure_sin, Pa, 'o-')
+plt.plot([0, np.max(pressure_sin)], [0, np.max(pressure_sin)], color='gray' )
+plt.show()
+
+weights = p_pressure * Q_sinunit
 weights = weights/sum(weights)
+print(weights)
+
+plt.plot(pressure_sin, weights, 'o-')
 
 compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
 ids = ['[PV__{}]'.format(id) for id in compounds]    
@@ -129,17 +140,18 @@ tlim = [settings.T_PEAK-4, settings.T_PEAK+20]
 rp.flux_plots(f_list, sel, xlim=tlim, show=show_plots)
 # average curves
 # rp.average_plots(timepoints, av_mats, xlim=tlim, show=show_plots)
-    
-
-rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.0)
-rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=4.0*15.16943, time_shift=1.0)   
+f_scale = 70 # 55 (f_fac=1.0)
+rp.plot_data_with_sim(exp_data, timepoints, av_mats, scale=f_scale, time_shift=1.0)
+rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=f_scale, time_shift=1.0)   
  
 
-# additional information
+# additional information (necessary that the respective components are
+# available in the selection)
+
 # plot single timecourses
-rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel, comp_type="D")
-rp.flux_plot(f_list, name='GALKM', selections=sel)
-rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim)
+rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel, comp_type="D", xlim=tlim)
+rp.flux_plot(f_list, name='GALKM', selections=sel, comp_type="C", xlim=tlim)
+rp.flux_plot(f_list, name='galM', selections=sel, comp_type="H", xlim=tlim)
 
 rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim, comp_type="H")
 rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim, comp_type="D")

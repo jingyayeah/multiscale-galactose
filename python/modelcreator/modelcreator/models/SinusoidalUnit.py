@@ -97,7 +97,7 @@ pars.extend([
             ('y_end',     0.165E-6,   'm',      True),
             ('y_dis',       2.3E-6,   'm',      True),
             ('y_cell',     9.40E-6,   'm',      True),
-            ('flow_sin',    229E-6,   'm_per_s',True),
+            
             ('N_fen',        10E12,   'per_m2', True),
             ('r_fen',      53.5E-9,   'm',      True),
             
@@ -158,7 +158,8 @@ rules.extend([
             ("f_sin",  "Vol_sin/(A_sinunit*x_sin)", '-'),
             ("f_dis", "Vol_dis/(A_sinunit*x_sin)", '-'),
             ("f_cell", "Vol_cell/(A_sinunit*x_sin)", '-'),
-            ("Q_sinunit", "pi*y_sin^2*flow_sin", "m3_per_s"),
+            ('flow_sin',    'PP_Q/A_sin',   'm_per_s'),
+            ("Q_sinunit", "PP_Q", "m3_per_s"),
             ("f_fen", "N_fen*pi*(r_fen)^2", '-'),
             # ("m_liv", "rho_liv * Vol_liv", "kg"),
             # ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
