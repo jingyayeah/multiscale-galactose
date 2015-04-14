@@ -119,7 +119,7 @@ plt.show()
 # plt.gca().add_patch(plt.Rectangle((1,1),width=1,height=1,
 #                     color='grey', edgecolor='black' ))
 
-Qtest = plt.quiver( Q.x, 1.5*np.ones_like(Q.x), Q.value, np.zeros_like(Q.value), units='inches')
+Qtest = plt.quiver( Q.x, 1.5*np.ones_like(Q.x), Q.value, np.zeros_like(Q.value))
 Qtest = plt.quiver( q.x, 1.0*np.ones_like(q.x), np.zeros_like(q.value), -q.value, units='inches')
 fig = plt.gcf()
 fig.set_size_inches(12,4)
