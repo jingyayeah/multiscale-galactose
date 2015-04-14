@@ -45,6 +45,7 @@ reload(settings)
 f_sin1 = np.arange(start=0, stop=0.3, step=0.05) * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
 f_sin2 = np.arange(start=0.3, stop=1.6, step=0.3) * r.flow_sin # [m/s] (scaling to calculate in correct volume flow range)
 flow_sin = np.concatenate((f_sin1, f_sin2))
+
 # gal dependency
 gal_challenge = np.arange(start=0, stop=9.0, step=1.0)
 

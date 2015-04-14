@@ -11,6 +11,8 @@ has to be done in a proper and unified way.
 '''
 import time
 import roadrunner
+from pandas import DataFrame
+import pandas as pd
 
 #########################################################################    
 # Model Loading
@@ -24,6 +26,14 @@ def load_model(sbml):
     r = roadrunner.RoadRunner(sbml)
     print 'SBML Rules load :', (time.clock()- start)
     return r
+
+
+def get_global_parameters(r):
+    ''' Create the global parameter DataFrame. '''
+    return DataFrame({'value': r.model.getGlobalParameterValues()}, 
+        index = r.model.getGlobalParameterIds())
+
+
 
 #########################################################################    
 # Dealing with selections
@@ -68,7 +78,7 @@ def get_ids_from_selection(name, selections, comp_type='H'):
 #########################################################################      
 def simulation(r, parameters, inits, absTol=1E-8, relTol=1E-8):
     '''
-    Performs RoadRunner simulation and returns the results.
+    Performs RoadRunner simulation.
     '''    
     # complete reset of model just to be sure
     from roadrunner import SelectionRecord
@@ -99,10 +109,9 @@ def simulation(r, parameters, inits, absTol=1E-8, relTol=1E-8):
     start = time.clock()
     s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False)      
     print 'Integration time:', (time.clock()- start)
-    
-    # For reading out variables, put them into the selection
-    # or apply the changes again to the model.
-    # print 'PP_Q', r['PP_Q']
+        
+    # store global parameters for analysis
+    gp = get_global_parameters(r)
     
     # reset parameter changes    
     _set_parameters(r, changed)
@@ -111,7 +120,7 @@ def simulation(r, parameters, inits, absTol=1E-8, relTol=1E-8):
     # reset intial concentrations
     r.reset()    
     
-    return s
+    return (s, gp)
 
 def _set_parameters(r, parameters):
     ''' 

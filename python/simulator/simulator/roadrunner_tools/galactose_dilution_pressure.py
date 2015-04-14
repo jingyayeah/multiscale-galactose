@@ -32,8 +32,9 @@ inits = {}
 sel = ['time']
 sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM', 'PV__h2oM', 'PV__rbcM', "PV__suc"]]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()]
-sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('C')]
 sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
+sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('C')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel += ['PP_Q', 'Q_sinunit', 'Vol_sinunit', 'Pa']
@@ -45,6 +46,10 @@ reload(gf)
 pressure = gf.pressure_sample() # [mmHg]
 p_pressure = gf.pressure_probability(pressure)
 
+# Not simple scaling, but scaling from the offset of perivenious pressure
+# Pressure scaling is more work than the previous flow scaling
+pressure_sin = r.Pb + settings.F_FLOW *(pressure-r.Pb) # [m/s] (scaling to calculate in correct volume flow range)
+
 f_Pa_per_mmHg = 133.322
 pressure = pressure * f_Pa_per_mmHg # [Pa]
 
@@ -52,11 +57,7 @@ pressure = pressure * f_Pa_per_mmHg # [Pa]
 # TODO: Recalculate the necessary factor to account for scaling of local 
 # perfusion to global perfusion
 # f_fac = 0.5 (before)
-f_fac = 0.9
-
-# Not simple scaling, but scaling from the offset of perivenious flow
-# TODO
-pressure_sin = f_fac * pressure # [m/s] (scaling to calculate in correct volume flow range)
+f_fac = settings.F_FLOW # 0.9
 
 
 
@@ -68,8 +69,8 @@ pressure_sin = f_fac * pressure # [m/s] (scaling to calculate in correct volume 
 # flux sample the simulation is performed.
 reload(settings)
 gal_p_list = []
-# for gal in [0.28]:
-for gal in [0.28, 12.5, 17.5]:
+for gal in [0.28]:
+# for gal in [0.28, 12.5, 17.5]:
     p_list = []
     for pa in pressure_sin:
         d = copy.deepcopy(settings.D_TEMPLATE) 
@@ -99,6 +100,7 @@ with open("flux_plots/parameters.txt", 'wb') as f:
 # flow is constant in simulation, so readout of first element is sufficient
 def get_par_from_solutions(name, solutions):
     return [sol[name][0] for sol in solutions]
+    
 Q_sinunit = get_par_from_solutions('Q_sinunit', f_list)
 Pa = get_par_from_solutions('Pa', f_list)
 
@@ -151,7 +153,12 @@ rp.plot_gal_data_with_sim(exp_data, timepoints, av_mats, scale=f_scale, time_shi
 # plot single timecourses
 rp.flux_plot(f_list, name='GLUT2_GALM', selections=sel, comp_type="D", xlim=tlim)
 rp.flux_plot(f_list, name='GALKM', selections=sel, comp_type="C", xlim=tlim)
-rp.flux_plot(f_list, name='galM', selections=sel, comp_type="H", xlim=tlim)
+rp.flux_plot(f_list, name='galM', selections=sel, comp_type="D", xlim=tlim)
 
 rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim, comp_type="H")
 rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim, comp_type="D")
+
+
+# some tests
+rp.flux_plot((f_list[0],), name='rbcM', selections=sel, xlim=tlim, comp_type="S")
+rp.flux_plot((f_list[0],), name='rbcM', selections=sel, xlim=tlim, comp_type="D")

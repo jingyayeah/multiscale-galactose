@@ -12,7 +12,7 @@ VERSION = 128 # pressure model
 SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
 T_PEAK = 5000
 
-F_FLOW = 0.5
+F_FLOW = 0.8
 
 # Model changes applied to all simulations
 D_TEMPLATE = {
