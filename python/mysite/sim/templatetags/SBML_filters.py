@@ -31,7 +31,9 @@ unit_dict['second'] = 's'
 
 @register.filter
 def SBML_unitDefinitionToString(udef):
-    ''' Proper formating of the units. '''
+    ''' Proper formating of the units. 
+        TODO: fix bug with scale and multipler
+    '''
     libsbml.UnitDefinition_reorder(udef)
     items = []
     for u in udef.getListOfUnits():

@@ -140,9 +140,7 @@ class SBMLModel(models.Model):
     
     @classmethod
     def create(cls, sbml_id, folder):
-        ''' Create the model based on the model id.
-            # TODO: create based on file
-        '''
+        ''' Create the model based on the model id. '''
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
             print 'Django model already exists! - model is not saved'
@@ -154,6 +152,21 @@ class SBMLModel(models.Model):
             myfile = File(f)
             return cls(sbml_id = sbml_id, file = myfile)
 
+    @classmethod
+    def create_from_file(cls, filename):
+        ''' Create model in database based on SBML file. '''
+        import libsbml
+        doc = libsbml.SBMLReader().readSBML(filename)
+        sbml_id = doc.getModel().getId()
+        try:
+            model = SBMLModel.objects.get(sbml_id=sbml_id)
+            print 'Django model already exists! - model is not saved'
+            return model;
+        except ObjectDoesNotExist:
+            print 'Create django model: ', sbml_id 
+            f = open(filename, 'r')
+            myfile = File(f)
+            return cls(sbml_id = sbml_id, file = myfile)
     
     
 # TODO: remove the condition -> can be deduced from parameters
