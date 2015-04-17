@@ -1,14 +1,14 @@
 {% extends "sim/base_generic.html" %}
-{% load kwacros %}
-{% loadkwacros "sim/kwacros.html" %}
+{% load macros %}
+{% loadmacros "sim/macros.html" %}
 
 {% block content %}
 [
-		<a href="{% url 'sim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
-		<a href="{% url 'sim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
-		<a href="{% url 'sim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
-		<a href="{% url 'sim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> | 
-		<a href="{% url 'sim:simulations' 'ERROR'%}"><span class="ERROR">ERROR</span></a>
+		<a href="{% url 'sbmlsim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
+		<a href="{% url 'sbmlsim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
+		<a href="{% url 'sbmlsim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
+		<a href="{% url 'sbmlsim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> | 
+		<a href="{% url 'sbmlsim:simulations' 'ERROR'%}"><span class="ERROR">ERROR</span></a>
 		] 
 	<hr />
 	<table id="table_items">
@@ -16,20 +16,20 @@
 		</caption>
 	<thead>
 	<tr>
-		{% usekwacro simulation_header %}
+		{% usemacro simulation_header %}
 	</tr>
 	</thead>
 	<tbody>
 	{% for sim in simulations %}
 		<tr>
-			{% usekwacro simulation_content %}
+			{% usemacro simulation_content %}
 		</tr>    
     {% endfor %}
     </tbody>
     </table>
     
     {% with items=simulations %}
-  		{% usekwacro pagination %}
+  		{% usemacro pagination %}
 	{% endwith %}
 
 {% endblock %}

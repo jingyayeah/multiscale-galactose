@@ -1,15 +1,15 @@
 {% extends "sim/base_generic.html" %}
-{% load kwacros %}
-{% loadkwacros "sim/kwacros.html" %}
+{% load macros %}
+{% loadmacros "sim/macros.html" %}
 
 {% block content %}
 <h2>Simulation [{{sim}}]</h2>
 	<table>
 	<tr>
-		{% usekwacro simulation_header %}
+		{% usemacro simulation_header %}
 	</tr>
 		<tr>
-			{% usekwacro simulation_content %}
+			{% usemacro simulation_content %}
 		</tr>    
     </table>
     
@@ -19,12 +19,12 @@
 <table id="table">
 <thead>
 <tr>
-	{% usekwacro model_header %}
+	{% usemacro model_header %}
 </tr>
 </thead>
 <tbody>
 	<tr>
-		{% usekwacro model_content %}
+		{% usemacro model_content %}
 	</tr>    
 </tbody>
 </table>
@@ -34,13 +34,13 @@
 <table>
 <thead>
 	<tr>
-		{% usekwacro parameter_header %}
+		{% usemacro parameter_header %}
 	</tr>
 </thead>
 <tbody>
 	{% for pars in sim.parameters.all %}
 		<tr>
-			{% usekwacro parameter_content %}
+			{% usemacro parameter_content %}
 		</tr>
 		{% endfor %}    
 </tbody>
@@ -51,12 +51,12 @@
 <table>
 <thead>
 <tr>
-	{% usekwacro timecourse_header %}
+	{% usemacro timecourse_header %}
 </tr>
 </thead>
 <tbody>
 	<tr>
-		{% usekwacro timecourse_content %}
+		{% usemacro timecourse_content %}
 	</tr>    
 </tbody>
 </table>

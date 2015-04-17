@@ -1,18 +1,18 @@
 {% extends "sim/base_generic.html" %}
-{% load kwacros %}
-{% loadkwacros "sim/kwacros.html" %}
+{% load macros %}
+{% loadmacros "sim/macros.html" %}
 {% block content %}
 	<table id="table_items">
 	<caption>Integrations [{{integrations_list.count}}]</caption>
 	<thead>
 	<tr>
-		{% usekwacro integration_header %}
+		{% usemacro integration_header %}
 	</tr>
 	</thead>
 	<tbody>
 	{% for item in integrations_list %}
 		<tr>
-			{% usekwacro integration_content %}
+			{% usemacro integration_content %}
 		</tr>    
     {% endfor %}
     </tbody>
