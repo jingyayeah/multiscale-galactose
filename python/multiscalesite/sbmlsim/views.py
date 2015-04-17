@@ -16,8 +16,8 @@ def models(request):
     Home of the project and providing overview over models
     '''
     model_list = SBMLModel.objects.order_by("-pk")
-    # template = loader.get_template('sim/models.html')
-    template = loader.get_template('sim/test.html')
+    template = loader.get_template('sim/models.html')
+    # template = loader.get_template('sim/test.html')
     context = RequestContext(request, {
         'model_list': model_list,
     })

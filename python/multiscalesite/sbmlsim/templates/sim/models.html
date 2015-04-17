@@ -1,7 +1,12 @@
 {% extends "sim/base_generic.html" %}
+{% load staticfiles %}
 {% load macros %}
 {% loadmacros "sim/macros.html" %}
 
+
+<!------------------------------------------------------->
+<!--  MODEL											   -->
+<!------------------------------------------------------->
 {% block content %}
 	<table id="table_items">
 	<caption>Models [{{model_list.count}}]</caption>
