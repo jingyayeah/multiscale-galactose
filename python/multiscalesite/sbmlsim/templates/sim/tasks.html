@@ -1,0 +1,21 @@
+{% extends "sim/base_generic.html" %}
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
+
+{% block content %}
+	<table id="table_items">
+	<caption>Tasks [{{tasks_list.count}}]</caption>
+    <thead>
+	<tr>
+		{% usekwacro task_header %}
+	</tr>
+	</thead>
+	<tbody>
+	{% for task in tasks_list %}
+		<tr>
+			{% usekwacro task_content %}
+		</tr>    
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

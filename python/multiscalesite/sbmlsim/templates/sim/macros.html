@@ -1,0 +1,175 @@
+{% load staticfiles %}
+{% load macros %}
+<!------------------------------------------------------->
+<!--  SIMULATION 									   -->
+<!------------------------------------------------------->
+{% macro simulation_header %}
+		<th>pk</th>
+		<th>model</th>
+		<th>task</th>
+		<th>settings</th>
+		<th>parameters</th>
+		<th>status</th>
+		<th>duration</th>
+		<th>core</th>
+		<th>timecourse</th>
+{% endmacro %}
+{% macro simulation_content %}
+			<td><a href="{% url 'sim:simulation' sim.pk %}">{{sim.pk}}</a></td>
+			<td>{{sim.task.sbml_model.sbml_id}}</td>
+			<td>{{sim.task}}</td>
+			<td>{% for s in sim.task.integration.settings.all %}{{ s }}<br />{% endfor %}</td>
+			<td>{% for p in sim.parameters.all %}{{ p }}<br />{% endfor %}</td>
+			<td><span class="{{sim.status}}">{{sim.status}}</span><br />
+			{{sim.time_assign}}<br />
+			</td>
+			<td>{{sim.duration}}</td>
+			<td>{{sim.core}}</td>
+			<td> {% if sim.status == 'DONE' %}
+				<a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a>
+				{% endif %}
+			</td>
+{% endmacro %}
+
+<!------------------------------------------------------->
+<!--  PARAMETER 									   -->
+<!------------------------------------------------------->
+{% macro parameter_header %}
+		<th>id</th>
+		<th>value</th>
+		<th>unit</th>
+		<th>type</th>
+{% endmacro %}
+{% macro parameter_content %}
+			<td>{{pars.name}}</td>
+			<td>{{pars.value}}</td>
+			<td>{{pars.unit}}</td>
+			<td>{{pars.ptype}}</td>
+{% endmacro %}
+
+<!------------------------------------------------------->
+<!--  MODEL											   -->
+<!------------------------------------------------------->
+{% macro model_header %}
+		<th>pk</th>
+		<th>id</th>
+		<th>sbml</th>
+		<th>report</th>
+{% endmacro %}
+{% macro model_content %}
+			<td>{{model.pk}}</td>
+			<td>{{model.sbml_id}}</td>
+			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{% url 'sim:report' model.pk %}" target="_blank">
+				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+{% endmacro %}
+
+<!------------------------------------------------------->
+<!--  TASK 											   -->
+<!------------------------------------------------------->
+{% macro task_header %}
+		<th>pk</th>
+		<th>status</th>
+		<th>priority</th>
+		<th>sbml</th>
+		<th>report</th>
+		<th>parameters</th>
+		<th>model</th>
+		<th>integration</th>
+		<th>integrator</th>
+		<th>condition</th>
+		<th>info</th>
+{% endmacro %}
+{% macro task_content %}
+			<td><a href="{% url 'sim:task' task.pk %}">{{task.pk}}</a></td>
+			<td>
+				<b>{{task.sim_count}}</b>
+				[<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>] 	
+			</td>
+			<td>{{task.priority}}</td>
+			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{% url 'sim:report' task.sbml_model.pk %}" target="_blank">
+				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+			<td><a href="{% url 'sim:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'sim/images/params_small.png' %}"></a></td>
+			<td>{{task.sbml_model}} </td>
+			<td>{{task.integration}}</td>
+			<td>{{task.integration.integrator}} </td>
+			<td>{{task.integration.condition}}</td>
+			
+			<td width="400px">{{task.info}}</td>
+{% endmacro %}
+<!------------------------------------------------------->
+<!--  TIMECOURSE									   -->
+<!------------------------------------------------------->
+{% macro timecourse_header %}
+		<th>pk</th>
+		<th>sim</th>
+		<th>csv</th>
+		<th>file</th>
+{% endmacro %}
+		
+{% macro timecourse_content %}
+			<td>{{ tc.pk }}</td>
+			<td><a href="{% url 'sim:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
+			<td><a href="{{ tc.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15" /></a></td>
+			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
+{% endmacro %}
+
+<!------------------------------------------------------->
+<!--  INTEGRATION  									   -->
+<!------------------------------------------------------->
+{% macro integration_header %}
+		<th>pk</th>
+		<th>settings</th>
+{% endmacro %}
+		
+{% macro integration_content %}
+			<td>{{item.pk}}</td>
+			<td>{% for s in item.settings.all %}{{ s.name }} = {{s.value}} [{{s.datatype}}] <br />{% endfor %}</td>
+{% endmacro %}
+
+<!------------------------------------------------------->
+<!--  CORE      									   -->
+<!------------------------------------------------------->
+{% macro core_header %}
+		<th>id</th>
+		<th>computer</th>
+		<th>ip</th>
+		<th>cpu</th>
+		<th>time</th>
+		<th>is active</th>
+{% endmacro %}
+		
+{% macro core_content %}
+<td>{{core.id}}</td>
+			<td>{{core.computer}}</td>
+			<td>{{core.ip}}</td>
+			<td>{{core.cpu}}</td>
+			<td>{{core.time}}</td>
+			<td><span class="{% if core.active %}GOOD{% else %}BAD{% endif %}">{{core.active}}</span></td>
+{% endmacro %}
+
+<!------------------------------------------------------->
+<!--  PAGINATION  									   -->
+<!------------------------------------------------------->
+{% macro pagination %}
+  <div class="pagination">
+    <span class="step-links">
+        {% if items.has_previous %}
+            <a href="?page={{ items.previous_page_number }}">previous</a>
+        {% else %}
+         previous
+        {% endif %}
+		 | 
+        {% if items.has_next %}
+            <a href="?page={{ items.next_page_number }}">next</a>
+        {% endif %}
+        
+        <span class="current">
+           [{{ items.number }} of {{ items.paginator.num_pages }}]
+        </span>
+    </span>
+	</div>
+{% endmacro %}
+
+<!------------------------------------------------------->

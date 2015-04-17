@@ -1,0 +1,24 @@
+{% extends "sim/base_generic.html" %}
+{% block content %}
+{% if plots_list %}
+	<table>
+	<tr>
+		<th>pk</th>
+		<th>timcourse</th>
+		<th>plot_type</th>
+		<th>file</th>
+	</tr>
+	{% for plot in plots_list %}
+		<tr>
+			<td>{{ plot.pk }}</td>
+			<td>{{ plot.timecourse }}</td>
+			<td>{{ plot.plot_type }}</td>
+			<td><a href="{{ plot.file.url }}">{{ plot.file.name }}</a></td>
+		</tr>    
+    {% endfor %}
+    </table>
+{% else %}
+	<h1>Plots</h1>
+    <p>No Plots in database</p>
+{% endif %}
+{% endblock %}

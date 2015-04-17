@@ -1,0 +1,83 @@
+{% extends "sim/base_generic.html" %}
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
+
+{% block content %}
+<h2>Simulation [{{sim}}]</h2>
+	<table>
+	<tr>
+		{% usekwacro simulation_header %}
+	</tr>
+		<tr>
+			{% usekwacro simulation_content %}
+		</tr>    
+    </table>
+    
+    
+<h2>Model</h2>
+{% with model=sim.task.sbml_model %}
+<table id="table">
+<thead>
+<tr>
+	{% usekwacro model_header %}
+</tr>
+</thead>
+<tbody>
+	<tr>
+		{% usekwacro model_content %}
+	</tr>    
+</tbody>
+</table>
+{% endwith %}
+
+<h2>Parameters</h2>    
+<table>
+<thead>
+	<tr>
+		{% usekwacro parameter_header %}
+	</tr>
+</thead>
+<tbody>
+	{% for pars in sim.parameters.all %}
+		<tr>
+			{% usekwacro parameter_content %}
+		</tr>
+		{% endfor %}    
+</tbody>
+</table>
+{% if sim.status == 'DONE' %}
+{% with tc=sim.timecourse %}
+<h2>Timecourse</h2>
+<table>
+<thead>
+<tr>
+	{% usekwacro timecourse_header %}
+</tr>
+</thead>
+<tbody>
+	<tr>
+		{% usekwacro timecourse_content %}
+	</tr>    
+</tbody>
+</table>
+{% endwith %}
+    
+{% if sim.timecourse.plot_set.all %}
+<h2>Plots</h2>
+	{% for plot in sim.timecourse.plot_set.all %}
+		<b>name</b>: {{plot.file.name}}<br />
+ 		<b>type</b>: {{plot.plot_type}}<br />
+ 		<img src="{{plot.file.url}}" /><br />
+	{% endfor %}
+{% endif %}
+	
+{% else %}
+<p>
+    <br />
+    Simulation status <span class="{{sim.status}}">{{sim.status}}</span>, 
+    no timecourse and plots available.<br />
+</p>
+{% endif %}
+
+    
+{% endblock %}

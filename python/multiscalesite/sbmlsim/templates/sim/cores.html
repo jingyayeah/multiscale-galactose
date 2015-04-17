@@ -1,0 +1,21 @@
+{% extends "sim/base_generic.html" %}
+{% load kwacros %}
+{% loadkwacros "sim/kwacros.html" %}
+
+{% block content %}
+	<table id="table_items">
+	<caption>Cores [{{cores_list.count}}]</caption>
+    <thead>
+	<tr>
+		{% usekwacro core_header %}
+	</tr>
+	</thead>
+	<tbody>
+	{% for core in cores_list %}
+		<tr>
+			{% usekwacro core_content %}
+		</tr>    
+    {% endfor %}
+    </tbody>
+    </table>    
+{% endblock %}
