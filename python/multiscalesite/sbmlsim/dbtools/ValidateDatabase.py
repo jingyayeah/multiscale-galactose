@@ -33,8 +33,7 @@ import os
 sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 from django.core.exceptions import ObjectDoesNotExist
-from sim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED, ERROR
-from sim.models import Task
+from sbmlsim.models import Simulation, Timecourse, Parameter, UNASSIGNED, ASSIGNED, ERROR
 
 def unassignAssignedHangingSimulations(task=None, cutoff_minutes=10):
     unassignHangingSimulationsWithStatus(ASSIGNED, task, cutoff_minutes)
@@ -116,7 +115,7 @@ def addDefaultParametersToTaskSimulations(task, pars):
         for data in pars:
             name, value, unit = data
             # get the Parameter
-            p, tmp = Parameter.objects.get_or_create(name=name, value=value, unit=unit);
+            p, _ = Parameter.objects.get_or_create(name=name, value=value, unit=unit);
             
             if (pc.parameters.filter(name=name).exists()):
                 continue

@@ -8,6 +8,7 @@ R/MultiscaleAnalysis/.RData
 R/MultiscaleAnalysis/.Rhistory
 python/simulator/.settings
 python/modelcreator/.settings
+python/multiscalesite/.settings
 
 results/nhanes/backup
 results/nhanes/nhanes_flowLiver.Rdata

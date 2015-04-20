@@ -4,8 +4,8 @@ Created on Jul 10, 2014
 @author: mkoenig
 '''
 
-import sim.PathSettings
-from sim.models import Task
+import path_settings
+from sbmlsim.models import Task
 
 def set_priority_for_task(tid, priority):
     task = Task.objects.get(pk=tid)

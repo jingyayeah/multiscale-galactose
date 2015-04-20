@@ -14,9 +14,8 @@ import os
 import sys
 import shutil
 
-import path_settings
 from path_settings import MULTISCALE_GALACTOSE_RESULTS
-from settings import MEDIA_ROOT
+from multiscalesite.settings import MEDIA_ROOT
 
 from sbmlsim.models import Task
 from sbmlsim.analysis.ParameterFiles import createParameterFileForTask

@@ -1,22 +1,17 @@
 '''
-Created on Mar 21, 2014
-@author: Matthias Koenig
+Create simulation plots from timecourses.
 
-Class for generating plots from timecourses using matplotlib
+@author: Matthias Koenig
+@date: 2015-04-20
 '''
-import os
-import sys
-sys.path.append('/home/mkoenig/multiscale-galactose/python')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
+import path_settings
 
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from sim.models import Simulation, Timecourse, Plot, Task, DONE
-import math
-import numpy as np
-import numpy.random as npr
-import csv
+from sbmlsim.models import Task, Plot, DONE
+
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File

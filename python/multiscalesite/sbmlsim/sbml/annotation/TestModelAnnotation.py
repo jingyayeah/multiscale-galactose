@@ -13,7 +13,7 @@ sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
-from sim.models import SBMLModel
+from sbmlsim.models import SBMLModel
 from ModelAnnotation import annotateModel
     
  

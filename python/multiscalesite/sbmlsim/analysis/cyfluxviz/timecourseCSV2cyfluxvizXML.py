@@ -153,7 +153,7 @@ def prettyXML(element):
 
 if __name__ == "__main__":
     print 'Test: timecourse2cyfluxviz'
-    from sim.models import Simulation
+    from sbmlsim.models import Simulation
     
     sim = Simulation.objects.get(pk=780)
     

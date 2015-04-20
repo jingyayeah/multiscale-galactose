@@ -12,10 +12,15 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import macros
-from django.template.base import FilterExpression
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Handling template dirs
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+TEMPLATE_STRING_IF_INVALID="<invalid>"
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "/home/mkoenig/multiscale-galactose-results/django/"
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'macros',
     'sbmlsim',
 )

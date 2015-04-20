@@ -5,11 +5,12 @@ Created on Jul 3, 2014
 @author: mkoenig
 '''
 
-import sys
+# import sys
 import os
 # sys.path.append('/home/mkoenig/multiscale-galactose/python')
 # has to be overwritten
-# os.environ['DJANGO_SETTINGS_MODULE'] = 'multiscalesite.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'multiscalesite.settings'
+
 
 if not os.environ.has_key('MULTISCALE_GALACTOSE'):
     os.environ['MULTISCALE_GALACTOSE'] = '/home/mkoenig/multiscale-galactose'

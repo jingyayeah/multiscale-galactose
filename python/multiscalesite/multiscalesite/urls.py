@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 admin.autodiscover()
 
+# TODO: fix the base url, i.e. the url necessary to care about $
 
 urlpatterns = [
     # Examples:

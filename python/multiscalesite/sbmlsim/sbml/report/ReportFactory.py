@@ -1,21 +1,14 @@
 '''
-ReportFactory creates html report from the SBML.
-The model is implemented via the Django template language which is
-rendered with the SBML information.
-The template is rendered with the listOf and model information.
-
-TODO: finish the kwakros
-TODO: handle annotation information 
-TODO: update report CSS
+Create detailed HTML report from given SBML. 
+The model is implemented via the Django template language for rendering
+the actual SBML information.
+Main rendered information are the listOf components of the SBML.
 
 @author: Matthias Koenig
-@date: 2014-05-07
+@date: 2015-04-20
 '''
 
-import os
-import sys
-sys.path.append('/home/mkoenig/multiscale-galactose/python')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+import path_settings
 
 import libsbml
 from django.http.response import HttpResponse
@@ -88,7 +81,7 @@ def createValueDictionary(model):
     return values
 
 if __name__ == "__main__":
-    import libsbml
+
     model_pk = 24 
     sbml_model = get_object_or_404(SBMLModel, pk=model_pk)
     sbml_path = sbml_model.file.path

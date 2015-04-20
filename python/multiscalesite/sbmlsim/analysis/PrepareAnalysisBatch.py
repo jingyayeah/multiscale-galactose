@@ -3,15 +3,11 @@
 Make the batch analysis of the data for multiple tasks.
 
 @author: Matthias Koenig
-@date: 2014-08-13
+@date: 2015-04-18
 '''
 
-import os
-import sys
-sys.path.append('/home/mkoenig/multiscale-galactose/python')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-
-from sim.models import Task
+import path_settings
+from sbmlsim.models import Task
 from PrepareAnalysis import prepareDataForAnalysis
 
 

@@ -4,6 +4,7 @@ Created on Jun 2, 2014
 @author: mkoenig
 '''
 from libsbml import *
+import ModelAnnotation
 
 doc = SBMLDocument(3,1)
 model = doc.createModel('Test')
@@ -30,9 +31,9 @@ print(xml)
 # After reading the source code => necessary to set metaid first
 # (jsbml just creates a metaid if one tries to write RDFannotation to elements
 #  without metaids)
-import Annotation
+
 test = model.getElementBySId("s1")
-meta_id = 'meta_id_' + Annotation.createMetaId()
+meta_id = 'meta_id_' + ModelAnnotation.createMetaId()
 # test.setMetaId('asasdfasfasdfasd')
 print meta_id
 res = test.setMetaId(meta_id)
