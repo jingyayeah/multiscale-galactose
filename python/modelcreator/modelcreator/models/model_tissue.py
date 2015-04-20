@@ -3,8 +3,10 @@ Created on Jul 23, 2014
 @author: mkoenig
 '''
 
-import sim.PathSettings
-from sim.PathSettings import SBML_DIR
+# TODO: necessary to generate proper imports
+from sbmlsim.models import SBMLModel
+
+import path_settings
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
@@ -567,7 +569,7 @@ class TissueModel(object):
     def writeSBML(self, fname=None, validate=True):
         print 'libSBML {}'.format(libsbml.getLibSBMLDottedVersion())
         if not fname:
-            fname = SBML_DIR + '/' + self.id + '.xml'
+            fname = path_settings.SBML_DIR + '/' + self.id + '.xml'
         
         print 'Write : {}\n'.format(self.id, fname)
         writer = SBMLWriter()
@@ -584,7 +586,7 @@ class TissueModel(object):
         SBML must already has be written in standard locaction
         before.
         '''
-        from sim.models import SBMLModel
-        model = SBMLModel.create(self.id, SBML_DIR);
+        
+        model = SBMLModel.create(self.id, path_settings.SBML_DIR);
         model.save();
         

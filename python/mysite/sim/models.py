@@ -115,7 +115,7 @@ class Core(models.Model):
         verbose_name_plural = "Cores"
         unique_together = ("ip", "cpu")
         
-
+        
     def _get_computer_name(self):
         "Returns the computer name from the IP."
         if self.computer_names.has_key(self.ip):
