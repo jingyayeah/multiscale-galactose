@@ -34,7 +34,6 @@ def get_global_parameters(r):
         index = r.model.getGlobalParameterIds())
 
 
-
 #########################################################################    
 # Dealing with selections
 #########################################################################  

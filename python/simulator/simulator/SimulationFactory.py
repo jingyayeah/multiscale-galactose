@@ -21,10 +21,13 @@ import numpy as np
 from subprocess import call
 from copy import deepcopy
 
-import sim.PathSettings
-from sim.PathSettings import SBML_DIR
-from sim.models import *
+import path_settings
+from sbmlsim.models import *
 
+SYNC_BETWEEN_SERVERS = False # update the information for the other servers
+
+import django
+django.setup()
 
 from simulator.distribution.distributions import getGalactoseDistributions, getDemoDistributions
 from simulator.distribution.sampling import createParametersBySampling
@@ -111,7 +114,7 @@ def adapt_flow_in_samples(samples, f_flow):
 
 def create_django_model(sbml_id, sync=True):
     ''' Creates the model from given sbml_id '''    
-    model = SBMLModel.create(sbml_id, SBML_DIR);
+    model = SBMLModel.create(sbml_id, path_settings.SBML_DIR);
     model.save();
     if sync:
         sync_sbml()
@@ -172,7 +175,7 @@ def createSimulationForSample(task, sample):
 #----------------------------------------------------------------------#
 def make_demo(sbml_id, N, priority=0):
     info='Simple demo network to test database and simulations.'
-    model = create_django_model(sbml_id, sync=False)
+    model = create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     
     # parameter samples
     samples = createDemoSamples(N=N, sampling="distribution")
@@ -186,12 +189,12 @@ def make_demo(sbml_id, N, priority=0):
 #----------------------------------------------------------------------#
 def make_glucose(sbml_id):
     ''' Model of hepatic glucose metabolism '''
-    create_django_model(sbml_id, sync=True)
+    create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
 
 #----------------------------------------------------------------------#
 def make_galactose_core(sbml_id, N):
     info = '''Simulation of varying galactose concentrations periportal to steady state.'''
-    model = create_django_model(sbml_id, sync=True)
+    model = create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     
     # create parameter samples
     samples = createGalactoseSamples(N=N, sampling='distribution') 
@@ -210,7 +213,7 @@ def make_galactose_core(sbml_id, N):
 #----------------------------------------------------------------------#
 def make_galactose_dilution(sbml_id, N, sampling):
     info = 'Multiple-indicator dilution curves II({})'.format(sampling)
-    model = create_django_model(sbml_id, sync=True)
+    model = create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     
     # adapt flow in samples with the given f_flows
     # f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
@@ -231,7 +234,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
 #----------------------------------------------------------------------#
 def make_galactose_challenge(sbml_id, N, sampling):        
     info = 'Galactose challenge periportal ({})'.format(sampling)
-    model = create_django_model(sbml_id, sync=True)
+    model = create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     
     # parameter samples
     raw_samples = createGalactoseSamples(N=N, sampling=sampling) 
@@ -260,7 +263,7 @@ def make_galatose_flow_samples(N, sampling, f_flows, gal_challenge):
 
 def make_elimination_curve(sbml_id, sampling, samples):        
     info = 'Galactose elimination ({}).'.format(sampling)
-    model = create_django_model(sbml_id, sync=True)
+    model = create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
         
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
@@ -273,7 +276,7 @@ def make_elimination_curve(sbml_id, sampling, samples):
 #----------------------------------------------------------------------#
 def make_galactose_aging(sbml_id, sampling, samples):        
     
-    model = create_django_model(sbml_id, sync=True)
+    model = create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
         
     # age represents : [20, 40, 60, 80, 100]
     # [1, 1.375, 1.75, 2.125, 2.5]
@@ -305,7 +308,7 @@ def make_galactose_aging(sbml_id, sampling, samples):
 #----------------------------------------------------------------------#
 def make_galactose_vmax(sbml_id, sampling, samples):        
    
-    model = create_django_model(sbml_id, sync=True)
+    model = create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     # age represents : [20, 40, 60, 80, 100]
     GALK_PA = [0.024*x for x in [0.5, 0.75, 0.9, 1, 1.1, 1.5]]  # [-]
     for k in range(len(GALK_PA)):
@@ -325,7 +328,7 @@ def make_galactose_vmax(sbml_id, sampling, samples):
 #----------------------------------------------------------------------#
 def make_galactose_step(sbml_id, N, sampling):        
     info = 'Stepwise increase of periportal galactose ({})'.format(sampling)
-    model = create_django_model(sbml_id, sync=True)
+    model = create_django_model(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     
     # parameter samples
     samples = createGalactoseSamples(N=N, sampling=sampling) 
@@ -460,16 +463,18 @@ if __name__ == "__main__":
         [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
         samples = setParameterValuesInSamples(raw_samples, p_list)
         
+        # TODO: fix this shit, is really bad
+        # introduce dog factor
         scale_dog = 0.31/2
         samples = setParameterInSamples(samples, "scale_f", scale_dog, 'per_m3', GLOBAL_PARAMETER)
         
         createSimulationsForSamples(task, samples)
         
-        
-        # basic dilution curves with additional galactose challenge
-        [task, raw_samples] = make_galactose_dilution(sbml_id, N=100, sampling="distribution")
-        samples = setParameterValuesInSamples(raw_samples, p_list)
-        createSimulationsForSamples(task, samples)
+        if False:
+            # basic dilution curves with additional galactose challenge
+            [task, raw_samples] = make_galactose_dilution(sbml_id, N=100, sampling="distribution")
+            samples = setParameterValuesInSamples(raw_samples, p_list)
+            createSimulationsForSamples(task, samples)
 
     #----------------------------------------------------------------------#
     # GALACTOSEMIAS

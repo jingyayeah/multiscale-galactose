@@ -18,10 +18,10 @@ from roadrunner import SelectionRecord
 from django.core.files import File
 from django.utils import timezone
 
-from sim.PathSettings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
-from sim.models import Timecourse, NONE_SBML_PARAMETER
-from sim.models import DONE, ERROR, COPASI, ROADRUNNER
-from sim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
+from path_settings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
+from sbmlsim.models import Timecourse, NONE_SBML_PARAMETER
+from sbmlsim.models import DONE, ERROR, COPASI, ROADRUNNER
+from sbmlsim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
 import config_files
 
@@ -247,8 +247,11 @@ if __name__ == "__main__":
     # print tc.file.path
     # os.remove(tc.file.path)
 
-    from sim.models import Simulation
-    sim_ids = range(1,10)
+    import django
+    django.setup()
+    
+    from sbmlsim.models import Simulation
+    sim_ids = range(1,2)
     sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
     print '* Start integration *'
     print 'Simulation: ', sims

@@ -10,7 +10,7 @@ in the SBML so that no additional conversions of units are necessary.
 '''
 
 import math
-from sim.PathSettings import MULTISCALE_GALACTOSE
+from path_settings import MULTISCALE_GALACTOSE
 
 def createDictFromKeysAndValues(keys, values):
     ''' helper function '''

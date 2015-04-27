@@ -1,0 +1,14 @@
+model side_reaction
+  J0: S + E -> SE; k1*k2*S*E - k2*ES;
+  S = 5;
+  E = 3;
+  SE = E+S;
+  k1 = 1.2;
+  k2 = 0.4;
+end
+
+model full_reaction
+  A: side_reaction();
+  B: side_reaction();
+  A.S is B.S;
+end

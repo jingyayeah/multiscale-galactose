@@ -27,7 +27,7 @@ import random
 import numpy as np
 import numpy.random as npr
 
-from sim.models import GLOBAL_PARAMETER
+from sbmlsim.models import GLOBAL_PARAMETER
 
 def createParametersBySampling(dist_data, N, sampling):
     '''

@@ -1,0 +1,13 @@
+model test()
+
+unit mmHg = 133.322 pascal
+unit Pa_per_s = 1 pascal/second
+
+P = 1 mmHg;
+w = 1 Pa_per_s;
+
+# multiply some mmHg with something with Pa
+k1 has second;
+k1 = P/w;   # k1 should be 133.22, but will be 1
+
+end

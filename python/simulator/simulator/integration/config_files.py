@@ -33,9 +33,6 @@ information is stored in the [Simulation] section.
 import datetime
 import time
 
-import sim.PathSettings
-from sim.models import Simulation
-
 def create_config_file_for_simulation(sim, fname):
     ''' Creates a config file for the simulation in ini format.'''
     task = sim.task
@@ -81,7 +78,11 @@ def create_config_filename(sim, folder):
 
 ################################################################################
 if __name__ == "__main__":
-    from sim.PathSettings import SIM_DIR
+    import django
+    django.setup()
+    
+    from path_settings import SIM_DIR
+    from sbmlsim.models import Simulation
     
     sim = Simulation.objects.all()[0];
     fname = create_config_filename(sim, SIM_DIR) 
