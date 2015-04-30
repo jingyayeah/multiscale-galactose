@@ -29,33 +29,37 @@ import numpy.random as npr
 
 from sbmlsim.models import GLOBAL_PARAMETER
 
-def createParametersBySampling(dist_data, N, sampling):
+def createParametersBySampling(dist_data, N, sampling, keys=None):
     '''
     Master function which switches between methods to create
     the samples. This function should be called from 
     other modules.
     '''
     if (sampling == "distribution"):
-        samples = _createSamplesByDistribution(dist_data, N);
+        samples = _createSamplesByDistribution(dist_data, N, keys);
     elif (sampling == "LHS"):
-        samples = _createSamplesByLHS(dist_data, N);
+        samples = _createSamplesByLHS(dist_data, N, keys);
     elif (sampling == "mean"):
-        samples = _createSamplesByMean(dist_data, N);
+        samples = _createSamplesByMean(dist_data, N, keys);
     elif (sampling == "mixed"):
-        samples1 = _createSamplesByDistribution(dist_data, N/2);
-        samples2 = _createSamplesByLHS(dist_data, N/2);
+        samples1 = _createSamplesByDistribution(dist_data, N/2, keys);
+        samples2 = _createSamplesByLHS(dist_data, N/2, keys);
         samples = samples1 + samples2
     return samples
 
-def _createSamplesByDistribution(dist_data, N=10):
+def _createSamplesByDistribution(dist_data, N, keys=None):
     '''
     Returns the parameter samples from the log-normal distributions.
+    All parameters defined in the distributions are sampled.
+    If keys are provided, only the subset existing in keys is sampled.
     The generation of the database objects is performed in the SimulationFactory.
     '''
     samples = [];
     for kn in xrange(N):
         s = dict()
         for pid in dist_data.keys():
+            if keys and (pid not in keys):
+                continue
             dtmp = dist_data[pid]
             # m = means[kp]
             # std = stds[kp]
@@ -71,7 +75,7 @@ def _createSamplesByDistribution(dist_data, N=10):
         samples.append(s)
     return samples
 
-def _createSamplesByMean(dist_data, N=1):
+def _createSamplesByMean(dist_data, N=1, keys=None):
     ''' 
     Returns mean parameters for the given distribution data. 
     '''
@@ -79,30 +83,17 @@ def _createSamplesByMean(dist_data, N=1):
     for kn in xrange(N):
         s = dict()
         for pid in dist_data.keys():
+            if keys and (pid not in keys):
+                continue
             dtmp = dist_data[pid]
             value = dtmp['mean'] 
             s[pid] = (pid, value, dtmp['unit'], GLOBAL_PARAMETER)
         samples.append(s)
     return samples
 
-def _createSamplesByManual(dist_data):
-    ''' Manual parameter creation. Only sample L and flow_sin. '''
-    samples = []
-    # what parameters should be sampled
-    flows = np.arange(0.0, 600E-6, 60E-6)
-    lengths = np.arange(400E-6, 600E-6, 100E-6)
-    for flow_sin in flows:
-        for L in lengths: 
-            s = []
-            for pid in ("y_cell", "y_dis", "y_sin"):
-                dtmp = dist_data[pid];
-                s.append( (dtmp['name'], dtmp['mean'],dtmp['unit']), GLOBAL_PARAMETER)
-            s.append( ('flow_sin', flow_sin, 'm/s') , GLOBAL_PARAMETER)
-            s.append( ('L', L, 'm'), GLOBAL_PARAMETER)                    
-            samples.append(s)
-    return samples
 
-def _createSamplesByLHS(dist_data, N=10):
+
+def _createSamplesByLHS(dist_data, N, keys=None):
     '''
     Returns the parameter samples via LHS sampling.
     The boundaries of the samples are defined via the given distributions for the normal state.
@@ -113,6 +104,8 @@ def _createSamplesByLHS(dist_data, N=10):
     # depends on the mean and sd of the values
     pointsLHS = dict()
     for pid in dist_data.keys():
+        if keys and (pid not in keys):
+            continue
         dtmp = dist_data[pid]
         minLHS = dtmp['llb'];           # 0.01
         maxLHS = dtmp['uub'];           # 0.99
@@ -125,6 +118,8 @@ def _createSamplesByLHS(dist_data, N=10):
     for ks in xrange(N):
         s = dict()
         for pid in dist_data.keys():
+            if keys and (pid not in keys):
+                continue
             pointValues = pointsLHS[pid]
             value = pointValues[ks]
             s[pid] = (pid, value, dtmp['unit'], GLOBAL_PARAMETER)
@@ -165,6 +160,27 @@ def calculatePointsByLHS(N, variableMax, variableMin):
         pointValue = variableMin + point *(variableMax - variableMin)
         pointValues.append(pointValue)
     return pointValues
+
+
+def _createSamplesByManual(dist_data):
+    ''' Manual parameter creation. Only sample L and flow_sin. 
+        TODO: change this in a more appropiate way.
+    '''
+    print "DEPRECIATED _createSamplesByManual"
+    samples = []
+    # what parameters should be sampled
+    flows = np.arange(0.0, 600E-6, 60E-6)
+    lengths = np.arange(400E-6, 600E-6, 100E-6)
+    for flow_sin in flows:
+        for L in lengths: 
+            s = dict()
+            for pid in ("y_cell", "y_dis", "y_sin"):
+                dtmp = dist_data[pid];
+                s[pid] = (dtmp['name'], dtmp['mean'],dtmp['unit'], GLOBAL_PARAMETER)
+            s["flow_sin"] = ('flow_sin', flow_sin, 'm/s', GLOBAL_PARAMETER)
+            s["L"] = ('L', L, 'm', GLOBAL_PARAMETER)                     
+            samples.append(s)
+    return samples
 
 
 ##########################################################################################

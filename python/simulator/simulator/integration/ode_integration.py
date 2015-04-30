@@ -61,6 +61,23 @@ def storeTimecourseResults(sim, tc_file, keep_tmp=False):
     sim.time_sim = timezone.now()
     sim.status = DONE
     sim.save()
+    
+def storeTimecourseHDF5(h5_file, meta, header, data):
+    ''' Store the simulation file as HDF5.
+        Writing meta information, header/selection & data.
+    '''
+    import h5py
+    f = h5py.File(h5_file, 'w')
+    dset = f.create_dataset(meta['test'], data=data, compression="gzip")
+    
+    # header as string
+    dt = h5py.special_dtype(vlen=str)
+    
+    f.close()
+    print h5_file
+    
+    
+    
             
 def integrate(sims, integrator, keep_tmp=False):
     ''' Run ODE integration for the simulation. '''        
@@ -204,10 +221,17 @@ def integrate_roadrunner(sims, keep_tmp=False):
                     variableStep=False, stiff=True)
             t_int = time.clock()- tstart_int
         
+            # Store in HDF5
+            h5_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.h5'])
+            storeTimecourseHDF5(h5_file, header=header, data=s)
+            
+        
             # Store Timecourse Results
             tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
             numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.12E')
             storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
+
+
 
             # reset parameter changes
             for key, value in changes.iteritems():

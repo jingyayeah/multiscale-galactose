@@ -63,7 +63,11 @@ def createFlowSamples(N, sampling, f_flows):
         tmp_samples = adapt_flow_in_samples(tmp_samples, f_flow)
         samples.extend(tmp_samples)
     return samples
-        
+
+def createPressureSamples(N):
+    ''' TODO: implement the sampling from pressures. '''
+    pass
+
 
 def setDeficiencyInSamples(samples, deficiency=0):
     return setParameterInSamples(samples, 'deficiency', deficiency, '-', GLOBAL_PARAMETER)
@@ -78,6 +82,9 @@ def setParameterInSamples(samples, pid, value, unit, ptype):
 
 
 def setParameterValuesInSamples(raw_samples, p_list):
+    '''
+    ? how is the p_list structured ?
+    '''
     for pset in p_list:
         if pset['ptype'] not in PTYPES:
             print 'ptype not supported', pset['ptype']
@@ -217,10 +224,16 @@ def make_galactose_dilution(sbml_id, N, sampling):
     
     # adapt flow in samples with the given f_flows
     # f_flows = (1.0, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
-    f_flows = (1.0, 0.5, 0.25)
+    if VERSION <= 107:
+        f_flows = (1.0, 0.5, 0.25)
+        raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
+    else:
+        # set the pressures for the simulation
+        pass
+        # TODO: implement
+        # raw_samples = createPressureSamples(N=N, sampling=sampling)
     
-    raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
-    
+    # ? why this
     samples = setParameterInSamples(raw_samples, 'PP__gal', 0.0, 'mM', BOUNDERY_INIT)
     
     # simulations
@@ -362,7 +375,7 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 107
+    VERSION = 128
     
     #----------------------------------------------------------------------#
     # TEST NETWORKS
@@ -373,14 +386,15 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     if (0):
         make_glucose(sbml_id='Koenig2014_Hepatic_Glucose_Model_annotated')
-    #----------------------------------------------------------------------#
-    if (0):
-        sbml_id = 'Galactose_v{}_Nc20_core'.format(VERSION)
-        [task, samples] = make_galactose_core(sbml_id, N=50)
     
-        # Create deficiency samples belonging to the original samples
-        deficiencies = range(1, 24)
-        derive_deficiency_simulations(task, samples, deficiencies)
+    #----------------------------------------------------------------------#
+    # Core simulation
+    #----------------------------------------------------------------------#
+    # Varying galatose under constant flow
+    if (1):
+        sbml_id = 'Galactose_v{}_Nc20_core'.format(VERSION)
+        [task, samples] = make_galactose_core(sbml_id, N=1)
+    
  
     #----------------------------------------------------------------------#
     # GALACTOSE CHALLENGE
@@ -391,7 +405,7 @@ if __name__ == "__main__":
     gal_challenge = (0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 4.0, 6.0, 8.0,)
     
     # sample from distribution
-    dist_samples = make_galatose_flow_samples(N=100, sampling='distribution', 
+    dist_samples = make_galatose_flow_samples(N=1, sampling='distribution', 
                                              f_flows=f_flows, gal_challenge=gal_challenge)
     # mean sinusoidal unit
     mean_samples = make_galatose_flow_samples(N=1, sampling='mean', 
@@ -443,7 +457,7 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     # MULTIPLE INDICATOR DILUTION CURVES
     #----------------------------------------------------------------------#
-    if (1):
+    if (0):
         '''
         Multiple Indicator Dilution.
         Combination with different galactose challenge, i.e. dilution curves
