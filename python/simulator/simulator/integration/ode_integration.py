@@ -35,7 +35,11 @@ def storeConfigFile(sim, folder):
     return config_file;
 
 def storeTimecourseResults(sim, tc_file, keep_tmp=False):
-    ''' This takes quit long. '''
+    ''' This takes quit long. 
+        TODO: find a better solution for data managment.
+        Probably better to store as HDF5 file. For single simulation?
+        
+    '''
     f = open(tc_file, 'r')
     myfile = File(f)
     tc, _ = Timecourse.objects.get_or_create(simulation=sim)
@@ -43,7 +47,7 @@ def storeTimecourseResults(sim, tc_file, keep_tmp=False):
     tc.save()
     # zip the file
     tc.zip()
-    # convert to Rdata
+    # convert to Rdata for faster loading
     tc.rdata()
     if (keep_tmp==False):
         # remove the original csv file now

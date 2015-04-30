@@ -1,12 +1,14 @@
 #!/usr/bin/python
 '''
-Make the batch analysis of the data for multiple tasks.
+Prepares the data for a batch of simulations.
 
 @author: Matthias Koenig
 @date: 2015-04-18
 '''
 
 import path_settings
+# TODO: better via the setup call
+
 from sbmlsim.models import Task
 from PrepareAnalysis import prepareDataForAnalysis
 
