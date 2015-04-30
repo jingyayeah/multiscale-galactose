@@ -380,9 +380,11 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     # TEST NETWORKS
     #----------------------------------------------------------------------#
-    if (0):
+    # Simple demo network to test basic simulation capabilities.
+    if (1):
         print 'make demo'
         make_demo(sbml_id='Koenig2014_demo_kinetic_v7', N=20, priority=10)
+        
     #----------------------------------------------------------------------#
     if (0):
         make_glucose(sbml_id='Koenig2014_Hepatic_Glucose_Model_annotated')
@@ -391,7 +393,7 @@ if __name__ == "__main__":
     # Core simulation
     #----------------------------------------------------------------------#
     # Varying galatose under constant flow
-    if (1):
+    if (0):
         sbml_id = 'Galactose_v{}_Nc20_core'.format(VERSION)
         [task, samples] = make_galactose_core(sbml_id, N=1)
     

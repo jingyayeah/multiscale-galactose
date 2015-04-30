@@ -3,10 +3,8 @@ Created on Jul 23, 2014
 @author: mkoenig
 '''
 
-# TODO: necessary to generate proper imports
-from sbmlsim.models import SBMLModel
-
 import path_settings
+from sbmlsim.models import SBMLModel
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter

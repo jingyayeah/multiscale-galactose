@@ -421,7 +421,7 @@ class Simulation(models.Model):
     done_objects = DoneSimulationManager()
     
     def __unicode__(self):
-        return 'Sim%d' % (self.pk)
+        return 'S%d' % (self.pk)
     
     def is_error(self):
         return self.status == self.ERROR

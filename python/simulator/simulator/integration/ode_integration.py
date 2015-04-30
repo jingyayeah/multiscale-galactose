@@ -62,13 +62,13 @@ def storeTimecourseResults(sim, tc_file, keep_tmp=False):
     sim.status = DONE
     sim.save()
     
-def storeTimecourseHDF5(h5_file, meta, header, data):
+def storeTimecourseHDF5(h5_file, header, data, meta=None):
     ''' Store the simulation file as HDF5.
         Writing meta information, header/selection & data.
     '''
     import h5py
     f = h5py.File(h5_file, 'w')
-    dset = f.create_dataset(meta['test'], data=data, compression="gzip")
+    dset = f.create_dataset('test', data=data, compression="gzip")
     
     # header as string
     dt = h5py.special_dtype(vlen=str)
@@ -221,17 +221,15 @@ def integrate_roadrunner(sims, keep_tmp=False):
                     variableStep=False, stiff=True)
             t_int = time.clock()- tstart_int
         
-            # Store in HDF5
-            h5_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.h5'])
-            storeTimecourseHDF5(h5_file, header=header, data=s)
-            
-        
             # Store Timecourse Results
             tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
             numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.12E')
             storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
 
-
+            # Store in HDF5
+            h5_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.h5'])
+            storeTimecourseHDF5(h5_file, header=header, data=s)
+            
 
             # reset parameter changes
             for key, value in changes.iteritems():
@@ -279,8 +277,12 @@ if __name__ == "__main__":
     django.setup()
     
     from sbmlsim.models import Simulation
-    sim_ids = range(1,2)
-    sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
+    # sim_ids = range(1,2)
+    # sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
+    
+    # the folder for the simulations has to exist !
+    sims = Simulation.objects.filter(task=2)
+    
     print '* Start integration *'
     print 'Simulation: ', sims
     integrate(sims, integrator=ROADRUNNER, keep_tmp=True)

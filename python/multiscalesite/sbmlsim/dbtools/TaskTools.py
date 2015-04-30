@@ -4,7 +4,9 @@ Created on Jul 10, 2014
 @author: mkoenig
 '''
 
-import path_settings
+import django
+django.setup()
+
 from sbmlsim.models import Task
 
 def set_priority_for_task(tid, priority):

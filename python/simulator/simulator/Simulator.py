@@ -135,6 +135,9 @@ if __name__ == "__main__":
     '''
     Starting the simulation on the local computer.
     Call with --cpu option if not using 100% resources    
+    
+    TODO: probably better to start/communicate via MIP. This becomes more important
+    in the case of real parallel simulation on multiple computer.
     '''
     from optparse import OptionParser
     import math

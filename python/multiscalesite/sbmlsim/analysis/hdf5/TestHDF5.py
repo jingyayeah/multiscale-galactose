@@ -106,3 +106,26 @@ f = h5py.File('foo.h5', 'w')
 f['data'] = np.ones((4, 3, 2), 'f')
 f['data'].dims[0].label = 'z'
 f['data'].dims[2].label = 'x'
+
+# Variable length strings
+f = h5py.File('foo.hdf5')
+
+ds = f.create_dataset('VLDS', (100,100), dtype=dt)
+ds.dtype.kind
+h5py.check_dtype(vlen=ds.dtype)
+
+
+filename = "/home/mkoenig/multiscale-galactose-results/tmp_sim/T2/Koenig2014_demo_kinetic_v7_Sim18_roadrunner.h5"
+f = h5py.File(filename, 'r')
+def printname(name):
+    print name
+f.visit(printname)
+dset = f.get('test')
+dset[0:10, :]
+
+# write the column headers in HDF5
+import pandas as pd
+from pandas import DataFrame
+df = DataFrame()
+store = pd.HDFStore('test.h5')
+store.append('my_df', df)
