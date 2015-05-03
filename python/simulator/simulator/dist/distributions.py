@@ -27,9 +27,9 @@ def createDictFromKeysAndValues(keys, values):
     return d
 
 def getGalactoseDistributions():
-    return readGalactoseDistributions()
+    return _readGalactoseDistributions()
 
-def readGalactoseDistributions():
+def _readGalactoseDistributions():
     '''
     Reads the fitted distributions (lognormal)
     '''

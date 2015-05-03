@@ -9,12 +9,12 @@ Created on May 3, 2015
 from sbmlsim.models import *
 import numpy as np
 
-from simulator.distribution.distributions import getGalactoseDistributions
-from simulator.distribution.sampling import createParametersBySampling
+from simulator.dist.distributions import getGalactoseDistributions
+from simulator.dist.sampling import createParametersBySampling
 
 import simulation.SimulationFactory as simfac 
 
-SYNC_BETWEEN_SERVERS = True
+SYNC_BETWEEN_SERVERS = False
 
 def createGalactoseSamples(N, sampling):
     dist_data = getGalactoseDistributions()
@@ -235,15 +235,20 @@ def derive_deficiency_simulations(task, samples, deficiencies):
 
 ####################################################################################
 if __name__ == "__main__":
-    VERSION = 107
+    VERSION = 107 
     
     #----------------------------------------------------------------------#
     # Core simulation
     #----------------------------------------------------------------------#
     # Varying galatose under constant flow
-    if (0):
+    if (1):
+        
         sbml_id = 'Galactose_v{}_Nc20_core'.format(VERSION)
+        # create model from file
+        model = simfac.django_model_from_file(sbml_file='../../examples/{}.xml'.format(sbml_id), sync=False)
         [task, samples] = make_galactose_core(sbml_id, N=1)
+    
+    
     
     #----------------------------------------------------------------------#
     # GALACTOSE CHALLENGE
@@ -362,7 +367,7 @@ if __name__ == "__main__":
     #         This is only for testing. For final simulations all galactosemias
     #         should be generated in batch.
     #     '''
-    #     from simulator.distribution.sampling_tools import get_samples_from_task
+    #     from simulator.dist.samples import get_samples_from_task
     #     task = Task.objects.get(pk=26)
     #     samples = get_samples_from_task(task)
     #     deficiencies = range(4,24)

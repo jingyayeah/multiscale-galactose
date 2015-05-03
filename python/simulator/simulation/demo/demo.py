@@ -9,8 +9,8 @@ from __future__ import print_function
 
 from sbmlsim.models import Setting, Integration
 
-from simulator.distribution.distributions import getDemoDistributions
-from simulator.distribution.sampling import createParametersBySampling
+from simulator.dist.distributions import getDemoDistributions
+from simulator.dist.sampling import createParametersBySampling
 
 from simulation.SimulationFactory import django_model_from_id, django_model_from_file 
 from simulation.SimulationFactory import create_task, createSimulationsForSamples

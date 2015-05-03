@@ -158,6 +158,8 @@ class SBMLModel(models.Model):
     @classmethod
     def create_from_file(cls, filename):
         ''' Create model in database based on SBML file. '''
+        print(os.getcwd(), filename)
+        
         import libsbml
         doc = libsbml.SBMLReader().readSBML(filename)
         sbml_id = doc.getModel().getId()
