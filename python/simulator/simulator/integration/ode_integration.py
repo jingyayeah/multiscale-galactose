@@ -5,17 +5,15 @@ Performs ode integration for given simulations.
 @date: 2014-12-13
 '''
 import sys
-import os
 import time
 import traceback
 from subprocess import call
 import shlex
 
-import numpy
 import roadrunner
 from roadrunner import SelectionRecord
 
-from django.core.files import File
+# from django.core.files import File
 from django.utils import timezone
 
 from path_settings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
@@ -23,61 +21,11 @@ from sbmlsim.models import Timecourse, NONE_SBML_PARAMETER
 from sbmlsim.models import DONE, ERROR, COPASI, ROADRUNNER
 from sbmlsim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
-import config_files
+import simulator.integration.io_integration as ode_io
 
-def storeConfigFile(sim, folder):
-    ''' Store the config file in the database. '''
-    fname = config_files.create_config_filename(sim, folder)
-    config_file = config_files.create_config_file_for_simulation(sim, fname)
-    f = open(config_file, 'r')
-    sim.file = File(f)
-    sim.save()
-    return config_file;
 
-def storeTimecourseResults(sim, tc_file, keep_tmp=False):
-    ''' This takes quit long. 
-        TODO: find a better solution for data managment.
-        Probably better to store as HDF5 file. For single simulation?
-        
-    '''
-    f = open(tc_file, 'r')
-    myfile = File(f)
-    tc, _ = Timecourse.objects.get_or_create(simulation=sim)
-    tc.file = myfile
-    tc.save()
-    # zip the file
-    tc.zip()
-    # convert to Rdata for faster loading
-    tc.rdata()
-    if (keep_tmp==False):
-        # remove the original csv file now
-        myfile.close()
-        f.close()
-        os.remove(tc_file)
-    # remove the db csv (only compressed file kept)
-    os.remove(tc.file.path)
-     
-    # simulation finished (update simulation status)
-    sim.time_sim = timezone.now()
-    sim.status = DONE
-    sim.save()
-    
-def storeTimecourseHDF5(h5_file, header, data, meta=None):
-    ''' Store the simulation file as HDF5.
-        Writing meta information, header/selection & data.
-    '''
-    import h5py
-    f = h5py.File(h5_file, 'w')
-    dset = f.create_dataset('test', data=data, compression="gzip")
-    
-    # header as string
-    dt = h5py.special_dtype(vlen=str)
-    
-    f.close()
-    print h5_file
-    
-    
-    
+from simulator.integration import io_integration
+
             
 def integrate(sims, integrator, keep_tmp=False):
     ''' Run ODE integration for the simulation. '''        
@@ -88,23 +36,25 @@ def integrate(sims, integrator, keep_tmp=False):
 
 def integrate_copasi(sims):
     ''' Integrate simulations with Copasi. 
-        TODO: Update to latest Copasi source & test
+        TODO: Update to latest Copasi source & test.
+        TODO: Use the python interface to solve the problem.
     '''
     sbml_file = str(sims[0].task.sbml_model.file.path)
     sbml_id = sims[0].task.sbml_model.sbml_id
     for sim in sims:  
         try:
             sim.time_assign = timezone.now()            # correction due to bulk assignment
-            config_file = storeConfigFile(sim, SIM_DIR) # create the copasi config file for settings & changes
-            tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
+            config_file = ode_io.storeConfigFile(sim, SIM_DIR) # create the copasi config file for settings & changes
+            csv_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
 
             # run an operating system command
             # call(["ls", "-l"])
-            call_command = COPASI_EXEC + " -s " + sbml_file + " -c " + config_file + " -t " + tc_file;
+            call_command = COPASI_EXEC + " -s " + sbml_file + " -c " + config_file + " -t " + csv_file;
             print call_command
             call(shlex.split(call_command))
                 
-            storeTimecourseResults(sim, tc_file)
+            ode_io.store_timecourse_db(sim, filepath=csv_file, 
+                                       ftype=ode_io.FileType.CSV)
         except Exception:
             integration_exception(sim)
                     
@@ -131,26 +81,13 @@ def integrate_roadrunner(sims, keep_tmp=False):
     # set RoadRunner settings
     # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
     roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
-    print roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX
-    # print '*' * 80
-    # print rr.getInfo()
-    # print '*' * 80
-    
-    # get changed parameters in SBML
-    # pars = sims[0].parameters.all()
-    # pnames = [str(p.name) for p in pars if p.ptype == GLOBAL_PARAMETER] \
-    #           + ["".join(['[', str(p.name), ']']) for p in pars if p.ptype == BOUNDERY_INIT] \
-    #           + ["".join(['init([', str(p.name), '])']) for p in pars if p.ptype == FLOATING_INIT]
-    # print pnames
     
     # set the selection
     sel = ['time'] \
         + [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()] \
         + [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] \
         + [item for item in rr.model.getReactionIds() if item.startswith('H')]
-    
     rr.selections = sel
-    header = ",".join(sel)
 
     # use the integration settings (adapt absTol to amounts)
     sdict = sims[0].task.integration.get_settings_dict()
@@ -167,13 +104,11 @@ def integrate_roadrunner(sims, keep_tmp=False):
     
     for sim in sims:
         try:
-            # set all parameters in the model and store the changes for revert
-            # tstart = time.clock()
-            tstart_total = time.clock()
+            tstart_total = time.time()
             sim.time_assign = timezone.now() # correction due to bulk assignment
-            changes = dict()
             
-            # apply parameter changes
+            # set all parameters in the model and store the changes for revert
+            changes = dict()
             for p in sim.parameters.all():
                 if (p.ptype == GLOBAL_PARAMETER):
                     name = str(p.name)
@@ -203,42 +138,43 @@ def integrate_roadrunner(sims, keep_tmp=False):
                 rr.model[name] = p.value
                 # print 'set', name, ' = ', p.value
                             
-            # store the items before integration
-            # items_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_items.csv'])
-            # write_model_items(rr, items_file)
-            
-            # perform integration
-            tstart_int = time.clock()          
-            if varSteps:
-                # variable step size integration 
+            # ode integration
+            tstart_int = time.time()          
+            if varSteps:    # variable step size integration 
                 s = rr.simulate(sdict['tstart'], sdict['tend'], 
                     absolute=absTol, relative=relTol,
                     variableStep=True, stiff=True)
-            else:
-                # fixed steps
+            else:           # fixed steps
                 s = rr.simulate(sdict['tstart'], sdict['tend'], steps=sdict['steps'],
                     absolute=absTol, relative=relTol,
                     variableStep=False, stiff=True)
-            t_int = time.clock()- tstart_int
+            t_int = time.time()- tstart_int
         
-            # Store Timecourse Results
-            tc_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
-            numpy.savetxt(tc_file, s, header=header, delimiter=",", fmt='%.12E')
-            storeTimecourseResults(sim, tc_file, keep_tmp=keep_tmp)
-
-            # Store in HDF5
-            h5_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.h5'])
-            storeTimecourseHDF5(h5_file, header=header, data=s)
+            # Store CSV
+            csv_file = io_integration.csv_file(sbml_id, sim)
+            tmp = time.time()
+            ode_io.store_timecourse_csv(csv_file, data=s, header=sel)
+            ode_io.store_timecourse_db(sim, filepath=csv_file, ftype=ode_io.FileType.CSV)
+            tmp = time.time() - tmp
+            print "CSV: {}".format(tmp)
             
-
+            # Store in HDF5
+            h5_file = io_integration.hdf5_file(sbml_id, sim)
+            tmp = time.time()
+            ode_io.store_timecourse_hdf5(h5_file, data=s, header=sel)
+            ode_io.store_timecourse_db(sim, filepath=h5_file, ftype=ode_io.FileType.HDF5)
+            tmp = time.time() - tmp
+            print "HDF5: {}".format(tmp)
+            
             # reset parameter changes
             for key, value in changes.iteritems():
                 rr.model[key] = value 
             rr.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
+            
             # reset initial concentrations
             rr.reset()
-              
-            print 'Time: [{:.1f}|{:.1f}]'.format( (time.clock()-tstart_total), t_int )
+            time_total = time.time()-tstart_total
+            print 'Time: [{:.3f}|{:.3f} |{:.2f}]'.format(time_total, t_int, t_int/time_total*100 )
             
         except:
             integration_exception(sim)

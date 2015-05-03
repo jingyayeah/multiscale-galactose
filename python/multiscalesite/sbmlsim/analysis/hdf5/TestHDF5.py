@@ -103,6 +103,7 @@ dset = f.create_dataset("zipped", (100, 100), compression="gzip")
 # This is the official way to store metadata in HDF5.
 
 f = h5py.File('foo.h5', 'w')
+f.close()
 f['data'] = np.ones((4, 3, 2), 'f')
 f['data'].dims[0].label = 'z'
 f['data'].dims[2].label = 'x'
@@ -114,6 +115,12 @@ ds = f.create_dataset('VLDS', (100,100), dtype=dt)
 ds.dtype.kind
 h5py.check_dtype(vlen=ds.dtype)
 
+# write strings
+f1 = h5py.File('foo1.h5', 'w')
+test = ['A', 'B', 'C']
+f1.create_dataset("string_ds", data=test, dtype="S10")
+
+
 
 filename = "/home/mkoenig/multiscale-galactose-results/tmp_sim/T2/Koenig2014_demo_kinetic_v7_Sim18_roadrunner.h5"
 f = h5py.File(filename, 'r')
@@ -122,6 +129,9 @@ def printname(name):
 f.visit(printname)
 dset = f.get('test')
 dset[0:10, :]
+
+
+
 
 # write the column headers in HDF5
 import pandas as pd
