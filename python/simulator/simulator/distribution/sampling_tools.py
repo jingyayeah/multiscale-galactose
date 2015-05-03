@@ -5,8 +5,7 @@ Created on Jul 29, 2014
 @author: mkoenig
 '''
 
-import sim.PathSettings
-from sim.models import Task, Simulation, Parameter
+from sbmlsim.models import Task, Simulation, Parameter
 
 def get_samples_from_task(task):
     '''

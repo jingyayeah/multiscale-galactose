@@ -21,10 +21,10 @@ from sbmlsim.models import Timecourse, NONE_SBML_PARAMETER
 from sbmlsim.models import DONE, ERROR, COPASI, ROADRUNNER
 from sbmlsim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
-import simulator.integration.io_integration as ode_io
+import simulator.integration.ode_io as ode_io
 
 
-from simulator.integration import io_integration
+from simulator.integration import ode_io
 
             
 def integrate(sims, integrator, keep_tmp=False):
@@ -151,7 +151,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             t_int = time.time()- tstart_int
         
             # Store CSV
-            csv_file = io_integration.csv_file(sbml_id, sim)
+            csv_file = ode_io.csv_file(sbml_id, sim)
             tmp = time.time()
             ode_io.store_timecourse_csv(csv_file, data=s, header=sel)
             ode_io.store_timecourse_db(sim, filepath=csv_file, ftype=ode_io.FileType.CSV, keep_tmp=True)
@@ -159,7 +159,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             print "CSV: {}".format(tmp)
             
             # Store in HDF5
-            h5_file = io_integration.hdf5_file(sbml_id, sim)
+            h5_file = ode_io.hdf5_file(sbml_id, sim)
             tmp = time.time()
             ode_io.store_timecourse_hdf5(h5_file, data=s, header=sel)
             ode_io.store_timecourse_db(sim, filepath=h5_file, ftype=ode_io.FileType.HDF5)

@@ -33,7 +33,7 @@ information is stored in the [Simulation] section.
 import datetime
 import time
 
-def create_config_file_for_simulation(sim, fname):
+def create_config_file(sim, fname):
     ''' Creates a config file for the simulation in ini format.'''
     task = sim.task
     timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
@@ -72,7 +72,7 @@ def create_config_file_for_simulation(sim, fname):
     f.close()
     return fname
 
-def create_config_filename(sim, folder):
+def config_filename(sim, folder):
     sbml_id = sim.task.sbml_model.sbml_id
     return ''.join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_config.ini'])
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     from sbmlsim.models import Simulation
     
     sim = Simulation.objects.all()[0];
-    fname = create_config_filename(sim, SIM_DIR) 
-    create_config_file_for_simulation(sim, fname)
+    fname = config_filename(sim, SIM_DIR) 
+    create_config_file(sim, fname)
     print fname
     
