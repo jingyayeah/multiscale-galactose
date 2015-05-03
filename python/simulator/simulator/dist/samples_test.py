@@ -41,8 +41,15 @@ class TestSamples(unittest.TestCase):
         self.assertEqual(self.p1.ptype, GLOBAL_PARAMETER, "test pytpe")
         
     def test_sample_pars_repr(self):
-        self.assertEqual(self.p1.__repr__(), "<SampleParameter Vmax = 2.17mole_per_s (GLOBAL_PARAMETER)>", 
+        self.assertEqual(self.p1.__repr__(), "<Vmax = 2.170 [mole_per_s] (GLOBAL_PARAMETER)>", 
                          "test_repr")
+        
+    def test_demo_samples(self):
+        from simulation.demo.demo import create_demo_samples
+        samples = create_demo_samples(N=1, sampling="distribution")
+        s = samples[0]
+        self.assertIsInstance(s, Sample, "Demo sample is Sample")
+        keys =  s.keys()
         
 
 if __name__ == '__main__':

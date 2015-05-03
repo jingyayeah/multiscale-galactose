@@ -5,13 +5,10 @@ Created on Wed Dec 10 17:30:06 2014
 @author: mkoenig
 """
 
-import numpy
 import roadrunner
 from roadrunner import SelectionRecord
-from roadrunner.roadrunner import Logger
-print roadrunner.__version__
 
-import antimony
+import libantimony
 
 roadrunner.Config.setValue(roadrunner.Config.LLVM_SYMBOL_CACHE, True)
 
@@ -42,8 +39,8 @@ model_txt = """
     K5 := K1 + K2;  # K5 is defined by a rule, this is always active
     end
 """
-model = antimony.loadString(model_txt)
-antimony.writeSBMLFile('test.xml', 'test')
+model = libantimony.loadString(model_txt)
+libantimony.writeSBMLFile('test.xml', 'test')
 
 sbml_file = 'test.xml'
 r = roadrunner.RoadRunner(sbml_file)
@@ -52,10 +49,10 @@ r.selections = ['time'] + r.model.getBoundarySpeciesIds() + r.model.getFloatingS
 
 # store all concentrations
 conc_backup = dict()
-for id in r.model.getBoundarySpeciesIds():
-    conc_backup[id] = r["[{}]".format(id)]    
-for id in r.model.getFloatingSpeciesIds():
-    conc_backup[id] = r["[{}]".format(id)]
+for sid in r.model.getBoundarySpeciesIds():
+    conc_backup[sid] = r["[{}]".format(id)]    
+for sid in r.model.getFloatingSpeciesIds():
+    conc_backup[sid] = r["[{}]".format(id)]
 
 
 r.model.items()
@@ -75,7 +72,3 @@ print '* Update concentrations *'
 for key, value in conc_backup.iteritems():
     r.model["[{}]".format(key)] = value
 print r.model.items()
-
-r.reset()
-r.model.items()
-r.model.

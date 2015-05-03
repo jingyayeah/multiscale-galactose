@@ -6,7 +6,7 @@ Created on Dec 8, 2014
 import time
 import roadrunner
 from roadrunner import SelectionRecord
-print roadrunner.__version__
+print roadrunner.getVersionStr()
 
 sbml_file = 'Galactose_v36_Nc20_galchallenge.xml'
 sbml_file2 = 'Galactose_v43_Nc20_galchallenge.xml'

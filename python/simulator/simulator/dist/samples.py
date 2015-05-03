@@ -27,7 +27,7 @@ class SampleParameter(object):
         return cls(p.name, p.value, p.unit, p.ptype)
     
     def __repr__(self):
-        return "<SampleParameter {} = {}{} ({})>".format(self.name, self.value, self.unit, self.ptype)
+        return "<{} = {:.3f} [{}] ({})>".format(self.name, self.value, self.unit, self.ptype)
     
 
 class Sample(dict):
@@ -40,7 +40,6 @@ class Sample(dict):
     def get_parameter(self, key):
         return self[key]
 
-    
 
 def get_samples_from_task(task):
     ''' Returns all samples for simulations for given task. '''
@@ -60,21 +59,19 @@ def get_sample_from_simulation(sim):
         s.add_parameter(SampleParameter(p.name, p.value, p.unit, p.ptype))
     return s
     
-    
-    
 
 ##################################################################
 if __name__ == "__main__":
     import django
     django.setup()
     
+    # read samples from django
     task = Task.objects.get(pk=3)
     samples = get_samples_from_task(task)
-    print samples
     
-    """
-    from simulator.SimulationFactory import createDemoSamples
-    for k in xrange(20):
-        tmp = createDemoSamples(N=1, sampling="distribution")
-        print tmp 
-    """ 
+    for k, value in enumerate(samples):
+        print(k, value)
+    
+    
+    from simulation.demo.demo import create_demo_samples
+    create_demo_samples(N=1, sampling="distribution")

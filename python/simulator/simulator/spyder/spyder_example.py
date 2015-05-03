@@ -6,7 +6,7 @@ Dilution Data.
 '''
 import time
 import roadrunner
-print roadrunner.__version__
+print roadrunner.getVersionStr()
 
 
 t_peak = 5000
