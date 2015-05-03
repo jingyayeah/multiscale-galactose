@@ -58,6 +58,28 @@ def setDeficiencyInSamples(samples, deficiency=0):
 
 
 
+# def _createSamplesByManual():
+#     ''' Manual parameter creation. Only sample L and flow_sin. 
+#         TODO: change this in a more appropiate way.
+#     '''
+#     print "DEPRECIATED _createSamplesByManual"
+#     samples = []
+#     # what parameters should be sampled
+#     flows = np.arange(0.0, 600E-6, 60E-6)
+#     lengths = np.arange(400E-6, 600E-6, 100E-6)
+#     for flow_sin in flows:
+#         for L in lengths: 
+#             s = Sample()
+#             for pid in ("y_cell", "y_dis", "y_sin"):
+#                 dtmp = dist_data[pid];
+#                 s.add_parameter(SampleParameter(dtmp['name'], dtmp['mean'],
+#                                                 dtmp['unit'], GLOBAL_PARAMETER))
+#             s.add_parameter(SampleParameter('flow_sin', flow_sin, 'm/s', GLOBAL_PARAMETER))
+#             s.add_parameter(SampleParameter('L', L, 'm', GLOBAL_PARAMETER))                     
+#             samples.append(s)
+#     return samples
+
+
 #----------------------------------------------------------------------#
 def make_galactose_core(sbml_id, N):
     info = '''Simulation of varying galactose concentrations periportal to steady state.'''

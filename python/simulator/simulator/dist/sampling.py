@@ -24,10 +24,10 @@ samples for parameters (via LHS).
 @date:     2015-01-05
 '''
 import random
-import numpy as np
 import numpy.random as npr
 
 from sbmlsim.models import GLOBAL_PARAMETER
+from samples import Sample, SampleParameter
 
 def createParametersBySampling(dist_data, N, sampling, keys=None):
     '''
@@ -55,23 +55,19 @@ def _createSamplesByDistribution(dist_data, N, keys=None):
     The generation of the database objects is performed in the SimulationFactory.
     '''
     samples = [];
-    for kn in xrange(N):
-        s = dict()
+    for _ in xrange(N):
+        s = Sample()
         for pid in dist_data.keys():
             if keys and (pid not in keys):
                 continue
-            dtmp = dist_data[pid]
-            # m = means[kp]
-            # std = stds[kp]
-            # parameters are lognormal distributed 
-            # mu = math.log(m**2 / math.sqrt(std**2+m**2));
-            # sigma = math.sqrt(math.log(std**2/m**2 + 1));
+            dtmp = dist_data[pid]            
             mu = dtmp['meanlog']
             sigma = dtmp['sdlog']
             # all values are in 'unit'
-            value = npr.lognormal(mu, sigma) 
-            s[pid] = ( pid, value, dtmp['unit'], GLOBAL_PARAMETER)
-        
+            value = npr.lognormal(mu, sigma)
+            sp = SampleParameter(name=pid, value=value, 
+                                 unit=dtmp['unit'], ptype=GLOBAL_PARAMETER) 
+            s.add_parameter(sp)
         samples.append(s)
     return samples
 
@@ -80,17 +76,17 @@ def _createSamplesByMean(dist_data, N=1, keys=None):
     Returns mean parameters for the given distribution data. 
     '''
     samples = [];
-    for kn in xrange(N):
-        s = dict()
+    for _ in xrange(N):
+        s = Sample()
         for pid in dist_data.keys():
             if keys and (pid not in keys):
                 continue
             dtmp = dist_data[pid]
             value = dtmp['mean'] 
-            s[pid] = (pid, value, dtmp['unit'], GLOBAL_PARAMETER)
+            s.add_parameter(SampleParameter(pid, value, 
+                                            unit=dtmp['unit'], ptype=GLOBAL_PARAMETER))
         samples.append(s)
     return samples
-
 
 
 def _createSamplesByLHS(dist_data, N, keys=None):
@@ -116,13 +112,14 @@ def _createSamplesByLHS(dist_data, N, keys=None):
     # put the LHS dimensions together
     samples = []
     for ks in xrange(N):
-        s = dict()
+        s = Sample()
         for pid in dist_data.keys():
             if keys and (pid not in keys):
                 continue
             pointValues = pointsLHS[pid]
             value = pointValues[ks]
-            s[pid] = (pid, value, dtmp['unit'], GLOBAL_PARAMETER)
+            s.add_parameter(SampleParameter(pid, value, 
+                                         dtmp['unit'], GLOBAL_PARAMETER))
         samples.append(s)
     
     return samples
@@ -162,36 +159,15 @@ def calculatePointsByLHS(N, variableMax, variableMin):
     return pointValues
 
 
-def _createSamplesByManual(dist_data):
-    ''' Manual parameter creation. Only sample L and flow_sin. 
-        TODO: change this in a more appropiate way.
-    '''
-    print "DEPRECIATED _createSamplesByManual"
-    samples = []
-    # what parameters should be sampled
-    flows = np.arange(0.0, 600E-6, 60E-6)
-    lengths = np.arange(400E-6, 600E-6, 100E-6)
-    for flow_sin in flows:
-        for L in lengths: 
-            s = dict()
-            for pid in ("y_cell", "y_dis", "y_sin"):
-                dtmp = dist_data[pid];
-                s[pid] = (dtmp['name'], dtmp['mean'],dtmp['unit'], GLOBAL_PARAMETER)
-            s["flow_sin"] = ('flow_sin', flow_sin, 'm/s', GLOBAL_PARAMETER)
-            s["L"] = ('L', L, 'm', GLOBAL_PARAMETER)                     
-            samples.append(s)
-    return samples
+
 
 
 ##########################################################################################
 
 if __name__ == "__main__":
-    
+
     from distributions import getGalactoseDistributions
-    dist_data = getGalactoseDistributions();
-    samples = _createSamplesByManual(dist_data)
-    for s in samples:
-        print s
+    dist_data = getGalactoseDistributions()
     
     print '-' * 40
     samples = _createSamplesByDistribution(dist_data, N=5)

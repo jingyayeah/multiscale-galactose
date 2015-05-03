@@ -111,9 +111,7 @@ f['data'].dims[2].label = 'x'
 # Variable length strings
 f = h5py.File('foo.hdf5')
 
-ds = f.create_dataset('VLDS', (100,100), dtype=dt)
-ds.dtype.kind
-h5py.check_dtype(vlen=ds.dtype)
+
 
 # write strings
 f1 = h5py.File('foo1.h5', 'w')
@@ -124,8 +122,7 @@ f1.create_dataset("string_ds", data=test, dtype="S10")
 
 filename = "/home/mkoenig/multiscale-galactose-results/tmp_sim/T2/Koenig2014_demo_kinetic_v7_Sim18_roadrunner.h5"
 f = h5py.File(filename, 'r')
-def printname(name):
-    print name
+
 f.visit(printname)
 dset = f.get('test')
 dset[0:10, :]
