@@ -26,8 +26,8 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 @date: 2014-07-08
 '''
 
-import sim.PathSettings
-from sim.PathSettings import SIM_DIR
+
+from path_settings import SIM_DIR
 
 import os
 import time
@@ -39,8 +39,8 @@ import struct
 from django.utils import timezone
 from django.db import transaction
 
-from sim.models import Task, Core, Simulation
-from sim.models import UNASSIGNED, ASSIGNED
+from sbmlsim.models import Task, Core, Simulation
+from sbmlsim.models import UNASSIGNED, ASSIGNED
 from integration import ode_integration
 
 
@@ -85,15 +85,16 @@ def assign_simulations(core, Nsim=1):
         
         # select the simulations for update with locking the rows
         # this is in the database lock
-        with transaction.commit_manually():
-            sims = Simulation.objects.select_for_update().filter(task=task, status=UNASSIGNED)[0:Nsim]
-            
-            for sim in sims:
-                sim.time_assign = timezone.now()
-                sim.core = core
-                sim.status = ASSIGNED
-                sim.save();
-            transaction.commit()
+        # with transaction.commit_manually()
+        transaction.set_autocommit(False)
+        sims = Simulation.objects.select_for_update().filter(task=task, status=UNASSIGNED)[0:Nsim]
+        for sim in sims:
+            sim.time_assign = timezone.now()
+            sim.core = core
+            sim.status = ASSIGNED
+            sim.save();
+        transaction.commit()
+        transaction.set_autocommit(True)
             
         return task, sims
     else:

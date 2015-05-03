@@ -123,9 +123,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
    <tr class='relative odd' valign='top'>
-    <td class='relatedTable detail' title="auth_group_permissions.group_id refs auth_group.id via group_id_refs_id_f4b32aac"><a href='auth_group.html'>auth_group</a><span class='relatedKey'>.id</span>
+    <td class='relatedTable detail' title="auth_group_permissions.group_id refs auth_group.id via auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id"><a href='auth_group.html'>auth_group</a><span class='relatedKey'>.id</span>
     </td>
-    <td class='constraint detail'>group_id_refs_id_f4b32aac<span title='Restrict delete:
+    <td class='constraint detail'>auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
   </table>
@@ -143,9 +143,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
    <tr class='relative even' valign='top'>
-    <td class='relatedTable detail' title="auth_group_permissions.permission_id refs auth_permission.id via auth_group_permissions_permission_id_fkey"><a href='auth_permission.html'>auth_permission</a><span class='relatedKey'>.id</span>
+    <td class='relatedTable detail' title="auth_group_permissions.permission_id refs auth_permission.id via auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id"><a href='auth_permission.html'>auth_permission</a><span class='relatedKey'>.id</span>
     </td>
-    <td class='constraint detail'>auth_group_permissions_permission_id_fkey<span title='Restrict delete:
+    <td class='constraint detail'>auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
   </table>
@@ -153,7 +153,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='3 columns'>Table contained 0 rows at Wed Jul 09 09:38 CEST 2014<p/>
+<p title='3 columns'>Table contained 0 rows at Sun May 03 18:02 CEST 2015<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -177,13 +177,13 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <td class='indexedColumn'>group_id</td>
   <td class='detail'>Performance</td>
   <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>auth_group_permissions_group_id</td>
+  <td class='constraint' style='text-align:left;'>auth_group_permissions_0e939a4f</td>
  </tr>
  <tr>
-  <td class='indexedColumn'>group_id + permission_id</td>
-  <td class='detail'>Must be unique</td>
-  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>auth_group_permissions_group_id_key</td>
+  <td class='indexedColumn'>permission_id</td>
+  <td class='detail'>Performance</td>
+  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
+  <td class='constraint' style='text-align:left;'>auth_group_permissions_8373b171</td>
  </tr>
  <tr>
   <td class='indexedColumn'>group_id + permission_id</td>
@@ -191,30 +191,24 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
   <td class='constraint' style='text-align:left;'>auth_group_permissions_group_id_permission_id_key</td>
  </tr>
- <tr>
-  <td class='indexedColumn'>permission_id</td>
-  <td class='detail'>Performance</td>
-  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>auth_group_permissions_permission_id</td>
- </tr>
 </table>
 </div>
 <table width='100%' border='0'><tr><td class='container'>
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from auth_group_permissions'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="auth_group_permissions.html" title="auth_group_permissions" alt="" coords="211,27,416,157">
-<area shape="rect" id="node3" href="auth_group.html" title="auth_group" alt="" coords="20,5,151,107">
-<area shape="rect" id="node5" href="auth_permission.html" title="auth_permission" alt="" coords="5,123,165,271">
+<area shape="rect" id="node1" href="auth_group_permissions.html" title="auth_group_permissions" alt="" coords="191,29,385,166">
+<area shape="rect" id="node2" href="auth_group.html" title="auth_group" alt="" coords="15,5,137,113">
+<area shape="rect" id="node3" href="auth_permission.html" title="auth_permission" alt="" coords="5,130,147,286">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/auth_group_permissions.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="auth_group_permissions.html" title="auth_group_permissions" alt="" coords="439,103,644,233">
-<area shape="rect" id="node3" href="auth_group.html" title="auth_group" alt="" coords="243,81,373,183">
-<area shape="rect" id="node5" href="auth_permission.html" title="auth_permission" alt="" coords="228,225,388,373">
-<area shape="rect" id="node7" href="django_content_type.html" title="django_content_type" alt="" coords="5,271,184,351">
-<area shape="rect" id="node8" href="auth_user_groups.html" title="auth_user_groups" alt="" coords="461,5,621,85">
-<area shape="rect" id="node10" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="432,251,651,331">
+<area shape="rect" id="node1" href="auth_group_permissions.html" title="auth_group_permissions" alt="" coords="411,106,605,243">
+<area shape="rect" id="node2" href="auth_group.html" title="auth_group" alt="" coords="225,82,346,190">
+<area shape="rect" id="node3" href="auth_permission.html" title="auth_permission" alt="" coords="215,234,356,390">
+<area shape="rect" id="node4" href="django_content_type.html" title="django_content_type" alt="" coords="6,282,170,366">
+<area shape="rect" id="node5" href="auth_user_groups.html" title="auth_user_groups" alt="" coords="434,5,582,89">
+<area shape="rect" id="node6" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="400,261,616,345">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/auth_group_permissions.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

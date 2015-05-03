@@ -127,7 +127,10 @@ class Core(models.Model):
 
 
 class SBMLModel(models.Model):
-    ''' Storage of SBMLmodels. '''
+    ''' Storage of SBMLmodels. 
+        TODO: add a file hash and check if the hash of the file is correct.
+            possible problems with identical ids.
+    '''
     sbml_id = models.CharField(max_length=200, unique=True)
     file = models.FileField(upload_to="sbml", max_length=200, storage=OverwriteStorage())
     
@@ -288,6 +291,14 @@ BOUNDERY_INIT = 'BOUNDERY_INIT'
 FLOATING_INIT = 'FLOATING_INIT'
 NONE_SBML_PARAMETER = 'NONE_SBML_PARAMETER'
 PTYPES = (GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT, NONE_SBML_PARAMETER)
+
+class ParameterTypeException(Exception):
+    ''' Raise if wrong parameter type. '''
+    pass
+
+def check_parameter_type(ptype):
+    if ptype not in PTYPES:
+        raise ParameterTypeException('ptype not supported: {}'.format(ptype))
 
 class Parameter(models.Model):
     UNITS = (

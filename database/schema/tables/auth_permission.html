@@ -101,7 +101,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>id</td>
  <td class='detail'>serial</td>
  <td class='detail' align='right'>10</td>
@@ -110,16 +110,16 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail' align='right'>nextval('auth_permission_id_seq'::regclass)</td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
-    <td class='relatedTable detail' title="auth_group_permissions.permission_id refs auth_permission.id via auth_group_permissions_permission_id_fkey"><a href='auth_group_permissions.html'>auth_group_permissions</a><span class='relatedKey'>.permission_id</span>
+   <tr class='relative even' valign='top'>
+    <td class='relatedTable detail' title="auth_group_permissions.permission_id refs auth_permission.id via auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id"><a href='auth_group_permissions.html'>auth_group_permissions</a><span class='relatedKey'>.permission_id</span>
     </td>
-    <td class='constraint detail'>auth_group_permissions_permission_id_fkey<span title='Restrict delete:
+    <td class='constraint detail'>auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
-   <tr class='relative odd' valign='top'>
-    <td class='relatedTable detail' title="auth_user_user_permissions.permission_id refs auth_permission.id via auth_user_user_permissions_permission_id_fkey"><a href='auth_user_user_permissions.html'>auth_user_user_permissions</a><span class='relatedKey'>.permission_id</span>
+   <tr class='relative even' valign='top'>
+    <td class='relatedTable detail' title="auth_user_user_permissions.permission_id refs auth_permission.id via auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id"><a href='auth_user_user_permissions.html'>auth_user_user_permissions</a><span class='relatedKey'>.permission_id</span>
     </td>
-    <td class='constraint detail'>auth_user_user_permissions_permission_id_fkey<span title='Restrict delete:
+    <td class='constraint detail'>auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
   </table>
@@ -127,10 +127,10 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>name</td>
  <td class='detail'>varchar</td>
- <td class='detail' align='right'>50</td>
+ <td class='detail' align='right'>255</td>
  <td class='detail' align='center'></td>
  <td class='detail' align='center'></td>
  <td class='detail'></td>
@@ -138,7 +138,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='indexedColumn' title='Indexed'>content_type_id</td>
  <td class='detail'>int4</td>
  <td class='detail' align='right'>10</td>
@@ -148,17 +148,17 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
-    <td class='relatedTable detail' title="auth_permission.content_type_id refs django_content_type.id via content_type_id_refs_id_d043b34a"><a href='django_content_type.html'>django_content_type</a><span class='relatedKey'>.id</span>
+   <tr class='relative even' valign='top'>
+    <td class='relatedTable detail' title="auth_permission.content_type_id refs django_content_type.id via auth_content_type_id_508cf46651277a81_fk_django_content_type_id"><a href='django_content_type.html'>django_content_type</a><span class='relatedKey'>.id</span>
     </td>
-    <td class='constraint detail'>content_type_id_refs_id_d043b34a<span title='Restrict delete:
+    <td class='constraint detail'>auth_content_type_id_508cf46651277a81_fk_django_content_type_id<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
   </table>
  </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>codename</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>100</td>
@@ -170,7 +170,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='4 columns'>Table contained 45 rows at Wed Jul 09 09:38 CEST 2014<p/>
+<p title='4 columns'>Table contained 42 rows at Sun May 03 18:02 CEST 2015<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -194,7 +194,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <td class='indexedColumn'>content_type_id</td>
   <td class='detail'>Performance</td>
   <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>auth_permission_content_type_id</td>
+  <td class='constraint' style='text-align:left;'>auth_permission_417f1b1c</td>
  </tr>
  <tr>
   <td class='indexedColumn'>content_type_id + codename</td>
@@ -202,32 +202,26 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
   <td class='constraint' style='text-align:left;'>auth_permission_content_type_id_codename_key</td>
  </tr>
- <tr>
-  <td class='indexedColumn'>content_type_id + codename</td>
-  <td class='detail'>Must be unique</td>
-  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>auth_permission_content_type_id_key</td>
- </tr>
 </table>
 </div>
 <table width='100%' border='0'><tr><td class='container'>
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from auth_permission'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="auth_group_permissions.html" title="auth_group_permissions" alt="" coords="519,5,708,131">
-<area shape="rect" id="node3" href="auth_permission.html" title="auth_permission" alt="" coords="228,121,460,274">
-<area shape="rect" id="node5" href="django_content_type.html" title="django_content_type" alt="" coords="5,170,184,318">
-<area shape="rect" id="node6" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="504,148,723,273">
+<area shape="rect" id="node1" href="auth_group_permissions.html" title="auth_group_permissions" alt="" coords="499,5,687,137">
+<area shape="rect" id="node2" href="auth_permission.html" title="auth_permission" alt="" coords="215,125,441,286">
+<area shape="rect" id="node3" href="django_content_type.html" title="django_content_type" alt="" coords="6,175,170,307">
+<area shape="rect" id="node4" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="485,154,701,286">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/auth_permission.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="auth_group_permissions.html" title="auth_group_permissions" alt="" coords="519,5,708,131">
-<area shape="rect" id="node3" href="auth_group.html" title="auth_group" alt="" coords="279,19,409,99">
-<area shape="rect" id="node5" href="auth_permission.html" title="auth_permission" alt="" coords="228,115,460,269">
-<area shape="rect" id="node7" href="django_content_type.html" title="django_content_type" alt="" coords="5,258,184,406">
-<area shape="rect" id="node8" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="504,157,723,283">
-<area shape="rect" id="node11" href="auth_user.html" title="auth_user" alt="" coords="283,285,405,365">
-<area shape="rect" id="node12" href="django_admin_log.html" title="django_admin_log" alt="" coords="525,319,701,399">
+<area shape="rect" id="node1" href="auth_group_permissions.html" title="auth_group_permissions" alt="" coords="499,5,687,137">
+<area shape="rect" id="node2" href="auth_group.html" title="auth_group" alt="" coords="267,18,389,102">
+<area shape="rect" id="node3" href="auth_permission.html" title="auth_permission" alt="" coords="215,119,441,281">
+<area shape="rect" id="node4" href="django_content_type.html" title="django_content_type" alt="" coords="6,269,170,401">
+<area shape="rect" id="node5" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="485,163,701,295">
+<area shape="rect" id="node6" href="auth_user.html" title="auth_user" alt="" coords="271,298,385,382">
+<area shape="rect" id="node7" href="django_admin_log.html" title="django_admin_log" alt="" coords="519,333,667,417">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/auth_permission.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

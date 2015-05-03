@@ -1,4 +1,4 @@
-// dot 2.26.3 on Linux 3.11.0-12-generic
+// dot 2.36.0 on Linux 3.13.0-43-generic
 // SchemaSpy rev 590
 digraph "largeRelationshipsDiagram" {
   graph [
@@ -50,7 +50,7 @@ digraph "largeRelationshipsDiagram" {
       <TR><TD PORT="name" COLSPAN="3" ALIGN="LEFT">name</TD></TR>
       <TR><TD PORT="content_type_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">content_type_id</TD></TR>
       <TR><TD PORT="codename" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">codename</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">45 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">42 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="tables/auth_permission.html"
     tooltip="auth_permission"
@@ -105,13 +105,13 @@ digraph "largeRelationshipsDiagram" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">django_admin_log</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="action_time" COLSPAN="3" ALIGN="LEFT">action_time</TD></TR>
-      <TR><TD PORT="user_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">user_id</TD></TR>
-      <TR><TD PORT="content_type_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">content_type_id</TD></TR>
       <TR><TD PORT="object_id" COLSPAN="3" ALIGN="LEFT">object_id</TD></TR>
       <TR><TD PORT="object_repr" COLSPAN="3" ALIGN="LEFT">object_repr</TD></TR>
       <TR><TD PORT="action_flag" COLSPAN="3" ALIGN="LEFT">action_flag</TD></TR>
       <TR><TD PORT="change_message" COLSPAN="3" ALIGN="LEFT">change_message</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">321 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD PORT="content_type_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">content_type_id</TD></TR>
+      <TR><TD PORT="user_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">user_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="tables/django_admin_log.html"
     tooltip="django_admin_log"
@@ -121,154 +121,140 @@ digraph "largeRelationshipsDiagram" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">django_content_type</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
-      <TR><TD PORT="name" COLSPAN="3" ALIGN="LEFT">name</TD></TR>
       <TR><TD PORT="app_label" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">app_label</TD></TR>
       <TR><TD PORT="model" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">model</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">15 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">14 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="tables/django_content_type.html"
     tooltip="django_content_type"
   ];
-  "sim_core" [
+  "sbmlsim_core" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_core</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_core</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="ip" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">ip</TD></TR>
       <TR><TD PORT="cpu" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">cpu</TD></TR>
       <TR><TD PORT="time" COLSPAN="3" ALIGN="LEFT">time</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
-    URL="tables/sim_core.html"
-    tooltip="sim_core"
+    URL="tables/sbmlsim_core.html"
+    tooltip="sbmlsim_core"
   ];
-  "sim_integration" [
+  "sbmlsim_integration" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_integration</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_integration</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 row</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
-    URL="tables/sim_integration.html"
-    tooltip="sim_integration"
+    URL="tables/sbmlsim_integration.html"
+    tooltip="sbmlsim_integration"
   ];
-  "sim_integration_settings" [
+  "sbmlsim_integration_settings" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_integration_settings</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_integration_settings</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="integration_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">integration_id</TD></TR>
       <TR><TD PORT="setting_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">setting_id</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">16 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
-    URL="tables/sim_integration_settings.html"
-    tooltip="sim_integration_settings"
+    URL="tables/sbmlsim_integration_settings.html"
+    tooltip="sbmlsim_integration_settings"
   ];
-  "sim_parameter" [
+  "sbmlsim_parameter" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_parameter</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_parameter</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="name" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">name</TD></TR>
       <TR><TD PORT="value" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">value</TD></TR>
       <TR><TD PORT="unit" COLSPAN="3" ALIGN="LEFT">unit</TD></TR>
       <TR><TD PORT="ptype" COLSPAN="3" ALIGN="LEFT">ptype</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">56 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">235 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
-    URL="tables/sim_parameter.html"
-    tooltip="sim_parameter"
+    URL="tables/sbmlsim_parameter.html"
+    tooltip="sbmlsim_parameter"
   ];
-  "sim_plot" [
+  "sbmlsim_sbmlmodel" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_plot</TD></TR>
-      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
-      <TR><TD PORT="timecourse_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">timecourse_id</TD></TR>
-      <TR><TD PORT="plot_type" COLSPAN="3" ALIGN="LEFT">plot_type</TD></TR>
-      <TR><TD PORT="file" COLSPAN="3" ALIGN="LEFT">file</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
-    </TABLE>>
-    URL="tables/sim_plot.html"
-    tooltip="sim_plot"
-  ];
-  "sim_sbmlmodel" [
-    label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_sbmlmodel</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_sbmlmodel</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="sbml_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">sbml_id</TD></TR>
       <TR><TD PORT="file" COLSPAN="3" ALIGN="LEFT">file</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">7 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
-    URL="tables/sim_sbmlmodel.html"
-    tooltip="sim_sbmlmodel"
+    URL="tables/sbmlsim_sbmlmodel.html"
+    tooltip="sbmlsim_sbmlmodel"
   ];
-  "sim_setting" [
+  "sbmlsim_setting" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_setting</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_setting</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="name" COLSPAN="3" ALIGN="LEFT">name</TD></TR>
       <TR><TD PORT="datatype" COLSPAN="3" ALIGN="LEFT">datatype</TD></TR>
       <TR><TD PORT="value" COLSPAN="3" ALIGN="LEFT">value</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">9 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
-    URL="tables/sim_setting.html"
-    tooltip="sim_setting"
+    URL="tables/sbmlsim_setting.html"
+    tooltip="sbmlsim_setting"
   ];
-  "sim_simulation" [
+  "sbmlsim_simulation" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_simulation</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_simulation</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
-      <TR><TD PORT="task_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">task_id</TD></TR>
       <TR><TD PORT="status" COLSPAN="3" ALIGN="LEFT">status</TD></TR>
       <TR><TD PORT="time_create" COLSPAN="3" ALIGN="LEFT">time_create</TD></TR>
       <TR><TD PORT="time_assign" COLSPAN="3" ALIGN="LEFT">time_assign</TD></TR>
-      <TR><TD PORT="core_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">core_id</TD></TR>
       <TR><TD PORT="time_sim" COLSPAN="3" ALIGN="LEFT">time_sim</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">50 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD PORT="core_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">core_id</TD></TR>
+      <TR><TD PORT="task_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">task_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">119 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
-    URL="tables/sim_simulation.html"
-    tooltip="sim_simulation"
+    URL="tables/sbmlsim_simulation.html"
+    tooltip="sbmlsim_simulation"
   ];
-  "sim_simulation_parameters" [
+  "sbmlsim_simulation_parameters" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_simulation_parameters</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_simulation_parameters</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
       <TR><TD PORT="simulation_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">simulation_id</TD></TR>
       <TR><TD PORT="parameter_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">parameter_id</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">350 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">301 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
-    URL="tables/sim_simulation_parameters.html"
-    tooltip="sim_simulation_parameters"
+    URL="tables/sbmlsim_simulation_parameters.html"
+    tooltip="sbmlsim_simulation_parameters"
   ];
-  "sim_task" [
+  "sbmlsim_task" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_task</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_task</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
-      <TR><TD PORT="sbml_model_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">sbml_model_id</TD></TR>
-      <TR><TD PORT="integration_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">integration_id</TD></TR>
       <TR><TD PORT="priority" COLSPAN="3" ALIGN="LEFT">priority</TD></TR>
-      <TR><TD PORT="info" COLSPAN="3" ALIGN="LEFT">info</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 row</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD PORT="info" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">info</TD></TR>
+      <TR><TD PORT="integration_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">integration_id</TD></TR>
+      <TR><TD PORT="sbml_model_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">sbml_model_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
-    URL="tables/sim_task.html"
-    tooltip="sim_task"
+    URL="tables/sbmlsim_task.html"
+    tooltip="sbmlsim_task"
   ];
-  "sim_timecourse" [
+  "sbmlsim_timecourse" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sim_timecourse</TD></TR>
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">sbmlsim_timecourse</TD></TR>
       <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
-      <TR><TD PORT="simulation_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">simulation_id</TD></TR>
       <TR><TD PORT="file" COLSPAN="3" ALIGN="LEFT">file</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">50 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD PORT="simulation_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">simulation_id</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">20 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
-    URL="tables/sim_timecourse.html"
-    tooltip="sim_timecourse"
+    URL="tables/sbmlsim_timecourse.html"
+    tooltip="sbmlsim_timecourse"
   ];
   "auth_group_permissions":"group_id":w -> "auth_group":"id":e [arrowhead=none dir=back arrowtail=crowodot];
   "auth_group_permissions":"permission_id":w -> "auth_permission":"id":e [arrowhead=none dir=back arrowtail=crowodot];
@@ -279,14 +265,13 @@ digraph "largeRelationshipsDiagram" {
   "auth_user_user_permissions":"user_id":w -> "auth_user":"id":e [arrowhead=none dir=back arrowtail=crowodot];
   "django_admin_log":"content_type_id":w -> "django_content_type":"id":e [arrowhead=none dir=back arrowtail=crowodot];
   "django_admin_log":"user_id":w -> "auth_user":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_integration_settings":"integration_id":w -> "sim_integration":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_integration_settings":"setting_id":w -> "sim_setting":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_plot":"timecourse_id":w -> "sim_timecourse":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_simulation":"core_id":w -> "sim_core":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_simulation":"task_id":w -> "sim_task":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_simulation_parameters":"parameter_id":w -> "sim_parameter":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_simulation_parameters":"simulation_id":w -> "sim_simulation":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_task":"integration_id":w -> "sim_integration":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_task":"sbml_model_id":w -> "sim_sbmlmodel":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sim_timecourse":"simulation_id":w -> "sim_simulation":"id":e [arrowhead=none dir=back arrowtail=teeodot];
+  "sbmlsim_integration_settings":"integration_id":w -> "sbmlsim_integration":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "sbmlsim_integration_settings":"setting_id":w -> "sbmlsim_setting":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "sbmlsim_simulation":"core_id":w -> "sbmlsim_core":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "sbmlsim_simulation":"task_id":w -> "sbmlsim_task":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "sbmlsim_simulation_parameters":"parameter_id":w -> "sbmlsim_parameter":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "sbmlsim_simulation_parameters":"simulation_id":w -> "sbmlsim_simulation":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "sbmlsim_task":"integration_id":w -> "sbmlsim_integration":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "sbmlsim_task":"sbml_model_id":w -> "sbmlsim_sbmlmodel":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "sbmlsim_timecourse":"simulation_id":w -> "sbmlsim_simulation":"id":e [arrowhead=none dir=back arrowtail=teeodot];
 }

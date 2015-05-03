@@ -124,46 +124,6 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 <tr class='even'>
- <td class='indexedColumn' title='Indexed'>user_id</td>
- <td class='detail'>int4</td>
- <td class='detail' align='right'>10</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='center'></td>
- <td class='detail'></td>
- <td class='detail'></td>
- <td class='detail'>
-  <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
-    <td class='relatedTable detail' title="django_admin_log.user_id refs auth_user.id via user_id_refs_id_c0d12874"><a href='auth_user.html'>auth_user</a><span class='relatedKey'>.id</span>
-    </td>
-    <td class='constraint detail'>user_id_refs_id_c0d12874<span title='Restrict delete:
- Parent cannot be deleted if children exist'>&nbsp;R</span></td>
-   </tr>
-  </table>
- </td>
- <td class='comment detail'></td>
-</tr>
-<tr class='odd'>
- <td class='indexedColumn' title='Indexed'>content_type_id</td>
- <td class='detail'>int4</td>
- <td class='detail' align='right'>10</td>
- <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='right'>null</td>
- <td class='detail'></td>
- <td class='detail'>
-  <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
-    <td class='relatedTable detail' title="django_admin_log.content_type_id refs django_content_type.id via content_type_id_refs_id_93d2d1f8"><a href='django_content_type.html'>django_content_type</a><span class='relatedKey'>.id</span>
-    </td>
-    <td class='constraint detail'>content_type_id_refs_id_93d2d1f8<span title='Restrict delete:
- Parent cannot be deleted if children exist'>&nbsp;R</span></td>
-   </tr>
-  </table>
- </td>
- <td class='comment detail'></td>
-</tr>
-<tr class='even'>
  <td class='detail'>object_id</td>
  <td class='detail'>text</td>
  <td class='detail' align='right'>2147483647</td>
@@ -207,8 +167,48 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
+<tr class='even'>
+ <td class='indexedColumn' title='Indexed'>content_type_id</td>
+ <td class='detail'>int4</td>
+ <td class='detail' align='right'>10</td>
+ <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
+ <td class='detail' align='center'></td>
+ <td class='detail' align='right'>null</td>
+ <td class='detail'></td>
+ <td class='detail'>
+  <table border='0' width='100%' cellspacing='0' cellpadding='0'>
+   <tr class='relative even' valign='top'>
+    <td class='relatedTable detail' title="django_admin_log.content_type_id refs django_content_type.id via djan_content_type_id_697914295151027a_fk_django_content_type_id"><a href='django_content_type.html'>django_content_type</a><span class='relatedKey'>.id</span>
+    </td>
+    <td class='constraint detail'>djan_content_type_id_697914295151027a_fk_django_content_type_id<span title='Restrict delete:
+ Parent cannot be deleted if children exist'>&nbsp;R</span></td>
+   </tr>
+  </table>
+ </td>
+ <td class='comment detail'></td>
+</tr>
+<tr class='odd'>
+ <td class='indexedColumn' title='Indexed'>user_id</td>
+ <td class='detail'>int4</td>
+ <td class='detail' align='right'>10</td>
+ <td class='detail' align='center'></td>
+ <td class='detail' align='center'></td>
+ <td class='detail'></td>
+ <td class='detail'></td>
+ <td class='detail'>
+  <table border='0' width='100%' cellspacing='0' cellpadding='0'>
+   <tr class='relative odd' valign='top'>
+    <td class='relatedTable detail' title="django_admin_log.user_id refs auth_user.id via django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id"><a href='auth_user.html'>auth_user</a><span class='relatedKey'>.id</span>
+    </td>
+    <td class='constraint detail'>django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id<span title='Restrict delete:
+ Parent cannot be deleted if children exist'>&nbsp;R</span></td>
+   </tr>
+  </table>
+ </td>
+ <td class='comment detail'></td>
+</tr>
 </table>
-<p title='8 columns'>Table contained 321 rows at Wed Jul 09 09:38 CEST 2014<p/>
+<p title='8 columns'>Table contained 0 rows at Sun May 03 18:02 CEST 2015<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -232,13 +232,13 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <td class='indexedColumn'>content_type_id</td>
   <td class='detail'>Performance</td>
   <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>django_admin_log_content_type_id</td>
+  <td class='constraint' style='text-align:left;'>django_admin_log_417f1b1c</td>
  </tr>
  <tr>
   <td class='indexedColumn'>user_id</td>
   <td class='detail'>Performance</td>
   <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
-  <td class='constraint' style='text-align:left;'>django_admin_log_user_id</td>
+  <td class='constraint' style='text-align:left;'>django_admin_log_e8701ad4</td>
  </tr>
 </table>
 </div>
@@ -246,18 +246,18 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from django_admin_log'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="django_admin_log.html" title="django_admin_log" alt="" coords="229,107,507,351">
-<area shape="rect" id="node3" href="django_content_type.html" title="django_content_type" alt="" coords="5,329,184,477">
-<area shape="rect" id="node5" href="auth_user.html" title="auth_user" alt="" coords="31,5,159,312">
+<area shape="rect" id="node1" href="django_admin_log.html" title="django_admin_log" alt="" coords="215,5,486,262">
+<area shape="rect" id="node2" href="django_content_type.html" title="django_content_type" alt="" coords="6,89,170,221">
+<area shape="rect" id="node3" href="auth_user.html" title="auth_user" alt="" coords="31,238,145,562">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/django_admin_log.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="auth_permission.html" title="auth_permission" alt="" coords="228,5,388,85">
-<area shape="rect" id="node3" href="django_content_type.html" title="django_content_type" alt="" coords="5,201,184,349">
-<area shape="rect" id="node4" href="auth_user_groups.html" title="auth_user_groups" alt="" coords="492,103,652,183">
-<area shape="rect" id="node6" href="auth_user.html" title="auth_user" alt="" coords="244,103,372,409">
-<area shape="rect" id="node7" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="463,5,681,85">
-<area shape="rect" id="node10" href="django_admin_log.html" title="django_admin_log" alt="" coords="433,262,711,506">
+<area shape="rect" id="node1" href="auth_permission.html" title="auth_permission" alt="" coords="215,563,356,647">
+<area shape="rect" id="node2" href="django_content_type.html" title="django_content_type" alt="" coords="6,358,170,490">
+<area shape="rect" id="node3" href="auth_user_groups.html" title="auth_user_groups" alt="" coords="462,279,610,363">
+<area shape="rect" id="node4" href="auth_user.html" title="auth_user" alt="" coords="228,222,343,546">
+<area shape="rect" id="node5" href="auth_user_user_permissions.html" title="auth_user_user_permissions" alt="" coords="428,473,644,557">
+<area shape="rect" id="node6" href="django_admin_log.html" title="django_admin_log" alt="" coords="401,5,671,262">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/django_admin_log.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
