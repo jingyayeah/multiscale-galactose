@@ -15,9 +15,9 @@ filepath <- "/home/mkoenig/multiscale-galactose-results/tmp_sim/T2/Koenig2014_de
 # fid <- H5Fopen(filepath)
 data <- h5read(filepath, 'data')
 time <- h5read(filepath, 'time')
+time <- h5read(filepath, 'header')
 
-
-H5Fclose(fid)
+H5Fclose()
 
 summary(data)
 dim(data)

@@ -154,7 +154,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             csv_file = io_integration.csv_file(sbml_id, sim)
             tmp = time.time()
             ode_io.store_timecourse_csv(csv_file, data=s, header=sel)
-            ode_io.store_timecourse_db(sim, filepath=csv_file, ftype=ode_io.FileType.CSV)
+            ode_io.store_timecourse_db(sim, filepath=csv_file, ftype=ode_io.FileType.CSV, keep_tmp=True)
             tmp = time.time() - tmp
             print "CSV: {}".format(tmp)
             

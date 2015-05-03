@@ -12,10 +12,6 @@ TODO: implement as basic script which can be called on a list of files.
 @date: 2014-05-11 
 @author: Matthias Koenig
 '''
-import sys
-import os
-sys.path.append('/home/mkoenig/multiscale-galactose/python')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import xml.etree.ElementTree as et
 import xml.dom.minidom as minidom
@@ -152,6 +148,10 @@ def prettyXML(element):
     return reparsed.toprettyxml(indent="\t")
 
 if __name__ == "__main__":
+    import django
+    django.setup()
+    
+    
     print 'Test: timecourse2cyfluxviz'
     from sbmlsim.models import Simulation
     

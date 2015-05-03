@@ -11,10 +11,6 @@ Created on Mar 23, 2014
 @author: Matthias Koenig
 '''
 
-import os
-import sys
-sys.path.append('/home/mkoenig/multiscale-galactose/python')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 import time
 from sbmlsim.models import Task
@@ -84,6 +80,8 @@ def createParameterInfoForTask(task):
         
     
 if __name__ == "__main__":
+    import django
+    django.setup()
     
     # write the parameter files
     folder = "/home/mkoenig/multiscale-galactose-results/"
