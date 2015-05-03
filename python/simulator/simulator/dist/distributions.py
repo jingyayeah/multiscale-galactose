@@ -12,6 +12,7 @@ TODO: store the information in appropriate text format
 @author: Matthias Koenig
 @date: 2014-05-03
 '''
+from __future__ import print_function
 
 import math
 from path_settings import MULTISCALE_GALACTOSE
@@ -23,7 +24,7 @@ from enum import Enum
 class DistType(Enum):
     CONSTANT = 0   # (mean) 
     NORMAL = 1     # (mena, log)
-    LOGNORMAL = 0  # (meanlog, stdlog)
+    LOGNORMAL = 2  # (meanlog, stdlog)
      
 class Dist(object):
     ''' Class for handling the various distribution data. 
@@ -36,6 +37,7 @@ class Dist(object):
         self.check()
         
     def check(self):
+        ''' Check consistency of the defined distributions. '''
         if self.dtype == DistType.CONSTANT:
             if len(self.pars) != 1:
                 raise DistException('Constant distribution has 1 parameter.')
@@ -49,7 +51,8 @@ class Dist(object):
             
         elif self.dtype == DistType.LOGNORMAL:
             if len(self.pars) != 2:
-                raise DistException('LogNormal distribution has 2 parameter.')    
+                raise DistException('LogNormal distribution has 2 parameter.') 
+                print('fucking raise')   
             self.pars['meanlog']
             self.pars['stdlog']
             
@@ -57,7 +60,7 @@ class Dist(object):
             raise DistException('DistType not supported: {}'.format(self.dtype))
 
     def __repr__(self):
-        return '{} : {}'.format(self.ptype, self.pars)
+        return '{} : {}'.format(self.dtype, self.pars)
 
 
 
@@ -128,11 +131,11 @@ def getSdLog(mean, std):
 ################################################################################
 
 if __name__ == "__main__":
-    print '-' * 80
+    print('-' * 80)
     data = getGalactoseDistributions()
     for key, value in data.iteritems():
-        print key, ':', value
-    print '-' * 80    
+        print(key, ':', value)
+    print('-' * 80)    
 
 
     
