@@ -1,27 +1,24 @@
 '''
-Sampling of parameter distributions and generation of random 
-samples for parameters (via LHS).
+Implementation of various sampling methods for sample generation 
+from given distributions.
+Supported methods are DISTRIBUTION, MEAN, LHS or MIXED. 
 
-## Latin Hypercube sampling ##
-# This 'multi-start' approach facilitates a broad coverage of the
-# parameter search space in order to find the global optimum.
-# Latin hypercube sampling [17] of the initial parameter guesses
-# can be used to guarantee that each parameter estimation run
-# starts in a different region in the high-dimensional parameter
-# space. This method prohibits that randomly selected starting
-# points are accidentally close to each other. Therefore, Latin
-# hypercube sampling provides a better coverage of the space.
-#
-# Resampling ( https://en.wikipedia.org/wiki/Resampling_%28statistics%29 )
-# Estimating the precision of sample statistics (medians, variances, percentiles) 
-# by using subsets of available data (jackknifing) or drawing randomly with 
-# replacement from a set of data points (bootstrapping).
-# Validating models by using random subsets (bootstrapping, cross validation)
-# approximate permutation test, Monte Carlo permutation tests or random permutation tests
+[DISTRIBUTION]
+Samples from the given distribution.
 
+[LHS] 
+Latin Hypercube sampling
+This 'multi-start' approach facilitates a broad coverage of the
+parameter search space in order to find the global optimum.
+Latin hypercube sampling [17] of the initial parameter guesses
+can be used to guarantee that each parameter estimation run
+starts in a different region in the high-dimensional parameter
+space. This method prohibits that randomly selected starting
+points are accidentally close to each other. Therefore, Latin
+hypercube sampling provides a better coverage of the space.
 
 @author:   Matthias Koenig
-@date:     2015-01-05
+@date:     2015-05-04
 '''
 import random
 import numpy.random as npr
@@ -29,23 +26,31 @@ import numpy.random as npr
 from sbmlsim.models import GLOBAL_PARAMETER
 from samples import Sample, SampleParameter
 
-def createParametersBySampling(dist_data, N, sampling, keys=None):
+from enum import Enum
+class SamplingType(Enum):
+    DISTRIBUTION = 0
+    LHS = 1
+    MEAN = 2
+    MIXED = 3
+
+
+def createParametersBySampling(distributions, N, sampling_type, keys=None):
     '''
-    Master function which switches between methods to create
-    the samples. This function should be called from 
-    other modules.
+    Master function which switches between methods for sample creation.
+    This function should be called from other modules.
     '''
-    if (sampling == "distribution"):
-        samples = _createSamplesByDistribution(dist_data, N, keys);
-    elif (sampling == "LHS"):
-        samples = _createSamplesByLHS(dist_data, N, keys);
-    elif (sampling == "mean"):
-        samples = _createSamplesByMean(dist_data, N, keys);
-    elif (sampling == "mixed"):
-        samples1 = _createSamplesByDistribution(dist_data, N/2, keys);
-        samples2 = _createSamplesByLHS(dist_data, N/2, keys);
+    if (sampling_type == SamplingType.DISTRIBUTION):
+        samples = _createSamplesByDistribution(distributions, N, keys);
+    elif (sampling_type == SamplingType.LHS):
+        samples = _createSamplesByLHS(distributions, N, keys);
+    elif (sampling_type == SamplingType.MEAN):
+        samples = _createSamplesByMean(distributions, N, keys);
+    elif (sampling_type == SamplingType.MIXED):
+        samples1 = _createSamplesByDistribution(distributions, N/2, keys);
+        samples2 = _createSamplesByLHS(distributions, N/2, keys);
         samples = samples1 + samples2
     return samples
+
 
 def _createSamplesByDistribution(dist_data, N, keys=None):
     '''
@@ -56,6 +61,7 @@ def _createSamplesByDistribution(dist_data, N, keys=None):
     '''
     samples = [];
     for _ in xrange(N):
+        
         s = Sample()
         for pid in dist_data.keys():
             if keys and (pid not in keys):
@@ -70,6 +76,7 @@ def _createSamplesByDistribution(dist_data, N, keys=None):
             s.add_parameter(sp)
         samples.append(s)
     return samples
+
 
 def _createSamplesByMean(dist_data, N=1, keys=None):
     ''' 
@@ -157,8 +164,6 @@ def calculatePointsByLHS(N, variableMax, variableMin):
         pointValue = variableMin + point *(variableMax - variableMin)
         pointValues.append(pointValue)
     return pointValues
-
-
 
 
 
