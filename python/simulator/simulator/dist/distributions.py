@@ -33,8 +33,6 @@ from path_settings import MULTISCALE_GALACTOSE
 
 from samples import SampleParameter
 
-
-
 from enum import Enum
 class DistType(Enum):
     CONSTANT = 0   # (mean) 
@@ -42,7 +40,7 @@ class DistType(Enum):
     LOGNORMAL = 2  # (meanlog, stdlog)
 
 class DistParsType(Enum):
-    MEAN = 0    
+    MEAN = 0  
     STD = 1    
     MEANLOG = 2 
     STDLOG = 3
@@ -60,17 +58,31 @@ class Dist(object):
     def __init__(self, dist_type, dist_pars):
         self.dtype = dist_type
         self.pars = dist_pars
-        self.check()
-        
+
         if self.dtype == DistType.LOGNORMAL:
-            # convert lognormal mean, std => meanlog and stdlog
-            if dist_pars.get(DistParsType.MEAN) and dist_pars.get(DistParsType.STD):
-                self.pars[DistParsType.STDLOG] = getMeanLog(self.pars[DistParsType.MEAN], 
-                                                          self.pars[DistParsType.STD])
-                self.pars[DistParsType.STDLOG] = getSdLog(self.pars[DistParsType.MEAN], 
-                                                          self.pars[DistParsType.STD])
+            self.convert_lognormal_mean_std()
+                
+        self.check()
         self.check_parameters()
-        
+    
+    def convert_lognormal_mean_std(self):
+        ''' Convert lognormal mean, std => meanlog and stdlog. '''
+        if self.pars.has_key(DistParsType.MEAN) and self.pars.has_key(DistParsType.STD):
+            # get the old sample parameter
+            sp_mean = self.pars[DistParsType.MEAN]
+            sp_std = self.pars[DistParsType.STD]
+            # calculate meanlog and stdlog
+            meanlog = getMeanLog(sp_mean.value, sp_std.value)
+            stdlog =  getSdLog(sp_mean.value, sp_std.value)
+            # store new parameters
+            self.pars[DistParsType.MEANLOG] = SampleParameter(sp_mean.key, meanlog,
+                                                                  sp_mean.unit, sp_mean.ptype)
+            self.pars[DistParsType.STDLOG] = SampleParameter(sp_std.key, stdlog,
+                                                                  sp_std.unit, sp_std.ptype) 
+            # remove old paramters
+            del self.pars[DistParsType.MEAN]
+            del self.pars[DistParsType.STD]
+    
     def check(self):
         ''' Check consistency of the defined distributions. '''
         if self.dtype == DistType.CONSTANT:
@@ -95,8 +107,12 @@ class Dist(object):
 
     def check_parameters(self):
         ''' Check consistency of parameters within distribution. '''
-        key = self.pars[0].key
-        for p in self.pars:
+        # check that the keys are identical for all parameters in distribution
+        key = None
+        for p in self.pars.values():
+            if not key:
+                key = p.key
+                continue
             if p.key != key:
                 raise Dist.DistException('All parameters of distribution need same key')
             
@@ -154,16 +170,15 @@ from sbmlsim.models import GLOBAL_PARAMETER
 def getDemoDistributions():
     ''' Example distributions for demo network. ''' 
     d1 = Dist(DistType.LOGNORMAL, {
-                    'mean' : SampleParameter('Vmax_b1', 5.0, 'mole_per_s', GLOBAL_PARAMETER),
-                    'std' : SampleParameter('Vmax_b1', 0.5, 'mole_per_s', GLOBAL_PARAMETER),
+                    DistParsType.MEAN : SampleParameter('Vmax_b1', 5.0, 'mole_per_s', GLOBAL_PARAMETER),
+                    DistParsType.STD : SampleParameter('Vmax_b1', 0.5, 'mole_per_s', GLOBAL_PARAMETER),
     })
     
     d2 = Dist(DistType.LOGNORMAL, {
-                    'mean' : SampleParameter('Vmax_b2', 2.0, 'mole_per_s', GLOBAL_PARAMETER),
-                    'std' : SampleParameter('Vmax_b2', 0.4, 'mole_per_s', GLOBAL_PARAMETER)
+                    DistParsType.MEAN : SampleParameter('Vmax_b2', 2.0, 'mole_per_s', GLOBAL_PARAMETER),
+                    DistParsType.STD : SampleParameter('Vmax_b2', 0.4, 'mole_per_s', GLOBAL_PARAMETER)
     })
     return (d1, d2)
-    
 
 def _readDemoDistributions():
     pass
@@ -188,5 +203,6 @@ if __name__ == "__main__":
     for d in dists: 
         print(d)
     print('-' * 80)
-
+    print(getMeanLog(2.0, 0.4))
+    print(getSdLog(2.0, 0.4))
                         
