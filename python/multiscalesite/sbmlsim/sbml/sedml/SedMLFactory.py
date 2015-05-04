@@ -6,7 +6,7 @@ repeated.
 
 - model (SBML model)
 - listOfChanges(pars)
-- simulation (Integration settings + algorithm)
+- odesim (Integration settings + algorithm)
 - report (what to write in the report, mainly the full SBML information, i.e. full report)
 
 

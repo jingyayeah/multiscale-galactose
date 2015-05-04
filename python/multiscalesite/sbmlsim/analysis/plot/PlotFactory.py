@@ -15,7 +15,7 @@ from sbmlsim.models import Simulation, DONE
 
 def simulationPlot(sid, sim_file, out_dir):
     ''' Call a R script to generate the basic plots '''
-    print 'Generate simulation plot'
+    print 'Generate odesim plot'
     
     # call the R scripts
     call_command = 'Rscript ' + path_settings.MULTISCALE_GALACTOSE + '/R/analysis/makePlot.R ' + sim_file + ' ' + out_dir

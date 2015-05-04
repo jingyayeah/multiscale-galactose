@@ -472,8 +472,8 @@ def timecourse_filename(instance, filename):
 
 class Timecourse(models.Model):
     '''
-    A timecourse belongs to exactly on simulation. If the timecourse
-    is saved changes have to be made to the simulation (mainly the 
+    A timecourse belongs to exactly on odesim. If the timecourse
+    is saved changes have to be made to the odesim (mainly the 
     status).
     '''
     simulation = models.OneToOneField(Simulation, unique=True)
@@ -522,22 +522,3 @@ class Timecourse(models.Model):
 #     
 #     csv = property(_get_zip)
 #     
-
-
-# class Plot(models.Model):
-#     '''
-#     TODO: implement properly
-#     do plots based on content in database
-#     '''
-#     TIMECOURSE = "TIMECOURSE"
-#     STEADYSTATE = "STEADYSTATE"
-#   
-#     PLOT_TYPES = (
-#         (TIMECOURSE, 'Timecourse'),
-#         (STEADYSTATE, 'SteadyState'),
-#     )
-#     timecourse = models.ForeignKey(Timecourse)
-#     plot_type = models.CharField(max_length=20, choices=PLOT_TYPES, default=TIMECOURSE)
-#     file = models.FileField(upload_to="plot/%Y-%m-%d")
-    
-    

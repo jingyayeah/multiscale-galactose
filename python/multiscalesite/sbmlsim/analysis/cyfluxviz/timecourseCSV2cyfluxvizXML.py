@@ -3,7 +3,7 @@ Module for creating the cyfluxviz data from given CSV structure of data, i.e.
 one header line of SBML identifiers. First column is 'time' column.
 
 Different from the export format necessary to handle FBA data which has no primary
-time column, but a primary simulation column, which specifies all the simulations
+time column, but a primary odesim column, which specifies all the simulations
 which were performed on the SBML network.
 
 TODO: get some minimal examples

@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^cores/$', views.cores, name='cores'),
     url(r'^simulations/(?P<status>\w+)$', views.simulations, name='simulations'),
     url(r'^simulations/$', views.simulations, name='simulations'),
-    url(r'^simulation/(?P<simulation_id>\d+)$', views.simulation, name='simulation'),
+    url(r'^odesim/(?P<simulation_id>\d+)$', views.simulation, name='odesim'),
     
     url(r'^report/(?P<model_pk>\d+)$', ReportFactory.report, name='report'),
     

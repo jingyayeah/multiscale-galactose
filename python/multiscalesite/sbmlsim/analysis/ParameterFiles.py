@@ -1,10 +1,10 @@
 '''
-Tools to help analyze simulation series, i.e. simulations 
+Tools to help analyze odesim series, i.e. simulations 
 belonging to the same task.
 Parameter files are generated based on the information in the database.
 All simulations within a task must have set the same parameters, i.e.
 for the unaltered case the unaltered parameters have to be set 
-explicitly. This enforces coherrent simulation information within a 
+explicitly. This enforces coherrent odesim information within a 
 task.
 
 Created on Mar 23, 2014
@@ -70,7 +70,7 @@ def createParameterInfoForTask(task):
                 data[p.name] = [p.value]
     
     # check that everything has the same length
-    # this has to be guaranteed by the simulation generator
+    # this has to be guaranteed by the odesim generator
     for key in data.iterkeys():
         if ( len(data[key]) != len(data['sim']) ):
             print 'ERROR - wrong number of parameters'

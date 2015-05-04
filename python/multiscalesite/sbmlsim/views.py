@@ -27,7 +27,7 @@ def cores(request):
     '''
     Overview over the CPUs listening in the network for simulations.
     '''
-    #return HttpResponse("Overview of simulation cores")
+    #return HttpResponse("Overview of odesim cores")
     cores_list = Core.objects.order_by("-time")
     template = loader.get_template('sim/cores.html')
     context = RequestContext(request, {
@@ -115,7 +115,7 @@ def simulations(request, status='ALL'):
 
 
 def simulation(request, simulation_id):
-    ''' Overview of single simulation. '''
+    ''' Overview of single odesim. '''
     sim = get_object_or_404(Simulation, pk=simulation_id)
     try:
         sim_previous = Simulation.objects.get(pk=(sim.pk-1))
@@ -132,7 +132,7 @@ def simulation(request, simulation_id):
     # PlotSimulation.createSimulationPlots(sim, folder)
     
     
-    template = loader.get_template('sim/simulation.html')
+    template = loader.get_template('sim/odesim.html')
     context = RequestContext(request, {
         'sim': sim,
         'sim_previous': sim_previous,

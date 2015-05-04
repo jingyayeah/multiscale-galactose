@@ -1,5 +1,5 @@
 '''
-Create simulation plots from timecourses.
+Create odesim plots from timecourses.
 
 @author: Matthias Koenig
 @date: 2015-04-20
@@ -119,7 +119,7 @@ def createPlotPPPV(sim, folder):
     PV__rbcM = x['PV__rbcM']
     ''' 
     if (sim.status != DONE):
-        print "No timecourse available for simulation"
+        print "No timecourse available for odesim"
         return
     
     x = getDataFromTimeCourse(sim.timecourse)
