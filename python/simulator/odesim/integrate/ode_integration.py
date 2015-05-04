@@ -13,18 +13,14 @@ import shlex
 import roadrunner
 from roadrunner import SelectionRecord
 
-# from django.core.files import File
 from django.utils import timezone
 
 from path_settings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
-from sbmlsim.models import Timecourse, NONE_SBML_PARAMETER
-from sbmlsim.models import DONE, ERROR, COPASI, ROADRUNNER
+from sbmlsim.models import NONE_SBML_PARAMETER
+from sbmlsim.models import ERROR, COPASI, ROADRUNNER
 from sbmlsim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
-import simulator.integration.ode_io as ode_io
-
-
-from simulator.integration import ode_io
+import odesim.integrate.ode_io as ode_io
 
             
 def integrate(sims, integrator, keep_tmp=False):

@@ -23,10 +23,8 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 -------------------------------------------------------------------------------------
 
 @author: Matthias Koenig
-@date: 2014-07-08
+@date: 2015-05-05
 '''
-
-
 from path_settings import SIM_DIR
 
 import os
@@ -72,8 +70,8 @@ def worker(cpu, lock, Nsim):
 
 def assign_simulations(core, Nsim=1):
     ''' 
-    Assigns odesim(s) to core.
-    Returns None if no odesim(s) could be assigned. 
+    Assigns simulations(s) to core.
+    Returns None if no simulation(s) could be assigned. 
     The assignment has to be synchronized between the different cores.
     Use lock to handle the different cores on one cpu.    
     '''
@@ -81,22 +79,27 @@ def assign_simulations(core, Nsim=1):
     task_query = Task.objects.filter(simulation__status=UNASSIGNED).distinct('pk', 'priority').order_by('-priority')
     if (task_query.exists()):
         task = task_query[0]
-        # this is on the cpu lock (working)
         create_simulation_directory_for_task(task)
         
-        # select the simulations for update with locking the rows
-        # this is in the database lock
-        # with transaction.commit_manually()
-        transaction.set_autocommit(False)
-        sims = Simulation.objects.select_for_update().filter(task=task, status=UNASSIGNED)[0:Nsim]
-        for sim in sims:
-            sim.time_assign = timezone.now()
-            sim.core = core
-            sim.status = ASSIGNED
-            sim.save();
-        transaction.commit()
-        transaction.set_autocommit(True)
-            
+        @transaction.atomic()
+        def update_simulations():
+            ''' Select the simulations for update with locking the rows
+                -> results in database lock to make atomic transaction.
+                In addition all the saves should be in one transaction.
+            '''
+            # with transaction.commit_manually()
+            # transaction.set_autocommit(False)
+            sims = Simulation.objects.select_for_update().filter(task=task, status=UNASSIGNED)[0:Nsim]
+            for sim in sims:
+                sim.time_assign = timezone.now()
+                sim.core = core
+                sim.status = ASSIGNED
+                sim.save();
+            # transaction.commit()
+            # transaction.set_autocommit(True)
+            return sims
+        
+        sims = update_simulations()    
         return task, sims
     else:
         return None, None
@@ -138,9 +141,11 @@ if __name__ == "__main__":
     Starting the odesim on the local computer.
     Call with --cpu option if not using 100% resources    
     
-    TODO: probably better to start/communicate via MIP. This becomes more important
-    in the case of real parallel odesim on multiple computer.
+    TODO: implement communication via MIP. This becomes important
+    in the case parallel integration within the cluster.
     '''
+    import django
+    django.setup()
     from optparse import OptionParser
     import math
     parser = OptionParser()

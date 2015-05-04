@@ -12,7 +12,7 @@ from odesim.dist.distributions import getDemoDistributions
 from odesim.dist.sampling import createParametersBySampling, SamplingType
 from odesim.dist.samples import createSimulationsForSamples
 
-from odesim.SimulationFactory import django_model_from_id, django_model_from_file 
+from odesim.SimulationFactory import django_model_from_file 
 from odesim.SimulationFactory import create_task
 
 
@@ -41,17 +41,9 @@ if __name__ == "__main__":
     # TODO: remove simulations & model -> cleanup
     import django
     django.setup()
-    
-    if (1):
-        print('make demo from id')
-        model = django_model_from_id(sbml_id='Koenig2014_demo_kinetic_v7', sync=False)
-        sims = demo_simulations(model, N=10, priority=10)
-        # TODO: remove simulations & model -> cleanup
-        
+            
     if (1):
         print('make demo from file')
         model = django_model_from_file(sbml_file='../../examples/demo/Koenig_demo.xml', sync=False)
-        sims = demo_simulations(model, N=10, priority=10)
-        
-       
+        sims = demo_simulations(model, N=1000)
         
