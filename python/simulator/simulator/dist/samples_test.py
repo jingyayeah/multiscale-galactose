@@ -12,8 +12,8 @@ from sbmlsim.models import GLOBAL_PARAMETER
 class TestSamples(unittest.TestCase):
 
     def setUp(self):
-        self.p1 = SampleParameter(name='Vmax', value=2.17, unit='mole_per_s', ptype=GLOBAL_PARAMETER)
-        self.p2 = SampleParameter(name='Km', value=0.1, unit='mM', ptype=GLOBAL_PARAMETER)        
+        self.p1 = SampleParameter(key='Vmax', value=2.17, unit='mole_per_s', ptype=GLOBAL_PARAMETER)
+        self.p2 = SampleParameter(key='Km', value=0.1, unit='mM', ptype=GLOBAL_PARAMETER)        
       
     def tearDown(self):
         self.p1 = None
@@ -23,7 +23,7 @@ class TestSamples(unittest.TestCase):
         sample = Sample()
         sample.add_parameter(self.p1)
         self.assertEqual(len(sample), 1, "1 SampleParameter in Sample")
-        self.assertEqual(sample[self.p1.name], self.p1, "Parameter should be the parameter")
+        self.assertEqual(sample[self.p1.key], self.p1, "Parameter should be the parameter")
             
 
     def test_add_parameters_multi(self):
@@ -32,10 +32,10 @@ class TestSamples(unittest.TestCase):
         sample.add_parameter(self.p1)
         sample.add_parameter(self.p1)
         self.assertEqual(len(sample), 1, "1 SampleParameter in Sample")
-        self.assertEqual(sample[self.p1.name], self.p1, "Parameter should be the parameter")
+        self.assertEqual(sample[self.p1.key], self.p1, "Parameter should be the parameter")
 
     def test_sample_pars_attrs(self):
-        self.assertEqual(self.p1.name, "Vmax", "test name")
+        self.assertEqual(self.p1.key, "Vmax", "test key")
         self.assertEqual(self.p1.value, 2.17, "test value")
         self.assertEqual(self.p1.unit, "mole_per_s", "test unit")
         self.assertEqual(self.p1.ptype, GLOBAL_PARAMETER, "test pytpe")
@@ -49,8 +49,26 @@ class TestSamples(unittest.TestCase):
         samples = create_demo_samples(N=1, sampling="distribution")
         s = samples[0]
         self.assertIsInstance(s, Sample, "Demo sample is Sample")
-        keys =  s.keys()
         
+    def test_fromparameters1(self):
+        ''' Create SampleParameter from SampleParameter '''
+        ptmp = SampleParameter.fromparameter(self.p1)
+        self.assertEqual(ptmp.key, 'Vmax', "test key")
+        self.assertEqual(ptmp.value, 2.17, "test value")
+        self.assertEqual(ptmp.unit, "mole_per_s", "test unit")
+        self.assertEqual(ptmp.ptype, GLOBAL_PARAMETER, "test pytpe")
+        
+    
+    def test_fromparameters2(self):
+        ''' Create SampleParameter from django Parameter '''
+        from sbmlsim.models import Parameter
+        p = Parameter(name='test', value=1.0, unit='mM', ptype=GLOBAL_PARAMETER)
+        ptmp = SampleParameter.fromparameter(p)
+        self.assertEqual(ptmp.key, 'test', "test key")
+        self.assertEqual(ptmp.value, 1.0, "test value")
+        self.assertEqual(ptmp.unit, "mM", "test unit")
+        self.assertEqual(ptmp.ptype, GLOBAL_PARAMETER, "test pytpe")        
+
 
 if __name__ == '__main__':
     unittest.main()

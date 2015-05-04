@@ -11,12 +11,18 @@ from sbmlsim.models import Task, Simulation, Parameter, check_parameter_type
 class SampleParameterException(Exception):
     pass
 
-
-class SampleParameter(object):        
-    def __init__(self, name, value, unit, ptype):
+class SampleParameter(object):
+    '''
+    Sample parameter defines the value of a single parameter.
+    In most cases these parameters corresponds to parameters in an SBML. 
+    Depending on the ptype different behavior can be implemented, for instance
+    in the integration.
+    key, value, unit correspond to id, value, unit in the SBML.
+    '''        
+    def __init__(self, key, value, unit, ptype):
         check_parameter_type(ptype)
         
-        self.name = name
+        self.key = key
         self.value = value
         self.unit = unit
         self.ptype = ptype
@@ -24,10 +30,15 @@ class SampleParameter(object):
     @classmethod
     def fromparameter(cls, p):
         ''' Works with SampleParameter or django parameter. '''
-        return cls(p.name, p.value, p.unit, p.ptype)
+        if hasattr(p, 'key'):
+            # Sample parameter
+            return cls(p.key, p.value, p.unit, p.ptype)
+        else:
+            # Django parameter
+            return cls(p.name, p.value, p.unit, p.ptype)
     
     def __repr__(self):
-        return "<{} = {:.3E} [{}] ({})>".format(self.name, self.value, self.unit, self.ptype)
+        return "<{} = {:.3E} [{}] ({})>".format(self.key, self.value, self.unit, self.ptype)
     
 
 class Sample(dict):
@@ -35,7 +46,7 @@ class Sample(dict):
     def add_parameter(self, p):
         if not isinstance(p, SampleParameter):
             raise SampleParameterException
-        self[p.name] = p
+        self[p.key] = p
     
     def get_parameter(self, key):
         return self[key]
@@ -56,7 +67,7 @@ def get_sample_from_simulation(sim):
     pars = Parameter.objects.filter(simulation=sim)
     s = Sample()
     for p in pars:
-        s.add_parameter(SampleParameter(p.name, p.value, p.unit, p.ptype))
+        s.add_parameter(SampleParameter.fromparameter(p))
     return s
     
 

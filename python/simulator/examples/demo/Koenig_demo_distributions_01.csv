@@ -1,0 +1,3 @@
+dtype,dkey,key,value,unit,ptype
+LOGNORMAL,mean,Vmax_b1,5,mole_per_s,GLOBAL_PARAMETER
+LOGNORMAL,std,Vmax_b1,0.5,mole_per_s,GLOBAL_PARAMETER

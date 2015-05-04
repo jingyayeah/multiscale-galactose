@@ -65,7 +65,7 @@ def _createSamplesByDistribution(dist_data, N, keys=None):
             sigma = dtmp['sdlog']
             # all values are in 'unit'
             value = npr.lognormal(mu, sigma)
-            sp = SampleParameter(name=pid, value=value, 
+            sp = SampleParameter(pid, value, 
                                  unit=dtmp['unit'], ptype=GLOBAL_PARAMETER) 
             s.add_parameter(sp)
         samples.append(s)

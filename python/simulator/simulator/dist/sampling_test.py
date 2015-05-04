@@ -31,7 +31,7 @@ class TestSampling(unittest.TestCase):
         self.assertIsNotNone(s['L'], 'check for parameter')
         
     def test_mean(self):
-        samples = _createSamplesByDistribution(self.dist_data, N=1)
+        samples = _createSamplesByMean(self.dist_data, N=1)
         self.assertEqual(len(samples), 1, 'check number samples')
         s = samples[0]
         self.assertIsNotNone(s['L'], 'check for parameter')
