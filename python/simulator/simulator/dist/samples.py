@@ -38,7 +38,8 @@ class SampleParameter(object):
             return cls(p.name, p.value, p.unit, p.ptype)
     
     def __repr__(self):
-        return "<{} = {:.3E} [{}] ({})>".format(self.key, self.value, self.unit, self.ptype)
+        return "<{} = {:.3E} [{}] ({})>".format(self.key, self.value, 
+                                                self.unit, self.ptype)
     
 
 class Sample(dict):

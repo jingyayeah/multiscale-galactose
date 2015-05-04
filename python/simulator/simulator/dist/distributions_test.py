@@ -41,7 +41,24 @@ class TestDistributions(unittest.TestCase):
         self.assertEqual(p.value, 0.5, 'Test parameter value')
         self.assertEqual(p.unit, 'mole_per_s', 'Test parameter unit')
         self.assertEqual(p.ptype, GLOBAL_PARAMETER, 'Test parameter ptype')
+        
+    def test_key(self):
+        self.assertEqual(self.d1.key, 'Vmax_b1', 'Test key of parameters.')
+        
+    def test_unit(self):
+        self.assertEqual(self.d1.unit, 'mole_per_s', 'Test unit of parameters.')
+        
+    def test_ptype(self):
+        self.assertEqual(self.d1.ptype, GLOBAL_PARAMETER, 'Test ptype of parameters.')
     
+    def test_mean(self):
+        self.assertEqual(self.d1.mean(), 5.0, 'Test mean of distribution')
+        
+        
+    
+    def test_samples(self):
+        samples = self.d1.samples(N=10)
+        self.assertEqual(len(samples), 10, 'Test sampe creation')
        
 if __name__ == '__main__':
     unittest.main()

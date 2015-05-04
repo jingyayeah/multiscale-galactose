@@ -7,9 +7,8 @@ Testing the samples for the demo network.
 import unittest
 from demo import create_demo_samples
 
-
-from simulator.dist.samples import Sample, SampleParameter
-from sbmlsim.models import GLOBAL_PARAMETER
+from simulator.dist.samples import Sample
+from simulator.dist.sampling import SamplingType
 
 class TestDemo(unittest.TestCase):
 
@@ -20,10 +19,10 @@ class TestDemo(unittest.TestCase):
         
 
     def test_demo_samples(self):
-        samples = create_demo_samples(N=1, sampling="distribution")
+        samples = create_demo_samples(N=1, sampling=SamplingType.DISTRIBUTION)
         s = samples[0]
         self.assertIsInstance(s, Sample, "Demo sample is Sample")
-        keys =  s.keys()
+        
         
         
 if __name__ == '__main__':

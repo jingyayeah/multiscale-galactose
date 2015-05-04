@@ -7,6 +7,7 @@ Created on May 3, 2015
 import unittest
 
 from samples import Sample, SampleParameter
+from sampling import SamplingType
 from sbmlsim.models import GLOBAL_PARAMETER
 
 class TestSamples(unittest.TestCase):
@@ -46,7 +47,7 @@ class TestSamples(unittest.TestCase):
         
     def test_demo_samples(self):
         from simulation.demo.demo import create_demo_samples
-        samples = create_demo_samples(N=1, sampling="distribution")
+        samples = create_demo_samples(N=1, sampling=SamplingType.DISTRIBUTION)
         s = samples[0]
         self.assertIsInstance(s, Sample, "Demo sample is Sample")
         

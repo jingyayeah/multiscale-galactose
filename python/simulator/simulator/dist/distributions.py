@@ -29,6 +29,8 @@ The parameter files for the distribution should look the following:
 from __future__ import print_function
 
 import math
+import numpy as np
+        
 from path_settings import MULTISCALE_GALACTOSE
 
 from samples import SampleParameter
@@ -65,6 +67,48 @@ class Dist(object):
         self.check()
         self.check_parameters()
     
+    @property
+    def key(self):
+        ''' Return the common key of the parameters, i.e. the 
+            key of the parameter which is influenced by the distribution. '''
+        return self.pars.values()[0].key
+    
+    @property
+    def unit(self):
+        return self.pars.values()[0].unit
+    
+    @property
+    def ptype(self):
+        return self.pars.values()[0].ptype
+    
+    def samples(self, N=1):
+        ''' Create samples from the distribution. '''        
+        if self.dtype == DistType.CONSTANT:
+            data = self.pars[DistParsType.MEAN].value * np.ones(N)
+            
+        elif self.dtype == DistType.NORMAL:
+            data = np.random.normal(self.pars[DistParsType.MEAN].value,
+                                    self.pars[DistParsType.STD].value, 
+                                    N)
+                
+        elif self.dtype == DistType.LOGNORMAL:
+            data = np.random.lognormal(self.pars[DistParsType.MEANLOG].value,
+                                       self.pars[DistParsType.STDLOG].value, 
+                                       N)
+        else:
+            raise Dist.DistException('DistType not supported: {}'.format(self.dtype))
+        
+        if N == 1:
+            return data[0]
+        return data
+        
+    def mean(self):
+        ''' Mean value of distribution for mean sampling. '''
+        if self.dtype in (DistType.CONSTANT, DistType.NORMAL, DistType.LOGNORMAL):
+            return self.pars[DistParsType.MEAN].value
+        else:
+            raise Dist.DistException('DistType not supported: {}'.format(self.dtype))
+    
     def convert_lognormal_mean_std(self):
         ''' Convert lognormal mean, std => meanlog and stdlog. '''
         if self.pars.has_key(DistParsType.MEAN) and self.pars.has_key(DistParsType.STD):
@@ -80,8 +124,8 @@ class Dist(object):
             self.pars[DistParsType.STDLOG] = SampleParameter(sp_std.key, stdlog,
                                                                   sp_std.unit, sp_std.ptype) 
             # remove old paramters
-            del self.pars[DistParsType.MEAN]
-            del self.pars[DistParsType.STD]
+            # del self.pars[DistParsType.MEAN]
+            # del self.pars[DistParsType.STD]
     
     def check(self):
         ''' Check consistency of the defined distributions. '''
@@ -97,7 +141,7 @@ class Dist(object):
             self.pars[DistParsType.STD]
             
         elif self.dtype == DistType.LOGNORMAL:
-            if len(self.pars) != 2:
+            if len(self.pars) < 2:
                 raise Dist.DistException('LogNormal distribution has 2 parameter.')   
             self.pars[DistParsType.MEANLOG]
             self.pars[DistParsType.STDLOG]
@@ -109,12 +153,20 @@ class Dist(object):
         ''' Check consistency of parameters within distribution. '''
         # check that the keys are identical for all parameters in distribution
         key = None
+        unit = None
+        ptype = None
         for p in self.pars.values():
             if not key:
                 key = p.key
+                unit = p.unit
+                ptype = p.ptype
                 continue
             if p.key != key:
                 raise Dist.DistException('All parameters of distribution need same key')
+            if p.unit != unit:
+                raise Dist.DistException('All parameters of distribution need same unit')
+            if p.ptype != ptype:
+                raise Dist.DistException('All parameters of distribution need same ptype')
             
         if self.dtype == DistType.CONSTANT:
             pass
