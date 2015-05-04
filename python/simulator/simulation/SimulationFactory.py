@@ -16,52 +16,21 @@ tasks with higher priority are performed first.
 @date: 2015-05-03
 '''
 
+import os
 import logging
 from subprocess import call
-from copy import deepcopy
 
 import path_settings
-from sbmlsim.models import *
+from django.core.exceptions import ObjectDoesNotExist
+from sbmlsim.models import SBMLModel, Task, Simulation, Parameter
+from sbmlsim.models import UNASSIGNED
+
 
 SYNC_BETWEEN_SERVERS = False # update the information for the other servers
 
 # TODO handle parameters as named tupples & custom exceptions
 
 
-def deepcopy_samples(samples):
-    ''' Returns a deepcopy of the list of samples. 
-        Required for the creation of derived samples
-    '''
-    return deepcopy(samples)
-
-def setParameterInSamples(samples, pid, value, unit, ptype):
-    check_parameter_type(ptype)
-    for s in samples:
-        s[pid] = (pid, value, unit, ptype)
-    return samples
-
-
-def setParameterValuesInSamples(raw_samples, p_list):
-    ''' ? how is the p_list structured ? '''
-    for pset in p_list:
-        check_parameter_type(pset['ptype'])
-            
-    Np = len(p_list)                # numbers of parameters to set
-    Nval = len(p_list[0]['values']) # number of values from first p_dict
-    
-    samples = []
-    for s in raw_samples:
-        for k in range(Nval):
-            # make a copy of the dictionary
-            snew = s.copy()
-            # set all the information
-            for i in range(Np):
-                p_dict = p_list[i]
-                snew[p_dict['pid']] = (p_dict['pid'], p_dict['values'][k], p_dict['unit'], p_dict['ptype'])
-            samples.append(snew)
-    return samples
-
-    
 def django_model_from_id(sbml_id, sync=True):
     ''' Creates the model from given sbml_id.
         The model with the given id has to be already in the correct folder.
@@ -108,29 +77,3 @@ def create_task(model, integration, info='', priority=0):
     return task
 
 
-def createSimulationsForSamples(task, samples):
-    ''' Create all Django simulations for the given samples. '''
-    return [createSimulationForSample(task, sample=s) for s in samples]    
-        
-def createSimulationForSample(task, sample):
-    ''' 
-    Creates the simulation for a given sample.
-    Does not check if the simulation already exists.
-    - creates the Parameters
-    - creates empty simulation and adds the parameters.
-    The function does not check if the simulation with these parameters
-    already exist. This must be controlled on level of the samples.
-    '''
-    # Parameters are generated in a unique way
-    parameters = []
-    for data in sample.values():
-        name, value, unit, ptype = data
-        p, _ = Parameter.objects.get_or_create(name=name, value=value, unit=unit, ptype=ptype);
-        parameters.append(p)
-
-    sim = Simulation(task=task, status = UNASSIGNED)
-    sim.save()
-    
-    sim.parameters.add(*parameters)
-    print "{}".format(sim)
-    return sim
