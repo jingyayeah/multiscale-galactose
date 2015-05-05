@@ -1,0 +1,1 @@
+recursive-include libsbgnpy *.py *.rst *.xsd *.sbgn *.png

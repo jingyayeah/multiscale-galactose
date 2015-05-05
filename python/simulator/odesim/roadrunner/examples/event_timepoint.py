@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 """
 
-@author: mkoenig
+@author: Matthias Koenig
+@date: 2015-05-05
 """
-
+from __future__ import print_function
+import libantimony
 import roadrunner
 from roadrunner import SelectionRecord
 
-print roadrunner.__version__
-
-import libantimony
 model_txt = """
-    model test()
+    model event_timepoint()
     // Reactions
     J0: $PP_S -> 2 S3; K1 * PP_S;
 
@@ -36,26 +35,29 @@ model_txt = """
     end
 """
 model = libantimony.loadString(model_txt)
-sbml_file = 'test_peak.xml'
-libantimony.writeSBMLFile('test_peak.xml', 'test')
+sbml_file = 'event_timepoint.xml'
+libantimony.writeSBMLFile(sbml_file, 'event_timepoint')
 
 r = roadrunner.RoadRunner(sbml_file)
-print r.getSBML()
-r.selections = ['time'] + r.model.getBoundarySpeciesIds() + r.model.getFloatingSpeciesIds() + r.model.getReactionIds()
+print(r.getSBML())
+r.selections = ['time'] + r.model.getBoundarySpeciesIds() \
+                        + r.model.getFloatingSpeciesIds() \
+                        + r.model.getReactionIds()
+print(r.selections)
 
 # tolerances & integration
 absTol = 1E-12 *min(r.model.getCompartmentVolumes())
 relTol = 1E-12
 
-print 'Naive VarStep'
+# variable step size integration (reset just to be sure)
 r.reset()
 r.reset(SelectionRecord.ALL)
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
 s = r.simulate(0, 20, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=True)   
 
-# Testing access via the names
+# Access to stoichiometric matrix
 mat = r.getFullStoichiometryMatrix()
-print mat
+print(mat)
 mat['J0']
 mat['S3']
 

@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-@author: mkoenig
-"""
+Antimony based model with event triggered at certain event times.
+The event times occur at exactly the same timepoint, which can be problematic.
 
+@author: mkoenig
+@date: 2015-05-05
+"""
+from __future__ import print_function
+import libantimony
 import roadrunner
 from roadrunner import SelectionRecord
-print roadrunner.getVersionStr()
 
-import libantimony
+# Model definiton via antimony.
+# The model contains an Event triggered at t=2 [s].
 model_txt = """
-    model test()
+    model event_time()
     // Reactions
     J0: $PP_S -> 2 S3; K1 * PP_S;
 
@@ -23,22 +28,25 @@ model_txt = """
     // Rule for S1
     K1 = 0.5;    
     
-    
     // Additional events for triggering re-integration
     E1: at(time>=2):  S3=5;  
     end
 """
 model = libantimony.loadString(model_txt)
-sbml_file = 'event_test.xml'
-libantimony.writeSBMLFile('event_test.xml', 'test')
+sbml_file = 'event_time.xml'
+libantimony.writeSBMLFile('event_time.xml', 'event_time')
 
+# load model in roadrunner and define the selection
+import itertools
 r = roadrunner.RoadRunner(sbml_file)
-
-print r.getSBML()
-r.selections = ['time'] + r.model.getBoundarySpeciesIds() + r.model.getFloatingSpeciesIds() + r.model.getReactionIds()
+r.selections = list(itertools.chain(['time'],
+                                    r.model.getBoundarySpeciesIds(),
+                                    r.model.getFloatingSpeciesIds(),
+                                    r.model.getReactionIds())
+print(r.selections)
 
 # tolerances & integration
-absTol = 1E-6 *min(r.model.getCompartmentVolumes())
+absTol = 1E-6 * min(r.model.getCompartmentVolumes())
 relTol = 1E-6
 print absTol, relTol
 
@@ -47,6 +55,4 @@ r.reset()
 r.reset(SelectionRecord.ALL)
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
 s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=True)   
-print s
-
-
+print(s)
