@@ -98,31 +98,46 @@ def setParameterValuesInSamples(raw_samples, p_list):
             samples.append(snew)
     return samples
 
+
+# TODO refactor this
 from sbmlsim.models import SBMLModel, Task, Simulation, Parameter
 from sbmlsim.models import UNASSIGNED
 
+
+from django.db import transaction
+
+@transaction.atomic
 def createSimulationsForSamples(task, samples):
-    ''' Create all Django simulations for the given samples. '''
-    return [createSimulationForSample(task, sample=s) for s in samples]    
-        
-def createSimulationForSample(task, sample):
-    ''' Creates the odesim for a given sample.
+    ''' Creates the simulation for a given sample.
     Does not check if the odesim already exists.
     - creates the Parameters
     - creates empty odesim and adds the parameters.
     Function does not check if the odesim with given parameters
     already exists.
+    TODO: create in one transaction.
     '''
-    parameters = []
-    for sp in sample.parameters:
-        p, _ = Parameter.objects.get_or_create(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.ptype);
-        parameters.append(p)
-    sim = Simulation(task=task, status=UNASSIGNED)
-    sim.save()
     
-    sim.parameters.add(*parameters)
-    print(sim)
-    return sim
+    # bulk create simulations
+    # sims_list = [Simulation(task=task, status=UNASSIGNED) for k in xrange(samples)]
+    # Simulation.objects.bulk_create(sims_list)
+    
+    sims = []
+    for sample in samples:
+        sim = Simulation(task=task, status=UNASSIGNED)
+        parameters = []
+        for sp in sample.parameters:
+            # This takes forever to check if parameter already in db
+            p, _ = Parameter.objects.get_or_create(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.ptype);
+            parameters.append(p)
+        
+        # sim = sims_list[k]
+        sim.parameters.add(*parameters)
+        sims.append(sim)
+        print(sim)
+        
+    return sims
+
+
 
 
 def get_samples_from_task(task):
@@ -157,5 +172,5 @@ if __name__ == "__main__":
         print(k, value)
     
     
-    from odesim.demo.demo import create_demo_samples
+    from odesim.models.demo import create_demo_samples
     create_demo_samples(N=1, sampling="distribution")

@@ -85,18 +85,22 @@ def assign_simulations(core, Nsim=1):
         def update_simulations():
             ''' Select the simulations for update with locking the rows
                 -> results in database lock to make atomic transaction.
-                In addition all the saves should be in one transaction.
+                All updates are handeled in one transaction to reduce lock time.
             '''
-            # with transaction.commit_manually()
-            # transaction.set_autocommit(False)
+            
             sims = Simulation.objects.select_for_update().filter(task=task, status=UNASSIGNED)[0:Nsim]
             for sim in sims:
                 sim.time_assign = timezone.now()
                 sim.core = core
                 sim.status = ASSIGNED
                 sim.save();
-            # transaction.commit()
-            # transaction.set_autocommit(True)
+            
+            # update all at once
+            # inner_q = Simulation.objects.select_for_update().filter(task=task, status=UNASSIGNED).values('pk')[0:Nsim]
+            # sims = Simulation.objects.filter(pk__in=inner_q) 
+            # sims.update(time_assign=timezone.now(),
+            #             core=core, 
+            #            status=ASSIGNED)
             return sims
         
         sims = update_simulations()    

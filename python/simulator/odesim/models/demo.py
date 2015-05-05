@@ -22,7 +22,7 @@ def create_demo_samples(N, sampling_type):
 
 
 def demo_simulations(model, N, priority=0):
-    info='Simple demo network to test database and simulations.'
+    info='Simple demo network based on parameter distributions.'
     
     # parameter samples
     samples = create_demo_samples(N=N, sampling_type=SamplingType.DISTRIBUTION)
