@@ -14,9 +14,9 @@ from __future__ import print_function
 
 import time
 import roadrunner
+from roadrunner import SelectionRecord
 from pandas import DataFrame
 
-# TODO: common logging
 
 #########################################################################    
 # Model Loading
@@ -24,74 +24,29 @@ from pandas import DataFrame
 def load_model(sbml):
     ''' Load an SBML file in roadrunner providing information about load
         time and file. '''
-    print 'Loading :', sbml
-    start = time.clock()
+    print('Loading : {}'.format(sbml))
+    start = time.time()
     r = roadrunner.RoadRunner(sbml)
-    print 'SBML Rules load :', (time.clock()- start)
+    duration = time.time() - start
+    print('SBML load time : {}'.format(duration))
     return r
-
-
-def get_global_parameters(r):
-    ''' Create the global parameter DataFrame. '''
-    return DataFrame({'value': r.model.getGlobalParameterValues()}, 
-        index = r.model.getGlobalParameterIds())
-
-
-#########################################################################    
-# Dealing with selections
-#########################################################################  
-def set_selection(r, selection):
-    ''' 
-        Sets selection in Roadrunner and
-        returns the corresponding selection dictionary. 
-    '''
-    r.selections = selection
-    d = selection_dict(selection)
-    return d 
-
-def position_in_list(s_list, item):
-    for pos, entry in enumerate(s_list):
-        if item == entry:
-            return pos
-    return -1
-        
-
-def selection_dict(selections):
-    ''' 
-    Creates a dictionary of the selection to lookup indices. 
-    '''
-    d = {}
-    for k, s in enumerate(selections):
-        d[s] = k
-    return d
-    
-def get_ids_from_selection(name, selections, comp_type='H'):
-    '''
-    Returns list of ids in selection for given name.
-    '''
-    ids = [item for item in selections if ( (item.startswith('[{}'.format(comp_type)) | item.startswith(comp_type)) 
-                                    & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
-    if len(ids) == 0:
-        ids = [name, ]
-    return ids
 
 #########################################################################    
 # Simulation
 #########################################################################      
-def simulation(r, parameters, inits, absTol=1E-8, relTol=1E-8):
-    '''
-    Performs RoadRunner odesim.
+def simulation(r, parameters, inits, t_start=0, t_stop=10000, absTol=1E-8, relTol=1E-8, info=True):
+    ''' Performs RoadRunner simulation.
+        Sets paramter values given in parameters dictionary and 
+        initial values provided in inits dictionary.
+        Returns simulation results and global parameters at end of simulation.
     '''    
     # complete reset of model just to be sure
-    from roadrunner import SelectionRecord
     r.reset()
     r.reset(SelectionRecord.ALL)
     r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )    
     
-    # make a concentration backup
-    conc_backup = dict()
-    # for sid in r.model.getBoundarySpeciesIds():
-    #    conc_backup[sid] = r["[{}]".format(sid)]    
+    # concentration backup
+    conc_backup = dict()    
     for sid in r.model.getFloatingSpeciesIds():
         conc_backup[sid] = r["[{}]".format(sid)]    
     
@@ -108,10 +63,11 @@ def simulation(r, parameters, inits, absTol=1E-8, relTol=1E-8):
           
     # perform integration
     absTol = absTol * min(r.model.getCompartmentVolumes()) # absTol relative to the amounts
-    start = time.clock()
-    s = r.simulate(0, 10000, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=False)      
-    print 'Integration time:', (time.clock()- start)
-        
+    tmp = time.time()
+    s = r.simulate(t_start, t_stop, absolute=absTol, relative=relTol, 
+                   variableStep=True, stiff=True, plot=False)
+    t_int = time.time() - tmp
+    
     # store global parameters for analysis
     gp = get_global_parameters(r)
     
@@ -122,14 +78,14 @@ def simulation(r, parameters, inits, absTol=1E-8, relTol=1E-8):
     # reset intial concentrations
     r.reset()    
     
+    if info:
+        print('Integration time: {}'.format(t_int))
+    
     return (s, gp)
 
 def _set_parameters(r, parameters):
-    ''' 
-    Changes parameters in model.
-    Returns dictionary of changes.
-    '''
-    
+    ''' Set given dictionary of parameters in model.
+        Returns dictionary of changes. '''
     changed = dict()
     for key, value in parameters.iteritems():
         changed[key] = r.model[key]
@@ -137,8 +93,7 @@ def _set_parameters(r, parameters):
     return changed
 
 def _set_initial_concentrations(r, inits):
-    '''
-    Set the initial concentrations in the model.
+    '''Set initial concentrations from dictionary in the model.
     '''
     changed = dict()
     for key, value in inits.iteritems():
@@ -146,3 +101,15 @@ def _set_initial_concentrations(r, inits):
         name = 'init([{}])'.format(key)
         r.model[name] = value
     return changed
+
+def get_global_parameters(r):
+    ''' Create the global parameter DataFrame. '''
+    return DataFrame({'value': r.model.getGlobalParameterValues()}, 
+        index = r.model.getGlobalParameterIds())
+
+# def position_in_list(s_list, item):
+#     for pos, entry in enumerate(s_list):
+#         if item == entry:
+#             return pos
+#     return -1
+        
