@@ -39,7 +39,7 @@ def django_model_from_id(sbml_id, sync=True):
     model = _save_and_sync_model(model, sync)
     return model
 
-def django_model_from_file(sbml_file, sync=True):
+def django_model_from_file(sbml_file, sync=False):
     ''' Creates the model from given sbml file. '''
     model = SBMLModel.create_from_file(sbml_file)
     model = _save_and_sync_model(model, sync)
@@ -48,6 +48,7 @@ def django_model_from_file(sbml_file, sync=True):
 def _save_and_sync_model(model, sync):
     model.save();
     if sync:
+        print('Syncronize model with other computers ...')
         sync_sbml()
     return model
 

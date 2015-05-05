@@ -1,26 +1,29 @@
 '''
-Additional helper function for working with RoadRunner. 
-Simplified scripts and functions which are reused in the 
-workflow with roadrunner.
+Helper functions for RoadRunner simulations.
+These provided simplified access to common functionality used in 
+different simulation scenarios. 
 
-Especially the setting of parameters and the update of values
-has to be done in a proper and unified way.
+The setting and updating of parameters and initial concentrations
+can be problematic and should be done in a clear way via the
+simulation function.
 
 @author: Matthias Koenig
-@date: 2014-12-19
+@date: 2015-05-05
 '''
+from __future__ import print_function
+
 import time
 import roadrunner
 from pandas import DataFrame
-import pandas as pd
+
+# TODO: common logging
 
 #########################################################################    
 # Model Loading
 #########################################################################  
 def load_model(sbml):
-    '''
-    Load an SBML file in roadrunner
-    '''
+    ''' Load an SBML file in roadrunner providing information about load
+        time and file. '''
     print 'Loading :', sbml
     start = time.clock()
     r = roadrunner.RoadRunner(sbml)
