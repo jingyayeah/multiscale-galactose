@@ -6,7 +6,6 @@ Testing the utility classes.
 @date: 2015-05-06
 '''
 import unittest
-
 from util_classes import EnumType, Enum
 
 class Test(unittest.TestCase):
@@ -27,11 +26,15 @@ class Test(unittest.TestCase):
     def test_enum_values(self):
         self.assertEqual(len(self.ParameterType.values()), 4, "test number of entries in enum")
         
+    def test_enum_check_typestr_yes(self):
+        self.ParameterType.check_type_string("GLOBAL_PARAMETER")
+
+    def test_enum_check_typestr_no(self):
+        self.assertRaises(EnumType.EnumTypeException,self.ParameterType.check_type_string, 'test')
+
     def test_enum_check_type_yes(self):
-        self.ParameterType.check_type("GLOBAL_PARAMETER")
+        self.ParameterType.check_type(self.ParameterType.GLOBAL_PARAMETER)
     
-    def test_enum_check_type_no(self):
-        self.assertRaises(EnumType.EnumTypeException,self.ParameterType.check_type, 'test')
 
 
 if __name__ == "__main__":

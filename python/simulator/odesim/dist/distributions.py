@@ -35,13 +35,15 @@ from path_settings import MULTISCALE_GALACTOSE
 
 from samples import SampleParameter
 
-from enum import Enum
-class DistType(Enum):
+from util.util_classes import EnumType, Enum
+
+class DistType(EnumType, Enum):
     CONSTANT = 0   # (mean) 
     NORMAL = 1     # (mena, log)
     LOGNORMAL = 2  # (meanlog, stdlog)
 
-class DistParsType(Enum):
+
+class DistParsType(EnumType, Enum):
     MEAN = 0  
     STD = 1    
     MEANLOG = 2 
@@ -217,18 +219,23 @@ def _createDictFromKeysAndValues(keys, values):
         d[key] = value
     return d
 
-from sbmlsim.models import GLOBAL_PARAMETER
+
 
 def getDemoDistributions():
+    from sbmlsim.models import ParameterType    
     ''' Example distributions for demo network. ''' 
     d1 = Dist(DistType.LOGNORMAL, {
-                    DistParsType.MEAN : SampleParameter('Vmax_b1', 5.0, 'mole_per_s', GLOBAL_PARAMETER),
-                    DistParsType.STD : SampleParameter('Vmax_b1', 0.5, 'mole_per_s', GLOBAL_PARAMETER),
+                    DistParsType.MEAN : SampleParameter('Vmax_b1', 5.0, 'mole_per_s', 
+                                                        ParameterType.GLOBAL_PARAMETER),
+                    DistParsType.STD : SampleParameter('Vmax_b1', 0.5, 'mole_per_s', 
+                                                        ParameterType.GLOBAL_PARAMETER),
     })
     
     d2 = Dist(DistType.LOGNORMAL, {
-                    DistParsType.MEAN : SampleParameter('Vmax_b2', 2.0, 'mole_per_s', GLOBAL_PARAMETER),
-                    DistParsType.STD : SampleParameter('Vmax_b2', 0.4, 'mole_per_s', GLOBAL_PARAMETER)
+                    DistParsType.MEAN : SampleParameter('Vmax_b2', 2.0, 'mole_per_s', 
+                                                        ParameterType.GLOBAL_PARAMETER),
+                    DistParsType.STD : SampleParameter('Vmax_b2', 0.4, 'mole_per_s', 
+                                                        ParameterType.GLOBAL_PARAMETER)
     })
     return (d1, d2)
 

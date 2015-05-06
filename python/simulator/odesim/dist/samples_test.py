@@ -3,7 +3,7 @@ Created on May 3, 2015
 
 @author: mkoenig
 '''
-
+from __future__ import print_function
 import unittest
 
 from samples import Sample, SampleParameter
@@ -42,8 +42,8 @@ class TestSamples(unittest.TestCase):
         self.assertEqual(self.p1.ptype, ParameterType.GLOBAL_PARAMETER, "test pytpe")
         
     def test_sample_pars_repr(self):
-        self.assertEqual(self.p1.__repr__(), "<Vmax = 2.170E+00 [mole_per_s] (ParameterType.GLOBAL_PARAMETER)>", 
-                         "test_repr")
+        # print(self.p1.__repr__())
+        self.assertEqual(self.p1.__repr__(), "<Vmax = 2.170E+00 [mole_per_s] (GLOBAL_PARAMETER)>", "test_repr")
         
     def test_demo_samples(self):
         from odesim.models.demo import create_demo_samples
