@@ -3,7 +3,7 @@ Created on Jul 23, 2014
 @author: mkoenig
 '''
 
-import path_settings
+import project_settings
 from sbmlsim.models import SBMLModel
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
@@ -567,7 +567,7 @@ class TissueModel(object):
     def writeSBML(self, fname=None, validate=True):
         print 'libSBML {}'.format(libsbml.getLibSBMLDottedVersion())
         if not fname:
-            fname = path_settings.SBML_DIR + '/' + self.id + '.xml'
+            fname = project_settings.SBML_DIR + '/' + self.id + '.xml'
         
         print 'Write : {}\n'.format(self.id, fname)
         writer = SBMLWriter()
@@ -585,6 +585,6 @@ class TissueModel(object):
         before.
         '''
         
-        model = SBMLModel.create(self.id, path_settings.SBML_DIR);
+        model = SBMLModel.create(self.id, project_settings.SBML_DIR);
         model.save();
         

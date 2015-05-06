@@ -8,7 +8,7 @@ Main rendered information are the listOf components of the SBML.
 @date: 2015-04-20
 '''
 
-import path_settings
+import project_settings
 
 import libsbml
 from django.http.response import HttpResponse

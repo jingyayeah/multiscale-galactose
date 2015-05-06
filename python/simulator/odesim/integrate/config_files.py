@@ -81,7 +81,7 @@ if __name__ == "__main__":
     import django
     django.setup()
     
-    from path_settings import SIM_DIR
+    from project_settings import SIM_DIR
     from sbmlsim.models import Simulation
     
     sim = Simulation.objects.all()[0];

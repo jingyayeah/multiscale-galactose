@@ -25,7 +25,7 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 @author: Matthias Koenig
 @date: 2015-05-05
 '''
-from path_settings import SIM_DIR
+from project_settings import SIM_DIR
 
 import os
 import time

@@ -9,7 +9,7 @@ Created on Jul 15, 2014
 from subprocess import call
 import shlex
 
-import path_settings
+import project_settings
 from sbmlsim.models import Simulation, DONE
 
 
@@ -18,7 +18,7 @@ def simulationPlot(sid, sim_file, out_dir):
     print 'Generate odesim plot'
     
     # call the R scripts
-    call_command = 'Rscript ' + path_settings.MULTISCALE_GALACTOSE + '/R/analysis/makePlot.R ' + sim_file + ' ' + out_dir
+    call_command = 'Rscript ' + project_settings.MULTISCALE_GALACTOSE + '/R/analysis/makePlot.R ' + sim_file + ' ' + out_dir
     print call_command
     call(shlex.split(call_command))
     
@@ -27,7 +27,7 @@ def simulationPlot(sid, sim_file, out_dir):
 if __name__ == '__main__':
     # generate the example plot
     sid = 497
-    out_dir = path_settings.MULTISCALE_GALACTOSE_RESULTS + '/tmp_plot'
+    out_dir = project_settings.MULTISCALE_GALACTOSE_RESULTS + '/tmp_plot'
     
     sim = Simulation.objects.get(pk=sid)
     if not sim.status == DONE:

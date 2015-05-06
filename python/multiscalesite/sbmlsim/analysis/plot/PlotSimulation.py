@@ -5,7 +5,7 @@ Create odesim plots from timecourses.
 @date: 2015-04-20
 '''
 
-import path_settings
+import project_settings
 
 import matplotlib
 matplotlib.use('Agg')

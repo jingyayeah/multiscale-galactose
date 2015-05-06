@@ -2,31 +2,32 @@
     Definition of the database model.
     TODO: handle all the selections via proper enums.
     
+    Improve the general model.
+    
     @author: Matthias Koenig
     @date: 2014-06-14
     
 '''
 from __future__ import print_function
-import logging
 
 import os
 import tarfile
+import logging
+from datetime import timedelta
 
 from django.db import models
 from django.utils import timezone
-from datetime import timedelta
-from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
-from sbmlsim.storage import OverwriteStorage
 
-from enum import Enum
-from util.util_classes import EnumType
+from sbmlsim.storage import OverwriteStorage
+from util.util_classes import EnumType, Enum
 
 
 ###################################################################################
-
+# TODO: this has to be gone 
 # Provide R preprocess function
-# TODO: this has to be 
+
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
   
 string = r"""
@@ -55,67 +56,27 @@ string = r"""
     }
 """
 rpack = SignatureTranslatedAnonymousPackage(string, "rpack")
-
-
-
-###################################################################################
-# General definitions of datatypes and settings
-DT_STRING = 'string'
-DT_BOOLEAN = 'boolean'
-DT_DOUBLE = 'double'
-DT_INT = 'int'
-
-datatypes = dict(zip( 
-            ['condition', 'integrator', 'varSteps', 'tstart', 'tend', 'steps', 'absTol', 'relTol'],
-            [DT_STRING, DT_STRING, DT_BOOLEAN, DT_DOUBLE, DT_DOUBLE, DT_INT, DT_DOUBLE, DT_DOUBLE]
-))
-
-def cast_value(key, value):
-    '''
-    Casts the value to the correct datatype.
-    '''
-    dtype = datatypes[key]
-    if dtype == DT_STRING:
-        return str(value)
-    elif dtype == DT_INT:
-        return int(value)
-    elif dtype == DT_DOUBLE:
-        return float(value)
-    elif dtype == DT_BOOLEAN:
-        return bool(value)
-
-# integrators
-COPASI = "COPASI"
-ROADRUNNER = "ROADRUNNER"
 ###################################################################################
 
-def validate_gt_zero(value):
-    if value < 0:
-        raise ValidationError(u'%s is not > 0' % value)
 
+#===============================================================================
+# Core
+#===============================================================================
+from project_settings import COMPUTERS
 
 class Core(models.Model):
     ip = models.CharField(max_length=200)
     cpu = models.IntegerField()
     time = models.DateTimeField(default=timezone.now);
-    
-    computer_names = {'10.39.34.27':'core',
-                      '10.39.32.189':'sysbio1',
-                      '10.39.32.106':'mint',
-                      '10.39.32.111':'sysbio2',
-                      '10.39.32.236':'zenbook',
-                      '192.168.1.100':'home',
-                      '192.168.1.99':'zenbook',
-                      '127.0.0.1':'localhost'}
         
     def __unicode__(self):
         return self.ip + "-cpu-" +str(self.cpu)
     
     def _is_active(self, cutoff_minutes=10):
+        ''' Test if simulation is still active. '''
         if not (self.time):
             return False;
-        else:
-            return (timezone.now() <= self.time+timedelta(minutes=cutoff_minutes))
+        return (timezone.now() <= self.time+timedelta(minutes=cutoff_minutes))
     
     active = property(_is_active)
     
@@ -124,15 +85,14 @@ class Core(models.Model):
         verbose_name_plural = "Cores"
         unique_together = ("ip", "cpu")
         
-
     def _get_computer_name(self):
-        "Returns the computer name from the IP."
-        if self.computer_names.has_key(self.ip):
-            return self.computer_names.get(self.ip)
-        else:
-            return self.ip 
-        
+        return COMPUTERS.get(self.ip, self.ip)
+            
     computer = property(_get_computer_name)
+
+#===============================================================================
+# SBMLModel
+#===============================================================================
 
 class SBMLModelException(Exception):
         pass
@@ -141,16 +101,18 @@ class SBMLModel(models.Model):
     ''' Storage of SBMLmodels. 
         TODO: add a file hash and check if the hash of the file is correct.
             possible problems with identical ids.
+        TODO: check model identity via file hash on creation 
+            implement a cls.check_model_identity()    
     '''
     sbml_id = models.CharField(max_length=200, unique=True)
-    file = models.FileField(upload_to="sbml", max_length=200, storage=OverwriteStorage())
+    file = models.FileField(upload_to='sbml', max_length=200, storage=OverwriteStorage())
     
     def __unicode__(self):
         return self.sbml_id
     
     class Meta:
-        verbose_name = "SBML Model"
-        verbose_name_plural = "SBML Models"
+        verbose_name = 'SBML Model'
+        verbose_name_plural = 'SBML Models'
     
     @classmethod
     def create(cls, sbml_id, folder):
@@ -160,10 +122,7 @@ class SBMLModel(models.Model):
 
     @classmethod
     def create_from_file(cls, filepath, sbml_id=None):
-        ''' Create model in database based on SBML file. 
-            # TODO: check model identity via file hash 
-            # cls.check_model_identity()
-        '''
+        ''' Create model in database based on SBML file. '''
         try:
             with open(filepath) as f: pass
         except IOError as exc:
@@ -197,11 +156,45 @@ class SBMLModel(models.Model):
     
     filepath = property(_filepath)
    
-    
+
+#===============================================================================
+# Settings
+#===============================================================================
+# TODO: improve the handling of options and settings for the solver.
+# TODO: lookup the allowed solver options for RoadRunner
+
+class SimulatorType(EnumType, Enum):
+    COPASI = "COPASI"
+    ROADRUNNER = "ROADRUNNER"
+
 # TODO: move in settings
 default_settings = dict(zip(['integrator', 'varSteps', 'absTol', 'relTol'], 
-                            [ROADRUNNER, True, 1E-6, 1E-6]))
-       
+                            [SimulatorType.ROADRUNNER, True, 1E-6, 1E-6]))
+
+# TODO: improve this
+# General definitions of datatypes and settings
+DT_STRING = 'string'
+DT_BOOLEAN = 'boolean'
+DT_DOUBLE = 'double'
+DT_INT = 'int'
+
+datatypes = dict(zip( 
+            ['condition', 'integrator', 'varSteps', 'tstart', 'tend', 'steps', 'absTol', 'relTol'],
+            [DT_STRING, DT_STRING, DT_BOOLEAN, DT_DOUBLE, DT_DOUBLE, DT_INT, DT_DOUBLE, DT_DOUBLE]
+))
+
+def cast_value(key, value):
+    ''' Casts the value to the correct datatype. '''
+    dtype = datatypes[key]
+    if dtype == DT_STRING:
+        return str(value)
+    elif dtype == DT_INT:
+        return int(value)
+    elif dtype == DT_DOUBLE:
+        return float(value)
+    elif dtype == DT_BOOLEAN:
+        return bool(value)
+
 class Setting(models.Model):
     '''
     Store all settings for algorithm in general framework.
@@ -222,6 +215,7 @@ class Setting(models.Model):
         return "{}={}".format(self.name, self.value) 
 
     def _cast_value(self):
+        ''' Cast setting to appropriate datatype. '''
         if self.datatype == DT_STRING:
             return str(self.value)
         elif self.datatype == DT_DOUBLE:
@@ -233,14 +227,13 @@ class Setting(models.Model):
         
     cast_value = property(_cast_value)      
     
-
     @staticmethod
     def get_settings(settings):
         ''' Get settings based on settings dictionary. '''
         # add the default settings
         sdict = dict(default_settings.items() + settings.items())
         
-        # get all settings objects from db
+        # get settings objects from DB
         settings = []
         for key, value in sdict.iteritems():
             value = cast_value(key, value)        
@@ -249,6 +242,9 @@ class Setting(models.Model):
             settings.append(s)
         return settings
 
+#===============================================================================
+# Integration
+#===============================================================================
 
 class Integration(models.Model):
     '''
@@ -311,6 +307,10 @@ class Integration(models.Model):
         return integration
 
 
+#===============================================================================
+# Parameter
+#===============================================================================
+
 class ParameterType(EnumType, Enum):
     GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
     BOUNDERY_INIT = 'BOUNDERY_INIT'
@@ -339,6 +339,10 @@ class Parameter(models.Model):
     class Meta:
         unique_together = ("name", "value")
 
+
+#===============================================================================
+# Task
+#===============================================================================
 
 class Task(models.Model):
     '''
@@ -427,6 +431,10 @@ class DoneSimulationManager(models.Manager):
                      self).get_queryset().filter(status=DONE)
 
 
+#===============================================================================
+# Simulation
+#===============================================================================
+
 class Simulation(models.Model):     
     SIMULATION_STATUS = (
                          (UNASSIGNED, 'unassigned'),
@@ -480,11 +488,9 @@ class Simulation(models.Model):
     hanging = property(_is_hanging)
 
 
-    
-def timecourse_filename(instance, filename):
-    name = filename.split("/")[-1]
-    return '/'.join(['timecourse', str(instance.simulation.task), name])
-
+#===============================================================================
+# Timecourse
+#===============================================================================
 
 class Timecourse(models.Model):
     '''
@@ -520,4 +526,12 @@ class Timecourse(models.Model):
         rpack.readData(self.file.path)
     
     zip_file = property(_get_zip_file)
+
+def timecourse_filename(instance, filename):
+    name = filename.split("/")[-1]
+    return '/'.join(['timecourse', str(instance.simulation.task), name])
          
+         
+#===============================================================================
+# Plots & Analysis
+#===============================================================================

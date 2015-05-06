@@ -31,7 +31,7 @@ from __future__ import print_function
 import math
 import numpy as np
         
-from path_settings import MULTISCALE_GALACTOSE
+from project_settings import MULTISCALE_GALACTOSE
 
 from samples import SampleParameter
 

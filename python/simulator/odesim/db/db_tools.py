@@ -20,7 +20,7 @@ import logging
 import os
 
 
-import path_settings
+import project_settings
 from django.core.exceptions import ObjectDoesNotExist
 from sbmlsim.models import SBMLModel, Task
 
@@ -31,7 +31,7 @@ def sbmlmodel_from_id(sbml_id, sync=True):
     ''' Creates the model from given sbml_id.
         The model with the given id has to be already in the correct folder.
     '''    
-    model = SBMLModel.create(sbml_id, path_settings.SBML_DIR)
+    model = SBMLModel.create(sbml_id, project_settings.SBML_DIR)
     model.save()
     if sync: _sync_sbml_in_network()    
     return model
@@ -68,6 +68,8 @@ def create_task(model, integration, info='', priority=0):
     task.save()
     logging.info("Task created/updated: {}".format(task))    
     return task
+
+
 
 
 # TODO: refactor this

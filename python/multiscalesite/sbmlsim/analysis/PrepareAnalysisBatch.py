@@ -6,7 +6,7 @@ Prepares the data for a batch of simulations.
 @date: 2015-04-18
 '''
 
-import path_settings
+import project_settings
 # TODO: better via the setup call
 
 from sbmlsim.models import Task

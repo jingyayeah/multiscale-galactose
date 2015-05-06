@@ -15,7 +15,7 @@ from roadrunner import SelectionRecord
 
 from django.utils import timezone
 
-from path_settings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
+from project_settings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
 from sbmlsim.models import NONE_SBML_PARAMETER
 from sbmlsim.models import ERROR, COPASI, ROADRUNNER
 from sbmlsim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT

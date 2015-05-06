@@ -18,7 +18,7 @@ from sbmlsim.models import Timecourse, DONE
 
 import config_files
 
-from path_settings import SIM_DIR 
+from project_settings import SIM_DIR 
 
 from enum import Enum
 class FileType(Enum):
