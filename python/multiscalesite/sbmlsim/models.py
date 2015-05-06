@@ -5,6 +5,9 @@
     @date: 2014-06-14
     
 '''
+from __future__ import print_function
+import logging
+
 import os
 import tarfile
 
@@ -19,6 +22,7 @@ from sbmlsim.storage import OverwriteStorage
 ###################################################################################
 
 # Provide R preprocess function
+# TODO: this has to be 
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
   
 string = r"""
@@ -47,6 +51,7 @@ string = r"""
     }
 """
 rpack = SignatureTranslatedAnonymousPackage(string, "rpack")
+
 
 
 ###################################################################################
@@ -143,40 +148,43 @@ class SBMLModel(models.Model):
     
     @classmethod
     def create(cls, sbml_id, folder):
-        ''' Create the model based on the model id. '''
-        try:
-            model = SBMLModel.objects.get(sbml_id=sbml_id)
-            print 'Django model already exists! - model is not saved'
-            return model;
-        except ObjectDoesNotExist:
-            print 'Create django model: ', sbml_id
-            filename = folder + "/" + sbml_id + ".xml" 
-            f = open(filename, 'r')
-            myfile = File(f)
-            return cls(sbml_id = sbml_id, file = myfile)
+        ''' Create the model based on the model id. 
+            TODO: sbml id does not have to be the filename !
+            fix this dependency.
+            TODO: remove this function part.
+        '''
+        filepath = os.path.join(folder, '{}.xml'.format(sbml_id))
+        return cls.create_from_file(filepath)
 
     @classmethod
-    def create_from_file(cls, filename):
-        ''' Create model in database based on SBML file. '''
-        print(os.getcwd(), filename)
-        
-        import libsbml
-        doc = libsbml.SBMLReader().readSBML(filename)
-        sbml_id = doc.getModel().getId()
+    def create_from_file(cls, filepath, sbml_id=None):
+        ''' Create model in database based on SBML file. 
+            # TODO: check model identity via file hash 
+            # cls.check_model_identity()
+        '''
+        sbml_id = cls._get_sbml_id_from_file(self, filepath)
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
-            print 'Django model already exists! - model is not saved'
+            logging.WARN('SBMLModel for id exists in database, no new model created : {}'.format(sbml_id))
             return model;
-        except ObjectDoesNotExist:
-            print 'Create django model: ', sbml_id 
-            f = open(filename, 'r')
+        except ObjectDoesNotExist: 
+            f = open(filepath, 'r')
             myfile = File(f)
+            logging.info('SBMLModel created : {}'.format(sbml_id))
             return cls(sbml_id = sbml_id, file = myfile)
     
+    @classmethod
+    def _get_sbml_id_from_file(cls, filepath):
+        ''' Reads the SBML id from the given file. '''
+        import libsbml
+        doc = libsbml.SBMLReader().readSBML(filepath)
+        sbml_id = doc.getModel().getId()
+        return sbml_id
+        
     
-# TODO: remove the condition -> can be deduced from parameters
-default_settings = dict(zip(['condition', 'integrator', 'varSteps', 'absTol', 'relTol'], 
-                            ['normal', ROADRUNNER, True, 1E-6, 1E-6]))
+# TODO: move in settings
+default_settings = dict(zip(['integrator', 'varSteps', 'absTol', 'relTol'], 
+                            [ROADRUNNER, True, 1E-6, 1E-6]))
        
 class Setting(models.Model):
     '''
@@ -497,7 +505,6 @@ class Timecourse(models.Model):
         ''' tar.gz the file '''    
         tar = tarfile.open(self.zip_file, 'r:gz')
         dirname = os.path.dirname(self.zip_file)
-        print tar.getmembers()
         tar.extractall(path=dirname)   
         tar.close()
     
@@ -505,20 +512,4 @@ class Timecourse(models.Model):
         rpack.readData(self.file.path)
     
     zip_file = property(_get_zip_file)
-    
-#     def _unzip_csv(self):
-#         ''' Simulation did not finish '''
-#         f = self.file.path
-#         f_tar = f[:-3] + 'tar.gz'
-#         tar = tarfile.open(f_tar, "r:gz")
-#         csv_file = tar.extractfile(os.path.basename(f))
-#         return csv_file
-#     
-#     def _get_zip(self):
-#         ''' Simulation did not finish '''
-#         f = self.file.path
-#         f_tar = f[:-3] + 'tar.gz'
-#         return f_tar
-#     
-#     csv = property(_get_zip)
-#     
+         
