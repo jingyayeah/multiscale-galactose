@@ -1,6 +1,6 @@
 <!doctype html> {% load staticfiles %}
-{% load kwacros %}
-{% loadkwacros "report/kwacros.html" %}
+{% load macros %}
+{% loadmacros "report/macros.html" %}
 {% load SBML_filters %}
 <html lang="en">
 <head>
@@ -113,14 +113,14 @@
 	<table id="table_model">
     <caption>Model</caption>
     <tbody>
-    	<tr>{% usekwacro model %}</tr>
+    	<tr>{% usemacro model %}</tr>
 	</tbody>
 	</table></td>
 	<td>
 	{% if model.getModelHistory %} 
 	{% autoescape off %}{{model.getModelHistory | SBML_modelHistoryToString}}{% endautoescape %}
 	{% endif %}
-	{% with model as item %}{% usekwacro annotation %}{% endwith %}
+	{% with model as item %}{% usemacro annotation %}{% endwith %}
 	</td></tr>
 	</table>
 </span>
@@ -133,11 +133,11 @@
 <table id="table_functions">
 	<caption>FunctionDefinitions [{{functions_size}}]</caption>
     <thead>
-        <tr>{% usekwacro function_header %}</tr>
+        <tr>{% usemacro function_header %}</tr>
     </thead>
     <tbody>
     {% for item in functions %}
-    	<tr>{% usekwacro function_content %}</tr>
+    	<tr>{% usemacro function_content %}</tr>
 	{% endfor %}
 	</tbody>
 </table>
@@ -152,11 +152,11 @@
 <table id="table_units">
 	<caption>UnitDefinitions [{{ units_size }}]</caption>
     <thead>
-        <tr>{% usekwacro unit_header %}</tr>
+        <tr>{% usemacro unit_header %}</tr>
     </thead>
     <tbody>
     {% for item in units %}
-    	<tr>{% usekwacro unit_content %}</tr>
+    	<tr>{% usemacro unit_content %}</tr>
 	{% endfor %}
 	</tbody>
 </table>
@@ -171,11 +171,11 @@
 <table id="table_compartments">
 	<caption>Compartments [{{compartments_size}}]</caption>
     <thead>
-        <tr>{% usekwacro compartment_header %}</tr>
+        <tr>{% usemacro compartment_header %}</tr>
     </thead>
     <tbody>
     {% for item in compartments %}
-		<tr>{% usekwacro compartment_content %}</tr>
+		<tr>{% usemacro compartment_content %}</tr>
 	{% endfor %}
 	</tbody>
 </table>
@@ -190,11 +190,11 @@
 <table id="table_species">
 	<caption>Species [{{species_size}}]</caption>
     <thead>
-        <tr>{% usekwacro species_header %}</tr>
+        <tr>{% usemacro species_header %}</tr>
     </thead>
     <tbody>
     {% for item in species %}
-		<tr>{% usekwacro species_content %}</tr>
+		<tr>{% usemacro species_content %}</tr>
 	{% endfor %}
 	</tbody>
 </table>
@@ -209,11 +209,11 @@
 <table id="table_parameters">
 	<caption>Parameters [{{parameters_size}}]</caption>
     <thead>
-		<tr>{% usekwacro parameter_header %}</tr>
+		<tr>{% usemacro parameter_header %}</tr>
     </thead>
     <tbody>
     	{% for item in parameters %}
-			<tr>{% usekwacro parameter_content %}</tr>
+			<tr>{% usemacro parameter_content %}</tr>
 		{% endfor %}
 	</tbody>
 </table>
@@ -228,11 +228,11 @@
 <table id="table_assignments">
 	<caption>InitialAssignments [{{assignments_size}}]</caption>
     <thead>
-		<tr>{% usekwacro assignment_header %}</tr>
+		<tr>{% usemacro assignment_header %}</tr>
     </thead>
     <tbody>
     {% for item in assignments %}
-		<tr>{% usekwacro assignment_content %}</tr>
+		<tr>{% usemacro assignment_content %}</tr>
 	{% endfor %}
 	</tbody>
 </table>
@@ -247,11 +247,11 @@
 <table id="table_rules">
 	<caption>Rules [{{rules_size}}]</caption>
     <thead>
-		<tr>{% usekwacro rule_header %}</tr>
+		<tr>{% usemacro rule_header %}</tr>
     </thead>
     <tbody>
     	{% for item in rules %}
-		<tr>{% usekwacro rule_content %}</tr>		
+		<tr>{% usemacro rule_content %}</tr>		
 		{% endfor %}
 	</tbody>
 </table>
@@ -266,11 +266,11 @@
 <table id="table_constraints">
 	<caption>Constraints [{{constraints_size}}]</caption>
     <thead>
-		<tr>{% usekwacro constraint_header %}</tr>
+		<tr>{% usemacro constraint_header %}</tr>
     </thead>
     <tbody>
     	{% for item in constraints %}
-		<tr>{% usekwacro constraint_content %}</tr>				
+		<tr>{% usemacro constraint_content %}</tr>				
 		{% endfor %}
 	</tbody>
 </table>
@@ -285,11 +285,11 @@
 <table id="table_reactions">
     <caption>Reactions [{{reactions_size}}]</caption>
     <thead>
-		<tr>{% usekwacro reaction_header %}</tr>
+		<tr>{% usemacro reaction_header %}</tr>
     </thead>
     <tbody>
     	{% for item in reactions %}
-		<tr>{% usekwacro reaction_content %}</tr>	
+		<tr>{% usemacro reaction_content %}</tr>	
 		{% endfor %}
 	</tbody>
 </table>
@@ -304,11 +304,11 @@
 <table id="table_events">
 	<caption>Events [{{events_size}}]</caption>
     <thead>
-		<tr>{% usekwacro event_header %}</tr>
+		<tr>{% usemacro event_header %}</tr>
     </thead>
     <tbody>
     	{% for item in events %}
-		<tr>{% usekwacro event_content %}</tr>	    	
+		<tr>{% usemacro event_content %}</tr>	    	
 		{% endfor %}
 	</tbody>
 </table>

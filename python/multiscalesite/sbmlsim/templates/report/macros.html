@@ -1,28 +1,28 @@
 {% load staticfiles %}
 {% load SBML_filters %}
 {% load Lookup_filters %}
-{% load kwacros %}
+{% load macros %}
 
 
-{% kwacro id %}<i>{{item.getId}}</i>{% endkwacro %}
-{% kwacro name %}{% if item.isSetName %}{{item.getName}}{% else %}-{% endif %}{% endkwacro %}
+{% macro id %}<i>{{item.getId}}</i>{% endmacro %}
+{% macro name %}{% if item.isSetName %}{{item.getName}}{% else %}-{% endif %}{% endmacro %}
 
-{% kwacro sbo_term %}
+{% macro sbo_term %}
 {% if item.getSBOTerm != -1 %}<a href="{{item.getSBOTermAsURL}}" target="_blank">{{item.getSBOTermID}}</a>{% else %}-{% endif %}
-{% endkwacro %}
+{% endmacro %}
 
-{% kwacro annotation %}{% if item.isSetAnnotation %}
+{% macro annotation %}{% if item.isSetAnnotation %}
 {%autoescape off%}{{item|SBML_annotationToString}}{% endautoescape %}
-{% else %}-{% endif %}{% endkwacro %}
+{% else %}-{% endif %}{% endmacro %}
 
-{% kwacro math %}{{item.getMath|SBML_astnodeToString}}{% endkwacro %}
+{% macro math %}{{item.getMath|SBML_astnodeToString}}{% endmacro %}
 
-{% kwacro annotation_xml %}{% if item.isSetAnnotation %}<pre>{{item.getAnnotationString}}</pre>{% endif %}{% endkwacro %}
+{% macro annotation_xml %}{% if item.isSetAnnotation %}<pre>{{item.getAnnotationString}}</pre>{% endif %}{% endmacro %}
 
 <!------------------------------------------------------->
 <!--  MODEL 									   -->
 <!------------------------------------------------------->
-{% kwacro model %}
+{% macro model %}
 	{% with model as item %}
 	<tr><td>id</td><td>{{item.getId}}</td></tr>
 	<tr><td>name</td><td>{{item.getName}}</td></tr>
@@ -34,46 +34,46 @@
 	<tr><td>area</td><td>{{item.getAreaUnits}}</td></tr>
 	<tr><td>length</td><td>{{item.getLengthUnits}}</td></tr>
 	{% endwith %}
-{% endkwacro %}
+{% endmacro %}
 
 <!------------------------------------------------------->
 <!--  FUNCTION DEFINITIONS   						   -->
 <!------------------------------------------------------->
-{% kwacro function_header %}
+{% macro function_header %}
 	<th scope="col">id</th>
 	<th scope="col">name</th>
 	<th scope="col">math</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro function_content %}
-	<td>{% usekwacro id %}</td>
-	<td>{% usekwacro name %}</td>
+{% endmacro %}
+{% macro function_content %}
+	<td>{% usemacro id %}</td>
+	<td>{% usemacro name %}</td>
 	<td>{{item.getMath|SBML_astnodeToString}}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  UNIT DEFINITIONS       						   -->
 <!------------------------------------------------------->
-{% kwacro unit_header %}
+{% macro unit_header %}
 	<th scope="col">id</th>
 	<th scope="col">name</th>
 	<th scope="col">units</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro unit_content %}
-	<td>{% usekwacro id %}</td>
-	<td>{% usekwacro name %}</td>
+{% endmacro %}
+{% macro unit_content %}
+	<td>{% usemacro id %}</td>
+	<td>{% usemacro name %}</td>
 	<td>{{item|SBML_unitDefinitionToString}}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  COMPARTMENTS          						   -->
 <!------------------------------------------------------->
-{% kwacro compartment_header %}
+{% macro compartment_header %}
 	<th scope="col">id</th>
 	<th scope="col">name</th>
 	<th scope="col">size</th>
@@ -83,23 +83,23 @@
 	<th scope="col">derived unit</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro compartment_content %}
-	<td>{% usekwacro id %}</td>
-	<td>{% usekwacro name %}</td>
+{% endmacro %}
+{% macro compartment_content %}
+	<td>{% usemacro id %}</td>
+	<td>{% usemacro name %}</td>
 	<td>{% if item.isSetSize %}<b>{{item.getSize}}</b>{% else %}
 	                              {{values|get_item:item.getId}}{% endif %}</td>
 	<td class="{% if item.getConstant %}TRUE{% else %}FALSE{% endif %}">{{item.getConstant}}</td>	
 	<td>{{item.getSpatialDimensions}}</td>
 	<td>{{item.getUnits}}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  SPECIES                						   -->
 <!------------------------------------------------------->
-{% kwacro species_header %}
+{% macro species_header %}
 	<th scope="col">id</th>
 	<th scope="col">name</th>
 	<th scope="col">compartment</th>
@@ -111,10 +111,10 @@
 	<th scope="col">derived units</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro species_content %}
-	<td>{% usekwacro id %}</td>
-	<td>{% usekwacro name %}</td>
+{% endmacro %}
+{% macro species_content %}
+	<td>{% usemacro id %}</td>
+	<td>{% usemacro name %}</td>
 	<td>{{item.getCompartment}}</td>
 	<td class="{% if item.getBoundaryCondition %} TRUE {% else %}  FALSE  {% endif %}">{{item.getBoundaryCondition}}</td>
 	<td class="{% if item.getConstant %} TRUE  {% else %}  FALSE  {% endif %}">{{ item.getConstant }}</td>	
@@ -122,13 +122,13 @@
 	<td>{% if item.isSetInitialConcentration %} {{item.getInitialConcentration}} {% endif %} </td>
 	<td>{{ item.getSubstanceUnits }}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  PARAMETERS             						   -->
 <!------------------------------------------------------->
-{% kwacro parameter_header %}
+{% macro parameter_header %}
 	<th scope="col">id</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
@@ -137,76 +137,76 @@
 	<th scope="col">constant</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro parameter_content %}
-	<td>{% usekwacro id %}</td>
-	<td>{% usekwacro name %}</td>
+{% endmacro %}
+{% macro parameter_content %}
+	<td>{% usemacro id %}</td>
+	<td>{% usemacro name %}</td>
 	<td>{% if item.isSetValue %}<b>{{item.getValue}}</b>{% else %}
 								   {{values|get_item:item.getId}}{% endif %}</td>
 	
 	<td>{{item.getUnits}}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
 	<td class="{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}">{{item.getConstant}}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  INITIAL ASSIGNMENTS   						   -->
 <!------------------------------------------------------->
-{% kwacro assignment_header %}
+{% macro assignment_header %}
 	<th scope="col">symbol</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro assignment_content %}
-	<td>{% usekwacro id %}</td>
+{% endmacro %}
+{% macro assignment_content %}
+	<td>{% usemacro id %}</td>
 	<td>=</td>
-	<td>{% usekwacro math %}</td>
+	<td>{% usemacro math %}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  RULES  				   						   -->
 <!------------------------------------------------------->
-{% kwacro rule_header %}
+{% macro rule_header %}
 	<th scope="col">variable</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro rule_content %}
-	<td>{% usekwacro id %}</td>
+{% endmacro %}
+{% macro rule_content %}
+	<td>{% usemacro id %}</td>
 	<td>=</td>
-	<td>{% usekwacro math %}</td>
+	<td>{% usemacro math %}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  CONSTRAINTS			   						   -->
 <!------------------------------------------------------->
-{% kwacro constraint_header %}
+{% macro constraint_header %}
 	<th scope="col">id</th>
 	<th scope="col">constraint</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro constraint_content %}
+{% endmacro %}
+{% macro constraint_content %}
 	<td>{{item.getId}}</td>
-	<td>{% usekwacro math %}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro math %}</td>
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  REACTIONS 			   						   -->
 <!------------------------------------------------------->
-{% kwacro reaction_header %}
+{% macro reaction_header %}
 	<th scope="col">id</th>
 	<th scope="col">name</th>
 	<th scope="col">reversibility</th>
@@ -216,10 +216,10 @@
 	<th scope="col">formula</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro reaction_content %}
-	<td>{% usekwacro id %}</td>
-	<td>{% usekwacro name %}</td>
+{% endmacro %}
+{% macro reaction_content %}
+	<td>{% usemacro id %}</td>
+	<td>{% usemacro name %}</td>
 	{% if item.getReversible %}<td class="TRUE">&lt;=&gt;</td>{% else %}
 	<td class="FALSE">&nbsp;=&gt;</td>{% endif %}
 	<td>{{item | SBML_reactionToString}}</td>
@@ -228,13 +228,13 @@
 		 {% endfor %}</td>
 	<td>{{item.getKineticLaw.getDerivedUnitDefinition|SBML_unitDefinitionToString}}</td>
 	<td>{{item.getKineticLaw.getMath|SBML_astnodeToString}}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
 <!------------------------------------------------------->
 <!--  EVENTS     			   						   -->
 <!------------------------------------------------------->
-{% kwacro event_header %}
+{% macro event_header %}
 	<th scope="col">id</th>
 	<th scope="col">name</th>
 	<th scope="col">trigger</th>
@@ -243,10 +243,10 @@
 	<th scope="col">assignments</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
-{% endkwacro %}
-{% kwacro event_content %}
-	<td>{% usekwacro id %}</td>
-	<td>{% usekwacro name %}</td>
+{% endmacro %}
+{% macro event_content %}
+	<td>{% usemacro id %}</td>
+	<td>{% usemacro name %}</td>
 	<td>
 	{{item.getTrigger.getMath|SBML_astnodeToString}}<br />
 	initialValue = {{item.getTrigger.getInitialValue}}<br />
@@ -257,6 +257,6 @@
 	<td>{% for eva in item.getListOfEventAssignments %}
     		{{eva.getId}} = {{eva.getMath|SBML_astnodeToString}}<br />
     	{% endfor %}</td>
-	<td>{% usekwacro sbo_term %}</td>
-	<td>{% usekwacro annotation %}</td>
-{% endkwacro %}
+	<td>{% usemacro sbo_term %}</td>
+	<td>{% usemacro annotation %}</td>
+{% endmacro %}
