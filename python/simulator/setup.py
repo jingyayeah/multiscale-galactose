@@ -10,15 +10,15 @@ python setup.py sdist
 
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-from codecs import open # To use a consistent encoding
-from os import path
+import codecs # To use a consistent encoding
+import os
 
-here = path.abspath(path.dirname(__file__))
+here = os.path.abspath(os.path.dirname(__file__))
 
 # get the version
 import re
 VERSIONFILE="odesim/_version.py"
-verstrline = open(VERSIONFILE, "rt").read()
+verstrline = codecs.open(VERSIONFILE, "rt").read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 mo = re.search(VSRE, verstrline, re.M)
 if mo:
@@ -28,7 +28,7 @@ else:
 
 
 # Get the long description from the relevant file
-with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
+with open(os.path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
@@ -39,7 +39,7 @@ setup(
     # https://packaging.python.org/en/latest/single_source_version.html
     version = verstr,
 
-    description='simulation tools',
+    description='simulation util',
     long_description=long_description,
 
     # The project's main homepage.

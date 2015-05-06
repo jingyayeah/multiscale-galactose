@@ -1,5 +1,5 @@
 '''
-    Database tools for consistency checks and database cleanup, 
+    Database util for consistency checks and database cleanup, 
     for instance some simulations are hanging.
     This is the only module removing entries from the database.
 

@@ -1,10 +1,9 @@
 '''
-Created on Nov 15, 2014
+Interaction of python with R for testing the conversion of the binary files.
 
-@author: mkoenig
+@author: Matthias Koenig
+@date: 2015-05-06
 '''
-
-
 
 if __name__ == "__main__":
     import os

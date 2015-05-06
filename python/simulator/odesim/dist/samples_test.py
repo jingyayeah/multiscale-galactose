@@ -8,13 +8,13 @@ import unittest
 
 from samples import Sample, SampleParameter
 from sampling import SamplingType
-from sbmlsim.models import GLOBAL_PARAMETER
+from sbmlsim.models import ParameterType
 
 class TestSamples(unittest.TestCase):
 
     def setUp(self):
-        self.p1 = SampleParameter(key='Vmax', value=2.17, unit='mole_per_s', ptype=GLOBAL_PARAMETER)
-        self.p2 = SampleParameter(key='Km', value=0.1, unit='mM', ptype=GLOBAL_PARAMETER)        
+        self.p1 = SampleParameter(key='Vmax', value=2.17, unit='mole_per_s', ptype=ParameterType.GLOBAL_PARAMETER)
+        self.p2 = SampleParameter(key='Km', value=0.1, unit='mM', ptype=ParameterType.GLOBAL_PARAMETER)        
       
     def tearDown(self):
         self.p1 = None
@@ -39,10 +39,10 @@ class TestSamples(unittest.TestCase):
         self.assertEqual(self.p1.key, "Vmax", "test key")
         self.assertEqual(self.p1.value, 2.17, "test value")
         self.assertEqual(self.p1.unit, "mole_per_s", "test unit")
-        self.assertEqual(self.p1.ptype, GLOBAL_PARAMETER, "test pytpe")
+        self.assertEqual(self.p1.ptype, ParameterType.GLOBAL_PARAMETER, "test pytpe")
         
     def test_sample_pars_repr(self):
-        self.assertEqual(self.p1.__repr__(), "<Vmax = 2.170E+00 [mole_per_s] (GLOBAL_PARAMETER)>", 
+        self.assertEqual(self.p1.__repr__(), "<Vmax = 2.170E+00 [mole_per_s] (ParameterType.GLOBAL_PARAMETER)>", 
                          "test_repr")
         
     def test_demo_samples(self):
@@ -57,18 +57,18 @@ class TestSamples(unittest.TestCase):
         self.assertEqual(ptmp.key, 'Vmax', "test key")
         self.assertEqual(ptmp.value, 2.17, "test value")
         self.assertEqual(ptmp.unit, "mole_per_s", "test unit")
-        self.assertEqual(ptmp.ptype, GLOBAL_PARAMETER, "test pytpe")
+        self.assertEqual(ptmp.ptype, ParameterType.GLOBAL_PARAMETER, "test pytpe")
         
     
     def test_fromparameters2(self):
         ''' Create SampleParameter from django Parameter '''
         from sbmlsim.models import Parameter
-        p = Parameter(name='test', value=1.0, unit='mM', ptype=GLOBAL_PARAMETER)
+        p = Parameter(name='test', value=1.0, unit='mM', ptype=ParameterType.GLOBAL_PARAMETER)
         ptmp = SampleParameter.fromparameter(p)
         self.assertEqual(ptmp.key, 'test', "test key")
         self.assertEqual(ptmp.value, 1.0, "test value")
         self.assertEqual(ptmp.unit, "mM", "test unit")
-        self.assertEqual(ptmp.ptype, GLOBAL_PARAMETER, "test pytpe")        
+        self.assertEqual(ptmp.ptype, ParameterType.GLOBAL_PARAMETER, "test pytpe")        
 
 
 if __name__ == '__main__':

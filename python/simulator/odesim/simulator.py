@@ -36,11 +36,10 @@ import struct
 
 from django.utils import timezone
 from django.db import transaction
-
 from sbmlsim.models import Task, Core, Simulation
 from sbmlsim.models import UNASSIGNED, ASSIGNED
 
-from odesim.integrate import ode_integration
+from integrate import ode_integration
 
 
 def worker(cpu, lock, Nsim):

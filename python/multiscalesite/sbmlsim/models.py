@@ -1,5 +1,6 @@
 '''
     Definition of the database model.
+    TODO: handle all the selections via proper enums.
     
     @author: Matthias Koenig
     @date: 2014-06-14
@@ -17,6 +18,9 @@ from datetime import timedelta
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.files import File
 from sbmlsim.storage import OverwriteStorage
+
+from enum import Enum
+from util.util_classes import EnumType
 
 
 ###################################################################################
@@ -187,7 +191,12 @@ class SBMLModel(models.Model):
         doc = libsbml.SBMLReader().readSBML(filepath)
         sbml_id = doc.getModel().getId()
         return sbml_id
-        
+    
+    def _filepath(self):
+        return str(self.file.path)
+    
+    filepath = property(_filepath)
+   
     
 # TODO: move in settings
 default_settings = dict(zip(['integrator', 'varSteps', 'absTol', 'relTol'], 
@@ -302,20 +311,11 @@ class Integration(models.Model):
         return integration
 
 
-
-GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
-BOUNDERY_INIT = 'BOUNDERY_INIT'
-FLOATING_INIT = 'FLOATING_INIT'
-NONE_SBML_PARAMETER = 'NONE_SBML_PARAMETER'
-PTYPES = (GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT, NONE_SBML_PARAMETER)
-
-class ParameterTypeException(Exception):
-    ''' Raise if wrong parameter type. '''
-    pass
-
-def check_parameter_type(ptype):
-    if ptype not in PTYPES:
-        raise ParameterTypeException('ptype not supported: {}'.format(ptype))
+class ParameterType(EnumType, Enum):
+    GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
+    BOUNDERY_INIT = 'BOUNDERY_INIT'
+    FLOATING_INIT = 'FLOATING_INIT'
+    NONE_SBML_PARAMETER = 'NONE_SBML_PARAMETER'    
 
 class Parameter(models.Model):
     UNITS = (
@@ -325,7 +325,8 @@ class Parameter(models.Model):
                         ('mole_per_s', 'mole_per_s'),
                         ('-', '-'),
     )
-    PARAMETER_TYPE = zip(PTYPES, PTYPES)
+    PARAMETER_TYPE = zip(ParameterType.values(), 
+                         ParameterType.values())
     
     name = models.CharField(max_length=200)
     value = models.FloatField()

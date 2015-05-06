@@ -22,14 +22,12 @@ hypercube sampling provides a better coverage of the space.
 '''
 from __future__ import print_function
 
-import random
-from enum import Enum
 
-from sbmlsim.models import GLOBAL_PARAMETER
+
 from samples import Sample, SampleParameter
+from sbmlsim.models import EnumType
 
-
-class SamplingType(Enum):
+class SamplingType(EnumType):
     ''' Supported types of sampling. '''
     DISTRIBUTION = 0
     MEAN = 1

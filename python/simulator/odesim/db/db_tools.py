@@ -17,9 +17,8 @@ go via this intermediate module.
 '''
 from __future__ import print_function
 import logging
-
 import os
-from subprocess import call
+
 
 import path_settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -50,6 +49,7 @@ def _sync_sbml_in_network():
         run an operating system command
         call(["ls", "-l"])
     '''
+    from subprocess import call
     call_command = [os.environ['MULTISCALE_GALACTOSE'] + '/' + "syncDjangoSBML.sh"]
     logging.debug(str(call_command))
     call(call_command)

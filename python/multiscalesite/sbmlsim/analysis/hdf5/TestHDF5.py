@@ -4,7 +4,7 @@ Created on Apr 30, 2015
 @author: mkoenig
 '''
 import h5py
-h5py.enable_ipython_completer() # ipyhon tools
+h5py.enable_ipython_completer() # ipyhon util
 
 import numpy as np
 

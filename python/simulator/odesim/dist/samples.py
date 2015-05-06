@@ -11,19 +11,23 @@ Creating and managing Samples and the SampleParameters for simulations.
 @date: 2015-05-05
 '''
 from __future__ import print_function
-from sbmlsim.models import Task, Simulation, Parameter, check_parameter_type
+from sbmlsim.models import ParameterType
 
-
+# TODO: rename Sample -> ParameterCollection (??) , better naming
 class SampleParameterException(Exception):
     ''' Exception for any problem with parameter samples. '''
     pass
 
 
 class SampleParameter(object):
-    ''' Single parameter value definition. Samples are dicts
-        of multiple SampleParameters. '''
+    ''' Class for storing key = value [unit] settings for simulation.
+        The key corresponds to the identifier of the object to set and is
+        in most cases an SBML SBase identifier. 
+        Allowed types are the allowed parameter types defined in the 
+        django model.
+     '''
     def __init__(self, key, value, unit, ptype):
-        check_parameter_type(ptype)
+        ParameterType.check_type(ptype)
         
         self.key = key
         self.value = value
@@ -81,7 +85,7 @@ def deepcopy_samples(samples):
 def setParameterValuesInSamples(raw_samples, p_list):
     ''' ? how is the p_list structured ? '''
     for pset in p_list:
-        check_parameter_type(pset['ptype'])
+        ParameterType.check_type(pset['ptype'])
             
     Np = len(p_list)                # numbers of parameters to set
     Nval = len(p_list[0]['values']) # number of values from first p_dict
@@ -100,7 +104,7 @@ def setParameterValuesInSamples(raw_samples, p_list):
 
 
 # TODO refactor this
-from sbmlsim.models import SBMLModel, Task, Simulation, Parameter
+from sbmlsim.models import Task, Simulation, Parameter
 from sbmlsim.models import UNASSIGNED
 
 
