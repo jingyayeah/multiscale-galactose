@@ -16,9 +16,9 @@ go via this intermediate module.
 @date: 2015-05-06
 '''
 from __future__ import print_function
+import logging
 
 import os
-import logging
 from subprocess import call
 
 import path_settings
@@ -33,23 +33,18 @@ def sbmlmodel_from_id(sbml_id, sync=True):
         The model with the given id has to be already in the correct folder.
     '''    
     model = SBMLModel.create(sbml_id, path_settings.SBML_DIR)
-    model = _save_and_sync_model(model, sync)
+    model.save()
+    if sync: _sync_sbml_in_network()    
     return model
 
 def sbmlmodel_from_file(sbml_file, sync=False):
     ''' Creates the model from given sbml file. '''
     model = SBMLModel.create_from_file(sbml_file)
-    model = _save_and_sync_model(model, sync)
+    model.save()
+    if sync: _sync_sbml_in_network()
     return model
     
-def _save_and_sync_model(model, sync):
-    model.save();
-    if sync:
-        print('Syncronize model with other computers ...')
-        sync_sbml()
-    return model
-
-def sync_sbml():
+def _sync_sbml_in_network():
     '''
     Copies all SBML files to the server 
         run an operating system command
@@ -71,5 +66,5 @@ def create_task(model, integration, info='', priority=0):
         task = Task(sbml_model=model, integration=integration, 
                     info=info, priority=priority)
     task.save()
-    print("Task created/updated: {}".format(task))    
+    logging.info("Task created/updated: {}".format(task))    
     return task

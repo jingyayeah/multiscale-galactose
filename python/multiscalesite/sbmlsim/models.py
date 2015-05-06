@@ -130,6 +130,8 @@ class Core(models.Model):
         
     computer = property(_get_computer_name)
 
+class SBMLModelException(Exception):
+        pass
 
 class SBMLModel(models.Model):
     ''' Storage of SBMLmodels. 
@@ -148,11 +150,7 @@ class SBMLModel(models.Model):
     
     @classmethod
     def create(cls, sbml_id, folder):
-        ''' Create the model based on the model id. 
-            TODO: sbml id does not have to be the filename !
-            fix this dependency.
-            TODO: remove this function part.
-        '''
+        ''' Create the model based on the model id. '''
         filepath = os.path.join(folder, '{}.xml'.format(sbml_id))
         return cls.create_from_file(filepath)
 
@@ -162,10 +160,19 @@ class SBMLModel(models.Model):
             # TODO: check model identity via file hash 
             # cls.check_model_identity()
         '''
-        sbml_id = cls._get_sbml_id_from_file(self, filepath)
+        try:
+            with open(filepath) as f: pass
+        except IOError as exc:
+            raise IOError("%s: %s" % (filepath, exc.strerror))
+        
+        # check if model id and filename are identical
+        sbml_id = cls._get_sbml_id_from_file(filepath)
+        if ('{}.xml'.format(sbml_id) != os.path.basename(filepath)):
+            raise SBMLModelException('SBML model id is not identical to basename of file:, {}, {}'.format(sbml_id, filepath))
+        
         try:
             model = SBMLModel.objects.get(sbml_id=sbml_id)
-            logging.WARN('SBMLModel for id exists in database, no new model created : {}'.format(sbml_id))
+            logging.warn('SBMLModel for id exists in database, no new model created : {}'.format(sbml_id))
             return model;
         except ObjectDoesNotExist: 
             f = open(filepath, 'r')

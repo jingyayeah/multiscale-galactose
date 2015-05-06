@@ -1,5 +1,6 @@
 from django.contrib import admin
-from sbmlsim.models import *
+from sbmlsim.models import Core, SBMLModel, Parameter
+from sbmlsim.models import Timecourse, Simulation, Task
 
 class CoreAdmin(admin.ModelAdmin):
     list_display = ('pk', 'ip', 'cpu', 'time', 'active')

@@ -21,7 +21,7 @@
 '''
 
 from django.core.exceptions import ObjectDoesNotExist
-from sbmlsim.models import Task, Simulation, Timecourse, Parameter
+from sbmlsim.models import Simulation, Timecourse
 from sbmlsim.models import UNASSIGNED, ASSIGNED, ERROR
 
 

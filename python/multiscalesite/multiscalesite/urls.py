@@ -16,7 +16,8 @@ urlpatterns = [
     # url(r'^$', include('sbmlsim.urls', namespace="sbmlsim", app_name='sbmlsim')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sbmlsim/', include('sbmlsim.urls', namespace="sbmlsim", app_name='sbmlsim')),
-    # url(r'^$', RedirectView.as_view(url=r'sim', permanent=False)),
-    # ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-]
+    
+    # handle the static files
+    url(r'^$', RedirectView.as_view(url=r'sbmlsim', permanent=False)),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

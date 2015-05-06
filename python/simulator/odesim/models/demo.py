@@ -12,7 +12,7 @@ from odesim.dist.distributions import getDemoDistributions
 from odesim.dist.sampling import createParametersBySampling, SamplingType
 from odesim.dist.samples import createSimulationsForSamples
 
-from odesim.db_tools import django_model_from_file 
+from odesim.db_tools import sbmlmodel_from_file 
 from odesim.db_tools import create_task
 
 
@@ -44,6 +44,6 @@ if __name__ == "__main__":
             
     if (1):
         print('make demo from file')
-        model = django_model_from_file(sbml_file='../../examples/demo/Koenig_demo.xml', sync=False)
+        model = sbmlmodel_from_file(sbml_file='../../examples/demo/Koenig_demo.xml', sync=False)
         sims = demo_simulations(model, N=1000)
         
