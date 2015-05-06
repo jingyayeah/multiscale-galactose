@@ -12,7 +12,7 @@ import numpy as np
 from simulator.dist.distributions import getGalactoseDistributions
 from simulator.dist.sampling import createParametersBySampling
 
-import odesim.SimulationFactory as simfac
+import odesim.db_tools as simfac
 
 SYNC_BETWEEN_SERVERS = False
 

@@ -148,8 +148,8 @@ if __name__ == "__main__":
     TODO: implement communication via MIP. This becomes important
     in the case parallel integration within the cluster.
     '''
-    import django
-    django.setup()
+from odesim import db_tools
+    django_tools.setup()
     from optparse import OptionParser
     import math
     parser = OptionParser()

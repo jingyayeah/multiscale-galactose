@@ -12,8 +12,8 @@ from odesim.dist.distributions import getDemoDistributions
 from odesim.dist.sampling import createParametersBySampling, SamplingType
 from odesim.dist.samples import createSimulationsForSamples
 
-from odesim.SimulationFactory import django_model_from_file 
-from odesim.SimulationFactory import create_task
+from odesim.db_tools import django_model_from_file 
+from odesim.db_tools import create_task
 
 
 def create_demo_samples(N, sampling_type):

@@ -1,20 +1,21 @@
-#!/usr/bin/python
 '''
-Helper functions for the creation of simulations.
-The various models use these helper functions to set up all the simulations
-in the database.
-Simulations are based on the sampling of certain parameters.
+Helper functions for the interaction with the django database layer.
+This module is used to create models, simulations and tasks in the database.
 
-Simulations are collected in tasks. All simulations belonging to the same task
-run with the same model and the same settings for the odesim.
-Parameters are the actual changes which are performed for the individual 
-odesim.
-Tasks have a priority associated which determines the order of execution, i.e.
+A task is a set of simulations with given integration settings, i.e. the 
+individual simulations of one task are comparable between each other.
+All simulations belonging to the same task run with the same model 
+and the same settings.
+Tasks have a priority which determines the order of execution,
 tasks with higher priority are performed first. 
 
+If possible all interactions with the django database layer should 
+go via this intermediate module.
+
 @author: Matthias Koenig
-@date: 2015-05-03
+@date: 2015-05-06
 '''
+from __future__ import print_function
 
 import os
 import logging
@@ -22,16 +23,12 @@ from subprocess import call
 
 import path_settings
 from django.core.exceptions import ObjectDoesNotExist
-from sbmlsim.models import SBMLModel, Task, Simulation, Parameter
-from sbmlsim.models import UNASSIGNED
+from sbmlsim.models import SBMLModel, Task
 
+# syncronize the models with the other servers
+SYNC_BETWEEN_SERVERS = False 
 
-SYNC_BETWEEN_SERVERS = False # update the information for the other servers
-
-# TODO handle parameters as named tupples & custom exceptions
-
-
-def django_model_from_id(sbml_id, sync=True):
+def sbmlmodel_from_id(sbml_id, sync=True):
     ''' Creates the model from given sbml_id.
         The model with the given id has to be already in the correct folder.
     '''    
@@ -39,7 +36,7 @@ def django_model_from_id(sbml_id, sync=True):
     model = _save_and_sync_model(model, sync)
     return model
 
-def django_model_from_file(sbml_file, sync=False):
+def sbmlmodel_from_file(sbml_file, sync=False):
     ''' Creates the model from given sbml file. '''
     model = SBMLModel.create_from_file(sbml_file)
     model = _save_and_sync_model(model, sync)
@@ -74,7 +71,5 @@ def create_task(model, integration, info='', priority=0):
         task = Task(sbml_model=model, integration=integration, 
                     info=info, priority=priority)
     task.save()
-    print "Task created/updated: {}".format(task)    
+    print("Task created/updated: {}".format(task))    
     return task
-
-
