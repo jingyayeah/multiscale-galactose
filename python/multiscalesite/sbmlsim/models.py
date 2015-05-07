@@ -491,6 +491,13 @@ class Simulation(models.Model):
 #===============================================================================
 # Timecourse
 #===============================================================================
+import py2cytoscape
+libsbml.Species
+
+def timecourse_filename(instance, filename):
+    name = filename.split("/")[-1]
+    return '/'.join(['timecourse', str(instance.simulation.task), name])
+       
 
 class Timecourse(models.Model):
     '''
@@ -527,10 +534,7 @@ class Timecourse(models.Model):
     
     zip_file = property(_get_zip_file)
 
-def timecourse_filename(instance, filename):
-    name = filename.split("/")[-1]
-    return '/'.join(['timecourse', str(instance.simulation.task), name])
-         
+  
          
 #===============================================================================
 # Plots & Analysis
