@@ -491,8 +491,6 @@ class Simulation(models.Model):
 #===============================================================================
 # Timecourse
 #===============================================================================
-import py2cytoscape
-libsbml.Species
 
 def timecourse_filename(instance, filename):
     name = filename.split("/")[-1]
