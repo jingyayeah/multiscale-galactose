@@ -5,13 +5,14 @@ Created on May 6, 2015
 
 @author: mkoenig
 '''
+from __future__ import print_function
 from enum import Enum
 
 class EnumType(object):
     ''' Template class for all EnumTypes. '''
     class EnumTypeException(Exception):
         pass
-    
+        
     @classmethod
     def values(cls):
         ''' Returns the values. '''
@@ -36,6 +37,16 @@ class EnumType(object):
     def choices(cls):
         """ Create django data model choices from EnumType. """
         return zip(cls.values(), cls.values())   
+    
+    @classmethod
+    def from_string(cls, s):
+        """ Creates EnumType from given string. 
+        The string can either be the enum_var or EnumType.enum_var.
+        Both cases have to be handled.
+        """
+        if s.startswith(cls.__name__):
+            _, s = s.split('.') # based on the Enum __repr__()
+        return cls.__getattr__(s)
 
 class EnumTypeExample(EnumType, Enum):
     SETTING_A = 'SETTING_A'

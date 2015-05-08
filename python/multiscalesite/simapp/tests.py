@@ -11,20 +11,16 @@ class CoreTestCase(TestCase):
         Core.objects.create(ip='1.2.3.4', cpu=2)
 
     def test_cores_are_active(self):
-        """Animals that can speak are correctly identified"""
+        """ Test if cores are active. """
         c1 = Core.objects.get(ip='127.0.0.1', cpu=1)
         c2 = Core.objects.get(ip='1.2.3.4', cpu=2)
         self.assertEqual(c1.active, True)
         self.assertEqual(c2.active, True)
     
     def test_cores_computer(self):
-        """Check if computers are in the COMPUTER dictionary. """
+        """ Check if computers are in the COMPUTER dictionary. """
         c1 = Core.objects.get(ip='127.0.0.1', cpu=1)
         c2 = Core.objects.get(ip='1.2.3.4', cpu=2)
-        self.assertEqual(c1.active, True)
-        self.assertEqual(c2.active, True)
-        
-        
         self.assertEqual(c1.computer, 'localhost')
         self.assertEqual(c2.computer, c2.ip)
 
@@ -63,11 +59,16 @@ class ParameterTestCase(TestCase):
 
     def test_parameters(self):
         """Animals that can speak are correctly identified"""
-        p1 = Core.objects.get(name='L', unit="m")
-        p2 = Core.objects.get(name='N', unit="-")
+        p1 = Parameter.objects.get(name='L', unit="m")
+        p2 = Parameter.objects.get(name='N', unit="-")
         self.assertEqual(p1.name, 'L')
         self.assertEqual(p2.name, 'N')
-        self.assertEqual(c2.active, True)
+        self.assertEqual(p1.value, 1E-6)
+        self.assertEqual(p2.value, 20)
+        self.assertEqual(p1.unit, 'm')
+        self.assertEqual(p2.unit, '-')
+        self.assertEqual(ParameterType.from_string(p1.ptype), ParameterType.GLOBAL_PARAMETER)
+        self.assertEqual(ParameterType.from_string(p2.ptype), ParameterType.GLOBAL_PARAMETER)
 
 
 #===============================================================================

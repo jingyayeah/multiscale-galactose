@@ -5,6 +5,7 @@ Testing the utility classes.
 @author: Matthias Koenig
 @date: 2015-05-06
 '''
+from __future__ import print_function
 import unittest
 from util_classes import EnumType, Enum
 
@@ -41,7 +42,20 @@ class Test(unittest.TestCase):
             self.assertEqual(key, value)
         self.assertEqual(len(choices), len(self.ParameterType.values()))
     
-
+    def test_from_string(self):
+        """ Test creation from string. """
+        s = 'GLOBAL_PARAMETER'
+        ptype = self.ParameterType.from_string(s)
+        self.assertEqual(ptype, self.ParameterType.GLOBAL_PARAMETER)
+    
+    def test_from_string2(self):
+        """ Test creation from class based string. """
+        s = 'ParameterType.GLOBAL_PARAMETER'
+        ptype = self.ParameterType.from_string(s)
+        self.assertEqual(ptype, self.ParameterType.GLOBAL_PARAMETER)
+        
+        
+    
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
