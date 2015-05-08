@@ -52,6 +52,25 @@ from simapp.models import CompModel
 
 
 #===============================================================================
+# ParameterTest
+#===============================================================================
+from simapp.models import Parameter, ParameterType
+
+class ParameterTestCase(TestCase):
+    def setUp(self):
+        Parameter.objects.create(name='L', value=1E-6, unit="m", ptype=ParameterType.GLOBAL_PARAMETER)
+        Parameter.objects.create(name='N', value=20, unit="-", ptype=ParameterType.GLOBAL_PARAMETER)
+
+    def test_parameters(self):
+        """Animals that can speak are correctly identified"""
+        p1 = Core.objects.get(name='L', unit="m")
+        p2 = Core.objects.get(name='N', unit="-")
+        self.assertEqual(p1.name, 'L')
+        self.assertEqual(p2.name, 'N')
+        self.assertEqual(c2.active, True)
+
+
+#===============================================================================
 # ViewTests
 #===============================================================================
 from django.test.client import Client

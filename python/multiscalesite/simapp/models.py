@@ -349,7 +349,6 @@ class Integration(models.Model):
 #===============================================================================
 # Parameter
 #===============================================================================
-
 class ParameterType(EnumType, Enum):
     GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
     BOUNDERY_INIT = 'BOUNDERY_INIT'
@@ -357,20 +356,10 @@ class ParameterType(EnumType, Enum):
     NONE_SBML_PARAMETER = 'NONE_SBML_PARAMETER'    
 
 class Parameter(models.Model):
-    UNITS = (
-                        ('m', 'm'),
-                        ('m/s', 'm/s'),
-                        ('mM', 'mM'),
-                        ('mole_per_s', 'mole_per_s'),
-                        ('-', '-'),
-    )
-    PARAMETER_TYPE = zip(ParameterType.values(), 
-                         ParameterType.values())
-    
     name = models.CharField(max_length=200)
     value = models.FloatField()
-    unit = models.CharField(max_length=10, choices=UNITS)
-    ptype = models.CharField(max_length=30, choices=PARAMETER_TYPE)
+    unit = models.CharField(max_length=10)
+    ptype = models.CharField(max_length=30, choices=ParameterType.choices())
     
     def __unicode__(self):
         return self.name + " = " + str(self.value) + " ["+ self.unit +"]"
@@ -378,11 +367,9 @@ class Parameter(models.Model):
     class Meta:
         unique_together = ("name", "value")
 
-
 #===============================================================================
 # Task
 #===============================================================================
-
 class Task(models.Model):
     '''
         Tasks are compatible on their integration setting and the

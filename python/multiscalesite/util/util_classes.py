@@ -30,8 +30,12 @@ class EnumType(object):
     @classmethod
     def check_type_string(cls, test_typestr):
         if test_typestr not in cls.values():
-            raise cls.EnumTypeException('type not supported: {}'.format(test_typestr))    
-        
+            raise cls.EnumTypeException('type not supported: {}'.format(test_typestr)) 
+    
+    @classmethod
+    def choices(cls):
+        """ Create django data model choices from EnumType. """
+        return zip(cls.values(), cls.values())   
 
 class EnumTypeExample(EnumType, Enum):
     SETTING_A = 'SETTING_A'
@@ -52,7 +56,7 @@ def hash_for_file(filepath, hash_type='MD5'):
     BLOCKSIZE = 65536
     if hash_type == 'MD5':
         hasher = hashlib.md5()
-    elif hash_type == 'SHA1':
+    elif (hash_type == 'SHA1'):
         hasher == hashlib.sha1()
     with open(filepath, 'rb') as afile:
         buf = afile.read(BLOCKSIZE)

@@ -34,6 +34,12 @@ class Test(unittest.TestCase):
 
     def test_enum_check_type_yes(self):
         self.ParameterType.check_type(self.ParameterType.GLOBAL_PARAMETER)
+        
+    def test_choices(self):
+        choices = self.ParameterType.choices()
+        for key, value in choices:
+            self.assertEqual(key, value)
+        self.assertEqual(len(choices), len(self.ParameterType.values()))
     
 
 
