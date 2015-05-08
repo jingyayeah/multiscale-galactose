@@ -7,7 +7,7 @@ class CoreAdmin(admin.ModelAdmin):
     list_filter = ['time']
 
 class CompModelAdmin(admin.ModelAdmin):
-    list_display = ('pk', '__unicode__', 'model_id', 'model_type' 'file')
+    list_display = ('pk', '__unicode__', 'model_id', 'model_type', 'file')
 
 class ParameterAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'name', 'value', 'unit', 'ptype')

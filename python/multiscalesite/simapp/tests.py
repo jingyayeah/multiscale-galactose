@@ -59,7 +59,7 @@ from django.test.client import Client
 class ViewTestCase(TestCase):
     """ Use the django client to test the status of all views. 
         Tests the urls.py and views.py.
-        TODO: setup basic database content.
+        TODO: setup basic database content and test the views on it.
     """
     def setUp(self):
         self.c = Client()
@@ -71,6 +71,10 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/models/')
         self.assertEqual(response.status_code, 200)
+        
+        # Check that the rendered context contains 5 customers.
+        # self.assertEqual(len(response.context['customers']), 5)
+        
 
     def test_cores_status(self):
         """ Check response status code for view. """
@@ -82,7 +86,20 @@ class ViewTestCase(TestCase):
         response = self.c.get('/simapp/tasks/')
         self.assertEqual(response.status_code, 200)
 
-    # TODO: add rest of views test 
+    def test_integrations_status(self):
+        """ Check response status code for view. """
+        response = self.c.get('/simapp/integrations/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_simlations_status(self):
+        """ Check response status code for view. """
+        response = self.c.get('/simapp/simulations/')
+        self.assertEqual(response.status_code, 200)
+        
+    def test_timecourses_status(self):
+        """ Check response status code for view. """
+        response = self.c.get('/simapp/timecourses/')
+        self.assertEqual(response.status_code, 200)
 
     def test_documentation_status(self):
         """ Check response status code for view. """

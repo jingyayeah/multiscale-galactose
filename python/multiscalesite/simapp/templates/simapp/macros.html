@@ -62,9 +62,9 @@
 			<td>{{model.model_id}}</td>
 			<td>{{model.md5}}</td>
 			<!-- TODO: check for model type, i.e. SBML or CELLML -->
-			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml_small.jpeg' %}"></a></td>
 			<td><a href="{% url 'simapp:report' model.pk %}" target="_blank">
-				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+				<img height="12" src="{% static 'simapp/images/html5_small.jpeg' %}"></a></td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -90,10 +90,10 @@
 				[<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>] 	
 			</td>
 			<td>{{task.priority}}</td>
-			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml_small.jpeg' %}"></a></td>
 			<td><a href="{% url 'simapp:report' task.sbml_model.pk %}" target="_blank">
-				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
-			<td><a href="{% url 'simapp:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'sim/images/params_small.png' %}"></a></td>
+				<img height="12" src="{% static 'simapp/images/html5_small.jpeg' %}"></a></td>
+			<td><a href="{% url 'simapp:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'simapp/images/params_small.png' %}"></a></td>
 			<td>{{task.sbml_model}} </td>
 			<td>{{task.integration}}</td>
 			<td>{{task.integration.integrator}} </td>
@@ -114,7 +114,7 @@
 {% macro timecourse_content %}
 			<td>{{ tc.pk }}</td>
 			<td><a href="{% url 'simapp:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
-			<td><a href="{{ tc.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15" /></a></td>
+			<td><a href="{{ tc.file.url }}"><img src="{% static 'simapp/images/csv.png' %}" height="15" /></a></td>
 			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
 {% endmacro %}
 

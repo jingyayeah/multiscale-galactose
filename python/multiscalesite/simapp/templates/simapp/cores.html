@@ -1,7 +1,7 @@
-{% extends "sim/base_generic.html" %}
+{% extends "simapp/base_generic.html" %}
 {% load staticfiles %}
 {% load macros %}
-{% loadmacros "sim/macros.html" %}
+{% loadmacros "simapp/macros.html" %}
 {% macro model_header %}
 		<th>pk</th>
 		<th>id</th>
@@ -11,9 +11,9 @@
 {% macro model_content %}
 			<td>{{model.pk}}</td>
 			<td>{{model.sbml_id}}</td>
-			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml_small.jpeg' %}"></a></td>
 			<td><a href="{% url 'sim:report' model.pk %}" target="_blank">
-				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
+				<img height="12" src="{% static 'simapp/images/html5_small.jpeg' %}"></a></td>
 {% endmacro %},
 {% block content %}
 	<table id="table_items">

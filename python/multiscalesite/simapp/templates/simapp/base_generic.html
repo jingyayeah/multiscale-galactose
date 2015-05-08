@@ -18,18 +18,18 @@
 
 	<!-- CSS
   ================================================== -->
-	<link rel="stylesheet" type="text/css" href="{% static 'sim/stylesheets/mysite.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'simapp/stylesheets/mysite.css' %}" />
 	
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
 	
-	<link rel="shortcut icon" href="{% static 'sim/images/favicon.ico' %}">
+	<link rel="shortcut icon" href="{% static 'simapp/images/favicon.ico' %}">
 	
 	<!-- TODO: bug in sorting of pks : 1, 10 sorting -->
-	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.js' %}"></script>
-	<script type="text/javascript" language="javascript" src="{% static 'sim/js/jquery.dataTables.js' %}"></script>
+	<script type="text/javascript" language="javascript" src="{% static 'simapp/js/jquery.js' %}"></script>
+	<script type="text/javascript" language="javascript" src="{% static 'simapp/js/jquery.dataTables.min.js' %}"></script>
 	<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {			
     			$('#table_items').dataTable( {
