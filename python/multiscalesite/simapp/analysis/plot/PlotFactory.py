@@ -10,7 +10,7 @@ from subprocess import call
 import shlex
 
 import project_settings
-from sbmlsim.models import Simulation, DONE
+from simapp.models import Simulation, DONE
 
 
 def simulationPlot(sid, sim_file, out_dir):

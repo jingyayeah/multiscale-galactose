@@ -11,7 +11,7 @@ Creating and managing Samples and the SampleParameters for simulations.
 @date: 2015-05-05
 '''
 from __future__ import print_function
-from sbmlsim.models import ParameterType
+from simapp.models import ParameterType
 
 # TODO: rename Sample -> ParameterCollection (??) , better naming
 class SampleParameterException(Exception):

@@ -25,7 +25,7 @@ from __future__ import print_function
 
 
 from samples import Sample, SampleParameter
-from sbmlsim.models import EnumType
+from simapp.models import EnumType
 
 class SamplingType(EnumType):
     ''' Supported types of sampling. '''

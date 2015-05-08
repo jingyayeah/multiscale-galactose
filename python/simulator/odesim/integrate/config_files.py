@@ -82,7 +82,7 @@ if __name__ == "__main__":
     django.setup()
     
     from project_settings import SIM_DIR
-    from sbmlsim.models import Simulation
+    from simapp.models import Simulation
     
     sim = Simulation.objects.all()[0];
     fname = config_filename(sim, SIM_DIR) 

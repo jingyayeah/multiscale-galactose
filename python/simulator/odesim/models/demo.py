@@ -6,7 +6,7 @@ Creating simulations for the demo network.
 '''
 from __future__ import print_function
 
-from sbmlsim.models import Setting, Integration
+from simapp.models import Setting, Integration
 
 from odesim.dist.distributions import getDemoDistributions
 from odesim.dist.sampling import createParametersBySampling, SamplingType

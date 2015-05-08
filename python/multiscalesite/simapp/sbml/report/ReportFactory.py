@@ -15,14 +15,14 @@ from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader, RequestContext
 from django.shortcuts import Http404
-from sbmlsim.models import SBMLModel
+from simapp.models import CompModel
 
 def report(request, model_pk):
     '''
     Creates the report view for the given SBML model.
     SBML has to be in the database.
     '''    
-    sbml_model = get_object_or_404(SBMLModel, pk=model_pk)
+    sbml_model = get_object_or_404(CompModel, pk=model_pk)
     sbml_path = sbml_model.file.path     # this is the absolute path in filesystem
     
     doc = libsbml.readSBMLFromFile(str(sbml_path))
@@ -83,7 +83,7 @@ def createValueDictionary(model):
 if __name__ == "__main__":
 
     model_pk = 24 
-    sbml_model = get_object_or_404(SBMLModel, pk=model_pk)
+    sbml_model = get_object_or_404(CompModel, pk=model_pk)
     sbml_path = sbml_model.file.path
     doc = libsbml.readSBMLFromFile(str(sbml_path))
     model = doc.getModel()

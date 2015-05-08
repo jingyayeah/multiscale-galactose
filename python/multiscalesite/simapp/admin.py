@@ -1,6 +1,6 @@
 from django.contrib import admin
-from sbmlsim.models import Core, SBMLModel, Parameter
-from sbmlsim.models import Timecourse, Simulation, Task
+from simapp.models import Core, CompModel, Parameter
+from simapp.models import Timecourse, Simulation, Task
 
 class CoreAdmin(admin.ModelAdmin):
     list_display = ('pk', 'ip', 'cpu', 'time', 'active')
@@ -23,7 +23,7 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'sbml_model', 'integration', 'priority', 'info')
 
 admin.site.register(Core, CoreAdmin)
-admin.site.register(SBMLModel, SBMLModelAdmin)
+admin.site.register(CompModel, SBMLModelAdmin)
 admin.site.register(Parameter, ParameterAdmin)
 admin.site.register(Timecourse, TimecourseAdmin)
 admin.site.register(Simulation, SimulationAdmin)

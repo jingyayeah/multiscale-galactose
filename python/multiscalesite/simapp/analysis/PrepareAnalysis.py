@@ -17,8 +17,8 @@ import shutil
 from project_settings import MULTISCALE_GALACTOSE_RESULTS
 from multiscalesite.settings import MEDIA_ROOT
 
-from sbmlsim.models import Task
-from sbmlsim.analysis.ParameterFiles import createParameterFileForTask
+from simapp.models import Task
+from simapp.analysis.ParameterFiles import createParameterFileForTask
 import subprocess
 import pipes
 from sh import rsync

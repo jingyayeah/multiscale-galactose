@@ -36,8 +36,8 @@ import struct
 
 from django.utils import timezone
 from django.db import transaction
-from sbmlsim.models import Task, Core, Simulation
-from sbmlsim.models import UNASSIGNED, ASSIGNED
+from simapp.models import Task, Core, Simulation
+from simapp.models import UNASSIGNED, ASSIGNED
 
 from integrate import ode_integration
 

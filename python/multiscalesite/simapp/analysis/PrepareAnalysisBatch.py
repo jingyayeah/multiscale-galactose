@@ -9,7 +9,7 @@ Prepares the data for a batch of simulations.
 import project_settings
 # TODO: better via the setup call
 
-from sbmlsim.models import Task
+from simapp.models import Task
 from PrepareAnalysis import prepareDataForAnalysis
 
 

@@ -22,7 +22,7 @@ import os
 
 import project_settings
 from django.core.exceptions import ObjectDoesNotExist
-from sbmlsim.models import SBMLModel, Task
+from simapp.models import CompModel, Task
 
 # syncronize the models with the other servers
 SYNC_BETWEEN_SERVERS = False 
@@ -31,14 +31,14 @@ def sbmlmodel_from_id(sbml_id, sync=True):
     ''' Creates the model from given sbml_id.
         The model with the given id has to be already in the correct folder.
     '''    
-    model = SBMLModel.create(sbml_id, project_settings.SBML_DIR)
+    model = CompModel.create(sbml_id, project_settings.SBML_DIR)
     model.save()
     if sync: _sync_sbml_in_network()    
     return model
 
 def sbmlmodel_from_file(sbml_file, sync=False):
     ''' Creates the model from given sbml file. '''
-    model = SBMLModel.create_from_file(sbml_file)
+    model = CompModel.create_from_file(sbml_file)
     model.save()
     if sync: _sync_sbml_in_network()
     return model
@@ -73,8 +73,8 @@ def create_task(model, integration, info='', priority=0):
 
 
 # TODO: refactor this
-from sbmlsim.models import Simulation, Parameter
-from sbmlsim.models import UNASSIGNED
+from simapp.models import Simulation, Parameter
+from simapp.models import UNASSIGNED
 
 
 from django.db import transaction

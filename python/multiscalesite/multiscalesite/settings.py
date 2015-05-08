@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
     'macros',
-    'sbmlsim',
+    'simapp',
 )
 
 MIDDLEWARE_CLASSES = (

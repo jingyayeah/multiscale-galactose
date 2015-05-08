@@ -14,7 +14,7 @@ import h5py
 from django.core.files import File
 from django.utils import timezone
 
-from sbmlsim.models import Timecourse, DONE
+from simapp.models import Timecourse, DONE
 
 import config_files
 

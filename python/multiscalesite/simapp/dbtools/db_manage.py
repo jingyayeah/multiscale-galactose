@@ -21,8 +21,8 @@
 '''
 
 from django.core.exceptions import ObjectDoesNotExist
-from sbmlsim.models import Simulation, Timecourse
-from sbmlsim.models import UNASSIGNED, ASSIGNED, ERROR
+from simapp.models import Simulation, Timecourse
+from simapp.models import UNASSIGNED, ASSIGNED, ERROR
 
 
 def unassignAssignedHangingSimulations(task=None, cutoff_minutes=10):

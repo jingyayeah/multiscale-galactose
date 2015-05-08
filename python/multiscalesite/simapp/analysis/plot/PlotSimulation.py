@@ -10,7 +10,7 @@ import project_settings
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from sbmlsim.models import Task, Plot, DONE
+from simapp.models import Task, Plot, DONE
 
 
 from django.core.exceptions import ObjectDoesNotExist

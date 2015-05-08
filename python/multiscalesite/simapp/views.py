@@ -5,9 +5,9 @@ from django.template import RequestContext, loader
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from sbmlsim.models import SBMLModel, Core, Simulation, Timecourse, Task, Integration
-from sbmlsim.analysis.ParameterFiles import createParameterInfoForTask, getParameterFilenameForTask
-from sbmlsim.analysis.ParameterFiles import createParameterFileForTask
+from simapp.models import CompModel, Core, Simulation, Timecourse, Task, Integration
+from simapp.analysis.ParameterFiles import createParameterInfoForTask, getParameterFilenameForTask
+from simapp.analysis.ParameterFiles import createParameterFileForTask
 
 PAGINATE_ENTRIES = 30
 
@@ -15,7 +15,7 @@ def models(request):
     '''
     Home of the project and providing overview over models
     '''
-    model_list = SBMLModel.objects.order_by("-pk")
+    model_list = CompModel.objects.order_by("-pk")
     template = loader.get_template('sim/models.html')
     # template = loader.get_template('sim/test.html')
     context = RequestContext(request, {

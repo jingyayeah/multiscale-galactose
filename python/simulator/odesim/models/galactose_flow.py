@@ -6,7 +6,7 @@ Created on May 3, 2015
 
 @author: mkoenig
 '''
-from sbmlsim.models import *
+from simapp.models import *
 import numpy as np
 
 from simulator.dist.distributions import getGalactoseDistributions

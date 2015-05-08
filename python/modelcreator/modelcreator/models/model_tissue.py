@@ -4,7 +4,7 @@ Created on Jul 23, 2014
 '''
 
 import project_settings
-from sbmlsim.models import SBMLModel
+from simapp.models import CompModel
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
@@ -585,6 +585,6 @@ class TissueModel(object):
         before.
         '''
         
-        model = SBMLModel.create(self.id, project_settings.SBML_DIR);
+        model = CompModel.create(self.id, project_settings.SBML_DIR);
         model.save();
         

@@ -157,8 +157,8 @@ if __name__ == "__main__":
     ####
 
     
-    from sbmlsim.models import SBMLModel
-    mg_model = SBMLModel.objects.get(pk=12)
+    from simapp.models import CompModel
+    mg_model = CompModel.objects.get(pk=12)
     filename = str(mg_model.file.path)
     print filename
     

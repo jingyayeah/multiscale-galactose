@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from sbmlsim import views
+from simapp import views
 from sbml.report import ReportFactory
 
 urlpatterns = patterns('',

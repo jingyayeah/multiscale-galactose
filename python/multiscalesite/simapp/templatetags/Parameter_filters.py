@@ -7,7 +7,7 @@ Created on May 12, 2014
 from django import template
 from django.http.response import HttpResponse
 
-from sbmlsim.analysis.ParameterFiles import createParameterFileForTask
+from simapp.analysis.ParameterFiles import createParameterFileForTask
 
 register = template.Library()
 

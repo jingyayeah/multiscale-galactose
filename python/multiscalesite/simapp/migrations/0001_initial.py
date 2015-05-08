@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import sbmlsim.storage
+import simapp.storage
 import django.utils.timezone
-import sbmlsim.models
+import simapp.models
 
 
 class Migration(migrations.Migration):
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('sbml_id', models.CharField(unique=True, max_length=200)),
-                ('file', models.FileField(storage=sbmlsim.storage.OverwriteStorage(), max_length=200, upload_to=b'sbml')),
+                ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=b'sbml')),
             ],
             options={
                 'verbose_name': 'SBML Model',
@@ -75,8 +75,8 @@ class Migration(migrations.Migration):
                 ('time_create', models.DateTimeField(default=django.utils.timezone.now)),
                 ('time_assign', models.DateTimeField(null=True, blank=True)),
                 ('time_sim', models.DateTimeField(null=True, blank=True)),
-                ('core', models.ForeignKey(blank=True, to='sbmlsim.Core', null=True)),
-                ('parameters', models.ManyToManyField(to='sbmlsim.Parameter')),
+                ('core', models.ForeignKey(blank=True, to='simapp.Core', null=True)),
+                ('parameters', models.ManyToManyField(to='simapp.Parameter')),
             ],
         ),
         migrations.CreateModel(
@@ -85,22 +85,22 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('priority', models.IntegerField(default=0)),
                 ('info', models.TextField(null=True, blank=True)),
-                ('integration', models.ForeignKey(to='sbmlsim.Integration')),
-                ('sbml_model', models.ForeignKey(to='sbmlsim.SBMLModel')),
+                ('integration', models.ForeignKey(to='simapp.Integration')),
+                ('sbml_model', models.ForeignKey(to='simapp.SBMLModel')),
             ],
         ),
         migrations.CreateModel(
             name='Timecourse',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('file', models.FileField(storage=sbmlsim.storage.OverwriteStorage(), max_length=200, upload_to=sbmlsim.models.timecourse_filename)),
-                ('odesim', models.OneToOneField(to='sbmlsim.Simulation')),
+                ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=simapp.models.timecourse_filename)),
+                ('odesim', models.OneToOneField(to='simapp.Simulation')),
             ],
         ),
         migrations.AddField(
             model_name='odesim',
             name='task',
-            field=models.ForeignKey(to='sbmlsim.Task'),
+            field=models.ForeignKey(to='simapp.Task'),
         ),
         migrations.AlterUniqueTogether(
             name='parameter',
@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='integration',
             name='settings',
-            field=models.ManyToManyField(to='sbmlsim.Setting'),
+            field=models.ManyToManyField(to='simapp.Setting'),
         ),
         migrations.AlterUniqueTogether(
             name='core',

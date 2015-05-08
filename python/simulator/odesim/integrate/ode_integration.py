@@ -16,9 +16,9 @@ from roadrunner import SelectionRecord
 from django.utils import timezone
 
 from project_settings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
-from sbmlsim.models import NONE_SBML_PARAMETER
-from sbmlsim.models import ERROR, COPASI, ROADRUNNER
-from sbmlsim.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
+from simapp.models import NONE_SBML_PARAMETER
+from simapp.models import ERROR, COPASI, ROADRUNNER
+from simapp.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
 
 import odesim.integrate.ode_io as ode_io
 
@@ -208,7 +208,7 @@ if __name__ == "__main__":
     import django
     django.setup()
     
-    from sbmlsim.models import Simulation
+    from simapp.models import Simulation
     # sim_ids = range(1,2)
     # sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
     

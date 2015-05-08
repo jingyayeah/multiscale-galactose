@@ -6,7 +6,7 @@ Testing for distribution definitions.
 '''
 import unittest
 
-from sbmlsim.models import ParameterType
+from simapp.models import ParameterType
 
 from distributions import Dist, DistType, DistParsType
 from samples import SampleParameter

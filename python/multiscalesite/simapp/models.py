@@ -20,7 +20,7 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 
-from sbmlsim.storage import OverwriteStorage
+from simapp.storage import OverwriteStorage
 from util.util_classes import EnumType, Enum
 
 
@@ -65,17 +65,21 @@ rpack = SignatureTranslatedAnonymousPackage(string, "rpack")
 from project_settings import COMPUTERS
 
 class Core(models.Model):
+    ''' Single computer core for simulation, defined by ip and cpu.
+    Time corresponds to the last time the core object was accessed/used.
+    This can be creation time or simulation time.
+    '''
     ip = models.CharField(max_length=200)
     cpu = models.IntegerField()
     time = models.DateTimeField(default=timezone.now);
         
     def __unicode__(self):
-        return self.ip + "-cpu-" +str(self.cpu)
+        return '{}-cpu-{}'.format(self.ip, self.cpu)
     
     def _is_active(self, cutoff_minutes=10):
         ''' Test if simulation is still active. '''
         if not (self.time):
-            return False;
+            return False
         return (timezone.now() <= self.time+timedelta(minutes=cutoff_minutes))
     
     active = property(_is_active)
@@ -91,57 +95,84 @@ class Core(models.Model):
     computer = property(_get_computer_name)
 
 #===============================================================================
-# SBMLModel
+# CompModel
 #===============================================================================
-
-class SBMLModelException(Exception):
+class CompModelException(Exception):
         pass
 
-class SBMLModel(models.Model):
-    ''' Storage of SBMLmodels. 
-        TODO: add a file hash and check if the hash of the file is correct.
-            possible problems with identical ids.
-        TODO: check model identity via file hash on creation 
-            implement a cls.check_model_identity()    
-    '''
-    sbml_id = models.CharField(max_length=200, unique=True)
+class CompModelType(EnumType, Enum):
+    SBML = "SBML"
+    CELLML = "CELLML"
+
+class CompModel(models.Model):
+    ''' Storage class for models. '''
+    model_id = models.CharField(max_length=200, unique=True)
+    model_type = models.CharField(max_length=10, choices=zip(CompModelType.values(), CompModelType.values()))
     file = models.FileField(upload_to='sbml', max_length=200, storage=OverwriteStorage())
+    md5 = models.CharField(max_length=36)
     
     def __unicode__(self):
-        return self.sbml_id
+        return self.model_id
     
     class Meta:
-        verbose_name = 'SBML Model'
-        verbose_name_plural = 'SBML Models'
+        verbose_name = 'CompModel'
+        verbose_name_plural = 'CompModels'
+    
+    def _filepath(self):
+        return str(self.file.path)
+    filepath = property(_filepath)
+    
+    def _sbml_id(self):
+        if (self.model_type == CompModelType.SBML.value):
+            return str(self.model_id)
+        else:
+            return None
+    sbml_id = property(_sbml_id)
+    
     
     @classmethod
-    def create(cls, sbml_id, folder):
+    def create(cls, model_id, folder, model_type=CompModelType.SBML):
         ''' Create the model based on the model id. '''
-        filepath = os.path.join(folder, '{}.xml'.format(sbml_id))
+        filepath = os.path.join(folder, '{}.xml'.format(model_id))
         return cls.create_from_file(filepath)
 
     @classmethod
-    def create_from_file(cls, filepath, sbml_id=None):
-        ''' Create model in database based on SBML file. '''
+    def create_from_file(cls, filepath, model_type):
+        ''' Create model in database based file. '''
+        from util.util_classes import hash_for_file
+        # is model_type supported
+        CompModelType.check_type(model_type)
+        # does file exist
         try:
             with open(filepath) as f: pass
         except IOError as exc:
             raise IOError("%s: %s" % (filepath, exc.strerror))
         
         # check if model id and filename are identical
-        sbml_id = cls._get_sbml_id_from_file(filepath)
-        if ('{}.xml'.format(sbml_id) != os.path.basename(filepath)):
-            raise SBMLModelException('SBML model id is not identical to basename of file:, {}, {}'.format(sbml_id, filepath))
+        if model_type == CompModelType.SBML:
+            model_id = cls._get_sbml_id_from_file(filepath)
+            if ('{}.xml'.format(model_id) != os.path.basename(filepath)):
+                raise CompModelException('SBML model id is not identical to basename of file:, {}, {}'.format(model_id, filepath))
+        else:
+            model_id = os.path.basename(filepath)
         
+        # check via hash
+        md5 = hash_for_file(filepath, hash_type='MD5')
         try:
-            model = SBMLModel.objects.get(sbml_id=sbml_id)
-            logging.warn('SBMLModel for id exists in database, no new model created : {}'.format(sbml_id))
-            return model;
+            model = cls.objects.get(model_id=model_id)
+            if model.md5 == md5:
+                logging.info('CompModel already in database: {}'.format(model_id))
+                return model;
+            else:
+                # the files are not identical
+                logging.warn('Other CompModel with sbml_id exists in database, model is not created: {}'.format(model_id))
+                return None;
+            
         except ObjectDoesNotExist: 
             f = open(filepath, 'r')
             myfile = File(f)
-            logging.info('SBMLModel created : {}'.format(sbml_id))
-            return cls(sbml_id = sbml_id, file = myfile)
+            logging.info('CompModel created : {}'.format(model_id))
+            return cls(model_id=model_id, file=myfile, md5=md5)
     
     @classmethod
     def _get_sbml_id_from_file(cls, filepath):
@@ -150,11 +181,6 @@ class SBMLModel(models.Model):
         doc = libsbml.SBMLReader().readSBML(filepath)
         sbml_id = doc.getModel().getId()
         return sbml_id
-    
-    def _filepath(self):
-        return str(self.file.path)
-    
-    filepath = property(_filepath)
    
 
 #===============================================================================
@@ -352,7 +378,7 @@ class Task(models.Model):
         and the information string. Replicates of the same task can be run via
         modifying the info.
     '''
-    sbml_model = models.ForeignKey(SBMLModel)
+    sbml_model = models.ForeignKey(CompModel)
     integration = models.ForeignKey(Integration)
     priority = models.IntegerField(default=0)
     info = models.TextField(null=True, blank=True)

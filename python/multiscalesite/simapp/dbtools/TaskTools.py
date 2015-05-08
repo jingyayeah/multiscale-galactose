@@ -7,7 +7,7 @@ Created on Jul 10, 2014
 import django
 django.setup()
 
-from sbmlsim.models import Task
+from simapp.models import Task
 
 def set_priority_for_task(tid, priority):
     task = Task.objects.get(pk=tid)

@@ -7,7 +7,7 @@ Created on May 8, 2014
 '''
 
 import libsbml
-from sbmlsim.sbml.annotation.ModelAnnotation import annotationToHTML
+from simapp.sbml.annotation.ModelAnnotation import annotationToHTML
 from django import template
 register = template.Library()
 

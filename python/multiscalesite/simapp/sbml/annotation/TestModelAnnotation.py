@@ -13,7 +13,7 @@ sys.path.append('/home/mkoenig/multiscale-galactose/python')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
-from sbmlsim.models import SBMLModel
+from simapp.models import CompModel
 from ModelAnnotation import annotateModel
     
  
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     annotateModel(f_sbml, f_annotations, f_sbml_annotated)
     
     
-    model = SBMLModel.create(sbml_id, SBML_FOLDER);
+    model = CompModel.create(sbml_id, SBML_FOLDER);
     model.save();
     
     # GALACTOSE #
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     annotateModel(f_sbml, f_annotations, f_sbml_annotated)
     
     
-    model = SBMLModel.create(sbml_id + '_annotated_v7', SBML_FOLDER);
+    model = CompModel.create(sbml_id + '_annotated_v7', SBML_FOLDER);
     model.save();
     
 ###############################################################################

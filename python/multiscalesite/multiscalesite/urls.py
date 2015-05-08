@@ -13,11 +13,11 @@ urlpatterns = [
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     # url(r'^polls/', include('polls.urls', namespace="polls")),
-    # url(r'^$', include('sbmlsim.urls', namespace="sbmlsim", app_name='sbmlsim')),
+    # url(r'^$', include('simapp.urls', namespace="simapp", app_name='simapp')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^sbmlsim/', include('sbmlsim.urls', namespace="sbmlsim", app_name='sbmlsim')),
+    url(r'^simapp/', include('simapp.urls', namespace="simapp", app_name='simapp')),
     
     # handle the static files
-    url(r'^$', RedirectView.as_view(url=r'sbmlsim', permanent=False)),
+    url(r'^$', RedirectView.as_view(url=r'simapp', permanent=False)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

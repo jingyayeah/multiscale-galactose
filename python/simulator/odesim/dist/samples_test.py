@@ -8,7 +8,7 @@ import unittest
 
 from samples import Sample, SampleParameter
 from sampling import SamplingType
-from sbmlsim.models import ParameterType
+from simapp.models import ParameterType
 
 class TestSamples(unittest.TestCase):
 
@@ -62,7 +62,7 @@ class TestSamples(unittest.TestCase):
     
     def test_fromparameters2(self):
         ''' Create SampleParameter from django Parameter '''
-        from sbmlsim.models import Parameter
+        from simapp.models import Parameter
         p = Parameter(name='test', value=1.0, unit='mM', ptype=ParameterType.GLOBAL_PARAMETER)
         ptmp = SampleParameter.fromparameter(p)
         self.assertEqual(ptmp.key, 'test', "test key")

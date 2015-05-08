@@ -13,7 +13,7 @@ Created on Mar 23, 2014
 
 
 import time
-from sbmlsim.models import Task
+from simapp.models import Task
 
 def getParameterFilenameForTask(task, folder=None):
     '''TODO: proper general paths'''

@@ -222,7 +222,7 @@ def _createDictFromKeysAndValues(keys, values):
 
 
 def getDemoDistributions():
-    from sbmlsim.models import ParameterType    
+    from simapp.models import ParameterType    
     ''' Example distributions for demo network. ''' 
     d1 = Dist(DistType.LOGNORMAL, {
                     DistParsType.MEAN : SampleParameter('Vmax_b1', 5.0, 'mole_per_s', 

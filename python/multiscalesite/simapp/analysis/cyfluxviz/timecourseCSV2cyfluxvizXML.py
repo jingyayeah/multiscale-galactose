@@ -153,7 +153,7 @@ if __name__ == "__main__":
     
     
     print 'Test: timecourse2cyfluxviz'
-    from sbmlsim.models import Simulation
+    from simapp.models import Simulation
     
     sim = Simulation.objects.get(pk=780)
     
