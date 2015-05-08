@@ -137,6 +137,11 @@ class CompModel(models.Model):
             return None
     sbml_id = property(_sbml_id)
     
+    def _md5_short(self, L=10):
+        print('{}...'.format(self.md5[0:L]) )
+        return '{}...'.format(self.md5[0:L])
+    md5_short = property(_md5_short) 
+    
     
     @classmethod
     def create(cls, model_id, folder, model_type=CompModelType.SBML):
@@ -365,7 +370,7 @@ class Parameter(models.Model):
     name = models.CharField(max_length=200)
     value = models.FloatField()
     unit = models.CharField(max_length=10, choices=UNITS)
-    ptype = models.CharField(max_length=20, choices=PARAMETER_TYPE)
+    ptype = models.CharField(max_length=30, choices=PARAMETER_TYPE)
     
     def __unicode__(self):
         return self.name + " = " + str(self.value) + " ["+ self.unit +"]"

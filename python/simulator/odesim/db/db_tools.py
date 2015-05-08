@@ -37,10 +37,12 @@ def sbmlmodel_from_id(sbml_id, sync=True):
     return model
 
 def sbmlmodel_from_file(sbml_file, sync=False):
+    from simapp.models import CompModelType
     ''' Creates the model from given sbml file. '''
-    model = CompModel.create_from_file(sbml_file)
+    model = CompModel.create_from_file(sbml_file, model_type=CompModelType.SBML)
     model.save()
-    if sync: _sync_sbml_in_network()
+    if sync: 
+        _sync_sbml_in_network()
     return model
     
 def _sync_sbml_in_network():
@@ -48,6 +50,8 @@ def _sync_sbml_in_network():
     Copies all SBML files to the server 
         run an operating system command
         call(["ls", "-l"])
+        
+    TODO: get the environment variables from the settings file
     '''
     from subprocess import call
     call_command = [os.environ['MULTISCALE_GALACTOSE'] + '/' + "syncDjangoSBML.sh"]

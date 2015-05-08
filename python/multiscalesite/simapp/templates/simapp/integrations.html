@@ -2,12 +2,10 @@
 {% load macros %}
 {% loadmacros "simapp/macros.html" %}
 {% block content %}
-	<table id="table_items">
+	<table class="table" id="table_items">
 	<caption>Integrations [{{integrations_list.count}}]</caption>
 	<thead>
-	<tr>
-		{% usemacro integration_header %}
-	</tr>
+	<tr>{% usemacro integration_header %}</tr>
 	</thead>
 	<tbody>
 	{% for item in integrations_list %}

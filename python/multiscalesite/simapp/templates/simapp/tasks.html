@@ -3,12 +3,10 @@
 {% loadmacros "simapp/macros.html" %}
 
 {% block content %}
-	<table id="table_items">
+	<table class="table" id="table_items">
 	<caption>Tasks [{{tasks_list.count}}]</caption>
     <thead>
-	<tr>
-		{% usemacro task_header %}
-	</tr>
+	<tr>{% usemacro task_header %}</tr>
 	</thead>
 	<tbody>
 	{% for task in tasks_list %}

@@ -60,11 +60,11 @@
 {% macro model_content %}
 			<td>{{model.pk}}</td>
 			<td>{{model.model_id}}</td>
-			<td>{{model.md5}}</td>
+			<td>{{model.md5_short}}</td>
 			<!-- TODO: check for model type, i.e. SBML or CELLML -->
-			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml_small.jpeg' %}"></a></td>
+			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml.png' %}"></a></td>
 			<td><a href="{% url 'simapp:report' model.pk %}" target="_blank">
-				<img height="12" src="{% static 'simapp/images/html5_small.jpeg' %}"></a></td>
+				<img height="12" src="{% static 'simapp/images/html5.png' %}"></a></td>
 {% endmacro %}
 
 <!------------------------------------------------------->

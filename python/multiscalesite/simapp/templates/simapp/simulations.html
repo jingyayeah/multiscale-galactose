@@ -3,21 +3,10 @@
 {% loadmacros "simapp/macros.html" %}
 
 {% block content %}
-[
-		<a href="{% url 'simapp:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
-		<a href="{% url 'simapp:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
-		<a href="{% url 'simapp:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
-		<a href="{% url 'simapp:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> | 
-		<a href="{% url 'simapp:simulations' 'ERROR'%}"><span class="ERROR">ERROR</span></a>
-		] 
-	<hr />
-	<table id="table_items">
-	<caption>Simulations 
-		</caption>
+	<table class="table" id="table_items">
+	<caption>Simulations</caption>
 	<thead>
-	<tr>
-		{% usemacro simulation_header %}
-	</tr>
+	<tr>{% usemacro simulation_header %}</tr>
 	</thead>
 	<tbody>
 	{% for sim in simulations %}
@@ -28,8 +17,8 @@
     </tbody>
     </table>
     
-    {% with items=simulations %}
-  		{% usemacro pagination %}
+    {% with items=simulations %} 
+    	{% usemacro pagination %}
 	{% endwith %}
 
 {% endblock %}

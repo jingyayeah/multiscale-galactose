@@ -25,7 +25,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<meta http-equiv="refresh" content="120" />
+	<meta http-equiv="refresh" content="3" />
 
 	<!-- JAVASCRIPT -->
 	<!-- data table
@@ -41,20 +41,6 @@
 	</script>
 	-->
 	
-	<!-- Old data table
-	<script type="text/javascript" charset="utf-8">
-			$(document).ready(function() {			
-    			$('#table_items').dataTable( {
-        			"bPaginate": false,
-        			"bLengthChange": false,
-       				"bFilter": true,
-        			"bSort": true,
-        			"bInfo": false,
-        			"bAutoWidth": false
-    			}); 			
-		} );
-	</script>
-	-->
   </head>
 
  <!-- Fixed navbar -->
@@ -79,13 +65,13 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Simulations <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{% url 'simapp:simulations'%}">All</a></li>
+                <li><a href="{% url 'simapp:simulations' 'ALL' %}">All</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Simulation Status</li>
-                <li><a href="{% url 'simapp:simulations'%}">Done</a></li>
-                <li><a href="{% url 'simapp:simulations'%}">Assigned</a></li>
-                <li><a href="{% url 'simapp:simulations'%}">Unassigned</a></li>
-                <li><a href="{% url 'simapp:simulations'%}">Error</a></li>
+                <li><a href="{% url 'simapp:simulations' 'DONE' %}">Done</a></li>
+                <li><a href="{% url 'simapp:simulations' 'ASSIGNED' %}">Assigned</a></li>
+                <li><a href="{% url 'simapp:simulations' 'UNASSIGNED' %}">Unassigned</a></li>
+                <li><a href="{% url 'simapp:simulations' 'ERROR' %}">Error</a></li>
               </ul>
             </li>
 
@@ -105,48 +91,20 @@
 
 
     <div class="container">
-
-	<!-- NAVIGATION -->
-	<!--
-	<div class="navigation">
-	{% block sidebar %}
-	<hr />
-	<h3 id="logo">Multiscale-Galactose</h3>
-	<hr />
-	<ul>
-			<li><a href="{% url 'simapp:models'%}">Models</a></li>
-			<li><a href="{% url 'simapp:tasks'%}">Tasks</a></li>
-			<li><a href="{% url 'simapp:simulations'%}">Simulations</a></li>
-			<li><a href="{% url 'simapp:timecourses'%}">Timecourses</a></li>
-			<li><a href="{% url 'simapp:integrations'%}">Integrations</a></li>
-			<li><a href="{% url 'simapp:cores'%}">Cores</a></li>
-			<li><a href="{% url 'simapp:documentation'%}">Docs &amp; Support</a></li>
-	</ul>
-
-	<ul>
-			<li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
-	</ul>
-	{% endblock %}
-	</div>
-    -->
 	
-	<!-- CONTENT -->
-	<div class="content">
-	{% block content %}{% endblock %}
-	</div>
+		<!-- CONTENT -->
+		<div class="content">
+		{% block content %}{% endblock %}
+		</div>
 	
-	<!-- FOOTER -->
-	<div class="footer">
+		<!-- FOOTER -->
+		<div class="footer">
 		<hr />
-	    <p>&copy; 2015 Matthias Koenig. Powered by <a href="https://www.djangoproject.com"  target="_blank">
-        <img src="{% static 'simapp/images/django.png' %}" height="15" alt="django" />
-        </a>. Source available on <a href="https://github.com/matthiaskoenig/multiscale-galactose/" target="_blank">
-        <img src="{% static 'simapp/images/github.png' %}" height="20" alt="GitHub" />
-        </a>.
-        </p>
-    </div>
-
-
+	    	<p>&copy; 2015 Matthias Koenig. 
+	    	Powered by <a href="https://www.djangoproject.com"  target="_blank"><img src="{% static 'simapp/images/django.png' %}" height="15" alt="django" /></a>. 
+        	Source available on <a href="https://github.com/matthiaskoenig/multiscale-galactose/" target="_blank"><img src="{% static 'simapp/images/github.png' %}" height="20" alt="GitHub"/></a>.
+        	</p>
+    	</div>
 
     </div> <!-- /container -->
 

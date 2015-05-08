@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>Simulation [{{sim}}]</h2>
-	<table>
+	<table class="table">
 	<tr>
 		{% usemacro simulation_header %}
 	</tr>
@@ -16,7 +16,7 @@
     
 <h2>Model</h2>
 {% with model=sim.task.sbml_model %}
-<table id="table">
+<table  class="table" id="table">
 <thead>
 <tr>
 	{% usemacro model_header %}
@@ -30,8 +30,9 @@
 </table>
 {% endwith %}
 
+
 <h2>Parameters</h2>    
-<table>
+<table  class="table">
 <thead>
 	<tr>
 		{% usemacro parameter_header %}
@@ -48,7 +49,7 @@
 {% if sim.status == 'DONE' %}
 {% with tc=sim.timecourse %}
 <h2>Timecourse</h2>
-<table>
+<table class="table">
 <thead>
 <tr>
 	{% usemacro timecourse_header %}
@@ -62,14 +63,6 @@
 </table>
 {% endwith %}
     
-{% if sim.timecourse.plot_set.all %}
-<h2>Plots</h2>
-	{% for plot in sim.timecourse.plot_set.all %}
-		<b>name</b>: {{plot.file.name}}<br />
- 		<b>type</b>: {{plot.plot_type}}<br />
- 		<img src="{{plot.file.url}}" /><br />
-	{% endfor %}
-{% endif %}
 	
 {% else %}
 <p>

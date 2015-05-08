@@ -103,21 +103,10 @@ def setParameterValuesInSamples(raw_samples, p_list):
     return samples
 
 
-
-    
-
 ##################################################################
 if __name__ == "__main__":
     import django
     django.setup()
-    
-    # read samples from django
-    task = Task.objects.get(pk=3)
-    samples = get_samples_from_task(task)
-    
-    for k, value in enumerate(samples):
-        print(k, value)
-    
     
     from odesim.models.demo import create_demo_samples
     create_demo_samples(N=1, sampling="distribution")
