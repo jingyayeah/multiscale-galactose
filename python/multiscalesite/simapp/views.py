@@ -1,60 +1,53 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
-
-
 from django.shortcuts import get_object_or_404
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from simapp.models import CompModel, Core, Simulation, Timecourse, Task, Integration
-from simapp.analysis.ParameterFiles import createParameterInfoForTask, getParameterFilenameForTask
-from simapp.analysis.ParameterFiles import createParameterFileForTask
 
 PAGINATE_ENTRIES = 30
 
+#===============================================================================
+# Models
+#===============================================================================
 def models(request):
-    '''
-    Home of the project and providing overview over models
-    '''
+    """ Models overview. """
     model_list = CompModel.objects.order_by("-pk")
-    template = loader.get_template('sim/models.html')
-    # template = loader.get_template('sim/test.html')
+    template = loader.get_template('simapp/models.html')
     context = RequestContext(request, {
         'model_list': model_list,
     })
     return HttpResponse(template.render(context))
 
+#===============================================================================
+# Cores
+#===============================================================================
 def cores(request):
-    '''
-    Overview over the CPUs listening in the network for simulations.
-    '''
-    #return HttpResponse("Overview of odesim cores")
+    """ Cores overview. """
     cores_list = Core.objects.order_by("-time")
-    template = loader.get_template('sim/cores.html')
+    template = loader.get_template('simapp/cores.html')
     context = RequestContext(request, {
         'cores_list': cores_list,
     })
     return HttpResponse(template.render(context))
 
+#===============================================================================
+# Tasks
+#===============================================================================
 def tasks(request):
-    '''
-    Overview over the Tasks.
-    '''
+    """ Tasks overview. """
     tasks_list = Task.objects.order_by('pk').reverse()
-    template = loader.get_template('sim/tasks.html')
+    template = loader.get_template('simapp/tasks.html')
     context = RequestContext(request, {
         'tasks_list': tasks_list,
     })
     return HttpResponse(template.render(context))
 
-
 def task(request, task_id):
-    ''' View of single task. '''    
+    """ View of single task. """
     task = get_object_or_404(Task, pk=task_id)
-    # generate histograms
-    # folder = "/home/mkoenig/multiscale-galactose-results"
-    # PlotSimulation.createTaskPlots(task, folder)
-    # render template
-    template = loader.get_template('sim/task.html')
+    template = loader.get_template('simapp/task.html')
     context = RequestContext(request, {
         'task': task,
     })
@@ -62,40 +55,46 @@ def task(request, task_id):
     
     
 def task_parameters(request, task_id):
+    """ TODO: cache, only create once !
+        Most of the logic belongs in the Parameterfile.
+        Here only the view should be generated.
+    """
+    import simapp.analysis.ParameterFiles as pf
     
     task = get_object_or_404(Task, pk=task_id)
-    
-    content = createParameterInfoForTask(task)
-    f = file(getParameterFilenameForTask(task), 'w')
+    # TODO: is this done 2 time ?????
+    # Only write the file once and provide link to it.
+    content = pf.createParameterInfoForTask(task)
+    f = file(pf.getParameterFilenameForTask(task), 'w')
     f.write(content)
     f.close()
     
-    createParameterFileForTask(task)
+    pf.createParameterFileForTask(task)
     return HttpResponse(content, content_type='text/plain')
     
-    
+#===============================================================================
+# Integrations
+#===============================================================================
 def integrations(request):
-    ''' Overview of integation settings. '''
+    """ Overview of integration settings. """
     integrations_list = Integration.objects.order_by("pk")
-    template = loader.get_template('sim/integrations.html')
+    template = loader.get_template('simapp/integrations.html')
     context = RequestContext(request, {
         'integrations_list': integrations_list,
     })
     return HttpResponse(template.render(context))
 
-
+#===============================================================================
+# Simulations
+#===============================================================================
 def simulations(request, status='ALL'):
-    '''
-    Overview of simulations in the network.
-    Simulations are paginated in view.
-    '''
+    """ Simulations overview. """
     if (status == 'ALL'):
         sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
     else:
         sim_list = Simulation.objects.filter(status=status).order_by("-time_assign", "-time_create")
         
     paginator = Paginator(sim_list, PAGINATE_ENTRIES)
-    
     page = request.GET.get('page')
     try:
         simulations = paginator.page(page)
@@ -106,7 +105,7 @@ def simulations(request, status='ALL'):
         # If page is out of range (e.g. 9999), deliver last page of results.
         simulations = paginator.page(paginator.num_pages)
     
-    template = loader.get_template('sim/simulations.html')
+    template = loader.get_template('simapp/simulations.html')
     context = RequestContext(request, {
         'simulations': simulations,
         'status': status,
@@ -115,7 +114,7 @@ def simulations(request, status='ALL'):
 
 
 def simulation(request, simulation_id):
-    ''' Overview of single odesim. '''
+    """ Overview of single simulation. """
     sim = get_object_or_404(Simulation, pk=simulation_id)
     try:
         sim_previous = Simulation.objects.get(pk=(sim.pk-1))
@@ -125,14 +124,8 @@ def simulation(request, simulation_id):
         sim_next = Simulation.objects.get(pk=(sim.pk+1))
     except:
         sim_next = None
-    
-    # create the plots for the simulation
-    # TODO: problem when the files are not available
-    # folder = "/home/mkoenig/multiscale-galactose-results/tmp_plot"
-    # PlotSimulation.createSimulationPlots(sim, folder)
-    
-    
-    template = loader.get_template('sim/odesim.html')
+        
+    template = loader.get_template('simapp/simulation.html')
     context = RequestContext(request, {
         'sim': sim,
         'sim_previous': sim_previous,
@@ -141,11 +134,13 @@ def simulation(request, simulation_id):
     return HttpResponse(template.render(context))
 
 
+#===============================================================================
+# Timecourses
+#===============================================================================
 def timecourses(request):
-    ''' Overview of Timecourses. '''
+    """ Overview of Timecourses. """
     tc_list = Timecourse.objects.all()
     paginator = Paginator(tc_list, PAGINATE_ENTRIES)
-    
     page = request.GET.get('page')
     try:
         timecourses = paginator.page(page)
@@ -157,30 +152,20 @@ def timecourses(request):
         timecourses = paginator.page(paginator.num_pages)
     
     tc_list = Timecourse.objects.all()
-    template = loader.get_template('sim/timecourses.html')
+    template = loader.get_template('simapp/timecourses.html')
     context = RequestContext(request, {
         'timecourses': timecourses,
     })
     return HttpResponse(template.render(context))
 
 
-# def plots(request):
-#     '''
-#     Overview of Plots.
-#     '''
-#     plots_list = Plot.objects.all()
-#     template = loader.get_template('sim/plots.html')
-#     context = RequestContext(request, {
-#         'plots_list': plots_list,
-#     })
-#     return HttpResponse(template.render(context))
-
+#===============================================================================
+# Documentation 
+#===============================================================================
 def documentation(request):
+    ''' Documentation information. 
+        TODO: update documentation.
     '''
-    Documentation page.
-    '''
-    template = loader.get_template('sim/documentation.html')
-    context = RequestContext(request, {
-        
-    })
+    template = loader.get_template('simapp/documentation.html')
+    context = RequestContext(request, {})
     return HttpResponse(template.render(context))

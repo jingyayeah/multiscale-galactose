@@ -4,11 +4,11 @@
 
 {% block content %}
 [
-		<a href="{% url 'sbmlsim:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
-		<a href="{% url 'sbmlsim:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
-		<a href="{% url 'sbmlsim:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
-		<a href="{% url 'sbmlsim:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> | 
-		<a href="{% url 'sbmlsim:simulations' 'ERROR'%}"><span class="ERROR">ERROR</span></a>
+		<a href="{% url 'simapp:simulations' 'ALL' %}"><span class="ALL">ALL</span></a> | 
+		<a href="{% url 'simapp:simulations' 'DONE' %}"><span class="DONE">DONE</span></a> | 
+		<a href="{% url 'simapp:simulations' 'ASSIGNED'%}"><span class="ASSIGNED">ASSIGNED</span></a> | 
+		<a href="{% url 'simapp:simulations' 'UNASSIGNED'%}"><span class="UNASSIGNED">UNASSIGNED</span></a> | 
+		<a href="{% url 'simapp:simulations' 'ERROR'%}"><span class="ERROR">ERROR</span></a>
 		] 
 	<hr />
 	<table id="table_items">

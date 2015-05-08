@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from django import template
 from django.template.base import FilterExpression
 from django.template.loader import get_template
@@ -74,7 +76,6 @@ def do_loadmacros(parser, token):
     if filename[0] in ('"', "'") and filename[-1] == filename[0]:
         filename = filename[1:-1]
     t = get_template(filename)
-    print filename
     # In Django 1.7 get_template() returned a django.template.Template.
     # In Django 1.8 it returns a django.template.backends.django.Template.
     nodelist = t.template.nodelist

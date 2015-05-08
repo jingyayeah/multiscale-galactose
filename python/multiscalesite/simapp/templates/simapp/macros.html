@@ -15,7 +15,7 @@
 		<th>timecourse</th>
 {% endmacro %}
 {% macro simulation_content %}
-			<td><a href="{% url 'sbmlsim:simulation' sim.pk %}">{{sim.pk}}</a></td>
+			<td><a href="{% url 'simapp:simulation' sim.pk %}">{{sim.pk}}</a></td>
 			<td>{{sim.task.sbml_model.sbml_id}}</td>
 			<td>{{sim.task}}</td>
 			<td>{% for s in sim.task.integration.settings.all %}{{ s }}<br />{% endfor %}</td>
@@ -53,14 +53,17 @@
 {% macro model_header %}
 		<th>pk</th>
 		<th>id</th>
-		<th>sbml</th>
+		<th>md5</th>
+		<th>type</th>
 		<th>report</th>
 {% endmacro %}
 {% macro model_content %}
 			<td>{{model.pk}}</td>
-			<td>{{model.sbml_id}}</td>
+			<td>{{model.model_id}}</td>
+			<td>{{model.md5}}</td>
+			<!-- TODO: check for model type, i.e. SBML or CELLML -->
 			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
-			<td><a href="{% url 'sbmlsim:report' model.pk %}" target="_blank">
+			<td><a href="{% url 'simapp:report' model.pk %}" target="_blank">
 				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
 {% endmacro %}
 
@@ -81,16 +84,16 @@
 		<th>info</th>
 {% endmacro %}
 {% macro task_content %}
-			<td><a href="{% url 'sbmlsim:task' task.pk %}">{{task.pk}}</a></td>
+			<td><a href="{% url 'simapp:task' task.pk %}">{{task.pk}}</a></td>
 			<td>
 				<b>{{task.sim_count}}</b>
 				[<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>] 	
 			</td>
 			<td>{{task.priority}}</td>
 			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'sim/images/sbml_small.jpeg' %}"></a></td>
-			<td><a href="{% url 'sbmlsim:report' task.sbml_model.pk %}" target="_blank">
+			<td><a href="{% url 'simapp:report' task.sbml_model.pk %}" target="_blank">
 				<img height="12" src="{% static 'sim/images/html5_small.jpeg' %}"></a></td>
-			<td><a href="{% url 'sbmlsim:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'sim/images/params_small.png' %}"></a></td>
+			<td><a href="{% url 'simapp:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'sim/images/params_small.png' %}"></a></td>
 			<td>{{task.sbml_model}} </td>
 			<td>{{task.integration}}</td>
 			<td>{{task.integration.integrator}} </td>
@@ -110,7 +113,7 @@
 		
 {% macro timecourse_content %}
 			<td>{{ tc.pk }}</td>
-			<td><a href="{% url 'sbmlsim:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
+			<td><a href="{% url 'simapp:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
 			<td><a href="{{ tc.file.url }}"><img src="{% static 'sim/images/csv.png' %}" height="15" /></a></td>
 			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
 {% endmacro %}

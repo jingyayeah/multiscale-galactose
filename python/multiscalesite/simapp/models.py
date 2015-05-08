@@ -122,8 +122,16 @@ class CompModel(models.Model):
         return str(self.file.path)
     filepath = property(_filepath)
     
+    def _is_sbml(self):
+        return self.model_type == CompModelType.SBML.value
+    is_sbml = property(_is_sbml)
+    
+    def _is_cellml(self):
+        return self.model_type == CompModelType.CELLML.value
+    is_cellml = property(_is_cellml)
+    
     def _sbml_id(self):
-        if (self.model_type == CompModelType.SBML.value):
+        if self._is_sbml():
             return str(self.model_id)
         else:
             return None

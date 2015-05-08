@@ -8,13 +8,12 @@ Main rendered information are the listOf components of the SBML.
 @date: 2015-04-20
 '''
 
-import project_settings
-
 import libsbml
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader, RequestContext
 from django.shortcuts import Http404
+
 from simapp.models import CompModel
 
 def report(request, model_pk):

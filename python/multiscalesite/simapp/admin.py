@@ -6,9 +6,8 @@ class CoreAdmin(admin.ModelAdmin):
     list_display = ('pk', 'ip', 'cpu', 'time', 'active')
     list_filter = ['time']
 
-class SBMLModelAdmin(admin.ModelAdmin):
-    list_display = ('pk', '__unicode__', 'sbml_id', 'file')
-
+class CompModelAdmin(admin.ModelAdmin):
+    list_display = ('pk', '__unicode__', 'model_id', 'model_type' 'file')
 
 class ParameterAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'name', 'value', 'unit', 'ptype')
@@ -23,7 +22,7 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'sbml_model', 'integration', 'priority', 'info')
 
 admin.site.register(Core, CoreAdmin)
-admin.site.register(CompModel, SBMLModelAdmin)
+admin.site.register(CompModel, CompModelAdmin)
 admin.site.register(Parameter, ParameterAdmin)
 admin.site.register(Timecourse, TimecourseAdmin)
 admin.site.register(Simulation, SimulationAdmin)

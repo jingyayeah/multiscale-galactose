@@ -14,6 +14,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='CompModel',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('model_id', models.CharField(unique=True, max_length=200)),
+                ('model_type', models.CharField(max_length=10, choices=[(b'CELLML', b'CELLML'), (b'SBML', b'SBML')])),
+                ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=b'sbml')),
+                ('md5', models.CharField(max_length=36)),
+            ],
+            options={
+                'verbose_name': 'CompModel',
+                'verbose_name_plural': 'CompModels',
+            },
+        ),
+        migrations.CreateModel(
             name='Core',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -43,20 +57,8 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=200)),
                 ('value', models.FloatField()),
                 ('unit', models.CharField(max_length=10, choices=[(b'm', b'm'), (b'm/s', b'm/s'), (b'mM', b'mM'), (b'mole_per_s', b'mole_per_s'), (b'-', b'-')])),
-                ('ptype', models.CharField(max_length=20, choices=[(b'GLOBAL_PARAMETER', b'GLOBAL_PARAMETER'), (b'BOUNDERY_INIT', b'BOUNDERY_INIT'), (b'FLOATING_INIT', b'FLOATING_INIT'), (b'NONE_SBML_PARAMETER', b'NONE_SBML_PARAMETER')])),
+                ('ptype', models.CharField(max_length=20, choices=[(b'BOUNDERY_INIT', b'BOUNDERY_INIT'), (b'FLOATING_INIT', b'FLOATING_INIT'), (b'GLOBAL_PARAMETER', b'GLOBAL_PARAMETER'), (b'NONE_SBML_PARAMETER', b'NONE_SBML_PARAMETER')])),
             ],
-        ),
-        migrations.CreateModel(
-            name='SBMLModel',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('sbml_id', models.CharField(unique=True, max_length=200)),
-                ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=b'sbml')),
-            ],
-            options={
-                'verbose_name': 'SBML Model',
-                'verbose_name_plural': 'SBML Models',
-            },
         ),
         migrations.CreateModel(
             name='Setting',
@@ -86,7 +88,7 @@ class Migration(migrations.Migration):
                 ('priority', models.IntegerField(default=0)),
                 ('info', models.TextField(null=True, blank=True)),
                 ('integration', models.ForeignKey(to='simapp.Integration')),
-                ('sbml_model', models.ForeignKey(to='simapp.SBMLModel')),
+                ('sbml_model', models.ForeignKey(to='simapp.CompModel')),
             ],
         ),
         migrations.CreateModel(
@@ -94,11 +96,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=simapp.models.timecourse_filename)),
-                ('odesim', models.OneToOneField(to='simapp.Simulation')),
+                ('simulation', models.OneToOneField(to='simapp.Simulation')),
             ],
         ),
         migrations.AddField(
-            model_name='odesim',
+            model_name='simulation',
             name='task',
             field=models.ForeignKey(to='simapp.Task'),
         ),
