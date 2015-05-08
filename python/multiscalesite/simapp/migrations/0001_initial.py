@@ -56,17 +56,17 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=200)),
                 ('value', models.FloatField()),
-                ('unit', models.CharField(max_length=10, choices=[(b'm', b'm'), (b'm/s', b'm/s'), (b'mM', b'mM'), (b'mole_per_s', b'mole_per_s'), (b'-', b'-')])),
-                ('ptype', models.CharField(max_length=20, choices=[(b'BOUNDERY_INIT', b'BOUNDERY_INIT'), (b'FLOATING_INIT', b'FLOATING_INIT'), (b'GLOBAL_PARAMETER', b'GLOBAL_PARAMETER'), (b'NONE_SBML_PARAMETER', b'NONE_SBML_PARAMETER')])),
+                ('unit', models.CharField(max_length=10)),
+                ('ptype', models.CharField(max_length=30, choices=[(b'BOUNDERY_INIT', b'BOUNDERY_INIT'), (b'FLOATING_INIT', b'FLOATING_INIT'), (b'GLOBAL_PARAMETER', b'GLOBAL_PARAMETER'), (b'NONE_SBML_PARAMETER', b'NONE_SBML_PARAMETER')])),
             ],
         ),
         migrations.CreateModel(
             name='Setting',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=20, choices=[(b'varSteps', b'varSteps'), (b'relTol', b'relTol'), (b'absTol', b'absTol'), (b'integrator', b'integrator'), (b'tend', b'tend'), (b'steps', b'steps'), (b'tstart', b'tstart'), (b'condition', b'condition')])),
-                ('datatype', models.CharField(max_length=10, choices=[(b'string', b'string'), (b'double', b'double'), (b'int', b'int'), (b'boolean', b'boolean')])),
-                ('value', models.CharField(max_length=20)),
+                ('name', models.CharField(max_length=40, choices=[(b'varSteps', b'varSteps'), (b'relTol', b'relTol'), (b'absTol', b'absTol'), (b'integrator', b'integrator'), (b'tend', b'tend'), (b'steps', b'steps'), (b'tstart', b'tstart'), (b'condition', b'condition')])),
+                ('datatype', models.CharField(max_length=40, choices=[(b'string', b'string'), (b'double', b'double'), (b'int', b'int'), (b'boolean', b'boolean')])),
+                ('value', models.CharField(max_length=40)),
             ],
         ),
         migrations.CreateModel(

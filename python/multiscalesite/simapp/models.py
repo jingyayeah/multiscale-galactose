@@ -1,6 +1,7 @@
 '''
     Definition of the database model.
-    TODO: handle all the selections via proper enums.
+    TODO: handle all the selections via proper IntEnums -> much better storage than strings.
+    
     
     Improve the general model.
     
@@ -246,9 +247,9 @@ class Setting(models.Model):
                         (DT_INT, 'int'),
                         (DT_BOOLEAN, 'boolean'),
     )
-    name = models.CharField(max_length=20, choices=NAMES)
-    datatype = models.CharField(max_length=10, choices=DATATYPES)
-    value = models.CharField(max_length=20)
+    name = models.CharField(max_length=40, choices=NAMES)
+    datatype = models.CharField(max_length=40, choices=DATATYPES)
+    value = models.CharField(max_length=40)
 
     def __unicode__(self):
         return "{}={}".format(self.name, self.value) 
@@ -284,7 +285,6 @@ class Setting(models.Model):
 #===============================================================================
 # Integration
 #===============================================================================
-
 class Integration(models.Model):
     '''
     Integration settings are managed via a collection of settings.
@@ -362,7 +362,7 @@ class Parameter(models.Model):
     ptype = models.CharField(max_length=30, choices=ParameterType.choices())
     
     def __unicode__(self):
-        return self.name + " = " + str(self.value) + " ["+ self.unit +"]"
+        return '{} = {} [{}]'.format(self.name, self.value, self.unit)
     
     class Meta:
         unique_together = ("name", "value")
