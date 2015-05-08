@@ -103,7 +103,7 @@ class ViewTestCase(TestCase):
 
     def test_documentation_status(self):
         """ Check response status code for view. """
-        response = self.c.get('/simapp/documentation/')
+        response = self.c.get('/simapp/docs/')
         self.assertEqual(response.status_code, 200)
 
 

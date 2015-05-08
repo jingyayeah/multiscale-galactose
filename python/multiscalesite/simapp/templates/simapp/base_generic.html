@@ -1,35 +1,37 @@
 <!DOCTYPE html>{% load staticfiles %}
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+
 <html lang="en">
 <head>
-	<!-- Basic Page Needs
-  ================================================== -->
 	<meta charset="utf-8">
 	<title>{% block title %}Multiscale-Galactose{% endblock %}</title>
-	<meta name="description" content="Database for multiscale-model of hepatic metabolism">
+
+	<meta name="description" content="Multiscale-model of hepatic metabolism">
 	<meta name="author" content="Matthias Koenig">
+	<meta http-equiv="refresh" content="120" />
 
-	<!-- Mobile Specific Metas
-  ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<!-- CSS
-  ================================================== -->
+	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="{% static 'simapp/stylesheets/mysite.css' %}" />
-	
+	<link rel="stylesheet" type="text/css" href="{% static 'simapp/stylesheets/jquery.dataTables.min.css' %}" />
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	
+	<!-- FAVICON -->
 	<link rel="shortcut icon" href="{% static 'simapp/images/favicon.ico' %}">
 	
-	<!-- TODO: bug in sorting of pks : 1, 10 sorting -->
+	<!-- JAVASCRIPT -->
 	<script type="text/javascript" language="javascript" src="{% static 'simapp/js/jquery.js' %}"></script>
 	<script type="text/javascript" language="javascript" src="{% static 'simapp/js/jquery.dataTables.min.js' %}"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {			
+    			$('#table_items').dataTable({
+    				"bPaginate": true,
+    			}); 			
+			});
+	</script>
+	
+	<!-- Old data table
 	<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {			
     			$('#table_items').dataTable( {
@@ -42,12 +44,11 @@
     			}); 			
 		} );
 	</script>
-	
-	<meta http-equiv="refresh" content="120" />
+	-->
 </head>
 
-<body>
-	
+<body>	
+	<!-- NAVIGATION -->
 	{% block sidebar %}
 	<nav>
 	<hr />
@@ -67,11 +68,22 @@
 			<li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
 	</ul>
 	</nav>
-	
-	
-	
 	{% endblock %}
-
-	<div id="content">{% block content %}{% endblock %}</div>	
+	
+	<!-- CONTENT -->
+	<div id="content">
+	{% block content %}{% endblock %}
+	</div>
+	
+	<!-- FOOTER -->
+	<div id="footer">
+	    <p>&copy; 2015 Matthias Koenig. Powered by <a href="https://www.djangoproject.com"  target="_blank">
+        <img src="{% static 'simapp/images/django.png' %}" height="15" alt="django" />
+        </a>. Source available on <a href="https://github.com/matthiaskoenig/multiscale-galactose/" target="_blank">
+        <img src="{% static 'simapp/images/github.png' %}" height="20" alt="GitHub" />
+        </a>.
+        </p>
+    </div>
+    
 </body>
 </html>

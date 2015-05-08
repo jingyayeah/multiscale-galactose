@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^cores/$', views.cores, name='cores'),
     url(r'^simulations/(?P<status>\w+)$', views.simulations, name='simulations'),
     url(r'^simulations/$', views.simulations, name='simulations'),
-    url(r'^odesim/(?P<simulation_id>\d+)$', views.simulation, name='odesim'),
+    url(r'^simulation/(?P<simulation_id>\d+)$', views.simulation, name='simulation'),
     
     url(r'^report/(?P<model_pk>\d+)$', ReportFactory.report, name='report'),
     
@@ -20,6 +20,6 @@ urlpatterns = patterns('',
     url(r'^task/(?P<task_id>\d+)$', views.task, name='task'),
     url(r'^task/T(?P<task_id>\d+)$', views.task_parameters, name='task_parameters'),
     # url(r'^plots/$', views.plots, name='plots'),
-    url(r'^documentation/$', views.documentation, name='documentation'),
+    url(r'^docs/$', views.documentation, name='documentation'),
     url(r'^$', views.models, name='index'),
 )
