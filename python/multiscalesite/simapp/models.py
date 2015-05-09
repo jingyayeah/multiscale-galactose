@@ -1,14 +1,12 @@
-'''
-    Definition of the database model.
-    TODO: handle all the selections via proper IntEnums -> much better storage than strings.
+"""
+Model definitions of for the simulation app.
     
+TODO: handle all the selections via proper IntEnums -> much better storage than strings.
     
-    Improve the general model.
-    
-    @author: Matthias Koenig
-    @date: 2014-06-14
-    
-'''
+
+@author: Matthias Koenig
+@date: 2015-05-10    
+"""
 from __future__ import print_function
 
 import os
@@ -106,9 +104,9 @@ class CompModelType(EnumType, Enum):
     CELLML = "CELLML"
 
 class CompModel(models.Model):
-    ''' Storage class for models. '''
+    """ Storage class for models. """
     model_id = models.CharField(max_length=200, unique=True)
-    model_type = models.CharField(max_length=10, choices=zip(CompModelType.values(), CompModelType.values()))
+    model_type = models.CharField(max_length=10, choices=CompModelType.choices())
     file = models.FileField(upload_to='sbml', max_length=200, storage=OverwriteStorage())
     md5 = models.CharField(max_length=36)
     
@@ -146,13 +144,13 @@ class CompModel(models.Model):
     
     @classmethod
     def create(cls, model_id, folder, model_type=CompModelType.SBML):
-        ''' Create the model based on the model id. '''
+        """ Create the model based on the model id. """
         filepath = os.path.join(folder, '{}.xml'.format(model_id))
         return cls.create_from_file(filepath)
 
     @classmethod
     def create_from_file(cls, filepath, model_type):
-        ''' Create model in database based file. '''
+        """ Create model in database based file. """
         from util.util_classes import hash_for_file
         # is model_type supported
         CompModelType.check_type(model_type)
@@ -190,7 +188,7 @@ class CompModel(models.Model):
     
     @classmethod
     def _get_sbml_id_from_file(cls, filepath):
-        ''' Reads the SBML id from the given file. '''
+        """ Reads the SBML id from the given file. """
         import libsbml
         doc = libsbml.SBMLReader().readSBML(filepath)
         sbml_id = doc.getModel().getId()
@@ -200,85 +198,83 @@ class CompModel(models.Model):
 #===============================================================================
 # Settings
 #===============================================================================
-# TODO: improve the handling of options and settings for the solver.
 # TODO: lookup the allowed solver options for RoadRunner
+
+class DataType(EnumType, Enum):
+    STRING = 'STRING'
+    BOOLEAN = 'BOOLEAN'
+    DOUBLE = 'DOUBLE'
+    INT = 'INT'   
+
+class SettingKey(EnumType, Enum):
+    INTEGRATOR = "INTEGRATOR",
+    VAR_STEPS = "VAR_STEPS"
+    ABS_TOL = "ABS_TOL"
+    REL_TOL = "REL_TOL"
+    T_START = "T_START"
+    T_END = "T_END"
+    STEPS = "STEPS"
 
 class SimulatorType(EnumType, Enum):
     COPASI = "COPASI"
     ROADRUNNER = "ROADRUNNER"
-
-# TODO: move in settings
-default_settings = dict(zip(['integrator', 'varSteps', 'absTol', 'relTol'], 
-                            [SimulatorType.ROADRUNNER, True, 1E-6, 1E-6]))
-
-# TODO: improve this
-# General definitions of datatypes and settings
-DT_STRING = 'string'
-DT_BOOLEAN = 'boolean'
-DT_DOUBLE = 'double'
-DT_INT = 'int'
-
-datatypes = dict(zip( 
-            ['condition', 'integrator', 'varSteps', 'tstart', 'tend', 'steps', 'absTol', 'relTol'],
-            [DT_STRING, DT_STRING, DT_BOOLEAN, DT_DOUBLE, DT_DOUBLE, DT_INT, DT_DOUBLE, DT_DOUBLE]
-))
-
-def cast_value(key, value):
-    ''' Casts the value to the correct datatype. '''
-    dtype = datatypes[key]
-    if dtype == DT_STRING:
-        return str(value)
-    elif dtype == DT_INT:
-        return int(value)
-    elif dtype == DT_DOUBLE:
-        return float(value)
-    elif dtype == DT_BOOLEAN:
-        return bool(value)
-
+    
+ 
 class Setting(models.Model):
-    '''
-    Store all settings for algorithm in general framework.
-    Special settings are collected in 
-    '''
-    NAMES = zip(datatypes.keys(), datatypes.keys())
-    DATATYPES = (
-                        (DT_STRING, 'string'),
-                        (DT_DOUBLE, 'double'),
-                        (DT_INT, 'int'),
-                        (DT_BOOLEAN, 'boolean'),
-    )
-    name = models.CharField(max_length=40, choices=NAMES)
-    datatype = models.CharField(max_length=40, choices=DATATYPES)
+    SETTINGS_DATATYPE = {
+        SettingKey.INTEGRATOR : DataType.STRING,
+        SettingKey.VAR_STEPS : DataType.BOOLEAN,
+        SettingKey.ABS_TOL : DataType.DOUBLE,
+        SettingKey.REL_TOL : DataType.DOUBLE,
+        SettingKey.T_START : DataType.DOUBLE,
+        SettingKey.T_END : DataType.DOUBLE,
+        SettingKey.STEPS : DataType.INT
+    }
+
+    SETTINGS_DEFAULT = {
+        SettingKey.INTEGRATOR : SimulatorType.ROADRUNNER,
+        SettingKey.VAR_STEPS : True,
+        SettingKey.ABS_TOL : 1E-6,
+        SettingKey.REL_TOL : 1E-6
+    }
+    
+    name = models.CharField(max_length=40, choices=SettingKey.choices())
+    datatype = models.CharField(max_length=40, choices=DataType.choices())
     value = models.CharField(max_length=40)
 
     def __unicode__(self):
         return "{}={}".format(self.name, self.value) 
 
-    def _cast_value(self):
-        ''' Cast setting to appropriate datatype. '''
-        if self.datatype == DT_STRING:
-            return str(self.value)
-        elif self.datatype == DT_DOUBLE:
-            return float(self.value)
-        elif self.datatype == DT_INT:
-            return int(self.value)
-        elif self.datatype == DT_BOOLEAN:
-            return bool(self.value)
+    @classmethod
+    def cast_value(cls, value, datatype):
+        """ Cast setting to corresponding datatype. """
+        if datatype == DataType.STRING:
+            return str(value)
+        elif datatype == DataType.DOUBLE:
+            return float(value)
+        elif datatype == DataType.INT:
+            return int(value)
+        elif datatype == DataType.BOOLEAN:
+            return bool(value)
         
+    def _cast_value(self):
+        return Setting.cast_value(self.datatype, self.value)
     cast_value = property(_cast_value)      
     
-    @staticmethod
-    def get_settings(settings):
-        ''' Get settings based on settings dictionary. '''
-        # add the default settings
-        sdict = dict(default_settings.items() + settings.items())
+    @staticmethod   
+    def get_settings(cls, settings):
+        ''' Get settings based on settings dictionary. 
+        The settings dictionary is extened with the provided settings.
+        '''    
+        sdict = dict(cls.SETTINGS_DEFAULT.iteritems() 
+                      + settings.iteritems())
         
         # get settings objects from DB
         settings = []
         for key, value in sdict.iteritems():
-            value = cast_value(key, value)        
+            datatype = Setting.SETTINGS_DATATYPE[key]
             s, _ = Setting.objects.get_or_create(name=key, value=str(value), 
-                                                   datatype=datatypes[key])
+                                                   datatype=datatype)
             settings.append(s)
         return settings
 
@@ -286,50 +282,34 @@ class Setting(models.Model):
 # Integration
 #===============================================================================
 class Integration(models.Model):
-    '''
-    Integration settings are managed via a collection of settings.
-    - tolerances
-    Depending on the solver the meaning of the settings can vary.
-    -> in RoadRunner the absTol is on the amounts, with the smallest
-        compartments the absTol on the concentrations has to be calculated
-    -> if varSteps is set RoadRunner performs variable step size integration
-        even with available defined steps
-        
-    ! Only create integrations via special interface to make sure 
-      the integrations are unique in respect to the available settings.
-    '''
+    """ Integration settings are managed via a collection of settings. """
     settings = models.ManyToManyField(Setting)
 
     def __unicode__(self):
-        return "I{}".format(self.pk) 
+        return 'I{}'.format(self.pk) 
     
     class Meta:
-        verbose_name = "Integration Setting"
+        verbose_name = 'Integration Setting'
         verbose_name_plural = "Integration Settings"
         
     def get_settings_dict(self):
-        sdict = dict()
-        for s in self.settings.all():
-            sdict[s.name] = cast_value(s.name, s.value)
-        return sdict
+        return {s.name : s.cast_value for s in self.settings.all()}
     
     def get_setting(self, key):
         s = self.settings.get(name=key)
-        return cast_value(key, s.value)
+        return s.cast_value
         
     def _get_integrator(self):
-        return self.get_setting('integrator')
-    def _get_condition(self):
-        return self.get_setting('condition') 
+        return self.get_setting(SettingKey.INTEGRATOR)
     integrator = property(_get_integrator)
-    condition = property(_get_condition)    
+        
         
     @staticmethod
     def get_or_create_integration(settings):
-        ''' 
+        """
         Tests if the settings set is already defined as integration. 
         Equality is tested via set equality.
-        '''
+        """
         settings_set = frozenset(settings)
     
         integration = None
@@ -342,7 +322,6 @@ class Integration(models.Model):
             integration = Integration()
             integration.save()
             integration.settings.add(*settings)
-            
         return integration
 
 
@@ -371,13 +350,13 @@ class Parameter(models.Model):
 # Task
 #===============================================================================
 class Task(models.Model):
-    '''
+    """ Tasks are defined sets of simulations under consistent conditions.
         Tasks are compatible on their integration setting and the
         underlying model.
         Task are uniquely identified via the combination of model, integration
         and the information string. Replicates of the same task can be run via
         modifying the info.
-    '''
+    """
     sbml_model = models.ForeignKey(CompModel)
     integration = models.ForeignKey(Integration)
     priority = models.IntegerField(default=0)
@@ -392,32 +371,35 @@ class Task(models.Model):
     def sim_count(self):
         return self.simulation_set.count()
     
+    def _status_count(self, status):
+        return self.simulation_set.filter(status=status).count()
+    
     def done_count(self):
-        return self.simulation_set.filter(status=DONE).count()
+        return self._status_count(self, SimulationStatus.DONE)
     
     def assigned_count(self):
-        return self.simulation_set.filter(status=ASSIGNED).count()
+        return self._status_count(self, SimulationStatus.ASSIGNED)
     
     def unassigned_count(self):
-        return self.simulation_set.filter(status=UNASSIGNED).count()
+        return self._status_count(self, SimulationStatus.UNASSIGNED)
     
     def error_count(self):
-        return self.simulation_set.filter(status=ERROR).count()
+        return self._status_count(self, SimulationStatus.ERROR)
     
     def _get_integrator(self):
-        return self._get_setting('integrator')
+        return self._get_setting(SettingKey.INTEGRATOR)
     def _get_varSteps(self):
-        return self._get_setting('varSteps')
+        return self._get_setting(SettingKey.VAR_STEPS)
     def _get_relTol(self):
-        return self._get_setting('relTol')
+        return self._get_setting(SettingKey.REL_TOL)
     def _get_absTol(self):
-        return self._get_setting('absTol')  
+        return self._get_setting(SettingKey.ABS_TOL)  
     def _get_steps(self):
-        return self._get_setting('steps')
+        return self._get_setting(SettingKey.STEPS)
     def _get_tstart(self):
-        return self._get_setting('tstart')
+        return self._get_setting(SettingKey.T_START)
     def _get_tend(self):
-        return self._get_setting('tend')
+        return self._get_setting(SettingKey.T_END)
     
     def _get_setting(self, name):
         return self.integration.settings.get(name=name).cast_value
@@ -431,46 +413,41 @@ class Task(models.Model):
     tend = property(_get_tend)
 
 
-UNASSIGNED = "UNASSIGNED"
-ASSIGNED = "ASSIGNED"
-DONE = "DONE"
-ERROR = "ERROR"
+#===============================================================================
+# Simulation
+#===============================================================================
+class SimulationStatus(EnumType, Enum):
+    UNASSIGNED = "UNASSIGNED"
+    ASSIGNED = "ASSIGNED"
+    DONE = "DONE"
+    ERROR = "ERROR"
 
 class ErrorSimulationManager(models.Manager):
     def get_queryset(self):
         return super(ErrorSimulationManager, 
-                     self).get_queryset().filter(status=ERROR)
+                     self).get_queryset().filter(status=SimulationStatus.ERROR)
 
 class UnassignedSimulationManager(models.Manager):
     def get_queryset(self):
         return super(UnassignedSimulationManager, 
-                     self).get_queryset().filter(status=UNASSIGNED)
+                     self).get_queryset().filter(status=SimulationStatus.UNASSIGNED)
 
 class AssignedSimulationManager(models.Manager):
     def get_queryset(self):
         return super(AssignedSimulationManager, 
-                     self).get_queryset().filter(status=ASSIGNED)
+                     self).get_queryset().filter(status=SimulationStatus.ASSIGNED)
                      
 class DoneSimulationManager(models.Manager):
     def get_queryset(self):
         return super(DoneSimulationManager, 
-                     self).get_queryset().filter(status=DONE)
+                     self).get_queryset().filter(status=SimulationStatus.DONE)
 
-
-#===============================================================================
-# Simulation
-#===============================================================================
 
 class Simulation(models.Model):     
-    SIMULATION_STATUS = (
-                         (UNASSIGNED, 'unassigned'),
-                         (ASSIGNED, 'assigned'),
-                         (ERROR, 'error'),
-                         (DONE, 'done'),
-    )
     task = models.ForeignKey(Task)
     parameters = models.ManyToManyField(Parameter)
-    status = models.CharField(max_length=20, choices=SIMULATION_STATUS, default=UNASSIGNED)
+    status = models.CharField(max_length=20, choices=SimulationStatus.choices(), 
+                              default=SimulationStatus.UNASSIGNED)
     time_create = models.DateTimeField(default=timezone.now)
     time_assign = models.DateTimeField(null=True, blank=True)
     core = models.ForeignKey(Core, null=True, blank=True)
@@ -487,13 +464,13 @@ class Simulation(models.Model):
         return 'S%d' % (self.pk)
     
     def is_error(self):
-        return self.status == self.ERROR
+        return self.status == SimulationStatus.ERROR
     def is_unassigned(self):
-        return self.status == self.UNASSIGNED
+        return self.status == SimulationStatus.UNASSIGNED
     def is_assigned(self):
-        return self.status == self.ASSIGNED
+        return self.status == SimulationStatus.ASSIGNED
     def is_done(self):
-        return self.status == self.DONE
+        return self.status == SimulationStatus.DONE
     
     def _get_duration(self):
         if (not self.time_assign or not self.time_sim):
@@ -505,7 +482,7 @@ class Simulation(models.Model):
         ''' Simulation did not finish '''
         if not (self.time_assign):
             return False
-        elif (self.status != ASSIGNED):
+        elif (self.status != SimulationStatus.ASSIGNED):
             return False
         else:
             return (timezone.now() >= self.time_assign+timedelta(minutes=cutoff_minutes))
@@ -515,22 +492,22 @@ class Simulation(models.Model):
 
 
 #===============================================================================
-# Timecourse
+# Result
 #===============================================================================
+# TODO: handle as result file.
+# This can be a timecourse, but could also be an FBA simulation.
+# Define type.
 
-def timecourse_filename(instance, filename):
+def result_filename(instance, filename):
     name = filename.split("/")[-1]
     return '/'.join(['timecourse', str(instance.simulation.task), name])
        
 
+
 class Timecourse(models.Model):
-    '''
-    A timecourse belongs to exactly on odesim. If the timecourse
-    is saved changes have to be made to the odesim (mainly the 
-    status).
-    '''
+    ''' Timecourse for simulation. '''
     simulation = models.OneToOneField(Simulation, unique=True)
-    file = models.FileField(upload_to=timecourse_filename, max_length=200, storage=OverwriteStorage())
+    file = models.FileField(upload_to=result_filename, max_length=200, storage=OverwriteStorage())
     
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
@@ -540,14 +517,14 @@ class Timecourse(models.Model):
         return (f[:-3] + 'tar.gz')
     
     def zip(self):
-        ''' tar.gz the file '''    
+        """ tar.gz the file """
         f = self.file.path
-        tar = tarfile.open(self.zip_file, "w:gz")
+        tar = tarfile.open(self.zip_file, 'w:gz')
         tar.add(f, arcname=os.path.basename(f))
         tar.close()
         
     def unzip(self):
-        ''' tar.gz the file '''    
+        """ Extract the file. """    
         tar = tarfile.open(self.zip_file, 'r:gz')
         dirname = os.path.dirname(self.zip_file)
         tar.extractall(path=dirname)   
@@ -561,5 +538,5 @@ class Timecourse(models.Model):
   
          
 #===============================================================================
-# Plots & Analysis
+# Plots and Analysis
 #===============================================================================
