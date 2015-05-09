@@ -1,18 +1,23 @@
 {% extends "simapp/base_generic.html" %}
 {% load macros %}
 {% loadmacros "simapp/macros.html" %}
+
 {% block content %}
 	<table class="table" id="table_items">
-	<caption>Integrations [{{integrations_list.count}}]</caption>
+	<caption>Results</caption>
 	<thead>
-	<tr>{% usemacro integration_header %}</tr>
+	<tr>{% usemacro result_header %}</tr>
 	</thead>
 	<tbody>
-	{% for item in integrations_list %}
+	{% for result in results %}
 		<tr>
-			{% usemacro integration_content %}
+			{% usemacro result_content %}
 		</tr>    
     {% endfor %}
     </tbody>
     </table>
+ 
+    {% with items=results %}
+  		{% usemacro pagination %}
+	{% endwith %}
 {% endblock %}

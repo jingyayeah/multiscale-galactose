@@ -102,33 +102,33 @@
 			<td width="400px">{{task.info}}</td>
 {% endmacro %}
 <!------------------------------------------------------->
-<!--  TIMECOURSE									   -->
+<!--  RESULT    									   -->
 <!------------------------------------------------------->
-{% macro timecourse_header %}
+{% macro result_header %}
 		<th>pk</th>
 		<th>sim</th>
 		<th>csv</th>
 		<th>file</th>
 {% endmacro %}
 		
-{% macro timecourse_content %}
-			<td>{{ tc.pk }}</td>
-			<td><a href="{% url 'simapp:simulation' tc.simulation.pk %}">{{ tc.simulation }}</a></td>
-			<td><a href="{{ tc.file.url }}"><img src="{% static 'simapp/images/csv.png' %}" height="15" /></a></td>
-			<td><a href="{{ tc.file.url }}">{{ tc.file.name }}</a></td>
+{% macro result_content %}
+			<td>{{ result.pk }}</td>
+			<td><a href="{% url 'simapp:simulation' tc.simulation.pk %}">{{ result.simulation }}</a></td>
+			<td><a href="{{ result.file.url }}"><img src="{% static 'simapp/images/csv.png' %}" height="15" /></a></td>
+			<td><a href="{{ result.file.url }}">{{ result.file.name }}</a></td>
 {% endmacro %}
 
 <!------------------------------------------------------->
-<!--  INTEGRATION  									   -->
+<!--  METHOD     									   -->
 <!------------------------------------------------------->
-{% macro integration_header %}
+{% macro method_header %}
 		<th>pk</th>
 		<th>settings</th>
 {% endmacro %}
 		
-{% macro integration_content %}
-			<td>{{item.pk}}</td>
-			<td>{% for s in item.settings.all %}{{ s.name }} = {{s.value}} [{{s.datatype}}] <br />{% endfor %}</td>
+{% macro method_content %}
+			<td>{{method.pk}}</td>
+			<td>{% for s in method.settings.all %}{{ s.name }} = {{s.value}} [{{s.datatype}}] <br />{% endfor %}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->

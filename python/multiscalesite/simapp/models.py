@@ -192,8 +192,8 @@ class CompModel(models.Model):
             model.save() 
             return model
     
-    @classmethod
-    def _get_sbml_id_from_file(cls, filepath):
+    @staticmethod
+    def _get_sbml_id_from_file(filepath):
         """ Reads the SBML id from the given file. """
         import libsbml
         doc = libsbml.SBMLReader().readSBML(filepath)
@@ -210,7 +210,21 @@ class DataType(EnumType, Enum):
     STRING = 'STRING'
     BOOLEAN = 'BOOLEAN'
     DOUBLE = 'DOUBLE'
-    INT = 'INT'   
+    INT = 'INT'
+    
+    @staticmethod
+    def cast_value(value, datatype):
+        """ Cast setting to corresponding datatype. """
+        if datatype == DataType.STRING.value:
+            return str(value)
+        elif datatype == DataType.DOUBLE.value:
+            return float(value)
+        elif datatype == DataType.INT.value:
+            return int(value)
+        elif datatype == DataType.BOOLEAN.value:
+            return bool(value)
+        else:
+            raise DataType.EnumTypeException()
 
 class SettingKey(EnumType, Enum):
     INTEGRATOR = "INTEGRATOR",
@@ -224,10 +238,8 @@ class SettingKey(EnumType, Enum):
 class SimulatorType(EnumType, Enum):
     COPASI = "COPASI"
     ROADRUNNER = "ROADRUNNER"
-    
- 
-class Setting(models.Model):
-    SETTINGS_DATATYPE = {
+
+SETTINGS_DATATYPE = {
         SettingKey.INTEGRATOR : DataType.STRING,
         SettingKey.VAR_STEPS : DataType.BOOLEAN,
         SettingKey.ABS_TOL : DataType.DOUBLE,
@@ -237,44 +249,36 @@ class Setting(models.Model):
         SettingKey.STEPS : DataType.INT
     }
 
-    SETTINGS_DEFAULT = {
+SETTINGS_DEFAULT = {
         SettingKey.INTEGRATOR : SimulatorType.ROADRUNNER,
         SettingKey.VAR_STEPS : True,
         SettingKey.ABS_TOL : 1E-6,
         SettingKey.REL_TOL : 1E-6
-    }
-    
+    }   
+ 
+class Setting(models.Model):
     key = models.CharField(max_length=40, choices=SettingKey.choices())
-    datatype = models.CharField(max_length=40, choices=DataType.choices())
     value = models.CharField(max_length=40)
+    datatype = models.CharField(max_length=40, choices=DataType.choices())
 
     def __unicode__(self):
         return "{}={}".format(self.key, self.value) 
+    
+    def save(self, *args, **kwargs):
+        # get the datatype from the dictionary
+        self.datatype = SETTINGS_DATATYPE[SettingKey(self.key)].value
+        super(Setting, self).save(*args, **kwargs) # Call the "real" save() method.
+    
+    def _cast_value(self):
+        return DataType.cast_value(self.datatype, self.value)
+    cast_value = property(_cast_value)  
 
     @classmethod
-    def cast_value(cls, value, datatype):
-        """ Cast setting to corresponding datatype. """
-        if datatype == DataType.STRING.value:
-            return str(value)
-        elif datatype == DataType.DOUBLE.value:
-            return float(value)
-        elif datatype == DataType.INT.value:
-            return int(value)
-        elif datatype == DataType.BOOLEAN.value:
-            return bool(value)
-        else:
-            raise DataType.EnumTypeException()
-        
-    def _cast_value(self):
-        return Setting.cast_value(self.datatype, self.value)
-    cast_value = property(_cast_value)      
-    
-    @staticmethod   
     def get_settings(cls, settings):
         ''' Get settings based on settings dictionary. 
         The settings dictionary is extened with the provided settings.
         '''    
-        sdict = dict(cls.SETTINGS_DEFAULT.iteritems() 
+        sdict = dict(SETTINGS_DEFAULT.iteritems() 
                       + settings.iteritems())
         
         # get settings objects from DB

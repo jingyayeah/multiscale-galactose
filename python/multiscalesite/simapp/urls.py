@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     
     url(r'^report/(?P<model_pk>\d+)$', ReportFactory.report, name='report'),
     
-    url(r'^integrations/$', views.integrations, name='integrations'),
+    url(r'^methods/$', views.methods, name='methods'),
     url(r'^results/$', views.results, name='results'),
 
     url(r'^tasks/$', views.tasks, name='tasks'),

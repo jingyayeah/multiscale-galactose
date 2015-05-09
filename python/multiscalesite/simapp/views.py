@@ -73,14 +73,14 @@ def task_parameters(request, task_id):
     return HttpResponse(content, content_type='text/plain')
     
 #===============================================================================
-# Integrations
+# Methods
 #===============================================================================
-def integrations(request):
+def methods(request):
     """ Overview of integration settings. """
-    integrations_list = Method.objects.order_by("pk")
-    template = loader.get_template('simapp/integrations.html')
+    methods_list = Method.objects.order_by("pk")
+    template = loader.get_template('simapp/methods.html')
     context = RequestContext(request, {
-        'integrations_list': integrations_list,
+        'methods_list': methods_list,
     })
     return HttpResponse(template.render(context))
 

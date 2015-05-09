@@ -42,6 +42,31 @@ class CompModelTestCase(TestCase):
         """ Create the demo network in the database. """
         m1 = CompModel.objects.get(model_id='Koenig_demo')
         self.assertEqual(m1.model_id, 'Koenig_demo')
+        self.assertEqual(m1.sbml_id, 'Koenig_demo')
+        
+    def test_model_format(self):
+        """ Make the format checks. """
+        m1 = CompModel.objects.get(model_id='Koenig_demo')
+        self.assertTrue(m1.is_sbml)
+        self.assertFalse(m1.is_cellml)
+        self.assertEqual(m1.model_format, (CompModelFormat.SBML).value)
+        
+#===============================================================================
+# SettingTest
+#===============================================================================
+from simapp.models import DataType, Setting, SettingKey, SimulatorType
+
+class SettingTestCase(TestCase):
+    def setUp(self):
+        Setting.objects.create(key=(SettingKey.INTEGRATOR).value, 
+                               value=(SimulatorType.ROADRUNNER).value)
+        
+    def test_setting_fields(self):
+        """ Test the setting fields. """
+        s1 = Setting.objects.get(key=(SettingKey.INTEGRATOR).value,
+                                  value=(SimulatorType.ROADRUNNER).value)
+        self.assertEqual(s1.datatype, (DataType.STRING).value)
+
 
 
 #===============================================================================
@@ -91,7 +116,6 @@ class ViewTestCase(TestCase):
         
         # Check that the rendered context contains 5 customers.
         # self.assertEqual(len(response.context['customers']), 5)
-        
 
     def test_cores_status(self):
         """ Check response status code for view. """
@@ -103,19 +127,19 @@ class ViewTestCase(TestCase):
         response = self.c.get('/simapp/tasks/')
         self.assertEqual(response.status_code, 200)
 
-    def test_integrations_status(self):
+    def test_methods_status(self):
         """ Check response status code for view. """
-        response = self.c.get('/simapp/integrations/')
+        response = self.c.get('/simapp/methods/')
         self.assertEqual(response.status_code, 200)
 
-    def test_simlations_status(self):
+    def test_simulations_status(self):
         """ Check response status code for view. """
         response = self.c.get('/simapp/simulations/')
         self.assertEqual(response.status_code, 200)
         
-    def test_timecourses_status(self):
+    def test_results_status(self):
         """ Check response status code for view. """
-        response = self.c.get('/simapp/timecourses/')
+        response = self.c.get('/simapp/results/')
         self.assertEqual(response.status_code, 200)
 
     def test_documentation_status(self):
