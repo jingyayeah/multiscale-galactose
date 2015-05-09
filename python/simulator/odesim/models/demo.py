@@ -6,7 +6,7 @@ Creating simulations for the demo network.
 '''
 from __future__ import print_function
 
-from simapp.models import Setting, Integration
+from simapp.models import Setting, Method
 
 from odesim.dist.distributions import getDemoDistributions
 from odesim.dist.sampling import createParametersBySampling, SamplingType
@@ -29,7 +29,7 @@ def demo_simulations(model, N, priority=0):
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':500.0, 'steps':100} )
-    integration = Integration.get_or_create_integration(settings)
+    integration = Method.get_or_create_integration(settings)
     task = create_task(model, integration, info, priority)
     sims = createSimulationsForSamples(task, samples)
     return sims

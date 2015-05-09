@@ -26,15 +26,15 @@ dset[0]
 dset[9]
 
 # groups and hierarchical organization
-dset.name
-f.name
+dset.key
+f.key
 # Creating a subgroup is accomplished via the aptly-named create_group:
 grp = f.create_group("subgroup")
 dset2 = grp.create_dataset("another_dataset", (50,), dtype='f')
-dset2.name
+dset2.key
 
 dset3 = f.create_dataset('subgroup2/dataset_three', (10,), dtype='i')
-dset3.name
+dset3.key
 
 # Groups support most of the Python dictionary-style interface. You retrieve objects in the file using the item-retrieval syntax:
 dataset_three = f['subgroup2/dataset_three']

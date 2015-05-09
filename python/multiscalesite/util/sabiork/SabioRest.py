@@ -113,7 +113,7 @@ def getUniprotsFromSBML(filename):
     root = tree.getroot()
     res = tree.findall('//{http://www.w3.org/1999/02/22-rdf-syntax-ns#}li')
     ns = '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'
-    rdf_nodes = tree.findall('//{ns}RDF'.format(ns=ns))
+    rdf_nodes = tree.findall('//{ns}RDF'.model_format(ns=ns))
     for rdf_n in rdf_nodes:
         print rdf_n, rdf_n.attrib
         

@@ -41,30 +41,30 @@ def create_config_file(sim, fname):
     # create the config sections
     lines = []
     lines += ['[Simulation]\n']
-    lines += ["sbml = {}\n".format(task.sbml_model.sbml_id)]
+    lines += ["sbml = {}\n".model_format(task.model.sbml_id)]
     lines += ["author = Matthias Koenig\n"]
-    lines += ["time = {}\n".format(timestamp)]
-    lines += ['Simulation = {}\n'.format(sim.pk)]
-    lines += ["Task = {}\n".format(task.pk)]
-    lines += ["SBML = {}\n".format(task.sbml_model.pk)]
+    lines += ["time = {}\n".model_format(timestamp)]
+    lines += ['Simulation = {}\n'.model_format(sim.pk)]
+    lines += ["Task = {}\n".model_format(task.pk)]
+    lines += ["SBML = {}\n".model_format(task.model.pk)]
     lines += ["\n"]
     
     lines += ["[Timecourse]\n"]
-    lines += ["t0 = {}\n".format(task.tstart)]
-    lines += ["dur = {}\n".format(task.tend)]
-    lines += ["steps = {}\n".format(task.steps)]
-    lines += ["rTol = {}\n".format(task.relTol)]
-    lines += ["aTol = {}\n".format(task.absTol)]
+    lines += ["t0 = {}\n".model_format(task.tstart)]
+    lines += ["dur = {}\n".model_format(task.tend)]
+    lines += ["steps = {}\n".model_format(task.steps)]
+    lines += ["rTol = {}\n".model_format(task.relTol)]
+    lines += ["aTol = {}\n".model_format(task.absTol)]
     lines += ["\n"]
     
     lines += "[Parameters]\n"
     for p in sim.parameters.all():
-        lines += ["{} = {}\n".format(p.name, p.value)]
+        lines += ["{} = {}\n".model_format(p.key, p.value)]
     lines += ["\n"]
     
     lines += "[Settings]\n"
-    for s in task.integration.settings.all():
-        lines += ["{} = {}\n".format(s.name, s.value)]
+    for s in task.method.settings.all():
+        lines += ["{} = {}\n".model_format(s.key, s.value)]
     
     # write the file
     with open(fname, 'w') as f:
@@ -73,7 +73,7 @@ def create_config_file(sim, fname):
     return fname
 
 def config_filename(sim, folder):
-    sbml_id = sim.task.sbml_model.sbml_id
+    sbml_id = sim.task.model.sbml_id
     return ''.join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_config.ini'])
 
 ################################################################################

@@ -19,6 +19,8 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 
+from django.utils.deconstruct import deconstructible
+
 from simapp.storage import OverwriteStorage
 from util.util_classes import EnumType, Enum
 
@@ -90,7 +92,6 @@ class Core(models.Model):
         
     def _get_computer_name(self):
         return COMPUTERS.get(self.ip, self.ip)
-            
     computer = property(_get_computer_name)
 
 #===============================================================================
@@ -99,15 +100,15 @@ class Core(models.Model):
 class CompModelException(Exception):
         pass
 
-class CompModelType(EnumType, Enum):
+class CompModelFormat(EnumType, Enum):
     SBML = "SBML"
     CELLML = "CELLML"
 
 class CompModel(models.Model):
     """ Storage class for models. """
     model_id = models.CharField(max_length=200, unique=True)
-    model_type = models.CharField(max_length=10, choices=CompModelType.choices())
-    file = models.FileField(upload_to='sbml', max_length=200, storage=OverwriteStorage())
+    model_format = models.CharField(max_length=10, choices=CompModelFormat.choices())
+    file = models.FileField(upload_to='model', max_length=200, storage=OverwriteStorage())
     md5 = models.CharField(max_length=36)
     
     def __unicode__(self):
@@ -119,41 +120,44 @@ class CompModel(models.Model):
     
     def _filepath(self):
         return str(self.file.path)
-    filepath = property(_filepath)
+    
+    def _is_format(self, model_format):
+        ''' Always check via the values. '''
+        return self.model_format == model_format.value
     
     def _is_sbml(self):
-        return self.model_type == CompModelType.SBML.value
-    is_sbml = property(_is_sbml)
-    
+        return self._is_format(CompModelFormat.SBML)
+
     def _is_cellml(self):
-        return self.model_type == CompModelType.CELLML.value
-    is_cellml = property(_is_cellml)
+        return self._is_format(CompModelFormat.CELLML)
     
     def _sbml_id(self):
-        if self._is_sbml():
+        if self.is_sbml:
             return str(self.model_id)
         else:
             return None
-    sbml_id = property(_sbml_id)
     
     def _md5_short(self, L=10):
-        print('{}...'.format(self.md5[0:L]) )
         return '{}...'.format(self.md5[0:L])
-    md5_short = property(_md5_short) 
-    
+     
+    filepath = property(_filepath)
+    is_sbml = property(_is_sbml)
+    is_cellml = property(_is_cellml)
+    sbml_id = property(_sbml_id)
+    md5_short = property(_md5_short)
     
     @classmethod
-    def create(cls, model_id, folder, model_type=CompModelType.SBML):
+    def create(cls, model_id, folder, model_format=CompModelFormat.SBML):
         """ Create the model based on the model id. """
         filepath = os.path.join(folder, '{}.xml'.format(model_id))
-        return cls.create_from_file(filepath)
+        return cls.create_from_file(filepath, model_format)
 
     @classmethod
-    def create_from_file(cls, filepath, model_type):
+    def create_from_file(cls, filepath, model_format):
         """ Create model in database based file. """
         from util.util_classes import hash_for_file
-        # is model_type supported
-        CompModelType.check_type(model_type)
+        # is model_format supported
+        CompModelFormat.check_type(model_format)
         # does file exist
         try:
             with open(filepath) as f: pass
@@ -161,7 +165,7 @@ class CompModel(models.Model):
             raise IOError("%s: %s" % (filepath, exc.strerror))
         
         # check if model id and filename are identical
-        if model_type == CompModelType.SBML:
+        if model_format == CompModelFormat.SBML:
             model_id = cls._get_sbml_id_from_file(filepath)
             if ('{}.xml'.format(model_id) != os.path.basename(filepath)):
                 raise CompModelException('SBML model id is not identical to basename of file:, {}, {}'.format(model_id, filepath))
@@ -184,7 +188,7 @@ class CompModel(models.Model):
             f = open(filepath, 'r')
             myfile = File(f)
             logging.info('CompModel created : {}'.format(model_id))
-            return cls(model_id=model_id, file=myfile, md5=md5)
+            return cls(model_id=model_id, model_format=model_format.value, file=myfile, md5=md5)
     
     @classmethod
     def _get_sbml_id_from_file(cls, filepath):
@@ -238,24 +242,26 @@ class Setting(models.Model):
         SettingKey.REL_TOL : 1E-6
     }
     
-    name = models.CharField(max_length=40, choices=SettingKey.choices())
+    key = models.CharField(max_length=40, choices=SettingKey.choices())
     datatype = models.CharField(max_length=40, choices=DataType.choices())
     value = models.CharField(max_length=40)
 
     def __unicode__(self):
-        return "{}={}".format(self.name, self.value) 
+        return "{}={}".format(self.key, self.value) 
 
     @classmethod
     def cast_value(cls, value, datatype):
         """ Cast setting to corresponding datatype. """
-        if datatype == DataType.STRING:
+        if datatype == DataType.STRING.value:
             return str(value)
-        elif datatype == DataType.DOUBLE:
+        elif datatype == DataType.DOUBLE.value:
             return float(value)
-        elif datatype == DataType.INT:
+        elif datatype == DataType.INT.value:
             return int(value)
-        elif datatype == DataType.BOOLEAN:
+        elif datatype == DataType.BOOLEAN.value:
             return bool(value)
+        else:
+            raise DataType.EnumTypeException()
         
     def _cast_value(self):
         return Setting.cast_value(self.datatype, self.value)
@@ -272,58 +278,62 @@ class Setting(models.Model):
         # get settings objects from DB
         settings = []
         for key, value in sdict.iteritems():
-            datatype = Setting.SETTINGS_DATATYPE[key]
+            datatype = Setting.SETTINGS_DATATYPE[key].value
             s, _ = Setting.objects.get_or_create(name=key, value=str(value), 
                                                    datatype=datatype)
             settings.append(s)
         return settings
 
 #===============================================================================
-# Integration
+# Method
 #===============================================================================
-class Integration(models.Model):
-    """ Integration settings are managed via a collection of settings. """
+
+class MethodType(EnumType, Enum):
+    ODE = "ODE"
+    FBA = "FBA"
+    
+
+class Method(models.Model):
+    """ Method settings are managed via a collection of settings. """
+    method_type = models.CharField(max_length=40, choices=MethodType.choices())
     settings = models.ManyToManyField(Setting)
 
     def __unicode__(self):
         return 'I{}'.format(self.pk) 
     
     class Meta:
-        verbose_name = 'Integration Setting'
-        verbose_name_plural = "Integration Settings"
+        verbose_name = 'Method Setting'
+        verbose_name_plural = "Method Settings"
         
     def get_settings_dict(self):
-        return {s.name : s.cast_value for s in self.settings.all()}
+        return {s.key : s.cast_value for s in self.settings.all()}
     
     def get_setting(self, key):
-        s = self.settings.get(name=key)
+        s = self.settings.get(key=key)
         return s.cast_value
         
     def _get_integrator(self):
         return self.get_setting(SettingKey.INTEGRATOR)
     integrator = property(_get_integrator)
         
-        
     @staticmethod
-    def get_or_create_integration(settings):
-        """
-        Tests if the settings set is already defined as integration. 
-        Equality is tested via set equality.
-        """
-        settings_set = frozenset(settings)
-    
-        integration = None
-        for int_test in Integration.objects.all():
-            # the uniqueness is tested via the set equality 
-            if settings_set==frozenset(int_test.settings.all()):
-                integration = int_test
-                break
-        if not integration:
-            integration = Integration()
-            integration.save()
-            integration.settings.add(*settings)
-        return integration
+    def _create_method(method_type, settings):
+        method = Method(method_type=method_type.value)
+        method.save()
+        method.settings.add(*settings)
+        return method
 
+    @staticmethod
+    def get_or_create_method(method_type, settings):
+        """ Find or create the method belonging to the set of settings. """
+        settings_set = frozenset(settings)
+        for method in Method.objects.filter(method_type=method_type):
+            # uniqueness tested via the set equality 
+            if settings_set==frozenset(method.settings.all()):
+                return method
+        else:
+            return Method._create_method(method_type, settings)
+    
 
 #===============================================================================
 # Parameter
@@ -335,35 +345,35 @@ class ParameterType(EnumType, Enum):
     NONE_SBML_PARAMETER = 'NONE_SBML_PARAMETER'    
 
 class Parameter(models.Model):
-    name = models.CharField(max_length=200)
+    key = models.CharField(max_length=200)
     value = models.FloatField()
     unit = models.CharField(max_length=10)
     ptype = models.CharField(max_length=30, choices=ParameterType.choices())
     
     def __unicode__(self):
-        return '{} = {} [{}]'.format(self.name, self.value, self.unit)
+        return '{} = {} [{}]'.format(self.key, self.value, self.unit)
     
     class Meta:
-        unique_together = ("name", "value")
+        unique_together = ("key", "value")
 
 #===============================================================================
 # Task
 #===============================================================================
 class Task(models.Model):
     """ Tasks are defined sets of simulations under consistent conditions.
-        Tasks are compatible on their integration setting and the
+        Tasks are compatible on their method setting and the
         underlying model.
-        Task are uniquely identified via the combination of model, integration
+        Task are uniquely identified via the combination of model, method
         and the information string. Replicates of the same task can be run via
         modifying the info.
     """
-    sbml_model = models.ForeignKey(CompModel)
-    integration = models.ForeignKey(Integration)
+    model = models.ForeignKey(CompModel)
+    method = models.ForeignKey(Method)
     priority = models.IntegerField(default=0)
     info = models.TextField(null=True, blank=True)
     
     class Meta:
-        unique_together = ("sbml_model", "integration", "info")
+        unique_together = ("model", "method", "info")
     
     def __unicode__(self):
         return "T%d" % (self.pk)
@@ -372,7 +382,7 @@ class Task(models.Model):
         return self.simulation_set.count()
     
     def _status_count(self, status):
-        return self.simulation_set.filter(status=status).count()
+        return self.simulation_set.filter(status=status.value).count()
     
     def done_count(self):
         return self._status_count(self, SimulationStatus.DONE)
@@ -386,6 +396,8 @@ class Task(models.Model):
     def error_count(self):
         return self._status_count(self, SimulationStatus.ERROR)
     
+    def _get_setting(self, key):
+        return self.method.settings.get(key=key.value).cast_value
     def _get_integrator(self):
         return self._get_setting(SettingKey.INTEGRATOR)
     def _get_varSteps(self):
@@ -401,9 +413,6 @@ class Task(models.Model):
     def _get_tend(self):
         return self._get_setting(SettingKey.T_END)
     
-    def _get_setting(self, name):
-        return self.integration.settings.get(name=name).cast_value
-    
     integrator = property(_get_integrator)
     varSteps = property(_get_varSteps)
     relTol = property(_get_relTol)
@@ -416,6 +425,7 @@ class Task(models.Model):
 #===============================================================================
 # Simulation
 #===============================================================================
+@ deconstructible
 class SimulationStatus(EnumType, Enum):
     UNASSIGNED = "UNASSIGNED"
     ASSIGNED = "ASSIGNED"
@@ -425,29 +435,29 @@ class SimulationStatus(EnumType, Enum):
 class ErrorSimulationManager(models.Manager):
     def get_queryset(self):
         return super(ErrorSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.ERROR)
+                     self).get_queryset().filter(status=SimulationStatus.ERROR.value)
 
 class UnassignedSimulationManager(models.Manager):
     def get_queryset(self):
         return super(UnassignedSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.UNASSIGNED)
+                     self).get_queryset().filter(status=SimulationStatus.UNASSIGNED.value)
 
 class AssignedSimulationManager(models.Manager):
     def get_queryset(self):
         return super(AssignedSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.ASSIGNED)
+                     self).get_queryset().filter(status=SimulationStatus.ASSIGNED.value)
                      
 class DoneSimulationManager(models.Manager):
     def get_queryset(self):
         return super(DoneSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.DONE)
+                     self).get_queryset().filter(status=SimulationStatus.DONE.value)
 
 
 class Simulation(models.Model):     
     task = models.ForeignKey(Task)
     parameters = models.ManyToManyField(Parameter)
     status = models.CharField(max_length=20, choices=SimulationStatus.choices(), 
-                              default=SimulationStatus.UNASSIGNED)
+                              default=SimulationStatus.UNASSIGNED.value)
     time_create = models.DateTimeField(default=timezone.now)
     time_assign = models.DateTimeField(null=True, blank=True)
     core = models.ForeignKey(Core, null=True, blank=True)
@@ -463,14 +473,16 @@ class Simulation(models.Model):
     def __unicode__(self):
         return 'S%d' % (self.pk)
     
+    def _is_status(self, simulation_status):
+        return self.status == simulation_status.value
     def is_error(self):
-        return self.status == SimulationStatus.ERROR
+        return self._is_status(SimulationStatus.ERROR)
     def is_unassigned(self):
-        return self.status == SimulationStatus.UNASSIGNED
+        return self._is_status(SimulationStatus.UNASSIGNED)
     def is_assigned(self):
-        return self.status == SimulationStatus.ASSIGNED
+        return self._is_status(SimulationStatus.ASSIGNED)
     def is_done(self):
-        return self.status == SimulationStatus.DONE
+        return self._is_status(SimulationStatus.DONE)
     
     def _get_duration(self):
         if (not self.time_assign or not self.time_sim):
@@ -482,7 +494,7 @@ class Simulation(models.Model):
         ''' Simulation did not finish '''
         if not (self.time_assign):
             return False
-        elif (self.status != SimulationStatus.ASSIGNED):
+        elif (self.status != SimulationStatus.ASSIGNED.value):
             return False
         else:
             return (timezone.now() >= self.time_assign+timedelta(minutes=cutoff_minutes))
@@ -497,20 +509,24 @@ class Simulation(models.Model):
 # TODO: handle as result file.
 # This can be a timecourse, but could also be an FBA simulation.
 # Define type.
-
-def result_filename(instance, filename):
-    name = filename.split("/")[-1]
-    return '/'.join(['timecourse', str(instance.simulation.task), name])
+import os
+# TODO: use os.path.join
        
+def result_filename(self, filename):
+    name = filename.split("/")[-1]
+    return '/'.join(['result', str(self.simulation.task), name])
+    
 
-
-class Timecourse(models.Model):
-    ''' Timecourse for simulation. '''
+class Result(models.Model):
+    ''' Result of simulation. '''
     simulation = models.OneToOneField(Simulation, unique=True)
-    file = models.FileField(upload_to=result_filename, max_length=200, storage=OverwriteStorage())
+    file = models.FileField(upload_to=result_filename, 
+                            max_length=200, storage=OverwriteStorage())
     
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
+    
+
     
     def _get_zip_file(self):
         f = self.file.path

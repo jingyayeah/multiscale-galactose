@@ -19,7 +19,7 @@ class ReactionTemplate(object):
     
     def __init__(self, rid, name, equation, compartments, pars, rules, formula):
         self.rid = rid
-        self.name = name
+        self.key = name
         self.equation = Equation(equation)
         self.compartments = compartments
         self.pars = pars
@@ -64,7 +64,7 @@ class ReactionTemplate(object):
         rid = initString(self.rid, initDict)
         r = model.createReaction()
         r.setId(rid)
-        r.setName(initString(self.name, initDict))
+        r.setName(initString(self.key, initDict))
         r.setReversible(self.equation.reversible)
         r.setFast(False);
     

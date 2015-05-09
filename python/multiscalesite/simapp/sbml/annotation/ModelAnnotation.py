@@ -31,7 +31,7 @@ class ModelAnnotation(object):
         self.entity = d['entity'];
     
     def printAnnotation(self):
-        print ("{:<20}"*6).format(self.id, self.sbml_type, self.annotation_type, 
+        print ("{:<20}"*6).model_format(self.id, self.sbml_type, self.annotation_type, 
                                   self.qualifier, self.collection, self.entity)
 
 

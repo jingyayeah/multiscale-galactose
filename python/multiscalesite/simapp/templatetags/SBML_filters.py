@@ -50,11 +50,11 @@ def SBML_unitDefinitionToString(udef):
         
         # (multiplier * 10^scale *ukind)^exponent
         if (s == 0 and e == 1):
-            string = '{}{}'.format(m, k)
+            string = '{}{}'.model_format(m, k)
         elif (s == 0) and (m == ''):
-            string = '{}^{}'.format(k,e)
+            string = '{}^{}'.model_format(k,e)
         else:
-            string = '({}10^{}*{})^{}'.format(m, s, k, e)
+            string = '({}10^{}*{})^{}'.model_format(m, s, k, e)
         items.append(string)
     return ' * '.join(items)
 
@@ -94,13 +94,13 @@ def halfEquation(speciesList):
         stoichiometry = sr.getStoichiometry()
         species = sr.getSpecies()
         if abs(stoichiometry-1.0)<1E-8:
-            sd = '{}'.format(species)
+            sd = '{}'.model_format(species)
         elif abs(stoichiometry+1.0)<1E-8:
-            sd = '-{}'.format(species)
+            sd = '-{}'.model_format(species)
         elif (stoichiometry > 0):
-            sd = '{} {}'.format(stoichiometry, species)
+            sd = '{} {}'.model_format(stoichiometry, species)
         elif (stoichiometry < 0):  
-            sd = '-{} {}'.format(stoichiometry, species)
+            sd = '-{} {}'.model_format(stoichiometry, species)
         items.append(sd)
     return ' + '.join(items)
 
@@ -130,5 +130,5 @@ def modelHistoryToString(mhistory):
     return "<br />".join(items)
 
 def dateToString(d):
-    return "{}-{:0>2d}-{:0>2d} {:0>2d}:{:0>2d}".format(d.getYear(), d.getMonth(), d.getDay(), 
+    return "{}-{:0>2d}-{:0>2d} {:0>2d}:{:0>2d}".model_format(d.getYear(), d.getMonth(), d.getDay(), 
                                        d.getHour(), d.getMinute())

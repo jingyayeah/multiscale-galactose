@@ -21,7 +21,7 @@ def _setup_macros_dict(parser):
 class DefineMacroNode(template.Node):
     def __init__(self, name, nodelist, args):
 
-        self.name = name
+        self.key = name
         self.nodelist = nodelist
         self.args = []
         self.kwargs = {}
@@ -85,7 +85,7 @@ def do_loadmacros(parser, token):
     ## in the template when processing 'usemacro' tags.
     _setup_macros_dict(parser)
     for macro in macros:
-        parser._macros[macro.name] = macro
+        parser._macros[macro.key] = macro
     return LoadMacrosNode()
 
 
@@ -115,8 +115,8 @@ class UseMacroNode(template.Node):
                                                  ).resolve(context)
 
         # Place output into context variable
-        context[self.macro.name] = self.macro.nodelist.render(context)
-        return '' if self.context_only else context[self.macro.name]
+        context[self.macro.key] = self.macro.nodelist.render(context)
+        return '' if self.context_only else context[self.macro.key]
 
 
 def parse_usemacro(parser, token):
@@ -146,7 +146,7 @@ def parse_usemacro(parser, token):
             # no validation, go for it ...
             fe_args.append(FilterExpression(val, parser))
 
-    macro.name = macro_name
+    macro.key = macro_name
     macro.parser = parser
     return macro, fe_args, fe_kwargs
 

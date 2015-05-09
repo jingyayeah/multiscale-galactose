@@ -37,9 +37,9 @@ def sbmlmodel_from_id(sbml_id, sync=True):
     return model
 
 def sbmlmodel_from_file(sbml_file, sync=False):
-    from simapp.models import CompModelType
+    from simapp.models import CompModelFormat
     ''' Creates the model from given sbml file. '''
-    model = CompModel.create_from_file(sbml_file, model_type=CompModelType.SBML)
+    model = CompModel.create_from_file(sbml_file, format=CompModelFormat.SBML)
     model.save()
     if sync: 
         _sync_sbml_in_network()
@@ -70,7 +70,7 @@ def create_task(model, integration, info='', priority=0):
         task = Task(sbml_model=model, integration=integration, 
                     info=info, priority=priority)
     task.save()
-    logging.info("Task created/updated: {}".format(task))    
+    logging.info("Task created/updated: {}".model_format(task))    
     return task
 
 

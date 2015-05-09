@@ -60,10 +60,10 @@ def worker(cpu, lock, Nsim):
         
         # Perform ODE integration
         if (sims):
-            print '{:<20} <{}> {}'.format(core, task, sims)
+            print '{:<20} <{}> {}'.model_format(core, task, sims)
             ode_integration.integrate(sims, task.integrator)
         else:
-            print '{:<20} <No Simulations>'.format(core)
+            print '{:<20} <No Simulations>'.model_format(core)
             time.sleep(10)
 
 

@@ -162,7 +162,7 @@ if __name__ == "__main__":
     xmlfile = csvfile[0:-4] + '_flux.xml'
     print xmlfile
     
-    sbmlfile = str(sim.task.sbml_model.file.path)
+    sbmlfile = str(sim.task.model.file.path)
     print sbmlfile
     
     document = readSBML(sbmlfile)

@@ -93,7 +93,7 @@ def make_galactose_core(sbml_id, N):
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
-    integration = Integration.get_or_create_integration(settings)
+    integration = Method.get_or_create_integration(settings)
     task = simfac.create_task(model, integration, info=info)
     simfac.createSimulationsForSamples(task, samples)
     
@@ -101,7 +101,7 @@ def make_galactose_core(sbml_id, N):
 
 #----------------------------------------------------------------------#
 def make_galactose_dilution(sbml_id, N, sampling):
-    info = 'Multiple-indicator dilution curves II({})'.format(sampling)
+    info = 'Multiple-indicator dilution curves II({})'.model_format(sampling)
     model = simfac.django_model_from_id(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     
     # adapt flow in samples with the given f_flows
@@ -120,7 +120,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
-    integration = Integration.get_or_create_integration(settings)
+    integration = Method.get_or_create_integration(settings)
     task = simfac.create_task(model, integration, info=info, priority=0)
     # createSimulationsForSamples(task, samples)
 
@@ -128,7 +128,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
 
 #----------------------------------------------------------------------#
 def make_galactose_challenge(sbml_id, N, sampling):        
-    info = 'Galactose challenge periportal ({})'.format(sampling)
+    info = 'Galactose challenge periportal ({})'.model_format(sampling)
     model = simfac.django_model_from_id(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     
     # parameter samples
@@ -139,7 +139,7 @@ def make_galactose_challenge(sbml_id, N, sampling):
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':100} )
-    integration = Integration.get_or_create_integration(settings)
+    integration = Method.get_or_create_integration(settings)
     task = simfac.create_task(model, integration, info=info)
     simfac.createSimulationsForSamples(task, samples)
     
@@ -157,12 +157,12 @@ def make_galatose_flow_samples(N, sampling, f_flows, gal_challenge):
 
 
 def make_elimination_curve(sbml_id, sampling, samples):        
-    info = 'Galactose elimination ({}).'.format(sampling)
+    info = 'Galactose elimination ({}).'.model_format(sampling)
     model = simfac.django_model_from_id(sbml_id, sync=SYNC_BETWEEN_SERVERS)
         
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
-    integration = Integration.get_or_create_integration(settings)
+    integration = Method.get_or_create_integration(settings)
     task = simfac.create_task(model, integration, info=info)
     simfac.createSimulationsForSamples(task, samples)
 
@@ -187,14 +187,14 @@ def make_galactose_aging(sbml_id, sampling, samples):
     
     
     for k in range(len(y_end)):
-        info = 'Galactose elimination age {} ({}).'.format(age[k], sampling)
+        info = 'Galactose elimination age {} ({}).'.model_format(age[k], sampling)
         p_list = [ {'pid': 'y_end', 'values': (y_end[k],) , 'unit': 'nm', 'ptype':GLOBAL_PARAMETER},
                    {'pid': 'N_fen', 'values': (N_fen[k],), 'unit': 'per_m2', 'ptype':GLOBAL_PARAMETER}]
         nsamples = simfac.setParameterValuesInSamples(samples, p_list)
         
         # simulations
         settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
-        integration = Integration.get_or_create_integration(settings)
+        integration = Method.get_or_create_integration(settings)
         task = simfac.create_task(model, integration, info=info)
         simfac.createSimulationsForSamples(task, nsamples)
 
@@ -207,13 +207,13 @@ def make_galactose_vmax(sbml_id, sampling, samples):
     # age represents : [20, 40, 60, 80, 100]
     GALK_PA = [0.024*x for x in [0.5, 0.75, 0.9, 1, 1.1, 1.5]]  # [-]
     for k in range(len(GALK_PA)):
-        info = 'Galactose elimination GALK Vmax {} ({}).'.format(GALK_PA[k], sampling)
+        info = 'Galactose elimination GALK Vmax {} ({}).'.model_format(GALK_PA[k], sampling)
         p_list = [ {'pid': 'GALK_PA', 'values': (GALK_PA[k],), 'unit': '-', 'ptype':GLOBAL_PARAMETER}, ]
         nsamples = simfac.setParameterValuesInSamples(samples, p_list)
     
         # simulations
         settings = Setting.get_settings( {'tstart':0.0, 'tend':10000.0, 'steps':50} )
-        integration = Integration.get_or_create_integration(settings)
+        integration = Method.get_or_create_integration(settings)
         task = simfac.create_task(model, integration, info=info)
         simfac.createSimulationsForSamples(task, nsamples)
 
@@ -222,7 +222,7 @@ def make_galactose_vmax(sbml_id, sampling, samples):
 
 #----------------------------------------------------------------------#
 def make_galactose_step(sbml_id, N, sampling):        
-    info = 'Stepwise increase of periportal galactose ({})'.format(sampling)
+    info = 'Stepwise increase of periportal galactose ({})'.model_format(sampling)
     model = simfac.django_model_from_id(sbml_id, sync=SYNC_BETWEEN_SERVERS)
     
     # parameter samples
@@ -230,7 +230,7 @@ def make_galactose_step(sbml_id, N, sampling):
     
     # simulations
     settings = Setting.get_settings( {'tstart':0.0, 'tend':30000.0, 'steps':100} )
-    integration = Integration.get_or_create_integration(settings)
+    integration = Method.get_or_create_integration(settings)
     task = simfac.create_task(model, integration, info=info)
     simfac.createSimulationsForSamples(task, samples)
     
@@ -242,13 +242,13 @@ def derive_deficiency_simulations(task, samples, deficiencies):
         creates the corresponding deficiency simulations. 
         The information is stored in the settings dict
         '''
-    sdict = task.integration.get_settings_dict()
+    sdict = task.method.get_settings_dict()
     for d in deficiencies:
         sdict['condition'] = 'GDEF_' + str(d)
         settings = Setting.get_settings(sdict)
-        integration = Integration.get_or_create_integration(settings)
+        integration = Method.get_or_create_integration(settings)
         # Creates a new derived task (the integr
-        task_d = simfac.create_task(task.sbml_model, integration, info=task.info)
+        task_d = simfac.create_task(task.model, integration, info=task.info)
         
         # create the simulations (adaption of samples)
         samples = setDeficiencyInSamples(samples, deficiency=d)
@@ -265,9 +265,9 @@ if __name__ == "__main__":
     # Varying galatose under constant flow
     if (1):
         
-        sbml_id = 'Galactose_v{}_Nc20_core'.format(VERSION)
+        sbml_id = 'Galactose_v{}_Nc20_core'.model_format(VERSION)
         # create model from file
-        model = simfac.django_model_from_file(sbml_file='../../examples/{}.xml'.format(sbml_id), sync=False)
+        model = simfac.django_model_from_file(sbml_file='../../examples/{}.xml'.model_format(sbml_id), sync=False)
         [task, samples] = make_galactose_core(sbml_id, N=1)
     
     
@@ -294,7 +294,7 @@ if __name__ == "__main__":
         flow distributions to various mean flow values. These curves have
         to be calculated for varying galactose challenges.
         '''
-        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".model_format(VERSION)
         # samples
         task = make_elimination_curve(sbml_id, sampling='distribution', 
                                       samples=dist_samples)
@@ -308,7 +308,7 @@ if __name__ == "__main__":
         ''' GEC curves in aging. 
             Age dependent change in N_fen and y_end.
         '''
-        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".model_format(VERSION)
         # samples
         make_galactose_aging(sbml_id, sampling='distribution', 
                                     samples=dist_samples)
@@ -321,7 +321,7 @@ if __name__ == "__main__":
         ''' GEC curves under varying metabolic capacity of galactose metabolism. 
             Change in the maximal scale of metabolism.
         '''
-        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".model_format(VERSION)
         # sample from distribution & add additional changes in aging
         make_galactose_vmax(sbml_id, sampling='distribution',
                                             samples=dist_samples)
@@ -343,7 +343,7 @@ if __name__ == "__main__":
         A correction factor of ~2.3 was applied to the reported galactose values of
         PP__gal = (2.3, 5, 14.8, 19.8) # [mM]
         '''
-        sbml_id = 'Galactose_v{}_Nc20_dilution'.format(VERSION)
+        sbml_id = 'Galactose_v{}_Nc20_dilution'.model_format(VERSION)
         PP__gal = (0.28, 12.5, 17.5) # [mM]
         # PP__gal = (2.58, 14.8, 19.8)   # [mM]
         
@@ -371,7 +371,7 @@ if __name__ == "__main__":
     #----------------------------------------------------------------------#
     if (0):
         ''' Galactose challenge in galactosemias. '''
-        sbml_id = "Galactose_v{}_Nc20_galchallenge".format(VERSION)
+        sbml_id = "Galactose_v{}_Nc20_galchallenge".model_format(VERSION)
         deficiencies = range(1, 24)
         
         # Create deficiency samples belonging to the original samples
@@ -400,10 +400,10 @@ if __name__ == "__main__":
     if (0):
         ''' Galactose stepwise increase. '''
         # sample from distribution
-        task, samples = make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".format(VERSION), 
+        task, samples = make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".model_format(VERSION), 
                                             N=100, sampling='distribution')
         # mean sinusoidal unit
-        task, samples = make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".format(VERSION), 
+        task, samples = make_galactose_step(sbml_id="Galactose_v{}_Nc20_galstep".model_format(VERSION), 
                                             N=1, sampling='mean')
 
 ####################################################################################

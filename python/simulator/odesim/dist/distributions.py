@@ -98,7 +98,7 @@ class Dist(object):
                                        self.pars[DistParsType.STDLOG].value, 
                                        N)
         else:
-            raise Dist.DistException('DistType not supported: {}'.format(self.dtype))
+            raise Dist.DistException('DistType not supported: {}'.model_format(self.dtype))
         
         if N == 1:
             return data[0]
@@ -109,7 +109,7 @@ class Dist(object):
         if self.dtype in (DistType.CONSTANT, DistType.NORMAL, DistType.LOGNORMAL):
             return self.pars[DistParsType.MEAN].value
         else:
-            raise Dist.DistException('DistType not supported: {}'.format(self.dtype))
+            raise Dist.DistException('DistType not supported: {}'.model_format(self.dtype))
     
     def convert_lognormal_mean_std(self):
         ''' Convert lognormal mean, std => meanlog and stdlog. '''
@@ -149,7 +149,7 @@ class Dist(object):
             self.pars[DistParsType.STDLOG]
             
         else:
-            raise Dist.DistException('DistType not supported: {}'.format(self.dtype))
+            raise Dist.DistException('DistType not supported: {}'.model_format(self.dtype))
 
     def check_parameters(self):
         ''' Check consistency of parameters within distribution. '''
@@ -180,7 +180,7 @@ class Dist(object):
             pass
         
     def __repr__(self):
-        return '{} : {}'.format(self.dtype, self.pars)
+        return '{} : {}'.model_format(self.dtype, self.pars)
 
 
 

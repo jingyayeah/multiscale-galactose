@@ -18,7 +18,7 @@ reload(settings)
 #########################################################################    
 # Load model
 #########################################################################    
-sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_galchallenge.xml'.format(settings.VERSION)
+sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_galchallenge.xml'.model_format(settings.VERSION)
 r = rt.load_model(sbml_file)
 
 #########################################################################    
@@ -26,11 +26,11 @@ r = rt.load_model(sbml_file)
 #########################################################################    
 compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']
 sel = ['time']
-sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
-sel += ['[PV__{}]'.format(item) for item in compounds]
-sel += ['[PP__{}]'.format(item) for item in compounds]
-sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
-sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
+sel += ['[{}]'.model_format(item) for item in r.model.getBoundarySpeciesIds()]
+sel += ['[PV__{}]'.model_format(item) for item in compounds]
+sel += ['[PP__{}]'.model_format(item) for item in compounds]
+sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel += ["peak"]

@@ -23,7 +23,7 @@ reload(gf)
 # Flux integration of curves
 #########################################################################  
 # sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution_gauss.xml'.format(VERSION)
-sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(settings.VERSION)
+sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.model_format(settings.VERSION)
 r = rt.load_model(sbml_file)
 
 # selection
@@ -81,7 +81,7 @@ weights = p_flux * Q_sinunit
 weights = weights/sum(weights)
 
 compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-ids = ['[PV__{}]'.format(id) for id in compounds]    
+ids = ['[PV__{}]'.model_format(id) for id in compounds]    
 cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
 timepoints=np.arange(settings.T_PEAK-5, settings.T_PEAK+35, 0.01)

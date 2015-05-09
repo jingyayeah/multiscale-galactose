@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('model_id', models.CharField(unique=True, max_length=200)),
-                ('model_type', models.CharField(max_length=10, choices=[(b'CELLML', b'CELLML'), (b'SBML', b'SBML')])),
-                ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=b'sbml')),
+                ('model_format', models.CharField(max_length=10, choices=[(b'CELLML', b'CELLML'), (b'SBML', b'SBML')])),
+                ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=b'model')),
                 ('md5', models.CharField(max_length=36)),
             ],
             options={
@@ -41,31 +41,39 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Integration',
+            name='Method',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('method_type', models.CharField(max_length=40, choices=[(b'FBA', b'FBA'), (b'ODE', b'ODE')])),
             ],
             options={
-                'verbose_name': 'Integration Setting',
-                'verbose_name_plural': 'Integration Settings',
+                'verbose_name': 'Method Setting',
+                'verbose_name_plural': 'Method Settings',
             },
         ),
         migrations.CreateModel(
             name='Parameter',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=200)),
+                ('key', models.CharField(max_length=200)),
                 ('value', models.FloatField()),
                 ('unit', models.CharField(max_length=10)),
                 ('ptype', models.CharField(max_length=30, choices=[(b'BOUNDERY_INIT', b'BOUNDERY_INIT'), (b'FLOATING_INIT', b'FLOATING_INIT'), (b'GLOBAL_PARAMETER', b'GLOBAL_PARAMETER'), (b'NONE_SBML_PARAMETER', b'NONE_SBML_PARAMETER')])),
             ],
         ),
         migrations.CreateModel(
+            name='Result',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=simapp.models.result_filename)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Setting',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=40, choices=[(b'varSteps', b'varSteps'), (b'relTol', b'relTol'), (b'absTol', b'absTol'), (b'integrator', b'integrator'), (b'tend', b'tend'), (b'steps', b'steps'), (b'tstart', b'tstart'), (b'condition', b'condition')])),
-                ('datatype', models.CharField(max_length=40, choices=[(b'string', b'string'), (b'double', b'double'), (b'int', b'int'), (b'boolean', b'boolean')])),
+                ('key', models.CharField(max_length=40, choices=[(b'ABS_TOL', b'ABS_TOL'), (b'REL_TOL', b'REL_TOL'), (b'STEPS', b'STEPS'), (b'T_END', b'T_END'), (b'T_START', b'T_START'), (b'VAR_STEPS', b'VAR_STEPS'), ((b'INTEGRATOR',), (b'INTEGRATOR',))])),
+                ('datatype', models.CharField(max_length=40, choices=[(b'BOOLEAN', b'BOOLEAN'), (b'DOUBLE', b'DOUBLE'), (b'INT', b'INT'), (b'STRING', b'STRING')])),
                 ('value', models.CharField(max_length=40)),
             ],
         ),
@@ -73,7 +81,7 @@ class Migration(migrations.Migration):
             name='Simulation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('status', models.CharField(default=b'UNASSIGNED', max_length=20, choices=[(b'UNASSIGNED', b'unassigned'), (b'ASSIGNED', b'assigned'), (b'ERROR', b'error'), (b'DONE', b'done')])),
+                ('status', models.CharField(default=b'UNASSIGNED', max_length=20, choices=[(b'ASSIGNED', b'ASSIGNED'), (b'DONE', b'DONE'), (b'ERROR', b'ERROR'), (b'UNASSIGNED', b'UNASSIGNED')])),
                 ('time_create', models.DateTimeField(default=django.utils.timezone.now)),
                 ('time_assign', models.DateTimeField(null=True, blank=True)),
                 ('time_sim', models.DateTimeField(null=True, blank=True)),
@@ -87,16 +95,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('priority', models.IntegerField(default=0)),
                 ('info', models.TextField(null=True, blank=True)),
-                ('integration', models.ForeignKey(to='simapp.Integration')),
-                ('sbml_model', models.ForeignKey(to='simapp.CompModel')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Timecourse',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=simapp.models.timecourse_filename)),
-                ('simulation', models.OneToOneField(to='simapp.Simulation')),
+                ('method', models.ForeignKey(to='simapp.Method')),
+                ('model', models.ForeignKey(to='simapp.CompModel')),
             ],
         ),
         migrations.AddField(
@@ -104,12 +104,17 @@ class Migration(migrations.Migration):
             name='task',
             field=models.ForeignKey(to='simapp.Task'),
         ),
+        migrations.AddField(
+            model_name='result',
+            name='simulation',
+            field=models.OneToOneField(to='simapp.Simulation'),
+        ),
         migrations.AlterUniqueTogether(
             name='parameter',
-            unique_together=set([('name', 'value')]),
+            unique_together=set([('key', 'value')]),
         ),
         migrations.AddField(
-            model_name='integration',
+            model_name='method',
             name='settings',
             field=models.ManyToManyField(to='simapp.Setting'),
         ),
@@ -119,6 +124,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='task',
-            unique_together=set([('sbml_model', 'integration', 'info')]),
+            unique_together=set([('model', 'method', 'info')]),
         ),
     ]

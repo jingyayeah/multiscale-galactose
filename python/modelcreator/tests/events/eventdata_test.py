@@ -19,7 +19,7 @@ class TestEventData(unittest.TestCase):
         e = EventData(eid, name, trigger, assignments)
         
         self.assertEqual(e.eid, eid)
-        self.assertEqual(e.name, name)
+        self.assertEqual(e.key, name)
         self.assertEqual(e.trigger, trigger)
         self.assertEqual(e.assignments, assignments)
     

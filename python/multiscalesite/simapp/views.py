@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from simapp.models import CompModel, Core, Simulation, Timecourse, Task, Integration
+from simapp.models import CompModel, Core, Simulation, Result, Task, Method
 
 PAGINATE_ENTRIES = 30
 
@@ -77,7 +77,7 @@ def task_parameters(request, task_id):
 #===============================================================================
 def integrations(request):
     """ Overview of integration settings. """
-    integrations_list = Integration.objects.order_by("pk")
+    integrations_list = Method.objects.order_by("pk")
     template = loader.get_template('simapp/integrations.html')
     context = RequestContext(request, {
         'integrations_list': integrations_list,
@@ -135,26 +135,25 @@ def simulation(request, simulation_id):
 
 
 #===============================================================================
-# Timecourses
+# Results
 #===============================================================================
-def timecourses(request):
-    """ Overview of Timecourses. """
-    tc_list = Timecourse.objects.all()
-    paginator = Paginator(tc_list, PAGINATE_ENTRIES)
+def results(request):
+    """ Overview of Results. """
+    results_all = Result.objects.all()
+    paginator = Paginator(results_all, PAGINATE_ENTRIES)
     page = request.GET.get('page')
     try:
-        timecourses = paginator.page(page)
+        results = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        timecourses = paginator.page(1)
+        results = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        timecourses = paginator.page(paginator.num_pages)
+        results = paginator.page(paginator.num_pages)
     
-    tc_list = Timecourse.objects.all()
-    template = loader.get_template('simapp/timecourses.html')
+    template = loader.get_template('simapp/results.html')
     context = RequestContext(request, {
-        'timecourses': timecourses,
+        'results': results,
     })
     return HttpResponse(template.render(context))
 

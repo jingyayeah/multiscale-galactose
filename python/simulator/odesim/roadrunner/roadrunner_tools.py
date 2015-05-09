@@ -24,11 +24,11 @@ from pandas import DataFrame
 def load_model(sbml):
     ''' Load an SBML file in roadrunner providing information about load
         time and file. '''
-    print('Loading : {}'.format(sbml))
+    print('Loading : {}'.model_format(sbml))
     start = time.time()
     r = roadrunner.RoadRunner(sbml)
     duration = time.time() - start
-    print('SBML load time : {}'.format(duration))
+    print('SBML load time : {}'.model_format(duration))
     return r
 
 #########################################################################    
@@ -48,7 +48,7 @@ def simulation(r, parameters, inits, t_start=0, t_stop=10000, absTol=1E-8, relTo
     # concentration backup
     conc_backup = dict()    
     for sid in r.model.getFloatingSpeciesIds():
-        conc_backup[sid] = r["[{}]".format(sid)]    
+        conc_backup[sid] = r["[{}]".model_format(sid)]    
     
     # change parameters & recalculate initial assignments
     changed = _set_parameters(r, parameters)
@@ -56,7 +56,7 @@ def simulation(r, parameters, inits, t_start=0, t_stop=10000, absTol=1E-8, relTo
     
     # restore initial concentrations
     for key, value in conc_backup.iteritems():
-        r.model['[{}]'.format(key)] = value    
+        r.model['[{}]'.model_format(key)] = value    
     
     # set changed concentrations
     _set_initial_concentrations(r, inits)
@@ -79,7 +79,7 @@ def simulation(r, parameters, inits, t_start=0, t_stop=10000, absTol=1E-8, relTo
     r.reset()    
     
     if info:
-        print('Integration time: {}'.format(t_int))
+        print('Integration time: {}'.model_format(t_int))
     
     return (s, gp)
 
@@ -98,7 +98,7 @@ def _set_initial_concentrations(r, inits):
     changed = dict()
     for key, value in inits.iteritems():
         changed[key] = r.model[key]
-        name = 'init([{}])'.format(key)
+        name = 'init([{}])'.model_format(key)
         r.model[name] = value
     return changed
 

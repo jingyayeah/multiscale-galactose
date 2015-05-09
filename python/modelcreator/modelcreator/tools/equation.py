@@ -99,16 +99,16 @@ class Equation(object):
         return ' + '.join(tokens)
     
     def toStringModifiers(self):
-        return '[{}]'.format(', '.join(self.modifiers))
+        return '[{}]'.model_format(', '.join(self.modifiers))
     
     def info(self):
         lines = [
-                 '{:<10s} : {}'.format('raw', self.raw),
-                 '{:<10s} : {}'.format('parsed', self.toString()),
-                 '{:<10s} : {}'.format('reversible', self.reversible),
-                 '{:<10s} : {}'.format('reactants', self.reactants),
-                 '{:<10s} : {}'.format('products', self.products),
-                 '{:<10s} : {}'.format('modifiers', self.modifiers),
+                 '{:<10s} : {}'.model_format('raw', self.raw),
+                 '{:<10s} : {}'.model_format('parsed', self.toString()),
+                 '{:<10s} : {}'.model_format('reversible', self.reversible),
+                 '{:<10s} : {}'.model_format('reactants', self.reactants),
+                 '{:<10s} : {}'.model_format('products', self.products),
+                 '{:<10s} : {}'.model_format('modifiers', self.modifiers),
                  '\n'
                  ]
         print '\n'.join(lines)

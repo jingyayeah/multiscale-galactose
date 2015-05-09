@@ -42,10 +42,10 @@ class SampleParameter(object):
             return cls(p.key, p.value, p.unit, p.ptype)
         else:
             # Django parameter
-            return cls(p.name, p.value, p.unit, p.ptype)
+            return cls(p.key, p.value, p.unit, p.ptype)
     
     def __repr__(self):
-        return "<{} = {:.3E} [{}] ({})>".format(self.key, self.value, 
+        return "<{} = {:.3E} [{}] ({})>".model_format(self.key, self.value, 
                                                 self.unit, self.ptype)
     
 

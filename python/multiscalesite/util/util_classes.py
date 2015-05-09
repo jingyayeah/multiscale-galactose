@@ -8,6 +8,8 @@ Created on May 6, 2015
 from __future__ import print_function
 from enum import Enum
 
+
+
 class EnumType(object):
     ''' Template class for all EnumTypes. '''
     class EnumTypeException(Exception):

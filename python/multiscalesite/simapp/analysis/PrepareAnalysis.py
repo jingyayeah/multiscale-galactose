@@ -38,7 +38,7 @@ def prepareDataForAnalysis(task):
     print directory
 
     # copy SBML
-    sbml_file = str(task.sbml_model.file.path)
+    sbml_file = str(task.model.file.path)
     shutil.copy2(sbml_file, directory)
     
     # create parameter file

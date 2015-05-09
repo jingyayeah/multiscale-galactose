@@ -58,7 +58,7 @@ def flux_plots(f_list, selections, xlim=None, ylim=None, show=True):
     Plot perivenious dilution curves.
     '''
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    ids = ['[PV__{}]'.format(id) for id in compounds]    
+    ids = ['[PV__{}]'.model_format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     
     import pylab as p    
@@ -72,7 +72,7 @@ def flux_plots(f_list, selections, xlim=None, ylim=None, show=True):
             p.ylim(ylim)
         p.xlabel('time [s]')
         p.ylabel(sid) 
-        p.savefig('flux_plots/flux_{}.png'.format(sid), dpi=200)
+        p.savefig('flux_plots/flux_{}.png'.model_format(sid), dpi=200)
         if show:
             p.show()
 
@@ -82,7 +82,7 @@ def average_plots(time, av_mats, xlim=None, ylim=None, show=True):
         Plot of the averate dilution curves 
     '''
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    ids = ['PV__{}'.format(id) for id in compounds]    
+    ids = ['PV__{}'.model_format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     
     import pylab as p  
@@ -158,7 +158,7 @@ def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_p
 
     # simulations
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    ids = ['PV__{}'.format(id) for id in compounds]    
+    ids = ['PV__{}'.model_format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
     for av_mat in av_mats:
@@ -192,7 +192,7 @@ def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0,
 
     # simulations
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    ids = ['PV__{}'.format(id) for id in compounds]    
+    ids = ['PV__{}'.model_format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
     for av_mat in av_mats:

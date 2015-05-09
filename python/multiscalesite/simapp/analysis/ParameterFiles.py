@@ -20,7 +20,7 @@ def getParameterFilenameForTask(task, folder=None):
     if (not folder):
         folder = "/home/mkoenig/multiscale-galactose-results/"
 
-    mname = task.sbml_model.sbml_id
+    mname = task.model.sbml_id
     return ''.join([folder, "/", str(task), "_", mname, "_parameters.csv"])
 
 def createParameterFileForTask(task, folder=None):
@@ -64,10 +64,10 @@ def createParameterInfoForTask(task):
         data['duration'].append(sim.duration)
         # add all the parameters
         for p in sim.parameters.all():
-            if data.has_key(p.name):
-                data[p.name].append(p.value)
+            if data.has_key(p.key):
+                data[p.key].append(p.value)
             else:
-                data[p.name] = [p.value]
+                data[p.key] = [p.value]
     
     # check that everything has the same length
     # this has to be guaranteed by the odesim generator

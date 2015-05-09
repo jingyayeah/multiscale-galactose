@@ -35,8 +35,8 @@ def integrate_copasi(sims):
         TODO: Update to latest Copasi source & test.
         TODO: Use the python interface to solve the problem.
     '''
-    sbml_file = str(sims[0].task.sbml_model.file.path)
-    sbml_id = sims[0].task.sbml_model.sbml_id
+    sbml_file = str(sims[0].task.model.file.path)
+    sbml_id = sims[0].task.model.sbml_id
     for sim in sims:  
         try:
             sim.time_assign = timezone.now()            # correction due to bulk assignment
@@ -60,8 +60,8 @@ def integrate_roadrunner(sims, keep_tmp=False):
     
     # read SBML
     try:
-        sbml_file = str(sims[0].task.sbml_model.file.path)
-        sbml_id = sims[0].task.sbml_model.sbml_id
+        sbml_file = str(sims[0].task.model.file.path)
+        sbml_id = sims[0].task.model.sbml_id
         
         start = time.clock()
         rr = roadrunner.RoadRunner(sbml_file)
@@ -86,7 +86,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
     rr.selections = sel
 
     # use the integration settings (adapt absTol to amounts)
-    sdict = sims[0].task.integration.get_settings_dict()
+    sdict = sims[0].task.method.get_settings_dict()
     absTol = sdict['absTol'] * min(rr.model.getCompartmentVolumes())
     relTol = sdict['relTol']
     varSteps = sdict['varSteps']
@@ -96,7 +96,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
     # for sid in rr.model.getBoundarySpeciesIds():
     #    conc_backup[sid] = rr["[{}]".format(sid)]    
     for sid in rr.model.getFloatingSpeciesIds():
-        conc_backup[sid] = rr["[{}]".format(sid)]
+        conc_backup[sid] = rr["[{}]".model_format(sid)]
     
     for sim in sims:
         try:
@@ -107,7 +107,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             changes = dict()
             for p in sim.parameters.all():
                 if (p.ptype == GLOBAL_PARAMETER):
-                    name = str(p.name)
+                    name = str(p.key)
                     changes[name] = rr.model[name]
                     rr.model[name] = p.value
                     # print 'set', name, ' = ', p.value
@@ -117,18 +117,18 @@ def integrate_roadrunner(sims, keep_tmp=False):
             
             # restore initial concentrations
             for key, value in conc_backup.iteritems():
-                rr.model['[{}]'.format(key)] = value
+                rr.model['[{}]'.model_format(key)] = value
             
             # apply concentration changes
             for p in sim.parameters.all():
                 if (p.ptype in [NONE_SBML_PARAMETER, GLOBAL_PARAMETER]):
                     continue
                 
-                name = str(p.name) 
+                name = str(p.key) 
                 if (p.ptype == BOUNDERY_INIT):
-                    name = '[{}]'.format(name)
+                    name = '[{}]'.model_format(name)
                 elif (p.ptype == FLOATING_INIT):
-                    name = 'init([{}])'.format(name)
+                    name = 'init([{}])'.model_format(name)
                 
                 changes[name] = rr.model[name]
                 rr.model[name] = p.value
@@ -152,7 +152,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             ode_io.store_timecourse_csv(csv_file, data=s, header=sel)
             ode_io.store_timecourse_db(sim, filepath=csv_file, ftype=ode_io.FileType.CSV, keep_tmp=True)
             tmp = time.time() - tmp
-            print "CSV: {}".format(tmp)
+            print "CSV: {}".model_format(tmp)
             
             # Store in HDF5
             h5_file = ode_io.hdf5_file(sbml_id, sim)
@@ -160,7 +160,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             ode_io.store_timecourse_hdf5(h5_file, data=s, header=sel)
             ode_io.store_timecourse_db(sim, filepath=h5_file, ftype=ode_io.FileType.HDF5)
             tmp = time.time() - tmp
-            print "HDF5: {}".format(tmp)
+            print "HDF5: {}".model_format(tmp)
             
             # reset parameter changes
             for key, value in changes.iteritems():
@@ -170,7 +170,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             # reset initial concentrations
             rr.reset()
             time_total = time.time()-tstart_total
-            print 'Time: [{:.3f}|{:.3f} |{:.2f}]'.format(time_total, t_int, t_int/time_total*100 )
+            print 'Time: [{:.3f}|{:.3f} |{:.2f}]'.model_format(time_total, t_int, t_int/time_total*100 )
             
         except:
             integration_exception(sim)

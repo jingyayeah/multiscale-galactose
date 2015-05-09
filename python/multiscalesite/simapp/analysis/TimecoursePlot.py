@@ -27,10 +27,10 @@ def task_histogram(task, folder):
     data = dict()
     for sim in task.simulation_set.all():
         for p in sim.parameters.parameters.all():
-            if data.has_key(p.name):
-                data[p.name].append(p.value)
+            if data.has_key(p.key):
+                data[p.key].append(p.value)
             else:
-                data[p.name] = [p.value]
+                data[p.key] = [p.value]
     
     # create histogram for every parameter
     Np = len(data.keys())
@@ -89,7 +89,7 @@ def pppv_plot(sim, folder):
 
     # scatter(X,Y, s=75, c=T, alpha=.5)
 
-    filename = folder + "/" + sim.task.sbml_model.sbml_id + "_pppv.png"
+    filename = folder + "/" + sim.task.model.sbml_id + "_pppv.png"
     plt.savefig(filename, dpi=72, bbox_inches='tight')
     print("Figure created")
         

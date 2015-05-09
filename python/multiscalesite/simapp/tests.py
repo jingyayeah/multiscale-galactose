@@ -28,23 +28,22 @@ class CoreTestCase(TestCase):
 #===============================================================================
 # CompModelTest
 #===============================================================================
-from simapp.models import CompModel
+from simapp.models import CompModel, CompModelFormat
+from multiscalesite import settings
+import os
 
-# class CompModelTestCase(TestCase):
-#     def setUp(self):
-#         filepath = 
-#         
-#         CompModel.objects.create(ip='127.0.0.1', cpu=1)
-#         Core.objects.create(ip='1.2.3.4', cpu=2)
-#         
-#         
-# 
-#     def test_cores_are_active(self):
-#         """Animals that can speak are correctly identified"""
-#         c1 = Core.objects.get(ip='127.0.0.1', cpu=1)
-#         c2 = Core.objects.get(ip='1.2.3.4', cpu=2)
-#         self.assertEqual(c1.active, True)
-#         self.assertEqual(c2.active, True)
+class CompModelTestCase(TestCase):
+    def setUp(self):
+        
+        filepath = os.path.join(settings.MEDIA_ROOT, 'simapp', 'tests', 'Koenig_demo.xml')
+        # is this destroyed again ?
+        CompModel.create_from_file(filepath, model_format=CompModelFormat.SBML)
+        # CompModel.objects.create(ip='127.0.0.1', cpu=1)
+        
+    def test_model_from_filepath(self):
+        """Animals that can speak are correctly identified"""
+        m1 = CompModel.objects.get(model_id='Koenig_demo')
+        self.assertEqual(m1.model_id, 'Koenig_demo')
 
 
 #===============================================================================
@@ -61,8 +60,8 @@ class ParameterTestCase(TestCase):
         """Animals that can speak are correctly identified"""
         p1 = Parameter.objects.get(name='L', unit="m")
         p2 = Parameter.objects.get(name='N', unit="-")
-        self.assertEqual(p1.name, 'L')
-        self.assertEqual(p2.name, 'N')
+        self.assertEqual(p1.key, 'L')
+        self.assertEqual(p2.key, 'N')
         self.assertEqual(p1.value, 1E-6)
         self.assertEqual(p2.value, 20)
         self.assertEqual(p1.unit, 'm')
@@ -129,3 +128,20 @@ class ViewTestCase(TestCase):
 
 # TODO: test the links on the pages, do all external links work
 
+#===============================================================================
+# AdminTests
+#===============================================================================
+
+class AdminTestCase(TestCase):
+    """ TODO: Test if all the attributes defined in the admin classes can be accessed. """
+    def setUp(self):
+        pass
+        
+    def tearDown(self):
+        pass
+    
+    def test_core_admin(self):
+        """ Check response status code for view. """
+        from admin import CoreAdmin
+        pass
+            

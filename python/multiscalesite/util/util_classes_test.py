@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         self.ParameterType.check_type_string("GLOBAL_PARAMETER")
 
     def test_enum_check_typestr_no(self):
-        self.assertRaises(EnumType.EnumTypeException,self.ParameterType.check_type_string, 'test')
+        self.assertRaises(self.ParameterType.EnumTypeException, self.ParameterType.check_type_string, 'test')
 
     def test_enum_check_type_yes(self):
         self.ParameterType.check_type(self.ParameterType.GLOBAL_PARAMETER)

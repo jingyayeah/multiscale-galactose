@@ -46,7 +46,7 @@ def createGaussEventData():
 
 def createGalactoseChallengeEventData(tc_start, base_value=0.0, peak_variable='gal_challenge'):
     ed1 = EventData("ECHA_0", "pre challenge [PP]",
-                   createTriggerFromTime(0.0), {'PP__gal': '{} mM'.format(base_value)})
+                   createTriggerFromTime(0.0), {'PP__gal': '{} mM'.model_format(base_value)})
     
     ed2 = EventData("ECHA_1", "galactose challenge",
                    createTriggerFromTime(tc_start), {'PP__gal': peak_variable})
@@ -59,14 +59,14 @@ def createGalactoseStepEventData():
     for k in range(0,21):
         time = 0.0 + k*duration;
         gal = 0.0 + k*0.5
-        ed = EventData('ESTEP_{}'.format(k), "galactose step",
-                   createTriggerFromTime(time), {'PP__gal': '{} mM'.format(gal)})
+        ed = EventData('ESTEP_{}'.model_format(k), "galactose step",
+                   createTriggerFromTime(time), {'PP__gal': '{} mM'.model_format(gal)})
         event_data.append(ed)
     return event_data
 
 
 def createTriggerFromTime(t):
-    return '(time >= {})'.format(t)
+    return '(time >= {})'.model_format(t)
 
 def createAssignmentsDict(species, values):
     return dict(zip(species, values) )

@@ -27,26 +27,26 @@ def getPPId():
 def getPVId():
     return 'PV'
 def getSinusoidId(k):
-    return 'S{:0>2d}'.format(k)
+    return 'S{:0>2d}'.model_format(k)
 def getDisseId(k):
-    return 'D{:0>2d}'.format(k)
+    return 'D{:0>2d}'.model_format(k)
 def getHepatocyteId(k):
-    return 'H{:0>2d}'.format(k)
+    return 'H{:0>2d}'.model_format(k)
 def getCytosolId(k):
-    return 'C{:0>2d}'.format(k)
+    return 'C{:0>2d}'.model_format(k)
 
 def getPPName():
-    return '[{}] periportal'.format(getPPId())
+    return '[{}] periportal'.model_format(getPPId())
 def getPVName():
-    return '[{}] perivenious'.format(getPVId())
+    return '[{}] perivenious'.model_format(getPVId())
 def getSinusoidName(k):
-    return '[{}] sinusoid'.format(getSinusoidId(k))
+    return '[{}] sinusoid'.model_format(getSinusoidId(k))
 def getDisseName(k):
-    return '[{}] disse'.format(getDisseId(k))
+    return '[{}] disse'.model_format(getDisseId(k))
 def getHepatocyteName(k):
-    return '[{}] hepatocyte'.format(getHepatocyteId(k))
+    return '[{}] hepatocyte'.model_format(getHepatocyteId(k))
 def getCytosolName(k):
-    return '[{}] cytosol'.format(getCytosolId(k))
+    return '[{}] cytosol'.model_format(getCytosolId(k))
 
 
 
@@ -77,26 +77,26 @@ def isPVSpeciesId(sid):
 
 
 def getPPSpeciesName(name):
-    return '[{}] {}'.format(getPPId(), name)
+    return '[{}] {}'.model_format(getPPId(), name)
 def getPVSpeciesName(name):
-    return '[{}] {}'.format(getPVId(), name)
+    return '[{}] {}'.model_format(getPVId(), name)
 def getSinusoidSpeciesName(name, k):
-    return '[{}] {}'.format(getSinusoidId(k), name)
+    return '[{}] {}'.model_format(getSinusoidId(k), name)
 def getDisseSpeciesName(name, k):
-    return '[{}] {}'.format(getDisseId(k), name)
+    return '[{}] {}'.model_format(getDisseId(k), name)
 def getHepatocyteSpeciesName(name, k):
-    return '[{}] {}'.format(getHepatocyteId(k), name)
+    return '[{}] {}'.model_format(getHepatocyteId(k), name)
 def getCytosolSpeciesName(name, k):
-    return '[{}] {}'.format(getHepatocyteId(k), name)
+    return '[{}] {}'.model_format(getHepatocyteId(k), name)
 
 
 def getTemplateId(pid, sid1, sid2):
     if not sid2:
         # returns the midpoint position id of the volume
-        return '{}_{}'.format(sid1, pid)
+        return '{}_{}'.model_format(sid1, pid)
     else:
         # returns the between position id for two volumes
-        return '{}{}_{}'.format(sid1, sid2, pid)
+        return '{}{}_{}'.model_format(sid1, sid2, pid)
 
 # Parameters (position, pressure, flow)
 def getPositionId(sid1, sid2=None):
@@ -114,17 +114,17 @@ def getQFlowId(sid1, sid2=None):
 
 # Reactions
 def createFlowId(c_from, c_to, sid):
-    return 'F_{}{}_{}'.format(c_from, c_to, sid)
+    return 'F_{}{}_{}'.model_format(c_from, c_to, sid)
 
 def createFlowName(c_from, c_to, sid):
     if c_to == NONE_ID:
         c_to = ''
-    return '[{} -> {}] convection {}'.format(c_from, c_to, sid)
+    return '[{} -> {}] convection {}'.model_format(c_from, c_to, sid)
 
 def createDiffusionId(c_from, c_to, sid):
-    return 'D_{}{}_{}'.format(c_from, c_to, sid)
+    return 'D_{}{}_{}'.model_format(c_from, c_to, sid)
 
 def createDiffusionName(c_from, c_to, sid):
     if c_to == NONE_ID:
         c_to = ''
-    return '[{} <-> {}] diffusion {}'.format(c_from, c_to, sid)
+    return '[{} <-> {}] diffusion {}'.model_format(c_from, c_to, sid)
