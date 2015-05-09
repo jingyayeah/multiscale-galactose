@@ -188,7 +188,9 @@ class CompModel(models.Model):
             f = open(filepath, 'r')
             myfile = File(f)
             logging.info('CompModel created : {}'.format(model_id))
-            return cls(model_id=model_id, model_format=model_format.value, file=myfile, md5=md5)
+            model = cls(model_id=model_id, model_format=model_format.value, file=myfile, md5=md5)
+            model.save() 
+            return model
     
     @classmethod
     def _get_sbml_id_from_file(cls, filepath):

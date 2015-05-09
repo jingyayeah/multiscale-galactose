@@ -1,3 +1,4 @@
+from __future__ import print_function
 from django.test import TestCase
 
 #===============================================================================
@@ -29,19 +30,16 @@ class CoreTestCase(TestCase):
 # CompModelTest
 #===============================================================================
 from simapp.models import CompModel, CompModelFormat
-from multiscalesite import settings
 import os
 
 class CompModelTestCase(TestCase):
     def setUp(self):
         
-        filepath = os.path.join(settings.MEDIA_ROOT, 'simapp', 'tests', 'Koenig_demo.xml')
-        # is this destroyed again ?
-        CompModel.create_from_file(filepath, model_format=CompModelFormat.SBML)
-        # CompModel.objects.create(ip='127.0.0.1', cpu=1)
+        filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        model = CompModel.create_from_file(filepath, model_format=CompModelFormat.SBML)
         
     def test_model_from_filepath(self):
-        """Animals that can speak are correctly identified"""
+        """ Create the demo network in the database. """
         m1 = CompModel.objects.get(model_id='Koenig_demo')
         self.assertEqual(m1.model_id, 'Koenig_demo')
 
@@ -53,13 +51,13 @@ from simapp.models import Parameter, ParameterType
 
 class ParameterTestCase(TestCase):
     def setUp(self):
-        Parameter.objects.create(name='L', value=1E-6, unit="m", ptype=ParameterType.GLOBAL_PARAMETER)
-        Parameter.objects.create(name='N', value=20, unit="-", ptype=ParameterType.GLOBAL_PARAMETER)
+        Parameter.objects.create(key='L', value=1E-6, unit="m", ptype=ParameterType.GLOBAL_PARAMETER)
+        Parameter.objects.create(key='N', value=20, unit="-", ptype=ParameterType.GLOBAL_PARAMETER)
 
     def test_parameters(self):
         """Animals that can speak are correctly identified"""
-        p1 = Parameter.objects.get(name='L', unit="m")
-        p2 = Parameter.objects.get(name='N', unit="-")
+        p1 = Parameter.objects.get(key='L', unit="m")
+        p2 = Parameter.objects.get(key='N', unit="-")
         self.assertEqual(p1.key, 'L')
         self.assertEqual(p2.key, 'N')
         self.assertEqual(p1.value, 1E-6)
