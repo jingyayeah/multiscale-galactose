@@ -5,20 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/odesim/db/db_tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/db/tools.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/odesim/dist/samples_test.py" afterPath="$PROJECT_DIR$/../simulator/odesim/dist/test_samples.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/odesim/dist/sampling_test.py" afterPath="$PROJECT_DIR$/../simulator/odesim/dist/test_sampling.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/db/api.py" afterPath="$PROJECT_DIR$/simapp/db/api.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/models/demo.py" afterPath="$PROJECT_DIR$/../simulator/odesim/models/demo.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/dist/distributions.py" afterPath="$PROJECT_DIR$/../simulator/odesim/dist/distributions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/models.py" afterPath="$PROJECT_DIR$/simapp/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/requirements.txt" afterPath="$PROJECT_DIR$/../simulator/requirements.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/dist/samples.py" afterPath="$PROJECT_DIR$/../simulator/odesim/dist/samples.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/dist/sampling.py" afterPath="$PROJECT_DIR$/../simulator/odesim/dist/sampling.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/simulator.py" afterPath="$PROJECT_DIR$/../simulator/odesim/simulator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/tests.py" afterPath="$PROJECT_DIR$/simapp/tests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/dist/test_samples.py" afterPath="$PROJECT_DIR$/../simulator/odesim/dist/test_samples.py" />
     </list>
     <ignored path="multiscalesite.iws" />
     <ignored path=".idea/workspace.xml" />

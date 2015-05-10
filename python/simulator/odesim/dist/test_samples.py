@@ -15,8 +15,8 @@ from simapp.models import ParameterType
 class TestSamples(unittest.TestCase):
 
     def setUp(self):
-        self.p1 = SampleParameter(key='Vmax', value=2.17, unit='mole_per_s', ptype=ParameterType.GLOBAL_PARAMETER)
-        self.p2 = SampleParameter(key='Km', value=0.1, unit='mM', ptype=ParameterType.GLOBAL_PARAMETER)        
+        self.p1 = SampleParameter(key='Vmax', value=2.17, unit='mole_per_s', parameter_type=ParameterType.GLOBAL_PARAMETER)
+        self.p2 = SampleParameter(key='Km', value=0.1, unit='mM', parameter_type=ParameterType.GLOBAL_PARAMETER)
       
     def tearDown(self):
         self.p1 = None

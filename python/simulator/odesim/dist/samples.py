@@ -30,13 +30,14 @@ class SampleParameter(object):
         Allowed types are the allowed parameter types defined in the
         django model.
     """
-    def __init__(self, key, value, unit, ptype):
-        ParameterType.check_type(ptype)
+    def __init__(self, key, value, unit, parameter_type):
+        if not isinstance(parameter_type, ParameterType):
+            raise TypeError
 
         self.key = key
         self.value = value
         self.unit = unit
-        self.ptype = ptype
+        self.ptype = parameter_type
 
     @classmethod
     def from_parameter(cls, p):

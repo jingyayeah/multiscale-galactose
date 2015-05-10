@@ -72,7 +72,7 @@ def sample_from_distribution(distributions, n_samples, keys=None):
             if keys and (dist.key not in keys):
                 continue
             s.add_parameter(SampleParameter(dist.key, value=dist.samples(N=1), 
-                                            unit=dist.unit, ptype=dist.ptype))
+                                            unit=dist.unit, parameter_type=dist.ptype))
         samples.append(s)
     return samples
 
@@ -86,7 +86,7 @@ def sample_from_mean(distributions, n_samples=1, keys=None):
             if keys and (dist.key not in keys):
                 continue
             s.add_parameter(SampleParameter(dist.key, value=dist.mean(), 
-                                            unit=dist.unit, ptype=dist.ptype))
+                                            unit=dist.unit, parameter_type=dist.ptype))
         samples.append(s)
     return samples
 
