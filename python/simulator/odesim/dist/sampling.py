@@ -1,12 +1,12 @@
-'''
-Implementation of various sampling methods for sample generation 
+"""
+Implementation of various sampling methods for sample generation
 from given distributions.
-Supported methods are DISTRIBUTION, MEAN, LHS or MIXED. 
+Supported methods are DISTRIBUTION, MEAN, LHS or MIXED.
 
 [DISTRIBUTION]
 Samples from the given distribution.
 
-[LHS] 
+[LHS]
 Latin Hypercube sampling
 This 'multi-start' approach facilitates a broad coverage of the
 parameter search space in order to find the global optimum.
@@ -19,53 +19,54 @@ hypercube sampling provides a better coverage of the space.
 
 @author:   Matthias Koenig
 @date:     2015-05-04
-'''
+"""
 from __future__ import print_function
 
+from odesim.dist.samples import Sample, SampleParameter
+from util.util_classes import EnumType
 
-
-from samples import Sample, SampleParameter
-from simapp.models import EnumType
 
 class SamplingType(EnumType):
-    ''' Supported types of sampling. '''
+    """ Supported types of sampling. """
     DISTRIBUTION = 0
     MEAN = 1
     # LHS = 2
     # MIXED = 3
 
+
 class SamplingException(Exception): 
     pass
 
-def createParametersBySampling(distributions, N, sampling_type, keys=None):
-    '''
+
+def sample_parameters(distributions, n_samples, sampling_type, keys=None):
+    """
     Master function which switches between methods for sample creation.
     This function should be called from other modules.
-    '''    
-    if (sampling_type == SamplingType.DISTRIBUTION):
-        samples = _createSamplesByDistribution(distributions, N, keys);
-    elif (sampling_type == SamplingType.MEAN):
-        samples = _createSamplesByMean(distributions, N, keys);
+    """
+    if sampling_type == SamplingType.DISTRIBUTION:
+        samples = sample_from_distribution(distributions, n_samples, keys)
+    elif sampling_type == SamplingType.MEAN:
+        samples = sample_from_mean(distributions, n_samples, keys)
 #     elif (sampling_type == SamplingType.LHS):
-#         samples = _createSamplesByLHS(distributions, N, keys);
+#         samples = _createSamplesByLHS(distributions, n_samples, keys);
 #     elif (sampling_type == SamplingType.MIXED):
-#         samples1 = _createSamplesByDistribution(distributions, N/2, keys);
-#         samples2 = _createSamplesByLHS(distributions, N/2, keys);
+#         samples1 = _createSamplesByDistribution(distributions, n_samples/2, keys);
+#         samples2 = _createSamplesByLHS(distributions, n_samples/2, keys);
 #         samples = samples1 + samples2
     else:
         raise SamplingException('SamplingType not supported: {}'.model_format(sampling_type))
     return samples
 
 
-def _createSamplesByDistribution(distributions, N, keys=None):
-    '''
+def sample_from_distribution(distributions, n_samples, keys=None):
+    """
     Returns parameter samples from given distributions.
     If keys are provided, only the subset existing in keys is sampled.
     The generation of database samples is done in the SimulationFactory
-    and via the odesim definitions.
-    '''
-    samples = [];
-    for _ in xrange(N):
+    and via the simulation definitions.
+    """
+    samples = []
+    for _ in xrange(n_samples):
         s = Sample()
         for dist in distributions:
             if keys and (dist.key not in keys):
@@ -76,10 +77,10 @@ def _createSamplesByDistribution(distributions, N, keys=None):
     return samples
 
 
-def _createSamplesByMean(distributions, N=1, keys=None):
-    ''' Returns mean parameters for the given distribution data. '''
+def sample_from_mean(distributions, n_samples=1, keys=None):
+    """ Returns mean parameters for the given distribution data. """
     samples = [];
-    for _ in xrange(N):
+    for _ in xrange(n_samples):
         s = Sample()
         for dist in distributions:
             if keys and (dist.key not in keys):
@@ -168,7 +169,7 @@ if __name__ == "__main__":
     
     print('-' * 40)    
     dists = getDemoDistributions()
-    samples = _createSamplesByDistribution(dists, N=10)
+    samples = sample_from_distribution(dists, n_samples=10)
     for s in samples:
         print(s)
 
@@ -192,4 +193,3 @@ if __name__ == "__main__":
 #     samples = _createSamplesByLHS(dist_data, N=5)
 #     for s in samples:
 #         print s
-        

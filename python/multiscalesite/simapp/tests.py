@@ -366,7 +366,7 @@ class ViewTestCase(TestCase):
 # ===============================================================================
 from django.test.client import Client
 
-from simapp.db.api import create_parameter, create_simulation, create_task
+from simapp.db.api import create_parameter, create_simulation, create_task, create_model
 
 
 class APITestCase(TestCase):
@@ -374,8 +374,8 @@ class APITestCase(TestCase):
 
     def setUp(self):
 
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        file_path = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        self.model = CompModel.create(file_path, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         self.task = Task.objects.create(model=self.model, method=self.method)
@@ -384,6 +384,13 @@ class APITestCase(TestCase):
 
     def tearDown(self):
         pass
+
+    def test_create_model(self):
+        file_path = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        m1 = create_model(file_path=file_path, model_format=CompModelFormat.SBML)
+
+        self.assertEqual(m1.model_format, CompModelFormat.SBML)
+        self.assertEqual(m1.model_id, 'Koenig_demo')
 
     def test_create_parameter(self):
         p3 = create_parameter(key='L', value=1E-6, unit='m', parameter_type=ParameterType.GLOBAL_PARAMETER)

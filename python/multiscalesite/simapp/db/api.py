@@ -10,16 +10,26 @@ No direct interactions with the database should occur
 import logging
 from django.core.exceptions import ObjectDoesNotExist
 
-from simapp.models import Task, Simulation, Parameter
+from simapp.models import CompModel, Task, Simulation, Parameter
 
 # ===============================================================================
 # Creators
 # ===============================================================================
+from simapp.models import CompModel
+
+
+def create_model(file_path, model_format):
+    """ Create models.CompModel.
+
+    :param file_path:
+    :param model_format:
+    :return: models.CompModel
+    """
+    return CompModel.create(file_path=file_path, model_format=model_format)
 
 
 def create_parameter(key, value, unit, parameter_type):
-    """
-    Create models.Parameter from given information.
+    """ Create models.Parameter from given information.
     :param key:
     :param value:
     :param unit:
@@ -32,9 +42,14 @@ def create_parameter(key, value, unit, parameter_type):
 
 
 def create_task(model, method, info=None, priority=0):
-    """
+    """ Create models.Task.
     Task is uniquely identified via model, integration and information.
     Other fields have to be updated.
+    :param model:
+    :param method:
+    :param info:
+    :param priority:
+    :return:
     """
     try:
         # query via the unique combination
@@ -63,3 +78,10 @@ def create_simulation(task, parameters):
 # ===============================================================================
 # Getters
 # ===============================================================================
+
+def get_simulations_for_task():
+    pass
+
+
+def get_parameters_for_simulation(simulation):
+    return Parameter.objects.filter(simulation=simulation)

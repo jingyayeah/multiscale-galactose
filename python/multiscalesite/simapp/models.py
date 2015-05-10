@@ -143,26 +143,26 @@ class CompModel(models.Model):
         return self.model_format == CompModelFormat.CELLML
     
     @classmethod
-    def create(cls, filepath, model_format):
+    def create(cls, file_path, model_format):
         if model_format not in CompModelFormat.values:
             raise CompModelException('model_format is not a supported format: {}'.format(model_format))
         try:
-            with open(filepath) as f:
+            with open(file_path) as f:
                 pass
         except IOError as exc:
-            raise IOError("%s: %s" % (filepath, exc.strerror))
+            raise IOError("%s: %s" % (file_path, exc.strerror))
         
         # check if model id and filename are identical
         if model_format == CompModelFormat.SBML:
-            model_id = cls._get_sbml_id_from_file(filepath)
-            if '{}.xml'.format(model_id) != os.path.basename(filepath):
-                raise CompModelException('model id different from basename of file:, {}, {}'.format(model_id, filepath))
+            model_id = cls._get_sbml_id_from_file(file_path)
+            if '{}.xml'.format(model_id) != os.path.basename(file_path):
+                raise CompModelException('model id different from basename of file:, {}, {}'.format(model_id, file_path))
         else:
-            model_id = os.path.basename(filepath)
+            model_id = os.path.basename(file_path)
         
         # check via hash
         from util.util_classes import hash_for_file
-        md5 = hash_for_file(filepath, hash_type='MD5')
+        md5 = hash_for_file(file_path, hash_type='MD5')
         try:
             model = cls.objects.get(model_id=model_id)
             if model.md5 == md5:
@@ -174,7 +174,7 @@ class CompModel(models.Model):
                 return None
             
         except ObjectDoesNotExist: 
-            f = open(filepath, 'r')
+            f = open(file_path, 'r')
             myfile = File(f)
             logging.info('CompModel created : {}'.format(model_id))
             model = cls(model_id=model_id, model_format=model_format, file=myfile, md5=md5)

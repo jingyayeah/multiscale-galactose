@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """
 Module for running/starting simulations.
-Starts processes on the cpus which listen for available simulations.
+Starts processes on the n_cores which listen for available simulations.
 The odesim settings and parameters determine the actual odesim.
 The simulator supports parallalization by putting different simulations
 on different CPUs. 
@@ -34,6 +34,7 @@ import multiprocessing
 import socket
 import fcntl
 import struct
+import logging
 
 from django.utils import timezone
 from django.db import transaction
@@ -140,6 +141,22 @@ def info(title):
         print('parent process:', os.getppid())
     print('process id:', os.getpid())
 
+
+def _sync_sbml_in_network():
+    """
+    Copies all SBML files to the server.
+        run an operating system command
+        call(["ls", "-l"])
+
+    TODO: get the environment variables from the settings file
+    TODO: do direct syncronization to this computer, not to all computers
+    TODO: only make syncornizaton
+    """
+    from subprocess import call
+    call_command = [os.path.join(os.environ['MULTISCALE_GALACTOSE'], "syncDjangoSBML.sh")]
+    logging.debug(str(call_command))
+    call(call_command)
+
 #####################################################################################
 
 if __name__ == "__main__":     
@@ -156,17 +173,27 @@ if __name__ == "__main__":
     import math
     parser = OptionParser()
     parser.add_option("-c", "--cpu", dest="cpu_load",
-                      help="CPU load between 0 and 1, i.e. 0.5 uses half the cpus")
+                      help="CPU load between 0 and 1, i.e. 0.5 uses half the n_cores")
+    parser.add_option("-s", "--sync", dest="do_sync",
+                      help="Sync models from DB Server (1 yes, 0 no)")
     (options, args) = parser.parse_args()
-    
+
+    # Syncronize SBML from server to computer
+    do_sync = True
+    if options.do_sync:
+        do_sync = bool(options.do_sync)
+    if do_sync:
+        _sync_sbml_in_network()
+
+    # Handle the number of cores
     print('#'*60)
     print('# Simulator')
     print('#'*60)
-    cpus = multiprocessing.cpu_count()
-    print('CPUs: ', cpus)
+    n_cores = multiprocessing.cpu_count()
+    print('CPUs: ', n_cores)
     if options.cpu_load:
-        cpus = int(math.floor(float(options.cpu_load)*cpus))
-    print('Used CPUs: ', cpus)
+        n_cores = int(math.floor(float(options.cpu_load)*n_cores))
+    print('Used CPUs: ', n_cores)
     print('#'*60)
     
     n_sim = 40
@@ -174,8 +201,8 @@ if __name__ == "__main__":
     # Lock for syncronization between processes (but locks)
     lock = multiprocessing.Lock()
     # start processes on every cpu
-    procs = []
-    for cpu in range(cpus):
-        p = multiprocessing.Process(target=worker, args=(cpu, lock, Nsim))
-        procs.append(p)
+    processes = []
+    for cpu in range(n_cores):
+        p = multiprocessing.Process(target=worker, args=(cpu, lock, n_sim))
+        processes.append(p)
         p.start()

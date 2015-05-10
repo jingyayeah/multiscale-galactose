@@ -1,27 +1,27 @@
-'''
+"""
 Testing for sampling from distributions generation.
 
 @author: Matthias Koenig
 @date: 2015-05-03
-'''
+"""
 
 import unittest
-from sampling import _createSamplesByDistribution
-# from sampling import _createSamplesByLHS
-from sampling import _createSamplesByMean
+from odesim.dist.sampling import sample_from_distribution, sample_from_mean
+from odesim.dist.distributions import getDemoDistributions, getGalactoseDistributions
+
 
 class TestSampling(unittest.TestCase):
 
     def setUp(self):
-        from distributions import getDemoDistributions, getGalactoseDistributions
-        self.dist_demo = getDemoDistributions();
+
+        self.dist_demo = getDemoDistributions()
         self.dist_gal = getGalactoseDistributions()
         
     def tearDown(self):
         self.dist_data = None
         
     def test_demo_distribution(self):
-        samples = _createSamplesByDistribution(self.dist_demo, N=5)
+        samples = sample_from_distribution(self.dist_demo, n_samples=5)
         self.assertEqual(len(samples), 5, 'check number samples')
         s = samples[0]
         self.assertIsNotNone(s['Vmax_b1'], 'check for parameter')
@@ -33,7 +33,7 @@ class TestSampling(unittest.TestCase):
 #         self.assertIsNotNone(s['L'], 'check for parameter')
         
     def test_mean(self):
-        samples = _createSamplesByMean(self.dist_demo, N=1)
+        samples = sample_from_mean(self.dist_demo, n_samples=1)
         self.assertEqual(len(samples), 1, 'check number samples')
         s = samples[0]
         self.assertIsNotNone(s['Vmax_b1'], 'check for parameter')

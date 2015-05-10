@@ -9,16 +9,16 @@ from __future__ import print_function
 from simapp.models import Setting, Method
 
 from odesim.dist.distributions import getDemoDistributions
-from odesim.dist.sampling import createParametersBySampling, SamplingType
+from odesim.dist.sampling import sample_parameters, SamplingType
 
-from odesim.db.db_tools import createSimulationsForSamples
-from odesim.db.db_tools import sbmlmodel_from_file 
-from odesim.db.db_tools import create_task
+from odesim.db.tools import createSimulationsForSamples
+from odesim.db.tools import sbmlmodel_from_file
+from odesim.db.tools import create_task
 
 
 def create_demo_samples(N, sampling_type):
     distributions = getDemoDistributions()
-    return createParametersBySampling(distributions, N, sampling_type);
+    return sample_parameters(distributions, N, sampling_type);
 
 
 def demo_simulations(model, N, priority=0):
