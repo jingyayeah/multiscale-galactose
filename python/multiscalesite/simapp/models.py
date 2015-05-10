@@ -100,14 +100,20 @@ class Core(models.Model):
 class CompModelException(Exception):
         pass
 
-class CompModelFormat(EnumType, Enum):
-    SBML = "SBML"
-    CELLML = "CELLML"
-
+from django_enumfield import enum
+class CompModelFormat(enum.Enum):
+    SBML = 0
+    CELLML = 1
+    labels = {
+        SBML: "SBML",
+        CELLML: "CELLML"
+    }
+    
+    
 class CompModel(models.Model):
     """ Storage class for models. """
     model_id = models.CharField(max_length=200, unique=True)
-    model_format = models.CharField(max_length=10, choices=CompModelFormat.choices())
+    model_format = enum.EnumField(CompModelFormat)
     file = models.FileField(upload_to='model', max_length=200, storage=OverwriteStorage())
     md5 = models.CharField(max_length=36)
     
@@ -120,45 +126,28 @@ class CompModel(models.Model):
     
     def _filepath(self):
         return str(self.file.path)
-    
-    def _is_format(self, model_format):
-        ''' Always check via the values. '''
-        return self.model_format == model_format.value
-    
-    def _is_sbml(self):
-        return self._is_format(CompModelFormat.SBML)
-
-    def _is_cellml(self):
-        return self._is_format(CompModelFormat.CELLML)
-    
-    def _sbml_id(self):
-        if self.is_sbml:
-            return str(self.model_id)
-        else:
-            return None
+    filepath = property(_filepath)
     
     def _md5_short(self, L=10):
         return '{}...'.format(self.md5[0:L])
-     
-    filepath = property(_filepath)
-    is_sbml = property(_is_sbml)
-    is_cellml = property(_is_cellml)
-    sbml_id = property(_sbml_id)
     md5_short = property(_md5_short)
     
-    @classmethod
-    def create(cls, model_id, folder, model_format=CompModelFormat.SBML):
-        """ Create the model based on the model id. """
-        filepath = os.path.join(folder, '{}.xml'.format(model_id))
-        return cls.create_from_file(filepath, model_format)
+    def _sbml_id(self):
+        if self.is_sbml():
+            return self.model_id
+        return None
+    sbml_id = property(_sbml_id)
+    
+    def is_sbml(self):
+        return self.model_format == CompModelFormat.SBML
 
+    def is_cellml(self):
+        return self.model_format == CompModelFormat.CELLML
+    
     @classmethod
-    def create_from_file(cls, filepath, model_format):
-        """ Create model in database based file. """
-        from util.util_classes import hash_for_file
-        # is model_format supported
-        CompModelFormat.check_type(model_format)
-        # does file exist
+    def create(cls, filepath, model_format):
+        if model_format not in CompModelFormat.values:
+            raise CompModelException('model_format is not a supported format: {}'.format(model_format))
         try:
             with open(filepath) as f: pass
         except IOError as exc:
@@ -173,6 +162,7 @@ class CompModel(models.Model):
             model_id = os.path.basename(filepath)
         
         # check via hash
+        from util.util_classes import hash_for_file
         md5 = hash_for_file(filepath, hash_type='MD5')
         try:
             model = cls.objects.get(model_id=model_id)
@@ -188,7 +178,7 @@ class CompModel(models.Model):
             f = open(filepath, 'r')
             myfile = File(f)
             logging.info('CompModel created : {}'.format(model_id))
-            model = cls(model_id=model_id, model_format=model_format.value, file=myfile, md5=md5)
+            model = cls(model_id=model_id, model_format=model_format, file=myfile, md5=md5)
             model.save() 
             return model
     
@@ -273,20 +263,33 @@ class Setting(models.Model):
         return DataType.cast_value(self.datatype, self.value)
     cast_value = property(_cast_value)  
 
+    @staticmethod 
+    def _combine_dicts(*args):
+        """ Combine the dictionaries given in args.
+        The last dict wins, i.e. earlier identical key, value pairs
+        are overwritten. """
+        d_all = dict()
+        for d in args:
+            d_all.update(d)
+        return d_all
+    
     @classmethod
-    def get_settings(cls, settings):
+    def get_or_create(cls, key, value):
+        return cls.objects.get_or_create(key=key, value=str(value), 
+                                    datatype=SETTINGS_DATATYPE[key].value)
+    
+    @classmethod
+    def get_or_create_from_dict(cls, d_settings, add_defaults=True):
         ''' Get settings based on settings dictionary. 
         The settings dictionary is extened with the provided settings.
         '''    
-        sdict = dict(SETTINGS_DEFAULT.iteritems() 
-                      + settings.iteritems())
+        if add_defaults:
+            d_settings = cls._combine_dicts(SETTINGS_DEFAULT, d_settings)
         
-        # get settings objects from DB
+        # create settings from dictionary
         settings = []
-        for key, value in sdict.iteritems():
-            datatype = Setting.SETTINGS_DATATYPE[key].value
-            s, _ = Setting.objects.get_or_create(name=key, value=str(value), 
-                                                   datatype=datatype)
+        for key, value in d_settings.iteritems():
+            s, _ = cls.get_or_create(key=key, value=value)
             settings.append(s)
         return settings
 

@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('model_id', models.CharField(unique=True, max_length=200)),
-                ('model_format', models.CharField(max_length=10, choices=[(b'CELLML', b'CELLML'), (b'SBML', b'SBML')])),
+                ('model_format', models.IntegerField(default=0)),
                 ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=b'model')),
                 ('md5', models.CharField(max_length=36)),
             ],
@@ -73,8 +73,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('key', models.CharField(max_length=40, choices=[(b'ABS_TOL', b'ABS_TOL'), (b'REL_TOL', b'REL_TOL'), (b'STEPS', b'STEPS'), (b'T_END', b'T_END'), (b'T_START', b'T_START'), (b'VAR_STEPS', b'VAR_STEPS'), ((b'INTEGRATOR',), (b'INTEGRATOR',))])),
-                ('datatype', models.CharField(max_length=40, choices=[(b'BOOLEAN', b'BOOLEAN'), (b'DOUBLE', b'DOUBLE'), (b'INT', b'INT'), (b'STRING', b'STRING')])),
                 ('value', models.CharField(max_length=40)),
+                ('datatype', models.CharField(max_length=40, choices=[(b'BOOLEAN', b'BOOLEAN'), (b'DOUBLE', b'DOUBLE'), (b'INT', b'INT'), (b'STRING', b'STRING')])),
             ],
         ),
         migrations.CreateModel(

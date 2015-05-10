@@ -9,6 +9,9 @@ from __future__ import print_function
 from enum import Enum
 
 
+class StrEnum(str, Enum):
+    """Enum where members are also (and must be) strs"""
+
 
 class EnumType(object):
     ''' Template class for all EnumTypes. '''
@@ -77,3 +80,27 @@ def hash_for_file(filepath, hash_type='MD5'):
             hasher.update(buf)
             buf = afile.read(BLOCKSIZE)
     return hasher.hexdigest()
+
+
+if __name__ == "__main__":
+    class CompModelFormat(EnumType, StrEnum):
+        SBML = "SBML"
+        CELLML = "CELLML"
+            
+    print(type(CompModelFormat.SBML))
+    print(isinstance(CompModelFormat.SBML, str))
+    print(CompModelFormat.SBML)
+    
+    from enum import IntEnum
+    class TestType(IntEnum):
+        SBML = 0
+        CELLML = 1
+        
+    print(type(TestType.SBML))
+    print(isinstance(TestType.SBML, int))
+    print(TestType.SBML)
+    
+    
+    
+    
+        

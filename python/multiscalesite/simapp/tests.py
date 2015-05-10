@@ -31,12 +31,18 @@ class CoreTestCase(TestCase):
 #===============================================================================
 from simapp.models import CompModel, CompModelFormat
 import os
+class CompModelFormatTestCase(TestCase):
+        
+    def test_equality(self):
+        """ Create the demo network in the database. """
+        self.assertEqual(CompModelFormat.SBML, CompModelFormat.SBML)
+    
 
 class CompModelTestCase(TestCase):
     def setUp(self):
         
         filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        model = CompModel.create_from_file(filepath, model_format=CompModelFormat.SBML)
+        CompModel.create(filepath, model_format=CompModelFormat.SBML)
         
     def test_model_from_filepath(self):
         """ Create the demo network in the database. """
@@ -47,9 +53,9 @@ class CompModelTestCase(TestCase):
     def test_model_format(self):
         """ Make the format checks. """
         m1 = CompModel.objects.get(model_id='Koenig_demo')
-        self.assertTrue(m1.is_sbml)
-        self.assertFalse(m1.is_cellml)
-        self.assertEqual(m1.model_format, (CompModelFormat.SBML).value)
+        self.assertTrue(m1.is_sbml())
+        self.assertFalse(m1.is_cellml())
+        self.assertEqual(m1.model_format, CompModelFormat.SBML)
         
 #===============================================================================
 # SettingTest
@@ -66,6 +72,12 @@ class SettingTestCase(TestCase):
         s1 = Setting.objects.get(key=(SettingKey.INTEGRATOR).value,
                                   value=(SimulatorType.ROADRUNNER).value)
         self.assertEqual(s1.datatype, (DataType.STRING).value)
+        
+    def test_create_default_settings(self):
+        settings = Setting.get_or_create_from_dict({}, add_defaults=True)
+        keys = [s.key for s in settings]
+        self.assertTrue((SettingKey.INTEGRATOR).value in keys)
+        
 
 
 
