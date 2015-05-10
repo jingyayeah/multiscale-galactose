@@ -110,7 +110,7 @@ def getUniprotsFromSBML(filename):
 #         print n.attrib['{http://www.w3.org/1999/02/22-rdf-syntax-ns#}parseType']
     from lxml import etree
     tree = etree.parse(filename)
-    root = tree.getroot()
+    # root = tree.getroot()
     res = tree.findall('//{http://www.w3.org/1999/02/22-rdf-syntax-ns#}li')
     ns = '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'
     rdf_nodes = tree.findall('//{ns}RDF'.model_format(ns=ns))

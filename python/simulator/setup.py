@@ -17,7 +17,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 # get the version
 import re
-VERSIONFILE="odesim/_version.py"
+VERSIONFILE = "odesim/_version.py"
 verstrline = codecs.open(VERSIONFILE, "rt").read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 mo = re.search(VSRE, verstrline, re.M)
@@ -37,7 +37,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version = verstr,
+    version=verstr,
 
     description='simulation util',
     long_description=long_description,
@@ -83,7 +83,7 @@ setup(
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
     # exclude=['contrib', 'docs', 'tests*']
-    packages = find_packages(),
+    packages=find_packages(),
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's

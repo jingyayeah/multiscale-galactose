@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="849740254">
+    <data-source source="LOCAL" name="PostgreSQL - multiscale-galactose@localhost" uuid="ea047417-65b8-4981-abc0-1b719c9d68b6">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/multiscale-galactose</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>

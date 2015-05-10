@@ -1,5 +1,5 @@
-'''
-Annotating SBML models.
+"""
+Annotation of SBML models.
 
 Handle the XML annotations and notes for SBML and SEDML.
 A general problem is annotate all the objects in the SBML and SEDML file.
@@ -12,13 +12,13 @@ write annotations to SBase objects
 Do the same for notes.
 
 
-
 @author: Matthias Koenig
 @date: 2014-05-30
-'''
+"""
 import libsbml
 import uuid
 import datetime
+
 
 class ModelAnnotation(object):
     

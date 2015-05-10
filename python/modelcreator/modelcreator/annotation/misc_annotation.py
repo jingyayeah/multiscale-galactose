@@ -1,9 +1,11 @@
-'''
-Created on Jun 2, 2014
+"""
+Testing the libsbml annotation capacities.
 
-@author: mkoenig
-'''
-from modelcreator.annotation import ModelAnnotation
+@author: Matthias Koenig
+@date: 2014-06-02
+"""
+from libsbml import *
+from modelcreator.annotation import annotation
 
 doc = SBMLDocument(3,1)
 model = doc.createModel('Test')
@@ -32,7 +34,7 @@ print(xml)
 #  without metaids)
 
 test = model.getElementBySId("s1")
-meta_id = 'meta_id_' + ModelAnnotation.createMetaId()
+meta_id = 'meta_id_' + annotation.createMetaId()
 # test.setMetaId('asasdfasfasdfasd')
 print meta_id
 res = test.setMetaId(meta_id)
@@ -48,6 +50,3 @@ cv = CVTerm()
 cv.setBiologicalQualifierType(qualifier)
 print cv
 print cv.getBiologicalQualifierType()
-
-
-    

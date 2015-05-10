@@ -9,16 +9,19 @@ Created on Jun 2, 2014
 
 import sys
 import os
-sys.path.append('/home/mkoenig/multiscale-galactose/python')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
-SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
-from simapp.models import CompModel
-from modelcreator.annotation.ModelAnnotation import annotateModel
+
+
     
  
 ###############################################################################
 if __name__ == "__main__":
+    import django
+    django.setup()
+
+    from path_settings import SBML_FOLDER
+    from simapp.models import CompModel
+    from modelcreator.annotation.annotation import annotateModel
 
     # DEMO #
     sbml_id = "Koenig2014_demo_kinetic_v7_annotated"
