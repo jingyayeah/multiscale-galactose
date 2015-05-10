@@ -15,7 +15,7 @@
     
     
 <h2>Model</h2>
-{% with model=sim.task.sbml_model %}
+{% with model=sim.task.model %}
 <table  class="table" id="table">
 <thead>
 <tr>
@@ -48,16 +48,16 @@
 </table>
 {% if sim.status == 'DONE' %}
 {% with tc=sim.timecourse %}
-<h2>Timecourse</h2>
+<h2>Result</h2>
 <table class="table">
 <thead>
 <tr>
-	{% usemacro timecourse_header %}
+	{% usemacro result_header %}
 </tr>
 </thead>
 <tbody>
 	<tr>
-		{% usemacro timecourse_content %}
+		{% usemacro result_content %}
 	</tr>    
 </tbody>
 </table>
@@ -68,7 +68,7 @@
 <p>
     <br />
     Simulation status <span class="{{sim.status}}">{{sim.status}}</span>, 
-    no timecourse and plots available.<br />
+    no results available.<br />
 </p>
 {% endif %}
 

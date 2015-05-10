@@ -32,7 +32,6 @@ class CoreTestCase(TestCase):
 from simapp.models import CompModel, CompModelFormat
 import os
 class CompModelFormatTestCase(TestCase):
-        
     def test_equality(self):
         """ Create the demo network in the database. """
         self.assertEqual(CompModelFormat.SBML, CompModelFormat.SBML)
@@ -40,7 +39,6 @@ class CompModelFormatTestCase(TestCase):
 
 class CompModelTestCase(TestCase):
     def setUp(self):
-        
         filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
         CompModel.create(filepath, model_format=CompModelFormat.SBML)
         
@@ -48,7 +46,7 @@ class CompModelTestCase(TestCase):
         """ Create the demo network in the database. """
         m1 = CompModel.objects.get(model_id='Koenig_demo')
         self.assertEqual(m1.model_id, 'Koenig_demo')
-        self.assertEqual(m1.sbml_id, 'Koenig_demo')
+        self.assertEqual(m1.sbml_id, 'Koenig_demo')    
         
     def test_model_format(self):
         """ Make the format checks. """
@@ -69,15 +67,64 @@ class SettingTestCase(TestCase):
     def test_setting_fields(self):
         """ Test the setting fields. """
         s1 = Setting.objects.get(key=SettingKey.INTEGRATOR, value=SimulatorType.ROADRUNNER)
-        self.assertEqual(s1.datatype, DataType.STRING)
+        self.assertEqual(s1.datatype, DataType.INT)
         
     def test_create_default_settings(self):
-        settings = Setting.get_or_create_from_dict({}, add_defaults=True)
+        settings = Setting.get_or_create_defaults()
         keys = [s.key for s in settings]
         self.assertTrue(SettingKey.INTEGRATOR in keys)
-        
-        
+        self.assertTrue(SettingKey.VAR_STEPS in keys)
+        self.assertTrue(SettingKey.ABS_TOL in keys)
+        self.assertTrue(SettingKey.REL_TOL in keys)
+        self.assertTrue(SettingKey.STIFF in keys)
+    
+    
+    def test_datatype_cast(self):
+        self.assertIsInstance(DataType.cast_value(1, DataType.STR), str)
+        self.assertIsInstance(DataType.cast_value(1, DataType.BOOL), bool)
+        self.assertIsInstance(DataType.cast_value(1, DataType.INT), int)
+        self.assertIsInstance(DataType.cast_value(1, DataType.FLOAT), float)
+    
+    def test_casts(self):
+        settings = Setting.get_or_create_defaults()
+        for s in settings:
+            if s.key == SettingKey.INTEGRATOR:
+                self.assertTrue(isinstance(s.cast_value, int))
+            if s.key == SettingKey.ABS_TOL:
+                self.assertTrue(isinstance(s.cast_value, float))
+        self.assertEqual(len(Setting.DEFAULTS), len(settings))
 
+    def test_combine_dicts(self):
+        d1 = {'a': 1, 'b':2, 'c':3}
+        d2 = {'a': 'test', 'e':10, 'f':15}
+        d = Setting._combine_dicts(d1, d2)
+        self.assertEqual(len(d), 5)
+        self.assertEqual(d['a'], 'test')
+        self.assertEqual(d['e'], 10)
+
+#===============================================================================
+# MethodTest
+#===============================================================================
+from simapp.models import Method, MethodType
+
+class MethodTestCase(TestCase):
+    def setUp(self):
+        settings = Setting.get_or_create_defaults()
+        self.m1 = Method.get_or_create(method_type=MethodType.ODE,
+                                 settings=settings)
+    
+    def test_identity(self):
+        """ Test the setting fields. """
+        settings = Setting.get_or_create_defaults()
+        m2 = Method.get_or_create(method_type=MethodType.ODE,
+                                 settings=settings)
+        self.assertEqual(self.m1.pk, m2.pk)
+        self.assertEqual(len(m2.settings.all()), len(Setting.DEFAULTS))
+        
+    def test_method_type(self):
+        self.assertEqual(self.m1.method_type, MethodType.ODE)
+        
+    
 #===============================================================================
 # ParameterTest
 #===============================================================================
@@ -105,6 +152,101 @@ class ParameterTestCase(TestCase):
 
 
 #===============================================================================
+# TaskTest
+#===============================================================================
+from simapp.models import Task
+
+class TaskTestCase(TestCase):
+    def setUp(self):
+        # create model and method
+        filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        settings = Setting.get_or_create_defaults()
+        self.method = Method.get_or_create(method_type=MethodType.ODE,
+                                 settings=settings)
+        Task.objects.create(model=self.model, method=self.method)
+        
+    def test_counts(self):
+        """Test the count methods."""
+        t = Task.objects.get(model=self.model, method=self.method)
+        self.assertEqual(t.sim_count(), 0)
+        self.assertEqual(t.done_count(), 0)
+        self.assertEqual(t.assigned_count(), 0)
+        self.assertEqual(t.unassigned_count(), 0)
+        self.assertEqual(t.error_count(), 0)
+        
+        self.assertEqual(t.priority, 0)
+        self.assertEqual(t.info, None)
+
+
+#===============================================================================
+# SimulationTest
+#===============================================================================
+from simapp.db.api import create_simulation
+from simapp.models import Simulation, SimulationStatus
+
+class SimulationTestCase(TestCase):
+    def setUp(self):
+        # create task
+        filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        settings = Setting.get_or_create_defaults()
+        self.method = Method.get_or_create(method_type=MethodType.ODE,
+                                 settings=settings)
+        self.task = Task.objects.create(model=self.model, method=self.method)
+        self.p1 = Parameter.objects.create(key='L', value=1E-6, unit="m", 
+                                 parameter_type=ParameterType.GLOBAL_PARAMETER)
+        self.p2 = Parameter.objects.create(key='N', value=20, unit="-", 
+                                 parameter_type=ParameterType.BOUNDERY_INIT)
+       
+    def test_simulation_new(self):
+        """ Test fields of newly created simulation. """
+        sim = create_simulation(self.task, parameters = [self.p1, self.p1])
+        self.assertEqual(sim.task.pk, self.task.pk)
+        self.assertEqual(sim.status, SimulationStatus.UNASSIGNED)
+        self.assertTrue(sim.is_unassigned())
+        self.assertFalse(sim.is_done())
+        self.assertFalse(sim.is_assigned())
+        self.assertFalse(sim.is_error())
+        self.assertFalse(sim.hanging)
+        self.assertEqual(sim.task.sim_count(), 1)
+        self.assertEqual(sim.task.unassigned_count(), 1)
+        self.assertEqual(sim.task.assigned_count(), 0)
+        self.assertEqual(sim.task.done_count(), 0)
+        self.assertEqual(sim.task.error_count(), 0)
+#===============================================================================
+# ResultTest
+#===============================================================================
+from simapp.models import Result, ResultType
+from django.core.files import File
+
+class ResultTestCase(TestCase):
+    def setUp(self):
+        # create task
+        filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        settings = Setting.get_or_create_defaults()
+        self.method = Method.get_or_create(method_type=MethodType.ODE,
+                                 settings=settings)
+        self.task = Task.objects.create(model=self.model, method=self.method)
+        self.p1 = Parameter.objects.create(key='L', value=1E-6, unit="m", 
+                                 parameter_type=ParameterType.GLOBAL_PARAMETER)
+        self.p2 = Parameter.objects.create(key='N', value=20, unit="-", 
+                                 parameter_type=ParameterType.BOUNDERY_INIT)
+        self.sim = create_simulation(self.task, parameters = [self.p1, self.p1])
+       
+    def test_result(self):
+        """ """
+        res_filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'result.csv')
+        f = open(res_filepath, 'r')
+        myfile = File(f)
+        result = Result.objects.create(simulation=self.sim, 
+                                       result_type = ResultType.CSV,
+                                       file=myfile)
+        self.assertEqual(result.simulation.pk, self.sim.pk)
+        self.assertEqual(result.result_type, ResultType.CSV)
+        
+#===============================================================================
 # ViewTests
 #===============================================================================
 from django.test.client import Client
@@ -124,9 +266,15 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/models/')
         self.assertEqual(response.status_code, 200)
+        #  check the response.context
+        self.assertEqual(len(response.context['model_list']), 0)
+        # create a model
+        filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        response = self.c.get('/simapp/models/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['model_list']), 1)
         
-        # Check that the rendered context contains 5 customers.
-        # self.assertEqual(len(response.context['customers']), 5)
 
     def test_cores_status(self):
         """ Check response status code for view. """
@@ -137,7 +285,35 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/tasks/')
         self.assertEqual(response.status_code, 200)
-
+    
+    def test_task_404(self):
+        """ Check response status code for view. """
+        response = self.c.get('/simapp/task/1')
+        self.assertEqual(response.status_code, 404)
+        
+    def test_task_200(self):
+        """ Check response status code for view. """        
+        filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        settings = Setting.get_or_create_defaults()
+        self.method = Method.get_or_create(method_type=MethodType.ODE,
+                                 settings=settings)
+        task = Task.objects.create(model=self.model, method=self.method)
+        response = self.c.get('/simapp/task/{}'.format(task.pk))
+        self.assertEqual(response.status_code, 200)
+        
+    def test_task_parameters(self):
+        """ Check response status code for view. """        
+        filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        settings = Setting.get_or_create_defaults()
+        self.method = Method.get_or_create(method_type=MethodType.ODE,
+                                 settings=settings)
+        task = Task.objects.create(model=self.model, method=self.method)
+        
+        response = self.c.get('/simapp/task/T{}'.format(task.pk))
+        self.assertEqual(response.status_code, 200)
+        
     def test_methods_status(self):
         """ Check response status code for view. """
         response = self.c.get('/simapp/methods/')
@@ -147,6 +323,28 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/simulations/')
         self.assertEqual(response.status_code, 200)
+        
+    def test_simulation_404(self):
+        """ Check response status code for view. """
+        response = self.c.get('/simapp/simulation/1')
+        self.assertEqual(response.status_code, 404)
+    
+    def test_simulation_200(self):
+        """ Check response status code for view. """    
+        filepath = os.path.join( os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
+        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        settings = Setting.get_or_create_defaults()
+        self.method = Method.get_or_create(method_type=MethodType.ODE,
+                                 settings=settings)
+        self.task = Task.objects.create(model=self.model, method=self.method)
+        self.p1 = Parameter.objects.create(key='L', value=1E-6, unit="m", 
+                                 parameter_type=ParameterType.GLOBAL_PARAMETER)
+        self.p2 = Parameter.objects.create(key='N', value=20, unit="-", 
+                                 parameter_type=ParameterType.BOUNDERY_INIT)
+        sim = create_simulation(self.task, parameters = [self.p1, self.p1])
+        response = self.c.get('/simapp/simulation/{}'.format(sim.pk))
+        self.assertEqual(response.status_code, 200)
+         
         
     def test_results_status(self):
         """ Check response status code for view. """

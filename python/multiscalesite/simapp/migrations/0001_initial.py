@@ -65,6 +65,7 @@ class Migration(migrations.Migration):
             name='Result',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('result_type', models.IntegerField(default=0)),
                 ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=simapp.models.result_filename)),
             ],
         ),

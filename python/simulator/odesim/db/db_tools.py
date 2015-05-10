@@ -20,31 +20,30 @@ import logging
 import os
 
 
-import project_settings
-from django.core.exceptions import ObjectDoesNotExist
-from simapp.models import CompModel, Task
-
 # syncronize the models with the other servers
+# TODO: this does not belong here
 SYNC_BETWEEN_SERVERS = False 
 
 def sbmlmodel_from_id(sbml_id, sync=True):
     ''' Creates the model from given sbml_id.
         The model with the given id has to be already in the correct folder.
     '''    
-    model = CompModel.create(sbml_id, project_settings.SBML_DIR)
+    model = CompModel.create(sbml_id, )
     model.save()
     if sync: _sync_sbml_in_network()    
     return model
 
-def sbmlmodel_from_file(sbml_file, sync=False):
-    from simapp.models import CompModelFormat
+def sbmlmodel_from_file(sbml_file):
     ''' Creates the model from given sbml file. '''
     model = CompModel.create_from_file(sbml_file, format=CompModelFormat.SBML)
     model.save()
-    if sync: 
-        _sync_sbml_in_network()
-    return model
     
+    return model
+
+
+# TODO: the synchronization has to be managed in the simulator, 
+# i.e. syncronize at the beginning of the simulation.
+# TODO: make a query if not the database computer
 def _sync_sbml_in_network():
     '''
     Copies all SBML files to the server 
@@ -58,30 +57,12 @@ def _sync_sbml_in_network():
     logging.debug(str(call_command))
     call(call_command)
     
-def create_task(model, integration, info='', priority=0):
-    '''
-    Task is uniquely identified via model, integration and information.
-    Other fields have to be updated.
-    '''
-    try:
-        task = Task.objects.get(sbml_model=model, integration=integration, info=info)
-        task.priority = priority
-    except ObjectDoesNotExist:
-        task = Task(sbml_model=model, integration=integration, 
-                    info=info, priority=priority)
-    task.save()
-    logging.info("Task created/updated: {}".model_format(task))    
-    return task
 
 
 
 
-# TODO: refactor this
-from simapp.models import Simulation, Parameter
-from simapp.models import UNASSIGNED
-
-
-from django.db import transaction
+from simapp.db.api import create_parameter, create_simulation
+# from django.db import transaction
 
 @transaction.atomic
 def createSimulationsForSamples(task, samples):
@@ -100,15 +81,16 @@ def createSimulationsForSamples(task, samples):
     
     sims = []
     for sample in samples:
-        sim = Simulation(task=task, status=UNASSIGNED)
+        
         parameters = []
         for sp in sample.parameters:
             # This takes forever to check if parameter already in db
-            p, _ = Parameter.objects.get_or_create(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.ptype);
+            create_parameter(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.ptype);
             parameters.append(p)
         
         # sim = sims_list[k]
-        sim.parameters.add(*parameters)
+        sim = create_simulation(task, parameters)
+        
         sims.append(sim)
         print(sim)
         

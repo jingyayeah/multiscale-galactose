@@ -91,7 +91,7 @@
 			</td>
 			<td>{{task.priority}}</td>
 			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml_small.jpeg' %}"></a></td>
-			<td><a href="{% url 'simapp:report' task.sbml_model.pk %}" target="_blank">
+			<td><a href="{% url 'simapp:report' task.model.pk %}" target="_blank">
 				<img height="12" src="{% static 'simapp/images/html5_small.jpeg' %}"></a></td>
 			<td><a href="{% url 'simapp:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'simapp/images/params_small.png' %}"></a></td>
 			<td>{{task.sbml_model}} </td>

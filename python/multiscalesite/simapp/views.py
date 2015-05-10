@@ -3,10 +3,9 @@ from django.template import RequestContext, loader
 from django.shortcuts import get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from simapp.models import CompModel, Core, Simulation, Result, Task, Method
 
-PAGINATE_ENTRIES = 30
+PAGINATE_ENTRIES = 50
 
 #===============================================================================
 # Models
@@ -52,24 +51,27 @@ def task(request, task_id):
         'task': task,
     })
     return HttpResponse(template.render(context))
-    
+
     
 def task_parameters(request, task_id):
-    """ TODO: cache, only create once !
+    """ 
+        TODO: fix this
+        TODO: cache, only create once !
         Most of the logic belongs in the Parameterfile.
         Here only the view should be generated.
     """
     import simapp.analysis.ParameterFiles as pf
     
     task = get_object_or_404(Task, pk=task_id)
+    content = pf.createParameterInfoForTask(task)
+    
     # TODO: is this done 2 time ?????
     # Only write the file once and provide link to it.
-    content = pf.createParameterInfoForTask(task)
-    f = file(pf.getParameterFilenameForTask(task), 'w')
-    f.write(content)
-    f.close()
     
-    pf.createParameterFileForTask(task)
+    # f = file(pf.getParameterFilenameForTask(task), 'w')
+    # f.write(content)
+    # f.close()
+    # pf.createParameterFileForTask(task)
     return HttpResponse(content, content_type='text/plain')
     
 #===============================================================================

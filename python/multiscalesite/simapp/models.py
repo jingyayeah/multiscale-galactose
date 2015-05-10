@@ -1,6 +1,6 @@
 """
 Model definitions of for the simulation app.
-    
+
 @author: Matthias Koenig
 @date: 2015-05-10    
 """
@@ -68,7 +68,7 @@ class Core(models.Model):
     cpu = models.IntegerField()
     time = models.DateTimeField(default=timezone.now);
         
-    def __unicode__(self):
+    def __str__(self):
         return '{}-cpu-{}'.format(self.ip, self.cpu)
     
     def _is_active(self, cutoff_minutes=10):
@@ -110,7 +110,7 @@ class CompModel(models.Model):
     file = models.FileField(upload_to='model', max_length=200, storage=OverwriteStorage())
     md5 = models.CharField(max_length=36)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.model_id
     
     class Meta:
@@ -187,27 +187,25 @@ class CompModel(models.Model):
 #===============================================================================
 # Settings
 #===============================================================================
-# TODO: lookup the allowed solver options for RoadRunner
-
 class DataType(enum.Enum):
-    STRING = 0
-    BOOLEAN = 1
-    DOUBLE = 2
+    STR = 0
+    BOOL = 1
+    FLOAT = 2
     INT = 3
     labels = {
-        STRING:"STRING", BOOLEAN:"CELLML", DOUBLE:"DOUBLE", INT:"INT"
+        STR:"str", BOOL:"bool", FLOAT:"float", INT:"int"
     }
     
     @staticmethod
     def cast_value(value, datatype):
         """ Cast setting to corresponding datatype. """
-        if datatype == DataType.STRING:
+        if datatype == DataType.STR:
             return str(value)
-        elif datatype == DataType.DOUBLE:
+        elif datatype == DataType.FLOAT:
             return float(value)
         elif datatype == DataType.INT:
             return int(value)
-        elif datatype == DataType.BOOLEAN:
+        elif datatype == DataType.BOOL:
             return bool(value)
         else:
             raise KeyError(datatype)
@@ -220,20 +218,30 @@ class SettingKey(enum.Enum):
     T_START = 4
     T_END = 5
     STEPS = 6
+    STIFF = 7
+    MIN_TIMESTEP = 8
+    MAX_TIMESTEP = 9
+    MAX_NUM_STEP = 10
     labels = {
         INTEGRATOR:"INTEGRATOR", VAR_STEPS:"VAR_STEPS",
         ABS_TOL:"ABS_TOL", REL_TOL:"REL_TOL",
-        T_START:"T_START", T_END:"T_END", STEPS:"STEPS"
+        T_START:"T_START", T_END:"T_END", STEPS:"STEPS", STIFF:"STIFF",
+        MIN_TIMESTEP:"MIN_TIMESTEP", MAX_TIMESTEP:"MAX_TIMESTEP", 
+        MAX_NUM_STEP:"MAX_NUM_STEP"
     }
     
 SETTINGS_DATATYPE = {
-        SettingKey.INTEGRATOR : DataType.STRING,
-        SettingKey.VAR_STEPS : DataType.BOOLEAN,
-        SettingKey.ABS_TOL : DataType.DOUBLE,
-        SettingKey.REL_TOL : DataType.DOUBLE,
-        SettingKey.T_START : DataType.DOUBLE,
-        SettingKey.T_END : DataType.DOUBLE,
-        SettingKey.STEPS : DataType.INT
+        SettingKey.INTEGRATOR : DataType.INT, # due to enum.Enum
+        SettingKey.VAR_STEPS : DataType.BOOL,
+        SettingKey.ABS_TOL : DataType.FLOAT,
+        SettingKey.REL_TOL : DataType.FLOAT,
+        SettingKey.T_START : DataType.FLOAT,
+        SettingKey.T_END : DataType.FLOAT,
+        SettingKey.STEPS : DataType.INT,
+        SettingKey.STIFF : DataType.BOOL,
+        SettingKey.MIN_TIMESTEP : DataType.FLOAT,
+        SettingKey.MAX_TIMESTEP : DataType.FLOAT,
+        SettingKey.MAX_NUM_STEP : DataType.INT,
     }
 
 class SimulatorType(enum.Enum):
@@ -249,14 +257,15 @@ class Setting(models.Model):
         SettingKey.INTEGRATOR : SimulatorType.ROADRUNNER,
         SettingKey.VAR_STEPS : True,
         SettingKey.ABS_TOL : 1E-6,
-        SettingKey.REL_TOL : 1E-6
+        SettingKey.REL_TOL : 1E-6,
+        SettingKey.STIFF : True
     }  
     
     key = enum.EnumField(SettingKey)
     value = models.CharField(max_length=40)
     datatype = enum.EnumField(DataType)
 
-    def __unicode__(self):
+    def __str__(self):
         return "{}={}".format(self.key, self.value) 
     
     def save(self, *args, **kwargs):
@@ -265,7 +274,7 @@ class Setting(models.Model):
         super(Setting, self).save(*args, **kwargs) # Call the "real" save() method.
     
     def _cast_value(self):
-        return DataType.cast_value(self.datatype, self.value)
+        return DataType.cast_value(value=self.value, datatype=self.datatype)
     cast_value = property(_cast_value)  
 
     @staticmethod 
@@ -280,12 +289,13 @@ class Setting(models.Model):
     
     @classmethod
     def get_or_create(cls, key, value):
+        ''' In database represented as string. '''
         return cls.objects.get_or_create(key=key, value=str(value))
     
     @classmethod
     def get_or_create_from_dict(cls, d_settings, add_defaults=True):
         ''' Get settings based on settings dictionary. 
-        The settings dictionary is extened with the provided settings.
+        The settings dictionary is extended with the provided settings.
         '''    
         if add_defaults:
             d_settings = cls._combine_dicts(cls.DEFAULTS, d_settings)
@@ -296,6 +306,11 @@ class Setting(models.Model):
             s, _ = cls.get_or_create(key=key, value=value)
             settings.append(s)
         return settings
+    
+    @classmethod
+    def get_or_create_defaults(cls):
+        ''' Gets the default settings defined via DEFAULTS. '''
+        return cls.get_or_create_from_dict({}, add_defaults=True)
 
 #===============================================================================
 # Method
@@ -313,8 +328,8 @@ class Method(models.Model):
     method_type = enum.EnumField(MethodType)
     settings = models.ManyToManyField(Setting)
 
-    def __unicode__(self):
-        return 'I{}'.format(self.pk) 
+    def __str__(self):
+        return 'M{}'.format(self.pk) 
     
     class Meta:
         verbose_name = 'Method Setting'
@@ -339,12 +354,12 @@ class Method(models.Model):
         return method
 
     @staticmethod
-    def get_or_create_method(method_type, settings):
+    def get_or_create(method_type, settings):
         """ Find or create the method belonging to the set of settings. """
         settings_set = frozenset(settings)
         for method in Method.objects.filter(method_type=method_type):
             # uniqueness tested via the set equality 
-            if settings_set==frozenset(method.settings.all()):
+            if settings_set == frozenset(method.settings.all()):
                 return method
         else:
             return Method._create_method(method_type, settings)
@@ -371,7 +386,7 @@ class Parameter(models.Model):
     unit = models.CharField(max_length=10)
     parameter_type = enum.EnumField(ParameterType)
     
-    def __unicode__(self):
+    def __str__(self):
         return '{} = {} [{}]'.format(self.key, self.value, self.unit)
     
     class Meta:
@@ -396,52 +411,59 @@ class Task(models.Model):
     class Meta:
         unique_together = ("model", "method", "info")
     
-    def __unicode__(self):
+    def __str__(self):
         return "T%d" % (self.pk)
+
+    def _get_setting(self, key):
+        return self.method.settings.get(key=key).cast_value
+    
+    def _get_integrator(self):
+        return self._get_setting(SettingKey.INTEGRATOR)
+    integrator = property(_get_integrator)
+    
+    def _get_varSteps(self):
+        return self._get_setting(SettingKey.VAR_STEPS)
+    varSteps = property(_get_varSteps)
+    
+    def _get_relTol(self):
+        return self._get_setting(SettingKey.REL_TOL)
+    relTol = property(_get_relTol)
+    
+    def _get_absTol(self):
+        return self._get_setting(SettingKey.ABS_TOL)
+    absTol = property(_get_absTol)
+      
+    def _get_steps(self):
+        return self._get_setting(SettingKey.STEPS)
+    steps = property(_get_steps)
+    
+    def _get_tstart(self):
+        return self._get_setting(SettingKey.T_START)
+    tstart = property(_get_tstart)
+    
+    def _get_tend(self):
+        return self._get_setting(SettingKey.T_END)
+    tend = property(_get_tend)
+
 
     def sim_count(self):
         return self.simulation_set.count()
     
     def _status_count(self, status):
-        return self.simulation_set.filter(status=status.value).count()
+        return self.simulation_set.filter(status=status).count()
     
     def done_count(self):
-        return self._status_count(self, SimulationStatus.DONE)
+        return self._status_count(SimulationStatus.DONE)
     
     def assigned_count(self):
-        return self._status_count(self, SimulationStatus.ASSIGNED)
+        return self._status_count(SimulationStatus.ASSIGNED)
     
     def unassigned_count(self):
-        return self._status_count(self, SimulationStatus.UNASSIGNED)
+        return self._status_count(SimulationStatus.UNASSIGNED)
     
     def error_count(self):
-        return self._status_count(self, SimulationStatus.ERROR)
+        return self._status_count(SimulationStatus.ERROR)
     
-    def _get_setting(self, key):
-        return self.method.settings.get(key=key).cast_value
-    def _get_integrator(self):
-        return self._get_setting(SettingKey.INTEGRATOR)
-    def _get_varSteps(self):
-        return self._get_setting(SettingKey.VAR_STEPS)
-    def _get_relTol(self):
-        return self._get_setting(SettingKey.REL_TOL)
-    def _get_absTol(self):
-        return self._get_setting(SettingKey.ABS_TOL)  
-    def _get_steps(self):
-        return self._get_setting(SettingKey.STEPS)
-    def _get_tstart(self):
-        return self._get_setting(SettingKey.T_START)
-    def _get_tend(self):
-        return self._get_setting(SettingKey.T_END)
-    
-    integrator = property(_get_integrator)
-    varSteps = property(_get_varSteps)
-    relTol = property(_get_relTol)
-    absTol = property(_get_absTol)
-    steps = property(_get_steps)
-    tstart = property(_get_tstart)
-    tend = property(_get_tend)
-
 
 #===============================================================================
 # Simulation
@@ -498,8 +520,8 @@ class Simulation(models.Model):
     assigned_objects = AssignedSimulationManager()
     done_objects = DoneSimulationManager()
     
-    def __unicode__(self):
-        return 'S%d' % (self.pk)
+    def __str__(self):
+        return 'S{}'.format(self.pk)
     
     def is_error(self):
         return self.status == SimulationStatus.ERROR
@@ -514,7 +536,6 @@ class Simulation(models.Model):
         if (not self.time_assign or not self.time_sim):
             return None
         return self.time_sim - self.time_assign
-    
     duration = property(_get_duration)
     
     def _is_hanging(self, cutoff_minutes=10):
@@ -525,9 +546,7 @@ class Simulation(models.Model):
             return False
         else:
             return (timezone.now() >= self.time_assign+timedelta(minutes=cutoff_minutes))
-    
     hanging = property(_is_hanging)
-
 
 #===============================================================================
 # Result
@@ -537,20 +556,35 @@ def result_filename(self, filename):
     name = filename.split("/")[-1]
     return os.path.join('result', str(self.simulation.task), name)
     
+class ResultType(enum.Enum):
+    CSV = 0
+    HDF5 = 1
+    JSON = 1
+    PNG = 2
+    
+    labels = {
+        CSV : "CSV",
+        HDF5 : "HDF5",
+        JSON : "JSON",
+        PNG : "PNG"
+    }
+
 
 class Result(models.Model):
     """ Result of simulation. 
         The type is defined via the simulation type.
+        TODO: check that result is unique for simulation, 
+        and not already existing. Write api function to store result.
     """
     simulation = models.OneToOneField(Simulation, unique=True)
+    result_type = enum.EnumField(ResultType)
     file = models.FileField(upload_to=result_filename, 
                             max_length=200, storage=OverwriteStorage())
     
-    def __unicode__(self):
-        return 'Tc:%d' % (self.pk)
+    def __str__(self):
+        return 'R{}'.format(self.pk)
     
-    # TODO: manage the zip things
-    
+    # TODO: manage the zip things    
     def _get_zip_file(self):
         f = self.file.path
         return (f[:-3] + 'tar.gz')
