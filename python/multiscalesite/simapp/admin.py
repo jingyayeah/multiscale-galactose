@@ -10,7 +10,7 @@ class CompModelAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'model_id', 'model_format', 'file')
 
 class ParameterAdmin(admin.ModelAdmin):
-    list_display = ('pk', '__unicode__', 'key', 'value', 'unit', 'ptype')
+    list_display = ('pk', '__unicode__', 'key', 'value', 'unit', 'parameter_type')
 
 class ResultAdmin(admin.ModelAdmin):
     list_display = ('pk', '__unicode__', 'simulation', 'file')

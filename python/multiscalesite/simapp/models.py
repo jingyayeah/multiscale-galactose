@@ -16,8 +16,6 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 
-from django.utils.deconstruct import deconstructible
-
 from simapp.storage import OverwriteStorage
 
 
@@ -355,7 +353,7 @@ class Method(models.Model):
 #===============================================================================
 # Parameter
 #===============================================================================
-class ParameterType(enum.EnumField):
+class ParameterType(enum.Enum):
     GLOBAL_PARAMETER = 0
     BOUNDERY_INIT = 1
     FLOATING_INIT = 2
@@ -450,44 +448,44 @@ class Task(models.Model):
 #===============================================================================
 
 class SimulationStatus(enum.Enum):
-    UNASSIGNED = "UNASSIGNED"
-    ASSIGNED = "ASSIGNED"
-    DONE = "DONE"
-    ERROR = "ERROR"
+    UNASSIGNED = 0
+    ASSIGNED = 1
+    DONE = 2
+    ERROR = 3
     labels = {
-        UNASSIGNED = "UNASSIGNED",
-        ASSIGNED = "ASSIGNED",
-        DONE = "DONE",
-        ERROR = "ERROR"
+        UNASSIGNED : "UNASSIGNED",
+        ASSIGNED : "ASSIGNED",
+        DONE : "DONE",
+        ERROR : "ERROR"
     }
-    
 
+# TODO: one create for manager
+# class fabric 
 class ErrorSimulationManager(models.Manager):
     def get_queryset(self):
         return super(ErrorSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.ERROR.value)
+                     self).get_queryset().filter(status=SimulationStatus.ERROR)
 
 class UnassignedSimulationManager(models.Manager):
     def get_queryset(self):
         return super(UnassignedSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.UNASSIGNED.value)
+                     self).get_queryset().filter(status=SimulationStatus.UNASSIGNED)
 
 class AssignedSimulationManager(models.Manager):
     def get_queryset(self):
         return super(AssignedSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.ASSIGNED.value)
+                     self).get_queryset().filter(status=SimulationStatus.ASSIGNED)
                      
 class DoneSimulationManager(models.Manager):
     def get_queryset(self):
         return super(DoneSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.DONE.value)
+                     self).get_queryset().filter(status=SimulationStatus.DONE)
 
 
 class Simulation(models.Model):     
     task = models.ForeignKey(Task)
     parameters = models.ManyToManyField(Parameter)
-    status = models.CharField(max_length=20, choices=SimulationStatus.choices(), 
-                              default=SimulationStatus.UNASSIGNED.value)
+    status = enum.EnumField(SimulationStatus, default=SimulationStatus.UNASSIGNED)
     time_create = models.DateTimeField(default=timezone.now)
     time_assign = models.DateTimeField(null=True, blank=True)
     core = models.ForeignKey(Core, null=True, blank=True)
@@ -503,22 +501,21 @@ class Simulation(models.Model):
     def __unicode__(self):
         return 'S%d' % (self.pk)
     
-    def _is_status(self, simulation_status):
-        return self.status == simulation_status.value
     def is_error(self):
-        return self._is_status(SimulationStatus.ERROR)
+        return self.status == SimulationStatus.ERROR
     def is_unassigned(self):
-        return self._is_status(SimulationStatus.UNASSIGNED)
+        return self.status == SimulationStatus.UNASSIGNED
     def is_assigned(self):
-        return self._is_status(SimulationStatus.ASSIGNED)
+        return self.status == SimulationStatus.ASSIGNED
     def is_done(self):
-        return self._is_status(SimulationStatus.DONE)
+        return self.status == SimulationStatus.DONE
     
     def _get_duration(self):
         if (not self.time_assign or not self.time_sim):
             return None
-        else:
-            return self.time_sim - self.time_assign
+        return self.time_sim - self.time_assign
+    
+    duration = property(_get_duration)
     
     def _is_hanging(self, cutoff_minutes=10):
         ''' Simulation did not finish '''
@@ -529,26 +526,22 @@ class Simulation(models.Model):
         else:
             return (timezone.now() >= self.time_assign+timedelta(minutes=cutoff_minutes))
     
-    duration = property(_get_duration)
     hanging = property(_is_hanging)
 
 
 #===============================================================================
 # Result
 #===============================================================================
-# TODO: handle as result file.
-# This can be a timecourse, but could also be an FBA simulation.
-# Define type.
-import os
-# TODO: use os.path.join
-       
+
 def result_filename(self, filename):
     name = filename.split("/")[-1]
-    return '/'.join(['result', str(self.simulation.task), name])
+    return os.path.join('result', str(self.simulation.task), name)
     
 
 class Result(models.Model):
-    ''' Result of simulation. '''
+    """ Result of simulation. 
+        The type is defined via the simulation type.
+    """
     simulation = models.OneToOneField(Simulation, unique=True)
     file = models.FileField(upload_to=result_filename, 
                             max_length=200, storage=OverwriteStorage())
@@ -556,7 +549,7 @@ class Result(models.Model):
     def __unicode__(self):
         return 'Tc:%d' % (self.pk)
     
-
+    # TODO: manage the zip things
     
     def _get_zip_file(self):
         f = self.file.path

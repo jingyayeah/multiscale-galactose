@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             name='Method',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('method_type', models.CharField(max_length=40, choices=[(b'FBA', b'FBA'), (b'ODE', b'ODE')])),
+                ('method_type', models.IntegerField(default=0)),
             ],
             options={
                 'verbose_name': 'Method Setting',
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                 ('key', models.CharField(max_length=200)),
                 ('value', models.FloatField()),
                 ('unit', models.CharField(max_length=10)),
-                ('ptype', models.CharField(max_length=30, choices=[(b'BOUNDERY_INIT', b'BOUNDERY_INIT'), (b'FLOATING_INIT', b'FLOATING_INIT'), (b'GLOBAL_PARAMETER', b'GLOBAL_PARAMETER'), (b'NONE_SBML_PARAMETER', b'NONE_SBML_PARAMETER')])),
+                ('parameter_type', models.IntegerField(default=0)),
             ],
         ),
         migrations.CreateModel(
@@ -72,16 +72,16 @@ class Migration(migrations.Migration):
             name='Setting',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('key', models.CharField(max_length=40, choices=[(b'ABS_TOL', b'ABS_TOL'), (b'REL_TOL', b'REL_TOL'), (b'STEPS', b'STEPS'), (b'T_END', b'T_END'), (b'T_START', b'T_START'), (b'VAR_STEPS', b'VAR_STEPS'), ((b'INTEGRATOR',), (b'INTEGRATOR',))])),
+                ('key', models.IntegerField(default=0)),
                 ('value', models.CharField(max_length=40)),
-                ('datatype', models.CharField(max_length=40, choices=[(b'BOOLEAN', b'BOOLEAN'), (b'DOUBLE', b'DOUBLE'), (b'INT', b'INT'), (b'STRING', b'STRING')])),
+                ('datatype', models.IntegerField(default=0)),
             ],
         ),
         migrations.CreateModel(
             name='Simulation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('status', models.CharField(default=b'UNASSIGNED', max_length=20, choices=[(b'ASSIGNED', b'ASSIGNED'), (b'DONE', b'DONE'), (b'ERROR', b'ERROR'), (b'UNASSIGNED', b'UNASSIGNED')])),
+                ('status', models.IntegerField(default=0)),
                 ('time_create', models.DateTimeField(default=django.utils.timezone.now)),
                 ('time_assign', models.DateTimeField(null=True, blank=True)),
                 ('time_sim', models.DateTimeField(null=True, blank=True)),

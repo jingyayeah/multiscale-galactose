@@ -64,22 +64,19 @@ from simapp.models import DataType, Setting, SettingKey, SimulatorType
 
 class SettingTestCase(TestCase):
     def setUp(self):
-        Setting.objects.create(key=(SettingKey.INTEGRATOR).value, 
-                               value=(SimulatorType.ROADRUNNER).value)
+        Setting.objects.create(key=SettingKey.INTEGRATOR, value=SimulatorType.ROADRUNNER)
         
     def test_setting_fields(self):
         """ Test the setting fields. """
-        s1 = Setting.objects.get(key=(SettingKey.INTEGRATOR).value,
-                                  value=(SimulatorType.ROADRUNNER).value)
-        self.assertEqual(s1.datatype, (DataType.STRING).value)
+        s1 = Setting.objects.get(key=SettingKey.INTEGRATOR, value=SimulatorType.ROADRUNNER)
+        self.assertEqual(s1.datatype, DataType.STRING)
         
     def test_create_default_settings(self):
         settings = Setting.get_or_create_from_dict({}, add_defaults=True)
         keys = [s.key for s in settings]
-        self.assertTrue((SettingKey.INTEGRATOR).value in keys)
+        self.assertTrue(SettingKey.INTEGRATOR in keys)
         
-
-
+        
 
 #===============================================================================
 # ParameterTest
@@ -88,8 +85,10 @@ from simapp.models import Parameter, ParameterType
 
 class ParameterTestCase(TestCase):
     def setUp(self):
-        Parameter.objects.create(key='L', value=1E-6, unit="m", ptype=ParameterType.GLOBAL_PARAMETER)
-        Parameter.objects.create(key='N', value=20, unit="-", ptype=ParameterType.GLOBAL_PARAMETER)
+        Parameter.objects.create(key='L', value=1E-6, unit="m", 
+                                 parameter_type=ParameterType.GLOBAL_PARAMETER)
+        Parameter.objects.create(key='N', value=20, unit="-", 
+                                 parameter_type=ParameterType.BOUNDERY_INIT)
 
     def test_parameters(self):
         """Animals that can speak are correctly identified"""
@@ -101,8 +100,8 @@ class ParameterTestCase(TestCase):
         self.assertEqual(p2.value, 20)
         self.assertEqual(p1.unit, 'm')
         self.assertEqual(p2.unit, '-')
-        self.assertEqual(ParameterType.from_string(p1.ptype), ParameterType.GLOBAL_PARAMETER)
-        self.assertEqual(ParameterType.from_string(p2.ptype), ParameterType.GLOBAL_PARAMETER)
+        self.assertEqual(p1.parameter_type, ParameterType.GLOBAL_PARAMETER)
+        self.assertEqual(p2.parameter_type, ParameterType.BOUNDERY_INIT)
 
 
 #===============================================================================
