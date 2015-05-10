@@ -43,6 +43,7 @@ def tasks(request):
     })
     return HttpResponse(template.render(context))
 
+
 def task(request, task_id):
     """ View of single task. """
     task = get_object_or_404(Task, pk=task_id)
@@ -91,7 +92,7 @@ def methods(request):
 #===============================================================================
 def simulations(request, status='ALL'):
     """ Simulations overview. """
-    if (status == 'ALL'):
+    if status == 'ALL':
         sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
     else:
         sim_list = Simulation.objects.filter(status=status).order_by("-time_assign", "-time_create")

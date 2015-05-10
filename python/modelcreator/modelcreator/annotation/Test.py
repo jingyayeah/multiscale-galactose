@@ -3,8 +3,7 @@ Created on Jun 2, 2014
 
 @author: mkoenig
 '''
-from libsbml import *
-import ModelAnnotation
+from modelcreator.annotation import ModelAnnotation
 
 doc = SBMLDocument(3,1)
 model = doc.createModel('Test')

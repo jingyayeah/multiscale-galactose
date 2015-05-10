@@ -14,7 +14,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 
 SBML_FOLDER = "/home/mkoenig/multiscale-galactose-results/tmp_sbml"
 from simapp.models import CompModel
-from ModelAnnotation import annotateModel
+from modelcreator.annotation.ModelAnnotation import annotateModel
     
  
 ###############################################################################

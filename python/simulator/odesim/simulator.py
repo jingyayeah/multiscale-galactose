@@ -1,5 +1,5 @@
 #!/usr/bin/python
-'''
+"""
 Module for running/starting simulations.
 Starts processes on the cpus which listen for available simulations.
 The odesim settings and parameters determine the actual odesim.
@@ -24,7 +24,7 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 
 @author: Matthias Koenig
 @date: 2015-05-05
-'''
+"""
 from project_settings import SIM_DIR
 
 import os
@@ -153,7 +153,7 @@ if __name__ == "__main__":
     import math
     parser = OptionParser()
     parser.add_option("-c", "--cpu", dest="cpu_load",
-                  help="CPU load between 0 and 1, i.e. 0.5 uses half the cpus")
+                      help="CPU load between 0 and 1, i.e. 0.5 uses half the cpus")
     (options, args) = parser.parse_args()
     
     print '#'*60

@@ -1,23 +1,27 @@
-'''
+"""
 Django template filters related to the rendering of SBML.
 
-
-Created on May 8, 2014
-@author: mkoenig
-'''
+@author: Matthias Koenig
+@date: 2014-05-08
+"""
 
 import libsbml
-from simapp.sbml.annotation.ModelAnnotation import annotationToHTML
 from django import template
+
+from modelcreator.annotation.ModelAnnotation import annotationToHTML
+
 register = template.Library()
+
 
 @register.filter
 def SBML_astnodeToString(astnode):
     return libsbml.formulaToString(astnode)
 
+
 @register.filter
 def SBML_annotationToString(annotation):
     return annotationToHTML(annotation)
+
 
 @register.filter
 def SBML_unitDefinitionToString1(ud):
@@ -29,17 +33,18 @@ unit_dict['meter'] = 'm'
 unit_dict['metre'] = 'm'
 unit_dict['second'] = 's'
 
+
 @register.filter
 def SBML_unitDefinitionToString(udef):
-    ''' Proper formating of the units. 
+    """ Proper formating of the units.
         TODO: fix bug with scale and multipler
-    '''
+    """
     libsbml.UnitDefinition_reorder(udef)
     items = []
     for u in udef.getListOfUnits():
         # multiplier
         m = u.getMultiplier()
-        if (abs(m-1.0) < 1E-10):
+        if abs(m-1.0) < 1E-10:
             m = ''
         else:
             m = str(m) + '*'
@@ -49,7 +54,7 @@ def SBML_unitDefinitionToString(udef):
         k = unit_dict.get(k, k)
         
         # (multiplier * 10^scale *ukind)^exponent
-        if (s == 0 and e == 1):
+        if s == 0 and e == 1:
             string = '{}{}'.model_format(m, k)
         elif (s == 0) and (m == ''):
             string = '{}^{}'.model_format(k,e)
@@ -58,15 +63,18 @@ def SBML_unitDefinitionToString(udef):
         items.append(string)
     return ' * '.join(items)
 
+
 @register.filter
 def SBML_modelHistoryToString(mhistory):
     return modelHistoryToString(mhistory)
 
+
 @register.filter
 def SBML_reactionToString(reaction):
-    return equationStringFromReaction(reaction)
+    return _equationStringFromReaction(reaction)
 
-def equationStringFromReaction(reaction):
+
+def _equationStringFromReaction(reaction):
     left = halfEquation(reaction.getListOfReactants())
     right = halfEquation(reaction.getListOfProducts())
     if reaction.getReversible():
@@ -82,12 +90,14 @@ def equationStringFromReaction(reaction):
         return " ".join([left, sep, right, mods])
     '''
 
+
 def modifierEquation(modifierList):
     if len(modifierList) == 0:
         return None
     mids = [m.getSpecies() for m in modifierList]
     return '[' + ', '.join(mids) + ']' 
-    
+
+
 def halfEquation(speciesList):
     items = []
     for sr in speciesList:
@@ -104,10 +114,11 @@ def halfEquation(speciesList):
         items.append(sd)
     return ' + '.join(items)
 
+
 def modelHistoryToString(mhistory):
-    '''
+    """
     Renders HTML representation of the model history.
-    '''
+    """
     items = []
     for kc in xrange(mhistory.getNumCreators()):
         c = mhistory.getCreator(kc)
@@ -129,6 +140,7 @@ def modelHistoryToString(mhistory):
     items.append('<br />')
     return "<br />".join(items)
 
+
 def dateToString(d):
-    return "{}-{:0>2d}-{:0>2d} {:0>2d}:{:0>2d}".model_format(d.getYear(), d.getMonth(), d.getDay(), 
-                                       d.getHour(), d.getMinute())
+    return "{}-{:0>2d}-{:0>2d} {:0>2d}:{:0>2d}".model_format(d.getYear(), d.getMonth(), d.getDay(),
+        d.getHour(), d.getMinute())

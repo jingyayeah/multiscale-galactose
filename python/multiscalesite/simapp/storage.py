@@ -1,20 +1,21 @@
-'''
+"""
 Extended storage system.
 
-Implementation is based on 
+Implementation is based on
 [http://timonweb.com/imagefield-overwrite-file-if-file-with-the-same-name-exists]
 
-TODO: double check what is going on here, especially in the case the file 
+TODO: double check what is going on here, especially in the case the file
     already exists on the filesystem.
 
 @author: Matthias Koenig
 @date: 2014-06-06
 
-'''
+"""
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import os
- 
+
+
 class OverwriteStorage(FileSystemStorage):
  
     def get_available_name(self, name):

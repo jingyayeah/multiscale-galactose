@@ -9,13 +9,14 @@ from __future__ import print_function
 import os
 import tarfile
 import logging
-from datetime import timedelta
+import datetime
 
 from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 
+from django_enumfield import enum
 from simapp.storage import OverwriteStorage
 
 
@@ -54,16 +55,17 @@ rpack = SignatureTranslatedAnonymousPackage(string, "rpack")
 ###################################################################################
 
 
-#===============================================================================
+# ===============================================================================
 # Core
-#===============================================================================
+# ===============================================================================
 from project_settings import COMPUTERS
 
+
 class Core(models.Model):
-    ''' Single computer core for simulation, defined by ip and cpu.
+    """ Single computer core for simulation, defined by ip and cpu.
     Time corresponds to the last time the core object was accessed/used.
     This can be creation time or simulation time.
-    '''
+    """
     ip = models.CharField(max_length=200)
     cpu = models.IntegerField()
     time = models.DateTimeField(default=timezone.now);
@@ -72,10 +74,10 @@ class Core(models.Model):
         return '{}-cpu-{}'.format(self.ip, self.cpu)
     
     def _is_active(self, cutoff_minutes=10):
-        ''' Test if simulation is still active. '''
+        """ Test if simulation is still active. """
         if not (self.time):
             return False
-        return (timezone.now() <= self.time+timedelta(minutes=cutoff_minutes))
+        return timezone.now() <= self.time + datetime.timedelta(minutes=cutoff_minutes)
     
     active = property(_is_active)
     
@@ -88,13 +90,15 @@ class Core(models.Model):
         return COMPUTERS.get(self.ip, self.ip)
     computer = property(_get_computer_name)
 
-#===============================================================================
+# ===============================================================================
 # CompModel
-#===============================================================================
+# ===============================================================================
+
+
 class CompModelException(Exception):
         pass
 
-from django_enumfield import enum
+
 class CompModelFormat(enum.Enum):
     SBML = 0
     CELLML = 1
@@ -102,7 +106,8 @@ class CompModelFormat(enum.Enum):
         SBML: "SBML",
         CELLML: "CELLML"
     }
-    
+
+
 class CompModel(models.Model):
     """ Storage class for models. """
     model_id = models.CharField(max_length=200, unique=True)
@@ -121,8 +126,8 @@ class CompModel(models.Model):
         return str(self.file.path)
     filepath = property(_filepath)
     
-    def _md5_short(self, L=10):
-        return '{}...'.format(self.md5[0:L])
+    def _md5_short(self, length=10):
+        return '{}...'.format(self.md5[0:length])
     md5_short = property(_md5_short)
     
     def _sbml_id(self):
@@ -142,15 +147,16 @@ class CompModel(models.Model):
         if model_format not in CompModelFormat.values:
             raise CompModelException('model_format is not a supported format: {}'.format(model_format))
         try:
-            with open(filepath) as f: pass
+            with open(filepath) as f:
+                pass
         except IOError as exc:
             raise IOError("%s: %s" % (filepath, exc.strerror))
         
         # check if model id and filename are identical
         if model_format == CompModelFormat.SBML:
             model_id = cls._get_sbml_id_from_file(filepath)
-            if ('{}.xml'.format(model_id) != os.path.basename(filepath)):
-                raise CompModelException('SBML model id is not identical to basename of file:, {}, {}'.format(model_id, filepath))
+            if '{}.xml'.format(model_id) != os.path.basename(filepath):
+                raise CompModelException('model id different from basename of file:, {}, {}'.format(model_id, filepath))
         else:
             model_id = os.path.basename(filepath)
         
@@ -161,11 +167,11 @@ class CompModel(models.Model):
             model = cls.objects.get(model_id=model_id)
             if model.md5 == md5:
                 logging.info('CompModel already in database: {}'.format(model_id))
-                return model;
+                return model
             else:
                 # the files are not identical
-                logging.warn('Other CompModel with sbml_id exists in database, model is not created: {}'.format(model_id))
-                return None;
+                logging.warn('CompModel exists with model_id, model is not created: {}'.format(model_id))
+                return None
             
         except ObjectDoesNotExist: 
             f = open(filepath, 'r')
@@ -184,16 +190,16 @@ class CompModel(models.Model):
         return sbml_id
    
 
-#===============================================================================
+# ===============================================================================
 # Settings
-#===============================================================================
+# ===============================================================================
 class DataType(enum.Enum):
     STR = 0
     BOOL = 1
     FLOAT = 2
     INT = 3
     labels = {
-        STR:"str", BOOL:"bool", FLOAT:"float", INT:"int"
+        STR: "str", BOOL: "bool", FLOAT: "float", INT: "int"
     }
     
     @staticmethod
@@ -210,6 +216,7 @@ class DataType(enum.Enum):
         else:
             raise KeyError(datatype)
 
+
 class SettingKey(enum.Enum):
     INTEGRATOR = 0
     VAR_STEPS = 1
@@ -219,46 +226,47 @@ class SettingKey(enum.Enum):
     T_END = 5
     STEPS = 6
     STIFF = 7
-    MIN_TIMESTEP = 8
-    MAX_TIMESTEP = 9
+    MIN_TIME_STEP = 8
+    MAX_TIME_STEP = 9
     MAX_NUM_STEP = 10
     labels = {
-        INTEGRATOR:"INTEGRATOR", VAR_STEPS:"VAR_STEPS",
-        ABS_TOL:"ABS_TOL", REL_TOL:"REL_TOL",
-        T_START:"T_START", T_END:"T_END", STEPS:"STEPS", STIFF:"STIFF",
-        MIN_TIMESTEP:"MIN_TIMESTEP", MAX_TIMESTEP:"MAX_TIMESTEP", 
-        MAX_NUM_STEP:"MAX_NUM_STEP"
+        INTEGRATOR: "INTEGRATOR", VAR_STEPS: "VAR_STEPS",
+        ABS_TOL: "ABS_TOL", REL_TOL: "REL_TOL",
+        T_START: "T_START", T_END: "T_END", STEPS: "STEPS", STIFF: "STIFF",
+        MIN_TIME_STEP: "MIN_TIME_STEP", MAX_TIME_STEP: "MAX_TIME_STEP",
+        MAX_NUM_STEP: "MAX_NUM_STEP"
     }
     
 SETTINGS_DATATYPE = {
-        SettingKey.INTEGRATOR : DataType.INT, # due to enum.Enum
-        SettingKey.VAR_STEPS : DataType.BOOL,
-        SettingKey.ABS_TOL : DataType.FLOAT,
-        SettingKey.REL_TOL : DataType.FLOAT,
-        SettingKey.T_START : DataType.FLOAT,
-        SettingKey.T_END : DataType.FLOAT,
-        SettingKey.STEPS : DataType.INT,
-        SettingKey.STIFF : DataType.BOOL,
-        SettingKey.MIN_TIMESTEP : DataType.FLOAT,
-        SettingKey.MAX_TIMESTEP : DataType.FLOAT,
-        SettingKey.MAX_NUM_STEP : DataType.INT,
-    }
+    SettingKey.INTEGRATOR: DataType.INT,  # due to enum.Enum
+    SettingKey.VAR_STEPS: DataType.BOOL,
+    SettingKey.ABS_TOL: DataType.FLOAT,
+    SettingKey.REL_TOL: DataType.FLOAT,
+    SettingKey.T_START: DataType.FLOAT,
+    SettingKey.T_END: DataType.FLOAT,
+    SettingKey.STEPS: DataType.INT,
+    SettingKey.STIFF: DataType.BOOL,
+    SettingKey.MIN_TIME_STEP: DataType.FLOAT,
+    SettingKey.MAX_TIME_STEP: DataType.FLOAT,
+    SettingKey.MAX_NUM_STEP: DataType.INT,
+}
+
 
 class SimulatorType(enum.Enum):
     COPASI = 0 
     ROADRUNNER = 1
     labels = {
-        COPASI:"COPASI", ROADRUNNER:"ROADRUNNER"
+        COPASI: "COPASI", ROADRUNNER: "ROADRUNNER"
     }
 
 
 class Setting(models.Model):
     DEFAULTS = {
-        SettingKey.INTEGRATOR : SimulatorType.ROADRUNNER,
-        SettingKey.VAR_STEPS : True,
-        SettingKey.ABS_TOL : 1E-6,
-        SettingKey.REL_TOL : 1E-6,
-        SettingKey.STIFF : True
+        SettingKey.INTEGRATOR: SimulatorType.ROADRUNNER,
+        SettingKey.VAR_STEPS: True,
+        SettingKey.ABS_TOL: 1E-6,
+        SettingKey.REL_TOL: 1E-6,
+        SettingKey.STIFF: True
     }  
     
     key = enum.EnumField(SettingKey)
@@ -271,7 +279,7 @@ class Setting(models.Model):
     def save(self, *args, **kwargs):
         # get the datatype from the dictionary
         self.datatype = SETTINGS_DATATYPE[self.key]
-        super(Setting, self).save(*args, **kwargs) # Call the "real" save() method.
+        super(Setting, self).save(*args, **kwargs)  # Call the "real" save() method.
     
     def _cast_value(self):
         return DataType.cast_value(value=self.value, datatype=self.datatype)
@@ -289,14 +297,14 @@ class Setting(models.Model):
     
     @classmethod
     def get_or_create(cls, key, value):
-        ''' In database represented as string. '''
+        """ In database represented as string. """
         return cls.objects.get_or_create(key=key, value=str(value))
     
     @classmethod
     def get_or_create_from_dict(cls, d_settings, add_defaults=True):
-        ''' Get settings based on settings dictionary. 
+        """ Get settings based on settings dictionary.
         The settings dictionary is extended with the provided settings.
-        '''    
+        """
         if add_defaults:
             d_settings = cls._combine_dicts(cls.DEFAULTS, d_settings)
         
@@ -309,17 +317,19 @@ class Setting(models.Model):
     
     @classmethod
     def get_or_create_defaults(cls):
-        ''' Gets the default settings defined via DEFAULTS. '''
+        """ Gets the default settings defined via DEFAULTS. """
         return cls.get_or_create_from_dict({}, add_defaults=True)
 
-#===============================================================================
+# ===============================================================================
 # Method
-#===============================================================================
+# ===============================================================================
+
+
 class MethodType(enum.Enum):
     ODE = 0
     FBA = 1
     labels = { 
-        ODE:"ODE", FBA:"FBA"
+        ODE: "ODE", FBA: "FBA"
     }
     
 
@@ -336,7 +346,7 @@ class Method(models.Model):
         verbose_name_plural = "Method Settings"
         
     def get_settings_dict(self):
-        return {s.key : s.cast_value for s in self.settings.all()}
+        return {s.key: s.cast_value for s in self.settings.all()}
     
     def get_setting(self, key):
         s = self.settings.get(key=key)
@@ -365,20 +375,21 @@ class Method(models.Model):
             return Method._create_method(method_type, settings)
     
 
-#===============================================================================
+# ===============================================================================
 # Parameter
-#===============================================================================
+# ===============================================================================
 class ParameterType(enum.Enum):
     GLOBAL_PARAMETER = 0
-    BOUNDERY_INIT = 1
+    BOUNDARY_INIT = 1
     FLOATING_INIT = 2
     NONE_SBML_PARAMETER = 3
     labels = {
-        GLOBAL_PARAMETER : 'GLOBAL_PARAMETER',
-        BOUNDERY_INIT : 'BOUNDERY_INIT',
-        FLOATING_INIT : 'FLOATING_INIT',
-        NONE_SBML_PARAMETER : 'NONE_SBML_PARAMETER'
+        GLOBAL_PARAMETER: 'GLOBAL_PARAMETER',
+        BOUNDARY_INIT: 'BOUNDARY_INIT',
+        FLOATING_INIT: 'FLOATING_INIT',
+        NONE_SBML_PARAMETER: 'NONE_SBML_PARAMETER'
     }    
+
 
 class Parameter(models.Model):
     key = models.CharField(max_length=200)
@@ -392,9 +403,11 @@ class Parameter(models.Model):
     class Meta:
         unique_together = ("key", "value")
 
-#===============================================================================
+# ===============================================================================
 # Task
-#===============================================================================
+# ===============================================================================
+
+
 class Task(models.Model):
     """ Tasks are defined sets of simulations under consistent conditions.
         Tasks are compatible on their method setting and the
@@ -412,7 +425,7 @@ class Task(models.Model):
         unique_together = ("model", "method", "info")
     
     def __str__(self):
-        return "T%d" % (self.pk)
+        return 'T{}'.format(self.pk)
 
     def _get_setting(self, key):
         return self.method.settings.get(key=key).cast_value
@@ -421,17 +434,17 @@ class Task(models.Model):
         return self._get_setting(SettingKey.INTEGRATOR)
     integrator = property(_get_integrator)
     
-    def _get_varSteps(self):
+    def _get_var_steps(self):
         return self._get_setting(SettingKey.VAR_STEPS)
-    varSteps = property(_get_varSteps)
+    varSteps = property(_get_var_steps)
     
-    def _get_relTol(self):
+    def _get_rel_tol(self):
         return self._get_setting(SettingKey.REL_TOL)
-    relTol = property(_get_relTol)
+    relTol = property(_get_rel_tol)
     
-    def _get_absTol(self):
+    def _get_abs_tol(self):
         return self._get_setting(SettingKey.ABS_TOL)
-    absTol = property(_get_absTol)
+    absTol = property(_get_abs_tol)
       
     def _get_steps(self):
         return self._get_setting(SettingKey.STEPS)
@@ -444,7 +457,6 @@ class Task(models.Model):
     def _get_tend(self):
         return self._get_setting(SettingKey.T_END)
     tend = property(_get_tend)
-
 
     def sim_count(self):
         return self.simulation_set.count()
@@ -463,11 +475,11 @@ class Task(models.Model):
     
     def error_count(self):
         return self._status_count(SimulationStatus.ERROR)
-    
 
-#===============================================================================
+# ===============================================================================
 # Simulation
-#===============================================================================
+# ===============================================================================
+
 
 class SimulationStatus(enum.Enum):
     UNASSIGNED = 0
@@ -475,29 +487,33 @@ class SimulationStatus(enum.Enum):
     DONE = 2
     ERROR = 3
     labels = {
-        UNASSIGNED : "UNASSIGNED",
-        ASSIGNED : "ASSIGNED",
-        DONE : "DONE",
-        ERROR : "ERROR"
+        UNASSIGNED: "UNASSIGNED",
+        ASSIGNED: "ASSIGNED",
+        DONE: "DONE",
+        ERROR: "ERROR"
     }
 
 # TODO: one create for manager
-# class fabric 
+
+
 class ErrorSimulationManager(models.Manager):
     def get_queryset(self):
         return super(ErrorSimulationManager, 
                      self).get_queryset().filter(status=SimulationStatus.ERROR)
+
 
 class UnassignedSimulationManager(models.Manager):
     def get_queryset(self):
         return super(UnassignedSimulationManager, 
                      self).get_queryset().filter(status=SimulationStatus.UNASSIGNED)
 
+
 class AssignedSimulationManager(models.Manager):
     def get_queryset(self):
         return super(AssignedSimulationManager, 
                      self).get_queryset().filter(status=SimulationStatus.ASSIGNED)
-                     
+
+
 class DoneSimulationManager(models.Manager):
     def get_queryset(self):
         return super(DoneSimulationManager, 
@@ -514,7 +530,7 @@ class Simulation(models.Model):
     time_sim = models.DateTimeField(null=True, blank=True)
     
     # Model managers
-    objects = models.Manager();
+    objects = models.Manager()
     error_objects = ErrorSimulationManager()
     unassigned_objects = UnassignedSimulationManager()
     assigned_objects = AssignedSimulationManager()
@@ -525,37 +541,42 @@ class Simulation(models.Model):
     
     def is_error(self):
         return self.status == SimulationStatus.ERROR
+
     def is_unassigned(self):
         return self.status == SimulationStatus.UNASSIGNED
+
     def is_assigned(self):
         return self.status == SimulationStatus.ASSIGNED
+
     def is_done(self):
         return self.status == SimulationStatus.DONE
     
     def _get_duration(self):
-        if (not self.time_assign or not self.time_sim):
+        if not self.time_assign or not self.time_sim:
             return None
         return self.time_sim - self.time_assign
     duration = property(_get_duration)
     
     def _is_hanging(self, cutoff_minutes=10):
-        ''' Simulation did not finish '''
-        if not (self.time_assign):
+        """ Simulation did not finish """
+        if not self.time_assign:
             return False
-        elif (self.status != SimulationStatus.ASSIGNED.value):
+        elif self.status != SimulationStatus.ASSIGNED.value:
             return False
         else:
-            return (timezone.now() >= self.time_assign+timedelta(minutes=cutoff_minutes))
+            return timezone.now() >= self.time_assign+datetime.timedelta(minutes=cutoff_minutes)
     hanging = property(_is_hanging)
 
-#===============================================================================
+# ===============================================================================
 # Result
-#===============================================================================
+# ===============================================================================
+
 
 def result_filename(self, filename):
     name = filename.split("/")[-1]
     return os.path.join('result', str(self.simulation.task), name)
-    
+
+
 class ResultType(enum.Enum):
     CSV = 0
     HDF5 = 1
@@ -563,10 +584,10 @@ class ResultType(enum.Enum):
     PNG = 2
     
     labels = {
-        CSV : "CSV",
-        HDF5 : "HDF5",
-        JSON : "JSON",
-        PNG : "PNG"
+        CSV: "CSV",
+        HDF5: "HDF5",
+        JSON: "JSON",
+        PNG: "PNG"
     }
 
 
@@ -578,8 +599,7 @@ class Result(models.Model):
     """
     simulation = models.OneToOneField(Simulation, unique=True)
     result_type = enum.EnumField(ResultType)
-    file = models.FileField(upload_to=result_filename, 
-                            max_length=200, storage=OverwriteStorage())
+    file = models.FileField(upload_to=result_filename, max_length=200, storage=OverwriteStorage())
     
     def __str__(self):
         return 'R{}'.format(self.pk)
@@ -587,7 +607,7 @@ class Result(models.Model):
     # TODO: manage the zip things    
     def _get_zip_file(self):
         f = self.file.path
-        return (f[:-3] + 'tar.gz')
+        return f[:-3] + 'tar.gz'
     
     def zip(self):
         """ tar.gz the file """
@@ -599,8 +619,8 @@ class Result(models.Model):
     def unzip(self):
         """ Extract the file. """    
         tar = tarfile.open(self.zip_file, 'r:gz')
-        dirname = os.path.dirname(self.zip_file)
-        tar.extractall(path=dirname)   
+        dir_name = os.path.dirname(self.zip_file)
+        tar.extractall(path=dir_name)
         tar.close()
     
     def rdata(self):
@@ -608,8 +628,7 @@ class Result(models.Model):
     
     zip_file = property(_get_zip_file)
 
-  
-         
-#===============================================================================
+
+# ===============================================================================
 # Plots and Analysis
-#===============================================================================
+# ===============================================================================

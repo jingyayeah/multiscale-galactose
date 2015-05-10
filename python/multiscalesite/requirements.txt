@@ -1,2 +1,4 @@
+rpy2
+django
 django_enumfield
 enum34

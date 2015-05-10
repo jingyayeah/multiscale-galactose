@@ -1,8 +1,9 @@
-'''
+"""
 Created on Jun 24, 2014
 
-@author: mkoenig
-'''
+@author: Matthias Koenig
+@date: 2014-06-24
+"""
 
 from django import template
 register = template.Library()

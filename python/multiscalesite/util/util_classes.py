@@ -1,31 +1,26 @@
-'''
+"""
 Additional utility classes simplifying things.
 
-Created on May 6, 2015
-
-@author: mkoenig
-'''
+@author: Matthias Koenig
+@date: 2015-05-06
+"""
 from __future__ import print_function
 from enum import Enum
 
 
-class StrEnum(str, Enum):
-    """Enum where members are also (and must be) strs"""
-
-
 class EnumType(object):
-    ''' Template class for all EnumTypes. '''
+    """ Template class for all EnumTypes. """
     class EnumTypeException(Exception):
         pass
         
     @classmethod
     def values(cls):
-        ''' Returns the values. '''
+        """ Returns the values. """
         return [entry.value for entry in cls]
     
     @classmethod
     def items(cls):
-        ''' Returns the items. '''
+        """ Returns the items. """
         return [entry.item for entry in cls]
     
     @classmethod
@@ -53,54 +48,27 @@ class EnumType(object):
             _, s = s.split('.') # based on the Enum __repr__()
         return cls.__getattr__(s)
 
-class EnumTypeExample(EnumType, Enum):
-    SETTING_A = 'SETTING_A'
-    SETTING_B = 'SETTING_B'
-
 
 def hash_for_file(filepath, hash_type='MD5'):
-    ''' Calculate the md5_hash for a file. 
-    
-        Calculating a hash for a file is always useful when you need to check if two files 
-        are identical, or to make sure that the contents of a file were not changed, and to 
+    """ Calculate the md5_hash for a file.
+
+        Calculating a hash for a file is always useful when you need to check if two files
+        are identical, or to make sure that the contents of a file were not changed, and to
         check the integrity of a file when it is transmitted over a network.
-        he most used algorithms to hash a file are MD5 and SHA-1. They are used because they 
+        he most used algorithms to hash a file are MD5 and SHA-1. They are used because they
         are fast and they provide a good way to identify different files.
         [http://www.pythoncentral.io/hashing-files-with-python/]
-    '''
+    """
     import hashlib
     BLOCKSIZE = 65536
+    hasher = None
     if hash_type == 'MD5':
         hasher = hashlib.md5()
-    elif (hash_type == 'SHA1'):
+    elif hash_type == 'SHA1':
         hasher == hashlib.sha1()
-    with open(filepath, 'rb') as afile:
-        buf = afile.read(BLOCKSIZE)
+    with open(filepath, 'rb') as f:
+        buf = f.read(BLOCKSIZE)
         while len(buf) > 0:
             hasher.update(buf)
-            buf = afile.read(BLOCKSIZE)
+            buf = f.read(BLOCKSIZE)
     return hasher.hexdigest()
-
-
-if __name__ == "__main__":
-    class CompModelFormat(EnumType, StrEnum):
-        SBML = "SBML"
-        CELLML = "CELLML"
-            
-    print(type(CompModelFormat.SBML))
-    print(isinstance(CompModelFormat.SBML, str))
-    print(CompModelFormat.SBML)
-    
-    from enum import IntEnum
-    class TestType(IntEnum):
-        SBML = 0
-        CELLML = 1
-        
-    print(type(TestType.SBML))
-    print(isinstance(TestType.SBML, int))
-    print(TestType.SBML)
-    
-    
-    
-    
-        

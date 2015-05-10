@@ -1,29 +1,27 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-'''
+"""
 Testing the utility classes.
 
 @author: Matthias Koenig
 @date: 2015-05-06
-'''
+"""
 from __future__ import print_function
 import unittest
-from util_classes import EnumType, Enum
+from util.util_classes import Enum, EnumType
+
 
 class Test(unittest.TestCase):
     class ParameterType(EnumType, Enum):
         GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
-        BOUNDERY_INIT = 'BOUNDERY_INIT'
+        BOUNDARY_INIT = 'BOUNDARY_INIT'
         FLOATING_INIT = 'FLOATING_INIT'
         NONE_SBML_PARAMETER = 'NONE_SBML_PARAMETER'   
-
 
     def setUp(self):
         pass
 
     def tearDown(self):
         pass
-
 
     def test_enum_values(self):
         self.assertEqual(len(self.ParameterType.values()), 4, "test number of entries in enum")
@@ -55,9 +53,7 @@ class Test(unittest.TestCase):
         ptype = self.ParameterType.from_string(s)
         self.assertEqual(ptype, self.ParameterType.GLOBAL_PARAMETER)
         
-        
-    
 
 if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
+    # import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

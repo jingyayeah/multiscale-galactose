@@ -1,9 +1,9 @@
-'''
+"""
 Interaction of python with R for testing the conversion of the binary files.
 
 @author: Matthias Koenig
 @date: 2015-05-06
-'''
+"""
 
 if __name__ == "__main__":
     import os
@@ -57,6 +57,3 @@ if __name__ == "__main__":
     """
     rpack = SignatureTranslatedAnonymousPackage(string, "rpack")
     rpack.readData(f)
-    
-    
-    
