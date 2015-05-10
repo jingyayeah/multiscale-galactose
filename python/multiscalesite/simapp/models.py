@@ -1,9 +1,6 @@
 """
 Model definitions of for the simulation app.
     
-TODO: handle all the selections via proper IntEnums -> much better storage than strings.
-    
-
 @author: Matthias Koenig
 @date: 2015-05-10    
 """
@@ -22,7 +19,6 @@ from django.core.files import File
 from django.utils.deconstruct import deconstructible
 
 from simapp.storage import OverwriteStorage
-from util.util_classes import EnumType, Enum
 
 
 ###################################################################################
@@ -108,7 +104,6 @@ class CompModelFormat(enum.Enum):
         SBML: "SBML",
         CELLML: "CELLML"
     }
-    
     
 class CompModel(models.Model):
     """ Storage class for models. """
@@ -196,39 +191,43 @@ class CompModel(models.Model):
 #===============================================================================
 # TODO: lookup the allowed solver options for RoadRunner
 
-class DataType(EnumType, Enum):
-    STRING = 'STRING'
-    BOOLEAN = 'BOOLEAN'
-    DOUBLE = 'DOUBLE'
-    INT = 'INT'
+class DataType(enum.Enum):
+    STRING = 0
+    BOOLEAN = 1
+    DOUBLE = 2
+    INT = 3
+    labels = {
+        STRING:"STRING", BOOLEAN:"CELLML", DOUBLE:"DOUBLE", INT:"INT"
+    }
     
     @staticmethod
     def cast_value(value, datatype):
         """ Cast setting to corresponding datatype. """
-        if datatype == DataType.STRING.value:
+        if datatype == DataType.STRING:
             return str(value)
-        elif datatype == DataType.DOUBLE.value:
+        elif datatype == DataType.DOUBLE:
             return float(value)
-        elif datatype == DataType.INT.value:
+        elif datatype == DataType.INT:
             return int(value)
-        elif datatype == DataType.BOOLEAN.value:
+        elif datatype == DataType.BOOLEAN:
             return bool(value)
         else:
-            raise DataType.EnumTypeException()
+            raise KeyError(datatype)
 
-class SettingKey(EnumType, Enum):
-    INTEGRATOR = "INTEGRATOR",
-    VAR_STEPS = "VAR_STEPS"
-    ABS_TOL = "ABS_TOL"
-    REL_TOL = "REL_TOL"
-    T_START = "T_START"
-    T_END = "T_END"
-    STEPS = "STEPS"
-
-class SimulatorType(EnumType, Enum):
-    COPASI = "COPASI"
-    ROADRUNNER = "ROADRUNNER"
-
+class SettingKey(enum.Enum):
+    INTEGRATOR = 0
+    VAR_STEPS = 1
+    ABS_TOL = 2
+    REL_TOL = 3
+    T_START = 4
+    T_END = 5
+    STEPS = 6
+    labels = {
+        INTEGRATOR:"INTEGRATOR", VAR_STEPS:"VAR_STEPS",
+        ABS_TOL:"ABS_TOL", REL_TOL:"REL_TOL",
+        T_START:"T_START", T_END:"T_END", STEPS:"STEPS"
+    }
+    
 SETTINGS_DATATYPE = {
         SettingKey.INTEGRATOR : DataType.STRING,
         SettingKey.VAR_STEPS : DataType.BOOLEAN,
@@ -239,24 +238,32 @@ SETTINGS_DATATYPE = {
         SettingKey.STEPS : DataType.INT
     }
 
-SETTINGS_DEFAULT = {
+class SimulatorType(enum.Enum):
+    COPASI = 0 
+    ROADRUNNER = 1
+    labels = {
+        COPASI:"COPASI", ROADRUNNER:"ROADRUNNER"
+    }
+
+
+class Setting(models.Model):
+    DEFAULTS = {
         SettingKey.INTEGRATOR : SimulatorType.ROADRUNNER,
         SettingKey.VAR_STEPS : True,
         SettingKey.ABS_TOL : 1E-6,
         SettingKey.REL_TOL : 1E-6
-    }   
- 
-class Setting(models.Model):
-    key = models.CharField(max_length=40, choices=SettingKey.choices())
+    }  
+    
+    key = enum.EnumField(SettingKey)
     value = models.CharField(max_length=40)
-    datatype = models.CharField(max_length=40, choices=DataType.choices())
+    datatype = enum.EnumField(DataType)
 
     def __unicode__(self):
         return "{}={}".format(self.key, self.value) 
     
     def save(self, *args, **kwargs):
         # get the datatype from the dictionary
-        self.datatype = SETTINGS_DATATYPE[SettingKey(self.key)].value
+        self.datatype = SETTINGS_DATATYPE[self.key]
         super(Setting, self).save(*args, **kwargs) # Call the "real" save() method.
     
     def _cast_value(self):
@@ -275,8 +282,7 @@ class Setting(models.Model):
     
     @classmethod
     def get_or_create(cls, key, value):
-        return cls.objects.get_or_create(key=key, value=str(value), 
-                                    datatype=SETTINGS_DATATYPE[key].value)
+        return cls.objects.get_or_create(key=key, value=str(value))
     
     @classmethod
     def get_or_create_from_dict(cls, d_settings, add_defaults=True):
@@ -284,7 +290,7 @@ class Setting(models.Model):
         The settings dictionary is extened with the provided settings.
         '''    
         if add_defaults:
-            d_settings = cls._combine_dicts(SETTINGS_DEFAULT, d_settings)
+            d_settings = cls._combine_dicts(cls.DEFAULTS, d_settings)
         
         # create settings from dictionary
         settings = []
@@ -296,15 +302,17 @@ class Setting(models.Model):
 #===============================================================================
 # Method
 #===============================================================================
-
-class MethodType(EnumType, Enum):
-    ODE = "ODE"
-    FBA = "FBA"
+class MethodType(enum.Enum):
+    ODE = 0
+    FBA = 1
+    labels = { 
+        ODE:"ODE", FBA:"FBA"
+    }
     
 
 class Method(models.Model):
     """ Method settings are managed via a collection of settings. """
-    method_type = models.CharField(max_length=40, choices=MethodType.choices())
+    method_type = enum.EnumField(MethodType)
     settings = models.ManyToManyField(Setting)
 
     def __unicode__(self):
@@ -327,7 +335,7 @@ class Method(models.Model):
         
     @staticmethod
     def _create_method(method_type, settings):
-        method = Method(method_type=method_type.value)
+        method = Method(method_type=method_type)
         method.save()
         method.settings.add(*settings)
         return method
@@ -347,17 +355,23 @@ class Method(models.Model):
 #===============================================================================
 # Parameter
 #===============================================================================
-class ParameterType(EnumType, Enum):
-    GLOBAL_PARAMETER = 'GLOBAL_PARAMETER'
-    BOUNDERY_INIT = 'BOUNDERY_INIT'
-    FLOATING_INIT = 'FLOATING_INIT'
-    NONE_SBML_PARAMETER = 'NONE_SBML_PARAMETER'    
+class ParameterType(enum.EnumField):
+    GLOBAL_PARAMETER = 0
+    BOUNDERY_INIT = 1
+    FLOATING_INIT = 2
+    NONE_SBML_PARAMETER = 3
+    labels = {
+        GLOBAL_PARAMETER : 'GLOBAL_PARAMETER',
+        BOUNDERY_INIT : 'BOUNDERY_INIT',
+        FLOATING_INIT : 'FLOATING_INIT',
+        NONE_SBML_PARAMETER : 'NONE_SBML_PARAMETER'
+    }    
 
 class Parameter(models.Model):
     key = models.CharField(max_length=200)
     value = models.FloatField()
     unit = models.CharField(max_length=10)
-    ptype = models.CharField(max_length=30, choices=ParameterType.choices())
+    parameter_type = enum.EnumField(ParameterType)
     
     def __unicode__(self):
         return '{} = {} [{}]'.format(self.key, self.value, self.unit)
@@ -406,7 +420,7 @@ class Task(models.Model):
         return self._status_count(self, SimulationStatus.ERROR)
     
     def _get_setting(self, key):
-        return self.method.settings.get(key=key.value).cast_value
+        return self.method.settings.get(key=key).cast_value
     def _get_integrator(self):
         return self._get_setting(SettingKey.INTEGRATOR)
     def _get_varSteps(self):
@@ -434,12 +448,19 @@ class Task(models.Model):
 #===============================================================================
 # Simulation
 #===============================================================================
-@ deconstructible
-class SimulationStatus(EnumType, Enum):
+
+class SimulationStatus(enum.Enum):
     UNASSIGNED = "UNASSIGNED"
     ASSIGNED = "ASSIGNED"
     DONE = "DONE"
     ERROR = "ERROR"
+    labels = {
+        UNASSIGNED = "UNASSIGNED",
+        ASSIGNED = "ASSIGNED",
+        DONE = "DONE",
+        ERROR = "ERROR"
+    }
+    
 
 class ErrorSimulationManager(models.Manager):
     def get_queryset(self):
