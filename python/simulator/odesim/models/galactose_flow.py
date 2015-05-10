@@ -152,7 +152,7 @@ def make_galatose_flow_samples(N, sampling, f_flows, gal_challenge):
     
     # Set given galactose challenge   
     samples = simfac.setParameterValuesInSamples(raw_samples, 
-                [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'ptype':GLOBAL_PARAMETER}])
+                [{'pid': 'gal_challenge', 'values': gal_challenge, 'unit': 'mM', 'parameter_type':GLOBAL_PARAMETER}])
     return samples
 
 
@@ -188,8 +188,8 @@ def make_galactose_aging(sbml_id, sampling, samples):
     
     for k in range(len(y_end)):
         info = 'Galactose elimination age {} ({}).'.model_format(age[k], sampling)
-        p_list = [ {'pid': 'y_end', 'values': (y_end[k],) , 'unit': 'nm', 'ptype':GLOBAL_PARAMETER},
-                   {'pid': 'N_fen', 'values': (N_fen[k],), 'unit': 'per_m2', 'ptype':GLOBAL_PARAMETER}]
+        p_list = [ {'pid': 'y_end', 'values': (y_end[k],) , 'unit': 'nm', 'parameter_type':GLOBAL_PARAMETER},
+                   {'pid': 'N_fen', 'values': (N_fen[k],), 'unit': 'per_m2', 'parameter_type':GLOBAL_PARAMETER}]
         nsamples = simfac.setParameterValuesInSamples(samples, p_list)
         
         # simulations
@@ -208,7 +208,7 @@ def make_galactose_vmax(sbml_id, sampling, samples):
     GALK_PA = [0.024*x for x in [0.5, 0.75, 0.9, 1, 1.1, 1.5]]  # [-]
     for k in range(len(GALK_PA)):
         info = 'Galactose elimination GALK Vmax {} ({}).'.model_format(GALK_PA[k], sampling)
-        p_list = [ {'pid': 'GALK_PA', 'values': (GALK_PA[k],), 'unit': '-', 'ptype':GLOBAL_PARAMETER}, ]
+        p_list = [ {'pid': 'GALK_PA', 'values': (GALK_PA[k],), 'unit': '-', 'parameter_type':GLOBAL_PARAMETER}, ]
         nsamples = simfac.setParameterValuesInSamples(samples, p_list)
     
         # simulations
@@ -347,7 +347,7 @@ if __name__ == "__main__":
         PP__gal = (0.28, 12.5, 17.5) # [mM]
         # PP__gal = (2.58, 14.8, 19.8)   # [mM]
         
-        p_list = [ {'pid': 'PP__gal', 'values': PP__gal, 'unit': 'mM', 'ptype':BOUNDERY_INIT}]
+        p_list = [ {'pid': 'PP__gal', 'values': PP__gal, 'unit': 'mM', 'parameter_type':BOUNDERY_INIT}]
         
         # mean sinusoid for comparison
         [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")

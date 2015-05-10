@@ -56,7 +56,7 @@ class TestSamples(unittest.TestCase):
         
     def test_demo_samples(self):
         from odesim.models.demo import create_demo_samples
-        samples = create_demo_samples(N=1, sampling_type=SamplingType.DISTRIBUTION)
+        samples = create_demo_samples(n_samples=1, sampling_type=SamplingType.DISTRIBUTION)
         s = samples[0]
         self.assertIsInstance(s, Sample, "Demo sample is Sample")
         

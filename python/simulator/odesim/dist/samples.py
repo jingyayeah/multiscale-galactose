@@ -31,13 +31,10 @@ class SampleParameter(object):
         django model.
     """
     def __init__(self, key, value, unit, parameter_type):
-        if not isinstance(parameter_type, ParameterType):
-            raise TypeError
-
         self.key = key
         self.value = value
         self.unit = unit
-        self.ptype = parameter_type
+        self.parameter_type = parameter_type
 
     @classmethod
     def from_parameter(cls, p):
@@ -50,7 +47,7 @@ class SampleParameter(object):
             return cls(p.key, p.value, p.unit, p.ptype)
 
     def __repr__(self):
-        return "<{} = {:.3E} [{}] ({})>".model_format(self.key, self.value, self.unit, self.ptype)
+        return "<{} = {:.3E} [{}] ({})>".format(self.key, self.value, self.unit, self.parameter_type)
 
 
 class Sample(dict):
@@ -93,7 +90,7 @@ def setParameterValuesInSamples(raw_samples, p_list):
     TODO: refactor this
     ? how is the p_list structured ? """
     for pset in p_list:
-        ParameterType.check_type(pset['ptype'])
+        ParameterType.check_type(pset['parameter_type'])
 
     Np = len(p_list)                # numbers of parameters to set
     Nval = len(p_list[0]['values']) # number of values from first p_dict
@@ -106,7 +103,7 @@ def setParameterValuesInSamples(raw_samples, p_list):
             # set all the information
             for i in range(Np):
                 p_dict = p_list[i]
-                snew[p_dict['pid']] = (p_dict['pid'], p_dict['values'][k], p_dict['unit'], p_dict['ptype'])
+                snew[p_dict['pid']] = (p_dict['pid'], p_dict['values'][k], p_dict['unit'], p_dict['parameter_type'])
             samples.append(snew)
     return samples
 
@@ -117,4 +114,4 @@ if __name__ == "__main__":
     django.setup()
 
     from odesim.models.demo import create_demo_samples
-    create_demo_samples(N=1, sampling="distribution")
+    create_demo_samples(n_samples=1, sampling_type="distribution")

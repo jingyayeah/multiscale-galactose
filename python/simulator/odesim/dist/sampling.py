@@ -54,7 +54,7 @@ def sample_parameters(distributions, n_samples, sampling_type, keys=None):
 #         samples2 = _createSamplesByLHS(distributions, n_samples/2, keys);
 #         samples = samples1 + samples2
     else:
-        raise SamplingException('SamplingType not supported: {}'.model_format(sampling_type))
+        raise SamplingException('SamplingType not supported: {}'.format(sampling_type))
     return samples
 
 

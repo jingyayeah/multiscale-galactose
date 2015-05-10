@@ -123,9 +123,9 @@ class Dist(object):
             stdlog = getSdLog(sp_mean.value, sp_std.value)
             # store new parameters
             self.pars[DistParsType.MEANLOG] = SampleParameter(sp_mean.key, meanlog,
-                                                              sp_mean.unit, sp_mean.ptype)
+                                                              sp_mean.unit, sp_mean.parameter_type)
             self.pars[DistParsType.STDLOG] = SampleParameter(sp_std.key, stdlog,
-                                                             sp_std.unit, sp_std.ptype)
+                                                             sp_std.unit, sp_std.parameter_type)
             # remove old paramters
             # del self.pars[DistParsType.MEAN]
             # del self.pars[DistParsType.STD]
@@ -162,14 +162,14 @@ class Dist(object):
             if not key:
                 key = p.key
                 unit = p.unit
-                ptype = p.ptype
+                parameter_type = p.parameter_type
                 continue
             if p.key != key:
                 raise Dist.DistException('All parameters of distribution need same key')
             if p.unit != unit:
                 raise Dist.DistException('All parameters of distribution need same unit')
-            if p.ptype != ptype:
-                raise Dist.DistException('All parameters of distribution need same ptype')
+            if p.parameter_type != parameter_type:
+                raise Dist.DistException('All parameters of distribution need same parameter_type')
 
         if self.dtype == DistType.CONSTANT:
             pass

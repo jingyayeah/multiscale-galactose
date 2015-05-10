@@ -367,6 +367,7 @@ class ViewTestCase(TestCase):
 from django.test.client import Client
 
 from simapp.db.api import create_parameter, create_simulation, create_task, create_model
+from simapp.db.api import create_method_from_settings
 
 
 class APITestCase(TestCase):
@@ -415,9 +416,18 @@ class APITestCase(TestCase):
         self.assertEqual(task.method.pk, self.method.pk)
 
     def test_create_task_not_existing(self):
-
         self.model.pk = 10
         method_new = Method.get_or_create(MethodType.FBA, [])
         task = create_task(self.model, method=method_new)
         self.assertEqual(task.model.pk, self.model.pk)
         self.assertEqual(task.method.pk, method_new.pk)
+
+    def test_create_method_from_setings(self):
+        settings = {SettingKey.T_START: 0.0,
+                    SettingKey.T_END: 500.0,
+                    SettingKey.STEPS: 100
+                    }
+        m = create_method_from_settings(method_type=MethodType.ODE, settings_dict=settings,
+                                        add_defaults=False)
+        self.assertEqual(m.method_type, MethodType.ODE)
+        self.assertEqual(len(m.settings.all()), len(settings))

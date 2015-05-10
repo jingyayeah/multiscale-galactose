@@ -10,12 +10,11 @@ No direct interactions with the database should occur
 import logging
 from django.core.exceptions import ObjectDoesNotExist
 
-from simapp.models import CompModel, Task, Simulation, Parameter
+from simapp.models import CompModel, Task, Simulation, Parameter, Method, Setting
 
 # ===============================================================================
 # Creators
 # ===============================================================================
-from simapp.models import CompModel
 
 
 def create_model(file_path, model_format):
@@ -60,6 +59,16 @@ def create_task(model, method, info=None, priority=0):
     task.save()
     logging.info("Task created/updated: {}".format(task))
     return task
+
+
+def create_method_from_settings(method_type, settings_dict, add_defaults=True):
+    """ Create method for given settings
+
+    :param settings:
+    :return:
+    """
+    settings = Setting.get_or_create_from_dict(settings_dict, add_defaults=add_defaults)
+    return Method.get_or_create(method_type=method_type, settings=settings)
 
 
 def create_simulation(task, parameters):

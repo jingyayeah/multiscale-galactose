@@ -35,14 +35,14 @@ class TestDistributions(unittest.TestCase):
         self.assertEqual(p.key, 'Vmax_b1', 'Test parameter key')
         self.assertEqual(p.value, 5.0, 'Test parameter value')
         self.assertEqual(p.unit, 'mole_per_s', 'Test parameter unit')
-        self.assertEqual(p.ptype, ParameterType.GLOBAL_PARAMETER, 'Test parameter ptype')
+        self.assertEqual(p.ptype, ParameterType.GLOBAL_PARAMETER, 'Test parameter parameter_type')
     
     def test_normal_pars_std(self):
         p = self.d1.pars[DistParsType.STD]
         self.assertEqual(p.key, 'Vmax_b1', 'Test parameter key')
         self.assertEqual(p.value, 0.5, 'Test parameter value')
         self.assertEqual(p.unit, 'mole_per_s', 'Test parameter unit')
-        self.assertEqual(p.ptype, ParameterType.GLOBAL_PARAMETER, 'Test parameter ptype')
+        self.assertEqual(p.ptype, ParameterType.GLOBAL_PARAMETER, 'Test parameter parameter_type')
         
     def test_key(self):
         self.assertEqual(self.d1.key, 'Vmax_b1', 'Test key of parameters.')
@@ -51,7 +51,7 @@ class TestDistributions(unittest.TestCase):
         self.assertEqual(self.d1.unit, 'mole_per_s', 'Test unit of parameters.')
         
     def test_ptype(self):
-        self.assertEqual(self.d1.ptype, ParameterType.GLOBAL_PARAMETER, 'Test ptype of parameters.')
+        self.assertEqual(self.d1.ptype, ParameterType.GLOBAL_PARAMETER, 'Test parameter_type of parameters.')
     
     def test_mean(self):
         self.assertEqual(self.d1.mean(), 5.0, 'Test mean of distribution')
