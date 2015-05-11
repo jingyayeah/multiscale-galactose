@@ -1,96 +1,102 @@
-'''
-    Database util for consistency checks and database cleanup, 
+"""
+    Database util for consistency checks and database cleanup,
     for instance some simulations are hanging.
     This is the only module removing entries from the database.
 
     TODO: implement database integrity checks. Are all the files
     accessible. Run control checks.
-    
+
     TODO: Check for timecourses associated with unassigned & assigned simulations
         and remove these files.
-    
-    TODO: remove hanging objects, i.e. parameters which are not used in any simulations    
-    
+
+    TODO: remove hanging objects, i.e. parameters which are not used in any simulations
+
     TODO: remove temporary files which are not represented in the database, namely
         in the tmp_sim folder and the timecourse subfolder.
-     
+
     TODO: setup cron jobs for database backup
-    
+
     @author: Matthias Koenig
-    @date: 2015-05-05
-'''
+    @date: 2015-05-11
+"""
 
-from django.core.exceptions import ObjectDoesNotExist
-from simapp.models import Simulation, Timecourse
-from simapp.models import UNASSIGNED, ASSIGNED, ERROR
+from simapp.models import Simulation, Result
+from simapp.models import SimulationStatus
 
 
-def unassignAssignedHangingSimulations(task=None, cutoff_minutes=10):
-    unassignHangingSimulationsWithStatus(ASSIGNED, task, cutoff_minutes)
+def unassign_assigned_hanging_simulations(task=None, cutoff_minutes=10):
+    unassign_hanging_simulations_with_status(SimulationStatus.ASSIGNED, task, cutoff_minutes)
 
-def unassignErrorHangingSimulations(task=None, cutoff_minutes=10):
-    unassignHangingSimulationsWithStatus(ERROR, task, cutoff_minutes)
-            
-def unassignHangingSimulationsWithStatus(status, task=None, cutoff_minutes=10):
+
+def unassign_error_hanging_simulations(task=None, cutoff_minutes=10):
+    unassign_hanging_simulations_with_status(SimulationStatus.ERROR, task, cutoff_minutes)
+
+
+def unassign_hanging_simulations_with_status(status, task=None, cutoff_minutes=10):
     if not task:
         sims = Simulation.objects.filter(status=status)
     else:
         sims = Simulation.objects.filter(task=task, status=status)
     for sim in sims:
-        if (cutoff_minutes >= 0):
-            if (sim._is_hanging(cutoff_minutes)):
-                unassignSimulation(sim)
+        if cutoff_minutes >= 0:
+            if sim._is_hanging(cutoff_minutes):
+                unassign_simulation(sim)
         else:
-            unassignSimulation(sim)
-            
-def unassignAllSimulation():
-    ''' ! Be very careful ! Know what are you doing. '''
+            unassign_simulation(sim)
+
+
+def unassign_all_simulations():
+    """ ! Be very careful ! Know what are you doing. """
     for sim in Simulation.objects.all():
-        unassignSimulation(sim);
+        unassign_simulation(sim)
 
-def unassignSimulationsByIP(ip):
+
+def unassign_simulations_by_ip(ip):
     for sim in Simulation.objects.filter(core__ip=ip):
-        unassignSimulation(sim);
+        unassign_simulation(sim)
 
-def unassignSimulationsByPk(pks):
+
+def unassign_simulations_by_pk(pks):
     for pk in pks:
         sim = Simulation.objects.get(pk=pk)
-        unassignSimulation(sim);
+        unassign_simulation(sim)
 
-def unassignSimulation(sim):
-    ''' Unassigns the given simulation.
-        Removes the corresponding Timecourse if existing.
-    '''
-    delete_timecourse_for_simulation(sim)    
+
+def unassign_simulation(sim):
+    """ Unassign given simulation.
+        Removes the corresponding results if existing. """
+    delete_results_for_simulation(sim)
     # reset simulation
-    sim.status = UNASSIGNED
+    sim.status = SimulationStatus.UNASSIGNED
     sim.core = None
     sim.file = None
     sim.time_assign = None
     sim.time_sim = None
-    sim.save();
+    sim.save()
     print "Simulation reset: ", sim
 
+
 def delete_task(task):
-    ''' Deletes task and the simulations associated with the task. '''
+    """ Deletes task and the simulations associated with the task. """
     delete_simulations_for_task(task)
     task.delete()
 
+
 def delete_simulations_for_task(task):
-    ''' Deletes all simulations associated with a task. '''
-    sims = Simulation.objects.filter(task=task);
+    """ Deletes all simulations associated with a task. """
+    sims = Simulation.objects.filter(task=task)
     for sim in sims:
         print "remove Simulation: ", sim.pk
-        delete_timecourse_for_simulation(sim)
+        delete_results_for_simulation(sim)
         sim.delete()
-        
-def delete_timecourse_for_simulation(sim):
-    try:
-        tc = Timecourse.objects.get(simulation=sim)
-        # TODO: delete the corresponding local file
-        tc.delete();
-    except ObjectDoesNotExist:
-        pass
+
+
+def delete_results_for_simulation(sim):
+    # TODO: delete the corresponding local file
+    results = Result.objects.filter(simulation=sim)
+    for result in results:
+        result.delete()
+
 
 #####################################################################################################
 if __name__ == "__main__":
@@ -101,17 +107,16 @@ if __name__ == "__main__":
     #-----------------------------------------------
     # task = Task.objects.get(pk=37)
     # print task
-    # unassignAssignedHangingSimulations(task=task, cutoff_minutes=-1);
-    # unassignAssignedHangingSimulations(task=None, cutoff_minutes=-1);
-    # unassignErrorHangingSimulations(task=None, cutoff_minutes=-1);
-    # unassignErrorHangingSimulations(cutoff_minutes=-1);
+    # unassign_assigned_hanging_simulations(task=task, cutoff_minutes=-1);
+    # unassign_assigned_hanging_simulations(task=None, cutoff_minutes=-1);
+    # unassign_error_hanging_simulations(task=None, cutoff_minutes=-1);
+    # unassign_error_hanging_simulations(cutoff_minutes=-1);
     
     #-----------------------------------------------
     #     Unassign by computer
     #-----------------------------------------------
     # unassignSimulationsByIP(ip='10.39.32.106')
-    
-    
+
     #-----------------------------------------------
     #     Unassign simulations by pk
     #-----------------------------------------------
@@ -138,4 +143,3 @@ if __name__ == "__main__":
     #-----------------------------------------------
     # ! CAREFUL - KNOW WHAT YOU ARE DOING !
     # unassignAllSimulation()
-    

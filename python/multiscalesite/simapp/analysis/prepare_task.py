@@ -1,14 +1,14 @@
 #!/usr/bin/python
-'''
+"""
 Module for collecting and generating the files for a given task
-necessary for subsequent analysis. 
+necessary for subsequent analysis.
 - creates folder for analysis
 - creates parameter file
 file and copying the used model for the simulations.
 
 @author: Matthias Koenig
 @date:   2014-06-06
-'''
+"""
 
 import os
 import sys
@@ -28,7 +28,8 @@ IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111')
 # IPS = ('192.168.1.99', '192.168.1.100')
 # IPS = ('192.168.1.99',)
 
-def prepareDataForAnalysis(task):
+
+def prepare_task_for_analysis(task):
     import time
     # directory for analysis
     date_str = time.strftime("%Y-%m-%d")
@@ -56,6 +57,7 @@ def prepareDataForAnalysis(task):
     # print 'copy', source_dir,'->', target_dir
     # copytree(source_dir, target_dir)
 
+
 def rsyncTimecoursesForTask(task):
     directory = getTimecourseDirectory(task)
     to_path = directory + '/'
@@ -71,6 +73,7 @@ def rsyncTimecoursesForTask(task):
             rsync("-ravzX", from_path + '*.Rdata', to_path)
             rsync("-ravzX", from_path + '*.gz', to_path)
 
+
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
         s = os.path.join(src, item)
@@ -80,28 +83,29 @@ def copytree(src, dst, symlinks=False, ignore=None):
         else:
             shutil.copy2(s, d)
 
+
 def getTimecourseDirectory(task):
     return MEDIA_ROOT + 'timecourse' + '/' + str(task)
 
+
 def exists_remote(host, path):
-    '''
-    Test if directory/file exists on remote host.
-    '''
+    """ Test if directory/file exists on remote host. """
     resp = subprocess.call(
         ['ssh', host, 'test -e %s' % pipes.quote(path)])
     return resp == 0
 
-#############################################################################   
+#############################################################################
+
 if __name__ == '__main__':
     ''' Preparing data for analysis '''
     from optparse import OptionParser
     parser = OptionParser()
     parser.add_option("-t", "--task", dest="task_pk",
-                  help="Provide task pk for analysis")
+                      help="Provide task pk for analysis")
     
     (options, args) = parser.parse_args()
      
-    if (options.task_pk):
+    if options.task_pk:
         task_pk = int(options.task_pk)
         print '#'*60
         print '# Prepare data T', task_pk
@@ -109,10 +113,9 @@ if __name__ == '__main__':
     else:
         sys.exit()
     task = Task.objects.get(pk=task_pk)
-    if (task == None):
+    if task is None:
         print 'Task does not exist'
         sys.exit()
      
-    prepareDataForAnalysis(task)
+    prepare_task_for_analysis(task)
     sys.exit()
-    

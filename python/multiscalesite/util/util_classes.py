@@ -5,7 +5,6 @@ Additional utility classes simplifying things.
 @date: 2015-05-06
 """
 from __future__ import print_function
-from enum import Enum
 
 
 class EnumType(object):
@@ -45,11 +44,11 @@ class EnumType(object):
         Both cases have to be handled.
         """
         if s.startswith(cls.__name__):
-            _, s = s.split('.') # based on the Enum __repr__()
+            _, s = s.split('.')  # based on the Enum __repr__()
         return cls.__getattr__(s)
 
 
-def hash_for_file(filepath, hash_type='MD5'):
+def hash_for_file(filepath, hash_type='MD5', blocksize=65536):
     """ Calculate the md5_hash for a file.
 
         Calculating a hash for a file is always useful when you need to check if two files
@@ -60,15 +59,15 @@ def hash_for_file(filepath, hash_type='MD5'):
         [http://www.pythoncentral.io/hashing-files-with-python/]
     """
     import hashlib
-    BLOCKSIZE = 65536
+
     hasher = None
     if hash_type == 'MD5':
         hasher = hashlib.md5()
     elif hash_type == 'SHA1':
         hasher == hashlib.sha1()
     with open(filepath, 'rb') as f:
-        buf = f.read(BLOCKSIZE)
+        buf = f.read(blocksize)
         while len(buf) > 0:
             hasher.update(buf)
-            buf = f.read(BLOCKSIZE)
+            buf = f.read(blocksize)
     return hasher.hexdigest()

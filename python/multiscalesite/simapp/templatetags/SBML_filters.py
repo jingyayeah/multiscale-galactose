@@ -80,15 +80,13 @@ def _equationStringFromReaction(reaction):
     if reaction.getReversible():
         sep = '<=>'
     else:
-        sep = '=>' 
+        sep = '=>'
+    # mods = modifierEquation(reaction.getListOfModifiers())
+    # if mods == None:
+    #     return " ".join([left, sep, right])
+    # else:
+    #     return " ".join([left, sep, right, mods])
     return " ".join([left, sep, right])
-    '''
-    mods = modifierEquation(reaction.getListOfModifiers())
-    if mods == None:
-        return " ".join([left, sep, right])
-    else:
-        return " ".join([left, sep, right, mods])
-    '''
 
 
 def modifierEquation(modifierList):
@@ -107,9 +105,9 @@ def halfEquation(speciesList):
             sd = '{}'.model_format(species)
         elif abs(stoichiometry+1.0)<1E-8:
             sd = '-{}'.model_format(species)
-        elif (stoichiometry > 0):
+        elif stoichiometry > 0:
             sd = '{} {}'.model_format(stoichiometry, species)
-        elif (stoichiometry < 0):  
+        elif stoichiometry < 0:
             sd = '-{} {}'.model_format(stoichiometry, species)
         items.append(sd)
     return ' + '.join(items)

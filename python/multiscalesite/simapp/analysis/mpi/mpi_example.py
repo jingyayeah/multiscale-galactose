@@ -1,10 +1,10 @@
-'''
+"""
 Created on Apr 30, 2015
 
 @author: mkoenig
-'''
+"""
 # run with
-# mpiexec -n 4 python TestMPI.py
+# mpiexec -n 4 python mpi_example.py
 
 from mpi4py import MPI
 import sys

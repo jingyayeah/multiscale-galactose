@@ -8,7 +8,8 @@ Interaction of python with R for testing the conversion of the binary files.
 if __name__ == "__main__":
     import os
     print 'R_script'
-    f = "/home/mkoenig/multiscale-galactose-results/django/timecourse/T55/Galactose_v25_Nc20_dilution_Sim92022_roadrunner.csv"
+    f = "/home/mkoenig/multiscale-galactose-results/django/" \
+        "timecourse/T55/Galactose_v25_Nc20_dilution_Sim92022_roadrunner.csv"
     print f
     
     # zip the file
@@ -17,7 +18,6 @@ if __name__ == "__main__":
     
     import tarfile
     tar = tarfile.open(f_tar, "w:gz")
-
 
     print(os.path.basename(f))
     tar.add(f, arcname=os.path.basename(f))

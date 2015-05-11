@@ -68,14 +68,14 @@ class Core(models.Model):
     """
     ip = models.CharField(max_length=200)
     cpu = models.IntegerField()
-    time = models.DateTimeField(default=timezone.now);
-        
+    time = models.DateTimeField(default=timezone.now)
+
     def __str__(self):
         return '{}-cpu-{}'.format(self.ip, self.cpu)
     
     def _is_active(self, cutoff_minutes=10):
         """ Test if simulation is still active. """
-        if not (self.time):
+        if not self.time:
             return False
         return timezone.now() <= self.time + datetime.timedelta(minutes=cutoff_minutes)
     

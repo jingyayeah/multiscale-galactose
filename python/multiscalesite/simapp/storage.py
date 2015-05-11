@@ -18,10 +18,11 @@ import os
 
 class OverwriteStorage(FileSystemStorage):
  
-    def get_available_name(self, name):
+    def get_available_name(self, name, **kwargs):
         """Returns a filename that's free on the target storage system, and
         available for new content to be written to.
  
+        :param **kwargs:
         Found at http://djangosnippets.org/snippets/976/
  
         This file storage solves overwrite on upload problem. Another

@@ -60,9 +60,10 @@ def create_task(model, method, info=None, priority=0):
 
 
 def create_method_from_settings(method_type, settings_dict, add_defaults=True):
-    """ Create method for given settings
-
-    :param settings:
+    """ Create method for given settings.
+    :param method_type:
+    :param settings_dict:
+    :param add_defaults:
     :return:
     """
     settings = Setting.get_or_create_from_dict(settings_dict, add_defaults=add_defaults)

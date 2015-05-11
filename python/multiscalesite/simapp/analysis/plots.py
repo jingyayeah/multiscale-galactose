@@ -1,28 +1,28 @@
-'''
+"""
 Create simulation plots for individual timecourses.
 
 @author: Matthias Koenig
 @date: 2015-05-10
-'''
+"""
 from __future__ import print_function
 
 import matplotlib.pyplot as plt
-from simapp.models import DONE
 
 #===============================================================================
 # Simulation plots
 #===============================================================================
-def read_data_from_timecourse(timecourse):
-    ''' Read the HDF5 numpy array in memory. '''
-    h5_path = timecourse.hdf5
+def read_data_from_result(result):
+    """ Read the HDF5 numpy array in memory. """
+    # h5_path = timecourse.hdf5
     
-    # TODO read
+    # TODO: implement
+    raise NotImplemented
     
 #===============================================================================
 # Task plots
 #===============================================================================
 def task_histogram(task, folder):
-    ''' Histogram of the all task parameters. '''    
+    """ Histogram of the all task parameters. """
     # get the parameter data for the task
     data = dict()
     for sim in task.simulation_set.all():
@@ -45,17 +45,17 @@ def task_histogram(task, folder):
     
     
 def pppv_plot(sim, folder):
-    '''
+    """
     Create the periportal (PP), perivenious (PV) plots.
-    
+
     Access the data via the x data dictionary via SBML ids.
     PP__gal = x['PP__gal']
     PV__gal = x['PV__gal']
     PP__rbcM = x['PP__rbcM']
     PV__rbcM = x['PV__rbcM']
-    ''' 
+    """
     import logging
-    if (sim.status != DONE):
+    if sim.status != DONE:
         logging.info('No timecourse available for simulation')
         return None
     
@@ -71,7 +71,7 @@ def pppv_plot(sim, folder):
     # ids
     compounds = []
     for name, values in x.iteritems():
-        if (name.startswith("PP__") or name.startswith("PV__")):
+        if name.startswith("PP__") or name.startswith("PV__"):
             sname = name[4:]
             if sname in compounds:
                 continue
@@ -95,6 +95,5 @@ def pppv_plot(sim, folder):
         
     
 def simulation_plots(sim, folder):
-    pppv_plot(sim, folder);
+    pppv_plot(sim, folder)
 
-    

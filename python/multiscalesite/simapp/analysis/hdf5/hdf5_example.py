@@ -1,23 +1,24 @@
-'''
+"""
 Created on Apr 30, 2015
 
 @author: mkoenig
-'''
-import h5py
-h5py.enable_ipython_completer() # ipyhon util
-
+"""
 import numpy as np
+import h5py
+import pandas as pd
+from pandas import DataFrame
 
-# run the tests
-# h5py.run_tests()
+h5py.enable_ipython_completer()  # ipython util
+h5py.run_tests()  # run the tests
 
 # opening and creating files
-f = h5py.File("mytestfile.hdf5", 'w')
+f = h5py.File('mytestfile.hdf5', 'w')
 
 # creating a dataset 
 dset = f.create_dataset("mydataset", shape=(100,), dtype='i')
 
-# The object we created isn’t an array, but an HDF5 dataset. Like NumPy arrays, datasets have both a shape and a data type:
+# The object we created isn't an array, but an HDF5 dataset.
+# Like NumPy arrays, datasets have both a shape and a data type:
 dset.shape
 dset.dtype
 # They also support array-style slicing. This is how you read and write data from a dataset in the file:
@@ -36,7 +37,8 @@ dset2.key
 dset3 = f.create_dataset('subgroup2/dataset_three', (10,), dtype='i')
 dset3.key
 
-# Groups support most of the Python dictionary-style interface. You retrieve objects in the file using the item-retrieval syntax:
+# Groups support most of the Python dictionary-style interface.
+# You retrieve objects in the file using the item-retrieval syntax:
 dataset_three = f['subgroup2/dataset_three']
 dataset_three.shape
 dataset_three[5]
@@ -55,7 +57,7 @@ def printname(name):
 f.visit(printname)
 
 # Attributes
-# Attributes are a critical part of what makes HDF5 a “self-describing” format. 
+# Attributes are a critical part of what makes HDF5 a "self-describing" format.
 # They are small named pieces of data attached directly to Group and Dataset objects. 
 # This is the official way to store metadata in HDF5.
 # Store dictionary of information here.
@@ -85,7 +87,7 @@ arr = np.arange(100)
 dset = f.create_dataset("init", data=arr)
 
 # Chunking
-# Chunking has performance implications. It’s recommended to keep the total size of your chunks 
+# Chunking has performance implications. It's recommended to keep the total size of your chunks
 # between 10 KiB and 1 MiB, larger for larger datasets. Also keep in mind that when any element 
 # in a chunk is accessed, the entire chunk is read from disk.
 
@@ -98,7 +100,7 @@ dset = f.create_dataset("init", data=arr)
 dset = f.create_dataset("zipped", (100, 100), compression="gzip")
 
 ## HDF5 Dimension scales
-# Attributes are a critical part of what makes HDF5 a “self-describing” format. 
+# Attributes are a critical part of what makes HDF5 a "self-describing" format.
 # They are small named pieces of data attached directly to Group and Dataset objects. 
 # This is the official way to store metadata in HDF5.
 
@@ -111,13 +113,10 @@ f['data'].dims[2].label = 'x'
 # Variable length strings
 f = h5py.File('foo.hdf5')
 
-
-
 # write strings
 f1 = h5py.File('foo1.h5', 'w')
 test = ['A', 'B', 'C']
 f1.create_dataset("string_ds", data=test, dtype="S10")
-
 
 
 filename = "/home/mkoenig/multiscale-galactose-results/tmp_sim/T2/Koenig2014_demo_kinetic_v7_Sim18_roadrunner.h5"
@@ -128,11 +127,7 @@ dset = f.get('test')
 dset[0:10, :]
 
 
-
-
 # write the column headers in HDF5
-import pandas as pd
-from pandas import DataFrame
 df = DataFrame()
 store = pd.HDFStore('test.h5')
 store.append('my_df', df)

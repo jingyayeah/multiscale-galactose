@@ -1,23 +1,23 @@
-'''
-Tools to help analyze odesim series, i.e. simulations 
+"""
+Tools to help analyze odesim series, i.e. simulations
 belonging to the same task.
 Parameter files are generated based on the information in the database.
 All simulations within a task must have set the same parameters, i.e.
-for the unaltered case the unaltered parameters have to be set 
-explicitly. This enforces coherrent odesim information within a 
+for the unaltered case the unaltered parameters have to be set
+explicitly. This enforces coherrent odesim information within a
 task.
 
 Created on Mar 23, 2014
 @author: Matthias Koenig
-'''
+"""
 
 
 import time
 from simapp.models import Task
 
 def getParameterFilenameForTask(task, folder=None):
-    '''TODO: proper general paths'''
-    if (not folder):
+    """TODO: proper general paths"""
+    if not folder:
         folder = "/home/mkoenig/multiscale-galactose-results/"
 
     mname = task.model.sbml_id
@@ -40,13 +40,13 @@ def createParameterStringInfoForTask(task):
     return "\n".join(lines)
 
 def createParameterInfoForTask(task):
-    '''
+    """
     Write the parameter file for the task.
     Simulation Id is stored in collection with the parameters.
     The problem is that within a task there can be different
     numbers of parameters set. It has to be guaranteed by the
     SimulationFactory.
-    '''
+    """
     print 'Create Parameter File for: ', str(task)
     start = time.clock()
     # collect the parameters for the simulations
@@ -72,7 +72,7 @@ def createParameterInfoForTask(task):
     # check that everything has the same length
     # this has to be guaranteed by the odesim generator
     for key in data.iterkeys():
-        if ( len(data[key]) != len(data['sim']) ):
+        if len(data[key]) != len(data['sim']):
             print 'ERROR - wrong number of parameters'
     
     print 'time: ', (time.clock() - start)
@@ -87,6 +87,5 @@ if __name__ == "__main__":
     folder = "/home/mkoenig/multiscale-galactose-results/"
     ids = (1, 2 )
     for task_id in ids:    
-        task = Task.objects.get(pk=task_id);
-        createParameterFileForTask(task, folder);
-    
+        task = Task.objects.get(pk=task_id)
+        createParameterFileForTask(task, folder)
