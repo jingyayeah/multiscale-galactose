@@ -71,7 +71,7 @@ class TestSamples(unittest.TestCase):
     def test_from_parameters2(self):
         """ Create SampleParameter from django Parameter """
         from simapp.models import Parameter
-        parameter = Parameter(name='test', value=1.0, unit='mM', ptype=ParameterType.GLOBAL_PARAMETER)
+        parameter = Parameter(key='test', value=1.0, unit='mM', parameter_type=ParameterType.GLOBAL_PARAMETER)
         p = SampleParameter.from_parameter(parameter)
         self.assertEqual(p.key, 'test', "test key")
         self.assertEqual(p.value, 1.0, "test value")

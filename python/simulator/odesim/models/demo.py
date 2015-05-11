@@ -11,7 +11,7 @@ import simapp.db.api as db_api
 
 import odesim.db.tools as db_tools
 
-from odesim.dist.distributions import getDemoDistributions
+from odesim.dist.examples import Demo
 from odesim.dist.sampling import sample_parameters, SamplingType
 
 
@@ -41,7 +41,7 @@ def create_demo_samples(n_samples, sampling_type):
     :param sampling_type:
     :return:
     """
-    distributions = getDemoDistributions()
+    distributions = Demo.get_distributions()
     return sample_parameters(distributions, n_samples, sampling_type)
 
 

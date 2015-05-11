@@ -7,15 +7,13 @@ Testing for sampling from distributions generation.
 
 import unittest
 from odesim.dist.sampling import sample_from_distribution, sample_from_mean
-from odesim.dist.distributions import getDemoDistributions, getGalactoseDistributions
+from odesim.dist.examples import Demo
 
 
 class TestSampling(unittest.TestCase):
 
     def setUp(self):
-
-        self.dist_demo = getDemoDistributions()
-        self.dist_gal = getGalactoseDistributions()
+        self.dist_demo = Demo.get_distributions()
         
     def tearDown(self):
         self.dist_data = None

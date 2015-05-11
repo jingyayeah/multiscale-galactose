@@ -10,7 +10,7 @@ import unittest
 from simapp.models import ParameterType
 from odesim.dist import sampling
 from odesim.dist.distributions import DistributionType, DistributionParameterType
-from examples import Demo, GalactoseFlow
+from odesim.dist.examples import Demo, GalactoseFlow
 
 
 
