@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext, loader
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render_to_response
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from simapp.models import CompModel, Core, Simulation, Result, Task, Method
@@ -13,12 +13,9 @@ PAGINATE_ENTRIES = 50
 def models(request):
     """ Models overview. """
     model_list = CompModel.objects.order_by("-pk")
-    template = loader.get_template('simapp/models.html')
-    context = RequestContext(request, {
-        'model_list': model_list,
-    })
-    return HttpResponse(template.render(context))
-
+    return render_to_response('simapp/models.html',
+                              {'model_list': model_list},
+                              context_instance=RequestContext(request))
 
 # ===============================================================================
 # Cores
@@ -26,11 +23,9 @@ def models(request):
 def cores(request):
     """ Cores overview. """
     core_list = Core.objects.order_by("-time")
-    template = loader.get_template('simapp/cores.html')
-    context = RequestContext(request, {
-        'core_list': core_list,
-    })
-    return HttpResponse(template.render(context))
+    return render_to_response('simapp/cores.html',
+                              {'core_list': core_list},
+                              context_instance=RequestContext(request))
 
 # ===============================================================================
 # Tasks
@@ -38,23 +33,19 @@ def cores(request):
 def tasks(request):
     """ Tasks overview. """
     task_list = Task.objects.order_by('pk').reverse()
-    template = loader.get_template('simapp/tasks.html')
-    context = RequestContext(request, {
-        'task_list': task_list,
-    })
-    return HttpResponse(template.render(context))
+    return render_to_response('simapp/tasks.html',
+                              {'task_list': task_list},
+                              context_instance=RequestContext(request))
 
 
 def task(request, task_id):
     """ View of single task. """
     task = get_object_or_404(Task, pk=task_id)
-    template = loader.get_template('simapp/task.html')
-    context = RequestContext(request, {
-        'task': task,
-    })
-    return HttpResponse(template.render(context))
+    return render_to_response('simapp/task.html',
+                              {'task': task},
+                              context_instance=RequestContext(request))
 
-    
+
 def task_parameters(request, task_id):
     """ 
         TODO: fix this
@@ -62,6 +53,7 @@ def task_parameters(request, task_id):
         Most of the logic belongs in the Parameterfile.
         Here only the view should be generated.
     """
+    # TODO: refactor
     import simapp.analysis.ParameterFiles as pf
     
     task = get_object_or_404(Task, pk=task_id)
@@ -82,11 +74,9 @@ def task_parameters(request, task_id):
 def methods(request):
     """ Overview of integration settings. """
     method_list = Method.objects.order_by("pk")
-    template = loader.get_template('simapp/methods.html')
-    context = RequestContext(request, {
-        'method_list': method_list,
-    })
-    return HttpResponse(template.render(context))
+    return render_to_response('simapp/methods.html',
+                              {'method_list': method_list},
+                              context_instance=RequestContext(request))
 
 # ===============================================================================
 # Simulations
@@ -110,13 +100,13 @@ def simulations(request, status='ALL'):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         simulation_list = paginator.page(paginator.num_pages)
-    
-    template = loader.get_template('simapp/simulations.html')
-    context = RequestContext(request, {
-        'simulation_list': simulation_list,
-        'status': status,
-    })
-    return HttpResponse(template.render(context))
+
+    return render_to_response('simapp/simulations.html',
+                              {
+                                'simulation_list': simulation_list,
+                                'status': status,
+                              },
+                              context_instance=RequestContext(request))
 
 
 def simulation(request, simulation_id):
@@ -124,20 +114,19 @@ def simulation(request, simulation_id):
     sim = get_object_or_404(Simulation, pk=simulation_id)
     try:
         sim_previous = Simulation.objects.get(pk=(sim.pk-1))
-    except:
+    except Simulation.DoesNotExist:
         sim_previous = None
     try:
         sim_next = Simulation.objects.get(pk=(sim.pk+1))
-    except:
+    except Simulation.DoesNotExist:
         sim_next = None
-        
-    template = loader.get_template('simapp/simulation.html')
-    context = RequestContext(request, {
+
+    return render_to_response('simapp/simulation.html', {
         'sim': sim,
         'sim_previous': sim_previous,
         'sim_next': sim_next,
-    })
-    return HttpResponse(template.render(context))
+        },
+        context_instance=RequestContext(request))
 
 
 # ===============================================================================
@@ -151,19 +140,14 @@ def results(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        # If page is not an integer, deliver first page.
-        result_list = paginator.page(1)
+        result_list = paginator.page(1)  # If page is not an integer, deliver first page.
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         result_list = paginator.page(paginator.num_pages)
-    
-    template = loader.get_template('simapp/results.html')
-    context = RequestContext(request, {
-        'result_list': result_list,
-    })
-    return HttpResponse(template.render(context))
 
+    return render_to_response('simapp/results.html',
+                              {'result_list': result_list},
+                              context_instance=RequestContext(request))
 
 # ===============================================================================
 # About
@@ -173,6 +157,5 @@ def about(request):
     Provide additional resources, links, explanation, background.
     """
     # TODO: update template
-    template = loader.get_template('simapp/about.html')
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render_to_response('simapp/about.html', {},
+                              context_instance=RequestContext(request))
