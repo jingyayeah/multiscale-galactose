@@ -23,4 +23,9 @@
     {% endfor %}
     </tbody>
     </table>
+
+    {%  if not model_list %}
+        <p>No models in database.</p>
+    {%  endif %}
+
 {% endblock %}

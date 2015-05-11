@@ -24,10 +24,10 @@ def models(request):
 #===============================================================================
 def cores(request):
     """ Cores overview. """
-    cores_list = Core.objects.order_by("-time")
+    core_list = Core.objects.order_by("-time")
     template = loader.get_template('simapp/cores.html')
     context = RequestContext(request, {
-        'cores_list': cores_list,
+        'core_list': core_list,
     })
     return HttpResponse(template.render(context))
 
@@ -36,10 +36,10 @@ def cores(request):
 #===============================================================================
 def tasks(request):
     """ Tasks overview. """
-    tasks_list = Task.objects.order_by('pk').reverse()
+    task_list = Task.objects.order_by('pk').reverse()
     template = loader.get_template('simapp/tasks.html')
     context = RequestContext(request, {
-        'tasks_list': tasks_list,
+        'task_list': task_list,
     })
     return HttpResponse(template.render(context))
 
@@ -80,18 +80,23 @@ def task_parameters(request, task_id):
 #===============================================================================
 def methods(request):
     """ Overview of integration settings. """
-    methods_list = Method.objects.order_by("pk")
+    method_list = Method.objects.order_by("pk")
     template = loader.get_template('simapp/methods.html')
     context = RequestContext(request, {
-        'methods_list': methods_list,
+        'method_list': method_list,
     })
     return HttpResponse(template.render(context))
 
 #===============================================================================
 # Simulations
 #===============================================================================
+from simapp.models import SimulationStatus
+
+
 def simulations(request, status='ALL'):
-    """ Simulations overview. """
+    """ Simulations overview.
+        TODO: fix the status parsing bug. Get enums from the status.
+    """
     if status == 'ALL':
         sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
     else:
@@ -100,17 +105,17 @@ def simulations(request, status='ALL'):
     paginator = Paginator(sim_list, PAGINATE_ENTRIES)
     page = request.GET.get('page')
     try:
-        simulations = paginator.page(page)
+        simulation_list = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        simulations = paginator.page(1)
+        simulation_list = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        simulations = paginator.page(paginator.num_pages)
+        simulation_list = paginator.page(paginator.num_pages)
     
     template = loader.get_template('simapp/simulations.html')
     context = RequestContext(request, {
-        'simulations': simulations,
+        'simulation_list': simulation_list,
         'status': status,
     })
     return HttpResponse(template.render(context))
@@ -146,28 +151,30 @@ def results(request):
     paginator = Paginator(results_all, PAGINATE_ENTRIES)
     page = request.GET.get('page')
     try:
-        results = paginator.page(page)
+        result_list = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        results = paginator.page(1)
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        results = paginator.page(paginator.num_pages)
+        result_list = paginator.page(paginator.num_pages)
     
     template = loader.get_template('simapp/results.html')
     context = RequestContext(request, {
-        'results': results,
+        'result_list': result_list,
     })
     return HttpResponse(template.render(context))
 
 
 #===============================================================================
-# Documentation 
+# About
 #===============================================================================
-def documentation(request):
-    ''' Documentation information. 
-        TODO: update documentation.
-    '''
-    template = loader.get_template('simapp/documentation.html')
+def about(request):
+    """ Overview project information.
+    Provide additional resources, links, explanation, background.
+    TODO: update template.
+    """
+    template = loader.get_template('simapp/about.html')
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))

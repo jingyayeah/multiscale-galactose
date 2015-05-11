@@ -9,16 +9,22 @@
 	<tr>{% usemacro simulation_header %}</tr>
 	</thead>
 	<tbody>
-	{% for sim in simulations %}
+	{% for sim in simulation_list %}
 		<tr>
 			{% usemacro simulation_content %}
 		</tr>    
     {% endfor %}
     </tbody>
     </table>
-    
-    {% with items=simulations %} 
-    	{% usemacro pagination %}
-	{% endwith %}
+
+    {% if simulation_list %}
+        {% with items=simulation_list %}
+    	    {% usemacro pagination %}
+	    {% endwith %}
+    {% endif %}
+
+    {%  if not simulation_list %}
+        <p>No simulations in database.</p>
+    {%  endif %}
 
 {% endblock %}

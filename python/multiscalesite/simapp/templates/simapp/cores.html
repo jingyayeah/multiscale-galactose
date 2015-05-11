@@ -8,18 +8,21 @@
 <!------------------------------------------------------->
 {% block content %}
 	<table class="table" id="table_items">
-	<caption>Cores [{{cores_list.count}}]</caption>
+	<caption>Cores [{{core_list.count}}]</caption>
     <thead>
 	<tr>
 		{% usemacro core_header %}
 	</tr>
 	</thead>
 	<tbody>
-	{% for core in cores_list %}
+	{% for core in core_list %}
 		<tr>
 			{% usemacro core_content %}
 		</tr>    
     {% endfor %}
     </tbody>
-    </table>    
+    </table>
+    {%  if not core_list %}
+    <p>No cores in database.</p>
+    {%  endif %}
 {% endblock %}

@@ -10,18 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/documentation.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/about.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/db/api.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/db/api.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/models/demo.py" afterPath="$PROJECT_DIR$/odesim/models/demo.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/models/demo_test.py" afterPath="$PROJECT_DIR$/odesim/models/demo_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/dist/distributions.py" afterPath="$PROJECT_DIR$/odesim/dist/distributions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/dist/distributions_test.py" afterPath="$PROJECT_DIR$/odesim/dist/distributions_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/models/galactose_flow.py" afterPath="$PROJECT_DIR$/odesim/models/galactose_flow.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/project_settings.py" afterPath="$PROJECT_DIR$/../multiscalesite/project_settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/dist/samples.py" afterPath="$PROJECT_DIR$/odesim/dist/samples.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/dist/sampling.py" afterPath="$PROJECT_DIR$/odesim/dist/sampling.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/dist/test_samples.py" afterPath="$PROJECT_DIR$/odesim/dist/test_samples.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/base_generic.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/base_generic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/cores.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/cores.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/macros.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/macros.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/methods.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/methods.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/models.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/models.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/results.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/results.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/simulations.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/simulations.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/tasks.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/tasks.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/tests.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/tests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/urls.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/views.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -140,7 +141,8 @@
               <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
               <folding>
                 <element signature="e#231#245#0" expanded="true" />
-                <marker date="1431293230429" expanded="true" signature="2227:2725" placeholder="..." />
+                <marker date="1431330445430" expanded="true" signature="1935:2185" placeholder="..." />
+                <marker date="1431330445430" expanded="true" signature="2227:2725" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -161,7 +163,7 @@
       <file leaf-file-name="samples.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/odesim/dist/samples.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33064517" vertical-offset="746" max-vertical-offset="2142">
+            <state vertical-scroll-proportion="0.13921902" vertical-offset="746" max-vertical-offset="2142">
               <caret line="49" column="41" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
               <folding />
             </state>
@@ -270,9 +272,9 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1920" />
+    <option name="y" value="24" />
     <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="height" value="1032" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -748,8 +750,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="24" width="1920" height="1032" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -763,7 +765,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25801283" sideWeight="0.87210584" order="0" side_tool="true" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.7089005" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31753033" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -809,6 +811,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2556" max-vertical-offset="2664">
           <caret line="145" column="35" selection-start-line="145" selection-start-column="35" selection-end-line="145" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -825,7 +828,8 @@
           <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
           <folding>
             <element signature="e#231#245#0" expanded="true" />
-            <marker date="1431293230429" expanded="true" signature="2227:2725" placeholder="..." />
+            <marker date="1431330445430" expanded="true" signature="1935:2185" placeholder="..." />
+            <marker date="1431330445430" expanded="true" signature="2227:2725" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -842,7 +846,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="9882" max-vertical-offset="11520">
           <caret line="573" column="0" selection-start-line="573" selection-start-column="0" selection-end-line="573" selection-end-column="0" />
           <folding>
-            <element signature="e#101#138#0" expanded="true" />
+            <element signature="e#101#138#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -858,6 +862,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1152">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -925,6 +930,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="522">
           <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -946,6 +952,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="2718">
           <caret line="145" column="35" selection-start-line="145" selection-start-column="35" selection-end-line="145" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1069,6 +1076,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12526998" vertical-offset="226" max-vertical-offset="1152">
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1124,7 +1132,8 @@
           <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
           <folding>
             <element signature="e#231#245#0" expanded="true" />
-            <marker date="1431293230429" expanded="true" signature="2227:2725" placeholder="..." />
+            <marker date="1431330445430" expanded="true" signature="1935:2185" placeholder="..." />
+            <marker date="1431330445430" expanded="true" signature="2227:2725" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1160,7 +1169,7 @@
         <state vertical-scroll-proportion="0.66926676" vertical-offset="6411" max-vertical-offset="11520">
           <caret line="380" column="6" selection-start-line="380" selection-start-column="6" selection-end-line="380" selection-end-column="6" />
           <folding>
-            <element signature="e#101#138#0" expanded="true" />
+            <element signature="e#101#138#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1207,7 +1216,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/odesim/dist/samples.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33064517" vertical-offset="746" max-vertical-offset="2142">
+        <state vertical-scroll-proportion="0.13921902" vertical-offset="746" max-vertical-offset="2142">
           <caret line="49" column="41" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
           <folding />
         </state>

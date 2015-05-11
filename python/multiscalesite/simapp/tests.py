@@ -278,6 +278,9 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/models/')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Models [0]')
+        self.assertContains(response, 'No models in database.')
+
         #  check the response.context
         self.assertEqual(len(response.context['model_list']), 0)
         # create a model
@@ -291,11 +294,15 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/cores/')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Cores [0]')
+        self.assertContains(response, 'No cores in database.')
 
     def test_tasks_status(self):
         """ Check response status code for view. """
         response = self.c.get('/simapp/tasks/')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Tasks [0]')
+        self.assertContains(response, 'No tasks in database.')
 
     def test_task_404(self):
         """ Check response status code for view. """
@@ -327,11 +334,15 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/methods/')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Methods [0]')
+        self.assertContains(response, 'No methods in database.')
 
     def test_simulations_status(self):
         """ Check response status code for view. """
         response = self.c.get('/simapp/simulations/')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Simulations')
+        self.assertContains(response, 'No simulations in database.')
 
     def test_simulation_404(self):
         """ Check response status code for view. """
@@ -355,10 +366,12 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/results/')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Results')
+        self.assertContains(response, 'No results in database.')
 
     def test_documentation_status(self):
         """ Check response status code for view. """
-        response = self.c.get('/simapp/docs/')
+        response = self.c.get('/simapp/about/')
         self.assertEqual(response.status_code, 200)
 
 # ===============================================================================

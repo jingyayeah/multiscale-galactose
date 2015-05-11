@@ -12,11 +12,11 @@
 		<th>status</th>
 		<th>duration</th>
 		<th>core</th>
-		<th>timecourse</th>
+		<th>result</th>
 {% endmacro %}
 {% macro simulation_content %}
 			<td><a href="{% url 'simapp:simulation' sim.pk %}">{{sim.pk}}</a></td>
-			<td>{{sim.task.sbml_model.sbml_id}}</td>
+			<td>{{sim.task.model.model_id}}</td>
 			<td>{{sim.task}}</td>
 			<td>{% for s in sim.task.integration.settings.all %}{{ s }}<br />{% endfor %}</td>
 			<td>{% for p in sim.parameters.all %}{{ p }}<br />{% endfor %}</td>
@@ -25,8 +25,9 @@
 			</td>
 			<td>{{sim.duration}}</td>
 			<td>{{sim.core}}</td>
-			<td> {% if sim.status == 'DONE' %}
-				<a href="{{ sim.timecourse.file.url }}" target="_blank">{{sim.timecourse.pk}}</a>
+            <!-- TODO: update to multiple results -->
+			<td> {% if sim.is_done %}
+				<a href="{{ sim.result.file.url }}" target="_blank">{{sim.result.pk}}</a>
 				{% endif %}
 			</td>
 {% endmacro %}
@@ -122,34 +123,37 @@
 <!--  METHOD     									   -->
 <!------------------------------------------------------->
 {% macro method_header %}
-		<th>pk</th>
-		<th>settings</th>
+    <th>pk</th>
+    <th>method_type</th>
+	<th>settings</th>
 {% endmacro %}
 		
 {% macro method_content %}
-			<td>{{method.pk}}</td>
-			<td>{% for s in method.settings.all %}{{ s.name }} = {{s.value}} [{{s.datatype}}] <br />{% endfor %}</td>
+    <td>{{method.pk}}</td>
+    <td>{{method.method_type}}</td>
+    <td>{% for s in method.settings.all %}{{ s.name }} = {{s.value}} [{{s.datatype}}] <br />{% endfor %}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
 <!--  CORE      									   -->
 <!------------------------------------------------------->
 {% macro core_header %}
-		<th>id</th>
-		<th>computer</th>
-		<th>ip</th>
-		<th>cpu</th>
-		<th>time</th>
-		<th>is active</th>
+    <th>id</th>
+	<th>computer</th>
+	<th>ip</th>
+	<th>cpu</th>
+	<th>time</th>
+	<th>is active</th>
 {% endmacro %}
 		
 {% macro core_content %}
 <td>{{core.id}}</td>
-			<td>{{core.computer}}</td>
-			<td>{{core.ip}}</td>
-			<td>{{core.cpu}}</td>
-			<td>{{core.time}}</td>
-			<td><span class="{% if core.active %}GOOD{% else %}BAD{% endif %}">{{core.active}}</span></td>
+    <td>{{core.computer}}</td>
+    <td>{{core.ip}}</td>
+    <td>{{core.cpu}}</td>
+    <td>{{core.time}}</td>
+    <!-- TODO: define proper CSS classes -->
+    <td><span class="{% if core.active %}GOOD{% else %}BAD{% endif %}">{{core.active}}</span></td>
 {% endmacro %}
 
 <!------------------------------------------------------->

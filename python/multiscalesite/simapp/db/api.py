@@ -89,7 +89,7 @@ def create_simulation(task, parameters):
 # ===============================================================================
 
 def get_simulations_for_task():
-    pass
+    raise NotImplemented()
 
 
 def get_parameters_for_simulation(simulation):
