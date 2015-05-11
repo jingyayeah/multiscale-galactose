@@ -71,8 +71,8 @@ def sample_from_distribution(distributions, n_samples, keys=None):
         for dist in distributions:
             if keys and (dist.key not in keys):
                 continue
-            s.add_parameter(SampleParameter(dist.key, value=dist.samples(N=1), 
-                                            unit=dist.unit, parameter_type=dist.ptype))
+            s.add_parameter(SampleParameter(dist.key, value=dist.samples(n_samples=1),
+                                            unit=dist.unit, parameter_type=dist.parameter_type))
         samples.append(s)
     return samples
 
@@ -86,7 +86,7 @@ def sample_from_mean(distributions, n_samples=1, keys=None):
             if keys and (dist.key not in keys):
                 continue
             s.add_parameter(SampleParameter(dist.key, value=dist.mean(), 
-                                            unit=dist.unit, parameter_type=dist.ptype))
+                                            unit=dist.unit, parameter_type=dist.parameter_type))
         samples.append(s)
     return samples
 
@@ -164,32 +164,3 @@ def sample_from_mean(distributions, n_samples=1, keys=None):
 
 ##########################################################################################
 
-if __name__ == "__main__":
-    from distributions import getDemoDistributions
-    
-    print('-' * 40)    
-    dists = getDemoDistributions()
-    samples = sample_from_distribution(dists, n_samples=10)
-    for s in samples:
-        print(s)
-
-    '''
-    TODO: redo the galactose distributions
-    from distributions import getGalactoseDistributions
-    dist_data = getGalactoseDistributions()
-    
-    print('-' * 40)
-    samples = _createSamplesByDistribution(dist_data, N=5)
-    for s in samples:
-        print(s)
-    
-    print('-' * 40)
-    samples = _createSamplesByMean(dist_data, N=5)
-    for s in samples:
-        print(s)
-    '''
-        
-#     print '-' * 40
-#     samples = _createSamplesByLHS(dist_data, N=5)
-#     for s in samples:
-#         print s

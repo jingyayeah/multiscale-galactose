@@ -1,5 +1,6 @@
 """
-Creating and managing Samples and the SampleParameters for simulations.
+Module for Creation and managment of Samples and the SampleParameters
+used in simulations.
 
  Sample parameter defines the value of a single parameter.
     In most cases these parameters corresponds to parameters in an SBML.
@@ -7,10 +8,12 @@ Creating and managing Samples and the SampleParameters for simulations.
     in the integration.
     key, value, unit correspond to id, value, unit in the SBML.
 
-    # TODO: rename Sample -> ParameterCollection (??) , better naming
+
+TODO: rename Sample -> ParameterCollection (??) , better naming
+ This is not really describing what it is doing.
 
 @author: Matthias Koenig
-@date: 2015-05-05
+@date: 2015-05-11
 """
 from __future__ import print_function
 from simapp.models import ParameterType
@@ -41,10 +44,10 @@ class SampleParameter(object):
         """ Works with SampleParameter or django parameter. """
         if hasattr(p, 'key'):
             # Sample parameter
-            return cls(p.key, p.value, p.unit, p.ptype)
+            return cls(p.key, p.value, p.unit, p.parameter_type)
         else:
             # django parameter
-            return cls(p.key, p.value, p.unit, p.ptype)
+            return cls(p.key, p.value, p.unit, p.parameter_type)
 
     def __repr__(self):
         return "<{} = {:.3E} [{}] ({})>".format(self.key, self.value, self.unit, self.parameter_type)
@@ -76,42 +79,35 @@ class Sample(dict):
             s.add_parameter(sample_par)
         return samples
 
-
-def deepcopy_samples(samples):
-    """ Returns a deepcopy of the list of samples.
+    @staticmethod
+    def deepcopy_samples(samples):
+        """ Returns a deepcopy of the list of samples.
         Required for the creation of derived samples
         TODO: is this working ?
-    """
-    return deepcopy(samples)
+        """
+        return deepcopy(samples)
 
 
-def setParameterValuesInSamples(raw_samples, p_list):
+def set_parameters_in_samples(parameters, samples):
     """
-    TODO: refactor this
-    ? how is the p_list structured ? """
-    for pset in p_list:
+    TODO: refactor this.
+    This functionality has to be much clearer and must be documented much better.
+    What is this doing exactly ??
+    ? how is the parameters structured ? """
+    for pset in parameters:
         ParameterType.check_type(pset['parameter_type'])
 
-    Np = len(p_list)                # numbers of parameters to set
-    Nval = len(p_list[0]['values']) # number of values from first p_dict
+    Np = len(parameters)                 # numbers of parameters to set
+    Nval = len(parameters[0]['values'])  # number of values from first p_dict
 
-    samples = []
-    for s in raw_samples:
+    new_samples = []
+    for s in samples:
         for k in range(Nval):
             # make a copy of the dictionary
             snew = s.copy()
             # set all the information
             for i in range(Np):
-                p_dict = p_list[i]
+                p_dict = parameters[i]
                 snew[p_dict['pid']] = (p_dict['pid'], p_dict['values'][k], p_dict['unit'], p_dict['parameter_type'])
-            samples.append(snew)
-    return samples
-
-
-##################################################################
-if __name__ == "__main__":
-    import django
-    django.setup()
-
-    from odesim.models.demo import create_demo_samples
-    create_demo_samples(n_samples=1, sampling_type="distribution")
+            new_samples.append(snew)
+    return new_samples

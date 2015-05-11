@@ -106,7 +106,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             # set all parameters in the model and store the changes for revert
             changes = dict()
             for p in sim.parameters.all():
-                if (p.ptype == GLOBAL_PARAMETER):
+                if (p.parameter_type == GLOBAL_PARAMETER):
                     name = str(p.key)
                     changes[name] = rr.model[name]
                     rr.model[name] = p.value
@@ -121,13 +121,13 @@ def integrate_roadrunner(sims, keep_tmp=False):
             
             # apply concentration changes
             for p in sim.parameters.all():
-                if (p.ptype in [NONE_SBML_PARAMETER, GLOBAL_PARAMETER]):
+                if (p.parameter_type in [NONE_SBML_PARAMETER, GLOBAL_PARAMETER]):
                     continue
                 
                 name = str(p.key) 
-                if (p.ptype == BOUNDERY_INIT):
+                if (p.parameter_type == BOUNDERY_INIT):
                     name = '[{}]'.model_format(name)
-                elif (p.ptype == FLOATING_INIT):
+                elif (p.parameter_type == FLOATING_INIT):
                     name = 'init([{}])'.model_format(name)
                 
                 changes[name] = rr.model[name]

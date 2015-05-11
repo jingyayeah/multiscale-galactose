@@ -48,7 +48,7 @@ class TestSamples(unittest.TestCase):
         self.assertEqual(self.p1.key, "Vmax", "test key")
         self.assertEqual(self.p1.value, 2.17, "test value")
         self.assertEqual(self.p1.unit, "mole_per_s", "test unit")
-        self.assertEqual(self.p1.ptype, ParameterType.GLOBAL_PARAMETER, "test pytpe")
+        self.assertEqual(self.p1.parameter_type, ParameterType.GLOBAL_PARAMETER, "test pytpe")
         
     def test_sample_pars_repr(self):
         # print(self.p1.__repr__())
@@ -59,16 +59,16 @@ class TestSamples(unittest.TestCase):
         samples = create_demo_samples(n_samples=1, sampling_type=SamplingType.DISTRIBUTION)
         s = samples[0]
         self.assertIsInstance(s, Sample, "Demo sample is Sample")
-        
-    def test_fromparameters1(self):
+
+    def test_from_parameters1(self):
         """ Create SampleParameter from SampleParameter """
         p = SampleParameter.from_parameter(self.p1)
         self.assertEqual(p.key, 'Vmax', "test key")
         self.assertEqual(p.value, 2.17, "test value")
         self.assertEqual(p.unit, "mole_per_s", "test unit")
-        self.assertEqual(p.ptype, ParameterType.GLOBAL_PARAMETER, "test pytpe")
+        self.assertEqual(p.parameter_type, ParameterType.GLOBAL_PARAMETER, "test pytpe")
 
-    def test_fromparameters2(self):
+    def test_from_parameters2(self):
         """ Create SampleParameter from django Parameter """
         from simapp.models import Parameter
         parameter = Parameter(name='test', value=1.0, unit='mM', ptype=ParameterType.GLOBAL_PARAMETER)
@@ -76,7 +76,7 @@ class TestSamples(unittest.TestCase):
         self.assertEqual(p.key, 'test', "test key")
         self.assertEqual(p.value, 1.0, "test value")
         self.assertEqual(p.unit, "mM", "test unit")
-        self.assertEqual(p.ptype, ParameterType.GLOBAL_PARAMETER, "test pytpe")
+        self.assertEqual(p.parameter_type, ParameterType.GLOBAL_PARAMETER, "test pytpe")
 
 
 if __name__ == '__main__':

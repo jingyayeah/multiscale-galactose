@@ -58,7 +58,7 @@ def create_simulations_for_samples(task, samples):
         for sp in sample.parameters:
             # This takes forever to check if parameter already in db
             # How to improve this part ?
-            create_parameter(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.ptype);
+            create_parameter(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.parameter_type);
             parameters.append(p)
         
         # sim = sims_list[k]
