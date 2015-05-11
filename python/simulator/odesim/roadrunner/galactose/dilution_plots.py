@@ -54,10 +54,8 @@ def dilution_plot_pppv(s_list, selections, show=True,
   
 
 def dilution_plot_by_name(s_list, selections, name, xlim=[t_peak-5, t_peak+30], comp_type='H'):
-    ''' 
-        Plot of the dilution curves.    
-        TODO: problems if not enough colors are provided.
-    '''
+    """ Plot of the dilution curves. """
+    # TODO: problems if not enough colors are provided.
     print '#'*80    
     print name
     print '#'*80

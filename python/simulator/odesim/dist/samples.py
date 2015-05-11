@@ -8,13 +8,10 @@ used in simulations.
     in the integration.
     key, value, unit correspond to id, value, unit in the SBML.
 
-
-TODO: rename Sample -> ParameterCollection (??) , better naming
- This is not really describing what it is doing.
-
 @author: Matthias Koenig
 @date: 2015-05-11
 """
+# TODO: rename Sample -> ParameterCollection (??) , better naming. This is not really describing what it is doing.
 from __future__ import print_function
 from simapp.models import ParameterType
 
@@ -83,17 +80,17 @@ class Sample(dict):
     def deepcopy_samples(samples):
         """ Returns a deepcopy of the list of samples.
         Required for the creation of derived samples
-        TODO: is this working ?
         """
+        # TODO: check if this works
         return deepcopy(samples)
 
 
 def set_parameters_in_samples(parameters, samples):
     """
-    TODO: refactor this.
     This functionality has to be much clearer and must be documented much better.
     What is this doing exactly ??
     ? how is the parameters structured ? """
+    # TODO: refactor
     for pset in parameters:
         ParameterType.check_type(pset['parameter_type'])
 

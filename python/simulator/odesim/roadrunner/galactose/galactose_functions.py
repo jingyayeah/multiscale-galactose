@@ -20,11 +20,11 @@ def flux_sample():
 
 
 def flux_probability(flux):
-    '''
+    """
     Returns probability for given flux based on probability
     distribution of fluxes.
-    TODO: this is hardcoded and should be read from the fitted parameters.
-    '''
+    """
+    # TODO: this is hardcoded and should be read from the fitted parameters.
     import pylab as plt
     x = np.linspace(0.1E-6, 1100E-6, num=400) # values for x-axis
     # mu = -8.358303    # dtmp['meanlog']
@@ -55,13 +55,13 @@ def pressure_sample(Pb=2.0):
 
 
 def pressure_probability(pressure, Pb=2.0):
-    '''
+    """
     Returns probability for given pressure based on probability
     distribution of fluxes.
-    TODO: this is hardcoded and should use the fitted parameter values.
-    
+
     Careful with the offset of perivenous pressure.
-    '''
+    """
+    # TODO: this is hardcoded and should use the fitted parameter values.
     import pylab as plt
     x = np.linspace(0, 40, num=400) # values for x-axis
     

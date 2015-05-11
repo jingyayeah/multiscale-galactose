@@ -1,11 +1,10 @@
-'''
+"""
 Input and output functions for integration.
 
-TODO: Decouple result file generation from database storage/interaction.
-
-@author: Matthias Koenig
+@author: mkoenig
 @date: 2015-05-03
-'''
+"""
+# TODO: Decouple result file generation from database storage/interaction.
 
 import os
 import numpy as np
@@ -54,22 +53,21 @@ def hdf5_file(sbml_id, sim):
     
 def store_timecourse_hdf5(filepath, data, header, meta=None):
     ''' Store the odesim file as HDF5.
-        Writing meta information, header/selection & data.
-        /data
+        Writing meta information, header/selection & distribution_data.
+        /distribution_data
         /header
         /time
     '''
     f = h5py.File(filepath, 'w')
-    f.create_dataset('data', data=data, compression="gzip")
+    f.create_dataset('distribution_data', data=data, compression="gzip")
     f.create_dataset('header', data=header, compression="gzip", dtype="S10")
     f.create_dataset('time', data=data[:,0], compression="gzip")
     f.close()
     
 
 def store_timecourse_db(sim, filepath, ftype, keep_tmp=False):
-    ''' Store the actual timecourse file in the database. 
-        TODO: store the filetype.
-    '''
+    """ Store the actual timecourse file in the database. """
+    # TODO: store the file type.
     f = open(filepath, 'r')
     myfile = File(f)
     tc, _ = Timecourse.objects.get_or_create(simulation=sim)

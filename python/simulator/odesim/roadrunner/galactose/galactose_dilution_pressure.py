@@ -124,9 +124,9 @@ for f_list in gal_f_list:
     av_mats.append(gf.average_results(f_list, weights, ids, timepoints, sel))
 
 #########################################################################    
-# Dilution data
+# Dilution distribution_data
 ######################################################################### 
-# load experimental data
+# load experimental distribution_data
 exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
 exp_data = rp.load_dilution_data(exp_file)
 # rp.plot_dilution_data(exp_data)

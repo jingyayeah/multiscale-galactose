@@ -100,14 +100,14 @@ setup(
     #    'test': ['coverage'],
     # },
 
-    # If there are data files included in your packages that need to be
+    # If there are distribution_data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     # package_data={
     #    'sample': ['package_data.dat'],
     # },
     
-    # include the package data (SBGN, XSD)
+    # include the package distribution_data (SBGN, XSD)
     include_package_data=True,
 
     # Prevent the package manager to install a python egg, 

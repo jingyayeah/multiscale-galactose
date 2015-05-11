@@ -89,7 +89,7 @@ dp.dilution_plot_pppv(s_list, r.selections)
 # dp.dilution_plot_pppv(s_list, r.selections, ylim=[0,0.005])
 
 
-# mean curve with data
+# mean curve with distribution_data
 exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
 exp_data = rp.load_dilution_data(exp_file)
 rp.plot_dilution_data(exp_data)

@@ -31,10 +31,9 @@ def integrate(sims, integrator, keep_tmp=False):
         integrate_roadrunner(sims, keep_tmp);
 
 def integrate_copasi(sims):
-    ''' Integrate simulations with Copasi. 
-        TODO: Update to latest Copasi source & test.
-        TODO: Use the python interface to solve the problem.
-    '''
+    """ Integrate simulations with Copasi. """
+    # TODO: Update to latest Copasi source & test.
+    # TODO: Use the python interface to solve the problem.
     sbml_file = str(sims[0].task.model.file.path)
     sbml_id = sims[0].task.model.sbml_id
     for sim in sims:  

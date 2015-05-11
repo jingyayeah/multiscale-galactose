@@ -49,8 +49,9 @@ def adapt_flow_in_samples(samples, f_flow):
 
 
 def createPressureSamples(N):
-    ''' TODO: implement the sampling from pressures. '''
-    pass
+    '''  '''
+    # TODO: implement the sampling from pressures
+    raise NotImplemented
 
 
 def setDeficiencyInSamples(samples, deficiency=0):
@@ -58,9 +59,10 @@ def setDeficiencyInSamples(samples, deficiency=0):
 
 
 
+# TODO: provide functionality for simple manual creation
 # def _createSamplesByManual():
 #     ''' Manual parameter creation. Only sample L and flow_sin. 
-#         TODO: change this in a more appropiate way.
+#
 #     '''
 #     print "DEPRECIATED _createSamplesByManual"
 #     samples = []
@@ -99,7 +101,7 @@ def make_galactose_core(sbml_id, N):
     
     return (task, samples)
 
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 def make_galactose_dilution(sbml_id, N, sampling):
     info = 'Multiple-indicator dilution curves II({})'.model_format(sampling)
     model = simfac.django_model_from_id(sbml_id, sync=SYNC_BETWEEN_SERVERS)
@@ -110,9 +112,10 @@ def make_galactose_dilution(sbml_id, N, sampling):
         f_flows = (1.0, 0.5, 0.25)
         raw_samples = createFlowSamples(N=N, sampling=sampling, f_flows=f_flows)
     else:
-        # set the pressures for the odesim
-        pass
+        # set the pressures for the simulation
         # TODO: implement
+        raise NotImplemented
+
         # raw_samples = createPressureSamples(N=N, sampling=sampling)
     
     # ? why this
@@ -126,7 +129,7 @@ def make_galactose_dilution(sbml_id, N, sampling):
 
     return (task, samples)
 
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 def make_galactose_challenge(sbml_id, N, sampling):        
     info = 'Galactose challenge periportal ({})'.model_format(sampling)
     model = simfac.django_model_from_id(sbml_id, sync=SYNC_BETWEEN_SERVERS)
@@ -353,7 +356,7 @@ if __name__ == "__main__":
         [task, raw_samples] = make_galactose_dilution(sbml_id, N=1, sampling="mean")
         samples = simfac.setParameterValuesInSamples(raw_samples, p_list)
         
-        # TODO: fix this shit, is really bad
+        # TODO: URGENT model scaling : fix this shit, is really bad
         # introduce dog factor
         scale_dog = 0.31/2
         samples = simfac.setParameterInSamples(samples, "scale_f", scale_dog, 'per_m3', GLOBAL_PARAMETER)

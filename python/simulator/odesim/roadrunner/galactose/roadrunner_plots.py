@@ -99,8 +99,8 @@ def average_plots(time, av_mats, xlim=None, ylim=None, show=True):
     if show:
         p.show()
 
-# Load the Goresky experimental data and plot with the curves
-# TODO reading data with csv2rec('exampledata.txt', delimiter='\t')
+# Load the Goresky experimental distribution_data and plot with the curves
+# TODO reading distribution_data with csv2rec('exampledata.txt', delimiter='\t')
 # matplotlib.mlab.csv2rec
 def load_dilution_data(fname):
     data = dict()
@@ -136,13 +136,13 @@ def plot_dilution_data(data):
         if pos < 0:
             print 'Compound not found:', c
             continue
-        # plot data point        
+        # plot distribution_data point
         p.plot(t, outflow, 'o', color=colors[pos])               
     p.show()      
 
 def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):    
     import pylab as p  
-    # experimental data    
+    # experimental distribution_data
     exp_compounds = ['RBC', 'albumin', 'sucrose', 'water', 'galactose']
     exp_colors = ['darkred', 'darkgreen', 'darkorange', 'darkblue', 'black']
     
@@ -153,7 +153,7 @@ def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_p
         pos = position_in_list(exp_compounds, c)
         if pos < 0:
             continue
-        # plot data point        
+        # plot distribution_data point
         p.plot(t, outflow, 'o', color=exp_colors[pos])               
 
     # simulations
@@ -174,7 +174,7 @@ def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_p
 
 def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):    
     import pylab as p  
-    # experimental data    
+    # experimental distribution_data
     exp_compounds = ['galactose']
     exp_colors = ['black']
     
@@ -187,7 +187,7 @@ def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0,
         pos = position_in_list(exp_compounds, c)
         if pos < 0:
             continue
-        # plot data point        
+        # plot distribution_data point
         p.plot(t, outflow, 'o', color=exp_colors[pos])               
 
     # simulations

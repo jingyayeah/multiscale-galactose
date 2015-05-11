@@ -147,11 +147,10 @@ def _sync_sbml_in_network():
     Copies all SBML files to the server.
         run an operating system command
         call(["ls", "-l"])
-
-    TODO: get the environment variables from the settings file
-    TODO: do direct syncronization to this computer, not to all computers
-    TODO: only make syncornizaton
     """
+    # TODO: get the environment variables from the settings file
+    # TODO: do direct syncronization to this computer, not to all computers
+    # TODO: only make syncornizaton
     from subprocess import call
     call_command = [os.path.join(os.environ['MULTISCALE_GALACTOSE'], "syncDjangoSBML.sh")]
     logging.debug(str(call_command))
@@ -160,13 +159,13 @@ def _sync_sbml_in_network():
 #####################################################################################
 
 if __name__ == "__main__":     
-    '''
+    """
     Starting the simulations on the local computer.
     Call with --cpu option if not using 100% resources    
     
     TODO: implement communication via MIP. This becomes important
     in the case parallel integration within the cluster.
-    '''
+    """
     import django
     django.setup()
     from optparse import OptionParser
