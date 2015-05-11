@@ -1,6 +1,7 @@
 """
+Testing the db tools.
 
-@author: 'mkoenig'
+@author: mkoenig
 @date: 2015-??-?? 
 """
 
@@ -14,7 +15,7 @@ class MyTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_something(self):
+    def test_get_samples_for_task(self):
         self.assertEqual(True, False)
 
 

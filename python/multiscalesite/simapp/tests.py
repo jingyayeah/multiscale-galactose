@@ -10,7 +10,6 @@ from __future__ import print_function
 import os
 from django.test import TestCase
 import django
-
 django.setup()
 
 # ===============================================================================

@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Handling template dirs
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
-TEMPLATE_STRING_IF_INVALID="<invalid>"
+TEMPLATE_STRING_IF_INVALID = "<invalid>"
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_URL = "/media/"

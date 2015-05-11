@@ -7,9 +7,9 @@ from simapp.models import CompModel, Core, Simulation, Result, Task, Method
 
 PAGINATE_ENTRIES = 50
 
-#===============================================================================
+# ===============================================================================
 # Models
-#===============================================================================
+# ===============================================================================
 def models(request):
     """ Models overview. """
     model_list = CompModel.objects.order_by("-pk")
@@ -19,9 +19,10 @@ def models(request):
     })
     return HttpResponse(template.render(context))
 
-#===============================================================================
+
+# ===============================================================================
 # Cores
-#===============================================================================
+# ===============================================================================
 def cores(request):
     """ Cores overview. """
     core_list = Core.objects.order_by("-time")
@@ -31,9 +32,9 @@ def cores(request):
     })
     return HttpResponse(template.render(context))
 
-#===============================================================================
+# ===============================================================================
 # Tasks
-#===============================================================================
+# ===============================================================================
 def tasks(request):
     """ Tasks overview. """
     task_list = Task.objects.order_by('pk').reverse()
@@ -75,9 +76,9 @@ def task_parameters(request, task_id):
     # pf.createParameterFileForTask(task)
     return HttpResponse(content, content_type='text/plain')
     
-#===============================================================================
+# ===============================================================================
 # Methods
-#===============================================================================
+# ===============================================================================
 def methods(request):
     """ Overview of integration settings. """
     method_list = Method.objects.order_by("pk")
@@ -87,16 +88,13 @@ def methods(request):
     })
     return HttpResponse(template.render(context))
 
-#===============================================================================
+# ===============================================================================
 # Simulations
-#===============================================================================
+# ===============================================================================
 from simapp.models import SimulationStatus
-
-
 def simulations(request, status='ALL'):
-    """ Simulations overview.
-        TODO: fix the status parsing bug. Get enums from the status.
-    """
+    """ Simulations overview. """
+    # TODO: URGENT fix the status parsing bug. Get enums from the status.
     if status == 'ALL':
         sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
     else:
@@ -142,9 +140,9 @@ def simulation(request, simulation_id):
     return HttpResponse(template.render(context))
 
 
-#===============================================================================
+# ===============================================================================
 # Results
-#===============================================================================
+# ===============================================================================
 def results(request):
     """ Overview of Results. """
     results_all = Result.objects.all()
@@ -167,14 +165,14 @@ def results(request):
     return HttpResponse(template.render(context))
 
 
-#===============================================================================
+# ===============================================================================
 # About
-#===============================================================================
+# ===============================================================================
 def about(request):
     """ Overview project information.
     Provide additional resources, links, explanation, background.
-    TODO: update template.
     """
+    # TODO: update template
     template = loader.get_template('simapp/about.html')
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))

@@ -15,8 +15,6 @@ from simapp.models import CompModel, Task, Simulation, Parameter, Method, Settin
 # ===============================================================================
 # Creators
 # ===============================================================================
-
-
 def create_model(file_path, model_format):
     """ Create models.CompModel.
 

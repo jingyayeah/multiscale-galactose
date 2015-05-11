@@ -20,13 +20,18 @@ from simapp.db.api import create_parameter, create_simulation
 from simapp.db.api import get_parameters_for_simulation, get_simulations_for_task
 from django.db import transaction
 
+from odesim.dist.samples import SampleParameter, Sample
 
-def get_samples_from_task(task):
-    ''' Returns all samples for simulations for given task. '''
-    sims = Simulation.objects.filter(task=task)
+import warnings
+
+@depre
+def get_samples_for_task(task):
+    """ Returns all samples for simulations for given task. """
+    warnings.warn("deprecated", DeprecationWarning)
+
+    sims = get_simulations_for_task()
     return [get_sample_from_simulation(sim) for sim in sims]
 
-from odesim.dist.samples import SampleParameter, Sample
 
 
 def get_sample_from_simulation(simulation):

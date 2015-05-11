@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="PostgreSQL - multiscale-galactose@localhost" uuid="2816963b-b2a5-4612-9713-25f7fe45e39f">
+      <secret-storage>master_key</secret-storage>
+      <user-name>mkoenig</user-name>
+      <schema-pattern>multiscale-galactose.pg_catalog multiscale-galactose.public</schema-pattern>
+      <default-schemas>multiscale-galactose.pg_catalog multiscale-galactose.public</default-schemas>
+    </data-source>
+  </component>
+</project>
