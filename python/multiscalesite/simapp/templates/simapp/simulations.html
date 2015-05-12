@@ -2,29 +2,31 @@
 {% load macros %}
 {% loadmacros "simapp/macros.html" %}
 
+<!------------------------------------------------------->
+<!--  SIMULATIONS									   -->
+<!------------------------------------------------------->
 {% block content %}
-	<table class="table" id="table_items">
-	<caption>Simulations</caption>
-	<thead>
-	<tr>{% usemacro simulation_header %}</tr>
-	</thead>
-	<tbody>
-	{% for sim in simulation_list %}
-		<tr>
-			{% usemacro simulation_content %}
-		</tr>    
-    {% endfor %}
-    </tbody>
+
+    <table class="table" id="table_items">
+        <caption>Simulations</caption>
+        <thead>
+        <tr>{% usemacro simulation_header %}</tr>
+        </thead>
+        <tbody>
+        {% for sim in simulation_list %}
+            <tr>
+                {% usemacro simulation_content %}
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
 
     {% if simulation_list %}
         {% with items=simulation_list %}
-    	    {% usemacro pagination %}
-	    {% endwith %}
-    {% endif %}
-
-    {%  if not simulation_list %}
+            {% usemacro pagination %}
+        {% endwith %}
+    {% else %}
         <p>No simulations in database.</p>
-    {%  endif %}
+    {% endif %}
 
 {% endblock %}

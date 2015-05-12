@@ -32,8 +32,6 @@ class MyTestCase(TestCase):
                               parameter_type=ParameterType.GLOBAL_PARAMETER)
         p2 = create_parameter(key='N', value=20, unit="-",
                               parameter_type=ParameterType.BOUNDARY_INIT)
-        print(p1)
-        print(p2)
         self.assertEqual(p1.key, 'L')
         self.assertEqual(p2.key, 'N')
         self.assertEqual(p1.value, 1E-6)

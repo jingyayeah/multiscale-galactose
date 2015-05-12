@@ -2,75 +2,72 @@
 {% load macros %}
 {% loadmacros "simapp/macros.html" %}
 
+<!------------------------------------------------------->
+<!--  SIMULATION									   -->
+<!------------------------------------------------------->
 {% block content %}
-<h2>Simulation [{{sim}}]</h2>
-	<table class="table">
-	<tr>
-		{% usemacro simulation_header %}
-	</tr>
-		<tr>
-			{% usemacro simulation_content %}
-		</tr>    
+    <h2>Simulation [{{ sim }}]</h2>
+    <table class="table">
+        <tr>
+            {% usemacro simulation_header %}
+        </tr>
+        <tr>
+            {% usemacro simulation_content %}
+        </tr>
     </table>
-    
-    
-<h2>Model</h2>
-{% with model=sim.task.model %}
-<table  class="table" id="table">
-<thead>
-<tr>
-	{% usemacro model_header %}
-</tr>
-</thead>
-<tbody>
-	<tr>
-		{% usemacro model_content %}
-	</tr>    
-</tbody>
-</table>
-{% endwith %}
 
+    <h2>Model</h2>
+    {% with model=sim.task.model %}
+        <table class="table" id="table">
+            <thead>
+            <tr>
+                {% usemacro model_header %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% usemacro model_content %}
+            </tr>
+            </tbody>
+        </table>
+    {% endwith %}
 
-<h2>Parameters</h2>    
-<table  class="table">
-<thead>
-	<tr>
-		{% usemacro parameter_header %}
-	</tr>
-</thead>
-<tbody>
-	{% for pars in sim.parameters.all %}
-		<tr>
-			{% usemacro parameter_content %}
-		</tr>
-		{% endfor %}    
-</tbody>
-</table>
-{% if sim.status == 'DONE' %}
-{% with tc=sim.timecourse %}
-<h2>Result</h2>
-<table class="table">
-<thead>
-<tr>
-	{% usemacro result_header %}
-</tr>
-</thead>
-<tbody>
-	<tr>
-		{% usemacro result_content %}
-	</tr>    
-</tbody>
-</table>
-{% endwith %}
-    
-	
-{% else %}
-<p>
-    <br />
-    Simulation status <span class="{{sim.status}}">{{sim.status}}</span>, 
-    no results available.<br />
-</p>
-{% endif %}
+    <h2>Parameters</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            {% usemacro parameter_header %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for pars in sim.parameters.all %}
+            <tr>
+                {% usemacro parameter_content %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if sim.status == 'DONE' %}
+        {% with tc=sim.timecourse %}
+            <h2>Result</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    {% usemacro result_header %}
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% usemacro result_content %}
+                </tr>
+                </tbody>
+            </table>
+        {% endwith %}
+    {% else %}
+        <p><br/>
+            Simulation status <span class="{{ sim.status }}">{{ sim.status }}</span>,
+            no results available.<br/>
+        </p>
+    {% endif %}
 
-    
 {% endblock %}

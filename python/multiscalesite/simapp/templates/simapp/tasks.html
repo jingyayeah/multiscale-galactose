@@ -2,22 +2,27 @@
 {% load macros %}
 {% loadmacros "simapp/macros.html" %}
 
+<!------------------------------------------------------->
+<!--  TASKS 										   -->
+<!------------------------------------------------------->
 {% block content %}
-	<table class="table" id="table_items">
-	<caption>Tasks [{{task_list.count}}]</caption>
-    <thead>
-	<tr>{% usemacro task_header %}</tr>
-	</thead>
-	<tbody>
-	{% for task in task_list %}
-		<tr>
-			{% usemacro task_content %}
-		</tr>    
-    {% endfor %}
-    </tbody>
+
+    <table class="table" id="table_items">
+        <caption>Tasks [{{ task_list.count }}]</caption>
+        <thead>
+        <tr>{% usemacro task_header %}</tr>
+        </thead>
+        <tbody>
+        {% for task in task_list %}
+            <tr>
+                {% usemacro task_content %}
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
 
-    {%  if not task_list %}
+    {% if not task_list %}
         <p>No tasks in database.</p>
-    {%  endif %}
+    {% endif %}
+
 {% endblock %}

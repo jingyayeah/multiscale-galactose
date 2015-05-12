@@ -7,22 +7,22 @@
 <!--  CORES											   -->
 <!------------------------------------------------------->
 {% block content %}
-	<table class="table" id="table_items">
-	<caption>Cores [{{core_list.count}}]</caption>
-    <thead>
-	<tr>
-		{% usemacro core_header %}
-	</tr>
-	</thead>
-	<tbody>
-	{% for core in core_list %}
-		<tr>
-			{% usemacro core_content %}
-		</tr>    
-    {% endfor %}
-    </tbody>
+    <table class="table" id="table_items">
+        <caption>Cores [{{ core_list.count }}]</caption>
+        <thead>
+        <tr>
+            {% usemacro core_header %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for core in core_list %}
+            <tr>
+                {% usemacro core_content %}
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
-    {%  if not core_list %}
-    <p>No cores in database.</p>
-    {%  endif %}
+    {% if not core_list %}
+        <p>No cores in database.</p>
+    {% endif %}
 {% endblock %}

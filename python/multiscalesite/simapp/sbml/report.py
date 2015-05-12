@@ -35,7 +35,7 @@ def report(request, model_pk):
     values = create_value_dictionary(model)
 
     # Render the template with the data
-    template = loader.get_template('report/SBMLReport.html')
+    template = loader.get_template('report/report.html')
     context = RequestContext(request, {
         'sbml_model': sbml_model,
         'model': model,

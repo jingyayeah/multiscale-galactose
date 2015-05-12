@@ -17,6 +17,7 @@ def models(request):
                               {'model_list': model_list},
                               context_instance=RequestContext(request))
 
+
 # ===============================================================================
 # Cores
 # ===============================================================================
@@ -26,6 +27,7 @@ def cores(request):
     return render_to_response('simapp/cores.html',
                               {'core_list': core_list},
                               context_instance=RequestContext(request))
+
 
 # ===============================================================================
 # Tasks
@@ -55,19 +57,20 @@ def task_parameters(request, task_id):
     """
     # TODO: refactor
     import simapp.analysis.ParameterFiles as pf
-    
+
     task = get_object_or_404(Task, pk=task_id)
     content = pf.createParameterInfoForTask(task)
-    
+
     # TODO: is this done 2 time ?????
     # Only write the file once and provide link to it.
-    
+
     # f = file(pf.getParameterFilenameForTask(task), 'w')
     # f.write(content)
     # f.close()
     # pf.createParameterFileForTask(task)
     return HttpResponse(content, content_type='text/plain')
-    
+
+
 # ===============================================================================
 # Methods
 # ===============================================================================
@@ -82,6 +85,8 @@ def methods(request):
 # Simulations
 # ===============================================================================
 from simapp.models import SimulationStatus
+
+
 def simulations(request, status='ALL'):
     """ Simulations overview. """
     # TODO: URGENT fix the status parsing bug. Get enums from the status.
@@ -89,7 +94,7 @@ def simulations(request, status='ALL'):
         sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
     else:
         sim_list = Simulation.objects.filter(status=status).order_by("-time_assign", "-time_create")
-        
+
     paginator = Paginator(sim_list, PAGINATE_ENTRIES)
     page = request.GET.get('page')
     try:
@@ -103,8 +108,8 @@ def simulations(request, status='ALL'):
 
     return render_to_response('simapp/simulations.html',
                               {
-                                'simulation_list': simulation_list,
-                                'status': status,
+                                  'simulation_list': simulation_list,
+                                  'status': status,
                               },
                               context_instance=RequestContext(request))
 
@@ -113,11 +118,11 @@ def simulation(request, simulation_id):
     """ Overview of single simulation. """
     sim = get_object_or_404(Simulation, pk=simulation_id)
     try:
-        sim_previous = Simulation.objects.get(pk=(sim.pk-1))
+        sim_previous = Simulation.objects.get(pk=(sim.pk - 1))
     except Simulation.DoesNotExist:
         sim_previous = None
     try:
-        sim_next = Simulation.objects.get(pk=(sim.pk+1))
+        sim_next = Simulation.objects.get(pk=(sim.pk + 1))
     except Simulation.DoesNotExist:
         sim_next = None
 
@@ -148,6 +153,7 @@ def results(request):
     return render_to_response('simapp/results.html',
                               {'result_list': result_list},
                               context_instance=RequestContext(request))
+
 
 # ===============================================================================
 # About

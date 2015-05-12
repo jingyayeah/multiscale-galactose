@@ -16,7 +16,6 @@ go via this intermediate module.
 @date: 2015-05-06
 """
 from __future__ import print_function
-import warnings
 
 import simapp.db.api as db_api
 from django.db import transaction
@@ -41,9 +40,6 @@ def get_sample_from_simulation(simulation):
     parameters set for a odesim.
     Important to reuse the samples of a given task for another task.
     """
-    if simulation.status != db_api.SimulationStatus.DONE:
-        return None
-
     parameters = db_api.get_parameters_for_simulation(simulation)
     s = Sample()
     for p in parameters:
@@ -78,6 +74,7 @@ def create_simulations_for_samples(task, samples):
         
     return sims
 
+
 def store_timecourse_db(sim, filepath, ftype, keep_tmp=False):
     """ Store the actual timecourse file in the database. """
     # TODO: store the file type.
@@ -86,7 +83,6 @@ def store_timecourse_db(sim, filepath, ftype, keep_tmp=False):
     tc, _ = Timecourse.objects.get_or_create(simulation=sim)
     tc.file = myfile
     tc.save()
-
 
     if ftype == FileType.CSV:
         # zip csv

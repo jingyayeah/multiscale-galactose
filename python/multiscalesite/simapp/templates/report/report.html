@@ -1,0 +1,218 @@
+{% extends "report/report_generic.html" %}
+
+{% load staticfiles %}
+{% load macros %}
+{% loadmacros "report/macros.html" %}
+{% load SBML_filters %}
+
+{% block content %}
+
+    <!-- TODO: toggle the view, i.e. hide/show the different tables.
+         TODO: make one search bar for all things.
+         TODO: proper tables with dataTable -->
+
+    <!--------------------------------------------------->
+    <!-- Model -->
+    <!--------------------------------------------------->
+    <div id="Model">
+        <table>
+            <tr>
+                <td>
+                    <h3>Model</h3>
+                    <table class="table" id="table_model">
+                        <tbody>
+                        <tr>{% usemacro model %}</tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    {% if model.getModelHistory %}
+                        {% autoescape off %}{{ model.getModelHistory | SBML_modelHistoryToString }}{% endautoescape %}
+                    {% endif %}
+                    {% with model as item %}{% usemacro annotation %}{% endwith %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--------------------------------------------------->
+    <!-- FunctionDefinitions -->
+    <!--------------------------------------------------->
+    {% if functions %}
+        <div id="FunctionDefinitions">
+            <h3>FunctionDefinitions [{{ functions_size }}]</h3>
+            <table class="table" id="table_functions">
+                <thead>
+                <tr>{% usemacro function_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in functions %}
+                    <tr>{% usemacro function_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- UnitDefinitions -->
+    <!--------------------------------------------------->
+    {% if units %}
+        <div id="UnitDefinitions">
+            <h3>UnitDefinitions [{{ units_size }}]</h3>
+            <table class="table" id="table_units">
+                <thead>
+                <tr>{% usemacro unit_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in units %}
+                    <tr>{% usemacro unit_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- Compartments -->
+    <!--------------------------------------------------->
+    {% if compartments %}
+        <div id="Compartments">
+            <h3>Compartments [{{ compartments_size }}]</h3>
+            <table class="table" id="table_compartments">
+                <thead>
+                <tr>{% usemacro compartment_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in compartments %}
+                    <tr>{% usemacro compartment_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- Species -->
+    <!--------------------------------------------------->
+    {% if species %}
+        <div id="Species">
+            <h3>Species [{{ species_size }}]</h3>
+            <table class="table" id="table_species">
+                <thead>
+                <tr>{% usemacro species_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in species %}
+                    <tr>{% usemacro species_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- Parameters -->
+    <!--------------------------------------------------->
+    {% if parameters %}
+        <div id="Parameters">
+            <h3>Parameters [{{ parameters_size }}]</h3>
+            <table class="table" id="table_parameters">
+                <thead>
+                <tr>{% usemacro parameter_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in parameters %}
+                    <tr>{% usemacro parameter_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- InitialAssignments -->
+    <!--------------------------------------------------->
+    {% if assignments %}
+        <div id="InitialAssignments">
+            <h3>InitialAssignments [{{ assignments_size }}]</h3>
+            <table class="table" id="table_assignments">
+                <thead>
+                <tr>{% usemacro assignment_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in assignments %}
+                    <tr>{% usemacro assignment_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- Rules -->
+    <!--------------------------------------------------->
+    {% if rules %}
+        <div id="Rules">
+            <h3>Rules [{{ rules_size }}]</h3>
+            <table class="table" id="table_rules">
+                <thead>
+                <tr>{% usemacro rule_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in rules %}
+                    <tr>{% usemacro rule_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- Constraints -->
+    <!--------------------------------------------------->
+    {% if constraints %}
+        <div id="Constraints">
+            <h3>Constraints [{{ constraints_size }}]</h3>
+            <table class="table" id="table_constraints">
+                <thead>
+                <tr>{% usemacro constraint_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in constraints %}
+                    <tr>{% usemacro constraint_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- Reactions -->
+    <!--------------------------------------------------->
+    {% if reactions %}
+        <div id="Reactions">
+            <h3>Reactions [{{ reactions_size }}]</h3>
+            <table class="table" id="table_reactions">
+                <thead>
+                <tr>{% usemacro reaction_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in reactions %}
+                    <tr>{% usemacro reaction_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!--------------------------------------------------->
+    <!-- Events -->
+    <!--------------------------------------------------->
+    {% if events %}
+        <div id="Events">
+            <h3>Events [{{ events_size }}]</h3>
+            <table class="table" id="table_events">
+                <thead>
+                <tr>{% usemacro event_header %}</tr>
+                </thead>
+                <tbody>
+                {% for item in events %}
+                    <tr>{% usemacro event_content %}</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

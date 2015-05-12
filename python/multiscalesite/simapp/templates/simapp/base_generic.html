@@ -13,11 +13,10 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'simapp/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'simapp/stylesheets/dataTables.bootstrap.css' %}" /> 
+    <link rel="stylesheet" type="text/css" href="{% static 'simapp/css/dataTables.bootstrap.css' %}" />
 
     <!-- Custom styles for this template -->
     <link href="{% static 'simapp/css/my.css' %}" rel="stylesheet">
-	<!-- <link rel="stylesheet" type="text/css" href="{% static 'simapp/stylesheets/mysite.css' %}" /> -->
 	
 
 
@@ -41,7 +40,7 @@
 	
 	
   </head>
-
+<body>
  <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -102,7 +101,8 @@
 	    	<p>&copy; 2015 Matthias Koenig.
                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.livermetabolism.com" property="cc:attributionName" rel="cc:attributionURL">Matthias Koenig</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
                 <br />
-	    	Powered by <a href="https://www.djangoproject.com"  target="_blank"><img src="{% static 'simapp/images/django.png' %}" height="15" alt="django" /></a>. 
+	    	Powered by <a href="https://www.djangoproject.com"  target="_blank"><img src="{% static 'simapp/images/django.png' %}" height="15" alt="django" /></a> and
+                bootstrap <a href="http://getbootstrap.com/"  target="_blank"><img src="{% static 'simapp/images/bootstrap.png' %}" height="15" alt="bootstrap" /></a>.
         	Source available on <a href="https://github.com/matthiaskoenig/multiscale-galactose/" target="_blank"><img src="{% static 'simapp/images/github.png' %}" height="20" alt="GitHub"/></a>.
         	</p>
     	</div>
@@ -113,7 +113,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{% static 'simapp/js/jquery.min.js' %}"></script>
     <script src="{% static 'simapp/js/bootstrap.min.js' %}"></script>
     
   </body>

@@ -1,21 +1,26 @@
 {% extends "simapp/base_generic.html" %}
 {% load macros %}
 {% loadmacros "simapp/macros.html" %}
+
+
+<!------------------------------------------------------->
+<!--  METHODS										   -->
+<!------------------------------------------------------->
 {% block content %}
-	<table class="table" id="table_items">
-	<caption>Methods [{{method_list.count}}]</caption>
-	<thead>
-	<tr>{% usemacro method_header %}</tr>
-	</thead>
-	<tbody>
-	{% for method in method_list %}
-		<tr>
-			{% usemacro method_content %}
-		</tr>    
-    {% endfor %}
-    </tbody>
+    <table class="table" id="table_items">
+        <caption>Methods [{{ method_list.count }}]</caption>
+        <thead>
+        <tr>{% usemacro method_header %}</tr>
+        </thead>
+        <tbody>
+        {% for method in method_list %}
+            <tr>
+                {% usemacro method_content %}
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
-    {%  if not method_list %}
-    <p>No methods in database.</p>
-    {%  endif %}
+    {% if not method_list %}
+        <p>No methods in database.</p>
+    {% endif %}
 {% endblock %}
