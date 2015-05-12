@@ -34,7 +34,8 @@ import math
 import numpy as np
 
 from samples import SampleParameter
-from util.util_classes import EnumType, Enum
+from enum import Enum
+from util.util_classes import EnumType
 
 
 class DistributionType(EnumType, Enum):

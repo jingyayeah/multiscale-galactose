@@ -40,7 +40,7 @@ def integrate_copasi(sims):
     for sim in sims:  
         try:
             sim.time_assign = timezone.now()            # correction due to bulk assignment
-            config_file = ode_io.storeConfigFile(sim, SIM_DIR) # create the copasi config file for settings & changes
+            config_file = ode_io.store_config_file(sim, SIM_DIR) # create the copasi config file for settings & changes
             csv_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
 
             # run an operating system command

@@ -1,16 +1,53 @@
 """
 Django template filters related to the rendering of SBML.
 
-@author: Matthias Koenig
-@date: 2014-05-08
 """
 
 import libsbml
 from django import template
-
-from modelcreator.annotation.ModelAnnotation import annotationToHTML
-
 register = template.Library()
+
+class AnnotationHTML():
+    BQM = {
+        0: "is",
+        1: "isDescribedBy",
+        2: "isDerivedFrom",
+        }
+
+    BQB = {
+        0: "is",
+        1: "hasPart",
+        2: "isPartOf",
+        3: "isVersionOf",
+        4: "hasVersion",
+        5: "isHomologTo",
+        6: "isDescribedBy",
+        7: "isEncodedBy",
+        8: "encodes",
+        9: "occursIn",
+        10: "hasProperty",
+        11: "isPropertyOf",
+    }
+
+    @classmethod
+    def annotation_to_html(cls, item):
+        """ Renders HTML representation of given annotation. """
+        items = []
+        for kcv in xrange(item.getNumCVTerms()):
+            cv = item.getCVTerm(kcv)
+            q_type = cv.getQualifierType()
+            if q_type == 0:
+                qualifier = cls.BQM[cv.getModelQualifierType()]
+            elif q_type == 1:
+                qualifier = cls.BQB[cv.getBiologicalQualifierType()]
+            items.append(''.join(['<b>', qualifier, '</b>']))
+
+            for k in xrange(cv.getNumResources()):
+                uri = cv.getResourceURI(k)
+                link = ''.join(['<a href="', uri, '" target="_blank">', uri, '</a>'])
+                items.append(link)
+        res = "<br />".join(items)
+        return res
 
 
 @register.filter
@@ -20,7 +57,7 @@ def SBML_astnodeToString(astnode):
 
 @register.filter
 def SBML_annotationToString(annotation):
-    return annotationToHTML(annotation)
+    return AnnotationHTML.annotation_to_html(annotation)
 
 
 @register.filter
@@ -37,7 +74,7 @@ unit_dict['second'] = 's'
 @register.filter
 def SBML_unitDefinitionToString(udef):
     """ Proper formating of the units.
-        TODO: fix bug with scale and multipler
+        TODO: fix bug with scale and multiplier
     """
     libsbml.UnitDefinition_reorder(udef)
     items = []
@@ -55,11 +92,11 @@ def SBML_unitDefinitionToString(udef):
         
         # (multiplier * 10^scale *ukind)^exponent
         if s == 0 and e == 1:
-            string = '{}{}'.model_format(m, k)
+            string = '{}{}'.format(m, k)
         elif (s == 0) and (m == ''):
-            string = '{}^{}'.model_format(k,e)
+            string = '{}^{}'.format(k,e)
         else:
-            string = '({}10^{}*{})^{}'.model_format(m, s, k, e)
+            string = '({}10^{}*{})^{}'.format(m, s, k, e)
         items.append(string)
     return ' * '.join(items)
 
@@ -102,21 +139,19 @@ def halfEquation(speciesList):
         stoichiometry = sr.getStoichiometry()
         species = sr.getSpecies()
         if abs(stoichiometry-1.0)<1E-8:
-            sd = '{}'.model_format(species)
+            sd = '{}'.format(species)
         elif abs(stoichiometry+1.0)<1E-8:
-            sd = '-{}'.model_format(species)
+            sd = '-{}'.format(species)
         elif stoichiometry > 0:
-            sd = '{} {}'.model_format(stoichiometry, species)
+            sd = '{} {}'.format(stoichiometry, species)
         elif stoichiometry < 0:
-            sd = '-{} {}'.model_format(stoichiometry, species)
+            sd = '-{} {}'.format(stoichiometry, species)
         items.append(sd)
     return ' + '.join(items)
 
 
 def modelHistoryToString(mhistory):
-    """
-    Renders HTML representation of the model history.
-    """
+    """ Renders HTML representation of the model history. """
     items = []
     for kc in xrange(mhistory.getNumCreators()):
         c = mhistory.getCreator(kc)
@@ -140,5 +175,6 @@ def modelHistoryToString(mhistory):
 
 
 def dateToString(d):
-    return "{}-{:0>2d}-{:0>2d} {:0>2d}:{:0>2d}".model_format(d.getYear(), d.getMonth(), d.getDay(),
+    """ Creates string representation of date. """
+    return "{}-{:0>2d}-{:0>2d} {:0>2d}:{:0>2d}".format(d.getYear(), d.getMonth(), d.getDay(),
         d.getHour(), d.getMinute())

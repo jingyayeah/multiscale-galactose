@@ -277,11 +277,11 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/models/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Models [0]')
-        self.assertContains(response, 'No models in database.')
+        n_models = CompModel.objects.all().count()
+        self.assertContains(response, 'Models [{}]'.format(n_models))
 
         #  check the response.context
-        self.assertEqual(len(response.context['model_list']), 0)
+        self.assertEqual(len(response.context['model_list']), n_models)
         # create a model
         filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
         CompModel.create(filepath, model_format=CompModelFormat.SBML)
@@ -293,15 +293,14 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/cores/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Cores [0]')
-        self.assertContains(response, 'No cores in database.')
+        self.assertContains(response, 'Cores [')
+
 
     def test_tasks_status(self):
         """ Check response status code for view. """
         response = self.c.get('/simapp/tasks/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Tasks [0]')
-        self.assertContains(response, 'No tasks in database.')
+        self.assertContains(response, 'Tasks [')
 
     def test_task_404(self):
         """ Check response status code for view. """
@@ -333,15 +332,13 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/methods/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Methods [0]')
-        self.assertContains(response, 'No methods in database.')
+        self.assertContains(response, 'Methods [')
 
     def test_simulations_status(self):
         """ Check response status code for view. """
         response = self.c.get('/simapp/simulations/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Simulations')
-        self.assertContains(response, 'No simulations in database.')
 
     def test_simulation_404(self):
         """ Check response status code for view. """

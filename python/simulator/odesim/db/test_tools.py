@@ -1,24 +1,42 @@
 """
-Testing the db tools.
+Testing the database interaction tools.
 
-@author: mkoenig
-@date: 2015-??-?? 
 """
-# TODO: make a django database test
+import os
 
-import unittest
+from django.test import TestCase
+import django
+django.setup()
+
+import simapp.db.api as db_api
+from odesim.db.tools import get_sample_from_simulation, get_samples_for_task
 
 
-class MyTestCase(unittest.TestCase):
+class MyTestCase(TestCase):
     def setUp(self):
-        pass
+        model_path = os.path.join(os.getcwd(), 'examples', 'demo', 'Koenig_demo.xml')
+        model = db_api.create_model(model_path, model_format=db_api.CompModelFormat.SBML)
+        settings = {db_api.SettingKey.ABS_TOL: 1E-8}
+        method = db_api.create_method_from_settings(method_type=db_api.MethodType.ODE,
+                                                    settings_dict=settings,
+                                                    add_defaults=True)
+        self.task = db_api.create_task(model=model, method=method)
+        parameters = [
+            db_api.create_parameter(key='L', value=1E-6, unit="m",
+                                    parameter_type=db_api.ParameterType.GLOBAL_PARAMETER),
+            db_api.create_parameter(key='N', value=20, unit="-",
+                                    parameter_type=db_api.ParameterType.GLOBAL_PARAMETER)
+            ]
+
+        self.sim = db_api.create_simulation(self.task, parameters=parameters)
 
     def tearDown(self):
-        pass
+        self.sim = None
+        self.task = None
 
     def test_get_samples_for_task(self):
-        self.assertEqual(True, False)
+        samples = get_samples_for_task(self.task)
+        self.assertEqual(len(samples), 1)
 
 
-if __name__ == '__main__':
-    unittest.main()
+

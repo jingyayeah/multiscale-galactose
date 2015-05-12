@@ -1,4 +1,4 @@
-coverage run --source='.' manage.py test simapp
+coverage run --source='.' manage.py test
 
 coverage report
 

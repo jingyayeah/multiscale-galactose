@@ -16,9 +16,6 @@ class MyTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_something(self):
-        self.assertEqual(True, False)
-
     def test(self):
         # TODO: refactor in proper tests
         url = "http://www.ebi.ac.uk/miriamws/main/rest/"

@@ -10,16 +10,25 @@ No direct interactions with the database should occur
 import logging
 from django.core.exceptions import ObjectDoesNotExist
 
+# provide the formats and types via the API
+from simapp.models import CompModelFormat
+from simapp.models import MethodType
+from simapp.models import ParameterType
+from simapp.models import SimulationStatus
+from simapp.models import SettingKey
+
 from simapp.models import CompModel, Task, Simulation, Parameter, Method, Setting
 
 # ===============================================================================
 # Creators
 # ===============================================================================
-def create_model(file_path, model_format):
-    """ Create models.CompModel.
+def create_model(file_path, model_format=CompModelFormat.SBML):
+    """ Create django CompModel.
+    Provide the path of the file. Use the enum CompModelFormat to specify
+    the model format.
 
-    :param file_path:
-    :param model_format:
+    :param file_path: file_path of the model file
+    :param model_format: CompModelFormat (SBML, CELLML, ...)
     :return: models.CompModel
     """
     return CompModel.create(file_path=file_path, model_format=model_format)
@@ -87,8 +96,12 @@ def create_simulation(task, parameters):
 # Getters
 # ===============================================================================
 
-def get_simulations_for_task():
-    raise NotImplemented()
+def get_simulations_for_task(task):
+    # get by task.pk
+    if isinstance(task, int):
+        return Simulation.objects.filter(task__pk=task)
+    # get by task
+    return Simulation.objects.filter(task=task)
 
 
 def get_parameters_for_simulation(simulation):
