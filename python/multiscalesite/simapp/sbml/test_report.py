@@ -1,10 +1,11 @@
 """
 Testing the SBML report.
 
-
 @author: mkoenig
 @date: 2015-??-?? 
 """
+
+# TODO: use the django test case
 
 import unittest
 from simapp.sbml.report import create_value_dictionary

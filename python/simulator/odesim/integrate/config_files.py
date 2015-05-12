@@ -1,11 +1,11 @@
-'''
+"""
 Module for generating odesim config files for COPASI.
 
 Config files are stored in ini format with different sections.
-The set parameters are handeled in the [Parameters] section, 
+The set parameters are handeled in the [Parameters] section,
 the Integration settings in the [Timecourse] section. Additional
 information is stored in the [Simulation] section.
-    
+
     ############################
     [Simulation]
     sbml = Dilution
@@ -28,7 +28,7 @@ information is stored in the [Simulation] section.
 
 @author: Matthias Koenig
 @date:   2014-07-11
-'''
+"""
 
 import datetime
 import time
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     from project_settings import SIM_DIR
     from simapp.models import Simulation
     
-    sim = Simulation.objects.all()[0];
+    sim = Simulation.objects.all()[0]
     fname = config_filename(sim, SIM_DIR) 
     create_config_file(sim, fname)
     print fname

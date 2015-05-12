@@ -1,9 +1,9 @@
-'''
-#########################################################################    
+"""
+#########################################################################
 # Multiple Indicator Dilution
-#########################################################################  
+#########################################################################
 Single integration under given flux. These provides a general feeling
-how the model is behaving and what the influence of parameter changes is. 
+how the model is behaving and what the influence of parameter changes is.
 The resulting dilution curves are a combination of dilution curves under
 varying fluxes resulting from the flux distribution within the lobulus.
 See below for the integrated flux weighted calculation.
@@ -13,7 +13,7 @@ Dilution Data.
 
 @author: Matthias Koenig
 @date: 2014-12-19
-'''
+"""
 import copy
 import galactose_settings as settings
 import roadrunner_tools as rt

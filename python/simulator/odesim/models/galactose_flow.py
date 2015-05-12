@@ -1,11 +1,9 @@
-'''
+"""
 Simulations under given flow.
 
-
 Created on May 3, 2015
-
 @author: mkoenig
-'''
+"""
 from simapp.models import *
 import numpy as np
 
@@ -18,14 +16,14 @@ SYNC_BETWEEN_SERVERS = False
 
 def createGalactoseSamples(N, sampling):
     dist_data = getGalactoseDistributions()
-    samples = createParametersBySampling(dist_data, N, sampling);
+    samples = createParametersBySampling(dist_data, N, sampling)
     samples = setDeficiencyInSamples(samples, deficiency=0)
     return samples
 
 def createFlowSamples(N, sampling, f_flows):
     ''' Create samples for the different flow adaptions. '''
     dist_data = getGalactoseDistributions()
-    raw_samples = createParametersBySampling(dist_data, N, sampling);
+    raw_samples = createParametersBySampling(dist_data, N, sampling)
     raw_samples = setDeficiencyInSamples(raw_samples, deficiency=0)
     samples = []
     # Go over the flow range and create the flow samples, set the flow parameter in all cases
@@ -42,7 +40,7 @@ def adapt_flow_in_samples(samples, f_flow):
     '''
     for s in samples:
         if (s.has_key("flow_sin")):
-            name, value, unit, ptype = s["flow_sin"];
+            name, value, unit, ptype = s["flow_sin"]
             s["flow_sin"] = (name, value*f_flow, unit, ptype)
             s["f_flow"] = ("f_flow", f_flow, '-', NONE_SBML_PARAMETER)
     return samples
@@ -241,10 +239,10 @@ def make_galactose_step(sbml_id, N, sampling):
 
 #----------------------------------------------------------------------#
 def derive_deficiency_simulations(task, samples, deficiencies):
-    ''' Takes a given set of samples for the normal case and
-        creates the corresponding deficiency simulations. 
+    """ Takes a given set of samples for the normal case and
+        creates the corresponding deficiency simulations.
         The information is stored in the settings dict
-        '''
+        """
     sdict = task.method.get_settings_dict()
     for d in deficiencies:
         sdict['condition'] = 'GDEF_' + str(d)

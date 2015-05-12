@@ -1,11 +1,11 @@
-'''
+"""
 Simulation tool to create the matrices from the resulting odesim.
 The provided functions recreate matrices and arrows lost in the SBML
 encoding for easier analysis.
 
 @author: Matthias Koenig
 @date: 2014-04-14
-'''
+"""
 
 import numpy as np
 from modelcreator.tools.naming import *

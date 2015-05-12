@@ -4,6 +4,7 @@ Testing the db tools.
 @author: mkoenig
 @date: 2015-??-?? 
 """
+# TODO: make a django database test
 
 import unittest
 

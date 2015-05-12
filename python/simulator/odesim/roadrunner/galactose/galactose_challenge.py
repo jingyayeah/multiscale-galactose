@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-'''
-#########################################################################    
+"""
+#########################################################################
 # Galactose Challenge / Clearance
-#########################################################################  
+#########################################################################
 Steady state clearance of galactose under given galactose challenge.
 Here the clearance parameters and the GEC can be calculated from the model.
 
 @author: Matthias Koenig
 @date: 2015-02-12
-'''
+"""
 import copy
 import numpy as np
 import galactose_settings as settings

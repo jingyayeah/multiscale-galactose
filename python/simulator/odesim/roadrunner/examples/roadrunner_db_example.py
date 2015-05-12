@@ -1,12 +1,12 @@
-'''
-Running & viusalizing a single odesim from the database 
+"""
+Running & viusalizing a single odesim from the database
 with roadrunner from within spyder.
 
 Analysis can be done in any programme reading the csv information.
 
 @author: Matthias Koenig
 @date:   2014-07-11
-'''
+"""
 
 import roadrunner
 
@@ -18,9 +18,7 @@ from simulator import Simulator
 
 
 def plot1(ids, result):
-    """
-    Plot some trajectories.
-    """
+    """ Plot some trajectories. """
     import pylab as p
     
     if result is None:

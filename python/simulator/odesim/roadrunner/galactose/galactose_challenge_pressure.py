@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-'''
-#########################################################################    
+"""
+#########################################################################
 # Galactose Challenge / Clearance
-#########################################################################  
+#########################################################################
 Steady state clearance of galactose under given galactose challenge.
 Here the clearance parameters and the GEC are approximatly calculated
 from subset of simulations representative of flow dependency.
@@ -11,7 +11,7 @@ Using the pressure mode
 
 @author: Matthias Koenig
 @date: 2015-04-13
-'''
+"""
 
 import copy
 import numpy as np

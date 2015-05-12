@@ -10,8 +10,9 @@ from __future__ import print_function
 import libantimony
 import roadrunner
 from roadrunner import SelectionRecord
+import itertools
 
-# Model definiton via antimony.
+# Model definition via antimony.
 # The model contains an Event triggered at t=2 [s].
 model_txt = """
     model event_time()
@@ -37,22 +38,17 @@ sbml_file = 'event_time.xml'
 libantimony.writeSBMLFile('event_time.xml', 'event_time')
 
 # load model in roadrunner and define the selection
-import itertools
 r = roadrunner.RoadRunner(sbml_file)
 r.selections = list(itertools.chain(['time'],
                                     r.model.getBoundarySpeciesIds(),
                                     r.model.getFloatingSpeciesIds(),
-                                    r.model.getReactionIds())
+                                    r.model.getReactionIds()))
 print(r.selections)
-
-# tolerances & integration
 absTol = 1E-6 * min(r.model.getCompartmentVolumes())
 relTol = 1E-6
-print absTol, relTol
 
-print 'Naive VarStep'
 r.reset()
 r.reset(SelectionRecord.ALL)
-r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
-s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=True)   
+r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
+s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=True)
 print(s)

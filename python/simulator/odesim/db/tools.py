@@ -16,22 +16,21 @@ go via this intermediate module.
 @date: 2015-05-06
 """
 from __future__ import print_function
+import warnings
+
 from simapp.db.api import create_parameter, create_simulation
 from simapp.db.api import get_parameters_for_simulation, get_simulations_for_task
 from django.db import transaction
 
 from odesim.dist.samples import SampleParameter, Sample
 
-import warnings
 
-@depre
 def get_samples_for_task(task):
     """ Returns all samples for simulations for given task. """
     warnings.warn("deprecated", DeprecationWarning)
 
-    sims = get_simulations_for_task()
+    sims = get_simulations_for_task(task)
     return [get_sample_from_simulation(sim) for sim in sims]
-
 
 
 def get_sample_from_simulation(simulation):
@@ -63,7 +62,7 @@ def create_simulations_for_samples(task, samples):
         for sp in sample.parameters:
             # This takes forever to check if parameter already in db
             # How to improve this part ?
-            create_parameter(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.parameter_type);
+            create_parameter(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.parameter_type)
             parameters.append(p)
         
         # sim = sims_list[k]

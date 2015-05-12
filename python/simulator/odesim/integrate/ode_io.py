@@ -31,7 +31,7 @@ def storeConfigFile(sim, folder):
     f = open(config_file, 'r')
     sim.file = File(f)
     sim.save()
-    return config_file;
+    return config_file
 
 
 def csv_file(sbml_id, sim):

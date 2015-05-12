@@ -1,9 +1,9 @@
-'''
+"""
 Performs ode integration for given simulations.
 
 @author: Matthias Koenig
 @date: 2014-12-13
-'''
+"""
 import sys
 import time
 import traceback
@@ -26,9 +26,10 @@ import odesim.integrate.ode_io as ode_io
 def integrate(sims, integrator, keep_tmp=False):
     ''' Run ODE integration for the odesim. '''        
     if (integrator == COPASI):
-        integrate_copasi(sims);
+        integrate_copasi(sims)
     elif (integrator == ROADRUNNER):
-        integrate_roadrunner(sims, keep_tmp);
+        integrate_roadrunner(sims, keep_tmp)
+
 
 def integrate_copasi(sims):
     """ Integrate simulations with Copasi. """
@@ -44,7 +45,7 @@ def integrate_copasi(sims):
 
             # run an operating system command
             # call(["ls", "-l"])
-            call_command = COPASI_EXEC + " -s " + sbml_file + " -c " + config_file + " -t " + csv_file;
+            call_command = COPASI_EXEC + " -s " + sbml_file + " -c " + config_file + " -t " + csv_file
             print call_command
             call(shlex.split(call_command))
                 
@@ -55,7 +56,7 @@ def integrate_copasi(sims):
                     
 
 def integrate_roadrunner(sims, keep_tmp=False):
-    ''' Integrate simulations with RoadRunner.'''
+    """ Integrate simulations with RoadRunner. """
     
     # read SBML
     try:
@@ -175,6 +176,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
             integration_exception(sim)
     return rr
 
+
 def write_model_items(r, filename):
     print filename
     f = open(filename, "w")
@@ -182,8 +184,9 @@ def write_model_items(r, filename):
     f.write("\n".join(rows))
     f.close()
 
+
 def integration_exception(sim):
-    ''' Handling exceptions in the integration. '''
+    """ Handling exceptions in the integration. """
     # print information
     print '-' *60
     print '*** Exception in ODE integration ***'
@@ -197,9 +200,7 @@ def integration_exception(sim):
     sim.save()
     
 
-
 if __name__ == "__main__":
-    
     # tc = Timecourse.objects.get(simulation__pk=15624)
     # print tc.file.path
     # os.remove(tc.file.path)
@@ -218,5 +219,3 @@ if __name__ == "__main__":
     print 'Simulation: ', sims
     integrate(sims, integrator=ROADRUNNER, keep_tmp=True)
     # integrate(sims, simulator=COPASI)
-    
-    

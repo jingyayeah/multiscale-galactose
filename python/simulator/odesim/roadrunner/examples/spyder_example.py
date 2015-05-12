@@ -1,15 +1,14 @@
-'''
+"""
 Simulation with RoadRunner model for description of the Multiple Indicator
 Dilution Data.
-
-@author: mkoenig
-'''
+"""
+# TODO: refactor in class, remove the specific settings
 import time
 import roadrunner
 print roadrunner.getVersionStr()
 
-
 t_peak = 5000
+
 
 def load_model(sbml):
     print 'Loading :', sbml_file
@@ -17,6 +16,7 @@ def load_model(sbml):
     r = roadrunner.RoadRunner(sbml)
     print 'SBML Rules load :', (time.clock()- start)    
     return(r)
+
 
 def set_parameters(r, parameters):
     changed = dict()
@@ -26,10 +26,12 @@ def set_parameters(r, parameters):
     r.reset()
     return changed
 
+
 def reset_changed(r, changed):
     for key, value in changed.iteritems():
         r.model[key] = value  
     r.reset()
+
 
 def set_inits(r, inits):
     changed = dict()
@@ -38,7 +40,8 @@ def set_inits(r, inits):
         name = "".join(['init([', key, '])'])
         r.model[name] = value 
     return changed
-    
+
+
 def simulation(r, selection, parameters, inits, absTol=1E-6, relTol=1E-6):
     # reset the initial concentrations
     r.reset()
@@ -58,7 +61,8 @@ def simulation(r, selection, parameters, inits, absTol=1E-6, relTol=1E-6):
     reset_changed(r, changed)
     
     return s
-    
+
+
 def plot(r, show=True):
     import pylab as p
     result = r.getSimulationData()
@@ -83,8 +87,9 @@ def position_in_list(list, y):
             return k
     return -1
 
+
 def dilution_plots(s_list, selections, show=True):
-    ''' Plot of the dilution curves '''
+    """ Plot of the dilution curves """
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ccols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     pp_ids = ['PP__{}'.model_format(id) for id in compounds]    
@@ -112,12 +117,13 @@ def dilution_plots(s_list, selections, show=True):
     if show:
         p.show()
 
+
 def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
-    ''' Plot of the dilution curves '''
+    """ Plot the dilution curves. """
     print name
 
     ids =  [item[1:(len(item)-1)] for item in selections if (item.startswith('[H') & item.endswith('{}]'.model_format(name)))]
-    cols=['red', 'darkblue', 'darkgreen']   
+    cols = ['red', 'darkblue', 'darkgreen']
 
     # plot all the individual solutions    
     import pylab as p
@@ -137,9 +143,9 @@ def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
     #p.ylim(0, 0.4)
     p.show()
 
-#########################################################################    
+# ########################################################################
 # Galactose Challenge
-#########################################################################    
+# ########################################################################
 sbml_file = 'Galactose_v43_Nc20_galchallenge.xml'
 r = load_model(sbml_file)
 print r.model.items()
@@ -152,17 +158,15 @@ sel += [ "".join(["[", item, "]"]) for item in ['PV__alb', 'PV__gal', 'PV__galM'
 # Store reactions
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
 
-parameters = { 
-        "gal_challenge" : 8.0,
-    }
+parameters = {"gal_challenge" : 8.0}
 inits = {}
 s = simulation(r, sel, parameters, inits)
 plot(r)
 
 
-#########################################################################    
+# ########################################################################
 # Multiple Indicator Dilution
-#########################################################################  
+# ########################################################################
 folder = '/home/mkoenig/multiscale-galactose-results/tmp_sbml/'
 sbml_file = folder + 'Galactose_v46_Nc20_dilution.xml'
 print sbml_file
@@ -177,7 +181,6 @@ sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds() i
 # sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
 # Store reactions
 # sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
-
 
 # set the boundary concentrations
 # PP__gal = (0.28, 5, 12.5, 17.5) # [mM]
@@ -198,14 +201,9 @@ dilution_plots_gal(s_list, r.selections, name='gal1pM', xlim=[5000, 6000])
 dilution_plots_gal(s_list, r.selections, name='gal1p', xlim=[5000, 6000])
 print r.selections
 
-
-
 s = r.getSimulationData()
 import pylab as p
 test = s[:,len(r.selections)-5]
 times = s[:,0]
 p.plot(time, test)
-del(times)
 
-# additional changes for fitting the dilution curves
-# (now test the effects of changing variables in the model, i.e.

@@ -1,108 +1,99 @@
-'''
-Created on Dec 19, 2014
+"""
+General plot functionality for RoadRunner simulations.
+"""
+# TODO: refactor in class
+# TODO: provide general plots depending on ResultType
+#  and subclasses for the individual models.
 
-@author: mkoenig
-'''
+from __future__ import print_function
 from roadrunner_tools import position_in_list, get_ids_from_selection
+import matplotlib.pylab as plt
 
-#########################################################################    
-# General plots
-######################################################################### 
+
 def plot_all(r, show=True):
-    '''
-        Plot all timecourses in the last roadrunner integration.
-    '''
-    import pylab as p
+    """ Plot all timecourses in the last roadrunner integration. """
     s = r.getSimulationData()
     if s is None:
-        raise Exception("no odesim result")
+        raise Exception("no simulation result in roadrunner")
     
     times = s['time']
     selections = r.selections
     for i in range(1, len(selections)):
         series = s[:,i]
         name = selections[i]
-        p.plot(times, series, label=str(name))
-        p.legend()
+        plt.plot(times, series, label=str(name))
+        plt.legend()
     if show:
-        p.show()
+        plt.show()
 
 
-#########################################################################    
-# Plots showing flux dependency
-######################################################################### 
 def flux_plot(f_list, selections, name, xlim=None, ylim=None, comp_type='H'):
-    '''
-    Plot a component of the flux curves.
-    '''
+    """ Plot a component of the flux curves. """
     print '#'*80, '\n', name, '\n', '#'*80
     ids = get_ids_from_selection(name, selections=selections, comp_type=comp_type)
     print ids
-    
-    import pylab as p    
+
     for s in f_list:
         times = s['time']
         for sid in ids:
-            p.plot(times, s[sid], color='black')
+            plt.plot(times, s[sid], color='black')
     if xlim:
-        p.xlim(xlim)
+        plt.xlim(xlim)
     if ylim:
-        p.ylim(ylim)
-    p.xlabel('time [s]')
-    p.ylabel(name)    
-    p.show()
+        plt.ylim(ylim)
+    plt.xlabel('time [s]')
+    plt.ylabel(name)
+    plt.show()
 
 
 def flux_plots(f_list, selections, xlim=None, ylim=None, show=True):
-    ''' 
-    Plot perivenious dilution curves.
-    '''
+    """ Plot perivenious dilution curves. """
+    # TODO: check: is this really doing what ist says?
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ids = ['[PV__{}]'.model_format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
-    
-    import pylab as p    
+
     for k, sid in enumerate(ids):
-        print sid
+        print(sid)
         for s in f_list:
-            p.plot(s['time'], s[sid], color=cols[k], label=sid)
+            plt.plot(s['time'], s[sid], color=cols[k], label=sid)
         if xlim:
-            p.xlim(xlim)
+            plt.xlim(xlim)
         if ylim:
-            p.ylim(ylim)
-        p.xlabel('time [s]')
-        p.ylabel(sid) 
-        p.savefig('flux_plots/flux_{}.png'.model_format(sid), dpi=200)
+            plt.ylim(ylim)
+        plt.xlabel('time [s]')
+        plt.ylabel(sid)
+        plt.savefig('flux_plots/flux_{}.png'.model_format(sid), dpi=200)
         if show:
-            p.show()
+            plt.show()
 
 
 def average_plots(time, av_mats, xlim=None, ylim=None, show=True):
-    ''' 
-        Plot of the averate dilution curves 
-    '''
+    """ Plot of the average dilution curves. """
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ids = ['PV__{}'.model_format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
-    
-    import pylab as p  
+
     for av_mat in av_mats:
         for k, name in enumerate(ids):
-            p.plot(time,av_mat[:,k] , color=cols[k], label=str(name))
+            plt.plot(time,av_mat[:,k] , color=cols[k], label=str(name))
     if xlim:
-        p.xlim(xlim)
+        plt.xlim(xlim)
     if ylim:
-        p.ylim(ylim)
-    p.xlabel('time [s]')
-    p.ylabel('outflow fraction') 
-    p.savefig('flux_plots/average_plots.png', dpi=200)
+        plt.ylim(ylim)
+    plt.xlabel('time [s]')
+    plt.ylabel('outflow fraction')
+    plt.savefig('flux_plots/average_plots.png', dpi=200)
     if show:
-        p.show()
+        plt.show()
 
-# Load the Goresky experimental distribution_data and plot with the curves
-# TODO reading distribution_data with csv2rec('exampledata.txt', delimiter='\t')
-# matplotlib.mlab.csv2rec
+
 def load_dilution_data(fname):
+    """ Read experimental dilution data.
+    Load the Goresky experimental distribution_data and plot with the curves.
+    """
+    # TODO: reading distribution_data with csv2rec('exampledata.txt', delimiter='\t')
+    # matplotlib.mlab.csv2rec
     data = dict()
     # load all the lines
     f = open(fname, 'r')
@@ -110,7 +101,7 @@ def load_dilution_data(fname):
     for line in f.readlines():
         line = line.strip()
         tokens = line.split('\t')
-        if (counter == 0):
+        if counter == 0:
             header = tokens
             print 'Header', header
             for h in header:
@@ -125,8 +116,7 @@ def load_dilution_data(fname):
 def plot_dilution_data(data):
     compounds = ['RBC', 'albumin', 'sucrose', 'water', 'galactose']
     colors = ['darkred', 'darkgreen', 'darkorange', 'darkblue', 'black']
-    
-    import pylab as p  
+
     # plot every single point
     for k in range(len(data['time'])):
         c = data['compound'][k]
@@ -137,11 +127,11 @@ def plot_dilution_data(data):
             print 'Compound not found:', c
             continue
         # plot distribution_data point
-        p.plot(t, outflow, 'o', color=colors[pos])               
-    p.show()      
+        plt.plot(t, outflow, 'o', color=colors[pos])
+    plt.show()
 
-def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):    
-    import pylab as p  
+
+def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):
     # experimental distribution_data
     exp_compounds = ['RBC', 'albumin', 'sucrose', 'water', 'galactose']
     exp_colors = ['darkred', 'darkgreen', 'darkorange', 'darkblue', 'black']
@@ -154,7 +144,7 @@ def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_p
         if pos < 0:
             continue
         # plot distribution_data point
-        p.plot(t, outflow, 'o', color=exp_colors[pos])               
+        plt.plot(t, outflow, 'o', color=exp_colors[pos])
 
     # simulations
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
@@ -163,17 +153,17 @@ def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_p
 
     for av_mat in av_mats:
         for k, name in enumerate(ids):
-            p.plot([(t+time_shift-t_peak) for t in timepoints], scale*av_mat[:,k] , color=cols[k], label=str(name))
+            plt.plot([(t+time_shift-t_peak) for t in timepoints], scale*av_mat[:,k] , color=cols[k], label=str(name))
     # p.ylim(0, 0.25)
-    p.ylim(0, 17)
-    p.xlabel('time [s]')
-    p.ylabel('outflow fraction') 
-    p.savefig('flux_plots/dilution_01.png', dpi=200)    
+    plt.ylim(0, 17)
+    plt.xlabel('time [s]')
+    plt.ylabel('outflow fraction')
+    plt.savefig('flux_plots/dilution_01.png', dpi=200)
     
-    p.show()
+    plt.show()
 
-def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):    
-    import pylab as p  
+
+def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):
     # experimental distribution_data
     exp_compounds = ['galactose']
     exp_colors = ['black']
@@ -188,7 +178,7 @@ def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0,
         if pos < 0:
             continue
         # plot distribution_data point
-        p.plot(t, outflow, 'o', color=exp_colors[pos])               
+        plt.plot(t, outflow, 'o', color=exp_colors[pos])
 
     # simulations
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
@@ -199,13 +189,13 @@ def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0,
         for k, name in enumerate(ids):
             if name != "PV__galM":
                 continue
-            p.plot([(t+time_shift-t_peak) for t in timepoints], scale*av_mat[:,k] , color=cols[k], label=str(name))
+            plt.plot([(t+time_shift-t_peak) for t in timepoints], scale*av_mat[:,k] , color=cols[k], label=str(name))
     # p.ylim(0, 0.25)
-    p.ylim(0, 4)
-    p.xlabel('time [s]')
-    p.ylabel('outflow fraction') 
-    p.savefig('flux_plots/dilution_02.png', dpi=200)        
+    plt.ylim(0, 4)
+    plt.xlabel('time [s]')
+    plt.ylabel('outflow fraction')
+    plt.savefig('flux_plots/dilution_02.png', dpi=200)
     
-    p.show()
+    plt.show()
 
 

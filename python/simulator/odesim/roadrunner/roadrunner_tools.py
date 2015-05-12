@@ -1,7 +1,7 @@
-'''
+"""
 Helper functions for RoadRunner simulations.
-These provided simplified access to common functionality used in 
-different simulation scenarios. 
+These provided simplified access to common functionality used in
+different simulation scenarios.
 
 The setting and updating of parameters and initial concentrations
 can be problematic and should be done in a clear way via the
@@ -9,7 +9,7 @@ simulation function.
 
 @author: Matthias Koenig
 @date: 2015-05-05
-'''
+"""
 from __future__ import print_function
 
 import time

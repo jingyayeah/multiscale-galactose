@@ -79,7 +79,7 @@ def sample_from_distribution(distributions, n_samples, keys=None):
 
 def sample_from_mean(distributions, n_samples=1, keys=None):
     """ Returns mean parameters for the given distribution distribution_data. """
-    samples = [];
+    samples = []
     for _ in xrange(n_samples):
         s = Sample()
         for dist in distributions:
