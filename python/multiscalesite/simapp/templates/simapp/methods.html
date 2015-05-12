@@ -7,8 +7,8 @@
 <!--  METHODS										   -->
 <!------------------------------------------------------->
 {% block content %}
-    <table class="table" id="table_items">
-        <caption>Methods [{{ method_list.count }}]</caption>
+    <h3>Methods</h3>
+    <table id="table_items" class="table table-striped table-bordered">
         <thead>
         <tr>{% usemacro method_header %}</tr>
         </thead>
@@ -20,7 +20,4 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if not method_list %}
-        <p>No methods in database.</p>
-    {% endif %}
 {% endblock %}

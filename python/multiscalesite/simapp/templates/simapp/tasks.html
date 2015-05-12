@@ -6,9 +6,8 @@
 <!--  TASKS 										   -->
 <!------------------------------------------------------->
 {% block content %}
-
-    <table class="table" id="table_items">
-        <caption>Tasks [{{ task_list.count }}]</caption>
+    <h3>Tasks</h3>
+    <table id="table_items" class="table table-striped table-bordered">
         <thead>
         <tr>{% usemacro task_header %}</tr>
         </thead>
@@ -20,9 +19,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    {% if not task_list %}
-        <p>No tasks in database.</p>
-    {% endif %}
-
 {% endblock %}

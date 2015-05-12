@@ -8,12 +8,11 @@
 	<meta name="description" content="Multiscale-model of hepatic metabolism">
 	<meta name="author" content="Matthias Koenig">
     <link rel="icon" href="{% static 'simapp/images/favicon.ico' %}">
-
     <title>{% block title %}Multiscale-Galactose{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'simapp/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'simapp/css/dataTables.bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'simapp/css/my.css' %}" rel="stylesheet">
@@ -28,15 +27,17 @@
 	<meta http-equiv="refresh" content="60" />
 
 	<!-- JAVASCRIPT -->
-	<script type="text/javascript" language="javascript" src="{% static 'simapp/js/dataTables.bootstrap.js' %}"></script>
-	
-	<script type="text/javascript" charset="utf-8">
-			$(document).ready(function() {			
-    			$('#table_items').dataTable({
 
-    			}); 			
-			});
-	</script>
+    <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#table_items').dataTable();
+        });
+    </script>
 	
 	
   </head>
@@ -113,8 +114,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static 'simapp/js/jquery.min.js' %}"></script>
-    <script src="{% static 'simapp/js/bootstrap.min.js' %}"></script>
+
     
   </body>
 </html>

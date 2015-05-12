@@ -7,8 +7,8 @@
 <!--  MODELS										   -->
 <!------------------------------------------------------->
 {% block content %}
-    <table class="table" id="table_items">
-        <caption>Models [{{ model_list.count }}]</caption>
+    <h3>Models</h3>
+    <table id="table_items" class="table table-striped table-bordered">
         <thead>
         <tr>
             {% usemacro model_header %}
@@ -22,10 +22,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    {% if not model_list %}
-        <p>No models in database.</p>
-    {% endif %}
 {% endblock %}
 
 

@@ -7,7 +7,7 @@
 <!------------------------------------------------------->
 {% block content %}
     <h1>Task</h1>
-    <table class="table" id="table_items">
+    <table id="table_items" class="table table-striped table-bordered">
         <tr>{% usemacro task_header %}</tr>
         <tr>
             {% usemacro task_content %}
@@ -15,7 +15,7 @@
     </table>
 
     <!-- Simulations for task -->
-    <table>
+    <table id="table_items" class="table table-striped table-bordered">
         <tr>{% usemacro simulation_header %}</tr>
         {% for sim in task.simulation_set.all|slice:":10" %}
             {% if sim %}
