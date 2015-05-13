@@ -3,12 +3,12 @@
 {% load Lookup_filters %}
 {% load macros %}
 
-
-{% macro id %}<i>{{item.getId}}</i>{% endmacro %}
-{% macro name %}{% if item.isSetName %}{{item.getName}}{% else %}-{% endif %}{% endmacro %}
+{% macro id %}
+    <td class="active">{{ item.id }}</td>
+{% endmacro %}
 
 {% macro sbo_term %}
-{% if item.getSBOTerm != -1 %}<a href="{{item.getSBOTermAsURL}}" target="_blank">{{item.getSBOTermID}}</a>{% else %}-{% endif %}
+    {% if item.getSBOTerm != -1 %}<a href="{{item.getSBOTermAsURL}}" target="_blank">{{item.getSBOTermID}}</a>{% else %}-{% endif %}
 {% endmacro %}
 
 {% macro annotation %}{% if item.isSetAnnotation %}
@@ -24,15 +24,15 @@
 <!------------------------------------------------------->
 {% macro model %}
 	{% with model as item %}
-	<tr><td class="active">id</td><td>{{item.getId}}</td></tr>
-	<tr><td >name</td><td>{{item.getName}}</td></tr>
-	<tr><td>SBML</td><td>L{{item.getLevel}}V{{model.getVersion}}</td></tr>
-	<tr><td>time</td><td>{{item.getTimeUnits}}</td></tr>
-	<tr><td>substance</td><td>{{item.getSubstanceUnits}}</td></tr>
-	<tr><td>extent</td><td>{{item.getExtentUnits}}</td></tr>
-	<tr><td>volume</td><td>{{item.getVolumeUnits}}</td></tr>
-	<tr><td>area</td><td>{{item.getAreaUnits}}</td></tr>
-	<tr><td>length</td><td>{{item.getLengthUnits}}</td></tr>
+	<tr><td class="active">id</td><td>{{ item.id }}</td></tr>
+	<tr><td class="active">name</td><td>{{ item.name}}</td></tr>
+	<tr><td class="active">version</td><td>L{{item.getLevel}}V{{model.getVersion}}</td></tr>
+	<tr><td class="active">time</td><td>{{item.getTimeUnits}}</td></tr>
+	<tr><td class="active">substance</td><td>{{item.getSubstanceUnits}}</td></tr>
+	<tr><td class="active">extent</td><td>{{item.getExtentUnits}}</td></tr>
+	<tr><td class="active">volume</td><td>{{item.getVolumeUnits}}</td></tr>
+	<tr><td class="active">area</td><td>{{item.getAreaUnits}}</td></tr>
+	<tr><td class="active">length</td><td>{{item.getLengthUnits}}</td></tr>
 	{% endwith %}
 {% endmacro %}
 
@@ -47,8 +47,8 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro function_content %}
-	<td>{% usemacro id %}</td>
-	<td>{% usemacro name %}</td>
+	{% usemacro id %}
+	<td>{{ item.name }}</td>
 	<td>{{item.getMath|SBML_astnodeToString}}</td>
 	<td>{% usemacro sbo_term %}</td>
 	<td>{% usemacro annotation %}</td>
@@ -64,8 +64,8 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro unit_content %}
-	<td>{% usemacro id %}</td>
-	<td>{% usemacro name %}</td>
+	{% usemacro id %}
+	<td>{{ item.name }}</td>
 	<td>{{item|SBML_unitDefinitionToString}}</td>
 	<td>{% usemacro sbo_term %}</td>
 	<td>{% usemacro annotation %}</td>
@@ -86,7 +86,7 @@
 {% endmacro %}
 {% macro compartment_content %}
 	<td class="active">{{ item.id }}</td>
-	<td>{% usemacro name %}</td>
+	<td>{{ item.name }}</td>
 	<td>{% if item.isSetSize %}{{ item.size }}{% else %}
 	                              {{values|get_item:item.id}}{% endif %}</td>
 	<td class="{% if item.getConstant %}success{% else %}danger{% endif %}">{{item.getConstant}}</td>
@@ -113,11 +113,11 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro species_content %}
-	<td>{% usemacro id %}</td>
-	<td>{% usemacro name %}</td>
+	{% usemacro id %}
+	<td>{{ item.name }}</td>
 	<td>{{item.getCompartment}}</td>
-	<td class="{% if item.getBoundaryCondition %} TRUE {% else %}  FALSE  {% endif %}">{{item.getBoundaryCondition}}</td>
-	<td class="{% if item.getConstant %} TRUE  {% else %}  FALSE  {% endif %}">{{ item.getConstant }}</td>	
+	<td class="{% if item.getBoundaryCondition %} success {% else %}  danger  {% endif %}">{{item.getBoundaryCondition}}</td>
+	<td class="{% if item.getConstant %} success  {% else %}  danger  {% endif %}">{{ item.getConstant }}</td>	
 	<td>{% if item.isSetInitialAmount %} {{item.getInitialAmount}} {% endif %}</td>
 	<td>{% if item.isSetInitialConcentration %} {{item.getInitialConcentration}} {% endif %} </td>
 	<td>{{ item.getSubstanceUnits }}</td>
@@ -139,14 +139,14 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro parameter_content %}
-	<td>{% usemacro id %}</td>
-	<td>{% usemacro name %}</td>
-	<td>{% if item.isSetValue %}<b>{{item.getValue}}</b>{% else %}
+	{% usemacro id %}
+	<td>{{ item.name }}</td>
+	<td>{% if item.isSetValue %}{{item.getValue}}{% else %}
 								   {{values|get_item:item.getId}}{% endif %}</td>
 	
 	<td>{{item.getUnits}}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
-	<td class="{% if item.getConstant %} TRUE {% else %} FALSE {% endif %}">{{item.getConstant}}</td>
+	<td class="{% if item.getConstant %} success {% else %} danger {% endif %}">{{item.getConstant}}</td>
 	<td>{% usemacro sbo_term %}</td>
 	<td>{% usemacro annotation %}</td>
 {% endmacro %}
@@ -162,7 +162,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro assignment_content %}
-	<td>{% usemacro id %}</td>
+	{% usemacro id %}
 	<td>=</td>
 	<td>{% usemacro math %}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
@@ -181,7 +181,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro rule_content %}
-	<td>{% usemacro id %}</td>
+	{% usemacro id %}
 	<td>=</td>
 	<td>{% usemacro math %}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>
@@ -218,10 +218,10 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro reaction_content %}
-	<td>{% usemacro id %}</td>
-	<td>{% usemacro name %}</td>
-	{% if item.getReversible %}<td class="TRUE">&lt;=&gt;</td>{% else %}
-	<td class="FALSE">&nbsp;=&gt;</td>{% endif %}
+	{% usemacro id %}
+	<td>{{ item.name }}</td>
+	{% if item.getReversible %}<td class="success">&lt;=&gt;</td>{% else %}
+	<td class="danger">&nbsp;=&gt;</td>{% endif %}
 	<td>{{item | SBML_reactionToString}}</td>
 	<td>{% for mod in item.getListOfModifiers %}
 						{{mod.getSpecies}}<br />
@@ -245,8 +245,8 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro event_content %}
-	<td>{% usemacro id %}</td>
-	<td>{% usemacro name %}</td>
+	{% usemacro id %}
+	<td>{{ item.name }}</td>
 	<td>
 	{{item.getTrigger.getMath|SBML_astnodeToString}}<br />
 	initialValue = {{item.getTrigger.getInitialValue}}<br />

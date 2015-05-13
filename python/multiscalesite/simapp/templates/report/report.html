@@ -15,7 +15,7 @@
     <!-- Model -->
     <!--------------------------------------------------->
     <div id="Model">
-        <h3>Model</h3>
+        <h3>Model : {{ model.id }}</h3>
         <table id="table_items" class="table table-condensed">
             <tbody>
             <tr>{% usemacro model %}</tr>
@@ -35,7 +35,7 @@
     {% if functions %}
         <div id="FunctionDefinitions">
             <h3>FunctionDefinitions [{{ functions_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_functions" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro function_header %}</tr>
                 </thead>
@@ -53,7 +53,7 @@
     {% if units %}
         <div id="UnitDefinitions">
             <h3>UnitDefinitions [{{ units_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_units" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro unit_header %}</tr>
                 </thead>
@@ -71,7 +71,7 @@
     {% if compartments %}
         <div id="Compartments">
             <h3>Compartments [{{ compartments_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_compartments" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro compartment_header %}</tr>
                 </thead>
@@ -89,7 +89,7 @@
     {% if species %}
         <div id="Species">
             <h3>Species [{{ species_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_species" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro species_header %}</tr>
                 </thead>
@@ -106,8 +106,9 @@
     <!--------------------------------------------------->
     {% if parameters %}
         <div id="Parameters">
-            <h3>Parameters [{{ parameters_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+
+            <table id="table_parameters" class="table table-condensed">
+            <caption>Parameters [{{ parameters_size }}]</caption>
                 <thead>
                 <tr>{% usemacro parameter_header %}</tr>
                 </thead>
@@ -125,7 +126,7 @@
     {% if assignments %}
         <div id="InitialAssignments">
             <h3>InitialAssignments [{{ assignments_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_assignments" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro assignment_header %}</tr>
                 </thead>
@@ -143,7 +144,7 @@
     {% if rules %}
         <div id="Rules">
             <h3>Rules [{{ rules_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_rules" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro rule_header %}</tr>
                 </thead>
@@ -161,7 +162,7 @@
     {% if constraints %}
         <div id="Constraints">
             <h3>Constraints [{{ constraints_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_constraints" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro constraint_header %}</tr>
                 </thead>
@@ -179,7 +180,7 @@
     {% if reactions %}
         <div id="Reactions">
             <h3>Reactions [{{ reactions_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_reactions" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro reaction_header %}</tr>
                 </thead>
@@ -197,7 +198,7 @@
     {% if events %}
         <div id="Events">
             <h3>Events [{{ events_size }}]</h3>
-            <table id="table_items" class="table table-condensed">
+            <table id="table_events" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro event_header %}</tr>
                 </thead>
