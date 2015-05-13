@@ -32,96 +32,104 @@
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
-            $('#table_functions').dataTable({
+            $.extend( $.fn.dataTable.defaults, {
+                "searching": true,
+                "ordering": true
+            } );
+
+
+            var t_functions = $('#table_functions').dataTable({
                 "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_units').dataTable({
+            $('#searchField').keyup(function(){
+                t_functions.fnFilter($(this).val());
+            });
+
+            var t_units = $('#table_units').dataTable({
                 "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_compartments').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
+            $('#searchField').keyup(function(){
+                t_units.fnFilter($(this).val());
+            });
+
+            var t_compartments = $('#table_compartments').dataTable({
+               "bPaginate": false,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_species').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
+            $('#searchField').keyup(function(){
+                t_compartments.fnFilter($(this).val());
+            });
+
+            var t_species = $('#table_species').dataTable({
+               "bPaginate": false,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_parameters').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
+            $('#searchField').keyup(function(){
+                t_species.fnFilter($(this).val());
+            });
+
+            var t_parameters = $('#table_parameters').dataTable({
+               "bPaginate": false,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_assignments').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
+            $('#searchField').keyup(function(){
+                t_parameters.fnFilter($(this).val());
+            });
+
+            var t_assignments = $('#table_assignments').dataTable({
+               "bPaginate": false,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_rules').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
+            $('#searchField').keyup(function(){
+                t_assignments.fnFilter($(this).val());
+            });
+
+            var t_rules = $('#table_rules').dataTable({
+               "bPaginate": false,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_constraints').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
+            $('#searchField').keyup(function(){
+                t_rules.fnFilter($(this).val());
+            });
+
+            var t_constraints = $('#table_constraints').dataTable({
+               "bPaginate": false,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_reactions').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
+            $('#searchField').keyup(function(){
+                t_constraints.fnFilter($(this).val());
+            });
+
+            var t_reactions = $('#table_reactions').dataTable({
+               "bPaginate": false,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
-            $('#table_events').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
+            $('#searchField').keyup(function(){
+                t_reactions.fnFilter($(this).val());
+            });
+
+            var t_events = $('#table_events').dataTable({
+               "bPaginate": false,
                 "bInfo": false,
-                "bAutoWidth": false,
-                "dom": '<"top"fl>rt<"bottom"p><"clear">'
+                "dom": '<"top">rt<"bottom"><"clear">'
             });
+            $('#searchField').keyup(function(){
+                t_events.fnFilter($(this).val());
+            });
+
+            $('#searchField').focus()
+
         });
     </script>
 </head>
@@ -138,6 +146,10 @@
           </button>
           <a class="navbar-brand" href="#top">{{ model.id }}</a>
         </div>
+
+          <form class="navbar-form navbar-left">
+            <input id="searchField" type="text" class="form-control" placeholder="Search...">
+          </form>
           <!--
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -184,6 +196,7 @@
 
     <!-- CONTENT -->
     <div class="content">
+        <!-- <input type="text" id="searchField"> -->
         {% block content %}
             <span id="Model"></span>
             <span id="UnitDefinitions"></span>

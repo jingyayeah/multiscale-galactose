@@ -1,5 +1,5 @@
 /* Move table search bar to left in combination with dataTable dom manipulation. */
-#table_functions_filter,
+/*#table_functions_filter,
 #table_units_filter,
 #table_compartments_filter,
 #table_species_filter,
@@ -11,8 +11,23 @@
 #table_events_filter
 {
   float: left;
-  text-align: left;
+  text-align: right;
+}
+*/
 
+#functionsField,
+#unitsField,
+#compartmentsField,
+#speciesField,
+#parametersField,
+#assignmentsField,
+#rulesField,
+#constraintsField,
+#reactionsField,
+#eventsField
+  {
+    position: relative;
+    left: 20px;
 }
 
 /* Set anchor relative to top */

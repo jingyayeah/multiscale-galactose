@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/bootstrap/datatable_example.html" afterPath="$PROJECT_DIR$/simapp/templates/bootstrap/datatable_example.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/static/simapp/css/report.css" afterPath="$PROJECT_DIR$/simapp/static/simapp/css/report.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/report/report.html" afterPath="$PROJECT_DIR$/simapp/templates/report/report.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/report/report_generic.html" afterPath="$PROJECT_DIR$/simapp/templates/report/report_generic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
     </list>
     <ignored path="multiscalesite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -89,7 +92,7 @@
     <favorites_list name="multiscalesite" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.42234498">
+    <splitter split-orientation="horizontal" split-proportion="0.4468232">
       <split-first>
         <leaf>
           <file leaf-file-name="methods.html" pinned="false" current-in-tab="false">
@@ -115,8 +118,8 @@
           <file leaf-file-name="report.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/simapp/templates/report/report.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.33035713" vertical-offset="3090" max-vertical-offset="3780">
-                  <caret line="184" column="20" selection-start-line="184" selection-start-column="20" selection-end-line="184" selection-end-column="20" />
+                <state vertical-scroll-proportion="5.116071" vertical-offset="0" max-vertical-offset="3780">
+                  <caret line="191" column="46" selection-start-line="191" selection-start-column="46" selection-end-line="191" selection-end-column="46" />
                   <folding />
                 </state>
               </provider>
@@ -156,11 +159,21 @@
           <file leaf-file-name="report_generic.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/simapp/templates/report/report_generic.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4106412" vertical-offset="347" max-vertical-offset="4320">
-                  <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
+                <state vertical-scroll-proportion="0.4665757" vertical-offset="1998" max-vertical-offset="4554">
+                  <caret line="130" column="37" selection-start-line="130" selection-start-column="37" selection-end-line="130" selection-end-column="37" />
                   <folding>
                     <element signature="n#style#0;n#img#0;n#a#0;n#p#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="datatable_example.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/simapp/templates/bootstrap/datatable_example.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-13.333333" vertical-offset="90" max-vertical-offset="9486">
+                  <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -178,8 +191,8 @@
           <file leaf-file-name="report.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/simapp/static/simapp/css/report.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="432">
-                  <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="702">
+                  <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
                   <folding />
                 </state>
               </provider>
@@ -232,7 +245,6 @@
         <option value="$PROJECT_DIR$/simapp/templates/simapp/simulation.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/simulations.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/results.html" />
-        <option value="$PROJECT_DIR$/simapp/templates/bootstrap/datatable_example.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/cores.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/methods.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/tasks.html" />
@@ -242,9 +254,10 @@
         <option value="$PROJECT_DIR$/simapp/templates/simapp/models.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
         <option value="$PROJECT_DIR$/simapp/templates/report/macros.html" />
-        <option value="$PROJECT_DIR$/simapp/templates/report/report_generic.html" />
-        <option value="$PROJECT_DIR$/simapp/templates/report/report.html" />
+        <option value="$PROJECT_DIR$/simapp/templates/bootstrap/datatable_example.html" />
         <option value="$PROJECT_DIR$/simapp/static/simapp/css/report.css" />
+        <option value="$PROJECT_DIR$/simapp/templates/report/report.html" />
+        <option value="$PROJECT_DIR$/simapp/templates/report/report_generic.html" />
       </list>
     </option>
   </component>
@@ -945,7 +958,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23788546" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1307364" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22732124" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5759912" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55396473" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28414097" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1235,14 +1248,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/bootstrap/datatable_example.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24870466" vertical-offset="0" max-vertical-offset="9288">
-          <caret line="8" column="119" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="119" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/cores.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="612">
@@ -1367,14 +1372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/static/simapp/css/report.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="432">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/static/simapp/css/dashboard.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1998">
@@ -1383,18 +1380,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/templates/bootstrap/datatable_example.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.333333" vertical-offset="90" max-vertical-offset="9486">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/static/simapp/css/report.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="702">
+          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/templates/report/report.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33035713" vertical-offset="3090" max-vertical-offset="3780">
-          <caret line="184" column="20" selection-start-line="184" selection-start-column="20" selection-end-line="184" selection-end-column="20" />
+        <state vertical-scroll-proportion="5.116071" vertical-offset="0" max-vertical-offset="3780">
+          <caret line="191" column="46" selection-start-line="191" selection-start-column="46" selection-end-line="191" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simapp/templates/report/report_generic.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4106412" vertical-offset="347" max-vertical-offset="4320">
-          <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.4665757" vertical-offset="1998" max-vertical-offset="4554">
+          <caret line="130" column="37" selection-start-line="130" selection-start-column="37" selection-end-line="130" selection-end-column="37" />
           <folding>
             <element signature="n#style#0;n#img#0;n#a#0;n#p#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
