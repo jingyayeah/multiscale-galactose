@@ -15,6 +15,7 @@
 }
 */
 
+/*
 #functionsField,
 #unitsField,
 #compartmentsField,
@@ -29,6 +30,12 @@
     position: relative;
     left: 20px;
 }
+*/
 
 /* Set anchor relative to top */
 a.anchor{display: block; position: relative; top: -60px; visibility: hidden;}
+
+.table-nonfluid {
+   /* width: auto; */
+    width: 70%;
+}

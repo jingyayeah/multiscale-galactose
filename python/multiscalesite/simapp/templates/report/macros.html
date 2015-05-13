@@ -3,9 +3,8 @@
 {% load Lookup_filters %}
 {% load macros %}
 
-{% macro id %}
-    <td class="active">{{ item.id }}</td>
-{% endmacro %}
+
+{% macro id %}<td class="active">{{ item.id }}</td>{% endmacro %}
 
 {% macro sbo_term %}
     {% if item.getSBOTerm != -1 %}<a href="{{item.getSBOTermAsURL}}" target="_blank">{{item.getSBOTermID}}</a>{% else %}-{% endif %}
@@ -40,13 +39,15 @@
 <!--  FUNCTION DEFINITIONS   						   -->
 <!------------------------------------------------------->
 {% macro function_header %}
-	<th scope="col">id</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">FunctionDefinitions [{{ functions_size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">math</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro function_content %}
+    <td class="hidden">FunctionDefinition</td>
 	{% usemacro id %}
 	<td>{{ item.name }}</td>
 	<td>{{item.getMath|SBML_astnodeToString}}</td>
@@ -57,13 +58,15 @@
 <!--  UNIT DEFINITIONS       						   -->
 <!------------------------------------------------------->
 {% macro unit_header %}
-	<th scope="col">id</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">UnitDefinitions [{{ units_size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">units</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro unit_content %}
+    <td class="hidden">UnitDefinition</td>
 	{% usemacro id %}
 	<td>{{ item.name }}</td>
 	<td>{{item|SBML_unitDefinitionToString}}</td>
@@ -74,7 +77,8 @@
 <!--  COMPARTMENTS          						   -->
 <!------------------------------------------------------->
 {% macro compartment_header %}
-	<th scope="col">id</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Compartments [{{ compartments_size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">size</th>
 	<th scope="col">constant</th>
@@ -85,7 +89,8 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro compartment_content %}
-	<td class="active">{{ item.id }}</td>
+    <td class="hidden">Compartment</td>
+	{% usemacro id %}
 	<td>{{ item.name }}</td>
 	<td>{% if item.isSetSize %}{{ item.size }}{% else %}
 	                              {{values|get_item:item.id}}{% endif %}</td>
@@ -100,7 +105,8 @@
 <!--  SPECIES                						   -->
 <!------------------------------------------------------->
 {% macro species_header %}
-	<th scope="col">id</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Species [{{ species_size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">compartment</th>
 	<th scope="col">boundary condition</th>
@@ -113,6 +119,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro species_content %}
+    <td class="hidden">Species</td>
 	{% usemacro id %}
 	<td>{{ item.name }}</td>
 	<td>{{item.getCompartment}}</td>
@@ -129,7 +136,8 @@
 <!--  PARAMETERS             						   -->
 <!------------------------------------------------------->
 {% macro parameter_header %}
-	<th scope="col">id</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Parameters [{{ parameters_size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -139,6 +147,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro parameter_content %}
+    <td class="hidden">Parameter</td>
 	{% usemacro id %}
 	<td>{{ item.name }}</td>
 	<td>{% if item.isSetValue %}{{item.getValue}}{% else %}
@@ -154,7 +163,8 @@
 <!--  INITIAL ASSIGNMENTS   						   -->
 <!------------------------------------------------------->
 {% macro assignment_header %}
-	<th scope="col">symbol</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">InitialAssignments [{{ assignments_size }}]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -162,6 +172,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro assignment_content %}
+    <td class="hidden">InitialAssignment</td>
 	{% usemacro id %}
 	<td>=</td>
 	<td>{% usemacro math %}</td>
@@ -173,7 +184,8 @@
 <!--  RULES  				   						   -->
 <!------------------------------------------------------->
 {% macro rule_header %}
-	<th scope="col">variable</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Rules [{{ rules_size }}]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -181,6 +193,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro rule_content %}
+    <td class="hidden">Rule</td>
 	{% usemacro id %}
 	<td>=</td>
 	<td>{% usemacro math %}</td>
@@ -192,13 +205,15 @@
 <!--  CONSTRAINTS			   						   -->
 <!------------------------------------------------------->
 {% macro constraint_header %}
-	<th scope="col">id</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Constraints [{{ constraints_size }}]</th>
 	<th scope="col">constraint</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro constraint_content %}
-	<td>{{item.getId}}</td>
+    <td class="hidden">Constraint</td>
+		{% usemacro id %}
 	<td>{% usemacro math %}</td>
 	<td>{% usemacro sbo_term %}</td>
 	<td>{% usemacro annotation %}</td>
@@ -207,7 +222,8 @@
 <!--  REACTIONS 			   						   -->
 <!------------------------------------------------------->
 {% macro reaction_header %}
-	<th scope="col">id</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Reactions [{{ reactions_size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">reversibility</th>
 	<th scope="col">equation</th>
@@ -218,6 +234,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro reaction_content %}
+    <td class="hidden">Reaction</td>
 	{% usemacro id %}
 	<td>{{ item.name }}</td>
 	{% if item.getReversible %}<td class="success">&lt;=&gt;</td>{% else %}
@@ -235,7 +252,8 @@
 <!--  EVENTS     			   						   -->
 <!------------------------------------------------------->
 {% macro event_header %}
-	<th scope="col">id</th>
+    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Events [{{ events_size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">trigger</th>
 	<th scope="col">priority</th>
@@ -245,6 +263,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro event_content %}
+    <td class="hidden">Event</td>
 	{% usemacro id %}
 	<td>{{ item.name }}</td>
 	<td>

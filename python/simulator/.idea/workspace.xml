@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/bootstrap/datatable_example.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/bootstrap/datatable_example.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/macros.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/macros.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/static/simapp/css/report.css" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/static/simapp/css/report.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report_generic.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report_generic.html" />
