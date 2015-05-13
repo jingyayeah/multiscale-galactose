@@ -15,7 +15,7 @@
     </table>
 
     <!-- Simulations for task -->
-    <table id="table_items" class="table table-striped table-bordered">
+    <table id="table_items" class="table table-striped table-bordered table-condensed">
         <tr>{% usemacro simulation_header %}</tr>
         {% for sim in task.simulation_set.all|slice:":10" %}
             {% if sim %}

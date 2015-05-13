@@ -11,8 +11,8 @@
     <title>{% block title %}Multiscale-Galactose{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'simapp/css/bootstrap.min.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'simapp/css/dataTables.bootstrap.css' %}">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'simapp/css/my.css' %}" rel="stylesheet">
@@ -28,9 +28,9 @@
 
 	<!-- JAVASCRIPT -->
 
-    <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" language="javascript" src="{% static 'simapp/js/jquery-1.10.2.min.js' %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static 'simapp/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static 'simapp/js/dataTables.bootstrap.js' %}"></script>
 
 
     <script type="text/javascript" charset="utf-8">
@@ -43,7 +43,7 @@
   </head>
 <body>
  <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

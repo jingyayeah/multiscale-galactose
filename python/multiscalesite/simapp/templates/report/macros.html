@@ -24,8 +24,8 @@
 <!------------------------------------------------------->
 {% macro model %}
 	{% with model as item %}
-	<tr><td>id</td><td>{{item.getId}}</td></tr>
-	<tr><td>name</td><td>{{item.getName}}</td></tr>
+	<tr><td class="active">id</td><td>{{item.getId}}</td></tr>
+	<tr><td >name</td><td>{{item.getName}}</td></tr>
 	<tr><td>SBML</td><td>L{{item.getLevel}}V{{model.getVersion}}</td></tr>
 	<tr><td>time</td><td>{{item.getTimeUnits}}</td></tr>
 	<tr><td>substance</td><td>{{item.getSubstanceUnits}}</td></tr>
@@ -85,11 +85,11 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 {% macro compartment_content %}
-	<td>{% usemacro id %}</td>
+	<td class="active">{{ item.id }}</td>
 	<td>{% usemacro name %}</td>
-	<td>{% if item.isSetSize %}<b>{{item.getSize}}</b>{% else %}
-	                              {{values|get_item:item.getId}}{% endif %}</td>
-	<td class="{% if item.getConstant %}TRUE{% else %}FALSE{% endif %}">{{item.getConstant}}</td>	
+	<td>{% if item.isSetSize %}{{ item.size }}{% else %}
+	                              {{values|get_item:item.id}}{% endif %}</td>
+	<td class="{% if item.getConstant %}success{% else %}danger{% endif %}">{{item.getConstant}}</td>
 	<td>{{item.getSpatialDimensions}}</td>
 	<td>{{item.getUnits}}</td>
 	<td>{{ item.getDerivedUnitDefinition|SBML_unitDefinitionToString }}</td>

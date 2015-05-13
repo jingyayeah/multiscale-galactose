@@ -152,6 +152,8 @@ def halfEquation(speciesList):
 
 def modelHistoryToString(mhistory):
     """ Renders HTML representation of the model history. """
+    if not mhistory():
+        return ""
     items = []
     for kc in xrange(mhistory.getNumCreators()):
         c = mhistory.getCreator(kc)
