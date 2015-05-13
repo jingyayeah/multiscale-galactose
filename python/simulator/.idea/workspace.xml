@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/base_generic.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/base_generic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/macros.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/macros.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/static/simapp/css/report.css" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/static/simapp/css/report.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report_generic.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report_generic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="simulator.iws" />
     <ignored path=".idea/workspace.xml" />

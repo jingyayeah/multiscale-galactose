@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="SBML report">
     <meta name="author" content="Matthias Koenig">
-
+    <!--<meta http-equiv="refresh" content="5" />-->
     <link rel="icon" href="{% static 'simapp/images/sbml.ico' %}">
     <title>{{ model.getId }}</title>
 
@@ -18,8 +18,6 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="{% static 'simapp/css/report.css' %}"/>
 
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
 
     <!-- JAVASCRIPT -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -32,19 +30,6 @@
     <script type="text/javascript" language="javascript" src="{% static 'simapp/js/jquery.dataTables.min.js' %}"></script>
     <script type="text/javascript" language="javascript" src="{% static 'simapp/js/dataTables.bootstrap.js' %}"></script>
 
-    <!--
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
-            ('#table_functions').dataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bSort": true,
-                "bInfo": false,
-            });
-        });
-    </script>
-    -->
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
             $('#table_functions').dataTable({
@@ -53,7 +38,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_units').dataTable({
                 "bPaginate": false,
@@ -61,6 +47,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_compartments').dataTable({
                 "bPaginate": false,
@@ -68,7 +56,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_species').dataTable({
                 "bPaginate": false,
@@ -76,7 +65,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_parameters').dataTable({
                 "bPaginate": false,
@@ -84,7 +74,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_assignments').dataTable({
                 "bPaginate": false,
@@ -92,7 +83,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_rules').dataTable({
                 "bPaginate": false,
@@ -100,7 +92,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_constraints').dataTable({
                 "bPaginate": false,
@@ -108,7 +101,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_reactions').dataTable({
                 "bPaginate": false,
@@ -116,7 +110,8 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
             $('#table_events').dataTable({
                 "bPaginate": false,
@@ -124,34 +119,44 @@
                 "bFilter": true,
                 "bSort": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                "dom": '<"top"fl>rt<"bottom"p><"clear">'
             });
         });
     </script>
-    <!--
-
-
-    -->
 </head>
 
 <body>
-<!-- Fixed navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#Model">{{ model.getId }}</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#top">{{ model.id }}</a>
         </div>
-
+          <!--
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                {% if units %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'simapp:models' %}">Models</a></li>
+             <li><a href="{% url 'simapp:about' %}">About</a></li>
+              <li class="active"><a href="{% url 'admin:index' %}">Admin</a></li>
+          </ul>
+        </div>
+        -->
+      </div>
+    </nav>
+
+
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+          <li><a href="#top">Model</a></li>
+             {% if units %}
                     <li><a href="#UnitDefinitions">UnitDefinitions</a></li>{% endif %}
                 {% if functions %}
                     <li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>{% endif %}
@@ -173,39 +178,6 @@
                     <li><a href="#Reactions">Reactions</a></li>{% endif %}
                 {% if events %}
                     <li><a href="#Events">Events</a></li>{% endif %}
-
-                <!-- <a href="{{ sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml.png' %}">SBML file</a> -->
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'simapp:about' %}">About</a></li>
-                <li class="active"><a href="{% url 'admin:index' %}">Admin</a></li>
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
-    </div>
-</nav>
-
-
-<div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

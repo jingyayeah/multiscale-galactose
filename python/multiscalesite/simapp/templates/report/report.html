@@ -14,8 +14,9 @@
     <!--------------------------------------------------->
     <!-- Model -->
     <!--------------------------------------------------->
-    <div id="Model">
-        <h3>Model : {{ model.id }}</h3>
+
+        <a class="anchor" id="Model"></a>
+        <h4>Model : {{ model.id }}</h4>
         <table id="table_items" class="table table-condensed">
             <tbody>
             <tr>{% usemacro model %}</tr>
@@ -28,13 +29,13 @@
         {% endif %}
         <!-- {% with model as item %}{% usemacro annotation %}{% endwith %} -->
 
-    </div>
+
     <!--------------------------------------------------->
     <!-- FunctionDefinitions -->
     <!--------------------------------------------------->
     {% if functions %}
-        <div id="FunctionDefinitions">
-            <h3>FunctionDefinitions [{{ functions_size }}]</h3>
+        <a class="anchor" id="FunctionDefinitions"></a>
+            <h4>FunctionDefinitions [{{ functions_size }}]</h4>
             <table id="table_functions" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro function_header %}</tr>
@@ -45,14 +46,14 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
+
     {% endif %}
     <!--------------------------------------------------->
     <!-- UnitDefinitions -->
     <!--------------------------------------------------->
     {% if units %}
-        <div id="UnitDefinitions">
-            <h3>UnitDefinitions [{{ units_size }}]</h3>
+        <a class="anchor" id="UnitDefinitions"></a>
+            <h4>UnitDefinitions [{{ units_size }}]</h4>
             <table id="table_units" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro unit_header %}</tr>
@@ -63,14 +64,13 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
     <!--------------------------------------------------->
     <!-- Compartments -->
     <!--------------------------------------------------->
     {% if compartments %}
-        <div id="Compartments">
-            <h3>Compartments [{{ compartments_size }}]</h3>
+    <a class="anchor" id="Compartments"></a>
+            <h4>Compartments [{{ compartments_size }}]</h4>
             <table id="table_compartments" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro compartment_header %}</tr>
@@ -81,14 +81,13 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
     <!--------------------------------------------------->
     <!-- Species -->
     <!--------------------------------------------------->
     {% if species %}
-        <div id="Species">
-            <h3>Species [{{ species_size }}]</h3>
+    <a class="anchor" id="Species"></a>
+            <h4>Species [{{ species_size }}]</h4>
             <table id="table_species" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro species_header %}</tr>
@@ -99,16 +98,14 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
     <!--------------------------------------------------->
     <!-- Parameters -->
     <!--------------------------------------------------->
     {% if parameters %}
-        <div id="Parameters">
-
+    <a class="anchor" id="Parameters"></a>
+            <h4>Parameters [{{ parameters_size }}]</h4>
             <table id="table_parameters" class="table table-condensed">
-            <caption>Parameters [{{ parameters_size }}]</caption>
                 <thead>
                 <tr>{% usemacro parameter_header %}</tr>
                 </thead>
@@ -118,14 +115,13 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
     <!--------------------------------------------------->
     <!-- InitialAssignments -->
     <!--------------------------------------------------->
     {% if assignments %}
-        <div id="InitialAssignments">
-            <h3>InitialAssignments [{{ assignments_size }}]</h3>
+       <a class="anchor" id="InitialAssignments"></a>
+            <h4>InitialAssignments [{{ assignments_size }}]</h4>
             <table id="table_assignments" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro assignment_header %}</tr>
@@ -136,14 +132,13 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
     <!--------------------------------------------------->
     <!-- Rules -->
     <!--------------------------------------------------->
     {% if rules %}
-        <div id="Rules">
-            <h3>Rules [{{ rules_size }}]</h3>
+    <a class="anchor" id="Rules"></a>
+            <h4>Rules [{{ rules_size }}]</h4>
             <table id="table_rules" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro rule_header %}</tr>
@@ -154,14 +149,13 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
     <!--------------------------------------------------->
     <!-- Constraints -->
     <!--------------------------------------------------->
     {% if constraints %}
-        <div id="Constraints">
-            <h3>Constraints [{{ constraints_size }}]</h3>
+<a class="anchor" id="Constraints"></a>
+            <h4>Constraints [{{ constraints_size }}]</h4>
             <table id="table_constraints" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro constraint_header %}</tr>
@@ -172,14 +166,13 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
     <!--------------------------------------------------->
     <!-- Reactions -->
     <!--------------------------------------------------->
     {% if reactions %}
-        <div id="Reactions">
-            <h3>Reactions [{{ reactions_size }}]</h3>
+        <a class="anchor" id="Reactions"></a>
+            <h4>Reactions [{{ reactions_size }}]</h4>
             <table id="table_reactions" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro reaction_header %}</tr>
@@ -190,14 +183,13 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
     <!--------------------------------------------------->
     <!-- Events -->
     <!--------------------------------------------------->
     {% if events %}
-        <div id="Events">
-            <h3>Events [{{ events_size }}]</h3>
+        <a class="anchor" id="Events"></a>
+            <h4>Events [{{ events_size }}]</h4>
             <table id="table_events" class="table table-condensed">
                 <thead>
                 <tr>{% usemacro event_header %}</tr>
@@ -208,7 +200,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% endif %}
 
 {% endblock %}
