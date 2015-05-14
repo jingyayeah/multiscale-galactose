@@ -4,6 +4,8 @@ MIRIAM REST webservice information.
 Lookup of uris and resources for MIRIAM resources. Mainly used in the context
 of annotations of models and components.
 
+http://www.ebi.ac.uk/miriamws/main/rest/
+
 MIRIAM WebInterface
     /datatypes/: retrieves the list of all available datatypes
     /datatypes/$id: retrieves the datatype identified by $id (for example: MIR:00000008)
@@ -14,6 +16,7 @@ The schema of the XML response is the same as the one used for the XML export of
 and is available at: http://www.ebi.ac.uk/miriam/main/export/xml
 """
 # TODO: add links and documentation for the webservice
+# TODO: refactor in class
 
 from xml.etree import ElementTree
 import xml.dom.minidom as minidom
@@ -21,6 +24,13 @@ import requests
 import pickle
 
 MIRIAM_REST = 'http://www.ebi.ac.uk/miriamws/main/rest/'
+
+
+def miriam_version():
+    """ Get the webservice version.
+    :return: version of miriam interface
+    """
+    raise NotImplemented
 
 
 def pretty_xml(element):
@@ -48,6 +58,7 @@ def miriam_datatypes():
 
 
 def create_miriam_urn_pickle(fname):
+    # TODO: in class.
     datatypes = miriam_datatypes()
     _, uri_dict = get_miriam_resources_for_datatypes(datatypes.keys())
     with open(fname, 'wb') as handle:
@@ -56,8 +67,7 @@ def create_miriam_urn_pickle(fname):
 
 def get_miriam_resources_for_datatypes(ids, debug=False):
     """ Get resources for given datatypes """
-    res_dict = dict()
-    uri_dict = dict()
+    res_dict, uri_dict = dict(), dict()
     for key in ids:
         resources, uris = get_miriam_resources_for_datatype(key, debug)
         res_dict[key] = resources

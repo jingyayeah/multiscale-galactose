@@ -125,7 +125,11 @@ class CompModel(models.Model):
     def _filepath(self):
         return str(self.file.path)
     filepath = property(_filepath)
-    
+
+    def _model_format_str(self):
+        return CompModelFormat.labels[self.model_format]
+    model_format_str = property(_model_format_str)
+
     def _md5_short(self, length=10):
         return '{}...'.format(self.md5[0:length])
     md5_short = property(_md5_short)
@@ -274,7 +278,7 @@ class Setting(models.Model):
     datatype = enum.EnumField(DataType)
 
     def __str__(self):
-        return "{}={}".format(self.key, self.value) 
+        return "{} = {}".format(self.key_str, self.value)
     
     def save(self, *args, **kwargs):
         # get the datatype from the dictionary
@@ -283,7 +287,15 @@ class Setting(models.Model):
     
     def _cast_value(self):
         return DataType.cast_value(value=self.value, datatype=self.datatype)
-    cast_value = property(_cast_value)  
+    cast_value = property(_cast_value)
+
+    def _key_str(self):
+        return SettingKey.labels[self.key]
+    key_str = property(_key_str)
+
+    def _datatype_str(self):
+        return DataType.labels[self.datatype]
+    datatype_str = property(_datatype_str)
 
     @staticmethod 
     def _combine_dicts(*args):
@@ -342,8 +354,8 @@ class Method(models.Model):
         return 'M{}'.format(self.pk) 
     
     class Meta:
-        verbose_name = 'Method Setting'
-        verbose_name_plural = "Method Settings"
+        verbose_name = 'Method'
+        verbose_name_plural = "Methods"
         
     def get_settings_dict(self):
         return {s.key: s.cast_value for s in self.settings.all()}
@@ -351,7 +363,11 @@ class Method(models.Model):
     def get_setting(self, key):
         s = self.settings.get(key=key)
         return s.cast_value
-        
+
+    def _method_type_str(self):
+        return MethodType.labels[self.method_type]
+    method_type_str = property(_method_type_str)
+
     def _get_integrator(self):
         return self.get_setting(SettingKey.INTEGRATOR)
     integrator = property(_get_integrator)

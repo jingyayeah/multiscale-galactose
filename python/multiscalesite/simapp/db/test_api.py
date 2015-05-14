@@ -42,23 +42,42 @@ class MyTestCase(TestCase):
         self.assertEqual(p2.parameter_type, ParameterType.BOUNDARY_INIT)
 
     def test_create_task(self):
-        # TODO: implement test
-        pass
+        self.assertEqual(False, True)
 
-    def test_create_method_from_settings(self):
-        # TODO: implement test
-        pass
+    def test_create_settings(self):
+        settings_dict = {SettingKey.VAR_STEPS: False,
+                         SettingKey.T_START: 0.0,
+                         SettingKey.T_END: 20.0,
+                         SettingKey.STEPS: 100}
+
+        settings = create_settings(settings_dict, add_defaults=False)
+        self.assertEqual(len(settings), 4)
+
+    def test_create_method(self):
+        settings_dict = {SettingKey.VAR_STEPS: False,
+                         SettingKey.T_START: 0.0,
+                         SettingKey.T_END: 20.0,
+                         SettingKey.STEPS: 100}
+
+        settings = create_settings(settings_dict, add_defaults=False)
+        method = create_method(method_type=MethodType.ODE, settings=settings)
+        self.assertIsNotNone(method)
+
+    def test_create_method2(self):
+        settings_dict = {SettingKey.VAR_STEPS: False,
+                         SettingKey.T_START: 0.0,
+                         SettingKey.T_END: 20.0,
+                         SettingKey.STEPS: 100}
+        settings = create_settings(settings_dict)
+        method = create_method(method_type=MethodType.ODE, settings=settings)
+        self.assertIsNotNone(method)
 
     def test_create_simulation(self):
-        # TODO: implement test
-        pass
+        self.assertEqual(False, True)
 
     def test_get_simulation_for_task(self):
-        # TODO: implement test
-        pass
+        self.assertEqual(False, True)
 
     def get_parameters_for_simulation(self):
-        # TODO: implement test
-        pass
-
+        self.assertEqual(False, True)
 

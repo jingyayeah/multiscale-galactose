@@ -76,10 +76,14 @@ from simapp.models import DataType, Setting, SettingKey, SimulatorType
 
 class SettingTestCase(TestCase):
     def setUp(self):
-        Setting.objects.create(key=SettingKey.INTEGRATOR, value=SimulatorType.ROADRUNNER)
+        pass
+
+    def tearDown(self):
+        pass
 
     def test_setting_fields(self):
         """ Test the setting fields. """
+        Setting.objects.get_or_create(key=SettingKey.INTEGRATOR, value=SimulatorType.ROADRUNNER)
         s1 = Setting.objects.get(key=SettingKey.INTEGRATOR, value=SimulatorType.ROADRUNNER)
         self.assertEqual(s1.datatype, DataType.INT)
 
@@ -376,7 +380,7 @@ class ViewTestCase(TestCase):
 from django.test.client import Client
 
 from simapp.db.api import create_parameter, create_simulation, create_task, create_model
-from simapp.db.api import create_method_from_settings
+from simapp.db.api import create_settings, create_method
 
 
 class APITestCase(TestCase):
@@ -431,12 +435,12 @@ class APITestCase(TestCase):
         self.assertEqual(task.model.pk, self.model.pk)
         self.assertEqual(task.method.pk, method_new.pk)
 
-    def test_create_method_from_setings(self):
-        settings = {SettingKey.T_START: 0.0,
-                    SettingKey.T_END: 500.0,
-                    SettingKey.STEPS: 100
-                    }
-        m = create_method_from_settings(method_type=MethodType.ODE, settings_dict=settings,
-                                        add_defaults=False)
+    def test_create_method_from_settings(self):
+        settings_dict = {SettingKey.T_START: 0.0,
+                         SettingKey.T_END: 500.0,
+                         SettingKey.STEPS: 100
+                         }
+        settings = create_settings(settings_dict, add_defaults=False)
+        m = create_method(method_type=MethodType.ODE, settings=settings)
         self.assertEqual(m.method_type, MethodType.ODE)
         self.assertEqual(len(m.settings.all()), len(settings))

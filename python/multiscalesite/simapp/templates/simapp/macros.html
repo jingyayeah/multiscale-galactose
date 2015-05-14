@@ -54,18 +54,21 @@
 {% macro model_header %}
 		<th>pk</th>
 		<th>id</th>
+        <th>format</th>
+        <th>file</th>
+        <th>report</th>
 		<th>md5</th>
-		<th>type</th>
-		<th>report</th>
 {% endmacro %}
 {% macro model_content %}
 			<td>{{model.pk}}</td>
 			<td>{{model.model_id}}</td>
-			<td>{{model.md5_short}}</td>
-			<!-- TODO: check for model type, i.e. SBML or CELLML -->
+    		<td>{{model.model_format_str}}</td>
+        <!-- TODO: check for model type, i.e. SBML or CELLML -->
 			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml.png' %}"></a></td>
 			<td><a href="{% url 'simapp:report' model.pk %}" target="_blank">
 				<img height="12" src="{% static 'simapp/images/html5.png' %}"></a></td>
+			<td>{{model.md5_short}}</td>
+
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -130,8 +133,8 @@
 		
 {% macro method_content %}
     <td>{{method.pk}}</td>
-    <td>{{method.method_type}}</td>
-    <td>{% for s in method.settings.all %}{{ s.name }} = {{s.value}} [{{s.datatype}}] <br />{% endfor %}</td>
+    <td>{{method.method_type_str}}</td>
+    <td>{% for s in method.settings.all %}{{ s.key_str }} = {{s.value}} [{{s.datatype_str}}] <br />{% endfor %}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->

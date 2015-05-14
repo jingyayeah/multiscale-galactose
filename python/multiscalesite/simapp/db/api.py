@@ -68,14 +68,27 @@ def create_task(model, method, info=None, priority=0):
     return task
 
 
-def create_method_from_settings(method_type, settings_dict, add_defaults=True):
-    """ Create method for given settings.
-    :param method_type:
+def create_settings(settings_dict, add_defaults=True):
+    """ Create method for given settings dictionary.
+    Adds the default settings if not specified otherwise via the add_defaults flag.
+    The keys of the settings_dict have to be in the available SettingKeys
     :param settings_dict:
     :param add_defaults:
     :return:
     """
-    settings = Setting.get_or_create_from_dict(settings_dict, add_defaults=add_defaults)
+    for key in settings_dict:
+        if key not in SettingKey.labels:
+            raise KeyError('Settings key not from SettingKeys: {}', sorted(SettingKey.labels.values()))
+    return Setting.get_or_create_from_dict(settings_dict, add_defaults=add_defaults)
+
+
+def create_method(method_type, settings):
+    """ Create method for given settings.
+    :param method_type:
+    :param settings:
+    :param add_defaults:
+    :return:
+    """
     return Method.get_or_create(method_type=method_type, settings=settings)
 
 

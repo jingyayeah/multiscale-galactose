@@ -1,6 +1,7 @@
 from django.contrib import admin
 from simapp.models import Core, CompModel, Parameter
 from simapp.models import Result, Simulation, Task
+from simapp.models import Setting
 
 
 class CoreAdmin(admin.ModelAdmin):
@@ -28,9 +29,14 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = ('pk', '__str__', 'model', 'method', 'priority', 'info')
 
 
+class SettingAdmin(admin.ModelAdmin):
+    list_display = ('pk', '__str__', 'key', 'value', 'datatype')
+
+
 admin.site.register(Core, CoreAdmin)
 admin.site.register(CompModel, CompModelAdmin)
 admin.site.register(Parameter, ParameterAdmin)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(Simulation, SimulationAdmin)
 admin.site.register(Task, TaskAdmin)
+admin.site.register(Setting, SettingAdmin)

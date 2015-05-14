@@ -73,4 +73,7 @@ class MiriamTestCase(TestCase):
         # Store everything in simple NOSQL database / pickle
         filename = 'data/miriam.pickle'
         miriam.create_miriam_urn_pickle(filename)
+        self.assertEqual(True, False)
 
+    def test_version(self):
+        self.assertEqual(True, False)
