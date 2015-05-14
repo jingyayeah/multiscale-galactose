@@ -1,9 +1,8 @@
 """
-Get the additional information via a MIRIAM Rest Web Service.
+MIRIAM REST webservice information.
 
-An API that adheres to the principles of REST does not require the client to know
-anything about the structure of the API. Rather, the server needs to provide whatever
-information the client needs to interact with the service.
+Lookup of uris and resources for MIRIAM resources. Mainly used in the context
+of annotations of models and components.
 
 MIRIAM WebInterface
     /datatypes/: retrieves the list of all available datatypes
@@ -13,16 +12,9 @@ MIRIAM WebInterface
 
 The schema of the XML response is the same as the one used for the XML export of MIRIAM Resources,
 and is available at: http://www.ebi.ac.uk/miriam/main/export/xml
-
-Use the requests package & xml.etree
-    http://isbullsh.it/2012/06/Rest-api-in-python/
-
-
-TODO: update the miriam REST scripts
-
-@author: Matthias Koenig
-@date: 2014-05-26
 """
+# TODO: add links and documentation for the webservice
+
 from xml.etree import ElementTree
 import xml.dom.minidom as minidom
 import requests
@@ -38,8 +30,11 @@ def pretty_xml(element):
     return reparsed.toprettyxml(indent="\t")
 
 
-def get_miriam_datatypes():
-    """ Creates the dictionary of Miriam datatypes. """
+def miriam_datatypes():
+    """ Gets the dictionary of Miriam data types.
+        The data_types information is than afterwards used
+        for simple lookup of the resources.
+    """
     datatypes = dict()
     
     r = requests.get(MIRIAM_REST + 'datatypes/')    
@@ -53,7 +48,7 @@ def get_miriam_datatypes():
 
 
 def create_miriam_urn_pickle(fname):
-    datatypes = get_miriam_datatypes()
+    datatypes = miriam_datatypes()
     _, uri_dict = get_miriam_resources_for_datatypes(datatypes.keys())
     with open(fname, 'wb') as handle:
         pickle.dump(uri_dict, handle)

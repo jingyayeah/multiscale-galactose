@@ -278,7 +278,7 @@ class ViewTestCase(TestCase):
         response = self.c.get('/simapp/models/')
         self.assertEqual(response.status_code, 200)
         n_models = CompModel.objects.all().count()
-        self.assertContains(response, 'Models [{}]'.format(n_models))
+        self.assertContains(response, 'Models'.format(n_models))
 
         #  check the response.context
         self.assertEqual(len(response.context['model_list']), n_models)
@@ -293,14 +293,14 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/cores/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Cores [')
+        self.assertContains(response, 'Cores')
 
 
     def test_tasks_status(self):
         """ Check response status code for view. """
         response = self.c.get('/simapp/tasks/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Tasks [')
+        self.assertContains(response, 'Tasks')
 
     def test_task_404(self):
         """ Check response status code for view. """
@@ -332,7 +332,7 @@ class ViewTestCase(TestCase):
         """ Check response status code for view. """
         response = self.c.get('/simapp/methods/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Methods [')
+        self.assertContains(response, 'Methods')
 
     def test_simulations_status(self):
         """ Check response status code for view. """

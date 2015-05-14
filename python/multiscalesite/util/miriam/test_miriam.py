@@ -1,66 +1,76 @@
 """
+Testing the MIRIAM webservices to access MIRIAM annotation information.
+Requires web access to pass the test.
 
 @author: mkoenig
 @date: 2015-??-?? 
 """
+#TODO: test for web access before running tests (internet dependency)
+# Make some ping test or similar.# .
 
-import unittest
+from __future__ import print_function
+from django.test import TestCase
 import requests
 from util.miriam import miriam
 
 
-class MyTestCase(unittest.TestCase):
+class MiriamTestCase(TestCase):
     def setUp(self):
         pass
 
     def tearDown(self):
         pass
 
-    def test(self):
-        # TODO: refactor in proper tests
+    def test_status(self):
+        """ Test the status of the MIRIAM webservice. """
         url = "http://www.ebi.ac.uk/miriamws/main/rest/"
         r = requests.get(url)
-        print r
-        print r.status_code
-        print r.headers
-        print r.headers['content-type']
-        print r.encoding
-        print r.text
-        print '#'*60
+        print(r)
+        self.assertEqual(r.status_code, None)
+        print(r.headers)
+        self.assertEqual(r.headers['content-type'], None)
+        self.assertEqual(r.encoding, None)
+        self.assertContains(r.text, None)
 
-        # Get the json
+    def test_datatypes_json(self):
+        """ Get the MIRIAM datatypes in JSON. """
         url = 'http://www.ebi.ac.uk/miriamws/main/rest/datatypes/'
         headers = {'Accept': 'application/json'}
         r = requests.get(url, headers=headers)
-        print r
-        print r.headers['content-type']
-        print r.text
-        print r.json()
+        print(r)
+        self.assertEqual(r.headers['content-type'], None)
+        self.assertContains(r.text, None)
+        json = r.json()
+        print(json)
+        self.assertContains(json, None)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_resource(self):
+        """  Get resources for datatype. """
+        resources, uris = miriam.get_miriam_resources_for_datatype('MIR:00000352')
+        print(resources)
+        print(uris)
+        self.assertContains(resources, None)
+        self.assertEqual(uris)
 
-    # Get resources for datatype
-    resources, uris = miriam.get_miriam_resources_for_datatype('MIR:00000352')
-    print resources
-    print uris
+    def test_all_datatypes(self):
+        """ Get all datatypes """
+        data_types = miriam.get_datatypes()
+        for key, value in data_types.iteritems():
+            print(key, ' : ', value)
+        self.assertContains(data_types, None)
 
-    # Get all datatypes
-    datatypes = miriam.get_datatypes()
-    print '#'*60
-    for key, value in datatypes.iteritems():
-        print key, ' : ', value
-    print '#'*60
+        ids = data_types.keys()[0:5]
+        resources, uris = miriam.get_miriam_resources_for_datatypes(ids, debug=True)
+        # test the resources
+        for key, value in resources.iteritems():
+            print(key, ':', value)
+        # test the uris
+        for key, value in uris.iteritems():
+            print(key, ':', value)
 
-    ids = datatypes.keys()[0:5]
-    res_dict, uri_dict = miriam.get_miriam_resources_for_datatypes(ids, debug=True)
-    for key, value in res_dict.iteritems():
-        print key, ':', value
-    print '#'*60
-    for key, value in uri_dict.iteritems():
-        print key, ':', value
+    def test_data_storage(self):
+        # TODO: Where is the data passed ?
+        # Store everything in simple NOSQL database / pickle
+        filename = 'data/miriam.pickle'
+        miriam.create_miriam_urn_pickle(filename)
 
-    print '#'*60
-    # Store everything in simple NOSQL database / pickle
-    filename = 'data/miriam.pickle'
-    miriam.create_miriam_urn_pickle(filename)
