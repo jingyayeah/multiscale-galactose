@@ -6,17 +6,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/bootstrap/dropdown.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/migrations/0002_auto_20150514_2146.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/odesim/dist/examples.py" afterPath="$PROJECT_DIR$/odesim/models/examples.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/odesim/dist/test_examples.py" afterPath="$PROJECT_DIR$/odesim/models/test_examples.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/model.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/base_generic.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/base_generic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/models/demo.py" afterPath="$PROJECT_DIR$/odesim/models/demo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/cores.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/cores.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/macros.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/macros.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/methods.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/methods.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/models.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/models.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/models.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report_generic.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/report/report_generic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/results.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/results.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/simulation.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/simulation.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/simulations.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/simulations.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/task.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/task.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/tasks.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/tasks.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/urls.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/views.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -1167,7 +1170,7 @@
         <state vertical-scroll-proportion="-0.60556465" vertical-offset="910" max-vertical-offset="3186">
           <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
           <folding>
-            <element signature="e#783#820#0" expanded="true" />
+            <element signature="e#783#820#0" expanded="false" />
           </folding>
         </state>
       </provider>

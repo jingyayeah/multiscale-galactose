@@ -8,21 +8,14 @@
 <!------------------------------------------------------->
 {% block content %}
     <h3>Cores</h3>
-    <table id="table_items" class="table table-striped table-bordered">
+    <table id="table_items" class="table table-condensed table-responsive">
         <thead>
-        <tr>
             {% usemacro core_header %}
-        </tr>
         </thead>
         <tbody>
-        {% for core in core_list %}
-            <tr>
+            {% for core in core_list %}
                 {% usemacro core_content %}
-            </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
-    {% if not core_list %}
-        <p>No cores in database.</p>
-    {% endif %}
 {% endblock %}

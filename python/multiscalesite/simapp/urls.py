@@ -5,6 +5,7 @@ from simapp.sbml import report
 
 urlpatterns = patterns('',
     url(r'^models/$', views.models, name='models'),
+    url(r'^model/(?P<model_id>\d+)$', views.model, name='model'),
     url(r'^cores/$', views.cores, name='cores'),
     url(r'^simulations/(?P<status>\w+)$', views.simulations, name='simulations'),
     url(r'^simulations/$', views.simulations, name='simulations'),

@@ -416,9 +416,17 @@ class Parameter(models.Model):
     class Meta:
         unique_together = ("key", "value")
 
+    def _parameter_type_str(self):
+        return ParameterType.labels[self.parameter_type]
+    parameter_type_str = property(_parameter_type_str)
+
 # ===============================================================================
 # Task
 # ===============================================================================
+class TaskStatus(enum.Enum):
+    FINALIZED = "FINALIZED"  # no simulations can be added, all are done
+    DONE = "DONE"  # all simulations done
+    OPEN = "OPEN"  # still undone simulations
 
 
 class Task(models.Model):
@@ -488,6 +496,14 @@ class Task(models.Model):
     
     def error_count(self):
         return self._status_count(SimulationStatus.ERROR)
+
+    def _status(self):
+        """ Task status. """
+        if self.done_count() == self.sim_count():
+            return TaskStatus.DONE
+        else:
+            return TaskStatus.OPEN
+    status = property(_status)
 
 # ===============================================================================
 # Simulation
@@ -579,6 +595,10 @@ class Simulation(models.Model):
         else:
             return timezone.now() >= self.time_assign+datetime.timedelta(minutes=cutoff_minutes)
     hanging = property(_is_hanging)
+
+    def _status_str(self):
+        return SimulationStatus.labels[self.status]
+    status_str = property(_status_str)
 
 # ===============================================================================
 # Result

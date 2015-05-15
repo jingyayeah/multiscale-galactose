@@ -7,26 +7,26 @@
 <!------------------------------------------------------->
 {% block content %}
     <h1>Task</h1>
-    <table id="table_items" class="table table-striped table-bordered">
-        <tr>{% usemacro task_header %}</tr>
-        <tr>
+    <table class="table table-condensed table-responsive">
+    <thead>
+        {% usemacro task_header %}
+    </thead>
+        <tbody>
             {% usemacro task_content %}
-        </tr>
+        </tbody>
     </table>
 
     <!-- Simulations for task -->
-    <table id="table_items" class="table table-striped table-bordered table-condensed">
-        <tr>{% usemacro simulation_header %}</tr>
-        {% for sim in task.simulation_set.all|slice:":10" %}
-            {% if sim %}
-                <tr>
-                    {% usemacro simulation_content %}
-                </tr>
-            {% endif %}
+    <table id="table_items" class="table table-condensed table-responsive">
+    <thead>
+        {% usemacro simulation_header %}
+    </thead>
+    <tbody>
+        {%  comment %}{% for sim in task.simulation_set.all|slice:":40" %}{% endcomment %}
+        {% for sim in task.simulation_set.all %}
+            {% usemacro simulation_content %}
         {% endfor %}
-        <tr>
-            <td>...</td>
-        </tr>
+    </tbody>
     </table>
 
 {% endblock %}

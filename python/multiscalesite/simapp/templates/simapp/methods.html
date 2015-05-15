@@ -8,15 +8,13 @@
 <!------------------------------------------------------->
 {% block content %}
     <h3>Methods</h3>
-    <table id="table_items" class="table table-striped table-bordered">
+    <table id="table_items" class="table table-condensed table-responsive">
         <thead>
-        <tr>{% usemacro method_header %}</tr>
+            {% usemacro method_header %}
         </thead>
         <tbody>
-        {% for method in method_list %}
-            <tr>
+            {% for method in method_list %}
                 {% usemacro method_content %}
-            </tr>
         {% endfor %}
         </tbody>
     </table>

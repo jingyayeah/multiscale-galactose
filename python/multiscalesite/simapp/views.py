@@ -17,6 +17,12 @@ def models(request):
                               {'model_list': model_list},
                               context_instance=RequestContext(request))
 
+def model(request, model_id):
+    """ View of single model. """
+    model = get_object_or_404(CompModel, pk=model_id)
+    return render_to_response('simapp/model.html',
+                              {'model': model},
+                              context_instance=RequestContext(request))
 
 # ===============================================================================
 # Cores
