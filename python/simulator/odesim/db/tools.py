@@ -23,7 +23,7 @@ from django.db import transaction
 from odesim.dist.samples import SampleParameter, Sample
 
 
-def get_samples_for_task(task):
+def get_samples_from_task(task):
     """ Returns all samples for simulations in given task. """
     simulations = db_api.get_simulations_for_task(task)
     samples = []
@@ -48,7 +48,7 @@ def get_sample_from_simulation(simulation):
 
 
 @transaction.atomic
-def create_simulations_for_samples(task, samples):
+def create_simulations_from_samples(task, samples):
     """ Creates all simulations for given samples.
     Does not check if the simulation already exists.
     - creates the Parameters
@@ -56,6 +56,7 @@ def create_simulations_for_samples(task, samples):
     Function does not check if the odesim with given parameters
     already exists.
     """
+    # TODO: add test
     sims = []
     for sample in samples:
         
@@ -63,42 +64,13 @@ def create_simulations_for_samples(task, samples):
         for sp in sample.parameters:
             # This takes forever to check if parameter already in db
             # How to improve this part ?
-            create_parameter(name=sp.key, value=sp.value, unit=sp.unit, ptype=sp.parameter_type)
+            p = db_api.create_parameter(key=sp.key, value=sp.value, unit=sp.unit,
+                                        parameter_type=sp.parameter_type)
             parameters.append(p)
-        
-        # sim = sims_list[k]
-        sim = create_simulation(task, parameters)
+
+        sim = db_api.create_simulation(task, parameters)
         
         sims.append(sim)
-        print(sim)
         
     return sims
 
-
-def store_timecourse_db(sim, filepath, ftype, keep_tmp=False):
-    """ Store the actual timecourse file in the database. """
-    # TODO: store the file type.
-    f = open(filepath, 'r')
-    myfile = File(f)
-    tc, _ = Timecourse.objects.get_or_create(simulation=sim)
-    tc.file = myfile
-    tc.save()
-
-    if ftype == FileType.CSV:
-        # zip csv
-        tc.zip()
-        # convert to Rdata for faster loading
-        tc.rdata()
-        if (keep_tmp==False):
-            # remove the original csv file now
-            myfile.close()
-            f.close()
-            os.remove(filepath)
-        # remove the db csv (only compressed file kept)
-        os.remove(tc.file.path)
-
-
-    # odesim finished (update odesim status)
-    sim.time_sim = timezone.now()
-    sim.status = DONE
-    sim.save()

@@ -53,12 +53,6 @@ class TestSamples(unittest.TestCase):
     def test_sample_pars_repr(self):
         # print(self.p1.__repr__())
         self.assertEqual(self.p1.__repr__(), "<Vmax = 2.170E+00 [mole_per_s] (GLOBAL_PARAMETER)>", "test_repr")
-        
-    def test_demo_samples(self):
-        from odesim.models.demo import create_demo_samples
-        samples = create_demo_samples(n_samples=1, sampling_type=SamplingType.DISTRIBUTION)
-        s = samples[0]
-        self.assertIsInstance(s, Sample, "Demo sample is Sample")
 
     def test_from_parameters1(self):
         """ Create SampleParameter from SampleParameter """

@@ -67,3 +67,31 @@ def save_timecourse_hdf5(filepath, data, header, meta=None):
     f.close()
     
 
+def store_timecourse_db(sim, filepath, ftype, keep_tmp=False):
+    """ Store the actual timecourse file in the database. """
+    # TODO: store the file type.
+    # TODO: add test
+    f = open(filepath, 'r')
+    myfile = File(f)
+    tc, _ = Timecourse.objects.get_or_create(simulation=sim)
+    tc.file = myfile
+    tc.save()
+
+    if ftype == FileType.CSV:
+        # zip csv
+        tc.zip()
+        # convert to Rdata for faster loading
+        tc.rdata()
+        if (keep_tmp==False):
+            # remove the original csv file now
+            myfile.close()
+            f.close()
+            os.remove(filepath)
+        # remove the db csv (only compressed file kept)
+        os.remove(tc.file.path)
+
+
+    # odesim finished (update odesim status)
+    sim.time_sim = timezone.now()
+    sim.status = DONE
+    sim.save()

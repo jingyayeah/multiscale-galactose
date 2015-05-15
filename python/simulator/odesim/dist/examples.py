@@ -21,6 +21,7 @@ class Example(object):
         raise NotImplemented
 
 
+
 class GalactoseFlow(Example):
     """ Galactose Flow model. """
 
@@ -68,28 +69,6 @@ class GalactoseFlow(Example):
         return d
 
 
-class Demo(Example):
-    @classmethod
-    def get_distributions(cls):
-        """ Example distributions for demo network.
-            Definition of two lognormal distributions for Vmax_b1 and Vmax_b2.
-        """
-        d1 = Distribution(DistributionType.LOGNORMAL, {
-            DistributionParameterType.MEAN: SampleParameter('Vmax_b1', 5.0, 'mole_per_s',
-                                                            ParameterType.GLOBAL_PARAMETER),
-            DistributionParameterType.STD: SampleParameter('Vmax_b1', 0.5, 'mole_per_s',
-                                                           ParameterType.GLOBAL_PARAMETER),
-        })
-
-        d2 = Distribution(DistributionType.LOGNORMAL, {
-            DistributionParameterType.MEAN: SampleParameter('Vmax_b2', 2.0, 'mole_per_s',
-                                                            ParameterType.GLOBAL_PARAMETER),
-            DistributionParameterType.STD: SampleParameter('Vmax_b2', 0.4, 'mole_per_s',
-                                                           ParameterType.GLOBAL_PARAMETER)
-        })
-        return d1, d2
-
-########################################################################################################################
 
 if __name__ == "__main__":
     from odesim.dist import sampling

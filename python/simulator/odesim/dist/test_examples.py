@@ -8,9 +8,10 @@ Testing the distribution examples.
 from __future__ import print_function
 import unittest
 from simapp.models import ParameterType
-from odesim.dist import sampling
+from odesim.dist.sampling import Sampling
 from odesim.dist.distributions import DistributionType, DistributionParameterType
-from odesim.dist.examples import Demo, GalactoseFlow
+from odesim.models.demo import Demo
+
 
 
 class MyTestCase(unittest.TestCase):
@@ -36,7 +37,7 @@ class MyTestCase(unittest.TestCase):
                                                            ParameterType.GLOBAL_PARAMETER)
         })
         """
-        d1, d2 = Demo.get_distributions()
+        d1, d2 = Demo.example_distributions()
         self.assertEqual(d1.distribution_type, DistributionType.LOGNORMAL)
         p1 = d1.parameters[DistributionParameterType.MEAN]
         p2 = d1.parameters[DistributionParameterType.STD]
@@ -66,8 +67,9 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(p4.parameter_type, ParameterType.GLOBAL_PARAMETER)
 
     def test_demo_samples(self):
-        distributions = Demo.get_distributions()
-        samples = sampling.sample_from_distribution(distributions, n_samples=10)
+        distributions = Demo.example_distributions()
+        sampling = Sampling(distributions)
+        samples = sampling.sample(n_samples=10)
         self.assertEqual(len(samples), 10)
 
 if __name__ == '__main__':

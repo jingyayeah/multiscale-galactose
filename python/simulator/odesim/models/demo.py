@@ -1,57 +1,73 @@
 """
-Creating simulations for the demo network.
+Creating example simulations for the demo network.
 
-@author: Matthias Koenig
-@date: 2015-05-05
 """
 from __future__ import print_function
 
-from simapp.models import SettingKey, MethodType, CompModelFormat
 import simapp.db.api as db_api
-
 import odesim.db.tools as db_tools
 
-from odesim.dist.examples import Demo
-from odesim.dist.sampling import sample_parameters, SamplingType
+from odesim.dist.distributions import Distribution, DistributionType, DistributionParameterType
+from odesim.dist.examples import Example
+from odesim.dist.sampling import Sampling, SamplingType, SampleParameter
 
 
-def demo_simulations(comp_model, n_samples):
-    info = 'Simple demo network based on parameter distributions.'
-    
-    # parameter samples
-    samples = create_demo_samples(n_samples=n_samples, sampling_type=SamplingType.DISTRIBUTION)
-    
-    # simulations
-    settings = {SettingKey.T_START: 0.0,
-                SettingKey.T_END: 500.0,
-                SettingKey.STEPS: 100
-                }
-    method = db_api.create_method_from_settings(method_type=MethodType.ODE,
-                                                settings_dict=settings)
+class Demo(Example):
+    file_path = 'examples/demo/Koenig_demo.xml'
+    model_format = db_api.CompModelFormat.SBML
 
-    task = db_api.create_task(comp_model, method, info)
-    simulations = db_tools.create_simulations_for_samples(task, samples)
-    return simulations
+    @classmethod
+    def example_distributions(cls):
+        """ Example distributions for demo network.
+            Definition of two lognormal distributions for Vmax_b1 and Vmax_b2.
+        """
+        d1 = Distribution(DistributionType.LOGNORMAL, {
+            DistributionParameterType.MEAN: SampleParameter('Vmax_b1', 5.0, 'mole_per_s',
+                                                            db_api.ParameterType.GLOBAL_PARAMETER),
+            DistributionParameterType.STD: SampleParameter('Vmax_b1', 0.5, 'mole_per_s',
+                                                           db_api.ParameterType.GLOBAL_PARAMETER),
+        })
 
+        d2 = Distribution(DistributionType.LOGNORMAL, {
+            DistributionParameterType.MEAN: SampleParameter('Vmax_b2', 2.0, 'mole_per_s',
+                                                            db_api.ParameterType.GLOBAL_PARAMETER),
+            DistributionParameterType.STD: SampleParameter('Vmax_b2', 0.4, 'mole_per_s',
+                                                           db_api.ParameterType.GLOBAL_PARAMETER)
+        })
+        return d1, d2
 
-def create_demo_samples(n_samples, sampling_type):
-    """ Create demo samples base on the given sampling type.
+    @classmethod
+    def example_samples(cls, n_samples):
+        # Sample from defined distributions
+        distributions = cls.example_distributions()
+        sampling = Sampling(distributions=distributions, sampling_type=SamplingType.DISTRIBUTION)
+        samples = sampling.sample(n_samples)
+        return samples
 
-    :param n_samples:
-    :param sampling_type:
-    :return:
-    """
-    distributions = Demo.get_distributions()
-    return sample_parameters(distributions, n_samples, sampling_type)
+    @classmethod
+    def example_simulations(cls, n_samples):
+        """ Creates the database objects for the simulations.
 
+        :param n_samples:
+        :return:
+        """
+        # model from example file
+        model = db_api.create_model(cls.file_path, model_format=cls.model_format)
 
-if __name__ == "__main__":    
-    # Simple demo network to test basic simulation capabilities.
-    import django
-    django.setup()
-            
-    if True:
-        print('make demo from file')
-        model = db_api.create_model(file_path='../../examples/demo/Koenig_demo.xml',
-                                    model_format=CompModelFormat.SBML)
-        sims = demo_simulations(model, n_samples=10)
+        # example samples
+        samples = cls.example_samples(n_samples)
+
+        # simulations
+        settings = {db_api.SettingKey.T_START: 0.0,
+                    db_api.SettingKey.T_END: 20.0,
+                    db_api.SettingKey.STEPS: 200
+                    }
+        settings = db_api.create_settings(settings_dict=settings)
+        method = db_api.create_method(method_type=db_api.MethodType.ODE,
+                                      settings=settings)
+
+        info = 'Simple demo network based on parameter distributions.'
+        task = db_api.create_task(model=model, method=method, info=info)
+        simulations = db_tools.create_simulations_from_samples(task, samples)
+        return simulations
+

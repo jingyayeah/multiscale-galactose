@@ -13,7 +13,7 @@ used in simulations.
 """
 # TODO: rename Sample -> ParameterCollection (??) , better naming. This is not really describing what it is doing.
 from __future__ import print_function
-from simapp.models import ParameterType
+from simapp.models import ParameterType, Parameter
 
 from copy import deepcopy
 
@@ -57,6 +57,8 @@ class Sample(dict):
             self.add_parameter(p)
 
     def add_parameter(self, p):
+        if isinstance(p, Parameter):
+            p = SampleParameter.from_parameter(p)
         if not isinstance(p, SampleParameter):
             raise SampleParameterException
         self[p.key] = p
@@ -67,6 +69,12 @@ class Sample(dict):
     @property
     def parameters(self):
         return self.values()
+
+    @staticmethod
+    def from_parameters(parameters):
+        s = Sample()
+        s.add_parameters(parameters)
+        return s
 
     @classmethod
     def set_parameter_in_samples(cls, sample_par, samples):
@@ -85,7 +93,9 @@ class Sample(dict):
         return deepcopy(samples)
 
 
-def set_parameters_in_samples(parameters, samples):
+
+
+def set_parameters_in_samples_XXX(parameters, samples):
     """
     This functionality has to be much clearer and must be documented much better.
     What is this doing exactly ??
