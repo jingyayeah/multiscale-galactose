@@ -6,19 +6,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simapp/templates/simapp/model.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/cores.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/cores.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simapp/migrations/0001_initial.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/examples/demo/02_demo_django.ipynb" afterPath="$PROJECT_DIR$/../simulator/examples/demo/02_demo_django.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/macros.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/macros.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/methods.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/methods.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/models.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/models.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/miriam/miriam.py" afterPath="$PROJECT_DIR$/util/miriam/miriam.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/models.py" afterPath="$PROJECT_DIR$/simapp/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/results.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/results.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/simulation.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/simulation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/simulations.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/simulations.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/task.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/task.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/tasks.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/tasks.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/urls.py" afterPath="$PROJECT_DIR$/simapp/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/miriam/test_miriam.py" afterPath="$PROJECT_DIR$/util/miriam/test_miriam.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/tests.py" afterPath="$PROJECT_DIR$/simapp/tests.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/views.py" afterPath="$PROJECT_DIR$/simapp/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -37,12 +31,13 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_APITestCase_test_create_method_from_setings.coverage" NAME="Unittest APITestCase.test_create_method_from_setings Coverage Results" MODIFIED="1431293265379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
-    <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1431639152809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1431701996351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_models_status.coverage" NAME="Unittest ViewTestCase.test_models_status Coverage Results" MODIFIED="1431326693119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_db_test_api_MyTestCase_test_create_method2.coverage" NAME="Test: simapp.db.test_api.MyTestCase.test_create_method2 Coverage Results" MODIFIED="1431639196689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_documentation_status.coverage" NAME="Unittest ViewTestCase.test_documentation_status Coverage Results" MODIFIED="1431330335301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_results_status.coverage" NAME="Unittest ViewTestCase.test_results_status Coverage Results" MODIFIED="1431328508046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_db_test_api.coverage" NAME="Test: simapp.db.test_api Coverage Results" MODIFIED="1431636049297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_MiriamTestCase.coverage" NAME="Unittests in MiriamTestCase Coverage Results" MODIFIED="1431702026971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -106,34 +101,24 @@
     <favorites_list name="multiscalesite" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5176849">
+    <splitter split-orientation="horizontal" split-proportion="0.20257235">
       <split-first>
         <leaf>
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/simapp/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-14.548388" vertical-offset="10115" max-vertical-offset="11880">
-                  <caret line="600" column="37" selection-start-line="600" selection-start-column="37" selection-end-line="600" selection-end-column="37" />
+                <state vertical-scroll-proportion="0.4347079" vertical-offset="8927" max-vertical-offset="11898">
+                  <caret line="523" column="24" selection-start-line="523" selection-start-column="24" selection-end-line="523" selection-end-column="24" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="models.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/models.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="522">
-                  <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="model.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="model.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/model.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.6736527" vertical-offset="0" max-vertical-offset="702">
-                  <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+                <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="702">
+                  <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
@@ -176,38 +161,20 @@
           <file leaf-file-name="simulation.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/simulation.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="2.5113637" vertical-offset="365" max-vertical-offset="1188">
-                  <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-                  <folding />
+                <state vertical-scroll-proportion="-6.740741" vertical-offset="304" max-vertical-offset="1188">
+                  <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+                  <folding>
+                    <marker date="1431698615043" expanded="true" signature="378:440" placeholder="..." />
+                  </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="simulations.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/simulations.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="558">
-                  <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="task.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/task.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="666">
-                  <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="macros.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="macros.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/macros.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.30448717" vertical-offset="1088" max-vertical-offset="3978">
-                  <caret line="71" column="74" selection-start-line="71" selection-start-column="74" selection-end-line="71" selection-end-column="74" />
+                <state vertical-scroll-proportion="-17.333334" vertical-offset="0" max-vertical-offset="3978">
+                  <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
@@ -226,18 +193,50 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/simapp/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3132">
-                  <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+                <state vertical-scroll-proportion="-10.4838705" vertical-offset="1385" max-vertical-offset="3132">
+                  <caret line="100" column="57" selection-start-line="100" selection-start-column="57" selection-end-line="100" selection-end-column="57" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="base_generic.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
+          <file leaf-file-name="tests.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/simapp/tests.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-28.555555" vertical-offset="363" max-vertical-offset="2268">
-                  <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="6052" max-vertical-offset="8064">
+                  <caret line="348" column="63" selection-start-line="348" selection-start-column="63" selection-end-line="348" selection-end-column="63" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="test_api.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="971" max-vertical-offset="1512">
+                  <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="test_miriam.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/util/miriam/test_miriam.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1638">
+                  <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+                  <folding>
+                    <element signature="e#263#300#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="miriam.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.4313099" vertical-offset="72" max-vertical-offset="1818">
+                  <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
                   <folding />
                 </state>
               </provider>
@@ -281,11 +280,8 @@
         <option value="$PROJECT_DIR$/simapp/templates/report/macros.html" />
         <option value="$PROJECT_DIR$/simapp/templates/report/report.html" />
         <option value="$PROJECT_DIR$/simapp/static/simapp/css/report.css" />
-        <option value="$PROJECT_DIR$/util/miriam/miriam.py" />
         <option value="$PROJECT_DIR$/simapp/admin.py" />
         <option value="$PROJECT_DIR$/simapp/db/api.py" />
-        <option value="$PROJECT_DIR$/simapp/tests.py" />
-        <option value="$PROJECT_DIR$/util/miriam/test_miriam.py" />
         <option value="$PROJECT_DIR$/simapp/db/test_api.py" />
         <option value="$PROJECT_DIR$/simapp/templates/bootstrap/carousel.html" />
         <option value="$PROJECT_DIR$/simapp/templates/bootstrap/dropdown.html" />
@@ -296,14 +292,17 @@
         <option value="$PROJECT_DIR$/simapp/templates/simapp/methods.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/models.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/cores.html" />
-        <option value="$PROJECT_DIR$/simapp/models.py" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/simulation.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/simulations.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/task.html" />
         <option value="$PROJECT_DIR$/simapp/urls.py" />
-        <option value="$PROJECT_DIR$/simapp/views.py" />
-        <option value="$PROJECT_DIR$/simapp/templates/simapp/macros.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/model.html" />
+        <option value="$PROJECT_DIR$/simapp/templates/simapp/macros.html" />
+        <option value="$PROJECT_DIR$/simapp/models.py" />
+        <option value="$PROJECT_DIR$/simapp/views.py" />
+        <option value="$PROJECT_DIR$/simapp/tests.py" />
+        <option value="$PROJECT_DIR$/util/miriam/test_miriam.py" />
+        <option value="$PROJECT_DIR$/util/miriam/miriam.py" />
       </list>
     </option>
   </component>
@@ -560,7 +559,7 @@
       <recent name="$PROJECT_DIR$/util" />
     </key>
   </component>
-  <component name="RunManager" selected="Django tests.Test: simapp.db.test_api.MyTestCase.test_create_method2">
+  <component name="RunManager" selected="Python tests.Unittests in MiriamTestCase">
     <configuration default="false" name="Unittests in multiscalesite" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -585,31 +584,6 @@
       <RunnerSettings RunnerId="PythonCover" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonCover" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest ViewTestCase.test_results_status" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simapp" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="multiscalesite" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simapp/tests.py" />
-      <option name="CLASS_NAME" value="ViewTestCase" />
-      <option name="METHOD_NAME" value="test_results_status" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -678,6 +652,31 @@
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in MiriamTestCase" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/util/miriam" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="multiscalesite" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/util/miriam/test_miriam.py" />
+      <option name="CLASS_NAME" value="MiriamTestCase" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
@@ -953,18 +952,18 @@
       <item index="0" class="java.lang.String" itemvalue="Django server.admin" />
       <item index="1" class="java.lang.String" itemvalue="Django server.multiscalesite" />
       <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest ViewTestCase.test_results_status" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest ViewTestCase.test_documentation_status" />
-      <item index="5" class="java.lang.String" itemvalue="Django tests.Test: simapp.db.test_api" />
-      <item index="6" class="java.lang.String" itemvalue="Django tests.Test: simapp.db.test_api.MyTestCase.test_create_method2" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest ViewTestCase.test_documentation_status" />
+      <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.db.test_api" />
+      <item index="5" class="java.lang.String" itemvalue="Django tests.Test: simapp.db.test_api.MyTestCase.test_create_method2" />
+      <item index="6" class="java.lang.String" itemvalue="Python tests.Unittests in MiriamTestCase" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Django tests.Test: simapp.db.test_api.MyTestCase.test_create_method2" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in MiriamTestCase" />
         <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
-        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: simapp.db.test_api" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest ViewTestCase.test_documentation_status" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest ViewTestCase.test_results_status" />
+        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: simapp.db.test_api.MyTestCase.test_create_method2" />
+        <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.db.test_api" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest ViewTestCase.test_documentation_status" />
       </list>
     </recent_temporary>
   </component>
@@ -1003,7 +1002,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1922" height="1033" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6387665" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1019,7 +1018,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17022412" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22687225" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.07599119" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20154186" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27753305" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1182,14 +1181,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python2.7/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3644" max-vertical-offset="19242">
-          <caret line="232" column="8" selection-start-line="232" selection-start-column="8" selection-end-line="232" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/templatetags/SBML_filters.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="178" max-vertical-offset="3366">
@@ -1242,49 +1233,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1854">
-          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
-          <folding>
-            <element signature="e#775#808#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/miriam/test_miriam.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="938" max-vertical-offset="1512">
-          <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-          <folding>
-            <element signature="e#263#300#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/templates/report/report.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.027480915" vertical-offset="72" max-vertical-offset="3690">
           <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2952381" vertical-offset="1321" max-vertical-offset="8082">
-          <caret line="85" column="38" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37732342" vertical-offset="985" max-vertical-offset="1602">
-          <caret line="66" column="53" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
-          <folding>
-            <element signature="e#42#79#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1394,50 +1347,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/task.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="666">
-          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486">
           <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.548388" vertical-offset="10115" max-vertical-offset="11880">
-          <caret line="600" column="37" selection-start-line="600" selection-start-column="37" selection-end-line="600" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3132">
-          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/simulation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.5113637" vertical-offset="365" max-vertical-offset="1188">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/simulations.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="558">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -1450,6 +1363,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/macros.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.333334" vertical-offset="0" max-vertical-offset="3978">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/model.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="702">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/models.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="522">
@@ -1458,18 +1387,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/macros.html">
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/task.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30448717" vertical-offset="1088" max-vertical-offset="3978">
-          <caret line="71" column="74" selection-start-line="71" selection-start-column="74" selection-end-line="71" selection-end-column="74" />
+        <state vertical-scroll-proportion="0.4041916" vertical-offset="0" max-vertical-offset="668">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/model.html">
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/simulations.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6736527" vertical-offset="0" max-vertical-offset="702">
-          <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.24251497" vertical-offset="0" max-vertical-offset="668">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/simulation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.740741" vertical-offset="304" max-vertical-offset="1188">
+          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+          <folding>
+            <marker date="1431698615043" expanded="true" signature="378:440" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.4838705" vertical-offset="1385" max-vertical-offset="3132">
+          <caret line="100" column="57" selection-start-line="100" selection-start-column="57" selection-end-line="100" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6052" max-vertical-offset="8064">
+          <caret line="348" column="63" selection-start-line="348" selection-start-column="63" selection-end-line="348" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="971" max-vertical-offset="1512">
+          <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4347079" vertical-offset="8927" max-vertical-offset="11898">
+          <caret line="523" column="24" selection-start-line="523" selection-start-column="24" selection-end-line="523" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python2.7/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="8703" max-vertical-offset="19242">
+          <caret line="509" column="8" selection-start-line="509" selection-start-column="8" selection-end-line="509" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/miriam/test_miriam.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1638">
+          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+          <folding>
+            <element signature="e#263#300#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4313099" vertical-offset="72" max-vertical-offset="1818">
+          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
           <folding />
         </state>
       </provider>

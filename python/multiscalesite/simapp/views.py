@@ -95,11 +95,11 @@ from simapp.models import SimulationStatus
 
 def simulations(request, status='ALL'):
     """ Simulations overview. """
-    # TODO: URGENT fix the status parsing bug. Get enums from the status.
     if status == 'ALL':
         sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
     else:
-        sim_list = Simulation.objects.filter(status=status).order_by("-time_assign", "-time_create")
+        status_type = SimulationStatus.rev_labels[status]
+        sim_list = Simulation.objects.filter(status=status_type).order_by("-time_assign", "-time_create")
 
     paginator = Paginator(sim_list, PAGINATE_ENTRIES)
     page = request.GET.get('page')

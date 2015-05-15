@@ -9,17 +9,21 @@ Requires web access to pass the test.
 # Make some ping test or similar.# .
 
 from __future__ import print_function
-from django.test import TestCase
+import unittest
 import requests
 from util.miriam import miriam
 
 
-class MiriamTestCase(TestCase):
+class MiriamTestCase(unittest.TestCase):
     def setUp(self):
         pass
 
     def tearDown(self):
         pass
+
+    def test_version(self):
+        r = miriam.
+        self.assertEqual(True, False)
 
     def test_status(self):
         """ Test the status of the MIRIAM webservice. """
@@ -29,6 +33,7 @@ class MiriamTestCase(TestCase):
         self.assertEqual(r.status_code, None)
         print(r.headers)
         self.assertEqual(r.headers['content-type'], None)
+
         self.assertEqual(r.encoding, None)
         self.assertContains(r.text, None)
 
@@ -75,5 +80,7 @@ class MiriamTestCase(TestCase):
         miriam.create_miriam_urn_pickle(filename)
         self.assertEqual(True, False)
 
-    def test_version(self):
-        self.assertEqual(True, False)
+
+
+if __name__ == "__main__":
+    unittest.TestSuite.run()

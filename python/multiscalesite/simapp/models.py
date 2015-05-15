@@ -521,6 +521,7 @@ class SimulationStatus(enum.Enum):
         DONE: "DONE",
         ERROR: "ERROR"
     }
+    rev_labels = dict(zip(labels.values(), labels.keys()))
 
 # TODO: one create for manager
 

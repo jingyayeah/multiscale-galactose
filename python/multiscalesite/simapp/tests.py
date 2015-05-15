@@ -85,7 +85,7 @@ class SettingTestCase(TestCase):
         """ Test the setting fields. """
         Setting.objects.get_or_create(key=SettingKey.INTEGRATOR, value=SimulatorType.ROADRUNNER)
         s1 = Setting.objects.get(key=SettingKey.INTEGRATOR, value=SimulatorType.ROADRUNNER)
-        self.assertEqual(s1.datatype, DataType.INT)
+        self.assertEqual(s1.datatype, DataType.STR)
 
     def test_create_default_settings(self):
         settings = Setting.get_or_create_defaults()
@@ -106,7 +106,7 @@ class SettingTestCase(TestCase):
         settings = Setting.get_or_create_defaults()
         for s in settings:
             if s.key == SettingKey.INTEGRATOR:
-                self.assertTrue(isinstance(s.cast_value, int))
+                self.assertTrue(isinstance(s.cast_value, str))
             if s.key == SettingKey.ABS_TOL:
                 self.assertTrue(isinstance(s.cast_value, float))
         self.assertEqual(len(Setting.DEFAULTS), len(settings))
@@ -308,8 +308,8 @@ class ViewTestCase(TestCase):
 
     def test_task_404(self):
         """ Check response status code for view. """
-        response = self.c.get('/simapp/task/1')
-        self.assertEqual(response.status_code, 404)
+        response = self.c.get('/simapp/task/112312423')
+        self.assertTrue(response.status_code, 404)
 
     def test_task_200(self):
         """ Check response status code for view. """
@@ -346,7 +346,7 @@ class ViewTestCase(TestCase):
 
     def test_simulation_404(self):
         """ Check response status code for view. """
-        response = self.c.get('/simapp/simulation/1')
+        response = self.c.get('/simapp/simulation/1934929349234')
         self.assertEqual(response.status_code, 404)
 
     def test_simulation_200(self):
@@ -367,7 +367,6 @@ class ViewTestCase(TestCase):
         response = self.c.get('/simapp/results/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Results')
-        self.assertContains(response, 'No results in database.')
 
     def test_documentation_status(self):
         """ Check response status code for view. """

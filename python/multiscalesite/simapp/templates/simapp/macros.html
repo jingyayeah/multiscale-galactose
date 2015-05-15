@@ -23,7 +23,7 @@
         <td><a href="{% url 'simapp:task' sim.task.pk %}">{{ sim.task }}</a></td>
         <td><a href="{% url 'simapp:methods' %}">{{ sim.task.method }}</a></td>
         <td>{% for p in sim.parameters.all %}{{ p }}<br/>{% endfor %}</td>
-        <td><span class="{{ sim.status }}">{{ sim.status }}</span></td>
+        <td>{{ sim.status_str }}</td>
         <td>{{ sim.duration }}</td>
         <td>{{ sim.core }}</td>
         <!-- TODO: update to multiple results -->

@@ -15,23 +15,25 @@ MIRIAM WebInterface
 The schema of the XML response is the same as the one used for the XML export of MIRIAM Resources,
 and is available at: http://www.ebi.ac.uk/miriam/main/export/xml
 """
-# TODO: add links and documentation for the webservice
+
 # TODO: refactor in class
+# TODO: implement the get biomodels interface.
 
 from xml.etree import ElementTree
 import xml.dom.minidom as minidom
 import requests
 import pickle
 
-MIRIAM_REST = 'http://www.ebi.ac.uk/miriamws/main/rest/'
 
+class Miriam(object):
+    MIRIAM_REST = 'http://www.ebi.ac.uk/miriamws/main/rest/'
 
-def miriam_version():
-    """ Get the webservice version.
-    :return: version of miriam interface
-    """
-    raise NotImplemented
-
+    def version():
+        """ Get the webservice version.
+        :return: version of miriam interface
+        """
+        r = requests.get(MIRIAM_REST + 'version/')
+        return r
 
 def pretty_xml(element):
     """ Return a pretty-printed XML string for the Element. """
@@ -46,7 +48,6 @@ def miriam_datatypes():
         for simple lookup of the resources.
     """
     datatypes = dict()
-    
     r = requests.get(MIRIAM_REST + 'datatypes/')    
     doc = ElementTree.fromstring(r.text)
     # print pretty_xml(doc)
