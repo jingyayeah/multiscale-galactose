@@ -7,7 +7,7 @@
 		<th>pk</th>
 		<th>model</th>
 		<th>task</th>
-		<th>settings</th>
+		<th>method</th>
 		<th>parameters</th>
 		<th>status</th>
 		<th>duration</th>
@@ -18,16 +18,14 @@
 			<td><a href="{% url 'simapp:simulation' sim.pk %}">{{sim.pk}}</a></td>
 			<td>{{sim.task.model.model_id}}</td>
 			<td>{{sim.task}}</td>
-			<td>{% for s in sim.task.integration.settings.all %}{{ s }}<br />{% endfor %}</td>
+			<td><a href="{%  url 'simapp:methods'%}">{{ sim.task.method }}</a></td>
 			<td>{% for p in sim.parameters.all %}{{ p }}<br />{% endfor %}</td>
-			<td><span class="{{sim.status}}">{{sim.status}}</span><br />
-			{{sim.time_assign}}<br />
-			</td>
+			<td><span class="{{sim.status}}">{{sim.status}}</span></td>
 			<td>{{sim.duration}}</td>
 			<td>{{sim.core}}</td>
             <!-- TODO: update to multiple results -->
 			<td> {% if sim.is_done %}
-				<a href="{{ sim.result.file.url }}" target="_blank">{{sim.result.pk}}</a>
+				<a href="{{ sim.result.file.url }}" target="_blank">{{sim.result}}</a>
 				{% endif %}
 			</td>
 {% endmacro %}
@@ -53,58 +51,29 @@
 <!------------------------------------------------------->
 {% macro model_header %}
 		<th>pk</th>
-		<th>id</th>
-        <th>format</th>
+		<th>model</th>
         <th>file</th>
         <th>report</th>
+        <th>tasks</th>
 		<th>md5</th>
 {% endmacro %}
 {% macro model_content %}
 			<td>{{model.pk}}</td>
-			<td>{{model.model_id}}</td>
-    		<td>{{model.model_format_str}}</td>
+			<td>{{model}}</td>
+
         <!-- TODO: check for model type, i.e. SBML or CELLML -->
 			<td><a href="{{ model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml.png' %}"></a></td>
 			<td><a href="{% url 'simapp:report' model.pk %}" target="_blank">
 				<img height="12" src="{% static 'simapp/images/html5.png' %}"></a></td>
+            <td>{% for task in model.tasks.all %}
+                <a href="{% url 'simapp:task' task.pk %}">{{ task }}</a> ({{ task.info }})<br/>
+            {% endfor %}
+            </td>
 			<td>{{model.md5_short}}</td>
 
 {% endmacro %}
 
-<!------------------------------------------------------->
-<!--  TASK 											   -->
-<!------------------------------------------------------->
-{% macro task_header %}
-		<th>pk</th>
-		<th>status</th>
-		<th>priority</th>
-		<th>sbml</th>
-		<th>report</th>
-		<th>parameters</th>
-		<th>model</th>
-		<th>integration</th>
-		<th>integrator</th>
-		<th>condition</th>
-		<th>info</th>
-{% endmacro %}
-{% macro task_content %}
-			<td><a href="{% url 'simapp:task' task.pk %}">{{task.pk}}</a></td>
-			<td>
-				<b>{{task.sim_count}}</b>
-				[<span class="DONE">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="ERROR">{{task.error_count}}</span>] 	
-			</td>
-			<td>{{task.priority}}</td>
-			<td><a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml.png' %}"></a></td>
-			<td><a href="{% url 'simapp:report' task.model.pk %}" target="_blank">
-				<img height="12" src="{% static 'simapp/images/html5.png' %}"></a></td>
-			<td><a href="{% url 'simapp:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'simapp/images/params_small.png' %}"></a></td>
-			<td>{{task.sbml_model}} </td>
-			<td>{{task.integration}}</td>
-			<td>{{task.integration.integrator}} </td>
-			<td>{{task.integration.condition}}</td>
-			
-			<td width="400px">{{task.info}}</td>
-{% endmacro %}
+
 <!------------------------------------------------------->
 <!--  RESULT    									   -->
 <!------------------------------------------------------->
@@ -134,7 +103,39 @@
 {% macro method_content %}
     <td>{{method.pk}}</td>
     <td>{{method.method_type_str}}</td>
-    <td>{% for s in method.settings.all %}{{ s.key_str }} = {{s.value}} [{{s.datatype_str}}] <br />{% endfor %}</td>
+    <td>{% for s in method.settings.all %}{{ s.key_str }} = {{s.value}}<br/>{% endfor %}</td>
+{% endmacro %}
+
+<!------------------------------------------------------->
+<!--  TASK 											   -->
+<!------------------------------------------------------->
+{% macro task_header %}
+		<th>pk</th>
+        <th>model</th>
+		<th>status</th>
+		<th>priority</th>
+		<th>model</th>
+		<th>parameters</th>
+		<th>method</th>
+		<th>info</th>
+{% endmacro %}
+{% macro task_content %}
+			<td><a href="{% url 'simapp:task' task.pk %}">{{task.pk}}</a></td>
+            <td>{{task.model}} </td>
+			<td>
+				<strong>{{task.sim_count}}</strong>
+				[<span class="text-success">{{task.done_count}}</span>|<span class="ASSIGNED">{{task.assigned_count}}</span>|<span class="UNASSIGNED">{{task.unassigned_count}}</span>|<span class="text-danger">{{task.error_count}}</span>]
+			</td>
+			<td>{{task.priority}}</td>
+			<td>{{ task.sbml_model.model_id }} <a href="{{ task.sbml_model.file.url }}" target="_blank"><img height="12" src="{% static 'simapp/images/sbml.png' %}"></a>
+			    <a href="{% url 'simapp:report' task.model.pk %}" target="_blank"><img height="12" src="{% static 'simapp/images/html5.png' %}"></a>
+            </td>
+			<td><a href="{% url 'simapp:task_parameters' task.pk %}" target="_blank"><img height="12" src="{% static 'simapp/images/params_small.png' %}"></a></td>
+
+			<td><strong>{{task.method}}({{task.method.method_type_str}})</strong><br/>
+            {% for s in task.method.settings.all %}{{ s.key_str }} = {{s.value}}<br/>{% endfor %}
+            </td>
+			<td width="400px">{{task.info}}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->

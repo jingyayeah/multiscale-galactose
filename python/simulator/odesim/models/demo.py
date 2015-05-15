@@ -5,10 +5,10 @@ Creating example simulations for the demo network.
 from __future__ import print_function
 
 import simapp.db.api as db_api
-import odesim.db.tools as db_tools
 
+import odesim.db.tools as db_tools
 from odesim.dist.distributions import Distribution, DistributionType, DistributionParameterType
-from odesim.dist.examples import Example
+from odesim.models.examples import Example
 from odesim.dist.sampling import Sampling, SamplingType, SampleParameter
 
 
@@ -69,5 +69,12 @@ class Demo(Example):
         info = 'Simple demo network based on parameter distributions.'
         task = db_api.create_task(model=model, method=method, info=info)
         simulations = db_tools.create_simulations_from_samples(task, samples)
+        print(simulations)
         return simulations
 
+
+if __name__ == "__main__":
+    import django
+    django.setup()
+    Demo.file_path = '../../examples/demo/Koenig_demo.xml'
+    Demo.example_simulations(20)

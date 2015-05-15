@@ -47,8 +47,8 @@ class Migration(migrations.Migration):
                 ('method_type', models.IntegerField(default=0)),
             ],
             options={
-                'verbose_name': 'Method Setting',
-                'verbose_name_plural': 'Method Settings',
+                'verbose_name': 'Method',
+                'verbose_name_plural': 'Methods',
             },
         ),
         migrations.CreateModel(

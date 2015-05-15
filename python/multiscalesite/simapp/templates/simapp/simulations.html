@@ -14,7 +14,7 @@
         </thead>
         <tbody>
         {% for sim in simulation_list %}
-            <tr>
+            <tr class="{% if sim.is_done %}success{% else %}warning{% endif %}">
                 {% usemacro simulation_content %}
             </tr>
         {% endfor %}

@@ -116,7 +116,7 @@ class CompModel(models.Model):
     md5 = models.CharField(max_length=36)
     
     def __str__(self):
-        return self.model_id
+        return '<{}: {}>'.format(self.model_format_str, self.model_id)
     
     class Meta:
         verbose_name = 'CompModel'
@@ -242,7 +242,7 @@ class SettingKey(enum.Enum):
     }
     
 SETTINGS_DATATYPE = {
-    SettingKey.INTEGRATOR: DataType.INT,  # due to enum.Enum
+    SettingKey.INTEGRATOR: DataType.STR,  # due to enum.Enum
     SettingKey.VAR_STEPS: DataType.BOOL,
     SettingKey.ABS_TOL: DataType.FLOAT,
     SettingKey.REL_TOL: DataType.FLOAT,
@@ -257,11 +257,8 @@ SETTINGS_DATATYPE = {
 
 
 class SimulatorType(enum.Enum):
-    COPASI = 0 
-    ROADRUNNER = 1
-    labels = {
-        COPASI: "COPASI", ROADRUNNER: "ROADRUNNER"
-    }
+    COPASI = "COPASI"
+    ROADRUNNER = "ROADRUNNER"
 
 
 class Setting(models.Model):
@@ -432,8 +429,8 @@ class Task(models.Model):
         and the information string. Replicates of the same task can be run via
         modifying the info.
     """
-    model = models.ForeignKey(CompModel)
-    method = models.ForeignKey(Method)
+    model = models.ForeignKey(CompModel, related_name="tasks")
+    method = models.ForeignKey(Method, related_name="tasks")
     priority = models.IntegerField(default=0)
     info = models.TextField(null=True, blank=True)
     
