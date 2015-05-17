@@ -149,8 +149,8 @@ def _sync_sbml_in_network():
         call(["ls", "-l"])
     """
     # TODO: get the environment variables from the settings file
-    # TODO: do direct syncronization to this computer, not to all computers
-    # TODO: only make syncornizaton
+    # TODO: do direct synchronization to this computer, not to all computers
+    # TODO: only make synchornizaton
     from subprocess import call
     call_command = [os.path.join(os.environ['MULTISCALE_GALACTOSE'], "syncDjangoSBML.sh")]
     logging.debug(str(call_command))

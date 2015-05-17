@@ -3,4 +3,7 @@
   <data-source name="PostgreSQL - multiscale-galactose@localhost" uuid="2816963b-b2a5-4612-9713-25f7fe45e39f">
     <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
+  <data-source name="Django default" uuid="4b7a6550-8db7-4644-9dd7-0802294e31c4">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
 </component>

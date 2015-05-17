@@ -43,7 +43,7 @@ class ToolsTestCase(TestCase):
     def test_get_sample_from_simulation(self):
         sample = get_sample_from_simulation(self.sim)
         # Sample has two parameters
-        self.assertEqual(len(sample), 2)
+        selfcd .assertEqual(len(sample), 2)
 
     def test_create_simulations_from_samples(self):
         simulations = create_simulations_from_samples(self.task, samples=[self.sample])

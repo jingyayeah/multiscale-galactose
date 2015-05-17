@@ -1,8 +1,7 @@
 """
-Performs ode integration for given simulations.
+Perform ode integration.
+Can use different simulation backends like RoadRunner or COPASI.
 
-@author: Matthias Koenig
-@date: 2014-12-13
 """
 import sys
 import time
@@ -12,40 +11,45 @@ import shlex
 
 import roadrunner
 from roadrunner import SelectionRecord
-
 from django.utils import timezone
 
 from project_settings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
-from simapp.models import NONE_SBML_PARAMETER
-from simapp.models import ERROR, COPASI, ROADRUNNER
-from simapp.models import GLOBAL_PARAMETER, BOUNDERY_INIT, FLOATING_INIT
-
+from simapp.models import SimulatorType, SimulationStatus, ParameterType
 import odesim.integrate.ode_io as ode_io
 
-            
-def integrate(sims, integrator, keep_tmp=False):
-    ''' Run ODE integration for the odesim. '''        
-    if (integrator == COPASI):
-        integrate_copasi(sims)
-    elif (integrator == ROADRUNNER):
-        integrate_roadrunner(sims, keep_tmp)
+class IntegrationException(Exception):
+    pass
 
 
-def integrate_copasi(sims):
+def integrate(simulations, integrator, keep_tmp=False):
+    """ Perform the ODE simulation based on the given ode solvers.
+        Switches to the respective subcode for the individual solvers.
+    """
+    if integrator == SimulatorType.COPASI:
+        integrate_copasi(simulations)
+    elif integrator == SimulatorType.ROADRUNNER:
+        integrate_roadrunner(simulations, keep_tmp)
+    else:
+        raise IntegrationException('Integrator not supported: {}'.format(integrator))
+
+
+def integrate_copasi(simulations):
     """ Integrate simulations with Copasi. """
     # TODO: Update to latest Copasi source & test.
     # TODO: Use the python interface to solve the problem.
-    sbml_file = str(sims[0].task.model.file.path)
-    sbml_id = sims[0].task.model.sbml_id
-    for sim in sims:  
+    task = simulations[0].task
+
+    filepath = task.model.filepath
+    model_id = task.model.model_id
+    for sim in simulations:
         try:
-            sim.time_assign = timezone.now()            # correction due to bulk assignment
-            config_file = ode_io.store_config_file(sim, SIM_DIR) # create the copasi config file for settings & changes
-            csv_file = "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_copasi.csv'])
+            sim.time_assign = timezone.now()                      # correction due to bulk assignment
+            config_file = ode_io.store_config_file(sim, SIM_DIR)  # create the copasi config file for settings & changes
+            csv_file = "".join([SIM_DIR, "/", str(sim.task), '/', model_id, "_Sim", str(sim.pk), '_copasi.csv'])
 
             # run an operating system command
             # call(["ls", "-l"])
-            call_command = COPASI_EXEC + " -s " + sbml_file + " -c " + config_file + " -t " + csv_file
+            call_command = COPASI_EXEC + " -s " + filepath + " -c " + config_file + " -t " + csv_file
             print call_command
             call(shlex.split(call_command))
                 
@@ -57,31 +61,29 @@ def integrate_copasi(sims):
 
 def integrate_roadrunner(sims, keep_tmp=False):
     """ Integrate simulations with RoadRunner. """
-    
-    # read SBML
     try:
-        sbml_file = str(sims[0].task.model.file.path)
-        sbml_id = sims[0].task.model.sbml_id
-        
-        start = time.clock()
-        rr = roadrunner.RoadRunner(sbml_file)
-        print 'SBML load time :', (time.clock()- start)
+        # read SBML
+        time_start = time.time()
+        comp_model = sims[0].task.model
+        sbml_id = comp_model.model_id
+        rr = roadrunner.RoadRunner(comp_model.filepath)
+        print 'Model load time :{}'.format(time.time() - time_start)
         
     except RuntimeError:
-        # reset odesim status
         for sim in sims:
-            sim.status = ERROR
+            sim.status = SimulationStatus.ERROR
             sim.save()
         raise
     
     # set RoadRunner settings
+    # TODO: what are these settings
     # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
     roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
     
     # set the selection
     sel = ['time'] \
-        + [ "".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()] \
-        + [ "".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] \
+        + ["".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()] \
+        + ["".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] \
         + [item for item in rr.model.getReactionIds() if item.startswith('H')]
     rr.selections = sel
 
@@ -180,7 +182,7 @@ def integrate_roadrunner(sims, keep_tmp=False):
 def write_model_items(r, filename):
     print filename
     f = open(filename, "w")
-    rows = ["\t".join([data[0], str(data[1])] ) for data in r.model.items()]
+    rows = ["\t".join([data[0], str(data[1])]) for data in r.model.items()]
     f.write("\n".join(rows))
     f.close()
 
@@ -201,10 +203,6 @@ def integration_exception(sim):
     
 
 if __name__ == "__main__":
-    # tc = Timecourse.objects.get(simulation__pk=15624)
-    # print tc.file.path
-    # os.remove(tc.file.path)
-
     import django
     django.setup()
     
@@ -217,5 +215,5 @@ if __name__ == "__main__":
     
     print '* Start integration *'
     print 'Simulation: ', sims
-    integrate(sims, integrator=ROADRUNNER, keep_tmp=True)
+    integrate(sims, integrator=SimulatorType.ROADRUNNER)
     # integrate(sims, simulator=COPASI)
