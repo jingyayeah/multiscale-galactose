@@ -62,7 +62,7 @@ f_fac = settings.F_FLOW # 0.9
 
 
 #########################################################################    
-# Set parameters and integrate
+# Set parameters and simulate
 ######################################################################### 
 # Define the parameters
 # The parameters are extended via the fluxes. I.e. for all fluxes in the

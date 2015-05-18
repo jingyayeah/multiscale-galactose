@@ -41,7 +41,7 @@ from django.db import transaction
 
 from simapp.models import Task, Core, Simulation, SimulationStatus
 
-from integrate import ode_integration
+from simulate import solve
 
 
 def worker(cpu, lock, Nsim):
@@ -63,7 +63,7 @@ def worker(cpu, lock, Nsim):
         # Perform ODE integration
         if sims:
             print ('{:<20} <{}> {}'.format(core, task, sims))
-            ode_integration.integrate(sims, task.integrator)
+            solve.run_simulations(sims, task)
         else:
             print ('{:<20} <No Simulations>'.format(core))
             time.sleep(10)

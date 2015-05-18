@@ -45,7 +45,7 @@ f_fac = 0.5
 flow_sin = f_fac * flux # [m/s] (scaling to calculate in correct volume flow range)
 
 #########################################################################    
-# Set parameters and integrate
+# Set parameters and simulate
 ######################################################################### 
 # Define the parameters
 # The parameters are extended via the fluxes. I.e. for all fluxes in the

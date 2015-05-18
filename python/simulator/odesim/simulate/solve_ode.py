@@ -1,38 +1,19 @@
 """
-Perform ode integration.
-Can use different simulation backends like RoadRunner or COPASI.
 
+@author: mkoenig
+@date: 2015-??-?? 
 """
-from __future__ import print_function
-import sys
-import time
-import traceback
-from subprocess import call
 import shlex
-
+from subprocess import call
+import time
+from django.utils import timezone
+from project_settings import SIM_DIR, COPASI_EXEC
 import roadrunner
 from roadrunner import SelectionRecord
-from django.utils import timezone
-
-from project_settings import COPASI_EXEC, SIM_DIR, MULTISCALE_GALACTOSE_RESULTS
-from simapp.models import SimulatorType, SimulationStatus, ParameterType, SettingKey
-import odesim.integrate.ode_io as ode_io
-import odesim.roadrunner.roadrunner_tools as rt
-
-class IntegrationException(Exception):
-    pass
-
-
-def integrate(simulations, integrator, keep_tmp=False):
-    """ Perform the ODE simulation based on the given ode solvers.
-        Switches to the respective subcode for the individual solvers.
-    """
-    if integrator == SimulatorType.COPASI:
-        integrate_copasi(simulations)
-    elif integrator == SimulatorType.ROADRUNNER:
-        integrate_roadrunner(simulations, keep_tmp)
-    else:
-        raise IntegrationException('Integrator not supported: {}'.format(integrator))
+from simapp.models import ParameterType, SettingKey, SimulationStatus
+from odesim.roadrunner import roadrunner_tools as rt
+from odesim.simulate import io as ode_io
+from odesim.simulate.solve import simulation_exception
 
 
 def integrate_copasi(simulations):
@@ -54,12 +35,12 @@ def integrate_copasi(simulations):
             call_command = COPASI_EXEC + " -s " + filepath + " -c " + config_file + " -t " + csv_file
             print(call_command)
             call(shlex.split(call_command))
-                
-            ode_io.store_timecourse_db(sim, filepath=csv_file, 
+
+            ode_io.store_timecourse_db(sim, filepath=csv_file,
                                        ftype=ode_io.FileType.CSV)
         except Exception:
-            integration_exception(sim)
-                    
+            simulation_exception(sim)
+
 
 def integrate_roadrunner(sims, keep_tmp=False):
     """ Integrate simulations with RoadRunner. """
@@ -70,14 +51,14 @@ def integrate_roadrunner(sims, keep_tmp=False):
         rr = rt.load_model(comp_model.filepath)
     except RuntimeError:
         for sim in sims:
-            integration_exception(sim)
+            simulation_exception(sim)
         raise
 
     # set RoadRunner settings
     # TODO: what are these settings
     # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
     roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
-    
+
     # set the selection
     # this has to be provided from the outside
     sel = ['time'] \
@@ -157,7 +138,6 @@ def integrate_single_roadrunner(rr, sbml_id, sim, settings):
         csv_file = ode_io.csv_file(sbml_id, sim)
         tmp = time.time()
         ode_io.save_csv(csv_file, data=s, header=rr.selections)
-        ode_io.store_result_db(sim, filepath=csv_file, ftype=ode_io.FileType.CSV, keep_tmp=True)
         tmp = time.time() - tmp
         print("CSV: {}".format(tmp))
 
@@ -165,8 +145,8 @@ def integrate_single_roadrunner(rr, sbml_id, sim, settings):
         h5_file = ode_io.hdf5_file(sbml_id, sim)
         tmp = time.time()
         ode_io.save_hdf5(h5_file, data=s, header=rr.selections)
-        ode_io.store_result_db(sim, filepath=h5_file, ftype=ode_io.FileType.HDF5)
         tmp = time.time() - tmp
+        ode_io.store_result_db(sim, filepath=h5_file, ftype=ode_io.FileType.HDF5)
         print("HDF5: {}".format(tmp))
 
         # reset parameter changes
@@ -185,36 +165,12 @@ def integrate_single_roadrunner(rr, sbml_id, sim, settings):
         sim.save()
 
     except:
-        integration_exception(sim)
-
-
-def integration_exception(sim):
-    """ Handling exceptions in the integration. """
-    # print information
-    print('-' *60)
-    print('*** Exception in ODE integration ***')
-    fname = MULTISCALE_GALACTOSE_RESULTS + '/ERROR_' + str(sim.pk) + '.log'
-    with open(fname, 'a') as f_err:
-        traceback.print_exc(file=f_err)
-    traceback.print_exc(file=sys.stdout)
-    print('-'*60)
-    # update odesim status
-    sim.status = SimulationStatus.ERROR
-    sim.save()
-
-"""
-def write_model_items(r, filename):
-    print(filename)
-    f = open(filename, "w")
-    rows = ["\t".join([data[0], str(data[1])]) for data in r.model.items()]
-    f.write("\n".join(rows))
-    f.close()
-"""
+        simulation_exception(sim)
 
 if __name__ == "__main__":
     import django
     django.setup()
-    
+
     from simapp.models import Simulation, Task
     # sim_ids = range(1,2)
     # sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
@@ -225,8 +181,8 @@ if __name__ == "__main__":
     # the folder for the simulations has to exist !
     from odesim.simulator import create_simulation_directory_for_task
     create_simulation_directory_for_task(task=task)
-    
+
     print('* Start integration *')
     print('Simulation: ', sims)
     integrate(sims, integrator=SimulatorType.ROADRUNNER)
-    # integrate(sims, simulator=COPASI)
+    # simulate(sims, simulator=COPASI)

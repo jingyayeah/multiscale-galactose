@@ -1,8 +1,6 @@
 """
-Model definitions of for the simulation app.
+Model definitions of for simulation management.
 
-@author: Matthias Koenig
-@date: 2015-05-10    
 """
 from __future__ import print_function
 
@@ -20,46 +18,10 @@ from django_enumfield import enum
 from simapp.storage import OverwriteStorage
 
 
-###################################################################################
-# TODO: this has to be gone 
-# Provide R preprocess function
-
-from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
-  
-string = r"""
-    trim <- function (x){
-      gsub("^\\s+|\\s+$", "", x)
-    } 
-    readData <- function(fname){
-      library('data.table')
-      # read data
-      data <- fread(fname, header=T, sep=',')
-  
-      # replace 'X..' if header given via '# '
-      names(data) <- gsub('X..', '', names(data))
-      names(data) <- gsub('#', '', names(data))
-      names(data) <- gsub('\\[', '', names(data))
-      names(data) <- gsub('\\]', '', names(data))
-  
-      # necessary to trim
-      setnames(data, trim(colnames(data)))
-  
-      # fix strange behavior via cast
-      data <- as.data.frame(data)
-      # save the data 
-  
-      save(data, file=paste(fname, '.Rdata', sep=''))
-    }
-"""
-rpack = SignatureTranslatedAnonymousPackage(string, "rpack")
-###################################################################################
-
-
 # ===============================================================================
 # Core
 # ===============================================================================
 from project_settings import COMPUTERS
-
 
 class Core(models.Model):
     """ Single computer core for simulation, defined by ip and cpu.
@@ -628,17 +590,28 @@ class ResultType(enum.Enum):
 class Result(models.Model):
     """ Result of simulation. 
         The type is defined via the simulation type.
-        TODO: check that result is unique for simulation, 
         and not already existing. Write api function to store result.
     """
+    # TODO: manage multiple result types
+    # TODO: check that result is unique for simulation
+
     simulation = models.OneToOneField(Simulation, unique=True)
     result_type = enum.EnumField(ResultType)
     file = models.FileField(upload_to=result_filename, max_length=200, storage=OverwriteStorage())
     
     def __str__(self):
         return 'R{}'.format(self.pk)
-    
-    # TODO: manage the zip things    
+
+    def _csv(self):
+        """ Converts the HDF5 to csv.
+        :return:
+        """
+        raise NotImplemented
+        return None
+
+    csv = property(_csv)
+
+    '''
     def _get_zip_file(self):
         f = self.file.path
         return f[:-3] + 'tar.gz'
@@ -657,11 +630,8 @@ class Result(models.Model):
         tar.extractall(path=dir_name)
         tar.close()
     
-    def rdata(self):
-        rpack.readData(self.file.path)
-    
     zip_file = property(_get_zip_file)
-
+    '''
 
 # ===============================================================================
 # Plots and Analysis

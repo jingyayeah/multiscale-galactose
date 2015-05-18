@@ -41,7 +41,7 @@
     </table>
 
     <h3>Result</h3>
-    {% if sim.status == 'DONE' %}
+    {% if sim.is_done %}
         {% with result=sim.result %}
             <table class="table table-condensed table-responsive">
                 <thead>

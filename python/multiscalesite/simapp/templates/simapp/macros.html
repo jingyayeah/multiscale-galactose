@@ -99,7 +99,7 @@
 {% macro result_content %}
     <tr>
         <td>{{ result.pk }}</td>
-        <td><a href="{% url 'simapp:simulation' tc.simulation.pk %}">{{ result.simulation }}</a></td>
+        <td><a href="{% url 'simapp:simulation' result.simulation.pk %}">{{ result.simulation }}</a></td>
         <td><a href="{{ result.file.url }}"><img src="{% static 'simapp/images/csv.png' %}" height="15"/></a></td>
         <td><a href="{{ result.file.url }}">{{ result.file.name }}</a></td>
     </tr>

@@ -15,7 +15,9 @@ from simapp.models import CompModelFormat
 from simapp.models import MethodType
 from simapp.models import ParameterType
 from simapp.models import SimulationStatus
+from simapp.models import SimulatorType
 from simapp.models import SettingKey
+
 
 from simapp.models import CompModel, Task, Simulation, Parameter, Method, Setting
 

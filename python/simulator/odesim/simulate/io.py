@@ -44,16 +44,15 @@ def hdf5_file(sbml_id, sim):
     return os.path.join(SIM_DIR, str(sim.task), "{}_S{}_roadrunner.h5".format(sbml_id, sim.pk))
     
 
-def save_hdf5(filepath, data, header, meta=None):
+def save_hdf5(filepath, data, header):
     """ Store numpy data as HDF5.
-        Writing meta information, header/selection & distribution_data.
-        /distribution_data
+        Writing header and data.
+        /data
         /header
-        /time
     """
     f = h5py.File(filepath, 'w')
-    f.create_dataset('data', data=data, compression="gzip")
-    f.create_dataset('header', data=header, compression="gzip", dtype="S10")
+    f.create_dataset('data', data=data, compression="gzip", chunks=True)
+    f.create_dataset('header', data=header, compression="gzip", dtype="S10", chunks=True)
     # f.create_dataset('time', data=data[:, 0], compression="gzip")
     f.close()
     
