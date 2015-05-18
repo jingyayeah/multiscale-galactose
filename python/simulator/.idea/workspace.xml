@@ -6,10 +6,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/demo/.ipynb_checkpoints/01_demo_simple-checkpoint.ipynb" afterPath="$PROJECT_DIR$/examples/demo/.ipynb_checkpoints/01_demo_simple-checkpoint.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/demo/01_demo_simple.ipynb" afterPath="$PROJECT_DIR$/examples/demo/01_demo_simple.ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/01_demo_simple-checkpoint.ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/odesim/examples/01_demo_simple.ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/CyREST-checkpoint.ipynb" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/demo/.ipynb_checkpoints/01_demo_simple-checkpoint.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/demo/.ipynb_checkpoints/CyREST-checkpoint.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/examples/demo/01_demo_simple.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/testdata/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/testdata/sbml/Koenig_demo_v02.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/testdata/sbml/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/testdata/testdata.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v107/Galactose_v107_Nc20_core.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v107/Galactose_v107_Nc20_core.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v107/Galactose_v107_Nc20_dilution.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v107/Galactose_v107_Nc20_dilution.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v107/Galactose_v107_Nc20_dilution_gauss.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v107/Galactose_v107_Nc20_dilution_gauss.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v107/Galactose_v107_Nc20_galchallenge.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v107/Galactose_v107_Nc20_galchallenge.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v107/Galactose_v107_Nc20_galstep.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v107/Galactose_v107_Nc20_galstep.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v128/Galactose_v128_Nc20_core.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v128/Galactose_v128_Nc20_core.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v128/Galactose_v128_Nc20_dilution.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v128/Galactose_v128_Nc20_dilution.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v128/Galactose_v128_Nc20_dilution_gauss.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v128/Galactose_v128_Nc20_dilution_gauss.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v128/Galactose_v128_Nc20_galchallenge.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v128/Galactose_v128_Nc20_galchallenge.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/Galactose_v128/Galactose_v128_Nc20_galstep.xml" afterPath="$PROJECT_DIR$/odesim/examples/Galactose_v128/Galactose_v128_Nc20_galstep.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/demo/.ipynb_checkpoints/02_demo_django-checkpoint.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/02_demo_django-checkpoint.ipynb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/demo/.ipynb_checkpoints/02_demo_graph-checkpoint.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/02_demo_graph-checkpoint.ipynb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/demo/02_demo_django.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/02_demo_django.ipynb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/demo/03_demo_graph.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/03_demo_graph.ipynb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/demo/04_CyREST.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/04_CyREST.ipynb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/demo/Koenig_demo_distributions_01.csv" afterPath="$PROJECT_DIR$/odesim/examples/demo/Koenig_demo_distributions_01.csv" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/demo/Koenig_demo_v02.xml" afterPath="$PROJECT_DIR$/odesim/examples/demo/Koenig_demo_v02.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/integrate/config_files.py" afterPath="$PROJECT_DIR$/odesim/integrate/config_files.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/models/demo.py" afterPath="$PROJECT_DIR$/odesim/models/demo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/roadrunner/galactose/galactose_dilution_pressure.py" afterPath="$PROJECT_DIR$/odesim/roadrunner/galactose/galactose_dilution_pressure.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/models/galactose_flow.py" afterPath="$PROJECT_DIR$/odesim/models/galactose_flow.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/roadrunner/roadrunner_tools.py" afterPath="$PROJECT_DIR$/odesim/roadrunner/roadrunner_tools.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/models/test_examples.py" afterPath="$PROJECT_DIR$/odesim/models/test_examples.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py" afterPath="$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/db/test_tools.py" afterPath="$PROJECT_DIR$/odesim/db/test_tools.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,8 +60,8 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_tools.coverage" NAME="Unittests in test_tools Coverage Results" MODIFIED="1431440095009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/db" />
     <SUITE FILE_PATH="coverage/simulator$examples.coverage" NAME="examples Coverage Results" MODIFIED="1431337678538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_simulator.coverage" NAME="Unittests in simulator Coverage Results" MODIFIED="1431954324658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/simulator$simulator.coverage" NAME="simulator Coverage Results" MODIFIED="1431709976377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim" />
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_simulator.coverage" NAME="Unittests in simulator Coverage Results" MODIFIED="1431681460098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_distributions.coverage" NAME="Unittests in test_distributions Coverage Results" MODIFIED="1431335722699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1431280418413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../multiscalesite/simapp" />
     <SUITE FILE_PATH="coverage/simulator$event_time.coverage" NAME="event_time Coverage Results" MODIFIED="1431428641103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
@@ -38,7 +73,7 @@
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_examples.coverage" NAME="Unittests in test_examples Coverage Results" MODIFIED="1431346717920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_MyTestCase.coverage" NAME="Unittests in MyTestCase Coverage Results" MODIFIED="1431440033841" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/db" />
     <SUITE FILE_PATH="coverage/simulator$lognormal.coverage" NAME="lognormal Coverage Results" MODIFIED="1431678792056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_roadrunner_tools.coverage" NAME="Unittests in test_roadrunner_tools Coverage Results" MODIFIED="1431943489991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_roadrunner_tools.coverage" NAME="Unittests in test_roadrunner_tools Coverage Results" MODIFIED="1431953205593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -119,7 +154,7 @@
         <entry file="file://$PROJECT_DIR$/odesim/models/test_demo.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding>
                 <element signature="e#51#83#0" expanded="true" />
               </folding>
@@ -127,26 +162,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tools.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odesim/db/tools.py">
+      <file leaf-file-name="demo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/odesim/models/demo.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="67" column="56" selection-start-line="67" selection-start-column="56" selection-end-line="67" selection-end-column="56" />
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding>
-                <element signature="e#644#681#0" expanded="true" />
+                <element signature="e#60#97#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_examples.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odesim/models/test_examples.py">
+      <file leaf-file-name="Galactose_v107_Nc20_core.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/odesim/examples/Galactose_v107/Galactose_v107_Nc20_core.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="37" />
-              <folding>
-                <element signature="e#120#157#0" expanded="true" />
-              </folding>
+              <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testdata.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/odesim/examples/testdata.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.20524515">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -168,20 +211,27 @@
               <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
               <folding>
                 <element signature="e#82#119#0" expanded="true" />
-                <marker date="1431937414567" expanded="true" signature="176:318" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_roadrunner_tools.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test_roadrunner_tools.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6567845">
-              <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-              <folding>
-                <element signature="e#47#84#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generic.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python2.7/dist-packages/pandas/core/generic.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2082" column="0" selection-start-line="2082" selection-start-column="0" selection-end-line="2082" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -190,7 +240,7 @@
         <entry file="file://$PROJECT_DIR$/odesim/roadrunner/roadrunner_tools.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+              <caret line="84" column="33" selection-start-line="84" selection-start-column="33" selection-end-line="84" selection-end-column="33" />
               <folding>
                 <element signature="e#398#435#0" expanded="true" />
               </folding>
@@ -214,7 +264,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../multiscalesite/requirements.txt" />
         <option value="$PROJECT_DIR$/../multiscalesite/project_settings.py" />
         <option value="$PROJECT_DIR$/../multiscalesite/simapp/admin.py" />
         <option value="$PROJECT_DIR$/../multiscalesite/simapp/storage.py" />
@@ -252,7 +301,6 @@
         <option value="$PROJECT_DIR$/odesim/dist/test_sampling.py" />
         <option value="$PROJECT_DIR$/odesim/dist/test_examples.py" />
         <option value="$PROJECT_DIR$/odesim/dist/test_samples.py" />
-        <option value="$PROJECT_DIR$/odesim/models/demo.py" />
         <option value="$PROJECT_DIR$/odesim/integrate/ode_io.py" />
         <option value="$PROJECT_DIR$/odesim/dist/samples.py" />
         <option value="$PROJECT_DIR$/odesim/db/tools.py" />
@@ -265,6 +313,8 @@
         <option value="$PROJECT_DIR$/testdata/testdata.py" />
         <option value="$PROJECT_DIR$/odesim/roadrunner/roadrunner_tools.py" />
         <option value="$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py" />
+        <option value="$PROJECT_DIR$/odesim/models/demo.py" />
+        <option value="$PROJECT_DIR$/odesim/examples/testdata.py" />
       </list>
     </option>
   </component>
@@ -276,7 +326,6 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="7" />
     <option name="y" value="24" />
     <option name="width" value="1920" />
     <option name="height" value="1032" />
@@ -329,6 +378,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -357,38 +408,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="testdata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testdata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sbml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="odesim" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -407,7 +426,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="roadrunner" />
+              <option name="myItemId" value="examples" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -418,6 +437,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="odesim" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -429,24 +452,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -469,12 +476,14 @@
       <recent name="$PROJECT_DIR$/testdata/sbml" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/odesim/testdata" />
+      <recent name="$PROJECT_DIR$/odesim/testdata/demo" />
+      <recent name="$PROJECT_DIR$/odesim" />
       <recent name="$PROJECT_DIR$/odesim/dist" />
       <recent name="$PROJECT_DIR$/../multiscalesite/simapp/sbml" />
-      <recent name="$PROJECT_DIR$/../modelcreator/modelcreator" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in test_roadrunner_tools">
+  <component name="RunManager" selected="Python tests.Unittests in simulator">
     <configuration default="false" name="Unittests in simulator" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -785,9 +794,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in test_roadrunner_tools" />
-        <item index="1" class="java.lang.String" itemvalue="Python.simulator" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in simulator" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in simulator" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in test_roadrunner_tools" />
+        <item index="2" class="java.lang.String" itemvalue="Python.simulator" />
         <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest MyTestCase.test_demo_samples" />
         <item index="4" class="java.lang.String" itemvalue="Python.lognormal" />
       </list>
@@ -830,30 +839,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="7" y="24" width="1920" height="1032" extended-state="0" />
+    <frame x="0" y="24" width="1920" height="1032" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23450854" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3384785" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24946581" sideWeight="0.42668137" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3384785" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23450854" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24946581" sideWeight="0.42668137" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23771368" sideWeight="0.57331866" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2948718" sideWeight="0.57331866" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39029768" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24946581" sideWeight="0.42668137" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32230523" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32819384" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32819384" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24035281" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -877,28 +886,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59016395">
-          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/_version.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/demo/02_demo_django.ipynb">
+    <entry file="file://$PROJECT_DIR$/odesim/examples/02_demo_django.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="-1" />
@@ -1126,13 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/models/demo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odesim/dist/test_samples.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1144,9 +1125,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="96" column="14" selection-start-line="96" selection-start-column="14" selection-end-line="96" selection-end-column="14" />
-          <folding>
-            <element signature="e#164#173#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1154,9 +1132,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="67" column="56" selection-start-line="67" selection-start-column="56" selection-end-line="67" selection-end-column="56" />
-          <folding>
-            <element signature="e#644#681#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1164,13 +1139,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/demo/01_demo_simple.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="30" />
         </state>
       </provider>
     </entry>
@@ -1195,10 +1163,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/demo/04_CyREST.ipynb">
+    <entry file="file://$PROJECT_DIR$/odesim/examples/04_CyREST.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/models/test_examples.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="37" />
+          <folding>
+            <element signature="e#120#157#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/test_simulator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+          <folding>
+            <element signature="e#82#119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/integrate/ode_integration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49258837">
+          <caret line="165" column="12" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/pandas/core/generic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2082" column="0" selection-start-line="2082" selection-start-column="0" selection-end-line="2082" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/roadrunner_tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="84" column="33" selection-start-line="84" selection-start-column="33" selection-end-line="84" selection-end-column="33" />
+          <folding>
+            <element signature="e#398#435#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1210,80 +1223,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/examples/demo/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/odesim/models/test_demo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
             <element signature="e#51#83#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/models/test_examples.py">
+    <entry file="file://$PROJECT_DIR$/odesim/models/demo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="37" />
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
-            <element signature="e#120#157#0" expanded="true" />
+            <element signature="e#60#97#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testdata/sbml/Koenig_demo_v02.xml">
+    <entry file="file://$PROJECT_DIR$/odesim/examples/01_demo_simple.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/CyREST-checkpoint.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/examples/Galactose_v107/Galactose_v107_Nc20_core.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/test_simulator.py">
+    <entry file="file://$PROJECT_DIR$/odesim/examples/testdata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
-          <folding>
-            <element signature="e#82#119#0" expanded="true" />
-            <marker date="1431937414567" expanded="true" signature="176:318" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/integrate/ode_integration.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49258837">
-          <caret line="165" column="12" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="12" />
-          <folding>
-            <element signature="e#99#109#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testdata/testdata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16419612">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.20524515">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/roadrunner_tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding>
-            <element signature="e#398#435#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6567845">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-          <folding>
-            <element signature="e#47#84#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

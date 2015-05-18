@@ -35,8 +35,8 @@ def load_model(sbml_file):
 # ########################################################################
 # Simulation
 # ########################################################################
-def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentrations={}, init_values={},
-               absTol=1E-8, relTol=1E-8, info=True):
+def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentrations={}, init_amounts={},
+               absTol=1E-8, relTol=1E-8, debug=True):
     """ Performs RoadRunner simulation.
         Sets paramter values given in parameters dictionary and
         initial values provided in inits dictionary.
@@ -64,7 +64,7 @@ def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentration
     _set_initial_concentrations(r, init_concentrations)
 
     # set changed values
-    _set_initial_amounts(r, init_values)
+    _set_initial_amounts(r, init_amounts)
 
     # perform integration
     absTol = absTol * min(r.model.getCompartmentVolumes())  # absTol relative to the amounts
@@ -89,7 +89,7 @@ def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentration
     # reset initial concentrations
     r.reset()    
     
-    if info:
+    if debug:
         print('Integration time: {}'.format(timer_total))
     
     return s, gp

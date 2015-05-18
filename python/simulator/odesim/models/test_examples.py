@@ -4,7 +4,7 @@ Testing the distribution examples.
 @author: mkoenig
 @date: 2015-05-11
 """
-# TODO: implement the Galactose testdata
+# TODO: implement the Galactose examples
 from __future__ import print_function
 import unittest
 from simapp.models import ParameterType

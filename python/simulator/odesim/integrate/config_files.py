@@ -41,7 +41,7 @@ def create_config_file(sim, fname):
     # create the config sections
     lines = []
     lines += ['[Simulation]\n']
-    lines += ["sbml = {}\n".model_format(task.model.sbml_id)]
+    lines += ["demo = {}\n".model_format(task.model.sbml_id)]
     lines += ["author = Matthias Koenig\n"]
     lines += ["time = {}\n".model_format(timestamp)]
     lines += ['Simulation = {}\n'.model_format(sim.pk)]

@@ -17,7 +17,7 @@ from odesim.dist.samples import Sample
 
 class ToolsTestCase(TestCase):
     def setUp(self):
-        model_path = os.path.join(os.getcwd(), 'examples', 'demo', 'Koenig_demo.xml')
+        model_path = os.path.join(os.getcwd(), 'demo', 'demo', 'Koenig_demo.xml')
         model = db_api.create_model(model_path, model_format=db_api.CompModelFormat.SBML)
         settings = db_api.create_settings({db_api.SettingKey.ABS_TOL: 1E-8})
         method = db_api.create_method(method_type=db_api.MethodType.ODE,

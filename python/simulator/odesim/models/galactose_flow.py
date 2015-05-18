@@ -268,7 +268,7 @@ if __name__ == "__main__":
         
         sbml_id = 'Galactose_v{}_Nc20_core'.model_format(VERSION)
         # create model from file
-        model = simfac.django_model_from_file(sbml_file='../../examples/{}.xml'.model_format(sbml_id), sync=False)
+        model = simfac.django_model_from_file(sbml_file='../../demo/{}.xml'.model_format(sbml_id), sync=False)
         [task, samples] = make_galactose_core(sbml_id, N=1)
     
     

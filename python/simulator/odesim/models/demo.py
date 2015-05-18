@@ -13,7 +13,7 @@ from odesim.dist.sampling import Sampling, SamplingType, SampleParameter
 
 
 class Demo(Example):
-    file_path = 'examples/demo/Koenig_demo.xml'
+    file_path = 'demo/demo/Koenig_demo.xml'
     model_format = db_api.CompModelFormat.SBML
 
     @classmethod
@@ -76,5 +76,5 @@ class Demo(Example):
 if __name__ == "__main__":
     import django
     django.setup()
-    Demo.file_path = '../../examples/demo/Koenig_demo.xml'
+    Demo.file_path = '../../demo/demo/Koenig_demo.xml'
     Demo.example_simulations(20)
