@@ -159,6 +159,6 @@ rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim, comp_type="H")
 rp.flux_plot(f_list, name='galM', selections=sel, xlim=tlim, comp_type="D")
 
 
-# some tests
+# some testdata
 rp.flux_plot((f_list[0],), name='rbcM', selections=sel, xlim=tlim, comp_type="S")
 rp.flux_plot((f_list[0],), name='rbcM', selections=sel, xlim=tlim, comp_type="D")

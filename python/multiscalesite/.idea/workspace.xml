@@ -6,11 +6,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/biomodels/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/biomodels/biomodels.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/miriam/miriam.py" afterPath="$PROJECT_DIR$/util/miriam/miriam.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/db/test_api.py" afterPath="$PROJECT_DIR$/simapp/db/test_api.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/miriam/test_miriam.py" afterPath="$PROJECT_DIR$/util/miriam/test_miriam.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/testdata/sbml/Koenig_demo_v02.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/antimony/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/sabiork/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/testdata/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/testdata/sbml/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/test_roadrunner_tools.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/test_simulator.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/testdata/testdata.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/Koenig_demo.xml" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/sabiork.py" afterPath="$PROJECT_DIR$/util/sabiork/sabiork.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/examples/demo/01_demo_simple.ipynb" afterPath="$PROJECT_DIR$/../simulator/examples/demo/01_demo_simple.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/examples/demo/04_CyREST.ipynb" afterPath="$PROJECT_DIR$/../simulator/examples/demo/04_CyREST.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution_pressure.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution_pressure.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/misc.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/requirements.txt" afterPath="$PROJECT_DIR$/../simulator/requirements.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/roadrunner_tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/roadrunner_tools.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/setup.py" afterPath="$PROJECT_DIR$/../simulator/setup.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/models/test_examples.py" afterPath="$PROJECT_DIR$/../simulator/odesim/models/test_examples.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
     </list>
@@ -98,17 +113,37 @@
     <favorites_list name="multiscalesite" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.40095302">
+    <splitter split-orientation="horizontal" split-proportion="0.6310415">
       <split-first>
         <leaf>
-          <file leaf-file-name="miriam.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="miriam.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.061904762">
-                  <caret line="100" column="8" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="19" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
                   <folding>
                     <element signature="e#694#731#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="base_generic.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-4.3448277">
+                  <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="sabiork.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/util/sabiork/sabiork.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.203966">
+                  <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -162,8 +197,8 @@
           <file leaf-file-name="test_api.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.74523807">
-                  <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.69405097">
+                  <caret line="77" column="1" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
@@ -217,7 +252,6 @@
         <option value="$PROJECT_DIR$/simapp/templates/bootstrap/carousel.html" />
         <option value="$PROJECT_DIR$/simapp/templates/bootstrap/dropdown.html" />
         <option value="$PROJECT_DIR$/simapp/templates/report/report_generic.html" />
-        <option value="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/tasks.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/results.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/methods.html" />
@@ -237,6 +271,7 @@
         <option value="$PROJECT_DIR$/util/miriam/miriam.py" />
         <option value="$PROJECT_DIR$/util/miriam/test_miriam.py" />
         <option value="$PROJECT_DIR$/simapp/db/test_api.py" />
+        <option value="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
       </list>
     </option>
   </component>
@@ -248,6 +283,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="7" />
     <option name="y" value="24" />
     <option name="width" value="1920" />
     <option name="height" value="1032" />
@@ -341,25 +377,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="miriam" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="biomodels" />
+              <option name="myItemId" value="sabiork" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -369,7 +387,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../simulator" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="SearchEverywhereHistoryKey" value="models.py&#9;FILE&#9;file:///home/mkoenig/multiscale-galactose/python/multiscalesite/simapp/models.py" />
@@ -405,6 +423,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/util/sabiork" />
       <recent name="$PROJECT_DIR$/simapp/analysis/mpi" />
       <recent name="$PROJECT_DIR$/util/miriam" />
       <recent name="$PROJECT_DIR$/util" />
@@ -842,8 +861,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1920" height="1032" extended-state="0" />
-    <editor active="false" />
+    <frame x="7" y="24" width="1920" height="1032" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3384785" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -855,9 +874,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23788546" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21527778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21794872" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22601984" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.50385886" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18853363" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6387665" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -909,13 +928,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/simapp/templatetags/Parameter_filters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/analysis/hdf5/hdf5_example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.20253165">
@@ -1131,13 +1143,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-28.555555">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/cores.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.666667">
@@ -1277,16 +1282,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.061904762">
-          <caret line="100" column="8" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="19" />
-          <folding>
-            <element signature="e#694#731#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util/miriam/test_miriam.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1299,8 +1294,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74523807">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.69405097">
+          <caret line="77" column="1" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding>
+            <element signature="e#694#731#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.3448277">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/sabiork/sabiork.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.203966">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
