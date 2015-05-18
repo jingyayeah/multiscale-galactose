@@ -10,14 +10,14 @@ No direct interactions with the database should occur
 import logging
 from django.core.exceptions import ObjectDoesNotExist
 
-# provide the formats and types via the API
+# provide the enums via the API
 from simapp.models import CompModelFormat
 from simapp.models import MethodType
 from simapp.models import ParameterType
 from simapp.models import SimulationStatus
 from simapp.models import SimulatorType
+from simapp.models import ResultType
 from simapp.models import SettingKey
-
 
 from simapp.models import CompModel, Task, Simulation, Parameter, Method, Setting
 

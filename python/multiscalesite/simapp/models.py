@@ -594,13 +594,20 @@ class Result(models.Model):
     """
     # TODO: manage multiple result types
     # TODO: check that result is unique for simulation
-
-    simulation = models.OneToOneField(Simulation, unique=True)
+    simulation = models.ForeignKey(Simulation)
     result_type = enum.EnumField(ResultType)
     file = models.FileField(upload_to=result_filename, max_length=200, storage=OverwriteStorage())
     
     def __str__(self):
         return 'R{}'.format(self.pk)
+
+    def _filepath(self):
+        return str(self.file.path)
+    filepath = property(_filepath)
+
+    def _result_type_str(self):
+        return ResultType.labels[self.result_type]
+    result_type = property(_result_type_str)
 
     def _csv(self):
         """ Converts the HDF5 to csv.

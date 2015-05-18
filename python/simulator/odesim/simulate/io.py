@@ -12,15 +12,10 @@ import h5py
 
 from django.core.files import File
 from django.utils import timezone
-import config_files
+import copasi
 
-from simapp.models import Result, SimulationStatus
+from simapp.models import Result, ResultType
 from project_settings import SIM_DIR
-
-from enum import Enum
-class FileType(Enum):
-    CSV = 0
-    HDF5 = 1
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -57,17 +52,18 @@ def save_hdf5(filepath, data, header):
     f.close()
     
 
-def store_result_db(sim, filepath, ftype, keep_tmp=False):
+def store_result_db(sim, filepath, result_type):
     """ Stores a result file for the given simulation. """
     # TODO: store the file type.
     # TODO: add test
     f = open(filepath, 'r')
     myfile = File(f)
-    tc, _ = Result.objects.get_or_create(simulation=sim)
-    tc.file = myfile
-    tc.save()
+    result, _ = Result.objects.get_or_create(simulation=sim, result_type=result_type)
+    result.file = myfile
+    result.save()
 
-    if ftype == FileType.CSV:
+    '''
+    if result_type == ResultType.CSV:
         # zip csv
         tc.zip()
         # convert to Rdata for faster loading
@@ -79,13 +75,13 @@ def store_result_db(sim, filepath, ftype, keep_tmp=False):
             os.remove(filepath)
         # remove the db csv (only compressed file kept)
         os.remove(tc.file.path)
-
+    '''
 
 def store_config_file(sim, folder):
     """ Store the config file in the database. """
     # TODO: refactor, this is not working any more
-    fname = config_files.create_config_filename(sim, folder)
-    config_file = config_files.create_config_file_for_simulation(sim, fname)
+    fname = copasi.create_config_filename(sim, folder)
+    config_file = copasi.create_config_file_for_simulation(sim, fname)
     f = open(config_file, 'r')
     sim.file = File(f)
     sim.save()

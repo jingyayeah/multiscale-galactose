@@ -1,56 +1,28 @@
 """
+Perform ode integrations.
 
-@author: mkoenig
-@date: 2015-??-?? 
 """
-import shlex
-from subprocess import call
+
 import time
 from django.utils import timezone
-from project_settings import SIM_DIR, COPASI_EXEC
 import roadrunner
 from roadrunner import SelectionRecord
-from simapp.models import ParameterType, SettingKey, SimulationStatus
+from simapp.models import ParameterType, SettingKey, SimulationStatus, ResultType
+
 from odesim.roadrunner import roadrunner_tools as rt
 from odesim.simulate import io as ode_io
 from odesim.simulate.solve import simulation_exception
 
 
-def integrate_copasi(simulations):
-    """ Integrate simulations with Copasi. """
-    # TODO: Update to latest Copasi source & test.
-    # TODO: Use the python interface to solve the problem.
-    task = simulations[0].task
-
-    filepath = task.model.filepath
-    model_id = task.model.model_id
-    for sim in simulations:
-        try:
-            sim.time_assign = timezone.now()                      # correction due to bulk assignment
-            config_file = ode_io.store_config_file(sim, SIM_DIR)  # create the copasi config file for settings & changes
-            csv_file = "".join([SIM_DIR, "/", str(sim.task), '/', model_id, "_Sim", str(sim.pk), '_copasi.csv'])
-
-            # run an operating system command
-            # call(["ls", "-l"])
-            call_command = COPASI_EXEC + " -s " + filepath + " -c " + config_file + " -t " + csv_file
-            print(call_command)
-            call(shlex.split(call_command))
-
-            ode_io.store_timecourse_db(sim, filepath=csv_file,
-                                       ftype=ode_io.FileType.CSV)
-        except Exception:
-            simulation_exception(sim)
-
-
-def integrate_roadrunner(sims, keep_tmp=False):
+def solve_roadrunner(simulations):
     """ Integrate simulations with RoadRunner. """
     time_start = time.time()
     try:
         # read SBML
-        comp_model = sims[0].task.model
+        comp_model = simulations[0].task.model
         rr = rt.load_model(comp_model.filepath)
     except RuntimeError:
-        for sim in sims:
+        for sim in simulations:
             simulation_exception(sim)
         raise
 
@@ -68,16 +40,23 @@ def integrate_roadrunner(sims, keep_tmp=False):
     rr.selections = sel
 
     # use the integration settings (adapt absTol to amounts)
-    settings = sims[0].task.method.get_settings_dict()
+    settings = simulations[0].task.method.get_settings_dict()
 
     # sbml
     sbml_id = comp_model.model_id
-    for sim in sims:
-        integrate_single_roadrunner(rr, sbml_id, sim, settings=settings)
+    for sim in simulations:
+        solve_roadrunner_single(rr, sbml_id, sim, settings=settings)
     return rr
 
 
-def integrate_single_roadrunner(rr, sbml_id, sim, settings):
+def solve_roadrunner_single(rr, sbml_id, sim, settings):
+    """
+    :param rr: RoadRunner instance with loaded model
+    :param sbml_id:
+    :param sim:
+    :param settings:
+    :return:
+    """
     try:
         tstart_total = time.time()
         sim.time_assign = timezone.now()  # correction due to bulk assignment
@@ -111,7 +90,7 @@ def integrate_single_roadrunner(rr, sbml_id, sim, settings):
                 continue
 
             name = str(p.key)
-            if p.parameter_type == ParameterType.BOUNDERY_INIT:
+            if p.parameter_type == ParameterType.BOUNDARY_INIT:
                 name = '[{}]'.format(name)
             elif p.parameter_type == ParameterType.FLOATING_INIT:
                 name = 'init([{}])'.format(name)
@@ -134,19 +113,21 @@ def integrate_single_roadrunner(rr, sbml_id, sim, settings):
                             variableStep=False, stiff=True)
         t_int = time.time() - tstart_int
 
+        '''
         # Store CSV
         csv_file = ode_io.csv_file(sbml_id, sim)
         tmp = time.time()
         ode_io.save_csv(csv_file, data=s, header=rr.selections)
         tmp = time.time() - tmp
         print("CSV: {}".format(tmp))
+        '''
 
         # Store in HDF5
         h5_file = ode_io.hdf5_file(sbml_id, sim)
         tmp = time.time()
         ode_io.save_hdf5(h5_file, data=s, header=rr.selections)
         tmp = time.time() - tmp
-        ode_io.store_result_db(sim, filepath=h5_file, ftype=ode_io.FileType.HDF5)
+        ode_io.store_result_db(sim, filepath=h5_file, result_type=ResultType.HDF5)
         print("HDF5: {}".format(tmp))
 
         # reset parameter changes
@@ -167,6 +148,7 @@ def integrate_single_roadrunner(rr, sbml_id, sim, settings):
     except:
         simulation_exception(sim)
 
+
 if __name__ == "__main__":
     import django
     django.setup()
@@ -176,13 +158,12 @@ if __name__ == "__main__":
     # sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
 
     task = Task.objects.get(pk=1)
-    sims = Simulation.objects.filter(task=task)
+    simulations = Simulation.objects.filter(task=task)
 
     # the folder for the simulations has to exist !
     from odesim.simulator import create_simulation_directory_for_task
     create_simulation_directory_for_task(task=task)
 
     print('* Start integration *')
-    print('Simulation: ', sims)
-    integrate(sims, integrator=SimulatorType.ROADRUNNER)
-    # simulate(sims, simulator=COPASI)
+    print('Simulation: ', simulations)
+    solve_roadrunner(simulations)

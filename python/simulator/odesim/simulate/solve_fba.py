@@ -1,7 +1,8 @@
 """
-
-@author: mkoenig
-@date: 2015-??-?? 
+Perform FBA simulations.
+Use COBRApy.
 """
 
-
+# TODO: implement
+def solve_fba(simulations):
+    raise NotImplemented

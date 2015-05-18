@@ -92,6 +92,7 @@
     <tr>
         <th>pk</th>
         <th>sim</th>
+        <th>type</th>
         <th>csv</th>
         <th>file</th>
     </tr>
@@ -100,6 +101,7 @@
     <tr>
         <td>{{ result.pk }}</td>
         <td><a href="{% url 'simapp:simulation' result.simulation.pk %}">{{ result.simulation }}</a></td>
+        <td>{{ result.result_type_str }}</td>
         <td><a href="{{ result.file.url }}"><img src="{% static 'simapp/images/csv.png' %}" height="15"/></a></td>
         <td><a href="{{ result.file.url }}">{{ result.file.name }}</a></td>
     </tr>

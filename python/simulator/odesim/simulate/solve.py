@@ -8,24 +8,27 @@ import sys
 import traceback
 
 from project_settings import MULTISCALE_GALACTOSE_RESULTS
-from simapp.models import SimulatorType, SimulationStatus
+from simapp.models import SimulatorType, SimulationStatus, MethodType
 
-
-class IntegrationException(Exception):
+class SimulationException(Exception):
     pass
-
 
 def run_simulations(simulations, task):
     """ Performs the simulations based on the given solver.
         Switches to the respective subcode for the individual solvers.
     """
-    task.
-    if integrator == SimulatorType.COPASI:
-        integrate_copasi(simulations)
-    elif integrator == SimulatorType.ROADRUNNER:
-        integrate_roadrunner(simulations, keep_tmp)
+    # switch method and simulatorType
+    if task.method_type == MethodType.FBA:
+        solve_fba(simulations)
+    elif task.method_type == MethodType.ODE:
+        if task.integrator == SimulatorType.COPASI:
+            # TODO: refactor the COPASI solver
+            raise NotImplemented
+            solve_copasi(simulations)
+        elif task.integrator == SimulatorType.ROADRUNNER:
+            solve_roadrunner(simulations)
     else:
-        raise IntegrationException('Integrator not supported: {}'.format(integrator))
+        raise SimulationException('Method not supported: {}'.format(method_type))
 
 
 def simulation_exception(sim):
@@ -43,7 +46,4 @@ def simulation_exception(sim):
     # update simulation status
     sim.status = SimulationStatus.ERROR
     sim.save()
-
-
-
 

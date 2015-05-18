@@ -76,6 +76,32 @@ def config_filename(sim, folder):
     sbml_id = sim.task.model.sbml_id
     return ''.join([folder, "/", sbml_id, "_Sim", str(sim.pk), '_config.ini'])
 
+
+def solve_copasi(simulations):
+    """ Integrate simulations with Copasi. """
+    # TODO: Update to latest Copasi source & test.
+    # TODO: Use the python interface to solve the problem.
+    task = simulations[0].task
+
+    filepath = task.model.filepath
+    model_id = task.model.model_id
+    for sim in simulations:
+        try:
+            sim.time_assign = timezone.now()                      # correction due to bulk assignment
+            config_file = ode_io.store_config_file(sim, SIM_DIR)  # create the copasi config file for settings & changes
+            csv_file = "".join([SIM_DIR, "/", str(sim.task), '/', model_id, "_Sim", str(sim.pk), '_copasi.csv'])
+
+            # run an operating system command
+            # call(["ls", "-l"])
+            call_command = COPASI_EXEC + " -s " + filepath + " -c " + config_file + " -t " + csv_file
+            print(call_command)
+            call(shlex.split(call_command))
+
+            ode_io.store_timecourse_db(sim, filepath=csv_file,
+                                       ftype=ode_io.FileType.CSV)
+        except Exception:
+            simulation_exception(sim)
+
 ################################################################################
 if __name__ == "__main__":
     import django
