@@ -48,23 +48,23 @@ def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentration
     r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )    
     
     # concentration backup
-    conc_backup = dict()    
+    concentration_backup = dict()
     for sid in r.model.getFloatingSpeciesIds():
-        conc_backup[sid] = r["[{}]".format(sid)]
+        concentration_backup[sid] = r["[{}]".format(sid)]
     
     # change parameters & recalculate initial assignments
     changed = _set_parameters(r, parameters)
     r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
     
     # restore initial concentrations
-    for key, value in conc_backup.iteritems():
+    for key, value in concentration_backup.iteritems():
         r.model['[{}]'.format(key)] = value
     
     # set changed concentrations
     _set_initial_concentrations(r, init_concentrations)
 
     # set changed values
-    _set_initial_values(r, init_values)
+    _set_initial_amounts(r, init_values)
 
     # perform integration
     absTol = absTol * min(r.model.getCompartmentVolumes())  # absTol relative to the amounts
@@ -80,7 +80,7 @@ def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentration
     timer_total = time.time() - timer_start
     
     # store global parameters for analysis
-    gp = _get_global_parameters(r)
+    gp = getGlobalParameters(r)
     
     # reset parameter changes    
     _set_parameters(r, changed)
@@ -114,19 +114,30 @@ def _set_initial_concentrations(r, init_concentrations):
         r.model[name] = value
     return changed
 
-def _set_initial_values(r, init_values):
+def _set_initial_amounts(r, init_amounts):
     """ Set initial values from dictionary.
         Returns dictionary of changes.
     """
     changed = dict()
-    for key, value in init_values.iteritems():
+    for key, value in init_amounts.iteritems():
         changed[key] = r.model[key]
         name = 'init({})'.format(key)
         r.model[name] = value
     return changed
 
 
-def _get_global_parameters(r):
-    """ Create the global parameter DataFrame. """
+def getGlobalParameters(r):
+    """ Create GlobalParameter DataFrame. """
     return DataFrame({'value': r.model.getGlobalParameterValues()},
                      index=r.model.getGlobalParameterIds())
+
+def getFloatingSpecies(r):
+    """ Create FloatingSpecies DataFrame. """
+    return DataFrame({'concentration': r.model.getFloatingSpeciesConcentrations(),
+                      'amount': r.model.getFloatingSpeciesAmounts()},
+                     index=r.model.getFloatingSpeciesIds())
+def getBoundarySpecies(r):
+    """ Create BoundingSpecies DataFrame. """
+    return DataFrame({'concentration': r.model.getBoundarySpeciesConcentrations(),
+                      'amount': r.model.getBoundarySpeciesAmounts()},
+                     index=r.model.getBoundarySpeciesIds())

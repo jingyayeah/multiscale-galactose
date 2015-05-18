@@ -6,28 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/testdata/sbml/Koenig_demo_v02.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/antimony/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/sabiork/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/testdata/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/testdata/sbml/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/test_roadrunner_tools.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/test_simulator.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/testdata/testdata.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/Koenig_demo.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/sabiork.py" afterPath="$PROJECT_DIR$/util/sabiork/sabiork.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/examples/demo/01_demo_simple.ipynb" afterPath="$PROJECT_DIR$/../simulator/examples/demo/01_demo_simple.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/examples/demo/04_CyREST.ipynb" afterPath="$PROJECT_DIR$/../simulator/examples/demo/04_CyREST.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution_pressure.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution_pressure.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/misc.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/requirements.txt" afterPath="$PROJECT_DIR$/../simulator/requirements.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/roadrunner_tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/roadrunner_tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/setup.py" afterPath="$PROJECT_DIR$/../simulator/setup.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/models/test_examples.py" afterPath="$PROJECT_DIR$/../simulator/odesim/models/test_examples.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/test_roadrunner_tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/test_roadrunner_tools.py" />
     </list>
     <ignored path="multiscalesite.iws" />
     <ignored path=".idea/workspace.xml" />
