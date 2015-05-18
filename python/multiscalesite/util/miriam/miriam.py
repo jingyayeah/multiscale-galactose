@@ -136,7 +136,7 @@ if __name__ == "__main__":
     print('encoding:', r.encoding)
     print('text:', r.text)
     '''
-    uris = m.resolve_urn(urn='urn:miriam:uniprot:P62158')
+
     print(uris)
     uris2 = m.resolve_urn(urn='urn:miriam:uniprot:P62158', deprecated=False)
     print(uris2)

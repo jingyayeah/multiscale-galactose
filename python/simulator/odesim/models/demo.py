@@ -10,10 +10,11 @@ import odesim.db.tools as db_tools
 from odesim.dist.distributions import Distribution, DistributionType, DistributionParameterType
 from odesim.models.examples import Example
 from odesim.dist.sampling import Sampling, SamplingType, SampleParameter
+from odesim.examples.testdata import demo_filepath
 
 
 class Demo(Example):
-    file_path = 'demo/demo/Koenig_demo.xml'
+    file_path = demo_filepath
     model_format = db_api.CompModelFormat.SBML
 
     @classmethod

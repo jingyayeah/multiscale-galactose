@@ -15,7 +15,7 @@ reload(settings)
 #########################################################################    
 # Load model
 #########################################################################    
-sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.model_format(settings.VERSION)
+sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(settings.VERSION)
 # sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc{}_dilution_gauss.xml'.format(VERSION, NC)
 r = rt.load_model(sbml_file)
 
@@ -25,13 +25,13 @@ r = rt.load_model(sbml_file)
 # define the subpart of interest of the odesim
 compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']
 sel = ['time']
-sel += ['[{}]'.model_format(item) for item in r.model.getBoundarySpeciesIds()]
-sel += ['[PV__{}]'.model_format(item) for item in compounds]
-sel += ['[PP__{}]'.model_format(item) for item in compounds]
-sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
-sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
-sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('C')]
-sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
+sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
+sel += ['[PV__{}]'.format(item) for item in compounds]
+sel += ['[PP__{}]'.format(item) for item in compounds]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('C')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('C')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]

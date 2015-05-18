@@ -6,43 +6,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/01_demo_simple-checkpoint.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/01_demo_simple.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/CyREST-checkpoint.ipynb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/.ipynb_checkpoints/01_demo_simple-checkpoint.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/.ipynb_checkpoints/CyREST-checkpoint.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/01_demo_simple.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/testdata/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/testdata/sbml/Koenig_demo_v02.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/testdata/sbml/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/testdata/testdata.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v107/Galactose_v107_Nc20_core.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v107/Galactose_v107_Nc20_core.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v107/Galactose_v107_Nc20_dilution.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v107/Galactose_v107_Nc20_dilution.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v107/Galactose_v107_Nc20_dilution_gauss.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v107/Galactose_v107_Nc20_dilution_gauss.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v107/Galactose_v107_Nc20_galchallenge.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v107/Galactose_v107_Nc20_galchallenge.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v107/Galactose_v107_Nc20_galstep.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v107/Galactose_v107_Nc20_galstep.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v128/Galactose_v128_Nc20_core.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v128/Galactose_v128_Nc20_core.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v128/Galactose_v128_Nc20_dilution.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v128/Galactose_v128_Nc20_dilution.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v128/Galactose_v128_Nc20_dilution_gauss.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v128/Galactose_v128_Nc20_dilution_gauss.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v128/Galactose_v128_Nc20_galchallenge.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v128/Galactose_v128_Nc20_galchallenge.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/Galactose_v128/Galactose_v128_Nc20_galstep.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/Galactose_v128/Galactose_v128_Nc20_galstep.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/.ipynb_checkpoints/02_demo_django-checkpoint.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_demo_django-checkpoint.ipynb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/.ipynb_checkpoints/02_demo_graph-checkpoint.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_demo_graph-checkpoint.ipynb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/02_demo_django.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/02_demo_django.ipynb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/03_demo_graph.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/03_demo_graph.ipynb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/04_CyREST.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/04_CyREST.ipynb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/Koenig_demo_distributions_01.csv" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/demo/Koenig_demo_distributions_01.csv" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/examples/demo/Koenig_demo_v02.xml" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/demo/Koenig_demo_v02.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/integrate/test_ode_integration.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simapp/testdata/Koenig_demo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simapp/testdata/result.csv" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_demo_django-checkpoint.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_demo_django-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/02_demo_django.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/02_demo_django.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/integrate/config_files.py" afterPath="$PROJECT_DIR$/../simulator/odesim/integrate/config_files.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/models/demo.py" afterPath="$PROJECT_DIR$/../simulator/odesim/models/demo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/dilution_plots.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/dilution_plots.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/dist/distributions.py" afterPath="$PROJECT_DIR$/../simulator/odesim/dist/distributions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_challenge.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_challenge.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_challenge_pressure.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_challenge_pressure.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution_flux.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution_flux.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution_pressure.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_dilution_pressure.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/models/galactose_flow.py" afterPath="$PROJECT_DIR$/../simulator/odesim/models/galactose_flow.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_functions.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_pressure.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/galactose_pressure.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/miriam/miriam.py" afterPath="$PROJECT_DIR$/util/miriam/miriam.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/integrate/ode_integration.py" afterPath="$PROJECT_DIR$/../simulator/odesim/integrate/ode_integration.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/integrate/ode_io.py" afterPath="$PROJECT_DIR$/../simulator/odesim/integrate/ode_io.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/roadrunner_plots.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/galactose/roadrunner_plots.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/roadrunner_tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/roadrunner_tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/setup.py" afterPath="$PROJECT_DIR$/../simulator/setup.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/models/test_examples.py" afterPath="$PROJECT_DIR$/../simulator/odesim/models/test_examples.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/rr_volumes.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/rr_volumes.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/simulator.py" afterPath="$PROJECT_DIR$/../simulator/odesim/simulator.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/spyder_example.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/spyder_example.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/db/test_api.py" afterPath="$PROJECT_DIR$/simapp/db/test_api.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/test_roadrunner_tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/test_roadrunner_tools.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/test_simulator.py" afterPath="$PROJECT_DIR$/../simulator/odesim/test_simulator.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/db/test_tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/db/test_tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/testdata.py" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/testdata.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
     </list>
@@ -59,13 +52,14 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_APITestCase_test_create_method_from_setings.coverage" NAME="Unittest APITestCase.test_create_method_from_setings Coverage Results" MODIFIED="1431293265379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
-    <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1431955197393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1431956210435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_models_status.coverage" NAME="Unittest ViewTestCase.test_models_status Coverage Results" MODIFIED="1431326693119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_db_test_api_MyTestCase_test_create_method2.coverage" NAME="Test: simapp.db.test_api.MyTestCase.test_create_method2 Coverage Results" MODIFIED="1431639196689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_documentation_status.coverage" NAME="Unittest ViewTestCase.test_documentation_status Coverage Results" MODIFIED="1431330335301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_results_status.coverage" NAME="Unittest ViewTestCase.test_results_status Coverage Results" MODIFIED="1431328508046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_db_test_api.coverage" NAME="Test: simapp.db.test_api Coverage Results" MODIFIED="1431636049297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_MiriamTestCase_test_status.coverage" NAME="Unittest MiriamTestCase.test_status Coverage Results" MODIFIED="1431889199195" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
+    <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_ApiTestCase.coverage" NAME="Unittests in ApiTestCase Coverage Results" MODIFIED="1431956459543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp/db" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_MiriamTestCase_test_resource.coverage" NAME="Unittest MiriamTestCase.test_resource Coverage Results" MODIFIED="1431889840852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_MiriamTestCase_test_resolve_uri.coverage" NAME="Unittest MiriamTestCase.test_resolve_uri Coverage Results" MODIFIED="1431890865145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
     <SUITE FILE_PATH="coverage/multiscalesite$miriam.coverage" NAME="miriam Coverage Results" MODIFIED="1431888949095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
@@ -130,100 +124,32 @@
     <favorites_list name="multiscalesite" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6310415">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="miriam.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#694#731#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="base_generic.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="sabiork.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/util/sabiork/sabiork.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="1.0788643">
-                  <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/util/biomodels/__init__.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="biomodels.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/util/biomodels/biomodels.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ElementTree.py" pinned="false" current-in-tab="false">
-            <entry file="file:///usr/lib/python2.7/xml/etree/ElementTree.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="60" column="12" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="12" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="test_miriam.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/util/miriam/test_miriam.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
-                  <folding>
-                    <element signature="e#147#184#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="test_api.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5741325">
-                  <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="test_miriam.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/miriam/test_miriam.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+              <folding>
+                <element signature="e#147#184#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_api.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.85227275">
+              <caret line="25" column="63" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
+              <folding>
+                <element signature="e#42#79#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -287,8 +213,8 @@
         <option value="$PROJECT_DIR$/util/biomodels/biomodels.py" />
         <option value="$PROJECT_DIR$/util/miriam/miriam.py" />
         <option value="$PROJECT_DIR$/util/miriam/test_miriam.py" />
-        <option value="$PROJECT_DIR$/simapp/db/test_api.py" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
+        <option value="$PROJECT_DIR$/simapp/db/test_api.py" />
       </list>
     </option>
   </component>
@@ -300,9 +226,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2943" />
-    <option name="width" value="1920" />
-    <option name="height" value="1108" />
+    <option name="x" value="-1" />
+    <option name="y" value="24" />
+    <option name="width" value="1922" />
+    <option name="height" value="1033" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -346,7 +273,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -397,8 +323,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="multiscalesite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="multiscalesite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="multiscalesite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="multiscalesite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="db" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -445,7 +404,7 @@
       <recent name="$PROJECT_DIR$/util" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in multiscalesite">
+  <component name="RunManager" selected="Django server.multiscalesite">
     <configuration default="false" name="Unittests in MiriamTestCase" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -469,29 +428,6 @@
       <option name="USE_PARAM" value="false" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest MiriamTestCase.test_status" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/util/miriam" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="multiscalesite" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/util/miriam/test_miriam.py" />
-      <option name="CLASS_NAME" value="MiriamTestCase" />
-      <option name="METHOD_NAME" value="test_status" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="false" name="Unittest MiriamTestCase.test_resource" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
@@ -556,6 +492,29 @@
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="$PROJECT_DIR$" />
       <option name="TEST_TYPE" value="TEST_FOLDER" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in ApiTestCase" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simapp/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="multiscalesite" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simapp/db/test_api.py" />
+      <option name="CLASS_NAME" value="ApiTestCase" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="PUREUNITTEST" value="true" />
@@ -828,18 +787,18 @@
       <item index="0" class="java.lang.String" itemvalue="Django server.admin" />
       <item index="1" class="java.lang.String" itemvalue="Django server.multiscalesite" />
       <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in MiriamTestCase" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_status" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_resource" />
-      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_resolve_uri" />
-      <item index="6" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_resource" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_resolve_uri" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
+      <item index="6" class="java.lang.String" itemvalue="Python tests.Unittests in ApiTestCase" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_resolve_uri" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in MiriamTestCase" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_resource" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_status" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in ApiTestCase" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_resolve_uri" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in MiriamTestCase" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest MiriamTestCase.test_resource" />
       </list>
     </recent_temporary>
   </component>
@@ -877,19 +836,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2943" y="0" width="1920" height="1108" extended-state="7" />
-    <editor active="true" />
+    <frame x="-1" y="24" width="1922" height="1033" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29348987" sideWeight="0.501006" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23788546" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29421222" sideWeight="0.49899396" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22038421" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21344717" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22601984" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32520324" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38546255" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15698925" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.11217949" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -898,6 +856,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3384785" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29348987" sideWeight="0.501006" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.07599119" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -944,10 +903,13 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/simapp/analysis/hdf5/hdf5_example.py">
+    <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20253165">
-          <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#42#79#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1264,11 +1226,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python2.7/xml/etree/ElementTree.py">
+    <entry file="file://$PROJECT_DIR$/util/miriam/test_miriam.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="12" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="12" />
+          <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+          <folding>
+            <element signature="e#147#184#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/sabiork/sabiork.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1594533">
+          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding>
+            <element signature="e#694#731#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1282,53 +1272,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/util/biomodels/biomodels.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.10250569">
           <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/miriam/test_miriam.py">
+    <entry file="file:///usr/lib/python2.7/xml/etree/ElementTree.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
-          <folding>
-            <element signature="e#147#184#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding>
-            <element signature="e#694#731#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/sabiork/sabiork.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0788643">
-          <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+          <caret line="60" column="12" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simapp/db/test_api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5741325">
-          <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
-          <folding />
+        <state vertical-scroll-proportion="0.85227275">
+          <caret line="25" column="63" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
+          <folding>
+            <element signature="e#42#79#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

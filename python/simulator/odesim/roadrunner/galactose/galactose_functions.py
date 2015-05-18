@@ -92,7 +92,7 @@ def average_results(f_list, weights, ids, time, selections):
             # find in which place of the solution the component is encoded
             index = sel_dict.get(sid, None)
             if not index:
-                raise Exception("{} not in selection".model_format(sid))
+                raise Exception("{} not in selection".format(sid))
             y = s[:,index]
             f = interpolate.interp1d(x=x, y=y)
             mat[:,ks] = f(time)

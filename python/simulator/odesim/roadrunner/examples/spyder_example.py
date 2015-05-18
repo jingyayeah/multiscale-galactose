@@ -92,8 +92,8 @@ def dilution_plots(s_list, selections, show=True):
     """ Plot of the dilution curves """
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ccols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
-    pp_ids = ['PP__{}'.model_format(id) for id in compounds]    
-    pv_ids = ['PV__{}'.model_format(id) for id in compounds]
+    pp_ids = ['PP__{}'.format(id) for id in compounds]
+    pv_ids = ['PV__{}'.format(id) for id in compounds]
     ids = pp_ids + pv_ids
     cols = ccols + ccols
     
@@ -103,9 +103,9 @@ def dilution_plots(s_list, selections, show=True):
         times = s[:,0]
         for k, id in enumerate(ids):
             # find in which place of the solution the component is encoded
-            i_sel = position_in_list(selections, '[{}]'.model_format(id))
+            i_sel = position_in_list(selections, '[{}]'.format(id))
             if i_sel < 0:
-                raise Exception("{} not in selection".model_format(id))
+                raise Exception("{} not in selection".format(id))
             series = s[:,i_sel]
             name = selections[i_sel]
             p.plot(times, series, color=cols[k], label=str(name))
@@ -122,7 +122,7 @@ def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
     """ Plot the dilution curves. """
     print name
 
-    ids =  [item[1:(len(item)-1)] for item in selections if (item.startswith('[H') & item.endswith('{}]'.model_format(name)))]
+    ids =  [item[1:(len(item)-1)] for item in selections if (item.startswith('[H') & item.endswith('{}]'.format(name)))]
     cols = ['red', 'darkblue', 'darkgreen']
 
     # plot all the individual solutions    
@@ -131,9 +131,9 @@ def dilution_plots_gal(s_list, selections, name, xlim=[t_peak-1, t_peak+30]):
         times = s[:,0]
         for id in ids:
             # find in which place of the solution the component is encoded
-            i_sel = position_in_list(selections, '[{}]'.model_format(id))
+            i_sel = position_in_list(selections, '[{}]'.format(id))
             if i_sel < 0:
-                raise Exception("{} not in selection".model_format(id))
+                raise Exception("{} not in selection".format(id))
             series = s[:,i_sel]
             name = selections[i_sel]
             p.plot(times, series, color=cols[ks], label=str(name))

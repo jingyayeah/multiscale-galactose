@@ -50,7 +50,7 @@ def flux_plots(f_list, selections, xlim=None, ylim=None, show=True):
     """ Plot perivenious dilution curves. """
     # TODO: check: is this really doing what ist says?
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    ids = ['[PV__{}]'.model_format(id) for id in compounds]    
+    ids = ['[PV__{}]'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
     for k, sid in enumerate(ids):
@@ -63,7 +63,7 @@ def flux_plots(f_list, selections, xlim=None, ylim=None, show=True):
             plt.ylim(ylim)
         plt.xlabel('time [s]')
         plt.ylabel(sid)
-        plt.savefig('flux_plots/flux_{}.png'.model_format(sid), dpi=200)
+        plt.savefig('flux_plots/flux_{}.png'.format(sid), dpi=200)
         if show:
             plt.show()
 
@@ -71,7 +71,7 @@ def flux_plots(f_list, selections, xlim=None, ylim=None, show=True):
 def average_plots(time, av_mats, xlim=None, ylim=None, show=True):
     """ Plot of the average dilution curves. """
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    ids = ['PV__{}'.model_format(id) for id in compounds]    
+    ids = ['PV__{}'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
     for av_mat in av_mats:
@@ -148,7 +148,7 @@ def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_p
 
     # simulations
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    ids = ['PV__{}'.model_format(id) for id in compounds]    
+    ids = ['PV__{}'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
     for av_mat in av_mats:
@@ -182,7 +182,7 @@ def plot_gal_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0,
 
     # simulations
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
-    ids = ['PV__{}'.model_format(id) for id in compounds]    
+    ids = ['PV__{}'.format(id) for id in compounds]    
     cols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
 
     for av_mat in av_mats:

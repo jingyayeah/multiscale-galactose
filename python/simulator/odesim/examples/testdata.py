@@ -7,4 +7,4 @@
 import os
 test_dir = os.path.dirname(os.path.abspath(__file__))
 
-demo_filepath = os.join(test_dir, 'demo', 'Koenig_demo_v02.xml'
+demo_filepath = os.path.join(test_dir, 'demo', 'Koenig_demo_v02.xml')

@@ -26,10 +26,9 @@ def load_model(sbml_file):
     time and file.
     """
     print('Loading : {}'.format(sbml_file))
-    start = time.time()
+    time_start = time.time()
     r = roadrunner.RoadRunner(sbml_file)
-    duration = time.time() - start
-    print('SBML load time : {}'.format(duration))
+    print('SBML load time : {}'.format(time.time() - time_start))
     return r
 
 # ########################################################################
@@ -93,6 +92,9 @@ def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentration
         print('Integration time: {}'.format(timer_total))
     
     return s, gp
+
+
+
 
 def _set_parameters(r, parameters):
     """ Set given dictionary of parameters in model.

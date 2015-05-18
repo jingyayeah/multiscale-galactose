@@ -97,7 +97,7 @@ class Distribution(object):
                                        self.parameters[DistributionParameterType.STDLOG].value,
                                        n_samples)
         else:
-            raise Distribution.DistException('DistType not supported: {}'.model_format(self.distribution_type))
+            raise Distribution.DistException('DistType not supported: {}'.format(self.distribution_type))
 
         if n_samples == 1:
             return data[0]
@@ -108,7 +108,7 @@ class Distribution(object):
         if self.distribution_type in (DistributionType.CONSTANT, DistributionType.NORMAL, DistributionType.LOGNORMAL):
             return self.parameters[DistributionParameterType.MEAN].value
         else:
-            raise Distribution.DistException('DistType not supported: {}'.model_format(self.distribution_type))
+            raise Distribution.DistException('DistType not supported: {}'.format(self.distribution_type))
 
     def convert_lognormal_mean_std(self):
         """ Convert lognormal mean, std => meanlog and stdlog. """
@@ -147,9 +147,8 @@ class Distribution(object):
                 raise Distribution.DistException('LogNormal distribution has 2 parameter.')
             self.parameters[DistributionParameterType.MEANLOG]
             self.parameters[DistributionParameterType.STDLOG]
-
         else:
-            raise Distribution.DistException('DistType not supported: {}'.model_format(self.distribution_type))
+            raise Distribution.DistException('DistType not supported: {}'.format(self.distribution_type))
 
     def check_parameters(self):
         """ Check consistency of parameters within distribution. """

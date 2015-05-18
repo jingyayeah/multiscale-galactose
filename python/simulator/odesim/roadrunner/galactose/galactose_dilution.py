@@ -23,7 +23,7 @@ reload(settings)
 #########################################################################    
 # Load model
 #########################################################################    
-sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.model_format(settings.VERSION)
+sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(settings.VERSION)
 # sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc{}_dilution_gauss.xml'.format(VERSION, NC)
 r = rt.load_model(sbml_file)
 
@@ -32,13 +32,13 @@ r = rt.load_model(sbml_file)
 #########################################################################    
 compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']
 sel = ['time']
-sel += ['[{}]'.model_format(item) for item in r.model.getBoundarySpeciesIds()]
-sel += ['[PV__{}]'.model_format(item) for item in compounds]
-sel += ['[PP__{}]'.model_format(item) for item in compounds]
-sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
-sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
-sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('C')]
-sel += ['[{}]'.model_format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
+sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
+sel += ['[PV__{}]'.format(item) for item in compounds]
+sel += ['[PP__{}]'.format(item) for item in compounds]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('C')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('C')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
@@ -69,15 +69,15 @@ s_list = [rt.simulation(r, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list]
 ######################################################################### 
 # find the maximum of the peaks
 s = s_list[0]
-print '{:20s}{:10s}{:10s}'.model_format('sid', 'time', 'max')
+print '{:20s}{:10s}{:10s}'.format('sid', 'time', 'max')
 
-for sid in ['[PV__{}]'.model_format(item) for item in compounds]:
+for sid in ['[PV__{}]'.format(item) for item in compounds]:
     times = s['time']
     data = s[sid]    
     max_value = max(data)
     max_index = [i for i, item in enumerate(data) if item == max_value]
     max_time = times[max_index[0]]
-    print '{:20s}{:5.3f}  {:5.3f}'.model_format(sid, max_time, max_value)
+    print '{:20s}{:5.3f}  {:5.3f}'.format(sid, max_time, max_value)
 
 #########################################################################    
 # Plots

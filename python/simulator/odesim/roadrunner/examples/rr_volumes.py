@@ -50,9 +50,9 @@ r.selections = ['time'] + r.model.getBoundarySpeciesIds() + r.model.getFloatingS
 # store all concentrations
 conc_backup = dict()
 for sid in r.model.getBoundarySpeciesIds():
-    conc_backup[sid] = r["[{}]".model_format(id)]    
+    conc_backup[sid] = r["[{}]".format(id)]
 for sid in r.model.getFloatingSpeciesIds():
-    conc_backup[sid] = r["[{}]".model_format(id)]
+    conc_backup[sid] = r["[{}]".format(id)]
 
 
 r.model.items()
@@ -70,5 +70,5 @@ print '* Update concentrations *'
 
 # restore concentrations
 for key, value in conc_backup.iteritems():
-    r.model["[{}]".model_format(key)] = value
+    r.model["[{}]".format(key)] = value
 print r.model.items()

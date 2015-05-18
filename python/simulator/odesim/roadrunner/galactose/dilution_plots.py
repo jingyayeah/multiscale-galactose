@@ -21,8 +21,8 @@ def dilution_plot_pppv(s_list, selections, show=True,
     compounds = ['gal', 'galM', 'rbcM', 'alb', 'suc', 'h2oM']
     ccols = ['gray', 'black', 'red', 'darkgreen', 'darkorange', 'darkblue']
     
-    pp_ids = ['[PP__{}]'.model_format(sid) for sid in compounds]    
-    pv_ids = ['[PV__{}]'.model_format(sid) for sid in compounds]
+    pp_ids = ['[PP__{}]'.format(sid) for sid in compounds]
+    pv_ids = ['[PV__{}]'.format(sid) for sid in compounds]
     ids = pp_ids + pv_ids
     cols = ccols + ccols
     print ids
@@ -72,10 +72,8 @@ def dilution_plot_by_name(s_list, selections, name, xlim=[t_peak-5, t_peak+30], 
     p.xlim(xlim)
     p.title(name)
     p.xlabel('time [s]')
-    p.ylabel(name)    
-    
-    
+    p.ylabel(name)
+
     #p.ylim(0, 0.4)
-    p.savefig('plots/{}.png'.model_format(name))
+    p.savefig('plots/{}.png'.format(name))
     p.show()
-    

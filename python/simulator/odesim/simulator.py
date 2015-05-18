@@ -117,6 +117,7 @@ def create_simulation_directory_for_task(task):
     directory = os.path.join(SIM_DIR + "/" + str(task))
     if not os.path.exists(directory):
         os.makedirs(directory)
+        print('Task directory created: {}'.format(directory))
 
 
 def get_ip_address(interface='eth0'):

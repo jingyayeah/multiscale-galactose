@@ -12,48 +12,39 @@ import h5py
 
 from django.core.files import File
 from django.utils import timezone
-
-from simapp.models import Timecourse, DONE
-
 import config_files
 
-from project_settings import SIM_DIR 
+from simapp.models import Result, SimulationStatus
+from project_settings import SIM_DIR
 
 from enum import Enum
 class FileType(Enum):
-    CSV = 1
-    HDF5 = 2
+    CSV = 0
+    HDF5 = 1
 
 
-def store_config_file(sim, folder):
-    """ Store the config file in the database. """
-    # TODO: refactor, this is not working any more
-    fname = config_files.create_config_filename(sim, folder)
-    config_file = config_files.create_config_file_for_simulation(sim, fname)
-    f = open(config_file, 'r')
-    sim.file = File(f)
-    sim.save()
-    return config_file
-
-
+# ---------------------------------------------------------------------------------------------------------------------
+#   CSV
+# ---------------------------------------------------------------------------------------------------------------------
 def csv_file(sbml_id, sim):
-    return "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.csv'])
+    return os.path.join(SIM_DIR, str(sim.task), "{}_S{}_roadrunner.csv".format(sbml_id, sim.pk))
 
 
-def save_timecourse_csv(filepath, data, header, keep_tmp=False):
+def save_csv(filepath, data, header, keep_tmp=False):
     """ The storage as CSV and conversion to Rdata format is expensive.
         Better solution is the storage as b
         Probably better to store as HDF5 file. For single odesim?
-
     """
     np.savetxt(filepath, data, header=",".join(header), delimiter=",", fmt='%.12E')
 
-
+# ---------------------------------------------------------------------------------------------------------------------
+#   HDF5
+# ---------------------------------------------------------------------------------------------------------------------
 def hdf5_file(sbml_id, sim):
-    return "".join([SIM_DIR, "/", str(sim.task), '/', sbml_id, "_Sim", str(sim.pk), '_roadrunner.h5'])
+    return os.path.join(SIM_DIR, str(sim.task), "{}_S{}_roadrunner.h5".format(sbml_id, sim.pk))
     
-    
-def save_timecourse_hdf5(filepath, data, header, meta=None):
+
+def save_hdf5(filepath, data, header, meta=None):
     """ Store numpy data as HDF5.
         Writing meta information, header/selection & distribution_data.
         /distribution_data
@@ -61,19 +52,19 @@ def save_timecourse_hdf5(filepath, data, header, meta=None):
         /time
     """
     f = h5py.File(filepath, 'w')
-    f.create_dataset('distribution_data', data=data, compression="gzip")
+    f.create_dataset('data', data=data, compression="gzip")
     f.create_dataset('header', data=header, compression="gzip", dtype="S10")
-    f.create_dataset('time', data=data[:, 0], compression="gzip")
+    # f.create_dataset('time', data=data[:, 0], compression="gzip")
     f.close()
     
 
-def store_timecourse_db(sim, filepath, ftype, keep_tmp=False):
-    """ Store the actual timecourse file in the database. """
+def store_result_db(sim, filepath, ftype, keep_tmp=False):
+    """ Stores a result file for the given simulation. """
     # TODO: store the file type.
     # TODO: add test
     f = open(filepath, 'r')
     myfile = File(f)
-    tc, _ = Timecourse.objects.get_or_create(simulation=sim)
+    tc, _ = Result.objects.get_or_create(simulation=sim)
     tc.file = myfile
     tc.save()
 
@@ -91,7 +82,12 @@ def store_timecourse_db(sim, filepath, ftype, keep_tmp=False):
         os.remove(tc.file.path)
 
 
-    # odesim finished (update odesim status)
-    sim.time_sim = timezone.now()
-    sim.status = DONE
+def store_config_file(sim, folder):
+    """ Store the config file in the database. """
+    # TODO: refactor, this is not working any more
+    fname = config_files.create_config_filename(sim, folder)
+    config_file = config_files.create_config_file_for_simulation(sim, fname)
+    f = open(config_file, 'r')
+    sim.file = File(f)
     sim.save()
+    return config_file

@@ -4,12 +4,11 @@ Testing the simapp database api.
 
 from __future__ import print_function
 from simapp.db.api import *
-import os
 from django.test import TestCase
+from odesim.examples.testdata import demo_filepath
 
 import django
 django.setup()
-
 
 class ApiTestCase(TestCase):
     def setUp(self):
@@ -19,10 +18,9 @@ class ApiTestCase(TestCase):
         pass
 
     def test_create_model(self):
-        model_path = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        m1 = create_model(model_path, model_format=CompModelFormat.SBML)
-        self.assertEqual(m1.model_id, 'Koenig_demo')
-        self.assertEqual(m1.sbml_id, 'Koenig_demo')
+        m1 = create_model(demo_filepath, model_format=CompModelFormat.SBML)
+        self.assertEqual(m1.model_id, 'Koenig_demo_v02')
+        self.assertEqual(m1.sbml_id, 'Koenig_demo_v02')
         self.assertTrue(m1.is_sbml())
         self.assertFalse(m1.is_cellml())
         self.assertEqual(m1.model_format, CompModelFormat.SBML)
