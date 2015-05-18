@@ -11,7 +11,7 @@ import django
 django.setup()
 
 
-class MyTestCase(TestCase):
+class ApiTestCase(TestCase):
     def setUp(self):
         pass
 
