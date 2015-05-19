@@ -95,7 +95,6 @@ def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentration
 
 
 
-
 def _set_parameters(r, parameters):
     """ Set given dictionary of parameters in model.
         Returns dictionary of changes. """

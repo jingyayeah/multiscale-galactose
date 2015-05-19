@@ -4,9 +4,8 @@ Test the RoadRunner simulation tools.
 
 from __future__ import print_function
 import unittest
-import os
 from odesim.examples.testdata import demo_filepath
-from odesim.roadrunner import roadrunner_tools
+import odesim.roadrunner.roadrunner_tools as roadrunner_tools
 
 class TestRoadRunnerToolsCase(unittest.TestCase):
     def setUp(self):
@@ -69,6 +68,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         res, gp = roadrunner_tools.simulation(r, t_start=0, t_stop=20,
                                               init_concentrations=init_concentrations,
                                               absTol=1E-8, relTol=1E-8, debug=False)
+        print('res:', res)
         self.assertEqual(5.0, res['[A_ext]'][0])
         self.assertEqual(2.0, res['[B_ext]'][0])
 

@@ -8,11 +8,13 @@ from odesim.simulate.solve_io import create_simulation_directory
 django.setup()
 
 from django.test import TestCase
-from examples.testdata import demo_filepath
+from odesim.examples.testdata import demo_filepath
 import simapp.db.api as db_api
+from simapp.models import Result
 from odesim.simulate import solve_ode
 
-class SolveODETestCase(TestCase):
+
+class SolveODETestCase(object):
     def setUp(self):
         pass
 
@@ -39,6 +41,11 @@ class SolveODETestCase(TestCase):
         # perform all the integrations
         solve_ode.solve_roadrunner(simulations)
         # Now perform the checks
-        self.assertEqual(True, False)
+        for simulation in simulations:
+            # There should be one result associated with the simulation
+            result = Result.objects.get(simulation=simulation)
+            self.assertIsNotNone(result)
+            self.assertEqual(db_api.ResultType.HDF5, result.result_type)
+
 
 

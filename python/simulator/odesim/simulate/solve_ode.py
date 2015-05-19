@@ -31,7 +31,8 @@ def solve_roadrunner(simulations):
     # set RoadRunner settings
     # TODO: what are these settings
     # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
-    roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
+    # named matrix
+    # roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
 
     # set the selection
     # this has to be provided from the outside
