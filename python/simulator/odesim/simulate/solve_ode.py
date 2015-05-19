@@ -10,8 +10,10 @@ from roadrunner import SelectionRecord
 from simapp.models import ParameterType, SettingKey, SimulationStatus, ResultType
 
 from odesim.roadrunner import roadrunner_tools as rt
-from odesim.simulate import io as ode_io
-from odesim.simulate.solve import simulation_exception
+
+
+from odesim.simulate.solve_exception import simulation_exception
+from odesim.simulate.solve_io import create_simulation_directory, hdf5_file, save_hdf5, store_result_db
 
 
 def solve_roadrunner(simulations):
@@ -127,11 +129,11 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
         '''
 
         # Store in HDF5
-        h5_file = ode_io.hdf5_file(sbml_id, sim)
+        h5_file = hdf5_file(sbml_id, sim)
         tmp = time.time()
-        ode_io.save_hdf5(h5_file, data=s, header=rr.selections)
+        save_hdf5(h5_file, data=s, header=rr.selections)
         tmp = time.time() - tmp
-        ode_io.store_result_db(sim, filepath=h5_file, result_type=ResultType.HDF5)
+        store_result_db(sim, filepath=h5_file, result_type=ResultType.HDF5)
         print("HDF5: {}".format(tmp))
 
         # reset parameter changes
@@ -162,8 +164,12 @@ if __name__ == "__main__":
     # sim_ids = range(1,2)
     # sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
 
-    task = Task.objects.get(pk=1)
+    task = Task.objects.get(pk=43)
     simulations = Simulation.objects.filter(task=task)
+    print('Task:', task)
+
+    # perform all the integrations
+    create_simulation_directory(task)
 
     print('* Start integration *')
     print('Simulation: ', simulations)

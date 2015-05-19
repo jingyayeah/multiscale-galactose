@@ -461,6 +461,9 @@ class Task(models.Model):
     def error_count(self):
         return self._status_count(SimulationStatus.ERROR)
 
+    def is_done(self):
+        return self.done_count() == self.sim_count()
+
     '''
     def _status(self):
         """ Task status. """
@@ -580,10 +583,10 @@ class ResultType(enum.Enum):
     PNG = 4
     
     labels = {
-        CSV: "CSV",
-        HDF5: "HDF5",
-        JSON: "JSON",
-        PNG: "PNG"
+        CSV: "csv",
+        HDF5: "hdf5",
+        JSON: "json",
+        PNG: "png"
     }
 
 
@@ -594,12 +597,12 @@ class Result(models.Model):
     """
     # TODO: manage multiple result types
     # TODO: check that result is unique for simulation
-    simulation = models.ForeignKey(Simulation)
+    simulation = models.ForeignKey(Simulation, related_name="results")
     result_type = enum.EnumField(ResultType)
     file = models.FileField(upload_to=result_filename, max_length=200, storage=OverwriteStorage())
     
     def __str__(self):
-        return 'R{}'.format(self.pk)
+        return 'R{} ({})'.format(self.pk, self.result_type_str)
 
     def _filepath(self):
         return str(self.file.path)

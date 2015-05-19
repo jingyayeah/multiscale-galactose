@@ -7,7 +7,7 @@
 import unittest
 
 
-class MyTestCase(unittest.TestCase):
+class SolveTestCase(unittest.TestCase):
     def setUp(self):
         pass
 
