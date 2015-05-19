@@ -62,32 +62,28 @@ def save_hdf5(filepath, data, header):
     f.create_dataset('header', data=header, compression="gzip", dtype="S10", chunks=True)
     # f.create_dataset('time', data=data[:, 0], compression="gzip")
     f.close()
-    
 
-def store_result_db(sim, filepath, result_type):
-    """ Stores a result file for the given simulation. """
-    # TODO: store the file type.
+def load_hdf5(filepath):
+    """ Read numpy data from HDF5.
+        Read data and header
+        /data
+        /header
+    """
+    with h5py.File(filepath, 'r') as f:
+        data = f['data'][()]
+        header = f['header'][()]
+    return data, header
+
+
+def store_result_db(simulation, filepath, result_type):
+    """ Store a result for the simulation in the database. """
+
     # TODO: add test
     f = open(filepath, 'r')
     myfile = File(f)
-    result, _ = Result.objects.get_or_create(simulation=sim, result_type=result_type)
+    result, _ = Result.objects.get_or_create(simulation=simulation, result_type=result_type)
     result.file = myfile
     result.save()
-
-    '''
-    if result_type == ResultType.CSV:
-        # zip csv
-        tc.zip()
-        # convert to Rdata for faster loading
-        tc.rdata()
-        if (keep_tmp==False):
-            # remove the original csv file now
-            myfile.close()
-            f.close()
-            os.remove(filepath)
-        # remove the db csv (only compressed file kept)
-        os.remove(tc.file.path)
-    '''
 
 def store_config_file(sim, folder):
     """ Store the config file in the database. """

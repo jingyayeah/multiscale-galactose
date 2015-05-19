@@ -7,6 +7,8 @@ from __future__ import print_function
 
 
 from simapp.models import SimulatorType, MethodType
+from odesim.simulate.solve_exception import SimulationException
+
 from odesim.simulate.solve_fba import solve_fba
 from odesim.simulate.solve_io import create_simulation_directory
 from odesim.simulate.solve_ode import solve_roadrunner
@@ -18,9 +20,11 @@ def run_simulations(simulations, task):
     # switch method and simulatorType
     create_simulation_directory(task)
 
-    if task.method_type == MethodType.FBA:
+    method_type = task.method.method_type
+
+    if method_type == MethodType.FBA:
         solve_fba(simulations)
-    elif task.method_type == MethodType.ODE:
+    elif method_type == MethodType.ODE:
         if task.integrator == SimulatorType.COPASI:
             raise NotImplemented
             # solve_ode.solve_copasi(simulations)
