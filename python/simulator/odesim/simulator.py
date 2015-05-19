@@ -22,6 +22,8 @@ Since these are independent processes, they now have independent Global Interpre
 contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 -------------------------------------------------------------------------------------
 
+Important that the file structures are generated for the
+
 @author: Matthias Koenig
 @date: 2015-05-05
 """
@@ -80,7 +82,6 @@ def assign_simulations(core, n_sim=1):
     task_query = Task.objects.filter(simulation__status=SimulationStatus.UNASSIGNED).distinct('pk', 'priority').order_by('-priority')
     if task_query.exists():
         task = task_query[0]
-        create_simulation_directory_for_task(task)
         
         @transaction.atomic()
         def update_simulations():
@@ -110,14 +111,6 @@ def assign_simulations(core, n_sim=1):
         return task, sims
     else:
         return None, None
-
-
-def create_simulation_directory_for_task(task):
-    """ Create the folder to store odesim files. """
-    directory = os.path.join(SIM_DIR + "/" + str(task))
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-        print('Task directory created: {}'.format(directory))
 
 
 def get_ip_address(interface='eth0'):

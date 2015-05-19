@@ -7,6 +7,8 @@ from simapp.db.api import *
 from django.test import TestCase
 from odesim.examples.testdata import demo_filepath
 
+from examples.testdata import demo_filepath
+
 import django
 django.setup()
 
@@ -40,7 +42,16 @@ class ApiTestCase(TestCase):
         self.assertEqual(p2.parameter_type, ParameterType.BOUNDARY_INIT)
 
     def test_create_task(self):
-        self.assertEqual(False, True)
+        p1 = create_parameter(key='L', value=1E-6, unit="m",
+                              parameter_type=ParameterType.GLOBAL_PARAMETER)
+        p2 = create_parameter(key='N', value=20, unit="-",
+                              parameter_type=ParameterType.BOUNDARY_INIT)
+        settings = create_settings({})
+        method = create_method(method_type=MethodType.ODE, settings=settings)
+        model = create_model(filepath=demo_filepath, model_format=CompModelFormat.SBML)
+        task = create_task(model, method=method)
+        self.assertIsNotNone(task)
+        self.assertEqual(method.method_type, task.method.method_type)
 
     def test_create_settings(self):
         settings_dict = {SettingKey.VAR_STEPS: False,
@@ -61,7 +72,7 @@ class ApiTestCase(TestCase):
         method = create_method(method_type=MethodType.ODE, settings=settings)
         self.assertIsNotNone(method)
 
-    def test_create_method2(self):
+    def test_create_method_defaults(self):
         settings_dict = {SettingKey.VAR_STEPS: False,
                          SettingKey.T_START: 0.0,
                          SettingKey.T_END: 20.0,
@@ -71,11 +82,15 @@ class ApiTestCase(TestCase):
         self.assertIsNotNone(method)
 
     def test_create_simulation(self):
-        self.assertEqual(False, True)
-
-    def test_get_simulation_for_task(self):
-        self.assertEqual(False, True)
-
-    def get_parameters_for_simulation(self):
-        self.assertEqual(False, True)
+        p1 = create_parameter(key='L', value=1E-6, unit="m",
+                              parameter_type=ParameterType.GLOBAL_PARAMETER)
+        p2 = create_parameter(key='N', value=20, unit="-",
+                              parameter_type=ParameterType.BOUNDARY_INIT)
+        settings = create_settings({})
+        method = create_method(method_type=MethodType.ODE, settings=settings)
+        model = create_model(filepath=demo_filepath, model_format=CompModelFormat.SBML)
+        task = create_task(model, method=method)
+        simulation = create_simulation(task, parameters=[p1, p2])
+        self.assertIsNotNone(simulation)
+        self.assertEqual(task.pk, simulation.task.pk)
 

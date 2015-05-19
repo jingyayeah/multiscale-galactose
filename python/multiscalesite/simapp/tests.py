@@ -11,6 +11,7 @@ import os
 from django.test import TestCase
 import django
 django.setup()
+from examples.testdata import demo_filepath, demo_model_id
 
 # ===============================================================================
 # CoreTest
@@ -52,18 +53,17 @@ class CompModelFormatTestCase(TestCase):
 
 class CompModelTestCase(TestCase):
     def setUp(self):
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
 
     def test_model_from_filepath(self):
         """ Create the demo network in the database. """
-        m1 = CompModel.objects.get(model_id='Koenig_demo')
-        self.assertEqual(m1.model_id, 'Koenig_demo')
-        self.assertEqual(m1.sbml_id, 'Koenig_demo')
+        m1 = CompModel.objects.get(model_id=demo_model_id)
+        self.assertEqual(m1.model_id, demo_model_id)
+        self.assertEqual(m1.sbml_id, demo_model_id)
 
     def test_model_format(self):
         """ Make the format checks. """
-        m1 = CompModel.objects.get(model_id='Koenig_demo')
+        m1 = CompModel.objects.get(model_id=demo_model_id)
         self.assertTrue(m1.is_sbml())
         self.assertFalse(m1.is_cellml())
         self.assertEqual(m1.model_format, CompModelFormat.SBML)
@@ -176,9 +176,7 @@ from simapp.models import Task
 
 class TaskTestCase(TestCase):
     def setUp(self):
-        # create model and method
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         Task.objects.create(model=self.model, method=self.method)
@@ -205,8 +203,7 @@ from simapp.models import SimulationStatus
 class SimulationTestCase(TestCase):
     def setUp(self):
         # create task
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE,
                                            settings=settings)
@@ -242,8 +239,7 @@ from django.core.files import File
 class ResultTestCase(TestCase):
     def setUp(self):
         # create task
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         self.task = Task.objects.create(model=self.model, method=self.method)
@@ -252,8 +248,8 @@ class ResultTestCase(TestCase):
         self.sim = create_simulation(self.task, parameters=[self.p1, self.p1])
 
     def test_result(self):
-        res_filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'result.csv')
-        f = open(res_filepath, 'r')
+        from examples.testdata import csv_filepath
+        f = open(csv_filepath, 'r')
         myfile = File(f)
         result = Result.objects.create(simulation=self.sim, result_type=ResultType.CSV, file=myfile)
         self.assertEqual(result.simulation.pk, self.sim.pk)
@@ -287,8 +283,7 @@ class ViewTestCase(TestCase):
         #  check the response.context
         self.assertEqual(len(response.context['model_list']), n_models)
         # create a model
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
         response = self.c.get('/simapp/models/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['model_list']), 1)
@@ -313,8 +308,7 @@ class ViewTestCase(TestCase):
 
     def test_task_200(self):
         """ Check response status code for view. """
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         task = Task.objects.create(model=self.model, method=self.method)
@@ -323,8 +317,7 @@ class ViewTestCase(TestCase):
 
     def test_task_parameters(self):
         """ Check response status code for view. """
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         task = Task.objects.create(model=self.model, method=self.method)
@@ -351,14 +344,14 @@ class ViewTestCase(TestCase):
 
     def test_simulation_200(self):
         """ Check response status code for view. """
-        filepath = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        self.model = CompModel.create(filepath, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         self.task = Task.objects.create(model=self.model, method=self.method)
         self.p1 = Parameter.objects.create(key='L', value=1E-6, unit="m", parameter_type=ParameterType.GLOBAL_PARAMETER)
         self.p2 = Parameter.objects.create(key='N', value=20, unit="-", parameter_type=ParameterType.BOUNDARY_INIT)
         sim = create_simulation(self.task, parameters=[self.p1, self.p1])
+
         response = self.c.get('/simapp/simulation/{}'.format(sim.pk))
         self.assertEqual(response.status_code, 200)
 
@@ -386,9 +379,7 @@ class APITestCase(TestCase):
     """ Test the API methods."""
 
     def setUp(self):
-
-        file_path = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        self.model = CompModel.create(file_path, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         self.task = Task.objects.create(model=self.model, method=self.method)
@@ -399,11 +390,11 @@ class APITestCase(TestCase):
         pass
 
     def test_create_model(self):
-        file_path = os.path.join(os.getcwd(), 'simapp', 'testdata', 'Koenig_demo.xml')
-        m1 = create_model(file_path=file_path, model_format=CompModelFormat.SBML)
+
+        m1 = create_model(filepath=demo_filepath, model_format=CompModelFormat.SBML)
 
         self.assertEqual(m1.model_format, CompModelFormat.SBML)
-        self.assertEqual(m1.model_id, 'Koenig_demo')
+        self.assertEqual(m1.model_id, demo_model_id)
 
     def test_create_parameter(self):
         p3 = create_parameter(key='L', value=1E-6, unit='m', parameter_type=ParameterType.GLOBAL_PARAMETER)
@@ -420,7 +411,8 @@ class APITestCase(TestCase):
     def test_create_simulation(self):
         sim = create_simulation(self.task, [self.p1, self.p2])
         self.assertEqual(sim.task.pk, self.task.pk)
-        self.assertEqual(len(sim.parameters.all()), 2)
+        self.assertEqual(2, len(sim.parameters.all()))
+        self.assertEqual(1, self.task.simulations.count())
 
     def test_create_task(self):
         task = create_task(model=self.model, method=self.method)

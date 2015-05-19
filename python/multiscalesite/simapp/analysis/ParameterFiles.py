@@ -57,7 +57,7 @@ def createParameterInfoForTask(task):
     data['duration'] = []
     
     # TODO: make this faster by getting the related information
-    for sim in task.simulation_set.all():
+    for sim in task.simulations.all():
         data['sim'].append(sim.pk)
         data['status'].append(sim.status)
         data['core'].append(sim.core)

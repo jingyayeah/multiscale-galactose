@@ -17,6 +17,16 @@ import copasi
 from simapp.models import Result, ResultType
 from project_settings import SIM_DIR
 
+def create_simulation_directory(task):
+    """ Create the folder to store odesim files.
+        This has to be done on very computer ! not only on the database computer.
+    """
+    # TODO: handle the files correctly
+    directory = os.path.join(SIM_DIR + "/" + str(task))
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print('Task directory created: {}'.format(directory))
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 #   CSV

@@ -25,7 +25,7 @@ def task_histogram(task, folder):
     """ Histogram of the all task parameters. """
     # get the parameter data for the task
     data = dict()
-    for sim in task.simulation_set.all():
+    for sim in task.simulations.all():
         for p in sim.parameters.parameters.all():
             if data.has_key(p.key):
                 data[p.key].append(p.value)
@@ -42,8 +42,7 @@ def task_histogram(task, folder):
         axarr[k].hist(x, num_bins, normed=0, facecolor='green', alpha=0.5)
         axarr[k].set_title(key)
     
-    
-    
+
 def pppv_plot(sim, folder):
     """
     Create the periportal (PP), perivenious (PV) plots.

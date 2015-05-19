@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="671815096">
-    <data-source source="LOCAL" name="PostgreSQL - multiscale-galactose@localhost" uuid="2816963b-b2a5-4612-9713-25f7fe45e39f">
+  <component name="DataSourceManagerImpl" format="xml" hash="3998780909">
+    <data-source source="LOCAL" name="PostgreSQL - multiscale-galactose@localhost" uuid="92d0d8ee-6476-4164-b795-5029b2a6db49">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/multiscale-galactose</jdbc-url>
-      <libraries />
-    </data-source>
-    <data-source source="LOCAL" name="Django default" uuid="4b7a6550-8db7-4644-9dd7-0802294e31c4">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/multiscale-galactose</jdbc-url>
       <libraries />
     </data-source>
   </component>

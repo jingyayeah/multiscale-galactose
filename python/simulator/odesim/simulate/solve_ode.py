@@ -45,12 +45,16 @@ def solve_roadrunner(simulations):
     # sbml
     sbml_id = comp_model.model_id
     for sim in simulations:
-        solve_roadrunner_single(rr, sbml_id, sim, settings=settings)
+        _solve_roadrunner_single(rr, sbml_id, sim, settings=settings)
     return rr
 
 
-def solve_roadrunner_single(rr, sbml_id, sim, settings):
-    """
+def _solve_roadrunner_single(rr, sbml_id, sim, settings):
+    """ Solves a single roadrunner simulation.
+    This function should never be called, because some important setup is necessary
+    based on task levels, like for instance generating the necessary directory structure
+    on the local machine.
+
     :param rr: RoadRunner instance with loaded model
     :param sbml_id:
     :param sim:
@@ -150,6 +154,7 @@ def solve_roadrunner_single(rr, sbml_id, sim, settings):
 
 
 if __name__ == "__main__":
+    # TODO: refactor in test
     import django
     django.setup()
 
@@ -159,10 +164,6 @@ if __name__ == "__main__":
 
     task = Task.objects.get(pk=1)
     simulations = Simulation.objects.filter(task=task)
-
-    # the folder for the simulations has to exist !
-    from odesim.simulator import create_simulation_directory_for_task
-    create_simulation_directory_for_task(task=task)
 
     print('* Start integration *')
     print('Simulation: ', simulations)

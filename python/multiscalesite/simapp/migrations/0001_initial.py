@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('model_id', models.CharField(unique=True, max_length=200)),
-                ('model_format', models.IntegerField(default=0)),
+                ('model_format', models.IntegerField(default=1)),
                 ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=b'model')),
                 ('md5', models.CharField(max_length=36)),
             ],
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             name='Method',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('method_type', models.IntegerField(default=0)),
+                ('method_type', models.IntegerField(default=1)),
             ],
             options={
                 'verbose_name': 'Method',
@@ -58,14 +58,14 @@ class Migration(migrations.Migration):
                 ('key', models.CharField(max_length=200)),
                 ('value', models.FloatField()),
                 ('unit', models.CharField(max_length=10)),
-                ('parameter_type', models.IntegerField(default=0)),
+                ('parameter_type', models.IntegerField(default=1)),
             ],
         ),
         migrations.CreateModel(
             name='Result',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('result_type', models.IntegerField(default=0)),
+                ('result_type', models.IntegerField(default=1)),
                 ('file', models.FileField(storage=simapp.storage.OverwriteStorage(), max_length=200, upload_to=simapp.models.result_filename)),
             ],
         ),
@@ -73,16 +73,16 @@ class Migration(migrations.Migration):
             name='Setting',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('key', models.IntegerField(default=0)),
+                ('key', models.IntegerField(default=1)),
                 ('value', models.CharField(max_length=40)),
-                ('datatype', models.IntegerField(default=0)),
+                ('datatype', models.IntegerField(default=1)),
             ],
         ),
         migrations.CreateModel(
             name='Simulation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('status', models.IntegerField(default=0)),
+                ('status', models.IntegerField(default=1)),
                 ('time_create', models.DateTimeField(default=django.utils.timezone.now)),
                 ('time_assign', models.DateTimeField(null=True, blank=True)),
                 ('time_sim', models.DateTimeField(null=True, blank=True)),

@@ -4,11 +4,14 @@ Can use different simulation backends like RoadRunner or COPASI.
 
 """
 from __future__ import print_function
-import sys
+import sys, os
 import traceback
 
 from project_settings import MULTISCALE_GALACTOSE_RESULTS
+# TODO: what is the difference between SIM_DIR and MULT... ? -> unify
+
 from simapp.models import SimulatorType, SimulationStatus, MethodType
+from odesim.simulate import io, solve_fba, solve_ode
 
 class SimulationException(Exception):
     pass
@@ -18,15 +21,16 @@ def run_simulations(simulations, task):
         Switches to the respective subcode for the individual solvers.
     """
     # switch method and simulatorType
+    io.create_simulation_directory(task)
+
     if task.method_type == MethodType.FBA:
-        solve_fba(simulations)
+        solve_fba.solve_fba(simulations)
     elif task.method_type == MethodType.ODE:
         if task.integrator == SimulatorType.COPASI:
-            # TODO: refactor the COPASI solver
             raise NotImplemented
-            solve_copasi(simulations)
+            # solve_ode.solve_copasi(simulations)
         elif task.integrator == SimulatorType.ROADRUNNER:
-            solve_roadrunner(simulations)
+            solve_ode.solve_roadrunner(simulations)
     else:
         raise SimulationException('Method not supported: {}'.format(method_type))
 

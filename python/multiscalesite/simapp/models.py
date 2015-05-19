@@ -62,8 +62,8 @@ class CompModelException(Exception):
 
 
 class CompModelFormat(enum.Enum):
-    SBML = 0
-    CELLML = 1
+    SBML = 1
+    CELLML = 2
     labels = {
         SBML: "SBML",
         CELLML: "CELLML"
@@ -160,10 +160,10 @@ class CompModel(models.Model):
 # Settings
 # ===============================================================================
 class DataType(enum.Enum):
-    STR = 0
-    BOOL = 1
-    FLOAT = 2
-    INT = 3
+    STR = 1
+    BOOL = 2
+    FLOAT = 3
+    INT = 4
     labels = {
         STR: "str", BOOL: "bool", FLOAT: "float", INT: "int"
     }
@@ -184,17 +184,17 @@ class DataType(enum.Enum):
 
 
 class SettingKey(enum.Enum):
-    INTEGRATOR = 0
-    VAR_STEPS = 1
-    ABS_TOL = 2
-    REL_TOL = 3
-    T_START = 4
-    T_END = 5
-    STEPS = 6
-    STIFF = 7
-    MIN_TIME_STEP = 8
-    MAX_TIME_STEP = 9
-    MAX_NUM_STEP = 10
+    INTEGRATOR = 1
+    VAR_STEPS = 2
+    ABS_TOL = 3
+    REL_TOL = 4
+    T_START = 5
+    T_END = 6
+    STEPS = 7
+    STIFF = 8
+    MIN_TIME_STEP = 9
+    MAX_TIME_STEP = 10
+    MAX_NUM_STEP = 11
     labels = {
         INTEGRATOR: "INTEGRATOR", VAR_STEPS: "VAR_STEPS",
         ABS_TOL: "ABS_TOL", REL_TOL: "REL_TOL",
@@ -297,8 +297,8 @@ class Setting(models.Model):
 
 
 class MethodType(enum.Enum):
-    ODE = 0
-    FBA = 1
+    ODE = 1
+    FBA = 2
     labels = { 
         ODE: "ODE", FBA: "FBA"
     }
@@ -354,10 +354,10 @@ class Method(models.Model):
 # Parameter
 # ===============================================================================
 class ParameterType(enum.Enum):
-    GLOBAL_PARAMETER = 0
-    BOUNDARY_INIT = 1
-    FLOATING_INIT = 2
-    NONE_SBML_PARAMETER = 3
+    GLOBAL_PARAMETER = 1
+    BOUNDARY_INIT = 2
+    FLOATING_INIT = 3
+    NONE_SBML_PARAMETER = 4
     labels = {
         GLOBAL_PARAMETER: 'GLOBAL_PARAMETER',
         BOUNDARY_INIT: 'BOUNDARY_INIT',
@@ -385,11 +385,13 @@ class Parameter(models.Model):
 # ===============================================================================
 # Task
 # ===============================================================================
+'''
 class TaskStatus(enum.Enum):
+    # TODO: not used so for
     FINALIZED = "FINALIZED"  # no simulations can be added, all are done
-    DONE = "DONE"  # all simulations done
-    OPEN = "OPEN"  # still undone simulations
-
+    DONE = "DONE"             # all simulations done
+    OPEN = "OPEN"             # still undone simulations
+'''
 
 class Task(models.Model):
     """ Tasks are defined sets of simulations under consistent conditions.
@@ -442,10 +444,10 @@ class Task(models.Model):
     tend = property(_get_tend)
 
     def sim_count(self):
-        return self.simulation_set.count()
+        return self.simulations.count()
     
     def _status_count(self, status):
-        return self.simulation_set.filter(status=status).count()
+        return self.simulations.filter(status=status).count()
     
     def done_count(self):
         return self._status_count(SimulationStatus.DONE)
@@ -459,6 +461,7 @@ class Task(models.Model):
     def error_count(self):
         return self._status_count(SimulationStatus.ERROR)
 
+    '''
     def _status(self):
         """ Task status. """
         if self.done_count() == self.sim_count():
@@ -466,6 +469,7 @@ class Task(models.Model):
         else:
             return TaskStatus.OPEN
     status = property(_status)
+    '''
 
 # ===============================================================================
 # Simulation
@@ -473,10 +477,10 @@ class Task(models.Model):
 
 
 class SimulationStatus(enum.Enum):
-    UNASSIGNED = 0
-    ASSIGNED = 1
-    DONE = 2
-    ERROR = 3
+    UNASSIGNED = 1
+    ASSIGNED = 2
+    DONE = 3
+    ERROR = 4
     labels = {
         UNASSIGNED: "UNASSIGNED",
         ASSIGNED: "ASSIGNED",
@@ -485,9 +489,7 @@ class SimulationStatus(enum.Enum):
     }
     rev_labels = dict(zip(labels.values(), labels.keys()))
 
-# TODO: one create for manager
-
-
+# TODO: simplify this manager things. Is this really necessary?
 class ErrorSimulationManager(models.Manager):
     def get_queryset(self):
         return super(ErrorSimulationManager, 
@@ -513,7 +515,7 @@ class DoneSimulationManager(models.Manager):
 
 
 class Simulation(models.Model):     
-    task = models.ForeignKey(Task)
+    task = models.ForeignKey(Task, related_name='simulations')
     parameters = models.ManyToManyField(Parameter)
     status = enum.EnumField(SimulationStatus, default=SimulationStatus.UNASSIGNED)
     time_create = models.DateTimeField(default=timezone.now)
@@ -566,18 +568,16 @@ class Simulation(models.Model):
 # ===============================================================================
 # Result
 # ===============================================================================
-
-
 def result_filename(self, filename):
     name = filename.split("/")[-1]
     return os.path.join('result', str(self.simulation.task), name)
 
 
 class ResultType(enum.Enum):
-    CSV = 0
-    HDF5 = 1
-    JSON = 1
-    PNG = 2
+    CSV = 1
+    HDF5 = 2
+    JSON = 3
+    PNG = 4
     
     labels = {
         CSV: "CSV",
@@ -607,7 +607,7 @@ class Result(models.Model):
 
     def _result_type_str(self):
         return ResultType.labels[self.result_type]
-    result_type = property(_result_type_str)
+    result_type_str = property(_result_type_str)
 
     def _csv(self):
         """ Converts the HDF5 to csv.

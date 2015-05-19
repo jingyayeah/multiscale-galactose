@@ -24,16 +24,16 @@ from simapp.models import CompModel, Task, Simulation, Parameter, Method, Settin
 # ===============================================================================
 # Creators
 # ===============================================================================
-def create_model(file_path, model_format=CompModelFormat.SBML):
+def create_model(filepath, model_format=CompModelFormat.SBML):
     """ Create django CompModel.
     Provide the path of the file. Use the enum CompModelFormat to specify
     the model format.
 
-    :param file_path: file_path of the model file
+    :param filepath: file_path of the model file
     :param model_format: CompModelFormat (SBML, CELLML, ...)
     :return: models.CompModel
     """
-    return CompModel.create(file_path=file_path, model_format=model_format)
+    return CompModel.create(file_path=filepath, model_format=model_format)
 
 
 def create_parameter(key, value, unit, parameter_type):

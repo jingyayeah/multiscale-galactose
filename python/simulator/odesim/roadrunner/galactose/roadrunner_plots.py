@@ -6,7 +6,7 @@ General plot functionality for RoadRunner simulations.
 #  and subclasses for the individual models.
 
 from __future__ import print_function
-from roadrunner_tools import position_in_list, get_ids_from_selection
+
 import matplotlib.pylab as plt
 
 

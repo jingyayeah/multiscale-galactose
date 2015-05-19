@@ -6,7 +6,7 @@
 <!--  TASK  										   -->
 <!------------------------------------------------------->
 {% block content %}
-    <h1>Task</h1>
+    <h1>Task ({{ task.pk }})</h1>
     <table class="table table-condensed table-responsive">
     <thead>
         {% usemacro task_header %}
@@ -22,8 +22,8 @@
         {% usemacro simulation_header %}
     </thead>
     <tbody>
-        {%  comment %}{% for sim in task.simulation_set.all|slice:":40" %}{% endcomment %}
-        {% for sim in task.simulation_set.all %}
+        {%  comment %}{% for sim in task.simulations.all|slice:":40" %}{% endcomment %}
+        {% for sim in task.simulations.all %}
             {% usemacro simulation_content %}
         {% endfor %}
     </tbody>
