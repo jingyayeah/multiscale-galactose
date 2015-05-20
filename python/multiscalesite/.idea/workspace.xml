@@ -6,12 +6,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/Koenig_demo_v02.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/mca.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.coverage" afterPath="$PROJECT_DIR$/.coverage" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/coverage.sh" afterPath="$PROJECT_DIR$/coverage.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/simulate/test_solve_ode.py" afterPath="$PROJECT_DIR$/../simulator/odesim/simulate/test_solve_ode.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/tests.sh" afterPath="$PROJECT_DIR$/../simulator/tests.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/testing.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/Untitled-checkpoint.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/Untitled.ipynb" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/02_demo_django.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/02_demo_django.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_demo_mca-checkpoint.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_demo_mca-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/02_demo_mca.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/02_demo_mca.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/mca.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/mca.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/models.py" afterPath="$PROJECT_DIR$/simapp/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/roadrunner_tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/roadrunner_tools.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/simulate/solve_io.py" afterPath="$PROJECT_DIR$/../simulator/odesim/simulate/solve_io.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/simulate/solve_ode.py" afterPath="$PROJECT_DIR$/../simulator/odesim/simulate/solve_ode.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
     </list>
@@ -104,8 +109,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simapp/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.74122804">
-              <caret line="613" column="0" selection-start-line="613" selection-start-column="0" selection-end-line="613" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6161137">
+              <caret line="377" column="15" selection-start-line="377" selection-start-column="15" selection-end-line="377" selection-end-column="15" />
               <folding>
                 <element signature="e#57#94#0" expanded="true" />
               </folding>
@@ -268,9 +273,9 @@
         <option value="$PROJECT_DIR$/simapp/tests.py" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/model.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/task.html" />
-        <option value="$PROJECT_DIR$/simapp/models.py" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/simulation.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/macros.html" />
+        <option value="$PROJECT_DIR$/simapp/models.py" />
       </list>
     </option>
   </component>
@@ -1031,9 +1036,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23788546" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28175026" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28175026" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22601984" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17951542" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23568282" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6387665" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1495,8 +1500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simapp/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74122804">
-          <caret line="613" column="0" selection-start-line="613" selection-start-column="0" selection-end-line="613" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6161137">
+          <caret line="377" column="15" selection-start-line="377" selection-start-column="15" selection-end-line="377" selection-end-column="15" />
           <folding>
             <element signature="e#57#94#0" expanded="true" />
           </folding>

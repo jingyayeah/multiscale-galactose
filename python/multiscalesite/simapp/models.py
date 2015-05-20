@@ -367,9 +367,9 @@ class ParameterType(enum.Enum):
 
 
 class Parameter(models.Model):
-    key = models.CharField(max_length=200)
+    key = models.CharField(max_length=50)
     value = models.FloatField()
-    unit = models.CharField(max_length=10)
+    unit = models.CharField(max_length=50)
     parameter_type = enum.EnumField(ParameterType)
     
     def __str__(self):

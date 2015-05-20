@@ -14,6 +14,7 @@ roadrunner.Config.setValue(roadrunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES,
 rr = roadrunner.RoadRunner("Koenig_demo_v02.xml")
 s = rr.simulate(0, 40, 100, plot=True)
 
+rr.getSteadyStateValues()
 
 # Scaled control coefficient with respect to a global parameter.
 # ! This should give a numerical value, but is nan ???

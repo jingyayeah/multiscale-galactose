@@ -46,9 +46,7 @@ def save_csv(filepath, data, header, keep_tmp=False):
 #   HDF5
 # ---------------------------------------------------------------------------------------------------------------------
 def hdf5_file(sbml_id, sim):
-    filepath = os.path.join(SIM_DIR, str(sim.task), "{}_S{}_roadrunner.h5".format(sbml_id, sim.pk))
-    print filepath
-    return filepath
+    return os.path.join(SIM_DIR, str(sim.task), "{}_S{}_roadrunner.h5".format(sbml_id, sim.pk))
     
 
 def save_hdf5(filepath, data, header):

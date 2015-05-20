@@ -104,7 +104,6 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
 
             changes[name] = rr.model[name]
             rr.model[name] = p.value
-            # print 'set', name, ' = ', p.value
 
         # ode integration
         tstart_int = time.time()
@@ -118,7 +117,7 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
                             absolute=settings[SettingKey.ABS_TOL] * min(rr.model.getCompartmentVolumes()),
                             relative=settings[SettingKey.REL_TOL],
                             variableStep=False, stiff=True)
-        t_int = time.time() - tstart_int
+        time_integration = time.time() - tstart_int
 
         '''
         # Store CSV
@@ -131,11 +130,9 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
 
         # Store in HDF5
         h5_file = hdf5_file(sbml_id, sim)
-        tmp = time.time()
         save_hdf5(h5_file, data=s, header=rr.selections)
-        tmp = time.time() - tmp
         store_result_db(sim, filepath=h5_file, result_type=ResultType.HDF5)
-        print("HDF5: {}".format(tmp))
+        # print("HDF5: {}".format(tmp))
 
         # reset parameter changes
         for key, value in changes.iteritems():
@@ -144,20 +141,19 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
 
         # reset initial concentrations
         rr.reset()
-        time_total = time.time()-tstart_total
-        print('Time: [{:.3f}|{:.3f} |{:.2f}]'.format(time_total, t_int, t_int/time_total*100))
 
         # simulation finished
         sim.time_sim = timezone.now()
         sim.status = SimulationStatus.DONE
         sim.save()
+        time_total = time.time()-tstart_total
+        print('Time: [{:.4f}|{:.4f}]'.format(time_total, time_integration))
 
     except:
         simulation_exception(sim)
 
 
 if __name__ == "__main__":
-    # TODO: refactor in test
     import django
     django.setup()
 

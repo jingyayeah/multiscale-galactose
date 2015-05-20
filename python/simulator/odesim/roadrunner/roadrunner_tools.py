@@ -28,7 +28,7 @@ def load_model(sbml_file):
     print('Loading : {}'.format(sbml_file))
     time_start = time.time()
     r = roadrunner.RoadRunner(sbml_file)
-    print('SBML load time : {}'.format(time.time() - time_start))
+    print('SBML load time: {}'.format(time.time() - time_start))
     return r
 
 # ########################################################################
