@@ -1,8 +1,8 @@
 from django.http.response import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from simapp.models import CompModel, Core, Simulation, Result, Task, Method
 
 PAGINATE_ENTRIES = 50
@@ -55,14 +55,13 @@ def task(request, task_id):
 
 
 def task_parameters(request, task_id):
-    """ 
-        TODO: fix this
-        TODO: cache, only create once !
-        Most of the logic belongs in the Parameterfile.
+    """ Most of the logic belongs in the Parameterfile.
         Here only the view should be generated.
     """
     # TODO: refactor
-    import simapp.analysis.ParameterFiles as pf
+    # TODO: fix this
+    # TODO: cache, only create once !
+    import simapp.reports.task_report as pf
 
     task = get_object_or_404(Task, pk=task_id)
     content = pf.createParameterInfoForTask(task)
@@ -81,10 +80,17 @@ def task_parameters(request, task_id):
 # Methods
 # ===============================================================================
 def methods(request):
-    """ Overview of integration settings. """
+    """ Overview of simulation methods. """
     method_list = Method.objects.order_by("pk")
     return render_to_response('simapp/methods.html',
                               {'method_list': method_list},
+                              context_instance=RequestContext(request))
+
+def method(request, method_id):
+    """ View of single simulation method. """
+    method = get_object_or_404(Method, pk=method_id)
+    return render_to_response('simapp/method.html',
+                              {'method': method},
                               context_instance=RequestContext(request))
 
 # ===============================================================================

@@ -25,7 +25,7 @@ def prettyXML(element):
 
 
 def getSabioXMLForUniprot(uniprot):
-    r = requests.get(''.join([SABIO_REST, 'searchKineticLaws/sbml?q=UniProtKB_AC:"', str(uniprot), '"']))
+    r = requests.get(''.join([SABIO_REST, 'searchKineticLaws/reports?q=UniProtKB_AC:"', str(uniprot), '"']))
     xml = ElementTree.fromstring(r.text) 
     return xml
 

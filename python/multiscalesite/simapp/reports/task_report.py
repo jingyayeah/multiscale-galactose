@@ -1,16 +1,10 @@
 """
-Tools to help analyze odesim series, i.e. simulations
-belonging to the same task.
-Parameter files are generated based on the information in the database.
-All simulations within a task must have set the same parameters, i.e.
-for the unaltered case the unaltered parameters have to be set
-explicitly. This enforces coherrent odesim information within a
-task.
+Creating report of the parameters of a given task.
+Parameters of a single task are collected.
 
-Created on Mar 23, 2014
-@author: Matthias Koenig
 """
 
+# TODO: refactor 
 
 import time
 from simapp.models import Task
@@ -78,7 +72,8 @@ def createParameterInfoForTask(task):
     print 'time: ', (time.clock() - start)
     return data
         
-    
+
+
 if __name__ == "__main__":
     import django
     django.setup()

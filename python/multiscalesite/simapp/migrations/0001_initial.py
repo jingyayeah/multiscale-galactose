@@ -55,9 +55,9 @@ class Migration(migrations.Migration):
             name='Parameter',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('key', models.CharField(max_length=200)),
+                ('key', models.CharField(max_length=50)),
                 ('value', models.FloatField()),
-                ('unit', models.CharField(max_length=10)),
+                ('unit', models.CharField(max_length=50)),
                 ('parameter_type', models.IntegerField(default=1)),
             ],
         ),
@@ -96,6 +96,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('priority', models.IntegerField(default=0)),
                 ('info', models.TextField(null=True, blank=True)),
+                ('status', models.IntegerField(default=1)),
                 ('method', models.ForeignKey(related_name='tasks', to='simapp.Method')),
                 ('model', models.ForeignKey(related_name='tasks', to='simapp.CompModel')),
             ],
@@ -103,12 +104,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='simulation',
             name='task',
-            field=models.ForeignKey(to='simapp.Task'),
+            field=models.ForeignKey(related_name='simulations', to='simapp.Task'),
         ),
         migrations.AddField(
             model_name='result',
             name='simulation',
-            field=models.ForeignKey(to='simapp.Simulation'),
+            field=models.ForeignKey(related_name='results', to='simapp.Simulation'),
         ),
         migrations.AlterUniqueTogether(
             name='parameter',

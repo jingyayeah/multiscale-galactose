@@ -21,7 +21,7 @@
         <td><a href="{% url 'simapp:simulation' sim.pk %}">{{ sim.pk }}</a></td>
         <td><a href="{% url 'simapp:model' sim.task.model.pk %}">{{ sim.task.model.model_id }}</a></td>
         <td><a href="{% url 'simapp:task' sim.task.pk %}">{{ sim.task }}</a></td>
-        <td><a href="{% url 'simapp:methods' %}">{{ sim.task.method }}</a></td>
+        <td><a href="{% url 'simapp:method' sim.task.method.pk %}">{{ sim.task.method }}</a></td>
         <td>{% for p in sim.parameters.all %}{{ p }}<br/>{% endfor %}</td>
         <td>{{ sim.status_str }}</td>
         <td>{{ sim.duration }}</td>
@@ -73,17 +73,25 @@
     <tr>
         <td><a href="{% url 'simapp:model' model.pk %}">{{ model.pk }}</a></td>
         <td>{{ model }}</td>
-
-        <!-- TODO: check for model type, i.e. SBML or CELLML -->
         <td><a href="{{ model.file.url }}" target="_blank">
-            <img height="12" src="{% static 'simapp/images/sbml.png' %}"></a></td>
-        <td><a href="{% url 'simapp:report' model.pk %}" target="_blank">
-            <img height="12" src="{% static 'simapp/images/html5.png' %}"></a></td>
+            {% if model.is_sbml %}
+                <img height="12" src="{% static 'simapp/images/sbml.png' %}">
+            {%  elif model.is_cellml %}
+                <img height="12" src="{% static 'simapp/images/cellml.png' %}">
+            {%  else %}
+                <img height="12" src="{% static 'simapp/images/unknown.png' %}">
+            {% endif %}
+        </a></td>
+        <td>{% if model.is_sbml %}
+            <a href="{% url 'simapp:report' model.pk %}" target="_blank">
+            <img height="12" src="{% static 'simapp/images/html5.png' %}"></a>
+            {% endif %}
+        </td>
         <td>{% for task in model.tasks.all %}
-            <a href="{% url 'simapp:task' task.pk %}">{{ task }}</a> ({{ task.info }})<br/>
+            <a href="{% url 'simapp:task' task.pk %}">{{ task }}</a>: {{ task.info }}<br/>
             {% endfor %}
             </td>
-        <td>{{ model.md5_short }}</td>
+        <td>{{ model.md5 }}</td>
     </tr>
 {% endmacro %}
 
@@ -138,6 +146,7 @@
         <th>pk</th>
         <th>model</th>
         <th>status</th>
+        <th>simulations</th>
         <th>priority</th>
         <th>model</th>
         <th>parameters</th>
@@ -149,6 +158,7 @@
     <tr class="{% if task.is_done %}success{% else %}warning{% endif %}">
         <td><a href="{% url 'simapp:task' task.pk %}">{{ task.pk }}</a></td>
         <td>{{ task.model }} </td>
+        <td>{{ task.status_str }}</td>
         <td>
             <strong>{{ task.sim_count }}</strong>
             [<span class="text-success">{{ task.done_count }}</span>|<span

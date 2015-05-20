@@ -22,11 +22,10 @@
         {% usemacro simulation_header %}
     </thead>
     <tbody>
-        {%  comment %}{% for sim in task.simulations.all|slice:":40" %}{% endcomment %}
-        {% for sim in task.simulations.all %}
+        {% for sim in task.simulations.all|slice:":50" %}
+        {%  comment %}{% for sim in task.simulations.all %}{% endcomment %}
             {% usemacro simulation_content %}
         {% endfor %}
     </tbody>
     </table>
-
 {% endblock %}

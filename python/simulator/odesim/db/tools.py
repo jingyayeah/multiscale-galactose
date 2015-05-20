@@ -50,16 +50,12 @@ def get_sample_from_simulation(simulation):
 @transaction.atomic
 def create_simulations_from_samples(task, samples):
     """ Creates all simulations for given samples.
-    Does not check if the simulation already exists.
-    - creates the Parameters
-    - creates empty odesim and adds the parameters.
-    Function does not check if the odesim with given parameters
-    already exists.
+        The simulation creation does not check if a simulation already exists,
+        so that multiple identical simulation can be associated with a single
+        task.
     """
-    # TODO: add test
     sims = []
     for sample in samples:
-        
         parameters = []
         for sp in sample.parameters:
             # This takes forever to check if parameter already in db
@@ -71,6 +67,5 @@ def create_simulations_from_samples(task, samples):
         sim = db_api.create_simulation(task, parameters)
         
         sims.append(sim)
-        
     return sims
 

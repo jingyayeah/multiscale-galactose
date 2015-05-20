@@ -13,15 +13,16 @@ file and copying the used model for the simulations.
 import os
 import sys
 import shutil
+import subprocess
+import pipes
+
+from sh import rsync
 
 from project_settings import MULTISCALE_GALACTOSE_RESULTS
 from multiscalesite.settings import MEDIA_ROOT
-
 from simapp.models import Task
-from simapp.analysis.ParameterFiles import createParameterFileForTask
-import subprocess
-import pipes
-from sh import rsync
+from simapp.reports.task_report import createParameterFileForTask
+
 
 # IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111', '10.39.34.27')
 IPS = ('10.39.32.106', '10.39.32.189', '10.39.32.111')

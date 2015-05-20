@@ -9,7 +9,7 @@ from simapp.db.api import create_model, CompModelFormat
 
 from examples.testdata import demo_filepath
 
-class ReportTestCase(TestCase):
+class SBMLReportTestCase(TestCase):
     def setUp(self):
         self.c = Client()
 

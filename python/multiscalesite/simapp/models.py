@@ -5,13 +5,12 @@ Model definitions of for simulation management.
 from __future__ import print_function
 
 import os
-import tarfile
 import logging
 import datetime
 
 from django.db import models
 from django.utils import timezone
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.files import File
 
 from django_enumfield import enum
@@ -385,13 +384,16 @@ class Parameter(models.Model):
 # ===============================================================================
 # Task
 # ===============================================================================
-'''
+
 class TaskStatus(enum.Enum):
-    # TODO: not used so for
-    FINALIZED = "FINALIZED"  # no simulations can be added, all are done
-    DONE = "DONE"             # all simulations done
-    OPEN = "OPEN"             # still undone simulations
-'''
+    """ Finalization of tasks, so simulations can not be changed/added."""
+    OPEN = 1       # simulations can be added
+    FINALIZED = 2  # no simulations can be added or removed
+
+    labels = {
+        OPEN: 'OPEN',
+        FINALIZED: 'FINALIZED'
+    }
 
 class Task(models.Model):
     """ Tasks are defined sets of simulations under consistent conditions.
@@ -405,6 +407,7 @@ class Task(models.Model):
     method = models.ForeignKey(Method, related_name="tasks")
     priority = models.IntegerField(default=0)
     info = models.TextField(null=True, blank=True)
+    status = enum.EnumField(TaskStatus, default=TaskStatus.OPEN)
     
     class Meta:
         unique_together = ("model", "method", "info")
@@ -464,20 +467,23 @@ class Task(models.Model):
     def is_done(self):
         return self.done_count() == self.sim_count()
 
-    '''
-    def _status(self):
+    def finalize_status(self):
+        self.status = TaskStatus.FINALIZED
+        self.save()
+
+    def open_status(self):
+        self.status = TaskStatus.OPEN
+        self.save()
+
+    def _status_str(self):
         """ Task status. """
-        if self.done_count() == self.sim_count():
-            return TaskStatus.DONE
-        else:
-            return TaskStatus.OPEN
-    status = property(_status)
-    '''
+        return TaskStatus.labels[self.status]
+    status_str = property(_status_str)
+
 
 # ===============================================================================
 # Simulation
 # ===============================================================================
-
 
 class SimulationStatus(enum.Enum):
     UNASSIGNED = 1
@@ -492,31 +498,6 @@ class SimulationStatus(enum.Enum):
     }
     rev_labels = dict(zip(labels.values(), labels.keys()))
 
-# TODO: simplify this manager things. Is this really necessary?
-class ErrorSimulationManager(models.Manager):
-    def get_queryset(self):
-        return super(ErrorSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.ERROR)
-
-
-class UnassignedSimulationManager(models.Manager):
-    def get_queryset(self):
-        return super(UnassignedSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.UNASSIGNED)
-
-
-class AssignedSimulationManager(models.Manager):
-    def get_queryset(self):
-        return super(AssignedSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.ASSIGNED)
-
-
-class DoneSimulationManager(models.Manager):
-    def get_queryset(self):
-        return super(DoneSimulationManager, 
-                     self).get_queryset().filter(status=SimulationStatus.DONE)
-
-
 class Simulation(models.Model):     
     task = models.ForeignKey(Task, related_name='simulations')
     parameters = models.ManyToManyField(Parameter)
@@ -525,14 +506,34 @@ class Simulation(models.Model):
     time_assign = models.DateTimeField(null=True, blank=True)
     core = models.ForeignKey(Core, null=True, blank=True)
     time_sim = models.DateTimeField(null=True, blank=True)
-    
-    # Model managers
-    objects = models.Manager()
-    error_objects = ErrorSimulationManager()
-    unassigned_objects = UnassignedSimulationManager()
-    assigned_objects = AssignedSimulationManager()
-    done_objects = DoneSimulationManager()
-    
+
+    def clean(self):
+        # Don't allow the creation of simulations for finalized tasks
+        # New simulations do not have a primary key yet
+        if self.pk is None and self.task.status == TaskStatus.FINALIZED:
+            raise ValidationError('No simulation can be added to a FINALIZED task. \
+                                   OPEN task for adding simulations first.')
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super(Simulation, self).save(*args, **kwargs)  # Call the "real" save() method.
+
+    @classmethod
+    def unassigned_objects(cls):
+        return cls.objects.filter(status=SimulationStatus.UNASSIGNED)
+
+    @classmethod
+    def assigned_objects(cls):
+        return cls.objects.filter(status=SimulationStatus.ASSIGNED)
+
+    @classmethod
+    def done_objects(cls):
+        return cls.objects.filter(status=SimulationStatus.DONE)
+
+    @classmethod
+    def error_objects(cls):
+        return cls.objects.filter(status=SimulationStatus.ERROR)
+
     def __str__(self):
         return 'S{}'.format(self.pk)
     
@@ -612,36 +613,6 @@ class Result(models.Model):
         return ResultType.labels[self.result_type]
     result_type_str = property(_result_type_str)
 
-    def _csv(self):
-        """ Converts the HDF5 to csv.
-        :return:
-        """
-        raise NotImplemented
-        return None
-
-    csv = property(_csv)
-
-    '''
-    def _get_zip_file(self):
-        f = self.file.path
-        return f[:-3] + 'tar.gz'
-    
-    def zip(self):
-        """ tar.gz the file """
-        f = self.file.path
-        tar = tarfile.open(self.zip_file, 'w:gz')
-        tar.add(f, arcname=os.path.basename(f))
-        tar.close()
-        
-    def unzip(self):
-        """ Extract the file. """    
-        tar = tarfile.open(self.zip_file, 'r:gz')
-        dir_name = os.path.dirname(self.zip_file)
-        tar.extractall(path=dir_name)
-        tar.close()
-    
-    zip_file = property(_get_zip_file)
-    '''
 
 # ===============================================================================
 # Plots and Analysis

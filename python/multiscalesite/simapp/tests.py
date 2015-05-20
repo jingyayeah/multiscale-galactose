@@ -229,6 +229,27 @@ class SimulationTestCase(TestCase):
         self.assertEqual(sim.task.done_count(), 0)
         self.assertEqual(sim.task.error_count(), 0)
 
+    def test_simulation_clean_creation(self):
+        from django.core.exceptions import ValidationError
+        # finalize the task
+        self.task.finalize_status()
+        # simulation creation should raise a ValidationError
+        self.assertRaises(ValidationError, create_simulation, self.task, parameters=[])
+
+    def test_simulation_clean_changing(self):
+        from django.core.exceptions import ValidationError
+        sim = create_simulation(self.task, parameters=[self.p1, self.p1])
+        # finalize the task
+        self.task.finalize_status()
+        # no new simulation can be added
+        self.assertRaises(ValidationError, create_simulation, self.task, parameters=[])
+        # but the simulation can still be changed
+        sim.status = SimulationStatus.DONE
+        sim.save()
+        self.assertEqual(SimulationStatus.DONE, sim.status)
+
+
+
 # ===============================================================================
 # ResultTest
 # ===============================================================================
