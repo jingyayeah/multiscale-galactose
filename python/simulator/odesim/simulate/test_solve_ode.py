@@ -14,7 +14,7 @@ from simapp.models import Result
 from odesim.simulate import solve_ode
 
 
-class SolveODETestCase(object):
+class SolveODETestCase(TestCase):
     def setUp(self):
         pass
 
