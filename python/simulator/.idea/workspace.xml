@@ -6,7 +6,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/reports/task_report.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/task_report.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/odesim/roadrunner/examples/jws_example.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/odesim/examples/van_der_pol.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/02_parameter_sensitivity-checkpoint.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/02_parameter_sensitivity-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/examples/02_parameter_sensitivity.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/02_parameter_sensitivity.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/base_generic.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/base_generic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/roadrunner/examples/event_timepoint.py" afterPath="$PROJECT_DIR$/odesim/roadrunner/examples/event_timepoint.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/roadrunner/examples/event_timepoint.xml" afterPath="$PROJECT_DIR$/odesim/roadrunner/examples/event_timepoint.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -20,27 +28,30 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_SolveODETestCase.coverage" NAME="Unittests in SolveODETestCase Coverage Results" MODIFIED="1432046718137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/simulate" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_tools.coverage" NAME="Unittests in test_tools Coverage Results" MODIFIED="1431440095009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/db" />
-    <SUITE FILE_PATH="coverage/simulator$examples.coverage" NAME="examples Coverage Results" MODIFIED="1431337678538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$ode_integration.coverage" NAME="ode_integration Coverage Results" MODIFIED="1431962228130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/integrate" />
-    <SUITE FILE_PATH="coverage/simulator$Unittest_TestRoadRunnerToolsCase_test_initial_values.coverage" NAME="Unittest TestRoadRunnerToolsCase.test_initial_values Coverage Results" MODIFIED="1431955696904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
     <SUITE FILE_PATH="coverage/simulator$solve_ode.coverage" NAME="solve_ode Coverage Results" MODIFIED="1432043783774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/simulate" />
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_simulator.coverage" NAME="Unittests in simulator Coverage Results" MODIFIED="1432134516464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/simulator$simulator.coverage" NAME="simulator Coverage Results" MODIFIED="1431709976377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim" />
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_simulator.coverage" NAME="Unittests in simulator Coverage Results" MODIFIED="1432190053225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_distributions.coverage" NAME="Unittests in test_distributions Coverage Results" MODIFIED="1431335722699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1431280418413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../multiscalesite/simapp" />
     <SUITE FILE_PATH="coverage/simulator$event_time.coverage" NAME="event_time Coverage Results" MODIFIED="1431428641103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1431280418413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../multiscalesite/simapp" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1431281521297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../multiscalesite" />
     <SUITE FILE_PATH="coverage/simulator$samples.coverage" NAME="samples Coverage Results" MODIFIED="1431332286875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
     <SUITE FILE_PATH="coverage/simulator$Unittest_TestSampling_test_mean.coverage" NAME="Unittest TestSampling.test_mean Coverage Results" MODIFIED="1431677923007" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_TestRoadRunnerToolsCase.coverage" NAME="Unittests in TestRoadRunnerToolsCase Coverage Results" MODIFIED="1432047747469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
-    <SUITE FILE_PATH="coverage/simulator$mca.coverage" NAME="mca Coverage Results" MODIFIED="1432110554003" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_demo.coverage" NAME="Unittests in test_demo Coverage Results" MODIFIED="1431675267062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/models" />
     <SUITE FILE_PATH="coverage/simulator$Unittest_MyTestCase_test_demo_samples.coverage" NAME="Unittest MyTestCase.test_demo_samples Coverage Results" MODIFIED="1431678982095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
+    <SUITE FILE_PATH="coverage/simulator$jws_example.coverage" NAME="jws_example Coverage Results" MODIFIED="1432197991464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_SolveODETestCase.coverage" NAME="Unittests in SolveODETestCase Coverage Results" MODIFIED="1432046718137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/simulate" />
+    <SUITE FILE_PATH="coverage/simulator$examples.coverage" NAME="examples Coverage Results" MODIFIED="1431337678538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
+    <SUITE FILE_PATH="coverage/simulator$Unittest_TestRoadRunnerToolsCase_test_initial_values.coverage" NAME="Unittest TestRoadRunnerToolsCase.test_initial_values Coverage Results" MODIFIED="1431955696904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
+    <SUITE FILE_PATH="coverage/simulator$ode_integration.coverage" NAME="ode_integration Coverage Results" MODIFIED="1431962228130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/integrate" />
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_TestRoadRunnerToolsCase.coverage" NAME="Unittests in TestRoadRunnerToolsCase Coverage Results" MODIFIED="1432047747469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
+    <SUITE FILE_PATH="coverage/simulator$mca.coverage" NAME="mca Coverage Results" MODIFIED="1432214961753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
+    <SUITE FILE_PATH="coverage/simulator$van_der_pol.coverage" NAME="van_der_pol Coverage Results" MODIFIED="1432214507755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/examples" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_examples.coverage" NAME="Unittests in test_examples Coverage Results" MODIFIED="1431346717920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$Unittest_TestRoadRunnerToolsCase_test_initial_concentrations.coverage" NAME="Unittest TestRoadRunnerToolsCase.test_initial_concentrations Coverage Results" MODIFIED="1432046893668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/simulator$event_timepoint.coverage" NAME="event_timepoint Coverage Results" MODIFIED="1432214823482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_MyTestCase.coverage" NAME="Unittests in MyTestCase Coverage Results" MODIFIED="1431440033841" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/db" />
+    <SUITE FILE_PATH="coverage/simulator$Unittest_TestRoadRunnerToolsCase_test_initial_concentrations.coverage" NAME="Unittest TestRoadRunnerToolsCase.test_initial_concentrations Coverage Results" MODIFIED="1432046893668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/simulator$lognormal.coverage" NAME="lognormal Coverage Results" MODIFIED="1431678792056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_roadrunner_tools.coverage" NAME="Unittests in test_roadrunner_tools Coverage Results" MODIFIED="1431953205593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
   </component>
@@ -119,40 +130,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="solve_ode.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odesim/simulate/solve_ode.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="132" column="14" selection-start-line="132" selection-start-column="14" selection-end-line="132" selection-end-column="14" />
-              <folding>
-                <element signature="e#36#47#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="copasi.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odesim/simulate/copasi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="solve_io.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odesim/simulate/solve_io.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="53" column="26" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="26" />
-              <folding>
-                <element signature="e#164#173#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="tools.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/odesim/db/tools.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -163,11 +140,53 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rr_testing.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="rr_testing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/rr_testing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25403225">
+            <state vertical-scroll-proportion="0.0">
               <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_simulator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/odesim/test_simulator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mca.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/mca.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4856661">
+              <caret line="19" column="54" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
+              <folding>
+                <element signature="e#67#104#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jws_example.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/jws_example.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="roadrunner.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python2.7/dist-packages/roadrunner/roadrunner.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2711" column="8" selection-start-line="2711" selection-start-column="8" selection-end-line="2711" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -183,14 +202,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="solve.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odesim/simulate/solve.py">
+      <file leaf-file-name="van_der_pol.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/odesim/examples/van_der_pol.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-              <folding>
-                <element signature="e#99#136#0" expanded="true" />
-              </folding>
+              <caret line="3" column="45" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="van_der_pol.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/odesim/examples/van_der_pol.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="13" selection-end-column="76" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="event_timepoint.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/event_timepoint.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -211,10 +248,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/odesim/models/demo_test.py" />
-        <option value="$PROJECT_DIR$/odesim/roadrunner/examples/lognormal.py" />
-        <option value="$PROJECT_DIR$/odesim/roadrunner/examples/event_time.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/odesim/dist/sampling.py" />
         <option value="$PROJECT_DIR$/odesim/dist/test_sampling.py" />
         <option value="$PROJECT_DIR$/odesim/dist/test_examples.py" />
@@ -262,6 +295,10 @@
         <option value="$PROJECT_DIR$/odesim/simulate/solve_ode.py" />
         <option value="$PROJECT_DIR$/odesim/simulate/solve_io.py" />
         <option value="$PROJECT_DIR$/odesim/db/tools.py" />
+        <option value="$PROJECT_DIR$/odesim/roadrunner/examples/jws_example.py" />
+        <option value="$PROJECT_DIR$/odesim/examples/van_der_pol.xml" />
+        <option value="$PROJECT_DIR$/odesim/examples/van_der_pol.py" />
+        <option value="$PROJECT_DIR$/odesim/roadrunner/examples/event_timepoint.py" />
       </list>
     </option>
   </component>
@@ -273,10 +310,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
     <option name="y" value="24" />
-    <option name="width" value="1922" />
-    <option name="height" value="1033" />
+    <option name="width" value="1721" />
+    <option name="height" value="1031" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -374,6 +410,46 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="roadrunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="odesim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="roadrunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="examples" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="odesim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="db" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -405,7 +481,7 @@
       <recent name="$PROJECT_DIR$/odesim/dist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in simulator">
+  <component name="RunManager" selected="Python.mca">
     <configuration default="false" name="Unittests in simulator" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -433,75 +509,6 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Unittests in SolveODETestCase" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/odesim/simulate" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="simulator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/odesim/simulate/test_solve_ode.py" />
-      <option name="CLASS_NAME" value="SolveODETestCase" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_CLASS" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestRoadRunnerToolsCase.test_initial_concentrations" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="simulator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py" />
-      <option name="CLASS_NAME" value="TestRoadRunnerToolsCase" />
-      <option name="METHOD_NAME" value="test_initial_concentrations" />
-      <option name="FOLDER_NAME" value="$PROJECT_DIR$" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittests in TestRoadRunnerToolsCase" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/odesim/roadrunner" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="simulator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py" />
-      <option name="CLASS_NAME" value="TestRoadRunnerToolsCase" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_CLASS" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="mca" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -516,6 +523,60 @@
       <module name="simulator" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/odesim/roadrunner/examples/mca.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="jws_example" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/odesim/roadrunner/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="simulator" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/odesim/roadrunner/examples/jws_example.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="van_der_pol" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/odesim/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="simulator" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/odesim/examples/van_der_pol.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="event_timepoint" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/odesim/roadrunner/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="simulator" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/odesim/roadrunner/examples/event_timepoint.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -710,18 +771,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in simulator" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in SolveODETestCase" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestRoadRunnerToolsCase.test_initial_concentrations" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestRoadRunnerToolsCase" />
-      <item index="4" class="java.lang.String" itemvalue="Python.mca" />
+      <item index="1" class="java.lang.String" itemvalue="Python.mca" />
+      <item index="2" class="java.lang.String" itemvalue="Python.jws_example" />
+      <item index="3" class="java.lang.String" itemvalue="Python.van_der_pol" />
+      <item index="4" class="java.lang.String" itemvalue="Python.event_timepoint" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in simulator" />
-        <item index="1" class="java.lang.String" itemvalue="Python.mca" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in TestRoadRunnerToolsCase" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestRoadRunnerToolsCase.test_initial_concentrations" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in SolveODETestCase" />
+        <item index="0" class="java.lang.String" itemvalue="Python.mca" />
+        <item index="1" class="java.lang.String" itemvalue="Python.event_timepoint" />
+        <item index="2" class="java.lang.String" itemvalue="Python.van_der_pol" />
+        <item index="3" class="java.lang.String" itemvalue="Python.jws_example" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in simulator" />
       </list>
     </recent_temporary>
   </component>
@@ -762,8 +823,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="1922" height="1033" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="24" width="1721" height="1031" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12004405" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -776,9 +837,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24946581" sideWeight="0.42668137" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30522946" sideWeight="0.57331866" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32277346" sideWeight="0.57331866" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20264317" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42070484" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31236205" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -809,35 +870,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/odesim/dist/samples.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="6" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/examples/04_CyREST.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/models/test_examples.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/pandas/core/generic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2082" column="0" selection-start-line="2082" selection-start-column="0" selection-end-line="2082" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odesim/examples/demo/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -891,16 +923,6 @@
           <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
           <folding>
             <element signature="e#60#97#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/test_simulator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.082004555">
-          <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-          <folding>
-            <element signature="e#125#162#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1089,7 +1111,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
           <folding>
-            <element signature="e#46#56#0" expanded="true" />
+            <element signature="e#46#56#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1142,16 +1164,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/mca.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-          <folding>
-            <element signature="e#67#104#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odesim/simulate/solve.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1170,14 +1182,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/roadrunner_tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odesim/roadrunner/test_roadrunner_tools.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.9530792">
@@ -1185,14 +1189,6 @@
           <folding>
             <element signature="e#47#84#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/roadrunner/roadrunner.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3328446">
-          <caret line="2513" column="19" selection-start-line="2513" selection-start-column="8" selection-end-line="2515" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1226,9 +1222,75 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/rr_testing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25403225">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/jws_example.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/roadrunner/roadrunner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2711" column="8" selection-start-line="2711" selection-start-column="8" selection-end-line="2711" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/test_simulator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/roadrunner_tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/examples/van_der_pol.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="45" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/examples/van_der_pol.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="13" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/event_timepoint.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/mca.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4856661">
+          <caret line="19" column="54" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
+          <folding>
+            <element signature="e#67#104#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

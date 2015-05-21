@@ -6,7 +6,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/reports/task_report.py" afterPath="$PROJECT_DIR$/simapp/reports/task_report.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/jws_example.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/van_der_pol.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_parameter_sensitivity-checkpoint.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_parameter_sensitivity-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/02_parameter_sensitivity.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/02_parameter_sensitivity.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/event_timepoint.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/event_timepoint.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
     </list>
     <ignored path="multiscalesite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +38,7 @@
     <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_tests_SimulationTestCase_test_simulation_clean.coverage" NAME="Test: simapp.tests.SimulationTestCase.test_simulation_clean Coverage Results" MODIFIED="1432130860529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_MiriamTestCase.coverage" NAME="Unittests in MiriamTestCase Coverage Results" MODIFIED="1431890798693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
     <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_tests_SimulationTestCase.coverage" NAME="Test: simapp.tests.SimulationTestCase Coverage Results" MODIFIED="1432131917460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1432130880986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1432189995809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_models_status.coverage" NAME="Unittest ViewTestCase.test_models_status Coverage Results" MODIFIED="1431326693119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_results_status.coverage" NAME="Unittest ViewTestCase.test_results_status Coverage Results" MODIFIED="1431328508046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$task_report.coverage" NAME="task_report Coverage Results" MODIFIED="1432136321804" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp/reports" />
@@ -111,10 +118,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="task_report.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base_generic.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.33333334">
+              <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="task_report.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simapp/reports/task_report.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7225225">
+            <state vertical-scroll-proportion="0.0">
               <caret line="65" column="11" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
               <folding>
                 <element signature="e#103#140#0" expanded="true" />
@@ -178,8 +195,8 @@
       <file leaf-file-name="tests.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simapp/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.032258">
-              <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+            <state vertical-scroll-proportion="-5.483871">
+              <caret line="344" column="0" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
               <folding>
                 <element signature="e#135#172#0" expanded="true" />
               </folding>
@@ -234,7 +251,6 @@
         <option value="$PROJECT_DIR$/util/biomodels/biomodels.py" />
         <option value="$PROJECT_DIR$/util/miriam/miriam.py" />
         <option value="$PROJECT_DIR$/util/miriam/test_miriam.py" />
-        <option value="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
         <option value="$PROJECT_DIR$/simapp/sbml/test_report.py" />
         <option value="$PROJECT_DIR$/examples/testdata.py" />
         <option value="$PROJECT_DIR$/simapp/db/api.py" />
@@ -254,6 +270,7 @@
         <option value="$PROJECT_DIR$/simapp/reports/test_sbml_report.py" />
         <option value="$PROJECT_DIR$/simapp/reports/test_task_report.py" />
         <option value="$PROJECT_DIR$/simapp/reports/task_report.py" />
+        <option value="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
       </list>
     </option>
   </component>
@@ -265,10 +282,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
     <option name="y" value="24" />
-    <option name="width" value="1922" />
-    <option name="height" value="1033" />
+    <option name="width" value="577" />
+    <option name="height" value="1031" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -516,7 +532,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="reports" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -534,7 +550,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="analysis" />
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simapp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -588,7 +608,7 @@
       <recent name="$PROJECT_DIR$/util" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.task_report">
+  <component name="RunManager" selected="Python tests.Unittests in multiscalesite">
     <configuration default="false" name="Unittests in multiscalesite" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -962,11 +982,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.task_report" />
-        <item index="1" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
-        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
-        <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean2" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
+        <item index="1" class="java.lang.String" itemvalue="Python.task_report" />
+        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
+        <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
+        <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean2" />
       </list>
     </recent_temporary>
   </component>
@@ -1004,8 +1024,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="1922" height="1033" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="24" width="577" height="1031" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4229075" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1017,9 +1037,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23788546" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23959444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.8487713" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22601984" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35572687" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.406181" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6387665" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1216,14 +1236,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util/miriam/miriam.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1594533">
@@ -1369,16 +1381,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.032258">
-          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-          <folding>
-            <element signature="e#135#172#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/method.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.0">
@@ -1475,11 +1477,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simapp/reports/task_report.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7225225">
+        <state vertical-scroll-proportion="0.0">
           <caret line="65" column="11" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
           <folding>
             <element signature="e#103#140#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.483871">
+          <caret line="344" column="0" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
+          <folding>
+            <element signature="e#135#172#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
