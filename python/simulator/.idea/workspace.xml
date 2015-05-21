@@ -6,32 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/method.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/test_task_report.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/migrations/0002_auto_20150519_0804.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/migrations/0003_auto_20150519_1429.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/migrations/0004_auto_20150520_1008.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/analysis/ParameterFiles.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/task_report.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/sbml/__init__.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/sbml/report.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/sbml_report.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/sbml/test_report.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/test_sbml_report.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/odesim/roadrunner/examples/testing.py" afterPath="$PROJECT_DIR$/odesim/roadrunner/examples/rr_testing.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/02_parameter_sensitivity-checkpoint.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/.ipynb_checkpoints/02_parameter_sensitivity-checkpoint.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/examples/02_parameter_sensitivity.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/02_parameter_sensitivity.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templatetags/Parameter_filters.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templatetags/Parameter_filters.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/macros.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/macros.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/methods.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/methods.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/models.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/analysis/prepare_task.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/analysis/prepare_task.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/util/sabiork/sabiork.py" afterPath="$PROJECT_DIR$/../multiscalesite/util/sabiork/sabiork.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/task.html" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/templates/simapp/task.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/tests.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/tests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/db/tools.py" afterPath="$PROJECT_DIR$/odesim/db/tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/urls.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/views.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/reports/task_report.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/task_report.py" />
     </list>
     <ignored path="simulator.iws" />
     <ignored path=".idea/workspace.xml" />

@@ -6,32 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simapp/templates/simapp/method.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simapp/reports/test_task_report.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/simapp/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/simapp/migrations/0002_auto_20150519_0804.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/simapp/migrations/0003_auto_20150519_1429.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/simapp/migrations/0004_auto_20150520_1008.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/simapp/analysis/ParameterFiles.py" afterPath="$PROJECT_DIR$/simapp/reports/task_report.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/simapp/sbml/__init__.py" afterPath="$PROJECT_DIR$/simapp/reports/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/simapp/sbml/report.py" afterPath="$PROJECT_DIR$/simapp/reports/sbml_report.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/simapp/sbml/test_report.py" afterPath="$PROJECT_DIR$/simapp/reports/test_sbml_report.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/testing.py" afterPath="$PROJECT_DIR$/../simulator/odesim/roadrunner/examples/rr_testing.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_parameter_sensitivity-checkpoint.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/.ipynb_checkpoints/02_parameter_sensitivity-checkpoint.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/examples/02_parameter_sensitivity.ipynb" afterPath="$PROJECT_DIR$/../simulator/odesim/examples/02_parameter_sensitivity.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templatetags/Parameter_filters.py" afterPath="$PROJECT_DIR$/simapp/templatetags/Parameter_filters.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/macros.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/macros.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/methods.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/methods.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/models.py" afterPath="$PROJECT_DIR$/simapp/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/analysis/prepare_task.py" afterPath="$PROJECT_DIR$/simapp/analysis/prepare_task.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/sabiork/sabiork.py" afterPath="$PROJECT_DIR$/util/sabiork/sabiork.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/templates/simapp/task.html" afterPath="$PROJECT_DIR$/simapp/templates/simapp/task.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/tests.py" afterPath="$PROJECT_DIR$/simapp/tests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/odesim/db/tools.py" afterPath="$PROJECT_DIR$/../simulator/odesim/db/tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/urls.py" afterPath="$PROJECT_DIR$/simapp/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/views.py" afterPath="$PROJECT_DIR$/simapp/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/reports/task_report.py" afterPath="$PROJECT_DIR$/simapp/reports/task_report.py" />
     </list>
     <ignored path="multiscalesite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,8 +34,9 @@
     <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1432130880986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_models_status.coverage" NAME="Unittest ViewTestCase.test_models_status Coverage Results" MODIFIED="1431326693119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_results_status.coverage" NAME="Unittest ViewTestCase.test_results_status Coverage Results" MODIFIED="1431328508046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
+    <SUITE FILE_PATH="coverage/multiscalesite$task_report.coverage" NAME="task_report Coverage Results" MODIFIED="1432136321804" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp/reports" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_MiriamTestCase_test_resource.coverage" NAME="Unittest MiriamTestCase.test_resource Coverage Results" MODIFIED="1431889840852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
-    <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_reports_test_task_report_TaskReportTestCase.coverage" NAME="Test: simapp.reports.test_task_report.TaskReportTestCase Coverage Results" MODIFIED="1432135059560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_reports_test_task_report_TaskReportTestCase.coverage" NAME="Test: simapp.reports.test_task_report.TaskReportTestCase Coverage Results" MODIFIED="1432136104483" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/multiscalesite$miriam.coverage" NAME="miriam Coverage Results" MODIFIED="1431888949095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -138,10 +114,10 @@
       <file leaf-file-name="task_report.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simapp/reports/task_report.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1356784">
-              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.7225225">
+              <caret line="65" column="11" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
               <folding>
-                <element signature="e#123#134#0" expanded="true" />
+                <element signature="e#103#140#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -540,24 +516,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templatetags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="reports" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -630,7 +588,7 @@
       <recent name="$PROJECT_DIR$/util" />
     </key>
   </component>
-  <component name="RunManager" selected="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase">
+  <component name="RunManager" selected="Python.task_report">
     <configuration default="false" name="Unittests in multiscalesite" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -652,26 +610,6 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Test: simapp.tests.SimulationTestCase.test_simulation_clean" type="DjangoTestsConfigurationType" factoryName="Django tests" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="multiscalesite" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="TARGET" value="simapp.tests.SimulationTestCase.test_simulation_clean" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="false" />
-      <option name="OPTIONS" value="" />
       <method />
     </configuration>
     <configuration default="false" name="Test: simapp.tests.SimulationTestCase.test_simulation_clean2" type="DjangoTestsConfigurationType" factoryName="Django tests" temporary="true">
@@ -732,6 +670,24 @@
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="false" name="task_report" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simapp/reports" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="multiscalesite" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simapp/reports/task_report.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -999,18 +955,18 @@
       <item index="0" class="java.lang.String" itemvalue="Django server.admin" />
       <item index="1" class="java.lang.String" itemvalue="Django server.multiscalesite" />
       <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
-      <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean" />
-      <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean2" />
-      <item index="5" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
-      <item index="6" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
+      <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean2" />
+      <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
+      <item index="5" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
+      <item index="6" class="java.lang.String" itemvalue="Python.task_report" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
-        <item index="1" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
-        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean2" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
-        <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean" />
+        <item index="0" class="java.lang.String" itemvalue="Python.task_report" />
+        <item index="1" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
+        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
+        <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean2" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
       </list>
     </recent_temporary>
   </component>
@@ -1063,7 +1019,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23959444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22601984" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.09030837" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35572687" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6387665" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1519,10 +1475,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simapp/reports/task_report.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1356784">
-          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.7225225">
+          <caret line="65" column="11" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
           <folding>
-            <element signature="e#123#134#0" expanded="true" />
+            <element signature="e#103#140#0" expanded="true" />
           </folding>
         </state>
       </provider>

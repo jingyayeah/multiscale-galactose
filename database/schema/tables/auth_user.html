@@ -101,7 +101,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>id</td>
  <td class='detail'>serial</td>
  <td class='detail' align='right'>10</td>
@@ -110,19 +110,19 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail' align='right'>nextval('auth_user_id_seq'::regclass)</td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="auth_user_groups.user_id refs auth_user.id via auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id"><a href='auth_user_groups.html'>auth_user_groups</a><span class='relatedKey'>.user_id</span>
     </td>
     <td class='constraint detail'>auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="auth_user_user_permissions.user_id refs auth_user.id via auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id"><a href='auth_user_user_permissions.html'>auth_user_user_permissions</a><span class='relatedKey'>.user_id</span>
     </td>
     <td class='constraint detail'>auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="django_admin_log.user_id refs auth_user.id via django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id"><a href='django_admin_log.html'>django_admin_log</a><span class='relatedKey'>.user_id</span>
     </td>
     <td class='constraint detail'>django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id<span title='Restrict delete:
@@ -133,7 +133,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>password</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>128</td>
@@ -144,7 +144,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>last_login</td>
  <td class='detail'>timestamptz</td>
  <td class='detail' align='right'>35,6</td>
@@ -155,7 +155,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>is_superuser</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -166,7 +166,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>username</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>30</td>
@@ -177,7 +177,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>first_name</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>30</td>
@@ -188,7 +188,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>last_name</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>30</td>
@@ -199,7 +199,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>email</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>254</td>
@@ -210,7 +210,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>is_staff</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -221,7 +221,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>is_active</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -232,7 +232,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>date_joined</td>
  <td class='detail'>timestamptz</td>
  <td class='detail' align='right'>35,6</td>
@@ -244,7 +244,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='11 columns'>Table contained 1 rows at Sun May 03 18:02 CEST 2015<p/>
+<p title='11 columns'>Table contained 1 rows at Wed May 20 17:29 CEST 2015<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>

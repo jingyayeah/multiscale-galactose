@@ -13,7 +13,7 @@
 <entry key="dbHostTField">127.0.0.1</entry>
 <entry key="dbTypeCBox">pgsql</entry>
 <entry key="noLogoCBox">false</entry>
-<entry key="dbDriverPTField">/home/mkoenig/Programs/schemaSpy/postgresql-9.1-903.jdbc4.jar</entry>
+<entry key="dbDriverPTField">/home/mkoenig/Programs/SchemaSpy/postgresql-9.3-1102.jdbc41.jar</entry>
 <entry key="allSchemasCBox">false</entry>
 <entry key="highQuCBox">true</entry>
 <entry key="propertiePathTField"/>
@@ -31,7 +31,7 @@
 <entry key="noHTMLCBox">false</entry>
 <entry key="dincFKCBox">false</entry>
 <entry key="dbPwdField">test</entry>
-<entry key="sSpyPathTField">/home/mkoenig/Programs/schemaSpy/schemaSpy_5.0.0.jar</entry>
+<entry key="sSpyPathTField">/home/mkoenig/Programs/SchemaSpy/schemaSpy_5.0.0.jar</entry>
 <entry key="railsCBox">false</entry>
 <entry key="lowQuCBox">false</entry>
 <entry key="noRowsBox">false</entry>
