@@ -2,6 +2,6 @@
 import roadrunner
 print roadrunner.getVersionStr()
 
-import testing
-testing.runTester()
+import roadrunner.testing
+roadrunner.testing.runTester()
 

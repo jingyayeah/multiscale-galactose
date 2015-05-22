@@ -10,8 +10,8 @@
 ############################################################
 
 # install/upgrade python dependencies
-sudo pip install numpy --upgrade
-sudo pip install scipy --upgrade
+sudo -E pip install numpy --upgrade
+sudo -E pip install scipy --upgrade
 
 sudo apt-get install llvm llvm-dev git libxml2-dev
 
