@@ -1,10 +1,7 @@
-'''
-Created on Jul 23, 2014
-@author: mkoenig
-'''
+"""
+Tissue model.
+"""
 
-import project_settings
-from simapp.models import CompModel
 
 from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
     UNIT_KIND_METRE,UNIT_KIND_KILOGRAM, SBMLDocument, SBMLWriter
@@ -18,20 +15,25 @@ from modelcreator.processes.ReactionTemplate import ReactionTemplate
 
 from modelcreator.sbml.SBMLUtils import check
 
+
+class TissueModelException(Exception):
+    pass
+
+
 class TissueModel(object):
-    '''
+    """
     The SBML model is created from the tissue information
     and the single cell models.
-    '''
+    """
     _keys = ['main_units', 'units', 'names',
-            'pars', 'external', 'assignments', 'rules']
+             'pars', 'external', 'assignments', 'rules']
 
     def __init__(self, Nc, Nf, version,
                  tissue_dict, cell_model, simId='core', events=None):
-        '''
-        Initialize with the tissue information dictionary and 
+        """
+        Initialize with the tissue information dictionary and
         the respective cell model used for creation.
-        '''
+        """
         self.Nc = Nc
         self.Nf = Nf
         self.version = version
@@ -62,13 +64,10 @@ class TissueModel(object):
     
     @staticmethod
     def createTissueDict(module_names):
-        '''
-        Creates one information dictionary from various modules
-        by combining the information.
-        Information in earlier modules if overwritten by information
-        in later modules.
-        
-        '''
+        """
+        Creates one information dictionary from various modules by combining the information.
+        Information in earlier modules if overwritten by information in later modules.
+        """
         import copy
         cdict = dict()
         for name in module_names:
@@ -91,18 +90,17 @@ class TissueModel(object):
                         old_value[k] = copy.deepcopy(v)                    
         return cdict
 
-
     @staticmethod
     def _createDict(module_name):
-        '''
+        """
         A module which encodes a cell model is given and
         used to create the instance of the CellModel from
         the given global variables of the module.
-        
+
         TODO: some quality control of the model structure.
-        '''
+        """
         # dynamically import module
-        #tissue_module = __import__(module_name)
+        # tissue_module = __import__(module_name)
         import importlib
         module = importlib.import_module(module_name)
         
@@ -121,7 +119,6 @@ class TissueModel(object):
 
         return mdict
 
-        
     def createId(self):
         if self.simId:
             mid = '{}_v{}_Nc{}_{}'.format(self.cellModel.mid, self.version, self.Nc, self.simId)
@@ -134,13 +131,11 @@ class TissueModel(object):
     
     def comp_range(self):
         return range(1, self.Nc*self.Nf+1)
-    
 
     def info(self):
         for key in TissueModel._keys:
             print key, ' : ', getattr(self, key)
-            
-            
+
     def createModel(self):    
         # sinusoidal unit model
         self.createUnits()
@@ -151,16 +146,14 @@ class TissueModel(object):
         self.createAssignmentRules()
         self.createTransportReactions()
         self.createBoundaryConditions()
-        
         # cell model
-        
         self.createCellCompartments()
         self.createCellSpecies()
         self.createCellParameters()
         self.createCellInitialAssignments()
         self.createCellAssignmentRules()
         self.createCellReactions()
-        
+        # events
         self.createCellEvents()
         self.createSimulationEvents()
         
@@ -195,12 +188,12 @@ class TissueModel(object):
 
     ##########################################################################
     # Species
-    ##########################################################################    
+    ##########################################################################
     def createExternalSpeciesDict(self):
-        '''
-        All species which are defined external are generated in all 
+        """
+        All species which are defined external are generated in all
         external compartments, i.e. PP, PV, sinusoid and disse space.
-        '''
+        """
         sdict = dict()
         for data in self.external:
             (sid, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
@@ -230,7 +223,7 @@ class TissueModel(object):
                                                              getHepatocyteId(k), boundaryCondition)  
                 if full_id.startswith('c__'):
                     sdict[getCytosolSpeciesId(sid, k)] = (getCytosolSpeciesName(name, k), init, units, 
-                                                             getCytosolId(k), boundaryCondition)    
+                                                          getCytosolId(k), boundaryCondition)
         return sdict
     
     def getItemsFromSpeciesData(self, data):
@@ -240,26 +233,25 @@ class TissueModel(object):
             boundaryCondition = data[3]
         else:
             boundaryCondition = False
-        return (sid, init, units, boundaryCondition)
-    
+        return sid, init, units, boundaryCondition
 
     ##########################################################################
     # Diffusion
     ##########################################################################
     def createDiffusionAssignments(self):
-        ''' Create the geometrical diffusion constants 
+        """ Create the geometrical diffusion constants
             based on the external substances.
             For the diffusion between sinusoid and space of Disse,
             diffusion through fenestrations is handled via pore theory.
-        '''
+        """
         # get the fenestration radius
         r_fen = None
         for p in self.pars:
-            if (p[0] == 'r_fen'):
+            if p[0] == 'r_fen':
                 r_fen = p[1]
                 break
         if not r_fen:
-            raise('Fenestration radius not defined.')
+            raise TissueModelException('Fenestration radius not defined.')
         
         diffusion_assignments = []
         for data in self.external:
@@ -274,22 +266,21 @@ class TissueModel(object):
             # test if substance larger than fenestration radius
             r_sid = None
             for p in self.pars:
-                if (p[0] == 'r_{}'.format(sid)):
+                if p[0] == 'r_{}'.format(sid):
                     r_sid = p[1]
                     break
-            if (r_sid>r_fen):
-                diffusion_assignments.extend([ ('Dy_sindis_{}'.format(sid), '0 m3_per_s', "m3_per_s") ])
+            if r_sid > r_fen:
+                diffusion_assignments.extend([('Dy_sindis_{}'.format(sid), '0 m3_per_s', "m3_per_s")])
             else:
-                diffusion_assignments.extend([
-              ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis * (1 dimensionless - r_{}/r_fen)^2 * (1 dimensionless - 2.104 dimensionless*r_{}/r_fen + 2.09 dimensionless *(r_{}/r_fen)^3 - 0.95 dimensionless *(r_{}/r_fen)^5)'.format(sid, sid, sid, sid, sid), "m3_per_s")
-            ])
-            
+                diffusion_assignments.extend([('Dy_sindis_{}'.format(sid),
+                                               'D{}/y_dis * f_fen * A_sindis * (1 dimensionless - r_{}/r_fen)^2 * (1 dimensionless - 2.104 dimensionless*r_{}/r_fen + 2.09 dimensionless *(r_{}/r_fen)^3 - 0.95 dimensionless *(r_{}/r_fen)^5)'.format(sid, sid, sid, sid, sid),
+                                               "m3_per_s")])
         return diffusion_assignments
 
     def createDiffusionRules(self):
         return self.createDiffusionAssignments()
     
-    ## Parameters ##
+    # Parameters
     def createParametersDict(self, pars):
         pdict = dict()
         for pdata in pars:
@@ -299,7 +290,7 @@ class TissueModel(object):
                           pdata[1], pdata[2], pdata[3]]
         return pdict
     
-    ## Units ##
+    # Units
     def createUnits(self):
         # creates all the individual unit definitions
         for key, value in self.units.iteritems():
@@ -307,7 +298,7 @@ class TissueModel(object):
         # sets the main units of model
         setMainUnits(self.model, self.main_units)
     
-    ## Compartments ##
+    # Compartments
     def createExternalCompartments(self):
         comps = self.createExternalCompartmentsDict()
         createCompartments(self.model, comps)
@@ -316,25 +307,25 @@ class TissueModel(object):
         comps = self.createCellCompartmentsDict()
         createCompartments(self.model, comps)
     
-    ## Species ##
+    # Species
     def createExternalSpecies(self):
-        sdict = self.createExternalSpeciesDict()
-        createSpecies(self.model, sdict)
+        species = self.createExternalSpeciesDict()
+        createSpecies(self.model, species)
             
     def createCellSpecies(self):
-        sdict = self.createCellSpeciesDict()
-        createSpecies(self.model, sdict)
+        species = self.createCellSpeciesDict()
+        createSpecies(self.model, species)
    
-    ## Parameters ##
+    # Parameters
     def createExternalParameters(self):
-        pdict = self.createParametersDict(self.pars)
-        createParameters(self.model, pdict)
+        parameters = self.createParametersDict(self.pars)
+        createParameters(self.model, parameters)
  
     def createCellParameters(self):
-        pdict = self.createParametersDict(self.cellModel.pars)
-        createParameters(self.model, pdict)
+        parameters = self.createParametersDict(self.cellModel.pars)
+        createParameters(self.model, parameters)
  
-    ## InitialAssignments ##
+    # InitialAssignments
     def createInitialAssignments(self):
         createInitialAssignments(self.model, self.assignments, self.names)
         # diffusion
@@ -343,9 +334,8 @@ class TissueModel(object):
     
     def createCellInitialAssignments(self):
         createInitialAssignments(self.model, self.cellModel.assignments, self.names)
-    
-    
-    ## Assignment rules ##     
+
+    # Assignment Rules
     def createAssignmentRules(self):
         createAssignmentRules(self.model, self.rules, self.names)
         
@@ -354,7 +344,6 @@ class TissueModel(object):
         createAssignmentRules(self.model, dif_rules, self.names)
         
     def createCellAssignmentRules(self):
-        ''' Necessary to handle additional information. '''
         rules = []
         rep_dicts = self.createCellExtReplacementDicts()
         for rule in self.cellModel.rules:
@@ -364,9 +353,9 @@ class TissueModel(object):
         createAssignmentRules(self.model, rules, self.names)
     
     def createCellReplacementDicts(self):
-        ''' Definition of replacement information for initialization of the cell ids.
+        """ Definition of replacement information for initialization of the cell ids.
             Creates all possible combinations.
-        '''
+        """
         init_data = []
         for k in self.cell_range():
             d = dict()
@@ -376,9 +365,9 @@ class TissueModel(object):
         return init_data
     
     def createCellExtReplacementDicts(self):
-        ''' Definition of replacement information for initialization of the cell ids.
+        """ Definition of replacement information for initialization of the cell ids.
             Creates all possible combinations.
-        '''
+        """
         init_data = []
         for k in self.cell_range():
             for i in range( (k-1)*self.Nf+1, k*self.Nf+1):
@@ -388,8 +377,8 @@ class TissueModel(object):
                 d['e__'] = '{}__'.format(getDisseId(i))
                 init_data.append(d)
         return init_data
-    
-    
+
+    # Boundary Conditions
     def createBoundaryConditions(self):
         ''' Set constant in periportal. '''
         sdict = self.createExternalSpeciesDict()
@@ -398,10 +387,11 @@ class TissueModel(object):
                 s = self.model.getSpecies(key)
                 s.setBoundaryCondition(True)
 
+    # Reactions
     def createCellReactions(self):
-        ''' Initializes the generic compartments with the actual
+        """ Initializes the generic compartments with the actual
             list of compartments for the given geometry.
-        '''
+        """
         # set the model for the template
         ReactionTemplate.model = self.model
         
@@ -421,15 +411,15 @@ class TissueModel(object):
         self.createDiffusionReactions()
 
     def createFlowRules(self):
-        ''' Creates the rules for positions Si_x, pressures Si_P,
+        """ Creates the rules for positions Si_x, pressures Si_P,
             capillary flow Si_Q and pore flow Si_q.
             These parameters are used afterwards to calculate the actual flow
             values.
-        '''    
+        """
         rules = [
-                     (getPositionId(getPPId()), '0 m', 'm'),
-                     (getPositionId(getPVId()), 'L', 'm'),
-                    ] 
+            (getPositionId(getPPId()), '0 m', 'm'),
+            (getPositionId(getPVId()), 'L', 'm'),
+        ]
         # position midpoint hepatocyte
         for k in range(1, self.Nc*self.Nf+1):
             r = (getPositionId(getSinusoidId(k)), '({} dimensionless-0.5 dimensionless)*x_sin'.format(k), 'm')
@@ -480,10 +470,10 @@ class TissueModel(object):
         createAssignmentRules(self.model, rules, {})
 
     def createFlowReactions(self):
-        '''
+        """
         Creates the local flow reactions based on the local volume flows.
         The amount of substance transported via the volume flow is calculated.
-        '''
+        """
         # flow = 'flow_sin * A_sin'     # [m3/s] global volume flow (converts to local volume flow in pressure model)
         for data in self.external:
             sid = data[0]    
@@ -501,7 +491,7 @@ class TissueModel(object):
             createFlowReaction(self.model, sid, c_from=getPVId(), c_to=NONE_ID, flow=Q_str);
     
     def createFlowPoreReactions(self):
-        ''' Filtration and reabsorption reactions through pores. '''
+        """ Filtration and reabsorption reactions through pores. """
         for data in self.external:
             sid = data[0]      
             if sid in ["rbcM"]: 
@@ -511,8 +501,7 @@ class TissueModel(object):
             for k in self.comp_range():
                 Q_str = getqFlowId(getSinusoidId(k)) + ' * {}'.format('x_sin')  # [m2/s] * [m] (area flow)
                 createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), flow=Q_str)
-    
-    
+
     def createDiffusionReactions(self):        
         for data in self.external:
             sid = data[0]    
@@ -533,13 +522,14 @@ class TissueModel(object):
             Dy_sindis = 'Dy_sindis_{}'.format(sid)
             for k in self.comp_range():
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
-    
+
+    # Events
     def createCellEvents(self):
-        ''' Creates the additional events defined in the cell model.
+        """ Creates the additional events defined in the cell model.
             These can be metabolic deficiencies, or other defined
             parameter changes.
             TODO: make this cleaner and more general.
-        '''
+        """
         
         ddict = self.cellModel.deficiencies
         dunits = self.cellModel.deficiencies_units
@@ -557,34 +547,27 @@ class TissueModel(object):
                 ea.setMath(astnode)
                 
     def createSimulationEvents(self):
-        ''' Create the simulation timecourse events based on the 
+        """ Create the simulation timecourse events based on the
             event data.
-        '''
+        """
         if self.events:
             createSimulationEvents(self.model, self.events)
-    
-    
-    def writeSBML(self, fname=None, validate=True):
-        print 'libSBML {}'.format(libsbml.getLibSBMLDottedVersion())
-        if not fname:
-            fname = project_settings.SBML_DIR + '/' + self.id + '.xml'
-        
-        print 'Write : {}\n'.format(self.id, fname)
+
+    def writeSBML(self, filepath=None, validate=True):
+        if not filepath:
+            filepath = self.sbml_default_path()
+
+        print 'Write : {}\n'.format(self.id, filepath)
         writer = SBMLWriter()
-        writer.writeSBMLToFile(self.doc, fname)
+        writer.writeSBMLToFile(self.doc, filepath)
     
         # validate the model with units (only for small models)
         if validate:
             validator = SBMLValidator(ucheck= (self.Nc<4) )
-            validator.validate(fname)
-    
+            validator.validate(filepath)
+        return filepath
 
-    def storeInDatabase(self):
-        ''' 
-        SBML must already has be written in standard locaction
-        before.
-        '''
-        
-        model = CompModel.create(self.id, project_settings.SBML_DIR);
-        model.save();
-        
+    def sbml_default_path(self):
+        import os
+        import project_settings
+        return os.path.join(project_settings.SBML_DIR, '{}.xml'.format(self.id))

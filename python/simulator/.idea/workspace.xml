@@ -6,83 +6,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/.idea/dictionaries/mkoenig.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/testdata.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/doctrees/environment.pickle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/doctrees/index.doctree" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/.buildinfo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_sources/index.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/ajax-loader.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/basic.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment-bright.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment-close.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/default.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/doctools.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/down-pressed.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/down.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/file.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/minus.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/plus.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/pygments.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/searchtools.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/sidebar.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/underscore.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/up-pressed.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/up.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/websupport.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/genindex.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/objects.inv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/py-modindex.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/search.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/searchindex.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/conf.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/index.rst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/make.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/events/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/ModelId.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestFormulaAnd.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestPi.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestUnitKind.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/test.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/test_modelcreator.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/__init__.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/LICENSE.txt" afterPath="$PROJECT_DIR$/../modelcreator/README.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_annotations.csv" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_annotations.csv" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_annotations.xlsx" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_annotations.xlsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_v20_Nc1_Nf1.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_v20_Nc1_Nf1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_v20_Nc20_Nf1.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_v20_Nc20_Nf1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotated.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotated.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotations.csv" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotations.csv" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotations.xlsx" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotations.xlsx" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/misc_annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/example_annotation.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/events/eventdata_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/events/test_eventdata.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/ModelFactory_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/test_ModelFactory.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/model_cell_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/test_model_cell.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/equation_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/test_equation.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/naming_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/test_naming.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/test_BasicClearanceFactory.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/example_annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/example_annotation.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/events/event_factory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/events/eventdata.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/BasicClearanceFactory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/BasicClearanceFactory.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/clearance/BasicClearanceReactions.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/clearance/BasicClearanceReactions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/processes/ReactionFactory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/processes/ReactionFactory.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/annotation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/equation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/equation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/events/event_factory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/events/event_factory.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_metabolic.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_metabolic.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/GalactoseFactory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/GalactoseFactory.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_tissue.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_tissue.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/naming.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/naming.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/test_annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/test_annotation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/reports/test_task_report.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/test_task_report.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/events/test_eventdata.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/events/test_eventdata.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -944,6 +874,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="357" column="16" selection-start-line="357" selection-start-column="16" selection-end-line="357" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -12,9 +12,9 @@ TODO: handle the SBML information via dictionaries instead of lists,
 from modelcreator.models.model_cell import CellModel
 from modelcreator.models.model_tissue import TissueModel
     
-from modelcreator.events.event_factory import createGalactoseChallengeEventData,\
+from modelcreator.events.eventdata import createGalactoseChallengeEventData,\
     createRectEventData, createGaussEventData
-from modelcreator.events.event_factory import createGalactoseStepEventData
+from modelcreator.events.eventdata import createGalactoseStepEventData
 
 
 if __name__ == "__main__":
