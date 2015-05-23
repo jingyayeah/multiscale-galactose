@@ -176,7 +176,7 @@ def _createAssignmentRule(model, sid, formula):
 # Deficiency Events (Galactosemias)
 ######################################
 def getDeficiencyEventId(deficiency):
-    return 'EDEF_{:0>2d}'.model_format(deficiency)
+    return 'EDEF_{:0>2d}'.format(deficiency)
     
 def createDeficiencyEvent(model, deficiency):
     eid = getDeficiencyEventId(deficiency)
@@ -186,7 +186,7 @@ def createDeficiencyEvent(model, deficiency):
     t = e.createTrigger()
     t.setInitialValue(False) # ! not supported by Copasi -> lame fix via time
     t.setPersistent(True)    # ! not supported by Copasi -> careful with usage
-    formula = '(time>0) && (deficiency=={:d})'.model_format(deficiency);
+    formula = '(time>0) && (deficiency=={:d})'.format(deficiency);
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
     t.setMath(astnode);
     return e;

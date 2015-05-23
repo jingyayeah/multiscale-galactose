@@ -6,7 +6,86 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9da5d8-9f59-4d7a-b225-8f0c34de42a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/odesim/examples/Van_der_Pol_Oscillator.ipynb" afterPath="$PROJECT_DIR$/odesim/examples/Van_der_Pol_Oscillator.ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/.idea/dictionaries/mkoenig.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/testdata.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/README.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/doctrees/environment.pickle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/doctrees/index.doctree" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/.buildinfo" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_sources/index.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/ajax-loader.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/basic.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment-bright.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment-close.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/default.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/doctools.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/down-pressed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/down.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/file.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/minus.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/plus.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/pygments.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/searchtools.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/sidebar.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/underscore.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/up-pressed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/up.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/websupport.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/genindex.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/objects.inv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/py-modindex.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/search.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/searchindex.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/conf.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/index.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/make.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/events/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/ModelId.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestFormulaAnd.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestPi.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestUnitKind.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/test.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/test_modelcreator.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/__init__.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/LICENSE.txt" afterPath="$PROJECT_DIR$/../modelcreator/README.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_annotations.csv" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_annotations.csv" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_annotations.xlsx" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_annotations.xlsx" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_v20_Nc1_Nf1.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_v20_Nc1_Nf1.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_v20_Nc20_Nf1.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_v20_Nc20_Nf1.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotated.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotated.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotations.csv" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotations.csv" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotations.xlsx" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotations.xlsx" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/misc_annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/example_annotation.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/events/eventdata_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/events/test_eventdata.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/ModelFactory_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/test_ModelFactory.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/model_cell_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/test_model_cell.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/equation_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/test_equation.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/naming_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/test_naming.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/BasicClearanceFactory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/BasicClearanceFactory.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/clearance/BasicClearanceReactions.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/clearance/BasicClearanceReactions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/processes/ReactionFactory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/processes/ReactionFactory.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/annotation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/equation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/equation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/events/event_factory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/events/event_factory.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_metabolic.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_metabolic.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_tissue.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_tissue.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/naming.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/naming.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/test_annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/test_annotation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/simapp/reports/test_task_report.py" afterPath="$PROJECT_DIR$/../multiscalesite/simapp/reports/test_task_report.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../multiscalesite/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -20,7 +99,11 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_SolveODETestCase.coverage" NAME="Unittests in SolveODETestCase Coverage Results" MODIFIED="1432046718137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/simulate" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_tools.coverage" NAME="Unittests in test_tools Coverage Results" MODIFIED="1431440095009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/db" />
+    <SUITE FILE_PATH="coverage/simulator$examples.coverage" NAME="examples Coverage Results" MODIFIED="1431337678538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
+    <SUITE FILE_PATH="coverage/simulator$ode_integration.coverage" NAME="ode_integration Coverage Results" MODIFIED="1431962228130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/integrate" />
+    <SUITE FILE_PATH="coverage/simulator$Unittest_TestRoadRunnerToolsCase_test_initial_values.coverage" NAME="Unittest TestRoadRunnerToolsCase.test_initial_values Coverage Results" MODIFIED="1431955696904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
     <SUITE FILE_PATH="coverage/simulator$solve_ode.coverage" NAME="solve_ode Coverage Results" MODIFIED="1432043783774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/simulate" />
     <SUITE FILE_PATH="coverage/simulator$simulator.coverage" NAME="simulator Coverage Results" MODIFIED="1431709976377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_simulator.coverage" NAME="Unittests in simulator Coverage Results" MODIFIED="1432190053225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -30,20 +113,16 @@
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1431281521297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../multiscalesite" />
     <SUITE FILE_PATH="coverage/simulator$samples.coverage" NAME="samples Coverage Results" MODIFIED="1431332286875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
     <SUITE FILE_PATH="coverage/simulator$Unittest_TestSampling_test_mean.coverage" NAME="Unittest TestSampling.test_mean Coverage Results" MODIFIED="1431677923007" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_demo.coverage" NAME="Unittests in test_demo Coverage Results" MODIFIED="1431675267062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/models" />
-    <SUITE FILE_PATH="coverage/simulator$Unittest_MyTestCase_test_demo_samples.coverage" NAME="Unittest MyTestCase.test_demo_samples Coverage Results" MODIFIED="1431678982095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$jws_example.coverage" NAME="jws_example Coverage Results" MODIFIED="1432197991464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_SolveODETestCase.coverage" NAME="Unittests in SolveODETestCase Coverage Results" MODIFIED="1432046718137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/simulate" />
-    <SUITE FILE_PATH="coverage/simulator$examples.coverage" NAME="examples Coverage Results" MODIFIED="1431337678538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$Unittest_TestRoadRunnerToolsCase_test_initial_values.coverage" NAME="Unittest TestRoadRunnerToolsCase.test_initial_values Coverage Results" MODIFIED="1431955696904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
-    <SUITE FILE_PATH="coverage/simulator$ode_integration.coverage" NAME="ode_integration Coverage Results" MODIFIED="1431962228130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/integrate" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_TestRoadRunnerToolsCase.coverage" NAME="Unittests in TestRoadRunnerToolsCase Coverage Results" MODIFIED="1432047747469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
     <SUITE FILE_PATH="coverage/simulator$mca.coverage" NAME="mca Coverage Results" MODIFIED="1432214961753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_demo.coverage" NAME="Unittests in test_demo Coverage Results" MODIFIED="1431675267062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/models" />
     <SUITE FILE_PATH="coverage/simulator$van_der_pol.coverage" NAME="van_der_pol Coverage Results" MODIFIED="1432214507755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/examples" />
+    <SUITE FILE_PATH="coverage/simulator$jws_example.coverage" NAME="jws_example Coverage Results" MODIFIED="1432197991464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
+    <SUITE FILE_PATH="coverage/simulator$Unittest_MyTestCase_test_demo_samples.coverage" NAME="Unittest MyTestCase.test_demo_samples Coverage Results" MODIFIED="1431678982095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_examples.coverage" NAME="Unittests in test_examples Coverage Results" MODIFIED="1431346717920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
-    <SUITE FILE_PATH="coverage/simulator$event_timepoint.coverage" NAME="event_timepoint Coverage Results" MODIFIED="1432214823482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
-    <SUITE FILE_PATH="coverage/simulator$Unittests_in_MyTestCase.coverage" NAME="Unittests in MyTestCase Coverage Results" MODIFIED="1431440033841" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/db" />
     <SUITE FILE_PATH="coverage/simulator$Unittest_TestRoadRunnerToolsCase_test_initial_concentrations.coverage" NAME="Unittest TestRoadRunnerToolsCase.test_initial_concentrations Coverage Results" MODIFIED="1432046893668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/simulator$Unittests_in_MyTestCase.coverage" NAME="Unittests in MyTestCase Coverage Results" MODIFIED="1431440033841" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/db" />
+    <SUITE FILE_PATH="coverage/simulator$event_timepoint.coverage" NAME="event_timepoint Coverage Results" MODIFIED="1432214823482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner/examples" />
     <SUITE FILE_PATH="coverage/simulator$lognormal.coverage" NAME="lognormal Coverage Results" MODIFIED="1431678792056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/dist" />
     <SUITE FILE_PATH="coverage/simulator$Unittests_in_test_roadrunner_tools.coverage" NAME="Unittests in test_roadrunner_tools Coverage Results" MODIFIED="1431953205593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/odesim/roadrunner" />
   </component>
@@ -122,26 +201,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="tools.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odesim/db/tools.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rr_testing.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/rr_testing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="test_simulator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/odesim/test_simulator.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -152,14 +211,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mca.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mca.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/mca.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4856661">
-              <caret line="19" column="54" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding>
                 <element signature="e#67#104#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testdata.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/odesim/examples/testdata.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.12328767">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -302,8 +384,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
-    <option name="width" value="1721" />
+    <option name="x" value="295" />
+    <option name="y" value="25" />
+    <option name="width" value="1553" />
     <option name="height" value="1031" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -354,8 +437,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -402,52 +483,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="roadrunner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="odesim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="roadrunner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="odesim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -815,30 +858,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1721" height="1031" extended-state="0" />
+    <frame x="295" y="25" width="1553" height="1031" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12004405" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23450854" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24946581" sideWeight="0.42668137" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19797225" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23450854" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24946581" sideWeight="0.42668137" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32277346" sideWeight="0.57331866" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32624584" sideWeight="0.57331866" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20264317" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31236205" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24946581" sideWeight="0.42668137" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12004405" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19797225" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31236205" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32819384" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -862,13 +905,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/odesim/examples/demo/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/odesim/examples/01_demo_simple.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -887,15 +923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/odesim/examples/testdata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -903,9 +930,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
-          <folding>
-            <element signature="e#51#83#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -913,9 +937,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-          <folding>
-            <element signature="e#60#97#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -923,7 +944,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="357" column="16" selection-start-line="357" selection-start-column="16" selection-end-line="357" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -931,7 +951,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -939,7 +958,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.114754">
           <caret line="406" column="87" selection-start-line="406" selection-start-column="81" selection-end-line="406" selection-end-column="87" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -947,7 +965,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.7868853">
           <caret line="52" column="38" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -955,7 +972,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.3770492">
           <caret line="137" column="36" selection-start-line="137" selection-start-column="36" selection-end-line="137" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -963,9 +979,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="148" column="61" selection-start-line="148" selection-start-column="61" selection-end-line="148" selection-end-column="61" />
-          <folding>
-            <element signature="e#1285#1322#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -973,7 +986,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3873874">
           <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -981,7 +993,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3314993">
           <caret line="94" column="54" selection-start-line="94" selection-start-column="54" selection-end-line="94" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -989,7 +1000,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.261348">
           <caret line="117" column="18" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -997,7 +1007,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.261348">
           <caret line="83" column="18" selection-start-line="83" selection-start-column="18" selection-end-line="83" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1005,7 +1014,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.6846846">
           <caret line="79" column="47" selection-start-line="79" selection-start-column="47" selection-end-line="79" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1013,7 +1021,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5495495">
           <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1021,7 +1028,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22822823">
           <caret line="19" column="77" selection-start-line="19" selection-start-column="77" selection-end-line="19" selection-end-column="77" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1029,7 +1035,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.1351352">
           <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1044,7 +1049,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1052,9 +1056,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding>
-            <element signature="e#189#226#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1070,7 +1071,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1078,7 +1078,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1086,7 +1085,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1094,7 +1092,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1102,9 +1099,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
-          <folding>
-            <element signature="e#46#56#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1112,7 +1106,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="259" column="0" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1120,7 +1113,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1128,7 +1120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5625">
           <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1136,7 +1127,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="122" column="4" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1144,7 +1134,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1160,9 +1149,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-          <folding>
-            <element signature="e#99#136#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1170,7 +1156,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1178,9 +1163,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.9530792">
           <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
-          <folding>
-            <element signature="e#47#84#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1188,9 +1170,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="132" column="14" selection-start-line="132" selection-start-column="14" selection-end-line="132" selection-end-column="14" />
-          <folding>
-            <element signature="e#36#47#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1198,9 +1177,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="53" column="26" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="26" />
-          <folding>
-            <element signature="e#164#173#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1278,11 +1254,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/odesim/roadrunner/examples/mca.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4856661">
-          <caret line="19" column="54" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
             <element signature="e#67#104#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/odesim/examples/testdata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12328767">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

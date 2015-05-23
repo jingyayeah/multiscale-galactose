@@ -12,6 +12,7 @@ class TaskReportTestCase(TestCase):
         # create task with simulations
         comp_model = create_model(demo_filepath, model_format=CompModelFormat.SBML)
 
+        # TODO: setup a task
         self.task = None
         self.c = Client()
 

@@ -124,9 +124,9 @@ class TissueModel(object):
         
     def createId(self):
         if self.simId:
-            mid = '{}_v{}_Nc{}_{}'.model_format(self.cellModel.mid, self.version, self.Nc, self.simId)
+            mid = '{}_v{}_Nc{}_{}'.format(self.cellModel.mid, self.version, self.Nc, self.simId)
         else:
-            mid = '{}_v{}_Nc{}'.model_format(self.cellModel.mid, self.version, self.Nc)
+            mid = '{}_v{}_Nc{}'.format(self.cellModel.mid, self.version, self.Nc)
         return mid
     
     def cell_range(self):
@@ -266,22 +266,22 @@ class TissueModel(object):
             sid = data[0]
             # id, assignment, unit
             diffusion_assignments.extend([
-              ('Dx_sin_{}'.model_format(sid), 'D{}/x_sin * A_sin'.model_format(sid), "m3_per_s"),
-              ('Dx_dis_{}'.model_format(sid), 'D{}/x_sin * A_dis'.model_format(sid), "m3_per_s"),
+              ('Dx_sin_{}'.format(sid), 'D{}/x_sin * A_sin'.format(sid), "m3_per_s"),
+              ('Dx_dis_{}'.format(sid), 'D{}/x_sin * A_dis'.format(sid), "m3_per_s"),
               # ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis'.format(sid), "m3_per_s")
               # check the pore size
             ])
             # test if substance larger than fenestration radius
             r_sid = None
             for p in self.pars:
-                if (p[0] == 'r_{}'.model_format(sid)):
+                if (p[0] == 'r_{}'.format(sid)):
                     r_sid = p[1]
                     break
             if (r_sid>r_fen):
-                diffusion_assignments.extend([ ('Dy_sindis_{}'.model_format(sid), '0 m3_per_s', "m3_per_s") ])
+                diffusion_assignments.extend([ ('Dy_sindis_{}'.format(sid), '0 m3_per_s', "m3_per_s") ])
             else:
                 diffusion_assignments.extend([
-              ('Dy_sindis_{}'.model_format(sid), 'D{}/y_dis * f_fen * A_sindis * (1 dimensionless - r_{}/r_fen)^2 * (1 dimensionless - 2.104 dimensionless*r_{}/r_fen + 2.09 dimensionless *(r_{}/r_fen)^3 - 0.95 dimensionless *(r_{}/r_fen)^5)'.model_format(sid, sid, sid, sid, sid), "m3_per_s")
+              ('Dy_sindis_{}'.format(sid), 'D{}/y_dis * f_fen * A_sindis * (1 dimensionless - r_{}/r_fen)^2 * (1 dimensionless - 2.104 dimensionless*r_{}/r_fen + 2.09 dimensionless *(r_{}/r_fen)^3 - 0.95 dimensionless *(r_{}/r_fen)^5)'.format(sid, sid, sid, sid, sid), "m3_per_s")
             ])
             
         return diffusion_assignments
@@ -370,8 +370,8 @@ class TissueModel(object):
         init_data = []
         for k in self.cell_range():
             d = dict()
-            d['h__'] = '{}__'.model_format(getHepatocyteId(k))
-            d['c__'] = '{}__'.model_format(getCytosolId(k))
+            d['h__'] = '{}__'.format(getHepatocyteId(k))
+            d['c__'] = '{}__'.format(getCytosolId(k))
             init_data.append(d)
         return init_data
     
@@ -383,9 +383,9 @@ class TissueModel(object):
         for k in self.cell_range():
             for i in range( (k-1)*self.Nf+1, k*self.Nf+1):
                 d = dict()
-                d['h__'] = '{}__'.model_format(getHepatocyteId(k))
-                d['c__'] = '{}__'.model_format(getCytosolId(k))
-                d['e__'] = '{}__'.model_format(getDisseId(i))
+                d['h__'] = '{}__'.format(getHepatocyteId(k))
+                d['c__'] = '{}__'.format(getCytosolId(k))
+                d['e__'] = '{}__'.format(getDisseId(i))
                 init_data.append(d)
         return init_data
     
@@ -432,11 +432,11 @@ class TissueModel(object):
                     ] 
         # position midpoint hepatocyte
         for k in range(1, self.Nc*self.Nf+1):
-            r = (getPositionId(getSinusoidId(k)), '({} dimensionless-0.5 dimensionless)*x_sin'.model_format(k), 'm')
+            r = (getPositionId(getSinusoidId(k)), '({} dimensionless-0.5 dimensionless)*x_sin'.format(k), 'm')
             rules.append(r)
         # position in between hepatocytes
         for k in range(1, self.Nc*self.Nf):
-            r = (getPositionId(getSinusoidId(k), getSinusoidId(k+1)), '{} dimensionless*x_sin'.model_format(k), 'm')
+            r = (getPositionId(getSinusoidId(k), getSinusoidId(k+1)), '{} dimensionless*x_sin'.format(k), 'm')
             rules.append(r)
             
         # pressures 
@@ -446,12 +446,12 @@ class TissueModel(object):
         for vid in [getPPId(), getPVId()]:
             x_str = getPositionId(vid)
             P_str = getPressureId(vid)
-            rules.append((P_str, P_formula.model_format(x_str, x_str), 'Pa')) 
+            rules.append((P_str, P_formula.format(x_str, x_str), 'Pa'))
         # midpoint
         for k in self.comp_range():
             x_str = getPositionId(getSinusoidId(k))
             P_str = getPressureId(getSinusoidId(k))
-            rules.append((P_str, P_formula.model_format(x_str, x_str), 'Pa'))
+            rules.append((P_str, P_formula.format(x_str, x_str), 'Pa'))
             
         # capillary flow 
         Q_formula = '-1 dimensionless/sqrt(W*w) * ( (-(Pb-P0) + (Pa-P0)*exp(-L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp( {}/lambda)\
@@ -460,12 +460,12 @@ class TissueModel(object):
         for vid in [getPPId(), getPVId()]:
             x_str = getPositionId(vid)
             Q_str = getQFlowId(vid)
-            rules.append((Q_str, Q_formula.model_format(x_str, x_str), 'm3_per_s'))
+            rules.append((Q_str, Q_formula.format(x_str, x_str), 'm3_per_s'))
         # between locations
         for k in range(1, self.Nc*self.Nf):
-            x_str = '{}{}_x'.model_format(getSinusoidId(k), getSinusoidId(k+1))
-            Q_str = '{}{}_Q'.model_format(getSinusoidId(k), getSinusoidId(k+1))
-            rules.append((Q_str, Q_formula.model_format(x_str, x_str), 'm3_per_s'))
+            x_str = '{}{}_x'.format(getSinusoidId(k), getSinusoidId(k+1))
+            Q_str = '{}{}_Q'.format(getSinusoidId(k), getSinusoidId(k+1))
+            rules.append((Q_str, Q_formula.format(x_str, x_str), 'm3_per_s'))
         
         # pore flow (only along sinusoid, not in PP and PV) 
         q_formula = '1 dimensionless/w  * ( (-(Pb-P0) + (Pa-P0)*exp(-L/lambda))/(exp(-L/lambda)-exp(L/lambda))*exp( {}/lambda) \
@@ -473,9 +473,9 @@ class TissueModel(object):
         
         # midpoint
         for k in self.comp_range():
-            x_str = '{}_x'.model_format(getSinusoidId(k))
-            q_str = '{}_q'.model_format(getSinusoidId(k))
-            rules.append((q_str, q_formula.model_format(x_str, x_str), 'm2_per_s'))
+            x_str = '{}_x'.format(getSinusoidId(k))
+            q_str = '{}_q'.format(getSinusoidId(k))
+            rules.append((q_str, q_formula.format(x_str, x_str), 'm2_per_s'))
         
         createAssignmentRules(self.model, rules, {})
 
@@ -509,7 +509,7 @@ class TissueModel(object):
             
             # flow S[k] -> D[k] 
             for k in self.comp_range():
-                Q_str = getqFlowId(getSinusoidId(k)) + ' * {}'.model_format('x_sin')  # [m2/s] * [m] (area flow) 
+                Q_str = getqFlowId(getSinusoidId(k)) + ' * {}'.format('x_sin')  # [m2/s] * [m] (area flow)
                 createFlowReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), flow=Q_str)
     
     
@@ -517,7 +517,7 @@ class TissueModel(object):
         for data in self.external:
             sid = data[0]    
             # [1] sinusoid diffusion
-            Dx_sin = 'Dx_sin_{}'.model_format(sid)
+            Dx_sin = 'Dx_sin_{}'.format(sid)
             createDiffusionReaction(self.model, sid, c_from=getPPId(), c_to=getSinusoidId(1), D=Dx_sin)
             
             for k in range(1, self.Nc*self.Nf):
@@ -525,12 +525,12 @@ class TissueModel(object):
             createDiffusionReaction(self.model, sid, c_from=getSinusoidId(self.Nc*self.Nf), c_to=getPVId(), D=Dx_sin)
             
             # [2] disse diffusion
-            Dx_dis = 'Dx_dis_{}'.model_format(sid)
+            Dx_dis = 'Dx_dis_{}'.format(sid)
             for k in range(1, self.Nc*self.Nf):
                 createDiffusionReaction(self.model, sid, c_from=getDisseId(k), c_to=getDisseId(k+1), D=Dx_dis)
             
             # [3] sinusoid - disse diffusion
-            Dy_sindis = 'Dy_sindis_{}'.model_format(sid)
+            Dy_sindis = 'Dy_sindis_{}'.format(sid)
             for k in self.comp_range():
                 createDiffusionReaction(self.model, sid, c_from=getSinusoidId(k), c_to=getDisseId(k), D=Dy_sindis)
     
@@ -550,7 +550,7 @@ class TissueModel(object):
             for key, value in data.iteritems():
                 p = self.model.getParameter(key)
                 p.setConstant(False)
-                formula = '{} {}'.model_format(value, dunits[key])        
+                formula = '{} {}'.format(value, dunits[key])
                 astnode = libsbml.parseL3FormulaWithModel(formula, self.model)
                 ea = e.createEventAssignment()
                 ea.setVariable(key)
@@ -565,11 +565,11 @@ class TissueModel(object):
     
     
     def writeSBML(self, fname=None, validate=True):
-        print 'libSBML {}'.model_format(libsbml.getLibSBMLDottedVersion())
+        print 'libSBML {}'.format(libsbml.getLibSBMLDottedVersion())
         if not fname:
             fname = project_settings.SBML_DIR + '/' + self.id + '.xml'
         
-        print 'Write : {}\n'.model_format(self.id, fname)
+        print 'Write : {}\n'.format(self.id, fname)
         writer = SBMLWriter()
         writer.writeSBMLToFile(self.doc, fname)
     

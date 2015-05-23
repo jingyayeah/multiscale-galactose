@@ -6,10 +6,86 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010627b9-16d3-4efb-bc5d-db7379c4e7e0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/license_dependencies.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/.idea/dictionaries/mkoenig.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/testdata.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/README.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/doctrees/environment.pickle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/doctrees/index.doctree" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/.buildinfo" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_sources/index.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/ajax-loader.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/basic.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment-bright.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment-close.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/comment.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/default.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/doctools.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/down-pressed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/down.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/file.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/minus.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/plus.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/pygments.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/searchtools.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/sidebar.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/underscore.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/up-pressed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/up.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/_static/websupport.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/genindex.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/objects.inv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/py-modindex.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/search.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/_build/html/searchindex.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/conf.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/index.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/doc/make.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/events/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/ModelId.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestFormulaAnd.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestPi.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/TestUnitKind.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/sbml/test.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/test_modelcreator.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/__init__.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/LICENSE.txt" afterPath="$PROJECT_DIR$/../modelcreator/README.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_annotations.csv" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_annotations.csv" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_annotations.xlsx" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_annotations.xlsx" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_v20_Nc1_Nf1.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_v20_Nc1_Nf1.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Galactose_v20_Nc20_Nf1.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Galactose_v20_Nc20_Nf1.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotated.xml" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotated.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotations.csv" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotations.csv" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/examples/Koenig2014_demo_kinetic_v7_annotations.xlsx" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/examples/annotation/Koenig2014_demo_kinetic_v7_annotations.xlsx" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/misc_annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/example_annotation.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/events/eventdata_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/events/test_eventdata.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/ModelFactory_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/test_ModelFactory.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/models/model_cell_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/test_model_cell.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/equation_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/test_equation.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../modelcreator/tests/tools/naming_test.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/test_naming.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/BasicClearanceFactory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/BasicClearanceFactory.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/clearance/BasicClearanceReactions.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/clearance/BasicClearanceReactions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/processes/ReactionFactory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/processes/ReactionFactory.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/annotation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/equation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/equation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/events/event_factory.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/events/event_factory.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_metabolic.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_metabolic.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_tissue.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/models/model_tissue.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/naming.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/tools/naming.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/test_annotation.py" afterPath="$PROJECT_DIR$/../modelcreator/modelcreator/annotation/test_annotation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simapp/reports/test_task_report.py" afterPath="$PROJECT_DIR$/simapp/reports/test_task_report.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../modelcreator/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" />
     </list>
     <ignored path="multiscalesite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,6 +110,7 @@
     <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_tests_SimulationTestCase_test_simulation_clean.coverage" NAME="Test: simapp.tests.SimulationTestCase.test_simulation_clean Coverage Results" MODIFIED="1432130860529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_MiriamTestCase.coverage" NAME="Unittests in MiriamTestCase Coverage Results" MODIFIED="1431890798693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/miriam" />
     <SUITE FILE_PATH="coverage/multiscalesite$Test__simapp_tests_SimulationTestCase.coverage" NAME="Test: simapp.tests.SimulationTestCase Coverage Results" MODIFIED="1432131917460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/multiscalesite$Unittest_TaskReportTestCase_test_report.coverage" NAME="Unittest TaskReportTestCase.test_report Coverage Results" MODIFIED="1432397008650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp/reports" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittests_in_multiscalesite.coverage" NAME="Unittests in multiscalesite Coverage Results" MODIFIED="1432311558823" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_models_status.coverage" NAME="Unittest ViewTestCase.test_models_status Coverage Results" MODIFIED="1431326693119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
     <SUITE FILE_PATH="coverage/multiscalesite$Unittest_ViewTestCase_test_results_status.coverage" NAME="Unittest ViewTestCase.test_results_status Coverage Results" MODIFIED="1431328508046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simapp" />
@@ -102,62 +179,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="base_generic.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.666666">
-              <caret line="43" column="53" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LICENSE" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../simulator/LICENSE">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LICENSE" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LICENSE">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.483871">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="license_dependencies.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/license_dependencies.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24615385">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="task_report.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simapp/reports/task_report.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -174,7 +195,7 @@
         <entry file="file://$PROJECT_DIR$/simapp/reports/test_task_report.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
                 <element signature="e#34#71#0" expanded="true" />
               </folding>
@@ -182,34 +203,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simapp/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
-              <folding />
-            </state>
+      <file leaf-file-name="LICENSE" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LICENSE">
+          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+            <state />
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="macros.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/macros.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.6498195">
+              <caret line="20" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tests.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simapp/tests.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="344" column="0" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
-              <folding>
-                <element signature="e#135#172#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -275,12 +277,12 @@
         <option value="$PROJECT_DIR$/simapp/templates/simapp/methods.html" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/task.html" />
         <option value="$PROJECT_DIR$/simapp/reports/test_sbml_report.py" />
-        <option value="$PROJECT_DIR$/simapp/reports/test_task_report.py" />
         <option value="$PROJECT_DIR$/simapp/reports/task_report.py" />
         <option value="$PROJECT_DIR$/simapp/templates/simapp/base_generic.html" />
         <option value="$PROJECT_DIR$/LICENSE" />
         <option value="$PROJECT_DIR$/license_dependencies.txt" />
         <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/simapp/reports/test_task_report.py" />
       </list>
     </option>
   </component>
@@ -292,8 +294,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
-    <option name="width" value="1482" />
+    <option name="x" value="636" />
+    <option name="y" value="25" />
+    <option name="width" value="1284" />
     <option name="height" value="1031" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -345,128 +348,6 @@
               <option name="myItemId" value="multiscalesite" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.6 (/usr/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.6 (/usr/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.6 (/usr/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="odesim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.6 (/usr/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="odesim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulate" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.6 (/usr/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="odesim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulate" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hdf5" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="multiscalesite" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.6 (/usr/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="python" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -480,12 +361,12 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../simulator" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../modelcreator" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="SearchEverywhereHistoryKey" value="models.py&#9;FILE&#9;file:///home/mkoenig/multiscale-galactose/python/multiscalesite/simapp/models.py" />
@@ -528,7 +409,7 @@
       <recent name="$PROJECT_DIR$/util" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in multiscalesite">
+  <component name="RunManager" selected="Django server.multiscalesite">
     <configuration default="false" name="Unittests in multiscalesite" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -550,26 +431,6 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Test: simapp.tests.SimulationTestCase.test_simulation_clean2" type="DjangoTestsConfigurationType" factoryName="Django tests" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="multiscalesite" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="TARGET" value="simapp.tests.SimulationTestCase.test_simulation_clean2" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="false" />
-      <option name="OPTIONS" value="" />
       <method />
     </configuration>
     <configuration default="false" name="Test: simapp.tests.SimulationTestCase" type="DjangoTestsConfigurationType" factoryName="Django tests" temporary="true">
@@ -628,6 +489,29 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simapp/reports/task_report.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TaskReportTestCase.test_report" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simapp/reports" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="multiscalesite" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simapp/reports/test_task_report.py" />
+      <option name="CLASS_NAME" value="TaskReportTestCase" />
+      <option name="METHOD_NAME" value="test_report" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -895,18 +779,18 @@
       <item index="0" class="java.lang.String" itemvalue="Django server.admin" />
       <item index="1" class="java.lang.String" itemvalue="Django server.multiscalesite" />
       <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
-      <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean2" />
-      <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
-      <item index="5" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
-      <item index="6" class="java.lang.String" itemvalue="Python.task_report" />
+      <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
+      <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
+      <item index="5" class="java.lang.String" itemvalue="Python.task_report" />
+      <item index="6" class="java.lang.String" itemvalue="Python tests.Unittest TaskReportTestCase.test_report" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
-        <item index="1" class="java.lang.String" itemvalue="Python.task_report" />
-        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
-        <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
-        <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase.test_simulation_clean2" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TaskReportTestCase.test_report" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in multiscalesite" />
+        <item index="2" class="java.lang.String" itemvalue="Python.task_report" />
+        <item index="3" class="java.lang.String" itemvalue="Django tests.Test: simapp.reports.test_task_report.TaskReportTestCase" />
+        <item index="4" class="java.lang.String" itemvalue="Django tests.Test: simapp.tests.SimulationTestCase" />
       </list>
     </recent_temporary>
   </component>
@@ -944,7 +828,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1482" height="1031" extended-state="0" />
+    <frame x="636" y="25" width="1284" height="1031" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -952,10 +836,10 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29402348" sideWeight="0.49899396" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32635984" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38996765" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22601984" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32119206" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32119206" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15698925" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.11217949" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1195,7 +1079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5553539">
           <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1224,7 +1107,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.666667">
           <caret line="49" column="48" selection-start-line="49" selection-start-column="48" selection-end-line="49" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1253,7 +1135,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.0">
           <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1261,7 +1142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.0">
           <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1269,7 +1149,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="51" column="49" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1277,7 +1156,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1285,7 +1163,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.20338982">
           <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1293,17 +1170,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="514" column="22" selection-start-line="514" selection-start-column="22" selection-end-line="514" selection-end-column="22" />
-          <folding>
-            <element signature="e#57#94#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1311,6 +1177,58 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21151586">
           <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/reports/test_sbml_report.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39442232">
+          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26712328">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/license_dependencies.txt">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4260355">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/LICENSE">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="53" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simapp/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47260273">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1323,20 +1241,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/reports/test_task_report.py">
+    <entry file="file://$PROJECT_DIR$/simapp/tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <caret line="344" column="0" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
           <folding>
-            <element signature="e#34#71#0" expanded="true" />
+            <element signature="e#135#172#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/reports/test_sbml_report.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39442232">
-          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -1350,58 +1261,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/templates/simapp/base_generic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.666666">
-          <caret line="43" column="53" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simapp/tests.py">
+    <entry file="file://$PROJECT_DIR$/simapp/reports/test_task_report.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="344" column="0" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
-            <element signature="e#135#172#0" expanded="true" />
+            <element signature="e#34#71#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../simulator/LICENSE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LICENSE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.483871">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/license_dependencies.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24615385">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6498195">
+          <caret line="20" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -39,7 +39,7 @@ def createFlowReaction(model, sid, c_from, c_to, flow):
         sref.setConstant(True);
     
     # kinetics
-    formula = '{} * {}'.model_format(flow, sid_from) # in [mole/s]
+    formula = '{} * {}'.format(flow, sid_from) # in [mole/s]
     setKineticLaw(model, r, formula) 
 
     return r;
@@ -71,9 +71,9 @@ def createDiffusionReaction(model, sid, c_from, c_to, D):
 
     # kinetics
     if c_to:
-        formula = "{} * ({} - {})".model_format(D, sid_from, sid_to) # in [mole/s]
+        formula = "{} * ({} - {})".format(D, sid_from, sid_to) # in [mole/s]
     else:
-        formula = "{} * ({})".model_format(D, sid_from)         
+        formula = "{} * ({})".format(D, sid_from)
     setKineticLaw(model, r, formula) 
 
     return r;

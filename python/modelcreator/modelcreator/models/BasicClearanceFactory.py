@@ -14,8 +14,8 @@ def createClearanceDilutionEventData(time_start, duration):
     Generate the event data for the dilution peaks.
     '''
     species = ["PP__s1M", "PP__rbcM", "PP__albM", "PP__sucM"]
-    base = ('{} mM'.model_format(0.0), ) * len(species)
-    peak = ('{} mM'.model_format(1.0/duration),) * len(species);
+    base = ('{} mM'.format(0.0), ) * len(species)
+    peak = ('{} mM'.format(1.0/duration),) * len(species);
     events = createPeakEventData(species, base, peak, 
                                  time_start=time_start, duration=duration)
     return events
