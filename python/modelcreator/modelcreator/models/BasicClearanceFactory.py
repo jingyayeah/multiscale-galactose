@@ -2,56 +2,57 @@
 Model factory for the BasicClearance example model.
 """
 
-
+from ModelFactory import ModelFactory
 from modelcreator.models.model_cell import CellModel
 from modelcreator.models.model_tissue import TissueModel
+from modelcreator.events.eventdata import EventData
 
-
-def createClearanceDilutionEventData(time_start, duration):
-    """ Generate the event data for the dilution peaks. """
-    species = ["PP__s1M", "PP__rbcM", "PP__albM", "PP__sucM"]
-    base = ('{} mM'.format(0.0), ) * len(species)
-    peak = ('{} mM'.format(1.0/duration),) * len(species)
-    events = createPeakEventData(species, base, peak, 
-                                 time_start=time_start, duration=duration)
-    return events
-
-
-def core_model():
-    pass
-
-if __name__ == "__main__":
-    import django
-    django.setup()
-    import simapp.db.api as db_api
-
-    # definition of cell model and tissue model
-    Nc, Nf = 20, 1
-    Nc, Nf = 1, 1
-
-    version = 5
+class BasicClearanceFactory(ModelFactory):
+    # define which models to use
     cell_model = CellModel.createModel('clearance.BasicClearanceCell')
     tissue_dict = TissueModel.createTissueDict(['SinusoidalUnit', 'clearance.BasicClearanceSinusoid'])
 
-    # ---------------------------------------------------------------------------------
-    # [1] core model
-    # ---------------------------------------------------------------------------------
-    tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tissue_dict,
-                     cell_model=cell_model, simId='core', events=None)
-    tm.createModel()
-    sbml_path = tm.writeSBML()
-    model = db_api.create_model(sbml_path, model_format=db_api.CompModelFormat.SBML)
+    @classmethod
+    def core_model(cls, Nc, Nf, version, sim_id='core'):
+        """ Creates the core model. """
+        tissue_model = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=cls.tissue_dict,
+                                   cell_model=cls.cell_model, sim_id=sim_id, events=None)
+        # TODO: this should be done in the constructor of the model
+        tissue_model.createModel()
+        return tissue_model
 
-    # ---------------------------------------------------------------------------------
+    @classmethod
+    def dilution_indicator_model(cls, Nc, Nf, version, sim_id='dilution'):
+        """ Creates multiple indicator dilution data for the model.
+            ___|---|__ (in all periportal species)
+        The multiple dilution indicator peak comes when the system is
+        in steady state after the applied initial condition changes:
+        """
+
+        # TODO overwrite all parameters necessary for events here
+        # i.e. additional information has to be overwritten here
+        # keep the core model clean
+        events = EventData.rect_dilution_peak()
+
+        tissue_model = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=cls.tissue_dict,
+                                   cell_model=cls.cell_model, sim_id='dilution', events=events)
+        tissue_model.createModel()
+        return tissue_model
+
+
+
+if __name__ == "__main__":
+
+    Nc = 20  # number of cells
+    Nf = 1   # compartments per cell
+    version = 5  # model version
+
+    # [1] core model
+    core_model = BasicClearanceFactory.core_model(Nc, Nf, version)
+    BasicClearanceFactory.store_model_in_db(core_model)
+
     # [2] multiple dilution indicator
-    # ---------------------------------------------------------------------------------
-    # ___|---|__ (in all periportal species)
-    # The multiple dilution indicator peak comes when the system is 
-    # in steady state after the applied initial condition changes:
-    from modelcreator.events.eventdata import EventData
-    events = EventData.rect_dilution_peak()
-    tm2 = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tissue_dict,
-                      cell_model=cell_model, simId='dilution', events=events)
-    tm2.createModel()
-    sbml_path = tm2.writeSBML()
-    model2 = db_api.create_model(sbml_path, model_format=db_api.CompModelFormat.SBML)
+    dilution_model = BasicClearanceFactory.dilution_indicator_model(Nc, Nf, version)
+    BasicClearanceFactory.store_model_in_db(dilution_model)
+
+

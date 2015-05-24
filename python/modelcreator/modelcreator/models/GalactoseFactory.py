@@ -31,7 +31,7 @@ if __name__ == "__main__":
     # [1] core model
     # Model without events. Basic model.
     tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
-                     cell_model=cell_model, simId='core', events=None)
+                     cell_model=cell_model, sim_id='core', events=None)
     tm.createModel()
     tm.writeSBML()   
     tm.storeInDatabase()
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     # reached steady state (<1000s) from initial non galactose conditions.
     events = createRectEventData()
     tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
-                     cell_model=cell_model, simId='dilution', events=events)
+                     cell_model=cell_model, sim_id='dilution', events=events)
     tm.createModel()
     tm.writeSBML()    
     tm.storeInDatabase()
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     # [2B] multiple dilution indicator (Gauss peak)
     events = createGaussEventData()
     tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
-                     cell_model=cell_model, simId='dilution_gauss', events=events)
+                     cell_model=cell_model, sim_id='dilution_gauss', events=events)
     tm.createModel()
     tm.writeSBML()    
     tm.storeInDatabase()
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     # __|
     events = createGalactoseChallengeEventData(tc_start=2000.0)
     tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
-                     cell_model=cell_model, simId='galchallenge', events=events)
+                     cell_model=cell_model, sim_id='galchallenge', events=events)
     tm.createModel()
     tm.writeSBML()    
     tm.storeInDatabase()
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     # __|     |___
     events = createGalactoseStepEventData()
     tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tdict, 
-                     cell_model=cell_model, simId='galstep', events=events)
+                     cell_model=cell_model, sim_id='galstep', events=events)
     tm.createModel()
     tm.writeSBML()    
     tm.storeInDatabase()

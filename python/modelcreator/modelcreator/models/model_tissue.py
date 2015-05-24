@@ -29,7 +29,7 @@ class TissueModel(object):
              'pars', 'external', 'assignments', 'rules']
 
     def __init__(self, Nc, Nf, version,
-                 tissue_dict, cell_model, simId='core', events=None):
+                 tissue_dict, cell_model, sim_id='core', events=None):
         """
         Initialize with the tissue information dictionary and
         the respective cell model used for creation.
@@ -37,7 +37,7 @@ class TissueModel(object):
         self.Nc = Nc
         self.Nf = Nf
         self.version = version
-        self.simId = simId
+        self.simId = sim_id
         self.cellModel = cell_model
         # print self.cellModel.info()
         

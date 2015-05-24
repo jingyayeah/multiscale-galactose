@@ -16,7 +16,7 @@ class TestModelFactory(unittest.TestCase):
 
         version = 1
         tm = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tissue_dict,
-                         cell_model=cell_model, simId='core', events=None)
+                         cell_model=cell_model, sim_id='core', events=None)
         tm.createModel()
         self.assertEqual(tm.Nc, Nc)
         self.assertEqual(tm.version, version)

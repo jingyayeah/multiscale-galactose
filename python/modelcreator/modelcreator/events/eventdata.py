@@ -5,6 +5,9 @@ The EventData is used to generate the SBML events for the model.
 
 Necessary to create trigger events to guarantee proper integration
 even when using variable step sizes.
+
+Here only the triggers are defined. Part of the events are encoded directly in the model.
+
 """
 
 class EventData(object):

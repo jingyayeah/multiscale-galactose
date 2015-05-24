@@ -1,4 +1,4 @@
-'''
+"""
 Clearance of example substance to test integration into tissue models.
 Used for prototyping and testing the clearance.
 Application to caffeine and other substances cleared by the liver.
@@ -9,10 +9,7 @@ need a boundaryCondition=True.
 Here the model definition information is stored. The information is used
 to generate an instance of CellModel.
 
-
-@author: Matthias Koenig
-@date: 2014-07-21
-'''
+"""
 
 from BasicClearanceReactions import K_S1, K_S1M, T_S1, T_S1M
 
@@ -49,7 +46,6 @@ reactions = (K_S1,
 
 deficiencies_units = {}
 deficiencies = {}
-##############################################################    
 
 if __name__ == "__main__":
     
