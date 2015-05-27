@@ -1,107 +1,59 @@
 """
 Creating report of the parameters of a given task.
-Parameters of a single task are collected.
-
+All parameters of the simulations in a given task are selected.
 """
 from __future__ import print_function
-import pandas as pd
-from pandas import DataFrame
-
-
-# TODO: refactor
-
+import os
 import time
-from simapp.models import Task
-
-# Manage the files
-def getParameterFilenameForTask(task, folder=None):
-    """TODO: proper general paths"""
-    if not folder:
-        folder = "/home/mkoenig/multiscale-galactose-results/"
-
-    mname = task.model.sbml_id
-    return ''.join([folder, "/", str(task), "_", mname, "_parameters.csv"])
-
-
-def createParameterFileForTask(task, folder=None):
-    fname = getParameterFilenameForTask(task, folder=folder)
-    f = file(fname, 'w')
-    f.write(createParameterStringInfoForTask(task))
-    f.close()
-    return fname
-
-
-def createParameterStringInfoForTask(task):
-    data = createParameterInfoForTask(task)
-    # create the content
-    header = data.keys()
-    lines = ['# ' + ", ".join(header)]
-    for k in xrange(len(data['sim'])):
-        lines +=  [", ".join([str(data[key][k]) for key in header])]
-    return "\n".join(lines)
-
+from pandas import DataFrame
+from multiscale.multiscale_settings import MULTISCALE_GALACTOSE_RESULTS
 
 
 class TaskReport(object):
     def __init__(self, task):
         self.task = task
+        self.df = None
 
-    def create_parameter_dataframe(self):
-        """
-        Simulation pk is stored in collection with other parameters.
-        """
-        # get all the parameter names
-        header = set(['sim', 'status', 'core', 'duration'])
-        set.add()
-        d_sim = {}
+    def parameter_dataframe(self):
+        """ Pandas DataFrame from simulation parameters and some additional keys. """
+        start = time.time()
+
+        # create set of dictionaries for simulations and collect the keys
+        sim_dicts = []
         for sim in self.task.simulations.all():
-            parameters = sim.parameters.all()
-            d_sim[sim] = parameters
-            header.add([p.key for p in parameters])
-
-        print(d_sim)
-        print(header)
-
-
-        '''
-        print 'Create Parameter File for: ', str(task)
-        start = time.clock()
-        # collect the parameters for the simulations
-        data = dict()
-        data['sim'] = []
-        data['status'] = []
-        data['core'] = []
-        data['duration'] = []
-
-
-        # TODO: make this faster by getting the related information
-        for sim in task.simulations.all():
-            data['sim'].append(sim.pk)
-            data['status'].append(sim.status)
-            data['core'].append(sim.core)
-            data['duration'].append(sim.duration)
-            # add all the parameters
+            data = {
+                'sim': sim.pk,
+                'status': sim.status_str,
+                'core': sim.core,
+                'duration': sim.duration,
+            }
             for p in sim.parameters.all():
-                if data.has_key(p.key):
-                    data[p.key].append(p.value)
-                else:
-                    data[p.key] = [p.value]
+                data[p.key] = p.value
+            sim_dicts.append(data)
 
-        # check that everything has the same length
-        # this has to be guaranteed by the odesim generator
-        for key in data.iterkeys():
-            if len(data[key]) != len(data['sim']):
-                print 'ERROR - wrong number of parameters'
+        print('time: ', (time.time() - start))
+        return DataFrame(sim_dicts)
 
-        print 'time: ', (time.clock() - start)
-        return data
-        '''
+    def save_parameter_file(self, filepath=None):
+        if filepath is None:
+            filepath = self.filepath()
+        if self.df is None:
+            self.df = self.parameter_dataframe()
+        # write the csv
+        print(filepath)
+        self.df.to_csv(filepath, sep='\t')
+
+    def filepath(self):
+        return os.path.join(MULTISCALE_GALACTOSE_RESULTS, '{}_parameters.txt'.format(self.task))
+
 
 if __name__ == "__main__":
     import django
     django.setup()
 
     from simapp.models import Task
-    task = Task.objects.get(pk=32)
+    task = Task.objects.get(pk=1)
     task_report = TaskReport(task)
-    task_report.create_parameter_dataframe()
+    task_report.save_parameter_file()
+
+

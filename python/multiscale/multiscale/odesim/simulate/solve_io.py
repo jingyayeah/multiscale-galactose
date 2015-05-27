@@ -14,7 +14,7 @@ from django.core.files import File
 
 import copasi
 from simapp.models import Result
-from multiscale.project_settings import SIM_DIR
+from multiscale.multiscale_settings import SIM_DIR
 
 
 def create_simulation_directory(task):

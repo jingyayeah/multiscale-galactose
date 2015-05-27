@@ -9,7 +9,7 @@ import os
 import traceback
 
 from simapp.models import SimulationStatus
-from multiscale.project_settings import MULTISCALE_GALACTOSE_RESULTS
+from multiscale.multiscale_settings import MULTISCALE_GALACTOSE_RESULTS
 
 # TODO: what is the difference between SIM_DIR and MULT... ? -> unify
 

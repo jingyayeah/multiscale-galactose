@@ -22,10 +22,6 @@ Since these are independent processes, they now have independent Global Interpre
 contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 -------------------------------------------------------------------------------------
 
-Important that the file structures are generated for the
-
-@author: Matthias Koenig
-@date: 2015-05-05
 """
 from __future__ import print_function
 
@@ -43,6 +39,7 @@ from django.db import transaction
 from simapp.models import Task, Core, Simulation, SimulationStatus
 from simulate import solve
 
+# TODO: provide the multicore functionality for all simulations
 
 def worker(cpu, lock, Nsim):
     """ Creates a worker for the cpu which listens for available simulations. """

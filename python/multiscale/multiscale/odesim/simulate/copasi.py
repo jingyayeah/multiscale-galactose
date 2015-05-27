@@ -107,7 +107,7 @@ if __name__ == "__main__":
     import django
     django.setup()
     
-    from multiscale.project_settings import SIM_DIR
+    from multiscale.multiscale_settings import SIM_DIR
     from simapp.models import Simulation
     
     sim = Simulation.objects.all()[0]

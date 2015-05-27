@@ -21,7 +21,7 @@ from simapp.storage import OverwriteStorage
 # ===============================================================================
 # Core
 # ===============================================================================
-from multiscale.project_settings import COMPUTERS
+from multiscale.multiscale_settings import COMPUTERS
 
 class Core(models.Model):
     """ Single computer core for simulation, defined by ip and cpu.
@@ -553,7 +553,7 @@ class Simulation(models.Model):
     def _get_duration(self):
         if not self.time_assign or not self.time_sim:
             return None
-        return self.time_sim - self.time_assign
+        return (self.time_sim - self.time_assign).total_seconds()  # difference converted to seconds
     duration = property(_get_duration)
     
     def _is_hanging(self, cutoff_minutes=10):

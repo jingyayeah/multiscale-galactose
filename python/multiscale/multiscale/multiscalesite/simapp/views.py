@@ -58,8 +58,6 @@ def task_parameters(request, task_id):
     """ Most of the logic belongs in the Parameterfile.
         Here only the view should be generated.
     """
-    # TODO: refactor
-    # TODO: fix this
     # TODO: cache, only create once !
     import simapp.reports.task_report as pf
 

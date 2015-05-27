@@ -18,7 +18,7 @@ import pipes
 
 from sh import rsync
 
-from multiscale.project_settings import MULTISCALE_GALACTOSE_RESULTS
+from multiscale.multiscale_settings import MULTISCALE_GALACTOSE_RESULTS
 from multiscalesite.settings import MEDIA_ROOT
 from simapp.models import Task
 from simapp.reports.task_report import createParameterFileForTask

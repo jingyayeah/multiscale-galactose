@@ -567,6 +567,6 @@ class TissueModel(object):
 
     def sbml_default_path(self):
         import os
-        from multiscale import project_settings
+        from multiscale import multiscale_settings
 
-        return os.path.join(project_settings.SBML_DIR, '{}.xml'.format(self.id))
+        return os.path.join(multiscale_settings.SBML_DIR, '{}.xml'.format(self.id))

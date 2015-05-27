@@ -32,7 +32,7 @@ class GalactoseFlow(Example):
             than stored in standard format.
         """
         # TODO: Fix. This is not generating the distributions, but just reading the old file format.
-        from multiscale.project_settings import MULTISCALE_GALACTOSE
+        from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
 
         file_path = MULTISCALE_GALACTOSE + '/results/distributions/distribution_fit_data.csv'
         with open(file_path) as f:
