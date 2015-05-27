@@ -1,6 +1,4 @@
-multiscale
-======
-Simulation scripts for the multiscale-galactose model.
+# multiscale
 
 The file should use UTF-8 encoding and be written using ReStructured Text. It
 will be used to generate the project webpage on PyPI, and should be written for
