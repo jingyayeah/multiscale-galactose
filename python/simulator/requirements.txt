@@ -1,7 +1,0 @@
-pandas
-scipy
-roadrunner
-h5py
-matplotlib
-numpy
-django
