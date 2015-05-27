@@ -39,6 +39,8 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
 
     def test_simulation(self):
         r = roadrunner_tools.load_model(demo_filepath)
+        # Always set your selections manually
+        r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
         res, gp = roadrunner_tools.simulation(r, t_start=0, t_stop=20, steps=100,
                                               absTol=1E-8, relTol=1E-8, debug=False)
         print(res)
@@ -49,6 +51,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
 
     def test_simulation_varsteps(self):
         r = roadrunner_tools.load_model(demo_filepath)
+        r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
         res, gp = roadrunner_tools.simulation(r, t_start=0, t_stop=20,
                                               absTol=1E-8, relTol=1E-8, debug=False)
         self.assertNotEqual(101, res.shape[0])
