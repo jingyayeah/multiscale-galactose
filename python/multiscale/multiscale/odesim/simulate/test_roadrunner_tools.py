@@ -4,8 +4,10 @@ Test the RoadRunner simulation tools.
 
 from __future__ import print_function
 import unittest
+
 from multiscale.examples.testdata import demo_filepath
-import multiscale.odesim.roadrunner.roadrunner_tools as roadrunner_tools
+import multiscale.odesim.simulate.roadrunner_tools as roadrunner_tools
+
 
 class TestRoadRunnerToolsCase(unittest.TestCase):
     def setUp(self):

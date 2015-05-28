@@ -15,8 +15,10 @@ Using the pressure mode
 
 import copy
 import numpy as np
-import galactose_settings as settings
+
+from multiscale.analysis.galactose import galactose_settings as settings
 import roadrunner_tools as rt
+
 reload(settings)
 
 #########################################################################    
@@ -44,7 +46,7 @@ r.selections = sel
 # Set parameters & simulate
 ######################################################################### 
 reload(settings)
-import galactose_functions as gf
+import multiscale.analysis.galactose.galactose_functions as gf
 reload(gf)
 
 # empty inits parameters

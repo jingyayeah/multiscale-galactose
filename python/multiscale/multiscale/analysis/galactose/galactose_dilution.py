@@ -15,9 +15,11 @@ Dilution Data.
 @date: 2014-12-19
 """
 import copy
+
 import galactose_settings as settings
 import roadrunner_tools as rt
-import dilution_plots as dp
+from multiscale.analysis.galactose import dilution_plots as dp
+
 reload(settings)
 
 #########################################################################    
@@ -82,7 +84,7 @@ for sid in ['[PV__{}]'.format(item) for item in compounds]:
 #########################################################################    
 # Plots
 ######################################################################### 
-import roadrunner_plots as rp
+import multiscale.analysis.galactose.roadrunner_plots as rp
 reload(dp)
 # mean curve
 dp.dilution_plot_pppv(s_list, r.selections)

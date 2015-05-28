@@ -3,8 +3,9 @@ Testing the samples for the demo network.
 """
 
 from django.test import TestCase
+
 from multiscale.odesim.dist.samples import Sample
-from multiscale.odesim.models.demo import Demo
+from multiscale.analysis.demo.demo import Demo
 
 
 class TestDemo(TestCase):

@@ -7,11 +7,11 @@ Testing the distribution examples.
 # TODO: implement the Galactose examples
 from __future__ import print_function
 import unittest
+
 from simapp.models import ParameterType
 from multiscale.odesim.dist.sampling import Sampling
 from multiscale.odesim.dist.distributions import DistributionType, DistributionParameterType
-from multiscale.odesim.models.demo import Demo
-
+from multiscale.analysis.demo.demo import Demo
 
 
 class MyTestCase(unittest.TestCase):

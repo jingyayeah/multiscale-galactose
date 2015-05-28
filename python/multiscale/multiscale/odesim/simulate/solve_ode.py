@@ -4,11 +4,12 @@ Perform ode integrations.
 """
 
 import time
+
 from django.utils import timezone
 from roadrunner import SelectionRecord
-from simapp.models import ParameterType, SettingKey, SimulationStatus, ResultType
 
-from multiscale.odesim.roadrunner import roadrunner_tools as rt
+from simapp.models import ParameterType, SettingKey, SimulationStatus, ResultType
+from multiscale.odesim.simulate import roadrunner_tools as rt
 from multiscale.odesim.simulate.solve_exception import simulation_exception
 from multiscale.odesim.simulate.solve_io import create_simulation_directory, hdf5_file, save_hdf5, store_result_db
 

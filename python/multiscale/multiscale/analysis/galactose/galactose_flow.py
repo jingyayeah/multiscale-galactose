@@ -1,8 +1,6 @@
 """
 Simulations under given flow.
 
-Created on May 3, 2015
-@author: mkoenig
 """
 from simapp.models import *
 import numpy as np

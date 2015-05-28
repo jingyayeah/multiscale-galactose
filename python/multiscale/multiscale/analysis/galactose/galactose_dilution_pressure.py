@@ -10,11 +10,13 @@ the given geometry.
 """
 import numpy as np
 import copy
+
 import pylab as plt
+
 import galactose_functions as gf
 import roadrunner_tools as rt
 import roadrunner_plots as rp
-import galactose_settings as settings
+from multiscale.analysis.galactose import galactose_settings as settings
 
 reload(settings)
 reload(rp)

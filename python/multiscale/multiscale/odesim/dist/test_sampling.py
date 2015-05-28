@@ -1,11 +1,12 @@
 """
-Testing for sampling from distributions generation.
-
+Testing the sampling of parameters from distributions.
 """
+
 from __future__ import print_function
 import unittest
+
 from multiscale.odesim.dist.sampling import Sampling, SamplingType
-from multiscale.odesim.models.demo import Demo
+from multiscale.analysis.demo.demo import Demo
 
 
 class TestSampling(unittest.TestCase):
