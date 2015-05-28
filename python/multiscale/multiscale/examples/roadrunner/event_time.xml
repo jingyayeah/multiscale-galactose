@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by libAntimony version v2.7.0 on 2015-05-12 13:04 with libSBML version 5.11.4. -->
+<!-- Created by libAntimony version v2.7.0 on 2015-05-28 13:04 with libSBML version 5.11.4. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model id="event_time" name="event_time">
     <listOfCompartments>

@@ -11,7 +11,7 @@ roadrunner.Config.setValue(roadrunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES,
 
 
 # equidistant time course for 20 [s]
-rr = roadrunner.RoadRunner("Koenig_demo_v02.xml")
+rr = roadrunner.RoadRunner("mca.xml")
 s = rr.simulate(0, 40, 100, plot=True)
 
 rr.getSteadyStateValues()

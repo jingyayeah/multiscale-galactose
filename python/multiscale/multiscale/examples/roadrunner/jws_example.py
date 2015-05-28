@@ -8,5 +8,5 @@ Minimal test case for JWS online.
 import roadrunner
 
 # equidistant time course for 20 [s]
-rr = roadrunner.RoadRunner("Koenig_demo_v02.xml")
+rr = roadrunner.RoadRunner("jws_example.xml")
 s = rr.simulate(0, 20, 100, plot=True)

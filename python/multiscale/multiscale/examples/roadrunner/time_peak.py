@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Dec 18 12:39:41 2014
+Performing simulation with event driven peak.
 
-@author: mkoenig
+@author: Matthias Koenig
+@date: 2015-05-28
 """
-
+from __future__ import print_function
+import os
 import roadrunner
 from roadrunner import SelectionRecord
-print roadrunner.getVersionStr()
-
+print(roadrunner.getVersionStr())
 import libantimony
+
 model_txt = """
-    model test()
+    model time_peak()
     // Reactions
     J0: $PP_S -> 2 S3; K1 * PP_S;
 
@@ -41,33 +43,37 @@ model_txt = """
     end
 """
 model = libantimony.loadString(model_txt)
-sbml_file = 'test_peak.xml'
-libantimony.writeSBMLFile('test_peak.xml', 'test')
 
-r = roadrunner.RoadRunner(sbml_file)
+out_dir = os.path.dirname(os.path.abspath(__file__))
+sbml_path = str(os.path.join(out_dir, 'time_peak.xml'))
+print('SBML path:', sbml_path)
+libantimony.writeSBMLFile(sbml_path, 'time_peak')
+r = roadrunner.RoadRunner(sbml_path)
 
-print r.getSBML()
+# display the generated and parsed SBML
+# print(r.getSBML())
+print('default selections:', r.selections)
 r.selections = ['time'] + r.model.getBoundarySpeciesIds() + r.model.getFloatingSpeciesIds() + r.model.getReactionIds()
+print('floating species:', r.model.getFloatingSpeciesIds())
+print('selections:', r.selections)
 
 # tolerances & integration
 absTol = 1E-12 *min(r.model.getCompartmentVolumes())
 relTol = 1E-12
-print absTol, relTol
+print('absTol:', absTol, '; relTol:', relTol)
 
-print 'Naive VarStep'
+print('Naive VarStep')
 r.reset()
 r.reset(SelectionRecord.ALL)
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
-s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=False, stiff=True, plot=True)   
-print s
+s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=True)   
+# print(s)
 
 # Forcing evaluation via maximumTimeStep
 # but this takes forever in the evaluation 
-print 'VarStep with maxTimeStep'
+print('VarStep with maxTimeStep')
 r.reset()
 r.reset(SelectionRecord.ALL)
 r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )
-s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=False, stiff=True, plot=True, maximumTimeStep=0.5)   
-print s
-print s.colnames
-s['time']
+s = r.simulate(0, 7, absolute=absTol, relative=relTol, variableStep=True, stiff=True, plot=True, maximumTimeStep=0.5)   
+# print(s['time'])

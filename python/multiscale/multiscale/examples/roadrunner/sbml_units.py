@@ -1,18 +1,20 @@
 """
-Created on Apr 15, 2015
+Testing the effect of the UnitReordering on the model.
 
-@author: mkoenig
+@author: Matthias Koenig
+@date: 2015
 """
 
-
-
 from libsbml import *
-doc = SBMLReader().readSBML('test.xml')
+
+filepath =
+doc = SBMLReader().readSBML('sbml_units.xml')
 m = doc.getModel()
 
 
 units = ['mmHg', 'Pa_per_mmHg', 'Pa_per_s']
 parameters = ['conv', 'k1', 'P', 'w']
+
 for sid in units:
     print '*'*3, sid, '*'*3
     udef = m.getUnitDefinition(sid)

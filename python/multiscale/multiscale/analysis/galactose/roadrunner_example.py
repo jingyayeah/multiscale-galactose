@@ -75,5 +75,6 @@ for value in [0, 100]:
     # reset all the changes
     rr.reset()
     for key, value in changes.iteritems():
-        rr.model[key] = value    
+        rr.model[key] = value
+
 
