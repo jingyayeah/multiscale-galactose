@@ -1,6 +1,7 @@
 {% extends "simapp/base_generic.html" %}
 {% load macros %}
 {% loadmacros "simapp/macros.html" %}
+{% load staticfiles %}
 {% load Parameter_filters %}
 <!------------------------------------------------------->
 <!--  TASK  										   -->
@@ -30,7 +31,7 @@
     </table>
 
     {% endcomment %}
-
+    <a href="{% url 'simapp:task_report_csv' task.pk %}"><img src="{% static 'simapp/images/csv.png' %}" height="25"/></a>
     {{ df | dataframe_to_html | safe }}
 
 

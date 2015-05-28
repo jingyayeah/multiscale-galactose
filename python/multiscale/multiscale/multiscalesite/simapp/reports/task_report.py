@@ -21,14 +21,16 @@ class TaskReport(object):
 
         # create set of dictionaries for simulations and collect the keys
         sim_dicts = []
-        for sim in self.task.simulations.all():
+        # fetch the related
+        simulations = self.task.simulations.all().prefetch_related('parameters')  # DB query
+        for sim in simulations:
             data = {
                 'sim': sim.pk,
                 'status': sim.status_str,
                 'core': sim.core,
                 'duration': sim.duration,
             }
-            for p in sim.parameters.all():
+            for p in sim.parameters.all():  # DB query
                 data[p.key] = p.value
             sim_dicts.append(data)
 
@@ -43,6 +45,9 @@ class TaskReport(object):
         # write the csv
         print(filepath)
         self.dataframe.to_csv(filepath, sep='\t')
+
+    def csv_string(self):
+        return self.dataframe.to_csv(None, sep='\t')
 
     def filepath(self):
         return os.path.join(MULTISCALE_GALACTOSE_RESULTS, '{}_parameters.txt'.format(self.task))

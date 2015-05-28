@@ -3,7 +3,8 @@ from django.conf.urls import patterns, url
 from simapp import views
 from simapp.reports import sbml_report
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^models/$', views.models, name='models'),
     url(r'^model/(?P<model_id>\d+)$', views.model, name='model'),
     url(r'^cores/$', views.cores, name='cores'),
@@ -21,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^tasks/$', views.tasks, name='tasks'),
     url(r'^task/(?P<task_id>\d+)$', views.task, name='task'),
     url(r'^task/T(?P<task_id>\d+)$', views.task_report, name='task_parameters'),
+    url(r'^task/C(?P<task_id>\d+)$', views.task_report_csv, name='task_report_csv'),
 
     url(r'^about/$', views.about, name='about'),
     url(r'^$', views.models, name='index'),

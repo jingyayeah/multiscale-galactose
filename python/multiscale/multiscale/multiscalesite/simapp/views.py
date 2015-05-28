@@ -54,19 +54,25 @@ def task(request, task_id):
                               context_instance=RequestContext(request))
 
 
+from simapp.reports.task_report import TaskReport
+
 def task_report(request, task_id):
     """ Most of the logic belongs in the Parameterfile.
         Here only the view should be generated.
     """
-    from simapp.reports.task_report import TaskReport
-
     task = get_object_or_404(Task, pk=task_id)
     report = TaskReport(task)
     return render_to_response('simapp/task_report.html',
                               {'task': task,
+                               'filepath': report.filepath(),
                                'df': report.dataframe},
                               context_instance=RequestContext(request))
-    # return HttpResponse(content, content_type='text/plain')
+
+def task_report_csv(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    report = TaskReport(task)
+    content = report.csv_string()
+    return HttpResponse(content, content_type='text/plain')
 
 
 # ===============================================================================
