@@ -12,9 +12,10 @@ from multiscale.multiscale_settings import MULTISCALE_GALACTOSE_RESULTS
 class TaskReport(object):
     def __init__(self, task):
         self.task = task
-        self.df = None
+        self.dataframe = None
+        self.create_parameter_dataframe()
 
-    def parameter_dataframe(self):
+    def create_parameter_dataframe(self):
         """ Pandas DataFrame from simulation parameters and some additional keys. """
         start = time.time()
 
@@ -32,16 +33,16 @@ class TaskReport(object):
             sim_dicts.append(data)
 
         print('time: ', (time.time() - start))
-        return DataFrame(sim_dicts)
+        self.dataframe = DataFrame(sim_dicts)
 
     def save_parameter_file(self, filepath=None):
         if filepath is None:
             filepath = self.filepath()
-        if self.df is None:
-            self.df = self.parameter_dataframe()
+        if self.dataframe is None:
+            self.create_parameter_dataframe()
         # write the csv
         print(filepath)
-        self.df.to_csv(filepath, sep='\t')
+        self.dataframe.to_csv(filepath, sep='\t')
 
     def filepath(self):
         return os.path.join(MULTISCALE_GALACTOSE_RESULTS, '{}_parameters.txt'.format(self.task))

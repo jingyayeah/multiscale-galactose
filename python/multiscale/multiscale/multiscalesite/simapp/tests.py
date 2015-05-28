@@ -316,7 +316,6 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Cores')
 
-
     def test_tasks_status(self):
         """ Check response status code for view. """
         response = self.c.get('/simapp/tasks/')

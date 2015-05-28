@@ -54,24 +54,19 @@ def task(request, task_id):
                               context_instance=RequestContext(request))
 
 
-def task_parameters(request, task_id):
+def task_report(request, task_id):
     """ Most of the logic belongs in the Parameterfile.
         Here only the view should be generated.
     """
-    # TODO: cache, only create once !
-    import simapp.reports.task_report as pf
+    from simapp.reports.task_report import TaskReport
 
     task = get_object_or_404(Task, pk=task_id)
-    content = pf.createParameterInfoForTask(task)
-
-    # TODO: is this done 2 time ?????
-    # Only write the file once and provide link to it.
-
-    # f = file(pf.getParameterFilenameForTask(task), 'w')
-    # f.write(content)
-    # f.close()
-    # pf.createParameterFileForTask(task)
-    return HttpResponse(content, content_type='text/plain')
+    report = TaskReport(task)
+    return render_to_response('simapp/task_report.html',
+                              {'task': task,
+                               'df': report.dataframe},
+                              context_instance=RequestContext(request))
+    # return HttpResponse(content, content_type='text/plain')
 
 
 # ===============================================================================
