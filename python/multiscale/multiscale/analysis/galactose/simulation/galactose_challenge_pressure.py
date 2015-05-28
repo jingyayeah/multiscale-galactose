@@ -46,7 +46,7 @@ r.selections = sel
 # Set parameters & simulate
 ######################################################################### 
 reload(settings)
-import multiscale.analysis.galactose.galactose_functions as gf
+import multiscale.analysis.galactose.misc_tools as gf
 reload(gf)
 
 # empty inits parameters

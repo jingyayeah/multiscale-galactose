@@ -81,11 +81,7 @@ def plot(r, show=True):
         p.show()
 
 
-def position_in_list(list, y):
-    for k, x in enumerate(list):
-        if x == y:
-            return k
-    return -1
+
 
 
 def dilution_plots(s_list, selections, show=True):
