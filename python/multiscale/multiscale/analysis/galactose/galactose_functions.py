@@ -10,6 +10,26 @@ from scipy import stats
 from roadrunner_tools import selection_dict
 
 
+
+# ----------------------------------------------------------------------
+# Analyse peaks
+# ----------------------------------------------------------------------
+# find the maximum of the peaks
+def dilution_peaks(s, compounds):
+    s, gp = s_list[0]
+
+print('{:20s}{:10s}{:10s}'.format('sid', 'time', 'max'))
+for sid in ['[PV__{}]'.format(item) for item in compounds]:
+    times = s['time']
+    data = s[sid]
+    max_value = max(data)
+    max_index = [i for i, item in enumerate(data) if item == max_value]
+    max_time = times[max_index[0]]
+    print('{:20s}{:5.3f}  {:5.3f}'.format(sid, max_time, max_value))
+
+
+
+
 ##  Distribution of fluxes  ##################################################
 def flux_sample():
     ''' 

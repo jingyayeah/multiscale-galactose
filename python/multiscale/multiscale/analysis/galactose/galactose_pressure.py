@@ -9,7 +9,7 @@ Simulation, analysis and visualization of the pressure dependent flow model.
 """
 import copy
 
-from multiscale.analysis.galactose import galactose_settings as settings
+from multiscale.analysis.galactose import settings as settings
 import roadrunner_tools as rt
 
 reload(settings)

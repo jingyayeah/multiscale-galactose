@@ -8,7 +8,7 @@ import h5py
 import pandas as pd
 from pandas import DataFrame
 
-h5py.enable_ipython_completer()  # ipython util
+h5py.enable_ipython_completer()  # ipython plots
 h5py.run_tests()  # run the tests
 
 # opening and creating files

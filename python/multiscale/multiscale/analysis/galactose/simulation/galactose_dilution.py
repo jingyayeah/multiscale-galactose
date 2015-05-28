@@ -1,37 +1,31 @@
 """
-#########################################################################
-# Multiple Indicator Dilution
-#########################################################################
-Single integration under given flux. These provides a general feeling
-how the model is behaving and what the influence of parameter changes is.
-The resulting dilution curves are a combination of dilution curves under
-varying fluxes resulting from the flux distribution within the lobulus.
-See below for the integrated flux weighted calculation.
+Multiple Indicator Dilution Simulation
 
-Simulation with RoadRunner model for description of the Multiple Indicator
-Dilution Data.
-
-@author: Matthias Koenig
-@date: 2014-12-19
+Single simulation of multiscale model of hepatic galactose metabolism under
+given given boundary conditions.
 """
+
+from __future__ import print_function
+import os
 import copy
 
-import galactose_settings as settings
-import roadrunner_tools as rt
-from multiscale.analysis.galactose import dilution_plots as dp
+import multiscale.analysis.galactose.settings as settings
+from multiscale.analysis.galactose.plots import dilution_plots as dp
+import multiscale.odesim.simulate.roadrunner_tools as rt
 
-reload(settings)
-
-#########################################################################    
+# ----------------------------------------------------------------------
 # Load model
-#########################################################################    
-sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_dilution.xml'.format(settings.VERSION)
-# sbml_file = SBML_DIR + '/' + 'Galactose_v{}_Nc{}_dilution_gauss.xml'.format(VERSION, NC)
-r = rt.load_model(sbml_file)
+# ----------------------------------------------------------------------
+core_id = 'Galactose_v{}_Nc20_dilution.xml'
+# core_id = 'Galactose_v{}_Nc{}_dilution_gauss.xml'
+sbml_path = os.path.join(settings.SBML_DIR, core_id.format(settings.VERSION))
+print('SBML model:', sbml_path)
+r = rt.load_model(sbml_path)
 
-#########################################################################    
+
+# ----------------------------------------------------------------------
 # Set selection
-#########################################################################    
+# ----------------------------------------------------------------------
 compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']
 sel = ['time']
 sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
@@ -46,45 +40,35 @@ sel += [item for item in r.model.getReactionIds() if item.startswith('C')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel += ["peak"]
 r.selections = sel
+print('r.selections:', r.selections)
 
-# sel += [ "".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] 
-# sel += [item for item in rr.model.getReactionIds() if item.startswith('H')]
-
-#########################################################################    
+# ----------------------------------------------------------------------
 # Set parameters & simulate
-######################################################################### 
+# ----------------------------------------------------------------------
 reload(settings)
 inits = {}
-p_list = []
 
+# copy the template and set additional parameters
 d = copy.deepcopy(settings.D_TEMPLATE)    
 d["[PP__gal]"] = 0.28
-d["flow_sin"] = settings.F_FLOW * r.flow_sin  
-p_list.append(d)
-print d
+# TODO: fix the flow sinus problem
+# d["flow_sin"] = settings.F_FLOW * r.flow_sin
 
-# perform odesim
-s_list = [rt.simulation(r, p, inits, absTol=1E-8, relTol=1E-8) for p in p_list]
+parameters_list = [d]
+print('Parameters for simulations:', parameters_list)
 
-#########################################################################    
-# Analyse peaks
-######################################################################### 
-# find the maximum of the peaks
-s = s_list[0]
-print '{:20s}{:10s}{:10s}'.format('sid', 'time', 'max')
+# perform simulation
+t_start = 0
+t_stop = 10000
+s_list = [rt.simulation(r, t_start, t_stop, parameters=ps, absTol=1E-3, relTol=1E-3) for ps in parameters_list]
+s_list
 
-for sid in ['[PV__{}]'.format(item) for item in compounds]:
-    times = s['time']
-    data = s[sid]    
-    max_value = max(data)
-    max_index = [i for i, item in enumerate(data) if item == max_value]
-    max_time = times[max_index[0]]
-    print '{:20s}{:5.3f}  {:5.3f}'.format(sid, max_time, max_value)
 
-#########################################################################    
+
+# ----------------------------------------------------------------------
 # Plots
-######################################################################### 
-import multiscale.analysis.galactose.roadrunner_plots as rp
+# ----------------------------------------------------------------------
+import multiscale.analysis.galactose.plots.roadrunner_plots as rp
 reload(dp)
 # mean curve
 dp.dilution_plot_pppv(s_list, r.selections)
@@ -92,6 +76,7 @@ dp.dilution_plot_pppv(s_list, r.selections)
 
 
 # mean curve with distribution_data
+# TODO: proper filepath
 exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
 exp_data = rp.load_dilution_data(exp_file)
 rp.plot_dilution_data(exp_data)

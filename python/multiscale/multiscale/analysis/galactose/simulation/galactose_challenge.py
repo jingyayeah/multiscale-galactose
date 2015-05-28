@@ -12,7 +12,7 @@ Here the clearance parameters and the GEC can be calculated from the model.
 import copy
 import numpy as np
 
-from multiscale.analysis.galactose import galactose_settings as settings
+from multiscale.analysis.galactose import settings as settings
 import roadrunner_tools as rt
 
 reload(settings)

@@ -4,7 +4,6 @@ Created on Dec 19, 2014
 @author: mkoenig
 """
 
-from roadrunner_tools import get_ids_from_selection, position_in_list
 
 t_peak = 5000
 

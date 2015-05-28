@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 12 11:58:16 2015
-
-@author: mkoenig
+Basic settings used for the galactose simulations.
+Here the version and necessary settings are created.
 """
+
+from multiscale.multiscale_settings import SBML_DIR
 
 # Model version to use
 # VERSION = 107 # flow constant
-VERSION = 128 # pressure model
+VERSION = 129  # pressure model
 
-SBML_DIR = '/home/mkoenig/multiscale-galactose-results/tmp_sbml'
-T_PEAK = 5000
-
-F_FLOW = 0.8
+T_PEAK = 5000  # TODO: read from SBML
+F_FLOW = 0.8   # TODO: read from SBML
 
 # Model changes applied to all simulations
 D_TEMPLATE = {

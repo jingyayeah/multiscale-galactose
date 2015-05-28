@@ -10,6 +10,9 @@ No direct interactions with the database should occur
 import logging
 from django.core.exceptions import ObjectDoesNotExist
 
+import django
+django.setup()
+
 # provide the enums via the API
 from simapp.models import CompModelFormat
 from simapp.models import MethodType

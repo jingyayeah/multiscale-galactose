@@ -1,4 +1,6 @@
 """
+Helper tools to access galactose model information.
+
 Simulation tool to create the matrices from the resulting odesim.
 The provided functions recreate matrices and arrows lost in the SBML
 encoding for easier analysis.
@@ -6,6 +8,15 @@ encoding for easier analysis.
 
 from multiscale.modelcreator.tools.naming import *
 from pandas import DataFrame, Series
+
+def get_ids_from_selection(name, selections, comp_type='H'):
+    """ Returns list of ids in selection for given name. """
+    ids = [item for item in selections if ( (item.startswith('[{}'.format(comp_type)) | item.startswith(comp_type))
+                                    & (item.endswith('__{}]'.format(name)) | item.endswith('__{}'.format(name))) )]
+    if len(ids) == 0:
+        ids = [name, ]
+    return ids
+
 
 
 def get_Nc(gp):
