@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from simapp.models import CompModel, Core, Simulation, Result, Task, Method
+from simapp.reports.task_report import TaskReport
 
 PAGINATE_ENTRIES = 50
 
@@ -12,6 +13,7 @@ PAGINATE_ENTRIES = 50
 # ===============================================================================
 def models(request):
     """ Models overview. """
+    # no select related for reverse possible (i.e. the task)
     model_list = CompModel.objects.order_by("-pk")
     return render_to_response('simapp/models.html',
                               {'model_list': model_list},
@@ -49,12 +51,13 @@ def tasks(request):
 def task(request, task_id):
     """ View of single task. """
     task = get_object_or_404(Task, pk=task_id)
+    simulations = Simulation.objects.filter(task=task).order_by("-time_assign", "-time_create").prefetch_related('parameters', 'results').select_related('task', 'task__method', 'task__model')
+    # simulations = task.simulations.all|slice:":50"
+
     return render_to_response('simapp/task.html',
-                              {'task': task},
+                              {'task': task,
+                               'simulations': simulations},
                               context_instance=RequestContext(request))
-
-
-from simapp.reports.task_report import TaskReport
 
 def task_report(request, task_id):
     """ Most of the logic belongs in the Parameterfile.
@@ -101,10 +104,11 @@ from simapp.models import SimulationStatus
 def simulations(request, status='ALL'):
     """ Simulations overview. """
     if status == 'ALL':
-        sim_list = Simulation.objects.order_by("-time_assign", "-time_create")
+        sim_list = Simulation.objects.all()
     else:
         status_type = SimulationStatus.rev_labels[status]
-        sim_list = Simulation.objects.filter(status=status_type).order_by("-time_assign", "-time_create")
+        sim_list = Simulation.objects.filter(status=status_type)
+    sim_list = sim_list.order_by("-time_assign", "-time_create").prefetch_related('parameters', 'results').select_related('task', 'task__method', 'task__model')
 
     paginator = Paginator(sim_list, PAGINATE_ENTRIES)
     page = request.GET.get('page')
@@ -150,7 +154,7 @@ def simulation(request, simulation_id):
 # ===============================================================================
 def results(request):
     """ Overview of Results. """
-    results_all = Result.objects.all()
+    results_all = Result.objects.all().select_related('simulation')
     paginator = Paginator(results_all, PAGINATE_ENTRIES)
     page = request.GET.get('page')
     try:

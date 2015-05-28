@@ -30,7 +30,7 @@ class TaskReport(object):
                 'core': sim.core,
                 'duration': sim.duration,
             }
-            for p in sim.parameters.all():  # DB query
+            for p in sim.parameters.all():  # not hitting DB again due to prefetch
                 data[p.key] = p.value
             sim_dicts.append(data)
 

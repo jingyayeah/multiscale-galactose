@@ -22,7 +22,7 @@
         {% usemacro simulation_header %}
     </thead>
     <tbody>
-        {% for sim in task.simulations.all|slice:":50" %}
+        {% for sim in simulations %}
         {%  comment %}{% for sim in task.simulations.all %}{% endcomment %}
             {% usemacro simulation_content %}
         {% endfor %}
