@@ -25,5 +25,6 @@ urlpatterns = patterns(
     url(r'^task/C(?P<task_id>\d+)$', views.task_report_csv, name='task_report_csv'),
 
     url(r'^about/$', views.about, name='about'),
+
     url(r'^$', views.models, name='index'),
 )

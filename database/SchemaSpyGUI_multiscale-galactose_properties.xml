@@ -8,7 +8,7 @@
 <entry key="dbNameTField">multiscale-galactose</entry>
 <entry key="tNameRExTField"/>
 <entry key="dbUserTField">mkoenig</entry>
-<entry key="tNameExRExTField"/>
+<entry key="tNameExRExTField">(^auth_\w+$)|(^django_\w+$)</entry>
 <entry key="cssPathTField"/>
 <entry key="dbHostTField">127.0.0.1</entry>
 <entry key="dbTypeCBox">pgsql</entry>
