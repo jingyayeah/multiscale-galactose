@@ -9,6 +9,7 @@ from __future__ import print_function
 import os
 import copy
 
+import multiscale.modelcreator.tools.naming as naming
 import multiscale.analysis.galactose.settings as settings
 import multiscale.odesim.simulate.roadrunner_tools as rt
 
@@ -22,21 +23,33 @@ sbml_path = os.path.join(settings.SBML_DIR, core_id.format(settings.VERSION))
 print('SBML model:', sbml_path)
 r = rt.load_model(sbml_path)
 
-
 # ----------------------------------------------------------------------
 # Set selection
 # ----------------------------------------------------------------------
-compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']
+
+# load SBML and get the species ids
+import libsbml
+doc = libsbml.readSBMLFromFile(sbml_path)
+species_ids = [s.id for s in doc.getModel().getListOfSpecies()]
+
+def filter_items(items, f_filter):
+    return sorted([item for item in items if f_filter(item)])
+
+pp_species = filter_items(species_ids, naming.isPPSpeciesId)
+pv_species = filter_items(species_ids, naming.isPVSpeciesId)
+print(pv_species)
+print(pp_species)
+
 sel = ['time']
-sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
-sel += ['[PV__{}]'.format(item) for item in compounds]
-sel += ['[PP__{}]'.format(item) for item in compounds]
-sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
-sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
+sel += ['[{}]'.format(item) for item in pp_species]
+sel += ['[{}]'.format(item) for item in pv_species]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('C')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
-sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
+sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('S')]
+
 sel += [item for item in r.model.getReactionIds() if item.startswith('C')]
+sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel += ["peak"]
 r.selections = sel
@@ -73,7 +86,7 @@ from multiscale.analysis.galactose import misc_tools
 reload(misc_tools)
 
 # ['[PV__alb]', '[PV__gal]', '[PV__galM]', '[PV__h2oM]', '[PV__rbcM]', '[PV__suc]']
-pv_concentrations = ['[{}]'.format(naming.getPVSpeciesId(c)) for c in compounds]
+pv_concentrations = ['[{}]'.format(item) for item in pv_species]
 peak_dict = misc_tools.find_peaks(s_list[0], pv_concentrations)
 misc_tools.print_peaks(peak_dict)
 
@@ -83,15 +96,17 @@ misc_tools.print_peaks(peak_dict)
 import multiscale.analysis.galactose.plot_tools as pt
 reload(pt)
 # plot the dilution curve
-pt.dilution_plot_pppv(s_list)
-pt.dilution_plot_pppv(s_list, ylim=[0,0.005])
+pt.pppv_plot(s_list)
+pt.pppv_plot(s_list, ylim=[0,0.5])
+pt.pppv_plot(s_list, ylim=[0,0.005])
 
 
 # mean curve with distribution_data
-# TODO: proper filepath & proper parsing of data & proper plot
-exp_file = '/home/mkoenig/multiscale-galactose/results/dilution/Goresky_processed.csv'
+# TODO: proper parsing of data & proper plot
+import os
+from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
+exp_file = os.path.join(MULTISCALE_GALACTOSE, 'results', 'dilution', 'Goresky_processed.csv')
 exp_data = pt.load_dilution_data(exp_file)
-exp_data
 pt.plot_dilution_data(exp_data)
 # TODO: plot the curve with the experimental data
 

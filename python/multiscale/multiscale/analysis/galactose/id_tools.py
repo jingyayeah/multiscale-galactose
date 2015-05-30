@@ -9,6 +9,19 @@ encoding for easier analysis.
 from multiscale.modelcreator.tools.naming import *
 from pandas import DataFrame, Series
 
+
+
+def get_PP_ids():
+
+    pass
+
+def get_PV_ids():
+    pass
+
+def get_compounds():
+    pass
+
+
 def get_ids_from_selection(name, selections, comp_type='H'):
     """ Returns list of ids in selection for given name. """
     ids = [item for item in selections if ( (item.startswith('[{}'.format(comp_type)) | item.startswith(comp_type))

@@ -1,5 +1,12 @@
 """
-General plot functionality for RoadRunner simulations.
+Plot helpers for the visualization of multiscale liver models.
+One of the main challenges is the managing of the multiple cell
+instances from periportal to perivenious and the visualisation
+of sinusoid, space of Disse and the hepatocyte concentrations.
+
+In this module general plot helpers for the analysis are defined.
+
+
 """
 # TODO: refactor in class
 # TODO: provide general plots depending on ResultType
@@ -7,7 +14,9 @@ General plot functionality for RoadRunner simulations.
 
 from __future__ import print_function
 import matplotlib.pylab as plt
+import pandas as pd
 from multiscale.analysis.galactose.id_tools import get_ids_from_selection
+from multiscale.modelcreator.tools import naming
 
 def print_plot_heading(text):
     print('#'*80)
@@ -19,6 +28,46 @@ def position_in_list(list, y):
         if x == y:
             return k
     return -1
+
+
+PPPV_COLOR = {
+    'gal': 'gray',
+    'galM': 'black',
+    'rbcM': 'red',
+    'alb': 'darkgreen',
+    'suc': 'darkorange',
+    'h2oM': 'darkblue'
+}
+
+def pppv_plot(s_list, xlim=[PEAK_TIME-5, PEAK_TIME+30], ylim=None):
+    """ Plot of the periportal and perivenious components of the dilution curves. """
+    ids = []
+    cols = []
+    for key, color in PPPV_COLOR.iteritems():
+        ids.append('[{}]'.format(naming.getPPSpeciesId(key)))
+        cols.append('black')
+        ids.append('[{}]'.format(naming.getPVSpeciesId(key)))
+        cols.append(color)
+    print(ids)
+
+    # p.figure(1, figsize=(9,6))
+    for s in s_list:
+        times = s['time']
+        for k, sid in enumerate(ids):
+            plt.plot(times, s[sid], color=cols[k], label=sid)
+            # p.legend()
+    plt.title('Dilution curves PP & PV')
+    plt.xlabel('time [s]')
+    plt.ylabel('concentration [mM]')
+
+    # adapt the axis
+    if xlim:
+        plt.xlim(xlim)
+    if ylim:
+        plt.ylim(ylim)
+
+    plt.show()
+
 
 # ----------------------------------------------------------------------
 # Dilution plots
@@ -87,45 +136,21 @@ def dilution_plot_by_name(s_list, selections, name, xlim=[PEAK_TIME-5, PEAK_TIME
 
 def load_dilution_data(fname):
     """ Read experimental dilution data.
-    Load the Goresky experimental distribution_data and plot with the curves.
+        Load the Goresky experimental distribution_data and plot with the curves.
     """
-    # TODO: reading distribution_data with csv2rec('exampledata.txt', delimiter='\t')
-    # matplotlib.mlab.csv2rec
-    data = dict()
-    # load all the lines
-    f = open(fname, 'r')
-    counter = 0
-    for line in f.readlines():
-        line = line.strip()
-        tokens = line.split('\t')
-        if counter == 0:
-            header = tokens
-            print('Header', header)
-            for h in header:
-                data[h] = []
-        else:
-            for k, h in enumerate(header):
-                data[h].append(tokens[k])
-        counter += 1
-    return data
+    return pd.read_csv(fname, sep="\t")
 
 
-def plot_dilution_data(data):
+def plot_dilution_data(data, xlim=[-5, 30]):
+    """ Plot the loaded dilution data. """
     compounds = ['RBC', 'albumin', 'sucrose', 'water', 'galactose']
     colors = ['darkred', 'darkgreen', 'darkorange', 'darkblue', 'black']
 
-    # plot every single point
-    for k in range(len(data['time'])):
-        c = data['compound'][k]
-        t = data['time'][k]
-        outflow = data['outflow'][k]
-        pos = position_in_list(compounds, c)
-        if pos < 0:
-            print('Compound not found:', c)
-            continue
-        # plot distribution_data point
-        plt.plot(t, outflow, 'o', color=colors[pos])
-    plt.show()
+    for key, color in zip(compounds, colors):
+        print(key, ':', color)
+        d = data[data['compound'] == key]
+        plt.plot(d['time'], d['outflow'], 'o', color=color)
+        plt.xlim(xlim)
 
 
 def plot_data_with_sim(data, timepoints, av_mats, scale=1.0, time_shift=0.0, t_peak=5000):
