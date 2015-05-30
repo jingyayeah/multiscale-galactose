@@ -1,40 +1,34 @@
 # -*- coding: utf-8 -*-
 """
-#########################################################################
-# Galactose Challenge / Clearance
-#########################################################################
-Steady state clearance of galactose under given galactose challenge.
-Here the clearance parameters and the GEC are approximatly calculated
-from subset of simulations representative of flow dependency.
+Galactose Challenge
 
-Using the pressure mode
+Variation under different periportal pressures and periportal galactose 
+challenges. Model is simulated to steady state under the given conditions.
 
-@author: Matthias Koenig
-@date: 2015-04-13
 """
 
+import os
 import copy
 import numpy as np
 
 from multiscale.analysis.galactose import settings as settings
-import roadrunner_tools as rt
+import multiscale.odesim.simulate.roadrunner_tools as rt
 
 reload(settings)
 
-#########################################################################    
+# -----------------------------------------------------------------------------
 # Load model
-#########################################################################    
-sbml_file = settings.SBML_DIR + '/' + 'Galactose_v{}_Nc20_galchallenge.xml'.format(settings.VERSION)
+# -----------------------------------------------------------------------------
+sbml_file = os.path.join(settings.SBML_DIR, 'Galactose_v{}_Nc20_galchallenge.xml'.format(settings.VERSION))
 r = rt.load_model(sbml_file)
 
-#########################################################################    
+# -----------------------------------------------------------------------------
 # Set selection
-#########################################################################    
-compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']
+# -----------------------------------------------------------------------------
+compounds = ['alb', 'gal', 'galM', 'h2oM', 'rbcM', 'suc']  # PP/PV species
 sel = ['time']
-sel += ['[{}]'.format(item) for item in r.model.getBoundarySpeciesIds()]
-sel += ['[PV__{}]'.format(item) for item in compounds]
 sel += ['[PP__{}]'.format(item) for item in compounds]
+sel += ['[PV__{}]'.format(item) for item in compounds]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('H')]
 sel += ['[{}]'.format(item)for item in r.model.getFloatingSpeciesIds() if item.startswith('D')]
 sel += [item for item in r.model.getReactionIds() if item.startswith('H')]
@@ -42,21 +36,19 @@ sel += [item for item in r.model.getReactionIds() if item.startswith('D')]
 sel += ["peak", 'PP_Q', 'Q_sinunit', 'Vol_sinunit', 'Pa']
 r.selections = sel
 
-#########################################################################    
+# -----------------------------------------------------------------------------
 # Set parameters & simulate
-######################################################################### 
-reload(settings)
-import multiscale.analysis.galactose.misc_tools as gf
-reload(gf)
+# -----------------------------------------------------------------------------
+# integrations time
+t_start = 0
+t_stop = 10000
+absolute = 1E-4
+relative = 1E-4
 
-# empty inits parameters
-inits = {}
-
-
-# Simulation pressure dependency
-# TODO: proper definition in mmHg (consistency)
+# [A] Simulation of pressure dependency
+# TODO: proper definition in mmHg (consistency) & offset of pressure from base pressure
 print '# Pressure Dependency #'
-pressure = np.linspace(2.1, 10, num=10) # [mmHg]
+pressure = np.linspace(2.1, 10, num=10)     # [mmHg]
 f_Pa_per_mmHg = 133.322
 pressure = pressure * f_Pa_per_mmHg # [Pa]
 
@@ -66,21 +58,29 @@ for pa in pressure:
     d["Pa"] = pa
     pa_pars.append(d)
 
-pa_solutions = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in pa_pars]
+# perform simulation
+pa_solutions = []
+for ps in pa_pars:
+    s, gp = rt.simulation(r, t_start, t_stop, parameters=ps, absTol=absolute, relTol=relative)
+    pa_solutions.append(s)
 
-# Simulation galactose dependency
+
+# [B] Simulation galactose dependency
 print '# Galactose Dependency #'
 gal_challenge = np.arange(start=0, stop=9.0, step=1.0)
 gal_pars = []
-
 for gal in gal_challenge:
     d = copy.deepcopy(settings.D_TEMPLATE)    
     d["gal_challenge"] = gal
-    # TODO: problems with the offset (always scale Pa-Pb)
-    d["Pa"] = settings.F_FLOW * r.Pa
     gal_pars.append(d)
     
-gal_solutions = [rt.simulation(r, p, inits, absTol=1E-4, relTol=1E-4) for p in gal_pars]
+# perform simulation
+gal_solutions = []
+for ps in gal_pars:
+    s, gp = rt.simulation(r, t_start, t_stop, parameters=ps, absTol=absolute, relTol=relative)
+    gal_solutions.append(s)
+
+
 
 #########################################################################    
 # Calculate clearance parameters
@@ -95,6 +95,10 @@ def get_par_from_solutions(name, solutions):
 
 # Account for large vessel structure
 f_tissue = 0.8
+
+# TODO: provide set of analysis functions to calculate these values directly
+# from the time courses. I.e. rewrite the analysis performed in R to python.
+
 
 # Calculate galactose elimination (perfusion dependence)
 Q_sinunit = get_par_from_solutions('Q_sinunit', pa_solutions)      # [m³/s]
@@ -150,7 +154,7 @@ plt.plot(P_pa, GE_pa, '-k')
 plt.plot(P_pa, GE_pa, 'ok')
 plt.title('GE vs. Perfusion')
 plt.xlabel('P [ml/min/ml(liv)]')
-plt.ylabel('GE [µmole/min/ml(liv)]')
+plt.ylabel('GE [mumole/min/ml(liv)]')
 plt.show()
 
 

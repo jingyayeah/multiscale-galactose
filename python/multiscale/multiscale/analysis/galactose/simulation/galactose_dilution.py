@@ -102,14 +102,11 @@ pt.pppv_plot(s_list, ylim=[0,0.005])
 
 
 # mean curve with distribution_data
-# TODO: proper parsing of data & proper plot
 import os
 from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
 exp_file = os.path.join(MULTISCALE_GALACTOSE, 'results', 'dilution', 'Goresky_processed.csv')
 exp_data = pt.load_dilution_data(exp_file)
 pt.plot_dilution_data(exp_data)
-# TODO: plot the curve with the experimental data
-
 
 
 # pt.dilution_plot_by_name(s_list, r.selections, name='peak', xlim=[T_PEAK-5, T_PEAK+5])
