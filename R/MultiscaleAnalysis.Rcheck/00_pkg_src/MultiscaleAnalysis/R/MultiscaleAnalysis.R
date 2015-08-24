@@ -12,7 +12,7 @@
 #'
 #' @docType package
 #' @name MultiscaleAnalysis
-
+NULL
 
 #' Create the settings structure.
 #' 

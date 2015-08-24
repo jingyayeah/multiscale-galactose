@@ -15,8 +15,6 @@
 # date: 2015-01-21
 ################################################################################
 
-
-
 #' Save single GAMLSS correlation model.
 #' 
 #'@export
@@ -118,7 +116,7 @@ load_shiny_fit_models <- function(file=file.path(ma.settings$dir.shiny, 'fit_mod
 #' The prediction is computational expensive. The parameters for the distribution
 #' have to be predicted exactely once per given person information.
 #' @export
-f_d.parameters <- function(models, xname, person){
+f_d.parameters <- function(models, xname, person, sex_split=TRUE){
   if (is.na(person[[xname]])){
     return(list(link='None', person=person))
   }
@@ -128,8 +126,15 @@ f_d.parameters <- function(models, xname, person){
   
   # get link function from model, predict the necessary parameters & 
   # create respective density
-  mname <- paste('fit.', person$sex, sep="")
-  dfname <- paste('df.', person$sex, sep="")
+  if (sex_split){
+    sex <- person$sex  # sex dependent models are used
+  } else {
+    sex <- 'all'
+  }
+  # model and data
+  mname <- paste('fit.', sex, sep="")
+  dfname <- paste('df.', sex, sep="")
+  
   m <- models[[mname]]
   assign(dfname, models[[dfname]])
   link = m$family[1]
@@ -181,13 +186,16 @@ f_d.factory.bodyweight <- function(pars){
 #' anthropomorhic information. Handle these cases so that 
 #' the combined probability distributions can be calculated correctly.
 #' @export
-prepare_fds <- function(f_ds){
+prepare_fds <- function(f_ds, debug=TRUE){
   # For the calculation of the distributions these have to be put to the 1 function
   for (k in 1:length(f_ds)){   
     if (!is.function( f_ds[[k]] ) ){
       if(is.na(f_ds[[k]])){ 
-        message(sprintf('Link function not available: %s', names(f_ds)[k]))
+        
         f_ds[[k]] <- function(x){1} 
+        if (debug == TRUE){
+          message(sprintf('Link function not available: %s', names(f_ds)[k]))
+        }
       }
     }
   }
@@ -209,7 +217,7 @@ f_d.combined <- function(x, pars, yname){
       f_ds[[name]] <- f_d.factory.bodyweight(pars[[name]])
     }
   }
-  f_ds <- prepare_fds(f_ds)
+  f_ds <- prepare_fds(f_ds, debug=FALSE)
   
   # unnormalized combined density
   f_d.raw <- function(x) {
@@ -226,18 +234,18 @@ f_d.combined <- function(x, pars, yname){
 #' Calculate the liver volume distribution parameters for person.
 #' 
 #' @export
-f_d.volLiver.pars <- function(person){ 
+f_d.volLiver.pars <- function(person, sex_split){ 
   pars = list()
-  # volLiver 
   # for(xname in c('age', 'bodyweight', 'height', 'BSA')){
   for(xname in c('age', 'bodyweight', 'height')){
     name <- sprintf('volLiver_%s', xname)
-    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person, sex_split=sex_split)
   }
   # volLiverkg
   # for(xname in c('age', 'bodyweight', 'height', 'BSA')){
 #   for(xname in c('age', 'bodyweight', 'height')){
 #     name <- sprintf('volLiverkg_%s', xname)
+#     cat(name, '\n')
 #     pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
 #   }
   return(pars)
@@ -255,13 +263,12 @@ f_d.volLiver.c <- function(x, pars){
 #' Calculate the liver volume per bodyweight distributions for person.
 #' 
 #' @export
-f_d.volLiverkg.pars <- function(person){ 
+f_d.volLiverkg.pars <- function(person, sex_split){ 
   pars = list()
-  # volLiverkg
-  for(xname in c('age', 'bodyweight', 'height')){
   # for(xname in c('age', 'bodyweight', 'height', 'BSA')){
+  for(xname in c('age', 'bodyweight', 'height')){
     name <- sprintf('volLiverkg_%s', xname)
-    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person, sex_split=sex_split)
   }
   return(pars)
 }
@@ -277,13 +284,12 @@ f_d.volLiverkg.c <- function(x, pars){
 #' Calculate the liver bloodflow distributions for person.
 #' 
 #' @export
-f_d.flowLiver.pars <- function(person){ 
+f_d.flowLiver.pars <- function(person, sex_split){ 
   pars = list()
-  # flowLiver
   # for(xname in c('age', 'bodyweight', 'BSA', 'volLiver')){
   for(xname in c('age', 'volLiver')){
     name <- sprintf('flowLiver_%s', xname)
-    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person, sex_split=sex_split)
   }
   # flowliverkg
   # for(xname in c('age', 'bodyweight', 'BSA')){
@@ -306,13 +312,12 @@ f_d.flowLiver.c <- function(x, pars){
 #' Calculate the liver bloodflow per bodyweight distributions for person.
 #' 
 #' @export
-f_d.flowLiverkg.pars <- function(person){ 
+f_d.flowLiverkg.pars <- function(person, sex_split){ 
   pars = list()
-  # flowLiverkg
   for(xname in c('age', 'volLiverkg')){
   # for(xname in c('age', 'bodyweight', 'BSA', 'volLiverkg')){
     name <- sprintf('flowLiverkg_%s', xname)
-    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person)
+    pars[[name]] = f_d.parameters(models=fit.models[[name]], xname=xname, person=person, sex_split=sex_split)
   }
   return(pars)
 }
@@ -390,13 +395,13 @@ f_d.rejection_sample <- function(f_d, Nsim, interval){
 #' Predict liver volume and bloodflow for person.
 #' 
 #' @export
-predict_liver_person.fast <- function(person, Nsample){
+predict_liver_person.fast <- function(person, Nsample, sex_split){
   volLiver = rep(NA, Nsample)
   flowLiver = rep(NA, Nsample)
   
   # predict base
-  pars.volLiver <- f_d.volLiver.pars(person)
-  pars.flowLiver <- f_d.flowLiver.pars(person)
+  pars.volLiver <- f_d.volLiver.pars(person, sex_split)
+  pars.flowLiver <- f_d.flowLiver.pars(person, sex_split)
   
   # [1]
   # individual combined probability density for liver volume
@@ -422,6 +427,7 @@ predict_liver_person.fast <- function(person, Nsample){
               xname=plist$xname)
     # replace
     pars.flowLiver[['flowLiver_volLiver']] <- p
+
     # sample from distribution
     f_d2 <- f_d.flowLiver.c(pars=pars.flowLiver)
     rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
@@ -429,6 +435,51 @@ predict_liver_person.fast <- function(person, Nsample){
   }
   return(list(volLiver=volLiver, flowLiver=flowLiver))
 }
+
+#' Predict liver volume per bodyweight and bloodflow per bodyweight for person.
+#' 
+#' @export
+predict_liverkg_person.fast <- function(person, Nsample, sex_split){
+  volLiverkg = rep(NA, Nsample)
+  flowLiverkg = rep(NA, Nsample)
+  
+  # predict base
+  pars.volLiverkg <- f_d.volLiverkg.pars(person, sex_split)
+  pars.flowLiverkg <- f_d.flowLiverkg.pars(person, sex_split)
+  
+  # [1]
+  # individual combined probability density for liver volume
+  f_d1 <- f_d.volLiverkg.c(pars=pars.volLiverkg)
+  # rejection sampling of liver volume
+  rs1 <- f_d.rejection_sample(f_d1$f_d, Nsim=Nsample, interval=c(1, 4000))
+  volLiverkg <- rs1$values
+  
+  # [2]
+  # predict all the response functions for given liver volumes at once 
+  p1 <- person
+  p1$volLiverkg <- volLiverkg
+  plist <- f_d.parameters(models=fit.models[['flowLiverkg_volLiverkg']], xname='volLiverkg', person=p1)
+  
+  # now for ever liver volume the blood flow
+  # individual combined probability density for blood flow  
+  for (k in 1:Nsample){
+    # generate 
+    p <- list(link=plist$link, 
+              mu=plist$mu[k],
+              sigma=plist$sigma[k],
+              nu=plist$nu[k],
+              xname=plist$xname)
+    # replace
+    pars.flowLiverkg[['flowLiverkg_volLiverkg']] <- p
+    
+    # sample from distribution
+    f_d2 <- f_d.flowLiverkg.c(pars=pars.flowLiverkg)
+    rs2 <- f_d.rejection_sample(f_d2$f_d, Nsim=1, interval=c(1, 4000))
+    flowLiverkg[k] <- rs2$values[1]
+  }
+  return(list(volLiverkg=volLiverkg, flowLiverkg=flowLiverkg))
+}
+
 
 # volLiver <- 1:10
 # p1 <- person
@@ -452,9 +503,9 @@ predict_liver_person.fast <- function(person, Nsample){
 #' ! Use the fast version whenever possible !
 #' 
 #' @export
-predict_liver_person <- function(person, Nsample){
+predict_liver_person <- function(person, Nsample, sex_split){
   
-  pars.volLiver <- f_d.volLiver.pars(person)
+  pars.volLiver <- f_d.volLiver.pars(person, sex_split)
   # pars.volLiverkg <- f_d.volLiverkg.pars(p1)
   # pars.flowLiver <- f_d.flowLiver.pars(p1)
   # pars.flowLiverkg <- f_d.flowLiverkg.pars(p1)
@@ -486,7 +537,7 @@ predict_liver_person <- function(person, Nsample){
 #' Predict liver volume and bloodflow for people.
 #' 
 #' @export
-predict_liver_people <- function(people, Nsample, Ncores=1, debug=TRUE){
+predict_liver_people <- function(people, Nsample, sex_split=FALSE, Ncores=1, debug=TRUE){
   names <- names(people)
   if( !("sex" %in% names)) {warning("sex missing in data")}
   if( !("age" %in% names)) {warning("age missing in data")}
@@ -504,7 +555,7 @@ predict_liver_people <- function(people, Nsample, Ncores=1, debug=TRUE){
     if (debug){
       cat(sprintf('%1.3f\n', i/Np))
     }
-    predict_liver_person.fast(as.list(people[i, ]), Nsample)
+    predict_liver_person.fast(as.list(people[i, ]), Nsample, sex_split)
   }
   
   if (Ncores == 1){
@@ -528,6 +579,53 @@ predict_liver_people <- function(people, Nsample, Ncores=1, debug=TRUE){
     }
   }
   return(list(volLiver=volLiver, flowLiver=flowLiver))
+}
+
+#' Predict liver volume per bodyweight and bloodflow per bodyweight for people.
+#' 
+#' @export
+predict_liverkg_people <- function(people, Nsample, sex_split=FALSE, Ncores=1, debug=TRUE){
+  names <- names(people)
+  if( !("sex" %in% names)) {warning("sex missing in data")}
+  if( !("age" %in% names)) {warning("age missing in data")}
+  if( !("bodyweight" %in% names)) {warning("bodyweight missing in data")}
+  if( !("height" %in% names)) {warning("height missing in data")}
+  if( !("BSA" %in% names)) {warning("BSA missing in data")}
+  
+  # create empty matrix
+  Np = nrow(people)
+  volLiverkg <- matrix(NA, nrow=Np, ncol=Nsample)
+  flowLiverkg <- matrix(NA, nrow=Np, ncol=Nsample)
+  
+  workerFunc <- function(i){
+    # predict_liver_person(people[i, ], Nsample)
+    if (debug){
+      cat(sprintf('%1.3f\n', i/Np))
+    }
+    predict_liverkg_person.fast(as.list(people[i, ]), Nsample, sex_split)
+  }
+  
+  if (Ncores == 1){
+    for (k in 1:Np){
+      ptm <- proc.time()
+      res <- workerFunc(k)
+      volLiverkg[k, ] <- res$volLiverkg
+      flowLiverkg[k, ] <- res$flowLiverkg
+      if (debug){
+        cat(k, '\n') 
+        time <- proc.time() - ptm
+        print(time)
+      }
+    }
+  } else {
+    library(parallel)
+    res <- mclapply(1:Np, workerFunc, mc.cores=Ncores, mc.silent=FALSE, mc.preschedule=TRUE)
+    for (k in 1:Np){
+      volLiverkg[k, ] <- res[[k]]$volLiverkg
+      flowLiverkg[k, ] <- res[[k]]$flowLiverkg
+    }
+  }
+  return(list(volLiverkg=volLiverkg, flowLiverkg=flowLiverkg))
 }
 
 

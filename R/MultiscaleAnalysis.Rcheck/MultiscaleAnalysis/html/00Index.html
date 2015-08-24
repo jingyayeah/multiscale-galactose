@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>R: Multiscale Liver Model.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+<h1> Multiscale Liver Model.
+<img class="toplogo" src="../../../doc/html/logo.jpg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;MultiscaleAnalysis&rsquo; version 0.4.7</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../NEWS">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<p style="text-align: center;">
+<a href="# "> </a>
+<a href="#A">A</a>
+<a href="#C">C</a>
+<a href="#D">D</a>
+<a href="#E">E</a>
+<a href="#F">F</a>
+<a href="#G">G</a>
+<a href="#I">I</a>
+<a href="#K">K</a>
+<a href="#L">L</a>
+<a href="#M">M</a>
+<a href="#O">O</a>
+<a href="#P">P</a>
+<a href="#Q">Q</a>
+<a href="#R">R</a>
+<a href="#S">S</a>
+<a href="#T">T</a>
+<a href="#V">V</a>
+<a href="#W">W</a>
+<a href="#X">X</a>
+<a href="#Y">Y</a>
+</p>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="MultiscaleAnalysis.html">MultiscaleAnalysis-package</a></td>
+<td>MultiscaleAnalysis: Supporting package for multiscale-galactose model.</td></tr>
+</table>
+
+<h2><a name="A">-- A --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="add.alpha.html">add.alpha</a></td>
+<td>Adds alpha value to a color.</td></tr>
+<tr><td style="width: 25%;"><a href="addEventPoints.html">addEventPoints</a></td>
+<td>Handle Event timepoints.</td></tr>
+<tr><td style="width: 25%;"><a href="addMeanPopulationData.html">addMeanPopulationData</a></td>
+<td>Add data from population studies to dataset.</td></tr>
+<tr><td style="width: 25%;"><a href="addPopulationSegments.html">addPopulationSegments</a></td>
+<td>Add the population data segments to the plot.</td></tr>
+<tr><td style="width: 25%;"><a href="addRandomizedPopulationData.html">addRandomizedPopulationData</a></td>
+<td>Add data from population studies to dataset. Generate randomized data points within the given measurement interval for the data, i.e. use mean and sd/range for x and y to create n data points. The data is weighted only a fraction of the individual data in the regression but the information is provided for the fit curves.</td></tr>
+</table>
+
+<h2><a name="C">-- C --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="calculateBSA.html">calculateBSA</a></td>
+<td>Calculate body surface area (BSA) [m^2] from bodyweight [kg] and height [cm].</td></tr>
+<tr><td style="width: 25%;"><a href="calculateProbabilitiesForVariables.html">calculateProbabilitiesForVariables</a></td>
+<td>Calculate the single variable probabilies based on ECDF</td></tr>
+<tr><td style="width: 25%;"><a href="calculateSampleProbability.html">calculateSampleProbability</a></td>
+<td>Calculate the overall probability of the sample under the assumption of statistical independence.</td></tr>
+<tr><td style="width: 25%;"><a href="calculate_f_Rbase.html">calculate_f_Rbase</a></td>
+<td>If the galactose elimination was not calculated based on periportal - perivenious concentration differences, it is necessary to correct the value for basal galactose removal by extraheptic tissues (~3 This has large effects on the clearance calculation. Based on the Keiding1988 data this basal removal can be estimated assuming similar removal kinetics for the extrahepatic tissues than for the liver (also cleared by galactokinase)</td></tr>
+<tr><td style="width: 25%;"><a href="calculate_Rbase.html">calculate_Rbase</a></td>
+<td>Calculate the actual basal rate for given galactos concentration Returns galactose remvoal in [mmol/min].</td></tr>
+<tr><td style="width: 25%;"><a href="calc_half_max_time.html">calc_half_max_time</a></td>
+<td>Calculate half maximal times from the processed data</td></tr>
+<tr><td style="width: 25%;"><a href="calc_quantiles.html">calc_quantiles</a></td>
+<td>Calculate quantiles for the data.</td></tr>
+<tr><td style="width: 25%;"><a href="classification_data_raw.html">classification_data_raw</a></td>
+<td>Create one combined data.frame.</td></tr>
+<tr><td style="width: 25%;"><a href="col2rgb_alpha.html">col2rgb_alpha</a></td>
+<td>Colors for probability weights</td></tr>
+<tr><td style="width: 25%;"><a href="correlation_plot.html">correlation_plot</a></td>
+<td>Figure of correlation data</td></tr>
+<tr><td style="width: 25%;"><a href="create.settings.html">create.settings</a></td>
+<td>Create the settings structure.</td></tr>
+<tr><td style="width: 25%;"><a href="createApproximationMatrix.html">createApproximationMatrix</a></td>
+<td>Creates approximation data matrix for time and data vectors.</td></tr>
+<tr><td style="width: 25%;"><a href="createColumnDataFiles.html">createColumnDataFiles</a></td>
+<td>Read all col.indices components and store R data structures. For all simulations the csv files are loaded and the respective columns extracted.</td></tr>
+<tr><td style="width: 25%;"><a href="createDataFromHistogramm.html">createDataFromHistogramm</a></td>
+<td>Generates a possible data vector from given histogramm. Necessary for fitting distributions to histogramm data. Count data points are generated in the middle of every bin.</td></tr>
+<tr><td style="width: 25%;"><a href="createDataMatrices.html">createDataMatrices</a></td>
+<td>Convert timecourse list structure into data matrix. TODO: fix the performance (select only subset of interest)</td></tr>
+<tr><td style="width: 25%;"><a href="createDataMatricesVarSteps.html">createDataMatricesVarSteps</a></td>
+<td>Convert timecourse list structure into data matrix.</td></tr>
+<tr><td style="width: 25%;"><a href="createDatasetName.html">createDatasetName</a></td>
+<td>Create dataset name from xname and yname.</td></tr>
+<tr><td style="width: 25%;"><a href="createListOfStandardECDF.html">createListOfStandardECDF</a></td>
+<td>Calculated ECDFs for standard distributions.</td></tr>
+<tr><td style="width: 25%;"><a href="createPreprocessDataMatrices.html">createPreprocessDataMatrices</a></td>
+<td>Create data matrices.</td></tr>
+<tr><td style="width: 25%;"><a href="createXYNameFromDatasetName.html">createXYNameFromDatasetName</a></td>
+<td>Get the xname and yname from the dataset name.</td></tr>
+<tr><td style="width: 25%;"><a href="create_all_people.html">create_all_people</a></td>
+<td>Create people from the raw data files like 'hei1999'.</td></tr>
+<tr><td style="width: 25%;"><a href="create_data_subset.html">create_data_subset</a></td>
+<td>Data subset based on regression formula.</td></tr>
+<tr><td style="width: 25%;"><a href="create_GEC_histogram.html">create_GEC_histogram</a></td>
+<td>Overview of GEC &amp; GECkg data in given classification data</td></tr>
+<tr><td style="width: 25%;"><a href="create_m1_plot.html">create_m1_plot</a></td>
+<td>Create plot of the predicted values for baseline model m1</td></tr>
+<tr><td style="width: 25%;"><a href="create_people_from_raw.html">create_people_from_raw</a></td>
+<td>Creates anthropomorphic people data from given studies.</td></tr>
+<tr><td style="width: 25%;"><a href="create_subset_table.html">create_subset_table</a></td>
+<td>Create overview table of data subsets</td></tr>
+</table>
+
+<h2><a name="D">-- D --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="dir.nhanes.html">dir.nhanes</a></td>
+<td>NHANES people folder.</td></tr>
+<tr><td style="width: 25%;"><a href="dir.raw.html">dir.raw</a></td>
+<td>Raw people folder.</td></tr>
+<tr><td style="width: 25%;"><a href="disease_predictor.html">disease_predictor</a></td>
+<td>Predict liver disease based on multiscale-model predictions of GEC.</td></tr>
+<tr><td style="width: 25%;"><a href="d_subset.html">d_subset</a></td>
+<td>Create data subset from given field names</td></tr>
+</table>
+
+<h2><a name="E">-- E --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="extendParameterStructure.html">extendParameterStructure</a></td>
+<td>Extend paramter structure with SBML information.</td></tr>
+<tr><td style="width: 25%;"><a href="extend_with_galactose_clearance.html">extend_with_galactose_clearance</a></td>
+<td>Calculate clearance information for individual sinusoidal units.</td></tr>
+</table>
+
+<h2><a name="F">-- F --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="findMissingTimecourses.html">findMissingTimecourses</a></td>
+<td>Find missing timecourse files.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.combined.html">f_d.combined</a></td>
+<td>Create combined densities.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.factory.html">f_d.factory</a></td>
+<td>Density function for GAMLSS parameters.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.factory.bodyweight.html">f_d.factory.bodyweight</a></td>
+<td>Density function for GAMLSS parameters (per bodyweight densities -&gt; densities)</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.flowLiver.c.html">f_d.flowLiver.c</a></td>
+<td>Calculate the combined liver bloodflow distribution for person.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.flowLiver.pars.html">f_d.flowLiver.pars</a></td>
+<td>Calculate the liver bloodflow distributions for person.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.flowLiverkg.c.html">f_d.flowLiverkg.c</a></td>
+<td>Calculate the combined liver bloodflow per bodyweight distribution for person.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.flowLiverkg.pars.html">f_d.flowLiverkg.pars</a></td>
+<td>Calculate the liver bloodflow per bodyweight distributions for person.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.parameters.html">f_d.parameters</a></td>
+<td>Factory to create various probability densities from individual models.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.rejection_sample.html">f_d.rejection_sample</a></td>
+<td>Rejection sampling from given distribution.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.volLiver.c.html">f_d.volLiver.c</a></td>
+<td>Calculate the combined liver volume distribution for person.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.volLiver.pars.html">f_d.volLiver.pars</a></td>
+<td>Calculate the liver volume distribution parameters for person.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.volLiverkg.c.html">f_d.volLiverkg.c</a></td>
+<td>Calculate the combined liver volume per bodyweight distribution for person.</td></tr>
+<tr><td style="width: 25%;"><a href="f_d.volLiverkg.pars.html">f_d.volLiverkg.pars</a></td>
+<td>Calculate the liver volume per bodyweight distributions for person.</td></tr>
+<tr><td style="width: 25%;"><a href="f_integrate_GE.html">f_integrate_GE</a></td>
+<td>Calculation of galactose clearance parameters via integration of multiple sinusoidal units (region of interest). Important to integrate only over samples from the same underlying distribution. mean &amp; sd values are the mean and sd between the different sinusoidal units. Q_per_vol &amp; R_per_vol are the perfusion of the region of interest and the corresponding removal of galactose per region of interest. Be aware of the units !</td></tr>
+</table>
+
+<h2><a name="G">-- G --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="gender.cols.html">gender.cols</a></td>
+<td>Returns the colors for the different gender settings in data.</td></tr>
+<tr><td style="width: 25%;"><a href="generateLogStandardParameters.html">generateLogStandardParameters</a></td>
+<td>Generates the standard parameters for meanlog and stdlog based on mean and std.</td></tr>
+<tr><td style="width: 25%;"><a href="getAllSBMLParameterIdsFromModel.html">getAllSBMLParameterIdsFromModel</a></td>
+<td>Parameter ids in the sbml model.</td></tr>
+<tr><td style="width: 25%;"><a href="getBreakPointsFromMidpoints.html">getBreakPointsFromMidpoints</a></td>
+<td>Calculatesbreakpoints for histogram data with equidistant midpoints.</td></tr>
+<tr><td style="width: 25%;"><a href="getColorsForWeights.html">getColorsForWeights</a></td>
+<td>Colors for weights</td></tr>
+<tr><td style="width: 25%;"><a href="getColumnIndicesPPPV.html">getColumnIndicesPPPV</a></td>
+<td>Function to get the PPPV column indices from the data.</td></tr>
+<tr><td style="width: 25%;"><a href="getDilutionDataMaxima.html">getDilutionDataMaxima</a></td>
+<td>Get the maximal values of the dilution data.</td></tr>
+<tr><td style="width: 25%;"><a href="getFixedParameters.html">getFixedParameters</a></td>
+<td>Get fixed parameters in the model.</td></tr>
+<tr><td style="width: 25%;"><a href="getParameterNames.html">getParameterNames</a></td>
+<td>Get parameter names, i.e columns which are not keywords.</td></tr>
+<tr><td style="width: 25%;"><a href="getParameterTypes.html">getParameterTypes</a></td>
+<td>Get the different parameter types (fixed and variable)</td></tr>
+<tr><td style="width: 25%;"><a href="getRangeType.html">getRangeType</a></td>
+<td>Check if Sd or Range for x and y based on which fields are available in the dataset</td></tr>
+<tr><td style="width: 25%;"><a href="getRawDir.html">getRawDir</a></td>
+<td>Get raw data directory</td></tr>
+<tr><td style="width: 25%;"><a href="getSimulationFileFromSimulationId.html">getSimulationFileFromSimulationId</a></td>
+<td>Get integration timecourse file for simulation id.</td></tr>
+<tr><td style="width: 25%;"><a href="getTimeFromPreprocessMatrix.html">getTimeFromPreprocessMatrix</a></td>
+<td>Reads the time vector from the simulation matrix list.</td></tr>
+<tr><td style="width: 25%;"><a href="getVariableParameters.html">getVariableParameters</a></td>
+<td>Get parameters which are varied.</td></tr>
+<tr><td style="width: 25%;"><a href="get_age_GE_folders.html">get_age_GE_folders</a></td>
+<td>Definition of GE curves for age dependency. Depends on model. Update this folder when model is updated.</td></tr>
+<tr><td style="width: 25%;"><a href="get_classification_dir.html">get_classification_dir</a></td>
+<td>Classification directory</td></tr>
+<tr><td style="width: 25%;"><a href="get_correlation_dir.html">get_correlation_dir</a></td>
+<td>Get correlation data directory</td></tr>
+<tr><td style="width: 25%;"><a href="get_vmax_GE_folders.html">get_vmax_GE_folders</a></td>
+<td>Definition of GE curves for Vmax dependency.</td></tr>
+</table>
+
+<h2><a name="I">-- I --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="individual_GEC_box.html">individual_GEC_box</a></td>
+<td>Boxplot of the GEC distribution.</td></tr>
+<tr><td style="width: 25%;"><a href="individual_GEC_plot.html">individual_GEC_plot</a></td>
+<td>Plot individual GEC prediction.</td></tr>
+<tr><td style="width: 25%;"><a href="individual_plot.html">individual_plot</a></td>
+<td>Full combined plot of the information.</td></tr>
+<tr><td style="width: 25%;"><a href="individual_vol_flow_plot.html">individual_vol_flow_plot</a></td>
+<td>Scatterplot of liver volumes &amp; blood flows.</td></tr>
+<tr><td style="width: 25%;"><a href="integrate_GE_folders.html">integrate_GE_folders</a></td>
+<td>Preprocess set of data.frame of GE folders.</td></tr>
+</table>
+
+<h2><a name="K">-- K --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="koz_derived_parameters.html">koz_derived_parameters</a></td>
+<td>Calculation of derived parameters from given base parameters.</td></tr>
+<tr><td style="width: 25%;"><a href="koz_parameters.html">koz_parameters</a></td>
+<td>Create standard parameters for calculation</td></tr>
+</table>
+
+<h2><a name="L">-- L --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="lab.html">lab</a></td>
+<td>Axis labels for given name.</td></tr>
+<tr><td style="width: 25%;"><a href="lim.html">lim</a></td>
+<td>Axis limits for given name.</td></tr>
+<tr><td style="width: 25%;"><a href="linear_regression.html">linear_regression</a></td>
+<td>Create linear regression between xname and yname.</td></tr>
+<tr><td style="width: 25%;"><a href="loadFitModels.html">loadFitModels</a></td>
+<td>Load single GAMLSS correlation model.</td></tr>
+<tr><td style="width: 25%;"><a href="loadParameterFile.html">loadParameterFile</a></td>
+<td>Read parameter file into data.frame.</td></tr>
+<tr><td style="width: 25%;"><a href="loadRawData.html">loadRawData</a></td>
+<td>Load the processed raw data for the given name.</td></tr>
+<tr><td style="width: 25%;"><a href="loadSBMLModel.html">loadSBMLModel</a></td>
+<td>Load SBML model from file.</td></tr>
+<tr><td style="width: 25%;"><a href="loadStandardDistributions.html">loadStandardDistributions</a></td>
+<td>Loads the standard distributions for normal case.</td></tr>
+<tr><td style="width: 25%;"><a href="load_classification_data.html">load_classification_data</a></td>
+<td>Load GEC &amp; GECkg classification data</td></tr>
+<tr><td style="width: 25%;"><a href="load_correlation_data.html">load_correlation_data</a></td>
+<td>Loads correlation data from Rdata.</td></tr>
+<tr><td style="width: 25%;"><a href="load_models_for_prediction.html">load_models_for_prediction</a></td>
+<td>Load all GAMLSS correlation models.</td></tr>
+<tr><td style="width: 25%;"><a href="load_shiny_fit_models.html">load_shiny_fit_models</a></td>
+<td>Load shiny fit models.</td></tr>
+</table>
+
+<h2><a name="M">-- M --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="ma.settings.html">ma.settings</a></td>
+<td>Settings structure with available directories.</td></tr>
+<tr><td style="width: 25%;"><a href="meanlog.html">meanlog</a></td>
+<td>Calculate the meanlog for log-normal distribution from given mean and std.</td></tr>
+<tr><td style="width: 25%;"><a href="model_version.html">model_version</a></td>
+<td>Returns the current model version</td></tr>
+<tr><td style="width: 25%;"><a href="multiplot.html">multiplot</a></td>
+<td>Multiple plot function</td></tr>
+<tr><td style="width: 25%;"><a href="MultiscaleAnalysis.html">MultiscaleAnalysis</a></td>
+<td>MultiscaleAnalysis: Supporting package for multiscale-galactose model.</td></tr>
+<tr><td style="width: 25%;"><a href="m_bootstrap.html">m_bootstrap</a></td>
+<td>Bootstrap calculation of model fitting based on data and formula</td></tr>
+<tr><td style="width: 25%;"><a href="m_split_sample.html">m_split_sample</a></td>
+<td>Split sample calculation of model fitting based on data and formula</td></tr>
+</table>
+
+<h2><a name="O">-- O --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="outfileFromParsFile.html">outfileFromParsFile</a></td>
+<td>Get the data storage filename from the parameter file name.</td></tr>
+</table>
+
+<h2><a name="P">-- P --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="pars.keywords.html">pars.keywords</a></td>
+<td>Reserved keywords which are not parameters.</td></tr>
+<tr><td style="width: 25%;"><a href="plotAllTimecourses.html">plotAllTimecourses</a></td>
+<td>Plot set of timecourses.</td></tr>
+<tr><td style="width: 25%;"><a href="plotCentiles.html">plotCentiles</a></td>
+<td>Create plots for centiles.</td></tr>
+<tr><td style="width: 25%;"><a href="plotCompoundScatter.html">plotCompoundScatter</a></td>
+<td>Create scatter plot of the dilution curve data</td></tr>
+<tr><td style="width: 25%;"><a href="plotDilutionData.html">plotDilutionData</a></td>
+<td>Plot single multiple-dilution indicator dataset.</td></tr>
+<tr><td style="width: 25%;"><a href="plotFitHistogram.html">plotFitHistogram</a></td>
+<td>Plot the histogramm of the data used for fitting the distributions.</td></tr>
+<tr><td style="width: 25%;"><a href="plotLogNormalDistribution.html">plotLogNormalDistribution</a></td>
+<td>Plot the log normal density distribution.</td></tr>
+<tr><td style="width: 25%;"><a href="plotMultipleIndicatorCurves.html">plotMultipleIndicatorCurves</a></td>
+<td>Plot all the single curves with mean and std They have to be weighted with the actual probability assicociated with the samples.</td></tr>
+<tr><td style="width: 25%;"><a href="plotMultipleIndicatorMean.html">plotMultipleIndicatorMean</a></td>
+<td>All MultipleIndicator curves in one plot</td></tr>
+<tr><td style="width: 25%;"><a href="plotParameterHistogram.html">plotParameterHistogram</a></td>
+<td>Plot parameter histogram</td></tr>
+<tr><td style="width: 25%;"><a href="plotParameterHistogramFull.html">plotParameterHistogramFull</a></td>
+<td>Creates histogram for all parameters.</td></tr>
+<tr><td style="width: 25%;"><a href="plotParsHistogram.html">plotParsHistogram</a></td>
+<td>Plot parameter histogramm of the sinusoidal unit samples.</td></tr>
+<tr><td style="width: 25%;"><a href="plotProbabilitiesForVariable.html">plotProbabilitiesForVariable</a></td>
+<td>Plot probabilities with associated midpoints as horizontal lines</td></tr>
+<tr><td style="width: 25%;"><a href="plotTimecourses.html">plotTimecourses</a></td>
+<td>Data contains for one compound the data.</td></tr>
+<tr><td style="width: 25%;"><a href="plot_compound_curves.html">plot_compound_curves</a></td>
+<td>Plots individual multiple indicator dilution curves.</td></tr>
+<tr><td style="width: 25%;"><a href="plot_compound_mean.html">plot_compound_mean</a></td>
+<td>Plot the mean data.</td></tr>
+<tr><td style="width: 25%;"><a href="plot_correlation_data.html">plot_correlation_data</a></td>
+<td>Figure of correlation data</td></tr>
+<tr><td style="width: 25%;"><a href="plot_mean_curves.html">plot_mean_curves</a></td>
+<td>Create dilution plots of mean curves The individual dilution curves are weighted with the volume flow of the respective sinusoidal units.</td></tr>
+<tr><td style="width: 25%;"><a href="predict_GEC.html">predict_GEC</a></td>
+<td>Predicts galactose elimination (GE) for given vectors of liver volume and blood flow based on GE response functions. TODO: unify predict_GEC &amp; predict GE</td></tr>
+<tr><td style="width: 25%;"><a href="predict_GECkg.html">predict_GECkg</a></td>
+<td>Predicts galactose elimination per bodyweight (GEkg) for given vectors of liver volume and blood flow based on GE response functions.</td></tr>
+<tr><td style="width: 25%;"><a href="predict_GE_people.html">predict_GE_people</a></td>
+<td>Predict GE and GEkg for multiple people.</td></tr>
+<tr><td style="width: 25%;"><a href="predict_liverkg_people.html">predict_liverkg_people</a></td>
+<td>Predict liver volume per bodyweight and bloodflow per bodyweight for people.</td></tr>
+<tr><td style="width: 25%;"><a href="predict_liverkg_person.fast.html">predict_liverkg_person.fast</a></td>
+<td>Predict liver volume per bodyweight and bloodflow per bodyweight for person.</td></tr>
+<tr><td style="width: 25%;"><a href="predict_liver_people.html">predict_liver_people</a></td>
+<td>Predict liver volume and bloodflow for people.</td></tr>
+<tr><td style="width: 25%;"><a href="predict_liver_person.html">predict_liver_person</a></td>
+<td>Predict liver volume and bloodflow for person. ! Use the fast version whenever possible !</td></tr>
+<tr><td style="width: 25%;"><a href="predict_liver_person.fast.html">predict_liver_person.fast</a></td>
+<td>Predict liver volume and bloodflow for person.</td></tr>
+<tr><td style="width: 25%;"><a href="prepare_data.html">prepare_data</a></td>
+<td>Read data into standard data frame for prediction.</td></tr>
+<tr><td style="width: 25%;"><a href="prepare_fds.html">prepare_fds</a></td>
+<td>Handle not available distributions.</td></tr>
+<tr><td style="width: 25%;"><a href="prepare_GEC_data.html">prepare_GEC_data</a></td>
+<td>Prepare data for the GEC prediction.</td></tr>
+<tr><td style="width: 25%;"><a href="preprocess.html">preprocess</a></td>
+<td>Preprocess the CSV simulation data for given parameter file.</td></tr>
+<tr><td style="width: 25%;"><a href="preprocess.ids.html">preprocess.ids</a></td>
+<td>Timecourses for ids loaded from the full set of data via preprocessing The ids have to be part of the dictionary of the available names, which is available in the SBML or via the CSV/Rdata. fname &lt;- getSimulationFileFromSimulationId(ma.settings$dir.simdata, simIds[1]) ids.dict &lt;- names(data) In standard analysis only the periportal and perivenious concentrations are used</td></tr>
+<tr><td style="width: 25%;"><a href="preprocessPPPV.html">preprocessPPPV</a></td>
+<td>Do the PPPV preprocessing, i.e. only the PPPV data.</td></tr>
+<tr><td style="width: 25%;"><a href="preprocess_task.html">preprocess_task</a></td>
+<td>Preprocess the results for given folder.</td></tr>
+<tr><td style="width: 25%;"><a href="process_data_and_save.html">process_data_and_save</a></td>
+<td>Perform common processing steps and save the raw data.</td></tr>
+<tr><td style="width: 25%;"><a href="process_folder_info.html">process_folder_info</a></td>
+<td>Process folder information.</td></tr>
+<tr><td style="width: 25%;"><a href="process_sex.html">process_sex</a></td>
+<td>Create canonical representation of gender/sex.</td></tr>
+<tr><td style="width: 25%;"><a href="P_f.html">P_f</a></td>
+<td>Pressure gradient function P(x).</td></tr>
+</table>
+
+<h2><a name="Q">-- Q --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="qCentiles.html">qCentiles</a></td>
+<td>Calculation of the centiles.</td></tr>
+<tr><td style="width: 25%;"><a href="Q_f.html">Q_f</a></td>
+<td>Flow along sinusoid function Q(x).</td></tr>
+<tr><td style="width: 25%;"><a href="q_f.html">q_f</a></td>
+<td>Flow through pores function q(x).</td></tr>
+</table>
+
+<h2><a name="R">-- R --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="rbc_time_offset.html">rbc_time_offset</a></td>
+<td>Calculation of time offset for experimental dilution curves based on RBC peak.</td></tr>
+<tr><td style="width: 25%;"><a href="readColumnData.html">readColumnData</a></td>
+<td>Read all col.indices components in a list structure. Parameter data pars has to be available in environment. For all simulations the csv ode solutions are loaded and the necessary components extracted.</td></tr>
+<tr><td style="width: 25%;"><a href="readDataForSimulationFile.html">readDataForSimulationFile</a></td>
+<td>Load the column data for simulation file.</td></tr>
+<tr><td style="width: 25%;"><a href="reduceDimension.html">reduceDimension</a></td>
+<td>Dimension reduction of timecourse data frames.</td></tr>
+</table>
+
+<h2><a name="S">-- S --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="saveFitModels.html">saveFitModels</a></td>
+<td>Save single GAMLSS correlation model.</td></tr>
+<tr><td style="width: 25%;"><a href="saveRawData.html">saveRawData</a></td>
+<td>Saves the raw data of single source.</td></tr>
+<tr><td style="width: 25%;"><a href="save_classification_data.html">save_classification_data</a></td>
+<td>Saves classification data.</td></tr>
+<tr><td style="width: 25%;"><a href="save_correlation_data.html">save_correlation_data</a></td>
+<td>Saves correlation data as csv and Rdata.</td></tr>
+<tr><td style="width: 25%;"><a href="save_shiny_fit_models.html">save_shiny_fit_models</a></td>
+<td>Save shiny fit models.</td></tr>
+<tr><td style="width: 25%;"><a href="scale_density.html">scale_density</a></td>
+<td>Scale density of given histogram.</td></tr>
+<tr><td style="width: 25%;"><a href="splitdf.html">splitdf</a></td>
+<td>Splits dataset randomly into 1/2 training and testing set.</td></tr>
+<tr><td style="width: 25%;"><a href="startDevPlot.html">startDevPlot</a></td>
+<td>Start a general plot.</td></tr>
+<tr><td style="width: 25%;"><a href="stdlog.html">stdlog</a></td>
+<td>Calculate the stdlog for log-normal distribution from given mean and std.</td></tr>
+<tr><td style="width: 25%;"><a href="stopDevPlot.html">stopDevPlot</a></td>
+<td>Stop a general plot</td></tr>
+<tr><td style="width: 25%;"><a href="storeFitData.html">storeFitData</a></td>
+<td>Writes the fit parameter to the global parameter object.</td></tr>
+<tr><td style="width: 25%;"><a href="subset_from_formula.html">subset_from_formula</a></td>
+<td>Get field names of subset from formula</td></tr>
+<tr><td style="width: 25%;"><a href="subset_GE.html">subset_GE</a></td>
+<td>Create subset for GE response curves from integrated data.frame.</td></tr>
+</table>
+
+<h2><a name="T">-- T --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="trim.html">trim</a></td>
+<td>Returns string w/o leading or trailing whitespace</td></tr>
+<tr><td style="width: 25%;"><a href="trim.leading.html">trim.leading</a></td>
+<td>Returns string w/o leading whitespace</td></tr>
+<tr><td style="width: 25%;"><a href="trim.trailing.html">trim.trailing</a></td>
+<td>Returns string w/o trailing whitespace</td></tr>
+</table>
+
+<h2><a name="V">-- V --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="v_f.html">v_f</a></td>
+<td>Flow velocity along sinuosoid v_f [m/s].</td></tr>
+</table>
+
+<h2><a name="W">-- W --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="wt.mean.html">wt.mean</a></td>
+<td>Weighted mean x and wt have to be of same length wt.mean &lt;- sum(wt*x)/sum(wt)</td></tr>
+<tr><td style="width: 25%;"><a href="wt.sd.html">wt.sd</a></td>
+<td>Weighted unbiased standard deviation x and wt have to be of same length</td></tr>
+<tr><td style="width: 25%;"><a href="wt.var.html">wt.var</a></td>
+<td>Weighted unbiased variance, i.e. (N-1) x and wt have to be of same length</td></tr>
+</table>
+
+<h2><a name="X">-- X --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="xlabByName.html">xlabByName</a></td>
+<td>Get the axis label.</td></tr>
+<tr><td style="width: 25%;"><a href="xyz2matrix.html">xyz2matrix</a></td>
+<td>X,Y,Z data to matrix for bicubic sline interpolation</td></tr>
+</table>
+
+<h2><a name="Y">-- Y --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="ylabByName.html">ylabByName</a></td>
+<td>Get the axis label.</td></tr>
+</table>
+</body></html>
