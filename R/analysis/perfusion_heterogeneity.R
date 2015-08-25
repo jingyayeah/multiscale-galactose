@@ -77,8 +77,6 @@ legend("topright", bty="n", cex=1.0,
        col=c(she1977.col, wan2013.col), pch=15)
 
 
-
-
 # Plot the distribution of regional difference in blood flow
 hist(she1977$perfusion_reldif, breaks=20, freq=FALSE, xlim=c(-0.7, 0.7),
      main="Local heterogeneity of liver perfusion", xlab="(<p> - p)/<p> [ml/min/ml (tissue)")
@@ -92,8 +90,7 @@ CT_perfusion_Legend.png
 # source("http://bioconductor.org/biocLite.R")
 # biocLite()
 # sudo apt-get install libfftw3-dev libtiff4-dev
-
-biocLite("EBImage")
+# biocLite("EBImage")
 library("EBImage")
 # Reading image
 img.legend <- readImage(file.path(ma.settings$dir.expdata, "raw_data", "wang", "CT_perfusion_Legend.jpeg"))
@@ -116,21 +113,33 @@ print(img.PVP1)
 # TODO mean over the width of the data
 legend_colors <- imageData(img.legend)[4, ,]
 
+# find the closest color in the colors of the color legend.
 value_from_color <- function(color, min.value=0, max.value=40, legend_colors=legend_colors){
-    # find the closest color in the color data
-  col_dist <- (color[1]-legend_colors[, 1])^2 + (color[2]-legend_colors[, 2])^2 + (color[3]-legend_colors[, 3])^2 
-  # plot(col_dist)
+  Ncolors = nrow(legend_colors)
+  col_dist <- (color[1]-legend_colors[, 1])^2 + (color[2]-legend_colors[, 2])^2 + (color[3]-legend_colors[, 3])^2
+  plot(col_dist)
   
   # get the color from the minimum distance
   value <- min.value + (which.min(col_dist)-1)/(Ncolors-1) * (max.value-min.value)
   
-  # TODO: handle black & white
-  
+  # handle black & white via NA
+  black_dist <- sum( c(color[1]-0,
+                       color[2]-0,
+                       color[3]-0)^2 ) 
+  white_dist <- sum( c(color[1]-1,
+                       color[2]-1,
+                       color[3]-1)^2 ) 
+  print(black_dist)
+  print(white_dist)
+  print(col_dist)
+  if (black_dist <= col_dist | white_dist <= col_dist){
+    value <- NA
+  }
   return(value)
 }
 
 # calculate value for single pixel 
-value_from_color(color=imageData(img.ALP1)[0,0,], min.value=0, max.value=40, legend_colors=legend_colors)
+value_from_color(color=imageData(img.ALP1)[100,100,], min.value=0, max.value=40, legend_colors=legend_colors)
 
 # Get values for all ALP pixels
 start.time <- Sys.time()
@@ -158,6 +167,7 @@ for (kr in 1:nrow(values.PVP1)){
 display(values.ALP1/40)
 display(values.PVP1/100)
 
+# Necessary to filter all the boundary data before
 values.THP1 <- values.ALP1 + values.PVP1
 display(values.THP1/140)
 hist(values.THP1)
@@ -165,6 +175,8 @@ tmp <- values.THP1
 tmp[tmp>=139.9] <- NA
 display(tmp/140)
 
+# Create the image again from the figure
+hist(tmp/100, xlab="Perfusion [ml/min/ml (tissue)]")
 
 
 hist(values.ALP1)
