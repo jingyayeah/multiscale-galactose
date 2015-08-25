@@ -59,7 +59,7 @@ plotDilutionData <- function(data, compounds, ccolors, time_shift=0){
     cdata = data[data$compound==compound,]
     if (nrow(cdata)>0){
       
-      points(cdata$time+time_shift, cdata$outflow, col=ccolor, pch=21, bg=add.alpha(ccolor, 0.6), cex=1.2)
+      points(cdata$time+time_shift, cdata$outflow, col=ccolor, pch=22, bg=add.alpha(ccolor, 0.6), cex=1.2)
       lines(cdata$time+time_shift, cdata$outflow, col=ccolor, lty=2, lwd=1)
     }
   }
@@ -104,13 +104,45 @@ plot_compound_curves <- function(time, data, name, weights, col=rgb(0.5,0.5,0.5,
   }
 }
 
+
+#' Create dilution plots of mean curves
+#' The individual dilution curves are weighted with the volume flow of the
+#' respective sinusoidal units.
+#' @export
+plot_mean_curves <- function(dlist, pars, subset, f.level, compounds, ccolors, scale=1.0, time_shift=0.0, std=TRUE, max_vals=TRUE){
+  weights <- pars$Q_sinunit
+  
+  for (kc in seq(length(compounds))){
+    compound <- compounds[kc]
+    col <- ccolors[kc]
+    id <- paste('PV__', compound, sep='')
+    
+    if (id == 'PV__gal'){
+      next
+    }
+    
+    # different levels
+    plot.levels <- levels(as.factor(pars[[f.level]]))
+    for (p.level in plot.levels){
+      # get subset of data belonging to galactose level and the subset
+      sim_rows <- intersect(which(pars[[f.level]]==p.level), which(rownames(pars) %in% subset))
+      # cat('Simulation rows:', sim_rows, pars$sim[sim_rows], '\n')
+      w <- weights[sim_rows]
+      data <- scale * as.matrix(dlist[[id]][ ,sim_rows])
+      time = as.numeric(rownames(data))-t_peak + time_shift
+      plot_compound_mean(time=time, data=data, weights=w, col=col, std=std, max_vals=max_vals)
+    }
+  }
+}
+
+
 #' Plot the mean data.
 #' 
 #' Plots the mean and standard deviation for time courses. Uses weighted calculation
 #' if the weights are provided.
 #' Other available functions are rowMins, rowMaxs & rowQuantiles.
 #' @export
-plot_compound_mean <- function(time, data, weights, col, std=TRUE){
+plot_compound_mean <- function(time, data, weights, col, std=TRUE, max_vals=TRUE){
   
 #   # unweighted
 #   r.means <- rowMeans(data)
@@ -137,12 +169,14 @@ plot_compound_mean <- function(time, data, weights, col, std=TRUE){
     # plot mean & mean+sd
     lines(time, r.wmeans, col=col, lwd=2, lty=1)
     if (std){
-      lines(time, r.wmeans+r.wsds, col=col, lwd=1, lty=1)
+      lines(time, r.wmeans+r.wsds, col=col, lwd=2, lty=2)
     }
     
     # lines for the max values
-    tmax <- time[which.max(r.wmeans)]
-    abline(v=tmax, col=col, lwd=0.5)  
+    if (max_vals){
+      tmax <- time[which.max(r.wmeans)]
+      abline(v=tmax, col=col, lwd=0.5)  
+    }
   }
   
 }

@@ -11,15 +11,16 @@ Description: MultiscaleAnalysis is the package accompanying the Multiscale
 Depends:
     R (>= 3.0.2),
     methods,
-    plyr,
-    matrixStats,
     gamlss,
-    grid,
-    akima,
-    parallel,
+    grid
 Suggests:
     data.table,
     ggplot2,
     libSBML,
+    plyr,
+    matrixStats,
+    akima,
+    parallel,
+    roxygen2
 License: GPL-2
 URL: http://livermetabolism.com

@@ -1,0 +1,324 @@
+MultiscaleAnalysis      MultiscaleAnalysis: Supporting package for
+                        multiscale-galactose model.
+P_f                     Pressure gradient function P(x).
+Q_f                     Flow along sinusoid function Q(x).
+add.alpha               Adds alpha value to a color.
+addEventPoints          Handle Event timepoints.
+addMeanPopulationData   Add data from population studies to dataset.
+addPopulationSegments   Add the population data segments to the plot.
+addRandomizedPopulationData
+                        Add data from population studies to dataset.
+                        Generate randomized data points within the
+                        given measurement interval for the data, i.e.
+                        use mean and sd/range for x and y to create n
+                        data points. The data is weighted only a
+                        fraction of the individual data in the
+                        regression but the information is provided for
+                        the fit curves.
+calc_half_max_time      Calculate half maximal times from the processed
+                        data
+calc_quantiles          Calculate quantiles for the data.
+calculateBSA            Calculate body surface area (BSA) [m^2] from
+                        bodyweight [kg] and height [cm].
+calculateProbabilitiesForVariables
+                        Calculate the single variable probabilies based
+                        on ECDF
+calculateSampleProbability
+                        Calculate the overall probability of the sample
+                        under the assumption of statistical
+                        independence.
+calculate_Rbase         Calculate the actual basal rate for given
+                        galactos concentration Returns galactose
+                        remvoal in [mmol/min].
+calculate_f_Rbase       If the galactose elimination was not calculated
+                        based on periportal - perivenious concentration
+                        differences, it is necessary to correct the
+                        value for basal galactose removal by
+                        extraheptic tissues (~3 This has large effects
+                        on the clearance calculation. Based on the
+                        Keiding1988 data this basal removal can be
+                        estimated assuming similar removal kinetics for
+                        the extrahepatic tissues than for the liver
+                        (also cleared by galactokinase)
+classification_data_raw
+                        Create one combined data.frame.
+col2rgb_alpha           Colors for probability weights
+correlation_plot        Figure of correlation data
+create.settings         Create the settings structure.
+createApproximationMatrix
+                        Creates approximation data matrix for time and
+                        data vectors.
+createColumnDataFiles   Read all col.indices components and store R
+                        data structures. For all simulations the csv
+                        files are loaded and the respective columns
+                        extracted.
+createDataFromHistogramm
+                        Generates a possible data vector from given
+                        histogramm. Necessary for fitting distributions
+                        to histogramm data. Count data points are
+                        generated in the middle of every bin.
+createDataMatrices      Convert timecourse list structure into data
+                        matrix. TODO: fix the performance (select only
+                        subset of interest)
+createDataMatricesVarSteps
+                        Convert timecourse list structure into data
+                        matrix.
+createDatasetName       Create dataset name from xname and yname.
+createListOfStandardECDF
+                        Calculated ECDFs for standard distributions.
+createPreprocessDataMatrices
+                        Create data matrices.
+createXYNameFromDatasetName
+                        Get the xname and yname from the dataset name.
+create_GEC_histogram    Overview of GEC & GECkg data in given
+                        classification data
+create_all_people       Create people from the raw data files like
+                        'hei1999'.
+create_data_subset      Data subset based on regression formula.
+create_m1_plot          Create plot of the predicted values for
+                        baseline model m1
+create_people_from_raw
+                        Creates anthropomorphic people data from given
+                        studies.
+create_subset_table     Create overview table of data subsets
+d_subset                Create data subset from given field names
+dir.nhanes              NHANES people folder.
+dir.raw                 Raw people folder.
+disease_predictor       Predict liver disease based on multiscale-model
+                        predictions of GEC.
+extendParameterStructure
+                        Extend paramter structure with SBML
+                        information.
+extend_with_galactose_clearance
+                        Calculate clearance information for individual
+                        sinusoidal units.
+f_d.combined            Create combined densities.
+f_d.factory             Density function for GAMLSS parameters.
+f_d.factory.bodyweight
+                        Density function for GAMLSS parameters (per
+                        bodyweight densities -> densities)
+f_d.flowLiver.c         Calculate the combined liver bloodflow
+                        distribution for person.
+f_d.flowLiver.pars      Calculate the liver bloodflow distributions for
+                        person.
+f_d.flowLiverkg.c       Calculate the combined liver bloodflow per
+                        bodyweight distribution for person.
+f_d.flowLiverkg.pars    Calculate the liver bloodflow per bodyweight
+                        distributions for person.
+f_d.parameters          Factory to create various probability densities
+                        from individual models.
+f_d.rejection_sample    Rejection sampling from given distribution.
+f_d.volLiver.c          Calculate the combined liver volume
+                        distribution for person.
+f_d.volLiver.pars       Calculate the liver volume distribution
+                        parameters for person.
+f_d.volLiverkg.c        Calculate the combined liver volume per
+                        bodyweight distribution for person.
+f_d.volLiverkg.pars     Calculate the liver volume per bodyweight
+                        distributions for person.
+f_integrate_GE          Calculation of galactose clearance parameters
+                        via integration of multiple sinusoidal units
+                        (region of interest). Important to integrate
+                        only over samples from the same underlying
+                        distribution. mean & sd values are the mean and
+                        sd between the different sinusoidal units.
+                        Q_per_vol & R_per_vol are the perfusion of the
+                        region of interest and the corresponding
+                        removal of galactose per region of interest. Be
+                        aware of the units !
+findMissingTimecourses
+                        Find missing timecourse files.
+gender.cols             Returns the colors for the different gender
+                        settings in data.
+generateLogStandardParameters
+                        Generates the standard parameters for meanlog
+                        and stdlog based on mean and std.
+getAllSBMLParameterIdsFromModel
+                        Parameter ids in the sbml model.
+getBreakPointsFromMidpoints
+                        Calculatesbreakpoints for histogram data with
+                        equidistant midpoints.
+getColorsForWeights     Colors for weights
+getColumnIndicesPPPV    Function to get the PPPV column indices from
+                        the data.
+getDilutionDataMaxima   Get the maximal values of the dilution data.
+getFixedParameters      Get fixed parameters in the model.
+getParameterNames       Get parameter names, i.e columns which are not
+                        keywords.
+getParameterTypes       Get the different parameter types (fixed and
+                        variable)
+getRangeType            Check if Sd or Range for x and y based on which
+                        fields are available in the dataset
+getRawDir               Get raw data directory
+getSimulationFileFromSimulationId
+                        Get integration timecourse file for simulation
+                        id.
+getTimeFromPreprocessMatrix
+                        Reads the time vector from the simulation
+                        matrix list.
+getVariableParameters   Get parameters which are varied.
+get_age_GE_folders      Definition of GE curves for age dependency.
+                        Depends on model. Update this folder when model
+                        is updated.
+get_classification_dir
+                        Classification directory
+get_correlation_dir     Get correlation data directory
+get_vmax_GE_folders     Definition of GE curves for Vmax dependency.
+individual_GEC_box      Boxplot of the GEC distribution.
+individual_GEC_plot     Plot individual GEC prediction.
+individual_plot         Full combined plot of the information.
+individual_vol_flow_plot
+                        Scatterplot of liver volumes & blood flows.
+integrate_GE_folders    Preprocess set of data.frame of GE folders.
+koz_derived_parameters
+                        Calculation of derived parameters from given
+                        base parameters.
+koz_parameters          Create standard parameters for calculation
+lab                     Axis labels for given name.
+lim                     Axis limits for given name.
+linear_regression       Create linear regression between xname and
+                        yname.
+loadFitModels           Load single GAMLSS correlation model.
+loadParameterFile       Read parameter file into data.frame.
+loadRawData             Load the processed raw data for the given name.
+loadSBMLModel           Load SBML model from file.
+loadStandardDistributions
+                        Loads the standard distributions for normal
+                        case.
+load_classification_data
+                        Load GEC & GECkg classification data
+load_correlation_data   Loads correlation data from Rdata.
+load_models_for_prediction
+                        Load all GAMLSS correlation models.
+load_shiny_fit_models   Load shiny fit models.
+m_bootstrap             Bootstrap calculation of model fitting based on
+                        data and formula
+m_split_sample          Split sample calculation of model fitting based
+                        on data and formula
+ma.settings             Settings structure with available directories.
+meanlog                 Calculate the meanlog for log-normal
+                        distribution from given mean and std.
+model_version           Returns the current model version
+multiplot               Multiple plot function
+outfileFromParsFile     Get the data storage filename from the
+                        parameter file name.
+pars.keywords           Reserved keywords which are not parameters.
+plotAllTimecourses      Plot set of timecourses.
+plotCentiles            Create plots for centiles.
+plotCompoundScatter     Create scatter plot of the dilution curve data
+plotDilutionData        Plot single multiple-dilution indicator
+                        dataset.
+plotFitHistogram        Plot the histogramm of the data used for
+                        fitting the distributions.
+plotLogNormalDistribution
+                        Plot the log normal density distribution.
+plotMultipleIndicatorCurves
+                        Plot all the single curves with mean and std
+                        They have to be weighted with the actual
+                        probability assicociated with the samples.
+plotMultipleIndicatorMean
+                        All MultipleIndicator curves in one plot
+plotParameterHistogram
+                        Plot parameter histogram
+plotParameterHistogramFull
+                        Creates histogram for all parameters.
+plotParsHistogram       Plot parameter histogramm of the sinusoidal
+                        unit samples.
+plotProbabilitiesForVariable
+                        Plot probabilities with associated midpoints as
+                        horizontal lines
+plotTimecourses         Data contains for one compound the data.
+plot_compound_curves    Plots individual multiple indicator dilution
+                        curves.
+plot_compound_mean      Plot the mean data.
+plot_correlation_data   Figure of correlation data
+plot_mean_curves        Create dilution plots of mean curves The
+                        individual dilution curves are weighted with
+                        the volume flow of the respective sinusoidal
+                        units.
+predict_GEC             Predicts galactose elimination (GE) for given
+                        vectors of liver volume and blood flow based on
+                        GE response functions. TODO: unify predict_GEC
+                        & predict GE
+predict_GECkg           Predicts galactose elimination per bodyweight
+                        (GEkg) for given vectors of liver volume and
+                        blood flow based on GE response functions.
+predict_GE_people       Predict GE and GEkg for multiple people.
+predict_liver_people    Predict liver volume and bloodflow for people.
+predict_liver_person    Predict liver volume and bloodflow for person.
+                        ! Use the fast version whenever possible !
+predict_liver_person.fast
+                        Predict liver volume and bloodflow for person.
+predict_liverkg_people
+                        Predict liver volume per bodyweight and
+                        bloodflow per bodyweight for people.
+predict_liverkg_person.fast
+                        Predict liver volume per bodyweight and
+                        bloodflow per bodyweight for person.
+prepare_GEC_data        Prepare data for the GEC prediction.
+prepare_data            Read data into standard data frame for
+                        prediction.
+prepare_fds             Handle not available distributions.
+preprocess              Preprocess the CSV simulation data for given
+                        parameter file.
+preprocess.ids          Timecourses for ids loaded from the full set of
+                        data via preprocessing The ids have to be part
+                        of the dictionary of the available names, which
+                        is available in the SBML or via the CSV/Rdata.
+                        fname <-
+                        getSimulationFileFromSimulationId(ma.settings$dir.simdata,
+                        simIds[1]) ids.dict <- names(data) In standard
+                        analysis only the periportal and perivenious
+                        concentrations are used
+preprocessPPPV          Do the PPPV preprocessing, i.e. only the PPPV
+                        data.
+preprocess_task         Preprocess the results for given folder.
+process_data_and_save   Perform common processing steps and save the
+                        raw data.
+process_folder_info     Process folder information.
+process_sex             Create canonical representation of gender/sex.
+qCentiles               Calculation of the centiles.
+q_f                     Flow through pores function q(x).
+rbc_time_offset         Calculation of time offset for experimental
+                        dilution curves based on RBC peak.
+readColumnData          Read all col.indices components in a list
+                        structure. Parameter data pars has to be
+                        available in environment. For all simulations
+                        the csv ode solutions are loaded and the
+                        necessary components extracted.
+readDataForSimulationFile
+                        Load the column data for simulation file.
+reduceDimension         Dimension reduction of timecourse data frames.
+saveFitModels           Save single GAMLSS correlation model.
+saveRawData             Saves the raw data of single source.
+save_classification_data
+                        Saves classification data.
+save_correlation_data   Saves correlation data as csv and Rdata.
+save_shiny_fit_models   Save shiny fit models.
+scale_density           Scale density of given histogram.
+splitdf                 Splits dataset randomly into 1/2 training and
+                        testing set.
+startDevPlot            Start a general plot.
+stdlog                  Calculate the stdlog for log-normal
+                        distribution from given mean and std.
+stopDevPlot             Stop a general plot
+storeFitData            Writes the fit parameter to the global
+                        parameter object.
+subset_GE               Create subset for GE response curves from
+                        integrated data.frame.
+subset_from_formula     Get field names of subset from formula
+trim                    Returns string w/o leading or trailing
+                        whitespace
+trim.leading            Returns string w/o leading whitespace
+trim.trailing           Returns string w/o trailing whitespace
+v_f                     Flow velocity along sinuosoid v_f [m/s].
+wt.mean                 Weighted mean x and wt have to be of same
+                        length wt.mean <- sum(wt*x)/sum(wt)
+wt.sd                   Weighted unbiased standard deviation x and wt
+                        have to be of same length
+wt.var                  Weighted unbiased variance, i.e. (N-1) x and wt
+                        have to be of same length
+xlabByName              Get the axis label.
+xyz2matrix              X,Y,Z data to matrix for bicubic sline
+                        interpolation
+ylabByName              Get the axis label.

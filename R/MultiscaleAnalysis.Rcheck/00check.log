@@ -1,10 +1,11 @@
 * using log directory ‘/home/mkoenig/multiscale-galactose/R/MultiscaleAnalysis.Rcheck’
-* using R version 3.1.2 (2014-10-31)
+* using R version 3.2.2 (2015-08-14)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
+* using option ‘--no-manual’
 * checking for file ‘MultiscaleAnalysis/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘MultiscaleAnalysis’ version ‘0.3.5’
+* this is package ‘MultiscaleAnalysis’ version ‘0.4.7’
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -12,10 +13,581 @@
 * checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... ERROR
-Found the following non-portable file path:
-  MultiscaleAnalysis/man/MultiscaleAnalysis-Create-the-settings-structure.-Encodes-the-main-dirs-and-settings-necessary.-Simulator-can-be-either-ROADRUNNER-or-COPASI..Rd
-
-Tarballs are only required to store paths of up to 100 bytes and cannot
-store those of more than 256 bytes, with restrictions including to 100
-bytes for the final component.
+Found the following files with duplicate lower-cased file names:
+  man/q_f.Rd
+File names must not differ just by case to be usable on all R
+platforms.
+Please rename the files and try again.
 See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+ OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘MultiscaleAnalysis’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Title field: should not end in a period.
+* checking top-level files ... NOTE
+File
+  LICENSE
+is not mentioned in the DESCRIPTION file.
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... NOTE
+Found the following CITATION file in a non-standard place:
+  CITATION
+Most likely ‘inst/CITATION’ should be used instead.
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... WARNING
+---- unloading
+Warning message:
+.onUnload failed in unloadNamespace() for 'MultiscaleAnalysis', details:
+  call: library.dynam.unload("MultiscaleAnalysis", libpath)
+  error: shared object ‘MultiscaleAnalysis.so’ was not loaded 
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... WARNING
+'::' or ':::' import not declared from: ‘reshape’
+'library' or 'require' call not declared from: ‘reshape’
+'library' or 'require' call to ‘grid’ which was already attached by Depends.
+  Please remove these calls from your code.
+'library' or 'require' calls in package code:
+  ‘data.table’ ‘parallel’ ‘reshape’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Packages in Depends field not imported from:
+  ‘gamlss’ ‘grid’ ‘methods’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+calculateProbabilitiesForVariables: no visible global function
+  definition for ‘getProbabilitiesForData’
+create_data_subset: no visible binding for global variable ‘ids’
+create_subset_table: no visible binding for global variable ‘ids’
+extendParameterStructure: no visible global function definition for
+  ‘Model_getParameter’
+extendParameterStructure: no visible global function definition for
+  ‘Parameter_getValue’
+extendParameterStructure: no visible binding for global variable ‘L’
+extendParameterStructure: no visible binding for global variable ‘Nc’
+extendParameterStructure: no visible binding for global variable
+  ‘y_sin’
+extendParameterStructure: no visible binding for global variable
+  ‘y_end’
+extendParameterStructure: no visible binding for global variable
+  ‘y_dis’
+extendParameterStructure: no visible binding for global variable
+  ‘y_cell’
+extendParameterStructure: no visible binding for global variable
+  ‘flow_sin’
+extendParameterStructure: no visible binding for global variable
+  ‘N_fen’
+extendParameterStructure: no visible binding for global variable
+  ‘r_fen’
+f_d.factory : f_d: no visible global function definition for ‘dBCCG’
+f_d.factory : f_d: no visible global function definition for ‘dNO’
+f_d.factory.bodyweight : f_d: no visible global function definition for
+  ‘dBCCG’
+f_d.factory.bodyweight : f_d: no visible global function definition for
+  ‘dNO’
+f_d.flowLiver.pars: no visible binding for global variable ‘fit.models’
+f_d.flowLiverkg.pars: no visible binding for global variable
+  ‘fit.models’
+f_d.volLiver.pars: no visible binding for global variable ‘fit.models’
+f_d.volLiverkg.pars: no visible binding for global variable
+  ‘fit.models’
+getAllSBMLParameterIdsFromModel: no visible global function definition
+  for ‘Model_getListOfParameters’
+getAllSBMLParameterIdsFromModel: no visible global function definition
+  for ‘ListOf_size’
+getAllSBMLParameterIdsFromModel: no visible global function definition
+  for ‘ListOfParameters_get’
+getAllSBMLParameterIdsFromModel: no visible global function definition
+  for ‘Parameter_getId’
+getColorsForWeights: no visible binding for global variable ‘pars’
+getColorsForWeights: no visible global function definition for
+  ‘brewer.pal’
+getDilutionDataMaxima: no visible global function definition for
+  ‘maxima<-’
+integrate_GE_folders: no visible global function definition for ‘ddply’
+loadFitModels: no visible binding for global variable ‘models’
+loadSBMLModel: no visible global function definition for ‘readSBML’
+loadSBMLModel: no visible global function definition for
+  ‘SBMLDocument_getNumErrors’
+loadSBMLModel: no visible global function definition for
+  ‘SBMLDocument_printErrors’
+loadSBMLModel: no visible global function definition for
+  ‘SBMLDocument_getModel’
+load_models_for_prediction: no visible binding for global variable
+  ‘models’
+load_shiny_fit_models: no visible binding for global variable
+  ‘fit.models’
+multiplot: no visible global function definition for ‘grid.newpage’
+multiplot: no visible global function definition for ‘pushViewport’
+multiplot: no visible global function definition for ‘viewport’
+multiplot: no visible global function definition for ‘grid.layout’
+plotAllTimecourses: no visible global function definition for ‘rowSds’
+plotAllTimecourses: no visible binding for global variable ‘ccolors’
+plotCompoundScatter: no visible global function definition for ‘rowSds’
+plotMultipleIndicatorCurves: no visible binding for global variable
+  ‘pv_compounds’
+plotMultipleIndicatorCurves: no visible binding for global variable
+  ‘task’
+plotMultipleIndicatorCurves: no visible global function definition for
+  ‘plotCompound’
+plotMultipleIndicatorCurves: no visible binding for global variable
+  ‘ccolors’
+plotMultipleIndicatorMean: no visible binding for global variable
+  ‘task’
+plotMultipleIndicatorMean: no visible binding for global variable
+  ‘pv_compounds’
+plotMultipleIndicatorMean: no visible global function definition for
+  ‘plotCompoundMean’
+plotMultipleIndicatorMean: no visible binding for global variable
+  ‘ccolors’
+plotParsHistogram: no visible binding for global variable ‘pars’
+plotParsHistogram: no visible binding for global variable ‘histcp’
+plotProbabilitiesForVariable: no visible global function definition for
+  ‘getProbabilitiesForData’
+plot_mean_curves: no visible binding for global variable ‘t_peak’
+predict_GE_people: no visible binding for global variable ‘GEC’
+predict_liver_people: no visible global function definition for
+  ‘mclapply’
+predict_liver_person.fast: no visible binding for global variable
+  ‘fit.models’
+predict_liverkg_people: no visible global function definition for
+  ‘mclapply’
+predict_liverkg_person.fast: no visible binding for global variable
+  ‘fit.models’
+preprocess: no visible binding for global variable ‘parsfile’
+qCentiles: no visible global function definition for ‘is.gamlss’
+readColumnData: no visible global function definition for
+  ‘readDataForSimulation’
+readData: no visible global function definition for ‘fread’
+readData: no visible global function definition for ‘setnames’
+readDataForSimulationFile: no visible global function definition for
+  ‘fread’
+readDataForSimulationFile: no visible global function definition for
+  ‘setnames’
+save_shiny_fit_models: no visible binding for global variable ‘models’
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘readData’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'P_f'
+  ‘x’ ‘p’
+
+Undocumented arguments in documentation object 'Q_f'
+  ‘x’ ‘p’
+
+Undocumented arguments in documentation object 'addEventPoints'
+  ‘df’
+
+Undocumented arguments in documentation object 'addMeanPopulationData'
+  ‘data’ ‘newdata’
+
+Undocumented arguments in documentation object 'addPopulationSegments'
+  ‘dat’ ‘xname’ ‘yname’
+
+Undocumented arguments in documentation object 'addRandomizedPopulationData'
+  ‘data’ ‘newdata’
+
+Undocumented arguments in documentation object 'calc_half_max_time'
+  ‘processed’ ‘t_peak’ ‘t_end’
+
+Undocumented arguments in documentation object 'calc_quantiles'
+  ‘data’ ‘q.values’
+
+Undocumented arguments in documentation object 'calculateBSA'
+  ‘bodyweight_kg’ ‘height_cm’
+
+Undocumented arguments in documentation object 'calculateProbabilitiesForVariables'
+  ‘pars’ ‘ecdf.list’
+
+Undocumented arguments in documentation object 'calculateSampleProbability'
+  ‘pars’ ‘ps.var’
+
+Undocumented arguments in documentation object 'calculate_Rbase'
+  ‘gal’ ‘f’
+
+Undocumented arguments in documentation object 'classification_data_raw'
+  ‘names’
+
+Undocumented arguments in documentation object 'col2rgb_alpha'
+  ‘col’ ‘alpha’
+
+Undocumented arguments in documentation object 'correlation_plot'
+  ‘data’ ‘m1’ ‘main’ ‘xname’ ‘yname’ ‘xlab’ ‘ylab’ ‘xlim’ ‘ylim’
+  ‘create_plots’
+
+Undocumented arguments in documentation object 'create.settings'
+  ‘dir’ ‘simulator’
+
+Undocumented arguments in documentation object 'createApproximationMatrix'
+  ‘x’ ‘ids’ ‘simIds’ ‘points’ ‘reverse’
+
+Undocumented arguments in documentation object 'createColumnDataFiles'
+  ‘pars’ ‘dir’ ‘col.indices_f’
+Documented arguments not in \usage in documentation object 'createColumnDataFiles':
+  ‘max_index’
+
+Undocumented arguments in documentation object 'createDataMatrices'
+  ‘dir’
+
+Undocumented arguments in documentation object 'createDataMatricesVarSteps'
+  ‘dir’
+Documented arguments not in \usage in documentation object 'createDataMatricesVarSteps':
+  ‘compounds’
+
+Undocumented arguments in documentation object 'createDatasetName'
+  ‘xname’ ‘yname’
+
+Undocumented arguments in documentation object 'createListOfStandardECDF'
+  ‘p.gen’ ‘ps.var’ ‘Npoints’
+
+Undocumented arguments in documentation object 'createPreprocessDataMatrices'
+  ‘ids’ ‘out.fname’ ‘simIds’ ‘modelId’ ‘dir’
+
+Undocumented arguments in documentation object 'createXYNameFromDatasetName'
+  ‘dataset.name’
+
+Undocumented arguments in documentation object 'create_GEC_histogram'
+  ‘data’
+
+Undocumented arguments in documentation object 'create_all_people'
+  ‘names’
+
+Undocumented arguments in documentation object 'create_data_subset'
+  ‘data’ ‘formula’
+
+Undocumented arguments in documentation object 'create_m1_plot'
+  ‘m.all’ ‘d’
+
+Undocumented arguments in documentation object 'create_people_from_raw'
+  ‘name’
+
+Undocumented arguments in documentation object 'create_subset_table'
+  ‘d’ ‘formula’
+
+Undocumented arguments in documentation object 'd_subset'
+  ‘data’ ‘subset’
+
+Undocumented arguments in documentation object 'disease_predictor'
+  ‘GEC_exp’ ‘GEC’ ‘q’
+
+Undocumented arguments in documentation object 'extend_with_galactose_clearance'
+  ‘processed’ ‘t_end’
+
+Undocumented arguments in documentation object 'f_d.combined'
+  ‘x’ ‘pars’ ‘yname’
+
+Undocumented arguments in documentation object 'f_d.factory'
+  ‘pars’
+
+Undocumented arguments in documentation object 'f_d.factory.bodyweight'
+  ‘pars’
+
+Undocumented arguments in documentation object 'f_d.flowLiver.c'
+  ‘x’ ‘pars’
+
+Undocumented arguments in documentation object 'f_d.flowLiver.pars'
+  ‘person’ ‘sex_split’
+
+Undocumented arguments in documentation object 'f_d.flowLiverkg.c'
+  ‘x’ ‘pars’
+
+Undocumented arguments in documentation object 'f_d.flowLiverkg.pars'
+  ‘person’ ‘sex_split’
+
+Undocumented arguments in documentation object 'f_d.parameters'
+  ‘models’ ‘xname’ ‘person’ ‘sex_split’
+
+Undocumented arguments in documentation object 'f_d.rejection_sample'
+  ‘f_d’ ‘Nsim’ ‘interval’
+
+Undocumented arguments in documentation object 'f_d.volLiver.c'
+  ‘x’ ‘pars’
+
+Undocumented arguments in documentation object 'f_d.volLiver.pars'
+  ‘person’ ‘sex_split’
+
+Undocumented arguments in documentation object 'f_d.volLiverkg.c'
+  ‘x’ ‘pars’
+
+Undocumented arguments in documentation object 'f_d.volLiverkg.pars'
+  ‘person’ ‘sex_split’
+
+Undocumented arguments in documentation object 'f_integrate_GE'
+  ‘vol_liver’
+
+Undocumented arguments in documentation object 'findMissingTimecourses'
+  ‘pars’ ‘dir’
+
+Undocumented arguments in documentation object 'generateLogStandardParameters'
+  ‘p.exp’
+
+Undocumented arguments in documentation object 'getColorsForWeights'
+  ‘weights’
+
+Documented arguments not in \usage in documentation object 'getColumnIndicesPPPV':
+  ‘withTime’
+
+Undocumented arguments in documentation object 'getDilutionDataMaxima'
+  ‘compounds’
+Documented arguments not in \usage in documentation object 'getDilutionDataMaxima':
+  ‘correctTime’
+
+Undocumented arguments in documentation object 'getParameterNames'
+  ‘pars’
+
+Undocumented arguments in documentation object 'getParameterTypes'
+  ‘pars’
+
+Undocumented arguments in documentation object 'getRangeType'
+  ‘dat’ ‘xname’ ‘yname’
+
+Undocumented arguments in documentation object 'getSimulationFileFromSimulationId'
+  ‘dir’ ‘modelId’
+
+Undocumented arguments in documentation object 'getTimeFromPreprocessMatrix'
+  ‘preprocess.mat’
+Documented arguments not in \usage in documentation object 'getTimeFromPreprocessMatrix':
+  ‘MI.mat’
+
+Undocumented arguments in documentation object 'individual_GEC_box'
+  ‘person’ ‘data’ ‘gec_exp’
+
+Undocumented arguments in documentation object 'individual_GEC_plot'
+  ‘person’ ‘data’
+
+Undocumented arguments in documentation object 'individual_plot'
+  ‘person’ ‘vol’ ‘flow’ ‘data’
+
+Undocumented arguments in documentation object 'individual_vol_flow_plot'
+  ‘person’ ‘vol’ ‘flow’ ‘data’
+
+Undocumented arguments in documentation object 'integrate_GE_folders'
+  ‘df_folders’ ‘factors’ ‘force’ ‘t_end’ ‘f_tissue’ ‘vol_liver’
+
+Undocumented arguments in documentation object 'koz_derived_parameters'
+  ‘p’
+
+Undocumented arguments in documentation object 'linear_regression'
+  ‘data’ ‘xname’ ‘yname’
+
+Undocumented arguments in documentation object 'loadFitModels'
+  ‘xname’ ‘yname’
+
+Undocumented arguments in documentation object 'loadRawData'
+  ‘name’ ‘dir’
+
+Undocumented arguments in documentation object 'load_classification_data'
+  ‘name’ ‘dir’
+
+Undocumented arguments in documentation object 'load_correlation_data'
+  ‘xname’ ‘yname’ ‘dir’
+
+Undocumented arguments in documentation object 'load_models_for_prediction'
+  ‘dir’
+
+Undocumented arguments in documentation object 'load_shiny_fit_models'
+  ‘file’
+
+Undocumented arguments in documentation object 'm_bootstrap'
+  ‘df’ ‘formula’ ‘B’
+
+Undocumented arguments in documentation object 'm_split_sample'
+  ‘df’ ‘formula’ ‘B’
+
+Undocumented arguments in documentation object 'multiplot'
+  ‘...’ ‘plotlist’ ‘file’ ‘cols’ ‘layout’
+
+Undocumented arguments in documentation object 'plotAllTimecourses'
+  ‘datamat’ ‘compounds’ ‘ylim’
+
+Undocumented arguments in documentation object 'plotCentiles'
+  ‘d’ ‘xname’ ‘yname’ ‘main’ ‘xlab’ ‘ylab’ ‘xlim’ ‘ylim’ ‘pcol’
+
+Undocumented arguments in documentation object 'plotCompoundScatter'
+  ‘time’ ‘data’ ‘name’ ‘col’ ‘ylim’ ‘xlim’
+
+Undocumented arguments in documentation object 'plotDilutionData'
+  ‘compounds’ ‘ccolors’ ‘time_shift’
+Documented arguments not in \usage in documentation object 'plotDilutionData':
+  ‘correctTime’
+
+Undocumented arguments in documentation object 'plotFitHistogram'
+  ‘p.gen’ ‘name’ ‘data’ ‘midpoints’ ‘col’
+
+Undocumented arguments in documentation object 'plotLogNormalDistribution'
+  ‘N’ ‘lcolor’
+
+Undocumented arguments in documentation object 'plotMultipleIndicatorCurves'
+  ‘time’ ‘preprocess.mat’ ‘weights’ ‘ccols’ ‘create_plot_files’
+
+Undocumented arguments in documentation object 'plotMultipleIndicatorMean'
+  ‘time’ ‘preprocess.mat’ ‘weights’ ‘create_plot_files’ ‘xlim’ ‘ylim’
+
+Undocumented arguments in documentation object 'plotParameterHistogram'
+  ‘pars’ ‘name’ ‘breaks’
+
+Undocumented arguments in documentation object 'plotParameterHistogramFull'
+  ‘all_pars’
+
+Undocumented arguments in documentation object 'plotParsHistogram'
+  ‘p.gen’ ‘name’
+
+Undocumented arguments in documentation object 'plotProbabilitiesForVariable'
+  ‘x’ ‘f.ecdf’ ‘xlab’
+
+Undocumented arguments in documentation object 'plotTimecourses'
+  ‘data’ ‘main’ ‘ylim’
+
+Undocumented arguments in documentation object 'plot_compound_curves'
+  ‘time’ ‘data’ ‘name’ ‘weights’ ‘col’
+
+Undocumented arguments in documentation object 'plot_compound_mean'
+  ‘time’ ‘data’ ‘weights’ ‘col’ ‘std’ ‘max_vals’
+
+Undocumented arguments in documentation object 'plot_correlation_data'
+  ‘data’ ‘m1’ ‘xname’ ‘yname’ ‘create_plots’
+
+Undocumented arguments in documentation object 'plot_mean_curves'
+  ‘dlist’ ‘pars’ ‘subset’ ‘f.level’ ‘compounds’ ‘ccolors’ ‘scale’
+  ‘time_shift’ ‘std’ ‘max_vals’
+
+Undocumented arguments in documentation object 'predict_GEC'
+  ‘f_GE’ ‘volLiver’ ‘flowLiver’ ‘ages’
+
+Undocumented arguments in documentation object 'predict_GECkg'
+  ‘f_GE’ ‘volLiverkg’ ‘flowLiverkg’ ‘ages’
+
+Undocumented arguments in documentation object 'predict_GE_people'
+  ‘people’ ‘f_GE’ ‘volLiver’ ‘flowLiver’ ‘out_dir’ ‘galactose’
+
+Undocumented arguments in documentation object 'predict_liver_people'
+  ‘people’ ‘Nsample’ ‘sex_split’ ‘Ncores’ ‘debug’
+
+Undocumented arguments in documentation object 'predict_liver_person'
+  ‘person’ ‘Nsample’ ‘sex_split’
+
+Undocumented arguments in documentation object 'predict_liver_person.fast'
+  ‘person’ ‘Nsample’ ‘sex_split’
+
+Undocumented arguments in documentation object 'predict_liverkg_people'
+  ‘people’ ‘Nsample’ ‘sex_split’ ‘Ncores’ ‘debug’
+
+Undocumented arguments in documentation object 'predict_liverkg_person.fast'
+  ‘person’ ‘Nsample’ ‘sex_split’
+
+Undocumented arguments in documentation object 'prepare_GEC_data'
+  ‘name’
+
+Undocumented arguments in documentation object 'prepare_data'
+  ‘data’ ‘fields’
+
+Undocumented arguments in documentation object 'prepare_fds'
+  ‘f_ds’ ‘debug’
+
+Undocumented arguments in documentation object 'preprocess'
+  ‘pars’ ‘outFile’ ‘time’
+Documented arguments not in \usage in documentation object 'preprocess':
+  ‘parsfile’
+
+Undocumented arguments in documentation object 'preprocess_task'
+  ‘folder’ ‘ids’ ‘force’ ‘out_name’
+
+Undocumented arguments in documentation object 'process_data_and_save'
+  ‘data’ ‘dtype’
+
+Undocumented arguments in documentation object 'process_folder_info'
+  ‘folder’
+
+Undocumented arguments in documentation object 'process_sex'
+  ‘data’
+
+Undocumented arguments in documentation object 'qCentiles'
+  ‘obj’ ‘newdata’ ‘cent’
+
+Undocumented arguments in documentation object 'q_f'
+  ‘x’ ‘p’
+
+Undocumented arguments in documentation object 'rbc_time_offset'
+  ‘data’
+
+Undocumented arguments in documentation object 'readColumnData'
+  ‘pars’ ‘dir’ ‘col.indices_f’
+Documented arguments not in \usage in documentation object 'readColumnData':
+  ‘max_index’
+
+Undocumented arguments in documentation object 'readDataForSimulationFile'
+  ‘col.indices_f’
+
+Undocumented arguments in documentation object 'reduceDimension'
+  ‘df’ ‘eps’
+
+Undocumented arguments in documentation object 'saveFitModels'
+  ‘models’ ‘xname’ ‘yname’
+
+Undocumented arguments in documentation object 'saveRawData'
+  ‘data’ ‘name’ ‘dir’
+
+Undocumented arguments in documentation object 'save_classification_data'
+  ‘data’ ‘name’ ‘dir’
+
+Undocumented arguments in documentation object 'save_correlation_data'
+  ‘data’ ‘dir’
+
+Undocumented arguments in documentation object 'save_shiny_fit_models'
+  ‘dir’ ‘file’
+
+Undocumented arguments in documentation object 'scale_density'
+  ‘h’ ‘max.value’
+
+Undocumented arguments in documentation object 'splitdf'
+  ‘df’ ‘seed’
+
+Undocumented arguments in documentation object 'startDevPlot'
+  ‘width’ ‘height’ ‘file’ ‘create_plots’ ‘res’
+
+Undocumented arguments in documentation object 'stopDevPlot'
+  ‘create_plots’
+
+Undocumented arguments in documentation object 'storeFitData'
+  ‘p.gen’
+
+Undocumented arguments in documentation object 'subset_GE'
+  ‘df’
+
+Undocumented arguments in documentation object 'subset_from_formula'
+  ‘f’
+
+Undocumented arguments in documentation object 'v_f'
+  ‘x’ ‘p’
+
+Undocumented arguments in documentation object 'xyz2matrix'
+  ‘x’ ‘y’ ‘z’ ‘tol’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... NONE
+* DONE
+Status: 1 ERROR, 4 WARNINGs, 4 NOTEs
