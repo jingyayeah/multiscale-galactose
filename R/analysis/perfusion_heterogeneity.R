@@ -63,24 +63,104 @@ par(mfrow=c(1,1))
 wan2013 <- read.csv(file.path(ma.settings$dir.expdata, "raw_data", "wang", "Wang2013.csv"), sep="\t")
 wan2013$perfusion <- wan2013$thp/100 # [ml/min/100ml] -> [ml/min/ml (tissue)]
 
+# Histogramm of the wang and sheriff data
+fname <- file.path(ma.settings$dir.base, 'results', 'heterogeneity', 'Perfusion_heterogeneity_Wan2013_She1977.png')
+png(filename=fname, width=800, height=1400, units = "px", bg = "white",  res=140)
 wan2013.col <- rgb(1,0,0,0.5)
 she1977.col <- rgb(0.4,0.4,0.4,0.5)
-
-hist(she1977$perfusion, freq=FALSE, col=wan2013.col,
-     main="Histogramm of local perfusion (CT & Xe)",
+par(mfrow=c(2,1))
+hist(she1977$perfusion, freq=FALSE, col=she1977.col,
+     main="Perfusion Heterogeneity (CT & Xe)",
      xlab="Perfusion [ml/min/ml (tissue)]",
-     xlim=c(0, 2.4), ylim=c(0,2.0))
-hist(wan2013$perfusion, freq=FALSE, col=she1977.col,
-     add=TRUE)
+     xlim=c(0, 2.4), ylim=c(0,2.0),
+     cex.lab=1.2, font.lab=2)
 legend("topright", bty="n", cex=1.0,
-       legend=c("Sheriff1977 Xenon (Np=14, N=246)", "Wang2013 Perfusion-CT (Np=50, N=400)"),
-       col=c(she1977.col, wan2013.col), pch=15)
+       legend=c("Sheriff1977 133Xe\n(Np=14, N=246)"),
+       col=c(she1977.col), pch=15)
 
+hist(wan2013$perfusion, freq=FALSE, col=wan2013.col,
+     xlab="Perfusion [ml/min/ml (tissue)]",
+     main=NULL,
+     xlim=c(0, 2.4), ylim=c(0,2.0),
+     cex.lab=1.2, font.lab=2)
+legend("topright", bty="n", cex=1.0,
+  legend=c("Wang2013 Perfusion-CT\n(Np=50, N=400)"),
+  col=c(wan2013.col), pch=15)
+par(mfrow=c(1,1))
+dev.off()
 
 # Plot the distribution of regional difference in blood flow
 hist(she1977$perfusion_reldif, breaks=20, freq=FALSE, xlim=c(-0.7, 0.7),
      main="Local heterogeneity of liver perfusion", xlab="(<p> - p)/<p> [ml/min/ml (tissue)")
 lines(density(she1977$perfusion_reldif), col='red', lwd=3)
+
+
+# Predict GEC for the Sheriff1977 & Wang2013 data
+# -------------------------------------------------
+# load the GEC curves
+fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
+load(file=fname)
+f_GE(gal=8.0, P=1, age=20)  # GE per volume in ml 
+
+
+gal_levels
+library(RColorBrewer)
+gal_colors <- brewer.pal(length(gal_levels), "Spectral")
+
+she1977$GE20 <- matrix(NA, nrow=length(she1977$perfusion), ncol=length(gal_levels))
+she1977$GE60 <- matrix(NA, nrow=length(she1977$perfusion), ncol=length(gal_levels))
+she1977$GE100 <- matrix(NA, nrow=length(she1977$perfusion), ncol=length(gal_levels))
+for (k in 1:length(gal_levels)){
+  she1977$GE20[,k] <- f_GE(gal=rep(gal_levels[k], nrow(she1977)),
+                         P=she1977$perfusion, 
+                         age=20)  # GE per volume in ml
+  she1977$GE60[,k] <- f_GE(gal=rep(gal_levels[k], nrow(she1977)),
+                           P=she1977$perfusion, 
+                           age=60)  # GE per volume in ml 
+  she1977$GE100[,k] <- f_GE(gal=rep(gal_levels[k], nrow(she1977)),
+                           P=she1977$perfusion, 
+                           age=100)  # GE per volume in ml 
+}
+
+# Plot of the galactose dependency
+fname <- file.path(ma.settings$dir.base, 'results', 'heterogeneity', 'Perfusion_GE_heterogeneity_She1977.png')
+png(filename=fname, width=800, height=800, units = "px", bg = "white",  res=140)
+plot(NA, NA, type="n", xlim=c(0, 2.0), ylim=c(0,17),
+     main="Galactose Elimination Sheriff1977 (age=20)",
+     xlab="Galactose Elimination (GE) [µmol/min/ml(tissue)]",
+     ylab="Density", 
+     font.lab=2)
+for (k in 1:length(gal_levels)){
+  hist(she1977$GE20[,k], col=col2rgb_alpha(gal_colors[k], 0.7), freq=FALSE, breaks=seq(from=0, to=3.0, by=0.05), add=TRUE)
+}
+legend("topright", legend=paste("gal", gal_levels, 'mM'), col=gal_colors, pch=15, bty="n")
+dev.off()
+
+par(mfrow=c(3,1))
+plot(NA, NA, type="n", xlim=c(0, 2.0), ylim=c(0,17),
+     main="Galactose Elimination (age=20)",
+     xlab="Galactose Elimination (GE) [µmol/min/ml(tissue)]",
+     ylab="Density")
+for (k in 1:length(gal_levels)){
+  hist(she1977$GE20[,k], col=col2rgb_alpha(gal_colors[k], 0.7), freq=FALSE, breaks=seq(from=0, to=3.0, by=0.05), add=TRUE)
+}
+legend("topright", legend=paste("gal", gal_levels, 'mM'), col=gal_colors, pch=16, bty="n")
+plot(NA, NA, type="n", xlim=c(0, 2.0), ylim=c(0,17),
+     main="Galactose Elimination (age=60)",
+     xlab="Galactose Elimination (GE) [µmol/min/ml(tissue)]",
+     ylab="Density")
+for (k in 1:length(gal_levels)){
+  hist(she1977$GE60[,k], col=col2rgb_alpha(gal_colors[k], 0.7), freq=FALSE, breaks=seq(from=0, to=3.0, by=0.05), add=TRUE)
+}
+plot(NA, NA, type="n", xlim=c(0, 2.0), ylim=c(0,17),
+     main="Galactose Elimination (age=100)",
+     xlab="Galactose Elimination (GE) [µmol/min/ml(tissue)]",
+     ylab="Density")
+for (k in 1:length(gal_levels)){
+  hist(she1977$GE100[,k], col=col2rgb_alpha(gal_colors[k], 0.7), freq=FALSE, breaks=seq(from=0, to=3.0, by=0.05), add=TRUE)
+}
+par(mfrow=c(1,1))
+
 
 
 # CT data Wang2013 --------------------------
@@ -182,22 +262,6 @@ heatmap(values.ALP1, Rowv=NA, Colv=NA, col=heat.colors(400, alpha = 1))
 display(values.ALP1/40)
 
 
-
-
-# Test function for prediction
-# sheriff
-she1977$perfusion
-
-fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
-load(file=fname)
-f_GE(gal=8.0, P=1, age=20)  # GE per volume in ml 
-
-she1977$GE <- rep(NA, length(she1977$perfusion))
-for (k in 1:length(she1977$perfusion)){
-  she1977$GE[k] <- f_GE(gal=8.0, P=she1977$perfusion[k], age=20)  # GE per volume in ml 
-}
-hist(she1977$GE, xlim=c(1.0, 2.0))
-
 # CT
 start.time <- Sys.time()
 values.GE <- matrix(data=NA, nrow=dim(img.PVP1)[1], ncol=dim(img.PVP1)[2]) 
@@ -218,6 +282,49 @@ par(mfrow=c(1,1))
 
 display(values.GE/max(max(values.GE, na.rm=TRUE), na.rm=TRUE))
 plot(as.vector(values.THP1)/100, as.vector(values.GE))
+
+library(RColorBrewer)
+ct_colors <- brewer.pal(11, "Spectral")
+ct_colors
+ct_ramp <- colorRampPalette(colors=ct_colors)
+ct_ramp(100)
+
+image(values.GE/max(max(values.GE, na.rm=TRUE), na.rm=TRUE), col=ct_ramp(200), 
+      useRaster=TRUE,
+      xaxt='n', yaxt='n', ann=FALSE)
+
+install.packages("fields")
+library(fields)
+fname <- file.path(ma.settings$dir.base, 'results', 'heterogeneity', 'CT_Wang_1_gal_8mM.png')
+png(filename=fname, width=1000, height=800, units = "px", bg = "white",  res=110)
+
+image.plot(values.GE, col=ct_ramp(200), zlim=c(0,2),
+           main="Galactose elimination (GE) [µmol/min/ml(tissue)]",
+           useRaster=TRUE,
+           axes=FALSE)
+text(0.1 ,0.05, "Galactose: 8mM", cex=0.8)
+dev.off()
+
+ct_ramp(100)
+
+display.brewer.all()
+?RColorBrewer
+
+
+
+print(img.PVP1)
+?Image
+
+
+
+
+
+
+
+
+
+
+
 
 
 
