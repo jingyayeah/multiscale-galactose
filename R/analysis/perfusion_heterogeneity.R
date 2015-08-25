@@ -117,23 +117,19 @@ legend_colors <- imageData(img.legend)[4, ,]
 value_from_color <- function(color, min.value=0, max.value=40, legend_colors=legend_colors){
   Ncolors = nrow(legend_colors)
   col_dist <- (color[1]-legend_colors[, 1])^2 + (color[2]-legend_colors[, 2])^2 + (color[3]-legend_colors[, 3])^2
-  plot(col_dist)
+  # plot(col_dist)
   
-  # get the color from the minimum distance
-  value <- min.value + (which.min(col_dist)-1)/(Ncolors-1) * (max.value-min.value)
-  
-  # handle black & white via NA
-  black_dist <- sum( c(color[1]-0,
-                       color[2]-0,
-                       color[3]-0)^2 ) 
-  white_dist <- sum( c(color[1]-1,
-                       color[2]-1,
-                       color[3]-1)^2 ) 
-  print(black_dist)
-  print(white_dist)
-  print(col_dist)
-  if (black_dist <= col_dist | white_dist <= col_dist){
+  # handle black & white pixels via NA
+  black_dist <- (color[1]-0)^2 + (color[2]-0)^2 + (color[3]-0)^2
+  white_dist <- (color[1]-1)^2 + (color[2]-1)^2 + (color[3]-1)^2
+  # print(min(col_dist))
+  # print(black_dist)
+  # print(white_dist)
+  if (black_dist <= min(col_dist) | white_dist <= min(col_dist)){
     value <- NA
+  } else {
+    # get the color from the minimum distance
+    value <- min.value + (which.min(col_dist)-1)/(Ncolors-1) * (max.value-min.value)
   }
   return(value)
 }
@@ -188,11 +184,44 @@ display(values.ALP1/40)
 
 
 
+# Test function for prediction
+# sheriff
+she1977$perfusion
+
+fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
+load(file=fname)
+f_GE(gal=8.0, P=1, age=20)  # GE per volume in ml 
+
+she1977$GE <- rep(NA, length(she1977$perfusion))
+for (k in 1:length(she1977$perfusion)){
+  she1977$GE[k] <- f_GE(gal=8.0, P=she1977$perfusion[k], age=20)  # GE per volume in ml 
+}
+hist(she1977$GE, xlim=c(1.0, 2.0))
+
+# CT
+start.time <- Sys.time()
+values.GE <- matrix(data=NA, nrow=dim(img.PVP1)[1], ncol=dim(img.PVP1)[2]) 
+for (kr in 1:nrow(values.PVP1)){
+  for (kc in 1:ncol(values.PVP1)){
+    # perfusion values in [ml/min/ml(tissue)]
+    if (!is.na(values.THP1[kr, kc])){
+      values.GE[kr, kc] <- f_GE(gal=8.0, P=values.THP1[kr, kc]/100, age=20)
+    }
+  }
+}
+Sys.time() - start.time
+
+par(mfrow=c(1,2))
+hist(values.THP1/100)
+hist(values.GE)
+par(mfrow=c(1,1))
+
+display(values.GE/max(max(values.GE, na.rm=TRUE), na.rm=TRUE))
+plot(as.vector(values.THP1)/100, as.vector(values.GE))
 
 
 
-
-# ------------------------
+# -----------------------------------------------------------------
 
 # fit a normal distribtion for local heterogeinity in blood flow
 library(MASS)

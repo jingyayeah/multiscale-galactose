@@ -129,3 +129,7 @@ rm(list=ls())
 fname <- file.path(ma.settings$dir.base, 'results', 'GEC_curves', 'latest.Rdata')
 load(file=fname)
 f_GE(gal=8.0, P=1, age=20)*1500
+
+
+
+

@@ -49,7 +49,9 @@ table(idx)
 
 plot(gec_data20$Q_sinunit[idx]/gec_data20$Vol_sinunit[idx], gec_data20$CL[idx], pch=16, col=rgb(0.5, 0.5,0.5, 0.5),
      main="Galactose Challenge 2.0 [mM], age=20 [yr]")
+
 # Boxplot of galactose clearance
+# TODO: add the mean curve
 plot(x=NA, y=NA, type="n",
      main="Galactose Challenge 2.0 [mM], age=20 [yr]", 
      xlim=c(min(f_levels), max(f_levels)),
@@ -59,6 +61,11 @@ for (f in f_levels){
   idx <- (gec_data20$gal_challenge == 2.00 & gec_data20$f_flow==f)
   boxplot(gec_data20$CL[idx], at=f, boxwex=0.05, col="grey", add=TRUE)
 }
+
+# TODO: fit the GEC curve & create function for prediction
+
+
+
 
 
 
