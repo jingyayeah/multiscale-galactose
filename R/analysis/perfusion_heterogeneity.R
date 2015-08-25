@@ -262,59 +262,76 @@ heatmap(values.ALP1, Rowv=NA, Colv=NA, col=heat.colors(400, alpha = 1))
 display(values.ALP1/40)
 
 
-# CT
-start.time <- Sys.time()
-values.GE <- matrix(data=NA, nrow=dim(img.PVP1)[1], ncol=dim(img.PVP1)[2]) 
-for (kr in 1:nrow(values.PVP1)){
-  for (kc in 1:ncol(values.PVP1)){
-    # perfusion values in [ml/min/ml(tissue)]
-    if (!is.na(values.THP1[kr, kc])){
-      values.GE[kr, kc] <- f_GE(gal=8.0, P=values.THP1[kr, kc]/100, age=20)
+# Calculation of the local GE for given galactose concentration
+GEres <- vector("list", length=length(gal_levels))
+for (kgal in 1:length(gal_levels)){
+  start.time <- Sys.time()
+  gal <- gal_levels[kgal]
+  print(gal)
+  values.GE <- matrix(data=NA, nrow=dim(img.PVP1)[1], ncol=dim(img.PVP1)[2]) 
+  for (kr in 1:nrow(values.PVP1)){
+    for (kc in 1:ncol(values.PVP1)){
+      # perfusion values in [ml/min/ml(tissue)]
+      if (!is.na(values.THP1[kr, kc])){
+        values.GE[kr, kc] <- f_GE(gal=gal, P=values.THP1[kr, kc]/100, age=20)
+      }
     }
   }
+  GEres[[kgal]] <- values.GE
+  duration <- Sys.time() - start.time  
+  print(duration)
 }
-Sys.time() - start.time
+
 
 par(mfrow=c(1,2))
 hist(values.THP1/100)
 hist(values.GE)
 par(mfrow=c(1,1))
 
+
+
+
+
 display(values.GE/max(max(values.GE, na.rm=TRUE), na.rm=TRUE))
 plot(as.vector(values.THP1)/100, as.vector(values.GE))
 
 library(RColorBrewer)
 ct_colors <- brewer.pal(11, "Spectral")
-ct_colors
 ct_ramp <- colorRampPalette(colors=ct_colors)
-ct_ramp(100)
 
 image(values.GE/max(max(values.GE, na.rm=TRUE), na.rm=TRUE), col=ct_ramp(200), 
       useRaster=TRUE,
       xaxt='n', yaxt='n', ann=FALSE)
 
-install.packages("fields")
+# install.packages("fields")
 library(fields)
 fname <- file.path(ma.settings$dir.base, 'results', 'heterogeneity', 'CT_Wang_1_gal_8mM.png')
 png(filename=fname, width=1000, height=800, units = "px", bg = "white",  res=110)
-
-image.plot(values.GE, col=ct_ramp(200), zlim=c(0,2),
-           main="Galactose elimination (GE) [µmol/min/ml(tissue)]",
+image.plot(values.GE[,ncol(values.GE):1 ], col=ct_ramp(200), zlim=c(0,2),
+           main="Galactose elimination\n[µmol/min/ml(tissue)]",
            useRaster=TRUE,
            axes=FALSE)
-text(0.1 ,0.05, "Galactose: 8mM", cex=0.8)
 dev.off()
 
-ct_ramp(100)
+# plot the varying galactose concentration
+fname <- file.path(ma.settings$dir.base, 'results', 'heterogeneity', 'CT_Wang_1_galactose.png')
+png(filename=fname, width=2000, height=2000, units = "px", bg = "white",  res=200)
+par(mfrow=c(3,3))
+for (k in 1:length(gal_levels)){
+  tmp <- GEres[[k]]
+  image(tmp[,ncol(tmp):1 ], col=ct_ramp(200), zlim=c(0,2),
+             useRaster=TRUE,
+             axes=FALSE,
+        main=paste(gal_levels[k], "mM"))
+}
+par(mfrow=c(1,1))
+dev.off()
 
-display.brewer.all()
-?RColorBrewer
 
 
 
-print(img.PVP1)
-?Image
 
+?image
 
 
 
