@@ -44,29 +44,39 @@ parscl
 colnames(parscl[[1]])
 gec_data20 <- parscl[[1]]
 
-idx <- (gec_data20$gal_challenge == 2.00)
-table(idx)
-
 plot(gec_data20$Q_sinunit[idx]/gec_data20$Vol_sinunit[idx], gec_data20$CL[idx], pch=16, col=rgb(0.5, 0.5,0.5, 0.5),
      main="Galactose Challenge 2.0 [mM], age=20 [yr]")
 
+
 # Boxplot of galactose clearance
-# TODO: add the mean curve
+# --------------------------------------
+f_tissue <- 0.85
+gal_chal <- 2.0
+perfusion_levels <- as.numeric(levels(as.factor(dfs[[1]]$Q_per_vol_units)))
+
+fname <- file.path(ma.settings$dir.base, 'results', 'heterogeneity', paste('GE_heterogeneity_', gal_chal, 'mM.png', sep=""))
+png(filename=fname, width=1000, height=1000, units = "px", bg = "white",  res=140)
+
 plot(x=NA, y=NA, type="n",
-     main="Galactose Challenge 2.0 [mM], age=20 [yr]", 
-     xlim=c(min(f_levels), max(f_levels)),
-     ylim=c(min(gec_data20$CL), max(gec_data20$CL)),
+     main=paste("Galactose Challenge", gal_chal, "[mM]"),
+     ylab="GE [µmol/min/ml(tissue)]",
+     xlab="Perfusion [ml/min/ml(tissue)]",
+     xlim=c(0, max(perfusion_levels)),
+     ylim=c(0, max(gec_data20$R/gec_data20$Vol_sinunit*60*f_tissue)),
+     font.lab=2, cex.lab=1.4
      )
-for (f in f_levels){
-  idx <- (gec_data20$gal_challenge == 2.00 & gec_data20$f_flow==f)
-  boxplot(gec_data20$CL[idx], at=f, boxwex=0.05, col="grey", add=TRUE)
+for (k in 1:length(f_levels)){
+  f <- f_levels[k]
+  idx <- (gec_data20$gal_challenge == gal_chal & gec_data20$f_flow==f)
+  # convert units to [µmol/min/ml(tissue)]
+  boxplot(gec_data20$R[idx]/gec_data20$Vol_sinunit[idx]*60*f_tissue, at=perfusion_levels[k], boxwex=0.05, col="grey", add=TRUE, axes=F)
 }
 
-# TODO: fit the GEC curve & create function for prediction
+d <- dfs[[1]]
+idx <- d$gal_challenge==gal_chal
+points(d$Q_per_vol_units[idx], d$R_per_vol_units[idx], col="blue", pch=15)
+lines(d$Q_per_vol_units[idx], d$R_per_vol_units[idx], col="blue")
+legend("bottomright", legend=c("tissue mean", "single sinusoids"), pch=15, col=c("blue", "gray"), bty="n")
 
-
-
-
-
-
+dev.off()
 
