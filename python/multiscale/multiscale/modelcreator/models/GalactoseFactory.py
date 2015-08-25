@@ -7,13 +7,13 @@ from multiscale.modelcreator.models.model_cell import CellModel
 from multiscale.modelcreator.models.model_tissue import TissueModel
 
 from multiscale.modelcreator.events.eventdata import EventData
-import simapp.db.api as db_api
+import multiscale.multiscalesite.simapp.db.api as db_api
 
 
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 20
+    Nc = 1
     Nf = 1
     version = 129
     cell_model = CellModel.create_model('multiscale.modelcreator.models.galactose.GalactoseCell')
