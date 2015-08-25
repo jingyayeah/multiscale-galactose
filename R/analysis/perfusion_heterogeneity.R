@@ -132,7 +132,7 @@ value_from_color <- function(color, min.value=0, max.value=40, legend_colors=leg
 # calculate value for single pixel 
 value_from_color(color=imageData(img.ALP1)[0,0,], min.value=0, max.value=40, legend_colors=legend_colors)
 
-# get values for all pixels
+# Get values for all ALP pixels
 start.time <- Sys.time()
 imgData.ALP1 <- imageData(img.ALP1)
 imgData.ALP1[100,100,]
@@ -145,6 +145,7 @@ for (kr in 1:nrow(values.ALP1)){
 }
 Sys.time() - start.time
 
+# Get values for all PVP pixels
 imgData.PVP1 <- imageData(img.PVP1)
 values.PVP1 <- matrix(data=NA, nrow=dim(img.PVP1)[1], ncol=dim(img.PVP1)[2]) 
 for (kr in 1:nrow(values.PVP1)){
@@ -155,6 +156,17 @@ for (kr in 1:nrow(values.PVP1)){
 }
 
 display(values.ALP1/40)
+display(values.PVP1/100)
+
+values.THP1 <- values.ALP1 + values.PVP1
+display(values.THP1/140)
+hist(values.THP1)
+tmp <- values.THP1
+tmp[tmp>=139.9] <- NA
+display(tmp/140)
+
+
+
 hist(values.ALP1)
 
 hist(values.ALP1)
