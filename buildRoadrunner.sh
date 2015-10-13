@@ -19,13 +19,14 @@ sudo apt-get install llvm llvm-dev git libxml2-dev
 GIT_DIR=~/git 
 mkdir $GIT_DIR
 cd $GIT_DIR
+rm -rf roadrunner
 git clone https://github.com/sys-bio/roadrunner.git roadrunner
 cd ${GIT_DIR}/roadrunner
 
 # checkout the release tag
 # git tag -l
 # git checkout tags/<tag_name>
-git checkout tags/1.3.2
+git checkout tags/1.3.32a
 
 # create build folders
 mkdir ~/tmp
