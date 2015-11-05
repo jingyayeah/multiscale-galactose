@@ -1,6 +1,0 @@
-sudo apt-get install python-pip liblzma lzma lzma-dev
-
-# /usr/bin/ld: cannot find -llzma
-sudo pip install singledispatch
-sudo pip install rpy2
-
