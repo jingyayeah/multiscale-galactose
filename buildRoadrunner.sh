@@ -4,20 +4,24 @@
 # github https://github.com/sys-bio/roadrunner/releases
 #
 # Ubuntu x64
+# For updating increase the tag number.
 #
 # @author: Matthias Koenig
-# @date: 2015-05-23
+# @date: 2015-11-05
 ############################################################
+GIT_DIR=~/git 
+TMP_DIR=~/tmp
+mkdir $GIT_DIR
+mkdir $TMP_DIR
+
+# install dependencies
+sudo apt-get install llvm llvm-dev git libxml2-dev
 
 # install/upgrade python dependencies
 sudo -E pip install numpy --upgrade
 sudo -E pip install scipy --upgrade
 
-sudo apt-get install llvm llvm-dev git libxml2-dev
-
-# clone the repository
-GIT_DIR=~/git 
-mkdir $GIT_DIR
+# clone the repository (hard remove & clone)
 cd $GIT_DIR
 rm -rf roadrunner
 git clone https://github.com/sys-bio/roadrunner.git roadrunner
@@ -26,13 +30,12 @@ cd ${GIT_DIR}/roadrunner
 # checkout the release tag
 # git tag -l
 # git checkout tags/<tag_name>
-git checkout tags/1.3.32a
+git checkout tags/1.4.1
 
 # create build folders
-mkdir ~/tmp
-ROADRUNNER_INSTALL=~/tmp/roadrunner_install
-ROADRUNNER_BUILD=~/tmp/roadrunner_build
-ROADRUNNER_BUILD_THIRDPARTY=~/tmp/roadrunner_build_thirdparty
+ROADRUNNER_INSTALL=$TMP_DIR/roadrunner_install
+ROADRUNNER_BUILD=$TMP_DIR/roadrunner_build
+ROADRUNNER_BUILD_THIRDPARTY=$TMP_DIR/roadrunner_build_thirdparty
 mkdir $ROADRUNNER_INSTALL
 mkdir $ROADRUNNER_BUILD
 mkdir $ROADRUNNER_BUILD_THIRDPARTY
@@ -56,5 +59,5 @@ cd $ROADRUNNER_INSTALL
 sudo python setup.py install
 
 # perform the tests
-cd ~/multiscale-galactose
+cd $MULTISCALE_GALACTOSE
 ./testRoadrunner.py
