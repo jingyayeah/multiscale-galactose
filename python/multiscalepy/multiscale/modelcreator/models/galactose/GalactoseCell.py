@@ -9,6 +9,9 @@ e__x : extracellular compartment (Disse)
 h__x : hepatocyte compartment (total internal cell volume)
 c__x : cytosolic compartment (fraction of hepatocyte which is cytosol)
 
+
+TODO: put the units in the single cell definition
+
 """
 from GalactoseReactions import *
 
@@ -19,6 +22,7 @@ species = [
     ('e__gal',             0.00012, 'mM'),
     ('e__galM',            0.0, 'mM'),
     ('e__h2oM',            0.0, 'mM'),
+
     ('h__h2oM',            0.0,     'mM'),
     ('c__gal',             0.00012, 'mM'),
     ('c__galM',            0.0,     'mM'),

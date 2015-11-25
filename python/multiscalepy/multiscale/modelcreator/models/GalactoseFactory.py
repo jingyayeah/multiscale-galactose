@@ -13,7 +13,7 @@ import multiscale.multiscalesite.simapp.db.api as db_api
 if __name__ == "__main__":
     
     # definition of cell model and tissue model
-    Nc = 20
+    Nc = 1
     Nf = 1
     version = 129
     cell_model = CellModel.create_model('multiscale.modelcreator.models.galactose.GalactoseCell')
