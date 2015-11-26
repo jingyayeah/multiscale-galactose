@@ -6,7 +6,7 @@ Create the information from given module files which are imported dynamically.
 
 from libsbml import SBMLDocument, SBMLWriter
 
-from multiscale.modelcreator.factory.model_metabolic import *
+from multiscale.modelcreator.factory.model_helper import *
 from multiscale.modelcreator.processes.ReactionFactory import *
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 from multiscale.modelcreator.sbml.SBMLUtils import check

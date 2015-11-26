@@ -11,6 +11,7 @@ c__x : cytosolic compartment (fraction of hepatocyte which is cytosol)
 
 
 TODO: put the units in the single cell definition
+TODO: how to handle the versions and names of the multiple submodels ?
 
 """
 from Reactions import *

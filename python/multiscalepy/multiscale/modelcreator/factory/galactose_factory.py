@@ -86,26 +86,21 @@ def tissue_model():
 
 def cell_model():
     print("Create cell model")
-    cell_model = CellModel.create_model(['multiscale.modelcreator.models.hepatocyte',
+    cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.hepatocyte',
                                          'multiscale.modelcreator.models.galactose'])
+    # init model
+    cell_model = CellModel(model_id="galactose",
+                           cell_dict=cell_dict,
+                           events=None)
+    cell_model.create_sbml()
+    sbml_path = cell_model.write_sbml()
+    # add model to database
+    db_api.create_model(sbml_path,
+                        model_format=db_api.CompModelFormat.SBML)
 
-
-
-    # add additional information
-
-    """
-    # ---------------------------------------------------------------------------------
-    # [1] core model
-    # Model without events. Basic model.
-    tissue_model = TissueModel(Nc=Nc, Nf=Nf, version=version, tissue_dict=tissue_dict,
-                               cell_model=cell_model, sim_id='core', events=None)
-    tissue_model.createModel()
-    sbml_path = tissue_model.writeSBML()
-    db_api.create_model(sbml_path, model_format=db_api.CompModelFormat.SBML)
-    del tissue_model
-    """
+    return [cell_dict, cell_model]
 
 if __name__ == "__main__":
-    cell_model()
+    [cell_dict, cell_model] = cell_model()
     
 
