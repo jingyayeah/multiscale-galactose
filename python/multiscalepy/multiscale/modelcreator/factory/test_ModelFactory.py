@@ -2,8 +2,11 @@
 Tests for ModelFactory.
 """
 import unittest
-from multiscale.modelcreator.models.model_cell import CellModel
+
 from multiscale.modelcreator.models.model_tissue import TissueModel
+
+from multiscale.modelcreator.factory.model_cell import CellModel
+
 
 class TestModelFactory(unittest.TestCase):
 

@@ -13,7 +13,7 @@ c__x : cytosolic compartment (fraction of hepatocyte which is cytosol)
 TODO: put the units in the single cell definition
 
 """
-from GalactoseReactions import *
+from Reactions import *
 
 ##############################################################
 mid = 'Galactose'
@@ -97,7 +97,8 @@ reactions = (
     GTFGLC, GTFGLCM,
     H2OTM, GLUT2_GAL, GLUT2_GALM
 )
-    
+
+# TODO: this has to be handeled in a more general format
 # metabolic events
 deficiencies_units = {
     'GALK_kcat': 'per_s',

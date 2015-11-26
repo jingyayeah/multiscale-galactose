@@ -49,7 +49,7 @@ deficiencies = {}
 
 if __name__ == "__main__":
     
-    from multiscale.modelcreator.models.model_cell import CellModel
+    from multiscale.modelcreator.factory.model_cell import CellModel
     
     cell_model = CellModel.create_model('BasicClearanceCell')
     cell_model.info()

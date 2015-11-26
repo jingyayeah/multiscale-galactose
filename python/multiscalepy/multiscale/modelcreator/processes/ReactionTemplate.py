@@ -7,12 +7,11 @@ Created on Jun 30, 2014
 @author: mkoenig
 '''
 
-from multiscale.modelcreator.tools.naming import initString
-from multiscale.modelcreator.tools.equation import Equation
-from multiscale.modelcreator.models.model_metabolic import createParameter, createAssignmentRules,\
-    getUnitString
-
 from ReactionFactory import setKineticLaw
+from multiscale.modelcreator.factory.model_metabolic import createParameter, createAssignmentRules,\
+    getUnitString
+from multiscale.modelcreator.tools.equation import Equation
+from multiscale.modelcreator.tools.naming import initString
 
 
 class ReactionTemplate(object):

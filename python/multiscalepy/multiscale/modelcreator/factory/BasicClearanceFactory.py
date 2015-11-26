@@ -3,9 +3,11 @@ Model factory for the BasicClearance example model.
 """
 
 from ModelFactory import ModelFactory
-from multiscale.modelcreator.models.model_cell import CellModel
 from multiscale.modelcreator.models.model_tissue import TissueModel
+
 from multiscale.modelcreator.events.eventdata import EventData
+from multiscale.modelcreator.factory.model_cell import CellModel
+
 
 class BasicClearanceFactory(ModelFactory):
     # define which models to use

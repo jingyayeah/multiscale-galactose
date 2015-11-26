@@ -6,12 +6,11 @@ Create the information from given module files which are imported dynamically.
 
 from libsbml import SBMLDocument, SBMLWriter
 
-from multiscale.modelcreator.tools.naming import *
+from multiscale.modelcreator.factory.model_metabolic import *
 from multiscale.modelcreator.processes.ReactionFactory import *
-from multiscale.modelcreator.sbml.SBMLValidator import SBMLValidator
-from multiscale.modelcreator.models.model_metabolic import *
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 from multiscale.modelcreator.sbml.SBMLUtils import check
+from multiscale.modelcreator.sbml.SBMLValidator import SBMLValidator
 
 
 class TissueModelException(Exception):
