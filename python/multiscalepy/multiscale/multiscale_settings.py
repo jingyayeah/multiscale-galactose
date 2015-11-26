@@ -1,11 +1,6 @@
 """
 Managing file locations and paths.
-For working with the interface to the django application, use
-    import django
-    django.setup()
 
-@author: Matthias Koenig
-@date: 2015-05-06
 """
 
 import os    
@@ -15,10 +10,10 @@ MULTISCALE_GALACTOSE_RESULTS = os.environ['MULTISCALE_GALACTOSE_RESULTS']
 SIM_DIR = "/".join([MULTISCALE_GALACTOSE_RESULTS, 'tmp_sim'])
 SBML_DIR = "/".join([MULTISCALE_GALACTOSE_RESULTS, 'tmp_sbml'])
 
-
 # COPASI_EXEC = "/".join([MULTISCALE_GALACTOSE_RESULTS, 'cpp/copasi/CopasiModelRunner/build/CopasiModelRunner'])
 
 # Computer in network participating in simulations
+# TODO: handle via registration, not via hard coding
 COMPUTERS = {'10.39.34.27': 'core',
              '10.39.32.189': 'sysbio1',
              '10.39.32.106': 'mint',
@@ -27,3 +22,12 @@ COMPUTERS = {'10.39.34.27': 'core',
              '192.168.1.100': 'home',
              '192.168.1.99': 'zenbook',
              '127.0.0.1': 'localhost'}
+
+
+def sbml_path(model_id):
+    """ For storing sbml files. """
+    if not os.path.exists(SBML_DIR):
+        os.makedirs(SBML_DIR)
+    return os.path.join(SBML_DIR, '{}.xml'.format(model_id))
+
+

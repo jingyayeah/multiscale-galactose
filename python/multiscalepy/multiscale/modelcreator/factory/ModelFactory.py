@@ -18,7 +18,7 @@ class ModelFactory(object):
     @staticmethod
     def store_model_in_db(tissue_model, sbml_path=None):
         """ Stores the model in the django database. """
-        sbml_path = tissue_model.writeSBML(sbml_path)
+        sbml_path = tissue_model.write_sbml(sbml_path)
         model = db_api.create_model(sbml_path, model_format=db_api.CompModelFormat.SBML)
         return model
 

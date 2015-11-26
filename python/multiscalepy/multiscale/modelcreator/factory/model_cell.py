@@ -25,6 +25,7 @@ class CellModel(object):
     _keys = ['mid',
              'version',
              'main_units',
+             'units',
              'species',
              'names',
              'pars',
@@ -71,6 +72,7 @@ class CellModel(object):
         for directory in module_dirs:
             mdict = CellModel._createDict(directory)
             for key, value in mdict.iteritems():
+
                 if type(value) is list:
                     # create new list
                     if key not in cdict:
@@ -116,8 +118,9 @@ class CellModel(object):
 
 
     def create_sbml(self):
-
         self.createUnits()
+
+        """
         self.createExternalParameters()
         self.createInitialAssignments()
         self.createExternalCompartments()
@@ -137,7 +140,20 @@ class CellModel(object):
         # events
         self.createCellEvents()
         self.createSimulationEvents()
+        """
 
+    def write_sbml(self, filepath, validate=True):
+
+        print('Write : {}\n'.format(self.model_id, filepath))
+        writer = SBMLWriter()
+        writer.writeSBMLToFile(self.doc, filepath)
+
+        # validate the model with units (only for small models)
+        if validate:
+            # validator = SBMLValidator(ucheck=(self.Nc < 4))
+            validator = SBMLValidator(ucheck=True)
+            validator.validate(filepath)
+        return filepath
 
     ##########################################################################
     # Units
@@ -244,7 +260,7 @@ class CellModel(object):
                 r_fen = p[1]
                 break
         if not r_fen:
-            raise TissueModelException('Fenestration radius not defined.')
+            raise Exception('Fenestration radius not defined.')
 
         diffusion_assignments = []
         for data in self.external:
@@ -540,23 +556,4 @@ class CellModel(object):
         if self.events:
             createSimulationEvents(self.model, self.events)
 
-    def writeSBML(self, filepath=None, validate=True):
-        if not filepath:
-            filepath = self.sbml_default_path()
-
-        print 'Write : {}\n'.format(self.id, filepath)
-        writer = SBMLWriter()
-        writer.writeSBMLToFile(self.doc, filepath)
-
-        # validate the model with units (only for small models)
-        if validate:
-            validator = SBMLValidator(ucheck= (self.Nc<4) )
-            validator.validate(filepath)
-        return filepath
-
-    def sbml_default_path(self):
-        import os
-        from multiscale import multiscale_settings
-
-        return os.path.join(multiscale_settings.SBML_DIR, '{}.xml'.format(self.id))
 

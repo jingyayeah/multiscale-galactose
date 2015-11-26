@@ -4,6 +4,7 @@ The different model variants are driven by different events.
 """
 from __future__ import print_function
 
+from multiscale.multiscale_settings import sbml_path
 from multiscale.modelcreator.factory.model_tissue import TissueModel
 import multiscale.multiscalesite.simapp.db.api as db_api
 from multiscale.modelcreator.events.eventdata import EventData
@@ -93,9 +94,10 @@ def cell_model():
                            cell_dict=cell_dict,
                            events=None)
     cell_model.create_sbml()
-    sbml_path = cell_model.write_sbml()
+    file_path = sbml_path(cell_model.model_id)
+    cell_model.write_sbml(file_path)
     # add model to database
-    db_api.create_model(sbml_path,
+    db_api.create_model(file_path,
                         model_format=db_api.CompModelFormat.SBML)
 
     return [cell_dict, cell_model]
