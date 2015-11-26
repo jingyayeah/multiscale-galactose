@@ -7,6 +7,7 @@ during the generation of cell and tissue model.
 from __future__ import print_function
 import libsbml
 from libsbml import UNIT_KIND_DIMENSIONLESS, UnitKind_toString
+import warnings
 
 SBML_LEVEL = 3
 SBML_VERSION = 1
@@ -71,13 +72,14 @@ def getUnitString(unit):
 # Parameters
 ##########################################################################
 def createParameters(model, parameters):
+    assert isinstance(parameters, dict)
     for data in parameters.values():
         _createParameter(model,
-                        pid=data[0],
-                        unit=getUnitString(data[3]),
-                        name=data[1],
-                        value=data[2],
-                        constant=data[4])
+                         pid=data[0],
+                         unit=getUnitString(data[3]),
+                         name=data[1],
+                         value=data[2],
+                         constant=data[4])
 
 
 def _createParameter(model, pid, unit, name=None, value=None, constant=True):
@@ -95,6 +97,7 @@ def _createParameter(model, pid, unit, name=None, value=None, constant=True):
 # Compartments
 ##########################################################################
 def createCompartments(model, compartments):
+    assert isinstance(compartments, dict)
     for data in compartments.values():
         _createCompartment(model,
                            cid=data[0],
@@ -148,25 +151,28 @@ def _createSpecie(model, sid, name, init, units, compartment, boundaryCondition)
 ##########################################################################
 # InitialAssignments
 ##########################################################################
-def createInitialAssignments(model, assignments, names):
-    for data in assignments:
+def createInitialAssignments(model, assignments):
+    assert isinstance(assignments, dict)
+    for data in assignments.values():
         # id, assignment, unit
         pid = data[0]
-        unit = getUnitString(data[2])
+        name = data[1]
+        formula = data[2]
+        unit = getUnitString(data[3])
         # Create parameter if not existing
         if (not model.getParameter(pid)) and (not model.getSpecies(pid)):
-            _createParameter(model, pid, unit, name=names.get(pid, None), value=None, constant=True)
-        _createInitialAssignment(model, sid=pid, formula=data[1])
+            _createParameter(model, pid, unit, name=name, value=None, constant=True)
+        _createInitialAssignment(model, pid=pid, formula=formula)
 
 
-def _createInitialAssignment(model, sid, formula):
+def _createInitialAssignment(model, pid, formula):
     assignment = model.createInitialAssignment()
-    assignment.setSymbol(sid)
-    astnode = libsbml.parseL3FormulaWithModel(formula, model)
-    if not astnode:
-        print('Formula could not be parsed:', formula)
-        print(libsbml.getLastParseL3Error())
-    assignment.setMath(astnode)
+    assignment.setSymbol(pid)
+    ast_node = libsbml.parseL3FormulaWithModel(formula, model)
+    if not ast_node:
+        warnings.warn('Formula could not be parsed:', formula)
+        warnings.warn(libsbml.getLastParseL3Error())
+    assignment.setMath(ast_node)
 
 
 ##########################################################################

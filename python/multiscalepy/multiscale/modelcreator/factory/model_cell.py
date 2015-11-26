@@ -256,7 +256,8 @@ class CellModel(object):
     ##########################################################################
     # InitialAssignments
     def createInitialAssignments(self):
-        createInitialAssignments(self.model, self.assignments, self.names)
+        assignments = self.createNamedDict(self.pars)
+        createInitialAssignments(self.model, assignments)
 
     def createCellInitialAssignments(self):
         createInitialAssignments(self.model, self.cellModel.assignments, self.names)
