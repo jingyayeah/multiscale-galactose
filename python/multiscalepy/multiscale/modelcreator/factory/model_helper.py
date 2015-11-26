@@ -70,18 +70,17 @@ def getUnitString(unit):
 ##########################################################################
 # Parameters
 ##########################################################################
-def createParameters(model, pdict):
-    for pdata in pdict.values():
-        # id, name, value, unit, constant
-        pid = pdata[0]
-        name = pdata[1]
-        value = pdata[2]
-        unit = getUnitString(pdata[3])
-        constant = pdata[4]
-        createParameter(model, pid=pid, unit=unit, name=name, value=value, constant=constant)
+def createParameters(model, parameters):
+    for data in parameters.values():
+        _createParameter(model,
+                        pid=data[0],
+                        unit=getUnitString(data[3]),
+                        name=data[1],
+                        value=data[2],
+                        constant=data[4])
 
 
-def createParameter(model, pid, unit, name=None, value=None, constant=True):
+def _createParameter(model, pid, unit, name=None, value=None, constant=True):
     p = model.createParameter()
     p.setId(pid)
     p.setUnits(unit)
@@ -92,21 +91,18 @@ def createParameter(model, pid, unit, name=None, value=None, constant=True):
     p.setConstant(constant)
     return p
 
-
 ##########################################################################
 # Compartments
 ##########################################################################
-def createCompartments(model, comps):
-    for cid in sorted(comps):
-        # comps['PV'] = ('[PV] perivenious', 3, 'm3', True, 'value)
-        data = comps[cid]
-        name = data[0]
-        dims = data[1]
-        units = data[2]
-        constant = data[3]
-        value = data[4]
-        _createCompartment(model, cid=cid, name=name, dims=dims,
-                           units=units, constant=constant, value=value)
+def createCompartments(model, compartments):
+    for data in compartments.values():
+        _createCompartment(model,
+                           cid=data[0],
+                           name=data[1],
+                           dims=data[2],
+                           units=data[3],
+                           constant=data[4],
+                           value=data[5])
 
 
 def _createCompartment(model, cid, name, dims, units, constant, value):

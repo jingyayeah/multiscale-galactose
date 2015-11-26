@@ -54,7 +54,7 @@ class CellModel(object):
         check(self.model.setName(self.model_id), 'set name')
 
         # add dynamical parameters
-        self.pars.extend([])
+        self.pars.update({})
         print('\n', '*'*40, '\n', self.model_id, '\n', '*'*40)
 
 
@@ -123,7 +123,7 @@ class CellModel(object):
 
 
         self.createUnits()
-        self.createExternalParameters()
+        self.createAllParameters()
         self.createInitialAssignments()
 
 
@@ -161,6 +161,15 @@ class CellModel(object):
             validator.validate(filepath)
         return filepath
 
+
+    def createNamedDict(self, d):
+        """ Looks up name and adds to information. """
+        named_d = dict()
+        for key, data in d.iteritems():
+            named_d[key] = [key, self.names.get(key, None)] + list(data)
+        return named_d
+
+
     ##########################################################################
     # Units
     ##########################################################################
@@ -174,28 +183,16 @@ class CellModel(object):
     ##########################################################################
     # Parameters
     ##########################################################################
-    def createExternalParameters(self):
-        parameters = self.createParametersDict(self.pars)
+    def createAllParameters(self):
+        parameters = self.createNamedDict(self.pars)
         createParameters(self.model, parameters)
-
-    def createCellParameters(self):
-        parameters = self.createParametersDict(self.cellModel.pars)
-        createParameters(self.model, parameters)
-
-    def createParametersDict(self, pars):
-        pdict = dict()
-        for pdata in pars:
-            pid = pdata[0]
-            # id, name, value, unit, constant
-            pdict[pid] = [pid, self.names.get(pid, None),
-                          pdata[1], pdata[2], pdata[3]]
-        return pdict
 
     #########################################################################
     # Compartments
     #########################################################################
     def createAllCompartments(self):
-        createCompartments(self.model, self.compartments)
+        compartments = self.createNamedDict(self.compartments)
+        createCompartments(self.model, compartments)
 
     ##########################################################################
     # Species

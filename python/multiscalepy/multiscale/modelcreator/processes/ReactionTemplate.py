@@ -8,7 +8,7 @@ Created on Jun 30, 2014
 '''
 
 from ReactionFactory import setKineticLaw
-from multiscale.modelcreator.factory.model_helper import createParameter, createAssignmentRules,\
+from multiscale.modelcreator.factory.model_helper import _createParameter, createAssignmentRules,\
     getUnitString
 from multiscale.modelcreator.tools.equation import Equation
 from multiscale.modelcreator.tools.naming import initString
@@ -43,7 +43,7 @@ class ReactionTemplate(object):
             pid, value, unit = p_new[0], p_new[1], getUnitString(p_new[2])
             
             if not self.model.getParameter(pid):
-                createParameter(self.model, pid, unit, name=None, value=value, constant=True)
+                _createParameter(self.model, pid, unit, name=None, value=value, constant=True)
     
     def _createRules(self, initDict):
         rules = []

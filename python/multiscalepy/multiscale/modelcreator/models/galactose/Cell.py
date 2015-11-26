@@ -33,9 +33,9 @@ reactions = []
 ##############################################################
 compartments.update({
     # id : (spatialDimension, unit, constant, assignment/value)
-    'e': (3, 'm3', True, 'Vol_e'),
-    'h': (3, 'm3', True, 'Vol_h'),
-    'c': (3, 'm3', True, 'Vol_c'),
+    'e': (3, 'm3', False, 'Vol_e'),
+    'h': (3, 'm3', False, 'Vol_h'),
+    'c': (3, 'm3', False, 'Vol_c'),
 })
 names.update({
     'e': 'external',
