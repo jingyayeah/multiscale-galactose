@@ -113,7 +113,20 @@ pars.update({
     # id: (value, unit, constant)
     'scale_f':      (0.31, 'per_m3', True),
     'REF_P':        (1.0, 'mM', True),
-    'deficiency':   (0, '-', True)
+    'deficiency':   (0, '-', True),
+    'y_cell':       (9.40E-6, 'm', True),
+    'x_cell':       (25E-6, 'm', True),
+    'f_tissue':     (0.8, '-', True),
+    'f_cyto':       (0.4, '-', True),
+})
+names.update({
+    'scale_f': 'metabolic scaling factor',
+    'REF_P': 'reference protein amount',
+    'deficiency': 'type of galactosemia',
+    'y_cell': 'width hepatocyte',
+    'x_cell': 'length hepatocyte',
+    'f_tissue': 'parenchymal fraction of liver',
+    'f_cyto': 'cytosolic fraction of hepatocyte'
 })
 
 ##############################################################
@@ -121,6 +134,14 @@ pars.update({
 ##############################################################
 assignments.update({
     # id: (assignment, unit)
+    'Vol_h': ('x_cell*x_cell*y_cell', 'm3'),
+    'Vol_e': ('Vol_h', 'm3'),
+    'Vol_c': ('f_cyto*Vol_h', 'm3'),
+})
+names.update({
+    'Vol_h': 'volume hepatocyte',
+    'Vol_c': 'volume cytosol',
+    'Vol_e': 'volume external compartment',
 })
 
 ##############################################################
