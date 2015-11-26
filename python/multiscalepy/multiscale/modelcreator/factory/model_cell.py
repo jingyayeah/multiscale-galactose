@@ -26,6 +26,7 @@ class CellModel(object):
              'version',
              'main_units',
              'units',
+             'compartments',
              'species',
              'names',
              'pars',
@@ -118,13 +119,18 @@ class CellModel(object):
 
 
     def create_sbml(self):
-        self.createUnits()
+        # extend the base names to the compartments
 
-        """
+
+        self.createUnits()
         self.createExternalParameters()
         self.createInitialAssignments()
-        self.createExternalCompartments()
-        self.createExternalSpecies()
+
+
+        self.createAllCompartments()
+        # self.createExternalSpecies()
+        """
+
         self.createAssignmentRules()
         self.createTransportReactions()
         self.createBoundaryConditions()
@@ -165,39 +171,43 @@ class CellModel(object):
         # sets the main units of model
         setMainUnits(self.model, self.main_units)
 
+    ##########################################################################
+    # Parameters
+    ##########################################################################
+    def createExternalParameters(self):
+        parameters = self.createParametersDict(self.pars)
+        createParameters(self.model, parameters)
+
+    def createCellParameters(self):
+        parameters = self.createParametersDict(self.cellModel.pars)
+        createParameters(self.model, parameters)
+
+    def createParametersDict(self, pars):
+        pdict = dict()
+        for pdata in pars:
+            pid = pdata[0]
+            # id, name, value, unit, constant
+            pdict[pid] = [pid, self.names.get(pid, None),
+                          pdata[1], pdata[2], pdata[3]]
+        return pdict
 
     #########################################################################
-    # External Compartments
-    ##########################################################################
-    # id, name, spatialDimension, unit, constant, assignment/value
-    def createExternalCompartmentsDict(self):
-        comps = dict()
-        # periportal
-        comps[getPPId()] = (getPPName(), 3, 'm3', False, 'Vol_pp')
-        # sinusoid
-        for k in self.comp_range():
-            comps[getSinusoidId(k)] = (getSinusoidName(k), 3, 'm3', False, 'Vol_sin')
-        # disse
-        for k in self.comp_range():
-            comps[getDisseId(k)] = (getDisseName(k), 3, 'm3', False, 'Vol_dis')
-        # perivenious
-        comps[getPVId()] = (getPVName(), 3, 'm3', False, 'Vol_pv')
-        return comps
-
-    ##########################################################################
-    # Cell compartments
-    ##########################################################################
-    def createCellCompartmentsDict(self):
-        comps = dict()
-        # hepatocyte compartments
-        for k in self.cell_range():
-            comps[getHepatocyteId(k)] = (getHepatocyteName(k), 3, 'm3', False, 'Vol_cell')
-            comps[getCytosolId(k)] = (getCytosolName(k), 3, 'm3', False, 'Vol_cyto')
-        return comps
+    # Compartments
+    #########################################################################
+    def createAllCompartments(self):
+        createCompartments(self.model, self.compartments)
 
     ##########################################################################
     # Species
     ##########################################################################
+    def createExternalSpecies(self):
+        species = self.createExternalSpeciesDict()
+        createSpecies(self.model, species)
+
+    def createCellSpecies(self):
+        species = self.createCellSpeciesDict()
+        createSpecies(self.model, species)
+
     def createExternalSpeciesDict(self):
         """
         All species which are defined external are generated in all
@@ -245,6 +255,34 @@ class CellModel(object):
         return sid, init, units, boundaryCondition
 
     ##########################################################################
+    # Assignments & Rules
+    ##########################################################################
+    # InitialAssignments
+    def createInitialAssignments(self):
+        createInitialAssignments(self.model, self.assignments, self.names)
+
+    def createCellInitialAssignments(self):
+        createInitialAssignments(self.model, self.cellModel.assignments, self.names)
+
+    # Assignment Rules
+    def createAssignmentRules(self):
+        createAssignmentRules(self.model, self.rules, self.names)
+
+        # diffusion
+        dif_rules = self.createDiffusionRules()
+        createAssignmentRules(self.model, dif_rules, self.names)
+
+    def createCellAssignmentRules(self):
+        rules = []
+        rep_dicts = self.createCellExtReplacementDicts()
+        for rule in self.cellModel.rules:
+            for d in rep_dicts:
+                r_new = [initString(rpart, d) for rpart in rule]
+                rules.append(r_new)
+        createAssignmentRules(self.model, rules, self.names)
+
+
+    ##########################################################################
     # Diffusion
     ##########################################################################
     def createDiffusionAssignments(self):
@@ -289,71 +327,9 @@ class CellModel(object):
     def createDiffusionRules(self):
         return self.createDiffusionAssignments()
 
-    # Parameters
-    def createParametersDict(self, pars):
-        pdict = dict()
-        for pdata in pars:
-            pid = pdata[0]
-            # id, name, value, unit, constant
-            pdict[pid] = [pid, self.names.get(pid, None),
-                          pdata[1], pdata[2], pdata[3]]
-        return pdict
 
 
 
-    # Compartments
-    def createExternalCompartments(self):
-        comps = self.createExternalCompartmentsDict()
-        createCompartments(self.model, comps)
-
-    def createCellCompartments(self):
-        comps = self.createCellCompartmentsDict()
-        createCompartments(self.model, comps)
-
-    # Species
-    def createExternalSpecies(self):
-        species = self.createExternalSpeciesDict()
-        createSpecies(self.model, species)
-
-    def createCellSpecies(self):
-        species = self.createCellSpeciesDict()
-        createSpecies(self.model, species)
-
-    # Parameters
-    def createExternalParameters(self):
-        parameters = self.createParametersDict(self.pars)
-        createParameters(self.model, parameters)
-
-    def createCellParameters(self):
-        parameters = self.createParametersDict(self.cellModel.pars)
-        createParameters(self.model, parameters)
-
-    # InitialAssignments
-    def createInitialAssignments(self):
-        createInitialAssignments(self.model, self.assignments, self.names)
-        # diffusion
-        # dif_assignments = self.createDiffusionAssignments()
-        # createInitialAssignments(self.model, dif_assignments, self.names)
-
-    def createCellInitialAssignments(self):
-        createInitialAssignments(self.model, self.cellModel.assignments, self.names)
-
-    # Assignment Rules
-    def createAssignmentRules(self):
-        createAssignmentRules(self.model, self.rules, self.names)
-
-        # diffusion
-        dif_rules = self.createDiffusionRules()
-        createAssignmentRules(self.model, dif_rules, self.names)
-
-    def createCellAssignmentRules(self):
-        rules = []
-        rep_dicts = self.createCellExtReplacementDicts()
-        for rule in self.cellModel.rules:
-            for d in rep_dicts:
-                r_new = [initString(rpart, d) for rpart in rule]
-                rules.append(r_new)
-        createAssignmentRules(self.model, rules, self.names)
 
     def createCellReplacementDicts(self):
         """ Definition of replacement information for initialization of the cell ids.

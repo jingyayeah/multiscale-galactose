@@ -12,11 +12,11 @@ main_units = {
     'volume': 'm3',
 }
 units = dict()
-species = []
-pars = []
+species = dict()
+pars = dict()
 names = dict()
-assignments = []
-rules = []
+assignments = dict()
+rules = dict()
 reactions = []
 
 #########################################################################

@@ -11,7 +11,6 @@ from libsbml import UNIT_KIND_DIMENSIONLESS, UnitKind_toString
 SBML_LEVEL = 3
 SBML_VERSION = 1
 
-
 ##########################################################################
 # Units
 ##########################################################################
