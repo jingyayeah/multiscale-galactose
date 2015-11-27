@@ -75,11 +75,11 @@ def createParameters(model, parameters):
     assert isinstance(parameters, dict)
     for data in parameters.values():
         _createParameter(model,
-                         pid=data[0],
-                         unit=getUnitString(data[3]),
-                         name=data[1],
-                         value=data[2],
-                         constant=data[4])
+                         pid=data['id'],
+                         unit=getUnitString(data['unit']),
+                         name=data['name'],
+                         value=data['value'],
+                         constant=data['constant'])
 
 
 def _createParameter(model, pid, unit, name=None, value=None, constant=True):
@@ -100,12 +100,12 @@ def createCompartments(model, compartments):
     assert isinstance(compartments, dict)
     for data in compartments.values():
         _createCompartment(model,
-                           cid=data[0],
-                           name=data[1],
-                           dims=data[2],
-                           units=data[3],
-                           constant=data[4],
-                           value=data[5])
+                           cid=data['id'],
+                           name=data['name'],
+                           dims=data['spatialDimension'],
+                           units=data['unit'],
+                           constant=data['constant'],
+                           value=data['value'])
 
 
 def _createCompartment(model, cid, name, dims, units, constant, value):
@@ -126,12 +126,16 @@ def _createCompartment(model, cid, name, dims, units, constant, value):
 ##########################################################################
 # Species
 ##########################################################################
-def createSpecies(model, sdict):
-    for sid in sorted(sdict):
-        data = sdict[sid]
-        _createSpecie(model, sid, name=data[0], init=data[1], units=data[2],
-                      compartment=data[3], boundaryCondition=data[4])
-
+def createSpecies(model, species):
+    assert isinstance(species, dict)
+    for data in species.values():
+        _createSpecie(model,
+                      sid=data['id'],
+                      name=data['name'],
+                      init=data['value'],
+                      units=data['unit'],
+                      compartment=data['compartment'],
+                      boundaryCondition=data['boundaryCondition'])
 
 def _createSpecie(model, sid, name, init, units, compartment, boundaryCondition):
     s = model.createSpecies()
@@ -154,15 +158,12 @@ def _createSpecie(model, sid, name, init, units, compartment, boundaryCondition)
 def createInitialAssignments(model, assignments):
     assert isinstance(assignments, dict)
     for data in assignments.values():
-        # id, assignment, unit
-        pid = data[0]
-        name = data[1]
-        formula = data[2]
-        unit = getUnitString(data[3])
+        pid = data['id']
+        unit = getUnitString(data['unit'])
         # Create parameter if not existing
         if (not model.getParameter(pid)) and (not model.getSpecies(pid)):
-            _createParameter(model, pid, unit, name=name, value=None, constant=True)
-        _createInitialAssignment(model, pid=pid, formula=formula)
+            _createParameter(model, pid, unit, name=data['name'], value=None, constant=True)
+        _createInitialAssignment(model, pid=pid, formula=data['assignment'])
 
 
 def _createInitialAssignment(model, pid, formula):
@@ -178,16 +179,16 @@ def _createInitialAssignment(model, pid, formula):
 ##########################################################################
 # Rules
 ##########################################################################
-def createAssignmentRules(model, rules, names):
-    for data in rules:
-        # id, rule, unit
-        pid = data[0]
-        unit = getUnitString(data[2])
+def createAssignmentRules(model, rules):
+    assert isinstance(rules, dict)
+    for data in rules.values():
+        pid = data['id']
+        unit = getUnitString(data['unit'])
         # Create parameter if not existing
         if (not model.getParameter(pid)) and (not model.getSpecies(pid)):
-            createParameter(model, pid, unit, name=names.get(pid, None), value=None, constant=False)
+            _createParameter(model, pid, unit, name=data['name'], value=None, constant=False)
         if not model.getRule(pid):
-            _createAssignmentRule(model, sid=pid, formula=data[1])
+            _createAssignmentRule(model, sid=pid, formula=data['assignment'])
 
 
 def _createAssignmentRule(model, sid, formula):
@@ -195,8 +196,8 @@ def _createAssignmentRule(model, sid, formula):
     rule.setVariable(sid)
     ast_node = libsbml.parseL3FormulaWithModel(formula, model)
     if not ast_node:
-        print('Formula could not be parsed:', formula)
-        print(libsbml.getLastParseL3Error())
+        warnings.warn('Formula could not be parsed:', formula)
+        warnings.warn(libsbml.getLastParseL3Error())
     rule.setMath(ast_node)
 
 ##########################################################################
