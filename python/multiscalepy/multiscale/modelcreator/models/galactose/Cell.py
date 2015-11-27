@@ -57,7 +57,7 @@ species.update({
     'e__gal':       ('e', 0.00012, 'mM'),
     'e__galM':      ('e', 0.0, 'mM'),
     'e__h2oM':      ('e', 0.0, 'mM'),
-    'c__h2oM':      ('h', 0.0, 'mM'),
+    'h__h2oM':      ('h', 0.0, 'mM'),
     'c__gal':       ('c', 0.00012, 'mM'),
     'c__galM':      ('c', 0.0, 'mM'),
     'c__glc1p':     ('c', 0.012, 'mM'),
@@ -124,6 +124,7 @@ parameters.update({
     'x_cell':       (25E-6, 'm', True),
     'f_tissue':     (0.8, '-', True),
     'f_cyto':       (0.4, '-', True),
+    'Nf':           (1, '-', True),
 })
 names.update({
     'scale_f': 'metabolic scaling factor',
@@ -155,7 +156,7 @@ names.update({
 ##############################################################
 rules.update({
     # id: ('rule', 'unit')
-    'c__scale': ('scale_f * Vol_cell', '-'),
+    'c__scale': ('scale_f * Vol_h', '-'),
             
     'e__gal_tot': ('e__gal + e__galM', 'mM'),
     'c__gal_tot': ('c__gal + c__galM', 'mM'),
@@ -173,6 +174,13 @@ rules.update({
                     '+ c__phos + 2 dimensionless *c__ppi + c__glc1p + c__glc6p + c__gal1p + 2 dimensionless*c__udpglc + 2 dimensionless *c__udpgal' +
                     '+ c__glc1pM + c__glc6pM + c__gal1pM + 2 dimensionless*c__udpglcM + 2 dimensionless *c__udpgalM', 'mM'),
 })
+names.update({
+    'nadp_bal': 'NADP balance',
+    'adp_bal': 'ADP balance',
+    'udp_bal': 'UDP balance',
+    'phos_bal': 'Phosphate balance',
+})
+
 
 ##############################################################
 # Reactions

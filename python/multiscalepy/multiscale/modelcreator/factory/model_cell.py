@@ -13,6 +13,8 @@ from __future__ import print_function
 import warnings
 from libsbml import SBMLDocument, SBMLWriter
 
+from multiscale.modelcreator.tools import naming
+
 from multiscale.modelcreator.factory.model_helper import *
 from multiscale.modelcreator.processes.ReactionFactory import *
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
@@ -46,7 +48,7 @@ class CellModel(object):
         'species': ('compartment', 'value', 'unit'),
         'parameters': ('value', 'unit', 'constant'),
         'assignments': ('assignment', 'unit'),
-        'rules': ('rule', 'unit'),
+        'rules': ('assignment', 'unit'),
     }
 
     def __init__(self, model_id, cell_dict, events=None):
@@ -145,28 +147,16 @@ class CellModel(object):
 
 
     def create_sbml(self):
-        # extend the base names to the compartments
-
-
         self.createUnits()
         self.createAllParameters()
         self.createInitialAssignments()
         self.createAllCompartments()
-        # self.createExternalSpecies()
-        """
-
         self.createAssignmentRules()
-        self.createTransportReactions()
-        self.createBoundaryConditions()
 
-
-        # cell model
-        self.createCellCompartments()
-        self.createCellSpecies()
-        self.createCellParameters()
-        self.createCellInitialAssignments()
-        self.createCellAssignmentRules()
+        self.createAllSpecies()
         self.createCellReactions()
+
+        """
         # events
         self.createCellEvents()
         self.createSimulationEvents()
@@ -188,15 +178,25 @@ class CellModel(object):
 
     def addName(self, d):
         """ Looks up name of the id and adds to dictionary.
+            Checks ids and ids without compartment prefix.
             Changes dictionary in place.
         """
         for key, data in d.iteritems():
             name = self.names.get(key, None)
+            # look for name without compartment prefix
+            tokens = key.split(naming.SEPARATOR)
+            if (not name) and (len(tokens) > 1):
+                name = self.names.get(tokens[1], None)
+
             if type(data) is list:
                 d[key] = [key, name] + list(data)
             elif type(data) is dict:
                 data['name'] = name
                 d[key] = data
+
+    def addAttribute(self, d, attribute, value):
+        """ Sets a generic attribute """
+        warnings.warn("Not implemented")
 
     ##########################################################################
     # Units
@@ -225,59 +225,9 @@ class CellModel(object):
     ##########################################################################
     # Species
     ##########################################################################
-    def createExternalSpecies(self):
-        species = self.createExternalSpeciesDict()
-        createSpecies(self.model, species)
-
-    def createCellSpecies(self):
-        species = self.createCellSpeciesDict()
-        createSpecies(self.model, species)
-
-    def createExternalSpeciesDict(self):
-        """
-        All species which are defined external are generated in all
-        external compartments, i.e. PP, PV, sinusoid and disse space.
-        """
-        sdict = dict()
-        for data in self.external:
-            (sid, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
-            name = self.names[sid]
-            # PP
-            sdict[getPPSpeciesId(sid)] = (getPPSpeciesName(name), init, units, getPPId(), boundaryCondition)
-            for k in self.comp_range():
-                sdict[getSinusoidSpeciesId(sid, k)] = (getSinusoidSpeciesName(name, k), init, units, getSinusoidId(k), boundaryCondition)
-                sdict[getDisseSpeciesId(sid, k)] = (getDisseSpeciesName(name, k), init, units, getDisseId(k), boundaryCondition)
-            # PV
-            sdict[getPVSpeciesId(sid)] = (getPVSpeciesName(name), init, units, getPVId(), boundaryCondition)
-        return sdict
-
-    def createCellSpeciesDict(self):
-        sdict = dict()
-        for data in self.cellModel.species:
-            (full_id, init, units, boundaryCondition) = self.getItemsFromSpeciesData(data)
-
-            tokens = full_id.split('__')
-            sid = tokens[1]
-            name = self.names[sid]
-            for k in self.cell_range():
-                # TODO: only covers species in cytosol (has to work with arbitrary number of compartments)
-                # necessary to have a mapping of the compartments to the functions which generate id and names
-                if full_id.startswith('h__'):
-                    sdict[getHepatocyteSpeciesId(sid, k)] = (getHepatocyteSpeciesName(name, k), init, units,
-                                                             getHepatocyteId(k), boundaryCondition)
-                if full_id.startswith('c__'):
-                    sdict[getCytosolSpeciesId(sid, k)] = (getCytosolSpeciesName(name, k), init, units,
-                                                          getCytosolId(k), boundaryCondition)
-        return sdict
-
-    def getItemsFromSpeciesData(self, data):
-        sid, init, units = data[0], data[1], data[2]
-        # handle the constant species
-        if len(data) == 4:
-            boundaryCondition = data[3]
-        else:
-            boundaryCondition = False
-        return sid, init, units, boundaryCondition
+    def createAllSpecies(self):
+        self.addName(self.species)
+        createSpecies(self.model, self.species)
 
     ##########################################################################
     # Assignments
@@ -289,21 +239,34 @@ class CellModel(object):
     #########################################################################
     # Rules
     #########################################################################
-
     # Assignment Rules
     def createAssignmentRules(self):
         self.addName(self.rules)
         createAssignmentRules(self.model, self.rules)
 
-    def createCellAssignmentRules(self):
-        rules = []
-        rep_dicts = self.createCellExtReplacementDicts()
-        for rule in self.cellModel.rules:
-            for d in rep_dicts:
-                r_new = [initString(rpart, d) for rpart in rule]
-                rules.append(r_new)
-        createAssignmentRules(self.model, rules, self.names)
+    #########################################################################
+    # Reactions
+    #########################################################################
+    def createCellReactions(self):
+        """ Initializes the generic compartments with the actual
+            list of compartments for the given geometry.
+        """
+        # set the model for the template
+        ReactionTemplate.model = self.model
+        for r in self.reactions:
+            # create reactions without replacements
+            r.createReactions(self.model, None)
 
+        """
+        rep_dicts = self.createCellReplacementDicts()
+        for r in self.cellModel.reactions:
+            # Get the right replacement dictionaries for the reactions
+            if ('c__' in r.compartments) and not ('e__' in r.compartments):
+                rep_dicts = self.createCellReplacementDicts()
+            if ('c__' in r.compartments) and ('e__' in r.compartments):
+                rep_dicts = self.createCellExtReplacementDicts()
+            r.createReactions(self.model, rep_dicts)
+        """
 
     def createCellReplacementDicts(self):
         """ Definition of replacement information for initialization of the cell ids.
@@ -331,33 +294,9 @@ class CellModel(object):
                 init_data.append(d)
         return init_data
 
-    # Boundary Conditions
-    def createBoundaryConditions(self):
-        ''' Set constant in periportal. '''
-        sdict = self.createExternalSpeciesDict()
-        for key in sdict.keys():
-            if isPPSpeciesId(key):
-                s = self.model.getSpecies(key)
-                s.setBoundaryCondition(True)
-
-    # Reactions
-    def createCellReactions(self):
-        """ Initializes the generic compartments with the actual
-            list of compartments for the given geometry.
-        """
-        # set the model for the template
-        ReactionTemplate.model = self.model
-
-        rep_dicts = self.createCellReplacementDicts()
-        for r in self.cellModel.reactions:
-            # Get the right replacement dictionaries for the reactions
-            if ('c__' in r.compartments) and not ('e__' in r.compartments):
-                rep_dicts = self.createCellReplacementDicts()
-            if ('c__' in r.compartments) and ('e__' in r.compartments):
-                rep_dicts = self.createCellExtReplacementDicts()
-            r.createReactions(self.model, rep_dicts)
-
+    #########################################################################
     # Events
+    #########################################################################
     def createCellEvents(self):
         """ Creates the additional events defined in the cell model.
             These can be metabolic deficiencies, or other defined
@@ -386,3 +325,27 @@ class CellModel(object):
         """
         if self.events:
             createSimulationEvents(self.model, self.events)
+
+
+
+    # def createCellAssignmentRules(self):
+    #     rules = []
+    #     rep_dicts = self.createCellExtReplacementDicts()
+    #     for rule in self.cellModel.rules:
+    #         for d in rep_dicts:
+    #             r_new = [initString(rpart, d) for rpart in rule]
+    #             rules.append(r_new)
+    #     createAssignmentRules(self.model, rules, self.names)
+    #
+    #
+
+    #
+    # # TODO: how to handle boundaryConditions and Constant best.
+    # # Boundary Conditions
+    # def createBoundaryConditions(self):
+    #     ''' Set constant in periportal. '''
+    #     sdict = self.createExternalSpeciesDict()
+    #     for key in sdict.keys():
+    #         if isPPSpeciesId(key):
+    #             s = self.model.getSpecies(key)
+    #             s.setBoundaryCondition(True)

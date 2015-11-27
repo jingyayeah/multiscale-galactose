@@ -26,6 +26,6 @@ names are always defined for the un-prefixed identifiers.
 
 
 TODO: single cell models
-TODO: annotations
+TODO: annotations, description and model history
 
 TODO: galactose tissue models (flow & pressure)

@@ -105,7 +105,7 @@ def createCompartments(model, compartments):
                            dims=data['spatialDimension'],
                            units=data['unit'],
                            constant=data['constant'],
-                           value=data['value'])
+                           value=data['assignment'])
 
 
 def _createCompartment(model, cid, name, dims, units, constant, value):
@@ -119,6 +119,7 @@ def _createCompartment(model, cid, name, dims, units, constant, value):
     if type(value) is str:
         # _createInitialAssignment(model, sid=cid, formula=value)
         _createAssignmentRule(model, sid=cid, formula=value)
+        pass
     else:
         c.setValue(value)
 
@@ -135,7 +136,7 @@ def createSpecies(model, species):
                       init=data['value'],
                       units=data['unit'],
                       compartment=data['compartment'],
-                      boundaryCondition=data['boundaryCondition'])
+                      boundaryCondition=data.get('boundaryCondition', False))
 
 def _createSpecie(model, sid, name, init, units, compartment, boundaryCondition):
     s = model.createSpecies()

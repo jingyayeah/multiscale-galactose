@@ -17,8 +17,8 @@ GALK = ReactionTemplate(
     'c__GALK',
     'Galactokinase [c__]',
     'c__gal + c__atp <-> c__gal1p + c__adp [c__galM, c__gal1pM]',
-    compartments = ['c__'],
-    pars = [
+    compartments=['c__'],
+    pars=[
             ('GALK_PA',      0.024,    'mole'),
             ('GALK_keq',     50,       '-'),
             ('GALK_k_gal1p', 1.5,     'mM'),
@@ -29,14 +29,14 @@ GALK = ReactionTemplate(
             ('GALK_k_atp',   0.034,   'mM'),
             ('c__GALK_P',    1.0,     'mM'),
     ],
-    rules = [ # id, rule, unit
+    rules=[ # id, rule, unit
             ('c__GALK_Vmax', 'c__scale * GALK_PA * GALK_kcat * c__GALK_P/REF_P', 'mole_per_s'),
             ('c__GALK_dm', '( (1 dimensionless + c__gal_tot/GALK_k_gal)*(1 dimensionless +c__atp/GALK_k_atp) +(1 dimensionless+c__gal1p_tot/GALK_k_gal1p)*(1 dimensionless+c__adp/GALK_k_adp) -1 dimensionless)', '-'),
             ('c__GALK_V', 'c__GALK_Vmax/(GALK_k_gal*GALK_k_atp)*1 dimensionless/(1 dimensionless+c__gal1p_tot/GALK_ki_gal1p) * 1 dimensionless/c__GALK_dm', 'mole_per_s_per_mM2'),
             ('c__GALK_Vf', 'c__GALK_V * c__gal_tot*c__atp', 'mole_per_s'),
             ('c__GALK_Vb', 'c__GALK_V * c__gal1p_tot*c__adp/GALK_keq', 'mole_per_s'),
     ],
-    formula = ('c__gal/c__gal_tot * c__GALK_Vf - c__gal1p/c__gal1p_tot * c__GALK_Vb', 'mole_per_s')
+    formula=('c__gal/c__gal_tot * c__GALK_Vf - c__gal1p/c__gal1p_tot * c__GALK_Vb', 'mole_per_s')
 )
 
 GALKM = ReactionTemplate(

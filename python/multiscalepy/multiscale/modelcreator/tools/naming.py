@@ -165,15 +165,16 @@ def createDiffusionName(c_from, c_to, sid):
 # -------------------------------------------------------------------------------------
 # Initialization helpers
 # -------------------------------------------------------------------------------------
-def initString(string, initDict):
+def initString(s, initDict):
     """ Initializes the string with the given data dictionary.
         Makes a copy to allow multiple initializations with
         differing data.
     """
-    if not isinstance(string, str):
-        return string
+    # assert isinstance(s, str)
+    if not isinstance(s, str):
+        return s
 
-    res = string[:]
+    res = s[:]
     for key, value in initDict.iteritems():
         res = res.replace(key, value)
     return res
