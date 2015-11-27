@@ -12,10 +12,11 @@ from multiscale.modelcreator.tools.naming import initString
 
 class ReactionTemplate(object):
     
-    def __init__(self, rid, name, equation, compartments, pars, rules, formula):
+    def __init__(self, rid, name, equation, localization, compartments, pars, rules, formula):
         self.rid = rid
         self.key = name
         self.equation = Equation(equation)
+        self.localization = localization
         self.compartments = compartments
         self.pars = pars
         self.rules = rules
@@ -72,6 +73,7 @@ class ReactionTemplate(object):
         r = model.createReaction()
         r.setId(rid)
         r.setName(initString(self.key, initDict))
+        r.setCompartment(self.localization)
         r.setReversible(self.equation.reversible)
         r.setFast(False)
     

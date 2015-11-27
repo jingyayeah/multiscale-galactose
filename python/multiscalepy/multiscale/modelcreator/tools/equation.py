@@ -53,18 +53,19 @@ class Equation(object):
         s = s.replace(']', '')
         s = s.strip()
         tokens = re.split('[,;]', s)
-        self.modifiers = [t.strip() for t in tokens]
+        modifiers = [t.strip() for t in tokens]
+        self.modifiers = [t for t in modifiers if len(t) > 0]
 
     def parseHalfEquation(self, string):
-        ''' Only '+ supported in equation !, do not use negative
+        """ Only '+ supported in equation !, do not use negative
             stoichiometries.
-        '''
+        """
         items = re.split('[+-]', string)
         items = [item.strip() for item in items]
         return [self.parseReactant(item) for item in items]
     
     def parseReactant(self, item):
-        ''' Returns tuple of stoichiometry, sid. '''
+        """ Returns tuple of stoichiometry, sid. """
         tokens = item.split()
         if len(tokens) == 1:
             stoichiometry = 1.0
@@ -120,7 +121,8 @@ if __name__ == '__main__':
              'e__h2oM <-> c__h2oM',
              '3 atp + 2.0 phos + ki <-> 16.98 tet',
              'c__gal1p => c__gal + c__phos [c__udp, c__utp]',
-             ]
+             'A_ext => A []',
+            ]
     
     for test in tests:
         print '-' * 40
@@ -128,5 +130,3 @@ if __name__ == '__main__':
         print '-' * 40
         eq = Equation(test)
         eq.info()
-    
-    

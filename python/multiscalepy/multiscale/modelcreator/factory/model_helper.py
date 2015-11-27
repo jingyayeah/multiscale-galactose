@@ -121,7 +121,7 @@ def _createCompartment(model, cid, name, dims, units, constant, value):
         _createAssignmentRule(model, sid=cid, formula=value)
         pass
     else:
-        c.setValue(value)
+        c.setSize(value)
 
 
 ##########################################################################

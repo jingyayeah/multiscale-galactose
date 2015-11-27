@@ -85,14 +85,16 @@ def tissue_model():
     db_api.create_model(sbml_path, model_format=db_api.CompModelFormat.SBML)
 """
 
-def cell_model():
-    print("Create cell model")
+def galactose_model():
+    print("Create galactose model")
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.hepatocyte',
                                          'multiscale.modelcreator.models.galactose'])
     # init model
-    cell_model = CellModel(model_id="galactose_08",
+    cell_model = CellModel(model_id="galactose_09",
                            cell_dict=cell_dict,
                            events=None)
+
+    # annotations
 
     cell_model.create_sbml()
     file_path = sbml_path(cell_model.model_id)
@@ -100,9 +102,31 @@ def cell_model():
     # add model to database
     db_api.create_model(file_path,
                         model_format=db_api.CompModelFormat.SBML)
+
+    return [cell_dict, cell_model]
+
+
+def demo_model():
+    print("Create demo model")
+    cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.demo'])
+    # init model
+    cell_model = CellModel(model_id="demo_01",
+                           cell_dict=cell_dict,
+                           events=None)
+    # annotations
+    # TODO:
+
+    cell_model.create_sbml()
+    file_path = sbml_path(cell_model.model_id)
+    cell_model.write_sbml(file_path)
+    # add model to database
+    db_api.create_model(file_path,
+                        model_format=db_api.CompModelFormat.SBML)
+
     return [cell_dict, cell_model]
 
 if __name__ == "__main__":
-    [cell_dict, cell_model] = cell_model()
+    # [cell_dict, cell_model] = galactose_model()
+    [cell_dict, cell_model] = demo_model()
     
 

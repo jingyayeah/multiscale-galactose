@@ -66,11 +66,13 @@ compartments.update({
     'e': (3, 'm3', False, 'Vol_e'),
     'h': (3, 'm3', False, 'Vol_h'),
     'c': (3, 'm3', False, 'Vol_c'),
+    'm': (2, 'm2', False, 'A_m'),
 })
 names.update({
     'e': 'external',
     'h': 'hepatocyte',
-    'c': 'cytosol'
+    'c': 'cytosol',
+    'm': 'plasma membrane',
 })
 
 ##############################################################
@@ -168,11 +170,13 @@ assignments.update({
     'Vol_h': ('x_cell*x_cell*y_cell', 'm3'),
     'Vol_e': ('Vol_h', 'm3'),
     'Vol_c': ('f_cyto*Vol_h', 'm3'),
+    'A_m': ('x_cell*x_cell', 'm2'),
 })
 names.update({
     'Vol_h': 'volume hepatocyte',
     'Vol_c': 'volume cytosol',
     'Vol_e': 'volume external compartment',
+    'A_m': 'area plasma membrane',
 })
 
 ##############################################################

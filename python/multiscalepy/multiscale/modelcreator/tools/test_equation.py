@@ -38,6 +38,12 @@ class TestEquation(unittest.TestCase):
         eq = Equation(eq_string)
         self.assertEqual(eq.toString(modifiers=True), eq_string)
 
+    def test_equation_empty_modifier(self):
+        """ Test Equation. """
+        eq_string = 'A_ext => A []'
+        eq = Equation(eq_string)
+        self.assertEqual(len(eq.modifiers), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,7 +1,5 @@
 '''
-Created on Jun 19, 2014
 
-@author: mkoenig
 '''
 import libsbml
 from multiscale.modelcreator.tools.naming import *
