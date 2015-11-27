@@ -1,3 +1,4 @@
+# -*- coding=utf-8 -*-
 """
 Galactose model for inclusion into sinusoidal unit.
 The metabolic models are specified in a generic format which is than
@@ -14,29 +15,23 @@ TODO: how to handle the versions and names of the multiple submodels ?
 TODO: add the model description & history to the model
 
 """
+from libsbml import XMLNode
 from Reactions import *
 
 ##############################################################
 mid = 'galactose'
 version = 1
-notes = """
-Galactose model for inclusion into sinusoidal unit.
-The metabolic models are specified in a generic format which is than
-included in the tissue scale model.
-
-    <body>
+notes = XMLNode.convertStringToXMLNode("""
+    <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Human Galactose Metabolism</h1>
     <h2>Description</h2>
-    <p>This is a metabolism model of Human galactose metabolsim in
-        <a href="http://sbml.org" target="_blank" title="Access the definition of the SBML file format.">SBML</a>&#160;format.</p>
-
-      <div class="dc:provenance">The content of this model has been carefully created in a manual research effort. This file has been exported from the software
-      <a href="http://dx.doi.org/10.1186/1752-0509-7-74" title="Access publication about COBRApy." target="_blank">COBRApy</a>&#160;and further processed with a
-      <a href="http://dx.doi.org/10.1093/bioinformatics/btv341" title="Access publication about JSBML." target="_blank">JSBML</a>-based in-house application.</div>
-      <div class="dc:publisher">This file has been produced by the
-      <a href="http://systemsbiology.ucsd.edu" title="Website of the Systems Biology Research Group" target="_blank">Systems Biology Research Group</a>&#160;and is currently hosted on
-      <a href="http://dx.doi.org/10.1186/1471-2105-11-213" title="Access publication about BiGG knowledgebase." target="_blank">BiGG knowledgebase</a>&#160;and identified by:
-      <a href="http://identifiers.org/bigg.model/e_coli_core" title="Access to this model via BiGG knowledgebase." target="_blank">e_coli_core</a>.</div>
+    <p>This is a metabolism model of Human galactose metabolism in
+    <a href="http://sbml.org" target="_blank" title="Access the definition of the SBML file format.">SBML</a>&#160;format.
+    </p>
+      <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+      <div class="dc:publisher">This file has been produced by
+      <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.
+      </div>
 
     <h2>Terms of use</h2>
       <div class="dc:rightsHolder">Copyright © 2015 Matthias Koenig.</div>
@@ -47,21 +42,9 @@ included in the tissue scale model.
           <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
           with the distribution.</li>
         </ol>This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
-        <p>For specific licensing terms about this particular model and regulations of commercial use, see
-        <a href="http://identifiers.org/bigg.model/e_coli_core" title="Access to this model via BiGG knowledgebase." target="_blank">this model in BiGG database</a>.</p>
       </div>
-      <h2>References</h2>When using content from BiGG database in your research works, please cite
-      <dl>
-        <dt>Schellenberger, J., Park, J. O., Conrad, T. C., and Palsson, B. Ø. (2010).
-        <dd>
-        <a href="http://dx.doi.org/10.1186/1471-2105-11-213" target="_blank" title="Access publication about: BiGG knowledgebase">BiGG: a Biochemical Genetic and Genomic knowledgebase of large scale
-        metabolic reconstructions</a>,
-        <i>BMC Bioinformatics</i>, 11:213.</dd></dt>
-      </dl>
-
     </body>
-</notes>
-"""
+""")
 history = ""
 units = dict()
 compartments = dict()

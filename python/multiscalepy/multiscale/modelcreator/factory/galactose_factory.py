@@ -90,7 +90,7 @@ def cell_model():
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.hepatocyte',
                                          'multiscale.modelcreator.models.galactose'])
     # init model
-    cell_model = CellModel(model_id="galactose_06",
+    cell_model = CellModel(model_id="galactose_07",
                            cell_dict=cell_dict,
                            events=None)
 

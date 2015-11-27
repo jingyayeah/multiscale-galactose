@@ -30,7 +30,7 @@ class CellModel(object):
     # keys of possible information in the modules.
     _keys = ['mid',
              'version',
-             'description',
+             'notes',
              'history',
              'main_units',
              'units',
@@ -66,9 +66,12 @@ class CellModel(object):
         # sbml
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
         self.model = self.doc.createModel()
-
         check(self.model.setId(self.model_id), 'set id')
         check(self.model.setName(self.model_id), 'set name')
+        # set notes
+        check(self.model.setNotes(self.notes), 'set notes')
+        # set history
+        # TODO
 
         # add dynamical parameters
         self.parameters.update({})
@@ -93,6 +96,7 @@ class CellModel(object):
             # add information to overall dict
             for key, value in mdict.iteritems():
 
+                # lists of higher modules are extended
                 if type(value) is list:
                     # create new list
                     if key not in cdict:
@@ -100,14 +104,20 @@ class CellModel(object):
                     # now add elements by copy
                     cdict[key].extend(copy.deepcopy(value))
 
+                # dictionaries of higher modules are extended
                 elif type(value) is dict:
                     # create new dict
                     if key not in cdict:
                         cdict[key] = dict()
                     # now add the elements by copy
-                    old_value = cdict.get(key)
-                    for key, value in value.iteritems():
-                        old_value[key] = copy.deepcopy(value)
+                    d = cdict[key]
+                    for k, v in value.iteritems():
+                        d[k] = copy.deepcopy(v)
+
+                # !everything else is overwritten
+                else:
+                    cdict[key] = value
+
         return cdict
 
     @staticmethod
