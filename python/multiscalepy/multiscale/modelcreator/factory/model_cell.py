@@ -20,6 +20,7 @@ from multiscale.modelcreator.processes.ReactionFactory import *
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 from multiscale.modelcreator.sbml.SBMLUtils import check
 from multiscale.modelcreator.sbml.SBMLValidator import SBMLValidator
+from multiscale.modelcreator.sbml import model_history
 
 
 class CellModel(object):
@@ -31,7 +32,7 @@ class CellModel(object):
     _keys = ['mid',
              'version',
              'notes',
-             'history',
+             'creators',
              'main_units',
              'units',
              'compartments',
@@ -44,6 +45,7 @@ class CellModel(object):
 
     # Dictionary keys for respective lists
     _dictkeys = {
+        'creators': ('FamilyName', 'GivenName', 'Email', 'Organization'),
         'compartments': ('spatialDimension', 'unit', 'constant', 'assignment'),
         'species': ('compartment', 'value', 'unit'),
         'parameters': ('value', 'unit', 'constant'),
@@ -71,7 +73,7 @@ class CellModel(object):
         # set notes
         check(self.model.setNotes(self.notes), 'set notes')
         # set history
-        # TODO
+        model_history.set_model_history(self.model, self.creators)
 
         # add dynamical parameters
         self.parameters.update({})

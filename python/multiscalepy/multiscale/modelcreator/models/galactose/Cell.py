@@ -45,7 +45,10 @@ notes = XMLNode.convertStringToXMLNode("""
       </div>
     </body>
 """)
-history = ""
+creators = {
+    # id : ('FamilyName', 'GivenName', 'Email', 'Organization')
+    'mk': ('Koenig', 'Matthias', 'konigmatt@googlemail.com', 'Charite Berlin'),
+}
 units = dict()
 compartments = dict()
 species = dict()

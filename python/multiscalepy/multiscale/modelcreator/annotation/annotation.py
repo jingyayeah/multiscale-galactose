@@ -13,6 +13,12 @@ import re
 import uuid
 import datetime
 
+def create_meta_id(sid):
+    """ Create meta id.
+        Uniqueness not tested.
+    """
+    return 'meta_{}'.format(sid)
+
 
 class AnnotationException(Exception):
     pass
