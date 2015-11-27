@@ -174,6 +174,11 @@ def initString(s, initDict):
     if not isinstance(s, str):
         return s
 
+    # handle the case of no replacements
+    if len(initDict) is 0:
+        return s
+
+    # replace everything from the dict
     res = s[:]
     for key, value in initDict.iteritems():
         res = res.replace(key, value)

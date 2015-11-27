@@ -16,7 +16,7 @@ bA = ReactionTemplate(
     compartments=['cell, extern'],
     pars=[],
     rules=[],
-    formula=('scale_f*(Vmax_bA/Km_A)*(A_ext - A))/(1 dimensionless + A_ext/Km_A + A/Km_A', 'mole_per_s')
+    formula=('scale_f*(Vmax_bA/Km_A)*(A_ext - A)/ (1 dimensionless + A_ext/Km_A + A/Km_A)', 'mole_per_s')
 )
 
 
@@ -29,7 +29,7 @@ bB = ReactionTemplate(
     compartments=['cell, extern'],
     pars=[],
     rules=[],
-    formula=('(scale_f*(Vmax_bB/Km_B)*(B - B_ext))/(1 dimensionless + B_ext/Km_B + B/Km_B', 'mole_per_s')
+    formula=('(scale_f*(Vmax_bB/Km_B)*(B - B_ext))/(1 dimensionless + B_ext/Km_B + B/Km_B)', 'mole_per_s')
 )
 
 # bC: C => C_ext; (scale_f*(Vmax_bC/Km_C)*(C - C_ext))/(1 dimensionless + C_ext/Km_C + C/Km_C);

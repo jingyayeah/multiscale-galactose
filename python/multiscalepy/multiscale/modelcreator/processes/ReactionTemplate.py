@@ -1,17 +1,19 @@
 """
-ReactionTemplate defines the general 
-structure of reaction information.
-"""
+ReactionTemplate.
+TODO: handle the compartment initialization (comp?)
 
-from ReactionFactory import setKineticLaw
-from multiscale.modelcreator.factory.model_helper import _createParameter, createAssignmentRules,\
-    getUnitString
-from multiscale.modelcreator.tools.equation import Equation
-from multiscale.modelcreator.tools.naming import initString
+"""
+from __future__ import print_function
+import warnings
+import libsbml
+from ..sbml.SBMLUtils import check
+from ..factory.model_helper import _createParameter, createAssignmentRules, getUnitString
+from ..tools.equation import Equation
+from ..tools.naming import initString
 
 
 class ReactionTemplate(object):
-    
+    """ All reactions are instances of the ReactionTemplate. """
     def __init__(self, rid, name, equation, localization, compartments, pars, rules, formula):
         self.rid = rid
         self.key = name
@@ -21,7 +23,7 @@ class ReactionTemplate(object):
         self.pars = pars
         self.rules = rules
         self.formula = formula
-    
+
     def createReactions(self, model, initData):
         """ Create the reaction based on the given comps dictionary """
         # TODO: check if everything is initialized
@@ -32,10 +34,7 @@ class ReactionTemplate(object):
 
         # Create the identical replacement
         if not initData:
-            d = dict()
-            for c in self.compartments:
-                d[c] = c
-            initData = [d]
+            initData = [{}]
 
         for initDict in initData:
             self._createReaction(model, initDict)
@@ -97,3 +96,13 @@ class ReactionTemplate(object):
         setKineticLaw(model, r, formula) 
 
         return r
+
+
+def setKineticLaw(model, reaction, formula):
+    """ Sets the kinetic law in reaction based on given formula. """
+    law = reaction.createKineticLaw()
+    ast_node = libsbml.parseL3FormulaWithModel(formula, model)
+    if ast_node is None:
+        warnings.warn(libsbml.getLastParseL3Error())
+    check(law.setMath(ast_node), 'set math in kinetic law')
+    return law

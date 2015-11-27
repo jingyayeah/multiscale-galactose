@@ -1,18 +1,12 @@
-'''
+"""
+Factory methods for the creation of flow and diffusion reactions.
+"""
 
-'''
-import libsbml
 from multiscale.modelcreator.tools.naming import *
-
-def setKineticLaw(model, reaction, formula):
-    ''' Sets the kinetic law in reaction based on given formula. '''
-    law = reaction.createKineticLaw();
-    astnode = libsbml.parseL3FormulaWithModel(formula, model)
-    law.setMath(astnode);
-    return law;
+from ReactionTemplate import setKineticLaw
 
 def createFlowReaction(model, sid, c_from, c_to, flow):
-    ''' Creates the convection reaction of sid between c_from -> c_to.'''
+    """ Creates the convection reaction of sid between c_from -> c_to."""
     sid_from = createLocalizedId(c_from, sid)
     sid_to = createLocalizedId(c_to, sid)
     rid = createFlowId(c_from, c_to, sid)
@@ -23,55 +17,56 @@ def createFlowReaction(model, sid, c_from, c_to, flow):
     r.setId(rid)
     r.setName(rname)
     r.setReversible(False)
-    r.setFast(False);
+    r.setFast(False)
     
     # equation
-    sref = r.createReactant();
+    sref = r.createReactant()
     sref.setSpecies(sid_from)
-    sref.setStoichiometry(1.0);
-    sref.setConstant(True);
+    sref.setStoichiometry(1.0)
+    sref.setConstant(True)
     if c_to != NONE_ID:
-        sref = r.createProduct();
+        sref = r.createProduct()
         sref.setSpecies(sid_to)
-        sref.setStoichiometry(1.0);
-        sref.setConstant(True);
+        sref.setStoichiometry(1.0)
+        sref.setConstant(True)
     
     # kinetics
-    formula = '{} * {}'.format(flow, sid_from) # in [mole/s]
+    formula = '{} * {}'.format(flow, sid_from)  # in [mole/s]
     setKineticLaw(model, r, formula) 
 
-    return r;
+    return r
+
 
 def createDiffusionReaction(model, sid, c_from, c_to, D):
-    ''' Creates the diffusion reaction of sid between c_from <-> c_to. '''
+    """ Creates the diffusion reaction of sid between c_from <-> c_to. """
     sid_from = createLocalizedId(c_from, sid)
     sid_to = createLocalizedId(c_to, sid)
     rid = createDiffusionId(c_from, c_to, sid)
-    rname = createDiffusionName(c_from, c_to, sid)
+    name = createDiffusionName(c_from, c_to, sid)
     
     # reaction
     r = model.createReaction()
     r.setId(rid)
-    r.setName(rname)
+    r.setName(name)
     r.setReversible(True)
-    r.setFast(False);
+    r.setFast(False)
     
     # equation
-    sref = r.createReactant();
+    sref = r.createReactant()
     sref.setSpecies(sid_from)
-    sref.setStoichiometry(1.0);
-    sref.setConstant(True);
+    sref.setStoichiometry(1.0)
+    sref.setConstant(True)
     if c_to != NONE_ID:
-        sref = r.createProduct();
+        sref = r.createProduct()
         sref.setSpecies(sid_to)
-        sref.setStoichiometry(1.0);
-        sref.setConstant(True);
+        sref.setStoichiometry(1.0)
+        sref.setConstant(True)
 
     # kinetics
     if c_to:
-        formula = "{} * ({} - {})".format(D, sid_from, sid_to) # in [mole/s]
+        formula = "{} * ({} - {})".format(D, sid_from, sid_to)  # in [mole/s]
     else:
         formula = "{} * ({})".format(D, sid_from)
     setKineticLaw(model, r, formula) 
 
-    return r;
+    return r
