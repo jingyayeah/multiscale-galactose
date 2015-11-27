@@ -93,13 +93,14 @@ def cell_model():
     cell_model = CellModel(model_id="galactose_02",
                            cell_dict=cell_dict,
                            events=None)
+    """
     cell_model.create_sbml()
     file_path = sbml_path(cell_model.model_id)
     cell_model.write_sbml(file_path)
     # add model to database
     db_api.create_model(file_path,
                         model_format=db_api.CompModelFormat.SBML)
-
+    """
     return [cell_dict, cell_model]
 
 if __name__ == "__main__":

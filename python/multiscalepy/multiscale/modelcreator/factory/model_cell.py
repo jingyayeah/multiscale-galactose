@@ -21,18 +21,33 @@ from multiscale.modelcreator.sbml.SBMLValidator import SBMLValidator
 
 
 class CellModel(object):
-    """ InstanceKeys are the available information. """
+    """
+    Class creates the SBML models from given dictionaries and lists
+    of information.
+    """
+    # keys of possible information in the modules.
     _keys = ['mid',
              'version',
+             'description',
+             'history',
              'main_units',
              'units',
              'compartments',
              'species',
              'names',
-             'pars',
+             'parameters',
              'assignments',
              'rules',
              'reactions']
+
+    # Dictionary keys for respective lists
+    _dictkeys = {
+        'compartments': ('spatialDimension', 'unit', 'constant', 'assignment'),
+        'species': ('compartment', 'value', 'unit'),
+        'parameters': ('value', 'unit', 'constant'),
+        'assignments': ('assignment', 'unit'),
+        'rules': ('rule', 'unit'),
+    }
 
     def __init__(self, model_id, cell_dict, events=None):
         """
@@ -54,7 +69,7 @@ class CellModel(object):
         check(self.model.setName(self.model_id), 'set name')
 
         # add dynamical parameters
-        self.pars.update({})
+        self.parameters.update({})
         print('\n', '*'*40, '\n', self.model_id, '\n', '*'*40)
 
 
@@ -71,14 +86,16 @@ class CellModel(object):
         import copy
         cdict = dict()
         for directory in module_dirs:
+            # get single module dict
             mdict = CellModel._createDict(directory)
+            # add information to overall dict
             for key, value in mdict.iteritems():
 
                 if type(value) is list:
                     # create new list
                     if key not in cdict:
                         cdict[key] = []
-                    # now add the elements by copy
+                    # now add elements by copy
                     cdict[key].extend(copy.deepcopy(value))
 
                 elif type(value) is dict:
@@ -87,8 +104,8 @@ class CellModel(object):
                         cdict[key] = dict()
                     # now add the elements by copy
                     old_value = cdict.get(key)
-                    for k, v in value.iteritems():
-                        old_value[k] = copy.deepcopy(v)
+                    for key, value in value.iteritems():
+                        old_value[key] = copy.deepcopy(value)
         return cdict
 
     @staticmethod
@@ -111,7 +128,12 @@ class CellModel(object):
         d = dict()
         for key in CellModel._keys:
             if hasattr(module, key):
-                d[key] = getattr(module, key)
+                info = getattr(module, key)
+                if key in CellModel._dictkeys:
+                    # zip info with dictkeys
+                    d[key] = dict(zip(CellModel._dictkeys[key], info))
+                else:
+                    d[key] = info
             else:
                 warnings.warn(" ".join(['missing:', key]))
 

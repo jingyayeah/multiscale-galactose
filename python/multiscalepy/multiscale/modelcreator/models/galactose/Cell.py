@@ -10,8 +10,8 @@ h__x : hepatocyte compartment (total internal cell volume)
 c__x : cytosolic compartment (fraction of hepatocyte which is cytosol)
 
 
-TODO: put the units in the single cell definition
 TODO: how to handle the versions and names of the multiple submodels ?
+TODO: add the model description & history to the model
 
 """
 from Reactions import *
@@ -19,10 +19,16 @@ from Reactions import *
 ##############################################################
 mid = 'galactose'
 version = 1
+description = """
+Galactose model for inclusion into sinusoidal unit.
+The metabolic models are specified in a generic format which is than
+included in the tissue scale model.
+"""
+history = ""
 units = dict()
 compartments = dict()
 species = dict()
-pars = dict()
+parameters = dict()
 names = dict()
 assignments = dict()
 rules = dict()
@@ -32,7 +38,7 @@ reactions = []
 # Compartments
 ##############################################################
 compartments.update({
-    # id : (spatialDimension, unit, constant, assignment/value)
+    # id : ('spatialDimension', 'unit', 'constant', 'assignment')
     'e': (3, 'm3', False, 'Vol_e'),
     'h': (3, 'm3', False, 'Vol_h'),
     'c': (3, 'm3', False, 'Vol_c'),
@@ -47,7 +53,7 @@ names.update({
 # Species
 ##############################################################
 species.update({
-    # id : (compartment, value, unit)
+    # id : ('compartment', 'value', 'unit')
     'e__gal':       ('e', 0.00012, 'mM'),
     'e__galM':      ('e', 0.0, 'mM'),
     'e__h2oM':      ('e', 0.0, 'mM'),
@@ -109,8 +115,8 @@ names.update({
 ##############################################################
 # Parameters
 ##############################################################
-pars.update({
-    # id: (value, unit, constant)
+parameters.update({
+    # id: ('value', 'unit', 'constant')
     'scale_f':      (0.31, 'per_m3', True),
     'REF_P':        (1.0, 'mM', True),
     'deficiency':   (0, '-', True),
@@ -133,7 +139,7 @@ names.update({
 # Assignments
 ##############################################################
 assignments.update({
-    # id: (assignment, unit)
+    # id: ('assignment', 'unit')
     'Vol_h': ('x_cell*x_cell*y_cell', 'm3'),
     'Vol_e': ('Vol_h', 'm3'),
     'Vol_c': ('f_cyto*Vol_h', 'm3'),
@@ -148,7 +154,7 @@ names.update({
 # Rules
 ##############################################################
 rules.update({
-    # id: (rule, unit)
+    # id: ('rule', 'unit')
     'c__scale': ('scale_f * Vol_cell', '-'),
             
     'e__gal_tot': ('e__gal + e__galM', 'mM'),

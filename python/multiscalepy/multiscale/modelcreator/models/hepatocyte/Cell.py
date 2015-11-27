@@ -13,7 +13,7 @@ main_units = {
 }
 units = dict()
 species = dict()
-pars = dict()
+parameters = dict()
 names = dict()
 assignments = dict()
 rules = dict()
@@ -24,7 +24,6 @@ reactions = []
 ##########################################################################
 # units (kind, exponent, scale=0, multiplier=1.0)
 # u_new = (multiplier
-
 units.update({
     's': [(UNIT_KIND_SECOND, 1.0)],
     'kg': [(UNIT_KIND_KILOGRAM, 1.0)],
