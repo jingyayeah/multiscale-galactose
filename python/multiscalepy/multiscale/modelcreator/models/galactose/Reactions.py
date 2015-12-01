@@ -9,7 +9,8 @@ from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 GALK = ReactionTemplate(
     'c__GALK',
     'Galactokinase [c__]',
-    'c__gal + c__atp <-> c__gal1p + c__adp [c__galM, c__gal1pM]',
+    'c__gal + c__atp <-> c__gal1p + c__adp + c__hydron [c__galM, c__gal1pM]', 
+    # C6H12O6 (0) + C10H12N5O13P3 (-4) <-> C6H11O9P (-2) + C10H12N5O10P2 (-3) + H (+1)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -36,7 +37,8 @@ GALK = ReactionTemplate(
 GALKM = ReactionTemplate(
     'c__GALKM',
     'Galactokinase M [c__]',
-    'c__galM + c__atp -> c__gal1pM + c__adp [c__gal, c__gal1p]',
+    'c__galM + c__atp -> c__gal1pM + c__adp + c__hydron [c__gal, c__gal1p]',
+    # C6H12O6 (0) + C10H12N5O13P3 (-4) <-> C6H11O9P (-2) + C10H12N5O10P2 (-3) + H (+1)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -47,7 +49,8 @@ GALKM = ReactionTemplate(
 IMP = ReactionTemplate(
     'c__IMP',
     'Inositol monophosphatase [c__]',
-    'c__gal1p => c__gal + c__phos [c__gal1pM]',
+    'c__gal1p + c__h2o => c__gal + c__phos [c__gal1pM]',
+    # C6H11O9P (-2) + H20 (0) => C6H12O6 (0) + HO4P (-2)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -66,7 +69,8 @@ IMP = ReactionTemplate(
 IMPM = ReactionTemplate(
     'c__IMPM',
     'Inositol monophosphatase M [c__]',
-    'c__gal1pM => c__galM + c__phos [c__gal1p]',
+    'c__gal1pM + c__h2o => c__galM + c__phos [c__gal1p]',
+    # C6H11O9P (-2) + H20 (0) => C6H12O6 (0) + HO4P (-2)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -78,7 +82,8 @@ IMPM = ReactionTemplate(
 ATPS = ReactionTemplate(
     'c__ATPS',
     'ATP synthase [c__]',
-    'c__adp + c__phos <-> c__atp',
+    'c__adp + c__phos + c__hydron <-> c__atp + c__h2o',
+    # C10H12N5O10P2 (-3) + HO4P (-2) + H (+1) <-> C10H12N5O13P3 (-4) + H20 (0)
     localization='c',
     compartments=['c__'],
     pars=[
