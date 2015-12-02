@@ -79,34 +79,37 @@ names.update({
 # Species
 ##############################################################
 species.update({
-    # id : ('compartment', 'value', 'unit')
-    'e__gal':       ('e', 0.00012, 'mM'),
-    'e__galM':      ('e', 0.0, 'mM'),
-    'e__h2oM':      ('e', 0.0, 'mM'),
-    'h__h2oM':      ('h', 0.0, 'mM'),
-    'c__gal':       ('c', 0.00012, 'mM'),
-    'c__galM':      ('c', 0.0, 'mM'),
-    'c__glc1p':     ('c', 0.012, 'mM'),
-    'c__glc1pM':    ('c', 0.0, 'mM'),
-    'c__glc6p':     ('c', 0.12, 'mM'),
-    'c__glc6pM':    ('c', 0.0, 'mM'),
-    'c__gal1p':     ('c', 0.001, 'mM'),
-    'c__gal1pM':    ('c', 0.0, 'mM'),
-    'c__udpglc':    ('c', 0.34, 'mM'),
-    'c__udpglcM':   ('c', 0.0, 'mM'),
-    'c__udpgal':    ('c', 0.11, 'mM'),
-    'c__udpgalM':   ('c', 0.0, 'mM'),
-    'c__galtol':    ('c', 0.001, 'mM'),
-    'c__galtolM':   ('c', 0.0, 'mM'),
+    # id : ('compartment', 'value', 'unit', 'boundaryCondition')
+    'e__gal':       ('e', 0.00012, 'mM', False),
+    'e__galM':      ('e', 0.0, 'mM', False),
+    'e__h2oM':      ('e', 0.0, 'mM', False),
+    'h__h2oM':      ('h', 0.0, 'mM', False),
+    'c__gal':       ('c', 0.00012, 'mM', False),
+    'c__galM':      ('c', 0.0, 'mM', False),
+    'c__glc1p':     ('c', 0.012, 'mM', False),
+    'c__glc1pM':    ('c', 0.0, 'mM', False),
+    'c__glc6p':     ('c', 0.12, 'mM', False),
+    'c__glc6pM':    ('c', 0.0, 'mM', False),
+    'c__gal1p':     ('c', 0.001, 'mM', False),
+    'c__gal1pM':    ('c', 0.0, 'mM', False),
+    'c__udpglc':    ('c', 0.34, 'mM', False),
+    'c__udpglcM':   ('c', 0.0, 'mM', False),
+    'c__udpgal':    ('c', 0.11, 'mM', False),
+    'c__udpgalM':   ('c', 0.0, 'mM', False),
+    'c__galtol':    ('c', 0.001, 'mM', False),
+    'c__galtolM':   ('c', 0.0, 'mM', False),
     
-    'c__atp':       ('c', 2.7, 'mM'),
-    'c__adp':       ('c', 1.2, 'mM'),
-    'c__utp':       ('c', 0.27, 'mM'),
-    'c__udp':       ('c', 0.09, 'mM'),
-    'c__phos':      ('c', 5.0, 'mM'),
-    'c__ppi':       ('c', 0.008, 'mM'),
-    'c__nadp':      ('c', 0.1, 'mM'),
-    'c__nadph':     ('c', 0.1, 'mM')
+    'c__atp':       ('c', 2.7, 'mM', False),
+    'c__adp':       ('c', 1.2, 'mM', False),
+    'c__utp':       ('c', 0.27, 'mM', False),
+    'c__udp':       ('c', 0.09, 'mM', False),
+    'c__phos':      ('c', 5.0, 'mM', False),
+    'c__ppi':       ('c', 0.008, 'mM', False),
+    'c__nadp':      ('c', 0.1, 'mM', False),
+    'c__nadph':     ('c', 0.1, 'mM', False),
+
+    'c__h2o':       ('c', 0.0, 'mM', True),
+    'c__hydron':       ('c', 0.0, 'mM', True),
 })
 names.update({
     'rbcM': 'red blood cells M*',
@@ -136,6 +139,8 @@ names.update({
     'ppi': 'pyrophosphate',
     'nadp': 'NADP',
     'nadph': 'NADPH',
+    'h2o': 'water',
+    'hydron': 'H+',
 })
 
 ##############################################################
@@ -231,4 +236,3 @@ reactions.extend([
     GTFGLC, GTFGLCM,
     H2OTM, GLUT2_GAL, GLUT2_GALM
 ])
-

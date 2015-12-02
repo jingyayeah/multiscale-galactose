@@ -47,7 +47,7 @@ class CellModel(object):
     _dictkeys = {
         'creators': ('FamilyName', 'GivenName', 'Email', 'Organization'),
         'compartments': ('spatialDimension', 'unit', 'constant', 'assignment'),
-        'species': ('compartment', 'value', 'unit'),
+        'species': ('compartment', 'value', 'unit', 'boundaryCondition'),
         'parameters': ('value', 'unit', 'constant'),
         'assignments': ('assignment', 'unit'),
         'rules': ('assignment', 'unit'),
