@@ -29,3 +29,7 @@ TODO: single cell models
 TODO: annotations, description and model history
 
 TODO: galactose tissue models (flow & pressure)
+
+## Annotations
+Annotations are defined in separate annotation files. 
+For a id regular pattern the annotations are listed.

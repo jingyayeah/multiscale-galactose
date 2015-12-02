@@ -493,7 +493,7 @@ GTFGLCM = ReactionTemplate(
 #############################################################################################
 # create all single transporters
 H2OTM = ReactionTemplate(
-    'e__H2OM',
+    'e__H2OTM',
     'H2O M transport [e__]',
     'e__h2oM <-> h__h2oM',
     localization='m',
