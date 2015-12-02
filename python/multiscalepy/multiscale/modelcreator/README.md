@@ -33,3 +33,8 @@ TODO: galactose tissue models (flow & pressure)
 ## Annotations
 Annotations are defined in separate annotation files. 
 For a id regular pattern the annotations are listed.
+
+### SpeciesRole in reactions
+Within the reaction equations the role of the species have to be defined, i.e. the
+SBO terms for the SpeciesReferences.
+In addition the kinetic law has to be annotated.

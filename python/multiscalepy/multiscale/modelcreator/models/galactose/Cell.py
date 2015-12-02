@@ -109,7 +109,8 @@ species.update({
     'c__nadph':     ('c', 0.1, 'mM', False),
 
     'c__h2o':       ('c', 0.0, 'mM', True),
-    'c__hydron':       ('c', 0.0, 'mM', True),
+    'c__hydron':    ('c', 0.0, 'mM', True),
+    'c__h2':        ('c', 0.0, 'mM', True),
 })
 names.update({
     'rbcM': 'red blood cells M*',
@@ -141,6 +142,7 @@ names.update({
     'nadph': 'NADPH',
     'h2o': 'water',
     'hydron': 'H+',
+    'h2': 'H2'
 })
 
 ##############################################################

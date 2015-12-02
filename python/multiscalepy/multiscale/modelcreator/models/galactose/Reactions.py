@@ -103,7 +103,8 @@ ATPS = ReactionTemplate(
 ALDR = ReactionTemplate(
     'c__ALDR',
     'Aldose reductase [c__]',
-    'c__gal + c__nadph <-> c__galtol + c__nadp [c__galM, c__galtolM]',
+    'c__gal + c__nadph + c__hydron <-> c__galtol + c__nadp [c__galM, c__galtolM]',
+    # C6H12O6 (0) + C21H26N7O17P3 (-4) + H (+1) <-> C6H14O6 (0) + C21H25N7O17P3 (-3)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -128,9 +129,10 @@ ALDR = ReactionTemplate(
 ALDRM = ReactionTemplate(
     'c__ALDRM',
     'Aldose reductase M [c__]',
-    'c__galM + c__nadph <-> c__galtolM + c__nadp [c__gal, c__galtol]',
+    'c__galM + c__nadph + c__hydron <-> c__galtolM + c__nadp [c__gal, c__galtol]',
+    # C6H12O6 (0) + C21H26N7O17P3 (-4) + H (+1) <-> C6H14O6 (0) + C21H25N7O17P3 (-3)
     localization='c',
-    compartments = ['c__'],
+    compartments=['c__'],
     pars=[],
     rules=[],
     formula=('c__galM/c__gal_tot * c__ALDR_Vf - c__galtolM/c__galtol_tot * c__ALDR_Vb', 'mole_per_s')
@@ -139,7 +141,8 @@ ALDRM = ReactionTemplate(
 NADPR = ReactionTemplate(
     'c__NADPR',
     'NADP Reductase [c__]',
-    'c__nadp <-> c__nadph',
+    'c__nadp + c__h2 <-> c__nadph + c__hydron',
+    # C21H25N7O17P3 (-3) + H2(0) <-> C21H26N7O17P3 (-4) + H (+1)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -159,6 +162,7 @@ GALT = ReactionTemplate(
     'c__GALT',
     'Galactose-1-phosphate uridyl transferase [c__]',
     'c__gal1p + c__udpglc <-> c__glc1p + c__udpgal [c__utp, c__udp, c__gal1pM, c__udpglcM, c__glc1p, c__udpgalM]',
+    # C6H11O9P (-2) + C15H22N2O17P2 (-2) <-> C6H11O9P (-2) + C15H22N2O17P2 (-2)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -188,6 +192,7 @@ GALTM1 = ReactionTemplate(
     'c__GALTM1',
     'Galactose-1-phosphate uridyl transferase M1 [c__]',
     'c__gal1pM + c__udpglc <-> c__glc1p + c__udpgalM [c__utp, c__udp, c__gal1p, c__udpglcM, c__glc1pM, c__udpgal]',
+    # C6H11O9P (-2) + C15H22N2O17P2 (-2) <-> C6H11O9P (-2) + C15H22N2O17P2 (-2)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -198,6 +203,7 @@ GALTM2 = ReactionTemplate(
     'c__GALTM2',
     'Galactose-1-phosphate uridyl transferase M2 [c__]',
     'c__gal1p + c__udpglcM <-> c__glc1pM + c__udpgal [c__utp, c__udp, c__gal1pM, c__udpglc, c__glc1p, c__udpgalM]',
+    # C6H11O9P (-2) + C15H22N2O17P2 (-2) <-> C6H11O9P (-2) + C15H22N2O17P2 (-2)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -208,6 +214,7 @@ GALTM3 = ReactionTemplate(
     'c__GALTM3',
     'Galactose-1-phosphate uridyl transferase M3 [c__]',
     'c__gal1pM + c__udpglcM <-> c__glc1pM + c__udpgalM [c__utp, c__udp, c__gal1p, c__udpglc, c__glc1p, c__udpgal]',
+    # C6H11O9P (-2) + C15H22N2O17P2 (-2) <-> C6H11O9P (-2) + C15H22N2O17P2 (-2)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -220,6 +227,7 @@ GALE = ReactionTemplate(
     'c__GALE',
     'UDP-glucose 4-epimerase [c__]',
     'c__udpglc <-> c__udpgal [c__udpglcM, c__udpgalM]',
+    # C15H22N2O17P2 (-2) <-> C15H22N2O17P2 (-2)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -245,6 +253,7 @@ GALEM = ReactionTemplate(
     'c__GALEM',
     'UDP-glucose 4-epimerase M [c__]',
     'c__udpglcM <-> c__udpgalM [c__udpglc, c__udpgal]',
+    # C15H22N2O17P2 (-2) <-> C15H22N2O17P2 (-2)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -256,7 +265,8 @@ GALEM = ReactionTemplate(
 UGP = ReactionTemplate(
     'c__UGP',
     'UDP-glucose pyrophosphorylase [c__]',
-    'c__glc1p + c__utp <-> c__udpglc + c__ppi [c__glc1pM, c__udpglcM, c__gal1p, c__gal1pM, c__udpgal, c__udpgalM]',
+    'c__glc1p + c__utp + c__hydron <-> c__udpglc + c__ppi [c__glc1pM, c__udpglcM, c__gal1p, c__gal1pM, c__udpgal, c__udpgalM]',
+    # C6H11O9P (-2) + C9H11N2O15P3 (-4) + H (+1) <-> C15H22N2O17P2 (-2) + HO7P2 (-3)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -287,7 +297,8 @@ UGP = ReactionTemplate(
 UGPM = ReactionTemplate(
     'c__UGPM',
     'UDP-glucose pyrophosphorylase M [c__]',
-    'c__glc1pM + c__utp <-> c__udpglcM + c__ppi [c__glc1p, c__udpglc, c__gal1p, c__gal1pM, c__udpgal, c__udpgalM]',
+    'c__glc1pM + c__utp + c__hydron <-> c__udpglcM + c__ppi [c__glc1p, c__udpglc, c__gal1p, c__gal1pM, c__udpgal, c__udpgalM]',
+    # C6H11O9P (-2) + C9H11N2O15P3 (-4) + H (+1) <-> C15H22N2O17P2 (-2) + HO7P2 (-3)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -299,7 +310,8 @@ UGPM = ReactionTemplate(
 UGALP = ReactionTemplate(
     'c__UGALP',
     'UDP-galactose pyrophosphorylase [c__]',
-    'c__gal1p + c__utp <-> c__udpgal + c__ppi [c__glc1p, c__glc1pM, c__udpglc, c__udpglcM, c__gal1pM, c__udpgalM]',
+    'c__gal1p + c__utp + c__hydron <-> c__udpgal + c__ppi [c__glc1p, c__glc1pM, c__udpglc, c__udpglcM, c__gal1pM, c__udpgalM]',
+    # C6H11O9P (-2) + C9H11N2O15P3 (-4) + H (+1) <-> C15H22N2O17P2 (-2) + HO7P2 (-3)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -317,7 +329,8 @@ UGALP = ReactionTemplate(
 UGALPM = ReactionTemplate(
     'c__UGALPM',
     'UDP-galactose pyrophosphorylase M [c__]',
-    'c__gal1pM + c__utp <-> c__udpgalM + c__ppi [c__glc1p, c__glc1pM, c__udpglc, c__udpglcM, c__gal1p, c__udpgal]',
+    'c__gal1pM + c__utp + c__hydron <-> c__udpgalM + c__ppi [c__glc1p, c__glc1pM, c__udpglc, c__udpglcM, c__gal1p, c__udpgal]',
+    # C6H11O9P (-2) + C9H11N2O15P3 (-4) + H (+1) <-> C15H22N2O17P2 (-2) + HO7P2 (-3)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -329,7 +342,8 @@ UGALPM = ReactionTemplate(
 PPASE = ReactionTemplate(
     'c__PPASE',
     'Pyrophosphatase [c__]',
-    'c__ppi -> 2 c__phos',
+    'c__ppi + c__h2o -> 2 c__phos + c__hydron',
+    # HO7P2 (-3) + H2O (0) -> 2 HO4P (-2) + H (+1)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -349,13 +363,14 @@ NDKU = ReactionTemplate(
     'c__NDKU',
     'ATP:UDP phosphotransferase [c__]',
     'c__atp + c__udp <-> c__adp + c__utp',
+    # C10H12N5O13P3 (-4) + C9H11N2O12P2 (-3) <-> C10H12N5O10P2 (-3) + C9H11N2O15P3 (-3)
     localization='c',
     compartments=['c__'],
     pars=[
             ('NDKU_f',    2,     '-'),
             ('NDKU_keq',  1,     '-'),
             ('NDKU_k_atp', 1.33, 'mM'),
-            ('NDKU_k_adp', 0.042,'mM'),
+            ('NDKU_k_adp', 0.042, 'mM'),
             ('NDKU_k_utp', 27,   'mM'),
             ('NDKU_k_udp', 0.19, 'mM'),
             ('c__NDKU_P',  1.0,  'mM'),
@@ -372,6 +387,7 @@ PGM1 = ReactionTemplate(
     'c__PGM1',
     'Phosphoglucomutase-1 [c__]',
     'c__glc1p <-> c__glc6p [c__glc1pM, c__glc6pM]',
+    # C6H11O9P (-2) <-> C6H11O9P (-2)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -396,6 +412,7 @@ PGM1M = ReactionTemplate(
     'c__PGM1M',
     'Phosphoglucomutase-1 M [c__]',
     'c__glc1pM <-> c__glc6pM  [c__glc1p, c__glc6p]',
+    # C6H11O9P (-2) <-> C6H11O9P (-2)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -408,6 +425,7 @@ GLY = ReactionTemplate(
     'c__GLY',
     'Glycolysis [c__]',
     'c__glc6p <-> c__phos',
+    # C6H11O9P (-2) + 5 O2 -> HO4P (-2) + 6 CO2 + 5 H2O)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -428,6 +446,7 @@ GLYM = ReactionTemplate(
     'c__GLYM',
     'Glycolysis M [c__]',
     'c__glc6pM -> c__phos',
+    #
     localization='c',
     compartments=['c__'],
     pars=[],
