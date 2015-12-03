@@ -2,22 +2,27 @@
 Annotation of SBML models.
 
 Handle the XML annotations and notes in SBML.
-Annotate models from information in external files.
+Annotate models from information in annotation csv files.
 Thereby a model can be fully annotated from information
 stored in a separate annotation store.
 """
+# TODO: write SBO terms as SBO terms
+# TODO: general logging for the whole system
+# TODO: check annotations against the MIRIAM info (load miriam info)
+# TODO: check how the meta id is generated & use general mechanism
 
 from __future__ import print_function
 import logging
+import warnings
 import libsbml
 import csv
 import re
 import uuid
 
-# TODO: general logging for the whole system
+
 # create logger
 logger = logging.getLogger('annotation')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 # create console handler and set level to debug
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
@@ -29,51 +34,8 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
-##############################################################################
-_keys_sbmlTypes = frozenset([
-    "model",
-    "reaction",
-    "transporter",
-    "species",
-    "compartment",
-    "parameter",
-])
-
-_keys_annotationType = frozenset([
-    "RDF"
-    "Formula"
-    "Charge"
-])
-
-_keys_collections = [
-    ["biomodels.sbo", "Systems Biology Ontology", "^SBO:\d{7}$"],
-    ["bto", "Brenda Tissue Ontology", "^BTO:\d{7}$"],
-    ["chebi", "ChEBI", "^CHEBI:\d+$"],
-    ["ec-code", "Enzyme Nomenclature", "^\d+\.-\.-\.-|\d+\.\d+\.-\.-|\d+\.\d+\.\d+\.-|\d+\.\d+\.\d+\.(n)?\d+$"],
-    ["fma", "Foundational Model of Anatomy Ontology", "^FMA:\d+$"],
-    ["go", "Gene Ontology", "^GO:\d{7}$"],
-    ["kegg.compound", "KEGG Compound", "^C\d+$"],
-    ["kegg.pathway", "KEGG Pathway", "^\w{2,4}\d{5}$"],
-    ["kegg.reaction", "KEGG Reaction", "^R\d+$"],
-    ["omim", "OMIM", "^[*#+%^]?\d{6}$"],
-    ["pubmed", "PubMed", "^\d+$"],
-    ["pw", "Pathway Ontology", "^PW:\d{7}$"],
-    ["reactome", "Reactome", "(^(REACTOME:)?R-[A-Z]{3}-[0-9]+(-[0-9]+)?$)|(^REACT_\d+$)"],
-    ["rhea", "Rhea", "^\d{5}$"],
-    ["sabiork.kineticrecord", "SABIO-RK Kinetic Record", "^\d+$"],
-    ["smpdb", "Small Molecule Pathway Database", "^SMP\d{5}$"],
-    ["taxonomy", "Taxonomy", "^\d+$"],
-    ["tcdb", "Transport Classification Database", "^\d+\.[A-Z]\.\d+\.\d+\.\d+$"],
-    ["uberon", "UBERON", "^UBERON\:\d+$"],
-    ["uniprot", "UniProt Knowledgebase", "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"],
-]
-##############################################################################
-
-
 def create_meta_id(sid):
-    """ Create meta id.
-        Uniqueness not tested.
-    """
+    """ Create meta id. Uniqueness not tested. """
     return 'meta_{}'.format(sid)
 
 
@@ -82,16 +44,52 @@ class AnnotationException(Exception):
 
 
 class ModelAnnotation(object):
-    """
-    Class for single annotation information,
-     i.e. a single annotation line from a annotation file.
-    """
+    """ Class for single annotation, i.e. a single annotation line from a annotation file. """
     _keys = ['pattern', 'sbml_type', 'annotation_type', 'value', 'qualifier', 'collection', 'name']
+
+    _sbml_types = frozenset(["model", "reaction", "transporter", "species",
+                             "compartment", "parameter", "rule"])
+
+    _annotation_types = frozenset(["RDF", "Formula", "Charge"])
+
+    _collections = [
+        ["biomodels.sbo", "Systems Biology Ontology", "^SBO:\d{7}$"],
+        ["bto", "Brenda Tissue Ontology", "^BTO:\d{7}$"],
+        ["chebi", "ChEBI", "^CHEBI:\d+$"],
+        ["ec-code", "Enzyme Nomenclature", "^\d+\.-\.-\.-|\d+\.\d+\.-\.-|\d+\.\d+\.\d+\.-|\d+\.\d+\.\d+\.(n)?\d+$"],
+        ["fma", "Foundational Model of Anatomy Ontology", "^FMA:\d+$"],
+        ["go", "Gene Ontology", "^GO:\d{7}$"],
+        ["kegg.compound", "KEGG Compound", "^C\d+$"],
+        ["kegg.pathway", "KEGG Pathway", "^\w{2,4}\d{5}$"],
+        ["kegg.reaction", "KEGG Reaction", "^R\d+$"],
+        ["omim", "OMIM", "^[*#+%^]?\d{6}$"],
+        ["pubmed", "PubMed", "^\d+$"],
+        ["pw", "Pathway Ontology", "^PW:\d{7}$"],
+        ["reactome", "Reactome", "(^(REACTOME:)?R-[A-Z]{3}-[0-9]+(-[0-9]+)?$)|(^REACT_\d+$)"],
+        ["rhea", "Rhea", "^\d{5}$"],
+        ["sabiork.kineticrecord", "SABIO-RK Kinetic Record", "^\d+$"],
+        ["smpdb", "Small Molecule Pathway Database", "^SMP\d{5}$"],
+        ["taxonomy", "Taxonomy", "^\d+$"],
+        ["tcdb", "Transport Classification Database", "^\d+\.[A-Z]\.\d+\.\d+\.\d+$"],
+        ["uberon", "UBERON", "^UBERON\:\d+$"],
+        ["uniprot", "UniProt Knowledgebase", "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"],
+    ]
 
     def __init__(self, d):
         self.d = d
         for k in self._keys:
             setattr(self, k, d[k])
+        self.check()
+
+    def check(self):
+        """ Checks if the annotation is valid. """
+        if self.annotation_type not in self._annotation_types:
+            warnings.warn("annotation_type not supported: {}, {}".format(self.annotation_type,
+                                                                         self.d))
+        if self.sbml_type not in self._sbml_types:
+            warnings.warn("sbml_type not supported: {}, {}".format(self.sbml_type, self.d))
+
+        # TODO: check against MIRIAM dictionary and patterns
 
     def print_annotation(self):
         print(self.d)
@@ -106,9 +104,8 @@ class ModelAnnotator(object):
         self.id_dict = self.get_ids_from_model()
         
     def get_ids_from_model(self):
-        """ Create ids dictionary for the model.
-            TODO: generic generation
-        """
+        """ Create ids dictionary from the model. """
+        # TODO: generic generation
         id_dict = dict()
         id_dict['model'] = [self.model.getId()]
         
@@ -154,31 +151,33 @@ class ModelAnnotator(object):
                 else:
                     print('Element could not be found: {}'.format(sid))
                     continue
-            
-            if a.annotation_type == 'SBO':
-                print('SBO:', a.entity, sid, element)
-                if a.entity.startswith('SBO'):
-                    element.setSBOTerm(a.entity) 
-                else:
-                    element.setSBOTerm(int(a.entity))
-            elif a.annotation_type == 'RDF':
+
+            if a.annotation_type == 'RDF':
                 self.__class__.add_rdf_to_element(element, a.qualifier, a.collection, a.value)
-                print('RDF:', sid, element)
+                # set SBO terms
+                if a.collection == 'biomodels.sbo':
+                    element.setSBOTerm(a.value)
+
+            elif a.annotation_type == 'Formula':
+                warnings.warn('Formula setting not implemented.')
+
+            elif a.annotation_type == 'Charge':
+                warnings.warn('Charge setting not implemented.')
             else:
                 raise AnnotationException('Annotation type not supported: {}'.format(a.annotation_type))
-        print()
 
     @classmethod
     def add_rdf_to_element(cls, element, qualifier, collection, entity):
         cv = libsbml.CVTerm()
 
+        # set correct type of qualifier
         if qualifier.startswith('BQB'):
             cv.setQualifierType(libsbml.BIOLOGICAL_QUALIFIER)
-            sbml_qualifier = cls.get_SBMLQualifier_from_string(qualifier)
+            sbml_qualifier = cls.get_SBMLQualifier(qualifier)
             cv.setBiologicalQualifierType(sbml_qualifier)
         elif qualifier.startswith('BQM'):
             cv.setQualifierType(libsbml.MODEL_QUALIFIER)
-            sbml_qualifier = cls.get_SBMLQualifier_from_string(qualifier)
+            sbml_qualifier = cls.get_SBMLQualifier(qualifier)
             cv.setModelQualifierType(sbml_qualifier)
         else:
             raise AnnotationException('Unsupported qualifier: {}'.format(qualifier))
@@ -191,15 +190,18 @@ class ModelAnnotator(object):
             meta_id = cls.create_meta_id()
             element.setMetaId(meta_id)
 
-        cv.setQualifierType(libsbml.BIOLOGICAL_QUALIFIER)
         success = element.addCVTerm(cv)
 
         if success != 0:
             print("Warning, RDF not written: ", success)
             print(libsbml.OperationReturnValue_toString(success))
+            print(element, qualifier, collection, entity)
+
+        # TODO: write the SBO terms if an RDF annotation
 
     @staticmethod
-    def get_SBMLQualifier_from_string(qualifier_str):
+    def get_SBMLQualifier(qualifier_str):
+        """ Lookup of SBMLQualifier for given qualifier string. """
         if qualifier_str not in libsbml.__dict__:
             raise AnnotationException('Qualifier not found: {}'.format(qualifier_str))
         return libsbml.__dict__.get(qualifier_str)
@@ -231,8 +233,8 @@ class ModelAnnotator(object):
 
             entry = dict(zip(headers, [item.strip() for item in row]))
             a = ModelAnnotation(entry)
-            a.print_annotation()
             res.append(a)
+            logger.info(a.print_annotation())
 
         return res
 
@@ -249,7 +251,7 @@ class ModelAnnotator(object):
         return match_ids
 
 
-def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated):
+def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated, suffix="annotated"):
     """
     Annotate a given SBML file with the provided annotations.
 
@@ -263,7 +265,6 @@ def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated):
 
     # read annotations
     annotations = ModelAnnotator.annotations_from_file(f_annotations)
-    print('Annotations:\n', annotations)
 
     # annotate the model
     annotator = ModelAnnotator(model, annotations)
@@ -271,15 +272,16 @@ def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated):
 
     # Update id
     # TODO: necessary ? File name does not have to be model id
-    # mid = "{}_{}".format(model.getId(), suffix)
-    # model.setId(mid)
+    # Handle this better
+    mid = "{}_{}".format(model.getId(), suffix)
+    model.setId(mid)
 
     # Save
     libsbml.writeSBMLToFile(doc, f_sbml_annotated)
 
 
 def test_demo():
-    logger.setLevel(logging.DEBUG)
+
 
     import os
     from multiscale.multiscale_settings import MULTISCALE_GALACTOSE

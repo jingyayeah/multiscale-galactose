@@ -6,13 +6,14 @@ TODO: allow an force overwrite in the database
 
 """
 from __future__ import print_function
+import os
 
-from multiscale.multiscale_settings import sbml_path
+from multiscale.multiscale_settings import MULTISCALE_GALACTOSE, sbml_path
 import multiscale.multiscalesite.simapp.db.api as db_api
 from multiscale.modelcreator.factory.model_cell import CellModel
 
-from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
-import os
+from multiscale.modelcreator.annotation.annotation import annotate_sbml_file
+
 
 
 """
@@ -119,11 +120,17 @@ def demo_model():
                              'demo', '{}.xml'.format(cell_model.model.getId()))
     cell_model.write_sbml(file_path)
 
-    # annotations
-    # TODO:
+    if True:
+        # annotations
+        f_annotations = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_annotations.csv')
+        f_sbml_annotated = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo',
+                                        '{}_annotated.xml'.format(cell_model.model_id))
 
-    # add model to database
-    db_api.create_model(file_path,
+        annotate_sbml_file(file_path, f_annotations, f_sbml_annotated)
+        print(f_sbml_annotated)
+
+        # add annotated model to database
+        db_api.create_model(f_sbml_annotated,
                         model_format=db_api.CompModelFormat.SBML)
 
     return [cell_dict, cell_model]
