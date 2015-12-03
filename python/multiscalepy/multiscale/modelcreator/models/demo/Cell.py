@@ -6,8 +6,8 @@ from libsbml import *
 from Reactions import *
 
 ##############################################################
-mid = 'Demo'
-version = 8
+mid = 'demo'
+version = 9
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Demo Metabolism</h1>
@@ -58,6 +58,7 @@ names = dict()
 assignments = dict()
 rules = dict()
 reactions = []
+events = None
 
 ##############################################################
 # Units
@@ -79,35 +80,32 @@ units.update({
 ##############################################################
 compartments.update({
     # id : ('spatialDimension', 'unit', 'constant', 'assignment')
-    'extern': (3, 'm3', False, 1e-06),
-    'cell': (3, 'm3', False, 1e-06),
-    'membrane': (2, 'm2', False, 1),
+    'e': (3, 'm3', False, 1e-06),
+    'c': (3, 'm3', False, 1e-06),
+    'm': (2, 'm2', False, 1),
 })
 names.update({
-    'external': 'external compartment',
-    'cell': 'cell compartment',
-    'membrane': 'plasma membrane'
+    'e': 'external compartment',
+    'c': 'cell compartment',
+    'm': 'plasma membrane'
 })
 
 ##############################################################
 # Species
 ##############################################################
 species.update({
-    # id : ('compartment', 'value', 'unit')
-    'A':       ('cell', 0, 'mM'),
-    'B':       ('cell', 0.0, 'mM'),
-    'C':       ('cell', 0.0, 'mM'),
-    'A_ext':   ('extern', 10.0, 'mM'),
-    'B_ext':   ('extern', 0.0, 'mM'),
-    'C_ext':   ('extern', 0.0, 'mM'),
+    # id : ('compartment', 'value', 'unit', 'boundaryCondition')
+    'c__A':       ('c', 0, 'mM', False),
+    'c__B':       ('c', 0.0, 'mM', False),
+    'c__C':       ('c', 0.0, 'mM', False),
+    'e__A':       ('e', 10.0, 'mM', False),
+    'e__B':       ('e', 0.0, 'mM', False),
+    'e__C':       ('e', 0.0, 'mM', False),
 })
 names.update({
-    'A': 'A cell',
-    'B': 'B cell',
-    'C': 'C cell',
-    'A_ext': 'A extern',
-    'B_ext': 'B extern',
-    'C_ext': 'C extern',
+    'A': 'A',
+    'B': 'B',
+    'C': 'C',
 })
 
 ##############################################################

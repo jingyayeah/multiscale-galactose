@@ -1,15 +1,18 @@
 """
 Create the SinusoidalUnit models for galactose metabolism.
 The different model variants are driven by different events.
+
+TODO: allow an force overwrite in the database
+
 """
 from __future__ import print_function
 
 from multiscale.multiscale_settings import sbml_path
-from multiscale.modelcreator.factory.model_tissue import TissueModel
 import multiscale.multiscalesite.simapp.db.api as db_api
-from multiscale.modelcreator.events.eventdata import EventData
 from multiscale.modelcreator.factory.model_cell import CellModel
 
+from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
+import os
 
 
 """
@@ -90,12 +93,9 @@ def galactose_model():
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.hepatocyte',
                                          'multiscale.modelcreator.models.galactose'])
     # init model
-    cell_model = CellModel(model_id="galactose_09",
-                           cell_dict=cell_dict,
-                           events=None)
+    cell_model = CellModel(cell_dict=cell_dict)
 
     # annotations
-
     cell_model.create_sbml()
     file_path = sbml_path(cell_model.model_id)
     cell_model.write_sbml(file_path)
@@ -107,17 +107,20 @@ def galactose_model():
 
 
 def demo_model():
+
     print("Create demo model")
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.demo'])
     # init model
-    cell_model = CellModel(model_id="demo_01",
-                           cell_dict=cell_dict,
-                           events=None)
+    cell_model = CellModel(cell_dict=cell_dict)
+    cell_model.create_sbml()
+
     # annotations
     # TODO:
 
-    cell_model.create_sbml()
-    file_path = sbml_path(cell_model.model_id)
+    # file_path = sbml_path(cell_model.model_id)
+    file_path = os.path.join(MULTISCALE_GALACTOSE, 'sbml',
+                             'demo', '{}.xml'.format(cell_model.model.getId()))
+
     cell_model.write_sbml(file_path)
     # add model to database
     db_api.create_model(file_path,

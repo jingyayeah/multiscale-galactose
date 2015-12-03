@@ -6,6 +6,7 @@ from __future__ import print_function
 
 import os
 import logging
+import warnings
 import datetime
 
 from django.db import models
@@ -136,7 +137,10 @@ class CompModel(models.Model):
                 return model
             else:
                 # the files are not identical
-                logging.warn('CompModel exists with model_id, model is not created: {}'.format(model_id))
+                warn_string = 'CompModel exists with model_id, model is not created: {}'.format(model_id)
+                # TODO: how to handle logging and warnings correctly
+                logging.warn(warn_string)
+                warnings.warn(warn_string)
                 return None
             
         except ObjectDoesNotExist: 

@@ -53,27 +53,19 @@ class CellModel(object):
         'rules': ('assignment', 'unit'),
     }
 
-    def __init__(self, model_id, cell_dict, events=None):
+    def __init__(self, cell_dict):
         """
         Initialize with the tissue information dictionary and
         the respective cell model used for creation.
         """
-        self.model_id = model_id
         self.cell_dict = cell_dict
 
         for key, value in cell_dict.iteritems():
             setattr(self, key, value)
-        self.events = events
 
-        # sbml
-        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
-        self.model = self.doc.createModel()
-        check(self.model.setId(self.model_id), 'set id')
-        check(self.model.setName(self.model_id), 'set name')
-        # set notes
-        check(self.model.setNotes(self.notes), 'set notes')
-        # set history
-        model_history.set_model_history(self.model, self.creators)
+        self.model_id = '{}_{}'.format(self.mid, self.version)
+        self.doc = None
+        self.model = None
 
         # add dynamical parameters
         self.parameters.update({})
@@ -157,8 +149,18 @@ class CellModel(object):
 
         return d
 
-
     def create_sbml(self):
+        # sbml
+        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
+        self.model = self.doc.createModel()
+        check(self.model.setId(self.model_id), 'set id')
+        check(self.model.setName(self.model_id), 'set name')
+        # set notes
+        check(self.model.setNotes(self.notes), 'set notes')
+        # set history
+        model_history.set_model_history(self.model, self.creators)
+
+        # create the list of content
         self.createUnits()
         self.createAllParameters()
         self.createInitialAssignments()

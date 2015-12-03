@@ -47,13 +47,13 @@ bqbiol:isVersionOf
 bqbiol:hasTaxon
 """
 
-_keys_collections = list(
+_keys_collections = [
     ["biomodels.sbo", "Systems Biology Ontology", "^SBO:\d{7}$"],
     ["bto", "Brenda Tissue Ontology", "^BTO:\d{7}$"],
     ["chebi", "ChEBI", "^CHEBI:\d+$"],
     ["ec-code", "Enzyme Nomenclature", "^\d+\.-\.-\.-|\d+\.\d+\.-\.-|\d+\.\d+\.\d+\.-|\d+\.\d+\.\d+\.(n)?\d+$"],
     ["fma", "Foundational Model of Anatomy Ontology", "^FMA:\d+$"],
-    ["go", "Gene Ontology", "^GO:\d{7}$"]
+    ["go", "Gene Ontology", "^GO:\d{7}$"],
     ["kegg.compound", "KEGG Compound", "^C\d+$"],
     ["kegg.pathway", "KEGG Pathway", "^\w{2,4}\d{5}$"],
     ["kegg.reaction", "KEGG Reaction", "^R\d+$"],
@@ -68,7 +68,7 @@ _keys_collections = list(
     ["tcdb", "Transport Classification Database", "^\d+\.[A-Z]\.\d+\.\d+\.\d+$"],
     ["uberon", "UBERON", "^UBERON\:\d+$"],
     ["uniprot", "UniProt Knowledgebase", "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$"],
-)
+]
 ##############################################################################
 
 
