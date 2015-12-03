@@ -14,8 +14,8 @@ GALK = ReactionTemplate(
     localization='c',
     compartments=['c__'],
     pars=[
-            ('GALK_PA',      0.024,    'mole'),
-            ('GALK_keq',     50,       '-'),
+            ('GALK_PA',      0.024,   'mole'),
+            ('GALK_keq',     50,      '-'),
             ('GALK_k_gal1p', 1.5,     'mM'),
             ('GALK_k_adp',   0.8,     'mM'),
             ('GALK_ki_gal1p', 5.3,    'mM'),
@@ -92,7 +92,7 @@ ATPS = ReactionTemplate(
             ('ATPS_k_adp', 0.1, 'mM'),
             ('ATPS_k_atp', 0.5, 'mM'),
             ('ATPS_k_phos', 0.1, 'mM'),
-            ('c__ATPS_P', 1, 'mM'),
+            ('c__ATPS_P', 1.0, 'mM'),
     ],
     rules=[
             ('c__ATPS_Vmax', 'ATPS_f* c__GALK_Vmax * c__ATPS_P/REF_P', 'mole_per_s'),
