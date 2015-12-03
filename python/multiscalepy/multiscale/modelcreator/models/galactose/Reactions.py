@@ -14,8 +14,8 @@ GALK = ReactionTemplate(
     localization='c',
     compartments=['c__'],
     pars=[
-            ('GALK_PA',      0.024,    'mole'),
-            ('GALK_keq',     50,       '-'),
+            ('GALK_PA',      0.024,   'mole'),
+            ('GALK_keq',     50,      '-'),
             ('GALK_k_gal1p', 1.5,     'mM'),
             ('GALK_k_adp',   0.8,     'mM'),
             ('GALK_ki_gal1p', 5.3,    'mM'),
@@ -92,7 +92,7 @@ ATPS = ReactionTemplate(
             ('ATPS_k_adp', 0.1, 'mM'),
             ('ATPS_k_atp', 0.5, 'mM'),
             ('ATPS_k_phos', 0.1, 'mM'),
-            ('c__ATPS_P', 1, 'mM'),
+            ('c__ATPS_P', 1.0, 'mM'),
     ],
     rules=[
             ('c__ATPS_Vmax', 'ATPS_f* c__GALK_Vmax * c__ATPS_P/REF_P', 'mole_per_s'),
@@ -424,8 +424,8 @@ PGM1M = ReactionTemplate(
 GLY = ReactionTemplate(
     'c__GLY',
     'Glycolysis [c__]',
-    'c__glc6p <-> c__phos',
-    # C6H11O9P (-2) + 5 O2 -> HO4P (-2) + 6 CO2 + 5 H2O)
+    'c__glc6p + 5 c__o2 <-> c__phos + 6 c__co2 + 5 c__h2o',
+    # C6H11O9P (-2) + 5 O2 <-> HO4P (-2) + 6 CO2 (0) + 5 H2O (0)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -445,7 +445,8 @@ GLY = ReactionTemplate(
 GLYM = ReactionTemplate(
     'c__GLYM',
     'Glycolysis M [c__]',
-    'c__glc6pM -> c__phos',
+    'c__glc6pM + 5 c__o2 -> c__phos + 6 c__co2 + 5 c__h2o',
+    # C6H11O9P (-2) + 5 O2 <-> HO4P (-2) + 6 CO2 (0) + 5 H2O (0)
     #
     localization='c',
     compartments=['c__'],
@@ -457,7 +458,8 @@ GLYM = ReactionTemplate(
 GTFGAL = ReactionTemplate(
     'c__GTFGAL',
     'Glycosyltransferase galactose [c__]',
-    'c__udpgal -> c__udp [c__udpgalM]',
+    'c__udpgal + c__acpt -> c__udp + c__acptgal + c__hydron [c__udpgalM]',
+    # C15H22N2O17P2 (-2) + H2R (0) -> C9H11N2O12P2 (-3) + C6H12O6R (0) + H (+1)
     localization='c',
     compartments=['c__'],
     pars=[
@@ -475,7 +477,8 @@ GTFGAL = ReactionTemplate(
 GTFGALM = ReactionTemplate(
     'c__GTFGALM',
     'Glycosyltransferase galactose M [c__]',
-    'c__udpgalM -> c__udp [c__udpgal]',
+    'c__udpgalM + c__acpt -> c__udp + c__acptgalM + c__hydron [c__udpgal]',
+    # C15H22N2O17P2 (-2) + H2R (0) -> C9H11N2O12P2 (-3) + C6H12O6R (0) + H (+1)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -486,7 +489,8 @@ GTFGALM = ReactionTemplate(
 GTFGLC = ReactionTemplate(
     'c__GTFGLC',
     'Glycosyltransferase glucose [c__]',
-    'c__udpglc -> c__udp [c__udpglcM]',
+    'c__udpglc + c__acpt -> c__udp + c__acptglc + c__hydron [c__udpglcM]',
+    # C15H22N2O17P2 (-2) + H2R (0) -> C9H11N2O12P2 (-3) + C6H12O6R (0) + H (+1)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -499,7 +503,8 @@ GTFGLC = ReactionTemplate(
 GTFGLCM = ReactionTemplate(
     'c__GTFGLCM',
     'Glycosyltransferase glucose M [c__]',
-    'c__udpglcM -> c__udp [c__udpglc]',
+    'c__udpglcM + c__acpt -> c__udp + c__acptglcM + c__hydron [c__udpglc]',
+    # C15H22N2O17P2 (-2) + H2R (0) -> C9H11N2O12P2 (-3) + C6H12O6R (0) + H (+1)
     localization='c',
     compartments=['c__'],
     pars=[],
@@ -515,6 +520,7 @@ H2OTM = ReactionTemplate(
     'e__H2OTM',
     'H2O M transport [e__]',
     'e__h2oM <-> h__h2oM',
+    # H2O (0) <-> H2O (0)
     localization='m',
     compartments=['c__', 'h__', 'e__'],
     pars=[
@@ -532,6 +538,7 @@ GLUT2_GAL = ReactionTemplate(
     'e__GLUT2_GAL',
     'galactose transport [e__]',
     'e__gal <-> c__gal [e__galM, c__galM]',
+    # C6H1206 (0) <-> C6H1206 (0)
     localization='m',
     compartments=['c__', 'e__'],
     pars=[
@@ -553,6 +560,7 @@ GLUT2_GALM = ReactionTemplate(
     'e__GLUT2_GALM',
     'galactose transport M [e__]',
     'e__galM <-> c__galM [e__gal, c__gal]',
+    # C6H1206 (0) <-> C6H1206 (0)
     localization='m',
     compartments=['c__', 'e__'],
     pars=[],

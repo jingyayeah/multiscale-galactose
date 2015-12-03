@@ -108,8 +108,13 @@ species.update({
     'c__nadp':      ('c', 0.1, 'mM', False),
     'c__nadph':     ('c', 0.1, 'mM', False),
 
+    'c__acpt':      ('c', 0.0, 'mM', True),
+    'c__acptgal':   ('c', 0.0, 'mM', True),
+    'c__acptglc':   ('c', 0.0, 'mM', True),
     'c__h2o':       ('c', 0.0, 'mM', True),
     'c__hydron':    ('c', 0.0, 'mM', True),
+    'c__co2':       ('c', 0.0, 'mM', True),
+    'c__o2':        ('c', 0.0, 'mM', True),
     'c__h2':        ('c', 0.0, 'mM', True),
 })
 names.update({
