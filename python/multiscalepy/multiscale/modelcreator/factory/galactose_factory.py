@@ -114,14 +114,14 @@ def demo_model():
     cell_model = CellModel(cell_dict=cell_dict)
     cell_model.create_sbml()
 
-    # annotations
-    # TODO:
-
     # file_path = sbml_path(cell_model.model_id)
     file_path = os.path.join(MULTISCALE_GALACTOSE, 'sbml',
                              'demo', '{}.xml'.format(cell_model.model.getId()))
-
     cell_model.write_sbml(file_path)
+
+    # annotations
+    # TODO:
+
     # add model to database
     db_api.create_model(file_path,
                         model_format=db_api.CompModelFormat.SBML)

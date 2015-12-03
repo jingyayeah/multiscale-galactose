@@ -8,10 +8,25 @@ stored in a separate annotation store.
 """
 
 from __future__ import print_function
+import logging
 import libsbml
+import csv
 import re
 import uuid
-import datetime
+
+# TODO: general logging for the whole system
+# create logger
+logger = logging.getLogger('annotation')
+logger.setLevel(logging.DEBUG)
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+# create formatter
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# add formatter to ch
+ch.setFormatter(formatter)
+# add ch to logger
+logger.addHandler(ch)
 
 
 ##############################################################################
@@ -29,23 +44,6 @@ _keys_annotationType = frozenset([
     "Formula"
     "Charge"
 ])
-
-# TODO: read the allowed model and biological qualifiers from SBML
-_keys_qualifier = frozenset([])
-"""
-bqmodel:is
-bqmodel:isDescribedBy
-bqmodel:hasProperty
-bqmodel:isPartOf
-bqmodel:isVersionOf
-
-bqbiol:is
-bqbiol:isDescribedBy
-bqbiol:hasProperty
-bqbiol:isPartOf
-bqbiol:isVersionOf
-bqbiol:hasTaxon
-"""
 
 _keys_collections = [
     ["biomodels.sbo", "Systems Biology Ontology", "^SBO:\d{7}$"],
@@ -84,19 +82,20 @@ class AnnotationException(Exception):
 
 
 class ModelAnnotation(object):
-    """ Storage of single model annotation information."""
+    """
+    Class for single annotation information,
+     i.e. a single annotation line from a annotation file.
+    """
+    _keys = ['pattern', 'sbml_type', 'annotation_type', 'value', 'qualifier', 'collection', 'name']
 
     def __init__(self, d):
-        self.id = d['id']
-        self.sbml_type = d['sbml_type']
-        self.annotation_type = d['annotation_type']
-        self.qualifier = d['qualifier']
-        self.collection = d['collection']
-        self.entity = d['entity']
-    
+        self.d = d
+        for k in self._keys:
+            setattr(self, k, d[k])
+
     def print_annotation(self):
-        print ("{:<20}"*6).format(self.id, self.sbml_type, self.annotation_type,
-                                  self.qualifier, self.collection, self.entity)
+        print(self.d)
+        # print (("{:<20}"*len(self._keys)).format([getattr(self, k) for k in self._keys]))
 
 
 class ModelAnnotator(object):
@@ -107,7 +106,9 @@ class ModelAnnotator(object):
         self.id_dict = self.get_ids_from_model()
         
     def get_ids_from_model(self):
-        """ Create ids dictionary for the model."""
+        """ Create ids dictionary for the model.
+            TODO: generic generation
+        """
         id_dict = dict()
         id_dict['model'] = [self.model.getId()]
         
@@ -133,28 +134,15 @@ class ModelAnnotator(object):
             
         return id_dict
 
-    def create_history(self, family_name, given_name, email, organization):
-        h = libsbml.ModelHistory()
-        c = libsbml.ModelCreator()
-        c.setFamilyName(family_name)
-        c.setGivenName(given_name)
-        c.setEmail(email)
-        c.setOrganization(organization)
-        h.addCreator(c)
-        date_str = str(datetime.datetime.now())
-        date = libsbml.Date(date_str)
-        
-        h.setCreatedDate(date)
-        h.setModifiedDate(date)
-        self.model.setModelHistory(h)
-
     def annotate_model(self):
         """ Annotates the model with the given annotations. """
         for a in self.annotations:
-            pattern = a.id
+            pattern = a.pattern
+            # lookup of allowed ids for given sbml type
             ids = self.id_dict[a.sbml_type]
-            sbml_ids = self.__class__.get_matching_ids(ids, pattern)
-            self.annotate_components(sbml_ids, a)
+            # find the subset of ids matching the pattern
+            pattern_ids = self.__class__.get_matching_ids(ids, pattern)
+            self.annotate_components(pattern_ids, a)
 
     def annotate_components(self, sbml_ids, a):
         """ Annotate components. """
@@ -174,7 +162,7 @@ class ModelAnnotator(object):
                 else:
                     element.setSBOTerm(int(a.entity))
             elif a.annotation_type == 'RDF':
-                self.__class__.add_rdf_to_element(element, a.qualifier, a.collection, a.entity)
+                self.__class__.add_rdf_to_element(element, a.qualifier, a.collection, a.value)
                 print('RDF:', sid, element)
             else:
                 raise AnnotationException('Annotation type not supported: {}'.format(a.annotation_type))
@@ -213,7 +201,7 @@ class ModelAnnotator(object):
     @staticmethod
     def get_SBMLQualifier_from_string(qualifier_str):
         if qualifier_str not in libsbml.__dict__:
-            raise AnnotationException('Qualifier is not found: {}'.format(qualifier_str))
+            raise AnnotationException('Qualifier not found: {}'.format(qualifier_str))
         return libsbml.__dict__.get(qualifier_str)
 
     @staticmethod
@@ -222,31 +210,32 @@ class ModelAnnotator(object):
         return 'meta_{}'.format(meta_id.hex)
 
     @staticmethod
-    def annotations_from_file(filename, sep='\t'):
-        """ Read annotations in annotation data structure. """
+    def annotations_from_file(csvfile, delimiter='\t'):
+        """ Read annotations from csv in annotation data structure. """
         res = []
-        count = 0
-        with open(filename, 'r') as f:
-            for line in f:
-                if count == 0:
-                    header = line.split(sep)
-                    header = [item.strip() for item in header]
-                else:
-                    items = line.split(sep)
-                    if len(items) != len(header):
-                        raise AnnotationException('Wrong number of items')
-                    elif items[0].startswith('#') | len(items[0]) == 0:
-                        continue
-                    else:
-                        d = dict()
-                        for k in xrange(len(items)):
-                            d[header[k]] = items[k].strip()
-                        a = ModelAnnotation(d)
-                        if a:
-                            res.append(a)
-                count += 1
-        f.close()
+        f = open(csvfile, 'rb')
+        reader = csv.reader(f, delimiter=delimiter, quoting=csv.QUOTE_NONE)
+
+        # first line is headers line
+        headers = reader.next()
+        logger.info('Headers: {}'.format(headers))
+
+        # read entries
+        for row in reader:
+            # skip empty lines
+            if not ''.join(row).strip():
+                continue
+            # skip comments
+            if row[0].startswith('#'):
+                continue
+
+            entry = dict(zip(headers, [item.strip() for item in row]))
+            a = ModelAnnotation(entry)
+            a.print_annotation()
+            res.append(a)
+
         return res
+
 
     @staticmethod
     def get_matching_ids(ids, pattern):
@@ -260,22 +249,49 @@ class ModelAnnotator(object):
         return match_ids
 
 
-def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated,
-                       family_name, given_name, email, organization, suffix="annotated"):
+def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated):
+    """
+    Annotate a given SBML file with the provided annotations.
+
+    :param f_sbml: SBML to annotation
+    :param f_annotations: csv file with annotations
+    :param f_sbml_annotated: annotated file
+    """
     # read SBML model
     doc = libsbml.readSBML(f_sbml)
     model = doc.getModel()
 
-    # annotate
+    # read annotations
     annotations = ModelAnnotator.annotations_from_file(f_annotations)
+    print('Annotations:\n', annotations)
 
+    # annotate the model
     annotator = ModelAnnotator(model, annotations)
     annotator.annotate_model()
-    annotator.create_history(family_name, given_name, email, organization)
-    
+
     # Update id
-    mid = "{}_{}".format(model.getId(), suffix)
-    model.setId(mid)
-    
+    # TODO: necessary ? File name does not have to be model id
+    # mid = "{}_{}".format(model.getId(), suffix)
+    # model.setId(mid)
+
     # Save
     libsbml.writeSBMLToFile(doc, f_sbml_annotated)
+
+
+def test_demo():
+    logger.setLevel(logging.DEBUG)
+
+    import os
+    from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
+
+    f_sbml = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_9.xml')
+    f_sbml_annotated = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_9_annotated.xml')
+    f_annotations = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_annotations.csv')
+
+    # annotate
+    print('Annotate:', f_sbml)
+    annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
+    print(f_sbml_annotated)
+
+if __name__ == "__main__":
+    test_demo()

@@ -4,7 +4,7 @@ Adding history information to SBML file based on list of creators.
 """
 from libsbml import *
 
-from SBMLUtils import check
+from multiscale.modelcreator.sbml.SBMLUtils import check
 from multiscale.modelcreator.annotation.annotation import create_meta_id
 
 

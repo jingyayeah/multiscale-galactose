@@ -10,17 +10,16 @@ TODO: the parts which can be reused have to be exported to a BaseClass.
 """
 
 from __future__ import print_function
-import warnings
+
 from libsbml import SBMLDocument, SBMLWriter
 
-from multiscale.modelcreator.tools import naming
-
+from multiscale.modelcreator.annotation import model_history
 from multiscale.modelcreator.factory.model_helper import *
 from multiscale.modelcreator.processes.ReactionFactory import *
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 from multiscale.modelcreator.sbml.SBMLUtils import check
 from multiscale.modelcreator.sbml.SBMLValidator import SBMLValidator
-from multiscale.modelcreator.sbml import model_history
+from multiscale.modelcreator.tools import naming
 
 
 class CellModel(object):
