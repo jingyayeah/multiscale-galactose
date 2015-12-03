@@ -176,18 +176,23 @@ class CellModel(object):
         """
 
     def write_sbml(self, filepath, validate=True):
-
+        """ Write SBML to file. """
+        # TODO: use logging instead
         print('Write : {}\n'.format(self.model_id, filepath))
         writer = SBMLWriter()
         writer.writeSBMLToFile(self.doc, filepath)
 
         # validate the model with units (only for small models)
         if validate:
-            # validator = SBMLValidator(ucheck=(self.Nc < 4))
-            validator = SBMLValidator(ucheck=True)
-            validator.validate(filepath)
+            # ucheck=(self.Nc < 4)
+            self.__class__.validate_sbml(filepath)
+
         return filepath
 
+    @classmethod
+    def validate_sbml(cls, filepath, ucheck=True):
+        validator = SBMLValidator(ucheck=ucheck)
+        validator.validate(filepath)
 
     def addName(self, d):
         """ Looks up name of the id and adds to dictionary.

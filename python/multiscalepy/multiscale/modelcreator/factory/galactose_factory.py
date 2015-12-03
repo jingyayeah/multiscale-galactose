@@ -121,13 +121,15 @@ def demo_model():
     cell_model.write_sbml(file_path)
 
     if True:
-        # annotations
+        # annotate
         f_annotations = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_annotations.csv')
         f_sbml_annotated = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo',
                                         '{}_annotated.xml'.format(cell_model.model_id))
 
         annotate_sbml_file(file_path, f_annotations, f_sbml_annotated)
         print(f_sbml_annotated)
+        # check the file
+        CellModel.validate_sbml(f_sbml_annotated)
 
         # add annotated model to database
         db_api.create_model(f_sbml_annotated,
