@@ -44,7 +44,9 @@ class AnnotationHTML():
 
             for k in xrange(cv.getNumResources()):
                 uri = cv.getResourceURI(k)
-                link = ''.join(['<a href="', uri, '" target="_blank">', uri, '</a>'])
+                tokens = uri.split('/')
+                resource_id = tokens[-1]
+                link = ''.join(['<a href="', uri, '" target="_blank">', resource_id, '</a>'])
                 items.append(link)
         res = "<br />".join(items)
         return res
