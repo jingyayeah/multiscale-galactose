@@ -41,3 +41,16 @@ def date_now():
     time = datetime.datetime.now()
     timestr = time.strftime('%Y-%m-%dT%H:%M:%S')
     return Date(timestr)
+
+
+"""
+# TODO: write as test
+if __name__ == "__main__":
+    doc = readSBMLFromFile("/home/mkoenig/multiscale-galactose/sbml/galactose/galactose_28_annotated.xml")
+    model = doc.getModel()
+    print(model.getId())
+    h = model.getModelHistory()
+    for c in h.getListCreators():
+        print c
+        print c.getFamilyName()
+"""

@@ -23,7 +23,6 @@ COMPUTERS = {'10.39.34.27': 'core',
              '192.168.1.99': 'zenbook',
              '127.0.0.1': 'localhost'}
 
-
 def sbml_path(model_id):
     """ For storing sbml files. """
     if not os.path.exists(SBML_DIR):

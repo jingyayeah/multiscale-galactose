@@ -13,13 +13,14 @@ from __future__ import print_function
 
 from libsbml import SBMLDocument, SBMLWriter, SBMLNamespaces
 
-from multiscale.modelcreator.annotation import model_history
-from multiscale.modelcreator.factory.model_helper import *
-from multiscale.modelcreator.processes.ReactionFactory import *
-from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
-from multiscale.modelcreator.sbml.SBMLUtils import check
-from multiscale.modelcreator.sbml.SBMLValidator import SBMLValidator
-from multiscale.modelcreator.tools import naming
+from ..annotation import model_history
+from ..factory.model_helper import *
+from ..processes.ReactionFactory import *
+from ..processes.ReactionTemplate import ReactionTemplate
+from ..sbml.SBMLUtils import check
+from ..sbml.SBMLValidator import SBMLValidator
+from ..tools import naming
+from ..modelcreator_settings import PROGRAM_NAME, PROGRAM_VERSION
 
 
 class CellModel(object):
@@ -186,6 +187,8 @@ class CellModel(object):
         # TODO: use logging instead
         print('Write : {}\n'.format(self.model_id, filepath))
         writer = SBMLWriter()
+        writer.setProgramName(PROGRAM_NAME)
+        writer.setProgramVersion(PROGRAM_VERSION)
         writer.writeSBMLToFile(self.doc, filepath)
 
         # validate the model with units (only for small models)

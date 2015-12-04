@@ -1,33 +1,15 @@
 """
 Django template filters related to the rendering of SBML.
-
 """
 
 import libsbml
 from django import template
 register = template.Library()
 
-class AnnotationHTML():
-    BQM = {
-        0: "is",
-        1: "isDescribedBy",
-        2: "isDerivedFrom",
-        }
+from multiscale.modelcreator.sbml.SBMLUtils import BiologcialQualifierType, ModelQualifierType
 
-    BQB = {
-        0: "is",
-        1: "hasPart",
-        2: "isPartOf",
-        3: "isVersionOf",
-        4: "hasVersion",
-        5: "isHomologTo",
-        6: "isDescribedBy",
-        7: "isEncodedBy",
-        8: "encodes",
-        9: "occursIn",
-        10: "hasProperty",
-        11: "isPropertyOf",
-    }
+class AnnotationHTML():
+
 
     @classmethod
     def annotation_to_html(cls, item):
@@ -37,9 +19,9 @@ class AnnotationHTML():
             cv = item.getCVTerm(kcv)
             q_type = cv.getQualifierType()
             if q_type == 0:
-                qualifier = cls.BQM[cv.getModelQualifierType()]
+                qualifier = ModelQualifierType[cv.getModelQualifierType()]
             elif q_type == 1:
-                qualifier = cls.BQB[cv.getBiologicalQualifierType()]
+                qualifier = BiologcialQualifierType[cv.getBiologicalQualifierType()]
             items.append(''.join(['<b>', qualifier, '</b>']))
 
             for k in xrange(cv.getNumResources()):
@@ -50,7 +32,6 @@ class AnnotationHTML():
                 items.append(link)
         res = "<br />".join(items)
         return res
-
 
 @register.filter
 def SBML_astnodeToString(astnode):
@@ -154,7 +135,7 @@ def halfEquation(speciesList):
 
 def modelHistoryToString(mhistory):
     """ Renders HTML representation of the model history. """
-    if not mhistory():
+    if not mhistory:
         return ""
     items = []
     for kc in xrange(mhistory.getNumCreators()):

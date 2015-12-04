@@ -1,18 +1,18 @@
 pattern	sbml_type	annotation_type	value	qualifier	collection	name
 #model						
 	document	RDF	SBO:0000293	BQM_IS	biomodels.sbo	non-spatial continuous framework
-^Galactose_	model	RDF	9606	BQB_HAS_TAXON	taxonomy	Homo sapiens (Human)
-^Galactose_	model	RDF	BTO:0000759	BQM_IS	bto	liver
-^Galactose_	model	RDF	UBERON:2107	BQM_IS	uberon	liver
-^Galactose_	model	RDF	FMA:7197	BQM_IS	fma	liver
-^Galactose_	model	RDF	BTO:0000575	BQM_IS	bto	hepatocyte
-^Galactose_	model	RDF	FMA:14515	BQM_IS	fma	hepatocyte
-^Galactose_	model	RDF	PW:0000042	BQM_IS_VERSION_OF	pw	galactose metabolic pathway
-^Galactose_	model	RDF	map00052	BQM_IS_VERSION_OF	kegg.pathway	Galactose metabolBQB_ISm
-^Galactose_	model	RDF	SMP00043	BQM_IS_VERSION_OF	smpdb	Galactose MetabolBQB_ISm
-^Galactose_	model	RDF	GO:0019388	BQM_IS_VERSION_OF	go	galactose catabolic process
-^Galactose_	model	RDF	REACTOME:R-HSA-70370.1	BQM_IS_VERSION_OF	reactome	Galactose catabolBQB_ISm
-^Galactose_	model	RDF	PWY-6317	BQM_IS_VERSION_OF	metacyc	D-galactose degradation I
+^galactose_	model	RDF	9606	BQB_HAS_TAXON	taxonomy	Homo sapiens (Human)
+^galactose_	model	RDF	BTO:0000759	BQB_IS	bto	liver
+^galactose_	model	RDF	UBERON:2107	BQB_IS	uberon	liver
+^galactose_	model	RDF	FMA:7197	BQB_IS	fma	liver
+^galactose_	model	RDF	BTO:0000575	BQB_IS	bto	hepatocyte
+^galactose_	model	RDF	FMA:14515	BQB_IS	fma	hepatocyte
+^galactose_	model	RDF	PW:0000042	BQB_IS_VERSION_OF	pw	galactose metabolic pathway
+^galactose_	model	RDF	map00052	BQB_IS_VERSION_OF	kegg.pathway	Galactose metabolBQB_ISm
+^galactose_	model	RDF	SMP00043	BQB_IS_VERSION_OF	smpdb	Galactose MetabolBQB_ISm
+^galactose_	model	RDF	GO:0019388	BQB_IS_VERSION_OF	go	galactose catabolic process
+^galactose_	model	RDF	REACTOME:R-HSA-70370.1	BQB_IS_VERSION_OF	reactome	Galactose catabolBQB_ISm
+^galactose_	model	RDF	PWY-6317	BQB_IS_VERSION_OF	metacyc	D-galactose degradation I
 						
 # compartment						
 h	compartment	RDF	SBO:0000290	BQB_IS	biomodels.sbo	physical compartment

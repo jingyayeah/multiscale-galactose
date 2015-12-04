@@ -18,6 +18,9 @@
 
 {% macro annotation_xml %}{% if item.isSetAnnotation %}<pre>{{item.getAnnotationString}}</pre>{% endif %}{% endmacro %}
 
+{% macro notes %}{% if item.isSetNotes %}{%autoescape off%}{{item.getNotesString}}{% endautoescape %}{% endif %}{% endmacro %}
+
+
 <!------------------------------------------------------->
 <!--  MODEL 									       -->
 <!------------------------------------------------------->

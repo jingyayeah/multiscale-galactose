@@ -10,22 +10,43 @@
     <!--------------------------------------------------->
     <!-- Model -->
     <!--------------------------------------------------->
-
     <a class="anchor" id="Model"></a>
-    <h4>Model : {{ model.id }}</h4>
-    <table id="table_model" class="table table-condensed table-nonfluid">
-        <tbody>
-        <tr>{% usemacro model %}</tr>
-        </tbody>
+        {% with doc as item %}
+        {% if item.isSetNotes %}
+            {% usemacro notes %}
+            <hr />
+        {% endif %}
+        {% endwith %}
+
+        {% with model as item %}
+        {% if item.isSetNotes %}
+            {% usemacro notes %}
+            <hr />
+        {% endif %}
+        {% endwith %}
+
+    <h1>Model : {{ model.id }}</h1>
+    {{ model.getModelHistory | SBML_modelHistoryToString | safe }}
+    <table id="table_model_annotation" class="table table-condensed table-nonfluid">
+        <tr>
+
+        <td>
+        {% with doc as item %}{% usemacro annotation %}{% endwith %}
+        <br />
+        {% with model as item %}{% usemacro annotation %}{% endwith %}
+        </td>
+        <td>
+            <table id="table_model" class="table table-condensed table-nonfluid">
+            <tbody>
+            <tr>{% usemacro model %}</tr>
+            </tbody>
+            </table>
+        </td>
+        </tr>
     </table>
-    {% if model.getModelHistory %}
-        <table id="table_model" class="table table-condensed table-nonfluid">
-            <tr>
-                <td>{% autoescape off %}{{ model.getModelHistory | SBML_modelHistoryToString }}{% endautoescape %}</td>
-            </tr>
-        </table>
-    {% endif %}
-    <!-- {% with model as item %}{% usemacro annotation %}{% endwith %} -->
+
+
+
 
     <!--------------------------------------------------->
     <!-- FunctionDefinitions -->
