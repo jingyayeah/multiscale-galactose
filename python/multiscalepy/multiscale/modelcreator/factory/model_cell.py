@@ -11,7 +11,7 @@ TODO: the parts which can be reused have to be exported to a BaseClass.
 
 from __future__ import print_function
 
-from libsbml import SBMLDocument, SBMLWriter
+from libsbml import SBMLDocument, SBMLWriter, SBMLNamespaces
 
 from multiscale.modelcreator.annotation import model_history
 from multiscale.modelcreator.factory.model_helper import *
@@ -149,17 +149,23 @@ class CellModel(object):
         return d
 
     def create_sbml(self):
+
         # sbml
-        self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
+        sbmlns = SBMLNamespaces(SBML_LEVEL, SBML_VERSION, "fbc", 2)
+        self.doc = SBMLDocument(sbmlns)
+        self.doc.setPackageRequired("fbc", False)
         self.model = self.doc.createModel()
+        mplugin = self.model.getPlugin("fbc")
+        mplugin.setStrict(False)
+        # name & id
         check(self.model.setId(self.model_id), 'set id')
         check(self.model.setName(self.model_id), 'set name')
-        # set notes
+        # notes
         check(self.model.setNotes(self.notes), 'set notes')
-        # set history
+        # history
         model_history.set_model_history(self.model, self.creators)
 
-        # create the list of content
+        # lists of content
         self.createUnits()
         self.createAllParameters()
         self.createInitialAssignments()

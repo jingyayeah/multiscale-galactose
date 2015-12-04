@@ -173,25 +173,27 @@ class ModelAnnotator(object):
             elements.append(e)
         return elements
 
-
-
     def annotate_components(self, elements, a):
         """ Annotate components. """
         for e in elements:
 
             if a.annotation_type == 'RDF':
                 self.__class__.add_rdf_to_element(e, a.qualifier, a.collection, a.value)
-                # set SBO terms
+                # write SBO terms based on the SBO RDF
                 if a.collection == 'biomodels.sbo':
                     e.setSBOTerm(a.value)
 
-            elif a.annotation_type == 'Formula':
-                # TODO write the formula
-                warnings.warn('Formula setting not implemented.')
-
-            elif a.annotation_type == 'Charge':
-                # TODO write the charge
-                warnings.warn('Charge setting not implemented.')
+            elif a.annotation_type in ['Formula', 'Charge']:
+                # via fbc species plugin, so check that species first
+                if a.sbml_type != 'species':
+                    warnings.warn("Chemical formula or Charge can only be set on species.")
+                else:
+                    s = self.model.getSpecies(e.getId())
+                    splugin = s.getPlugin("fbc")
+                    if a.annotation_type == 'Formula':
+                        splugin.setChemicalFormula(a.value)
+                    else:
+                        splugin.setCharge(int(a.value))
             else:
                 raise AnnotationException('Annotation type not supported: {}'.format(a.annotation_type))
 
