@@ -20,7 +20,7 @@ from Reactions import *
 
 ##############################################################
 mid = 'galactose'
-version = 1
+version = 21
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Human Galactose Metabolism</h1>
@@ -111,6 +111,9 @@ species.update({
     'c__acpt':      ('c', 0.0, 'mM', True),
     'c__acptgal':   ('c', 0.0, 'mM', True),
     'c__acptglc':   ('c', 0.0, 'mM', True),
+    'c__acptgalM':   ('c', 0.0, 'mM', True),
+    'c__acptglcM':   ('c', 0.0, 'mM', True),
+
     'c__h2o':       ('c', 0.0, 'mM', True),
     'c__hydron':    ('c', 0.0, 'mM', True),
     'c__co2':       ('c', 0.0, 'mM', True),
@@ -145,8 +148,17 @@ names.update({
     'ppi': 'pyrophosphate',
     'nadp': 'NADP',
     'nadph': 'NADPH',
+
+    'acpt': 'Acceptor (glc/gal)',
+    'acptglc': 'Acceptor-glucose',
+    'acptgal': 'Acceptor-galactose',
+    'acptglcM': 'Acceptor-glucose M*',
+    'acptgalM': 'Acceptor-galactose M*',
+
     'h2o': 'water',
     'hydron': 'H+',
+    'co2': 'CO2',
+    'o2': 'O2',
     'h2': 'H2'
 })
 

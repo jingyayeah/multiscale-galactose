@@ -91,54 +91,56 @@ def tissue_model():
 
 def galactose_model():
     print("Create galactose model")
+    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'galactose')
+
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.hepatocyte',
                                          'multiscale.modelcreator.models.galactose'])
-    # init model
+    # create sbml model
     cell_model = CellModel(cell_dict=cell_dict)
-
-    # annotations
     cell_model.create_sbml()
-    file_path = sbml_path(cell_model.model_id)
-    cell_model.write_sbml(file_path)
+    f_sbml = os.path.join(directory, '{}.xml'.format(cell_model.model.getId()))
+    cell_model.write_sbml(f_sbml)
+
+    # annotate & validate
+    f_annotations = os.path.join(directory, 'galactose_annotations.csv')
+    f_sbml_annotated = os.path.join(directory, '{}_annotated.xml'.format(cell_model.model_id))
+    annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
+    CellModel.validate_sbml(f_sbml_annotated)
+
     # add model to database
-    db_api.create_model(file_path,
-                        model_format=db_api.CompModelFormat.SBML)
+    db_api.create_model(f_sbml_annotated, model_format=db_api.CompModelFormat.SBML)
 
     return [cell_dict, cell_model]
 
 
 def demo_model():
-
     print("Create demo model")
+    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'galactose')
+
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.demo'])
     # init model
     cell_model = CellModel(cell_dict=cell_dict)
     cell_model.create_sbml()
 
     # file_path = sbml_path(cell_model.model_id)
-    file_path = os.path.join(MULTISCALE_GALACTOSE, 'sbml',
-                             'demo', '{}.xml'.format(cell_model.model.getId()))
-    cell_model.write_sbml(file_path)
+    f_sbml = os.path.join(directory, '{}.xml'.format(cell_model.model.getId()))
+    cell_model.write_sbml(f_sbml)
 
-    if True:
-        # annotate
-        f_annotations = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_annotations.csv')
-        f_sbml_annotated = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo',
-                                        '{}_annotated.xml'.format(cell_model.model_id))
+    # annotate & validate
+    f_annotations = os.path.join(directory, 'galactose_annotations.csv')
+    f_sbml_annotated = os.path.join(directory, '{}_annotated.xml'.format(cell_model.model_id))
 
-        annotate_sbml_file(file_path, f_annotations, f_sbml_annotated)
-        print(f_sbml_annotated)
-        # check the file
-        CellModel.validate_sbml(f_sbml_annotated)
+    annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
+    CellModel.validate_sbml(f_sbml_annotated)
 
-        # add annotated model to database
-        db_api.create_model(f_sbml_annotated,
-                        model_format=db_api.CompModelFormat.SBML)
+    # add annotated model to database
+    db_api.create_model(f_sbml_annotated, model_format=db_api.CompModelFormat.SBML)
 
     return [cell_dict, cell_model]
 
 if __name__ == "__main__":
-    # [cell_dict, cell_model] = galactose_model()
-    [cell_dict, cell_model] = demo_model()
+    # TODO: reusability of code for tests
+    [cell_dict, cell_model] = galactose_model()
+    # [cell_dict, cell_model] = demo_model()
     
 

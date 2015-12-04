@@ -6,7 +6,6 @@ Annotate models from information in annotation csv files.
 Thereby a model can be fully annotated from information
 stored in a separate annotation store.
 """
-# TODO: write SBO terms as SBO terms
 # TODO: general logging for the whole system
 # TODO: check annotations against the MIRIAM info (load miriam info)
 # TODO: check how the meta id is generated & use general mechanism
@@ -18,7 +17,6 @@ import libsbml
 import csv
 import re
 import uuid
-
 
 # create logger
 logger = logging.getLogger('annotation')
@@ -38,7 +36,6 @@ def create_meta_id(sid):
     """ Create meta id. Uniqueness not tested. """
     return 'meta_{}'.format(sid)
 
-
 class AnnotationException(Exception):
     pass
 
@@ -47,7 +44,7 @@ class ModelAnnotation(object):
     """ Class for single annotation, i.e. a single annotation line from a annotation file. """
     _keys = ['pattern', 'sbml_type', 'annotation_type', 'value', 'qualifier', 'collection', 'name']
 
-    _sbml_types = frozenset(["model", "reaction", "transporter", "species",
+    _sbml_types = frozenset(["document", "model", "reaction", "transporter", "species",
                              "compartment", "parameter", "rule"])
 
     _annotation_types = frozenset(["RDF", "Formula", "Charge"])
@@ -98,11 +95,12 @@ class ModelAnnotation(object):
 
 class ModelAnnotator(object):
     """ Helper class for annotating SBML models."""
-    def __init__(self, model, annotations):
-        self.model = model
+    def __init__(self, doc, annotations):
+        self.doc = doc
+        self.model = doc.getModel()
         self.annotations = annotations
         self.id_dict = self.get_ids_from_model()
-        
+
     def get_ids_from_model(self):
         """ Create ids dictionary from the model. """
         # TODO: generic generation
@@ -135,33 +133,60 @@ class ModelAnnotator(object):
         """ Annotates the model with the given annotations. """
         for a in self.annotations:
             pattern = a.pattern
-            # lookup of allowed ids for given sbml type
-            ids = self.id_dict[a.sbml_type]
-            # find the subset of ids matching the pattern
-            pattern_ids = self.__class__.get_matching_ids(ids, pattern)
-            self.annotate_components(pattern_ids, a)
+            if a.sbml_type == "document":
+                elements = [self.doc]
+            else:
+                # lookup of allowed ids for given sbml type
+                ids = self.id_dict[a.sbml_type]
+                # find the subset of ids matching the pattern
+                pattern_ids = self.__class__.get_matching_ids(ids, pattern)
+                elements = self.__class__.elements_from_ids(self.model, pattern_ids)
+            self.annotate_components(elements, a)
 
-    def annotate_components(self, sbml_ids, a):
-        """ Annotate components. """
+
+    @staticmethod
+    def get_matching_ids(ids, pattern):
+        """ Finds the model ids based on the regular expression pattern. """
+        match_ids = []
+        for string in ids:
+            match = re.match(pattern, string)
+            if match:
+                # print 'Match: ', pattern, '<->', string
+                match_ids.append(string)
+        return match_ids
+
+    @staticmethod
+    def elements_from_ids(model, sbml_ids):
+        elements = []
         for sid in sbml_ids:
-            element = self.model.getElementBySId(sid)
-            if element is None:
-                if sid == self.model.getId():
-                    element = self.model
+            e = model.getElementBySId(sid)
+            if e is None:
+                if sid == model.getId():
+                    e = model
                 else:
                     print('Element could not be found: {}'.format(sid))
                     continue
+            elements.append(e)
+        return elements
+
+
+
+    def annotate_components(self, elements, a):
+        """ Annotate components. """
+        for e in elements:
 
             if a.annotation_type == 'RDF':
-                self.__class__.add_rdf_to_element(element, a.qualifier, a.collection, a.value)
+                self.__class__.add_rdf_to_element(e, a.qualifier, a.collection, a.value)
                 # set SBO terms
                 if a.collection == 'biomodels.sbo':
-                    element.setSBOTerm(a.value)
+                    e.setSBOTerm(a.value)
 
             elif a.annotation_type == 'Formula':
+                # TODO
                 warnings.warn('Formula setting not implemented.')
 
             elif a.annotation_type == 'Charge':
+                # TODO
                 warnings.warn('Charge setting not implemented.')
             else:
                 raise AnnotationException('Annotation type not supported: {}'.format(a.annotation_type))
@@ -197,7 +222,6 @@ class ModelAnnotator(object):
             print(libsbml.OperationReturnValue_toString(success))
             print(element, qualifier, collection, entity)
 
-        # TODO: write the SBO terms if an RDF annotation
 
     @staticmethod
     def get_SBMLQualifier(qualifier_str):
@@ -239,18 +263,6 @@ class ModelAnnotator(object):
         return res
 
 
-    @staticmethod
-    def get_matching_ids(ids, pattern):
-        """ Finds the model ids based on the regular expression pattern. """
-        match_ids = []
-        for string in ids:
-            match = re.match(pattern, string)
-            if match:
-                # print 'Match: ', pattern, '<->', string
-                match_ids.append(string)
-        return match_ids
-
-
 def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated, suffix="annotated"):
     """
     Annotate a given SBML file with the provided annotations.
@@ -261,28 +273,27 @@ def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated, suffix="annotate
     """
     # read SBML model
     doc = libsbml.readSBML(f_sbml)
-    model = doc.getModel()
 
     # read annotations
     annotations = ModelAnnotator.annotations_from_file(f_annotations)
 
     # annotate the model
-    annotator = ModelAnnotator(model, annotations)
+    annotator = ModelAnnotator(doc, annotations)
     annotator.annotate_model()
 
     # Update id
     # TODO: necessary ? File name does not have to be model id
     # Handle this better
-    mid = "{}_{}".format(model.getId(), suffix)
-    model.setId(mid)
+    model = doc.getModel()
+    if model:
+        mid = "{}_{}".format(model.getId(), suffix)
+        model.setId(mid)
 
     # Save
     libsbml.writeSBMLToFile(doc, f_sbml_annotated)
 
 
 def test_demo():
-
-
     import os
     from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
 
@@ -295,5 +306,6 @@ def test_demo():
     annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
     print(f_sbml_annotated)
 
+##################################################################################
 if __name__ == "__main__":
     test_demo()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
-  <model metaid="meta_galactose_08" id="galactose_08" name="galactose_08" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole">
+  <model metaid="meta_galactose_21" id="galactose_21" name="galactose_21" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Galactose Metabolism</h1>
@@ -25,7 +25,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_galactose_08">
+    <rdf:Description rdf:about="#meta_galactose_21">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -41,10 +41,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2015-11-27T13:06:53Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2015-12-04T10:06:03Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2015-11-27T13:06:53Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2015-12-04T10:06:03Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -201,11 +201,13 @@
   <compartment id="h" name="hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
   <compartment id="c" name="cytosol" spatialDimensions="3" units="m3" constant="false"/>
   <compartment id="e" name="external" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="m" name="plasma membrane" spatialDimensions="2" units="m2" constant="false"/>
 </listOfCompartments><listOfSpecies>
   <species id="c__ppi" name="pyrophosphate" compartment="c" initialConcentration="0.008" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="e__h2oM" name="water M*" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__glc1p" name="D-glucose 1-phophate" compartment="c" initialConcentration="0.012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__galM" name="D-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="c__acptgal" name="Acceptor-galactose" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="c__acpt" name="Acceptor (glc/gal)" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
   <species id="c__udpgal" name="UDP-D-galactose" compartment="c" initialConcentration="0.11" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__udp" name="UDP" compartment="c" initialConcentration="0.09" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__atp" name="ATP" compartment="c" initialConcentration="2.7" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
@@ -213,19 +215,28 @@
   <species id="e__gal" name="D-galactose" compartment="e" initialConcentration="0.00012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__gal1pM" name="D-galactose 1-phosphate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__gal" name="D-galactose" compartment="c" initialConcentration="0.00012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="c__acptgalM" name="Acceptor-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="c__acptglc" name="Acceptor-glucose" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
   <species id="c__galtolM" name="D-galactitol M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="e__galM" name="D-galactose M*" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="c__o2" name="O2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
   <species id="c__glc6p" name="D-glucose 6-phosphate" compartment="c" initialConcentration="0.12" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__adp" name="ADP" compartment="c" initialConcentration="1.2" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="h__h2oM" name="water M*" compartment="h" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__udpgalM" name="UDP-D-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="c__co2" name="CO2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
   <species id="c__nadp" name="NADP" compartment="c" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="c__hydron" name="H+" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="c__udpgalM" name="UDP-D-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="c__galM" name="D-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__galtol" name="D-galactitol" compartment="c" initialConcentration="0.001" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__nadph" name="NADPH" compartment="c" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__glc6pM" name="D-glucose 6-phosphate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__glc1pM" name="D-glucose 1-phophate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__udpglc" name="UDP-D-glucose" compartment="c" initialConcentration="0.34" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="c__h2o" name="water" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
   <species id="c__gal1p" name="D-galactose 1-phosphate" compartment="c" initialConcentration="0.001" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="c__h2" name="H2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="c__acptglcM" name="Acceptor-glucose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
   <species id="c__udpglcM" name="UDP-D-glucose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="c__phos" name="phosphate" compartment="c" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
 </listOfSpecies><listOfParameters>
@@ -239,6 +250,7 @@
   <parameter id="f_tissue" name="parenchymal fraction of liver" value="0.8" units="dimensionless" constant="true"/>
   <parameter id="Vol_e" name="volume external compartment" units="m3" constant="true"/>
   <parameter id="Vol_c" name="volume cytosol" units="m3" constant="true"/>
+  <parameter id="A_m" name="area plasma membrane" units="m2" constant="true"/>
   <parameter id="Vol_h" name="volume hepatocyte" units="m3" constant="true"/>
   <parameter id="c__gal_tot" units="mM" constant="false"/>
   <parameter id="e__gal_tot" units="mM" constant="false"/>
@@ -406,6 +418,15 @@
       </apply>
     </math>
   </initialAssignment>
+  <initialAssignment symbol="A_m">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> x_cell </ci>
+        <ci> x_cell </ci>
+      </apply>
+    </math>
+  </initialAssignment>
   <initialAssignment symbol="Vol_h">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -430,6 +451,11 @@
   <assignmentRule variable="e">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <ci> Vol_e </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="m">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> A_m </ci>
     </math>
   </assignmentRule>
   <assignmentRule variable="c__gal_tot">
@@ -1559,7 +1585,7 @@
     </math>
   </assignmentRule>
 </listOfRules><listOfReactions>
-  <reaction id="c__GALK" name="Galactokinase [c__]" reversible="true" fast="false">
+  <reaction id="c__GALK" name="Galactokinase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal" stoichiometry="1" constant="true"/>
       <speciesReference species="c__atp" stoichiometry="1" constant="true"/>
@@ -1567,6 +1593,7 @@
     <listOfProducts>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__adp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <listOfModifiers>
       <modifierSpeciesReference species="c__galM"/>
@@ -1598,7 +1625,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALKM" name="Galactokinase M [c__]" reversible="false" fast="false">
+  <reaction id="c__GALKM" name="Galactokinase M [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__galM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__atp" stoichiometry="1" constant="true"/>
@@ -1606,6 +1633,7 @@
     <listOfProducts>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__adp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <listOfModifiers>
       <modifierSpeciesReference species="c__gal"/>
@@ -1637,9 +1665,10 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__IMP" name="Inositol monophosphatase [c__]" reversible="false" fast="false">
+  <reaction id="c__IMP" name="Inositol monophosphatase [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__h2o" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__gal" stoichiometry="1" constant="true"/>
@@ -1662,9 +1691,10 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__IMPM" name="Inositol monophosphatase M [c__]" reversible="false" fast="false">
+  <reaction id="c__IMPM" name="Inositol monophosphatase M [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__h2o" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__galM" stoichiometry="1" constant="true"/>
@@ -1687,13 +1717,15 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__ATPS" name="ATP synthase [c__]" reversible="true" fast="false">
+  <reaction id="c__ATPS" name="ATP synthase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__adp" stoichiometry="1" constant="true"/>
       <speciesReference species="c__phos" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__atp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__h2o" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
@@ -1757,10 +1789,11 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__ALDR" name="Aldose reductase [c__]" reversible="true" fast="false">
+  <reaction id="c__ALDR" name="Aldose reductase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal" stoichiometry="1" constant="true"/>
       <speciesReference species="c__nadph" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__galtol" stoichiometry="1" constant="true"/>
@@ -1796,10 +1829,11 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__ALDRM" name="Aldose reductase M [c__]" reversible="true" fast="false">
+  <reaction id="c__ALDRM" name="Aldose reductase M [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__galM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__nadph" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__galtolM" stoichiometry="1" constant="true"/>
@@ -1835,12 +1869,14 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__NADPR" name="NADP Reductase [c__]" reversible="true" fast="false">
+  <reaction id="c__NADPR" name="NADP Reductase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__nadp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__h2" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__nadph" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
@@ -1881,7 +1917,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALT" name="Galactose-1-phosphate uridyl transferase [c__]" reversible="true" fast="false">
+  <reaction id="c__GALT" name="Galactose-1-phosphate uridyl transferase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
@@ -1940,7 +1976,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALTM1" name="Galactose-1-phosphate uridyl transferase M1 [c__]" reversible="true" fast="false">
+  <reaction id="c__GALTM1" name="Galactose-1-phosphate uridyl transferase M1 [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
@@ -1999,7 +2035,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALTM2" name="Galactose-1-phosphate uridyl transferase M2 [c__]" reversible="true" fast="false">
+  <reaction id="c__GALTM2" name="Galactose-1-phosphate uridyl transferase M2 [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udpglcM" stoichiometry="1" constant="true"/>
@@ -2058,7 +2094,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALTM3" name="Galactose-1-phosphate uridyl transferase M3 [c__]" reversible="true" fast="false">
+  <reaction id="c__GALTM3" name="Galactose-1-phosphate uridyl transferase M3 [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udpglcM" stoichiometry="1" constant="true"/>
@@ -2117,7 +2153,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALE" name="UDP-glucose 4-epimerase [c__]" reversible="true" fast="false">
+  <reaction id="c__GALE" name="UDP-glucose 4-epimerase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2154,7 +2190,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALEM" name="UDP-glucose 4-epimerase M [c__]" reversible="true" fast="false">
+  <reaction id="c__GALEM" name="UDP-glucose 4-epimerase M [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__udpglcM" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2191,10 +2227,11 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__UGP" name="UDP-glucose pyrophosphorylase [c__]" reversible="true" fast="false">
+  <reaction id="c__UGP" name="UDP-glucose pyrophosphorylase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__glc1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__utp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
@@ -2234,10 +2271,11 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__UGPM" name="UDP-glucose pyrophosphorylase M [c__]" reversible="true" fast="false">
+  <reaction id="c__UGPM" name="UDP-glucose pyrophosphorylase M [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__glc1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__utp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__udpglcM" stoichiometry="1" constant="true"/>
@@ -2277,10 +2315,11 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__UGALP" name="UDP-galactose pyrophosphorylase [c__]" reversible="true" fast="false">
+  <reaction id="c__UGALP" name="UDP-galactose pyrophosphorylase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__utp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__udpgal" stoichiometry="1" constant="true"/>
@@ -2320,10 +2359,11 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__UGALPM" name="UDP-galactose pyrophosphorylase M [c__]" reversible="true" fast="false">
+  <reaction id="c__UGALPM" name="UDP-galactose pyrophosphorylase M [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__utp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__udpgalM" stoichiometry="1" constant="true"/>
@@ -2363,12 +2403,14 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__PPASE" name="Pyrophosphatase [c__]" reversible="false" fast="false">
+  <reaction id="c__PPASE" name="Pyrophosphatase [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__ppi" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__h2o" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__phos" stoichiometry="2" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2400,7 +2442,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__NDKU" name="ATP:UDP phosphotransferase [c__]" reversible="true" fast="false">
+  <reaction id="c__NDKU" name="ATP:UDP phosphotransferase [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__atp" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udp" stoichiometry="1" constant="true"/>
@@ -2495,7 +2537,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__PGM1" name="Phosphoglucomutase-1 [c__]" reversible="true" fast="false">
+  <reaction id="c__PGM1" name="Phosphoglucomutase-1 [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__glc1p" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2532,7 +2574,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__PGM1M" name="Phosphoglucomutase-1 M [c__]" reversible="true" fast="false">
+  <reaction id="c__PGM1M" name="Phosphoglucomutase-1 M [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__glc1pM" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2569,12 +2611,15 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GLY" name="Glycolysis [c__]" reversible="true" fast="false">
+  <reaction id="c__GLY" name="Glycolysis [c__]" reversible="true" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__glc6p" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__o2" stoichiometry="5" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__phos" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__co2" stoichiometry="6" constant="true"/>
+      <speciesReference species="c__h2o" stoichiometry="5" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2603,12 +2648,15 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GLYM" name="Glycolysis M [c__]" reversible="false" fast="false">
+  <reaction id="c__GLYM" name="Glycolysis M [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__glc6pM" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__o2" stoichiometry="5" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__phos" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__co2" stoichiometry="6" constant="true"/>
+      <speciesReference species="c__h2o" stoichiometry="5" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2633,12 +2681,15 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GTFGAL" name="Glycosyltransferase galactose [c__]" reversible="false" fast="false">
+  <reaction id="c__GTFGAL" name="Glycosyltransferase galactose [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__udpgal" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__acpt" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__udp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__acptgal" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <listOfModifiers>
       <modifierSpeciesReference species="c__udpgalM"/>
@@ -2657,12 +2708,15 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GTFGALM" name="Glycosyltransferase galactose M [c__]" reversible="false" fast="false">
+  <reaction id="c__GTFGALM" name="Glycosyltransferase galactose M [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__udpgalM" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__acpt" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__udp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__acptgalM" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <listOfModifiers>
       <modifierSpeciesReference species="c__udpgal"/>
@@ -2681,12 +2735,15 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GTFGLC" name="Glycosyltransferase glucose [c__]" reversible="false" fast="false">
+  <reaction id="c__GTFGLC" name="Glycosyltransferase glucose [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__acpt" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__udp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__acptglc" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <listOfModifiers>
       <modifierSpeciesReference species="c__udpglcM"/>
@@ -2705,12 +2762,15 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GTFGLCM" name="Glycosyltransferase glucose M [c__]" reversible="false" fast="false">
+  <reaction id="c__GTFGLCM" name="Glycosyltransferase glucose M [c__]" reversible="false" fast="false" compartment="c">
     <listOfReactants>
       <speciesReference species="c__udpglcM" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__acpt" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
       <speciesReference species="c__udp" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__acptglcM" stoichiometry="1" constant="true"/>
+      <speciesReference species="c__hydron" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <listOfModifiers>
       <modifierSpeciesReference species="c__udpglc"/>
@@ -2729,7 +2789,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="e__H2OM" name="H2O M transport [e__]" reversible="true" fast="false">
+  <reaction id="e__H2OTM" name="H2O M transport [e__]" reversible="true" fast="false" compartment="m">
     <listOfReactants>
       <speciesReference species="e__h2oM" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2754,7 +2814,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="e__GLUT2_GAL" name="galactose transport [e__]" reversible="true" fast="false">
+  <reaction id="e__GLUT2_GAL" name="galactose transport [e__]" reversible="true" fast="false" compartment="m">
     <listOfReactants>
       <speciesReference species="e__gal" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2791,7 +2851,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="e__GLUT2_GALM" name="galactose transport M [e__]" reversible="true" fast="false">
+  <reaction id="e__GLUT2_GALM" name="galactose transport M [e__]" reversible="true" fast="false" compartment="m">
     <listOfReactants>
       <speciesReference species="e__galM" stoichiometry="1" constant="true"/>
     </listOfReactants>
