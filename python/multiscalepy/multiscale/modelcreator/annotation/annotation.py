@@ -106,7 +106,7 @@ class ModelAnnotator(object):
         # TODO: generic generation
         id_dict = dict()
         id_dict['model'] = [self.model.getId()]
-        
+
         lof = self.model.getListOfCompartments()
         if lof:
             id_dict['compartment'] = [item.getId() for item in lof]
@@ -122,6 +122,10 @@ class ModelAnnotator(object):
         lof = self.model.getListOfReactions()
         if lof:
             id_dict['reaction'] = [item.getId() for item in lof]
+
+        lof = self.model.getListOfRules()
+        if lof:
+            id_dict['rule'] = [item.getId() for item in lof]
 
         lof = self.model.getListOfEvents()
         if lof:
@@ -182,11 +186,11 @@ class ModelAnnotator(object):
                     e.setSBOTerm(a.value)
 
             elif a.annotation_type == 'Formula':
-                # TODO
+                # TODO write the formula
                 warnings.warn('Formula setting not implemented.')
 
             elif a.annotation_type == 'Charge':
-                # TODO
+                # TODO write the charge
                 warnings.warn('Charge setting not implemented.')
             else:
                 raise AnnotationException('Annotation type not supported: {}'.format(a.annotation_type))

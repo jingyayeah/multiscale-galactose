@@ -1,18 +1,18 @@
-SBMLId	SBMLType	AnnotationType	AnnotationId	AnnotationQualifier	AnnotationSource	AnnotationName
+pattern	sbml_type	annotation_type	value	qualifier	collection	name
 #model						
-	document	RDF	SBO:0000293	BQM_BQB_IS	biomodels.sbo	non-spatial continuous framework
+	document	RDF	SBO:0000293	BQM_IS	biomodels.sbo	non-spatial continuous framework
 ^Galactose_	model	RDF	9606	BQB_HAS_TAXON	taxonomy	Homo sapiens (Human)
-^Galactose_	model	RDF	BTO:0000759	BQM_BQB_IS	bto	liver
-^Galactose_	model	RDF	UBERON:2107	BQM_BQB_IS	uberon	liver
-^Galactose_	model	RDF	FMA:7197	BQM_BQB_IS	fma	liver
-^Galactose_	model	RDF	BTO:0000575	BQM_BQB_IS	bto	hepatocyte
-^Galactose_	model	RDF	FMA:14515	BQM_BQB_IS	fma	hepatocyte
-^Galactose_	model	RDF	PW:0000042	BQM_BQB_IS_VERSION_OF	pw	galactose metabolic pathway
-^Galactose_	model	RDF	map00052	BQM_BQB_IS_VERSION_OF	kegg.pathway	Galactose metabolBQB_ISm
-^Galactose_	model	RDF	SMP00043	BQM_BQB_IS_VERSION_OF	smpdb	Galactose MetabolBQB_ISm
-^Galactose_	model	RDF	GO:0019388	BQM_BQB_IS_VERSION_OF	go	galactose catabolic process
-^Galactose_	model	RDF	REACTOME:R-HSA-70370.1	BQM_BQB_IS_VERSION_OF	reactome	Galactose catabolBQB_ISm
-^Galactose_	model	RDF	PWY-6317	BQM_BQB_IS_VERSION_OF	metacyc	D-galactose degradation I
+^Galactose_	model	RDF	BTO:0000759	BQM_IS	bto	liver
+^Galactose_	model	RDF	UBERON:2107	BQM_IS	uberon	liver
+^Galactose_	model	RDF	FMA:7197	BQM_IS	fma	liver
+^Galactose_	model	RDF	BTO:0000575	BQM_IS	bto	hepatocyte
+^Galactose_	model	RDF	FMA:14515	BQM_IS	fma	hepatocyte
+^Galactose_	model	RDF	PW:0000042	BQM_IS_VERSION_OF	pw	galactose metabolic pathway
+^Galactose_	model	RDF	map00052	BQM_IS_VERSION_OF	kegg.pathway	Galactose metabolBQB_ISm
+^Galactose_	model	RDF	SMP00043	BQM_IS_VERSION_OF	smpdb	Galactose MetabolBQB_ISm
+^Galactose_	model	RDF	GO:0019388	BQM_IS_VERSION_OF	go	galactose catabolic process
+^Galactose_	model	RDF	REACTOME:R-HSA-70370.1	BQM_IS_VERSION_OF	reactome	Galactose catabolBQB_ISm
+^Galactose_	model	RDF	PWY-6317	BQM_IS_VERSION_OF	metacyc	D-galactose degradation I
 						
 # compartment						
 h	compartment	RDF	SBO:0000290	BQB_IS	biomodels.sbo	physical compartment
@@ -40,7 +40,7 @@ e	compartment	RDF	FMA:70022	BQB_IS	fma	extracellular space
 ^\w+_ki_\w+$	parameter	RDF	SBO:0000261	BQB_IS	biomodels.sbo	inhibitory constant
 						
 # reactions						
-^\w+__H20TM$	reaction	RDF	SBO:0000185	BQB_IS	biomodels.sbo	transport reaction
+^\w+__H2OTM$	reaction	RDF	SBO:0000185	BQB_IS	biomodels.sbo	transport reaction
 						
 ^\w+__GLUT2_GAL$	reaction	RDF	SBO:0000185	BQB_IS	biomodels.sbo	transport reaction
 ^\w+__GLUT2_GAL$	reaction	RDF	P11168	BQB_IS	uniprot	Solute carrier family 2, facilitated glucose transporter member 2
@@ -57,16 +57,16 @@ e	compartment	RDF	FMA:70022	BQB_IS	fma	extracellular space
 ^\w+__GALK\w{0,1}$	reaction	RDF	13556	BQB_IS	rhea	
 ^\w+__GALK\w{0,1}$	reaction	RDF	REACTOME:R-HSA-70355.1	BQB_IS	reactome	
 ^\w+__GALK\w{0,1}$	reaction	RDF	230200	BQB_HAS_PROPERTY	omim	
-^\w+__GALK\w{0,1}$	reaction	RDF	12694189	BQB_BQB_IS_DESCRIBED_BY	pubmed	Timson2003
+^\w+__GALK\w{0,1}$	reaction	RDF	12694189	BQB_IS_DESCRIBED_BY	pubmed	Timson2003
 						
 GALK_kcat	parameter	RDF	14785	BQB_IS	sabiork.kineticrecord	
-GALK_kcat	parameter	RDF	12694189	BQB_BQB_IS_DESCRIBED_BY	pubmed	Timson2003
+GALK_kcat	parameter	RDF	12694189	BQB_IS_DESCRIBED_BY	pubmed	Timson2003
 GALK_k_atp	parameter	RDF	14792	BQB_IS	sabiork.kineticrecord	
-GALK_k_atp	parameter	RDF	12694189	BQB_BQB_IS_DESCRIBED_BY	pubmed	Timson2003
+GALK_k_atp	parameter	RDF	12694189	BQB_IS_DESCRIBED_BY	pubmed	Timson2003
 GALK_k_gal	parameter	RDF	14785	BQB_IS	sabiork.kineticrecord	
-GALK_k_gal	parameter	RDF	12694189	BQB_BQB_IS_DESCRIBED_BY	pubmed	Timson2003
+GALK_k_gal	parameter	RDF	12694189	BQB_IS_DESCRIBED_BY	pubmed	Timson2003
 GALK_k_gal	parameter	RDF	45367	BQB_IS	sabiork.kineticrecord	
-GALK_k_gal	parameter	RDF	15024738	BQB_BQB_IS_DESCRIBED_BY	pubmed	Sangiuolo2004
+GALK_k_gal	parameter	RDF	15024738	BQB_IS_DESCRIBED_BY	pubmed	Sangiuolo2004
 						
 ^\w+__IMP\w{0,1}$	reaction	RDF	SBO:0000176	BQB_IS	biomodels.sbo	biochemical reaction
 ^\w+__IMP\w{0,1}$	reaction	RDF	3.1.3.25	BQB_IS	ec-code	
@@ -104,9 +104,9 @@ GALE_k_udpgal	parameter	RDF	46263	BQB_IS	sabiork.kineticrecord
 						
 ^\w+__ALDR\w{0,1}$	reaction	RDF	SBO:0000176	BQB_IS	biomodels.sbo	biochemical reaction
 ^\w+__ALDR\w{0,1}$	reaction	RDF	1.1.1.21	BQB_IS	ec-code	
-^\w+__ALDR\w{0,1}$	reaction	RDF	37967	BQB_BQB_IS_VERSION_OF	rhea	
-^\w+__ALDR\w{0,1}$	reaction	RDF	R01095	BQB_BQB_IS_VERSION_OF	kegg.reaction	
-^\w+__ALDR\w{0,1}$	reaction	RDF	P15121	BQB_BQB_IS_VERSION_OF	uniprot	
+^\w+__ALDR\w{0,1}$	reaction	RDF	37967	BQB_IS_VERSION_OF	rhea	
+^\w+__ALDR\w{0,1}$	reaction	RDF	R01095	BQB_IS_VERSION_OF	kegg.reaction	
+^\w+__ALDR\w{0,1}$	reaction	RDF	P15121	BQB_IS_VERSION_OF	uniprot	
 ALDR_k_gal	parameter	RDF	22893	BQB_IS	sabiork.kineticrecord	
 ALDR_kcat	parameter	RDF	22893	BQB_IS	sabiork.kineticrecord	
 ALDR_k_gal	parameter	RDF	15695	BQB_IS	sabiork.kineticrecord	
@@ -138,10 +138,10 @@ ALDR_k_gal	parameter	RDF	15695	BQB_IS	sabiork.kineticrecord
 ^\w+__ATPS$	reaction	RDF	SBO:0000176	BQB_IS	biomodels.sbo	biochemical reaction
 ^\w+__ATPS$	reaction	RDF	R00086	BQB_IS	kegg.reaction	
 ^\w+__ATPS$	reaction	RDF	13068	BQB_IS	rhea	
-				BQB_BQB_IS_VERSION_OF		
+#				BQB_IS_VERSION_OF		
 						
 ^\w+__GLY\w{0,1}$	reaction	RDF	SBO:0000176	BQB_IS	biomodels.sbo	biochemical reaction
-				BQB_BQB_IS_VERSION_OF		
+#				BQB_IS_VERSION_OF		
 						
 ^\w+__GTFGAL\w{0,1}$	reaction	RDF	SBO:0000176	BQB_IS	biomodels.sbo	biochemical reaction
 						
@@ -160,87 +160,87 @@ ALDR_k_gal	parameter	RDF	15695	BQB_IS	sabiork.kineticrecord
 ^\w+__gal\w{0,1}$	species	Formula	C6H12O6			
 ^\w+__gal\w{0,1}$	species	Charge	0			
 						
-^\w+__glc1p$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^\w+__glc1p$	species	RDF	CHEBI:58601	BQB_IS	chebi	alpha-D-glucose 1-phosphate
-^\w+__glc1p$	species	RDF	C00103	BQB_IS	kegg.compound	D-Glucose 1-phosphate
-^\w+__glc1p$	species	Formula	C6H11O9P			
-^\w+__glc1p$	species	Charge	-2			
+^\w+__glc1p\w{0,1}$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^\w+__glc1p\w{0,1}$	species	RDF	CHEBI:58601	BQB_IS	chebi	alpha-D-glucose 1-phosphate
+^\w+__glc1p\w{0,1}$	species	RDF	C00103	BQB_IS	kegg.compound	D-Glucose 1-phosphate
+^\w+__glc1p\w{0,1}$	species	Formula	C6H11O9P			
+^\w+__glc1p\w{0,1}$	species	Charge	-2			
 						
-^\w+__glc6p$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^\w+__glc6p$	species	RDF	CHEBI:58225	BQB_IS	chebi	alpha-D-glucose 6-phosphate(2-)
-^\w+__glc6p$	species	RDF	C00668	BQB_BQB_IS_VERSION_OF	kegg.compound	alpha-D-Glucose 6-phosphate
-^\w+__glc6p$	species	Formula	C6H11O9P			
-^\w+__glc6p$	species	Charge	-2			
+^\w+__glc6p\w{0,1}$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^\w+__glc6p\w{0,1}$	species	RDF	CHEBI:58225	BQB_IS	chebi	alpha-D-glucose 6-phosphate(2-)
+^\w+__glc6p\w{0,1}$	species	RDF	C00668	BQB_IS_VERSION_OF	kegg.compound	alpha-D-Glucose 6-phosphate
+^\w+__glc6p\w{0,1}$	species	Formula	C6H11O9P			
+^\w+__glc6p\w{0,1}$	species	Charge	-2			
 						
-^\w+__gal1p$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^\w+__gal1p$	species	RDF	CHEBI:58336	BQB_IS	chebi	alpha-D-galactose 1-phosphate(2-)
-^\w+__gal1p$	species	RDF	C00446	BQB_BQB_IS_VERSION_OF	kegg.compound	alpha-D-Galactose 1-phosphate
-^\w+__gal1p$	species	Formula	C6H11O9P			
-^\w+__gal1p$	species	Charge	-2			
+^\w+__gal1p\w{0,1}$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^\w+__gal1p\w{0,1}$	species	RDF	CHEBI:58336	BQB_IS	chebi	alpha-D-galactose 1-phosphate(2-)
+^\w+__gal1p\w{0,1}$	species	RDF	C00446	BQB_IS_VERSION_OF	kegg.compound	alpha-D-Galactose 1-phosphate
+^\w+__gal1p\w{0,1}$	species	Formula	C6H11O9P			
+^\w+__gal1p\w{0,1}$	species	Charge	-2			
 						
-^\w+__udpglc$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^\w+__udpglc$	species	RDF	CHEBI:58885	BQB_IS	chebi	UDP-alpha-D-glucose(2-)
-^\w+__udpglc$	species	RDF	C00029	BQB_BQB_IS_VERSION_OF	kegg.compound	UDP-glucose
-^\w+__udpglc$	species	Formula	C15H22N2O17P2			
-^\w+__udpglc$	species	Charge	-2			
+^\w+__udpglc\w{0,1}$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^\w+__udpglc\w{0,1}$	species	RDF	CHEBI:58885	BQB_IS	chebi	UDP-alpha-D-glucose(2-)
+^\w+__udpglc\w{0,1}$	species	RDF	C00029	BQB_IS_VERSION_OF	kegg.compound	UDP-glucose
+^\w+__udpglc\w{0,1}$	species	Formula	C15H22N2O17P2			
+^\w+__udpglc\w{0,1}$	species	Charge	-2			
 						
-^\w+__udpgal$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^\w+__udpgal$	species	RDF	CHEBI:66914	BQB_IS	chebi	UDP-alpha-D-galactose(2-)
-^\w+__udpgal$	species	RDF	C00052	BQB_BQB_IS_VERSION_OF	kegg.compound	UDP-alpha-D-galactose
-^\w+__udpgal$	species	Formula	C15H22N2O17P2			
-^\w+__udpgal$	species	Charge	-2			
+^\w+__udpgal\w{0,1}$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^\w+__udpgal\w{0,1}$	species	RDF	CHEBI:66914	BQB_IS	chebi	UDP-alpha-D-galactose(2-)
+^\w+__udpgal\w{0,1}$	species	RDF	C00052	BQB_IS_VERSION_OF	kegg.compound	UDP-alpha-D-galactose
+^\w+__udpgal\w{0,1}$	species	Formula	C15H22N2O17P2			
+^\w+__udpgal\w{0,1}$	species	Charge	-2			
 						
-^\w+__galtol$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^\w+__galtol$	species	RDF	CHEBI:16813	BQB_IS	chebi	galactitol
-^\w+__galtol$	species	RDF	C01697	BQB_IS	kegg.compound	Galactitol
-^\w+__galtol$	species	Formula	C6H14O6			
-^\w+__galtol$	species	Charge	0			
+^\w+__galtol\w{0,1}$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^\w+__galtol\w{0,1}$	species	RDF	CHEBI:16813	BQB_IS	chebi	galactitol
+^\w+__galtol\w{0,1}$	species	RDF	C01697	BQB_IS	kegg.compound	Galactitol
+^\w+__galtol\w{0,1}$	species	Formula	C6H14O6			
+^\w+__galtol\w{0,1}$	species	Charge	0			
 						
 ^\w+__atp$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__atp$	species	RDF	CHEBI:30616	BQB_IS	chebi	ATP(4-)
-^\w+__atp$	species	RDF	C00002	BQB_BQB_IS_VERSION_OF	kegg.compound	ATP
+^\w+__atp$	species	RDF	C00002	BQB_IS_VERSION_OF	kegg.compound	ATP
 ^\w+__atp$	species	Formula	C10H12N5O13P3			
 ^\w+__atp$	species	Charge	-4			
 						
 ^\w+__adp$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__adp$	species	RDF	CHEBI:456216	BQB_IS	chebi	ADP(3-)
-^\w+__adp$	species	RDF	C00008	BQB_BQB_IS_VERSION_OF	kegg.compound	ADP
+^\w+__adp$	species	RDF	C00008	BQB_IS_VERSION_OF	kegg.compound	ADP
 ^\w+__adp$	species	Formula	C10H12N5O10P2			
 ^\w+__adp$	species	Charge	-3			
 						
 ^\w+__utp$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__utp$	species	RDF	CHEBI:46398	BQB_IS	chebi	UTP(4-)
-^\w+__utp$	species	RDF	C00075	BQB_BQB_IS_VERSION_OF	kegg.compound	UTP
+^\w+__utp$	species	RDF	C00075	BQB_IS_VERSION_OF	kegg.compound	UTP
 ^\w+__utp$	species	Formula	C9H11N2O15P3			
 ^\w+__utp$	species	Charge	-4			
 						
 ^\w+__udp$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__udp$	species	RDF	CHEBI:58223	BQB_IS	chebi	UDP(3-)
-^\w+__udp$	species	RDF	C00015	BQB_BQB_IS_VERSION_OF	kegg.compound	UDP
+^\w+__udp$	species	RDF	C00015	BQB_IS_VERSION_OF	kegg.compound	UDP
 ^\w+__udp$	species	Formula	C9H11N2O12P2			
 ^\w+__udp$	species	Charge	-3			
 						
 ^\w+__phos$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__phos$	species	RDF	CHEBI:43474	BQB_IS	chebi	hydrogenphosphate
-^\w+__phos$	species	RDF	C00009	BQB_BQB_IS_VERSION_OF	kegg.compound	Phosphate
+^\w+__phos$	species	RDF	C00009	BQB_IS_VERSION_OF	kegg.compound	Phosphate
 ^\w+__phos$	species	Formula	HO4P			
 ^\w+__phos$	species	Charge	-2			
 						
 ^\w+__ppi$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__ppi$	species	RDF	CHEBI:33019	BQB_IS	chebi	diphosphate(3-)
-^\w+__ppi$	species	RDF	C00013	BQB_BQB_IS_VERSION_OF	kegg.compound	Diphosphate
+^\w+__ppi$	species	RDF	C00013	BQB_IS_VERSION_OF	kegg.compound	Diphosphate
 ^\w+__ppi$	species	Formula	HO7P2			
 ^\w+__ppi$	species	Charge	-3			
 						
 ^\w+__nadp$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__nadp$	species	RDF	CHEBI:58349	BQB_IS	chebi	NADP(3-)
-^\w+__nadp$	species	RDF	C00006	BQB_BQB_IS_VERSION_OF	kegg.compound	NADP+
+^\w+__nadp$	species	RDF	C00006	BQB_IS_VERSION_OF	kegg.compound	NADP+
 ^\w+__nadp$	species	Formula	C21H25N7O17P3			
 ^\w+__nadp$	species	Charge	-3			
 						
 ^\w+__nadph$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__nadph$	species	RDF	CHEBI:57783	BQB_IS	chebi	NADPH(4-)
-^\w+__nadph$	species	RDF	C00005	BQB_BQB_IS_VERSION_OF	kegg.compound	NADPH
+^\w+__nadph$	species	RDF	C00005	BQB_IS_VERSION_OF	kegg.compound	NADPH
 ^\w+__nadph$	species	Formula	C21H26N7O17P3			
 ^\w+__nadph$	species	Charge	-4			
 						
@@ -262,11 +262,11 @@ ALDR_k_gal	parameter	RDF	15695	BQB_IS	sabiork.kineticrecord
 ^\w+__suc$	species	Formula	C12H22O11			
 ^\w+__suc$	species	Charge	0			
 						
-^\w+__h2o$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^\w+__h2o$	species	RDF	CHEBI:15377	BQB_IS	chebi	water
-^\w+__h2o$	species	RDF	C00001	BQB_IS	kegg.compound	H2O
-^\w+__h2o$	species	Formula	H2O			
-^\w+__h2o$	species	Charge	0			
+^\w+__h2o\w{0,1}$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^\w+__h2o\w{0,1}$	species	RDF	CHEBI:15377	BQB_IS	chebi	water
+^\w+__h2o\w{0,1}$	species	RDF	C00001	BQB_IS	kegg.compound	H2O
+^\w+__h2o\w{0,1}$	species	Formula	H2O			
+^\w+__h2o\w{0,1}$	species	Charge	0			
 						
 ^\w+__hydron$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^\w+__hydron$	species	RDF	CHEBI:15378	BQB_IS	chebi	hydron
@@ -301,11 +301,9 @@ ALDR_k_gal	parameter	RDF	15695	BQB_IS	sabiork.kineticrecord
 c__alb	species	RDF	SBO:0000252	BQB_IS	biomodels.sbo	polypeptide chain
 c__alb	species	RDF	P02768	BQB_IS	uniprot	serum albumin
 						
-						
-						
 # rules						
-^\w+__nadp_bal$	rule	RDF	SBO:0000362	BQB_IS	biomodels.sbo	concentration conservation law
-^\w+__adp_bal$	rule	RDF	SBO:0000362	BQB_IS	biomodels.sbo	concentration conservation law
-^\w+__udp_bal$	rule	RDF	SBO:0000362	BQB_IS	biomodels.sbo	concentration conservation law
-^\w+__phos_bal$	rule	RDF	SBO:0000362	BQB_IS	biomodels.sbo	concentration conservation law
+^\w+__nadp_bal$	rule	RDF	SBO:0000196	BQB_IS	biomodels.sbo	concentration of an entity pool
+^\w+__adp_bal$	rule	RDF	SBO:0000196	BQB_IS	biomodels.sbo	concentration of an entity pool
+^\w+__udp_bal$	rule	RDF	SBO:0000196	BQB_IS	biomodels.sbo	concentration of an entity pool
+^\w+__phos_bal$	rule	RDF	SBO:0000196	BQB_IS	biomodels.sbo	concentration of an entity pool
 
