@@ -4,12 +4,11 @@ Django template filters related to the rendering of SBML.
 
 import libsbml
 from django import template
+from multiscale.modelcreator.sbml import SBMLUtils
+
 register = template.Library()
 
-from multiscale.modelcreator.sbml.SBMLUtils import BiologcialQualifierType, ModelQualifierType
-
 class AnnotationHTML():
-
 
     @classmethod
     def annotation_to_html(cls, item):
@@ -19,9 +18,9 @@ class AnnotationHTML():
             cv = item.getCVTerm(kcv)
             q_type = cv.getQualifierType()
             if q_type == 0:
-                qualifier = ModelQualifierType[cv.getModelQualifierType()]
+                qualifier = SBMLUtils.ModelQualifierType[cv.getModelQualifierType()]
             elif q_type == 1:
-                qualifier = BiologcialQualifierType[cv.getBiologicalQualifierType()]
+                qualifier = SBMLUtils.BiologcialQualifierType[cv.getBiologicalQualifierType()]
             items.append(''.join(['<b>', qualifier, '</b>']))
 
             for k in xrange(cv.getNumResources()):
@@ -138,23 +137,23 @@ def modelHistoryToString(mhistory):
     if not mhistory:
         return ""
     items = []
+    items.append('<b>Creator</b>')
     for kc in xrange(mhistory.getNumCreators()):
+        cdata = []
         c = mhistory.getCreator(kc)
-        items.append('<b>Creator</b>')
         if c.isSetGivenName():
-            items.append(c.getGivenName())
+            cdata.append(c.getGivenName())
         if c.isSetFamilyName():
-            items.append(c.getFamilyName())
+            cdata.append(c.getFamilyName())
         if c.isSetOrganisation():
-            items.append(c.getOrganisation())
+            cdata.append(c.getOrganisation())
         if c.isSetEmail():
-            items.append(c.getEmail())
-    items.append('<br />')
+            cdata.append('<a href="mailto:{}" target="_blank">{}</a>'.format(c.getEmail(), c.getEmail()))
+        items.append(", ".join(cdata))
     if mhistory.isSetCreatedDate():
         items.append('<b>Created:</b> ' + dateToString(mhistory.getCreatedDate()))
     for km in xrange(mhistory.getNumModifiedDates()):
         items.append('<b>Modified:</b> ' + dateToString(mhistory.getModifiedDate(km)))
-    
     items.append('<br />')
     return "<br />".join(items)
 
