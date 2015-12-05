@@ -11,16 +11,15 @@ TODO: the parts which can be reused have to be exported to a BaseClass.
 
 from __future__ import print_function
 
-from libsbml import SBMLDocument, SBMLWriter, SBMLNamespaces
+from libsbml import SBMLDocument, SBMLNamespaces
+from multiscale.modelcreator.sbmlutils.factory import *
+from ..sbmlutils.io import check, write_sbml
 
-from ..annotation import model_history
-from ..factory.model_helper import *
+from multiscale.sbmlutils.annotation import model_history
+from ..modelcreator_settings import PROGRAM_NAME, PROGRAM_VERSION
 from ..processes.ReactionFactory import *
 from ..processes.ReactionTemplate import ReactionTemplate
-from ..sbml.SBMLUtils import check
-from ..sbml.SBMLValidator import SBMLValidator
-from ..tools import naming
-from ..modelcreator_settings import PROGRAM_NAME, PROGRAM_VERSION
+from ..utils import naming
 
 
 class CellModel(object):
@@ -151,7 +150,7 @@ class CellModel(object):
 
     def create_sbml(self):
 
-        # sbml
+        # sbmlutils
         sbmlns = SBMLNamespaces(SBML_LEVEL, SBML_VERSION, "fbc", 2)
         self.doc = SBMLDocument(sbmlns)
         self.doc.setPackageRequired("fbc", False)
@@ -182,26 +181,9 @@ class CellModel(object):
         self.createSimulationEvents()
         """
 
-    def write_sbml(self, filepath, validate=True):
-        """ Write SBML to file. """
-        # TODO: use logging instead
-        print('Write : {}\n'.format(self.model_id, filepath))
-        writer = SBMLWriter()
-        writer.setProgramName(PROGRAM_NAME)
-        writer.setProgramVersion(PROGRAM_VERSION)
-        writer.writeSBMLToFile(self.doc, filepath)
-
-        # validate the model with units (only for small models)
-        if validate:
-            # ucheck=(self.Nc < 4)
-            self.__class__.validate_sbml(filepath)
-
-        return filepath
-
-    @classmethod
-    def validate_sbml(cls, filepath, ucheck=True):
-        validator = SBMLValidator(ucheck=ucheck)
-        validator.validate(filepath)
+    def write_sbml(self, filepath):
+        write_sbml(self.doc, filepath, validate=True,
+                   program_name=PROGRAM_NAME, program_version=PROGRAM_VERSION)
 
     def addName(self, d):
         """ Looks up name of the id and adds to dictionary.

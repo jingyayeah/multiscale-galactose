@@ -9,7 +9,7 @@ from __future__ import print_function
 import os
 import copy
 
-import multiscale.modelcreator.tools.naming as naming
+import multiscale.modelcreator.utils.naming as naming
 import multiscale.analysis.galactose.settings as settings
 import multiscale.odesim.simulate.roadrunner_tools as rt
 
@@ -81,7 +81,7 @@ for ps in parameters_list:
 # ----------------------------------------------------------------------
 # Print maximum values of the dilution peaks
 # ----------------------------------------------------------------------
-from multiscale.modelcreator.tools import naming
+from multiscale.modelcreator.utils import naming
 from multiscale.analysis.galactose import misc_tools
 reload(misc_tools)
 

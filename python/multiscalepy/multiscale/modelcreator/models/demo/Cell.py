@@ -13,7 +13,7 @@ notes = XMLNode.convertStringToXMLNode("""
     <h1>Koenig Demo Metabolism</h1>
     <h2>Description</h2>
     <p>This is a demonstration model in
-    <a href="http://sbml.org" target="_blank" title="Access the definition of the SBML file format.">
+    <a href="http://sbmlutils.org" target="_blank" title="Access the definition of the SBML file format.">
     SBML</a>&#160;format.
     </p>
       <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>

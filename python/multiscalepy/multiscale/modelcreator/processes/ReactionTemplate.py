@@ -4,12 +4,15 @@ TODO: handle the compartment initialization (comp?)
 
 """
 from __future__ import print_function
+
 import warnings
+
 import libsbml
-from ..sbml.SBMLUtils import check
-from ..factory.model_helper import _createParameter, createAssignmentRules, getUnitString
-from ..tools.equation import Equation
-from ..tools.naming import initString
+from multiscale.modelcreator.sbmlutils.factory import _createParameter, createAssignmentRules, getUnitString
+from ..sbmlutils.io import check
+
+from multiscale.sbmlutils.equation import Equation
+from ..utils.naming import initString
 
 
 class ReactionTemplate(object):

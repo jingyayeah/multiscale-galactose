@@ -31,7 +31,7 @@ sudo -E pip install scipy --upgrade
 echo "pull roadrunner repository"
 cd $GIT_DIR
 if [ -d "$ROADRUNNER" ]; then
-	cd ${GIT_DIR}/roadrunner
+	cd ${GIT_DIR}/$ROADRUNNER
 	git pull
 else
 	git clone https://github.com/sys-bio/roadrunner.git $ROADRUNNER
@@ -39,26 +39,37 @@ else
 fi
 # checkout release tag or version to build
 # git tag -l
-git checkout tags/1.4.1
-# git checkout develop
+# git checkout tags/1.4.1
+git checkout develop
 
 # create build folders
-# TODO: clean the old build files
-echo "build roadrunner"
+echo "build roadrunner third party dependencies"
 ROADRUNNER_INSTALL=$TMP_DIR/roadrunner_install
 ROADRUNNER_BUILD=$TMP_DIR/roadrunner_build
 ROADRUNNER_BUILD_THIRDPARTY=$TMP_DIR/roadrunner_build_thirdparty
+
+# clean install directory
+sudo rm -rf $ROADRUNNER_INSTALL
 mkdir $ROADRUNNER_INSTALL
-mkdir $ROADRUNNER_BUILD
-mkdir $ROADRUNNER_BUILD_THIRDPARTY
 
 # build the third party libraries
+git checkout tags/1.4.1
+
+rm -rf $ROADRUNNER_BUILD_THIRDPARTY
+mkdir $ROADRUNNER_BUILD_THIRDPARTY
 cd $ROADRUNNER_BUILD_THIRDPARTY
-cmake -DCMAKE_INSTALL_PREFIX=$ROADRUNNER_INSTALL ${GIT_DIR}/roadrunner/third_party && make -j4 install
+cmake -DCMAKE_INSTALL_PREFIX=$ROADRUNNER_INSTALL ${GIT_DIR}/$ROADRUNNER/third_party && make -j4 install
+
 
 # build roadrunner
+cd ${GIT_DIR}/$ROADRUNNER
+git checkout develop
+read -p "Press any key to continue ..."
+
+rm -rf $ROADRUNNER_BUILD
+mkdir $ROADRUNNER_BUILD
 cd $ROADRUNNER_BUILD
-cmake -DCMAKE_INSTALL_PREFIX=$ROADRUNNER_INSTALL -DTHIRD_PARTY_INSTALL_FOLDER=$ROADRUNNER_INSTALL -DBUILD_LLVM=ON -DBUILD_PYTHON=ON -DUSE_TR1_CXX_NS=ON -DBUILD_TESTS=ON -DBUILD_TEST_TOOLS=ON ${GIT_DIR}/roadrunner
+cmake -DCMAKE_INSTALL_PREFIX=$ROADRUNNER_INSTALL -DTHIRD_PARTY_INSTALL_FOLDER=$ROADRUNNER_INSTALL -DBUILD_LLVM=ON -DBUILD_PYTHON=ON -DUSE_TR1_CXX_NS=ON -DBUILD_TESTS=ON -DBUILD_TEST_TOOLS=ON ${GIT_DIR}/$ROADRUNNER
 make
 make install
 

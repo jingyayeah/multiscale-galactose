@@ -16,7 +16,7 @@ from __future__ import print_function
 import matplotlib.pylab as plt
 import pandas as pd
 from multiscale.analysis.galactose.id_tools import get_ids_from_selection
-from multiscale.modelcreator.tools import naming
+from multiscale.modelcreator.utils import naming
 
 def print_plot_heading(text):
     print('#'*80)

@@ -3,7 +3,7 @@ Test naming.
 """
 
 import unittest
-from multiscale.modelcreator.tools.naming import *
+from multiscale.modelcreator.utils.naming import *
 
 class TestNaming(unittest.TestCase):
     """ Unit tests for naming. """

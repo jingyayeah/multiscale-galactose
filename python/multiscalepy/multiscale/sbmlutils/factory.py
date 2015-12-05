@@ -5,9 +5,10 @@ These functions are called with the information dictionaries
 during the generation of cell and tissue model.
 """
 from __future__ import print_function
+
+import warnings
 import libsbml
 from libsbml import UNIT_KIND_DIMENSIONLESS, UnitKind_toString
-import warnings
 
 SBML_LEVEL = 3
 SBML_VERSION = 1

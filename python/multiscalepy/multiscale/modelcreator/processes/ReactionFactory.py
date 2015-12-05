@@ -2,7 +2,7 @@
 Factory methods for the creation of flow and diffusion reactions.
 """
 
-from multiscale.modelcreator.tools.naming import *
+from multiscale.modelcreator.utils.naming import *
 from ReactionTemplate import setKineticLaw
 
 def createFlowReaction(model, sid, c_from, c_to, flow):

@@ -5,12 +5,15 @@ TODO: update the annoation tests.
 """
 
 from __future__ import print_function
+
 import os
-import unittest
 import tempfile
+import unittest
+
 import libsbml
+
 from multiscale.examples.testdata import test_dir
-from multiscale.modelcreator.annotation.annotation import annotate_sbml_file, ModelAnnotation, ModelAnnotator
+from multiscale.sbmlutils.annotation import annotate_sbml_file, ModelAnnotation, ModelAnnotator
 
 
 class TestAnnotation(unittest.TestCase):

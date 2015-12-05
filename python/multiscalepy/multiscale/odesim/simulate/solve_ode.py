@@ -43,7 +43,7 @@ def solve_roadrunner(simulations):
     # use the integration settings (adapt absTol to amounts)
     settings = simulations[0].task.method.get_settings_dict()
 
-    # sbml
+    # sbmlutils
     sbml_id = comp_model.model_id
     for sim in simulations:
         _solve_roadrunner_single(rr, sbml_id, sim, settings=settings)

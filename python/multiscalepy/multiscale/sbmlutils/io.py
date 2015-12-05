@@ -1,8 +1,10 @@
 """
 Utility objects and methods for the work with SBML.
 """
-import sys
 from libsbml import *
+from .validation import SBMLValidator
+
+### QUALIFIER ##########################################################################################################
 
 # from libsbmlconstants
 QualifierType = {
@@ -37,16 +39,8 @@ BiologcialQualifierType = {
   13: "BQB_UNKNOWN",
 }
 
+### MODEL CHECKING #####################################################################################################
 
-def createSBMLFileNameFromModelId(modelId, folder):
-    return folder + '/' + modelId + '.xml'
-    
-def writeModelToSBML(model, filename):
-    writer = SBMLWriter()
-    doc = SBMLDocument()
-    doc.setModel(model)
-    writer.writeSBMLToFile(doc, filename)
-    
 def check(value, message):
     """If 'value' is None, prints an error message constructed using
       'message' and then exits with status code 1. If 'value' is an integer,
@@ -70,5 +64,39 @@ def check(value, message):
             sys.exit(1)
     else:
         return
+
+def validate_sbml(sbml_file, ucheck=True):
+    validator = SBMLValidator(ucheck=ucheck)
+    return validator.validate(sbml_file)
+
+
+### MODEL IO ###########################################################################################################
+
+def write_sbml(doc, sbml_file, validate=True, program_name=None, program_version=None):
+    """ Write SBML to file. """
+    writer = SBMLWriter()
+    if program_name:
+        writer.setProgramName(program_name)
+    if program_version:
+        writer.setProgramVersion(program_version)
+    writer.writeSBMLToFile(doc, sbml_file)
+
+    # validate the model with units (only for small models)
+    if validate:
+        validate_sbml(sbml_file)
+
+
+def writeModelToSBML(model, filename):
+    writer = SBMLWriter()
+    doc = SBMLDocument()
+    doc.setModel(model)
+    writer.writeSBMLToFile(doc, filename)
+
+
+def createSBMLFileNameFromModelId(modelId, folder):
+    return folder + '/' + modelId + '.xml'
+
+########################################################################################################################
+
 
 

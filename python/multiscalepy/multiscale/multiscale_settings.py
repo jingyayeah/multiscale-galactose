@@ -24,7 +24,7 @@ COMPUTERS = {'10.39.34.27': 'core',
              '127.0.0.1': 'localhost'}
 
 def sbml_path(model_id):
-    """ For storing sbml files. """
+    """ For storing sbmlutils files. """
     if not os.path.exists(SBML_DIR):
         os.makedirs(SBML_DIR)
     return os.path.join(SBML_DIR, '{}.xml'.format(model_id))

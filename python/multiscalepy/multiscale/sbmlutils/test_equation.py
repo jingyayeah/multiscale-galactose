@@ -3,7 +3,9 @@ Test the equations.
 """
 
 import unittest
-from multiscale.modelcreator.tools.equation import Equation, REV_SEP
+
+from multiscale.sbmlutils.equation import Equation, REV_SEP
+
 
 class TestEquation(unittest.TestCase):
     """ Unit tests for modelcreator. """

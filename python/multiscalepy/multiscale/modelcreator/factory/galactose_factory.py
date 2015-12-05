@@ -6,15 +6,13 @@ TODO: allow an force overwrite in the database
 
 """
 from __future__ import print_function
+
 import os
 
-from multiscale.multiscale_settings import MULTISCALE_GALACTOSE, sbml_path
 import multiscale.multiscalesite.simapp.db.api as db_api
 from multiscale.modelcreator.factory.model_cell import CellModel
-
-from multiscale.modelcreator.annotation.annotation import annotate_sbml_file
-
-
+from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
+from multiscale.sbmlutils.annotation import annotate_sbml_file
 
 """
 def tissue_model():
@@ -91,11 +89,11 @@ def tissue_model():
 
 def galactose_model():
     print("Create galactose model")
-    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'galactose')
+    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'galactose')
 
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.hepatocyte',
                                          'multiscale.modelcreator.models.galactose'])
-    # create sbml model
+    # create sbmlutils model
     cell_model = CellModel(cell_dict=cell_dict)
     cell_model.create_sbml()
     f_sbml = os.path.join(directory, '{}.xml'.format(cell_model.model.getId()))
@@ -115,7 +113,7 @@ def galactose_model():
 
 def demo_model():
     print("Create demo model")
-    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'galactose')
+    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'galactose')
 
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.demo'])
     # init model

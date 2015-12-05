@@ -1,8 +1,6 @@
-'''
-Created on Jun 20, 2014
-
-@author: mkoenig
-'''
+"""
+SBMLValidator based on the sbml.org validator example code.
+"""
 import os.path
 import time
 import libsbml
@@ -114,5 +112,11 @@ class SBMLValidator:
         val_string = '\n'.join(lines)
         print val_string, '\n'
         
-        return val_string
+        return { "numCCErr": numCCErr,
+                 "numCCWarn": numCCWarn,
+                 "errMsgCC": errMsgCC,
+                 "skipCC": skipCC,
+                 "timeCC": timeCC
+                 }
+
     

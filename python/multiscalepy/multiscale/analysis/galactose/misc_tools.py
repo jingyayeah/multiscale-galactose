@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Helper tools for working with the multiscale galactose simulations.
+Helper utils for working with the multiscale galactose simulations.
 """
 from scipy import stats, interpolate
 

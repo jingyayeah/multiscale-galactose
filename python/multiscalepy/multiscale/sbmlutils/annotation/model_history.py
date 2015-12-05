@@ -3,9 +3,9 @@
 Adding history information to SBML file based on list of creators.
 """
 from libsbml import *
+from multiscale.modelcreator.sbmlutils.io import check
 
-from multiscale.modelcreator.sbml.SBMLUtils import check
-from multiscale.modelcreator.annotation.annotation import create_meta_id
+from multiscale.sbmlutils.annotation import create_meta_id
 
 
 def set_model_history(model, creators):
@@ -46,7 +46,7 @@ def date_now():
 """
 # TODO: write as test
 if __name__ == "__main__":
-    doc = readSBMLFromFile("/home/mkoenig/multiscale-galactose/sbml/galactose/galactose_28_annotated.xml")
+    doc = readSBMLFromFile("/home/mkoenig/multiscale-galactose/sbmlutils/galactose/galactose_28_annotated.xml")
     model = doc.getModel()
     print(model.getId())
     h = model.getModelHistory()

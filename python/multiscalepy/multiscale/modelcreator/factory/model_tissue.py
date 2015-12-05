@@ -6,11 +6,10 @@ Create the information from given module files which are imported dynamically.
 
 from libsbml import SBMLDocument, SBMLWriter
 
-from multiscale.modelcreator.factory.model_helper import *
 from multiscale.modelcreator.processes.ReactionFactory import *
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
-from multiscale.modelcreator.sbml.SBMLUtils import check
-from multiscale.modelcreator.sbml.SBMLValidator import SBMLValidator
+from multiscale.sbmlutils import SBMLValidator
+from multiscale.sbmlutils import check
 
 
 class TissueModelException(Exception):
@@ -43,7 +42,7 @@ class TissueModel(object):
             setattr(self, key, value)
         self.events = events
    
-        # sbml 
+        # sbmlutils
         self.id = self.createId()
         self.doc = SBMLDocument(SBML_LEVEL, SBML_VERSION)
         self.model = self.doc.createModel()

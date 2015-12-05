@@ -140,7 +140,7 @@ class ModelAnnotator(object):
             if a.sbml_type == "document":
                 elements = [self.doc]
             else:
-                # lookup of allowed ids for given sbml type
+                # lookup of allowed ids for given sbmlutils type
                 ids = self.id_dict[a.sbml_type]
                 # find the subset of ids matching the pattern
                 pattern_ids = self.__class__.get_matching_ids(ids, pattern)
@@ -303,9 +303,9 @@ def test_demo():
     import os
     from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
 
-    f_sbml = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_9.xml')
-    f_sbml_annotated = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_9_annotated.xml')
-    f_annotations = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo', 'demo_annotations.csv')
+    f_sbml = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_9.xml')
+    f_sbml_annotated = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_9_annotated.xml')
+    f_annotations = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_annotations.csv')
 
     # annotate
     print('Annotate:', f_sbml)
