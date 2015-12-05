@@ -4,7 +4,12 @@ SBMLValidator based on the sbml.org validator example code.
 import os.path
 import time
 import libsbml
- 
+
+
+def validate_sbml(sbml_file, ucheck=True):
+    validator = SBMLValidator(ucheck=ucheck)
+    return validator.validate(sbml_file)
+
 class SBMLValidator:
     def __init__(self, ucheck):
         self.reader = libsbml.SBMLReader()
@@ -119,4 +124,4 @@ class SBMLValidator:
                  "timeCC": timeCC
                  }
 
-    
+

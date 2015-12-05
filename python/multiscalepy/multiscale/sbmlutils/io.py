@@ -2,7 +2,7 @@
 Utility objects and methods for the work with SBML.
 """
 from libsbml import *
-from .validation import SBMLValidator
+from ..sbmlutils import validation
 
 ### QUALIFIER ##########################################################################################################
 
@@ -65,10 +65,6 @@ def check(value, message):
     else:
         return
 
-def validate_sbml(sbml_file, ucheck=True):
-    validator = SBMLValidator(ucheck=ucheck)
-    return validator.validate(sbml_file)
-
 
 ### MODEL IO ###########################################################################################################
 
@@ -83,7 +79,7 @@ def write_sbml(doc, sbml_file, validate=True, program_name=None, program_version
 
     # validate the model with units (only for small models)
     if validate:
-        validate_sbml(sbml_file)
+        validation.validate_sbml(sbml_file)
 
 
 def writeModelToSBML(model, filename):
