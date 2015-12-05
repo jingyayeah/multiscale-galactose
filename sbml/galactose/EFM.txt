@@ -1,0 +1,286 @@
+Elementary Flux Modes Result:
+
+	Number of Modes:	29
+#		Reactions	Equations
+1	Reversible	-1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+2	Reversible	-1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		-1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+3	Reversible	1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		-1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+4	Reversible	1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		-1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+5	Reversible	-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * UDP-glucose pyrophosphorylase [c__]	"D-glucose 1-phophate" + UTP + H+ = UDP-D-glucose + pyrophosphate;  "D-glucose 1-phophate M*" "UDP-D-glucose M*" "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+6	Reversible	-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		-1 * UDP-glucose pyrophosphorylase [c__]	"D-glucose 1-phophate" + UTP + H+ = UDP-D-glucose + pyrophosphate;  "D-glucose 1-phophate M*" "UDP-D-glucose M*" "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+7	Reversible	-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * UDP-glucose pyrophosphorylase [c__]	"D-glucose 1-phophate" + UTP + H+ = UDP-D-glucose + pyrophosphate;  "D-glucose 1-phophate M*" "UDP-D-glucose M*" "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+8	Reversible	-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		-1 * UDP-glucose pyrophosphorylase [c__]	"D-glucose 1-phophate" + UTP + H+ = UDP-D-glucose + pyrophosphate;  "D-glucose 1-phophate M*" "UDP-D-glucose M*" "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+9	Reversible	-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		-1 * UDP-glucose pyrophosphorylase [c__]	"D-glucose 1-phophate" + UTP + H+ = UDP-D-glucose + pyrophosphate;  "D-glucose 1-phophate M*" "UDP-D-glucose M*" "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+10	Reversible	-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		-1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		-1 * UDP-glucose pyrophosphorylase [c__]	"D-glucose 1-phophate" + UTP + H+ = UDP-D-glucose + pyrophosphate;  "D-glucose 1-phophate M*" "UDP-D-glucose M*" "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+11	Reversible	1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		-1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+12	Reversible	1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		-1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+13	Reversible	-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		-1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+14	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		1 * Inositol monophosphatase M [c__]	"D-galactose 1-phosphate M*" + water -> "D-galactose M*"{cytosol} + phosphate;  "D-galactose 1-phosphate"
+		1 * Galactokinase M [c__]	"D-galactose M*"{cytosol} + ATP -> "D-galactose 1-phosphate M*" + ADP + H+;  D-galactose{cytosol} "D-galactose 1-phosphate"
+15	Irreversible	1 * Galactokinase [c__]	D-galactose{cytosol} + ATP = "D-galactose 1-phosphate" + ADP + H+;  "D-galactose M*"{cytosol} "D-galactose 1-phosphate M*"
+		1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		1 * Inositol monophosphatase [c__]	"D-galactose 1-phosphate" + water -> D-galactose{cytosol} + phosphate;  "D-galactose 1-phosphate M*"
+16	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		1 * UDP-glucose pyrophosphorylase [c__]	"D-glucose 1-phophate" + UTP + H+ = UDP-D-glucose + pyrophosphate;  "D-glucose 1-phophate M*" "UDP-D-glucose M*" "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase glucose [c__]	UDP-D-glucose + "Acceptor (glc/gal)" -> UDP + Acceptor-glucose + H+;  "UDP-D-glucose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+17	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase glucose [c__]	UDP-D-glucose + "Acceptor (glc/gal)" -> UDP + Acceptor-glucose + H+;  "UDP-D-glucose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+18	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase glucose [c__]	UDP-D-glucose + "Acceptor (glc/gal)" -> UDP + Acceptor-glucose + H+;  "UDP-D-glucose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+19	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase glucose [c__]	UDP-D-glucose + "Acceptor (glc/gal)" -> UDP + Acceptor-glucose + H+;  "UDP-D-glucose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+20	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase glucose [c__]	UDP-D-glucose + "Acceptor (glc/gal)" -> UDP + Acceptor-glucose + H+;  "UDP-D-glucose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+21	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase glucose [c__]	UDP-D-glucose + "Acceptor (glc/gal)" -> UDP + Acceptor-glucose + H+;  "UDP-D-glucose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+22	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		-1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase glucose [c__]	UDP-D-glucose + "Acceptor (glc/gal)" -> UDP + Acceptor-glucose + H+;  "UDP-D-glucose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+23	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		1 * UDP-glucose 4-epimerase [c__]	UDP-D-glucose = UDP-D-galactose;  "UDP-D-glucose M*" "UDP-D-galactose M*"
+		1 * UDP-glucose pyrophosphorylase [c__]	"D-glucose 1-phophate" + UTP + H+ = UDP-D-glucose + pyrophosphate;  "D-glucose 1-phophate M*" "UDP-D-glucose M*" "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase galactose [c__]	UDP-D-galactose + "Acceptor (glc/gal)" -> UDP + Acceptor-galactose + H+;  "UDP-D-galactose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+24	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * UDP-glucose 4-epimerase [c__]	UDP-D-glucose = UDP-D-galactose;  "UDP-D-glucose M*" "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase galactose [c__]	UDP-D-galactose + "Acceptor (glc/gal)" -> UDP + Acceptor-galactose + H+;  "UDP-D-galactose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+25	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		1 * UDP-glucose 4-epimerase [c__]	UDP-D-glucose = UDP-D-galactose;  "UDP-D-glucose M*" "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase galactose [c__]	UDP-D-galactose + "Acceptor (glc/gal)" -> UDP + Acceptor-galactose + H+;  "UDP-D-galactose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+26	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * UDP-glucose 4-epimerase [c__]	UDP-D-glucose = UDP-D-galactose;  "UDP-D-glucose M*" "UDP-D-galactose M*"
+		1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase galactose [c__]	UDP-D-galactose + "Acceptor (glc/gal)" -> UDP + Acceptor-galactose + H+;  "UDP-D-galactose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+27	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		1 * UDP-glucose 4-epimerase [c__]	UDP-D-glucose = UDP-D-galactose;  "UDP-D-glucose M*" "UDP-D-galactose M*"
+		1 * UDP-glucose pyrophosphorylase M [c__]	"D-glucose 1-phophate M*" + UTP + H+ = "UDP-D-glucose M*" + pyrophosphate;  "D-glucose 1-phophate" UDP-D-glucose "D-galactose 1-phosphate" "D-galactose 1-phosphate M*" UDP-D-galactose "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase galactose [c__]	UDP-D-galactose + "Acceptor (glc/gal)" -> UDP + Acceptor-galactose + H+;  "UDP-D-galactose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+28	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase [c__]	"D-galactose 1-phosphate" + UDP-D-glucose = "D-glucose 1-phophate" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" "UDP-D-glucose M*" "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		-1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		1 * UDP-glucose 4-epimerase [c__]	UDP-D-glucose = UDP-D-galactose;  "UDP-D-glucose M*" "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase M [c__]	"D-galactose 1-phosphate M*" + UTP + H+ = "UDP-D-galactose M*" + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate" UDP-D-galactose
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase galactose [c__]	UDP-D-galactose + "Acceptor (glc/gal)" -> UDP + Acceptor-galactose + H+;  "UDP-D-galactose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+29	Irreversible	1 * ATP synthase [c__]	ADP + phosphate + H+ = ATP + water
+		-1 * Galactose-1-phosphate uridyl transferase M1 [c__]	"D-galactose 1-phosphate M*" + UDP-D-glucose = "D-glucose 1-phophate" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" "UDP-D-glucose M*" "D-glucose 1-phophate M*" UDP-D-galactose
+		-1 * Galactose-1-phosphate uridyl transferase M2 [c__]	"D-galactose 1-phosphate" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + UDP-D-galactose;  UTP UDP "D-galactose 1-phosphate M*" UDP-D-glucose "D-glucose 1-phophate" "UDP-D-galactose M*"
+		1 * Galactose-1-phosphate uridyl transferase M3 [c__]	"D-galactose 1-phosphate M*" + "UDP-D-glucose M*" = "D-glucose 1-phophate M*" + "UDP-D-galactose M*";  UTP UDP "D-galactose 1-phosphate" UDP-D-glucose "D-glucose 1-phophate" UDP-D-galactose
+		1 * UDP-glucose 4-epimerase [c__]	UDP-D-glucose = UDP-D-galactose;  "UDP-D-glucose M*" "UDP-D-galactose M*"
+		1 * UDP-galactose pyrophosphorylase [c__]	"D-galactose 1-phosphate" + UTP + H+ = UDP-D-galactose + pyrophosphate;  "D-glucose 1-phophate" "D-glucose 1-phophate M*" UDP-D-glucose "UDP-D-glucose M*" "D-galactose 1-phosphate M*" "UDP-D-galactose M*"
+		1 * ATP:UDP phosphotransferase [c__]	ATP + UDP = ADP + UTP
+		-1 * Phosphoglucomutase-1 [c__]	"D-glucose 1-phophate" = "D-glucose 6-phosphate";  "D-glucose 1-phophate M*" "D-glucose 6-phosphate M*"
+		-1 * Glycolysis [c__]	"D-glucose 6-phosphate" + 5 * O2 = phosphate + 6 * CO2 + 5 * water
+		1 * Glycosyltransferase galactose [c__]	UDP-D-galactose + "Acceptor (glc/gal)" -> UDP + Acceptor-galactose + H+;  "UDP-D-galactose M*"
+		1 * Pyrophosphatase [c__]	pyrophosphate + water -> 2 * phosphate + H+
+
+#	Net Reaction	Internal Species
+1	 = 	H+, "D-glucose 1-phophate M*", "UDP-D-glucose M*", "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate
+2	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", "D-glucose 1-phophate M*", "UDP-D-glucose M*", UTP, pyrophosphate
+3	 = 	"D-galactose 1-phosphate M*", "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", "D-galactose 1-phosphate", UDP-D-galactose, "D-glucose 1-phophate"
+4	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", "D-glucose 1-phophate M*", "UDP-D-glucose M*", "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate
+5	 = 	H+, UDP-D-glucose, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+6	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", UDP-D-glucose, UTP, pyrophosphate, "D-glucose 1-phophate"
+7	 = 	H+, UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+8	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", UTP, pyrophosphate, "D-glucose 1-phophate"
+9	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+10	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+11	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+12	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+13	 = 	"D-galactose 1-phosphate M*", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+14	 -> 	ATP, "D-galactose 1-phosphate M*", ADP, H+, "D-galactose M*"{cytosol}, water, phosphate
+15	 -> 	ATP, D-galactose{cytosol}, ADP, H+, water, phosphate, "D-galactose 1-phosphate"
+16	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> Acceptor-glucose + 5 * O2	ATP, UDP, ADP, "D-glucose 6-phosphate", H+, UDP-D-glucose, phosphate, UTP, pyrophosphate, "D-glucose 1-phophate"
+17	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> Acceptor-glucose + 5 * O2	ATP, UDP, ADP, "D-glucose 6-phosphate", H+, UDP-D-glucose, phosphate, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+18	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> Acceptor-glucose + 5 * O2	ATP, UDP, "D-galactose 1-phosphate M*", ADP, "D-glucose 6-phosphate", H+, "UDP-D-galactose M*", UDP-D-glucose, phosphate, UTP, pyrophosphate, "D-glucose 1-phophate"
+19	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> Acceptor-glucose + 5 * O2	ATP, UDP, ADP, "D-glucose 6-phosphate", H+, UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", phosphate, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+20	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> Acceptor-glucose + 5 * O2	ATP, UDP, "D-galactose 1-phosphate M*", ADP, "D-glucose 6-phosphate", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", phosphate, UTP, pyrophosphate, "D-glucose 1-phophate"
+21	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> Acceptor-glucose + 5 * O2	ATP, UDP, "D-galactose 1-phosphate M*", ADP, "D-glucose 6-phosphate", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", phosphate, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+22	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> Acceptor-glucose + 5 * O2	ATP, UDP, "D-galactose 1-phosphate M*", ADP, "D-glucose 6-phosphate", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", phosphate, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+23	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> 5 * O2 + Acceptor-galactose	ATP, UDP, ADP, "D-glucose 6-phosphate", H+, UDP-D-glucose, phosphate, UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+24	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> 5 * O2 + Acceptor-galactose	ATP, UDP, ADP, "D-glucose 6-phosphate", H+, UDP-D-glucose, phosphate, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+25	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> 5 * O2 + Acceptor-galactose	ATP, UDP, "D-galactose 1-phosphate M*", ADP, "D-glucose 6-phosphate", H+, "UDP-D-galactose M*", UDP-D-glucose, phosphate, UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+26	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> 5 * O2 + Acceptor-galactose	ATP, UDP, ADP, "D-glucose 6-phosphate", H+, UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", phosphate, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+27	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> 5 * O2 + Acceptor-galactose	ATP, UDP, "D-galactose 1-phosphate M*", ADP, "D-glucose 6-phosphate", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", phosphate, UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+28	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> 5 * O2 + Acceptor-galactose	ATP, UDP, "D-galactose 1-phosphate M*", ADP, "D-glucose 6-phosphate", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", phosphate, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+29	6 * CO2 + 5 * water + "Acceptor (glc/gal)" -> 5 * O2 + Acceptor-galactose	ATP, UDP, "D-galactose 1-phosphate M*", ADP, "D-glucose 6-phosphate", H+, "UDP-D-galactose M*", UDP-D-glucose, "D-glucose 1-phophate M*", "UDP-D-glucose M*", phosphate, "D-galactose 1-phosphate", UTP, UDP-D-galactose, pyrophosphate, "D-glucose 1-phophate"
+
+#	Galactokinase [c__]	ATP synthase [c__]	Aldose reductase [c__]	Aldose reductase M [c__]	NADP Reductase [c__]	Galactose-1-phosphate uridyl transferase [c__]	Galactose-1-phosphate uridyl transferase M1 [c__]	Galactose-1-phosphate uridyl transferase M2 [c__]	Galactose-1-phosphate uridyl transferase M3 [c__]	UDP-glucose 4-epimerase [c__]	UDP-glucose 4-epimerase M [c__]	UDP-glucose pyrophosphorylase [c__]	UDP-glucose pyrophosphorylase M [c__]	UDP-galactose pyrophosphorylase [c__]	UDP-galactose pyrophosphorylase M [c__]	ATP:UDP phosphotransferase [c__]	Phosphoglucomutase-1 [c__]	Phosphoglucomutase-1 M [c__]	Glycolysis [c__]	H2O M transport [e__]	galactose transport [e__]	galactose transport M [e__]	Glycosyltransferase glucose M [c__]	Glycosyltransferase glucose [c__]	Glycosyltransferase galactose M [c__]	Glycosyltransferase galactose [c__]	Glycolysis M [c__]	Pyrophosphatase [c__]	Inositol monophosphatase M [c__]	Inositol monophosphatase [c__]	Galactokinase M [c__]
+1	0	0	0	0	0	0	0	-1	0	0	0	0	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2	0	0	0	0	0	0	0	0	-1	0	0	0	-1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+3	0	0	0	0	0	1	-1	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+4	0	0	0	0	0	0	0	1	-1	0	0	0	0	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+5	0	0	0	0	0	-1	0	0	0	0	0	-1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+6	0	0	0	0	0	0	-1	0	0	0	0	-1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+7	0	0	0	0	0	-1	0	1	0	0	0	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+8	0	0	0	0	0	0	-1	0	1	0	0	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+9	0	0	0	0	0	-1	0	1	-1	0	0	-1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+10	0	0	0	0	0	0	-1	-1	1	0	0	-1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+11	0	0	0	0	0	1	-1	0	0	0	0	0	0	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+12	0	0	0	0	0	1	-1	0	1	0	0	0	1	-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+13	0	0	0	0	0	-1	1	1	0	0	0	0	1	0	-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+14	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1
+15	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0
+16	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	1	-1	0	-1	0	0	0	0	1	0	0	0	1	0	0	0
+17	0	1	0	0	0	-1	0	0	0	0	0	0	0	1	0	1	-1	0	-1	0	0	0	0	1	0	0	0	1	0	0	0
+18	0	1	0	0	0	0	-1	0	0	0	0	0	0	0	1	1	-1	0	-1	0	0	0	0	1	0	0	0	1	0	0	0
+19	0	1	0	0	0	-1	0	1	0	0	0	0	1	0	0	1	-1	0	-1	0	0	0	0	1	0	0	0	1	0	0	0
+20	0	1	0	0	0	0	-1	0	1	0	0	0	1	0	0	1	-1	0	-1	0	0	0	0	1	0	0	0	1	0	0	0
+21	0	1	0	0	0	-1	0	1	-1	0	0	0	0	0	1	1	-1	0	-1	0	0	0	0	1	0	0	0	1	0	0	0
+22	0	1	0	0	0	0	-1	-1	1	0	0	0	0	1	0	1	-1	0	-1	0	0	0	0	1	0	0	0	1	0	0	0
+23	0	1	0	0	0	0	0	0	0	1	0	1	0	0	0	1	-1	0	-1	0	0	0	0	0	0	1	0	1	0	0	0
+24	0	1	0	0	0	-1	0	0	0	1	0	0	0	1	0	1	-1	0	-1	0	0	0	0	0	0	1	0	1	0	0	0
+25	0	1	0	0	0	0	-1	0	0	1	0	0	0	0	1	1	-1	0	-1	0	0	0	0	0	0	1	0	1	0	0	0
+26	0	1	0	0	0	-1	0	1	0	1	0	0	1	0	0	1	-1	0	-1	0	0	0	0	0	0	1	0	1	0	0	0
+27	0	1	0	0	0	0	-1	0	1	1	0	0	1	0	0	1	-1	0	-1	0	0	0	0	0	0	1	0	1	0	0	0
+28	0	1	0	0	0	-1	0	1	-1	1	0	0	0	0	1	1	-1	0	-1	0	0	0	0	0	0	1	0	1	0	0	0
+29	0	1	0	0	0	0	-1	-1	1	1	0	0	0	1	0	1	-1	0	-1	0	0	0	0	0	0	1	0	1	0	0	0
+
+#	water M*{hepatocyte}	pyrophosphate	D-glucose 1-phophate	Acceptor-galactose	Acceptor (glc/gal)	UDP-D-galactose	UDP	ATP	UTP	D-galactose 1-phosphate M*	D-galactose{cytosol}	Acceptor-galactose M*	Acceptor-glucose	D-galactitol M*	O2	D-glucose 6-phosphate	ADP	CO2	NADP	H+	UDP-D-galactose M*	D-galactose M*{cytosol}	D-galactitol	NADPH	D-glucose 6-phosphate M*	D-glucose 1-phophate M*	UDP-D-glucose	water	D-galactose 1-phosphate	H2	Acceptor-glucose M*	UDP-D-glucose M*	phosphate	water M*{external}	D-galactose{external}	D-galactose M*{external}
+1		-1 | +1				-1 | +1			-1 | +1											-1 | +1						-1 | +1			-1 | +1			-1 | +1				
+2		-1 | +1							-1 | +1	-1 | +1										-1 | +1	-1 | +1					-1 | +1						-1 | +1				
+3			-1 | +1			-1 | +1				-1 | +1											-1 | +1					-1 | +1	-1 | +1		-1 | +1			-1 | +1				
+4		-1 | +1				-1 | +1			-1 | +1	-1 | +1										-1 | +1	-1 | +1					-1 | +1			-1 | +1			-1 | +1				
+5		-1 | +1	-1 | +1			-1 | +1			-1 | +1											-1 | +1							-1 | +1		-1 | +1							
+6		-1 | +1	-1 | +1						-1 | +1	-1 | +1										-1 | +1	-1 | +1						-1 | +1									
+7		-1 | +1	-1 | +1			-1 | +1			-1 | +1											-1 | +1						-1 | +1	-1 | +1		-1 | +1			-1 | +1				
+8		-1 | +1	-1 | +1						-1 | +1	-1 | +1										-1 | +1	-1 | +1					-1 | +1	-1 | +1					-1 | +1				
+9		-1 | +1	-1 | +1			-1 | +1			-1 | +1	-1 | +1										-1 | +1	-1 | +1					-1 | +1	-1 | +1		-1 | +1			-1 | +1				
+10		-1 | +1	-1 | +1			-1 | +1			-1 | +1	-1 | +1										-1 | +1	-1 | +1					-1 | +1	-1 | +1		-1 | +1			-1 | +1				
+11		-1 | +1	-1 | +1			-1 | +1			-1 | +1	-1 | +1										-1 | +1	-1 | +1						-1 | +1		-1 | +1							
+12		-1 | +1	-1 | +1			-1 | +1			-1 | +1	-1 | +1										-1 | +1	-1 | +1					-1 | +1	-1 | +1		-1 | +1			-1 | +1				
+13		-1 | +1	-1 | +1			-1 | +1			-1 | +1	-1 | +1										-1 | +1	-1 | +1					-1 | +1	-1 | +1		-1 | +1			-1 | +1				
+14								-1 | +1		-1 | +1							-1 | +1			-1 | +1		-1 | +1						-1 | +1					-1 | +1			
+15								-1 | +1			-1 | +1						-1 | +1			-1 | +1								-1 | +1	-1 | +1				-1 | +1			
+16		-1 | +1	-1 | +1		-1 | +0		-1 | +1	-1 | +1	-1 | +1				-0 | +1		-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2							-1 | +1	-6 | +1					-2 | +2			
+17		-1 | +1	-1 | +1		-1 | +0	-1 | +1	-1 | +1	-1 | +1	-1 | +1				-0 | +1		-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2							-1 | +1	-6 | +1	-1 | +1				-2 | +2			
+18		-1 | +1	-1 | +1		-1 | +0		-1 | +1	-1 | +1	-1 | +1	-1 | +1			-0 | +1		-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2	-1 | +1						-1 | +1	-6 | +1					-2 | +2			
+19		-1 | +1	-1 | +1		-1 | +0	-1 | +1	-1 | +1	-1 | +1	-1 | +1				-0 | +1		-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2						-1 | +1	-1 | +1	-6 | +1	-1 | +1			-1 | +1	-2 | +2			
+20		-1 | +1	-1 | +1		-1 | +0		-1 | +1	-1 | +1	-1 | +1	-1 | +1			-0 | +1		-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2	-1 | +1					-1 | +1	-1 | +1	-6 | +1				-1 | +1	-2 | +2			
+21		-1 | +1	-1 | +1		-1 | +0	-1 | +1	-1 | +1	-1 | +1	-1 | +1	-1 | +1			-0 | +1		-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2	-1 | +1					-1 | +1	-1 | +1	-6 | +1	-1 | +1			-1 | +1	-2 | +2			
+22		-1 | +1	-1 | +1		-1 | +0	-1 | +1	-1 | +1	-1 | +1	-1 | +1	-1 | +1			-0 | +1		-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2	-1 | +1					-1 | +1	-1 | +1	-6 | +1	-1 | +1			-1 | +1	-2 | +2			
+23		-1 | +1	-1 | +1	-0 | +1	-1 | +0	-1 | +1	-1 | +1	-1 | +1	-1 | +1						-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2							-1 | +1	-6 | +1					-2 | +2			
+24		-1 | +1	-1 | +1	-0 | +1	-1 | +0	-2 | +2	-1 | +1	-1 | +1	-1 | +1						-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2							-1 | +1	-6 | +1	-1 | +1				-2 | +2			
+25		-1 | +1	-1 | +1	-0 | +1	-1 | +0	-1 | +1	-1 | +1	-1 | +1	-1 | +1	-1 | +1					-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2	-1 | +1						-1 | +1	-6 | +1					-2 | +2			
+26		-1 | +1	-1 | +1	-0 | +1	-1 | +0	-2 | +2	-1 | +1	-1 | +1	-1 | +1						-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2						-1 | +1	-1 | +1	-6 | +1	-1 | +1			-1 | +1	-2 | +2			
+27		-1 | +1	-1 | +1	-0 | +1	-1 | +0	-1 | +1	-1 | +1	-1 | +1	-1 | +1	-1 | +1					-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2	-1 | +1					-1 | +1	-1 | +1	-6 | +1				-1 | +1	-2 | +2			
+28		-1 | +1	-1 | +1	-0 | +1	-1 | +0	-2 | +2	-1 | +1	-1 | +1	-1 | +1	-1 | +1					-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2	-1 | +1					-1 | +1	-1 | +1	-6 | +1	-1 | +1			-1 | +1	-2 | +2			
+29		-1 | +1	-1 | +1	-0 | +1	-1 | +0	-2 | +2	-1 | +1	-1 | +1	-1 | +1	-1 | +1					-0 | +5	-1 | +1	-1 | +1	-6 | +0		-2 | +2	-1 | +1					-1 | +1	-1 | +1	-6 | +1	-1 | +1			-1 | +1	-2 | +2			
+
+
