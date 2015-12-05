@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.16 (Build 104) (http://www.copasi.org) at 2015-12-05 09:55:40 UTC -->
+<!-- generated with COPASI 4.16 (Build 104) (http://www.copasi.org) at 2015-12-05 11:08:37 UTC -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="16" versionDevel="104" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -522,14 +522,8 @@
         <MiriamAnnotation>
 <rdf:RDF
    xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
-   xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Reaction_0">
-    <dcterms:created>
-      <rdf:Description>
-        <dcterms:W3CDTF>2015-12-05T10:52:46Z</dcterms:W3CDTF>
-      </rdf:Description>
-    </dcterms:created>
     <CopasiMT:is>
       <rdf:Bag>
         <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000185"/>
@@ -546,9 +540,9 @@
           <Product metabolite="Metabolite_11" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4356" name="Km_A" value="1"/>
-          <Constant key="Parameter_4357" name="Vmax_bA" value="5"/>
-          <Constant key="Parameter_4358" name="scale_f" value="1e-06"/>
+          <Constant key="Parameter_4380" name="Km_A" value="1"/>
+          <Constant key="Parameter_4381" name="Vmax_bA" value="5"/>
+          <Constant key="Parameter_4382" name="scale_f" value="1e-06"/>
         </ListOfConstants>
         <KineticLaw function="Function_40">
           <ListOfCallParameters>
@@ -574,14 +568,8 @@
         <MiriamAnnotation>
 <rdf:RDF
    xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
-   xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Reaction_1">
-    <dcterms:created>
-      <rdf:Description>
-        <dcterms:W3CDTF>2015-12-05T10:52:48Z</dcterms:W3CDTF>
-      </rdf:Description>
-    </dcterms:created>
     <CopasiMT:is>
       <rdf:Bag>
         <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000185"/>
@@ -598,9 +586,9 @@
           <Product metabolite="Metabolite_5" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4359" name="Km_B" value="0.5"/>
-          <Constant key="Parameter_4360" name="Vmax_bB" value="2"/>
-          <Constant key="Parameter_4361" name="scale_f" value="1e-06"/>
+          <Constant key="Parameter_4383" name="Km_B" value="0.5"/>
+          <Constant key="Parameter_4384" name="Vmax_bB" value="2"/>
+          <Constant key="Parameter_4385" name="scale_f" value="1e-06"/>
         </ListOfConstants>
         <KineticLaw function="Function_41">
           <ListOfCallParameters>
@@ -626,14 +614,8 @@
         <MiriamAnnotation>
 <rdf:RDF
    xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
-   xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Reaction_2">
-    <dcterms:created>
-      <rdf:Description>
-        <dcterms:W3CDTF>2015-12-05T10:52:49Z</dcterms:W3CDTF>
-      </rdf:Description>
-    </dcterms:created>
     <CopasiMT:is>
       <rdf:Bag>
         <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000185"/>
@@ -650,9 +632,9 @@
           <Product metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4362" name="Km_C" value="3"/>
-          <Constant key="Parameter_4363" name="Vmax_bC" value="2"/>
-          <Constant key="Parameter_4364" name="scale_f" value="1e-06"/>
+          <Constant key="Parameter_4386" name="Km_C" value="3"/>
+          <Constant key="Parameter_4387" name="Vmax_bC" value="2"/>
+          <Constant key="Parameter_4388" name="scale_f" value="1e-06"/>
         </ListOfConstants>
         <KineticLaw function="Function_42">
           <ListOfCallParameters>
@@ -696,10 +678,10 @@
           <Product metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4365" name="Keq_v1" value="10"/>
-          <Constant key="Parameter_4366" name="Km_A" value="1"/>
-          <Constant key="Parameter_4367" name="Vmax_v1" value="1"/>
-          <Constant key="Parameter_4368" name="scale_f" value="1e-06"/>
+          <Constant key="Parameter_4389" name="Keq_v1" value="10"/>
+          <Constant key="Parameter_4390" name="Km_A" value="1"/>
+          <Constant key="Parameter_4391" name="Vmax_v1" value="1"/>
+          <Constant key="Parameter_4392" name="scale_f" value="1e-06"/>
         </ListOfConstants>
         <KineticLaw function="Function_43">
           <ListOfCallParameters>
@@ -749,9 +731,9 @@
           <Product metabolite="Metabolite_7" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4369" name="Km_A" value="1"/>
-          <Constant key="Parameter_4370" name="Vmax_v2" value="0.5"/>
-          <Constant key="Parameter_4371" name="scale_f" value="1e-06"/>
+          <Constant key="Parameter_4393" name="Km_A" value="1"/>
+          <Constant key="Parameter_4394" name="Vmax_v2" value="0.5"/>
+          <Constant key="Parameter_4395" name="scale_f" value="1e-06"/>
         </ListOfConstants>
         <KineticLaw function="Function_44">
           <ListOfCallParameters>
@@ -795,9 +777,9 @@
           <Product metabolite="Metabolite_11" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4372" name="Km_A" value="1"/>
-          <Constant key="Parameter_4373" name="Vmax_v3" value="0.5"/>
-          <Constant key="Parameter_4374" name="scale_f" value="1e-06"/>
+          <Constant key="Parameter_4396" name="Km_A" value="1"/>
+          <Constant key="Parameter_4397" name="Vmax_v3" value="0.5"/>
+          <Constant key="Parameter_4398" name="scale_f" value="1e-06"/>
         </ListOfConstants>
         <KineticLaw function="Function_45">
           <ListOfCallParameters>
@@ -841,10 +823,10 @@
           <Product metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_4375" name="Keq_v4" value="2"/>
-          <Constant key="Parameter_4376" name="Km_A" value="1"/>
-          <Constant key="Parameter_4377" name="Vmax_v4" value="0.5"/>
-          <Constant key="Parameter_4378" name="scale_f" value="1e-06"/>
+          <Constant key="Parameter_4399" name="Keq_v4" value="2"/>
+          <Constant key="Parameter_4400" name="Km_A" value="1"/>
+          <Constant key="Parameter_4401" name="Vmax_v4" value="0.5"/>
+          <Constant key="Parameter_4402" name="scale_f" value="1e-06"/>
         </ListOfConstants>
         <KineticLaw function="Function_46">
           <ListOfCallParameters>
@@ -1089,9 +1071,9 @@
     </Task>
     <Task key="Task_11" name="Time-Course" type="timeCourse" scheduled="false" updateModel="false">
       <Problem>
-        <Parameter name="StepNumber" type="unsignedInteger" value="100"/>
-        <Parameter name="StepSize" type="float" value="0.2"/>
-        <Parameter name="Duration" type="float" value="20"/>
+        <Parameter name="StepNumber" type="unsignedInteger" value="1000"/>
+        <Parameter name="StepSize" type="float" value="0.01"/>
+        <Parameter name="Duration" type="float" value="10"/>
         <Parameter name="TimeSeriesRequested" type="bool" value="1"/>
         <Parameter name="OutputStartTime" type="float" value="0"/>
         <Parameter name="Output Event" type="bool" value="0"/>
@@ -1485,6 +1467,13 @@
   <GUI>
   </GUI>
   <SBMLReference file="demo_9_annotated.xml">
+    <SBMLMap SBMLid="Function_for_bA__A_import" COPASIkey="Function_40"/>
+    <SBMLMap SBMLid="Function_for_bB__B_export" COPASIkey="Function_41"/>
+    <SBMLMap SBMLid="Function_for_bC__C_export" COPASIkey="Function_42"/>
+    <SBMLMap SBMLid="Function_for_v1__A____B" COPASIkey="Function_43"/>
+    <SBMLMap SBMLid="Function_for_v2__A____C" COPASIkey="Function_44"/>
+    <SBMLMap SBMLid="Function_for_v3__C____A" COPASIkey="Function_45"/>
+    <SBMLMap SBMLid="Function_for_v4__C____B" COPASIkey="Function_46"/>
     <SBMLMap SBMLid="Keq_v1" COPASIkey="ModelValue_12"/>
     <SBMLMap SBMLid="Keq_v4" COPASIkey="ModelValue_11"/>
     <SBMLMap SBMLid="Km_A" COPASIkey="ModelValue_8"/>
