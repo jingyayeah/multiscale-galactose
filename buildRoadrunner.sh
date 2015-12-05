@@ -7,32 +7,44 @@
 # For updating increase the tag number.
 #
 # @author: Matthias Koenig
-# @date: 2015-11-05
+# @date: 2015-12-05
 ############################################################
-GIT_DIR=~/git 
-TMP_DIR=~/tmp
-mkdir $GIT_DIR
-mkdir $TMP_DIR
+
+echo "Make directories for roadrunner installation"
+ROADRUNNER=roadrunner
+GIT_DIR=$HOME/git 
+TMP_DIR=$HOME/tmp
+if ! [ -d "$GIT_DIR" ]; then
+	mkdir $GIT_DIR
+fi
+if ! [ -d "$TMP_DIR" ]; then
+	mkdir $TMP_DIR
+fi
 
 # install dependencies
+echo "install roadrunner dependencies"
 sudo apt-get install llvm llvm-dev git libxml2-dev
-
-# install/upgrade python dependencies
 sudo -E pip install numpy --upgrade
 sudo -E pip install scipy --upgrade
 
 # clone the repository (hard remove & clone)
+echo "pull roadrunner repository"
 cd $GIT_DIR
-rm -rf roadrunner
-git clone https://github.com/sys-bio/roadrunner.git roadrunner
-cd ${GIT_DIR}/roadrunner
-
-# checkout the release tag
+if [ -d "$ROADRUNNER" ]; then
+	cd ${GIT_DIR}/roadrunner
+	git pull
+else
+	git clone https://github.com/sys-bio/roadrunner.git $ROADRUNNER
+	cd ${GIT_DIR}/$ROADRUNNER
+fi
+# checkout release tag or version to build
 # git tag -l
-# git checkout tags/<tag_name>
 git checkout tags/1.4.1
+# git checkout develop
 
 # create build folders
+# TODO: clean the old build files
+echo "build roadrunner"
 ROADRUNNER_INSTALL=$TMP_DIR/roadrunner_install
 ROADRUNNER_BUILD=$TMP_DIR/roadrunner_build
 ROADRUNNER_BUILD_THIRDPARTY=$TMP_DIR/roadrunner_build_thirdparty
