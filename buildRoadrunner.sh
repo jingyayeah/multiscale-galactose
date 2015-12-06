@@ -72,7 +72,6 @@ cmake -DCMAKE_INSTALL_PREFIX=$ROADRUNNER_INSTALL ${GIT_DIR}/$ROADRUNNER_DEPS && 
 
 read -rsp $'Press any key to continue...\n' -n1 key
 
-
 # build roadrunner
 rm -rf $ROADRUNNER_BUILD
 mkdir $ROADRUNNER_BUILD
