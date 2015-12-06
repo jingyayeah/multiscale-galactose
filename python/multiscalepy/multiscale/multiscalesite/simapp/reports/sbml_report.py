@@ -16,6 +16,7 @@ from simapp.models import CompModel
 # TODO: rate rules are not displayed correctly (they need dy/dt on the left side, compared to AssignmentRules)
 # TODO: hasOnlySubstanceUnits missing in species table
 
+
 def report(request, model_pk):
     """
     Creates the report view for the given SBML model.
