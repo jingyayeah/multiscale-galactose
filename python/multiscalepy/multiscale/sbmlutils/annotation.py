@@ -17,6 +17,9 @@ import libsbml
 import csv
 import re
 import uuid
+import datetime
+
+from .validation import check
 
 # create logger
 logger = logging.getLogger('annotation')
@@ -32,9 +35,52 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
-def create_meta_id(sid):
-    """ Create meta id. Uniqueness not tested. """
-    return 'meta_{}'.format(sid)
+########################################################################
+# Model History
+########################################################################
+
+def set_model_history(model, creators):
+    # TODO: check if history is existing and add info to the existing history
+    if not model.isSetMetaId():
+        model.setMetaId(create_meta_id(model.getId()))
+
+    # set history
+    h = _create_history(creators)
+    check(model.setModelHistory(h), 'set model history')
+
+
+def _create_history(creators):
+    h = libsbml.ModelHistory()
+
+    # add all creators
+    for creator in creators.itervalues():
+        c = libsbml.ModelCreator()
+        c.setFamilyName(creator['FamilyName'])
+        c.setGivenName(creator['GivenName'])
+        c.setEmail(creator['Email'])
+        c.setOrganization(creator['Organization'])
+        check(h.addCreator(c), 'add creator')
+
+    # create time is now
+    date = date_now()
+    check(h.setCreatedDate(date), 'set creation date')
+    check(h.setModifiedDate(date), 'set creation date')
+    return h
+
+
+def date_now():
+    time = datetime.datetime.now()
+    timestr = time.strftime('%Y-%m-%dT%H:%M:%S')
+    return Date(timestr)
+
+
+########################################################################
+# Annotation
+########################################################################
+def create_meta_id():
+    meta_id = uuid.uuid4()
+    return 'meta_{}'.format(meta_id.hex)
+
 
 class AnnotationException(Exception):
     pass
@@ -236,10 +282,6 @@ class ModelAnnotator(object):
             raise AnnotationException('Qualifier not found: {}'.format(qualifier_str))
         return libsbml.__dict__.get(qualifier_str)
 
-    @staticmethod
-    def create_meta_id():
-        meta_id = uuid.uuid4()
-        return 'meta_{}'.format(meta_id.hex)
 
     @staticmethod
     def annotations_from_file(csvfile, delimiter='\t'):
@@ -297,21 +339,3 @@ def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated, suffix="annotate
 
     # Save
     libsbml.writeSBMLToFile(doc, f_sbml_annotated)
-
-
-def test_demo():
-    import os
-    from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
-
-    f_sbml = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_9.xml')
-    f_sbml_annotated = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_9_annotated.xml')
-    f_annotations = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_annotations.csv')
-
-    # annotate
-    print('Annotate:', f_sbml)
-    annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
-    print(f_sbml_annotated)
-
-##################################################################################
-if __name__ == "__main__":
-    test_demo()

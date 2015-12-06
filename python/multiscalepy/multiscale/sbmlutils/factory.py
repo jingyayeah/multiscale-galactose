@@ -13,13 +13,40 @@ from libsbml import UNIT_KIND_DIMENSIONLESS, UnitKind_toString
 SBML_LEVEL = 3
 SBML_VERSION = 1
 
+# attribute ids
+A_ID = 'name'
+A_NAME = 'name'
+A_UNIT = 'unit'
+A_VALUE = 'value'
+A_CONSTANT = 'constant'
+A_SPATIAL_DIMENSION = 'spatialDimension'
+A_COMPARTMENT = 'compartment'
+A_BOUNDARY_CONDITION = 'boundaryCondition'
+A_HAS_ONLY_SUBSTANCE_UNITS = 'hasOnlySubstanceUnits'
+
+
+def get_values(data_struct):
+    if isinstance(data_struct, dict):
+        values = data_struct.values()
+    elif isinstance(data_struct, list):
+        values = data_struct
+    else:
+        raise Exception("data_struct type not supported.")
+    return values
+
+
 ##########################################################################
 # Units
 ##########################################################################
-def createUnitDefinition(model, uid, units):
+def create_unit_definitions(model, definitions):
+    for sid, units in definitions.iteritems():
+        _create_unit_definition(model, sid, units)
+
+
+def _create_unit_definition(model, sid, units):
     """ Creates the defined unit definitions. """
-    unitdef = model.createUnitDefinition()
-    unitdef.setId(uid)
+    unit_def = model.createUnitDefinition()
+    unit_def.setId(sid)
     for data in units:
         kind = data[0]
         exponent = data[1]
@@ -30,22 +57,23 @@ def createUnitDefinition(model, uid, units):
         if len(data) > 3:
             multiplier = data[3]
 
-        _createUnit(unitdef, kind, exponent, scale, multiplier)
+        _create_unit(unit_def, kind, exponent, scale, multiplier)
 
 
-def _createUnit(unitdef, kind, exponent, scale=0, multiplier=1.0):
-    unit = unitdef.createUnit()
+def _create_unit(unit_def, kind, exponent, scale=0, multiplier=1.0):
+    unit = unit_def.createUnit()
     unit.setKind(kind)
     unit.setExponent(exponent)
     unit.setScale(scale)
     unit.setMultiplier(multiplier)
+    return unit
 
 
-def setMainUnits(model, main_units):
+def set_main_units(model, main_units):
     """ Sets the main units for the model. """
     for key in ('time', 'extent', 'substance', 'length', 'area', 'volume'):
         unit = main_units[key]
-        unit = getUnitString(unit)
+        unit = get_unit_string(unit)
         # set the values
         if key == 'time':
             model.setTimeUnits(unit)
@@ -61,7 +89,7 @@ def setMainUnits(model, main_units):
             model.setVolumeUnits(unit)
 
 
-def getUnitString(unit):
+def get_unit_string(unit):
     if type(unit) is int:
         unit = UnitKind_toString(unit)
     if unit == '-':
@@ -72,21 +100,24 @@ def getUnitString(unit):
 ##########################################################################
 # Parameters
 ##########################################################################
-def createParameters(model, parameters):
-    assert isinstance(parameters, dict)
-    for data in parameters.values():
-        _createParameter(model,
-                         pid=data['id'],
-                         unit=getUnitString(data['unit']),
-                         name=data['name'],
-                         value=data['value'],
-                         constant=data['constant'])
+def create_parameters(model, parameters):
+    sbml_parameters = {}
+    for data in get_values(parameters):
+        sid = data[A_ID]
+        sbml_parameters[sid] = _create_parameter(model,
+                                                 sid=sid,
+                                                 unit=get_unit_string(data[A_UNIT]),
+                                                 name=data[A_NAME],
+                                                 value=data[A_VALUE],
+                                                 constant=data[A_CONSTANT])
+    return sbml_parameters
 
 
-def _createParameter(model, pid, unit, name=None, value=None, constant=True):
+def _create_parameter(model, sid, unit=None, name=None, value=None, constant=True):
     p = model.createParameter()
-    p.setId(pid)
-    p.setUnits(unit)
+    p.setId(sid)
+    if unit is not None:
+        p.setUnits(unit)
     if name is not None:
         p.setName(name)
     if value is not None:
@@ -94,113 +125,156 @@ def _createParameter(model, pid, unit, name=None, value=None, constant=True):
     p.setConstant(constant)
     return p
 
+
 ##########################################################################
 # Compartments
 ##########################################################################
-def createCompartments(model, compartments):
-    assert isinstance(compartments, dict)
-    for data in compartments.values():
-        _createCompartment(model,
-                           cid=data['id'],
-                           name=data['name'],
-                           dims=data['spatialDimension'],
-                           units=data['unit'],
-                           constant=data['constant'],
-                           value=data['assignment'])
+def create_compartments(model, compartments):
+    sbml_compartments = {}
+    for data in get_values(compartments):
+        sid = data[A_ID]
+        sbml_compartments[sid] = _create_compartment(model,
+            sid=sid,
+            name=data[A_NAME],
+            dims=data[A_SPATIAL_DIMENSION],
+            units=data[A_UNIT],
+            constant=data[A_CONSTANT],
+            value=data[A_VALUE])
+    return sbml_compartments
 
 
-def _createCompartment(model, cid, name, dims, units, constant, value):
+def _create_compartment(model, sid, name, dims, units, constant, value):
     c = model.createCompartment()
-    c.setId(cid)
+    c.setId(sid)
     if name:
         c.setName(name)
     c.setSpatialDimensions(dims)
-    c.setUnits(units)
+    if units:
+        c.setUnits(units)
     c.setConstant(constant)
     if type(value) is str:
         # _createInitialAssignment(model, sid=cid, formula=value)
-        _createAssignmentRule(model, sid=cid, formula=value)
+        _createAssignmentRule(model, sid=sid, formula=value)
         pass
     else:
         c.setSize(value)
+    return c
 
 
 ##########################################################################
 # Species
 ##########################################################################
-def createSpecies(model, species):
-    assert isinstance(species, dict)
-    for data in species.values():
-        _createSpecie(model,
-                      sid=data['id'],
-                      name=data['name'],
-                      init=data['value'],
-                      units=data['unit'],
-                      compartment=data['compartment'],
-                      boundaryCondition=data.get('boundaryCondition', False))
+def create_species(model, species):
+    """
+    Values have to be in concentrations.
+    """
+    sbml_species = {}
+    for data in get_values(species):
+        sid = data[A_ID]
+        sbml_species[sid] = _create_specie(model,
+            sid=data[A_ID],
+            name=data[A_NAME],
+            value=data[A_VALUE],
+            units=data[A_UNIT],
+            compartment=data[A_COMPARTMENT],
+            boundaryCondition=data.get(A_BOUNDARY_CONDITION, False),
+            constant=data.get(A_CONSTANT, False),
+            hasOnlySubstanceUnits=data.get(A_HAS_ONLY_SUBSTANCE_UNITS, False))
+    return sbml_species
 
-def _createSpecie(model, sid, name, init, units, compartment, boundaryCondition):
+
+def _create_specie(model, sid, name, value, units, compartment,
+                   boundaryCondition, constant, hasOnlySubstanceUnits):
     s = model.createSpecies()
     s.setId(sid)
     if name:
         s.setName(name)
-    s.setInitialConcentration(init)
-    s.setUnits(units)
+
+    if units:
+        s.setUnits(units)
     s.setCompartment(compartment)
 
+    s.setInitialConcentration(value)
     s.setSubstanceUnits(model.getSubstanceUnits())
-    s.setHasOnlySubstanceUnits(False)
-    s.setConstant(False)
+
     s.setBoundaryCondition(boundaryCondition)
+    s.setConstant(constant)
+    s.setHasOnlySubstanceUnits(hasOnlySubstanceUnits)
+    return s
 
 
 ##########################################################################
 # InitialAssignments
 ##########################################################################
-def createInitialAssignments(model, assignments):
-    assert isinstance(assignments, dict)
-    for data in assignments.values():
-        pid = data['id']
-        unit = getUnitString(data['unit'])
+def create_initial_assignments(model, assignments):
+    sbml_assignments = {}
+    for data in get_values(assignments):
+        sid = data[A_ID]
+        unit = get_unit_string(data[A_UNIT])
         # Create parameter if not existing
-        if (not model.getParameter(pid)) and (not model.getSpecies(pid)):
-            _createParameter(model, pid, unit, name=data['name'], value=None, constant=True)
-        _createInitialAssignment(model, pid=pid, formula=data['assignment'])
+        if (not model.getParameter(sid)) and (not model.getSpecies(sid)):
+            _create_parameter(model, sid, unit, name=data[A_NAME], value=None, constant=True)
+        sbml_assignments[sid] = _create_initial_assignment(model, sid=sid, formula=data[A_VALUE])
 
 
-def _createInitialAssignment(model, pid, formula):
-    assignment = model.createInitialAssignment()
-    assignment.setSymbol(pid)
+def _create_initial_assignment(model, sid, formula):
+    a = model.createInitialAssignment()
+    a.setSymbol(sid)
     ast_node = libsbml.parseL3FormulaWithModel(formula, model)
     if not ast_node:
         warnings.warn('Formula could not be parsed:', formula)
         warnings.warn(libsbml.getLastParseL3Error())
-    assignment.setMath(ast_node)
+    a.setMath(ast_node)
+    return a
 
 
 ##########################################################################
 # Rules
 ##########################################################################
-def createAssignmentRules(model, rules):
-    assert isinstance(rules, dict)
-    for data in rules.values():
-        pid = data['id']
-        unit = getUnitString(data['unit'])
+
+def create_assignment_rules(model, rules):
+    return _create_rules(model, rules, rule_type="AssignmentRule")
+
+
+def create_rate_rules(model, rules):
+    return _create_rules(model, rules, rule_type="RateRule")
+
+
+def _create_rules(model, rules, rule_type):
+    assert rule_type in ["AssignmentRule", "RateRule"]
+    sbml_rules = {}
+    for data in get_values(rules):
+        sid = data[A_ID]
+        unit = get_unit_string(data[A_UNIT])
         # Create parameter if not existing
-        if (not model.getParameter(pid)) and (not model.getSpecies(pid)):
-            _createParameter(model, pid, unit, name=data['name'], value=None, constant=False)
-        if not model.getRule(pid):
-            _createAssignmentRule(model, sid=pid, formula=data['assignment'])
+        if (not model.getParameter(sid)) and (not model.getSpecies(sid)):
+            _create_parameter(model, sid, unit, name=data[A_NAME], value=None, constant=False)
+        if not model.getRule(sid):
+            if rule_type == "RateRule":
+                sbml_rules[sid] = _create_rate_rule(model, sid=sid, formula=data[A_VALUE])
+            elif rule_type == "AssignmentRule":
+                sbml_rules[sid] = _create_assignment_rule(model, sid=sid, formula=data[A_VALUE])
+    return sbml_rules
 
 
-def _createAssignmentRule(model, sid, formula):
+def _create_rate_rule(model, sid, formula):
+    rule = model.createRateRule()
+    return _create_rule(rule, sid, formula)
+
+
+def _create_assignment_rule(model, sid, formula):
     rule = model.createAssignmentRule()
+    return _create_rule(rule, sid, formula)
+
+
+def _create_rule(rule, sid, formula):
     rule.setVariable(sid)
     ast_node = libsbml.parseL3FormulaWithModel(formula, model)
     if not ast_node:
         warnings.warn('Formula could not be parsed:', formula)
         warnings.warn(libsbml.getLastParseL3Error())
     rule.setMath(ast_node)
+    return rule
 
 ##########################################################################
 # Events

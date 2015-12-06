@@ -12,14 +12,14 @@ TODO: the parts which can be reused have to be exported to a BaseClass.
 from __future__ import print_function
 
 from libsbml import SBMLDocument, SBMLNamespaces
-from multiscale.modelcreator.sbmlutils.factory import *
-from ..sbmlutils.io import check, write_sbml
-
-from multiscale.sbmlutils.annotation import model_history
 from ..modelcreator_settings import PROGRAM_NAME, PROGRAM_VERSION
 from ..processes.ReactionFactory import *
 from ..processes.ReactionTemplate import ReactionTemplate
 from ..utils import naming
+
+from multiscale.sbmlutils.factory import *
+from multiscale.sbmlutils.io import check, write_sbml
+import multiscale.sbmlutils.annotation as annotation
 
 
 class CellModel(object):
@@ -69,7 +69,6 @@ class CellModel(object):
         # add dynamical parameters
         self.parameters.update({})
         print('\n', '*'*40, '\n', self.model_id, '\n', '*'*40)
-
 
     def info(self):
         for key in CellModel._keys:

@@ -68,6 +68,14 @@ def check(value, message):
 
 ### MODEL IO ###########################################################################################################
 
+def write_and_check(doc, sbml_file):
+    # write and check the SBML file
+    writer = SBMLWriter()
+    writer.writeSBML(doc, sbml_file)
+    from validation import check_sbml
+    check_sbml(sbml_file)
+
+
 def write_sbml(doc, sbml_file, validate=True, program_name=None, program_version=None):
     """ Write SBML to file. """
     writer = SBMLWriter()

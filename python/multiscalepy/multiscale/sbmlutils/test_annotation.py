@@ -42,6 +42,19 @@ class TestAnnotation(unittest.TestCase):
         self.assertEqual(annotations, annotator.annotations)
         annotator.annotate_model()
 
+    def test_new(self):
+        import os
+        from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
+
+        f_sbml = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_9.xml')
+        f_sbml_annotated = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_9_annotated.xml')
+        f_annotations = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'demo', 'demo_annotations.csv')
+
+        # annotate
+        print('Annotate:', f_sbml)
+        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
+        print(f_sbml_annotated)
+
     def test_demo(self):
         f_sbml = os.path.join(test_dir, 'annotation', 'Koenig2014_demo_kinetic_v7.xml')
         f_annotations = os.path.join(test_dir, 'annotation', 'Koenig2014_demo_kinetic_v7_annotations.csv')
@@ -64,3 +77,14 @@ if __name__ == "__main__":
     unittest.main()
 
 
+"""
+# TODO: write as test
+if __name__ == "__main__":
+    doc = readSBMLFromFile("/home/mkoenig/multiscale-galactose/sbmlutils/galactose/galactose_28_annotated.xml")
+    model = doc.getModel()
+    print(model.getId())
+    h = model.getModelHistory()
+    for c in h.getListCreators():
+        print c
+        print c.getFamilyName()
+"""

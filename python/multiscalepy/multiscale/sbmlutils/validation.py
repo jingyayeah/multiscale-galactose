@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 SBMLValidator based on the sbml.org validator example code.
 """
@@ -9,6 +10,43 @@ import libsbml
 def validate_sbml(sbml_file, ucheck=True):
     validator = SBMLValidator(ucheck=ucheck)
     return validator.validate(sbml_file)
+
+# TODO: use the sbmlutils
+def check_sbml(filename):
+    current = time.clock()
+    doc = libsbml.readSBML(filename)
+    doc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
+    doc.setConsistencyChecks(libsbml.LIBSBML_CAT_MODELING_PRACTICE, False)
+    doc.checkConsistency()
+    errors = doc.getNumErrors()
+
+    print
+    print(" filename: " + filename)
+    print(" file size: " + str(os.stat(filename).st_size))
+    print(" read time (ms): " + str(time.clock() - current))
+    print(" validation error(s): " + str(errors))
+    print
+    doc.printErrors()
+    return errors
+
+def check(value, message):
+    if value == None:
+        print('LibSBML returned a null value trying to ' + message + '.')
+        sys.exit(1)
+    elif type(value) is int:
+        if value == libsbml.LIBSBML_OPERATION_SUCCESS:
+            return
+        else:
+            print('Error encountered trying to ' + message + '.')
+            print('LibSBML returned error code ' + str(value) + ': "'
+                  + libsbml.OperationReturnValue_toString(value).strip() + '"')
+            print('Exiting.')
+            sys.exit(1)
+    else:
+        return
+
+
+
 
 class SBMLValidator:
     def __init__(self, ucheck):
