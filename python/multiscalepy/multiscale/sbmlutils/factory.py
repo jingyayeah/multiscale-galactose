@@ -35,6 +35,14 @@ def get_values(data_struct):
     return values
 
 
+def ast_node_from_formula(model, formula):
+    ast_node = libsbml.parseL3FormulaWithModel(formula, model)
+    if not ast_node:
+        warnings.warn('Formula could not be parsed:', formula)
+        warnings.warn(libsbml.getLastParseL3Error())
+    return ast_node
+
+
 ##########################################################################
 # Units
 ##########################################################################
@@ -116,11 +124,11 @@ def create_parameters(model, parameters):
 def _create_parameter(model, sid, unit=None, name=None, value=None, constant=True):
     p = model.createParameter()
     p.setId(sid)
-    if unit is not None:
-        p.setUnits(unit)
-    if name is not None:
+    if unit:
+        p.setUnits(get_unit_string(unit))
+    if name:
         p.setName(name)
-    if value is not None:
+    if value:
         p.setValue(value)
     p.setConstant(constant)
     return p
@@ -134,27 +142,27 @@ def create_compartments(model, compartments):
     for data in get_values(compartments):
         sid = data[A_ID]
         sbml_compartments[sid] = _create_compartment(model,
-            sid=sid,
-            name=data[A_NAME],
-            dims=data[A_SPATIAL_DIMENSION],
-            units=data[A_UNIT],
-            constant=data[A_CONSTANT],
-            value=data[A_VALUE])
+                                                     sid=sid,
+                                                     name=data[A_NAME],
+                                                     dims=data[A_SPATIAL_DIMENSION],
+                                                     unit=data[A_UNIT],
+                                                     constant=data.get(A_CONSTANT, True),
+                                                     value=data[A_VALUE])
     return sbml_compartments
 
 
-def _create_compartment(model, sid, name, dims, units, constant, value):
+def _create_compartment(model, sid, name, dims, unit, constant, value):
     c = model.createCompartment()
     c.setId(sid)
     if name:
         c.setName(name)
     c.setSpatialDimensions(dims)
-    if units:
-        c.setUnits(units)
+    if unit:
+        c.setUnits(get_unit_string(unit))
     c.setConstant(constant)
     if type(value) is str:
         # _createInitialAssignment(model, sid=cid, formula=value)
-        _createAssignmentRule(model, sid=sid, formula=value)
+        _create_assignment_rule(model, sid=sid, formula=value)
         pass
     else:
         c.setSize(value)
@@ -189,9 +197,8 @@ def _create_specie(model, sid, name, value, units, compartment,
     s.setId(sid)
     if name:
         s.setName(name)
-
     if units:
-        s.setUnits(units)
+        s.setUnits(get_unit_string(units))
     s.setCompartment(compartment)
 
     s.setInitialConcentration(value)
@@ -210,20 +217,17 @@ def create_initial_assignments(model, assignments):
     sbml_assignments = {}
     for data in get_values(assignments):
         sid = data[A_ID]
-        unit = get_unit_string(data[A_UNIT])
         # Create parameter if not existing
         if (not model.getParameter(sid)) and (not model.getSpecies(sid)):
-            _create_parameter(model, sid, unit, name=data[A_NAME], value=None, constant=True)
+            _create_parameter(model, sid, unit=data.get(A_UNIT, None), name=data.get(A_NAME, None),
+                              value=None, constant=True)
         sbml_assignments[sid] = _create_initial_assignment(model, sid=sid, formula=data[A_VALUE])
 
 
 def _create_initial_assignment(model, sid, formula):
     a = model.createInitialAssignment()
     a.setSymbol(sid)
-    ast_node = libsbml.parseL3FormulaWithModel(formula, model)
-    if not ast_node:
-        warnings.warn('Formula could not be parsed:', formula)
-        warnings.warn(libsbml.getLastParseL3Error())
+    ast_node = ast_node_from_formula(model, formula)
     a.setMath(ast_node)
     return a
 
@@ -245,10 +249,9 @@ def _create_rules(model, rules, rule_type):
     sbml_rules = {}
     for data in get_values(rules):
         sid = data[A_ID]
-        unit = get_unit_string(data[A_UNIT])
         # Create parameter if not existing
         if (not model.getParameter(sid)) and (not model.getSpecies(sid)):
-            _create_parameter(model, sid, unit, name=data[A_NAME], value=None, constant=False)
+            _create_parameter(model, sid, unit=data.get(A_UNIT, None), name=data.get(A_NAME, None), value=None, constant=False)
         if not model.getRule(sid):
             if rule_type == "RateRule":
                 sbml_rules[sid] = _create_rate_rule(model, sid=sid, formula=data[A_VALUE])
@@ -259,22 +262,52 @@ def _create_rules(model, rules, rule_type):
 
 def _create_rate_rule(model, sid, formula):
     rule = model.createRateRule()
-    return _create_rule(rule, sid, formula)
+    return _create_rule(model, rule, sid, formula)
 
 
 def _create_assignment_rule(model, sid, formula):
     rule = model.createAssignmentRule()
-    return _create_rule(rule, sid, formula)
+    return _create_rule(model, rule, sid, formula)
 
 
-def _create_rule(rule, sid, formula):
+def _create_rule(model, rule, sid, formula):
     rule.setVariable(sid)
-    ast_node = libsbml.parseL3FormulaWithModel(formula, model)
-    if not ast_node:
-        warnings.warn('Formula could not be parsed:', formula)
-        warnings.warn(libsbml.getLastParseL3Error())
+    ast_node = ast_node_from_formula(model, formula)
     rule.setMath(ast_node)
     return rule
+
+
+##########################################################################
+# Reactions
+##########################################################################
+def create_reaction(model, rid, name, fast=False, reversible=True, reactants={}, products={}, formula=None):
+    """ Create basic reaction structure. """
+    r = model.createReaction()
+    r.setId(rid)
+    r.setName(name)
+    r.setFast(fast)
+    r.setReversible(reversible)
+
+    for sid, stoichiometry in reactants.iteritems():
+        rt = r.createReactant()
+        rt.setSpecies(sid)
+        rt.setStoichiometry(abs(stoichiometry))
+        rt.setConstant(True)
+
+    for sid, stoichiometry in products.iteritems():
+        rt = r.createProduct()
+        rt.setSpecies(sid)
+        rt.setStoichiometry(abs(stoichiometry))
+        rt.setConstant(True)
+
+    if formula:
+        # set formula in reaction
+        ast_node = ast_node_from_formula(model=model, formula=formula)
+        law = r.createKineticLaw()
+        law.setMath(ast_node)
+
+    return r
+
 
 ##########################################################################
 # Events
@@ -286,21 +319,23 @@ def getDeficiencyEventId(deficiency):
 
 def createDeficiencyEvent(model, deficiency):
     eid = getDeficiencyEventId(deficiency)
-    e = model.createEvent();
-    e.setId(eid);
-    e.setUseValuesFromTriggerTime(True);
+    e = model.createEvent()
+    e.setId(eid)
+    e.setUseValuesFromTriggerTime(True)
     t = e.createTrigger()
     t.setInitialValue(False)  # ! not supported by Copasi -> lame fix via time
     t.setPersistent(True)  # ! not supported by Copasi -> careful with usage
-    formula = '(time>0) && (deficiency=={:d})'.format(deficiency);
+    formula = '(time>0) && (deficiency=={:d})'.format(deficiency)
     astnode = libsbml.parseL3FormulaWithModel(formula, model)
-    t.setMath(astnode);
-    return e;
+    t.setMath(astnode)
+    return e
 
-# Simulation Events (Peaks & Challenges)
+
 def createSimulationEvents(model, elist):
+    """ Simulation Events (Peaks & Challenges). """
     for edata in elist:
         createEventFromEventData(model, edata)
+
 
 def createEventFromEventData(model, edata):
     e = model.createEvent()
@@ -318,3 +353,27 @@ def createEventFromEventData(model, edata):
         ea = e.createEventAssignment()
         ea.setVariable(key)
         ea.setMath(astnode)
+
+
+##########################################################################
+# FBC
+##########################################################################
+
+def set_flux_bounds(reaction, lb, ub):
+    """ Set flux bounds on given reaction. """
+    rplugin = reaction.getPlugin("fbc")
+    rplugin.setLowerFluxBound(lb)
+    rplugin.setUpperFluxBound(ub)
+
+
+def create_objective(mplugin, oid, otype, fluxObjectives, active=True):
+    objective = mplugin.createObjective()
+    objective.setId(oid)
+    objective.setType(otype)
+    if active:
+        mplugin.setActiveObjectiveId("R3_maximize")
+    for rid, coefficient in fluxObjectives.iteritems():
+        fluxObjective = objective.createFluxObjective()
+        fluxObjective.setReaction(rid)
+        fluxObjective.setCoefficient(coefficient)
+    return objective
