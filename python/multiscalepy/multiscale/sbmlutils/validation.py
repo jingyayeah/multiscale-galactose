@@ -15,8 +15,8 @@ def validate_sbml(sbml_file, ucheck=True):
 def check_sbml(filename):
     current = time.clock()
     doc = libsbml.readSBML(filename)
-    doc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
-    doc.setConsistencyChecks(libsbml.LIBSBML_CAT_MODELING_PRACTICE, False)
+    # doc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
+    # doc.setConsistencyChecks(libsbml.LIBSBML_CAT_MODELING_PRACTICE, False)
     doc.checkConsistency()
     errors = doc.getNumErrors()
 

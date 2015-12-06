@@ -124,11 +124,11 @@ def create_parameters(model, parameters):
 def _create_parameter(model, sid, unit, name, value, constant):
     p = model.createParameter()
     p.setId(sid)
-    if unit:
+    if unit is not None:
         p.setUnits(get_unit_string(unit))
-    if name:
+    if name is not None:
         p.setName(name)
-    if value:
+    if value is not None:
         p.setValue(value)
     p.setConstant(constant)
     return p
@@ -154,10 +154,10 @@ def create_compartments(model, compartments):
 def _create_compartment(model, sid, name, dims, unit, constant, value):
     c = model.createCompartment()
     c.setId(sid)
-    if name:
+    if name is not None:
         c.setName(name)
     c.setSpatialDimensions(dims)
-    if unit:
+    if unit is not None:
         c.setUnits(get_unit_string(unit))
     c.setConstant(constant)
     if type(value) is str:
@@ -283,7 +283,8 @@ def _create_rule(model, rule, sid, formula):
 ##########################################################################
 # Reactions
 ##########################################################################
-def create_reaction(model, rid, name, fast=False, reversible=True, reactants={}, products={}, formula=None):
+def create_reaction(model, rid, name, fast=False, reversible=True, reactants={}, products={},
+                    formula=None):
     """ Create basic reaction structure. """
     r = model.createReaction()
     r.setId(rid)
@@ -303,7 +304,7 @@ def create_reaction(model, rid, name, fast=False, reversible=True, reactants={},
         rt.setStoichiometry(abs(stoichiometry))
         rt.setConstant(True)
 
-    if formula:
+    if formula is not None:
         # set formula in reaction
         ast_node = ast_node_from_formula(model=model, formula=formula)
         law = r.createKineticLaw()

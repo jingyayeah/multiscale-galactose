@@ -1,11 +1,8 @@
 """
 Create detailed HTML report from given SBML.
-The model is implemented via the Django template language for rendering
-the actual SBML information.
-Main rendered information are the listOf components of the SBML.
 
-@author: Matthias Koenig
-@date: 2015-04-20
+The model report is implemented based on the django template language, which
+ is used to render the SBML information.
 """
 
 import libsbml
@@ -16,6 +13,8 @@ from django.shortcuts import Http404
 
 from simapp.models import CompModel
 
+# TODO: rate rules are not displayed correctly (they need dy/dt on the left side, compared to AssignmentRules)
+# TODO: hasOnlySubstanceUnits missing in species table
 
 def report(request, model_pk):
     """

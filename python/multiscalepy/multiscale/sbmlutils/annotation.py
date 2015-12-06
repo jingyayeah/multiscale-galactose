@@ -71,7 +71,7 @@ def _create_history(creators):
 def date_now():
     time = datetime.datetime.now()
     timestr = time.strftime('%Y-%m-%dT%H:%M:%S')
-    return Date(timestr)
+    return libsbml.Date(timestr)
 
 
 ########################################################################
