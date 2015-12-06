@@ -42,7 +42,7 @@ logger.addHandler(ch)
 def set_model_history(model, creators):
     # TODO: check if history is existing and add info to the existing history
     if not model.isSetMetaId():
-        model.setMetaId(create_meta_id(model.getId()))
+        model.setMetaId(create_meta_id())
 
     # set history
     h = _create_history(creators)

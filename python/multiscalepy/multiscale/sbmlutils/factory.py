@@ -14,7 +14,7 @@ SBML_LEVEL = 3
 SBML_VERSION = 1
 
 # attribute ids
-A_ID = 'name'
+A_ID = 'id'
 A_NAME = 'name'
 A_UNIT = 'unit'
 A_VALUE = 'value'
@@ -113,15 +113,15 @@ def create_parameters(model, parameters):
     for data in get_values(parameters):
         sid = data[A_ID]
         sbml_parameters[sid] = _create_parameter(model,
-                                                 sid=sid,
-                                                 unit=get_unit_string(data[A_UNIT]),
-                                                 name=data[A_NAME],
-                                                 value=data[A_VALUE],
-                                                 constant=data[A_CONSTANT])
+            sid=sid,
+            unit=data.get(A_UNIT, None),
+            name=data.get(A_NAME, None),
+            value=data.get(A_VALUE, None),
+            constant=data.get(A_CONSTANT, True))
     return sbml_parameters
 
 
-def _create_parameter(model, sid, unit=None, name=None, value=None, constant=True):
+def _create_parameter(model, sid, unit, name, value, constant):
     p = model.createParameter()
     p.setId(sid)
     if unit:
@@ -142,12 +142,12 @@ def create_compartments(model, compartments):
     for data in get_values(compartments):
         sid = data[A_ID]
         sbml_compartments[sid] = _create_compartment(model,
-                                                     sid=sid,
-                                                     name=data[A_NAME],
-                                                     dims=data[A_SPATIAL_DIMENSION],
-                                                     unit=data[A_UNIT],
-                                                     constant=data.get(A_CONSTANT, True),
-                                                     value=data[A_VALUE])
+            sid=sid,
+            name=data.get(A_NAME, None),
+            dims=data[A_SPATIAL_DIMENSION],
+            unit=data.get(A_UNIT, None),
+            constant=data.get(A_CONSTANT, True),
+            value=data[A_VALUE])
     return sbml_compartments
 
 
@@ -161,9 +161,10 @@ def _create_compartment(model, sid, name, dims, unit, constant, value):
         c.setUnits(get_unit_string(unit))
     c.setConstant(constant)
     if type(value) is str:
-        # _createInitialAssignment(model, sid=cid, formula=value)
-        _create_assignment_rule(model, sid=sid, formula=value)
-        pass
+        if constant:
+            _create_initial_assignment(model, sid=sid, formula=value)
+        else:
+            _create_assignment_rule(model, sid=sid, formula=value)
     else:
         c.setSize(value)
     return c
@@ -173,40 +174,42 @@ def _create_compartment(model, sid, name, dims, unit, constant, value):
 # Species
 ##########################################################################
 def create_species(model, species):
-    """
-    Values have to be in concentrations.
-    """
     sbml_species = {}
     for data in get_values(species):
         sid = data[A_ID]
         sbml_species[sid] = _create_specie(model,
-            sid=data[A_ID],
-            name=data[A_NAME],
-            value=data[A_VALUE],
-            units=data[A_UNIT],
-            compartment=data[A_COMPARTMENT],
-            boundaryCondition=data.get(A_BOUNDARY_CONDITION, False),
-            constant=data.get(A_CONSTANT, False),
-            hasOnlySubstanceUnits=data.get(A_HAS_ONLY_SUBSTANCE_UNITS, False))
+                                           sid=data[A_ID],
+                                           name=data.get(A_NAME, None),
+                                           value=data[A_VALUE],
+                                           unit=data.get(A_UNIT, None),
+                                           compartment=data[A_COMPARTMENT],
+                                           boundaryCondition=data.get(A_BOUNDARY_CONDITION, False),
+                                           constant=data.get(A_CONSTANT, False),
+                                           hasOnlySubstanceUnits=data.get(A_HAS_ONLY_SUBSTANCE_UNITS, False))
     return sbml_species
 
 
-def _create_specie(model, sid, name, value, units, compartment,
+def _create_specie(model, sid, name, value, unit, compartment,
                    boundaryCondition, constant, hasOnlySubstanceUnits):
     s = model.createSpecies()
     s.setId(sid)
     if name:
         s.setName(name)
-    if units:
-        s.setUnits(get_unit_string(units))
+    if unit:
+        s.setUnits(get_unit_string(unit))
     s.setCompartment(compartment)
-
-    s.setInitialConcentration(value)
-    s.setSubstanceUnits(model.getSubstanceUnits())
 
     s.setBoundaryCondition(boundaryCondition)
     s.setConstant(constant)
     s.setHasOnlySubstanceUnits(hasOnlySubstanceUnits)
+
+    # TODO: handle the amount/concentrations with corresponding substance units correctly
+    if hasOnlySubstanceUnits:
+        s.setInitialAmount(value)
+    else:
+        s.setInitialConcentration(value)
+    s.setSubstanceUnits(model.getSubstanceUnits())
+
     return s
 
 
