@@ -12,6 +12,8 @@
 
 echo "Make directories for roadrunner installation"
 ROADRUNNER=roadrunner
+ROADRUNNER_DEPS=roadrunner-deps
+
 GIT_DIR=$HOME/git 
 TMP_DIR=$HOME/tmp
 if ! [ -d "$GIT_DIR" ]; then
@@ -27,7 +29,20 @@ sudo apt-get install llvm llvm-dev git libxml2-dev
 sudo -E pip install numpy --upgrade
 sudo -E pip install scipy --upgrade
 
-# clone the repository (hard remove & clone)
+# libroadrunner dependencies
+# https://github.com/sys-bio/libroadrunner-deps.git
+echo "pull libroadrunner-deps repository"
+if [ -d "$ROADRUNNER_DEPS" ]; then
+	cd ${GIT_DIR}/$ROADRUNNER_DEPS
+	git pull
+else
+	cd $GIT_DIR
+	git clone https://github.com/sys-bio/libroadrunner-deps.git $ROADRUNNER_DEPS
+    cd ${GIT_DIR}/$ROADRUNNER_DEPS
+fi
+git checkout master
+
+# pull the develop repository
 echo "pull roadrunner repository"
 if [ -d "$ROADRUNNER" ]; then
 	cd ${GIT_DIR}/$ROADRUNNER
@@ -39,8 +54,8 @@ fi
 # checkout release tag or version to build
 # git tag -l
 cd ${GIT_DIR}/$ROADRUNNER
-git checkout tags/1.4.1
-# git checkout tags/1.3.32a
+# git checkout tags/1.4.1
+git checkout develop
 
 # create build folders
 echo "build roadrunner third party dependencies"
@@ -50,11 +65,13 @@ ROADRUNNER_INSTALL=$TMP_DIR/roadrunner_install
 sudo rm -rf $ROADRUNNER_INSTALL
 mkdir $ROADRUNNER_INSTALL
 
-
 rm -rf $ROADRUNNER_BUILD_THIRDPARTY
 mkdir $ROADRUNNER_BUILD_THIRDPARTY
 cd $ROADRUNNER_BUILD_THIRDPARTY
-cmake -DCMAKE_INSTALL_PREFIX=$ROADRUNNER_INSTALL ${GIT_DIR}/$ROADRUNNER/third_party && make -j4 install
+cmake -DCMAKE_INSTALL_PREFIX=$ROADRUNNER_INSTALL ${GIT_DIR}/$ROADRUNNER_DEPS && make -j4 install
+
+read -rsp $'Press any key to continue...\n' -n1 key
+
 
 # build roadrunner
 rm -rf $ROADRUNNER_BUILD
