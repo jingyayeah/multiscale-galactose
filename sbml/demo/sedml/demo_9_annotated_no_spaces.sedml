@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by COPASI version 4.16 (Build 104) on 2015-12-07 08:34 with libSBML version 5.11.5. -->
+<sedML xmlns="http://sed-ml.org/sed-ml/level1/version2" level="1" version="2">
+  <listOfSimulations>
+    <uniformTimeCourse id="sim1" initialTime="0" outputStartTime="0" outputEndTime="20" numberOfPoints="2000">
+      <algorithm kisaoID="KISAO:0000019"/>
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model3" language="urn:sedml:language:sbml" source="model3.xml"/>
+  </listOfModels>
+  <listOfTasks>
+    <task id="task1" modelReference="model3" simulationReference="sim1"/>
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time" name="Time">
+      <listOfVariables>
+        <variable id="var_time" symbol="urn:sedml:symbol:time" taskReference="task1"/>
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="c__A_1" name="[A{cell_compartment}]">
+      <listOfVariables>
+        <variable id="p1_c__A" name="c__A" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;c__A&apos;]" taskReference="task1"/>
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p1_c__A </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="e__A_2" name="[A{external_compartment}]">
+      <listOfVariables>
+        <variable id="p1_e__A" name="e__A" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;e__A&apos;]" taskReference="task1"/>
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p1_e__A </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="c__B_3" name="[B{cell_compartment}]">
+      <listOfVariables>
+        <variable id="p1_c__B" name="c__B" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;c__B&apos;]" taskReference="task1"/>
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p1_c__B </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="e__B_4" name="[B{external_compartment}]">
+      <listOfVariables>
+        <variable id="p1_e__B" name="e__B" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;e__B&apos;]" taskReference="task1"/>
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p1_e__B </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="c__C_5" name="[C{cell_compartment}]">
+      <listOfVariables>
+        <variable id="p1_c__C" name="c__C" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;c__C&apos;]" taskReference="task1"/>
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p1_c__C </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="e__C_6" name="[C{external_compartment}]">
+      <listOfVariables>
+        <variable id="p1_e__C" name="e__C" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;e__C&apos;]" taskReference="task1"/>
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p1_e__C </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot1" name="plot_1">
+      <listOfCurves>
+        <curve id="p1_curve_1" name="[A{cell_compartment}]" logX="false" logY="false" xDataReference="time" yDataReference="c__A_1"/>
+        <curve id="p1_curve_2" name="[A{external_compartment}]" logX="false" logY="false" xDataReference="time" yDataReference="e__A_2"/>
+        <curve id="p1_curve_3" name="[B{cell_compartment}]" logX="false" logY="false" xDataReference="time" yDataReference="c__B_3"/>
+        <curve id="p1_curve_4" name="[B{external_compartment}]" logX="false" logY="false" xDataReference="time" yDataReference="e__B_4"/>
+        <curve id="p1_curve_5" name="[C{cell_compartment}]" logX="false" logY="false" xDataReference="time" yDataReference="c__C_5"/>
+        <curve id="p1_curve_6" name="[C{external_compartment}]" logX="false" logY="false" xDataReference="time" yDataReference="e__C_6"/>
+      </listOfCurves>
+    </plot2D>
+  </listOfOutputs>
+</sedML>
