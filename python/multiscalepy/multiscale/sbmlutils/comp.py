@@ -51,7 +51,7 @@ def get_submodel_frameworks(doc):
             # not the SBO which is set on the model in listOfModels or
             # listOfExternalModels
             sbo = submodel.getSBOTerm()
-        frameworks[sid] = sbo
+        frameworks[sid] = {"sid": sid, "modelRef": submodel.getModelRef(), "sbo": sbo}
 
     return frameworks
 
