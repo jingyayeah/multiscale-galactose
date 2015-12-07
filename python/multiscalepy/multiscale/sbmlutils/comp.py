@@ -20,21 +20,38 @@ def create_ExternalModelDefinition(mdoc, cid, sbml_file):
     return extdef
 
 
+def add_submodel_from_emd(mplugin, submodel_sid, emd):
+    model_ref = emd.getModelRef()
+    submodel = mplugin.createSubmodel()
+    submodel.setId(submodel_sid)
+    submodel.setModelRef(model_ref)
+    # copy the SBO term to the submodel
+
+    # ! gets the model belonging the SBASe !
+    # model = emd.getModel()
+    import libsbml
+    model = emd.getReferencedModel()
+    if model.isSetSBOTerm():
+        submodel.setSBOTerm(model.getSBOTerm())
+    return submodel
+
+
 def get_submodel_frameworks(doc):
     frameworks = {}
     # get list of submodels
     model = doc.getModel()
-mplugin = model.getPlugin("comp")
-    model.setSBOTerm(comp.SBO_CONTINOUS_FRAMEWORK)
+    mplugin = model.getPlugin("comp")
 
-    # add listOfSubmodels which reference the External models
-    submodel_bounds = mplugin.createSubmodel()
-    submodel_bounds.setId("bounds")
-    submodel_bounds.setModelRef(emd_bounds.getModelRef())
-
-
-
-    # find out the model type of the submodel via the model annotation
+    # model.setSBOTerm(comp.SBO_CONTINOUS_FRAMEWORK)
+    for submodel in mplugin.getListOfSubmodels():
+        sid = submodel.getId()
+        sbo = None
+        if submodel.isSetSBOTerm():
+            # This is the sbo which is set on the submodel element
+            # not the SBO which is set on the model in listOfModels or
+            # listOfExternalModels
+            sbo = submodel.getSBOTerm()
+        frameworks[sid] = sbo
 
     return frameworks
 
