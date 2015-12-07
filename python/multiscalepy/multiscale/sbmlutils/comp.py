@@ -20,6 +20,24 @@ def create_ExternalModelDefinition(mdoc, cid, sbml_file):
     return extdef
 
 
+def get_submodel_frameworks(doc):
+    frameworks = {}
+    # get list of submodels
+    model = doc.getModel()
+mplugin = model.getPlugin("comp")
+    model.setSBOTerm(comp.SBO_CONTINOUS_FRAMEWORK)
+
+    # add listOfSubmodels which reference the External models
+    submodel_bounds = mplugin.createSubmodel()
+    submodel_bounds.setId("bounds")
+    submodel_bounds.setModelRef(emd_bounds.getModelRef())
+
+
+
+    # find out the model type of the submodel via the model annotation
+
+    return frameworks
+
 ##########################################################################
 # Replacement helpers
 ##########################################################################
