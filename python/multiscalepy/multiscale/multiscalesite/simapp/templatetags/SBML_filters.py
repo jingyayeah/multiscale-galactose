@@ -21,7 +21,7 @@ class AnnotationHTML():
             if q_type == 0:
                 qualifier = io.ModelQualifierType[cv.getModelQualifierType()]
             elif q_type == 1:
-                qualifier = io.BiologcialQualifierType[cv.getBiologicalQualifierType()]
+                qualifier = io.BiologicalQualifierType[cv.getBiologicalQualifierType()]
             items.append(''.join(['<b>', qualifier, '</b>']))
 
             for k in xrange(cv.getNumResources()):
