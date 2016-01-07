@@ -8,9 +8,8 @@ from __future__ import print_function
 import warnings
 
 import libsbml
-from multiscale.modelcreator.sbmlutils.factory import _createParameter, createAssignmentRules, getUnitString
-from ..sbmlutils.io import check
-
+from multiscale.sbmlutils.factory import _create_parameter, create_assignment_rules, get_unit_string
+from multiscale.sbmlutils.io import check
 from multiscale.sbmlutils.equation import Equation
 from ..utils.naming import initString
 
@@ -46,10 +45,10 @@ class ReactionTemplate(object):
         """ Parameters have to be initialized. """
         for pdata in self.pars:
             p_new = [initString(part, initDict) for part in pdata]
-            pid, value, unit = p_new[0], p_new[1], getUnitString(p_new[2])
+            pid, value, unit = p_new[0], p_new[1], get_unit_string(p_new[2])
             
             if not self.model.getParameter(pid):
-                _createParameter(self.model, pid, unit, name=None, value=value, constant=True)
+                _create_parameter(self.model, pid, unit, name=None, value=value, constant=True)
     
     def _createRules(self, initDict):
         rules = dict()
@@ -60,10 +59,10 @@ class ReactionTemplate(object):
                 rules[rid] = {
                     'id': rid,
                     'unit': r_new[2],
-                    'assignment': r_new[1],
+                    'value': r_new[1],
                     'name': None
                 }
-        createAssignmentRules(self.model, rules)
+        create_assignment_rules(self.model, rules)
 
     def _createReaction(self, model, initDict):
         # parameters and rules

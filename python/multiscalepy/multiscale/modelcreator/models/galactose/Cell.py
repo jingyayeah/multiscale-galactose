@@ -20,7 +20,7 @@ from Reactions import *
 
 ##############################################################
 mid = 'galactose'
-version = 28
+version = 29
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Human Galactose Metabolism</h1>
@@ -192,7 +192,7 @@ names.update({
 # Assignments
 ##############################################################
 assignments.update({
-    # id: ('assignment', 'unit')
+    # id: ('value', 'unit')
     'Vol_h': ('x_cell*x_cell*y_cell', 'm3'),
     'Vol_e': ('Vol_h', 'm3'),
     'Vol_c': ('f_cyto*Vol_h', 'm3'),
@@ -209,7 +209,7 @@ names.update({
 # Rules
 ##############################################################
 rules.update({
-    # id: ('rule', 'unit')
+    # id: ('value', 'unit')
     'c__scale': ('scale_f * Vol_h', '-'),
             
     'e__gal_tot': ('e__gal + e__galM', 'mM'),

@@ -39,9 +39,8 @@ logger.addHandler(ch)
 # Qualifier
 ########################################################################
 # from libsbmlconstants
-# use ModelQualifierType_toString
+# TODO: use ModelQualifierType_toString
 import libsbml
-libsbml.ModelQualifierType_fromString()
 
 QualifierType = {
   0: "MODEL_QUALIFIER",
@@ -69,10 +68,10 @@ BiologicalQualifierType = {
    7: "BQB_IS_ENCODED_BY",
    8: "BQB_ENCODES",
    9: "BQB_OCCURS_IN",
-  10: "BQB_HAS_PROPERTY",
-  11: "BQB_IS_PROPERTY_OF",
-  12: "BQB_HAS_TAXON",
-  13: "BQB_UNKNOWN",
+   10: "BQB_HAS_PROPERTY",
+   11: "BQB_IS_PROPERTY_OF",
+   12: "BQB_HAS_TAXON",
+   13: "BQB_UNKNOWN",
 }
 
 
@@ -305,7 +304,7 @@ class ModelAnnotator(object):
 
         # meta id has to be set
         if not element.isSetMetaId():
-            meta_id = cls.create_meta_id()
+            meta_id = create_meta_id()
             element.setMetaId(meta_id)
 
         success = element.addCVTerm(cv)

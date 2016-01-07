@@ -13,6 +13,7 @@ import multiscale.multiscalesite.simapp.db.api as db_api
 from multiscale.modelcreator.factory.model_cell import CellModel
 from multiscale.multiscale_settings import MULTISCALE_GALACTOSE
 from multiscale.sbmlutils.annotation import annotate_sbml_file
+from multiscale.sbmlutils.validation import validate_sbml
 
 """
 def tissue_model():
@@ -89,7 +90,7 @@ def tissue_model():
 
 def galactose_model():
     print("Create galactose model")
-    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'galactose')
+    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'galactose')
 
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.hepatocyte',
                                          'multiscale.modelcreator.models.galactose'])
@@ -103,7 +104,7 @@ def galactose_model():
     f_annotations = os.path.join(directory, 'galactose_annotations.csv')
     f_sbml_annotated = os.path.join(directory, '{}_annotated.xml'.format(cell_model.model_id))
     annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
-    CellModel.validate_sbml(f_sbml_annotated)
+    validate_sbml(f_sbml_annotated)
 
     # add model to database
     db_api.create_model(f_sbml_annotated, model_format=db_api.CompModelFormat.SBML)
@@ -129,7 +130,7 @@ def demo_model():
     f_sbml_annotated = os.path.join(directory, '{}_annotated.xml'.format(cell_model.model_id))
 
     annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
-    CellModel.validate_sbml(f_sbml_annotated)
+    validate_sbml(f_sbml_annotated)
 
     # add annotated model to database
     db_api.create_model(f_sbml_annotated, model_format=db_api.CompModelFormat.SBML)

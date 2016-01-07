@@ -19,7 +19,7 @@ from ..utils import naming
 
 from multiscale.sbmlutils.factory import *
 from multiscale.sbmlutils.io import check, write_sbml
-import multiscale.sbmlutils.annotation as annotation
+from multiscale.sbmlutils import annotation
 
 
 class CellModel(object):
@@ -45,11 +45,11 @@ class CellModel(object):
     # Dictionary keys for respective lists
     _dictkeys = {
         'creators': ('FamilyName', 'GivenName', 'Email', 'Organization'),
-        'compartments': ('spatialDimension', 'unit', 'constant', 'assignment'),
+        'compartments': ('spatialDimension', 'unit', 'constant', 'value'),
         'species': ('compartment', 'value', 'unit', 'boundaryCondition'),
         'parameters': ('value', 'unit', 'constant'),
-        'assignments': ('assignment', 'unit'),
-        'rules': ('assignment', 'unit'),
+        'assignments': ('value', 'unit'),
+        'rules': ('value', 'unit'),
     }
 
     def __init__(self, cell_dict):
@@ -162,7 +162,7 @@ class CellModel(object):
         # notes
         check(self.model.setNotes(self.notes), 'set notes')
         # history
-        model_history.set_model_history(self.model, self.creators)
+        annotation.set_model_history(self.model, self.creators)
 
         # lists of content
         self.createUnits()
@@ -210,39 +210,37 @@ class CellModel(object):
     # Units
     ##########################################################################
     def createUnits(self):
-        # creates all the individual unit definitions
-        for key, value in self.units.iteritems():
-            createUnitDefinition(self.model, key, value)
-        # sets the main units of model
-        setMainUnits(self.model, self.main_units)
+        create_unit_definitions(self.model, self.units)
+        # set main units in model
+        set_main_units(self.model, self.main_units)
 
     ##########################################################################
     # Parameters
     ##########################################################################
     def createAllParameters(self):
         self.addName(self.parameters)
-        createParameters(self.model, self.parameters)
+        create_parameters(self.model, self.parameters)
 
     #########################################################################
     # Compartments
     #########################################################################
     def createAllCompartments(self):
         self.addName(self.compartments)
-        createCompartments(self.model, self.compartments)
+        create_compartments(self.model, self.compartments)
 
     ##########################################################################
     # Species
     ##########################################################################
     def createAllSpecies(self):
         self.addName(self.species)
-        createSpecies(self.model, self.species)
+        create_species(self.model, self.species)
 
     ##########################################################################
     # Assignments
     ##########################################################################
     def createInitialAssignments(self):
         self.addName(self.assignments)
-        createInitialAssignments(self.model, self.assignments)
+        create_initial_assignments(self.model, self.assignments)
 
     #########################################################################
     # Rules
@@ -250,7 +248,7 @@ class CellModel(object):
     # Assignment Rules
     def createAssignmentRules(self):
         self.addName(self.rules)
-        createAssignmentRules(self.model, self.rules)
+        create_assignment_rules(self.model, self.rules)
 
     #########################################################################
     # Reactions
@@ -311,7 +309,6 @@ class CellModel(object):
             parameter changes.
             TODO: make this cleaner and more general.
         """
-
         ddict = self.cellModel.deficiencies
         dunits = self.cellModel.deficiencies_units
 
