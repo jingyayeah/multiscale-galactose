@@ -5,7 +5,7 @@ Django template filters related to the rendering of SBML.
 import libsbml
 from django import template
 
-from multiscale.sbmlutils import sbmlio
+from multiscale.sbmlutils import annotation
 
 register = template.Library()
 
@@ -19,9 +19,9 @@ class AnnotationHTML():
             cv = item.getCVTerm(kcv)
             q_type = cv.getQualifierType()
             if q_type == 0:
-                qualifier = sbmlio.ModelQualifierType[cv.getModelQualifierType()]
+                qualifier = annotation.ModelQualifierType[cv.getModelQualifierType()]
             elif q_type == 1:
-                qualifier = sbmlio.BiologicalQualifierType[cv.getBiologicalQualifierType()]
+                qualifier = annotation.BiologicalQualifierType[cv.getBiologicalQualifierType()]
             items.append(''.join(['<b>', qualifier, '</b>']))
 
             for k in xrange(cv.getNumResources()):
