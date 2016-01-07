@@ -138,6 +138,7 @@ def demo_model():
     return [cell_dict, cell_model]
 
 if __name__ == "__main__":
+
     # TODO: reusability of code for tests
     [cell_dict, cell_model] = galactose_model()
     # [cell_dict, cell_model] = demo_model()

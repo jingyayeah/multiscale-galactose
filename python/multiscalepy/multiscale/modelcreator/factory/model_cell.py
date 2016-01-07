@@ -18,7 +18,7 @@ from ..processes.ReactionTemplate import ReactionTemplate
 from ..utils import naming
 
 from multiscale.sbmlutils.factory import *
-from multiscale.sbmlutils.io import check, write_sbml
+from multiscale.sbmlutils.sbmlio import check, write_sbml
 from multiscale.sbmlutils import annotation
 
 

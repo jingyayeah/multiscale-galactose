@@ -55,23 +55,24 @@ class TestAnnotation(unittest.TestCase):
         annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
         print(f_sbml_annotated)
 
+    def test_model_history(self):
+        # TODO: test for model history
+        # family_name="Koenig", given_name="Matthias", email="konigmatt@googlemail.com",
+        # organization="Test organisation"
+        self.assertEquals(True, False)
+
     def test_demo(self):
         f_sbml = os.path.join(test_dir, 'annotation', 'Koenig2014_demo_kinetic_v7.xml')
         f_annotations = os.path.join(test_dir, 'annotation', 'Koenig2014_demo_kinetic_v7_annotations.csv')
 
         f_tmp = tempfile.NamedTemporaryFile()
-        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated=f_tmp.name,
-                           family_name="Koenig", given_name="Matthias", email="konigmatt@googlemail.com",
-                           organization="Test organisation")
+        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated=f_tmp.name)
 
     def test_galactose(self):
         f_sbml = os.path.join(test_dir, 'annotation', 'Galactose_v20_Nc1_Nf1.xml')
         f_annotations = os.path.join(test_dir, 'annotation', 'Galactose_annotations.csv')
-
         f_tmp = tempfile.NamedTemporaryFile()
-        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated=f_tmp.name,
-                           family_name="Koenig", given_name="Matthias", email="konigmatt@googlemail.com",
-                           organization="Test organisation")
+        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated=f_tmp.name)
 
 if __name__ == "__main__":
     unittest.main()

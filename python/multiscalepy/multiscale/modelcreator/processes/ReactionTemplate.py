@@ -9,7 +9,7 @@ import warnings
 
 import libsbml
 from multiscale.sbmlutils.factory import _create_parameter, create_assignment_rules, get_unit_string
-from multiscale.sbmlutils.io import check
+from multiscale.sbmlutils.sbmlio import check
 from multiscale.sbmlutils.equation import Equation
 from ..utils.naming import initString
 
