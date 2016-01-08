@@ -7,7 +7,7 @@ The event times occur at exactly the same timepoint, which can be problematic.
 @date: 2015-05-05
 """
 from __future__ import print_function
-import libantimony
+import antimony
 import roadrunner
 from roadrunner import SelectionRecord
 import itertools
@@ -33,9 +33,9 @@ model_txt = """
     E1: at(time>=2):  S3=5;  
     end
 """
-model = libantimony.loadString(model_txt)
+model = antimony.loadString(model_txt)
 sbml_file = 'event_time.xml'
-libantimony.writeSBMLFile('event_time.xml', 'event_time')
+antimony.writeSBMLFile('event_time.xml', 'event_time')
 
 # load model in roadrunner and define the selection
 r = roadrunner.RoadRunner(sbml_file)

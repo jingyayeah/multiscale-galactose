@@ -10,7 +10,7 @@ import os
 import roadrunner
 from roadrunner import SelectionRecord
 print(roadrunner.getVersionStr())
-import libantimony
+import antimony
 
 model_txt = """
     model time_peak()
@@ -42,12 +42,12 @@ model_txt = """
 
     end
 """
-model = libantimony.loadString(model_txt)
+model = antimony.loadString(model_txt)
 
 out_dir = os.path.dirname(os.path.abspath(__file__))
 sbml_path = str(os.path.join(out_dir, 'time_peak.xml'))
 print('SBML path:', sbml_path)
-libantimony.writeSBMLFile(sbml_path, 'time_peak')
+antimony.writeSBMLFile(sbml_path, 'time_peak')
 r = roadrunner.RoadRunner(sbml_path)
 
 # display the generated and parsed SBML

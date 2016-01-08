@@ -5,7 +5,7 @@
 @date: 2015-05-05
 """
 from __future__ import print_function
-import libantimony
+import antimony
 import roadrunner
 from roadrunner import SelectionRecord
 
@@ -34,9 +34,9 @@ model_txt = """
 
     end
 """
-model = libantimony.loadString(model_txt)
+model = antimony.loadString(model_txt)
 sbml_file = 'event_timepoint.xml'
-libantimony.writeSBMLFile(sbml_file, 'event_timepoint')
+antimony.writeSBMLFile(sbml_file, 'event_timepoint')
 
 r = roadrunner.RoadRunner(sbml_file)
 print(r.getSBML())
