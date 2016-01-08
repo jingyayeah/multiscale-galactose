@@ -2,6 +2,7 @@
 """
 SBMLValidator based on the sbml.org validator example code.
 """
+import sys
 import os.path
 import time
 import libsbml
@@ -11,7 +12,7 @@ def validate_sbml(sbml_file, ucheck=True):
     validator = SBMLValidator(ucheck=ucheck)
     return validator.validate(sbml_file)
 
-# TODO: use the sbmlutils
+
 def check_sbml(filename):
     current = time.clock()
     doc = libsbml.readSBML(filename)
@@ -29,7 +30,11 @@ def check_sbml(filename):
     doc.printErrors()
     return errors
 
+
 def check(value, message):
+    """
+    Checks the libsbml return value and prints message if something happened.
+    """
     if value == None:
         print('LibSBML returned a null value trying to ' + message + '.')
         sys.exit(1)
@@ -44,8 +49,6 @@ def check(value, message):
             sys.exit(1)
     else:
         return
-
-
 
 
 class SBMLValidator:
@@ -128,38 +131,36 @@ class SBMLValidator:
         lines.append(" read time (ms) : %f" % (timeRead))
 
         if not skipCC :
-            lines.append( " c-check time (ms) : %f" % (timeCC))
+            lines.append(" c-check time (ms) : %f" % (timeCC))
         else:
-            lines.append( " c-check time (ms) : skipped")
+            lines.append(" c-check time (ms) : skipped")
 
-        lines.append( " validation error(s) : %d" % (numReadErr + numCCErr))
+        lines.append(" validation error(s) : %d" % (numReadErr + numCCErr))
         if not skipCC :
-            lines.append( " (consistency error(s)): %d" % (numCCErr))
+            lines.append(" (consistency error(s)): %d" % (numCCErr))
         else:
-            lines.append( " (consistency error(s)): skipped")
+            lines.append(" (consistency error(s)): skipped")
 
-        lines.append( " validation warning(s) : %d" % (numReadWarn + numCCWarn))
-        if not skipCC :
-            lines.append( " (consistency warning(s)): %d" % (numCCWarn))
+        lines.append(" validation warning(s) : %d" % (numReadWarn + numCCWarn))
+        if not skipCC:
+            lines.append(" (consistency warning(s)): %d" % (numCCWarn))
         else:
-            lines.append( " (consistency warning(s)): skipped")
+            lines.append(" (consistency warning(s)): skipped")
 
         if errMsgRead or errMsgCC:
             lines.append('')
-            lines.append( "===== validation error/warning messages =====\n")
-            if errMsgRead :
-                lines.append( errMsgRead)
-            if errMsgCC :
-                lines.append( "*** consistency check ***\n")
-                lines.append( errMsgCC)
+            lines.append("===== validation error/warning messages =====\n")
+            if errMsgRead:
+                lines.append(errMsgRead)
+            if errMsgCC:
+                lines.append("*** consistency check ***\n")
+                lines.append(errMsgCC)
         val_string = '\n'.join(lines)
         print val_string, '\n'
         
-        return { "numCCErr": numCCErr,
+        return {"numCCErr": numCCErr,
                  "numCCWarn": numCCWarn,
                  "errMsgCC": errMsgCC,
                  "skipCC": skipCC,
                  "timeCC": timeCC
                  }
-
-

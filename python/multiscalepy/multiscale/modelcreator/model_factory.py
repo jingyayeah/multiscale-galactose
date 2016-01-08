@@ -114,7 +114,7 @@ def galactose_model():
 
 def demo_model():
     print("Create demo model")
-    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbmlutils', 'galactose')
+    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'demo')
 
     cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.demo'])
     # init model
@@ -126,7 +126,7 @@ def demo_model():
     cell_model.write_sbml(f_sbml)
 
     # annotate & validate
-    f_annotations = os.path.join(directory, 'galactose_annotations.csv')
+    f_annotations = os.path.join(directory, 'demo_annotations.csv')
     f_sbml_annotated = os.path.join(directory, '{}_annotated.xml'.format(cell_model.model_id))
 
     annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
@@ -141,6 +141,6 @@ if __name__ == "__main__":
 
     # TODO: reusability of code for tests
     [cell_dict, cell_model] = galactose_model()
-    # [cell_dict, cell_model] = demo_model()
+    [cell_dict, cell_model] = demo_model()
     
 
