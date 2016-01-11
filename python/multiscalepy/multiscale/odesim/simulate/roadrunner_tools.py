@@ -127,20 +127,19 @@ def simulate(r, t_start, t_stop, steps=None,
     s = r.simulate(t_start, t_stop)
     timer_total = time.time() - timer_start
     
-    # store global parameters for analysis
-    gp = global_parameters_dataframe(r)
-    
+
     # reset parameter changes    
-    _set_parameters(r, changed)
-    r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
+    # _set_parameters(r, changed)
+    # r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
     
     # reset initial concentrations
-    r.reset()    
+    # r.reset()
     
     if debug:
         print('Integration time: {}'.format(timer_total))
-    
-    return s, gp
+
+    # simulation timecourse & global parameters for analysis
+    return s, global_parameters_dataframe(r)
 
 
 def _set_parameters(r, parameters):
