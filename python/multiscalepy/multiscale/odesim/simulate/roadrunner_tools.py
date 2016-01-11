@@ -33,25 +33,36 @@ def load_model(sbml_file):
     return r
 
 
-def getGlobalParameters(r):
+def global_parameters_dataframe(r):
     """ Create GlobalParameter DataFrame. """
     return DataFrame({'value': r.model.getGlobalParameterValues()},
                      index=r.model.getGlobalParameterIds())
 
 
-def getFloatingSpecies(r):
+def floating_species_dataframe(r):
     """ Create FloatingSpecies DataFrame. """
     return DataFrame({'concentration': r.model.getFloatingSpeciesConcentrations(),
                       'amount': r.model.getFloatingSpeciesAmounts()},
                      index=r.model.getFloatingSpeciesIds())
 
 
-def getBoundarySpecies(r):
+def boundary_species_dataframe(r):
     """ Create BoundingSpecies DataFrame. """
     return DataFrame({'concentration': r.model.getBoundarySpeciesConcentrations(),
                       'amount': r.model.getBoundarySpeciesAmounts()},
                      index=r.model.getBoundarySpeciesIds())
 
+def print_integrator_settings(r):
+    """
+    Prints the roadrunner integrator settings.
+    See https://github.com/sys-bio/roadrunner/issues/248
+    :param r: roadrunner instance
+    :return:
+    """
+    integrator = r.getIntegrator()
+    print(integrator.getName())
+    for key in integrator.getSettings():
+        print(key, ':', integrator.getValue(key))
 
 # ########################################################################
 # Simulation
@@ -106,13 +117,18 @@ def simulate(r, t_start, t_stop, steps=None,
     else:
         integrator.setValue('variable_step_size', False)
 
+    if debug:
+        print(integrator)
+        print(r.simulateOptions)
+
+
     # integrate
     timer_start = time.time()
     s = r.simulate(t_start, t_stop)
     timer_total = time.time() - timer_start
     
     # store global parameters for analysis
-    gp = getGlobalParameters(r)
+    gp = global_parameters_dataframe(r)
     
     # reset parameter changes    
     _set_parameters(r, changed)

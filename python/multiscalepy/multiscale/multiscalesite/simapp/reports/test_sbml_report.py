@@ -7,7 +7,7 @@ import os
 from django.test import TestCase, Client
 from simapp.db.api import create_model, CompModelFormat
 
-from multiscale.examples.testdata import demo_filepath
+from multiscale.examples.testdata import demo_sbml
 
 class SBMLReportTestCase(TestCase):
     def setUp(self):
@@ -17,7 +17,7 @@ class SBMLReportTestCase(TestCase):
         pass
 
     def test_report(self):
-        comp_model = create_model(demo_filepath, model_format=CompModelFormat.SBML)
+        comp_model = create_model(demo_sbml, model_format=CompModelFormat.SBML)
         response = self.c.get('/simapp/report/{}'.format(comp_model.pk))
 
         self.assertEqual(response.status_code, 200)

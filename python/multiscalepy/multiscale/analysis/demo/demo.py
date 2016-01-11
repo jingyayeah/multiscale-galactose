@@ -10,11 +10,11 @@ import multiscale.odesim.db.tools as db_tools
 from multiscale.odesim.dist.distributions import Distribution, DistributionType, DistributionParameterType
 from multiscale.analysis.examples import Example
 from multiscale.odesim.dist.sampling import Sampling, SamplingType, SampleParameter
-from multiscale.examples.testdata import demo_filepath
+from multiscale.examples.testdata import demo_sbml
 
 
 class Demo(Example):
-    file_path = demo_filepath
+    file_path = demo_sbml
     model_format = db_api.CompModelFormat.SBML
 
     @classmethod

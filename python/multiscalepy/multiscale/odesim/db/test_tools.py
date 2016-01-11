@@ -13,11 +13,11 @@ import simapp.db.api as db_api
 from multiscale.odesim.db.tools import get_sample_from_simulation, get_samples_from_task
 from multiscale.odesim.db.tools import create_simulations_from_samples
 from multiscale.odesim.dist.samples import Sample
-from multiscale.examples.testdata import demo_filepath
+from multiscale.examples.testdata import demo_sbml
 
 class ToolsTestCase(TestCase):
     def setUp(self):
-        model = db_api.create_model(demo_filepath, model_format=db_api.CompModelFormat.SBML)
+        model = db_api.create_model(demo_sbml, model_format=db_api.CompModelFormat.SBML)
         settings = db_api.create_settings({db_api.SettingKey.ABS_TOL: 1E-8})
         method = db_api.create_method(method_type=db_api.MethodType.ODE, settings=settings)
         self.task = db_api.create_task(model=model, method=method)

@@ -9,7 +9,7 @@ from django.test import TestCase
 import simapp.db.api as db_api
 from simapp.models import Result
 
-from multiscale.examples.testdata import demo_filepath
+from multiscale.examples.testdata import demo_sbml
 from multiscale.odesim.simulate.solve_io import create_simulation_directory
 from multiscale.odesim.simulate import solve_ode
 
@@ -22,7 +22,7 @@ class SolveODETestCase(TestCase):
 
     def test_solve_roadrunner(self):
         # create a set of test simulations and run
-        model = db_api.create_model(demo_filepath, db_api.CompModelFormat.SBML)
+        model = db_api.create_model(demo_sbml, db_api.CompModelFormat.SBML)
         settings = db_api.create_settings({db_api.SettingKey.T_START: 0.0,
                                            db_api.SettingKey.T_END: 20.0,
                                            db_api.SettingKey.STEPS: 100,

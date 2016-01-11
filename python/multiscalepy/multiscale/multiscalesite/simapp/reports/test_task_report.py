@@ -7,13 +7,13 @@ import django
 django.setup()
 
 from django.test import TestCase, Client
-from multiscale.examples.testdata import demo_filepath
+from multiscale.examples.testdata import demo_sbml
 from simapp.db.api import *
 from simapp.reports.task_report import TaskReport
 
 class TaskReportTestCase(TestCase):
     def setUp(self):
-        self.model = CompModel.create(demo_filepath, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         self.task = Task.objects.create(model=self.model, method=self.method)

@@ -40,6 +40,7 @@ from simapp.models import Task, Core, Simulation, SimulationStatus
 from simulate import solve
 
 # TODO: provide the multicore functionality for all simulations
+# TODO: use the roadrunner r.getInstanceID() & getInstanceCount() if multiple instances are running
 
 def worker(cpu, lock, Nsim):
     """ Creates a worker for the cpu which listens for available simulations. """
