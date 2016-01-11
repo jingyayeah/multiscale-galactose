@@ -61,7 +61,7 @@ for pa in pressure:
 # perform simulation
 pa_solutions = []
 for ps in pa_pars:
-    s, gp = rt.simulation(r, t_start, t_stop, parameters=ps, absTol=absolute, relTol=relative)
+    s, gp = rt.simulate(r, t_start, t_stop, parameters=ps, absTol=absolute, relTol=relative)
     pa_solutions.append(s)
 
 
@@ -77,7 +77,7 @@ for gal in gal_challenge:
 # perform simulation
 gal_solutions = []
 for ps in gal_pars:
-    s, gp = rt.simulation(r, t_start, t_stop, parameters=ps, absTol=absolute, relTol=relative)
+    s, gp = rt.simulate(r, t_start, t_stop, parameters=ps, absTol=absolute, relTol=relative)
     gal_solutions.append(s)
 
 

@@ -43,8 +43,8 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r = roadrunner_tools.load_model(demo_filepath)
         # Always set your selections manually
         r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
-        res, gp = roadrunner_tools.simulation(r, t_start=0, t_stop=20, steps=100,
-                                              absTol=1E-8, relTol=1E-8, debug=False)
+        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20, steps=100,
+                                            absTol=1E-8, relTol=1E-8, debug=False)
         print(res)
         print(res.shape)
         print(r.selections)
@@ -54,8 +54,8 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
     def test_simulation_varsteps(self):
         r = roadrunner_tools.load_model(demo_filepath)
         r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
-        res, gp = roadrunner_tools.simulation(r, t_start=0, t_stop=20,
-                                              absTol=1E-8, relTol=1E-8, debug=False)
+        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+                                            absTol=1E-8, relTol=1E-8, debug=False)
         self.assertNotEqual(101, res.shape[0])
         self.assertEqual(7, res.shape[1])
 
@@ -63,9 +63,9 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r = roadrunner_tools.load_model(demo_filepath)
         parameters = {'Vmax_bA': 10.0,
                       'Vmax_bB': 7.15}
-        res, gp = roadrunner_tools.simulation(r, t_start=0, t_stop=20,
-                                              parameters=parameters,
-                                              absTol=1E-8, relTol=1E-8, debug=False)
+        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+                                            parameters=parameters,
+                                            absTol=1E-8, relTol=1E-8, debug=False)
         self.assertEqual(10.0, gp.value['Vmax_bA'])
         self.assertEqual(7.15, gp.value['Vmax_bB'])
 
@@ -73,9 +73,9 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r = roadrunner_tools.load_model(demo_filepath)
         init_concentrations = {'A_ext': 5.0,
                                'B_ext': 2.0}
-        res, gp = roadrunner_tools.simulation(r, t_start=0, t_stop=20,
-                                              init_concentrations=init_concentrations,
-                                              absTol=1E-8, relTol=1E-8, debug=False)
+        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+                                            init_concentrations=init_concentrations,
+                                            absTol=1E-8, relTol=1E-8, debug=False)
         print('res:', res)
         self.assertEqual(5.0, res['[A_ext]'][0])
         self.assertEqual(2.0, res['[B_ext]'][0])
@@ -85,9 +85,9 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r.selections = r.selections + r.model.getFloatingSpeciesIds()
         init_amounts = {'A_ext': 0.01,
                         'B_ext': 0.004}
-        res, gp = roadrunner_tools.simulation(r, t_start=0, t_stop=20,
-                                              init_amounts=init_amounts,
-                                              absTol=1E-8, relTol=1E-8, debug=False)
+        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+                                            init_amounts=init_amounts,
+                                            absTol=1E-8, relTol=1E-8, debug=False)
         self.assertEqual(0.01, res['A_ext'][0])
         self.assertEqual(0.004, res['B_ext'][0])
 

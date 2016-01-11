@@ -10,12 +10,13 @@ simulation function.
 Simulations should be run via the roadrunner tools to make sure all simulations
 are reproducible.
 """
-from __future__ import print_function
+from __future__ import print_function, division
 
 import time
 import roadrunner
 from roadrunner import SelectionRecord
 from pandas import DataFrame
+
 
 # ########################################################################
 # Model Loading
@@ -31,20 +32,49 @@ def load_model(sbml_file):
     print('SBML load time: {}'.format(time.time() - time_start))
     return r
 
+
+def getGlobalParameters(r):
+    """ Create GlobalParameter DataFrame. """
+    return DataFrame({'value': r.model.getGlobalParameterValues()},
+                     index=r.model.getGlobalParameterIds())
+
+
+def getFloatingSpecies(r):
+    """ Create FloatingSpecies DataFrame. """
+    return DataFrame({'concentration': r.model.getFloatingSpeciesConcentrations(),
+                      'amount': r.model.getFloatingSpeciesAmounts()},
+                     index=r.model.getFloatingSpeciesIds())
+
+
+def getBoundarySpecies(r):
+    """ Create BoundingSpecies DataFrame. """
+    return DataFrame({'concentration': r.model.getBoundarySpeciesConcentrations(),
+                      'amount': r.model.getBoundarySpeciesAmounts()},
+                     index=r.model.getBoundarySpeciesIds())
+
+
 # ########################################################################
 # Simulation
 # ########################################################################
-def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentrations={}, init_amounts={},
-               absTol=1E-8, relTol=1E-8, debug=True):
-    """ Performs RoadRunner simulation.
-        Sets paramter values given in parameters dictionary and
-        initial values provided in inits dictionary.
+def simulate(r, t_start, t_stop, steps=None,
+             parameters={}, init_concentrations={}, init_amounts={},
+             absTol=1E-8, relTol=1E-8, debug=True):
+    """ Perform RoadRunner simulation.
+        Sets parameter values given in parameters dictionary &
+        initial values provided in dictionaries.
+
+        TODO: update & check if all the dependencies are handled correctly.
+        TODO: this is very specific to the simulation scenario (especially the resets).
+            So how to implement a more general simulation wropper with more options.
+        TODO: implement tests.
+        TODO: keep lean for fast simulations.
+
         Returns simulation results and global parameters at end of simulation.
     """
     # complete reset of model just to be sure
     r.reset()
     r.reset(SelectionRecord.ALL)
-    r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER )    
+    r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
     
     # concentration backup
     concentration_backup = dict()
@@ -65,17 +95,20 @@ def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentration
     # set changed values
     _set_initial_amounts(r, init_amounts)
 
-    # perform integration
+    # set integrator variables
     absTol = absTol * min(r.model.getCompartmentVolumes())  # absTol relative to the amounts
-    timer_start = time.time()
+    integrator = r.getIntegrator()
+    integrator.setValue('stiff', True)
+    integrator.setValue('absolute_tolerance', absTol)
+    integrator.setValue('relative_tolerance', relTol)
     if not steps:
-        # variable step size integration
-        s = r.simulate(t_start, t_stop, absolute=absTol, relative=relTol,
-                       variableStep=True, stiff=True, plot=False)
+        integrator.setValue('variable_step_size', True)
     else:
-        # stepwise integration
-        s = r.simulate(t_start, t_stop, steps=steps, absolute=absTol, relative=relTol,
-                       variableStep=False, stiff=True, plot=False)
+        integrator.setValue('variable_step_size', False)
+
+    # integrate
+    timer_start = time.time()
+    s = r.simulate(t_start, t_stop)
     timer_total = time.time() - timer_start
     
     # store global parameters for analysis
@@ -94,7 +127,6 @@ def simulation(r, t_start, t_stop, steps=None, parameters={}, init_concentration
     return s, gp
 
 
-
 def _set_parameters(r, parameters):
     """ Set given dictionary of parameters in model.
         Returns dictionary of changes. """
@@ -103,6 +135,7 @@ def _set_parameters(r, parameters):
         changed[key] = r.model[key]
         r.model[key] = value 
     return changed
+
 
 def _set_initial_concentrations(r, init_concentrations):
     """ Set initial concentrations from dictionary.
@@ -115,6 +148,7 @@ def _set_initial_concentrations(r, init_concentrations):
         r.model[name] = value
     return changed
 
+
 def _set_initial_amounts(r, init_amounts):
     """ Set initial values from dictionary.
         Returns dictionary of changes.
@@ -125,20 +159,3 @@ def _set_initial_amounts(r, init_amounts):
         name = 'init({})'.format(key)
         r.model[name] = value
     return changed
-
-
-def getGlobalParameters(r):
-    """ Create GlobalParameter DataFrame. """
-    return DataFrame({'value': r.model.getGlobalParameterValues()},
-                     index=r.model.getGlobalParameterIds())
-
-def getFloatingSpecies(r):
-    """ Create FloatingSpecies DataFrame. """
-    return DataFrame({'concentration': r.model.getFloatingSpeciesConcentrations(),
-                      'amount': r.model.getFloatingSpeciesAmounts()},
-                     index=r.model.getFloatingSpeciesIds())
-def getBoundarySpecies(r):
-    """ Create BoundingSpecies DataFrame. """
-    return DataFrame({'concentration': r.model.getBoundarySpeciesConcentrations(),
-                      'amount': r.model.getBoundarySpeciesAmounts()},
-                     index=r.model.getBoundarySpeciesIds())

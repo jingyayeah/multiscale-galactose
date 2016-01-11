@@ -4,6 +4,8 @@ Helper functions and tools to create objects in the database.
 All interactions with the database should go via this module.
 No direct interactions with the database should occur
 
+TODO: handle the model better
+
 @author: Matthias Koenig
 @date: 2015-05-10
 """

@@ -75,7 +75,7 @@ t_start = 0
 t_stop = 10000
 s_list = []
 for ps in parameters_list:
-    s, gp = rt.simulation(r, t_start, t_stop, parameters=ps, absTol=1E-5, relTol=1E-5)
+    s, gp = rt.simulate(r, t_start, t_stop, parameters=ps, absTol=1E-5, relTol=1E-5)
     s_list.append(s)
 
 # ----------------------------------------------------------------------
