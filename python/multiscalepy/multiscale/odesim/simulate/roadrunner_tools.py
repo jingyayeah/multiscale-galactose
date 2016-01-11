@@ -120,8 +120,9 @@ def simulate(r, t_start, t_stop, steps=None,
         integrator.setValue('variable_step_size', False)
 
     if debug:
-        print(integrator)
-        print(r.simulateOptions)
+        print(r)
+        print_integrator_settings(r)
+
 
 
     # integrate

@@ -137,10 +137,33 @@ def demo_model():
 
     return [cell_dict, cell_model]
 
+
+def test_model():
+    print("Create test model")
+    directory = os.path.join(MULTISCALE_GALACTOSE, 'sbml', 'test')
+
+    cell_dict = CellModel.createCellDict(['multiscale.modelcreator.models.hepatocyte',
+                                          'multiscale.modelcreator.models.test_1'])
+    # init model
+    cell_model = CellModel(cell_dict=cell_dict)
+    cell_model.create_sbml()
+
+    # file_path = sbml_path(cell_model.model_id)
+    f_sbml = os.path.join(directory, '{}.xml'.format(cell_model.model.getId()))
+    cell_model.write_sbml(f_sbml)
+
+
+    # add annotated model to database
+    db_api.create_model(f_sbml, model_format=db_api.CompModelFormat.SBML)
+
+    return [cell_dict, cell_model]
+
+
 if __name__ == "__main__":
 
     # TODO: reusability of code for tests
-    [cell_dict, cell_model] = galactose_model()
-    [cell_dict, cell_model] = demo_model()
+    # [cell_dict, cell_model] = galactose_model()
+    # [cell_dict, cell_model] = demo_model()
+    [cell_dict, cell_model] = test_model()
     
 
