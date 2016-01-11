@@ -84,6 +84,8 @@ def simulate(r, t_start, t_stop, steps=None,
     """
     # complete reset of model just to be sure
     r.reset()
+    # normal reset is using: rr::Config::MODEL_RESET
+
     r.reset(SelectionRecord.ALL)
     r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
     
