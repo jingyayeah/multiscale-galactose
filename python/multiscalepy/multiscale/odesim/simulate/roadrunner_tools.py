@@ -80,15 +80,14 @@ def simulate(r, t_start, t_stop, steps=None,
         TODO: implement tests.
         TODO: keep lean for fast simulations.
 
+        Necessary to handle the resets outside of roadrunner.
+        r.reset()  # only resets initial concentrations
+        r.reset(SelectionRecord.ALL)  # ?
+        r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)  # recalculates all initial assignments (but also concentrations)
+
         Returns simulation results and global parameters at end of simulation.
     """
-    # complete reset of model just to be sure
-    r.reset()
-    # normal reset is using: rr::Config::MODEL_RESET
 
-    r.reset(SelectionRecord.ALL)
-    r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
-    
     # concentration backup
     concentration_backup = dict()
     for sid in r.model.getFloatingSpeciesIds():
@@ -98,7 +97,7 @@ def simulate(r, t_start, t_stop, steps=None,
     changed = _set_parameters(r, parameters)
     r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
     
-    # restore initial concentrations
+    # restore concentrations
     for key, value in concentration_backup.iteritems():
         r.model['[{}]'.format(key)] = value
     
@@ -122,8 +121,6 @@ def simulate(r, t_start, t_stop, steps=None,
     if debug:
         print(r)
         print_integrator_settings(r)
-
-
 
     # integrate
     timer_start = time.time()

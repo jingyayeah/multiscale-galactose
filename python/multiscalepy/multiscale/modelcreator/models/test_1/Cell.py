@@ -8,7 +8,7 @@ from Reactions import *
 
 ##############################################################
 mid = 'test'
-version = 1
+version = 3
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Test Model</h1>

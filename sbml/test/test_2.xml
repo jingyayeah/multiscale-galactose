@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by multiscale-modelcreator version 0.1.0 on 2016-01-11 14:49 with libSBML version 5.12.1. -->
+<!-- Created by multiscale-modelcreator version 0.1.0 on 2016-01-11 14:50 with libSBML version 5.12.1. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_c24c2601589b4937b7081921b513b8e2" id="test_1" name="test_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_00122d8a6a664bbd9524c21062e88706" id="test_2" name="test_2" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Test Model</h1>
@@ -22,7 +22,7 @@
   </notes>
   <annotation>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-      <rdf:Description rdf:about="#meta_c24c2601589b4937b7081921b513b8e2">
+      <rdf:Description rdf:about="#meta_00122d8a6a664bbd9524c21062e88706">
         <dc:creator>
           <rdf:Bag>
             <rdf:li rdf:parseType="Resource">
@@ -38,10 +38,10 @@
           </rdf:Bag>
         </dc:creator>
         <dcterms:created rdf:parseType="Resource">
-          <dcterms:W3CDTF>2016-01-11T14:49:42Z</dcterms:W3CDTF>
+          <dcterms:W3CDTF>2016-01-11T14:50:24Z</dcterms:W3CDTF>
         </dcterms:created>
         <dcterms:modified rdf:parseType="Resource">
-          <dcterms:W3CDTF>2016-01-11T14:49:42Z</dcterms:W3CDTF>
+          <dcterms:W3CDTF>2016-01-11T14:50:24Z</dcterms:W3CDTF>
         </dcterms:modified>
       </rdf:Description>
     </rdf:RDF>
