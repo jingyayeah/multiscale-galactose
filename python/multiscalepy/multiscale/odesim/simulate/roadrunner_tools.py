@@ -16,6 +16,7 @@ import time
 import roadrunner
 from roadrunner import SelectionRecord
 from pandas import DataFrame
+import warnings
 
 
 # ########################################################################
@@ -52,12 +53,33 @@ def boundary_species_dataframe(r):
                       'amount': r.model.getBoundarySpeciesAmounts()},
                      index=r.model.getBoundarySpeciesIds())
 
+
 # ########################################################################
 # Simulation
 # ########################################################################
+def set_integrator_settings(r, variable_step_size=True, stiff=True,
+                            absolute_tolerance=1E-8, relative_tolerance=1E-8, debug=True):
+    """
+    Sets the integrator settings once
+    :param r: roadrunner instance
+    :return:
+    """
+    # absTol relative to the amounts
+    absolute_tolerance = absolute_tolerance * min(r.model.getCompartmentVolumes())
+    # set integrator settings
+    integrator = r.getIntegrator()
+    integrator.setValue('stiff', stiff)
+    integrator.setValue('absolute_tolerance', absolute_tolerance)
+    integrator.setValue('relative_tolerance', relative_tolerance)
+    integrator.setValue('variable_step_size', variable_step_size)
+
+    if debug:
+        print('*'*80)
+        print(r)
+        print('*'*80)
+
 def simulate(r, t_start, t_stop, steps=None,
-             parameters={}, init_concentrations={}, init_amounts={},
-             absTol=1E-8, relTol=1E-8, debug=True):
+             parameters={}, init_concentrations={}, init_amounts={}, debug=True):
     """ Perform RoadRunner simulation.
         Sets parameter values given in parameters dictionary &
         initial values provided in dictionaries.
@@ -67,6 +89,8 @@ def simulate(r, t_start, t_stop, steps=None,
             So how to implement a more general simulation wropper with more options.
         TODO: implement tests.
         TODO: keep lean for fast simulations.
+        TODO: how to handle various simulation scenarios
+        TODO: provide examples for parameters, initial concentrations and amounts.
 
         Necessary to handle the resets outside of roadrunner.
         r.reset()  # only resets initial concentrations
@@ -75,44 +99,25 @@ def simulate(r, t_start, t_stop, steps=None,
 
         Returns simulation results and global parameters at end of simulation.
     """
-
-    # concentration backup
-    concentration_backup = dict()
-    for sid in r.model.getFloatingSpeciesIds():
-        concentration_backup[sid] = r["[{}]".format(sid)]
-    
     # change parameters & recalculate initial assignments
+    cdict = store_concentrations(r)  # concentration backup
     changed = _set_parameters(r, parameters)
     r.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
-    
-    # restore concentrations
-    for key, value in concentration_backup.iteritems():
-        r.model['[{}]'.format(key)] = value
+    restore_concentrations(r, cdict)  # restore concentrations
     
     # set changed concentrations
     _set_initial_concentrations(r, init_concentrations)
-
-    # set changed values
+    # set changed amounts
     _set_initial_amounts(r, init_amounts)
-
-    # set integrator variables
-    absTol = absTol * min(r.model.getCompartmentVolumes())  # absTol relative to the amounts
-    integrator = r.getIntegrator()
-    integrator.setValue('stiff', True)
-    integrator.setValue('absolute_tolerance', absTol)
-    integrator.setValue('relative_tolerance', relTol)
-    if not steps:
-        integrator.setValue('variable_step_size', True)
-    else:
-        integrator.setValue('variable_step_size', False)
-
-    if debug:
-        print(r)
-        print_integrator_settings(r)
 
     # integrate
     timer_start = time.time()
-    s = r.simulate(t_start, t_stop)
+    if steps:
+        if r.getIntegrator().getValue('variable_step_size'):
+            warnings.warn("steps provided in variable_step_size simulation !")
+        s = r.simulate(t_start, t_stop, steps)
+    else:
+        s = r.simulate(t_start, t_stop, steps)
     timer_total = time.time() - timer_start
     
 
@@ -128,6 +133,20 @@ def simulate(r, t_start, t_stop, steps=None,
 
     # simulation timecourse & global parameters for analysis
     return s, global_parameters_dataframe(r)
+
+
+def store_concentrations(r):
+    """ Store FloatingSpecies concentrations of current model state. """
+    c = dict()
+    for sid in r.model.getFloatingSpeciesIds():
+        c[sid] = r["[{}]".format(sid)]
+    return c
+
+
+def restore_concentrations(r, cdict):
+    """ Restore the FloatingSpecies concentrations given in the dict. """
+    for key, value in cdict.iteritems():
+        r.model['[{}]'.format(key)] = value
 
 
 def _set_parameters(r, parameters):
@@ -162,3 +181,20 @@ def _set_initial_amounts(r, init_amounts):
         name = 'init({})'.format(key)
         r.model[name] = value
     return changed
+
+
+def plot_results(results):
+    """
+    :param results: list of result matrices
+    :return:
+    """
+    import matplotlib.pylab as plt
+
+    plt.figure(figsize=(10, 7))
+    for s in results:
+        plt.plot(s[:, 0], s[:, 1:], 'o-', color='black')
+        print('tend:', s[-1, 0])
+    # labels
+    plt_fontsize = 30
+    plt.xlabel('time [s]', fontsize=plt_fontsize)
+    plt.ylabel('species [mM]', fontsize=plt_fontsize)
