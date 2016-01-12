@@ -117,7 +117,7 @@ def simulate(r, t_start, t_stop, steps=None,
             warnings.warn("steps provided in variable_step_size simulation !")
         s = r.simulate(t_start, t_stop, steps)
     else:
-        s = r.simulate(t_start, t_stop, steps)
+        s = r.simulate(t_start, t_stop)
     timer_total = time.time() - timer_start
     
 
