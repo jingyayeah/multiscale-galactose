@@ -52,18 +52,6 @@ def boundary_species_dataframe(r):
                       'amount': r.model.getBoundarySpeciesAmounts()},
                      index=r.model.getBoundarySpeciesIds())
 
-def print_integrator_settings(r):
-    """
-    Prints the roadrunner integrator settings.
-    See https://github.com/sys-bio/roadrunner/issues/248
-    :param r: roadrunner instance
-    :return:
-    """
-    integrator = r.getIntegrator()
-    print(integrator.getName())
-    for key in integrator.getSettings():
-        print(key, ':', integrator.getValue(key))
-
 # ########################################################################
 # Simulation
 # ########################################################################
