@@ -21,6 +21,11 @@ class TestValidation(unittest.TestCase):
         self.assertEqual(0, results["numCCErr"])
         self.assertEqual(0, results["numCCWarn"])
 
+    def test_validate_test(self):
+        f_sbml = os.path.join(test_dir, 'notebook', 'test_4_timeFunction.xml')
+        results = validate_sbml(f_sbml)
+        self.assertEqual(0, results["numCCErr"])
+        self.assertEqual(0, results["numCCWarn"])
 
 if __name__ == '__main__':
     unittest.main()

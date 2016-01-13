@@ -20,6 +20,8 @@ GLUT2_GAL = ReactionTemplate(
             ('GLUT2_keq', 1.0, '-'),
     ],
     rules=[
+        # driving a boundaryCondition species
+        ('e__gal', '1.0 mM * (1 dimensionless + sin(time/1 s))', 'mM'),
     ],
     formula=('GLUT2_Vmax/GLUT2_k_gal * (e__gal - c__gal/GLUT2_keq)/(1 dimensionless + c__gal/GLUT2_k_gal + e__gal/GLUT2_k_gal) ', 'mole_per_s')
 )

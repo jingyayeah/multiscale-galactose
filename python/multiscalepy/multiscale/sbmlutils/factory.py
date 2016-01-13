@@ -3,8 +3,12 @@ Definition of general helper functions to create the various
 objects in the SBML. 
 These functions are called with the information dictionaries 
 during the generation of cell and tissue model.
+
+The objects send to the create_... functions have to be dictionaries with
+certain keys (TODO: better via classes)
+
 """
-from __future__ import print_function
+from __future__ import print_function, division
 
 import warnings
 import libsbml
@@ -33,6 +37,15 @@ def get_values(data_struct):
     else:
         raise Exception("data_struct type not supported.")
     return values
+
+
+def check_valid(data, dtype):
+    """
+    Check if the information for a certain data type is valid.
+    """
+    # TODO: implement checks based on the keys
+    if dtype is 'rule':
+        assert(data.has_key(A_ID))
 
 
 def ast_node_from_formula(model, formula):
@@ -251,9 +264,10 @@ def _create_rules(model, rules, rule_type):
     assert rule_type in ["AssignmentRule", "RateRule"]
     sbml_rules = {}
     for data in get_values(rules):
+        check_valid(data, 'rule')
         sid = data[A_ID]
-        # Create parameter if not existing
-        if (not model.getParameter(sid)) and (not model.getSpecies(sid)):
+        # Create parameter if symbol is neither parameter or species, or compartment
+        if (not model.getParameter(sid)) and (not model.getSpecies(sid)) and (not model.getCompartment(sid)):
             _create_parameter(model, sid, unit=data.get(A_UNIT, None), name=data.get(A_NAME, None), value=None, constant=False)
         if not model.getRule(sid):
             if rule_type == "RateRule":
