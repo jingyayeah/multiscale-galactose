@@ -8,7 +8,7 @@ from Reactions import *
 
 ##############################################################
 mid = 'test'
-version = 3
+version = 4
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Test Model</h1>
@@ -73,7 +73,7 @@ names.update({
 parameters.update({
     # id: ('value', 'unit', 'constant')
     'x_cell':       (25E-6, 'm', True),
-    'Vol_e':        (100E-6, 'm3', True),
+    'Vol_e':        (100E-14, 'm3', True),
     'A_m':          (1.0, 'm2', True),
 })
 names.update({
