@@ -54,9 +54,9 @@ def boundary_species_dataframe(r):
                      index=r.model.getBoundarySpeciesIds())
 
 
-# ########################################################################
+#########################################################################
 # Simulation
-# ########################################################################
+#########################################################################
 def set_integrator_settings(r, variable_step_size=True, stiff=True,
                             absolute_tolerance=1E-8, relative_tolerance=1E-8, debug=True):
     """
@@ -74,9 +74,9 @@ def set_integrator_settings(r, variable_step_size=True, stiff=True,
     integrator.setValue('variable_step_size', variable_step_size)
 
     if debug:
-        print('*'*80)
+        print('-'*80)
         print(r)
-        print('*'*80)
+        print('-'*80)
 
 def simulate(r, t_start, t_stop, steps=None,
              parameters={}, init_concentrations={}, init_amounts={}, debug=True):
@@ -183,7 +183,10 @@ def _set_initial_amounts(r, init_amounts):
     return changed
 
 
-def plot_results(results):
+#########################################################################
+# Plotting
+#########################################################################
+def plot_results(results, marker='o-', color='black'):
     """
     :param results: list of result matrices
     :return:
@@ -192,8 +195,8 @@ def plot_results(results):
 
     plt.figure(figsize=(10, 7))
     for s in results:
-        plt.plot(s[:, 0], s[:, 1:], 'o-', color='black')
-        print('tend:', s[-1, 0])
+        plt.plot(s[:, 0], s[:, 1:], marker, color=color)
+        # print('tend:', s[-1, 0])
     # labels
     plt_fontsize = 30
     plt.xlabel('time [s]', fontsize=plt_fontsize)

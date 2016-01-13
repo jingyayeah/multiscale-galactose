@@ -1,0 +1,103 @@
+// Created by libAntimony v2.8.1
+model *Koenig_demo_v09()
+
+  // Compartments and Species:
+  compartment e, c;
+  species e__A in e, e__C in e, e__B in e, c__C in c, c__B in c, c__A in c;
+
+  // Reactions:
+  bA: e__A => c__A; (scale_f*(Vmax_bA/Km_A)*(e__A - c__A))/(1 dimensionless + e__A/Km_A + c__A/Km_A);
+  bB: c__B => e__B; (scale_f*(Vmax_bB/Km_B)*(c__B - e__B))/(1 dimensionless + e__B/Km_B + c__B/Km_B);
+  bC: c__C => e__C; (scale_f*(Vmax_bC/Km_C)*(c__C - e__C))/(1 dimensionless + e__C/Km_C + c__C/Km_C);
+  v1 in c: c__A => c__B; (scale_f*Vmax_v1)/Km_A*(c__A - 1 dimensionless/Keq_v1*c__B);
+  v2 in c: c__A => c__C; (scale_f*Vmax_v2)/Km_A*c__A;
+  v3 in c: c__C => c__A; (scale_f*Vmax_v3)/Km_A*c__C;
+  v4 in c: c__C => c__B; (scale_f*Vmax_v4)/Km_A*(c__C - 1 dimensionless/Keq_v4*c__B);
+
+  // Species initializations:
+  e__A = 10;
+  e__A has mM;
+  e__C = 0;
+  e__C has mM;
+  e__B = 0;
+  e__B has mM;
+  c__C = 0;
+  c__C has mM;
+  c__B = 0;
+  c__B has mM;
+  c__A = 0;
+  c__A has mM;
+
+  // Compartment initializations:
+  e = 1e-06;
+  e has m3;
+  c = 1e-06;
+  c has m3;
+
+  // Variable initializations:
+  Km_C = 3;
+  Km_C has mM;
+  scale_f = 1e-06;
+  scale_f has dimensionless;
+  Vmax_bB = 2;
+  Vmax_bB has mole_per_s;
+  Vmax_bC = 2;
+  Vmax_bC has mole_per_s;
+  Vmax_bA = 5;
+  Vmax_bA has mole_per_s;
+  Vmax_v2 = 0.5;
+  Vmax_v2 has mole_per_s;
+  Vmax_v3 = 0.5;
+  Vmax_v3 has mole_per_s;
+  Vmax_v1 = 1;
+  Vmax_v1 has mole_per_s;
+  Km_A = 1;
+  Km_A has mM;
+  Vmax_v4 = 0.5;
+  Vmax_v4 has mole_per_s;
+  Km_B = 0.5;
+  Km_B has mM;
+  Keq_v4 = 2;
+  Keq_v4 has dimensionless;
+  Keq_v1 = 10;
+  Keq_v1 has dimensionless;
+
+  // Other declarations:
+  var e, c;
+  const Km_C, scale_f, Vmax_bB, Vmax_bC, Vmax_bA, Vmax_v2, Vmax_v3, Vmax_v1;
+  const Km_A, Vmax_v4, Km_B, Keq_v4, Keq_v1;
+
+  // Unit definitions:
+  unit kg = kilogram;
+  unit mM = mole / metre^3;
+  unit m = metre;
+  unit s = second;
+  unit m3 = metre^3;
+  unit m2 = metre^2;
+  unit mole_per_s = mole / second;
+  unit length = m;
+  unit area = m2;
+  unit volume = m3;
+  unit substance = mole;
+  unit extent = mole;
+  unit time_unit = s;
+
+  // Display Names:
+  m is "plasma membrane";
+  e is "external compartment";
+  c is "cell compartment";
+  e__A is "A";
+  e__C is "C";
+  e__B is "B";
+  c__C is "C";
+  c__B is "B";
+  c__A is "A";
+  scale_f is "metabolic scaling factor";
+  bA is "bA (A import)";
+  bB is "bB (B export)";
+  bC is "bC (C export)";
+  v1 is "v1 (A -> B)";
+  v2 is "v2 (A -> C)";
+  v3 is "v3 (C -> A)";
+  v4 is "v4 (C -> B)";
+end
