@@ -8,7 +8,7 @@ from Reactions import *
 
 ##############################################################
 mid = 'test'
-version = 5
+version = 6
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Test Model</h1>
@@ -45,14 +45,14 @@ reactions = []
 ##############################################################
 compartments.update({
     # id : ('spatialDimension', 'unit', 'constant', 'assignment')
-    'e': (3, 'm3', True, 'Vol_e'),
-    'c': (3, 'm3', False, 'Vol_c'),
-    'm': (2, 'm2', True, 'A_m'),
+    'ext': (3, 'm3', True, 'Vol_e'),
+    'cyto': (3, 'm3', False, 'Vol_c'),
+    'pm': (2, 'm2', True, 'A_m'),
 })
 names.update({
-    'e': 'external',
-    'c': 'cytosol',
-    'm': 'membrane',
+    'ext': 'external',
+    'cyto': 'cytosol',
+    'pm': 'membrane',
 })
 
 ##############################################################
@@ -60,8 +60,8 @@ names.update({
 ##############################################################
 species.update({
     # id : ('compartment', 'value', 'unit', 'boundaryCondition')
-    'e__gal':       ('e', 3.0, 'mM', True),
-    'c__gal':       ('c', 0.00012, 'mM', False),
+    'e__gal':       ('ext', 3.0, 'mM', True),
+    'c__gal':       ('cyto', 0.00012, 'mM', False),
 })
 names.update({
     'gal': 'D-galactose',
@@ -96,6 +96,8 @@ assignments.update({
 ##############################################################
 rules.update({
     # id: ('value', 'unit')
+    # driving a boundaryCondition species
+    # 'e__gal': ('1.0 mM * (1 dimensionless + sin(time/1 s))', 'mM'),
 })
 names.update({
 })

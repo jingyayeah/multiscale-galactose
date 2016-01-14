@@ -1,6 +1,8 @@
 """
 Factory methods for the creation of flow and diffusion reactions.
 """
+# TODO: update the Reaction factories to reflext the common standard for
+#   defining rules and parameters
 
 from multiscale.modelcreator.utils.naming import *
 from ReactionTemplate import setKineticLaw
