@@ -5,13 +5,12 @@ import os
 import tempfile
 from validation import validate_sbml
 
-from multiscale.examples.testdata import test_dir
+from multiscale.examples.testdata import demo_sbml, galactose_singlecell_sbml, test_sbml, vdp_sbml
 
 class TestValidation(unittest.TestCase):
 
     def test_validate_demo(self):
-        f_sbml = os.path.join(test_dir, 'annotation', 'demo_9.xml')
-        results = validate_sbml(f_sbml)
+        results = validate_sbml(demo_sbml)
         self.assertEqual(0, results["numCCErr"])
         self.assertEqual(0, results["numCCWarn"])
 

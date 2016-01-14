@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 SBMLValidator based on the sbml.org validator example code.
+
 """
+# TODO: only one SBML checking functionality (-> remove duplicate code between check_sbml and validate_SBML)
+
 import sys
 import os.path
 import time
@@ -9,26 +12,41 @@ import libsbml
 
 
 def validate_sbml(sbml_file, ucheck=True):
+    """
+    Validate the SBML file.
+    :param sbml_file:
+    :param ucheck:
+    :return:
+    """
     validator = SBMLValidator(ucheck=ucheck)
     return validator.validate(sbml_file)
 
 
-def check_sbml(filename):
+def check_sbml(filename, severity=libsbml.LIBSBML_SEV_INFO):
+    """
+    Checks the given SBML document and prints errors of the given severity.
+    :param filename:
+    :param severity:
+    :return: number of errors
+    """
+    # TODO: print the errors and warnings generated.
+
     current = time.clock()
     doc = libsbml.readSBML(filename)
     # doc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
     # doc.setConsistencyChecks(libsbml.LIBSBML_CAT_MODELING_PRACTICE, False)
     doc.checkConsistency()
-    errors = doc.getNumErrors()
+    Nerrors = doc.getNumErrors()
 
     print
     print(" filename: " + filename)
     print(" file size: " + str(os.stat(filename).st_size))
     print(" read time (ms): " + str(time.clock() - current))
-    print(" validation error(s): " + str(errors))
+    print(" validation error(s): " + str(Nerrors))
     print
     doc.printErrors()
-    return errors
+    # print(doc.printErrors(sys.stderr, severity))
+    return Nerrors
 
 
 def check(value, message):
@@ -58,6 +76,11 @@ class SBMLValidator:
         self.numinvalid = 0
  
     def validate(self, infile):
+        """
+        Based on the libsbml validation code.
+        :param infile:
+        :return:
+        """
         if not os.path.exists(infile):
             print("[Error] %s : No such file." % (infile))
             self.numinvalid += 1
@@ -93,13 +116,13 @@ class SBMLValidator:
         numCCErr = 0
         numCCWarn = 0
         errMsgCC = ""
-        skipCC = False;
+        skipCC = False
         timeCC = 0.0
 
         if seriousErrors:
-            skipCC = True;
+            skipCC = True
             errMsgRead += "Further consistency checking and validation aborted."
-            self.numinvalid += 1;
+            self.numinvalid += 1
         else:
             sbmlDoc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, self.ucheck)
             start = time.time()
@@ -109,17 +132,17 @@ class SBMLValidator:
 
             if failures > 0:
 
-                isinvalid = False;
+                isinvalid = False
                 for i in range(failures):
                     severity = sbmlDoc.getError(i).getSeverity()
                     if (severity == libsbml.LIBSBML_SEV_ERROR) or (severity == libsbml.LIBSBML_SEV_FATAL):
                         numCCErr += 1
-                        isinvalid = True;
+                        isinvalid = True
                     else:
                         numCCWarn += 1
 
                 if isinvalid:
-                    self.numinvalid += 1;
+                    self.numinvalid += 1
 
                 errMsgCC = sbmlDoc.getErrorLog().toString()
         #
@@ -130,22 +153,22 @@ class SBMLValidator:
         lines.append(" file size (byte) : %d" % (os.path.getsize(infile)))
         lines.append(" read time (ms) : %f" % (timeRead))
 
-        if not skipCC :
+        if not skipCC:
             lines.append(" c-check time (ms) : %f" % (timeCC))
         else:
             lines.append(" c-check time (ms) : skipped")
 
         lines.append(" validation error(s) : %d" % (numReadErr + numCCErr))
-        if not skipCC :
-            lines.append(" (consistency error(s)): %d" % (numCCErr))
+        if not skipCC:
+            lines.append(" consistency error(s): %d" % (numCCErr))
         else:
-            lines.append(" (consistency error(s)): skipped")
+            lines.append(" consistency error(s): skipped")
 
         lines.append(" validation warning(s) : %d" % (numReadWarn + numCCWarn))
         if not skipCC:
-            lines.append(" (consistency warning(s)): %d" % (numCCWarn))
+            lines.append(" consistency warning(s): %d" % (numCCWarn))
         else:
-            lines.append(" (consistency warning(s)): skipped")
+            lines.append(" consistency warning(s): skipped")
 
         if errMsgRead or errMsgCC:
             lines.append('')
@@ -163,4 +186,4 @@ class SBMLValidator:
                  "errMsgCC": errMsgCC,
                  "skipCC": skipCC,
                  "timeCC": timeCC
-                 }
+                }
