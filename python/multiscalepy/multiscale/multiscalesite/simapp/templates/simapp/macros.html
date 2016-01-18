@@ -28,7 +28,7 @@
         <td>{{ sim.core }}</td>
         <td> {% if sim.is_done %}
             {%  for result in sim.results.all %}
-                <a href="{{ sim.result.file.url }}" target="_blank">{{ result }}</a><br/>
+                <a href="{{ result.file.url }}" target="_blank">{{ result }}</a><br/>
             {% endfor %}
 
         {% endif %}
