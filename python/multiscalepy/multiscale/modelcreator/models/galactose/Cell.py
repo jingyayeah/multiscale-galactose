@@ -20,7 +20,7 @@ from Reactions import *
 
 ##############################################################
 mid = 'galactose'
-version = 29
+version = 30
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Human Galactose Metabolism</h1>

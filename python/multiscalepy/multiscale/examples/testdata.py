@@ -14,7 +14,7 @@ demo_id = 'Koenig_demo_v09'
 demo_sbml = os.path.join(test_dir, 'models/demo', '{}.xml'.format(demo_id))
 
 # galactose ------------------
-galactose_id = 'galactose_29_annotated'
+galactose_id = 'galactose_30_annotated'
 galactose_singlecell_sbml = os.path.join(test_dir, 'models/galactose', '{}.xml'.format(galactose_id))
 galactose_tissue_sbml = os.path.join(test_dir, 'models/galactose', 'Galactose_v128_Nc20_dilution.xml')
 

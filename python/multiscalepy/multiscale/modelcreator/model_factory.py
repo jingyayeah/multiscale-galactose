@@ -162,7 +162,7 @@ def test_model():
 if __name__ == "__main__":
 
     # TODO: reusability of code for tests
-    # [cell_dict, cell_model] = galactose_model()
+    [cell_dict, cell_model] = galactose_model()
     # [cell_dict, cell_model] = demo_model()
     [cell_dict, cell_model] = test_model()
     

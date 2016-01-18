@@ -548,12 +548,9 @@ GLUT2_GAL = ReactionTemplate(
     ],
     rules=[
             ('c__GLUT2_Vmax', 'GLUT2_f/Nf * c__scale * c__GLUT2_P/REF_P', 'mole_per_s'),
-            ('c__GLUT2_dm', '(1 dimensionless + e__gal_tot/GLUT2_k_gal + c__gal_tot/GLUT2_k_gal)', '-'),
-            ('c__GLUT2_V', 'c__GLUT2_Vmax/GLUT2_k_gal * 1 dimensionless/c__GLUT2_dm', 'mole_per_s_per_mM'),
-            ('c__GLUT2_Vf', 'c__GLUT2_V * e__gal_tot', 'mole_per_s'),
-            ('c__GLUT2_Vb', 'c__GLUT2_V * c__gal_tot', 'mole_per_s'),
+            ('c__GLUT2_V', 'c__GLUT2_Vmax/GLUT2_k_gal * 1 dimensionless/(1 dimensionless + e__gal_tot/GLUT2_k_gal + c__gal_tot/GLUT2_k_gal)', 'mole_per_s_per_mM'),
     ],
-    formula=('e__gal/e__gal_tot * c__GLUT2_Vf - c__gal/c__gal_tot * c__GLUT2_Vb', 'mole_per_s')
+    formula=('c__GLUT2_V * (e__gal - c__gal)', 'mole_per_s')
 )
 
 GLUT2_GALM = ReactionTemplate(
@@ -565,5 +562,5 @@ GLUT2_GALM = ReactionTemplate(
     compartments=['c__', 'e__'],
     pars=[],
     rules=[],
-    formula=('e__galM/e__gal_tot * c__GLUT2_Vf - c__galM/c__gal_tot * c__GLUT2_Vb', 'mole_per_s')
+    formula=('c__GLUT2_V * (e__galM - c__galM)', 'mole_per_s')
 )

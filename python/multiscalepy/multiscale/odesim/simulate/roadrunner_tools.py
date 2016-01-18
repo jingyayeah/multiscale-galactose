@@ -58,7 +58,7 @@ def boundary_species_dataframe(r):
 # Simulation
 #########################################################################
 def set_integrator_settings(r, variable_step_size=True, stiff=True,
-                            absolute_tolerance=1E-8, relative_tolerance=1E-8, debug=True):
+                            absolute_tolerance=1E-8, relative_tolerance=1E-8, debug=False):
     """
     Sets the integrator settings once
     :param r: roadrunner instance
@@ -165,9 +165,9 @@ def _set_initial_concentrations(r, init_concentrations):
     """
     changed = dict()
     for key, value in init_concentrations.iteritems():
-        changed[key] = r.model[key]
+        changed[key] = r[key]
         name = 'init([{}])'.format(key)
-        r.model[name] = value
+        r[name] = value
     return changed
 
 
@@ -177,7 +177,7 @@ def _set_initial_amounts(r, init_amounts):
     """
     changed = dict()
     for key, value in init_amounts.iteritems():
-        changed[key] = r.model[key]
+        changed[key] = r[key]
         name = 'init({})'.format(key)
         r.model[name] = value
     return changed

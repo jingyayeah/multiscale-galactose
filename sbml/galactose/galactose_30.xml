@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by multiscale-modelcreator version 0.1.0 on 2016-01-07 11:39 with libSBML version 5.12.1. -->
+<!-- Created by multiscale-modelcreator version 0.1.0 on 2016-01-18 14:25 with libSBML version 5.12.1. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_b03cf1bf967c44dd8694afbbd53633db" id="galactose_29" name="galactose_29" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_5666de92c2f14b8b84275cf472b8f684" id="galactose_30" name="galactose_30" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Galactose Metabolism</h1>
@@ -27,7 +27,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_b03cf1bf967c44dd8694afbbd53633db">
+    <rdf:Description rdf:about="#meta_5666de92c2f14b8b84275cf472b8f684">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -43,10 +43,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-01-07T11:39:10Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-01-18T14:25:06Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-01-07T11:39:10Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-01-18T14:25:06Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -400,10 +400,7 @@
   <parameter id="GLUT2_f" value="17" units="mole_per_s" constant="true"/>
   <parameter id="GLUT2_k_gal" value="27.8" units="mM" constant="true"/>
   <parameter id="c__GLUT2_P" value="1" units="mM" constant="true"/>
-  <parameter id="c__GLUT2_dm" units="dimensionless" constant="false"/>
-  <parameter id="c__GLUT2_Vb" units="mole_per_s" constant="false"/>
   <parameter id="c__GLUT2_V" units="mole_per_s_per_mM" constant="false"/>
-  <parameter id="c__GLUT2_Vf" units="mole_per_s" constant="false"/>
   <parameter id="c__GLUT2_Vmax" units="mole_per_s" constant="false"/>
 </listOfParameters><listOfInitialAssignments>
   <initialAssignment symbol="Vol_e">
@@ -1515,33 +1512,6 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="c__GLUT2_dm">
-    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
-      <apply>
-        <plus/>
-        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-        <apply>
-          <divide/>
-          <ci> e__gal_tot </ci>
-          <ci> GLUT2_k_gal </ci>
-        </apply>
-        <apply>
-          <divide/>
-          <ci> c__gal_tot </ci>
-          <ci> GLUT2_k_gal </ci>
-        </apply>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="c__GLUT2_Vb">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> c__GLUT2_V </ci>
-        <ci> c__gal_tot </ci>
-      </apply>
-    </math>
-  </assignmentRule>
   <assignmentRule variable="c__GLUT2_V">
     <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
@@ -1555,16 +1525,20 @@
           </apply>
           <cn sbml:units="dimensionless" type="integer"> 1 </cn>
         </apply>
-        <ci> c__GLUT2_dm </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="c__GLUT2_Vf">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> c__GLUT2_V </ci>
-        <ci> e__gal_tot </ci>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> e__gal_tot </ci>
+            <ci> GLUT2_k_gal </ci>
+          </apply>
+          <apply>
+            <divide/>
+            <ci> c__gal_tot </ci>
+            <ci> GLUT2_k_gal </ci>
+          </apply>
+        </apply>
       </apply>
     </math>
   </assignmentRule>
@@ -2830,24 +2804,12 @@
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
-          <minus/>
+          <times/>
+          <ci> c__GLUT2_V </ci>
           <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> e__gal </ci>
-              <ci> e__gal_tot </ci>
-            </apply>
-            <ci> c__GLUT2_Vf </ci>
-          </apply>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> c__gal </ci>
-              <ci> c__gal_tot </ci>
-            </apply>
-            <ci> c__GLUT2_Vb </ci>
+            <minus/>
+            <ci> e__gal </ci>
+            <ci> c__gal </ci>
           </apply>
         </apply>
       </math>
@@ -2867,24 +2829,12 @@
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
-          <minus/>
+          <times/>
+          <ci> c__GLUT2_V </ci>
           <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> e__galM </ci>
-              <ci> e__gal_tot </ci>
-            </apply>
-            <ci> c__GLUT2_Vf </ci>
-          </apply>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> c__galM </ci>
-              <ci> c__gal_tot </ci>
-            </apply>
-            <ci> c__GLUT2_Vb </ci>
+            <minus/>
+            <ci> e__galM </ci>
+            <ci> c__galM </ci>
           </apply>
         </apply>
       </math>
