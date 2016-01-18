@@ -193,7 +193,7 @@ def plot_results(results, *args, **kwargs):
     """
     import matplotlib.pylab as plt
 
-    plt.figure(figsize=(10,7))
+    plt.figure(figsize=(7, 4))
     for s in results:
         plt.plot(s[:, 0], s[:, 1:], *args, **kwargs)
         # print('tend:', s[-1, 0])

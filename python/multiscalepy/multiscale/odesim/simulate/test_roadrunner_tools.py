@@ -2,7 +2,7 @@
 Test the RoadRunner simulation tools.
 """
 
-from __future__ import print_function
+from __future__ import print_function, division
 import unittest
 
 from multiscale.examples.testdata import demo_sbml
@@ -39,57 +39,86 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         b_species = roadrunner_tools.boundary_species_dataframe(r)
         self.assertEqual(0, len(b_species))
 
-    def test_simulation(self):
+    def test_simulation_fixedsteps(self):
+        """ Test fixed step size simulation. """
         r = roadrunner_tools.load_model(demo_sbml)
-        # Always set your selections manually
+        roadrunner_tools.set_integrator_settings(r, variable_step_size=False)
+
         r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
-        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20, steps=100,
-                                            absTol=1E-8, relTol=1E-8, debug=True)
-        print(res)
-        print(res.shape)
-        print(r.selections)
+        res, __ = roadrunner_tools.simulate(r, t_start=0, t_stop=20, steps=100, debug=True)
+
+        self.assertFalse(r.getIntegrator().getSetting('variable_step_size'))
         self.assertEqual(101, res.shape[0])
         self.assertEqual(7, res.shape[1])
 
-    def test_simulation_varsteps(self):
+    def test_simulation_fixedsteps2(self):
+        """ Test fixed step size simulation. """
         r = roadrunner_tools.load_model(demo_sbml)
         r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
-        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
-                                            absTol=1E-8, relTol=1E-8, debug=False)
-        self.assertNotEqual(101, res.shape[0])
+        res = r.simulate(0, 10)
+
+        self.assertFalse(r.getIntegrator().getSetting('variable_step_size'))
+        self.assertEqual(51, res.shape[0])
         self.assertEqual(7, res.shape[1])
 
-    def test_parameters(self):
+    def test_simulation_varsteps(self):
+        """ Test variable step size simulation. """
         r = roadrunner_tools.load_model(demo_sbml)
+        r.integrator.setSetting('variable_step_size', True)
+        r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
+        res, __ = roadrunner_tools.simulate(r, t_start=0, t_stop=20, debug=False)
+
+        self.assertTrue(r.getIntegrator().getSetting('variable_step_size'))
+        self.assertNotEqual(101, res.shape[0])
+        self.assertEqual(7, res.shape[1])
+        self.assertEqual(res['time'][0], 0.0)
+        self.assertEqual(res['time'][-1], 20.0)
+
+    def test_parameters(self):
+        """ Test setting parameters in model. """
+        r = roadrunner_tools.load_model(demo_sbml)
+        r.selections = ['time', 'Vmax_bA', 'Vmax_bB']
         parameters = {'Vmax_bA': 10.0,
                       'Vmax_bB': 7.15}
         res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
-                                            parameters=parameters,
-                                            absTol=1E-8, relTol=1E-8, debug=False)
+                                            parameters=parameters, debug=False)
         self.assertEqual(10.0, gp.value['Vmax_bA'])
         self.assertEqual(7.15, gp.value['Vmax_bB'])
+        self.assertEqual(10.0, res['Vmax_bA'][0])
+        self.assertEqual(7.15, res['Vmax_bB'][0])
 
     def test_initial_concentrations(self):
+        """ Test setting initial concentrations in model. """
         r = roadrunner_tools.load_model(demo_sbml)
         init_concentrations = {'e__A': 5.0,
                                'e__B': 2.0}
-        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
-                                            init_concentrations=init_concentrations,
-                                            absTol=1E-8, relTol=1E-8, debug=False)
-        print('res:', res)
+        res, __ = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+                                            init_concentrations=init_concentrations, debug=False)
         self.assertEqual(5.0, res['[e__A]'][0])
         self.assertEqual(2.0, res['[e__B]'][0])
 
     def test_initial_values(self):
+        """ Test setting initial amounts in model. """
         r = roadrunner_tools.load_model(demo_sbml)
-        r.selections = r.selections + r.model.getFloatingSpeciesIds()
+        r.selections = ['time', 'e__A', 'e__B']
         init_amounts = {'e__A': 0.01,
                         'e__B': 0.004}
-        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
-                                            init_amounts=init_amounts,
-                                            absTol=1E-8, relTol=1E-8, debug=False)
+        res, __ = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+                                            init_amounts=init_amounts, debug=False)
         self.assertEqual(0.01, res['e__A'][0])
         self.assertEqual(0.004, res['e__B'][0])
+
+    def test_selections(self):
+        """ Test the standard selection of roadrunner. """
+        r = roadrunner_tools.load_model(demo_sbml)
+        self.assertEqual(len(r.selections), 7)
+        self.assertTrue('time' in r.selections)
+        self.assertTrue('[e__A]' in r.selections)
+        self.assertTrue('[e__B]' in r.selections)
+        self.assertTrue('[e__C]' in r.selections)
+        self.assertTrue('[c__A]' in r.selections)
+        self.assertTrue('[c__B]' in r.selections)
+        self.assertTrue('[c__C]' in r.selections)
 
 
 if __name__ == '__main__':
