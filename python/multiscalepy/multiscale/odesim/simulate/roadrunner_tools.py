@@ -186,16 +186,16 @@ def _set_initial_amounts(r, init_amounts):
 #########################################################################
 # Plotting
 #########################################################################
-def plot_results(results, marker='o-', color='black'):
+def plot_results(results, *args, **kwargs):
     """
     :param results: list of result matrices
     :return:
     """
     import matplotlib.pylab as plt
 
-    plt.figure(figsize=(10, 7))
+    plt.figure(figsize=(10,7))
     for s in results:
-        plt.plot(s[:, 0], s[:, 1:], marker, color=color)
+        plt.plot(s[:, 0], s[:, 1:], *args, **kwargs)
         # print('tend:', s[-1, 0])
     # labels
     plt_fontsize = 30
