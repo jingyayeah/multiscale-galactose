@@ -5,7 +5,7 @@ Testing the simapp database api.
 from __future__ import print_function
 from simapp.db.api import *
 from django.test import TestCase
-from multiscale.examples.testdata import demo_sbml
+from multiscale.examples.testdata import demo_sbml_no_annotations, demo_id
 
 import django
 django.setup()
@@ -18,9 +18,9 @@ class ApiTestCase(TestCase):
         pass
 
     def test_create_model(self):
-        m1 = create_model(demo_sbml, model_format=CompModelFormat.SBML)
-        self.assertEqual(m1.model_id, 'Koenig_demo_v09')
-        self.assertEqual(m1.sbml_id, 'Koenig_demo_v09')
+        m1 = create_model(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
+        self.assertEqual(m1.model_id, demo_id)
+        self.assertEqual(m1.sbml_id, demo_id)
         self.assertTrue(m1.is_sbml())
         self.assertFalse(m1.is_cellml())
         self.assertEqual(m1.model_format, CompModelFormat.SBML)
@@ -46,7 +46,7 @@ class ApiTestCase(TestCase):
                               parameter_type=ParameterType.BOUNDARY_INIT)
         settings = create_settings({})
         method = create_method(method_type=MethodType.ODE, settings=settings)
-        model = create_model(filepath=demo_sbml, model_format=CompModelFormat.SBML)
+        model = create_model(filepath=demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         task = create_task(model, method=method)
         self.assertIsNotNone(task)
         self.assertEqual(method.method_type, task.method.method_type)
@@ -86,7 +86,7 @@ class ApiTestCase(TestCase):
                               parameter_type=ParameterType.BOUNDARY_INIT)
         settings = create_settings({})
         method = create_method(method_type=MethodType.ODE, settings=settings)
-        model = create_model(filepath=demo_sbml, model_format=CompModelFormat.SBML)
+        model = create_model(filepath=demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         task = create_task(model, method=method)
         simulation = create_simulation(task, parameters=[p1, p2])
         self.assertIsNotNone(simulation)

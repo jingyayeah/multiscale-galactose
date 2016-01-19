@@ -76,8 +76,9 @@ class TestAnnotation(unittest.TestCase):
         self.assertEqual(doc.getSBOTerm(), 293)
         self.assertEqual(doc.getSBOTermID(), "SBO:0000293")
         cvterms = doc.getCVTerms()
+        # check: is one cv term with 3 resources in bag
         self.assertEqual(len(cvterms), 1)
-
+        self.assertEqual(cvterms[0].getNumResources(), 1)
 
         # model
         model = doc.getModel()
@@ -90,19 +91,23 @@ class TestAnnotation(unittest.TestCase):
         self.assertEqual(ce.getSBOTerm(), 290)
         self.assertEqual(ce.getSBOTermID(), "SBO:0000290")
         cvterms = ce.getCVTerms()
-        self.assertEqual(len(cvterms), 3)
+        # check: is one cv term with 3 resources in bag
+        self.assertEqual(len(cvterms), 1)
+        self.assertEqual(cvterms[0].getNumResources(), 3)
 
-        cm = model.getCompartment('e')
+        cm = model.getCompartment('m')
         self.assertEqual(cm.getSBOTerm(), 290)
         self.assertEqual(cm.getSBOTermID(), "SBO:0000290")
         cvterms = cm.getCVTerms()
-        self.assertEqual(len(cvterms), 3)
+        self.assertEqual(len(cvterms), 1)
+        self.assertEqual(cvterms[0].getNumResources(), 3)
 
-        cc = model.getCompartment('e')
+        cc = model.getCompartment('c')
         self.assertEqual(cc.getSBOTerm(), 290)
         self.assertEqual(cc.getSBOTermID(), "SBO:0000290")
         cvterms = cm.getCVTerms()
-        self.assertEqual(len(cvterms), 3)
+        self.assertEqual(len(cvterms), 1)
+        self.assertEqual(cvterms[0].getNumResources(), 3)
 
         # parameters
         for p in model.parameters:

@@ -1,7 +1,7 @@
 pattern	sbml_type	annotation_type	value	qualifier	collection	name
 #model						
 	document	RDF	SBO:0000293	BQM_IS	biomodels.sbo	non-spatial continuous framework
-^demo_\d+$	model	RDF	GO:0008152	BQM_IS	go	metabolic process
+^\w+_demo_\d+$	model	RDF	GO:0008152	BQM_IS	go	metabolic process
 						
 # compartment						
 e	compartment	RDF	SBO:0000290	BQB_IS	biomodels.sbo	physical compartment

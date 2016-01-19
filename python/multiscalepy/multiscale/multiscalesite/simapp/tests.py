@@ -12,7 +12,7 @@ from django.test import TestCase
 import django
 django.setup()
 
-from multiscale.examples.testdata import demo_sbml, demo_id
+from multiscale.examples.testdata import demo_sbml_no_annotations, demo_id
 
 # ===============================================================================
 # CoreTest
@@ -54,7 +54,7 @@ class CompModelFormatTestCase(TestCase):
 
 class CompModelTestCase(TestCase):
     def setUp(self):
-        CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
 
     def test_model_from_filepath(self):
         """ Create the demo network in the database. """
@@ -177,7 +177,7 @@ from simapp.models import Task
 
 class TaskTestCase(TestCase):
     def setUp(self):
-        self.model = CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         Task.objects.create(model=self.model, method=self.method)
@@ -204,7 +204,7 @@ from simapp.models import SimulationStatus
 class SimulationTestCase(TestCase):
     def setUp(self):
         # create task
-        self.model = CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE,
                                            settings=settings)
@@ -261,7 +261,7 @@ from django.core.files import File
 class ResultTestCase(TestCase):
     def setUp(self):
         # create task
-        self.model = CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         self.task = Task.objects.create(model=self.model, method=self.method)
@@ -305,7 +305,7 @@ class ViewTestCase(TestCase):
         #  check the response.context
         self.assertEqual(len(response.context['model_list']), n_models)
         # create a model
-        CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         response = self.c.get('/simapp/models/')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(len(response.context['model_list'])>0)
@@ -329,7 +329,7 @@ class ViewTestCase(TestCase):
 
     def test_task_200(self):
         """ Check response status code for view. """
-        self.model = CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         task = Task.objects.create(model=self.model, method=self.method)
@@ -338,7 +338,7 @@ class ViewTestCase(TestCase):
 
     def test_task_parameters(self):
         """ Check response status code for view. """
-        self.model = CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         task = Task.objects.create(model=self.model, method=self.method)
@@ -365,7 +365,7 @@ class ViewTestCase(TestCase):
 
     def test_simulation_200(self):
         """ Check response status code for view. """
-        self.model = CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         self.task = Task.objects.create(model=self.model, method=self.method)
@@ -400,7 +400,7 @@ class APITestCase(TestCase):
     """ Test the API methods."""
 
     def setUp(self):
-        self.model = CompModel.create(demo_sbml, model_format=CompModelFormat.SBML)
+        self.model = CompModel.create(demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
         settings = Setting.get_or_create_defaults()
         self.method = Method.get_or_create(method_type=MethodType.ODE, settings=settings)
         self.task = Task.objects.create(model=self.model, method=self.method)
@@ -412,7 +412,7 @@ class APITestCase(TestCase):
 
     def test_create_model(self):
 
-        m1 = create_model(filepath=demo_sbml, model_format=CompModelFormat.SBML)
+        m1 = create_model(filepath=demo_sbml_no_annotations, model_format=CompModelFormat.SBML)
 
         self.assertEqual(m1.model_format, CompModelFormat.SBML)
         self.assertEqual(m1.model_id, demo_id)
