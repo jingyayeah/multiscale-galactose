@@ -26,7 +26,7 @@ logger = logging.getLogger('annotation')
 logger.setLevel(logging.WARNING)
 # create console handler and set level to debug
 ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.WARNING)
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 # add formatter to ch
@@ -174,8 +174,8 @@ class ModelAnnotation(object):
 
         # TODO: check against MIRIAM dictionary and patterns
 
-    def print_annotation(self):
-        print(self.d)
+    def __str__(self):
+        return str(self.d)
         # print (("{:<20}"*len(self._keys)).format([getattr(self, k) for k in self._keys]))
 
 
@@ -346,7 +346,7 @@ class ModelAnnotator(object):
             entry = dict(zip(headers, [item.strip() for item in row]))
             a = ModelAnnotation(entry)
             res.append(a)
-            logger.info(a.print_annotation())
+            logger.info(str(a))
 
         return res
 
