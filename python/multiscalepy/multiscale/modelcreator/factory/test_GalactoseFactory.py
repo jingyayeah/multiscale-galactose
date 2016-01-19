@@ -4,7 +4,7 @@ Tests the creation of the galactose models.
 
 import unittest
 
-from multiscale.modelcreator.models.model_tissue import TissueModel
+# from multiscale.modelcreator.models.model_tissue import TissueModel
 
 from multiscale.modelcreator.factory.model_cell import CellModel
 

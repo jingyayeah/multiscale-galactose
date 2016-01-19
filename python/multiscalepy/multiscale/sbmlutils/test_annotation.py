@@ -9,7 +9,7 @@ import tempfile
 import unittest
 from libsbml import *
 
-from multiscale.examples.testdata import test_dir
+from multiscale.examples import testdata
 from multiscale.sbmlutils.annotation import *
 
 
@@ -61,7 +61,8 @@ class TestAnnotation(unittest.TestCase):
         self.assertEqual('Test organisation', c.getOrganization())
 
 
-    def test_demo(self):
+    def test_demo_annotation(self):
+        """ Annotate the demo network. """
         f_sbml = os.path.join(test_dir, 'annotation', 'demo_9.xml')
         f_annotations = os.path.join(test_dir, 'annotation', 'demo_annotations.csv')
 
@@ -70,8 +71,11 @@ class TestAnnotation(unittest.TestCase):
         annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated=f_tmp.name)
         # TODO: check that the annotations were written via libsbml
 
+        # TODO
+
 
     def test_galactose(self):
+        """ Annotate the galactose network. """
         f_sbml = os.path.join(test_dir, 'annotation', 'galactose_29.xml')
         f_annotations = os.path.join(test_dir, 'annotation', 'galactose_annotations.csv')
 

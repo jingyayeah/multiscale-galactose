@@ -45,7 +45,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         roadrunner_tools.set_integrator_settings(r, variable_step_size=False)
 
         r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
-        res, __ = roadrunner_tools.simulate(r, t_start=0, t_stop=20, steps=100, debug=True)
+        res, __ = roadrunner_tools.simulate(r, start=0, end=20, steps=100, debug=True)
 
         self.assertFalse(r.getIntegrator().getSetting('variable_step_size'))
         self.assertEqual(101, res.shape[0])
@@ -66,7 +66,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r = roadrunner_tools.load_model(demo_sbml)
         r.integrator.setSetting('variable_step_size', True)
         r.selections = ['time'] + ['[{}]'.format(s) for s in r.model.getFloatingSpeciesIds()]
-        res, __ = roadrunner_tools.simulate(r, t_start=0, t_stop=20, debug=False)
+        res, __ = roadrunner_tools.simulate(r, start=0, end=20, debug=False)
 
         self.assertTrue(r.getIntegrator().getSetting('variable_step_size'))
         self.assertNotEqual(101, res.shape[0])
@@ -80,7 +80,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r.selections = ['time', 'Vmax_bA', 'Vmax_bB']
         parameters = {'Vmax_bA': 10.0,
                       'Vmax_bB': 7.15}
-        res, gp = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+        res, gp = roadrunner_tools.simulate(r, start=0, end=20,
                                             parameters=parameters, debug=False)
         self.assertEqual(10.0, gp.value['Vmax_bA'])
         self.assertEqual(7.15, gp.value['Vmax_bB'])
@@ -92,7 +92,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r = roadrunner_tools.load_model(demo_sbml)
         init_concentrations = {'e__A': 5.0,
                                'e__B': 2.0}
-        res, __ = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+        res, __ = roadrunner_tools.simulate(r, start=0, end=20,
                                             init_concentrations=init_concentrations, debug=False)
         self.assertEqual(5.0, res['[e__A]'][0])
         self.assertEqual(2.0, res['[e__B]'][0])
@@ -103,7 +103,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r.selections = ['time', 'e__A', 'e__B']
         init_amounts = {'e__A': 0.01,
                         'e__B': 0.004}
-        res, __ = roadrunner_tools.simulate(r, t_start=0, t_stop=20,
+        res, __ = roadrunner_tools.simulate(r, start=0, end=20,
                                             init_amounts=init_amounts, debug=False)
         self.assertEqual(0.01, res['e__A'][0])
         self.assertEqual(0.004, res['e__B'][0])

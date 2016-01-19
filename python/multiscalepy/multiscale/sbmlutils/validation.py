@@ -5,6 +5,7 @@ SBMLValidator based on the sbml.org validator example code.
 """
 # TODO: only one SBML checking functionality (-> remove duplicate code between check_sbml and validate_SBML)
 
+from __future__ import print_function, division
 import sys
 import os.path
 import time
@@ -22,30 +23,38 @@ def validate_sbml(sbml_file, ucheck=True):
     return validator.validate(sbml_file)
 
 
-def check_sbml(filename, severity=libsbml.LIBSBML_SEV_INFO):
+def check_sbml(filename):
     """
     Checks the given SBML document and prints errors of the given severity.
+
+    Individual checks can be changed via the categories
+        doc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
+        doc.setConsistencyChecks(libsbml.LIBSBML_CAT_MODELING_PRACTICE, False)
+
     :param filename:
-    :param severity:
     :return: number of errors
     """
-    # TODO: print the errors and warnings generated.
-
     current = time.clock()
     doc = libsbml.readSBML(filename)
-    # doc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
-    # doc.setConsistencyChecks(libsbml.LIBSBML_CAT_MODELING_PRACTICE, False)
     doc.checkConsistency()
     Nerrors = doc.getNumErrors()
 
-    print
+    print()
     print(" filename: " + filename)
     print(" file size: " + str(os.stat(filename).st_size))
     print(" read time (ms): " + str(time.clock() - current))
     print(" validation error(s): " + str(Nerrors))
-    print
-    doc.printErrors()
-    # print(doc.printErrors(sys.stderr, severity))
+    print()
+
+    # prints errors to stderr
+    # doc.printErrors()
+
+    # print to stdout
+    stream = libsbml.ostringstream()
+    doc.printErrors(stream)
+    sys.stdout.write(stream.str())
+    # sys.stderr.write(stream.str())
+
     return Nerrors
 
 
@@ -179,7 +188,7 @@ class SBMLValidator:
                 lines.append("*** consistency check ***\n")
                 lines.append(errMsgCC)
         val_string = '\n'.join(lines)
-        print val_string, '\n'
+        print(val_string, '\n')
         
         return {"numCCErr": numCCErr,
                  "numCCWarn": numCCWarn,
@@ -187,3 +196,12 @@ class SBMLValidator:
                  "skipCC": skipCC,
                  "timeCC": timeCC
                 }
+
+
+if __name__ == "__main__":
+    from multiscale.examples.testdata import test_sbml
+    check_sbml(test_sbml)
+
+    from multiscale.examples.testdata import vdp_sbml
+    check_sbml(vdp_sbml)
+

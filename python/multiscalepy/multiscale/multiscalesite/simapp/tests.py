@@ -12,7 +12,7 @@ from django.test import TestCase
 import django
 django.setup()
 
-from multiscale.examples.testdata import demo_sbml, demo_model_id
+from multiscale.examples.testdata import demo_sbml, demo_id
 
 # ===============================================================================
 # CoreTest
@@ -58,13 +58,13 @@ class CompModelTestCase(TestCase):
 
     def test_model_from_filepath(self):
         """ Create the demo network in the database. """
-        m1 = CompModel.objects.get(model_id=demo_model_id)
-        self.assertEqual(m1.model_id, demo_model_id)
-        self.assertEqual(m1.sbml_id, demo_model_id)
+        m1 = CompModel.objects.get(model_id=demo_id)
+        self.assertEqual(m1.model_id, demo_id)
+        self.assertEqual(m1.sbml_id, demo_id)
 
     def test_model_format(self):
         """ Make the format checks. """
-        m1 = CompModel.objects.get(model_id=demo_model_id)
+        m1 = CompModel.objects.get(model_id=demo_id)
         self.assertTrue(m1.is_sbml())
         self.assertFalse(m1.is_cellml())
         self.assertEqual(m1.model_format, CompModelFormat.SBML)
@@ -415,7 +415,7 @@ class APITestCase(TestCase):
         m1 = create_model(filepath=demo_sbml, model_format=CompModelFormat.SBML)
 
         self.assertEqual(m1.model_format, CompModelFormat.SBML)
-        self.assertEqual(m1.model_id, demo_model_id)
+        self.assertEqual(m1.model_id, demo_id)
 
     def test_create_parameter(self):
         p3 = create_parameter(key='L', value=1E-6, unit='m', parameter_type=ParameterType.GLOBAL_PARAMETER)

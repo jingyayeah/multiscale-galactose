@@ -78,7 +78,7 @@ def set_integrator_settings(r, variable_step_size=True, stiff=True,
         print(r)
         print('-'*80)
 
-def simulate(r, t_start, t_stop, steps=None,
+def simulate(r, start, end, steps=None,
              parameters={}, init_concentrations={}, init_amounts={}, debug=True):
     """ Perform RoadRunner simulation.
         Sets parameter values given in parameters dictionary &
@@ -115,9 +115,9 @@ def simulate(r, t_start, t_stop, steps=None,
     if steps:
         if r.getIntegrator().getValue('variable_step_size'):
             warnings.warn("steps provided in variable_step_size simulation !")
-        s = r.simulate(t_start, t_stop, steps)
+        s = r.simulate(start=start, end=end, steps=steps)
     else:
-        s = r.simulate(t_start, t_stop)
+        s = r.simulate(start=start, end=end)
     timer_total = time.time() - timer_start
     
 

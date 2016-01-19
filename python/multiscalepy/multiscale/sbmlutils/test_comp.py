@@ -1,9 +1,9 @@
 import unittest
 
+# TODO: implement
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)
+class CompTestCase(unittest.TestCase):
+    """ Implement tests for comp model building. """
 
 
 if __name__ == '__main__':

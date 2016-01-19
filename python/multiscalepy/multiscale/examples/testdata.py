@@ -20,7 +20,7 @@ galactose_tissue_sbml = os.path.join(test_dir, 'models/galactose', 'Galactose_v1
 
 # test -----------------------
 test_id = 'test_6'
-test_sbml = os.path.join(test_dir, 'models/test', '{}.xml'.format(demo_id))
+test_sbml = os.path.join(test_dir, 'models/test', '{}.xml'.format(test_id))
 
 # van_der_pol ---------------
 vdp_id = "van_der_pol"
