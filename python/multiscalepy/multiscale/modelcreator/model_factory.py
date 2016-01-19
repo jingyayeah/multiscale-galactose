@@ -149,8 +149,8 @@ def create_galactose():
 
 
 if __name__ == "__main__":
-    # [cell_dict, cell_model] = create_demo()
-    # [cell_dict, cell_model] = create_test()
+    [cell_dict, cell_model] = create_demo()
+    [cell_dict, cell_model] = create_test()
     [cell_dict, cell_model] = create_galactose()
     
 
