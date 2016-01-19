@@ -7,7 +7,7 @@ from __future__ import print_function, division
 import os
 import tempfile
 import unittest
-from libsbml import *
+import libsbml
 
 from multiscale.examples import testdata
 from multiscale.sbmlutils.annotation import *
@@ -16,6 +16,9 @@ from multiscale.sbmlutils.annotation import *
 class TestAnnotation(unittest.TestCase):
 
     def test_model_annotation(self):
+        """
+        Check the annotation data structure.
+        """
         d = {'pattern': 'test_pattern',
              'sbml_type': 'reaction',
              'annotation_type': 'RDF',
@@ -47,7 +50,7 @@ class TestAnnotation(unittest.TestCase):
                          'GivenName': 'Matthias',
                          'Email': 'konigmatt@googlemail.com',
                          'Organization': 'Test organisation'}}
-        sbmlns = SBMLNamespaces(3, 1)
+        sbmlns = libSBMLNamespaces(3, 1)
         doc = SBMLDocument(sbmlns)
         model = doc.createModel()
         set_model_history(model, creators)
@@ -60,29 +63,34 @@ class TestAnnotation(unittest.TestCase):
         self.assertEqual('konigmatt@googlemail.com', c.getEmail())
         self.assertEqual('Test organisation', c.getOrganization())
 
-
     def test_demo_annotation(self):
         """ Annotate the demo network. """
-        f_sbml = os.path.join(test_dir, 'annotation', 'demo_9.xml')
-        f_annotations = os.path.join(test_dir, 'annotation', 'demo_annotations.csv')
-
-        # annotate
         f_tmp = tempfile.NamedTemporaryFile()
-        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated=f_tmp.name)
+        annotate_sbml_file(testdata.demo_sbml, testdata.demo_annotations, f_sbml_annotated=f_tmp.name)
+        f_tmp.flush()
+
         # TODO: check that the annotations were written via libsbml
+        sbmlns = SBMLNamespaces(3, 1)
+        doc =
+        model = doc.createModel()
 
-        # TODO
+        h = model.getModelHistory()
+        self.assertIsNotNone(h)
+        self.assertEqual(1, h.getNumCreators())
+        c = h.getCreator(0)
+        self.assertEqual('Koenig', c.getFamilyName())
+        self.assertEqual('Matthias', c.getGivenName())
+        self.assertEqual('konigmatt@googlemail.com', c.getEmail())
+        self.assertEqual('Test organisation', c.getOrganization())
 
 
-    def test_galactose(self):
+
+    def test_galactose_annotation(self):
         """ Annotate the galactose network. """
-        f_sbml = os.path.join(test_dir, 'annotation', 'galactose_29.xml')
-        f_annotations = os.path.join(test_dir, 'annotation', 'galactose_annotations.csv')
-
-        # annotate
         f_tmp = tempfile.NamedTemporaryFile()
-        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated=f_tmp.name)
-        # TODO: check that the annotations were written via libsbml
+        annotate_sbml_file(testdata.galactose_singlecell_sbml, testdata.galactose_annotations,
+                           f_sbml_annotated=f_tmp.name)
+        f_tmp.flush()
 
 if __name__ == "__main__":
     unittest.main()
