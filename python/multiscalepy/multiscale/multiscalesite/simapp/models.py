@@ -400,6 +400,7 @@ class TaskStatus(enum.Enum):
         FINALIZED: 'FINALIZED'
     }
 
+
 class Task(models.Model):
     """ Tasks are defined sets of simulations under consistent conditions.
         Tasks are compatible on their method setting and the
@@ -472,6 +473,7 @@ class Task(models.Model):
     def is_done(self):
         return self.done_count() == self.sim_count()
 
+    # status functions
     def finalize_status(self):
         self.status = TaskStatus.FINALIZED
         self.save()
@@ -479,6 +481,12 @@ class Task(models.Model):
     def open_status(self):
         self.status = TaskStatus.OPEN
         self.save()
+
+    def has_status_finalized(self):
+        return self.status == TaskStatus.FINALIZED
+
+    def has_status_open(self):
+        return self.status == TaskStatus.OPEN
 
     def _status_str(self):
         """ Task status. """

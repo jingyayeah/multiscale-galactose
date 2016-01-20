@@ -13,7 +13,7 @@ stored in a separate annotation store.
 from __future__ import print_function
 import logging
 import warnings
-import libsbml
+
 import csv
 import re
 import uuid
