@@ -23,7 +23,7 @@ hypercube sampling provides a better coverage of the space.
 from __future__ import print_function
 
 from multiscale.odesim.dist.samples import Sample, SampleParameter
-from util.util_classes import EnumType
+from multiscale.util.util_classes import EnumType
 
 
 class SamplingType(EnumType):

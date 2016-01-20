@@ -35,7 +35,7 @@ import numpy as np
 
 from samples import SampleParameter
 from enum import Enum
-from util.util_classes import EnumType
+from multiscale.util.util_classes import EnumType
 
 
 class DistributionType(EnumType, Enum):

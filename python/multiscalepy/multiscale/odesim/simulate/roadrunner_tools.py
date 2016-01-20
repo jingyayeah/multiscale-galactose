@@ -14,25 +14,51 @@ from __future__ import print_function, division
 
 import time
 import roadrunner
-from roadrunner import SelectionRecord
+from roadrunner import RoadRunner, SelectionRecord
 from pandas import DataFrame
 import warnings
 
+from multiscale.util.timing import time_it
 
-# ########################################################################
-# Model Loading
-# ########################################################################
-def load_model(sbml_file):
-    """ Load SBML file in RoadRunner and returns the roadrunner object.
-    Provides additional information about load times.
-    time and file.
+
+class MyRunner(RoadRunner):
     """
-    print('Loading : {}'.format(sbml_file))
-    time_start = time.time()
-    r = roadrunner.RoadRunner(sbml_file)
-    print('SBML load time: {}'.format(time.time() - time_start))
-    return r
+    Provides additional information about load times and
+    simulate times.
+    """
+    @time_it(message="SBML compile")
+    def __init__(self, *args, **kwargs):
+        # super constructor
+        RoadRunner.__init__(self, *args, **kwargs)
 
+    simulate = time_it()(RoadRunner.simulate)
+
+
+
+#########################################################################
+# Helper for units & selections
+#########################################################################
+def get_global_constant_parameters(r):
+    """ Subset of global parameters which are constant.
+        Set of parameter which has constant values and is not calculated
+        based on an initialAssignment.
+    """
+    # All global parameters which are constant have to be varied.
+    parameter_ids = r.model.getGlobalParameterIds()
+    import libsbml
+    doc = libsbml.readSBMLFromString(r.getSBML())
+    model = doc.getModel()
+    const_parameter_ids = []
+    for pid in parameter_ids:
+        p = model.getParameter(pid)
+        if p.constant:
+            const_parameter_ids.append(pid)
+    return const_parameter_ids
+
+
+#########################################################################
+# DataFrames
+#########################################################################
 
 def global_parameters_dataframe(r):
     """ Create GlobalParameter DataFrame. """

@@ -23,6 +23,7 @@ from simapp.storage import OverwriteStorage
 # Core
 # ===============================================================================
 from multiscale.multiscale_settings import COMPUTERS
+from multiscale.util.util_classes import hash_for_file
 
 class Core(models.Model):
     """ Single computer core for simulation, defined by ip and cpu.
@@ -128,7 +129,6 @@ class CompModel(models.Model):
             model_id = os.path.basename(file_path)
         
         # check via hash
-        from util.util_classes import hash_for_file
         md5 = hash_for_file(file_path, hash_type='MD5')
         try:
             model = cls.objects.get(model_id=model_id)
