@@ -52,7 +52,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r.set_integrator_settings(variable_step_size=False)
         r.selections_floating_concentrations()
         # simulate with complex
-        s1, __ = r.simulate_complex(start=0, end=20, steps=100)
+        s1 = r.simulate_complex(start=0, end=20, steps=100)
         r.reset(SelectionRecord.ALL)
         # same simulation with basic
         s2 = r.simulate(0, 20, 101)
@@ -69,10 +69,10 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r = rt.MyRunner(demo_sbml)
         r.set_integrator_settings(variable_step_size=False)
         r.selections_floating_concentrations()
-        res, __ = r.simulate_complex(start=0, end=20, steps=100)
+        s = r.simulate_complex(start=0, end=20, steps=100)
         self.assertFalse(r.getIntegrator().getSetting('variable_step_size'))
-        self.assertEqual(101, res.shape[0])
-        self.assertEqual(7, res.shape[1])
+        self.assertEqual(101, s.shape[0])
+        self.assertEqual(7, s.shape[1])
 
     def test_simulation_fixedsteps2(self):
         """ Test fixed step size simulation. """
@@ -96,41 +96,42 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r = rt.MyRunner(demo_sbml)
         r.integrator.setSetting('variable_step_size', True)
         r.selections_floating_concentrations()
-        res, __ = r.simulate_complex(start=0, end=20)
+        s = r.simulate_complex(start=0, end=20)
 
         self.assertTrue(r.getIntegrator().getSetting('variable_step_size'))
-        self.assertNotEqual(101, res.shape[0])
-        self.assertEqual(7, res.shape[1])
-        self.assertEqual(res['time'][0], 0.0)
-        self.assertEqual(res['time'][-1], 20.0)
+        self.assertNotEqual(101, s.shape[0])
+        self.assertEqual(7, s.shape[1])
+        self.assertEqual(s['time'][0], 0.0)
+        self.assertEqual(s['time'][-1], 20.0)
 
     def test_simulate_parameters(self):
         """ Test setting parameters in model. """
         r = rt.MyRunner(demo_sbml)
         r.selections = ['time', 'Vmax_bA', 'Vmax_bB']
         parameters = {'Vmax_bA': 10.0, 'Vmax_bB': 7.15}
-        res, gp = r.simulate_complex(start=0, end=20, parameters=parameters)
-        self.assertEqual(10.0, gp.value['Vmax_bA'])
-        self.assertEqual(7.15, gp.value['Vmax_bB'])
-        self.assertEqual(10.0, res['Vmax_bA'][0])
-        self.assertEqual(7.15, res['Vmax_bB'][0])
+        s = r.simulate_complex(start=0, end=20, parameters=parameters)
+        df_gp = r.get_global_constant_parameters()
+        self.assertEqual(10.0, df_gp.value['Vmax_bA'])
+        self.assertEqual(7.15, df_gp.value['Vmax_bB'])
+        self.assertEqual(10.0, s['Vmax_bA'][0])
+        self.assertEqual(7.15, s['Vmax_bB'][0])
 
     def test_simulate_initial_concentrations(self):
         """ Test setting initial concentrations in model. """
         r = rt.MyRunner(demo_sbml)
         concentrations = {'init([e__A])': 5.0, 'init([e__B])': 2.0}
-        res, __ = r.simulate_complex(start=0, end=20, initial_concentrations=concentrations)
-        self.assertEqual(5.0, res['[e__A]'][0])
-        self.assertEqual(2.0, res['[e__B]'][0])
+        s = r.simulate_complex(start=0, end=20, concentrations=concentrations)
+        self.assertEqual(5.0, s['[e__A]'][0])
+        self.assertEqual(2.0, s['[e__B]'][0])
 
     def test_simulate_initial_amounts(self):
         """ Test setting initial amounts in model. """
         r = rt.MyRunner(demo_sbml)
         r.selections = ['time', 'e__A', 'e__B']
         amounts = {'init(e__A)': 0.01, 'init(e__B)': 0.004}
-        res, __ = r.simulate_complex(start=0, end=20, initial_amounts=amounts)
-        self.assertEqual(0.01, res['e__A'][0])
-        self.assertEqual(0.004, res['e__B'][0])
+        s = r.simulate_complex(start=0, end=20, amounts=amounts)
+        self.assertEqual(0.01, s['e__A'][0])
+        self.assertEqual(0.004, s['e__B'][0])
 
     #########################################################################
     # Setting values in model
@@ -244,21 +245,24 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
     #########################################################################
     # DataFrames
     #########################################################################
-    def test_global_parameters(self):
+    def test_df_global_parameters(self):
         r = rt.MyRunner(demo_sbml)
-        gp = r.global_parameters_dataframe()
-        self.assertEqual(2.0, gp.value['Vmax_bB'])
+        df_gp = r.df_global_parameters()
+        self.assertEqual(2.0, df_gp.value['Vmax_bB'])
 
-    def test_floating_species(self):
+    def test_df_species(self):
         r = rt.MyRunner(demo_sbml)
-        f_species = r.floating_species_dataframe()
-        self.assertEqual(10.0, f_species.concentration['e__A'])
-        self.assertEqual(0.0, f_species.concentration['c__A'])
+        df_species = r.df_species()
+        self.assertEqual(10.0, df_species.concentration['e__A'])
+        self.assertEqual(0.0, df_species.concentration['c__A'])
 
-    def test_bounding_species(self):
+    def test_df_simulation(self):
         r = rt.MyRunner(demo_sbml)
-        b_species = r.boundary_species_dataframe()
-        self.assertEqual(0, len(b_species))
+        r.set_integrator_settings(variable_step_size=False)
+        r.simulate(0, 100, 101)
+        df_sim = r.df_simulation()
+        self.assertEqual(0.0, df_sim.time[0])
+        self.assertEqual(100.0, df_sim.loc[df_sim.shape[0]-1, 'time'])
 
 
 if __name__ == '__main__':

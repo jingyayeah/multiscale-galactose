@@ -24,6 +24,7 @@ Set of unittests provides tested functionality.
 from __future__ import print_function, division
 import warnings
 import libsbml
+import numpy
 from roadrunner import RoadRunner, SelectionRecord
 from pandas import DataFrame
 from multiscale.util.timing import time_it
@@ -48,6 +49,9 @@ class MyRunner(RoadRunner):
         self.debug = False
         # set the default settings for the integrator
         self.set_default_settings()
+        # provide access to SBMLDocument
+        self.sbml_doc = libsbml.readSBMLFromString(self.getCurrentSBML())
+
 
     #########################################################################
     # Settings
@@ -89,54 +93,51 @@ class MyRunner(RoadRunner):
             assert(key in self._simulate_args)
         return RoadRunner.simulate(self, *args, **kwargs)
 
-    def simulate_complex(self, initial_concentrations={}, initial_amounts={},
-                         parameters={}, reset_parameters=False, **kwargs):
+    def simulate_complex(self, concentrations={}, amounts={}, parameters={},
+                         reset_parameters=False, time_it=True, **kwargs):
         """ Perform RoadRunner simulation.
             Sets parameter values given in parameters dictionary &
             initial values provided in dictionaries.
 
-            Optional argument:
-            parameters:
-                dictionary of parameter changes
-
-            reset_parameters:
-                reset the parameter changes after the simulation
-
-            initial_concentrations:
-                dictionary of initial_concentrations
-
-            initial_concentrations:
+            :param amounts:
                 dictionary of initial_amounts (overwrites initial concentrations)
+            :param concentrations:
+                dictionary of initial_concentrations
+            :param parameters:
+                dictionary of parameter changes
+            :param reset_parameters:
+                reset the parameter changes after the simulation
 
             :returns tuple of simulation result and global parameters at end point of
                     simulation (<NamedArray>, <DataFrame>)
         """
         # change parameters & recalculate initial assignments
         if len(parameters) > 0:
-            concentrations = self.store_concentrations()
-            changed = self._set_parameters(parameters)
+            old_concentrations = self.store_concentrations()
+            old_parameters = self._set_parameters(parameters)
             self.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
-            self._set_concentrations(concentrations)
+            self._set_concentrations(old_concentrations)
 
         # set changed concentrations
-        if len(initial_concentrations) > 0:
-            self._set_initial_concentrations(initial_concentrations)
+        if len(concentrations) > 0:
+            self._set_initial_concentrations(concentrations)
         # set changed amounts
-        if len(initial_amounts) > 0:
-            self._set_initial_amounts(initial_amounts)
+        if len(amounts) > 0:
+            self._set_initial_amounts(amounts)
 
-        if ("steps" in kwargs) and (self.getIntegrator().getValue('variable_step_size') == True):
-            warnings.warn("steps provided in variable_step_size simulation !")
+        # simulate
+        if time_it:
+            s = self.simulate(**kwargs)
+        else:
+            s = RoadRunner.simulate(self, **kwargs)
 
-        # simulate (dangerous as long as simulate arguments not validated)
-        s = self.simulate(**kwargs)
-
+        # reset parameters
         if reset_parameters:
-            self._set_parameters(changed)
+            self._set_parameters(old_parameters)
             self.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
 
-        # simulation timecourse & global parameters for analysis
-        return s, self.global_parameters_dataframe()
+        # return simulation time course
+        return s
 
     #########################################################################
     # Setting & storing model values
@@ -234,16 +235,70 @@ class MyRunner(RoadRunner):
         Set floating concentration selections in RoadRunner.
             list[str] of selections for time, [c1], ..[cN]
         """
-        self.selections = ['time'] + ['[{}]'.format(s) for s in self.model.getFloatingSpeciesIds()]
+        self.selections = ['time'] + sorted(['[{}]'.format(s) for s in self.model.getFloatingSpeciesIds()])
 
     def selections_floating_amounts(self):
         """
         Set floating amount selections in RoadRunner.
             list[str] of selections for time, c1, ..cN
         """
-        self.selections = ['time'] + self.model.getFloatingSpeciesIds()
+        self.selections = ['time'] + sorted(self.model.getFloatingSpeciesIds())
 
+    #########################################################################
+    # DataFrames
+    #########################################################################
+    # TODO: add rules and assignments
 
+    def df_global_parameters(self):
+        """
+        Create GlobalParameter DataFrame.
+        :return: pandas DataFrame
+        """
+        sids = self.model.getGlobalParameterIds()
+        model = self.sbml_doc.getModel()
+        parameters = [model.getParameter(sid) for sid in sids]
+        df = DataFrame({
+            'value': self.model.getGlobalParameterValues(),
+            'unit': [p.units for p in parameters],
+            'constant': [p.constant for p in parameters],
+            'parameter': parameters,
+            'name': [p.name for p in parameters],
+            }, index=sids, columns=['value', 'unit', 'constant', 'parameter', 'name'])
+        return df
+
+    def df_species(self):
+        """
+        Create FloatingSpecies DataFrame.
+        :return: pandas DataFrame
+        """
+        sids = self.model.getFloatingSpeciesIds() + self.model.getBoundarySpeciesIds()
+        model = self.sbml_doc.getModel()
+        species = [model.getSpecies(sid) for sid in sids]
+        df = DataFrame({
+            'concentration': numpy.concatenate([self.model.getFloatingSpeciesConcentrations(),
+                                                self.model.getBoundarySpeciesConcentrations()],
+                                               axis=0),
+            'amount': numpy.concatenate([self.model.getFloatingSpeciesAmounts(),
+                                         self.model.getBoundarySpeciesAmounts()],
+                                         axis=0),
+            'unit': [s.units for s in species],
+            'constant': [s.constant for s in species],
+            'boundaryCondition': [s.boundary_condition for s in species],
+            'species': species,
+            'name': [s.name for s in species],
+            }, index=sids, columns=['concentration', 'amount', 'unit', 'constant', 'boundaryCondition', 'species', 'name'])
+        return df
+
+    def df_simulation(self):
+        """
+        DataFrame of the simulation data.
+        :return: pandas DataFrame
+        """
+        df = DataFrame(self.getSimulationData(),
+                       columns=self.selections)
+        return df
+
+    # TODO: refactor
     def get_global_constant_parameters(self):
         """ Subset of global parameters which are constant.
             Set of parameter which has constant values and is not calculated
@@ -259,30 +314,6 @@ class MyRunner(RoadRunner):
             if p.constant:
                 const_parameter_ids.append(pid)
         return const_parameter_ids
-
-    #########################################################################
-    # DataFrames
-    #########################################################################
-    # TODO: create DataFrames of full information
-    def global_parameters_dataframe(self):
-        """ Create GlobalParameter DataFrame. """
-        # TODO: add the units, constant, ..., assignmentRules
-        return DataFrame({'value': self.model.getGlobalParameterValues()},
-                         index=self.model.getGlobalParameterIds())
-
-
-    def floating_species_dataframe(self):
-        """ Create FloatingSpecies DataFrame. """
-        return DataFrame({'concentration': self.model.getFloatingSpeciesConcentrations(),
-                          'amount': self.model.getFloatingSpeciesAmounts()},
-                         index=self.model.getFloatingSpeciesIds())
-
-
-    def boundary_species_dataframe(self):
-        """ Create BoundingSpecies DataFrame. """
-        return DataFrame({'concentration': self.model.getBoundarySpeciesConcentrations(),
-                          'amount': self.model.getBoundarySpeciesAmounts()},
-                         index=self.model.getBoundarySpeciesIds())
 
     #########################################################################
     # Plotting

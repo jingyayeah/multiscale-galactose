@@ -1,7 +1,6 @@
 """
 Testing ode simulations.
 """
-
 from __future__ import print_function, division
 import unittest
 import django
@@ -46,7 +45,6 @@ class SolveODETestCase(TestCase):
             result = Result.objects.get(simulation=simulation)
             self.assertIsNotNone(result)
             self.assertEqual(db_api.ResultType.HDF5, result.result_type)
-
 
     def test_solve_roadrunner_2(self):
 
