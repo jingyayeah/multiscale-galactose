@@ -1,25 +1,17 @@
 """
 Testing MIRIAM web services.
+
 Used for reading the miriam resources and uris for given annotations.
 Tests require connectivity for success.
 """
 from __future__ import print_function
 import unittest
-import requests
-from util.miriam import miriam
+import miriam
 
 
 class MiriamTestCase(unittest.TestCase):
     def setUp(self):
         self.m = miriam.Miriam()
-
-        # check if behind charite proxy
-        '''
-        r = requests.get('http://www.ebi.ac.uk/miriamws/main/rest/', proxies={})
-        if 'falsche oder keine Proxyeinstellung' in r.content:
-            print('Behind proxy')
-            # self.m.PROXIES = {'http': 'http://proxy.charite.de:888'}
-        '''
 
     def tearDown(self):
         self.m = None

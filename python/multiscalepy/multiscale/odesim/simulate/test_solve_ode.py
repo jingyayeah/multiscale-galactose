@@ -1,9 +1,7 @@
 """
 Testing the ode simulations.
 """
-
-import django
-django.setup()
+from __future__ import print_function, division
 
 from django.test import TestCase
 import simapp.db.api as db_api
@@ -12,6 +10,10 @@ from simapp.models import Result
 from multiscale.examples.testdata import demo_sbml
 from multiscale.odesim.simulate.solve_io import create_simulation_directory
 from multiscale.odesim.simulate import solve_ode
+
+import django
+django.setup()
+
 
 class SolveODETestCase(TestCase):
     def setUp(self):

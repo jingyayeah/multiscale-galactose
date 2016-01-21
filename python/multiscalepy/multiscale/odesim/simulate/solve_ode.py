@@ -1,53 +1,48 @@
 """
 Perform ode integrations.
-
 """
 
 import time
 
 from django.utils import timezone
-from roadrunner import SelectionRecord
 
 from simapp.models import ParameterType, SettingKey, SimulationStatus, ResultType
-from multiscale.odesim.simulate import roadrunner_tools as rt
-from multiscale.odesim.simulate.solve_exception import simulation_exception
-from multiscale.odesim.simulate.solve_io import create_simulation_directory, hdf5_file, save_hdf5, store_result_db
+import solve
+import solve_io
+import roadrunner_tools as rt
+from roadrunner import SelectionRecord
 
 
 def solve_roadrunner(simulations):
-    """ Integrate simulations with RoadRunner. """
-    time_start = time.time()
+    """
+    Integrate simulations with RoadRunner.
+    :param simulations: list of database simulations
+    :return: None
+    """
     try:
         # read SBML
         comp_model = simulations[0].task.model
-        rr = rt.load_model(comp_model.filepath)
+        r = rt.MyRunner(comp_model.filepath)
     except RuntimeError:
         for sim in simulations:
-            simulation_exception(sim)
+            solve.simulation_exception(sim)
         raise
 
-    # set RoadRunner settings
-    # TODO: what are these settings
-    # roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
-    # named matrix
-    # roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
-
     # set the selection
-    # this has to be provided from the outside
+    # TODO:  this has to be provided from the outside (must be part of the simulation), i.e.
+    # which subparts are stored
+    # TODO: check if this is up to date
     sel = ['time'] \
-        + ["".join(["[", item, "]"]) for item in rr.model.getBoundarySpeciesIds()] \
-        + ["".join(["[", item, "]"]) for item in rr.model.getFloatingSpeciesIds()] \
-        + [item for item in rr.model.getReactionIds() if item.startswith('H')]
-    rr.selections = sel
+        + ["".join(["[", item, "]"]) for item in r.model.getBoundarySpeciesIds()] \
+        + ["".join(["[", item, "]"]) for item in r.model.getFloatingSpeciesIds()] \
+        + [item for item in r.model.getReactionIds() if item.startswith('H')]
+    r.selections = sel
 
     # use the integration settings (adapt absTol to amounts)
     settings = simulations[0].task.method.get_settings_dict()
-
-    # sbmlutils
     sbml_id = comp_model.model_id
     for sim in simulations:
-        _solve_roadrunner_single(rr, sbml_id, sim, settings=settings)
-    return rr
+        _solve_roadrunner_single(r, sbml_id, sim, settings=settings)
 
 
 def _solve_roadrunner_single(rr, sbml_id, sim, settings):
@@ -56,7 +51,7 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
     based on task levels, like for instance generating the necessary directory structure
     on the local machine.
 
-    :param rr: RoadRunner instance with loaded model
+    :param rr: MyRunner instance with loaded model
     :param sbml_id:
     :param sim:
     :param settings:
@@ -67,11 +62,7 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
         sim.time_assign = timezone.now()  # correction due to bulk assignment
 
         # make a concentration backup
-        conc_backup = dict()
-        # for sid in rr.model.getBoundarySpeciesIds():
-        #    conc_backup[sid] = rr["[{}]".format(sid)]
-        for sid in rr.model.getFloatingSpeciesIds():
-            conc_backup[sid] = rr["[{}]".format(sid)]
+        conc_backup = rr.store_concentrations()
 
         # set all parameters in the model and store the changes for revert
         changes = dict()
@@ -127,10 +118,9 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
         '''
 
         # Store in HDF5
-        h5_file = hdf5_file(sbml_id, sim)
-        save_hdf5(h5_file, data=s, header=rr.selections)
-        store_result_db(sim, filepath=h5_file, result_type=ResultType.HDF5)
-        # print("HDF5: {}".format(tmp))
+        h5_file = solve_io.hdf5_file(sbml_id, sim)
+        solve_io.save_hdf5(h5_file, data=s, header=rr.selections)
+        solve_io.store_result_db(sim, filepath=h5_file, result_type=ResultType.HDF5)
 
         # reset parameter changes
         for key, value in changes.iteritems():
@@ -148,7 +138,7 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
         print('Time: [{:.4f}|{:.4f}]'.format(time_total, time_integration))
 
     except:
-        simulation_exception(sim)
+        solve.simulation_exception(sim)
 
 
 if __name__ == "__main__":

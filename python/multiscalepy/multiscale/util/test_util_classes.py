@@ -9,7 +9,7 @@ from __future__ import print_function
 import unittest
 
 from enum import Enum
-from util.util_classes import EnumType
+from util_classes import EnumType
 
 
 class Test(unittest.TestCase):

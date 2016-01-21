@@ -13,6 +13,11 @@ additional tests on the method.
 Set of unittests provides tested functionality.
 """
 
+# TODO: checkout the OPTIMIZE Settings
+# roadrunner.Config.setValue(roadrunner.Config.OPTIMIZE_REACTION_RATE_SELECTION, True)
+# named matrix
+# roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
+
 from __future__ import print_function, division
 import warnings
 import libsbml

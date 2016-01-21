@@ -12,7 +12,7 @@ import numpy as np
 import h5py
 from django.core.files import File
 
-import copasi
+import copasi_tools
 from simapp.models import Result
 from multiscale.multiscale_settings import SIM_DIR
 
@@ -86,8 +86,8 @@ def store_result_db(simulation, filepath, result_type):
 def store_config_file(sim, folder):
     """ Store the config file in the database. """
     # TODO: refactor, this is not working any more
-    fname = copasi.create_config_filename(sim, folder)
-    config_file = copasi.create_config_file_for_simulation(sim, fname)
+    fname = copasi_tools.create_config_filename(sim, folder)
+    config_file = copasi_tools.create_config_file_for_simulation(sim, fname)
     f = open(config_file, 'r')
     sim.file = File(f)
     sim.save()
