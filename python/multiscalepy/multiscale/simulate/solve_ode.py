@@ -5,12 +5,12 @@ Perform ode integrations.
 import time
 
 from django.utils import timezone
-
+from roadrunner import SelectionRecord
 from simapp.models import ParameterType, SettingKey, SimulationStatus, ResultType
+
+import roadrunner_tools as rt
 import solve
 import solve_io
-import roadrunner_tools as rt
-from roadrunner import SelectionRecord
 
 
 def solve_roadrunner(simulations):
@@ -57,6 +57,7 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
     :param settings:
     :return:
     """
+    # TODO: refactor with roadrunner tools (as much logic as possible there)
     try:
         tstart_total = time.time()
         sim.time_assign = timezone.now()  # correction due to bulk assignment
@@ -139,23 +140,3 @@ def _solve_roadrunner_single(rr, sbml_id, sim, settings):
 
     except:
         solve.simulation_exception(sim)
-
-
-if __name__ == "__main__":
-    import django
-    django.setup()
-
-    from simapp.models import Simulation, Task
-    # sim_ids = range(1,2)
-    # sims = [Simulation.objects.get(pk=sid) for sid in sim_ids]
-
-    task = Task.objects.get(pk=43)
-    simulations = Simulation.objects.filter(task=task)
-    print('Task:', task)
-
-    # perform all the integrations
-    create_simulation_directory(task)
-
-    print('* Start integration *')
-    print('Simulation: ', simulations)
-    solve_roadrunner(simulations)

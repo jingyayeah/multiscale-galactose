@@ -1,17 +1,15 @@
 """
 Testing the database interaction tools.
-
 """
+
 from __future__ import print_function
-import os
 
 from django.test import TestCase
 import django
 django.setup()
 
 import simapp.db.api as db_api
-from multiscale.odesim.db.tools import get_sample_from_simulation, get_samples_from_task
-from multiscale.odesim.db.tools import create_simulations_from_samples
+from tools import *
 from multiscale.odesim.dist.samples import Sample
 from multiscale.examples.testdata import demo_sbml
 

@@ -6,13 +6,13 @@ given given boundary conditions.
 """
 
 from __future__ import print_function
-import os
+
 import copy
+import os
 
-import multiscale.modelcreator.utils.naming as naming
 import multiscale.analysis.galactose.settings as settings
-import multiscale.odesim.simulate.roadrunner_tools as rt
-
+import multiscale.modelcreator.utils.naming as naming
+import multiscale.odesim.roadrunner_tools as rt
 
 # ----------------------------------------------------------------------
 # Load model
@@ -81,7 +81,6 @@ for ps in parameters_list:
 # ----------------------------------------------------------------------
 # Print maximum values of the dilution peaks
 # ----------------------------------------------------------------------
-from multiscale.modelcreator.utils import naming
 from multiscale.analysis.galactose import misc_tools
 reload(misc_tools)
 

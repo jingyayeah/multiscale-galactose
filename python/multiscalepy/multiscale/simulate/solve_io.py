@@ -7,13 +7,13 @@ Input and output functions for integration.
 # TODO: Decouple result file generation from database storage/interaction.
 
 import os
-import numpy as np
 
 import h5py
+import numpy as np
 from django.core.files import File
+from simapp.models import Result
 
 import copasi_tools
-from simapp.models import Result
 from multiscale.multiscale_settings import SIM_DIR
 
 

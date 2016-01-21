@@ -5,16 +5,16 @@ Can use different simulation backends like RoadRunner or COPASI.
 """
 from __future__ import print_function
 
-import sys
 import os
+import sys
 import traceback
+
+from simapp.models import SimulatorType, MethodType, SimulationStatus
 
 import solve_fba
 import solve_io
 import solve_ode
-
 from multiscale.multiscale_settings import MULTISCALE_GALACTOSE_RESULTS
-from simapp.models import SimulatorType, MethodType, SimulationStatus
 
 
 def run_simulations(simulations, task):

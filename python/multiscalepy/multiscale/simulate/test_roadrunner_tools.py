@@ -3,11 +3,13 @@ Test the RoadRunner simulation tools.
 """
 
 from __future__ import print_function, division
+
 import unittest
 
 from roadrunner import SelectionRecord
+
+import multiscale.odesim.roadrunner_tools as rt
 from multiscale.examples.testdata import demo_sbml
-import multiscale.odesim.simulate.roadrunner_tools as rt
 
 
 class TestRoadRunnerToolsCase(unittest.TestCase):

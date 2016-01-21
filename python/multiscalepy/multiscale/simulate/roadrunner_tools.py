@@ -18,6 +18,9 @@ Set of unittests provides tested functionality.
 # named matrix
 # roadrunner.Config.setValue(roadrunner.Config.PYTHON_ENABLE_NAMED_MATRIX, False)
 
+# TODO: proper subsets of selections
+# TODO: test the difference of init between boundary and floating species.
+
 from __future__ import print_function, division
 import warnings
 import libsbml

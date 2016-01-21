@@ -7,12 +7,13 @@ challenges. Model is simulated to steady state under the given conditions.
 
 """
 
-import os
 import copy
+import os
+
 import numpy as np
 
+import multiscale.odesim.roadrunner_tools as rt
 from multiscale.analysis.galactose import settings as settings
-import multiscale.odesim.simulate.roadrunner_tools as rt
 
 reload(settings)
 

@@ -25,19 +25,20 @@ contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 """
 from __future__ import print_function
 
-import os
-import time
-import multiprocessing
-import socket
 import fcntl
-import struct
 import logging
+import multiprocessing
+import os
+import socket
+import struct
+import time
 
-from django.utils import timezone
 from django.db import transaction
-
+from django.utils import timezone
 from simapp.models import Task, Core, Simulation, SimulationStatus
-from simulate import solve
+
+from multiscale.odesim import solve
+
 
 # TODO: provide the multicore functionality for all simulations
 # TODO: use the roadrunner r.getInstanceID() & getInstanceCount() if multiple instances are running
