@@ -4,13 +4,13 @@ Creating example simulations for demo network.
 
 from __future__ import print_function, division
 
-import multiscale.odesim.db.tools as db_tools
-import simapp.db.api as db_api
-from multiscale.odesim.dist.distributions import Distribution, DistributionType, DistributionParameterType
-from multiscale.odesim.dist.sampling import Sampling, SamplingType, SampleParameter
 
-from multiscale.examples.testdata import demo_sbml
+import simapp.db.api as db_api
+import multiscale.simulate.db.tools as db_tools
+from multiscale.simulate.dist.distributions import Distribution, DistributionType, DistributionParameterType
+from multiscale.simulate.dist.sampling import Sampling, SamplingType, SampleParameter
 from multiscale.simulate.analysis.examples import Example
+from multiscale.examples.testdata import demo_sbml
 
 
 class Demo(Example):

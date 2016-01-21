@@ -9,7 +9,7 @@ import django
 
 import simapp.db.api as db_api
 from tools import *
-from multiscale.odesim.dist.samples import Sample
+from ..dist.samples import Sample
 from multiscale.examples.testdata import demo_sbml
 django.setup()
 

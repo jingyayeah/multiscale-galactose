@@ -20,7 +20,7 @@ hypercube sampling provides a better coverage of the space.
 
 from __future__ import print_function, division
 
-from multiscale.odesim.dist.samples import Sample, SampleParameter
+from samples import Sample, SampleParameter
 from multiscale.util.util_classes import EnumType
 
 

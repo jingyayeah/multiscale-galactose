@@ -29,10 +29,9 @@ information is stored in the [Simulation] section.
 from __future__ import print_function, division
 import datetime
 import time
-from . import solve
-from . import solve_io
+import solve
+import solve_io
 # TODO: refactor and update with copasi python bindings
-
 
 def create_config_file(sim, fname):
     """

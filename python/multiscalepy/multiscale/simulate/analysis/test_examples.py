@@ -72,7 +72,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(len(samples), 10)
 
     def test_galactose_flow(self):
-        from multiscale.odesim.dist import sampling
+        self.assertEqual(1, 0)
 
         print('-' * 80)
         distribution_data = GalactoseFlow.get_distributions()
@@ -86,7 +86,7 @@ class MyTestCase(unittest.TestCase):
             print(d)
 
         # Do some samples
-        samples = sampling.sample_from_distribution(distributions, n_samples=10)
+        samples = sample_from_distribution(distributions, n_samples=10)
         for s in samples:
             print(s)
         print('-' * 80)
