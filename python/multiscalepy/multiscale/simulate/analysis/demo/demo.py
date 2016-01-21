@@ -1,16 +1,16 @@
 """
-Creating example simulations for the demo network.
-
+Creating example simulations for demo network.
 """
-from __future__ import print_function
 
-import simapp.db.api as db_api
+from __future__ import print_function, division
 
 import multiscale.odesim.db.tools as db_tools
+import simapp.db.api as db_api
 from multiscale.odesim.dist.distributions import Distribution, DistributionType, DistributionParameterType
-from multiscale.analysis.examples import Example
 from multiscale.odesim.dist.sampling import Sampling, SamplingType, SampleParameter
+
 from multiscale.examples.testdata import demo_sbml
+from multiscale.simulate.analysis.examples import Example
 
 
 class Demo(Example):
@@ -72,10 +72,3 @@ class Demo(Example):
         simulations = db_tools.create_simulations_from_samples(task, samples)
         print(simulations)
         return simulations
-
-
-if __name__ == "__main__":
-    import django
-    django.setup()
-    Demo.file_path = '../../demo/demo/Koenig_demo.xml'
-    Demo.example_simulations(20)

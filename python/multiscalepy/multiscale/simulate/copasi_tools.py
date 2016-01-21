@@ -24,17 +24,23 @@ information is stored in the [Simulation] section.
     flow_sin = 60E-6
     PP__gal = 0.00012
     ############################
-
-
-@author: Matthias Koenig
-@date:   2014-07-11
 """
 
+from __future__ import print_function, division
 import datetime
 import time
+from . import solve
+from . import solve_io
+# TODO: refactor and update with copasi python bindings
+
 
 def create_config_file(sim, fname):
-    ''' Creates a config file for the odesim in ini format.'''
+    """
+    Creates a config file for the odesim in ini format.
+    :param sim:
+    :param fname:
+    :return:
+    """
     task = sim.task
     timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     
@@ -88,7 +94,7 @@ def solve_copasi(simulations):
     for sim in simulations:
         try:
             sim.time_assign = timezone.now()                      # correction due to bulk assignment
-            config_file = ode_io.store_config_file(sim, SIM_DIR)  # create the copasi config file for settings & changes
+            config_file = solve_io.store_config_file(sim, SIM_DIR)  # create the copasi config file for settings & changes
             csv_file = "".join([SIM_DIR, "/", str(sim.task), '/', model_id, "_Sim", str(sim.pk), '_copasi.csv'])
 
             # run an operating system command
@@ -97,10 +103,9 @@ def solve_copasi(simulations):
             print(call_command)
             call(shlex.split(call_command))
 
-            ode_io.store_timecourse_db(sim, filepath=csv_file,
-                                       ftype=ode_io.FileType.CSV)
+            solve_io.store_timecourse_db(sim, filepath=csv_file, ftype=solve_io.FileType.CSV)
         except Exception:
-            simulation_exception(sim)
+            solve.simulation_exception(sim)
 
 ################################################################################
 if __name__ == "__main__":
@@ -113,4 +118,4 @@ if __name__ == "__main__":
     sim = Simulation.objects.all()[0]
     fname = config_filename(sim, SIM_DIR) 
     create_config_file(sim, fname)
-    print fname
+    print(fname)

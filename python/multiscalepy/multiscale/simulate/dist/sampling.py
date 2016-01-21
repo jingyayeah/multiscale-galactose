@@ -16,11 +16,9 @@ starts in a different region in the high-dimensional parameter
 space. This method prohibits that randomly selected starting
 points are accidentally close to each other. Therefore, Latin
 hypercube sampling provides a better coverage of the space.
-
-@author:   Matthias Koenig
-@date:     2015-05-04
 """
-from __future__ import print_function
+
+from __future__ import print_function, division
 
 from multiscale.odesim.dist.samples import Sample, SampleParameter
 from multiscale.util.util_classes import EnumType

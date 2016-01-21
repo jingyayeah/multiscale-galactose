@@ -3,14 +3,12 @@
 # Pressure dependent flow
 #########################################################################
 Simulation, analysis and visualization of the pressure dependent flow model.
-
-@author: Matthias Koenig
-@date: 2015-04-13
 """
 import copy
 
-from multiscale.analysis.galactose import settings as settings
 import roadrunner_tools as rt
+
+from multiscale.simulate.analysis.galactose import settings as settings
 
 reload(settings)
 

@@ -2,11 +2,11 @@
 Testing the sampling of parameters from distributions.
 """
 
-from __future__ import print_function
+from __future__ import print_function, division
 import unittest
 
-from multiscale.odesim.dist.sampling import Sampling, SamplingType
-from multiscale.analysis.demo.demo import Demo
+import sampling as samp
+from multiscale.simulate.analysis.demo.demo import Demo
 
 
 class TestSampling(unittest.TestCase):
@@ -17,7 +17,8 @@ class TestSampling(unittest.TestCase):
         self.dist_data = None
         
     def test_demo_distribution(self):
-        sampling = Sampling(distributions=self.distributions, sampling_type=SamplingType.DISTRIBUTION)
+        sampling = samp.Sampling(distributions=self.distributions,
+                                 sampling_type=samp.SamplingType.DISTRIBUTION)
         samples = sampling.sample(n_samples=5)
         self.assertEqual(len(samples), 5, 'check number samples')
         s = samples[0]
@@ -30,7 +31,8 @@ class TestSampling(unittest.TestCase):
 #         self.assertIsNotNone(s['L'], 'check for parameter')
         
     def test_mean(self):
-        sampling = Sampling(distributions=self.distributions, sampling_type=SamplingType.MEAN)
+        sampling = samp.Sampling(distributions=self.distributions,
+                                 sampling_type=samp.SamplingType.MEAN)
         samples = sampling.sample(n_samples=2)
         self.assertEqual(len(samples), 2, 'check number samples')
         s0 = samples[0]

@@ -18,17 +18,13 @@ the parameter distributions have to fit to the actual parameters in
 the model.
 Parameters should be given in SI units (but have to be at least the units defined
 in the SBML so that no additional conversions of units are necessary.
-
-
-
-@author: Matthias Koenig
-@date: 2014-05-11
 """
+
 # TODO: In future versions it should also be possible to set non-terminal parameters
 # in SBML models. It will be necessary to change the model structure to allow for that.
 # For instance via replacement of initial assignments via fixed parameters.
 # The replacements have to be performed in the model when these parameters are set.
-from __future__ import print_function
+from __future__ import print_function, division
 
 import math
 import numpy as np

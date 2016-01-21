@@ -11,16 +11,13 @@ tasks with higher priority are performed first.
 
 If possible all interactions with the django database layer should
 go via this intermediate module.
-
-@author: Matthias Koenig
-@date: 2015-05-06
 """
-from __future__ import print_function
+
+from __future__ import print_function, division
 
 import simapp.db.api as db_api
 from django.db import transaction
-
-from multiscale.odesim.dist.samples import SampleParameter, Sample
+from ..dist.samples import SampleParameter, Sample
 
 
 def get_samples_from_task(task):

@@ -1,11 +1,9 @@
 """
 Input and output functions for integration.
-
-@author: mkoenig
-@date: 2015-05-03
 """
 # TODO: Decouple result file generation from database storage/interaction.
 
+from __future__ import print_function, division
 import os
 
 import h5py
@@ -42,6 +40,7 @@ def save_csv(filepath, data, header, keep_tmp=False):
     """
     np.savetxt(filepath, data, header=",".join(header), delimiter=",", fmt='%.12E')
 
+
 # ---------------------------------------------------------------------------------------------------------------------
 #   HDF5
 # ---------------------------------------------------------------------------------------------------------------------
@@ -60,6 +59,7 @@ def save_hdf5(filepath, data, header):
     f.create_dataset('header', data=header, compression="gzip", dtype="S10", chunks=True)
     # f.create_dataset('time', data=data[:, 0], compression="gzip")
     f.close()
+
 
 def load_hdf5(filepath):
     """ Read numpy data from HDF5.
@@ -82,6 +82,7 @@ def store_result_db(simulation, filepath, result_type):
     result, _ = Result.objects.get_or_create(simulation=simulation, result_type=result_type)
     result.file = myfile
     result.save()
+
 
 def store_config_file(sim, folder):
     """ Store the config file in the database. """

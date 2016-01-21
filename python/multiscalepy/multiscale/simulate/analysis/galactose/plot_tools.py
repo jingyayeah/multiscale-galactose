@@ -13,10 +13,13 @@ In this module general plot helpers for the analysis are defined.
 #  and subclasses for the individual models.
 
 from __future__ import print_function
+
 import matplotlib.pylab as plt
 import pandas as pd
-from multiscale.analysis.galactose.id_tools import get_ids_from_selection
+
 from multiscale.modelcreator.utils import naming
+from multiscale.simulate.analysis.galactose import get_ids_from_selection
+
 
 def print_plot_heading(text):
     print('#'*80)

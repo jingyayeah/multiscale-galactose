@@ -1,16 +1,16 @@
 """
 Testing ode simulations.
 """
-from __future__ import print_function, division
 
+from __future__ import print_function, division
+import unittest
 import django
 import simapp.db.api as db_api
 from django.test import TestCase
-from multiscale.odesim.simulate.solve_io import create_simulation_directory
 from simapp.models import Result
-
 from multiscale.examples.testdata import demo_sbml
-from multiscale.odesim import solve_ode
+import solve_ode
+import solve_io
 django.setup()
 
 
@@ -36,7 +36,7 @@ class SolveODETestCase(TestCase):
                                                 parameter_type=db_api.ParameterType.GLOBAL_PARAMETER)
             simulations.append(db_api.create_simulation(task=task, parameters=[parameter]))
         # perform all the integrations
-        create_simulation_directory(task)
+        solve_io.create_simulation_directory(task)
 
         # perform all the integrations
         solve_ode.solve_roadrunner(simulations)
@@ -68,7 +68,7 @@ class SolveODETestCase(TestCase):
 
         print('* Start integration *')
         print('Simulation: ', simulations)
-        solve_roadrunner(simulations)
+        solve_ode.solve_roadrunner(simulations)
 
-
-
+if __name__ == "__main__":
+    unittest.main()

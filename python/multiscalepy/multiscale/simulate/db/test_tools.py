@@ -2,16 +2,17 @@
 Testing the database interaction tools.
 """
 
-from __future__ import print_function
-
+from __future__ import print_function, division
+import unittest
 from django.test import TestCase
 import django
-django.setup()
 
 import simapp.db.api as db_api
 from tools import *
 from multiscale.odesim.dist.samples import Sample
 from multiscale.examples.testdata import demo_sbml
+django.setup()
+
 
 class ToolsTestCase(TestCase):
     def setUp(self):
@@ -46,7 +47,5 @@ class ToolsTestCase(TestCase):
         self.assertEqual(len(simulations), 1)
 
 
-
-
-
-
+if __name__ == '__main__':
+    unittest.main()

@@ -1,15 +1,13 @@
 """
 Test the distribution definitions.
-
-@author: Matthias Koenig
-@date: 2015-05-10
 """
+from __future__ import print_function, division
 import unittest
 
 from simapp.models import ParameterType
 
-from multiscale.odesim.dist.distributions import Distribution, DistributionType, DistributionParameterType
-from multiscale.odesim.dist.samples import SampleParameter
+from distributions import Distribution, DistributionType, DistributionParameterType
+from samples import SampleParameter
 
 
 class TestDistributions(unittest.TestCase):
@@ -64,6 +62,7 @@ class TestDistributions(unittest.TestCase):
     def test_samples(self):
         samples = self.d1.samples(n_samples=10)
         self.assertEqual(len(samples), 10, 'Test sample creation')
-       
+
+
 if __name__ == '__main__':
     unittest.main()

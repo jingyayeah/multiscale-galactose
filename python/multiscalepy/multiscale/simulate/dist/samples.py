@@ -7,14 +7,11 @@ used in simulations.
     Depending on the ptype different behavior can be implemented, for instance
     in the integration.
     key, value, unit correspond to id, value, unit in the SBML.
-
-@author: Matthias Koenig
-@date: 2015-05-11
 """
-# TODO: rename Sample -> ParameterCollection (??) , better naming. This is not really describing what it is doing.
-from __future__ import print_function
-from simapp.models import ParameterType, Parameter
 
+# TODO: rename Sample -> ParameterCollection (??) , better naming. This is not really describing what it is doing.
+from __future__ import print_function, division
+from simapp.models import ParameterType, Parameter
 from copy import deepcopy
 
 
@@ -91,8 +88,6 @@ class Sample(dict):
         """
         # TODO: check if this works
         return deepcopy(samples)
-
-
 
 
 def set_parameters_in_samples_XXX(parameters, samples):

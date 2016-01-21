@@ -4,8 +4,10 @@ I.e. the function coordinating the simulations.
 """
 # TODO: implement tests for main simulator
 
-from __future__ import print_function
+from __future__ import print_function, division
+import unittest
 from django.test import TestCase
+
 
 class SimulatorTest(TestCase):
 
@@ -21,3 +23,5 @@ class SimulatorTest(TestCase):
         # assign_simulations(core, n_sim=1)
         self.assertEqual(True, True)
 
+if __name__ == "__main__":
+    unittest.main()

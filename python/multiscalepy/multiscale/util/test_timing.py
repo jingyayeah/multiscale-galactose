@@ -16,7 +16,5 @@ class TimingTestCase(unittest.TestCase):
         self.assertEqual(test_func(n=595), 595)
         self.assertEqual(test_func(13), 13)
 
-
-
 if __name__ == '__main__':
     unittest.main()

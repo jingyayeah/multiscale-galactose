@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Lognormal distributions in python
+Example for lognormal distributions in python.
+How to work with distributions.
 """
 
+from __future__ import print_function, division
 from scipy import stats  # Import the scipy.stats module
 import numpy as np
 import matplotlib.pylab as plt
@@ -50,4 +52,3 @@ plt.ylim(ymin=0)
 plt.xlabel('Radius (microns)')
 plt.title('Logarithmic scale')
 leg = plt.legend()
-

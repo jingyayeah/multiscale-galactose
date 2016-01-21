@@ -3,7 +3,7 @@ Perform ode integration.
 Can use different simulation backends like RoadRunner or COPASI.
 
 """
-from __future__ import print_function
+from __future__ import print_function, division
 
 import os
 import sys

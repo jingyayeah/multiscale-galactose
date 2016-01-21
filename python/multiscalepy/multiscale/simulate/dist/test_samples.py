@@ -1,14 +1,11 @@
 """
 Testing the samples.
-
-@author: Matthias Koenig
-@date: 2015-05-03
 """
-from __future__ import print_function
+
+from __future__ import print_function, division
 import unittest
 
-from multiscale.odesim.dist.samples import Sample, SampleParameter
-from multiscale.odesim.dist.sampling import SamplingType
+from samples import Sample, SampleParameter
 from simapp.models import ParameterType
 
 
@@ -36,7 +33,7 @@ class TestSamples(unittest.TestCase):
         self.assertEqual(len(sample), 1, "1 SampleParameter in Sample")
         self.assertEqual(sample[self.p1.key], self.p1, "Parameter should be the parameter")
 
-    def test_add_parameters(self):
+    def test_add_parameters2(self):
         parameters = [self.p1, self.p2]
         sample = Sample()
         sample.add_parameters(parameters)

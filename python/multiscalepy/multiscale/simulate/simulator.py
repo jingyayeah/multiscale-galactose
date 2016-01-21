@@ -21,9 +21,9 @@ Since these are independent processes, they now have independent Global Interpre
 (in CPython) so both can use up to 100% of a CPU on a multi-cpu box, as long as they don't 
 contend for other lower-level (OS) resources. That's the "multiprocessing" part.
 -------------------------------------------------------------------------------------
-
 """
-from __future__ import print_function
+
+from __future__ import print_function, division
 
 import fcntl
 import logging
@@ -36,8 +36,7 @@ import time
 from django.db import transaction
 from django.utils import timezone
 from simapp.models import Task, Core, Simulation, SimulationStatus
-
-from multiscale.odesim import solve
+from multiscale.simulate import solve
 
 
 # TODO: provide the multicore functionality for all simulations

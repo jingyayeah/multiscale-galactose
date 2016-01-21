@@ -10,9 +10,10 @@ from __future__ import print_function
 import copy
 import os
 
-import multiscale.analysis.galactose.settings as settings
-import multiscale.modelcreator.utils.naming as naming
 import multiscale.odesim.roadrunner_tools as rt
+
+import multiscale.modelcreator.utils.naming as naming
+import multiscale.simulate.analysis.galactose.settings as settings
 
 # ----------------------------------------------------------------------
 # Load model
@@ -81,7 +82,7 @@ for ps in parameters_list:
 # ----------------------------------------------------------------------
 # Print maximum values of the dilution peaks
 # ----------------------------------------------------------------------
-from multiscale.analysis.galactose import misc_tools
+from multiscale.simulate.analysis.galactose import misc_tools
 reload(misc_tools)
 
 # ['[PV__alb]', '[PV__gal]', '[PV__galM]', '[PV__h2oM]', '[PV__rbcM]', '[PV__suc]']
@@ -92,7 +93,7 @@ misc_tools.print_peaks(peak_dict)
 # ----------------------------------------------------------------------
 # Plots
 # ----------------------------------------------------------------------
-import multiscale.analysis.galactose.plot_tools as pt
+import multiscale.simulate.analysis.galactose.plot_tools as pt
 reload(pt)
 # plot the dilution curve
 pt.pppv_plot(s_list)
@@ -133,13 +134,13 @@ pt.dilution_plot_by_name(s_list, r.selections, name='gal1pM', comp_type="C")
 pt.dilution_plot_by_name(s_list, r.selections, name='udpgalM', comp_type="C")
 pt.dilution_plot_by_name(s_list, r.selections, name='udpglcM', comp_type="C")
 
-pt.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[settings.T_PEAK-10, settings.T_PEAK+20], comp_type="C")
-pt.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[settings.T_PEAK-10, settings.T_PEAK+20], comp_type="D")
+pt.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[settings.T_PEAK - 10, settings.T_PEAK + 20], comp_type="C")
+pt.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[settings.T_PEAK - 10, settings.T_PEAK + 20], comp_type="D")
 pt.dilution_plot_by_name(s_list, r.selections, name='galM', xlim=[0, 20], comp_type="C")
 pt.dilution_plot_by_name(s_list, r.selections, name='gal1p', comp_type="C")
 pt.dilution_plot_by_name(s_list, r.selections, name='galtol', comp_type="C")
 pt.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GAL', comp_type='D')
-pt.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GALM', xlim=[settings.T_PEAK-1, settings.T_PEAK+4], comp_type='D')
+pt.dilution_plot_by_name(s_list, r.selections, name='GLUT2_GALM', xlim=[settings.T_PEAK - 1, settings.T_PEAK + 4], comp_type='D')
 pt.dilution_plot_by_name(s_list, r.selections, name='GALK', comp_type="C")
 pt.dilution_plot_by_name(s_list, r.selections, name='GALKM', comp_type="C")
 pt.dilution_plot_by_name(s_list, r.selections, name='gal1pM', xlim=[5000, 6000], comp_type="C")

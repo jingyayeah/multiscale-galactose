@@ -5,11 +5,8 @@ Test the RoadRunner simulation tools.
 from __future__ import print_function, division
 
 import unittest
-
-from roadrunner import SelectionRecord
-
-import multiscale.odesim.roadrunner_tools as rt
 from multiscale.examples.testdata import demo_sbml
+import roadrunner_tools as rt
 
 
 class TestRoadRunnerToolsCase(unittest.TestCase):
@@ -50,6 +47,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
 
     def test_simulate_comparison(self):
         """ Test fixed step size simulation. """
+        from roadrunner import SelectionRecord
         r = rt.MyRunner(demo_sbml)
         r.set_integrator_settings(variable_step_size=False)
         r.selections_floating_concentrations()

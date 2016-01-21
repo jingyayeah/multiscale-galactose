@@ -1,10 +1,7 @@
 """
-Create example distributions
-
-
-@author: 'mkoenig'
-@date: 2015-05-11
+Examples of distributions.
 """
+from __future__ import print_function, division
 
 
 class Example(object):
@@ -15,7 +12,6 @@ class Example(object):
         :return:
         """
         raise NotImplemented
-
 
 
 class GalactoseFlow(Example):
@@ -63,25 +59,3 @@ class GalactoseFlow(Example):
                 value = float(value)
             d[key] = value
         return d
-
-
-
-if __name__ == "__main__":
-    from multiscale.odesim.dist import sampling
-
-    print('-' * 80)
-    distribution_data = GalactoseFlow.get_distributions()
-    for key, value in distribution_data.iteritems():
-        print(key, ':', value)
-    print('-' * 80)
-
-    print('-' * 80)
-    distributions = Demo.get_distributions()
-    for d in distributions:
-        print(d)
-
-    # Do some samples
-    samples = sampling.sample_from_distribution(distributions, n_samples=10)
-    for s in samples:
-        print(s)
-    print('-' * 80)

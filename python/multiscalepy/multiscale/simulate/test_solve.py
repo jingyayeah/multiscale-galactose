@@ -2,6 +2,7 @@
 Test the main solver class
 """
 
+from __future__ import print_function, division
 import unittest
 
 

@@ -2,10 +2,13 @@
 Testing the samples for the demo network.
 """
 
+from __future__ import print_function, division
+
+import unittest
 from django.test import TestCase
 
-from multiscale.odesim.dist.samples import Sample
-from multiscale.analysis.demo.demo import Demo
+from multiscale.simulate.dist.samples import Sample
+from demo import Demo
 
 
 class TestDemo(TestCase):
@@ -29,3 +32,14 @@ class TestDemo(TestCase):
         simulations = Demo.example_simulations(n_samples=10)
         self.assertEqual(len(simulations), 10)
 
+    def test_algo(self):
+        self.assertEqual(0, 1)
+        # TODO: implement with db tests
+        import django
+        django.setup()
+        Demo.file_path = '../../demo/demo/Koenig_demo.xml'
+        Demo.example_simulations(20)
+
+
+if __name__ == '__main__':
+    unittest.main()
