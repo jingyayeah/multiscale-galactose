@@ -1,33 +1,40 @@
 """
-Helper functions for RoadRunner simulations.
-These provided simplified access to common functionality used in
-different simulation scenarios.
+Subclass of RoadRunner with additional functionality.
 
-The setting and updating of parameters and initial concentrations
-can be problematic and should be done in a clear way via the
-simulation function.
+Provides common functionality used in multiple simulation scenarios, like
+- making selections
+- timed simulations
+- setting integrator settings
+- setting values in model
+- plotting
+All simulations should be run via the MyRoadRunner class which provides
+additional tests on the method.
 
-Simulations should be run via the roadrunner tools to make sure all simulations
-are reproducible.
+Set of unittests provides tested functionality.
 """
-from __future__ import print_function, division
 
-import time
-import roadrunner
+from __future__ import print_function, division
+import warnings
+import libsbml
 from roadrunner import RoadRunner, SelectionRecord
 from pandas import DataFrame
-import warnings
-
 from multiscale.util.timing import time_it
 
 
 class MyRunner(RoadRunner):
     """
-    Provides additional information about load times and
-    simulate times.
+    Subclass of RoadRunner with additional functionality.
     """
+    # TODO: the same init has to happen when a model is reloaded/loaded via
+    # different means like load function
     @time_it(message="SBML compile")
     def __init__(self, *args, **kwargs):
+        """
+        See RoadRunner() information for arguments.
+        :param args:
+        :param kwargs:
+        :return:
+        """
         # super constructor
         RoadRunner.__init__(self, *args, **kwargs)
         self.debug = False
@@ -62,12 +69,6 @@ class MyRunner(RoadRunner):
             print(integrator)
 
     #########################################################################
-    # Selections
-    #########################################################################
-    def get_floating_concentration_selections(self):
-        return ['time'] + ['[{}]'.format(s) for s in self.model.getFloatingSpeciesIds()]
-
-    #########################################################################
     # Simulation
     #########################################################################
     # supported simulate options
@@ -78,7 +79,7 @@ class MyRunner(RoadRunner):
         """ Timed simulate function. """
         for key in kwargs:
             assert(key in self._simulate_args)
-        return RoadRunner.simulate(*args, **kwargs)
+        return RoadRunner.simulate(self, *args, **kwargs)
 
     def simulate_complex(self, initial_concentrations={}, initial_amounts={},
                          parameters={}, reset_parameters=False, **kwargs):
@@ -102,13 +103,12 @@ class MyRunner(RoadRunner):
             :returns tuple of simulation result and global parameters at end point of
                     simulation (<NamedArray>, <DataFrame>)
         """
-        # TODO: Tests:examples for parameters, initial concentrations and amounts.
         # change parameters & recalculate initial assignments
         if len(parameters) > 0:
             concentrations = self.store_concentrations()
             changed = self._set_parameters(parameters)
             self.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
-            self.restore_concentrations(concentrations)
+            self._set_concentrations(concentrations)
 
         # set changed concentrations
         if len(initial_concentrations) > 0:
@@ -121,7 +121,7 @@ class MyRunner(RoadRunner):
             warnings.warn("steps provided in variable_step_size simulation !")
 
         # simulate (dangerous as long as simulate arguments not validated)
-        s = self.simulate(kwargs)
+        s = self.simulate(**kwargs)
 
         if reset_parameters:
             self._set_parameters(changed)
@@ -130,64 +130,112 @@ class MyRunner(RoadRunner):
         # simulation timecourse & global parameters for analysis
         return s, self.global_parameters_dataframe()
 
+    #########################################################################
+    # Setting & storing model values
+    #########################################################################
+    @classmethod
+    def check_keys(cls, keys, key_type):
+        import re
+        if key_type == "INITIAL_CONCENTRATION":
+            pattern = "^init\(\[\w+\]\)$"
+        elif key_type == "INITIAL_AMOUNT":
+            pattern = "^init\(\w+\)$"
+        elif key_type == "CONCENTRATION":
+            pattern = "^\[\w+\]$"
+        elif key_type in ["AMOUNT", "PARAMETER"]:
+            pattern = "^(?!init)\w+$"
+        else:
+            raise KeyError("Key type not supported.")
+
+        for key in keys:
+            assert(re.match(pattern, key))
 
     def store_concentrations(self):
-        """ Store FloatingSpecies concentrations of current model state. """
-        return {"[{}]".format(sid): self["[{}]".format(sid)]
-                for sid in self.model.getFloatingSpeciesIds()}
-
-    def restore_concentrations(self, concentrations):
-        """ Restore the FloatingSpecies concentrations given in dictionary. """
-        assert(isinstance(concentrations, dict))
-        for key, value in concentrations.iteritems():
-            self[key] = value
+        """
+        Store FloatingSpecies concentrations of current model state.
+        :return: {sid: ci} dictionary of concentrations
+        """
+        return {"[{}]".format(sid): self["[{}]".format(sid)] for sid in self.model.getFloatingSpeciesIds()}
 
     def store_amounts(self):
-        """ Store FloatingSpecies amounts of current model state. """
-        # TODO: test
+        """
+        Store FloatingSpecies amounts of current model state.
+        :return: {sid: ci} dictionary of amounts
+        """
         return {sid: self[sid] for sid in self.model.getFloatingSpeciesIds()}
 
-    def restore_amounts(self, amounts):
-        """ Restore FloatingSpecies amounts given in dictionary. """
-        assert(isinstance(amounts, dict))
-        for key, value in amounts.iteritems():
-            amounts.model['[{}]'.format(key)] = value
+    def _set_values(self, value_dict):
+        """
+        Set values in model from {selection: value}.
+        :return: {selection: original} returns dictionary of original values.
+        """
+        changed = dict()
+        for key, value in value_dict.items():
+            changed[key] = self[key]
+            self[key] = value
+        return changed
 
     def _set_parameters(self, parameters):
-        """ Set given dictionary of parameters in model.
-            Returns dictionary of changes. """
-        changed = dict()
-        for key, value in parameters.iteritems():
-            changed[key] = self.model[key]
-            self.model[key] = value
-        return changed
-
-    def _set_initial_concentrations(self, init_concentrations):
-        """ Set initial concentrations from dictionary.
-            Returns dictionary of changes.
         """
-        changed = dict()
-        for key, value in init_concentrations.iteritems():
-            changed[key] = self[key]
-            name = 'init([{}])'.format(key)
-            self[name] = value
-        return changed
-
-    def _set_initial_amounts(self, init_amounts):
-        """ Set initial values from dictionary.
-            Returns dictionary of changes.
+        Set parameters in model from {sid: value}.
+        :return: {sid: original} returns dictionary of original values.
         """
-        changed = dict()
-        for key, value in init_amounts.iteritems():
-            changed[key] = self[key]
-            name = 'init({})'.format(key)
-            self.model[name] = value
-        return changed
+        self.check_keys(parameters.keys(), "PARAMETER")
+        return self._set_values(parameters)
 
+    def _set_initial_concentrations(self, concentrations):
+        """
+        Set initial concentration in model from {init([sid]): value}.
+        :return: {init([sid]): original} returns dictionary of original values.
+        """
+        self.check_keys(concentrations.keys(), "INITIAL_CONCENTRATION")
+        return self._set_values(concentrations)
+
+    def _set_concentrations(self, concentrations):
+        """
+        Set concentrations in model from {[sid]: value}.
+        :return: {[sid]: original} returns dictionary of original values.
+        """
+        self.check_keys(concentrations.keys(), "CONCENTRATION")
+        return self._set_values(concentrations)
+
+    def _set_initial_amounts(self, amounts):
+        """
+        Set initial amounts in model from {init(sid): value}.
+        :return: {init(sid): original} returns dictionary of original values.
+        """
+        self.check_keys(amounts.keys(), "INITIAL_AMOUNT")
+        return self._set_values(amounts)
+
+    def _set_amounts(self, amounts):
+        """
+        Set amounts in model from {sid: value}.
+        :return: {sid: original} returns dictionary of original values.
+        """
+        self.check_keys(amounts.keys(), "AMOUNT")
+        return self._set_values(amounts)
 
     #########################################################################
     # Helper for units & selections
     #########################################################################
+    # TODO: create some frozenset for fast checking
+    # self.parameters = frozenset(self.)
+
+    def selections_floating_concentrations(self):
+        """
+        Set floating concentration selections in RoadRunner.
+            list[str] of selections for time, [c1], ..[cN]
+        """
+        self.selections = ['time'] + ['[{}]'.format(s) for s in self.model.getFloatingSpeciesIds()]
+
+    def selections_floating_amounts(self):
+        """
+        Set floating amount selections in RoadRunner.
+            list[str] of selections for time, c1, ..cN
+        """
+        self.selections = ['time'] + self.model.getFloatingSpeciesIds()
+
+
     def get_global_constant_parameters(self):
         """ Subset of global parameters which are constant.
             Set of parameter which has constant values and is not calculated
@@ -195,7 +243,6 @@ class MyRunner(RoadRunner):
         """
         # All global parameters which are constant have to be varied.
         parameter_ids = self.model.getGlobalParameterIds()
-        import libsbml
         doc = libsbml.readSBMLFromString(self.getSBML())
         model = doc.getModel()
         const_parameter_ids = []
@@ -205,13 +252,13 @@ class MyRunner(RoadRunner):
                 const_parameter_ids.append(pid)
         return const_parameter_ids
 
-
     #########################################################################
     # DataFrames
     #########################################################################
-
+    # TODO: create DataFrames of full information
     def global_parameters_dataframe(self):
         """ Create GlobalParameter DataFrame. """
+        # TODO: add the units, constant, ..., assignmentRules
         return DataFrame({'value': self.model.getGlobalParameterValues()},
                          index=self.model.getGlobalParameterIds())
 
