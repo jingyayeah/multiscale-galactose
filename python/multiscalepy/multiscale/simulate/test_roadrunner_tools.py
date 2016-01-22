@@ -64,7 +64,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         import numpy
         self.assertTrue(numpy.array_equal(s1, s2))
 
-    def test_simulation_fixedsteps(self):
+    def test_simulation_fixed_steps(self):
         """ Test fixed step size simulation. """
         r = rt.MyRunner(demo_sbml)
         r.set_integrator_settings(variable_step_size=False)
@@ -74,7 +74,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         self.assertEqual(101, s.shape[0])
         self.assertEqual(7, s.shape[1])
 
-    def test_simulation_fixedsteps2(self):
+    def test_simulation_fixed_steps2(self):
         """ Test fixed step size simulation. """
         import roadrunner
         r1 = roadrunner.RoadRunner(demo_sbml)
@@ -91,7 +91,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         self.assertEqual(51, s2.shape[0])
         self.assertEqual(7, s2.shape[1])
 
-    def test_simulation_varsteps(self):
+    def test_simulation_variable_steps(self):
         """ Test variable step size simulation. """
         r = rt.MyRunner(demo_sbml)
         r.integrator.setSetting('variable_step_size', True)
