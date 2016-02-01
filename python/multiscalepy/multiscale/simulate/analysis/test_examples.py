@@ -13,7 +13,7 @@ from demo.demo import Demo
 from examples import GalactoseFlow
 
 
-class MyTestCase(unittest.TestCase):
+class ExampleTestCase(unittest.TestCase):
     def setUp(self):
         pass
 

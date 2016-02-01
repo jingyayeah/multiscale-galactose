@@ -110,7 +110,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r.selections = ['time', 'Vmax_bA', 'Vmax_bB']
         parameters = {'Vmax_bA': 10.0, 'Vmax_bB': 7.15}
         s = r.simulate_complex(start=0, end=20, parameters=parameters)
-        df_gp = r.get_global_constant_parameters()
+        df_gp = r.df_global_parameters()
         self.assertEqual(10.0, df_gp.value['Vmax_bA'])
         self.assertEqual(7.15, df_gp.value['Vmax_bB'])
         self.assertEqual(10.0, s['Vmax_bA'][0])

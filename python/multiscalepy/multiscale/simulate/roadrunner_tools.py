@@ -242,8 +242,6 @@ class MyRunner(RoadRunner):
         """
         self.selections = ['time'] + sorted(self.model.getFloatingSpeciesIds())
 
-
-
     #########################################################################
     # DataFrames
     #########################################################################
@@ -297,23 +295,6 @@ class MyRunner(RoadRunner):
         df = DataFrame(self.getSimulationData(),
                        columns=self.selections)
         return df
-
-    # TODO: refactor
-    def get_global_constant_parameters(self):
-        """ Subset of global parameters which are constant.
-            Set of parameter which has constant values and is not calculated
-            based on an initialAssignment.
-        """
-        # All global parameters which are constant have to be varied.
-        parameter_ids = self.model.getGlobalParameterIds()
-        doc = libsbml.readSBMLFromString(self.getSBML())
-        model = doc.getModel()
-        const_parameter_ids = []
-        for pid in parameter_ids:
-            p = model.getParameter(pid)
-            if p.constant:
-                const_parameter_ids.append(pid)
-        return const_parameter_ids
 
     #########################################################################
     # Plotting

@@ -3,13 +3,14 @@ Testing ode simulations.
 """
 from __future__ import print_function, division
 import unittest
-import django
 import simapp.db.api as db_api
 from django.test import TestCase
 from simapp.models import Result
 from multiscale.examples.testdata import demo_sbml
 import solve_ode
 import solve_io
+
+import django
 django.setup()
 
 
@@ -21,8 +22,6 @@ class SolveODETestCase(TestCase):
         pass
 
     def test_solve_roadrunner(self):
-        # TODO: use the django test utils
-
         # create a set of test simulations and run
         model = db_api.create_model(demo_sbml, db_api.CompModelFormat.SBML)
         settings = db_api.create_settings({db_api.SettingKey.T_START: 0.0,
