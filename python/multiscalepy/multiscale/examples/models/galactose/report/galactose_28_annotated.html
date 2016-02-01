@@ -1,0 +1,6029 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="SBML report">
+    <meta name="author" content="Matthias Koenig">
+    <!--<meta http-equiv="refresh" content="5" />-->
+    <link rel="icon" href="http://localhost:8001/static/simapp/images/sbml.ico">
+    <title>galactose_28_annotated</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="galactose_28_annotated_files/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="galactose_28_annotated_files/dataTables.css">
+    <link rel="stylesheet" type="text/css" href="galactose_28_annotated_files/dashboard.css">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="galactose_28_annotated_files/report.css">
+
+
+    <!-- JAVASCRIPT -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+  <script type="text/javascript" language="javascript" src="galactose_28_annotated_files/jquery-1.js"></script>
+      <script type="text/javascript" language="javascript" src="galactose_28_annotated_files/bootstrap.js"></script>
+    <script type="text/javascript" language="javascript" src="galactose_28_annotated_files/jquery_002.js"></script>
+    <script type="text/javascript" language="javascript" src="galactose_28_annotated_files/dataTables.js"></script>
+
+
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $.extend( $.fn.dataTable.defaults, {
+                "searching": true,
+                "ordering": true
+            } );
+
+
+            var t_functions = $('#table_functions').dataTable({
+                "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_functions.fnFilter($(this).val());
+            });
+
+            var t_units = $('#table_units').dataTable({
+                "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_units.fnFilter($(this).val());
+            });
+
+            var t_compartments = $('#table_compartments').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_compartments.fnFilter($(this).val());
+            });
+
+            var t_species = $('#table_species').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_species.fnFilter($(this).val());
+            });
+
+            var t_parameters = $('#table_parameters').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_parameters.fnFilter($(this).val());
+            });
+
+            var t_assignments = $('#table_assignments').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_assignments.fnFilter($(this).val());
+            });
+
+            var t_rules = $('#table_rules').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_rules.fnFilter($(this).val());
+            });
+
+            var t_constraints = $('#table_constraints').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_constraints.fnFilter($(this).val());
+            });
+
+            var t_reactions = $('#table_reactions').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_reactions.fnFilter($(this).val());
+            });
+
+            var t_events = $('#table_events').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_events.fnFilter($(this).val());
+            });
+
+            $('#searchField').val('');
+            $('#searchField').focus();
+
+        });
+    </script>
+</head>
+
+<body xmlns="http://www.w3.org/1999/xhtml">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#top">galactose_28_annotated</a>
+        </div>
+
+          <form class="navbar-form navbar-left">
+            <input id="searchField" class="form-control" placeholder="Search..." type="text">
+          </form>
+          <!--
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/simapp/models/">Models</a></li>
+             <li><a href="/simapp/about/">About</a></li>
+              <li class="active"><a href="/admin/">Admin</a></li>
+          </ul>
+        </div>
+        -->
+      </div>
+    </nav>
+
+
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+          <li><a href="#top">Model</a></li>
+             
+                    <li><a href="#UnitDefinitions">UnitDefinitions</a></li>
+                
+                
+                
+                    <li><a href="#Compartments">Compartments</a></li>
+                
+                    <li><a href="#Species">Species</a></li>
+                
+                    <li><a href="#Parameters">Parameters</a></li>
+                
+                    <li><a href="#InitialAssignments">InitialAssignments</a></li>
+                
+                    <li><a href="#Rules">Rules</a></li>
+                
+                
+                    <li><a href="#Reactions">Reactions</a></li>
+                
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- <input type="text" id="searchField"> -->
+        
+    <!--------------------------------------------------->
+    <!-- Model -->
+    <!--------------------------------------------------->
+    <a class="anchor" id="Model"></a>
+        
+        
+        
+
+        
+        
+            <notes>
+  
+    <h1>Koenig Human Galactose Metabolism</h1>
+    <h2>Description</h2>
+    <p>This is a metabolism model of Human galactose metabolism in
+    <a href="http://sbml.org/" target="_blank" title="Access the definition of the SBML file format.">SBML</a>&nbsp;format.
+    </p>
+  <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+  <div class="dc:publisher">This file has been produced by
+    <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div><h2>Terms of use</h2><div class="dc:rightsHolder">Copyright © 2015 Matthias Koenig.</div><div class="dc:license">
+  <p>Redistribution and use of any part of this model, with or without 
+modification, are permitted provided that the following conditions are 
+met:
+        </p><ol>
+    <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+    <li>Redistributions in a different form must reproduce the above 
+copyright notice, this list of conditions and the following disclaimer 
+in the documentation and/or other materials provided
+          with the distribution.</li>
+  </ol>
+        This model is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+        <p></p>
+</div>
+
+</notes>
+            <hr>
+        
+        
+
+    <h1>Model : galactose_28_annotated</h1>
+    <b>Creator</b><br>Matthias, Koenig, Charite Berlin, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br><b>Created:</b> 2015-12-04 16:55<br><b>Modified:</b> 2015-12-04 16:55<br><br>
+    <table id="table_model_annotation" class="table table-condensed table-nonfluid">
+        <tbody><tr>
+
+        <td>
+        
+<b>BQM_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000293" target="_blank">SBO:0000293</a>
+
+        <br>
+        
+<b>BQB_HAS_TAXON</b><br><a href="http://identifiers.org/taxonomy/9606" target="_blank">9606</a><br><b>BQB_IS</b><br><a href="http://identifiers.org/bto/BTO:0000759" target="_blank">BTO:0000759</a><br><a href="http://identifiers.org/uberon/UBERON:2107" target="_blank">UBERON:2107</a><br><a href="http://identifiers.org/fma/FMA:7197" target="_blank">FMA:7197</a><br><a href="http://identifiers.org/bto/BTO:0000575" target="_blank">BTO:0000575</a><br><a href="http://identifiers.org/fma/FMA:14515" target="_blank">FMA:14515</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/pw/PW:0000042" target="_blank">PW:0000042</a><br><a href="http://identifiers.org/kegg.pathway/map00052" target="_blank">map00052</a><br><a href="http://identifiers.org/smpdb/SMP00043" target="_blank">SMP00043</a><br><a href="http://identifiers.org/go/GO:0019388" target="_blank">GO:0019388</a><br><a href="http://identifiers.org/reactome/REACTOME:R-HSA-70370.1" target="_blank">REACTOME:R-HSA-70370.1</a><br><a href="http://identifiers.org/metacyc/PWY-6317" target="_blank">PWY-6317</a>
+
+        </td>
+        <td>
+            <table id="table_model" class="table table-condensed table-nonfluid">
+            <tbody>
+            <tr>
+	
+	</tr><tr><td class="active">id</td><td>galactose_28_annotated</td></tr>
+	<tr><td class="active">name</td><td>galactose_28</td></tr>
+	<tr><td class="active">version</td><td>L3V1</td></tr>
+	<tr><td class="active">time</td><td>s</td></tr>
+	<tr><td class="active">substance</td><td>mole</td></tr>
+	<tr><td class="active">extent</td><td>mole</td></tr>
+	<tr><td class="active">volume</td><td>m3</td></tr>
+	<tr><td class="active">area</td><td>m2</td></tr>
+	<tr><td class="active">length</td><td>m</td></tr>
+	
+
+            </tbody>
+            </table>
+        </td>
+        </tr>
+    </tbody></table>
+
+
+
+
+    <!--------------------------------------------------->
+    <!-- FunctionDefinitions -->
+    <!--------------------------------------------------->
+    
+    <!--------------------------------------------------->
+    <!-- UnitDefinitions -->
+    <!--------------------------------------------------->
+    
+        <a class="anchor" id="UnitDefinitions"></a>
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table_units_wrapper"><div class="top"></div><table role="grid" id="table_units" class="table table-condensed table-nonfluid dataTable no-footer">
+            <thead>
+            <tr role="row"><th aria-label="type: activate to sort column descending" aria-sort="ascending" style="width: 0px;" colspan="1" rowspan="1" aria-controls="table_units" tabindex="0" scope="col" class="hidden sorting_asc">type</th><th aria-label="UnitDefinitions [25]: activate to sort column ascending" style="width: 235px;" colspan="1" rowspan="1" aria-controls="table_units" tabindex="0" scope="col" class="warning sorting">UnitDefinitions [25]</th><th aria-label="name: activate to sort column ascending" style="width: 77px;" colspan="1" rowspan="1" aria-controls="table_units" tabindex="0" class="sorting" scope="col">name</th><th aria-label="units: activate to sort column ascending" style="width: 224px;" colspan="1" rowspan="1" aria-controls="table_units" tabindex="0" class="sorting" scope="col">units</th><th aria-label="sbo: activate to sort column ascending" style="width: 59px;" colspan="1" rowspan="1" aria-controls="table_units" tabindex="0" class="sorting" scope="col">sbo</th><th aria-label="cvterm: activate to sort column ascending" style="width: 92px;" colspan="1" rowspan="1" aria-controls="table_units" tabindex="0" class="sorting" scope="col">cvterm</th></tr>
+            </thead>
+            <tbody>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            <tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">Pa_s_per_m2</td>
+	<td></td>
+	<td>m^-2 * pascal * s</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">Pa_s_per_m3</td>
+	<td></td>
+	<td>m^-3 * pascal * s</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">Pa_s_per_m4</td>
+	<td></td>
+	<td>m^-4 * pascal * s</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">Pa</td>
+	<td></td>
+	<td>pascal</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">m_per_s</td>
+	<td></td>
+	<td>m * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">per_m3</td>
+	<td></td>
+	<td>m^-3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">per_m2</td>
+	<td></td>
+	<td>m^-2</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">mole_per_s</td>
+	<td></td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">m2_per_s</td>
+	<td></td>
+	<td>m^2 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">mole_per_s_per_mM2</td>
+	<td></td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">m3_per_skg</td>
+	<td></td>
+	<td>kg^-1 * m^3 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">m2</td>
+	<td></td>
+	<td>m^2</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">mM_s</td>
+	<td></td>
+	<td>m^-3 * mole * s</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">per_s</td>
+	<td></td>
+	<td>s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">m3</td>
+	<td></td>
+	<td>m^3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">mM</td>
+	<td></td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">mole_per_s_per_mM</td>
+	<td></td>
+	<td>m^3 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">kg_per_m3</td>
+	<td></td>
+	<td>kg * m^-3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">per_mM</td>
+	<td></td>
+	<td>m^3 * mole^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">m6_per_Pa2_s2</td>
+	<td></td>
+	<td>m^6 * pascal^-2 * s^-2</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">kg</td>
+	<td></td>
+	<td>kg</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">m</td>
+	<td></td>
+	<td>m</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">s</td>
+	<td></td>
+	<td>s</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">Pa_s</td>
+	<td></td>
+	<td>pascal * s</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">UnitDefinition</td>
+	<td class="active">m3_per_s</td>
+	<td></td>
+	<td>m^3 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr></tbody>
+        </table><div class="bottom"></div><div class="clear"></div></div>
+        <hr>
+    
+    <!--------------------------------------------------->
+    <!-- Compartments -->
+    <!--------------------------------------------------->
+    
+        <a class="anchor" id="Compartments"></a>
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table_compartments_wrapper"><div class="top"></div><table role="grid" id="table_compartments" class="table table-condensed table-nonfluid dataTable no-footer">
+            <thead>
+            <tr role="row"><th aria-label="type: activate to sort column ascending" style="width: 0px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" scope="col" class="hidden sorting">type</th><th aria-label="Compartments [4]: activate to sort column ascending" style="width: 105px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" scope="col" class="warning sorting">Compartments [4]</th><th aria-label="name: activate to sort column ascending" style="width: 67px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" class="sorting" scope="col">name</th><th aria-sort="ascending" aria-label="size: activate to sort column descending" style="width: 28px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" class="sorting_asc" scope="col">size</th><th aria-label="constant: activate to sort column ascending" style="width: 61px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" class="sorting" scope="col">constant</th><th aria-label="spatial dimensions: activate to sort column ascending" style="width: 92px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" class="sorting" scope="col">spatial dimensions</th><th aria-label="unit: activate to sort column ascending" style="width: 27px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" class="sorting" scope="col">unit</th><th aria-label="derived unit: activate to sort column ascending" style="width: 58px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" class="sorting" scope="col">derived unit</th><th aria-label="sbo: activate to sort column ascending" style="width: 74px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" class="sorting" scope="col">sbo</th><th aria-label="cvterm: activate to sort column ascending" style="width: 74px;" colspan="1" rowspan="1" aria-controls="table_compartments" tabindex="0" class="sorting" scope="col">cvterm</th></tr>
+            </thead>
+            <tbody>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            <tr class="odd" role="row">
+    <td class="hidden">Compartment</td>
+	<td class="active">m</td>
+	<td>plasma membrane</td>
+	<td class="sorting_1">
+	                               = A_m</td>
+	<td class="danger">False</td>
+	<td>2</td>
+	<td>m2</td>
+	<td>m^2</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a><br><a href="http://identifiers.org/go/GO:0005886" target="_blank">GO:0005886</a><br><a href="http://identifiers.org/fma/FMA:63841" target="_blank">FMA:63841</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden">Compartment</td>
+	<td class="active">c</td>
+	<td>cytosol</td>
+	<td class="sorting_1">
+	                               = Vol_c</td>
+	<td class="danger">False</td>
+	<td>3</td>
+	<td>m3</td>
+	<td>m^3</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a><br><a href="http://identifiers.org/go/GO:0005829" target="_blank">GO:0005829</a><br><a href="http://identifiers.org/fma/FMA:66836" target="_blank">FMA:66836</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden">Compartment</td>
+	<td class="active">e</td>
+	<td>external</td>
+	<td class="sorting_1">
+	                               = Vol_e</td>
+	<td class="danger">False</td>
+	<td>3</td>
+	<td>m3</td>
+	<td>m^3</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a><br><a href="http://identifiers.org/go/GO:0005615" target="_blank">GO:0005615</a><br><a href="http://identifiers.org/fma/FMA:70022" target="_blank">FMA:70022</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden">Compartment</td>
+	<td class="active">h</td>
+	<td>hepatocyte</td>
+	<td class="sorting_1">
+	                               = Vol_h</td>
+	<td class="danger">False</td>
+	<td>3</td>
+	<td>m3</td>
+	<td>m^3</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a><br><a href="http://identifiers.org/go/GO:0005623" target="_blank">GO:0005623</a><br><a href="http://identifiers.org/fma/FMA:68646" target="_blank">FMA:68646</a><br><a href="http://identifiers.org/bto/BTO:0000575" target="_blank">BTO:0000575</a><br><a href="http://identifiers.org/fma/FMA:14515" target="_blank">FMA:14515</a>
+</td>
+</tr></tbody>
+        </table><div class="bottom"></div><div class="clear"></div></div>
+        <hr>
+    
+    <!--------------------------------------------------->
+    <!-- Species -->
+    <!--------------------------------------------------->
+    
+        <a class="anchor" id="Species"></a>
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table_species_wrapper"><div class="top"></div><table role="grid" id="table_species" class="table table-condensed table-nonfluid dataTable no-footer">
+            <thead>
+            <tr role="row"><th aria-label="type: activate to sort column descending" aria-sort="ascending" style="width: 0px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" scope="col" class="hidden sorting_asc">type</th><th aria-label="Species [36]: activate to sort column ascending" style="width: 66px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" scope="col" class="warning sorting">Species [36]</th><th aria-label="name: activate to sort column ascending" style="width: 80px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">name</th><th aria-label="compartment: activate to sort column ascending" style="width: 90px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">compartment</th><th aria-label="boundary condition: activate to sort column ascending" style="width: 66px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">boundary condition</th><th aria-label="constant: activate to sort column ascending" style="width: 61px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">constant</th><th aria-label="initial amount: activate to sort column ascending" style="width: 52px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">initial amount</th><th aria-label="initial concentration: activate to sort column ascending" style="width: 96px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">initial concentration</th><th aria-label="substance units: activate to sort column ascending" style="width: 72px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">substance units</th><th aria-label="derived units: activate to sort column ascending" style="width: 51px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">derived units</th><th aria-label="sbo: activate to sort column ascending" style="width: 74px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">sbo</th><th aria-label="cvterm: activate to sort column ascending" style="width: 135px;" colspan="1" rowspan="1" aria-controls="table_species" tabindex="0" class="sorting" scope="col">cvterm</th></tr>
+            </thead>
+            <tbody>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            <tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__ppi</td>
+	<td>pyrophosphate</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.008  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:33019" target="_blank">CHEBI:33019</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00013" target="_blank">C00013</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">e__h2oM</td>
+	<td>water M*</td>
+	<td>e</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:15377" target="_blank">CHEBI:15377</a><br><a href="http://identifiers.org/kegg.compound/C00001" target="_blank">C00001</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__glc1p</td>
+	<td>D-glucose 1-phophate</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.012  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58601" target="_blank">CHEBI:58601</a><br><a href="http://identifiers.org/kegg.compound/C00103" target="_blank">C00103</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__acptgal</td>
+	<td>Acceptor-galactose</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__acpt</td>
+	<td>Acceptor (glc/gal)</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__udpgal</td>
+	<td>UDP-D-galactose</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.11  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:66914" target="_blank">CHEBI:66914</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00052" target="_blank">C00052</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__udp</td>
+	<td>UDP</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.09  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58223" target="_blank">CHEBI:58223</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00015" target="_blank">C00015</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__atp</td>
+	<td>ATP</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 2.7  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:30616" target="_blank">CHEBI:30616</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00002" target="_blank">C00002</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__utp</td>
+	<td>UTP</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.27  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:46398" target="_blank">CHEBI:46398</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00075" target="_blank">C00075</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">e__gal</td>
+	<td>D-galactose</td>
+	<td>e</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.00012  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:28061" target="_blank">CHEBI:28061</a><br><a href="http://identifiers.org/kegg.compound/C00124" target="_blank">C00124</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__gal1pM</td>
+	<td>D-galactose 1-phosphate M*</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58336" target="_blank">CHEBI:58336</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00446" target="_blank">C00446</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__gal</td>
+	<td>D-galactose</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.00012  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:28061" target="_blank">CHEBI:28061</a><br><a href="http://identifiers.org/kegg.compound/C00124" target="_blank">C00124</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__acptgalM</td>
+	<td>Acceptor-galactose M*</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__acptglc</td>
+	<td>Acceptor-glucose</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__galtolM</td>
+	<td>D-galactitol M*</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:16813" target="_blank">CHEBI:16813</a><br><a href="http://identifiers.org/kegg.compound/C01697" target="_blank">C01697</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">e__galM</td>
+	<td>D-galactose M*</td>
+	<td>e</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:28061" target="_blank">CHEBI:28061</a><br><a href="http://identifiers.org/kegg.compound/C00124" target="_blank">C00124</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__o2</td>
+	<td>O2</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:15379" target="_blank">CHEBI:15379</a><br><a href="http://identifiers.org/kegg.compound/C00007" target="_blank">C00007</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__glc6p</td>
+	<td>D-glucose 6-phosphate</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.12  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58225" target="_blank">CHEBI:58225</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00668" target="_blank">C00668</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__adp</td>
+	<td>ADP</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 1.2  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:456216" target="_blank">CHEBI:456216</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00008" target="_blank">C00008</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">h__h2oM</td>
+	<td>water M*</td>
+	<td>h</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:15377" target="_blank">CHEBI:15377</a><br><a href="http://identifiers.org/kegg.compound/C00001" target="_blank">C00001</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__co2</td>
+	<td>CO2</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:16526" target="_blank">CHEBI:16526</a><br><a href="http://identifiers.org/kegg.compound/C00011" target="_blank">C00011</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__nadp</td>
+	<td>NADP</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.1  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58349" target="_blank">CHEBI:58349</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00006" target="_blank">C00006</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__hydron</td>
+	<td>H+</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:15378" target="_blank">CHEBI:15378</a><br><a href="http://identifiers.org/kegg.compound/C00080" target="_blank">C00080</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__udpgalM</td>
+	<td>UDP-D-galactose M*</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:66914" target="_blank">CHEBI:66914</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00052" target="_blank">C00052</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__galM</td>
+	<td>D-galactose M*</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:28061" target="_blank">CHEBI:28061</a><br><a href="http://identifiers.org/kegg.compound/C00124" target="_blank">C00124</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__galtol</td>
+	<td>D-galactitol</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.001  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:16813" target="_blank">CHEBI:16813</a><br><a href="http://identifiers.org/kegg.compound/C01697" target="_blank">C01697</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__nadph</td>
+	<td>NADPH</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.1  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:57783" target="_blank">CHEBI:57783</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00005" target="_blank">C00005</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__glc6pM</td>
+	<td>D-glucose 6-phosphate M*</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58225" target="_blank">CHEBI:58225</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00668" target="_blank">C00668</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__glc1pM</td>
+	<td>D-glucose 1-phophate M*</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58601" target="_blank">CHEBI:58601</a><br><a href="http://identifiers.org/kegg.compound/C00103" target="_blank">C00103</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__udpglc</td>
+	<td>UDP-D-glucose</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.34  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58885" target="_blank">CHEBI:58885</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00029" target="_blank">C00029</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__h2o</td>
+	<td>water</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:15377" target="_blank">CHEBI:15377</a><br><a href="http://identifiers.org/kegg.compound/C00001" target="_blank">C00001</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__gal1p</td>
+	<td>D-galactose 1-phosphate</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.001  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58336" target="_blank">CHEBI:58336</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00446" target="_blank">C00446</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__h2</td>
+	<td>H2</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:18276" target="_blank">CHEBI:18276</a><br><a href="http://identifiers.org/kegg.compound/C00282" target="_blank">C00282</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__acptglcM</td>
+	<td>Acceptor-glucose M*</td>
+	<td>c</td>
+	<td class=" success ">True</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__udpglcM</td>
+	<td>UDP-D-glucose M*</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 0.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:58885" target="_blank">CHEBI:58885</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00029" target="_blank">C00029</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Species</td>
+	<td class="active">c__phos</td>
+	<td>phosphate</td>
+	<td>c</td>
+	<td class="  danger  ">False</td>
+	<td class="  danger  ">False</td>	
+	<td></td>
+	<td> 5.0  </td>
+	<td>mole</td>
+	<td>m^-3 * mole</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br><a href="http://identifiers.org/chebi/CHEBI:43474" target="_blank">CHEBI:43474</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/kegg.compound/C00009" target="_blank">C00009</a>
+</td>
+</tr></tbody>
+        </table><div class="bottom"></div><div class="clear"></div></div>
+        <hr>
+    
+    <!--------------------------------------------------->
+    <!-- Parameters -->
+    <!--------------------------------------------------->
+    
+        <a class="anchor" id="Parameters"></a>
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table_parameters_wrapper"><div class="top"></div><table role="grid" id="table_parameters" class="table table-condensed table-nonfluid dataTable no-footer">
+            <thead>
+            <tr role="row"><th aria-label="type: activate to sort column descending" aria-sort="ascending" style="width: 0px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" scope="col" class="hidden sorting_asc">type</th><th aria-label="Parameters [163]: activate to sort column ascending" style="width: 100px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" scope="col" class="warning sorting">Parameters [163]</th><th aria-label="name: activate to sort column ascending" style="width: 69px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" class="sorting" scope="col">name</th><th aria-label="value: activate to sort column ascending" style="width: 98px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" class="sorting" scope="col">value</th><th aria-label="unit: activate to sort column ascending" style="width: 129px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" class="sorting" scope="col">unit</th><th aria-label="derived unit: activate to sort column ascending" style="width: 75px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" class="sorting" scope="col">derived unit</th><th aria-label="constant: activate to sort column ascending" style="width: 61px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" class="sorting" scope="col">constant</th><th aria-label="sbo: activate to sort column ascending" style="width: 74px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" class="sorting" scope="col">sbo</th><th aria-label="cvterm: activate to sort column ascending" style="width: 153px;" colspan="1" rowspan="1" aria-controls="table_parameters" tabindex="0" class="sorting" scope="col">cvterm</th></tr>
+            </thead>
+            <tbody>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            <tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">scale_f</td>
+	<td>metabolic scaling factor</td>
+	<td>0.31</td>
+	
+	<td>per_m3</td>
+	<td>m^-3</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">y_cell</td>
+	<td>width hepatocyte</td>
+	<td>9.4e-06</td>
+	
+	<td>m</td>
+	<td>m</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">x_cell</td>
+	<td>length hepatocyte</td>
+	<td>2.5e-05</td>
+	
+	<td>m</td>
+	<td>m</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">f_cyto</td>
+	<td>cytosolic fraction of hepatocyte</td>
+	<td>0.4</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">Nf</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">deficiency</td>
+	<td>type of galactosemia</td>
+	<td>0.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">REF_P</td>
+	<td>reference protein amount</td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">f_tissue</td>
+	<td>parenchymal fraction of liver</td>
+	<td>0.8</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">Vol_e</td>
+	<td>volume external compartment</td>
+	<td>
+								    = Vol_h</td>
+	
+	<td>m3</td>
+	<td>m^3</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">Vol_c</td>
+	<td>volume cytosol</td>
+	<td>
+								    = f_cyto * Vol_h</td>
+	
+	<td>m3</td>
+	<td>m^3</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">A_m</td>
+	<td>area plasma membrane</td>
+	<td>
+								    = x_cell * x_cell</td>
+	
+	<td>m2</td>
+	<td>m^2</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">Vol_h</td>
+	<td>volume hepatocyte</td>
+	<td>
+								    = x_cell * x_cell * y_cell</td>
+	
+	<td>m3</td>
+	<td>m^3</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__gal_tot</td>
+	<td></td>
+	<td>
+								    = c__gal + c__galM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">e__gal_tot</td>
+	<td></td>
+	<td>
+								    = e__gal + e__galM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__udpglc_tot</td>
+	<td></td>
+	<td>
+								    = c__udpglc + c__udpglcM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__adp_bal</td>
+	<td>ADP balance</td>
+	<td>
+								    = c__atp + c__adp</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000196" target="_blank">SBO:0000196</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000196" target="_blank">SBO:0000196</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__phos_bal</td>
+	<td>Phosphate balance</td>
+	<td>
+								    = 3 * c__atp + 2 * c__adp + 3 * c__utp + 2 * c__udp + 
+c__phos + 2 * c__ppi + c__glc1p + c__glc6p + c__gal1p + 2 * c__udpglc + 2
+ * c__udpgal + c__glc1pM + c__glc6pM + c__gal1pM + 2 * c__udpglcM + 2 * 
+c__udpgalM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000196" target="_blank">SBO:0000196</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000196" target="_blank">SBO:0000196</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__glc6p_tot</td>
+	<td></td>
+	<td>
+								    = c__glc6p + c__glc6pM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__gal1p_tot</td>
+	<td></td>
+	<td>
+								    = c__gal1p + c__gal1pM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__scale</td>
+	<td></td>
+	<td>
+								    = scale_f * Vol_h</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__galtol_tot</td>
+	<td></td>
+	<td>
+								    = c__galtol + c__galtolM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__glc1p_tot</td>
+	<td></td>
+	<td>
+								    = c__glc1p + c__glc1pM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__udpgal_tot</td>
+	<td></td>
+	<td>
+								    = c__udpgal + c__udpgalM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__udp_bal</td>
+	<td>UDP balance</td>
+	<td>
+								    = c__utp + c__udp + c__udpglc + c__udpgal + c__udpglcM + c__udpgalM</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000196" target="_blank">SBO:0000196</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000196" target="_blank">SBO:0000196</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__nadp_bal</td>
+	<td>NADP balance</td>
+	<td>
+								    = c__nadp + c__nadph</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" danger ">False</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000196" target="_blank">SBO:0000196</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000196" target="_blank">SBO:0000196</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALK_PA</td>
+	<td></td>
+	<td>0.024</td>
+	
+	<td>mole</td>
+	<td>mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALK_keq</td>
+	<td></td>
+	<td>50.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALK_k_gal1p</td>
+	<td></td>
+	<td>1.5</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a><br><a href="http://identifiers.org/sabiork.kineticrecord/14785" target="_blank">14785</a><br><a href="http://identifiers.org/sabiork.kineticrecord/45367" target="_blank">45367</a><br><b>BQB_IS_DESCRIBED_BY</b><br><a href="http://identifiers.org/pubmed/12694189" target="_blank">12694189</a><br><a href="http://identifiers.org/pubmed/15024738" target="_blank">15024738</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALK_k_adp</td>
+	<td></td>
+	<td>0.8</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALK_ki_gal1p</td>
+	<td></td>
+	<td>5.3</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALK_kcat</td>
+	<td></td>
+	<td>8.7</td>
+	
+	<td>per_s</td>
+	<td>s^-1</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000025" target="_blank">SBO:0000025</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000025" target="_blank">SBO:0000025</a><br><a href="http://identifiers.org/sabiork.kineticrecord/14785" target="_blank">14785</a><br><b>BQB_IS_DESCRIBED_BY</b><br><a href="http://identifiers.org/pubmed/12694189" target="_blank">12694189</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALK_k_gal</td>
+	<td></td>
+	<td>0.14</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a><br><a href="http://identifiers.org/sabiork.kineticrecord/14785" target="_blank">14785</a><br><a href="http://identifiers.org/sabiork.kineticrecord/45367" target="_blank">45367</a><br><b>BQB_IS_DESCRIBED_BY</b><br><a href="http://identifiers.org/pubmed/12694189" target="_blank">12694189</a><br><a href="http://identifiers.org/pubmed/15024738" target="_blank">15024738</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALK_k_atp</td>
+	<td></td>
+	<td>0.034</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a><br><a href="http://identifiers.org/sabiork.kineticrecord/14792" target="_blank">14792</a><br><b>BQB_IS_DESCRIBED_BY</b><br><a href="http://identifiers.org/pubmed/12694189" target="_blank">12694189</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALK_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALK_V</td>
+	<td></td>
+	<td>
+								    = c__GALK_Vmax / (GALK_k_gal * GALK_k_atp) * 1 / (1 + c__gal1p_tot / GALK_ki_gal1p) * 1 / c__GALK_dm</td>
+	
+	<td>mole_per_s_per_mM2</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALK_Vb</td>
+	<td></td>
+	<td>
+								    = c__GALK_V * c__gal1p_tot * c__adp / GALK_keq</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALK_Vmax</td>
+	<td></td>
+	<td>
+								    = c__scale * GALK_PA * GALK_kcat * c__GALK_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALK_dm</td>
+	<td></td>
+	<td>
+								    = (1 + c__gal_tot / GALK_k_gal) * (1 + c__atp / GALK_k_atp) +
+ (1 + c__gal1p_tot / GALK_k_gal1p) * (1 + c__adp / GALK_k_adp) - 1</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALK_Vf</td>
+	<td></td>
+	<td>
+								    = c__GALK_V * c__gal_tot * c__atp</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">IMP_f</td>
+	<td></td>
+	<td>0.05</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">IMP_k_gal1p</td>
+	<td></td>
+	<td>0.35</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__IMP_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__IMP_dm</td>
+	<td></td>
+	<td>
+								    = 1 + c__gal1p_tot / IMP_k_gal1p</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__IMP_Vf</td>
+	<td></td>
+	<td>
+								    = c__IMP_Vmax / IMP_k_gal1p * c__gal1p_tot / c__IMP_dm</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__IMP_Vmax</td>
+	<td></td>
+	<td>
+								    = IMP_f * c__GALK_Vmax * c__IMP_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ATPS_f</td>
+	<td></td>
+	<td>100.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ATPS_keq</td>
+	<td></td>
+	<td>0.58</td>
+	
+	<td>per_mM</td>
+	<td>m^3 * mole^-1</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ATPS_k_adp</td>
+	<td></td>
+	<td>0.1</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ATPS_k_atp</td>
+	<td></td>
+	<td>0.5</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ATPS_k_phos</td>
+	<td></td>
+	<td>0.1</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__ATPS_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__ATPS_Vmax</td>
+	<td></td>
+	<td>
+								    = ATPS_f * c__GALK_Vmax * c__ATPS_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ALDR_f</td>
+	<td></td>
+	<td>1000000.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ALDR_keq</td>
+	<td></td>
+	<td>4.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ALDR_k_gal</td>
+	<td></td>
+	<td>40.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a><br><a href="http://identifiers.org/sabiork.kineticrecord/22893" target="_blank">22893</a><br><a href="http://identifiers.org/sabiork.kineticrecord/15695" target="_blank">15695</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ALDR_k_galtol</td>
+	<td></td>
+	<td>40.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a><br><a href="http://identifiers.org/sabiork.kineticrecord/22893" target="_blank">22893</a><br><a href="http://identifiers.org/sabiork.kineticrecord/15695" target="_blank">15695</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ALDR_k_nadp</td>
+	<td></td>
+	<td>0.1</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">ALDR_k_nadph</td>
+	<td></td>
+	<td>0.1</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__ALDR_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__ALDR_Vb</td>
+	<td></td>
+	<td>
+								    = c__ALDR_V * c__galtol_tot * c__nadp / ALDR_keq</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__ALDR_V</td>
+	<td></td>
+	<td>
+								    = c__ALDR_Vmax / (ALDR_k_gal * ALDR_k_nadp) * 1 / c__ALDR_dm</td>
+	
+	<td>mole_per_s_per_mM2</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__ALDR_Vmax</td>
+	<td></td>
+	<td>
+								    = ALDR_f * c__GALK_Vmax * c__ALDR_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__ALDR_dm</td>
+	<td></td>
+	<td>
+								    = (1 + c__gal_tot / ALDR_k_gal) * (1 + c__nadph / 
+ALDR_k_nadph) + (1 + c__galtol_tot / ALDR_k_galtol) * (1 + c__nadp / 
+ALDR_k_nadp) - 1</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__ALDR_Vf</td>
+	<td></td>
+	<td>
+								    = c__ALDR_V * c__gal_tot * c__nadph</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NADPR_f</td>
+	<td></td>
+	<td>1e-10</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NADPR_keq</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NADPR_k_nadp</td>
+	<td></td>
+	<td>0.015</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NADPR_ki_nadph</td>
+	<td></td>
+	<td>0.01</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__NADPR_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__NADPR_Vmax</td>
+	<td></td>
+	<td>
+								    = NADPR_f * c__ALDR_Vmax * c__NADPR_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_f</td>
+	<td></td>
+	<td>0.01</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_keq</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_k_glc1p</td>
+	<td></td>
+	<td>0.37</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_k_udpgal</td>
+	<td></td>
+	<td>0.5</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_ki_utp</td>
+	<td></td>
+	<td>0.13</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_ki_udp</td>
+	<td></td>
+	<td>0.35</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_vm</td>
+	<td></td>
+	<td>804.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_k_gal1p</td>
+	<td></td>
+	<td>1.25</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALT_k_udpglc</td>
+	<td></td>
+	<td>0.43</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALT_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALT_Vf</td>
+	<td></td>
+	<td>
+								    = c__GALT_V * c__gal1p_tot * c__udpglc_tot</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALT_V</td>
+	<td></td>
+	<td>
+								    = c__GALT_Vmax / (GALT_k_gal1p * GALT_k_udpglc) * 1 / c__GALT_dm</td>
+	
+	<td>mole_per_s_per_mM2</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALT_Vmax</td>
+	<td></td>
+	<td>
+								    = c__GALT_P / REF_P * GALT_f * c__GALK_Vmax * GALT_vm</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALT_Vb</td>
+	<td></td>
+	<td>
+								    = c__GALT_V * c__glc1p_tot * c__udpgal_tot / GALT_keq</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALT_dm</td>
+	<td></td>
+	<td>
+								    = (1 + c__gal1p_tot / GALT_k_gal1p) * (1 + c__udpglc_tot / 
+GALT_k_udpglc + c__udp / GALT_ki_udp + c__utp / GALT_ki_utp) + (1 + 
+c__glc1p_tot / GALT_k_glc1p) * (1 + c__udpgal_tot / GALT_k_udpgal) - 1</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALE_f</td>
+	<td></td>
+	<td>0.3</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALE_PA</td>
+	<td></td>
+	<td>0.0278</td>
+	
+	<td>s</td>
+	<td>s</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALE_kcat</td>
+	<td></td>
+	<td>36.0</td>
+	
+	<td>per_s</td>
+	<td>s^-1</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000025" target="_blank">SBO:0000025</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000025" target="_blank">SBO:0000025</a><br><a href="http://identifiers.org/sabiork.kineticrecord/16222" target="_blank">16222</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALE_keq</td>
+	<td></td>
+	<td>0.33</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALE_k_udpglc</td>
+	<td></td>
+	<td>0.069</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GALE_k_udpgal</td>
+	<td></td>
+	<td>0.3</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a><br><a href="http://identifiers.org/sabiork.kineticrecord/19823" target="_blank">19823</a><br><a href="http://identifiers.org/sabiork.kineticrecord/46260" target="_blank">46260</a><br><a href="http://identifiers.org/sabiork.kineticrecord/46263" target="_blank">46263</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALE_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALE_Vb</td>
+	<td></td>
+	<td>
+								    = c__GALE_V * c__udpgal_tot / GALE_keq</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALE_V</td>
+	<td></td>
+	<td>
+								    = c__GALE_Vmax / GALE_k_udpglc * 1 / c__GALE_dm</td>
+	
+	<td>mole_per_s_per_mM</td>
+	<td>m^3 * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALE_Vmax</td>
+	<td></td>
+	<td>
+								    = GALE_f * c__GALK_Vmax * GALE_PA * GALE_kcat * c__GALE_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALE_dm</td>
+	<td></td>
+	<td>
+								    = 1 + c__udpglc_tot / GALE_k_udpglc + c__udpgal_tot / GALE_k_udpgal</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GALE_Vf</td>
+	<td></td>
+	<td>
+								    = c__GALE_V * c__udpglc_tot</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_f</td>
+	<td></td>
+	<td>2000.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_keq</td>
+	<td></td>
+	<td>0.45</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_k_utp</td>
+	<td></td>
+	<td>0.563</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_k_glc1p</td>
+	<td></td>
+	<td>0.172</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_k_udpglc</td>
+	<td></td>
+	<td>0.049</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_k_ppi</td>
+	<td></td>
+	<td>0.166</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_k_gal1p</td>
+	<td></td>
+	<td>5.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_k_udpgal</td>
+	<td></td>
+	<td>0.42</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_ki_utp</td>
+	<td></td>
+	<td>0.643</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGP_ki_udpglc</td>
+	<td></td>
+	<td>0.643</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000261" target="_blank">SBO:0000261</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGP_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGP_Vf</td>
+	<td></td>
+	<td>
+								    = c__UGP_V * c__glc1p_tot * c__utp</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGP_V</td>
+	<td></td>
+	<td>
+								    = c__UGP_Vmax / (UGP_k_utp * UGP_k_glc1p) * 1 / c__UGP_dm</td>
+	
+	<td>mole_per_s_per_mM2</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGP_Vmax</td>
+	<td></td>
+	<td>
+								    = UGP_f * c__GALK_Vmax * c__UGP_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGP_dm</td>
+	<td></td>
+	<td>
+								    = (1 + c__utp / UGP_k_utp + c__udpglc_tot / UGP_ki_udpglc) *
+ (1 + c__glc1p_tot / UGP_k_glc1p + c__gal1p_tot / UGP_k_gal1p) + (1 + 
+c__udpglc_tot / UGP_k_udpglc + c__udpgal_tot / UGP_k_udpgal + c__utp / 
+UGP_ki_utp) * (1 + c__ppi / UGP_k_ppi) - 1</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGP_Vb</td>
+	<td></td>
+	<td>
+								    = c__UGP_V * c__udpglc_tot * c__ppi / UGP_keq</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">UGALP_f</td>
+	<td></td>
+	<td>0.01</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGALP_Vb</td>
+	<td></td>
+	<td>
+								    = c__UGALP_V * c__udpgal_tot * c__ppi / UGP_keq</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGALP_V</td>
+	<td></td>
+	<td>
+								    = UGALP_f * c__UGP_Vmax / (UGP_k_utp * UGP_k_gal1p) * 1 / c__UGP_dm</td>
+	
+	<td>mole_per_s_per_mM2</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__UGALP_Vf</td>
+	<td></td>
+	<td>
+								    = c__UGALP_V * c__gal1p_tot * c__utp</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">PPASE_f</td>
+	<td></td>
+	<td>0.05</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">PPASE_k_ppi</td>
+	<td></td>
+	<td>0.07</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">PPASE_n</td>
+	<td></td>
+	<td>4.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__PPASE_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__PPASE_Vmax</td>
+	<td></td>
+	<td>
+								    = PPASE_f * c__UGP_Vmax * c__PPASE_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NDKU_f</td>
+	<td></td>
+	<td>2.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NDKU_keq</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NDKU_k_atp</td>
+	<td></td>
+	<td>1.33</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NDKU_k_adp</td>
+	<td></td>
+	<td>0.042</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NDKU_k_utp</td>
+	<td></td>
+	<td>27.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">NDKU_k_udp</td>
+	<td></td>
+	<td>0.19</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__NDKU_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__NDKU_Vmax</td>
+	<td></td>
+	<td>
+								    = NDKU_f * c__UGP_Vmax * c__NDKU_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">PGM1_f</td>
+	<td></td>
+	<td>50.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">PGM1_keq</td>
+	<td></td>
+	<td>10.0</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">PGM1_k_glc6p</td>
+	<td></td>
+	<td>0.67</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">PGM1_k_glc1p</td>
+	<td></td>
+	<td>0.045</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__PGM1_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__PGM1_Vb</td>
+	<td></td>
+	<td>
+								    = c__PGM1_V * c__glc6p_tot / PGM1_keq</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__PGM1_V</td>
+	<td></td>
+	<td>
+								    = c__PGM1_Vmax / PGM1_k_glc1p * 1 / c__PGM1_dm</td>
+	
+	<td>mole_per_s_per_mM</td>
+	<td>m^3 * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__PGM1_Vmax</td>
+	<td></td>
+	<td>
+								    = PGM1_f * c__GALK_Vmax * c__PGM1_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__PGM1_dm</td>
+	<td></td>
+	<td>
+								    = 1 + c__glc1p_tot / PGM1_k_glc1p + c__glc6p_tot / PGM1_k_glc6p</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__PGM1_Vf</td>
+	<td></td>
+	<td>
+								    = c__PGM1_V * c__glc1p_tot</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GLY_f</td>
+	<td></td>
+	<td>0.1</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GLY_k_glc6p</td>
+	<td></td>
+	<td>0.12</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GLY_k_p</td>
+	<td></td>
+	<td>0.2</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GLY_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GLY_Vmax</td>
+	<td></td>
+	<td>
+								    = GLY_f * c__PGM1_Vmax * c__GLY_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GTF_f</td>
+	<td></td>
+	<td>0.02</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GTF_k_udpgal</td>
+	<td></td>
+	<td>0.1</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GTF_k_udpglc</td>
+	<td></td>
+	<td>0.1</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GTF_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GTFGAL_Vf</td>
+	<td></td>
+	<td>
+								    = c__GTF_Vmax / GTF_k_udpgal * c__udpgal_tot / (1 + c__udpgal_tot / GTF_k_udpgal)</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GTF_Vmax</td>
+	<td></td>
+	<td>
+								    = GTF_f * c__GALK_Vmax * c__GTF_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GTFGLC_Vf</td>
+	<td></td>
+	<td>
+								    = 0 * c__GTF_Vmax / GTF_k_udpglc * c__udpglc_tot / (1 + c__udpglc_tot / GTF_k_udpglc)</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">H2OT_f</td>
+	<td></td>
+	<td>8.0</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">H2OT_k</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__H2OT_Vmax</td>
+	<td></td>
+	<td>
+								    = H2OT_f / Nf * c__scale</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GLUT2_f</td>
+	<td></td>
+	<td>17.0</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">GLUT2_k_gal</td>
+	<td></td>
+	<td>27.8</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GLUT2_P</td>
+	<td></td>
+	<td>1.0</td>
+	
+	<td>mM</td>
+	<td>m^-3 * mole</td>
+	<td class=" success ">True</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GLUT2_dm</td>
+	<td></td>
+	<td>
+								    = 1 + e__gal_tot / GLUT2_k_gal + c__gal_tot / GLUT2_k_gal</td>
+	
+	<td>dimensionless</td>
+	<td>dimensionless</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GLUT2_Vb</td>
+	<td></td>
+	<td>
+								    = c__GLUT2_V * c__gal_tot</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GLUT2_V</td>
+	<td></td>
+	<td>
+								    = c__GLUT2_Vmax / GLUT2_k_gal * 1 / c__GLUT2_dm</td>
+	
+	<td>mole_per_s_per_mM</td>
+	<td>m^3 * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GLUT2_Vf</td>
+	<td></td>
+	<td>
+								    = c__GLUT2_V * e__gal_tot</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Parameter</td>
+	<td class="active">c__GLUT2_Vmax</td>
+	<td></td>
+	<td>
+								    = GLUT2_f / Nf * c__scale * c__GLUT2_P / REF_P</td>
+	
+	<td>mole_per_s</td>
+	<td>mole * s^-1</td>
+	<td class=" danger ">False</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr></tbody>
+        </table><div class="bottom"></div><div class="clear"></div></div>
+        <hr>
+    
+    <!--------------------------------------------------->
+    <!-- InitialAssignments -->
+    <!--------------------------------------------------->
+    
+        <a class="anchor" id="InitialAssignments"></a>
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table_assignments_wrapper"><div class="top"></div><table role="grid" id="table_assignments" class="table table-condensed table-nonfluid dataTable no-footer">
+            <thead>
+            <tr role="row"><th aria-label="type: activate to sort column descending" aria-sort="ascending" style="width: 0px;" colspan="1" rowspan="1" aria-controls="table_assignments" tabindex="0" scope="col" class="hidden sorting_asc">type</th><th aria-label="InitialAssignments [4]: activate to sort column ascending" style="width: 218px;" colspan="1" rowspan="1" aria-controls="table_assignments" tabindex="0" scope="col" class="warning sorting">InitialAssignments [4]</th><th aria-label="&amp;nbsp;: activate to sort column ascending" style="width: 15px;" colspan="1" rowspan="1" aria-controls="table_assignments" tabindex="0" class="sorting" scope="col">&nbsp;</th><th aria-label="assignment: activate to sort column ascending" style="width: 175px;" colspan="1" rowspan="1" aria-controls="table_assignments" tabindex="0" class="sorting" scope="col">assignment</th><th aria-label="derived units: activate to sort column ascending" style="width: 135px;" colspan="1" rowspan="1" aria-controls="table_assignments" tabindex="0" class="sorting" scope="col">derived units</th><th aria-label="sbo: activate to sort column ascending" style="width: 46px;" colspan="1" rowspan="1" aria-controls="table_assignments" tabindex="0" class="sorting" scope="col">sbo</th><th aria-label="cvterm: activate to sort column ascending" style="width: 73px;" colspan="1" rowspan="1" aria-controls="table_assignments" tabindex="0" class="sorting" scope="col">cvterm</th></tr>
+            </thead>
+            <tbody>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            <tr class="odd" role="row">
+    <td class="hidden sorting_1">InitialAssignment</td>
+	<td class="active">Vol_e</td>
+	<td>=</td>
+	<td>Vol_h</td>
+	<td>m^3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">InitialAssignment</td>
+	<td class="active">Vol_c</td>
+	<td>=</td>
+	<td>f_cyto * Vol_h</td>
+	<td>m^3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">InitialAssignment</td>
+	<td class="active">A_m</td>
+	<td>=</td>
+	<td>x_cell * x_cell</td>
+	<td>m^2</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">InitialAssignment</td>
+	<td class="active">Vol_h</td>
+	<td>=</td>
+	<td>x_cell * x_cell * y_cell</td>
+	<td>m^3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr></tbody>
+        </table><div class="bottom"></div><div class="clear"></div></div>
+        <hr>
+    
+    <!--------------------------------------------------->
+    <!-- Rules -->
+    <!--------------------------------------------------->
+    
+        <a class="anchor" id="Rules"></a>
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table_rules_wrapper"><div class="top"></div><table role="grid" id="table_rules" class="table table-condensed table-nonfluid dataTable no-footer">
+            <thead>
+            <tr role="row"><th aria-label="type: activate to sort column descending" aria-sort="ascending" style="width: 0px;" colspan="1" rowspan="1" aria-controls="table_rules" tabindex="0" scope="col" class="hidden sorting_asc">type</th><th aria-label="Rules [67]: activate to sort column ascending" style="width: 100px;" colspan="1" rowspan="1" aria-controls="table_rules" tabindex="0" scope="col" class="warning sorting">Rules [67]</th><th aria-label="&amp;nbsp;: activate to sort column ascending" style="width: 4px;" colspan="1" rowspan="1" aria-controls="table_rules" tabindex="0" class="sorting" scope="col">&nbsp;</th><th aria-label="assignment: activate to sort column ascending" style="width: 402px;" colspan="1" rowspan="1" aria-controls="table_rules" tabindex="0" class="sorting" scope="col">assignment</th><th aria-label="derived units: activate to sort column ascending" style="width: 83px;" colspan="1" rowspan="1" aria-controls="table_rules" tabindex="0" class="sorting" scope="col">derived units</th><th aria-label="sbo: activate to sort column ascending" style="width: 26px;" colspan="1" rowspan="1" aria-controls="table_rules" tabindex="0" class="sorting" scope="col">sbo</th><th aria-label="cvterm: activate to sort column ascending" style="width: 46px;" colspan="1" rowspan="1" aria-controls="table_rules" tabindex="0" class="sorting" scope="col">cvterm</th></tr>
+            </thead>
+            <tbody>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            <tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">h</td>
+	<td>=</td>
+	<td>Vol_h</td>
+	<td>m^3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c</td>
+	<td>=</td>
+	<td>Vol_c</td>
+	<td>m^3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">e</td>
+	<td>=</td>
+	<td>Vol_e</td>
+	<td>m^3</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">m</td>
+	<td>=</td>
+	<td>A_m</td>
+	<td>m^2</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__gal_tot</td>
+	<td>=</td>
+	<td>c__gal + c__galM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">e__gal_tot</td>
+	<td>=</td>
+	<td>e__gal + e__galM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__udpglc_tot</td>
+	<td>=</td>
+	<td>c__udpglc + c__udpglcM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__adp_bal</td>
+	<td>=</td>
+	<td>c__atp + c__adp</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__phos_bal</td>
+	<td>=</td>
+	<td>3 * c__atp + 2 * c__adp + 3 * c__utp + 2 * c__udp + c__phos + 2 * 
+c__ppi + c__glc1p + c__glc6p + c__gal1p + 2 * c__udpglc + 2 * c__udpgal +
+ c__glc1pM + c__glc6pM + c__gal1pM + 2 * c__udpglcM + 2 * c__udpgalM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__glc6p_tot</td>
+	<td>=</td>
+	<td>c__glc6p + c__glc6pM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__gal1p_tot</td>
+	<td>=</td>
+	<td>c__gal1p + c__gal1pM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__scale</td>
+	<td>=</td>
+	<td>scale_f * Vol_h</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__galtol_tot</td>
+	<td>=</td>
+	<td>c__galtol + c__galtolM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__glc1p_tot</td>
+	<td>=</td>
+	<td>c__glc1p + c__glc1pM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__udpgal_tot</td>
+	<td>=</td>
+	<td>c__udpgal + c__udpgalM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__udp_bal</td>
+	<td>=</td>
+	<td>c__utp + c__udp + c__udpglc + c__udpgal + c__udpglcM + c__udpgalM</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__nadp_bal</td>
+	<td>=</td>
+	<td>c__nadp + c__nadph</td>
+	<td>m^-3 * mole</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALK_V</td>
+	<td>=</td>
+	<td>c__GALK_Vmax / (GALK_k_gal * GALK_k_atp) * 1 / (1 + c__gal1p_tot / GALK_ki_gal1p) * 1 / c__GALK_dm</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALK_Vb</td>
+	<td>=</td>
+	<td>c__GALK_V * c__gal1p_tot * c__adp / GALK_keq</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALK_Vmax</td>
+	<td>=</td>
+	<td>c__scale * GALK_PA * GALK_kcat * c__GALK_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALK_dm</td>
+	<td>=</td>
+	<td>(1 + c__gal_tot / GALK_k_gal) * (1 + c__atp / GALK_k_atp) + (1 + c__gal1p_tot / GALK_k_gal1p) * (1 + c__adp / GALK_k_adp) - 1</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALK_Vf</td>
+	<td>=</td>
+	<td>c__GALK_V * c__gal_tot * c__atp</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__IMP_dm</td>
+	<td>=</td>
+	<td>1 + c__gal1p_tot / IMP_k_gal1p</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__IMP_Vf</td>
+	<td>=</td>
+	<td>c__IMP_Vmax / IMP_k_gal1p * c__gal1p_tot / c__IMP_dm</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__IMP_Vmax</td>
+	<td>=</td>
+	<td>IMP_f * c__GALK_Vmax * c__IMP_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__ATPS_Vmax</td>
+	<td>=</td>
+	<td>ATPS_f * c__GALK_Vmax * c__ATPS_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__ALDR_Vb</td>
+	<td>=</td>
+	<td>c__ALDR_V * c__galtol_tot * c__nadp / ALDR_keq</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__ALDR_V</td>
+	<td>=</td>
+	<td>c__ALDR_Vmax / (ALDR_k_gal * ALDR_k_nadp) * 1 / c__ALDR_dm</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__ALDR_Vmax</td>
+	<td>=</td>
+	<td>ALDR_f * c__GALK_Vmax * c__ALDR_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__ALDR_dm</td>
+	<td>=</td>
+	<td>(1 + c__gal_tot / ALDR_k_gal) * (1 + c__nadph / ALDR_k_nadph) + (1 +
+ c__galtol_tot / ALDR_k_galtol) * (1 + c__nadp / ALDR_k_nadp) - 1</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__ALDR_Vf</td>
+	<td>=</td>
+	<td>c__ALDR_V * c__gal_tot * c__nadph</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__NADPR_Vmax</td>
+	<td>=</td>
+	<td>NADPR_f * c__ALDR_Vmax * c__NADPR_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALT_Vf</td>
+	<td>=</td>
+	<td>c__GALT_V * c__gal1p_tot * c__udpglc_tot</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALT_V</td>
+	<td>=</td>
+	<td>c__GALT_Vmax / (GALT_k_gal1p * GALT_k_udpglc) * 1 / c__GALT_dm</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALT_Vmax</td>
+	<td>=</td>
+	<td>c__GALT_P / REF_P * GALT_f * c__GALK_Vmax * GALT_vm</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALT_Vb</td>
+	<td>=</td>
+	<td>c__GALT_V * c__glc1p_tot * c__udpgal_tot / GALT_keq</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALT_dm</td>
+	<td>=</td>
+	<td>(1 + c__gal1p_tot / GALT_k_gal1p) * (1 + c__udpglc_tot / 
+GALT_k_udpglc + c__udp / GALT_ki_udp + c__utp / GALT_ki_utp) + (1 + 
+c__glc1p_tot / GALT_k_glc1p) * (1 + c__udpgal_tot / GALT_k_udpgal) - 1</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALE_Vb</td>
+	<td>=</td>
+	<td>c__GALE_V * c__udpgal_tot / GALE_keq</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALE_V</td>
+	<td>=</td>
+	<td>c__GALE_Vmax / GALE_k_udpglc * 1 / c__GALE_dm</td>
+	<td>m^3 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALE_Vmax</td>
+	<td>=</td>
+	<td>GALE_f * c__GALK_Vmax * GALE_PA * GALE_kcat * c__GALE_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALE_dm</td>
+	<td>=</td>
+	<td>1 + c__udpglc_tot / GALE_k_udpglc + c__udpgal_tot / GALE_k_udpgal</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GALE_Vf</td>
+	<td>=</td>
+	<td>c__GALE_V * c__udpglc_tot</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__UGP_Vf</td>
+	<td>=</td>
+	<td>c__UGP_V * c__glc1p_tot * c__utp</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__UGP_V</td>
+	<td>=</td>
+	<td>c__UGP_Vmax / (UGP_k_utp * UGP_k_glc1p) * 1 / c__UGP_dm</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__UGP_Vmax</td>
+	<td>=</td>
+	<td>UGP_f * c__GALK_Vmax * c__UGP_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__UGP_dm</td>
+	<td>=</td>
+	<td>(1 + c__utp / UGP_k_utp + c__udpglc_tot / UGP_ki_udpglc) * (1 + 
+c__glc1p_tot / UGP_k_glc1p + c__gal1p_tot / UGP_k_gal1p) + (1 + 
+c__udpglc_tot / UGP_k_udpglc + c__udpgal_tot / UGP_k_udpgal + c__utp / 
+UGP_ki_utp) * (1 + c__ppi / UGP_k_ppi) - 1</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__UGP_Vb</td>
+	<td>=</td>
+	<td>c__UGP_V * c__udpglc_tot * c__ppi / UGP_keq</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__UGALP_Vb</td>
+	<td>=</td>
+	<td>c__UGALP_V * c__udpgal_tot * c__ppi / UGP_keq</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__UGALP_V</td>
+	<td>=</td>
+	<td>UGALP_f * c__UGP_Vmax / (UGP_k_utp * UGP_k_gal1p) * 1 / c__UGP_dm</td>
+	<td>m^6 * mole^-1 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__UGALP_Vf</td>
+	<td>=</td>
+	<td>c__UGALP_V * c__gal1p_tot * c__utp</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__PPASE_Vmax</td>
+	<td>=</td>
+	<td>PPASE_f * c__UGP_Vmax * c__PPASE_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__NDKU_Vmax</td>
+	<td>=</td>
+	<td>NDKU_f * c__UGP_Vmax * c__NDKU_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__PGM1_Vb</td>
+	<td>=</td>
+	<td>c__PGM1_V * c__glc6p_tot / PGM1_keq</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__PGM1_V</td>
+	<td>=</td>
+	<td>c__PGM1_Vmax / PGM1_k_glc1p * 1 / c__PGM1_dm</td>
+	<td>m^3 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__PGM1_Vmax</td>
+	<td>=</td>
+	<td>PGM1_f * c__GALK_Vmax * c__PGM1_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__PGM1_dm</td>
+	<td>=</td>
+	<td>1 + c__glc1p_tot / PGM1_k_glc1p + c__glc6p_tot / PGM1_k_glc6p</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__PGM1_Vf</td>
+	<td>=</td>
+	<td>c__PGM1_V * c__glc1p_tot</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GLY_Vmax</td>
+	<td>=</td>
+	<td>GLY_f * c__PGM1_Vmax * c__GLY_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GTFGAL_Vf</td>
+	<td>=</td>
+	<td>c__GTF_Vmax / GTF_k_udpgal * c__udpgal_tot / (1 + c__udpgal_tot / GTF_k_udpgal)</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GTF_Vmax</td>
+	<td>=</td>
+	<td>GTF_f * c__GALK_Vmax * c__GTF_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GTFGLC_Vf</td>
+	<td>=</td>
+	<td>0 * c__GTF_Vmax / GTF_k_udpglc * c__udpglc_tot / (1 + c__udpglc_tot / GTF_k_udpglc)</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__H2OT_Vmax</td>
+	<td>=</td>
+	<td>H2OT_f / Nf * c__scale</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GLUT2_dm</td>
+	<td>=</td>
+	<td>1 + e__gal_tot / GLUT2_k_gal + c__gal_tot / GLUT2_k_gal</td>
+	<td>dimensionless</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GLUT2_Vb</td>
+	<td>=</td>
+	<td>c__GLUT2_V * c__gal_tot</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GLUT2_V</td>
+	<td>=</td>
+	<td>c__GLUT2_Vmax / GLUT2_k_gal * 1 / c__GLUT2_dm</td>
+	<td>m^3 * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GLUT2_Vf</td>
+	<td>=</td>
+	<td>c__GLUT2_V * e__gal_tot</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Rule</td>
+	<td class="active">c__GLUT2_Vmax</td>
+	<td>=</td>
+	<td>GLUT2_f / Nf * c__scale * c__GLUT2_P / REF_P</td>
+	<td>mole * s^-1</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr></tbody>
+        </table><div class="bottom"></div><div class="clear"></div></div>
+        <hr>
+    
+    <!--------------------------------------------------->
+    <!-- Constraints -->
+    <!--------------------------------------------------->
+    
+    <!--------------------------------------------------->
+    <!-- Reactions -->
+    <!--------------------------------------------------->
+    
+        <a class="anchor" id="Reactions"></a>
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table_reactions_wrapper"><div class="top"></div><table role="grid" id="table_reactions" class="table table-condensed table-nonfluid dataTable no-footer">
+            <thead>
+            <tr role="row"><th aria-label="type: activate to sort column descending" aria-sort="ascending" style="width: 0px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" scope="col" class="hidden sorting_asc">type</th><th aria-label="Reactions [31]: activate to sort column ascending" style="width: 103px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" scope="col" class="warning sorting">Reactions [31]</th><th aria-label="name: activate to sort column ascending" style="width: 135px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" class="sorting" scope="col">name</th><th aria-label="reversibility: activate to sort column ascending" style="width: 80px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" class="sorting" scope="col">reversibility</th><th aria-label="equation: activate to sort column ascending" style="width: 66px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" class="sorting" scope="col">equation</th><th aria-label="modifiers: activate to sort column ascending" style="width: 64px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" class="sorting" scope="col">modifiers</th><th aria-label="derived units: activate to sort column ascending" style="width: 51px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" class="sorting" scope="col">derived units</th><th aria-label="formula: activate to sort column ascending" style="width: 107px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" class="sorting" scope="col">formula</th><th aria-label="sbo: activate to sort column ascending" style="width: 74px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" class="sorting" scope="col">sbo</th><th aria-label="cvterm: activate to sort column ascending" style="width: 153px;" colspan="1" rowspan="1" aria-controls="table_reactions" tabindex="0" class="sorting" scope="col">cvterm</th></tr>
+            </thead>
+            <tbody>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            <tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GALK</td>
+	<td>Galactokinase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__gal + c__atp &lt;=&gt; c__gal1p + c__adp + c__hydron</td>
+	<td>
+						c__galM<br>
+		 
+						c__gal1pM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal / c__gal_tot * c__GALK_Vf - c__gal1p / c__gal1p_tot * c__GALK_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.1.6" target="_blank">2.7.1.6</a><br><a href="http://identifiers.org/uniprot/P51570" target="_blank">P51570</a><br><a href="http://identifiers.org/kegg.reaction/R01092" target="_blank">R01092</a><br><a href="http://identifiers.org/rhea/13556" target="_blank">13556</a><br><a href="http://identifiers.org/reactome/REACTOME:R-HSA-70355.1" target="_blank">REACTOME:R-HSA-70355.1</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/230200" target="_blank">230200</a><br><b>BQB_IS_DESCRIBED_BY</b><br><a href="http://identifiers.org/pubmed/12694189" target="_blank">12694189</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GALKM</td>
+	<td>Galactokinase M [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__galM + c__atp =&gt; c__gal1pM + c__adp + c__hydron</td>
+	<td>
+						c__gal<br>
+		 
+						c__gal1p<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__galM / c__gal_tot * c__GALK_Vf - c__gal1pM / c__gal1p_tot * c__GALK_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.1.6" target="_blank">2.7.1.6</a><br><a href="http://identifiers.org/uniprot/P51570" target="_blank">P51570</a><br><a href="http://identifiers.org/kegg.reaction/R01092" target="_blank">R01092</a><br><a href="http://identifiers.org/rhea/13556" target="_blank">13556</a><br><a href="http://identifiers.org/reactome/REACTOME:R-HSA-70355.1" target="_blank">REACTOME:R-HSA-70355.1</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/230200" target="_blank">230200</a><br><b>BQB_IS_DESCRIBED_BY</b><br><a href="http://identifiers.org/pubmed/12694189" target="_blank">12694189</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__IMP</td>
+	<td>Inositol monophosphatase [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__gal1p + c__h2o =&gt; c__gal + c__phos</td>
+	<td>
+						c__gal1pM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal1p / c__gal1p_tot * c__IMP_Vf</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/3.1.3.25" target="_blank">3.1.3.25</a><br><a href="http://identifiers.org/uniprot/P29218" target="_blank">P29218</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__IMPM</td>
+	<td>Inositol monophosphatase M [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__gal1pM + c__h2o =&gt; c__galM + c__phos</td>
+	<td>
+						c__gal1p<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal1pM / c__gal1p_tot * c__IMP_Vf</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/3.1.3.25" target="_blank">3.1.3.25</a><br><a href="http://identifiers.org/uniprot/P29218" target="_blank">P29218</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__ATPS</td>
+	<td>ATP synthase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__adp + c__phos + c__hydron &lt;=&gt; c__atp + c__h2o</td>
+	<td></td>
+	<td>mole * s^-1</td>
+	<td>c__ATPS_Vmax / (ATPS_k_adp * ATPS_k_phos) * (c__adp * c__phos - 
+c__atp / ATPS_keq) / ((1 + c__adp / ATPS_k_adp) * (1 + c__phos / 
+ATPS_k_phos) + c__atp / ATPS_k_atp)</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/kegg.reaction/R00086" target="_blank">R00086</a><br><a href="http://identifiers.org/rhea/13068" target="_blank">13068</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__ALDR</td>
+	<td>Aldose reductase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__gal + c__nadph + c__hydron &lt;=&gt; c__galtol + c__nadp</td>
+	<td>
+						c__galM<br>
+		 
+						c__galtolM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal / c__gal_tot * c__ALDR_Vf - c__galtol / c__galtol_tot * c__ALDR_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/1.1.1.21" target="_blank">1.1.1.21</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/rhea/37967" target="_blank">37967</a><br><a href="http://identifiers.org/kegg.reaction/R01095" target="_blank">R01095</a><br><a href="http://identifiers.org/uniprot/P15121" target="_blank">P15121</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__ALDRM</td>
+	<td>Aldose reductase M [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__galM + c__nadph + c__hydron &lt;=&gt; c__galtolM + c__nadp</td>
+	<td>
+						c__gal<br>
+		 
+						c__galtol<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__galM / c__gal_tot * c__ALDR_Vf - c__galtolM / c__galtol_tot * c__ALDR_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/1.1.1.21" target="_blank">1.1.1.21</a><br><b>BQB_IS_VERSION_OF</b><br><a href="http://identifiers.org/rhea/37967" target="_blank">37967</a><br><a href="http://identifiers.org/kegg.reaction/R01095" target="_blank">R01095</a><br><a href="http://identifiers.org/uniprot/P15121" target="_blank">P15121</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__NADPR</td>
+	<td>NADP Reductase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__nadp + c__h2 &lt;=&gt; c__nadph + c__hydron</td>
+	<td></td>
+	<td>mole * s^-1</td>
+	<td>c__NADPR_Vmax / NADPR_k_nadp * (c__nadp - c__nadph / NADPR_keq) / (1 + c__nadp / NADPR_k_nadp + c__nadph / NADPR_ki_nadph)</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/1.1.1.49" target="_blank">1.1.1.49</a><br><a href="http://identifiers.org/rhea/15844" target="_blank">15844</a><br><a href="http://identifiers.org/kegg.reaction/R00835" target="_blank">R00835</a><br><a href="http://identifiers.org/uniprot/P11413" target="_blank">P11413</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GALT</td>
+	<td>Galactose-1-phosphate uridyl transferase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__gal1p + c__udpglc &lt;=&gt; c__glc1p + c__udpgal</td>
+	<td>
+						c__utp<br>
+		 
+						c__udp<br>
+		 
+						c__gal1pM<br>
+		 
+						c__udpglcM<br>
+		 
+						c__glc1p<br>
+		 
+						c__udpgalM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal1p / c__gal1p_tot * c__udpglc / c__udpglc_tot * c__GALT_Vf - 
+c__glc1p / c__glc1p_tot * c__udpgal / c__udpgal_tot * c__GALT_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.7.12" target="_blank">2.7.7.12</a><br><a href="http://identifiers.org/uniprot/P07902" target="_blank">P07902</a><br><a href="http://identifiers.org/rhea/13992" target="_blank">13992</a><br><a href="http://identifiers.org/kegg.reaction/R00955" target="_blank">R00955</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/230400" target="_blank">230400</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GALTM1</td>
+	<td>Galactose-1-phosphate uridyl transferase M1 [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__gal1pM + c__udpglc &lt;=&gt; c__glc1p + c__udpgalM</td>
+	<td>
+						c__utp<br>
+		 
+						c__udp<br>
+		 
+						c__gal1p<br>
+		 
+						c__udpglcM<br>
+		 
+						c__glc1pM<br>
+		 
+						c__udpgal<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal1pM / c__gal1p_tot * c__udpglc / c__udpglc_tot * c__GALT_Vf -
+ c__glc1p / c__glc1p_tot * c__udpgalM / c__udpgal_tot * c__GALT_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.7.12" target="_blank">2.7.7.12</a><br><a href="http://identifiers.org/uniprot/P07902" target="_blank">P07902</a><br><a href="http://identifiers.org/rhea/13992" target="_blank">13992</a><br><a href="http://identifiers.org/kegg.reaction/R00955" target="_blank">R00955</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/230400" target="_blank">230400</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GALTM2</td>
+	<td>Galactose-1-phosphate uridyl transferase M2 [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__gal1p + c__udpglcM &lt;=&gt; c__glc1pM + c__udpgal</td>
+	<td>
+						c__utp<br>
+		 
+						c__udp<br>
+		 
+						c__gal1pM<br>
+		 
+						c__udpglc<br>
+		 
+						c__glc1p<br>
+		 
+						c__udpgalM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal1p / c__gal1p_tot * c__udpglcM / c__udpglc_tot * c__GALT_Vf -
+ c__glc1pM / c__glc1p_tot * c__udpgal / c__udpgal_tot * c__GALT_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.7.12" target="_blank">2.7.7.12</a><br><a href="http://identifiers.org/uniprot/P07902" target="_blank">P07902</a><br><a href="http://identifiers.org/rhea/13992" target="_blank">13992</a><br><a href="http://identifiers.org/kegg.reaction/R00955" target="_blank">R00955</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/230400" target="_blank">230400</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GALTM3</td>
+	<td>Galactose-1-phosphate uridyl transferase M3 [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__gal1pM + c__udpglcM &lt;=&gt; c__glc1pM + c__udpgalM</td>
+	<td>
+						c__utp<br>
+		 
+						c__udp<br>
+		 
+						c__gal1p<br>
+		 
+						c__udpglc<br>
+		 
+						c__glc1p<br>
+		 
+						c__udpgal<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal1pM / c__gal1p_tot * c__udpglcM / c__udpglc_tot * c__GALT_Vf -
+ c__glc1pM / c__glc1p_tot * c__udpgalM / c__udpgal_tot * c__GALT_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.7.12" target="_blank">2.7.7.12</a><br><a href="http://identifiers.org/uniprot/P07902" target="_blank">P07902</a><br><a href="http://identifiers.org/rhea/13992" target="_blank">13992</a><br><a href="http://identifiers.org/kegg.reaction/R00955" target="_blank">R00955</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/230400" target="_blank">230400</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GALE</td>
+	<td>UDP-glucose 4-epimerase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__udpglc &lt;=&gt; c__udpgal</td>
+	<td>
+						c__udpglcM<br>
+		 
+						c__udpgalM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__udpglc / c__udpglc_tot * c__GALE_Vf - c__udpgal / c__udpgal_tot * c__GALE_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/5.1.3.2" target="_blank">5.1.3.2</a><br><a href="http://identifiers.org/uniprot/Q14376" target="_blank">Q14376</a><br><a href="http://identifiers.org/rhea/22171" target="_blank">22171</a><br><a href="http://identifiers.org/kegg.reaction/R00291" target="_blank">R00291</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/230350" target="_blank">230350</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GALEM</td>
+	<td>UDP-glucose 4-epimerase M [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__udpglcM &lt;=&gt; c__udpgalM</td>
+	<td>
+						c__udpglc<br>
+		 
+						c__udpgal<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__udpglcM / c__udpglc_tot * c__GALE_Vf - c__udpgalM / c__udpgal_tot * c__GALE_Vb</td>
+	<td>
+    -
+</td>
+	<td>-</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__UGP</td>
+	<td>UDP-glucose pyrophosphorylase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__glc1p + c__utp + c__hydron &lt;=&gt; c__udpglc + c__ppi</td>
+	<td>
+						c__glc1pM<br>
+		 
+						c__udpglcM<br>
+		 
+						c__gal1p<br>
+		 
+						c__gal1pM<br>
+		 
+						c__udpgal<br>
+		 
+						c__udpgalM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__glc1p / c__glc1p_tot * c__UGP_Vf - c__udpglc / c__udpglc_tot * c__UGP_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.7.9" target="_blank">2.7.7.9</a><br><a href="http://identifiers.org/rhea/19892" target="_blank">19892</a><br><a href="http://identifiers.org/kegg.reaction/R00289" target="_blank">R00289</a><br><a href="http://identifiers.org/uniprot/Q16851" target="_blank">Q16851</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__UGPM</td>
+	<td>UDP-glucose pyrophosphorylase M [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__glc1pM + c__utp + c__hydron &lt;=&gt; c__udpglcM + c__ppi</td>
+	<td>
+						c__glc1p<br>
+		 
+						c__udpglc<br>
+		 
+						c__gal1p<br>
+		 
+						c__gal1pM<br>
+		 
+						c__udpgal<br>
+		 
+						c__udpgalM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__glc1pM / c__glc1p_tot * c__UGP_Vf - c__udpglcM / c__udpglc_tot * c__UGP_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.7.9" target="_blank">2.7.7.9</a><br><a href="http://identifiers.org/rhea/19892" target="_blank">19892</a><br><a href="http://identifiers.org/kegg.reaction/R00289" target="_blank">R00289</a><br><a href="http://identifiers.org/uniprot/Q16851" target="_blank">Q16851</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__UGALP</td>
+	<td>UDP-galactose pyrophosphorylase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__gal1p + c__utp + c__hydron &lt;=&gt; c__udpgal + c__ppi</td>
+	<td>
+						c__glc1p<br>
+		 
+						c__glc1pM<br>
+		 
+						c__udpglc<br>
+		 
+						c__udpglcM<br>
+		 
+						c__gal1pM<br>
+		 
+						c__udpgalM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal1p / c__gal1p_tot * c__UGALP_Vf - c__udpgal / c__udpgal_tot * c__UGALP_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.7.10" target="_blank">2.7.7.10</a><br><a href="http://identifiers.org/rhea/14212" target="_blank">14212</a><br><a href="http://identifiers.org/kegg.reaction/R00502" target="_blank">R00502</a><br><a href="http://identifiers.org/uniprot/Q16851" target="_blank">Q16851</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__UGALPM</td>
+	<td>UDP-galactose pyrophosphorylase M [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__gal1pM + c__utp + c__hydron &lt;=&gt; c__udpgalM + c__ppi</td>
+	<td>
+						c__glc1p<br>
+		 
+						c__glc1pM<br>
+		 
+						c__udpglc<br>
+		 
+						c__udpglcM<br>
+		 
+						c__gal1p<br>
+		 
+						c__udpgal<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__gal1pM / c__gal1p_tot * c__UGALP_Vf - c__udpgalM / c__udpgal_tot * c__UGALP_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.7.10" target="_blank">2.7.7.10</a><br><a href="http://identifiers.org/rhea/14212" target="_blank">14212</a><br><a href="http://identifiers.org/kegg.reaction/R00502" target="_blank">R00502</a><br><a href="http://identifiers.org/uniprot/Q16851" target="_blank">Q16851</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__PPASE</td>
+	<td>Pyrophosphatase [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__ppi + c__h2o =&gt; 2.0 c__phos + c__hydron</td>
+	<td></td>
+	<td>mole * s^-1</td>
+	<td>c__PPASE_Vmax * pow(c__ppi, PPASE_n) / (pow(c__ppi, PPASE_n) + pow(PPASE_k_ppi, PPASE_n))</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/3.6.1.1" target="_blank">3.6.1.1</a><br><a href="http://identifiers.org/rhea/24579" target="_blank">24579</a><br><a href="http://identifiers.org/kegg.reaction/R00004" target="_blank">R00004</a><br><a href="http://identifiers.org/uniprot/Q15181" target="_blank">Q15181</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__NDKU</td>
+	<td>ATP:UDP phosphotransferase [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__atp + c__udp &lt;=&gt; c__adp + c__utp</td>
+	<td></td>
+	<td>mole * s^-1</td>
+	<td>c__NDKU_Vmax / NDKU_k_atp / NDKU_k_udp * (c__atp * c__udp - c__adp *
+ c__utp / NDKU_keq) / ((1 + c__atp / NDKU_k_atp) * (1 + c__udp / 
+NDKU_k_udp) + (1 + c__adp / NDKU_k_adp) * (1 + c__utp / NDKU_k_utp) - 1)</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/2.7.4.6" target="_blank">2.7.4.6</a><br><a href="http://identifiers.org/rhea/25101" target="_blank">25101</a><br><a href="http://identifiers.org/kegg.reaction/R00156" target="_blank">R00156</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__PGM1</td>
+	<td>Phosphoglucomutase-1 [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__glc1p &lt;=&gt; c__glc6p</td>
+	<td>
+						c__glc1pM<br>
+		 
+						c__glc6pM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__glc1p / c__glc1p_tot * c__PGM1_Vf - c__glc6p / c__glc6p_tot * c__PGM1_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/5.4.2.2" target="_blank">5.4.2.2</a><br><a href="http://identifiers.org/rhea/23539" target="_blank">23539</a><br><a href="http://identifiers.org/kegg.reaction/R00959" target="_blank">R00959</a><br><a href="http://identifiers.org/uniprot/P36871" target="_blank">P36871</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/612934" target="_blank">612934</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__PGM1M</td>
+	<td>Phosphoglucomutase-1 M [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__glc1pM &lt;=&gt; c__glc6pM</td>
+	<td>
+						c__glc1p<br>
+		 
+						c__glc6p<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__glc1pM / c__glc1p_tot * c__PGM1_Vf - c__glc6pM / c__glc6p_tot * c__PGM1_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br><a href="http://identifiers.org/ec-code/5.4.2.2" target="_blank">5.4.2.2</a><br><a href="http://identifiers.org/rhea/23539" target="_blank">23539</a><br><a href="http://identifiers.org/kegg.reaction/R00959" target="_blank">R00959</a><br><a href="http://identifiers.org/uniprot/P36871" target="_blank">P36871</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/612934" target="_blank">612934</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GLY</td>
+	<td>Glycolysis [c__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>c__glc6p + 5.0 c__o2 &lt;=&gt; c__phos + 6.0 c__co2 + 5.0 c__h2o</td>
+	<td></td>
+	<td>mole * s^-1</td>
+	<td>c__GLY_Vmax / GLY_k_glc6p * (c__glc6p - GLY_k_glc6p) * c__phos / (c__phos + GLY_k_p)</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GLYM</td>
+	<td>Glycolysis M [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__glc6pM + 5.0 c__o2 =&gt; c__phos + 6.0 c__co2 + 5.0 c__h2o</td>
+	<td></td>
+	<td>mole * s^-1</td>
+	<td>c__GLY_Vmax / GLY_k_glc6p * c__glc6pM * c__phos / (c__phos + GLY_k_p)</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GTFGAL</td>
+	<td>Glycosyltransferase galactose [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__udpgal + c__acpt =&gt; c__udp + c__acptgal + c__hydron</td>
+	<td>
+						c__udpgalM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__udpgal / c__udpgal_tot * c__GTFGAL_Vf</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GTFGALM</td>
+	<td>Glycosyltransferase galactose M [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__udpgalM + c__acpt =&gt; c__udp + c__acptgalM + c__hydron</td>
+	<td>
+						c__udpgal<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__udpgalM / c__udpgal_tot * c__GTFGAL_Vf</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GTFGLC</td>
+	<td>Glycosyltransferase glucose [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__udpglc + c__acpt =&gt; c__udp + c__acptglc + c__hydron</td>
+	<td>
+						c__udpglcM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__udpglc / c__udpglc_tot * c__GTFGLC_Vf</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">c__GTFGLCM</td>
+	<td>Glycosyltransferase glucose M [c__]</td>
+	
+	<td class="danger">&nbsp;=&gt;</td>
+	<td>c__udpglcM + c__acpt =&gt; c__udp + c__acptglcM + c__hydron</td>
+	<td>
+						c__udpglc<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>c__udpglcM / c__udpglc_tot * c__GTFGLC_Vf</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">e__H2OTM</td>
+	<td>H2O M transport [e__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>e__h2oM &lt;=&gt; h__h2oM</td>
+	<td></td>
+	<td>mole * s^-1</td>
+	<td>c__H2OT_Vmax / H2OT_k * (e__h2oM - h__h2oM)</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a>
+</td>
+</tr><tr class="even" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">e__GLUT2_GAL</td>
+	<td>galactose transport [e__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>e__gal &lt;=&gt; c__gal</td>
+	<td>
+						e__galM<br>
+		 
+						c__galM<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>e__gal / e__gal_tot * c__GLUT2_Vf - c__gal / c__gal_tot * c__GLUT2_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a><br><a href="http://identifiers.org/uniprot/P11168" target="_blank">P11168</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/OMIM:227810" target="_blank">OMIM:227810</a>
+</td>
+</tr><tr class="odd" role="row">
+    <td class="hidden sorting_1">Reaction</td>
+	<td class="active">e__GLUT2_GALM</td>
+	<td>galactose transport M [e__]</td>
+	<td class="success">&lt;=&gt;</td>
+	<td>e__galM &lt;=&gt; c__galM</td>
+	<td>
+						e__gal<br>
+		 
+						c__gal<br>
+		 </td>
+	<td>mole * s^-1</td>
+	<td>e__galM / e__gal_tot * c__GLUT2_Vf - c__galM / c__gal_tot * c__GLUT2_Vb</td>
+	<td>
+    <a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a>
+</td>
+	<td>
+<b>BQB_IS</b><br><a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a><br><a href="http://identifiers.org/uniprot/P11168" target="_blank">P11168</a><br><b>BQB_HAS_PROPERTY</b><br><a href="http://identifiers.org/omim/227810" target="_blank">227810</a>
+</td>
+</tr></tbody>
+        </table><div class="bottom"></div><div class="clear"></div></div>
+        <hr>
+    
+    <!--------------------------------------------------->
+    <!-- Events -->
+    <!--------------------------------------------------->
+    
+
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <hr>
+        <p>© 2015 Matthias Koenig.
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="galactose_28_annotated_files/80x15.png"></a><br>This
+            work by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.livermetabolism.com/" property="cc:attributionName" rel="cc:attributionURL">Matthias Koenig</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+                Attribution-ShareAlike 4.0 International License</a>.
+            <br>
+            Powered by <a href="https://www.djangoproject.com/" target="_blank"><img src="galactose_28_annotated_files/django.png" alt="django" height="15"></a> and
+            bootstrap <a href="http://getbootstrap.com/" target="_blank"><img src="galactose_28_annotated_files/bootstrap.png" alt="bootstrap" height="15"></a>.
+            Source available on <a href="https://github.com/matthiaskoenig/multiscale-galactose/" target="_blank"><img src="galactose_28_annotated_files/github.png" alt="GitHub" height="20"></a>.
+        </p>
+    </div>
+
+        </div>
+
+</div>
+<!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<link rel="stylesheet" href="galactose_28_annotated_files/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="galactose_28_annotated_files/toolbar.css" type="text/css">
+
+<!-- Prevent our copy of jQuery from registering as an AMD module on sites that use RequireJS. -->
+<script src="galactose_28_annotated_files/jquery_pre.js"></script>
+<script src="galactose_28_annotated_files/jquery.js"></script>
+<script src="galactose_28_annotated_files/jquery_post.js"></script>
+
+<script src="galactose_28_annotated_files/toolbar.js"></script>
+<div style="display: block;" id="djDebug" dir="ltr" data-store-id="f612c21b2c10459d914a37d17048f4f8" data-render-panel-url="/__debug__/render_panel/" hidden="hidden">
+	<div style="" id="djDebugToolbar" hidden="hidden">
+		<ul id="djDebugPanelList">
+			
+			<li><a id="djHideToolBarButton" href="#" title="Hide toolbar">Hide »</a></li>
+			
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtVersionsPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Versions" class="VersionsPanel">
+					
+					Versions
+					
+					
+						<br><small>Django 1.8.7</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtTimerPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Time" class="TimerPanel">
+					
+					Time
+					
+					
+						<br><small>CPU: 476.00ms (463.73ms)</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtSettingsPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Settings from &lt;code&gt;multiscalesite.settings&lt;/code&gt;" class="SettingsPanel">
+					
+					Settings
+					
+					
+						
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtHeadersPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Headers" class="HeadersPanel">
+					
+					Headers
+					
+					
+						
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtRequestPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Request" class="RequestPanel">
+					
+					Request
+					
+					
+						<br><small>report</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtSQLPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="SQL queries from 1 connection" class="SQLPanel">
+					
+					SQL
+					
+					
+						<br><small>3 queries in 2.30ms</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtStaticFilesPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Static files (238 found, 12 used)" class="StaticFilesPanel">
+					
+					Static files
+					
+					
+						<br><small>12 files used</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtTemplatesPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Templates (2 rendered)" class="TemplatesPanel">
+					
+					Templates
+					
+					
+						<br><small>report/report.html</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtCachePanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Cache calls from 1 backend" class="CachePanel">
+					
+					Cache
+					
+					
+						<br><small>0 calls in 0.00ms</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtSignalsPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Signals" class="SignalsPanel">
+					
+					Signals
+					
+					
+						<br><small>22 receivers of 12 signals</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtLoggingPanel" checked="checked" title="Disable for next and successive requests" type="checkbox">
+					
+						<a href="#" title="Log messages" class="LoggingPanel">
+					
+					Logging
+					
+					
+						<br><small>0 messages</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input data-cookie="djdtRedirectsPanel" title="Enable for next and successive requests" type="checkbox">
+					
+						<div class="djdt-contentless djdt-disabled">
+					
+					Intercept redirects
+					
+					
+						</div>
+					
+				</li>
+			
+		</ul>
+	</div>
+	<div style="display: block;" id="djDebugToolbarHandle" hidden="hidden">
+		<span title="Show toolbar" id="djShowToolBarButton">«</span>
+	</div>
+	
+		
+			<div style="display: none;" id="VersionsPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Versions</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="TimerPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Time</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="SettingsPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Settings from <code>multiscalesite.settings</code></h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="HeadersPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Headers</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="RequestPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Request</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="SQLPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>SQL queries from 1 connection</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="StaticFilesPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Static files (238 found, 12 used)</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="TemplatesPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Templates (2 rendered)</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="CachePanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Cache calls from 1 backend</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="SignalsPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Signals</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div style="display: none;" id="LoggingPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Log messages</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="galactose_28_annotated_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+	
+	<div style="display: none;" id="djDebugWindow" class="djdt-panelContent"></div>
+</div>
+
+
+
+</div></body></html>

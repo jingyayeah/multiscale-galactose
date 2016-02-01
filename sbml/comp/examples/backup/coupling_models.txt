@@ -1,0 +1,43 @@
+// multiple coupled small models
+model cell(gal_ext, GALK_k)
+   species gal;
+   gal is "D-galactose";
+   gal = 0;
+   species gal1p;
+   gal is "D-galactose 1-phosphate";   
+   gal1p = 0;
+
+   GALI: gal_ext -> gal;
+   GALI is "Galactose Importer";
+   GALI_k = 10;
+   GALI = GALI_k *(gal - gal_ext);
+
+   GALK: gal -> gal1p;
+   GALK = GALK_k * gal;
+end
+
+// combined model of multiple cells
+model full()
+   const species gal_pp;
+   gal_pp = 10;
+   gal_1 = 0;
+   gal_2 = 0;
+   gal_pv = 0; 
+
+   // here the exchanger with external
+   T1: gal_pp -> gal_1;
+   T2: gal_1 -> gal_2;
+   T3: gal_2 -> gal_pv;   
+   D = 10;
+   T1 = D*(gal_1 - gal_pp);
+   T2 = D*(gal_2 - gal_1);
+   T3 = D*(gal_pv - gal_2);
+
+   // coupling 2 cells;
+   k1 = 1;
+   k2 = 2;
+   H1 : cell(gal_1, k1);
+   H2 : cell(gal_2, k2); 
+end
+
+

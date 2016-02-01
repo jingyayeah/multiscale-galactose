@@ -1,0 +1,73 @@
+"""
+Additional utility classes simplifying things.
+
+@author: Matthias Koenig
+@date: 2015-05-06
+"""
+from __future__ import print_function
+
+
+class EnumType(object):
+    """ Template class for all EnumTypes. """
+    class EnumTypeException(Exception):
+        pass
+        
+    @classmethod
+    def values(cls):
+        """ Returns the values. """
+        return [entry.value for entry in cls]
+    
+    @classmethod
+    def items(cls):
+        """ Returns the items. """
+        return [entry.item for entry in cls]
+    
+    @classmethod
+    def check_type(cls, test_type):
+        if not isinstance(test_type, cls):
+            raise cls.EnumTypeException('type not supported: {}'.format(test_type))    
+    
+    @classmethod
+    def check_type_string(cls, test_typestr):
+        if test_typestr not in cls.values():
+            raise cls.EnumTypeException('type not supported: {}'.format(test_typestr)) 
+    
+    @classmethod
+    def choices(cls):
+        """ Create django data model choices from EnumType. """
+        return zip(cls.values(), cls.values())   
+    
+    @classmethod
+    def from_string(cls, s):
+        """ Creates EnumType from given string. 
+        The string can either be the enum_var or EnumType.enum_var.
+        Both cases have to be handled.
+        """
+        if s.startswith(cls.__name__):
+            _, s = s.split('.')  # based on the Enum __repr__()
+        return cls.__getattr__(s)
+
+
+def hash_for_file(filepath, hash_type='MD5', blocksize=65536):
+    """ Calculate the md5_hash for a file.
+
+        Calculating a hash for a file is always useful when you need to check if two files
+        are identical, or to make sure that the contents of a file were not changed, and to
+        check the integrity of a file when it is transmitted over a network.
+        he most used algorithms to hash a file are MD5 and SHA-1. They are used because they
+        are fast and they provide a good way to identify different files.
+        [http://www.pythoncentral.io/hashing-files-with-python/]
+    """
+    import hashlib
+
+    hasher = None
+    if hash_type == 'MD5':
+        hasher = hashlib.md5()
+    elif hash_type == 'SHA1':
+        hasher == hashlib.sha1()
+    with open(filepath, 'rb') as f:
+        buf = f.read(blocksize)
+        while len(buf) > 0:
+            hasher.update(buf)
+            buf = f.read(blocksize)
+    return hasher.hexdigest()

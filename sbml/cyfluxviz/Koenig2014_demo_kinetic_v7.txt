@@ -1,0 +1,96 @@
+//Created by libAntimony v2.5
+model *Koenig2014_demo_kinetic_v7()
+
+  // Compartments and Species:
+  compartment outside, inside;
+  species A_in in inside, B_in in inside, C_in in inside, A_out in inside;
+  species B_out in inside, C_out in inside;
+
+  // Reactions:
+  b1: A_out => A_in; scale_f * (Vmax_b1/Km_A*(A_out - A_in))/(1 + A_out/Km_A + A_in/Km_A);
+  b2: B_in => B_out; scale_f * (Vmax_b2/Km_B*(B_in - B_out))/(1 + B_out/Km_B + B_in/Km_B);
+  b3: C_in => C_out; scale_f * (Vmax_b3/Km_C*(C_in - C_out))/(1 + C_out/Km_C + C_in/Km_C);
+  v1: A_in -> B_in; scale_f * Vmax_v1/Km_A*(A_in - 1/Keq_v1*B_in);
+  v2: A_in -> C_in; scale_f * Vmax_v2/Km_A*A_in;
+  v3: C_in -> A_in; scale_f * Vmax_v3/Km_A*C_in;
+  v4: C_in -> B_in; scale_f * Vmax_v4/Km_A*(C_in - 1/Keq_v4*B_in);
+
+  // Species initializations:
+  A_in = 0.0;
+  A_in has mM;
+  B_in = 0.0;
+  B_in has mM;
+  C_in = 0.0;
+  C_in has mM;
+  A_out = 10;
+  A_out has mM;
+  B_out = 0.0;
+  B_out has mM;
+  C_out = 0.0;
+  C_out has mM;
+
+  // Compartment initializations:
+  outside = 1E-6;
+  outside has m3;
+  inside = 1E-6;
+  inside has m3;
+
+  // Variable initializations:
+  scale_f = 1E-6;
+  scale_f has dimensionless;
+  Km_A = 1.0;
+  Km_A has mM;
+  Vmax_b1 = 5.0;
+  Vmax_b1 has mole_per_s;
+  Km_B = 0.5;
+  Km_B has mM;
+  Vmax_b2 = 2.0;
+  Vmax_b2 has mole_per_s;
+  Km_C = 3.0;
+  Km_C has mM;
+  Vmax_b3 = 2.0;
+  Vmax_b3 has mole_per_s;
+  Keq_v1 = 10.0;
+  Keq_v1 has dimensionless;
+  Vmax_v1 = 1.0;
+  Vmax_v1 has mole_per_s;
+  Vmax_v2 = 0.5;
+  Vmax_v2 has mole_per_s;
+  Vmax_v3 = 0.5;
+  Vmax_v3 has mole_per_s;
+  Keq_v4 = 2.0;
+  Keq_v4 has dimensionless;
+  Vmax_v4 = 0.5;
+  Vmax_v4 has mole_per_s;
+
+  //Other declarations:
+  const outside, inside, Km_A, Vmax_b1, Km_B, Vmax_b2, Km_C, Vmax_b3, Keq_v1;
+  const Vmax_v1, Vmax_v2, Vmax_v3, Keq_v4, Vmax_v4;
+
+  // Unit definitions:
+  unit mM = mole / metre^3;
+  unit mole_per_s = mole / second;
+  unit m3 = metre^3;
+  unit substance = mole;
+  unit volume = metre^3;
+  unit area = metre^2;
+  unit length = metre;
+  unit extent = mole;
+
+  //Display Names:
+  outside is "Outer Compartment";
+  inside is "Inner Compartment";
+  A_in is "A inside";
+  B_in is "B inside";
+  C_in is "C inside";
+  A_out is "A outside";
+  B_out is "B outside";
+  C_out is "C outside";
+  b1 is "A import";
+  b2 is "B export";
+  b3 is "C export";
+  v1 is "A -> B";
+  v2 is "A -> C";
+  v3 is "C -> A";
+  v4 is "C -> B";
+end

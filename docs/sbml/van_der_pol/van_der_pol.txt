@@ -1,9 +1,0 @@
-model van_der_pol
-  
-var species x;
-var species y;
-
-J1: -> x; y
-J2: -> y; mu *(1-x^2)*y - x
-
-end

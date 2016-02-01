@@ -1,0 +1,17 @@
+We present a multi-scale model of liver galactose metabolism bridging the scales from single-cell metabolism over the tissue level to the whole-organ. The model combines a detailed kinetic model of the cellular galactose metabolism with a tissue-scale perfusion model of the sinusoid. The metabolic capacity of the whole liver is modelled by integrating the heterogeneous contribution of sinusoids differing in blood-flow rates and tissue-architecture. The model was applied to the normal physiological state and to different variants of galactosemia caused by deficiency of the galactokinase (GALK), galactose-1-phosphate uridyl transferase (GALT), or UDP-galactose 4´-epimerase (GALE). The presented multi-scale model reproduces a wide range of experimental data ranging from multiple-indicator dilution and galactose elimination curves on organ and tissue scale, to alterations in key metabolites observed in galactosemia.
+
+    See also:
+    Model hepatocyte scale
+    http://seek.virtuelle-leber.de/models/138
+    Model sinusoidal unit scale
+    http://seek.virtuelle-leber.de/models/144
+
+Figure 1 - Tissue- and organ-scale model of hepatic metabolism
+A) Schema of the tissue-scale model of hepatic metabolism consisting of diffusion and convection based transport of substances in the blood, diffusion-based transport of substances in the space of Disse and detailed kinetic model of metabolism on the cellular level (Figure 2). Galactose metabolism was included in the sinusoid-scale model with exchangeable metabolites between the cells and the space of Disse.
+B) Modeling the liver via integration of heterogenous tissue-models.
+
+Figure 2 - Hepatic Galactose Metabolism
+Schema for the metabolic network in system in Systems Biology Graphical Notation (SBGN). Processes ATPS and NADPR are added for cofactor regeneration. Detailed information on metabolites, initial concentrations, rate equations and parameters is provided in the method section and the supplementary information).
+Reactions: (ALDR) Aldose reductase (galactitol NAD 1-oxidoreductase); (ATPS) ATP synthesis; (GALDH) Galactose 1-dehydrogenase; (GALE) UDP-glucose 4-epimerase; (GALK) Galactokinase; (GALT) Galactose-1-phosphate uridyl transferase; (GLUT2) Facilitated glucose transporter member 2; (GTFGAL) Glycosyltransferase galactose; (GTFGLC) Glycosyltransferase glucose; (NADPR) NADP reductase; (NDKU) Nucleoside diphosphokinase, ATP:UDP phosphotransferase; (IMP) Inositol monophosphatase; (PGM1) Phosphoglucomutase-1; (PPASE) Pyrophosphatase; (UGALP) UDP-galactose pyrophosphorylase; (UGP) UDP-glucose pyrophosphorylase;
+Metabolites: (adp) ADP; (atp) ATP; (gal) D-galactose; (gal1p) D-galactose 1-phosphate; (galnat) D-galactonate; (galtol) D-galactitol; (glc) D-glucose; (glc1p) D-glucose 1-phosphate; (glc6p) D-glucose 6-phosphate; (nadp) NADP; (nadph) NADPH;  (pi) phosphate; (pp) pyrophosphate; (udp) UDP; (udpgal) UDP-D-galactose; (udpglc) UDP-D-glucose; (utp) UTP;
+

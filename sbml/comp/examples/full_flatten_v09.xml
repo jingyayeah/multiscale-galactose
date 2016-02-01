@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.4 with libSBML version 5.8.0. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="full" name="full" substanceUnits="H5_substance" volumeUnits="H5_volume" areaUnits="H5_area" lengthUnits="H5_length">
+    <listOfUnitDefinitions>
+      <unitDefinition id="substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mmol_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mmol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_s">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_mole">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_litre">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_metre">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_mmol_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_second">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H1_mmol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_mole">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_litre">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_metre">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_mmol_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_second">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H2_mmol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_mole">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_litre">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_metre">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_mmol_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_second">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H3_mmol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_mole">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_litre">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_metre">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_mmol_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_second">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H4_mmol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_mole">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_litre">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_metre">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_mmol_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_second">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="H5_mmol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="pp" name="periportal" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="blood1" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="blood2" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="blood3" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="blood4" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="blood5" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="pv" name="perivenous" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="H1_cell" name="Hepatocyte" spatialDimensions="3" units="H1_litre" constant="true"/>
+      <compartment id="H2_cell" name="Hepatocyte" spatialDimensions="3" units="H2_litre" constant="true"/>
+      <compartment id="H3_cell" name="Hepatocyte" spatialDimensions="3" units="H3_litre" constant="true"/>
+      <compartment id="H4_cell" name="Hepatocyte" spatialDimensions="3" units="H4_litre" constant="true"/>
+      <compartment id="H5_cell" name="Hepatocyte" spatialDimensions="3" units="H5_litre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="gal_pp" name="D-galactose" compartment="pp" initialConcentration="3" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species id="gal_1" name="D-galactose" compartment="blood1" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="gal_2" name="D-galactose" compartment="blood2" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="gal_3" name="D-galactose" compartment="blood3" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="gal_4" name="D-galactose" compartment="blood4" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="gal_5" name="D-galactose" compartment="blood5" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="gal_pv" name="D-galactose" compartment="pv" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="H1_gal" name="D-galactose" compartment="H1_cell" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="H2_gal" name="D-galactose" compartment="H2_cell" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="H3_gal" name="D-galactose" compartment="H3_cell" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="H4_gal" name="D-galactose" compartment="H4_cell" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="H5_gal" name="D-galactose" compartment="H5_cell" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="Vblood" value="1e-009" units="litre" constant="true"/>
+      <parameter id="D" value="5e-009" units="litre_per_s" constant="true"/>
+      <parameter id="k1" value="1e-010" units="mmol_per_s" constant="true"/>
+      <parameter id="k2" value="2e-010" units="mmol_per_s" constant="true"/>
+      <parameter id="k3" value="4e-010" units="mmol_per_s" constant="true"/>
+      <parameter id="k4" value="8e-010" units="mmol_per_s" constant="true"/>
+      <parameter id="k5" value="1.6e-009" units="mmol_per_s" constant="true"/>
+      <parameter id="H1_GALI_vmax" value="1e-007" units="H1_mmol_per_s" constant="true"/>
+      <parameter id="H1_GALI_kgal" value="1" units="H1_mM" constant="true"/>
+      <parameter id="H1_GALK_kgal" value="0.3" units="H1_mM" constant="true"/>
+      <parameter id="H2_GALI_vmax" value="1e-007" units="H2_mmol_per_s" constant="true"/>
+      <parameter id="H2_GALI_kgal" value="1" units="H2_mM" constant="true"/>
+      <parameter id="H2_GALK_kgal" value="0.3" units="H2_mM" constant="true"/>
+      <parameter id="H3_GALI_vmax" value="1e-007" units="H3_mmol_per_s" constant="true"/>
+      <parameter id="H3_GALI_kgal" value="1" units="H3_mM" constant="true"/>
+      <parameter id="H3_GALK_kgal" value="0.3" units="H3_mM" constant="true"/>
+      <parameter id="H4_GALI_vmax" value="1e-007" units="H4_mmol_per_s" constant="true"/>
+      <parameter id="H4_GALI_kgal" value="1" units="H4_mM" constant="true"/>
+      <parameter id="H4_GALK_kgal" value="0.3" units="H4_mM" constant="true"/>
+      <parameter id="H5_GALI_vmax" value="1e-007" units="H5_mmol_per_s" constant="true"/>
+      <parameter id="H5_GALI_kgal" value="1" units="H5_mM" constant="true"/>
+      <parameter id="H5_GALK_kgal" value="0.3" units="H5_mM" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="pp">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vblood </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="blood1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vblood </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="blood2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vblood </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="blood3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vblood </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="blood4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vblood </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="blood5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vblood </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="pv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vblood </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H1_cell">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> 2 </cn>
+            <ci> Vblood </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H2_cell">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> 2 </cn>
+            <ci> Vblood </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H3_cell">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> 2 </cn>
+            <ci> Vblood </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H4_cell">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> 2 </cn>
+            <ci> Vblood </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="H5_cell">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> 2 </cn>
+            <ci> Vblood </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfReactions>
+      <reaction id="TPP" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_pp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="gal_1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> D </ci>
+              <apply>
+                <minus/>
+                <ci> gal_pp </ci>
+                <ci> gal_1 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="T1" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="gal_2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> D </ci>
+              <apply>
+                <minus/>
+                <ci> gal_1 </ci>
+                <ci> gal_2 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="T2" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="gal_3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> D </ci>
+              <apply>
+                <minus/>
+                <ci> gal_2 </ci>
+                <ci> gal_3 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="T3" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="gal_4" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> D </ci>
+              <apply>
+                <minus/>
+                <ci> gal_3 </ci>
+                <ci> gal_4 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="T4" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_4" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="gal_5" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> D </ci>
+              <apply>
+                <minus/>
+                <ci> gal_4 </ci>
+                <ci> gal_5 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="T5" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_5" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="gal_pv" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> D </ci>
+              <apply>
+                <minus/>
+                <ci> gal_5 </ci>
+                <ci> gal_pv </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="TPV" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_pv" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> D </ci>
+              <ci> gal_pv </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H1_GALI" name="Galactose Importer" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H1_gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <ci> H1_GALI_vmax </ci>
+                  <ci> H1_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> gal_1 </ci>
+                  <ci> H1_gal </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> H1_gal </ci>
+                  <ci> H1_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> gal_1 </ci>
+                  <ci> H1_GALI_kgal </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H1_GALK" name="Galactose Clearance" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="H1_gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k1 </ci>
+                <ci> H1_gal </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> H1_gal </ci>
+                <ci> H1_GALK_kgal </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H2_GALI" name="Galactose Importer" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H2_gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <ci> H2_GALI_vmax </ci>
+                  <ci> H2_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> gal_2 </ci>
+                  <ci> H2_gal </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> H2_gal </ci>
+                  <ci> H2_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> gal_2 </ci>
+                  <ci> H2_GALI_kgal </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H2_GALK" name="Galactose Clearance" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="H2_gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k2 </ci>
+                <ci> H2_gal </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> H2_gal </ci>
+                <ci> H2_GALK_kgal </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H3_GALI" name="Galactose Importer" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H3_gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <ci> H3_GALI_vmax </ci>
+                  <ci> H3_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> gal_3 </ci>
+                  <ci> H3_gal </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> H3_gal </ci>
+                  <ci> H3_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> gal_3 </ci>
+                  <ci> H3_GALI_kgal </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H3_GALK" name="Galactose Clearance" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="H3_gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k3 </ci>
+                <ci> H3_gal </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> H3_gal </ci>
+                <ci> H3_GALK_kgal </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H4_GALI" name="Galactose Importer" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_4" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H4_gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <ci> H4_GALI_vmax </ci>
+                  <ci> H4_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> gal_4 </ci>
+                  <ci> H4_gal </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> H4_gal </ci>
+                  <ci> H4_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> gal_4 </ci>
+                  <ci> H4_GALI_kgal </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H4_GALK" name="Galactose Clearance" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="H4_gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k4 </ci>
+                <ci> H4_gal </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> H4_gal </ci>
+                <ci> H4_GALK_kgal </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H5_GALI" name="Galactose Importer" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="gal_5" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="H5_gal" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <ci> H5_GALI_vmax </ci>
+                  <ci> H5_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> gal_5 </ci>
+                  <ci> H5_gal </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> H5_gal </ci>
+                  <ci> H5_GALI_kgal </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> gal_5 </ci>
+                  <ci> H5_GALI_kgal </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="H5_GALK" name="Galactose Clearance" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="H5_gal" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k5 </ci>
+                <ci> H5_gal </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> H5_gal </ci>
+                <ci> H5_GALK_kgal </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event id="_E0" useValuesFromTriggerTime="true">
+        <trigger initialValue="true" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <eq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn type="integer"> 20 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="gal_pp">
+            <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+              <cn sbml:units="mM" type="integer"> 0 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>
