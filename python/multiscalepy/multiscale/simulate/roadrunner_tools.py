@@ -92,7 +92,7 @@ class MyRunner(RoadRunner):
         return RoadRunner.simulate(self, *args, **kwargs)
 
     def simulate_complex(self, concentrations={}, amounts={}, parameters={},
-                         reset_parameters=False, time_it=True, **kwargs):
+                         reset_parameters=False, **kwargs):
         """ Perform RoadRunner simulation.
             Sets parameter values given in parameters dictionary &
             initial values provided in dictionaries.
@@ -109,6 +109,7 @@ class MyRunner(RoadRunner):
             :returns tuple of simulation result and global parameters at end point of
                     simulation (<NamedArray>, <DataFrame>)
         """
+        # TODO: fixme (clear setting of concentrations).
         # change parameters & recalculate initial assignments
         if len(parameters) > 0:
             old_concentrations = self.store_concentrations()
@@ -300,7 +301,7 @@ class MyRunner(RoadRunner):
     # Plotting
     #########################################################################
     @classmethod
-    def plot_results(results, *args, **kwargs):
+    def plot_results(cls, results, *args, **kwargs):
         """
         :param results: list of result matrices
         :return:

@@ -81,7 +81,7 @@ def _solve_roadrunner_single(rr, sim, start, end, hdf5=True, csv=False):
                 name = str(p.key)
                 changes[name] = rr.model[name]
                 rr.model[name] = p.value
-                # print 'set', name, ' = ', p.value
+                # print('set', name, ' = ', p.value)
 
         # recalculate the initial assignments
         rr.reset(SelectionRecord.INITIAL_GLOBAL_PARAMETER)
