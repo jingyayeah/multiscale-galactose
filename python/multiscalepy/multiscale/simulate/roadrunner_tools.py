@@ -52,7 +52,6 @@ class MyRunner(RoadRunner):
         # provide access to SBMLDocument
         self.sbml_doc = libsbml.readSBMLFromString(self.getCurrentSBML())
 
-
     #########################################################################
     # Settings
     #########################################################################
@@ -70,15 +69,14 @@ class MyRunner(RoadRunner):
 
     def set_integrator_settings(self, **kwargs):
         """ Set integrator settings. """
-        integrator = self.getIntegrator()
         for key, value in kwargs.items():
             # adapt the absolute_tolerance relative to the amounts
             if key == "absolute_tolerance":
                 value = value * min(self.model.getCompartmentVolumes())
-            integrator.setValue(key, value)
+            self.integrator.setValue(key, value)
 
         if self.debug:
-            print(integrator)
+            print(self.integrator)
 
     #########################################################################
     # Simulation
@@ -243,6 +241,8 @@ class MyRunner(RoadRunner):
             list[str] of selections for time, c1, ..cN
         """
         self.selections = ['time'] + sorted(self.model.getFloatingSpeciesIds())
+
+
 
     #########################################################################
     # DataFrames

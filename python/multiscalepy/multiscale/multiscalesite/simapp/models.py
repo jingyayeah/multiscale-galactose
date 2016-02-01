@@ -1,8 +1,7 @@
 """
-Model definitions of for simulation management.
-
+Definition of database objects to describe simulations & simulation series.
 """
-from __future__ import print_function
+from __future__ import print_function, division
 
 import os
 import logging
@@ -17,13 +16,12 @@ from django_enumfield import enum
 
 from simapp.storage import OverwriteStorage
 
-
-
 # ===============================================================================
 # Core
 # ===============================================================================
 from multiscale.multiscale_settings import COMPUTERS
 from multiscale.util.util_classes import hash_for_file
+
 
 class Core(models.Model):
     """ Single computer core for simulation, defined by ip and cpu.
@@ -54,11 +52,10 @@ class Core(models.Model):
         return COMPUTERS.get(self.ip, self.ip)
     computer = property(_get_computer_name)
 
+
 # ===============================================================================
 # CompModel
 # ===============================================================================
-
-
 class CompModelException(Exception):
         pass
 
