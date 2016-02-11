@@ -16,7 +16,6 @@ Necessary to create the html and copy the additional css and js files.
 """
 from __future__ import print_function, division
 
-
 import os
 import shutil
 from jinja2 import Environment, FileSystemLoader
@@ -24,12 +23,21 @@ import libsbml
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
-
 # TODO: rate rules are not displayed correctly (they need dy/dt on the left side, compared to AssignmentRules)
 # TODO: hasOnlySubstanceUnits missing in species table
 
+def copy_directory(src, dest):
+    try:
+        shutil.copytree(src, dest)
+    # Directories are the same
+    except shutil.Error as e:
+        print('Directory not copied. Error: %s' % e)
+    # Any error saying that the directory doesn't exist
+    except OSError as e:
+        print('Directory not copied. Error: %s' % e)
 
-def create_sbml_report(doc, out_dir, html_template='test_template.html'):
+
+def create_sbml_report(doc, out_dir, html_template='report_base.html'):
     """ Creates the SBML report in the out_dir
 
     :param doc:
@@ -39,16 +47,13 @@ def create_sbml_report(doc, out_dir, html_template='test_template.html'):
     :return:
     :rtype:
     """
-
     # write sbml
-    print(type(doc))
     model = doc.getModel()
-    print(type(model))
     mid = model.id
     f_sbml = os.path.join(out_dir, '{}.xml'.format(mid))
     libsbml.writeSBMLToFile(doc, f_sbml)
 
-    # write the html
+    # write html
     html = create_html(doc, html_template=html_template)
     f_html = open(os.path.join(out_dir, '{}.html'.format(mid)), 'w')
 
@@ -56,7 +61,8 @@ def create_sbml_report(doc, out_dir, html_template='test_template.html'):
     f_html.close()
 
     # copy the additional files
-    # shutil.copy2(os.path.join(TEMPLATE_DIR, '_report'), os.path.join(out_dir, '_report'))
+    # todo handle the rsync
+    copy_directory(os.path.join(TEMPLATE_DIR, '_report'), os.path.join(out_dir, '_report'))
 
 
 def create_html(doc, html_template='test_template.html'):
@@ -72,8 +78,10 @@ def create_html(doc, html_template='test_template.html'):
     model = doc.getModel()
     values = create_value_dictionary(model)
 
-    j2_env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), trim_blocks=True)
-    template = j2_env.get_template('test_template.html')
+    j2_env = Environment(loader=FileSystemLoader(TEMPLATE_DIR),
+                         trim_blocks=True,
+                         lstrip_blocks=True)
+    template = j2_env.get_template(html_template)
 
     # Context
     c = { 'doc': doc,
@@ -118,17 +126,10 @@ def create_value_dictionary(model):
         values[sid] = math
     return values
 
-
+#################################################################################################
+# Create report
+#################################################################################################
 if __name__ == '__main__':
-
-    # import tellurium as te
-    #
-    # r = te.loada("""
-    # model test
-    #     J0: S1 -> S2; k1*S1;
-    #     S1 = 10.0; S2 = 0; k1=1.0;
-    # end
-    # """)
     import antimony
     antimony.loadAntimonyString("""
     model test
@@ -136,15 +137,11 @@ if __name__ == '__main__':
         S1 = 10.0; S2 = 0; k1=1.0;
     end
     """)
-    # doc = libsbml.readSBMLFromString(r.getSBML())
-
     sbml_str = antimony.getSBMLString('test')
-    print(sbml_str)
     doc = libsbml.readSBMLFromString(sbml_str)
 
-    html = create_html(doc)
-    print(html)
-
-    create_sbml_report(doc, out_dir='/home/mkoenig/tmp/sbmlreport/')
+    create_sbml_report(doc,
+                       out_dir='/home/mkoenig/tmp/sbmlreport/',
+                       html_template='report_small.html')
 
 
