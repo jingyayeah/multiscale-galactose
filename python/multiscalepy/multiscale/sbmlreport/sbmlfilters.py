@@ -1,5 +1,7 @@
 """
 Django template filters related to the rendering of SBML.
+
+Additional functions to call in the templates.
 """
 
 import libsbml
