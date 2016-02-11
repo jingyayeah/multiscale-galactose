@@ -120,8 +120,8 @@ class CompModel(models.Model):
         # check if model id and filename are identical
         if model_format == CompModelFormat.SBML:
             model_id = cls._get_sbml_id_from_file(file_path)
-            if '{}.xml'.format(model_id) != os.path.basename(file_path):
-                raise CompModelException('model id different from basename of file:, {}, {}'.format(model_id, file_path))
+            # if '{}.xml'.format(model_id) != os.path.basename(file_path):
+            #     raise CompModelException('model id different from basename of file:, {}, {}'.format(model_id, file_path))
         else:
             model_id = os.path.basename(file_path)
         

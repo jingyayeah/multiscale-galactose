@@ -126,3 +126,9 @@ def get_simulations_for_task(task):
 
 def get_parameters_for_simulation(simulation):
     return Parameter.objects.filter(simulation=simulation)
+
+
+if __name__ == "__main__":
+    # add model to database
+    f_model = "/home/mkoenig/git/glucose-model/python/notebooks/Koenig_glucose.xml"
+    create_model(f_model, model_format=CompModelFormat.SBML)
