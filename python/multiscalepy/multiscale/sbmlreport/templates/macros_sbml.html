@@ -52,7 +52,7 @@
     <td class="hidden">UnitDefinition</td>
 	<td class="active">{{ item.id }}</td>
 	<td>{{ item.name }}</td>
-	<td>{{ item|SBML_unitDefinitionToString }}</td>
+	<td>{{ item|SBML_unitDefinitionToString|SBML_stringToMathML }}</td>
 	<td>{{ helpers.sbo_term(item) }}</td>
 	<td>{{ helpers.annotation(item) }}</td>
 {% endmacro %}
@@ -235,11 +235,11 @@
     <th scope="col" class="hidden">type</th>
 	<th scope="col" class="warning">Reactions [{{ size }}]</th>
 	<th scope="col">name</th>
-	<th scope="col">reversibility</th>
+	<th scope="col"></th>
 	<th scope="col">equation</th>
 	<th scope="col">modifiers</th>
+    <th scope="col">formula</th>
 	<th scope="col">derived units</th>
-	<th scope="col">formula</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
 {% endmacro %}
@@ -249,17 +249,17 @@
 	<td class="active">{{ item.id }}</td>
 	<td>{{ item.name }}</td>
 	{% if item.reversible %}
-        <td class="success">&lt;=&gt;</td>
+        <td class="success">&#10142;</td>
     {% else %}
-	    <td class="danger">&nbsp;=&gt;</td>
+	    <td class="danger">&#10142;</td>
     {% endif %}
 	<td>{{ item|SBML_reactionToString }}</td>
 	<td>{% for mod in item.getListOfModifiers() %}
         	{{mod.getSpecies}}<br />
 		 {% endfor %}
     </td>
-	<td>{{ helpers.derived_units(item.getKineticLaw()) }}</td>
 	<td>{{ helpers.math(item.getKineticLaw()) }}</td>
+    <td>{{ helpers.derived_units(item.getKineticLaw()) }}</td>
 	<td>{{ helpers.sbo_term(item) }}</td>
 	<td>{{ helpers.annotation(item) }}</td>
 {% endmacro %}

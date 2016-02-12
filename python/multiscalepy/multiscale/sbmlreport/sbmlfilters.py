@@ -36,15 +36,18 @@ unit_dict = {
     'meter': 'm',
     'metre': 'm',
     'second': 's',
+    'dimensionless': '-',
 }
 
 def _equationStringFromReaction(reaction):
     left = halfEquation(reaction.getListOfReactants())
     right = halfEquation(reaction.getListOfProducts())
     if reaction.getReversible():
-        sep = '<=>'
+        # sep = '<=>'
+        sep = '&#8646;'
     else:
-        sep = '=>'
+        # sep = '=>'
+        sep = '&#10142;'
     # mods = modifierEquation(reaction.getListOfModifiers())
     # if mods == None:
     #     return " ".join([left, sep, right])
@@ -115,6 +118,7 @@ def dateToString(d):
 filters = [
     'SBML_astnodeToString',
     'SBML_astnodeToMathML',
+    'SBML_stringToMathML',
     'SBML_annotationToString',
     'SBML_unitDefinitionToString1',
     'SBML_unitDefinitionToString',
@@ -129,6 +133,12 @@ def SBML_astnodeToMathML(astnode):
     mathml = libsbml.writeMathMLToString(astnode)
     return mathml
 
+def SBML_stringToMathML(string):
+    """Parses formula string. """
+    astnode = libsbml.parseL3Formula(str(string))
+    mathml = libsbml.writeMathMLToString(astnode)
+    return mathml
+
 def SBML_annotationToString(annotation):
     return AnnotationHTML.annotation_to_html(annotation)
 
@@ -137,8 +147,11 @@ def SBML_unitDefinitionToString1(ud):
 
 def SBML_unitDefinitionToString(udef):
     """ Formating of units. """
+    # TODO: here is a bug with the dimensionless unit
     libsbml.UnitDefinition_reorder(udef)
-    items = []
+    nom = []
+    denom = []
+
     for u in udef.getListOfUnits():
         # multiplier
         m = u.getMultiplier()
@@ -152,14 +165,32 @@ def SBML_unitDefinitionToString(udef):
         k = unit_dict.get(k, k)
         
         # (multiplier * 10^scale *ukind)^exponent
-        if s == 0 and e == 1:
+
+        if s == 0 and (abs(abs(e)-1) <= 1E-6):
             string = '{}{}'.format(m, k)
         elif (s == 0) and (m == ''):
-            string = '{}^{}'.format(k,e)
+            string = '{}^{}'.format(k, abs(e))
         else:
-            string = '({}10^{}*{})^{}'.format(m, s, k, e)
-        items.append(string)
-    return ' * '.join(items)
+            string = '({}10^{}*{})^{}'.format(m, s, k, abs(e))
+
+        # collect the terms
+        if e >= 0.0:
+            nom.append(string)
+        else:
+            denom.append(string)
+
+    nom_str = ' * '.join(nom)
+    denom_str = ' * '.join(denom)
+    if (len(nom_str) > 0) and (len(denom_str) > 0):
+        return '{}/{}'.format(nom_str, denom_str)
+    if (len(nom_str) > 0) and (len(denom_str) == 0):
+        return nom_str
+    if (len(nom_str) == 0) and (len(denom_str) > 0):
+        return '1/{}'.format(denom_str)
+
+    print("This should never happen")
+    print('nom:', nom, 'denom:', denom)
+
 
 def SBML_modelHistoryToString(mhistory):
     return modelHistoryToString(mhistory)
