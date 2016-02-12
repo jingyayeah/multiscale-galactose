@@ -28,7 +28,15 @@ import shutil
 import jinja2
 from jinja2 import Environment, FileSystemLoader
 import libsbml
+import sbmlfilters
+import sys
 
+# Change default encoding to UTF-8
+# We need to reload sys module first, because setdefaultencoding is available only at startup time
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+# where are the templates
 TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
 # TODO: rate rules are not displayed correctly (they need dy/dt on the left side, compared to AssignmentRules)
@@ -86,11 +94,16 @@ def create_html(doc, html_template='test_template.html'):
     model = doc.getModel()
     values = create_value_dictionary(model)
 
-    j2_env = Environment(loader=FileSystemLoader(TEMPLATE_DIR),
+    # template environment
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR),
                          extensions=['jinja2.ext.autoescape'],
                          trim_blocks=True,
                          lstrip_blocks=True)
-    template = j2_env.get_template(html_template)
+    # additional SBML filters
+    for key in sbmlfilters.filters:
+        env.filters[key] = getattr(sbmlfilters, key)
+
+    template = env.get_template(html_template)
 
     # Context
     c = { 'doc': doc,

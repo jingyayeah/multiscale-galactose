@@ -5,11 +5,7 @@ Additional functions to call in the templates.
 """
 
 import libsbml
-from django import template
-
 from multiscale.sbmlutils import annotation
-
-register = template.Library()
 
 class AnnotationHTML():
 
@@ -35,66 +31,12 @@ class AnnotationHTML():
         res = "<br />".join(items)
         return res
 
-@register.filter
-def SBML_astnodeToString(astnode):
-    return libsbml.formulaToString(astnode)
-
-
-@register.filter
-def SBML_annotationToString(annotation):
-    return AnnotationHTML.annotation_to_html(annotation)
-
-
-@register.filter
-def SBML_unitDefinitionToString1(ud):
-    return libsbml.UnitDefinition_printUnits(ud)
-
-unit_dict = dict()
-unit_dict['kilogram'] = 'kg'
-unit_dict['meter'] = 'm'
-unit_dict['metre'] = 'm'
-unit_dict['second'] = 's'
-
-
-@register.filter
-def SBML_unitDefinitionToString(udef):
-    """ Proper formating of the units.
-        TODO: fix bug with scale and multiplier
-    """
-    libsbml.UnitDefinition_reorder(udef)
-    items = []
-    for u in udef.getListOfUnits():
-        # multiplier
-        m = u.getMultiplier()
-        if abs(m-1.0) < 1E-10:
-            m = ''
-        else:
-            m = str(m) + '*'
-        s = u.getScale()
-        e = u.getExponent()
-        k = libsbml.UnitKind_toString(u.getKind())
-        k = unit_dict.get(k, k)
-        
-        # (multiplier * 10^scale *ukind)^exponent
-        if s == 0 and e == 1:
-            string = '{}{}'.format(m, k)
-        elif (s == 0) and (m == ''):
-            string = '{}^{}'.format(k,e)
-        else:
-            string = '({}10^{}*{})^{}'.format(m, s, k, e)
-        items.append(string)
-    return ' * '.join(items)
-
-
-@register.filter
-def SBML_modelHistoryToString(mhistory):
-    return modelHistoryToString(mhistory)
-
-
-@register.filter
-def SBML_reactionToString(reaction):
-    return _equationStringFromReaction(reaction)
-
+unit_dict = {
+    'kilogram': 'kg',
+    'meter': 'm',
+    'metre': 'm',
+    'second': 's',
+}
 
 def _equationStringFromReaction(reaction):
     left = halfEquation(reaction.getListOfReactants())
@@ -115,7 +57,7 @@ def modifierEquation(modifierList):
     if len(modifierList) == 0:
         return None
     mids = [m.getSpecies() for m in modifierList]
-    return '[' + ', '.join(mids) + ']' 
+    return '[' + ', '.join(mids) + ']'
 
 
 def halfEquation(speciesList):
@@ -165,3 +107,57 @@ def dateToString(d):
     """ Creates string representation of date. """
     return "{}-{:0>2d}-{:0>2d} {:0>2d}:{:0>2d}".format(d.getYear(), d.getMonth(), d.getDay(),
         d.getHour(), d.getMinute())
+
+
+# -------------------------------
+# Filter definitions
+# -------------------------------
+filters = [
+    'SBML_astnodeToString',
+    'SBML_annotationToString',
+    'SBML_unitDefinitionToString1',
+    'SBML_unitDefinitionToString',
+    'SBML_modelHistoryToString',
+    'SBML_reactionToString',
+]
+
+def SBML_astnodeToString(astnode):
+    return libsbml.formulaToString(astnode)
+
+def SBML_annotationToString(annotation):
+    return AnnotationHTML.annotation_to_html(annotation)
+
+def SBML_unitDefinitionToString1(ud):
+    return libsbml.UnitDefinition_printUnits(ud)
+
+def SBML_unitDefinitionToString(udef):
+    """ Formating of units. """
+    libsbml.UnitDefinition_reorder(udef)
+    items = []
+    for u in udef.getListOfUnits():
+        # multiplier
+        m = u.getMultiplier()
+        if abs(m-1.0) < 1E-10:
+            m = ''
+        else:
+            m = str(m) + '*'
+        s = u.getScale()
+        e = u.getExponent()
+        k = libsbml.UnitKind_toString(u.getKind())
+        k = unit_dict.get(k, k)
+        
+        # (multiplier * 10^scale *ukind)^exponent
+        if s == 0 and e == 1:
+            string = '{}{}'.format(m, k)
+        elif (s == 0) and (m == ''):
+            string = '{}^{}'.format(k,e)
+        else:
+            string = '({}10^{}*{})^{}'.format(m, s, k, e)
+        items.append(string)
+    return ' * '.join(items)
+
+def SBML_modelHistoryToString(mhistory):
+    return modelHistoryToString(mhistory)
+
+def SBML_reactionToString(reaction):
+    return _equationStringFromReaction(reaction)

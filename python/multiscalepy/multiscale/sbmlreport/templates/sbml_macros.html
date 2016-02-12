@@ -9,6 +9,35 @@
     {% endif %}
 {% endmacro %}
 
+{% macro id(item) %}
+    <td class="active">{{ item.id }}</td>
+{% endmacro %}
+
+{% macro sbo_term(item) %}
+    {% if item.getSBOTerm() != -1 %}
+        <a href="{{ item.getSBOTermAsURL() }}" target="_blank">{{ item.getSBOTermID() }}</a>
+    {% else %}
+        -
+    {% endif %}
+{% endmacro %}
+
+{% macro annotation(item) %}
+    {% if item.isSetAnnotation() %}
+        {{ item|SBML_annotationToString }}
+    {% else %}
+        -
+    {% endif %}
+{% endmacro %}
+
+{% macro math() %}
+    {{ item.getMath|SBML_astnodeToString }}
+{% endmacro %}
+
+{% macro annotation_xml(item) %}
+    {% if item.isSetAnnotation() %}
+        <pre>{{ item.getAnnotationString().decode('utf-8') }}</pre>
+    {% endif %}
+{% endmacro %}
 
 <!------------------------------------------------------->
 <!--  MODEL 									       -->
