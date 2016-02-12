@@ -24,6 +24,7 @@
     <table id="table_model_annotation" class="table table-condensed table-nonfluid">
         <tr>
             <td>
+                <a href="{{ model.id }}.xml" target="_blank"><img src="_report/images/sbml.png" height="20" alt="SBML model" title="SBML model"/> </a><br /><br />
                 {{ helpers.annotation(doc) }}<br />
                 {{ helpers.annotation(model) }}
             </td>
@@ -44,7 +45,7 @@
         <a class="anchor" id="FunctionDefinitions"></a>
         <table id="table_functions" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.function_header() }}</tr>
+            <tr>{{ macros.function_header(functions|length) }}</tr>
             </thead>
             <tbody>
             {% for item in functions %}
@@ -62,7 +63,7 @@
         <a class="anchor" id="UnitDefinitions"></a>
         <table id="table_units" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.unit_header() }}</tr>
+            <tr>{{ macros.unit_header(units|length) }}</tr>
             </thead>
             <tbody>
             {% for item in units %}
@@ -80,7 +81,7 @@
         <a class="anchor" id="Compartments"></a>
         <table id="table_compartments" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.compartment_header() }}</tr>
+            <tr>{{ macros.compartment_header(compartments|length) }}</tr>
             </thead>
             <tbody>
             {% for item in compartments %}
@@ -98,7 +99,7 @@
         <a class="anchor" id="Species"></a>
         <table id="table_species" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.species_header() }}</tr>
+            <tr>{{ macros.species_header(species|length) }}</tr>
             </thead>
             <tbody>
             {% for item in species %}
@@ -116,7 +117,7 @@
         <a class="anchor" id="Parameters"></a>
         <table id="table_parameters" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.parameter_header() }}</tr>
+            <tr>{{ macros.parameter_header(parameters|length) }}</tr>
             </thead>
             <tbody>
             {% for item in parameters %}
@@ -134,7 +135,7 @@
         <a class="anchor" id="InitialAssignments"></a>
         <table id="table_assignments" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.assignment_header() }}</tr>
+            <tr>{{ macros.assignment_header(assignments|length) }}</tr>
             </thead>
             <tbody>
             {% for item in assignments %}
@@ -170,7 +171,7 @@
         <a class="anchor" id="Constraints"></a>
         <table id="table_constraints" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.constraint_header() }}</tr>
+            <tr>{{ macros.constraint_header(constraints|length) }}</tr>
             </thead>
             <tbody>
             {% for item in constraints %}
@@ -188,7 +189,7 @@
         <a class="anchor" id="Reactions"></a>
         <table id="table_reactions" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.reaction_header }}</tr>
+            <tr>{{ macros.reaction_header(reactions|length) }}</tr>
             </thead>
             <tbody>
             {% for item in reactions %}
@@ -206,7 +207,7 @@
         <a class="anchor" id="Events"></a>
         <table id="table_events" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.event_header }}</tr>
+            <tr>{{ macros.event_header(events|length) }}</tr>
             </thead>
             <tbody>
             {% for item in events %}

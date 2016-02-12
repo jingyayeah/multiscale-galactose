@@ -18,9 +18,9 @@
 <!------------------------------------------------------->
 <!--  FUNCTION DEFINITIONS   						   -->
 <!------------------------------------------------------->
-{% macro function_header() %}
+{% macro function_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">FunctionDefinitions [{{ functions_size }}]</th>
+	<th scope="col" class="warning">FunctionDefinitions [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">math</th>
 	<th scope="col">sbo</th>
@@ -39,9 +39,9 @@
 <!------------------------------------------------------->
 <!--  UNIT DEFINITIONS       						   -->
 <!------------------------------------------------------->
-{% macro unit_header() %}
+{% macro unit_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">UnitDefinitions [{{ units_size }}]</th>
+	<th scope="col" class="warning">UnitDefinitions [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">units</th>
 	<th scope="col">sbo</th>
@@ -60,9 +60,9 @@
 <!------------------------------------------------------->
 <!--  COMPARTMENTS          						   -->
 <!------------------------------------------------------->
-{% macro compartment_header() %}
+{% macro compartment_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Compartments [{{ compartments_size }}]</th>
+	<th scope="col" class="warning">Compartments [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">size</th>
 	<th scope="col">constant</th>
@@ -94,9 +94,9 @@
 <!------------------------------------------------------->
 <!--  SPECIES                						   -->
 <!------------------------------------------------------->
-{% macro species_header() %}
+{% macro species_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Species [{{ species_size }}]</th>
+	<th scope="col" class="warning">Species [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">compartment</th>
 	<th scope="col">boundary condition</th>
@@ -134,9 +134,9 @@
 <!------------------------------------------------------->
 <!--  PARAMETERS             						   -->
 <!------------------------------------------------------->
-{% macro parameter_header() %}
+{% macro parameter_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [{{ parameters_size }}]</th>
+	<th scope="col" class="warning">Parameters [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -166,9 +166,9 @@
 <!------------------------------------------------------->
 <!--  INITIAL ASSIGNMENTS   						   -->
 <!------------------------------------------------------->
-{% macro assignment_header(item) %}
+{% macro assignment_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">InitialAssignments [{{ assignments_size }}]</th>
+	<th scope="col" class="warning">InitialAssignments [{{ size }}]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -189,9 +189,9 @@
 <!------------------------------------------------------->
 <!--  RULES  				   						   -->
 <!------------------------------------------------------->
-{% macro rule_header() %}
+{% macro rule_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules [{{ rules_size }}]</th>
+	<th scope="col" class="warning">Rules [{{ size }}]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -212,9 +212,9 @@
 <!------------------------------------------------------->
 <!--  CONSTRAINTS			   						   -->
 <!------------------------------------------------------->
-{% macro constraint_header() %}
+{% macro constraint_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Constraints [{{ constraints_size }}]</th>
+	<th scope="col" class="warning">Constraints [{{ size }}]</th>
 	<th scope="col">constraint</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
@@ -231,9 +231,9 @@
 <!------------------------------------------------------->
 <!--  REACTIONS 			   						   -->
 <!------------------------------------------------------->
-{% macro reaction_header() %}
+{% macro reaction_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Reactions [{{ reactions_size }}]</th>
+	<th scope="col" class="warning">Reactions [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">reversibility</th>
 	<th scope="col">equation</th>
@@ -267,9 +267,9 @@
 <!------------------------------------------------------->
 <!--  EVENTS     			   						   -->
 <!------------------------------------------------------->
-{% macro event_header() %}
+{% macro event_header(size) %}
     <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Events [{{ events_size }}]</th>
+	<th scope="col" class="warning">Events [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">trigger</th>
 	<th scope="col">priority</th>
