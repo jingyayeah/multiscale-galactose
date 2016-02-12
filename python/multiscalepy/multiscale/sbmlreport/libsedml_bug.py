@@ -57,8 +57,10 @@ sbml_str = """<?xml version="1.0" encoding="UTF-8"?>
 </sbml>
 """
 
-# load doc with libsbml
+import libsedml
 import libsbml
+
+# load doc with libsbml
 doc = libsbml.readSBMLFromString(sbml_str)
 model = doc.getModel()
 print(type(doc))
@@ -68,7 +70,6 @@ print('*' * 80)  # Everything good until here
 
 # importing libsedml overwrites the libsbml.getModel !!!
 # suddenly libsedml.Model is returned when calling getModel on doc !
-import libsedml
 model = doc.getModel()
 print(type(doc))
 print(type(model))  # <class 'libsedml.Model'> ??
@@ -76,6 +77,9 @@ print(type(model))  # <class 'libsedml.Model'> ??
 # not even this works any more
 model = libsbml.SBMLDocument.getModel(doc)
 print(type(model))  # <class 'libsedml.Model'>
+
+print(model.getId())
+
 
 
 print(libsbml.__version__)  # Updated to revision 22780
