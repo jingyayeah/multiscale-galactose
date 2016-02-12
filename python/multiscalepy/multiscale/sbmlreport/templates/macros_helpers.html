@@ -1,0 +1,39 @@
+<!------------------------------------------------------->
+<!--  HELPERS 									       -->
+<!------------------------------------------------------->
+
+{% macro notes(item) %}
+    {% if item.isSetNotes() %}
+        {{ item.notes_string.decode('utf-8') }}
+    {% endif %}
+{% endmacro %}
+
+{% macro sbo_term(item) %}
+    {% if item.getSBOTerm() != -1 %}
+        <a href="{{ item.getSBOTermAsURL() }}" target="_blank">{{ item.getSBOTermID() }}</a>
+    {% else %}
+        -
+    {% endif %}
+{% endmacro %}
+
+{% macro annotation(item) %}
+    {% if item.isSetAnnotation() %}
+        {{ item|SBML_annotationToString }}
+    {% else %}
+        -
+    {% endif %}
+{% endmacro %}
+
+{% macro math(item) %}
+    {{ item.getMath()|SBML_astnodeToString }}
+{% endmacro %}
+
+{% macro annotation_xml(item) %}
+    {% if item.isSetAnnotation() %}
+        <pre>{{ item.getAnnotationString().decode('utf-8') }}</pre>
+    {% endif %}
+{% endmacro %}
+
+{% macro derived_units(item) %}
+    {{ item.getDerivedUnitDefinition()|SBML_unitDefinitionToString }}
+{% endmacro %}

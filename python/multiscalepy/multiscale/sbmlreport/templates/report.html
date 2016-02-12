@@ -1,52 +1,41 @@
-{% extends "report/report_generic.html" %}
+{% extends "report_base.html" %}
+{% import 'macros_helpers.html' as helpers %}
+{% import 'macros_sbml.html' as macros %}
 
-{% load staticfiles %}
-{% load macros %}
-{% loadmacros "report/macros.html" %}
-{% load SBML_filters %}
 
-<!-- TODO: toggle the view, i.e. hide/show the different tables. -->
 {% block content %}
     <!--------------------------------------------------->
-    <!-- Model -->
+    <!-- Model                                         -->
     <!--------------------------------------------------->
     <a class="anchor" id="Model"></a>
-        {% with doc as item %}
-        {% if item.isSetNotes %}
-            {% usemacro notes %}
-            <hr />
-        {% endif %}
-        {% endwith %}
 
-        {% with model as item %}
-        {% if item.isSetNotes %}
-            {% usemacro notes %}
-            <hr />
-        {% endif %}
-        {% endwith %}
+    {% if doc.isSetNotes() %}
+        {{ helpers.notes(doc) }}
+        <hr />
+    {% endif %}
+
+    {% if model.isSetNotes() %}
+        {{ helpers.notes(model) }}
+        <hr />
+    {% endif %}
 
     <h1>Model : {{ model.id }}</h1>
-    {{ model.getModelHistory | SBML_modelHistoryToString | safe }}
+    {{ model.getModelHistory()|SBML_modelHistoryToString }}
     <table id="table_model_annotation" class="table table-condensed table-nonfluid">
         <tr>
-
-        <td>
-        {% with doc as item %}{% usemacro annotation %}{% endwith %}
-        <br />
-        {% with model as item %}{% usemacro annotation %}{% endwith %}
-        </td>
-        <td>
-            <table id="table_model" class="table table-condensed table-nonfluid">
-            <tbody>
-            <tr>{% usemacro model %}</tr>
-            </tbody>
-            </table>
-        </td>
+            <td>
+                {{ helpers.annotation(doc) }}<br />
+                {{ helpers.annotation(model) }}
+            </td>
+            <td>
+                <table id="table_model" class="table table-condensed table-nonfluid">
+                <tbody>
+                <tr>{{ macros.model(model) }}</tr>
+                </tbody>
+                </table>
+            </td>
         </tr>
     </table>
-
-
-
 
     <!--------------------------------------------------->
     <!-- FunctionDefinitions -->
@@ -55,16 +44,17 @@
         <a class="anchor" id="FunctionDefinitions"></a>
         <table id="table_functions" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro function_header %}</tr>
+            <tr>{{ macros.function_header() }}</tr>
             </thead>
             <tbody>
             {% for item in functions %}
-                <tr>{% usemacro function_content %}</tr>
+                <tr>{{ macros.function_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+
     <!--------------------------------------------------->
     <!-- UnitDefinitions -->
     <!--------------------------------------------------->
@@ -72,16 +62,17 @@
         <a class="anchor" id="UnitDefinitions"></a>
         <table id="table_units" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro unit_header %}</tr>
+            <tr>{{ macros.unit_header() }}</tr>
             </thead>
             <tbody>
             {% for item in units %}
-                <tr>{% usemacro unit_content %}</tr>
+                <tr>{{ macros.unit_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+
     <!--------------------------------------------------->
     <!-- Compartments -->
     <!--------------------------------------------------->
@@ -89,16 +80,17 @@
         <a class="anchor" id="Compartments"></a>
         <table id="table_compartments" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro compartment_header %}</tr>
+            <tr>{{ macros.compartment_header() }}</tr>
             </thead>
             <tbody>
             {% for item in compartments %}
-                <tr>{% usemacro compartment_content %}</tr>
+                <tr>{{ macros.compartment_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+
     <!--------------------------------------------------->
     <!-- Species -->
     <!--------------------------------------------------->
@@ -106,16 +98,17 @@
         <a class="anchor" id="Species"></a>
         <table id="table_species" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro species_header %}</tr>
+            <tr>{{ macros.species_header() }}</tr>
             </thead>
             <tbody>
             {% for item in species %}
-                <tr>{% usemacro species_content %}</tr>
+                <tr>{{ macros.species_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+
     <!--------------------------------------------------->
     <!-- Parameters -->
     <!--------------------------------------------------->
@@ -123,16 +116,17 @@
         <a class="anchor" id="Parameters"></a>
         <table id="table_parameters" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro parameter_header %}</tr>
+            <tr>{{ macros.parameter_header() }}</tr>
             </thead>
             <tbody>
             {% for item in parameters %}
-                <tr>{% usemacro parameter_content %}</tr>
+                <tr>{{ macros.parameter_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+    
     <!--------------------------------------------------->
     <!-- InitialAssignments -->
     <!--------------------------------------------------->
@@ -140,16 +134,17 @@
         <a class="anchor" id="InitialAssignments"></a>
         <table id="table_assignments" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro assignment_header %}</tr>
+            <tr>{{ macros.assignment_header() }}</tr>
             </thead>
             <tbody>
             {% for item in assignments %}
-                <tr>{% usemacro assignment_content %}</tr>
+                <tr>{{ macros.assignment_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+    
     <!--------------------------------------------------->
     <!-- Rules -->
     <!--------------------------------------------------->
@@ -157,16 +152,17 @@
         <a class="anchor" id="Rules"></a>
         <table id="table_rules" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro rule_header %}</tr>
+            <tr>{{ macros.rule_header() }}</tr>
             </thead>
             <tbody>
             {% for item in rules %}
-                <tr>{% usemacro rule_content %}</tr>
+                <tr>{{ macros.rule_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+    
     <!--------------------------------------------------->
     <!-- Constraints -->
     <!--------------------------------------------------->
@@ -174,16 +170,17 @@
         <a class="anchor" id="Constraints"></a>
         <table id="table_constraints" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro constraint_header %}</tr>
+            <tr>{{ macros.constraint_header() }}</tr>
             </thead>
             <tbody>
             {% for item in constraints %}
-                <tr>{% usemacro constraint_content %}</tr>
+                <tr>{{ macros.constraint_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+    
     <!--------------------------------------------------->
     <!-- Reactions -->
     <!--------------------------------------------------->
@@ -191,16 +188,17 @@
         <a class="anchor" id="Reactions"></a>
         <table id="table_reactions" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro reaction_header %}</tr>
+            <tr>{{ macros.reaction_header }}</tr>
             </thead>
             <tbody>
             {% for item in reactions %}
-                <tr>{% usemacro reaction_content %}</tr>
+                <tr>{{ macros.reaction_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>
         <hr/>
     {% endif %}
+    
     <!--------------------------------------------------->
     <!-- Events -->
     <!--------------------------------------------------->
@@ -208,11 +206,11 @@
         <a class="anchor" id="Events"></a>
         <table id="table_events" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{% usemacro event_header %}</tr>
+            <tr>{{ macros.event_header }}</tr>
             </thead>
             <tbody>
             {% for item in events %}
-                <tr>{% usemacro event_content %}</tr>
+                <tr>{{ macros.event_content(item) }}</tr>
             {% endfor %}
             </tbody>
         </table>

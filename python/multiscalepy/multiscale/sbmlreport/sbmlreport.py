@@ -164,10 +164,10 @@ if __name__ == '__main__':
 
     create_sbml_report(doc,
                        out_dir='/home/mkoenig/tmp/sbmlreport/',
-                       html_template='report_small.html')
+                       html_template='report.html')
 
     doc = libsbml.readSBMLFromFile('/home/mkoenig/multiscale-galactose/python/multiscalepy/multiscale/examples/models/demo/Koenig_demo_10_annotated.xml')
     create_sbml_report(doc,
                        out_dir='/home/mkoenig/tmp/sbmlreport/',
-                       html_template='report_small.html')
+                       html_template='report.html')
 
