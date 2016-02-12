@@ -1,13 +1,10 @@
 {% extends "report_base.html" %}
 
-
-
 {#
-{% load macros %}
-{% loadmacros "report/macros.html" %}
 {% load SBML_filters %}
 #}
-{% import 'macros.html' as macros %}
+
+{% import 'sbml_macros.html' as macros %}
 
 {% block content %}
     <!--------------------------------------------------->
@@ -15,22 +12,15 @@
     <!--------------------------------------------------->
     <a class="anchor" id="Model"></a>
 
-        {#
-        {% with doc as item %}
-        {% if item.isSetNotes %}
-            {% usemacro notes %}
-            <hr />
-        {% endif %}
-        {% endwith %}
+    {% if doc.isSetNotes %}
+        {{ macros.notes(doc) }}
+        <hr />
+    {% endif %}
 
-        {% with model as item %}
-        {% if item.isSetNotes %}
-            {% usemacro notes %}
-            <hr />
-        {% endif %}
-        {% endwith %}
-        #}
-
+    {% if model.isSetNotes %}
+        {{ macros.notes(model) }}
+        <hr />
+    {% endif %}
 
     <h1>Model : {{ model.id }}</h1>
 

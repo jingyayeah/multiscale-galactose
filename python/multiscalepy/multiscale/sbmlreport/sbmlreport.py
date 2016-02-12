@@ -11,13 +11,21 @@ Necessary to create the html and copy the additional css and js files.
     css
     js
 
-# Configure an Engine, compile template, render with context
+Configure an Engine, compile template, render with context
+
+Reusable template code, code separation & reduction of duplicate code is achieved via
+- template inheritance
+- template macros
+- ? how to call functions ?
+
 
 """
 from __future__ import print_function, division
 
+import codecs
 import os
 import shutil
+import jinja2
 from jinja2 import Environment, FileSystemLoader
 import libsbml
 
@@ -53,10 +61,10 @@ def create_sbml_report(doc, out_dir, html_template='report_base.html'):
     f_sbml = os.path.join(out_dir, '{}.xml'.format(mid))
     libsbml.writeSBMLToFile(doc, f_sbml)
 
-    # write html
+    # write html (unicode)
     html = create_html(doc, html_template=html_template)
-    f_html = open(os.path.join(out_dir, '{}.html'.format(mid)), 'w')
-
+    f_html = codecs.open(os.path.join(out_dir, '{}.html'.format(mid)),
+                         encoding='utf-8', mode='w')
     f_html.write(html)
     f_html.close()
 
@@ -79,6 +87,7 @@ def create_html(doc, html_template='test_template.html'):
     values = create_value_dictionary(model)
 
     j2_env = Environment(loader=FileSystemLoader(TEMPLATE_DIR),
+                         extensions=['jinja2.ext.autoescape'],
                          trim_blocks=True,
                          lstrip_blocks=True)
     template = j2_env.get_template(html_template)
@@ -140,8 +149,12 @@ if __name__ == '__main__':
     sbml_str = antimony.getSBMLString('test')
     doc = libsbml.readSBMLFromString(sbml_str)
 
+    #create_sbml_report(doc,
+    #                   out_dir='/home/mkoenig/tmp/sbmlreport/',
+    #                   html_template='report_small.html')
+
+    doc = libsbml.readSBMLFromFile('/home/mkoenig/multiscale-galactose/python/multiscalepy/multiscale/examples/models/demo/Koenig_demo_10_annotated.xml')
     create_sbml_report(doc,
                        out_dir='/home/mkoenig/tmp/sbmlreport/',
                        html_template='report_small.html')
-
 
