@@ -16,7 +16,7 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="_report/css/bootstrap.min.css" >
     <link rel="stylesheet" type="text/css" href="_report/css/dataTables.bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="_report/simapp/css/dashboard.css"/>
+    <link rel="stylesheet" type="text/css" href="_report/css/dashboard.css"/>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="_report/css/report.css"/>
@@ -134,104 +134,123 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#top">{{ model.id }}</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#top">{{ model.id }}</a>
         </div>
 
-          <form class="navbar-form navbar-left">
+        <form class="navbar-form navbar-left">
             <input id="searchField" type="text" class="form-control" placeholder="Search...">
-          </form>
-      </div>
-    </nav>
+        </form>
+    </div>
+</nav>
 
-
+<!-- CONTAINER -->
 <div class="container-fluid">
-      <div class="row">
+    <!-- ROW -->
+    <div class="row">
+        <!-- LEFT -->
         <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-          <li><a href="#top">Model</a></li>
-             {% if units %}
-                    <li><a href="#UnitDefinitions">UnitDefinitions</a></li>{% endif %}
+            <ul class="nav nav-sidebar">
+                <li><a href="#top">Model</a></li>
+                {% if units %}
+                    <li><a href="#UnitDefinitions">UnitDefinitions</a></li>
+                {% endif %}
                 {% if functions %}
-                    <li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>{% endif %}
+                    <li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>
+                {% endif %}
                 {% if unitDefinitions %}
-                    <li><a href="#UnitDefinitions">UnitDefinitions</a></li>{% endif %}
+                    <li><a href="#UnitDefinitions">UnitDefinitions</a></li>
+                {% endif %}
                 {% if compartments %}
-                    <li><a href="#Compartments">Compartments</a></li>{% endif %}
+                    <li><a href="#Compartments">Compartments</a></li>
+                {% endif %}
                 {% if species %}
-                    <li><a href="#Species">Species</a></li>{% endif %}
+                    <li><a href="#Species">Species</a></li>
+                {% endif %}
                 {% if parameters %}
-                    <li><a href="#Parameters">Parameters</a></li>{% endif %}
+                    <li><a href="#Parameters">Parameters</a></li>
+                {% endif %}
                 {% if assignments %}
-                    <li><a href="#InitialAssignments">InitialAssignments</a></li>{% endif %}
+                    <li><a href="#InitialAssignments">InitialAssignments</a></li>
+                {% endif %}
                 {% if rules %}
-                    <li><a href="#Rules">Rules</a></li>{% endif %}
+                    <li><a href="#Rules">Rules</a></li>
+                {% endif %}
                 {% if constraints %}
-                    <li><a href="#Constraints">Constraints</a></li>{% endif %}
+                    <li><a href="#Constraints">Constraints</a></li>
+                {% endif %}
                 {% if reactions %}
-                    <li><a href="#Reactions">Reactions</a></li>{% endif %}
+                    <li><a href="#Reactions">Reactions</a></li>
+                {% endif %}
                 {% if events %}
-                    <li><a href="#Events">Events</a></li>{% endif %}
-          </ul>
+                    <li><a href="#Events">Events</a></li>
+                {% endif %}
+            </ul>
         </div>
+        <!-- END LEFT -->
+
+        <!-- RIGHT -->
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-    <!-- CONTENT -->
-    <div class="content">
-        <!-- <input type="text" id="searchField"> -->
-        {% block content %}
-            <span id="Model"></span>
-            <span id="UnitDefinitions"></span>
-            <span id="FunctionDefinitions"></span>
-            <span id="Compartments"></span>
-            <span id="Species"></span>
-            <span id="Parameters"></span>
-            <span id="InitialAssignments"></span>
-            <span id="Rules"></span>
-            <span id="Constraints"></span>
-            <span id="Reactions"></span>
-            <span id="Events"></span>
-        {% endblock %}
-    </div>
+            <!-- CONTENT -->
+            <div class="content">
+                {% block content %}
+                    <span id="Model"></span>
+                    <span id="UnitDefinitions"></span>
+                    <span id="FunctionDefinitions"></span>
+                    <span id="Compartments"></span>
+                    <span id="Species"></span>
+                    <span id="Parameters"></span>
+                    <span id="InitialAssignments"></span>
+                    <span id="Rules"></span>
+                    <span id="Constraints"></span>
+                    <span id="Reactions"></span>
+                    <span id="Events"></span>
+                {% endblock %}
+            </div>
+            <!-- END CONTENT -->
 
-    <!-- FOOTER -->
-    <div class="footer">
-        <hr/>
-        <p>&copy; 2016 Matthias Koenig.
-            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License"
-                                                                                        style="border-width:0"
-                                                                                        src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"/></a><br/>This
-            work by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.livermetabolism.com"
-                       property="cc:attributionName" rel="cc:attributionURL">Matthias Koenig</a> is licensed under a <a
-                    rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
-                Attribution-ShareAlike 4.0 International License</a>.
-            <br/>
-            Powered by <a href="https://www.djangoproject.com" target="_blank"><img
-                    src="_report/images/django.png" height="15" alt="django"/></a> and
-            bootstrap <a href="http://getbootstrap.com/" target="_blank"><img
-                    src="_report/images/bootstrap.png" height="15" alt="bootstrap"/></a>.
-            Source available on <a href="https://github.com/matthiaskoenig/multiscale-galactose/" target="_blank"><img
-                    src="_report/images/github.png" height="20" alt="GitHub"/></a>.
-        </p>
-    </div>
+            <!-- FOOTER -->
+            <div class="footer">
+                <hr/>
+                <p>&copy; 2016 Matthias Koenig.
+                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img
+                            alt="Creative Commons License"
+                            style="border-width:0"
+                            src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"/></a><br/>This
+                    work by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.livermetabolism.com"
+                               property="cc:attributionName" rel="cc:attributionURL">Matthias Koenig</a> is licensed
+                    under a <a
+                            rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+                        Attribution-ShareAlike 4.0 International License</a>.
+                    <br/>
+                    Powered by jinja2 <a href="http://jinja.pocoo.org/docs/dev/" target="_blank"><img
+                            src="_report/images/jinja2.png" height="15" alt="jinja2"/></a> and
+                    bootstrap <a href="http://getbootstrap.com/" target="_blank"><img
+                            src="_report/images/bootstrap.png" height="15" alt="bootstrap"/></a>.
+                    Source available on <a href="https://github.com/matthiaskoenig/multiscale-galactose/"
+                                           target="_blank"><img
+                            src="_report/images/github.png" height="20" alt="GitHub"/></a>.
+                </p>
+            </div>
+            <!-- END FOOTER -->
 
         </div>
-
+        <!-- END RIGHT -->
+    </div>
+    <!-- END ROW -->
 </div>
-<!-- /container -->
+<!-- END CONTAINER -->
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 </body>
 </html>
 

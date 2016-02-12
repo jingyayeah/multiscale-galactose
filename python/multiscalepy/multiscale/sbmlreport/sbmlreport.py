@@ -149,9 +149,9 @@ if __name__ == '__main__':
     sbml_str = antimony.getSBMLString('test')
     doc = libsbml.readSBMLFromString(sbml_str)
 
-    #create_sbml_report(doc,
-    #                   out_dir='/home/mkoenig/tmp/sbmlreport/',
-    #                   html_template='report_small.html')
+    create_sbml_report(doc,
+                       out_dir='/home/mkoenig/tmp/sbmlreport/',
+                       html_template='report_small.html')
 
     doc = libsbml.readSBMLFromFile('/home/mkoenig/multiscale-galactose/python/multiscalepy/multiscale/examples/models/demo/Koenig_demo_10_annotated.xml')
     create_sbml_report(doc,

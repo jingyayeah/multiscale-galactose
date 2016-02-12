@@ -12,12 +12,12 @@
     <!--------------------------------------------------->
     <a class="anchor" id="Model"></a>
 
-    {% if doc.isSetNotes %}
+    {% if doc.isSetNotes() %}
         {{ macros.notes(doc) }}
         <hr />
     {% endif %}
 
-    {% if model.isSetNotes %}
+    {% if model.isSetNotes() %}
         {{ macros.notes(model) }}
         <hr />
     {% endif %}
