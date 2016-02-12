@@ -25,7 +25,10 @@
 {% endmacro %}
 
 {% macro math(item) %}
-    {{ item.getMath()|SBML_astnodeToString }}
+    {#
+        {{ item.getMath()|SBML_astnodeToString }}
+    #}
+    {{ item.getMath()|SBML_astnodeToMathML }}
 {% endmacro %}
 
 {% macro annotation_xml(item) %}

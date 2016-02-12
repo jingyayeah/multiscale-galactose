@@ -114,6 +114,7 @@ def dateToString(d):
 # -------------------------------
 filters = [
     'SBML_astnodeToString',
+    'SBML_astnodeToMathML',
     'SBML_annotationToString',
     'SBML_unitDefinitionToString1',
     'SBML_unitDefinitionToString',
@@ -123,6 +124,10 @@ filters = [
 
 def SBML_astnodeToString(astnode):
     return libsbml.formulaToString(astnode)
+
+def SBML_astnodeToMathML(astnode):
+    mathml = libsbml.writeMathMLToString(astnode)
+    return mathml
 
 def SBML_annotationToString(annotation):
     return AnnotationHTML.annotation_to_html(annotation)
