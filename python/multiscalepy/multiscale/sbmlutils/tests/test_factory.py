@@ -2,7 +2,7 @@ from __future__ import print_function, division
 
 import unittest
 from libsbml import *
-from factory import *
+from multiscale.sbmlutils.factory import *
 
 class FactoryTestCase(unittest.TestCase):
 

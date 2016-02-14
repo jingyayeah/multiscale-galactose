@@ -73,7 +73,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 
-{% macro compartment_content(item) %}
+{% macro compartment_content(item, values) %}
     <td class="hidden">Compartment</td>
 	<td class="active">{{ item.id }}</td>
 	<td>{{ item.name }}</td>
@@ -146,7 +146,7 @@
 	<th scope="col">cvterm</th>
 {% endmacro %}
 
-{% macro parameter_content(item) %}
+{% macro parameter_content(item, values) %}
     <td class="hidden">Parameter</td>
 	<td class="active">{{ item.id }}</td>
 	<td>{{ item.name }}</td>

@@ -106,7 +106,8 @@ def create_html(doc, html_template='test_template.html'):
     template = env.get_template(html_template)
 
     # Context
-    c = { 'doc': doc,
+    c = {
+        'doc': doc,
         'model': model,
         'values': values,
         'units': model.getListOfUnitDefinitions(),
@@ -156,8 +157,12 @@ if __name__ == '__main__':
                        out_dir='/home/mkoenig/tmp/sbmlreport/',
                        html_template='report.html')
 
-    doc = libsbml.readSBMLFromFile('/home/mkoenig/multiscale-galactose/python/multiscalepy/multiscale/examples/models/demo/Koenig_demo_10_annotated.xml')
+    doc = libsbml.readSBMLFromFile('/home/mkoenig/git/multiscale-galactose/python/multiscalepy/multiscale/examples/models/demo/Koenig_demo_10_annotated.xml')
     create_sbml_report(doc,
                        out_dir='/home/mkoenig/tmp/sbmlreport/',
                        html_template='report.html')
 
+    doc = libsbml.readSBMLFromFile('/home/mkoenig/git/multiscale-galactose/python/multiscalepy/multiscale/examples/models/galactose/galactose_30_annotated.xml')
+    create_sbml_report(doc,
+                       out_dir='/home/mkoenig/tmp/sbmlreport/',
+                       html_template='report.html')

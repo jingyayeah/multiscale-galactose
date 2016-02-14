@@ -85,7 +85,7 @@
             </thead>
             <tbody>
             {% for item in compartments %}
-                <tr>{{ macros.compartment_content(item) }}</tr>
+                <tr>{{ macros.compartment_content(item, values) }}</tr>
             {% endfor %}
             </tbody>
         </table>
@@ -121,7 +121,7 @@
             </thead>
             <tbody>
             {% for item in parameters %}
-                <tr>{{ macros.parameter_content(item) }}</tr>
+                <tr>{{ macros.parameter_content(item, values) }}</tr>
             {% endfor %}
             </tbody>
         </table>

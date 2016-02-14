@@ -2,7 +2,7 @@ from __future__ import print_function, division
 
 import unittest
 import tempfile
-from validation import validate_sbml, check_sbml
+from multiscale.sbmlutils.validation import validate_sbml, check_sbml
 from multiscale.examples.testdata import demo_sbml, galactose_singlecell_sbml, test_sbml, vdp_sbml
 
 
@@ -10,7 +10,7 @@ class TestValidation(unittest.TestCase):
 
     def test_check_sbml(self):
         import tellurium as te
-        sbml_str = te.antimonyTosbml('''
+        sbml_str = te.antimonyToSBML('''
         model feedback()
            // Reactions:
            J0: $X0 -> S1; (VM1 * (X0 - S1/Keq1))/(1 + X0 + S1 +   S4^h);
