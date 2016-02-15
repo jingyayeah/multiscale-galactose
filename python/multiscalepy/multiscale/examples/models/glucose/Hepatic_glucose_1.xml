@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+  <model metaid="meta_70ac44940a4c40c283dc8f90a39399bc" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mmol" timeUnits="s" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mmol" fbc:strict="false">
+    <notes>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <h1>Koenig Human Glucose Metabolism</h1>
+        <h2>Description</h2>
+        <p>
+        This is a metabolism model of Human glucose metabolism in <a href="http://sbml.org">SBML</a> format.
+    </p>
+      <p>This model is described in the article:</p>
+      <div class="bibo:title">
+        <a href="http://identifiers.org/pubmed/22761565" title="Access to this publication">Quantifying the contribution of the liver to glucose homeostasis: a detailed kinetic model of human hepatic glucose metabolism.</a>
+      </div>
+      <div class="bibo:authorList">König M., Bulik S., Holzhütter HG.</div>
+      <div class="bibo:Journal">PLoS Comput Biol. 2012;8(6)</div>
+      <p>Abstract:</p>
+      <div class="bibo:abstract">
+        <p>Despite the crucial role of the liver in glucose homeostasis, a detailed mathematical model of human
+         hepatic glucose metabolism is lacking so far. Here we present a detailed kinetic model of glycolysis,
+         gluconeogenesis and glycogen metabolism in human hepatocytes integrated with the hormonal control of
+         these pathways by insulin, glucagon and epinephrine. Model simulations are in good agreement with experimental
+         data on (i) the quantitative contributions of glycolysis, gluconeogenesis, and glycogen metabolism to hepatic glucose
+         production and hepatic glucose utilization under varying physiological states. (ii) the time courses of
+         postprandial glycogen storage as well as glycogen depletion in overnight fasting and short term fasting
+         (iii) the switch from net hepatic glucose production under hypoglycemia to net hepatic glucose utilization
+         under hyperglycemia essential for glucose homeostasis (iv) hormone perturbations of hepatic glucose
+         metabolism. Response analysis reveals an extra high capacity of the liver to counteract changes of
+         plasma glucose level below 5 mM (hypoglycemia) and above 7.5 mM (hyperglycemia). Our model may serve as
+         an important module of a whole-body model of human glucose metabolism and as a valuable tool for
+         understanding the role of the liver in glucose homeostasis under normal conditions and in diseases
+         like diabetes or glycogen storage diseases.</p>
+      </div>
+      <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+      <div class="dc:publisher">This file has been produced by
+    <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div>
+    <h2>Terms of use</h2>
+    <div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div>
+    <div class="dc:license">
+      <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
+        <ol>
+        <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+        <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
+          with the distribution.</li>
+      </ol>
+        This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+        </p>
+  </div>
+</body>
+</notes><annotation>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+    <rdf:Description rdf:about="#meta_70ac44940a4c40c283dc8f90a39399bc">
+      <dc:creator>
+        <rdf:Bag>
+          <rdf:li rdf:parseType="Resource">
+            <vCard:N rdf:parseType="Resource">
+              <vCard:Family>Koenig</vCard:Family>
+              <vCard:Given>Matthias</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL>konigmatt@googlemail.com</vCard:EMAIL>
+            <vCard:ORG rdf:parseType="Resource">
+              <vCard:Orgname>Charite Berlin</vCard:Orgname>
+            </vCard:ORG>
+          </rdf:li>
+        </rdf:Bag>
+      </dc:creator>
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2016-02-15T12:57:02Z</dcterms:W3CDTF>
+      </dcterms:created>
+      <dcterms:modified rdf:parseType="Resource">
+        <dcterms:W3CDTF>2016-02-15T12:57:02Z</dcterms:W3CDTF>
+      </dcterms:modified>
+    </rdf:Description>
+  </rdf:RDF>
+</annotation><listOfUnitDefinitions>
+  <unitDefinition id="pmol">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="-12" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mMmM">
+    <listOfUnits>
+      <unit kind="mole" exponent="2" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-6" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="s_per_min_kg">
+    <listOfUnits>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+      <unit kind="kilogram" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="kg">
+    <listOfUnits>
+      <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="pmol_per_l">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="-12" multiplier="1"/>
+      <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mmol_per_s">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mM">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="min">
+    <listOfUnits>
+      <unit kind="second" exponent="1" scale="0" multiplier="60"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m">
+    <listOfUnits>
+      <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mumol_per_min_kg">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="-6" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+      <unit kind="kilogram" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="s">
+    <listOfUnits>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="s_per_min">
+    <listOfUnits>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m2">
+    <listOfUnits>
+      <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mmol">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="per_s">
+    <listOfUnits>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+</listOfUnitDefinitions><listOfCompartments>
+  <compartment id="extern" spatialDimensions="3" units="litre" constant="false"/>
+  <compartment id="mito" name="mitochondrion" spatialDimensions="3" units="litre" constant="false"/>
+  <compartment id="cyto" name="cytosol" spatialDimensions="3" units="litre" constant="false"/>
+  <compartment id="mm" name="mitochondrial membrane" spatialDimensions="2" units="m2" constant="true"/>
+  <compartment id="pm" name="plasma membrane" spatialDimensions="2" units="m2" constant="true"/>
+</listOfCompartments><listOfSpecies>
+  <species id="gdp" name="GDP" compartment="cyto" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="h_mito" name="H+" compartment="cyto" initialConcentration="0" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="fru6p" name="fructose-6 phosphate" compartment="cyto" initialConcentration="0.05" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="acoa_mito" name="acetyl-coenzyme A" compartment="cyto" initialConcentration="0.04" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="cit_mito" name="citrate" compartment="cyto" initialConcentration="0.32" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="oaa_mito" name=" oxaloacetate" compartment="cyto" initialConcentration="0.01" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="glyglc" name="glycogen" compartment="cyto" initialConcentration="250" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="pyr_mito" name="pyruvate" compartment="cyto" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="co2_mito" name="CO2" compartment="cyto" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="atp_mito" name="ATP" compartment="cyto" initialConcentration="2.8" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="pp" name="pyrophosphate" compartment="cyto" initialConcentration="0.008" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="co2" name="CO2" compartment="cyto" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="fru26bp" name="fructose-2,6 bisphosphate" compartment="cyto" initialConcentration="0.004" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="udpglc" name="UDP-glucose" compartment="cyto" initialConcentration="0.38" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="adp" name="ADP" compartment="cyto" initialConcentration="0.8" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="glc_ext" name="glucose" compartment="cyto" initialConcentration="3" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="bpg13" name="1,3-bisphospho-glycerate" compartment="cyto" initialConcentration="0.3" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="h2o" name="H2O" compartment="cyto" initialConcentration="0" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="glc1p" name="glucose-1 phosphate" compartment="cyto" initialConcentration="0.012" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="gdp_mito" name="GDP" compartment="cyto" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="gtp" name="GTP" compartment="cyto" initialConcentration="0.29" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="dhap" name="dihydroxyacetone phosphate" compartment="cyto" initialConcentration="0.03" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="phos_mito" name="phosphate" compartment="cyto" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="pyr" name="pyruvate" compartment="cyto" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="fru16bp" name="fructose-1,6 bisphosphate" compartment="cyto" initialConcentration="0.02" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="h2o_mito" name="H20" compartment="cyto" initialConcentration="0" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="udp" name="UDP" compartment="cyto" initialConcentration="0.09" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="nadh" name="NADH" compartment="cyto" initialConcentration="0.00056" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="nadh_mito" name="NADH" compartment="cyto" initialConcentration="0.24" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="lac" name="lactate" compartment="cyto" initialConcentration="0.5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="pg2" name="2-phosphoglycerate" compartment="cyto" initialConcentration="0.03" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="pg3" name="3-phosphoglycerate" compartment="cyto" initialConcentration="0.27" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="amp" name="AMP" compartment="cyto" initialConcentration="0.16" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="glc6p" name="glucose-6 phosphate" compartment="cyto" initialConcentration="0.12" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="phos" name="phosphate" compartment="cyto" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="pep" name="phosphoenolpyruvate" compartment="cyto" initialConcentration="0.15" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="nad" name="NAD+" compartment="cyto" initialConcentration="1.22" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="grap" name="glyceraldehyde 3-phosphate" compartment="cyto" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="h" name="H+" compartment="cyto" initialConcentration="0" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="glc" name="glucose" compartment="cyto" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="coa_mito" name="coenzyme A" compartment="cyto" initialConcentration="0.055" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="nad_mito" name="NAD+" compartment="cyto" initialConcentration="0.98" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="adp_mito" name="ADP" compartment="cyto" initialConcentration="0.8" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="utp" name="UTP" compartment="cyto" initialConcentration="0.27" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="pep_mito" name="phosphoenolpyruvate" compartment="cyto" initialConcentration="0.15" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="atp" name="ATP" compartment="cyto" initialConcentration="2.8" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="oaa" name="oxaloacetate" compartment="cyto" initialConcentration="0.01" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="lac_ext" name="lactate" compartment="cyto" initialConcentration="1.2" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="gtp_mito" name="GTP" compartment="cyto" initialConcentration="0.29" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+</listOfSpecies><listOfParameters>
+  <parameter id="x_epi3" value="3.1" units="mM" constant="true"/>
+  <parameter id="K_val" value="0.1" units="dimensionless" constant="true"/>
+  <parameter id="x_glu4" value="6.4" units="dimensionless" constant="true"/>
+  <parameter id="x_epi1" value="6090" units="pmol_per_l" constant="true"/>
+  <parameter id="epi_f" value="0.8" units="dimensionless" constant="true"/>
+  <parameter id="f_ext" name="external volume factor" value="10" units="dimensionless" constant="true"/>
+  <parameter id="fliver" name="parenchymal fraction liver" value="0.583333333333334" units="dimensionless" constant="true"/>
+  <parameter id="sec_per_min" name="conversion" value="60" units="s_per_min" constant="true"/>
+  <parameter id="x_ins1" value="818.9" units="pmol_per_l" constant="true"/>
+  <parameter id="x_ins3" value="8.6" units="mM" constant="true"/>
+  <parameter id="x_ins2" value="0" units="pmol_per_l" constant="true"/>
+  <parameter id="x_glu3" value="3.01" units="mM" constant="true"/>
+  <parameter id="x_ins4" value="4.2" units="dimensionless" constant="true"/>
+  <parameter id="x_glu1" value="190" units="pmol_per_l" constant="true"/>
+  <parameter id="V_cyto" name="cytosolic volume" value="1" units="litre" constant="true"/>
+  <parameter id="x_epi4" value="8.4" units="dimensionless" constant="true"/>
+  <parameter id="f_mito" name="mitochondrial volume factor" value="0.2" units="dimensionless" constant="true"/>
+  <parameter id="x_epi2" value="100" units="pmol_per_l" constant="true"/>
+  <parameter id="Vliver" name="liver volume" value="1.5" units="litre" constant="true"/>
+  <parameter id="bodyweight" name="bodyweight" value="70" units="kg" constant="true"/>
+  <parameter id="x_glu2" value="37.9" units="pmol_per_l" constant="true"/>
+  <parameter id="scale_glyglc" units="dimensionless" constant="true"/>
+  <parameter id="V_mito" name="mitochondrial volume" units="litre" constant="true"/>
+  <parameter id="conversion_factor" units="s_per_min_kg" constant="true"/>
+  <parameter id="scale_gly" units="dimensionless" constant="true"/>
+  <parameter id="scale" units="dimensionless" constant="true"/>
+  <parameter id="V_ext" name="external volume" units="litre" constant="true"/>
+  <parameter id="K_glu" units="pmol_per_l" constant="false"/>
+  <parameter id="gtp_tot" units="mM" constant="false"/>
+  <parameter id="atp_mito_tot" units="mM" constant="false"/>
+  <parameter id="atp_tot" units="mM" constant="false"/>
+  <parameter id="K_epi" units="pmol_per_l" constant="false"/>
+  <parameter id="utp_tot" units="mM" constant="false"/>
+  <parameter id="nadh_tot" units="mM" constant="false"/>
+  <parameter id="K_ins" units="pmol_per_l" constant="false"/>
+  <parameter id="epi" units="pmol_per_l" constant="false"/>
+  <parameter id="gtp_mito_tot" units="mM" constant="false"/>
+  <parameter id="ins" units="pmol_per_l" constant="false"/>
+  <parameter id="glu" units="pmol_per_l" constant="false"/>
+  <parameter id="nadh_mito_tot" units="mM" constant="false"/>
+</listOfParameters><listOfInitialAssignments>
+  <initialAssignment symbol="scale_glyglc">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> scale </ci>
+    </math>
+  </initialAssignment>
+  <initialAssignment symbol="V_mito">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> f_mito </ci>
+        <ci> V_cyto </ci>
+      </apply>
+    </math>
+  </initialAssignment>
+  <initialAssignment symbol="conversion_factor">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> fliver </ci>
+              <ci> Vliver </ci>
+            </apply>
+            <ci> V_cyto </ci>
+          </apply>
+          <ci> sec_per_min </ci>
+          <cn sbml:units="dimensionless" type="e-notation"> 1 <sep/> 3 </cn>
+        </apply>
+        <ci> bodyweight </ci>
+      </apply>
+    </math>
+  </initialAssignment>
+  <initialAssignment symbol="scale_gly">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> scale </ci>
+    </math>
+  </initialAssignment>
+  <initialAssignment symbol="scale">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <divide/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <cn sbml:units="dimensionless" type="integer"> 60 </cn>
+      </apply>
+    </math>
+  </initialAssignment>
+  <initialAssignment symbol="V_ext">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> f_ext </ci>
+        <ci> V_cyto </ci>
+      </apply>
+    </math>
+  </initialAssignment>
+  <initialAssignment symbol="mm">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <cn sbml:units="m2"> 1 </cn>
+    </math>
+  </initialAssignment>
+  <initialAssignment symbol="pm">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <cn sbml:units="m2"> 1 </cn>
+    </math>
+  </initialAssignment>
+</listOfInitialAssignments><listOfRules>
+  <assignmentRule variable="extern">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> V_ext </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="mito">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> V_mito </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="cyto">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> V_cyto </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="K_glu">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <ci> x_glu1 </ci>
+          <ci> x_glu2 </ci>
+        </apply>
+        <ci> K_val </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="gtp_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> gtp </ci>
+        <ci> gdp </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="atp_mito_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> atp_mito </ci>
+        <ci> adp_mito </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="atp_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> atp </ci>
+        <ci> adp </ci>
+        <ci> amp </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="K_epi">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <ci> x_epi1 </ci>
+          <ci> x_epi2 </ci>
+        </apply>
+        <ci> K_val </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="utp_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> utp </ci>
+        <ci> udp </ci>
+        <ci> udpglc </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="nadh_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> nadh </ci>
+        <ci> nad </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="K_ins">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <ci> x_ins1 </ci>
+          <ci> x_ins2 </ci>
+        </apply>
+        <ci> K_val </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="epi">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <plus/>
+        <ci> x_epi2 </ci>
+        <apply>
+          <times/>
+          <apply>
+            <minus/>
+            <ci> x_epi1 </ci>
+            <ci> x_epi2 </ci>
+          </apply>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <apply>
+                <power/>
+                <ci> glc_ext </ci>
+                <ci> x_epi4 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <apply>
+                  <power/>
+                  <ci> glc_ext </ci>
+                  <ci> x_epi4 </ci>
+                </apply>
+                <apply>
+                  <power/>
+                  <ci> x_epi3 </ci>
+                  <ci> x_epi4 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="gtp_mito_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> gtp_mito </ci>
+        <ci> gdp_mito </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="ins">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> x_ins2 </ci>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <apply>
+              <minus/>
+              <ci> x_ins1 </ci>
+              <ci> x_ins2 </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> glc_ext </ci>
+              <ci> x_ins4 </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> glc_ext </ci>
+              <ci> x_ins4 </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> x_ins3 </ci>
+              <ci> x_ins4 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="glu">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <plus/>
+        <ci> x_glu2 </ci>
+        <apply>
+          <times/>
+          <apply>
+            <minus/>
+            <ci> x_glu1 </ci>
+            <ci> x_glu2 </ci>
+          </apply>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <apply>
+                <power/>
+                <ci> glc_ext </ci>
+                <ci> x_glu4 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <apply>
+                  <power/>
+                  <ci> glc_ext </ci>
+                  <ci> x_glu4 </ci>
+                </apply>
+                <apply>
+                  <power/>
+                  <ci> x_glu3 </ci>
+                  <ci> x_glu4 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="nadh_mito_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> nadh_mito </ci>
+        <ci> nad_mito </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+</listOfRules>
+</model>
+</sbml>

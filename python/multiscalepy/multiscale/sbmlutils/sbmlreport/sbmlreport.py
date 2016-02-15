@@ -25,11 +25,12 @@ from __future__ import print_function, division
 import codecs
 import os
 import shutil
-import jinja2
-from jinja2 import Environment, FileSystemLoader
-import libsbml
-import sbmlfilters
 import sys
+
+import libsbml
+from jinja2 import Environment, FileSystemLoader
+
+import sbmlfilters
 
 # Change default encoding to UTF-8
 # We need to reload sys module first, because setdefaultencoding is available only at startup time
@@ -143,6 +144,7 @@ def create_value_dictionary(model):
 # Create report
 #################################################################################################
 if __name__ == '__main__':
+
     import antimony
     antimony.loadAntimonyString("""
     model test
@@ -150,6 +152,7 @@ if __name__ == '__main__':
         S1 = 10.0; S2 = 0; k1=1.0;
     end
     """)
+    """
     sbml_str = antimony.getSBMLString('test')
     doc = libsbml.readSBMLFromString(sbml_str)
 
@@ -165,4 +168,13 @@ if __name__ == '__main__':
     doc = libsbml.readSBMLFromFile('/home/mkoenig/git/multiscale-galactose/python/multiscalepy/multiscale/examples/models/galactose/galactose_30_annotated.xml')
     create_sbml_report(doc,
                        out_dir='/home/mkoenig/tmp/sbmlreport/',
+                       html_template='report.html')
+    """
+
+    # glucose model
+    glucose_dir = '/home/mkoenig/git/multiscale-galactose/python/multiscalepy/multiscale/examples/models/glucose/'
+    sbml_path = os.path.join(glucose_dir, 'Hepatic_glucose_1.xml')
+    doc = libsbml.readSBMLFromFile(sbml_path)
+    create_sbml_report(doc,
+                       out_dir=glucose_dir,
                        html_template='report.html')

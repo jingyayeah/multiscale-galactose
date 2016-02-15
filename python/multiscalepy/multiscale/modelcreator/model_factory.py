@@ -152,13 +152,18 @@ def create_glucose():
     directory = os.path.join(test_dir, 'models', 'glucose')
     model_info = ['multiscale.modelcreator.models.glucose']
     f_annotations = os.path.join(directory, 'glucose_annotations.csv')
+
+    # TODO: update the annotations (full information)
+    f_annotations = None
     return create_model(directory, model_info, f_annotations)
 
 
 if __name__ == "__main__":
+    """
     [cell_dict, cell_model] = create_demo()
     [cell_dict, cell_model] = create_test()
     [cell_dict, cell_model] = create_galactose()
+    """
     [cell_dict, cell_model] = create_glucose()
     
 

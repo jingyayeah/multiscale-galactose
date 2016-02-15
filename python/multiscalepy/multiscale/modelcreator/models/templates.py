@@ -1,3 +1,4 @@
+# -*- coding=utf-8 -*-
 
 # id : ('FamilyName', 'GivenName', 'Email', 'Organization')
 mkoenig = {'mk': ('Koenig', 'Matthias', 'konigmatt@googlemail.com', 'Charite Berlin')}
@@ -8,7 +9,7 @@ terms_of_use = """
     <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div>
 
     <h2>Terms of use</h2>
-    <div class="dc:rightsHolder">Copyright © 2015 Matthias Koenig.</div>
+    <div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div>
     <div class="dc:license">
         <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
         <ol>

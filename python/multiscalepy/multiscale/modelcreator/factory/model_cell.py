@@ -161,6 +161,7 @@ class CellModel(object):
         check(self.model.setName(self.model_id), 'set name')
         # notes
         check(self.model.setNotes(self.notes), 'set notes')
+        print(self.notes)
         # history
         annotation.set_model_history(self.model, self.creators)
 

@@ -1,0 +1,4729 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="SBML report">
+    <meta name="author" content="Matthias Koenig">
+    <!-- <meta http-equiv="refresh" content="5" /> -->
+
+    <link rel="icon" href="_report/images/sbml.ico">
+    <title>Hepatic_glucose_1</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="_report/css/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" href="_report/css/dataTables.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="_report/css/dashboard.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="_report/css/report.css"/>
+
+    <!-- JS -->
+    <script type="text/javascript" language="javascript" src="_report/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" language="javascript" src="_report/js/bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="_report/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="_report/js/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      MathML: {
+        extensions: ["content-mathml.js"]
+      }
+    });
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $.extend( $.fn.dataTable.defaults, {
+                "searching": true,
+                "ordering": true
+            } );
+
+
+            var t_functions = $('#table_functions').dataTable({
+                "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_functions.fnFilter($(this).val());
+            });
+
+            var t_units = $('#table_units').dataTable({
+                "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_units.fnFilter($(this).val());
+            });
+
+            var t_compartments = $('#table_compartments').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_compartments.fnFilter($(this).val());
+            });
+
+            var t_species = $('#table_species').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_species.fnFilter($(this).val());
+            });
+
+            var t_parameters = $('#table_parameters').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_parameters.fnFilter($(this).val());
+            });
+
+            var t_assignments = $('#table_assignments').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_assignments.fnFilter($(this).val());
+            });
+
+            var t_rules = $('#table_rules').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_rules.fnFilter($(this).val());
+            });
+
+            var t_constraints = $('#table_constraints').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_constraints.fnFilter($(this).val());
+            });
+
+            var t_reactions = $('#table_reactions').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_reactions.fnFilter($(this).val());
+            });
+
+            var t_events = $('#table_events').dataTable({
+               "bPaginate": false,
+                "bInfo": false,
+                "dom": '<"top">rt<"bottom"><"clear">'
+            });
+            $('#searchField').keyup(function(){
+                t_events.fnFilter($(this).val());
+            });
+
+            $('#searchField').val('');
+            $('#searchField').focus();
+
+        });
+    </script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#top">Hepatic_glucose_1</a>
+        </div>
+
+        <form class="navbar-form navbar-left">
+            <input id="searchField" type="text" class="form-control" placeholder="Search...">
+        </form>
+    </div>
+</nav>
+
+<!-- CONTAINER -->
+<div class="container-fluid">
+    <!-- ROW -->
+    <div class="row">
+        <!-- LEFT -->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="#top">Model</a></li>
+                    <li><a href="#UnitDefinitions">UnitDefinitions</a></li>
+                    <li><a href="#Compartments">Compartments</a></li>
+                    <li><a href="#Species">Species</a></li>
+                    <li><a href="#Parameters">Parameters</a></li>
+                    <li><a href="#InitialAssignments">InitialAssignments</a></li>
+                    <li><a href="#Rules">Rules</a></li>
+            </ul>
+        </div>
+        <!-- END LEFT -->
+
+        <!-- RIGHT -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+            <!-- CONTENT -->
+            <div class="content">
+    <!--------------------------------------------------->
+    <!-- Model                                         -->
+    <!--------------------------------------------------->
+    <a class="anchor" id="Model"></a>
+
+
+                <notes>
+  <body xmlns="http://www.w3.org/1999/xhtml">
+    <h1>Koenig Human Glucose Metabolism</h1>
+    <h2>Description</h2>
+    <p>
+        This is a metabolism model of Human glucose metabolism in <a href="http://sbml.org">SBML</a> format.
+    </p>
+  <p>This model is described in the article:</p>
+  <div class="bibo:title">
+    <a href="http://identifiers.org/pubmed/22761565" title="Access to this publication">Quantifying the contribution of the liver to glucose homeostasis: a detailed kinetic model of human hepatic glucose metabolism.</a>
+  </div>
+  <div class="bibo:authorList">König M., Bulik S., Holzhütter HG.</div>
+  <div class="bibo:Journal">PLoS Comput Biol. 2012;8(6)</div>
+  <p>Abstract:</p>
+  <div class="bibo:abstract">
+    <p>Despite the crucial role of the liver in glucose homeostasis, a detailed mathematical model of human
+         hepatic glucose metabolism is lacking so far. Here we present a detailed kinetic model of glycolysis,
+         gluconeogenesis and glycogen metabolism in human hepatocytes integrated with the hormonal control of
+         these pathways by insulin, glucagon and epinephrine. Model simulations are in good agreement with experimental
+         data on (i) the quantitative contributions of glycolysis, gluconeogenesis, and glycogen metabolism to hepatic glucose
+         production and hepatic glucose utilization under varying physiological states. (ii) the time courses of
+         postprandial glycogen storage as well as glycogen depletion in overnight fasting and short term fasting
+         (iii) the switch from net hepatic glucose production under hypoglycemia to net hepatic glucose utilization
+         under hyperglycemia essential for glucose homeostasis (iv) hormone perturbations of hepatic glucose
+         metabolism. Response analysis reveals an extra high capacity of the liver to counteract changes of
+         plasma glucose level below 5 mM (hypoglycemia) and above 7.5 mM (hyperglycemia). Our model may serve as
+         an important module of a whole-body model of human glucose metabolism and as a valuable tool for
+         understanding the role of the liver in glucose homeostasis under normal conditions and in diseases
+         like diabetes or glycogen storage diseases.</p>
+  </div>
+  <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+  <div class="dc:publisher">This file has been produced by
+    <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div><h2>Terms of use</h2><div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div><div class="dc:license">
+  <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
+        <ol>
+    <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+    <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
+          with the distribution.</li>
+  </ol>
+        This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+        </p>
+</div>
+</body>
+</notes>
+
+        <hr />
+
+    <h1>Model : Hepatic_glucose_1</h1>
+    <b>Creator</b><br />Matthias, Koenig, Charite Berlin, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-15 12:57<br /><b>Modified:</b> 2016-02-15 12:57<br /><br />
+    <table id="table_model_annotation" class="table table-condensed table-nonfluid">
+        <tr>
+            <td>
+                <a href="Hepatic_glucose_1.xml" target="_blank"><img src="_report/images/sbml.png" height="20" alt="SBML model" title="SBML model"/> </a><br /><br />
+                        -
+<br />
+                        
+
+            </td>
+            <td>
+                <table id="table_model" class="table table-condensed table-nonfluid">
+                <tbody>
+                <tr>	<tr><td class="active">id</td><td>Hepatic_glucose_1</td></tr>
+	<tr><td class="active">name</td><td>Hepatic_glucose_1</td></tr>
+	<tr><td class="active">version</td><td>L3V1</td></tr>
+	<tr><td class="active">time</td><td>s</td></tr>
+	<tr><td class="active">substance</td><td>mmol</td></tr>
+	<tr><td class="active">extent</td><td>mmol</td></tr>
+	<tr><td class="active">volume</td><td>litre</td></tr>
+	<tr><td class="active">area</td><td>m2</td></tr>
+	<tr><td class="active">length</td><td>m</td></tr>
+</tr>
+                </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!--------------------------------------------------->
+    <!-- FunctionDefinitions -->
+    <!--------------------------------------------------->
+
+    <!--------------------------------------------------->
+    <!-- UnitDefinitions -->
+    <!--------------------------------------------------->
+        <a class="anchor" id="UnitDefinitions"></a>
+        <table id="table_units" class="table table-condensed table-nonfluid">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">UnitDefinitions [15]</th>
+	<th scope="col">name</th>
+	<th scope="col">units</th>
+	<th scope="col">sbo</th>
+	<th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">pmol</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> mole </ci>
+    </apply>
+    <cn type="integer"> 1 </cn>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">mMmM</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> mole </ci>
+      <cn type="integer"> 2 </cn>
+    </apply>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 6 </cn>
+    </apply>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">s_per_min_kg</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> s </ci>
+      <ci> kg </ci>
+    </apply>
+    <cn> 60 </cn>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">kg</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> kg </ci>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">pmol_per_l</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">mmol_per_s</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">mM</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">min</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <cn> 60 </cn>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">m</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> m </ci>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">mumol_per_min_kg</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <power/>
+        <apply>
+          <times/>
+          <apply>
+            <power/>
+            <cn type="integer"> 10 </cn>
+            <apply>
+              <minus/>
+              <cn type="integer"> 6 </cn>
+            </apply>
+          </apply>
+          <ci> mole </ci>
+        </apply>
+        <cn type="integer"> 1 </cn>
+      </apply>
+      <ci> kg </ci>
+    </apply>
+    <cn> 60 </cn>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">s</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> s </ci>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">s_per_min</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> s </ci>
+      <cn> 60 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">m2</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">mmol</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> mole </ci>
+    </apply>
+    <cn type="integer"> 1 </cn>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">per_s</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <cn type="integer"> 1 </cn>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
+
+    <!--------------------------------------------------->
+    <!-- Compartments -->
+    <!--------------------------------------------------->
+        <a class="anchor" id="Compartments"></a>
+        <table id="table_compartments" class="table table-condensed table-nonfluid">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Compartments [5]</th>
+	<th scope="col">name</th>
+	<th scope="col">size</th>
+	<th scope="col">constant</th>
+	<th scope="col">spatial dimensions</th>
+	<th scope="col">unit</th>
+	<th scope="col">derived unit</th>
+	<th scope="col">sbo</th>
+	<th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">Compartment</td>
+	<td class="active">extern</td>
+	<td></td>
+	<td>             = V_ext
+    </td>
+	<td class="danger">False</td>
+	<td>3</td>
+	<td>litre</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Compartment</td>
+	<td class="active">mito</td>
+	<td>mitochondrion</td>
+	<td>             = V_mito
+    </td>
+	<td class="danger">False</td>
+	<td>3</td>
+	<td>litre</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Compartment</td>
+	<td class="active">cyto</td>
+	<td>cytosol</td>
+	<td>             = V_cyto
+    </td>
+	<td class="danger">False</td>
+	<td>3</td>
+	<td>litre</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Compartment</td>
+	<td class="active">mm</td>
+	<td>mitochondrial membrane</td>
+	<td>             = 1
+    </td>
+	<td class="success">True</td>
+	<td>2</td>
+	<td>m2</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Compartment</td>
+	<td class="active">pm</td>
+	<td>plasma membrane</td>
+	<td>             = 1
+    </td>
+	<td class="success">True</td>
+	<td>2</td>
+	<td>m2</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
+
+    <!--------------------------------------------------->
+    <!-- Species -->
+    <!--------------------------------------------------->
+        <a class="anchor" id="Species"></a>
+        <table id="table_species" class="table table-condensed table-nonfluid">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Species [49]</th>
+	<th scope="col">name</th>
+	<th scope="col">compartment</th>
+	<th scope="col">boundary condition</th>
+	<th scope="col">constant</th>
+	<th scope="col">initial amount</th>
+	<th scope="col">initial concentration</th>
+	<th scope="col">substance units</th>
+	<th scope="col">derived units</th>
+	<th scope="col">sbo</th>
+	<th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">gdp</td>
+	<td>GDP</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.1
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">h_mito</td>
+	<td>H+</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">fru6p</td>
+	<td>fructose-6 phosphate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.05
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">acoa_mito</td>
+	<td>acetyl-coenzyme A</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.04
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">cit_mito</td>
+	<td>citrate</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.32
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">oaa_mito</td>
+	<td> oxaloacetate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.01
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">glyglc</td>
+	<td>glycogen</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            250.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">pyr_mito</td>
+	<td>pyruvate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.1
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">co2_mito</td>
+	<td>CO2</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            5.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">atp_mito</td>
+	<td>ATP</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            2.8
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">pp</td>
+	<td>pyrophosphate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.008
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">co2</td>
+	<td>CO2</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            5.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">fru26bp</td>
+	<td>fructose-2,6 bisphosphate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.004
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">udpglc</td>
+	<td>UDP-glucose</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.38
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">adp</td>
+	<td>ADP</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.8
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">glc_ext</td>
+	<td>glucose</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            3.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">bpg13</td>
+	<td>1,3-bisphospho-glycerate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.3
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">h2o</td>
+	<td>H2O</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">glc1p</td>
+	<td>glucose-1 phosphate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.012
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">gdp_mito</td>
+	<td>GDP</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.1
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">gtp</td>
+	<td>GTP</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.29
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">dhap</td>
+	<td>dihydroxyacetone phosphate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.03
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">phos_mito</td>
+	<td>phosphate</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            5.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">pyr</td>
+	<td>pyruvate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.1
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">fru16bp</td>
+	<td>fructose-1,6 bisphosphate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.02
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">h2o_mito</td>
+	<td>H20</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">udp</td>
+	<td>UDP</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.09
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">nadh</td>
+	<td>NADH</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.00056
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">nadh_mito</td>
+	<td>NADH</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.24
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">lac</td>
+	<td>lactate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.5
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">pg2</td>
+	<td>2-phosphoglycerate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.03
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">pg3</td>
+	<td>3-phosphoglycerate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.27
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">amp</td>
+	<td>AMP</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.16
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">glc6p</td>
+	<td>glucose-6 phosphate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.12
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">phos</td>
+	<td>phosphate</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            5.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">pep</td>
+	<td>phosphoenolpyruvate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.15
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">nad</td>
+	<td>NAD+</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            1.22
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">grap</td>
+	<td>glyceraldehyde 3-phosphate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.1
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">h</td>
+	<td>H+</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">glc</td>
+	<td>glucose</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            5.0
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">coa_mito</td>
+	<td>coenzyme A</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.055
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">nad_mito</td>
+	<td>NAD+</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.98
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">adp_mito</td>
+	<td>ADP</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.8
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">utp</td>
+	<td>UTP</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.27
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">pep_mito</td>
+	<td>phosphoenolpyruvate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.15
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">atp</td>
+	<td>ATP</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            2.8
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">oaa</td>
+	<td>oxaloacetate</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.01
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">lac_ext</td>
+	<td>lactate</td>
+	<td>cyto</td>
+	<td class=" success ">True</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            1.2
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">gtp_mito</td>
+	<td>GTP</td>
+	<td>cyto</td>
+	<td class="  danger  ">False</td>
+	<td class=" danger ">False</td>
+	<td>
+</td>
+	<td>
+            0.29
+    </td>
+	<td>mmol</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
+
+    <!--------------------------------------------------->
+    <!-- Parameters -->
+    <!--------------------------------------------------->
+        <a class="anchor" id="Parameters"></a>
+        <table id="table_parameters" class="table table-condensed table-nonfluid">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Parameters [40]</th>
+	<th scope="col">name</th>
+	<th scope="col">value</th>
+	<th scope="col">unit</th>
+	<th scope="col">derived unit</th>
+	<th scope="col">constant</th>
+	<th scope="col">sbo</th>
+	<th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_epi3</td>
+	<td></td>
+	<td>            3.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">K_val</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_glu4</td>
+	<td></td>
+	<td>            6.4
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_epi1</td>
+	<td></td>
+	<td>            6090.0
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">epi_f</td>
+	<td></td>
+	<td>            0.8
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">f_ext</td>
+	<td>external volume factor</td>
+	<td>            10.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">fliver</td>
+	<td>parenchymal fraction liver</td>
+	<td>            0.583333333333
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">sec_per_min</td>
+	<td>conversion</td>
+	<td>            60.0
+    </td>
+	<td>s_per_min</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> s </ci>
+      <cn> 60 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_ins1</td>
+	<td></td>
+	<td>            818.9
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_ins3</td>
+	<td></td>
+	<td>            8.6
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_ins2</td>
+	<td></td>
+	<td>            0.0
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_glu3</td>
+	<td></td>
+	<td>            3.01
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_ins4</td>
+	<td></td>
+	<td>            4.2
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_glu1</td>
+	<td></td>
+	<td>            190.0
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">V_cyto</td>
+	<td>cytosolic volume</td>
+	<td>            1.0
+    </td>
+	<td>litre</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_epi4</td>
+	<td></td>
+	<td>            8.4
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">f_mito</td>
+	<td>mitochondrial volume factor</td>
+	<td>            0.2
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_epi2</td>
+	<td></td>
+	<td>            100.0
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Vliver</td>
+	<td>liver volume</td>
+	<td>            1.5
+    </td>
+	<td>litre</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">bodyweight</td>
+	<td>bodyweight</td>
+	<td>            70.0
+    </td>
+	<td>kg</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> kg </ci>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">x_glu2</td>
+	<td></td>
+	<td>            37.9
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">scale_glyglc</td>
+	<td></td>
+	<td>             = scale
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">V_mito</td>
+	<td>mitochondrial volume</td>
+	<td>             = f_mito * V_cyto
+    </td>
+	<td>litre</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">conversion_factor</td>
+	<td></td>
+	<td>             = fliver * Vliver / V_cyto * sec_per_min * 1.000000e+03 / bodyweight
+    </td>
+	<td>s_per_min_kg</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> s </ci>
+      <ci> kg </ci>
+    </apply>
+    <cn> 60 </cn>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">scale_gly</td>
+	<td></td>
+	<td>             = scale
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">scale</td>
+	<td></td>
+	<td>             = 1 / 60
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">V_ext</td>
+	<td>external volume</td>
+	<td>             = f_ext * V_cyto
+    </td>
+	<td>litre</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td class=" success ">True</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">K_glu</td>
+	<td></td>
+	<td>             = (x_glu1 - x_glu2) * K_val
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">gtp_tot</td>
+	<td></td>
+	<td>             = gtp + gdp
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">atp_mito_tot</td>
+	<td></td>
+	<td>             = atp_mito + adp_mito
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">atp_tot</td>
+	<td></td>
+	<td>             = atp + adp + amp
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">K_epi</td>
+	<td></td>
+	<td>             = (x_epi1 - x_epi2) * K_val
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">utp_tot</td>
+	<td></td>
+	<td>             = utp + udp + udpglc
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">nadh_tot</td>
+	<td></td>
+	<td>             = nadh + nad
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">K_ins</td>
+	<td></td>
+	<td>             = (x_ins1 - x_ins2) * K_val
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">epi</td>
+	<td></td>
+	<td>             = x_epi2 + (x_epi1 - x_epi2) * (1 - pow(glc_ext, x_epi4) / (pow(glc_ext, x_epi4) + pow(x_epi3, x_epi4)))
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">gtp_mito_tot</td>
+	<td></td>
+	<td>             = gtp_mito + gdp_mito
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ins</td>
+	<td></td>
+	<td>             = x_ins2 + (x_ins1 - x_ins2) * pow(glc_ext, x_ins4) / (pow(glc_ext, x_ins4) + pow(x_ins3, x_ins4))
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">glu</td>
+	<td></td>
+	<td>             = x_glu2 + (x_glu1 - x_glu2) * (1 - pow(glc_ext, x_glu4) / (pow(glc_ext, x_glu4) + pow(x_glu3, x_glu4)))
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">nadh_mito_tot</td>
+	<td></td>
+	<td>             = nadh_mito + nad_mito
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td class=" danger ">False</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
+    
+    <!--------------------------------------------------->
+    <!-- InitialAssignments -->
+    <!--------------------------------------------------->
+        <a class="anchor" id="InitialAssignments"></a>
+        <table id="table_assignments" class="table table-condensed table-nonfluid">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">InitialAssignments [8]</th>
+	<th scope="col">&nbsp;</th>
+	<th scope="col">assignment</th>
+	<th scope="col">derived units</th>
+	<th scope="col">sbo</th>
+	<th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">scale_glyglc</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> scale </ci>
+</math>
+</td>
+	<td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">V_mito</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> f_mito </ci>
+    <ci> V_cyto </ci>
+  </apply>
+</math>
+</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">conversion_factor</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> fliver </ci>
+          <ci> Vliver </ci>
+        </apply>
+        <ci> V_cyto </ci>
+      </apply>
+      <ci> sec_per_min </ci>
+      <cn sbml:units="dimensionless" type="e-notation"> 1 <sep/> 3 </cn>
+    </apply>
+    <ci> bodyweight </ci>
+  </apply>
+</math>
+</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <cn type="integer"> 1 </cn>
+      <cn> 60 </cn>
+    </apply>
+    <ci> kg </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">scale_gly</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> scale </ci>
+</math>
+</td>
+	<td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">scale</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    <cn sbml:units="dimensionless" type="integer"> 60 </cn>
+  </apply>
+</math>
+</td>
+	<td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">V_ext</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> f_ext </ci>
+    <ci> V_cyto </ci>
+  </apply>
+</math>
+</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">mm</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <cn sbml:units="m2"> 1 </cn>
+</math>
+</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">pm</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <cn sbml:units="m2"> 1 </cn>
+</math>
+</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
+    
+    <!--------------------------------------------------->
+    <!-- Rules -->
+    <!--------------------------------------------------->
+        <a class="anchor" id="Rules"></a>
+        <table id="table_rules" class="table table-condensed table-nonfluid">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Rules []</th>
+	<th scope="col">&nbsp;</th>
+	<th scope="col">assignment</th>
+	<th scope="col">derived units</th>
+	<th scope="col">sbo</th>
+	<th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">extern</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> V_ext </ci>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">mito</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> V_mito </ci>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">cyto</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> V_cyto </ci>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> litre </ci>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">K_glu</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <minus/>
+      <ci> x_glu1 </ci>
+      <ci> x_glu2 </ci>
+    </apply>
+    <ci> K_val </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">gtp_tot</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> gtp </ci>
+    <ci> gdp </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">atp_mito_tot</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> atp_mito </ci>
+    <ci> adp_mito </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">atp_tot</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> atp </ci>
+    <ci> adp </ci>
+    <ci> amp </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">K_epi</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <minus/>
+      <ci> x_epi1 </ci>
+      <ci> x_epi2 </ci>
+    </apply>
+    <ci> K_val </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">utp_tot</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> utp </ci>
+    <ci> udp </ci>
+    <ci> udpglc </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">nadh_tot</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> nadh </ci>
+    <ci> nad </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">K_ins</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <minus/>
+      <ci> x_ins1 </ci>
+      <ci> x_ins2 </ci>
+    </apply>
+    <ci> K_val </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">epi</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <ci> x_epi2 </ci>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <ci> x_epi1 </ci>
+        <ci> x_epi2 </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <apply>
+            <power/>
+            <ci> glc_ext </ci>
+            <ci> x_epi4 </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> glc_ext </ci>
+              <ci> x_epi4 </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> x_epi3 </ci>
+              <ci> x_epi4 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">gtp_mito_tot</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> gtp_mito </ci>
+    <ci> gdp_mito </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">ins</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> x_ins2 </ci>
+    <apply>
+      <divide/>
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <ci> x_ins1 </ci>
+          <ci> x_ins2 </ci>
+        </apply>
+        <apply>
+          <power/>
+          <ci> glc_ext </ci>
+          <ci> x_ins4 </ci>
+        </apply>
+      </apply>
+      <apply>
+        <plus/>
+        <apply>
+          <power/>
+          <ci> glc_ext </ci>
+          <ci> x_ins4 </ci>
+        </apply>
+        <apply>
+          <power/>
+          <ci> x_ins3 </ci>
+          <ci> x_ins4 </ci>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">glu</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <ci> x_glu2 </ci>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <ci> x_glu1 </ci>
+        <ci> x_glu2 </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <apply>
+            <power/>
+            <ci> glc_ext </ci>
+            <ci> x_glu4 </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> glc_ext </ci>
+              <ci> x_glu4 </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> x_glu3 </ci>
+              <ci> x_glu4 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 12 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">nadh_mito_tot</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> nadh_mito </ci>
+    <ci> nad_mito </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <apply>
+        <times/>
+        <apply>
+          <power/>
+          <cn type="integer"> 10 </cn>
+          <apply>
+            <minus/>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+        <ci> mole </ci>
+      </apply>
+      <cn type="integer"> 1 </cn>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
+    
+    <!--------------------------------------------------->
+    <!-- Constraints -->
+    <!--------------------------------------------------->
+    
+    <!--------------------------------------------------->
+    <!-- Reactions -->
+    <!--------------------------------------------------->
+    
+    <!--------------------------------------------------->
+    <!-- Events -->
+    <!--------------------------------------------------->
+
+
+
+            </div>
+            <!-- END CONTENT -->
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <hr/>
+                <p>&copy; 2016 Matthias Koenig.
+                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img
+                            alt="Creative Commons License"
+                            style="border-width:0"
+                            src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"/></a><br/>This
+                    work by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.livermetabolism.com"
+                               property="cc:attributionName" rel="cc:attributionURL">Matthias Koenig</a> is licensed
+                    under a <a
+                            rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+                        Attribution-ShareAlike 4.0 International License</a>.
+                    <br/>
+                    Powered by jinja2 <a href="http://jinja.pocoo.org/docs/dev/" target="_blank"><img
+                            src="_report/images/jinja2.png" height="15" alt="jinja2"/></a> and
+                    bootstrap <a href="http://getbootstrap.com/" target="_blank"><img
+                            src="_report/images/bootstrap.png" height="15" alt="bootstrap"/></a>.
+                    Source available on <a href="https://github.com/matthiaskoenig/multiscale-galactose/"
+                                           target="_blank"><img
+                            src="_report/images/github.png" height="20" alt="GitHub"/></a>.
+                </p>
+            </div>
+            <!-- END FOOTER -->
+
+        </div>
+        <!-- END RIGHT -->
+    </div>
+    <!-- END ROW -->
+</div>
+<!-- END CONTAINER -->
+
+</body>
+</html>

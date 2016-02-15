@@ -20,9 +20,33 @@ notes = XMLNode.convertStringToXMLNode("""
     <p>
         This is a metabolism model of Human glucose metabolism in <a href="http://sbml.org">SBML</a> format.
     </p>
+    <p>This model is described in the article:</p>
+    <div class="bibo:title">
+        <a href="http://identifiers.org/pubmed/22761565" title="Access to this publication">Quantifying the contribution of the liver to glucose homeostasis: a detailed kinetic model of human hepatic glucose metabolism.</a>
+    </div>
+    <div class="bibo:authorList">König M., Bulik S., Holzhütter HG.</div>
+    <div class="bibo:Journal">PLoS Comput Biol. 2012;8(6)</div>
+    <p>Abstract:</p>
+    <div class="bibo:abstract">
+    <p>Despite the crucial role of the liver in glucose homeostasis, a detailed mathematical model of human
+         hepatic glucose metabolism is lacking so far. Here we present a detailed kinetic model of glycolysis,
+         gluconeogenesis and glycogen metabolism in human hepatocytes integrated with the hormonal control of
+         these pathways by insulin, glucagon and epinephrine. Model simulations are in good agreement with experimental
+         data on (i) the quantitative contributions of glycolysis, gluconeogenesis, and glycogen metabolism to hepatic glucose
+         production and hepatic glucose utilization under varying physiological states. (ii) the time courses of
+         postprandial glycogen storage as well as glycogen depletion in overnight fasting and short term fasting
+         (iii) the switch from net hepatic glucose production under hypoglycemia to net hepatic glucose utilization
+         under hyperglycemia essential for glucose homeostasis (iv) hormone perturbations of hepatic glucose
+         metabolism. Response analysis reveals an extra high capacity of the liver to counteract changes of
+         plasma glucose level below 5 mM (hypoglycemia) and above 7.5 mM (hyperglycemia). Our model may serve as
+         an important module of a whole-body model of human glucose metabolism and as a valuable tool for
+         understanding the role of the liver in glucose homeostasis under normal conditions and in diseases
+         like diabetes or glycogen storage diseases.</p>
+    </div>
     """ + terms_of_use + """
     </body>
     """)
+print(notes)
 creators = mkoenig
 main_units = {
     'time': 's',
@@ -30,7 +54,7 @@ main_units = {
     'substance': 'mmol',
     'length': 'm',
     'area': 'm2',
-    'volume': 'litre',
+    'volume': UNIT_KIND_LITRE,
 }
 units = dict()
 compartments = dict()
@@ -50,24 +74,24 @@ units.update({
     'kg': [(UNIT_KIND_KILOGRAM, 1.0)],
     'm': [(UNIT_KIND_METRE, 1.0)],
     'm2': [(UNIT_KIND_METRE, 2.0)],
-    'litre': [(UNIT_KIND_LITRE, 1.0)],
-    'per_s': [('s', -1.0)],
-    'min': [('s', 1.0, 0, 60)],
-    's_per_min': [('s', 1.0),
-                  ('min', -1.0)],
+    'per_s': [(UNIT_KIND_SECOND, -1.0)],
+    'min': [(UNIT_KIND_SECOND, 1.0, 0, 60)],
+    's_per_min': [(UNIT_KIND_SECOND, 1.0),
+                  (UNIT_KIND_SECOND, -1.0, 0, 60)],
     'mmol': [(UNIT_KIND_MOLE, 1.0, -3, 1.0)],
     'mM': [(UNIT_KIND_MOLE, 1.0),
            (UNIT_KIND_METRE, -3.0)],
-    'mMmM': [('mM', 2.0)],
-    'mmol_per_s': [('mmol', 1.0),
+    'mMmM': [(UNIT_KIND_MOLE, 2.0),
+             (UNIT_KIND_METRE, -6.0)],
+    'mmol_per_s': [(UNIT_KIND_MOLE, 1.0, -3, 1.0),
                    (UNIT_KIND_SECOND, -1.0)],
     'pmol': [(UNIT_KIND_MOLE, 1.0, -12, 1.0)],
-    'pmol_per_l': [('pmol', 1.0),
-                   ('litre', -1.0)],
+    'pmol_per_l': [(UNIT_KIND_MOLE, 1.0, -12, 1.0),
+                   (UNIT_KIND_LITRE, -1.0)],
     'mumol_per_min_kg': [(UNIT_KIND_MOLE, 1.0, -6, 1.0),
-                         ('min', -1.0), ('kg', -1.0)],
-    's_per_min_kg': [('s', 1.0),
-                     ('min', -1.0), ('kg', -1.0)],
+                         (UNIT_KIND_SECOND, -1.0, 0, 60), (UNIT_KIND_KILOGRAM, -1.0)],
+    's_per_min_kg': [(UNIT_KIND_SECOND, 1.0),
+                     (UNIT_KIND_SECOND, -1.0, 0, 60), (UNIT_KIND_KILOGRAM, -1.0)],
 })
 
 ##############################################################
@@ -83,8 +107,8 @@ compartments.update({
     'extern': (3, 'litre', False, 'V_ext'),
     'cyto': (3, 'litre', False, 'V_cyto'),
     'mito': (3, 'litre', False, 'V_mito'),
-    'pm': (2, 'm2', True, '1.0'),
-    'mm': (2, 'm2', True, '1.0'),
+    'pm': (2, 'm2', True, '1.0 m2'),
+    'mm': (2, 'm2', True, '1.0 m2'),
 })
 names.update({
     'ext': 'blood',
@@ -216,7 +240,7 @@ parameters.update({
     # id: ('value', 'unit', 'constant')
     'V_cyto': (1.0, 'litre', True),
     'f_ext': (10.0, 'dimensionless', True),
-    'V_cyto': (0.2, 'dimensionless', True),
+    'f_mito': (0.2, 'dimensionless', True),
     'Vliver': (1.5, 'litre', True),
     'fliver': (0.583333333333334, 'dimensionless', True),
     'bodyweight': (70, 'kg', True),
@@ -276,31 +300,18 @@ names.update({
 ##############################################################
 rules.update({
     # id: ('value', 'unit')
+
     # hormonal regulation
     'ins': ('x_ins2 + (x_ins1-x_ins2) * glc_ext^x_ins4/(glc_ext^x_ins4 + x_ins3^x_ins4)', 'pmol_per_l'),
-    'ins_norm': ('maximum(0.0 pmol_per_l, ins-x_ins2)', 'pmol_per_l'),
-    'glu': ('', 'pmol_per_l'),
-    'glu_norm': ('', 'pmol_per_l'),
-
-  glu := x_glu2 + (x_glu1-x_glu2)*(1 dimensionless - glc_ext^x_glu4/(glc_ext^x_glu4 + x_glu3^x_glu4));
-  glu_norm := maximum(0.0 pmol_per_l, glu-x_glu2);
-  glu has pmol_per_l;
-  glu_norm has pmol_per_l;
-
-  epi := x_epi2 + (x_epi1-x_epi2) * (1 dimensionless - glc_ext^x_epi4/(glc_ext^x_epi4 + x_epi3^x_epi4));
-  epi_norm := maximum(0.0 pmol_per_l, epi-x_epi2);
-  epi has pmol_per_l;
-  epi_norm has pmol_per_l;
-
-K_ins = (x_ins1-x_ins2) * K_val;
-  K_glu = (x_glu1-x_glu2) * K_val;
-  K_epi = (x_epi1-x_epi2) * K_val;
-  K_ins has pmol_per_l;
-  K_glu has pmol_per_l;
-  K_epi has pmol_per_l;
-  gamma := 0.5 dimensionless * (1 dimensionless - ins_norm/(ins_norm+K_ins) + maximum(glu_norm/(glu_norm+K_glu), epi_f*epi_norm/(epi_norm+K_epi)) );
-  gamma has dimensionless;
-
+    # 'ins_norm': ('maximum(0.0 pmol_per_l, ins-x_ins2)', 'pmol_per_l'),
+    'glu': ('x_glu2 + (x_glu1-x_glu2)*(1 dimensionless - glc_ext^x_glu4/(glc_ext^x_glu4 + x_glu3^x_glu4))', 'pmol_per_l'),
+    # 'glu_norm': ('maximum(0.0 pmol_per_l, glu-x_glu2)', 'pmol_per_l'),
+    'epi': ('x_epi2 + (x_epi1-x_epi2) * (1 dimensionless - glc_ext^x_epi4/(glc_ext^x_epi4 + x_epi3^x_epi4))', 'pmol_per_l'),
+    # 'epi_norm': ('maximum(0.0 pmol_per_l, epi-x_epi2)', 'pmol_per_l'),
+    'K_ins': ('(x_ins1-x_ins2) * K_val', 'pmol_per_l'),
+    'K_glu': ('(x_glu1-x_glu2) * K_val', 'pmol_per_l'),
+    'K_epi': ('(x_epi1-x_epi2) * K_val', 'pmol_per_l'),
+    # 'gamma': ('0.5 dimensionless * (1 dimensionless - ins_norm/(ins_norm+K_ins) + maximum(glu_norm/(glu_norm+K_glu), epi_f*epi_norm/(epi_norm+K_epi))', 'dimensionless'),
 
     # balance rules
     'nadh_tot': ('nadh + nad', 'mM'),
