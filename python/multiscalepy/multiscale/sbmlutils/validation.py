@@ -35,22 +35,13 @@ def check_sbml(sbml):
     :type sbml: file | str
     :return: number of errors
     """
-    filename = sbml
-    if isinstance(sbml, str):
-        import tempfile
-        f = tempfile.NamedTemporaryFile('w', suffix='.xml')
-        f.write(sbml)
-        f.flush()
-        filename = f.name
 
     current = time.clock()
-    doc = libsbml.readSBML(filename)
+    doc = libsbml.readSBML(sbml)
     doc.checkConsistency()
     Nerrors = doc.getNumErrors()
 
     print()
-    print(" filename: " + filename)
-    print(" file size: " + str(os.stat(filename).st_size))
     print(" read time (ms): " + str(time.clock() - current))
     print(" validation error(s): " + str(Nerrors))
     print()

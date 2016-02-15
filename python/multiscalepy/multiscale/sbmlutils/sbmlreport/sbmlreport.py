@@ -54,7 +54,7 @@ def copy_directory(src, dest):
         print('Directory not copied. Error: %s' % e)
 
 
-def create_sbml_report(doc, out_dir, html_template='report_base.html'):
+def create_sbml_report(sbml, out_dir, template='report.html'):
     """ Creates the SBML report in the out_dir
 
     :param doc:
@@ -64,14 +64,16 @@ def create_sbml_report(doc, out_dir, html_template='report_base.html'):
     :return:
     :rtype:
     """
+
     # write sbml
+    doc = libsbml.readSBML(sbml)
     model = doc.getModel()
     mid = model.id
     f_sbml = os.path.join(out_dir, '{}.xml'.format(mid))
     libsbml.writeSBMLToFile(doc, f_sbml)
 
     # write html (unicode)
-    html = create_html(doc, html_template=html_template)
+    html = create_html(doc, html_template=template)
     f_html = codecs.open(os.path.join(out_dir, '{}.html'.format(mid)),
                          encoding='utf-8', mode='w')
     f_html.write(html)
@@ -170,11 +172,3 @@ if __name__ == '__main__':
                        out_dir='/home/mkoenig/tmp/sbmlreport/',
                        html_template='report.html')
     """
-
-    # glucose model
-    glucose_dir = '/home/mkoenig/git/multiscale-galactose/python/multiscalepy/multiscale/examples/models/glucose/'
-    sbml_path = os.path.join(glucose_dir, 'Hepatic_glucose_1.xml')
-    doc = libsbml.readSBMLFromFile(sbml_path)
-    create_sbml_report(doc,
-                       out_dir=glucose_dir,
-                       html_template='report.html')

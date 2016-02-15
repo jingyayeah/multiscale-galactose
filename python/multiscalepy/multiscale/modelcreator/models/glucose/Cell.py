@@ -104,7 +104,7 @@ units.update({
 ##############################################################
 compartments.update({
     # id : ('spatialDimension', 'unit', 'constant', 'assignment')
-    'extern': (3, 'litre', False, 'V_ext'),
+    'ext': (3, 'litre', False, 'V_ext'),
     'cyto': (3, 'litre', False, 'V_cyto'),
     'mito': (3, 'litre', False, 'V_mito'),
     'pm': (2, 'm2', True, '1.0 m2'),
@@ -156,26 +156,26 @@ species.update({
     'oaa': ('cyto', 0.0100, 'mM', False),
     'lac': ('cyto', 0.5000, 'mM', False),
 
-    'glc_ext': ('cyto', 3.0000, 'mM', True),
-    'lac_ext': ('cyto', 1.2000, 'mM', True),
+    'glc_ext': ('ext', 3.0000, 'mM', True),
+    'lac_ext': ('ext', 1.2000, 'mM', True),
 
-    'co2_mito': ('cyto', 5.0000, 'mM', True),
-    'phos_mito': ('cyto', 5.0000, 'mM', True),
-    'oaa_mito': ('cyto', 0.0100, 'mM', False),
-    'pep_mito': ('cyto', 0.1500, 'mM', False),
-    'acoa_mito': ('cyto', 0.0400, 'mM', True),
-    'pyr_mito': ('cyto', 0.1000, 'mM', False),
-    'cit_mito': ('cyto', 0.3200, 'mM', True),
+    'co2_mito': ('mito', 5.0000, 'mM', True),
+    'phos_mito': ('mito', 5.0000, 'mM', True),
+    'oaa_mito': ('mito', 0.0100, 'mM', False),
+    'pep_mito': ('mito', 0.1500, 'mM', False),
+    'acoa_mito': ('mito', 0.0400, 'mM', True),
+    'pyr_mito': ('mito', 0.1000, 'mM', False),
+    'cit_mito': ('mito', 0.3200, 'mM', True),
 
-    'atp_mito': ('cyto', 2.8000, 'mM', True),
-    'adp_mito': ('cyto', 0.8000, 'mM', True),
-    'gtp_mito': ('cyto', 0.2900, 'mM', False),
-    'gdp_mito': ('cyto', 0.1000, 'mM', False),
-    'coa_mito': ('cyto', 0.0550, 'mM', True),
-    'nadh_mito': ('cyto', 0.2400, 'mM', True),
-    'nad_mito': ('cyto', 0.9800, 'mM', True),
-    'h2o_mito': ('cyto', 0.0, 'mM', True),
-    'h_mito': ('cyto', 0.0, 'mM', True),
+    'atp_mito': ('mito', 2.8000, 'mM', True),
+    'adp_mito': ('mito', 0.8000, 'mM', True),
+    'gtp_mito': ('mito', 0.2900, 'mM', False),
+    'gdp_mito': ('mito', 0.1000, 'mM', False),
+    'coa_mito': ('mito', 0.0550, 'mM', True),
+    'nadh_mito': ('mito', 0.2400, 'mM', True),
+    'nad_mito': ('mito', 0.9800, 'mM', True),
+    'h2o_mito': ('mito', 0.0, 'mM', True),
+    'h_mito': ('mito', 0.0, 'mM', True),
 })
 names.update({
     'atp': 'ATP',

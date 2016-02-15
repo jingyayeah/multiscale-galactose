@@ -8,10 +8,14 @@ from __future__ import print_function, division
 
 import os
 
-import multiscale.multiscalesite.simapp.db.api as db_api
+import libsbml
+# import multiscale.multiscalesite.simapp.db.api as db_api
+
+
 from multiscale.modelcreator.factory.model_cell import CellModel
 from multiscale.sbmlutils.annotation import annotate_sbml_file
 from multiscale.sbmlutils.validation import validate_sbml
+from multiscale.sbmlutils.sbmlreport import sbmlreport
 
 from multiscale.examples.testdata import test_dir
 
@@ -110,16 +114,19 @@ def create_model(directory, model_info=[], f_annotations=None):
     cell_model.write_sbml(f_sbml)
     f_model = f_sbml
 
+    # annotate
     if f_annotations is not None:
         f_sbml_annotated = os.path.join(directory, '{}_annotated.xml'.format(cell_model.model_id))
         annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
         validate_sbml(f_sbml_annotated)
         f_model = f_sbml_annotated
 
-    # add model to database
-    db_api.create_model(f_model, model_format=db_api.CompModelFormat.SBML)
+    # create report
+    sbmlreport.create_sbml_report(sbml=f_sbml, out_dir=directory)
 
-    # TODO: create model report (HTML)
+    # add model to database
+    # db_api.create_model(f_model, model_format=db_api.CompModelFormat.SBML)
+
     return [cell_dict, cell_model]
 
 

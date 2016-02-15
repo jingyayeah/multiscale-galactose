@@ -241,7 +241,7 @@
         <hr />
 
     <h1>Model : Hepatic_glucose_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Charite Berlin, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-15 12:57<br /><b>Modified:</b> 2016-02-15 12:57<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Charite Berlin, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-15 18:02<br /><b>Modified:</b> 2016-02-15 18:02<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid">
         <tr>
             <td>
@@ -295,20 +295,16 @@
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <power/>
+    <times/>
     <apply>
-      <times/>
+      <power/>
+      <cn type="integer"> 10 </cn>
       <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 12 </cn>
-        </apply>
+        <minus/>
+        <cn type="integer"> 12 </cn>
       </apply>
-      <ci> mole </ci>
     </apply>
-    <cn type="integer"> 1 </cn>
+    <ci> mole </ci>
   </apply>
 </math></td>
 	<td>        -
@@ -381,20 +377,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -412,20 +404,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> s </ci>
   </apply>
@@ -493,20 +481,16 @@
     <apply>
       <divide/>
       <apply>
-        <power/>
+        <times/>
         <apply>
-          <times/>
+          <power/>
+          <cn type="integer"> 10 </cn>
           <apply>
-            <power/>
-            <cn type="integer"> 10 </cn>
-            <apply>
-              <minus/>
-              <cn type="integer"> 6 </cn>
-            </apply>
+            <minus/>
+            <cn type="integer"> 6 </cn>
           </apply>
-          <ci> mole </ci>
         </apply>
-        <cn type="integer"> 1 </cn>
+        <ci> mole </ci>
       </apply>
       <ci> kg </ci>
     </apply>
@@ -573,20 +557,16 @@
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <power/>
+    <times/>
     <apply>
-      <times/>
+      <power/>
+      <cn type="integer"> 10 </cn>
       <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
+        <minus/>
+        <cn type="integer"> 3 </cn>
       </apply>
-      <ci> mole </ci>
     </apply>
-    <cn type="integer"> 1 </cn>
+    <ci> mole </ci>
   </apply>
 </math></td>
 	<td>        -
@@ -634,16 +614,20 @@
             </thead>
             <tbody>
                 <tr>    <td class="hidden">Compartment</td>
-	<td class="active">extern</td>
-	<td></td>
-	<td>             = V_ext
+	<td class="active">mm</td>
+	<td>mitochondrial membrane</td>
+	<td>             = 1
     </td>
-	<td class="danger">False</td>
-	<td>3</td>
-	<td>litre</td>
+	<td class="success">True</td>
+	<td>2</td>
+	<td>m2</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -670,9 +654,9 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Compartment</td>
-	<td class="active">cyto</td>
-	<td>cytosol</td>
-	<td>             = V_cyto
+	<td class="active">ext</td>
+	<td>blood</td>
+	<td>             = V_ext
     </td>
 	<td class="danger">False</td>
 	<td>3</td>
@@ -688,20 +672,16 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Compartment</td>
-	<td class="active">mm</td>
-	<td>mitochondrial membrane</td>
-	<td>             = 1
+	<td class="active">cyto</td>
+	<td>cytosol</td>
+	<td>             = V_cyto
     </td>
-	<td class="success">True</td>
-	<td>2</td>
-	<td>m2</td>
+	<td class="danger">False</td>
+	<td>3</td>
+	<td>litre</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <power/>
-    <ci> m </ci>
-    <cn type="integer"> 2 </cn>
-  </apply>
+  <ci> litre </ci>
 </math>
 </td>
 	<td>        -
@@ -773,20 +753,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -800,7 +776,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">h_mito</td>
 	<td>H+</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -814,20 +790,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -855,20 +827,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -882,7 +850,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">acoa_mito</td>
 	<td>acetyl-coenzyme A</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -896,20 +864,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -923,7 +887,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">cit_mito</td>
 	<td>citrate</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -937,20 +901,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -964,7 +924,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">oaa_mito</td>
 	<td> oxaloacetate</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class="  danger  ">False</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -978,20 +938,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1019,20 +975,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1046,7 +998,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">pyr_mito</td>
 	<td>pyruvate</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class="  danger  ">False</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -1060,20 +1012,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1087,7 +1035,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">co2_mito</td>
 	<td>CO2</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -1101,20 +1049,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1128,7 +1072,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">atp_mito</td>
 	<td>ATP</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -1142,20 +1086,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1183,20 +1123,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1224,20 +1160,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1265,20 +1197,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1306,20 +1234,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1347,20 +1271,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1374,7 +1294,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">glc_ext</td>
 	<td>glucose</td>
-	<td>cyto</td>
+	<td>ext</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -1388,20 +1308,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1429,20 +1345,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1470,20 +1382,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1511,20 +1419,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1538,7 +1442,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">gdp_mito</td>
 	<td>GDP</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class="  danger  ">False</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -1552,20 +1456,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1593,20 +1493,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1634,20 +1530,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1661,7 +1553,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">phos_mito</td>
 	<td>phosphate</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -1675,20 +1567,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1716,20 +1604,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1757,20 +1641,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1784,7 +1664,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">h2o_mito</td>
 	<td>H20</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -1798,20 +1678,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1839,20 +1715,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1880,20 +1752,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1907,7 +1775,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">nadh_mito</td>
 	<td>NADH</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -1921,20 +1789,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1962,20 +1826,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2003,20 +1863,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2044,20 +1900,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2085,20 +1937,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2126,20 +1974,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2167,20 +2011,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2208,20 +2048,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2249,20 +2085,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2290,20 +2122,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2331,20 +2159,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2372,20 +2196,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2399,7 +2219,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">coa_mito</td>
 	<td>coenzyme A</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -2413,20 +2233,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2440,7 +2256,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">nad_mito</td>
 	<td>NAD+</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -2454,20 +2270,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2481,7 +2293,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">adp_mito</td>
 	<td>ADP</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -2495,20 +2307,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2536,20 +2344,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2563,7 +2367,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">pep_mito</td>
 	<td>phosphoenolpyruvate</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class="  danger  ">False</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -2577,20 +2381,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2618,20 +2418,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2659,20 +2455,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2686,7 +2478,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">lac_ext</td>
 	<td>lactate</td>
-	<td>cyto</td>
+	<td>ext</td>
 	<td class=" success ">True</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -2700,20 +2492,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2727,7 +2515,7 @@
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">gtp_mito</td>
 	<td>GTP</td>
-	<td>cyto</td>
+	<td>mito</td>
 	<td class="  danger  ">False</td>
 	<td class=" danger ">False</td>
 	<td>
@@ -2741,20 +2529,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2851,20 +2635,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -2954,20 +2734,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3015,20 +2791,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3090,20 +2862,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3171,20 +2939,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3241,20 +3005,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3379,20 +3139,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3490,20 +3246,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3576,20 +3328,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3612,20 +3360,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3673,20 +3417,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3709,20 +3449,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -3980,11 +3716,11 @@
             </thead>
             <tbody>
                 <tr>    <td class="hidden">Rule</td>
-	<td class="active">extern</td>
+	<td class="active">mito</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> V_ext </ci>
+  <ci> V_mito </ci>
 </math>
 </td>
     <td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3998,11 +3734,11 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Rule</td>
-	<td class="active">mito</td>
+	<td class="active">ext</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> V_mito </ci>
+  <ci> V_ext </ci>
 </math>
 </td>
     <td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -4054,20 +3790,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4095,20 +3827,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4136,20 +3864,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4178,20 +3902,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4223,20 +3943,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4265,20 +3981,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4306,20 +4018,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4351,20 +4059,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4424,20 +4128,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4465,20 +4165,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4534,20 +4230,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4607,20 +4299,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -4648,20 +4336,16 @@
   <apply>
     <divide/>
     <apply>
-      <power/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> mole </ci>
       </apply>
-      <cn type="integer"> 1 </cn>
+      <ci> mole </ci>
     </apply>
     <ci> litre </ci>
   </apply>

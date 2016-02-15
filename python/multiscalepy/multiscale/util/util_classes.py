@@ -7,6 +7,8 @@ Additional utility classes simplifying things.
 from __future__ import print_function
 
 
+
+
 class EnumType(object):
     """ Template class for all EnumTypes. """
     class EnumTypeException(Exception):

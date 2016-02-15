@@ -30,6 +30,8 @@ class TestValidation(unittest.TestCase):
         f.write(sbml_str)
         f.flush()
 
+        print(sbml_str)
+
         # validate_sbml(f.name, ucheck=False)
         Nerrors = check_sbml(f.name)
         self.assertEqual(Nerrors, 36)
