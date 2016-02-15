@@ -100,12 +100,12 @@ units.update({
 ##############################################################
 functions.update({
     # id : ('assignment')
-    'maximum': ('lambda(x,y, piecewise(x,gt(x,y),y) )', ),
-    'minimum': ('lambda(x,y, piecewise(x,lt(x,y),y) )', ),
+    'max': ('lambda(x,y, piecewise(x,gt(x,y),y) )', ),
+    'min': ('lambda(x,y, piecewise(x,lt(x,y),y) )', ),
 })
 names.update({
-    'minimum': 'minimum of arguments',
-    'maximum': 'maximum of arguments',
+    'min': 'minimum of arguments',
+    'max': 'maximum of arguments',
 })
 
 ##############################################################
@@ -312,15 +312,15 @@ rules.update({
 
     # hormonal regulation
     'ins': ('x_ins2 + (x_ins1-x_ins2) * glc_ext^x_ins4/(glc_ext^x_ins4 + x_ins3^x_ins4)', 'pmol_per_l'),
-    'ins_norm': ('maximum(0.0 pmol_per_l, ins-x_ins2)', 'pmol_per_l'),
+    'ins_norm': ('max(0.0 pmol_per_l, ins-x_ins2)', 'pmol_per_l'),
     'glu': ('x_glu2 + (x_glu1-x_glu2)*(1 dimensionless - glc_ext^x_glu4/(glc_ext^x_glu4 + x_glu3^x_glu4))', 'pmol_per_l'),
-    'glu_norm': ('maximum(0.0 pmol_per_l, glu-x_glu2)', 'pmol_per_l'),
+    'glu_norm': ('max(0.0 pmol_per_l, glu-x_glu2)', 'pmol_per_l'),
     'epi': ('x_epi2 + (x_epi1-x_epi2) * (1 dimensionless - glc_ext^x_epi4/(glc_ext^x_epi4 + x_epi3^x_epi4))', 'pmol_per_l'),
-    'epi_norm': ('maximum(0.0 pmol_per_l, epi-x_epi2)', 'pmol_per_l'),
+    'epi_norm': ('max(0.0 pmol_per_l, epi-x_epi2)', 'pmol_per_l'),
     'K_ins': ('(x_ins1-x_ins2) * K_val', 'pmol_per_l'),
     'K_glu': ('(x_glu1-x_glu2) * K_val', 'pmol_per_l'),
     'K_epi': ('(x_epi1-x_epi2) * K_val', 'pmol_per_l'),
-    'gamma': ('0.5 dimensionless * (1 dimensionless - ins_norm/(ins_norm+K_ins) + maximum(glu_norm/(glu_norm+K_glu), epi_f*epi_norm/(epi_norm+K_epi))', 'dimensionless'),
+    'gamma': ('0.5 dimensionless * (1 dimensionless - ins_norm/(ins_norm+K_ins) + max(glu_norm/(glu_norm+K_glu), epi_f*epi_norm/(epi_norm+K_epi)))', 'dimensionless'),
 
     # balance rules
     'nadh_tot': ('nadh + nad', 'mM'),

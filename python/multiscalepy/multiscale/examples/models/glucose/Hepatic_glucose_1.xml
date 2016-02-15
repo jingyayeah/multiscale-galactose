@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_056cd0567dbe478da5a4b163f39a5bd9" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mmol" timeUnits="s" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mmol" fbc:strict="false">
+  <model metaid="meta_2cfccdf0bc4a4ed6befe8cf61bb374e6" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mmol" timeUnits="s" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mmol" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Glucose Metabolism</h1>
@@ -49,7 +49,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_056cd0567dbe478da5a4b163f39a5bd9">
+    <rdf:Description rdf:about="#meta_2cfccdf0bc4a4ed6befe8cf61bb374e6">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -65,40 +65,15 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-15T22:00:19Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-15T22:12:07Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-15T22:00:19Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-15T22:12:07Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
 </annotation><listOfFunctionDefinitions>
-  <functionDefinition id="minimum" name="minimum of arguments">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <lambda>
-        <bvar>
-          <ci> x </ci>
-        </bvar>
-        <bvar>
-          <ci> y </ci>
-        </bvar>
-        <piecewise>
-          <piece>
-            <ci> x </ci>
-            <apply>
-              <lt/>
-              <ci> x </ci>
-              <ci> y </ci>
-            </apply>
-          </piece>
-          <otherwise>
-            <ci> y </ci>
-          </otherwise>
-        </piecewise>
-      </lambda>
-    </math>
-  </functionDefinition>
-  <functionDefinition id="maximum" name="maximum of arguments">
+  <functionDefinition id="max" name="maximum of arguments">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <lambda>
         <bvar>
@@ -112,6 +87,31 @@
             <ci> x </ci>
             <apply>
               <gt/>
+              <ci> x </ci>
+              <ci> y </ci>
+            </apply>
+          </piece>
+          <otherwise>
+            <ci> y </ci>
+          </otherwise>
+        </piecewise>
+      </lambda>
+    </math>
+  </functionDefinition>
+  <functionDefinition id="min" name="minimum of arguments">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <lambda>
+        <bvar>
+          <ci> x </ci>
+        </bvar>
+        <bvar>
+          <ci> y </ci>
+        </bvar>
+        <piecewise>
+          <piece>
+            <ci> x </ci>
+            <apply>
+              <lt/>
               <ci> x </ci>
               <ci> y </ci>
             </apply>
@@ -304,10 +304,11 @@
   <parameter id="K_ins" units="pmol_per_l" constant="false"/>
   <parameter id="nadh_mito_tot" units="mM" constant="false"/>
   <parameter id="epi" units="pmol_per_l" constant="false"/>
+  <parameter id="atp_mito_tot" units="mM" constant="false"/>
   <parameter id="gtp_mito_tot" units="mM" constant="false"/>
   <parameter id="ins" units="pmol_per_l" constant="false"/>
   <parameter id="glu" units="pmol_per_l" constant="false"/>
-  <parameter id="atp_mito_tot" units="mM" constant="false"/>
+  <parameter id="gamma" units="dimensionless" constant="false"/>
 </listOfParameters><listOfInitialAssignments>
   <initialAssignment symbol="scale_glyglc">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -419,7 +420,7 @@
   <assignmentRule variable="glu_norm">
     <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
-        <ci> maximum </ci>
+        <ci> max </ci>
         <cn sbml:units="pmol_per_l"> 0 </cn>
         <apply>
           <minus/>
@@ -432,7 +433,7 @@
   <assignmentRule variable="ins_norm">
     <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
-        <ci> maximum </ci>
+        <ci> max </ci>
         <cn sbml:units="pmol_per_l"> 0 </cn>
         <apply>
           <minus/>
@@ -487,7 +488,7 @@
   <assignmentRule variable="epi_norm">
     <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
-        <ci> maximum </ci>
+        <ci> max </ci>
         <cn sbml:units="pmol_per_l"> 0 </cn>
         <apply>
           <minus/>
@@ -557,6 +558,15 @@
             </apply>
           </apply>
         </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="atp_mito_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> atp_mito </ci>
+        <ci> adp_mito </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -647,12 +657,52 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="atp_mito_tot">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  <assignmentRule variable="gamma">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
-        <plus/>
-        <ci> atp_mito </ci>
-        <ci> adp_mito </ci>
+        <times/>
+        <cn sbml:units="dimensionless"> 0.5 </cn>
+        <apply>
+          <plus/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> ins_norm </ci>
+              <apply>
+                <plus/>
+                <ci> ins_norm </ci>
+                <ci> K_ins </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <ci> max </ci>
+            <apply>
+              <divide/>
+              <ci> glu_norm </ci>
+              <apply>
+                <plus/>
+                <ci> glu_norm </ci>
+                <ci> K_glu </ci>
+              </apply>
+            </apply>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> epi_f </ci>
+                <ci> epi_norm </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> epi_norm </ci>
+                <ci> K_epi </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
       </apply>
     </math>
   </assignmentRule>
