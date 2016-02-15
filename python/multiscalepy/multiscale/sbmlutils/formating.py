@@ -126,7 +126,7 @@ UNIT_ABBREVIATIONS = {
     'meter': 'm',
     'metre': 'm',
     'second': 's',
-    'dimensionless': '-',
+    'dimensionless': '',
 }
 
 
@@ -171,6 +171,7 @@ def unitDefinitionToString(udef):
             else:
                 string = '(({}10^{})*{}){}'.format(m_str, s, k_str, e_str)
 
+
         # collect the terms
         if e >= 0.0:
             nom.append(string)
@@ -185,4 +186,5 @@ def unitDefinitionToString(udef):
         return nom_str
     if (len(nom_str) == 0) and (len(denom_str) > 0):
         return '1/{}'.format(denom_str)
+    return ''
 

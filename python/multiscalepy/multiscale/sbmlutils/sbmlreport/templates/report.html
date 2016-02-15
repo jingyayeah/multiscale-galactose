@@ -21,7 +21,7 @@
 
     <h1>Model : {{ model.id }}</h1>
     {{ model.getModelHistory()|SBML_modelHistoryToString }}
-    <table id="table_model_annotation" class="table table-condensed table-nonfluid">
+    <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
                 <a href="{{ model.id }}.xml" target="_blank"><img src="_report/images/sbml.png" height="20" alt="SBML model" title="SBML model"/> </a><br /><br />
@@ -29,7 +29,7 @@
                 {{ helpers.annotation(model) }}
             </td>
             <td>
-                <table id="table_model" class="table table-condensed table-nonfluid">
+                <table id="table_model" class="table table-condensed table-nonfluid table-hover">
                 <tbody>
                 <tr>{{ macros.model(model) }}</tr>
                 </tbody>
@@ -43,7 +43,7 @@
     <!--------------------------------------------------->
     {% if functions %}
         <a class="anchor" id="FunctionDefinitions"></a>
-        <table id="table_functions" class="table table-condensed table-nonfluid">
+        <table id="table_functions" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.function_header(functions|length) }}</tr>
             </thead>
@@ -61,7 +61,7 @@
     <!--------------------------------------------------->
     {% if units %}
         <a class="anchor" id="UnitDefinitions"></a>
-        <table id="table_units" class="table table-condensed table-nonfluid">
+        <table id="table_units" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.unit_header(units|length) }}</tr>
             </thead>
@@ -79,7 +79,7 @@
     <!--------------------------------------------------->
     {% if compartments %}
         <a class="anchor" id="Compartments"></a>
-        <table id="table_compartments" class="table table-condensed table-nonfluid">
+        <table id="table_compartments" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.compartment_header(compartments|length) }}</tr>
             </thead>
@@ -115,7 +115,7 @@
     <!--------------------------------------------------->
     {% if parameters %}
         <a class="anchor" id="Parameters"></a>
-        <table id="table_parameters" class="table table-condensed table-nonfluid">
+        <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.parameter_header(parameters|length) }}</tr>
             </thead>
@@ -133,7 +133,7 @@
     <!--------------------------------------------------->
     {% if assignments %}
         <a class="anchor" id="InitialAssignments"></a>
-        <table id="table_assignments" class="table table-condensed table-nonfluid">
+        <table id="table_assignments" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.assignment_header(assignments|length) }}</tr>
             </thead>
@@ -151,7 +151,7 @@
     <!--------------------------------------------------->
     {% if rules %}
         <a class="anchor" id="Rules"></a>
-        <table id="table_rules" class="table table-condensed table-nonfluid">
+        <table id="table_rules" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.rule_header(rules|length) }}</tr>
             </thead>
@@ -169,7 +169,7 @@
     <!--------------------------------------------------->
     {% if constraints %}
         <a class="anchor" id="Constraints"></a>
-        <table id="table_constraints" class="table table-condensed table-nonfluid">
+        <table id="table_constraints" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.constraint_header(constraints|length) }}</tr>
             </thead>
@@ -187,7 +187,7 @@
     <!--------------------------------------------------->
     {% if reactions %}
         <a class="anchor" id="Reactions"></a>
-        <table id="table_reactions" class="table table-condensed table-nonfluid">
+        <table id="table_reactions" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.reaction_header(reactions|length) }}</tr>
             </thead>
@@ -205,7 +205,7 @@
     <!--------------------------------------------------->
     {% if events %}
         <a class="anchor" id="Events"></a>
-        <table id="table_events" class="table table-condensed table-nonfluid">
+        <table id="table_events" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.event_header(events|length) }}</tr>
             </thead>

@@ -47,7 +47,7 @@ class FormatingTestCase(unittest.TestCase):
             [(UNIT_KIND_DIMENSIONLESS, 1.0)])
         print(unit_def)
         self.assertEqual(formating.unitDefinitionToString(unit_def),
-                         '-')
+                         '')
 
     def test_unitDefinitionToString3(self):
         unit_def = FormatingTestCase._create_unit_definition('pmol',

@@ -32,9 +32,9 @@
 
 {% macro boolean(condition) %}
     {% if condition %}
-        <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+        <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
     {% else %}
-        <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+        <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
     {% endif %}
 {% endmacro %}
 
