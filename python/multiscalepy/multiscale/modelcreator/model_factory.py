@@ -147,10 +147,18 @@ def create_galactose():
     f_annotations = os.path.join(directory, 'galactose_annotations.csv')
     return create_model(directory, model_info, f_annotations)
 
+def create_glucose():
+    """ Create glucose network. """
+    directory = os.path.join(test_dir, 'models', 'glucose')
+    model_info = ['multiscale.modelcreator.models.glucose']
+    f_annotations = os.path.join(directory, 'glucose_annotations.csv')
+    return create_model(directory, model_info, f_annotations)
+
 
 if __name__ == "__main__":
     [cell_dict, cell_model] = create_demo()
     [cell_dict, cell_model] = create_test()
     [cell_dict, cell_model] = create_galactose()
+    [cell_dict, cell_model] = create_glucose()
     
 

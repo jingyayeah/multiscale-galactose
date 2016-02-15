@@ -65,7 +65,9 @@ def create_unit_definitions(model, definitions):
 
 
 def _create_unit_definition(model, sid, units):
-    """ Creates the defined unit definitions. """
+    """ Creates the defined unit definitions.
+    (kind, exponent, scale, multiplier)
+    """
     unit_def = model.createUnitDefinition()
     unit_def.setId(sid)
     for data in units:
