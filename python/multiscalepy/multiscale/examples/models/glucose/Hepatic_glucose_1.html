@@ -26,7 +26,7 @@
     <script type="text/javascript" async
       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
-    
+
     <!--
     <link rel="stylesheet" href="_report/css/bootstrap.min.css">
     <link rel="stylesheet" href="_report/css/bootstrap-theme.min.css">
@@ -178,6 +178,7 @@
             <ul class="nav nav-sidebar">
                 <li><a href="#top">Model</a></li>
                     <li><a href="#UnitDefinitions">UnitDefinitions</a></li>
+                    <li><a href="#FunctionDefinitions">FunctionDefinitions</a></li>
                     <li><a href="#Compartments">Compartments</a></li>
                     <li><a href="#Species">Species</a></li>
                     <li><a href="#Parameters">Parameters</a></li>
@@ -246,7 +247,7 @@
         <hr />
 
     <h1>Model : Hepatic_glucose_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Charite Berlin, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-15 19:48<br /><b>Modified:</b> 2016-02-15 19:48<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-15 22:00<br /><b>Modified:</b> 2016-02-15 22:00<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -278,6 +279,87 @@
     <!--------------------------------------------------->
     <!-- FunctionDefinitions -->
     <!--------------------------------------------------->
+        <a class="anchor" id="FunctionDefinitions"></a>
+        <table id="table_functions" class="table table-condensed table-nonfluid table-hover">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">FunctionDefinitions [2]</th>
+	<th scope="col">name</th>
+	<th scope="col">math</th>
+	<th scope="col">sbo</th>
+	<th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">FunctionDefinition</td>
+	<td class="active">minimum</td>
+	<td>minimum of arguments</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <lambda>
+    <bvar>
+      <ci> x </ci>
+    </bvar>
+    <bvar>
+      <ci> y </ci>
+    </bvar>
+    <piecewise>
+      <piece>
+        <ci> x </ci>
+        <apply>
+          <lt/>
+          <ci> x </ci>
+          <ci> y </ci>
+        </apply>
+      </piece>
+      <otherwise>
+        <ci> y </ci>
+      </otherwise>
+    </piecewise>
+  </lambda>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">FunctionDefinition</td>
+	<td class="active">maximum</td>
+	<td>maximum of arguments</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <lambda>
+    <bvar>
+      <ci> x </ci>
+    </bvar>
+    <bvar>
+      <ci> y </ci>
+    </bvar>
+    <piecewise>
+      <piece>
+        <ci> x </ci>
+        <apply>
+          <gt/>
+          <ci> x </ci>
+          <ci> y </ci>
+        </apply>
+      </piece>
+      <otherwise>
+        <ci> y </ci>
+      </otherwise>
+    </piecewise>
+  </lambda>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
 
     <!--------------------------------------------------->
     <!-- UnitDefinitions -->
@@ -2688,7 +2770,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [40]</th>
+	<th scope="col" class="warning">Parameters [43]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -3416,29 +3498,85 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
-	<td class="active">atp_mito_tot</td>
+	<td class="active">glu_norm</td>
 	<td></td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
-    <plus/>
-    <ci> atp_mito </ci>
-    <ci> adp_mito </ci>
+    <ci> maximum </ci>
+    <cn sbml:units="pmol_per_l"> 0 </cn>
+    <apply>
+      <minus/>
+      <ci> glu </ci>
+      <ci> x_glu2 </ci>
+    </apply>
   </apply>
 </math>
 
     </td>
-	<td>mM</td>
+	<td>pmol_per_l</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
-    <ci> mole </ci>
     <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> mole </ci>
     </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ins_norm</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <ci> maximum </ci>
+    <cn sbml:units="pmol_per_l"> 0 </cn>
+    <apply>
+      <minus/>
+      <ci> ins </ci>
+      <ci> x_ins2 </ci>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> mole </ci>
+    </apply>
+    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -3599,6 +3737,51 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
+	<td class="active">epi_norm</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <ci> maximum </ci>
+    <cn sbml:units="pmol_per_l"> 0 </cn>
+    <apply>
+      <minus/>
+      <ci> epi </ci>
+      <ci> x_epi2 </ci>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>pmol_per_l</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> mole </ci>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
 	<td class="active">K_ins</td>
 	<td></td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
@@ -3633,6 +3816,40 @@
       <ci> mole </ci>
     </apply>
     <ci> litre </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">nadh_mito_tot</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> nadh_mito </ci>
+    <ci> nad_mito </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
   </apply>
 </math>
 </td>
@@ -3893,14 +4110,14 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
-	<td class="active">nadh_mito_tot</td>
+	<td class="active">atp_mito_tot</td>
 	<td></td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <plus/>
-    <ci> nadh_mito </ci>
-    <ci> nad_mito </ci>
+    <ci> atp_mito </ci>
+    <ci> adp_mito </ci>
   </apply>
 </math>
 
@@ -4137,7 +4354,7 @@
         <table id="table_rules" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules [16]</th>
+	<th scope="col" class="warning">Rules [19]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -4279,36 +4496,45 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Rule</td>
-	<td class="active">atp_mito_tot</td>
+	<td class="active">glu_norm</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
-    <plus/>
-    <ci> atp_mito </ci>
-    <ci> adp_mito </ci>
+    <ci> maximum </ci>
+    <cn sbml:units="pmol_per_l"> 0 </cn>
+    <apply>
+      <minus/>
+      <ci> glu </ci>
+      <ci> x_glu2 </ci>
+    </apply>
   </apply>
 </math>
 </td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+    <td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">ins_norm</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
-    <divide/>
+    <ci> maximum </ci>
+    <cn sbml:units="pmol_per_l"> 0 </cn>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <minus/>
+      <ci> ins </ci>
+      <ci> x_ins2 </ci>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
+</td>
+    <td>    None
 </td>
 	<td>        -
 </td>
@@ -4470,6 +4696,29 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Rule</td>
+	<td class="active">epi_norm</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <ci> maximum </ci>
+    <cn sbml:units="pmol_per_l"> 0 </cn>
+    <apply>
+      <minus/>
+      <ci> epi </ci>
+      <ci> x_epi2 </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
 	<td class="active">K_ins</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -4497,6 +4746,43 @@
         <apply>
           <minus/>
           <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> mole </ci>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">nadh_mito_tot</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> nadh_mito </ci>
+    <ci> nad_mito </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
       </apply>
       <ci> mole </ci>
@@ -4751,14 +5037,14 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">Rule</td>
-	<td class="active">nadh_mito_tot</td>
+	<td class="active">atp_mito_tot</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <plus/>
-    <ci> nadh_mito </ci>
-    <ci> nad_mito </ci>
+    <ci> atp_mito </ci>
+    <ci> adp_mito </ci>
   </apply>
 </math>
 </td>

@@ -34,6 +34,7 @@ class CellModel(object):
              'creators',
              'main_units',
              'units',
+             'functions',
              'compartments',
              'species',
              'names',
@@ -45,6 +46,7 @@ class CellModel(object):
     # Dictionary keys for respective lists
     _dictkeys = {
         'creators': ('FamilyName', 'GivenName', 'Email', 'Organization'),
+        'functions': ('value', ),
         'compartments': ('spatialDimension', 'unit', 'constant', 'value'),
         'species': ('compartment', 'value', 'unit', 'boundaryCondition'),
         'parameters': ('value', 'unit', 'constant'),
@@ -167,12 +169,13 @@ class CellModel(object):
 
         # lists of content
         self.createUnits()
-        self.createAllParameters()
+        self.createFunctions()
+        self.createParameters()
         self.createInitialAssignments()
-        self.createAllCompartments()
+        self.createCompartments()
         self.createAssignmentRules()
 
-        self.createAllSpecies()
+        self.createSpecies()
         self.createCellReactions()
 
         """
@@ -216,23 +219,30 @@ class CellModel(object):
         set_main_units(self.model, self.main_units)
 
     ##########################################################################
+    # Functions
+    ##########################################################################
+    def createFunctions(self):
+        self.addName(self.functions)
+        create_functions(self.model, self.functions)
+
+    ##########################################################################
     # Parameters
     ##########################################################################
-    def createAllParameters(self):
+    def createParameters(self):
         self.addName(self.parameters)
         create_parameters(self.model, self.parameters)
 
     #########################################################################
     # Compartments
     #########################################################################
-    def createAllCompartments(self):
+    def createCompartments(self):
         self.addName(self.compartments)
         create_compartments(self.model, self.compartments)
 
     ##########################################################################
     # Species
     ##########################################################################
-    def createAllSpecies(self):
+    def createSpecies(self):
         self.addName(self.species)
         create_species(self.model, self.species)
 

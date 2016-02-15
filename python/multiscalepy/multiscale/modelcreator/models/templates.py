@@ -1,7 +1,7 @@
 # -*- coding=utf-8 -*-
 
 # id : ('FamilyName', 'GivenName', 'Email', 'Organization')
-mkoenig = {'mk': ('Koenig', 'Matthias', 'konigmatt@googlemail.com', 'Charite Berlin')}
+mkoenig = {'mk': ('Koenig', 'Matthias', 'konigmatt@googlemail.com', 'Humboldt-University Berlin, Institute for Theoretical Biology')}
 
 terms_of_use = """
     <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
