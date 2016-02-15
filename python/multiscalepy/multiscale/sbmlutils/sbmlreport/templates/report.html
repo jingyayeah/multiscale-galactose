@@ -97,7 +97,7 @@
     <!--------------------------------------------------->
     {% if species %}
         <a class="anchor" id="Species"></a>
-        <table id="table_species" class="table table-condensed table-nonfluid">
+        <table id="table_species" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>{{ macros.species_header(species|length) }}</tr>
             </thead>
@@ -153,7 +153,7 @@
         <a class="anchor" id="Rules"></a>
         <table id="table_rules" class="table table-condensed table-nonfluid">
             <thead>
-            <tr>{{ macros.rule_header() }}</tr>
+            <tr>{{ macros.rule_header(rules|length) }}</tr>
             </thead>
             <tbody>
             {% for item in rules %}

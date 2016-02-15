@@ -80,10 +80,10 @@
 	<td>{% if item.isSetSize() %}
             {{ item.size }}
         {% else %}
-            {{ values[item.id] }}
+            {{ helpers.math(values[item.id]) }}
         {% endif %}
     </td>
-	<td class="{% if item.constant %}success{% else %}danger{% endif %}">{{ item.constant }}</td>
+	{{ helpers.boolean(item.constant) }}
 	<td>{{ item.spatial_dimensions }}</td>
 	<td>{{ item.units }}</td>
 	<td>{{ helpers.derived_units(item) }}</td>
@@ -114,8 +114,8 @@
 	<td class="active">{{ item.id }}</td>
 	<td>{{ item.name }}</td>
 	<td>{{ item.compartment }}</td>
-	<td class="{% if item.boundary_condition %} success {% else %}  danger  {% endif %}">{{ item.boundary_condition }}</td>
-	<td class="{% if item.constant %} success {% else %} danger {% endif %}">{{ item.constant }}</td>
+    {{ helpers.boolean(item.boundary_condition) }}
+    {{ helpers.boolean(item.constant) }}
 	<td>
         {% if item.isSetInitialAmount() %}
             {{ item.initial_amount }}
@@ -153,12 +153,12 @@
 	<td>{% if item.isSetValue() %}
             {{ item.value }}
         {% else %}
-            {{ values[item.id] }}
+            {{ helpers.math(values[item.id]) }}
         {% endif %}
     </td>
 	<td>{{ item.units }}</td>
 	<td>{{ helpers.derived_units(item) }}</td>
-	<td class="{% if item.constant %} success {% else %} danger {% endif %}">{{ item.constant }}</td>
+    {{ helpers.boolean(item.constant) }}
 	<td>{{ helpers.sbo_term(item) }}</td>
 	<td>{{ helpers.annotation(item) }}</td>
 {% endmacro %}
@@ -254,7 +254,8 @@
 	    <td class="danger">&#10142;</td>
     {% endif %}
 	<td>{{ item|SBML_reactionToString }}</td>
-	<td>{% for mod in item.getListOfModifiers() %}
+	<td>
+        {% for mod in item.getListOfModifiers() %}
         	{{mod.getSpecies}}<br />
 		 {% endfor %}
     </td>

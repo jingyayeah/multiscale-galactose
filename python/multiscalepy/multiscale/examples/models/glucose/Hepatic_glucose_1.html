@@ -241,7 +241,7 @@
         <hr />
 
     <h1>Model : Hepatic_glucose_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Charite Berlin, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-15 18:02<br /><b>Modified:</b> 2016-02-15 18:02<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Charite Berlin, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-15 18:55<br /><b>Modified:</b> 2016-02-15 18:55<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid">
         <tr>
             <td>
@@ -616,9 +616,14 @@
                 <tr>    <td class="hidden">Compartment</td>
 	<td class="active">mm</td>
 	<td>mitochondrial membrane</td>
-	<td>             = 1
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <cn sbml:units="m2"> 1 </cn>
+</math>
+
     </td>
-	<td class="success">True</td>
+	        <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>2</td>
 	<td>m2</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -638,9 +643,14 @@
                 <tr>    <td class="hidden">Compartment</td>
 	<td class="active">mito</td>
 	<td>mitochondrion</td>
-	<td>             = V_mito
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> V_mito </ci>
+</math>
+
     </td>
-	<td class="danger">False</td>
+	        <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>3</td>
 	<td>litre</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -656,9 +666,14 @@
                 <tr>    <td class="hidden">Compartment</td>
 	<td class="active">ext</td>
 	<td>blood</td>
-	<td>             = V_ext
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> V_ext </ci>
+</math>
+
     </td>
-	<td class="danger">False</td>
+	        <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>3</td>
 	<td>litre</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -674,9 +689,14 @@
                 <tr>    <td class="hidden">Compartment</td>
 	<td class="active">cyto</td>
 	<td>cytosol</td>
-	<td>             = V_cyto
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> V_cyto </ci>
+</math>
+
     </td>
-	<td class="danger">False</td>
+	        <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>3</td>
 	<td>litre</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -692,9 +712,14 @@
                 <tr>    <td class="hidden">Compartment</td>
 	<td class="active">pm</td>
 	<td>plasma membrane</td>
-	<td>             = 1
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <cn sbml:units="m2"> 1 </cn>
+</math>
+
     </td>
-	<td class="success">True</td>
+	        <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>2</td>
 	<td>m2</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -719,7 +744,7 @@
     <!-- Species -->
     <!--------------------------------------------------->
         <a class="anchor" id="Species"></a>
-        <table id="table_species" class="table table-condensed table-nonfluid">
+        <table id="table_species" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
 	<th scope="col" class="warning">Species [49]</th>
@@ -740,8 +765,10 @@
 	<td class="active">gdp</td>
 	<td>GDP</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -777,8 +804,10 @@
 	<td class="active">h_mito</td>
 	<td>H+</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -814,8 +843,10 @@
 	<td class="active">fru6p</td>
 	<td>fructose-6 phosphate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -851,8 +882,10 @@
 	<td class="active">acoa_mito</td>
 	<td>acetyl-coenzyme A</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -888,8 +921,10 @@
 	<td class="active">cit_mito</td>
 	<td>citrate</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -925,8 +960,10 @@
 	<td class="active">oaa_mito</td>
 	<td> oxaloacetate</td>
 	<td>mito</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -962,8 +999,10 @@
 	<td class="active">glyglc</td>
 	<td>glycogen</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -999,8 +1038,10 @@
 	<td class="active">pyr_mito</td>
 	<td>pyruvate</td>
 	<td>mito</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1036,8 +1077,10 @@
 	<td class="active">co2_mito</td>
 	<td>CO2</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1073,8 +1116,10 @@
 	<td class="active">atp_mito</td>
 	<td>ATP</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1110,8 +1155,10 @@
 	<td class="active">pp</td>
 	<td>pyrophosphate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1147,8 +1194,10 @@
 	<td class="active">co2</td>
 	<td>CO2</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1184,8 +1233,10 @@
 	<td class="active">fru26bp</td>
 	<td>fructose-2,6 bisphosphate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1221,8 +1272,10 @@
 	<td class="active">udpglc</td>
 	<td>UDP-glucose</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1258,8 +1311,10 @@
 	<td class="active">adp</td>
 	<td>ADP</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1295,8 +1350,10 @@
 	<td class="active">glc_ext</td>
 	<td>glucose</td>
 	<td>ext</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1332,8 +1389,10 @@
 	<td class="active">bpg13</td>
 	<td>1,3-bisphospho-glycerate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1369,8 +1428,10 @@
 	<td class="active">h2o</td>
 	<td>H2O</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1406,8 +1467,10 @@
 	<td class="active">glc1p</td>
 	<td>glucose-1 phosphate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1443,8 +1506,10 @@
 	<td class="active">gdp_mito</td>
 	<td>GDP</td>
 	<td>mito</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1480,8 +1545,10 @@
 	<td class="active">gtp</td>
 	<td>GTP</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1517,8 +1584,10 @@
 	<td class="active">dhap</td>
 	<td>dihydroxyacetone phosphate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1554,8 +1623,10 @@
 	<td class="active">phos_mito</td>
 	<td>phosphate</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1591,8 +1662,10 @@
 	<td class="active">pyr</td>
 	<td>pyruvate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1628,8 +1701,10 @@
 	<td class="active">fru16bp</td>
 	<td>fructose-1,6 bisphosphate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1665,8 +1740,10 @@
 	<td class="active">h2o_mito</td>
 	<td>H20</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1702,8 +1779,10 @@
 	<td class="active">udp</td>
 	<td>UDP</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1739,8 +1818,10 @@
 	<td class="active">nadh</td>
 	<td>NADH</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1776,8 +1857,10 @@
 	<td class="active">nadh_mito</td>
 	<td>NADH</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1813,8 +1896,10 @@
 	<td class="active">lac</td>
 	<td>lactate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1850,8 +1935,10 @@
 	<td class="active">pg2</td>
 	<td>2-phosphoglycerate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1887,8 +1974,10 @@
 	<td class="active">pg3</td>
 	<td>3-phosphoglycerate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1924,8 +2013,10 @@
 	<td class="active">amp</td>
 	<td>AMP</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1961,8 +2052,10 @@
 	<td class="active">glc6p</td>
 	<td>glucose-6 phosphate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -1998,8 +2091,10 @@
 	<td class="active">phos</td>
 	<td>phosphate</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2035,8 +2130,10 @@
 	<td class="active">pep</td>
 	<td>phosphoenolpyruvate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2072,8 +2169,10 @@
 	<td class="active">nad</td>
 	<td>NAD+</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2109,8 +2208,10 @@
 	<td class="active">grap</td>
 	<td>glyceraldehyde 3-phosphate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2146,8 +2247,10 @@
 	<td class="active">h</td>
 	<td>H+</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2183,8 +2286,10 @@
 	<td class="active">glc</td>
 	<td>glucose</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2220,8 +2325,10 @@
 	<td class="active">coa_mito</td>
 	<td>coenzyme A</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2257,8 +2364,10 @@
 	<td class="active">nad_mito</td>
 	<td>NAD+</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2294,8 +2403,10 @@
 	<td class="active">adp_mito</td>
 	<td>ADP</td>
 	<td>mito</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2331,8 +2442,10 @@
 	<td class="active">utp</td>
 	<td>UTP</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2368,8 +2481,10 @@
 	<td class="active">pep_mito</td>
 	<td>phosphoenolpyruvate</td>
 	<td>mito</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2405,8 +2520,10 @@
 	<td class="active">atp</td>
 	<td>ATP</td>
 	<td>cyto</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2442,8 +2559,10 @@
 	<td class="active">oaa</td>
 	<td>oxaloacetate</td>
 	<td>cyto</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2479,8 +2598,10 @@
 	<td class="active">lac_ext</td>
 	<td>lactate</td>
 	<td>ext</td>
-	<td class=" success ">True</td>
-	<td class=" danger ">False</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2516,8 +2637,10 @@
 	<td class="active">gtp_mito</td>
 	<td>GTP</td>
 	<td>mito</td>
-	<td class="  danger  ">False</td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>
 </td>
 	<td>
@@ -2590,7 +2713,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2604,7 +2728,8 @@
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2618,7 +2743,8 @@
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2650,7 +2776,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2664,7 +2791,8 @@
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2678,7 +2806,8 @@
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2692,7 +2821,8 @@
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2717,7 +2847,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2749,7 +2880,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2774,7 +2906,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2806,7 +2939,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2831,7 +2965,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2845,7 +2980,8 @@
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2877,7 +3013,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2894,7 +3031,8 @@
   <ci> litre </ci>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2908,7 +3046,8 @@
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2922,7 +3061,8 @@
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2954,7 +3094,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2971,7 +3112,8 @@
   <ci> litre </ci>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -2988,7 +3130,8 @@
   <ci> kg </ci>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3020,7 +3163,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3029,12 +3173,17 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">scale_glyglc</td>
 	<td></td>
-	<td>             = scale
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> scale </ci>
+</math>
+
     </td>
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3043,7 +3192,15 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">V_mito</td>
 	<td>mitochondrial volume</td>
-	<td>             = f_mito * V_cyto
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> f_mito </ci>
+    <ci> V_cyto </ci>
+  </apply>
+</math>
+
     </td>
 	<td>litre</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3051,7 +3208,8 @@
   <ci> litre </ci>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3060,7 +3218,28 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">conversion_factor</td>
 	<td></td>
-	<td>             = fliver * Vliver / V_cyto * sec_per_min * 1.000000e+03 / bodyweight
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> fliver </ci>
+          <ci> Vliver </ci>
+        </apply>
+        <ci> V_cyto </ci>
+      </apply>
+      <ci> sec_per_min </ci>
+      <cn sbml:units="dimensionless" type="e-notation"> 1 <sep/> 3 </cn>
+    </apply>
+    <ci> bodyweight </ci>
+  </apply>
+</math>
+
     </td>
 	<td>s_per_min_kg</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3077,7 +3256,8 @@
   </apply>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3086,12 +3266,17 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">scale_gly</td>
 	<td></td>
-	<td>             = scale
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> scale </ci>
+</math>
+
     </td>
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3100,12 +3285,21 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">scale</td>
 	<td></td>
-	<td>             = 1 / 60
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    <cn sbml:units="dimensionless" type="integer"> 60 </cn>
+  </apply>
+</math>
+
     </td>
 	<td>dimensionless</td>
 	<td>    None
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3114,7 +3308,15 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">V_ext</td>
 	<td>external volume</td>
-	<td>             = f_ext * V_cyto
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> f_ext </ci>
+    <ci> V_cyto </ci>
+  </apply>
+</math>
+
     </td>
 	<td>litre</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3122,7 +3324,8 @@
   <ci> litre </ci>
 </math>
 </td>
-	<td class=" success ">True</td>
+            <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3131,7 +3334,19 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">K_glu</td>
 	<td></td>
-	<td>             = (x_glu1 - x_glu2) * K_val
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <minus/>
+      <ci> x_glu1 </ci>
+      <ci> x_glu2 </ci>
+    </apply>
+    <ci> K_val </ci>
+  </apply>
+</math>
+
     </td>
 	<td>pmol_per_l</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3154,7 +3369,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3163,7 +3379,15 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">gtp_tot</td>
 	<td></td>
-	<td>             = gtp + gdp
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> gtp </ci>
+    <ci> gdp </ci>
+  </apply>
+</math>
+
     </td>
 	<td>mM</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3179,7 +3403,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3188,7 +3413,15 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">atp_mito_tot</td>
 	<td></td>
-	<td>             = atp_mito + adp_mito
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> atp_mito </ci>
+    <ci> adp_mito </ci>
+  </apply>
+</math>
+
     </td>
 	<td>mM</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3204,7 +3437,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3213,7 +3447,16 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">atp_tot</td>
 	<td></td>
-	<td>             = atp + adp + amp
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> atp </ci>
+    <ci> adp </ci>
+    <ci> amp </ci>
+  </apply>
+</math>
+
     </td>
 	<td>mM</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3229,7 +3472,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3238,7 +3482,19 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">K_epi</td>
 	<td></td>
-	<td>             = (x_epi1 - x_epi2) * K_val
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <minus/>
+      <ci> x_epi1 </ci>
+      <ci> x_epi2 </ci>
+    </apply>
+    <ci> K_val </ci>
+  </apply>
+</math>
+
     </td>
 	<td>pmol_per_l</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3261,7 +3517,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3270,7 +3527,16 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">utp_tot</td>
 	<td></td>
-	<td>             = utp + udp + udpglc
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> utp </ci>
+    <ci> udp </ci>
+    <ci> udpglc </ci>
+  </apply>
+</math>
+
     </td>
 	<td>mM</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3286,7 +3552,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3295,7 +3562,15 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">nadh_tot</td>
 	<td></td>
-	<td>             = nadh + nad
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> nadh </ci>
+    <ci> nad </ci>
+  </apply>
+</math>
+
     </td>
 	<td>mM</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3311,7 +3586,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3320,7 +3596,19 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">K_ins</td>
 	<td></td>
-	<td>             = (x_ins1 - x_ins2) * K_val
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <minus/>
+      <ci> x_ins1 </ci>
+      <ci> x_ins2 </ci>
+    </apply>
+    <ci> K_val </ci>
+  </apply>
+</math>
+
     </td>
 	<td>pmol_per_l</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3343,7 +3631,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3352,7 +3641,47 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">epi</td>
 	<td></td>
-	<td>             = x_epi2 + (x_epi1 - x_epi2) * (1 - pow(glc_ext, x_epi4) / (pow(glc_ext, x_epi4) + pow(x_epi3, x_epi4)))
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <ci> x_epi2 </ci>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <ci> x_epi1 </ci>
+        <ci> x_epi2 </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <apply>
+            <power/>
+            <ci> glc_ext </ci>
+            <ci> x_epi4 </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> glc_ext </ci>
+              <ci> x_epi4 </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> x_epi3 </ci>
+              <ci> x_epi4 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
     </td>
 	<td>pmol_per_l</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3375,7 +3704,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3384,7 +3714,15 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">gtp_mito_tot</td>
 	<td></td>
-	<td>             = gtp_mito + gdp_mito
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> gtp_mito </ci>
+    <ci> gdp_mito </ci>
+  </apply>
+</math>
+
     </td>
 	<td>mM</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3400,7 +3738,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3409,7 +3748,43 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">ins</td>
 	<td></td>
-	<td>             = x_ins2 + (x_ins1 - x_ins2) * pow(glc_ext, x_ins4) / (pow(glc_ext, x_ins4) + pow(x_ins3, x_ins4))
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> x_ins2 </ci>
+    <apply>
+      <divide/>
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <ci> x_ins1 </ci>
+          <ci> x_ins2 </ci>
+        </apply>
+        <apply>
+          <power/>
+          <ci> glc_ext </ci>
+          <ci> x_ins4 </ci>
+        </apply>
+      </apply>
+      <apply>
+        <plus/>
+        <apply>
+          <power/>
+          <ci> glc_ext </ci>
+          <ci> x_ins4 </ci>
+        </apply>
+        <apply>
+          <power/>
+          <ci> x_ins3 </ci>
+          <ci> x_ins4 </ci>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
     </td>
 	<td>pmol_per_l</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3432,7 +3807,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3441,7 +3817,47 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">glu</td>
 	<td></td>
-	<td>             = x_glu2 + (x_glu1 - x_glu2) * (1 - pow(glc_ext, x_glu4) / (pow(glc_ext, x_glu4) + pow(x_glu3, x_glu4)))
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <ci> x_glu2 </ci>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <ci> x_glu1 </ci>
+        <ci> x_glu2 </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <apply>
+            <power/>
+            <ci> glc_ext </ci>
+            <ci> x_glu4 </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> glc_ext </ci>
+              <ci> x_glu4 </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> x_glu3 </ci>
+              <ci> x_glu4 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
     </td>
 	<td>pmol_per_l</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3464,7 +3880,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3473,7 +3890,15 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">nadh_mito_tot</td>
 	<td></td>
-	<td>             = nadh_mito + nad_mito
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> nadh_mito </ci>
+    <ci> nad_mito </ci>
+  </apply>
+</math>
+
     </td>
 	<td>mM</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -3489,7 +3914,8 @@
   </apply>
 </math>
 </td>
-	<td class=" danger ">False</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+
 	<td>        -
 </td>
 	<td>        -
@@ -3706,7 +4132,7 @@
         <table id="table_rules" class="table table-condensed table-nonfluid">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules []</th>
+	<th scope="col" class="warning">Rules [16]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>

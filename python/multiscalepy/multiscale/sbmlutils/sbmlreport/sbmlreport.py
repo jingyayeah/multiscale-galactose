@@ -133,13 +133,13 @@ def create_value_dictionary(model):
     # parse all the initial assignments
     for assignment in model.getListOfInitialAssignments():
         sid = assignment.getId()
-        math = ' = {}'.format(libsbml.formulaToString(assignment.getMath()))
-        values[sid] = math
+        # math = ' = {}'.format(libsbml.formulaToString(assignment.getMath()))
+        values[sid] = assignment
     # rules
     for rule in model.getListOfRules():
         sid = rule.getVariable()
-        math = ' = {}'.format(libsbml.formulaToString(rule.getMath()))
-        values[sid] = math
+        # math = ' = {}'.format(libsbml.formulaToString(rule.getMath()))
+        values[sid] = rule
     return values
 
 #################################################################################################

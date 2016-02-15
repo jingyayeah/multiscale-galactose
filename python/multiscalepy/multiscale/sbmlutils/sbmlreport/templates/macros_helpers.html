@@ -24,12 +24,20 @@
     {% endif %}
 {% endmacro %}
 
+
 {% macro math(item) %}
-    {#
-        {{ item.getMath()|SBML_astnodeToString }}
-    #}
     {{ item.getMath()|SBML_astnodeToMathML }}
 {% endmacro %}
+
+
+{% macro boolean(condition) %}
+    {% if condition %}
+        <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+    {% else %}
+        <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+    {% endif %}
+{% endmacro %}
+
 
 {% macro annotation_xml(item) %}
     {% if item.isSetAnnotation() %}
