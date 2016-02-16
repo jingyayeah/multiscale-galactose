@@ -293,7 +293,6 @@ def _create_rules(model, rules, rule_type):
     for data in get_values(rules):
         check_valid(data, 'rule')
         sid = data[A_ID]
-        print(sid)
         # Create parameter if symbol is neither parameter or species, or compartment
         if (not model.getParameter(sid)) and (not model.getSpecies(sid)) and (not model.getCompartment(sid)):
             _create_parameter(model, sid, unit=data.get(A_UNIT, None), name=data.get(A_NAME, None), value=None, constant=False)

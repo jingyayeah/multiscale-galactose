@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_2cfccdf0bc4a4ed6befe8cf61bb374e6" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mmol" timeUnits="s" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mmol" fbc:strict="false">
+  <model metaid="meta_80f0705e306a4bce812a29b36b2c8316" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Glucose Metabolism</h1>
@@ -49,7 +49,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_2cfccdf0bc4a4ed6befe8cf61bb374e6">
+    <rdf:Description rdf:about="#meta_80f0705e306a4bce812a29b36b2c8316">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -65,10 +65,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-15T22:12:07Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-16T12:36:35Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-15T22:12:07Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-16T12:36:35Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -153,21 +153,15 @@
       <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
-  <unitDefinition id="mmol_per_s">
+  <unitDefinition id="min">
     <listOfUnits>
-      <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
-      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="1" scale="0" multiplier="60"/>
     </listOfUnits>
   </unitDefinition>
   <unitDefinition id="mM">
     <listOfUnits>
       <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
       <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
-    </listOfUnits>
-  </unitDefinition>
-  <unitDefinition id="min">
-    <listOfUnits>
-      <unit kind="second" exponent="1" scale="0" multiplier="60"/>
     </listOfUnits>
   </unitDefinition>
   <unitDefinition id="m">
@@ -193,14 +187,14 @@
       <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
     </listOfUnits>
   </unitDefinition>
+  <unitDefinition id="m3">
+    <listOfUnits>
+      <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
   <unitDefinition id="m2">
     <listOfUnits>
       <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
-    </listOfUnits>
-  </unitDefinition>
-  <unitDefinition id="mmol">
-    <listOfUnits>
-      <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
   <unitDefinition id="per_s">
@@ -208,62 +202,68 @@
       <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
+  <unitDefinition id="mol_per_s">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
 </listOfUnitDefinitions><listOfCompartments>
   <compartment id="mm" name="mitochondrial membrane" spatialDimensions="2" units="m2" constant="true"/>
-  <compartment id="mito" name="mitochondrion" spatialDimensions="3" units="litre" constant="false"/>
-  <compartment id="ext" name="blood" spatialDimensions="3" units="litre" constant="false"/>
-  <compartment id="cyto" name="cytosol" spatialDimensions="3" units="litre" constant="false"/>
+  <compartment id="mito" name="mitochondrion" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="ext" name="blood" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="cyto" name="cytosol" spatialDimensions="3" units="m3" constant="false"/>
   <compartment id="pm" name="plasma membrane" spatialDimensions="2" units="m2" constant="true"/>
 </listOfCompartments><listOfSpecies>
-  <species id="gdp" name="GDP" compartment="cyto" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="h_mito" name="H+" compartment="mito" initialConcentration="0" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="fru6p" name="fructose-6 phosphate" compartment="cyto" initialConcentration="0.05" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="acoa_mito" name="acetyl-coenzyme A" compartment="mito" initialConcentration="0.04" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="cit_mito" name="citrate" compartment="mito" initialConcentration="0.32" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="oaa_mito" name=" oxaloacetate" compartment="mito" initialConcentration="0.01" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="glyglc" name="glycogen" compartment="cyto" initialConcentration="250" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="pyr_mito" name="pyruvate" compartment="mito" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="co2_mito" name="CO2" compartment="mito" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="atp_mito" name="ATP" compartment="mito" initialConcentration="2.8" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="pp" name="pyrophosphate" compartment="cyto" initialConcentration="0.008" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="co2" name="CO2" compartment="cyto" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="fru26bp" name="fructose-2,6 bisphosphate" compartment="cyto" initialConcentration="0.004" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="udpglc" name="UDP-glucose" compartment="cyto" initialConcentration="0.38" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="adp" name="ADP" compartment="cyto" initialConcentration="0.8" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="glc_ext" name="glucose" compartment="ext" initialConcentration="3" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="bpg13" name="1,3-bisphospho-glycerate" compartment="cyto" initialConcentration="0.3" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="h2o" name="H2O" compartment="cyto" initialConcentration="0" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="glc1p" name="glucose-1 phosphate" compartment="cyto" initialConcentration="0.012" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="gdp_mito" name="GDP" compartment="mito" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="gtp" name="GTP" compartment="cyto" initialConcentration="0.29" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="dhap" name="dihydroxyacetone phosphate" compartment="cyto" initialConcentration="0.03" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="phos_mito" name="phosphate" compartment="mito" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="pyr" name="pyruvate" compartment="cyto" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="fru16bp" name="fructose-1,6 bisphosphate" compartment="cyto" initialConcentration="0.02" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="h2o_mito" name="H20" compartment="mito" initialConcentration="0" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="udp" name="UDP" compartment="cyto" initialConcentration="0.09" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="nadh" name="NADH" compartment="cyto" initialConcentration="0.00056" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="nadh_mito" name="NADH" compartment="mito" initialConcentration="0.24" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="lac" name="lactate" compartment="cyto" initialConcentration="0.5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="pg2" name="2-phosphoglycerate" compartment="cyto" initialConcentration="0.03" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="pg3" name="3-phosphoglycerate" compartment="cyto" initialConcentration="0.27" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="amp" name="AMP" compartment="cyto" initialConcentration="0.16" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="glc6p" name="glucose-6 phosphate" compartment="cyto" initialConcentration="0.12" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="phos" name="phosphate" compartment="cyto" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="pep" name="phosphoenolpyruvate" compartment="cyto" initialConcentration="0.15" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="nad" name="NAD+" compartment="cyto" initialConcentration="1.22" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="grap" name="glyceraldehyde 3-phosphate" compartment="cyto" initialConcentration="0.1" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="h" name="H+" compartment="cyto" initialConcentration="0" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="glc" name="glucose" compartment="cyto" initialConcentration="5" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="coa_mito" name="coenzyme A" compartment="mito" initialConcentration="0.055" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="nad_mito" name="NAD+" compartment="mito" initialConcentration="0.98" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="adp_mito" name="ADP" compartment="mito" initialConcentration="0.8" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="utp" name="UTP" compartment="cyto" initialConcentration="0.27" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="pep_mito" name="phosphoenolpyruvate" compartment="mito" initialConcentration="0.15" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="atp" name="ATP" compartment="cyto" initialConcentration="2.8" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="oaa" name="oxaloacetate" compartment="cyto" initialConcentration="0.01" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="lac_ext" name="lactate" compartment="ext" initialConcentration="1.2" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="gtp_mito" name="GTP" compartment="mito" initialConcentration="0.29" substanceUnits="mmol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="gdp" name="GDP" compartment="cyto" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="h_mito" name="H+" compartment="mito" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="fru6p" name="fructose-6 phosphate" compartment="cyto" initialConcentration="0.05" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="acoa_mito" name="acetyl-coenzyme A" compartment="mito" initialConcentration="0.04" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="cit_mito" name="citrate" compartment="mito" initialConcentration="0.32" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="oaa_mito" name=" oxaloacetate" compartment="mito" initialConcentration="0.01" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="glyglc" name="glycogen" compartment="cyto" initialConcentration="250" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="pyr_mito" name="pyruvate" compartment="mito" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="co2_mito" name="CO2" compartment="mito" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="atp_mito" name="ATP" compartment="mito" initialConcentration="2.8" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="pp" name="pyrophosphate" compartment="cyto" initialConcentration="0.008" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="co2" name="CO2" compartment="cyto" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="fru26bp" name="fructose-2,6 bisphosphate" compartment="cyto" initialConcentration="0.004" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="udpglc" name="UDP-glucose" compartment="cyto" initialConcentration="0.38" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="adp" name="ADP" compartment="cyto" initialConcentration="0.8" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="glc_ext" name="glucose" compartment="ext" initialConcentration="3" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="bpg13" name="1,3-bisphospho-glycerate" compartment="cyto" initialConcentration="0.3" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="h2o" name="H2O" compartment="cyto" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="glc1p" name="glucose-1 phosphate" compartment="cyto" initialConcentration="0.012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="gdp_mito" name="GDP" compartment="mito" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="gtp" name="GTP" compartment="cyto" initialConcentration="0.29" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="dhap" name="dihydroxyacetone phosphate" compartment="cyto" initialConcentration="0.03" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="phos_mito" name="phosphate" compartment="mito" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="pyr" name="pyruvate" compartment="cyto" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="fru16bp" name="fructose-1,6 bisphosphate" compartment="cyto" initialConcentration="0.02" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="h2o_mito" name="H20" compartment="mito" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="udp" name="UDP" compartment="cyto" initialConcentration="0.09" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="nadh" name="NADH" compartment="cyto" initialConcentration="0.00056" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="nadh_mito" name="NADH" compartment="mito" initialConcentration="0.24" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="lac" name="lactate" compartment="cyto" initialConcentration="0.5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="pg2" name="2-phosphoglycerate" compartment="cyto" initialConcentration="0.03" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="pg3" name="3-phosphoglycerate" compartment="cyto" initialConcentration="0.27" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="amp" name="AMP" compartment="cyto" initialConcentration="0.16" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="glc6p" name="glucose-6 phosphate" compartment="cyto" initialConcentration="0.12" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="phos" name="phosphate" compartment="cyto" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="pep" name="phosphoenolpyruvate" compartment="cyto" initialConcentration="0.15" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="nad" name="NAD+" compartment="cyto" initialConcentration="1.22" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="grap" name="glyceraldehyde 3-phosphate" compartment="cyto" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="h" name="H+" compartment="cyto" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="glc" name="glucose" compartment="cyto" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="coa_mito" name="coenzyme A" compartment="mito" initialConcentration="0.055" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="nad_mito" name="NAD+" compartment="mito" initialConcentration="0.98" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="adp_mito" name="ADP" compartment="mito" initialConcentration="0.8" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="utp" name="UTP" compartment="cyto" initialConcentration="0.27" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="pep_mito" name="phosphoenolpyruvate" compartment="mito" initialConcentration="0.15" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="atp" name="ATP" compartment="cyto" initialConcentration="2.8" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="oaa" name="oxaloacetate" compartment="cyto" initialConcentration="0.01" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="lac_ext" name="lactate" compartment="ext" initialConcentration="1.2" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="gtp_mito" name="GTP" compartment="mito" initialConcentration="0.29" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
 </listOfSpecies><listOfParameters>
   <parameter id="x_epi3" value="3.1" units="mM" constant="true"/>
   <parameter id="K_val" value="0.1" units="dimensionless" constant="true"/>
@@ -279,19 +279,19 @@
   <parameter id="x_glu3" value="3.01" units="mM" constant="true"/>
   <parameter id="x_ins4" value="4.2" units="dimensionless" constant="true"/>
   <parameter id="x_glu1" value="190" units="pmol_per_l" constant="true"/>
-  <parameter id="V_cyto" name="cytosolic volume" value="1" units="litre" constant="true"/>
+  <parameter id="V_cyto" name="cytosolic volume" value="0.001" units="m3" constant="true"/>
   <parameter id="x_epi4" value="8.4" units="dimensionless" constant="true"/>
   <parameter id="f_mito" name="mitochondrial volume factor" value="0.2" units="dimensionless" constant="true"/>
   <parameter id="x_epi2" value="100" units="pmol_per_l" constant="true"/>
-  <parameter id="Vliver" name="liver volume" value="1.5" units="litre" constant="true"/>
+  <parameter id="Vliver" name="liver volume" value="0.0015" units="m3" constant="true"/>
   <parameter id="bodyweight" name="bodyweight" value="70" units="kg" constant="true"/>
   <parameter id="x_glu2" value="37.9" units="pmol_per_l" constant="true"/>
   <parameter id="scale_glyglc" units="dimensionless" constant="true"/>
-  <parameter id="V_mito" name="mitochondrial volume" units="litre" constant="true"/>
+  <parameter id="V_mito" name="mitochondrial volume" units="m3" constant="true"/>
   <parameter id="conversion_factor" units="s_per_min_kg" constant="true"/>
   <parameter id="scale_gly" units="dimensionless" constant="true"/>
   <parameter id="scale" units="dimensionless" constant="true"/>
-  <parameter id="V_ext" name="external volume" units="litre" constant="true"/>
+  <parameter id="V_ext" name="external volume" units="m3" constant="true"/>
   <parameter id="K_glu" units="pmol_per_l" constant="false"/>
   <parameter id="gtp_tot" units="mM" constant="false"/>
   <parameter id="glu_norm" units="pmol_per_l" constant="false"/>
@@ -309,6 +309,15 @@
   <parameter id="ins" units="pmol_per_l" constant="false"/>
   <parameter id="glu" units="pmol_per_l" constant="false"/>
   <parameter id="gamma" units="dimensionless" constant="false"/>
+  <parameter id="GK_n_gkrp" value="2" units="dimensionless" constant="true"/>
+  <parameter id="GK_km_glc1" value="15" units="mM" constant="true"/>
+  <parameter id="GK_km_fru6p" value="0.01" units="mM" constant="true"/>
+  <parameter id="GK_b" value="0.7" units="dimensionless" constant="true"/>
+  <parameter id="GK_n" value="1.6" units="dimensionless" constant="true"/>
+  <parameter id="GK_km_glc" value="7.5" units="mM" constant="true"/>
+  <parameter id="GK_km_atp" value="0.26" units="mM" constant="true"/>
+  <parameter id="GK_Vmax" value="25.2" units="mol_per_s" constant="true"/>
+  <parameter id="GK_gc_free" units="dimensionless" constant="false"/>
 </listOfParameters><listOfInitialAssignments>
   <initialAssignment symbol="scale_glyglc">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -706,6 +715,102 @@
       </apply>
     </math>
   </assignmentRule>
-</listOfRules>
+  <assignmentRule variable="GK_gc_free">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <power/>
+            <ci> glc </ci>
+            <ci> GK_n_gkrp </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> glc </ci>
+              <ci> GK_n_gkrp </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> GK_km_glc1 </ci>
+              <ci> GK_n_gkrp </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> GK_b </ci>
+              <ci> fru6p </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> fru6p </ci>
+              <ci> GK_km_fru6p </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+</listOfRules><listOfReactions>
+  <reaction id="GK" name="Glucokinase" reversible="false" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="glc" stoichiometry="1" constant="true"/>
+      <speciesReference species="atp" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="glc6p" stoichiometry="1" constant="true"/>
+      <speciesReference species="adp" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> GK_Vmax </ci>
+          <ci> GK_gc_free </ci>
+          <apply>
+            <divide/>
+            <ci> atp </ci>
+            <apply>
+              <plus/>
+              <ci> GK_km_atp </ci>
+              <ci> atp </ci>
+            </apply>
+          </apply>
+          <apply>
+            <divide/>
+            <apply>
+              <power/>
+              <ci> glc </ci>
+              <ci> GK_n </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <power/>
+                <ci> glc </ci>
+                <ci> GK_n </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> GK_km_glc </ci>
+                <ci> GK_n </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+</listOfReactions>
 </model>
 </sbml>

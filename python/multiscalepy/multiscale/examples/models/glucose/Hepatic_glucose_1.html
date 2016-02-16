@@ -184,6 +184,7 @@
                     <li><a href="#Parameters">Parameters</a></li>
                     <li><a href="#InitialAssignments">InitialAssignments</a></li>
                     <li><a href="#Rules">Rules</a></li>
+                    <li><a href="#Reactions">Reactions</a></li>
             </ul>
         </div>
         <!-- END LEFT -->
@@ -247,7 +248,7 @@
         <hr />
 
     <h1>Model : Hepatic_glucose_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-15 22:12<br /><b>Modified:</b> 2016-02-15 22:12<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-16 12:36<br /><b>Modified:</b> 2016-02-16 12:36<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -264,9 +265,9 @@
 	<tr><td class="active">name</td><td>Hepatic_glucose_1</td></tr>
 	<tr><td class="active">version</td><td>L3V1</td></tr>
 	<tr><td class="active">time</td><td>s</td></tr>
-	<tr><td class="active">substance</td><td>mmol</td></tr>
-	<tr><td class="active">extent</td><td>mmol</td></tr>
-	<tr><td class="active">volume</td><td>litre</td></tr>
+	<tr><td class="active">substance</td><td>mole</td></tr>
+	<tr><td class="active">extent</td><td>mole</td></tr>
+	<tr><td class="active">volume</td><td>m3</td></tr>
 	<tr><td class="active">area</td><td>m2</td></tr>
 	<tr><td class="active">length</td><td>m</td></tr>
 </tr>
@@ -484,24 +485,13 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">mmol_per_s</td>
+	<td class="active">min</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
-    </apply>
+    <times/>
+    <cn> 60 </cn>
     <ci> s </ci>
   </apply>
 </math></td>
@@ -523,22 +513,6 @@
       <ci> m </ci>
       <cn type="integer"> 3 </cn>
     </apply>
-  </apply>
-</math></td>
-	<td>        -
-</td>
-	<td>        -
-</td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">min</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <times/>
-    <cn> 60 </cn>
-    <ci> s </ci>
   </apply>
 </math></td>
 	<td>        -
@@ -623,6 +597,22 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">m3</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
 	<td class="active">m2</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
@@ -639,21 +629,14 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">mmol</td>
+	<td class="active">per_s</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
-    <apply>
-      <power/>
-      <cn type="integer"> 10 </cn>
-      <apply>
-        <minus/>
-        <cn type="integer"> 3 </cn>
-      </apply>
-    </apply>
-    <ci> mole </ci>
+    <divide/>
+    <cn type="integer"> 1 </cn>
+    <ci> s </ci>
   </apply>
 </math></td>
 	<td>        -
@@ -662,13 +645,13 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">per_s</td>
+	<td class="active">mol_per_s</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
-    <cn type="integer"> 1 </cn>
+    <ci> mole </ci>
     <ci> s </ci>
   </apply>
 </math></td>
@@ -739,10 +722,14 @@
 	        <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
 	<td>3</td>
-	<td>litre</td>
+	<td>m3</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -762,10 +749,14 @@
 	        <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
 	<td>3</td>
-	<td>litre</td>
+	<td>m3</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -785,10 +776,14 @@
 	        <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
 	<td>3</td>
-	<td>litre</td>
+	<td>m3</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -861,24 +856,17 @@
 	<td>
             0.1
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -900,24 +888,17 @@
 	<td>
             0.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -939,24 +920,17 @@
 	<td>
             0.05
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -978,24 +952,17 @@
 	<td>
             0.04
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1017,24 +984,17 @@
 	<td>
             0.32
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1056,24 +1016,17 @@
 	<td>
             0.01
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1095,24 +1048,17 @@
 	<td>
             250.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1134,24 +1080,17 @@
 	<td>
             0.1
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1173,24 +1112,17 @@
 	<td>
             5.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1212,24 +1144,17 @@
 	<td>
             2.8
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1251,24 +1176,17 @@
 	<td>
             0.008
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1290,24 +1208,17 @@
 	<td>
             5.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1329,24 +1240,17 @@
 	<td>
             0.004
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1368,24 +1272,17 @@
 	<td>
             0.38
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1407,24 +1304,17 @@
 	<td>
             0.8
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1446,24 +1336,17 @@
 	<td>
             3.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1485,24 +1368,17 @@
 	<td>
             0.3
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1524,24 +1400,17 @@
 	<td>
             0.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1563,24 +1432,17 @@
 	<td>
             0.012
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1602,24 +1464,17 @@
 	<td>
             0.1
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1641,24 +1496,17 @@
 	<td>
             0.29
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1680,24 +1528,17 @@
 	<td>
             0.03
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1719,24 +1560,17 @@
 	<td>
             5.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1758,24 +1592,17 @@
 	<td>
             0.1
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1797,24 +1624,17 @@
 	<td>
             0.02
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1836,24 +1656,17 @@
 	<td>
             0.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1875,24 +1688,17 @@
 	<td>
             0.09
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1914,24 +1720,17 @@
 	<td>
             0.00056
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1953,24 +1752,17 @@
 	<td>
             0.24
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -1992,24 +1784,17 @@
 	<td>
             0.5
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2031,24 +1816,17 @@
 	<td>
             0.03
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2070,24 +1848,17 @@
 	<td>
             0.27
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2109,24 +1880,17 @@
 	<td>
             0.16
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2148,24 +1912,17 @@
 	<td>
             0.12
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2187,24 +1944,17 @@
 	<td>
             5.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2226,24 +1976,17 @@
 	<td>
             0.15
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2265,24 +2008,17 @@
 	<td>
             1.22
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2304,24 +2040,17 @@
 	<td>
             0.1
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2343,24 +2072,17 @@
 	<td>
             0.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2382,24 +2104,17 @@
 	<td>
             5.0
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2421,24 +2136,17 @@
 	<td>
             0.055
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2460,24 +2168,17 @@
 	<td>
             0.98
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2499,24 +2200,17 @@
 	<td>
             0.8
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2538,24 +2232,17 @@
 	<td>
             0.27
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2577,24 +2264,17 @@
 	<td>
             0.15
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2616,24 +2296,17 @@
 	<td>
             2.8
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2655,24 +2328,17 @@
 	<td>
             0.01
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2694,24 +2360,17 @@
 	<td>
             1.2
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2733,24 +2392,17 @@
 	<td>
             0.29
     </td>
-	<td>mmol</td>
+	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -2770,7 +2422,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [44]</th>
+	<th scope="col" class="warning">Parameters [53]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -3110,12 +2762,16 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">V_cyto</td>
 	<td>cytosolic volume</td>
-	<td>            1.0
+	<td>            0.001
     </td>
-	<td>litre</td>
+	<td>m3</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
@@ -3191,12 +2847,16 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">Vliver</td>
 	<td>liver volume</td>
-	<td>            1.5
+	<td>            0.0015
     </td>
-	<td>litre</td>
+	<td>m3</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
@@ -3289,10 +2949,14 @@
 </math>
 
     </td>
-	<td>litre</td>
+	<td>m3</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
@@ -3405,10 +3069,14 @@
 </math>
 
     </td>
-	<td>litre</td>
+	<td>m3</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
@@ -4206,6 +3874,236 @@
 	<td>        -
 </td>
 </tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_n_gkrp</td>
+	<td></td>
+	<td>            2.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_km_glc1</td>
+	<td></td>
+	<td>            15.0
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_km_fru6p</td>
+	<td></td>
+	<td>            0.01
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_b</td>
+	<td></td>
+	<td>            0.7
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_n</td>
+	<td></td>
+	<td>            1.6
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_km_glc</td>
+	<td></td>
+	<td>            7.5
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_km_atp</td>
+	<td></td>
+	<td>            0.26
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_Vmax</td>
+	<td></td>
+	<td>            25.2
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GK_gc_free</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <power/>
+        <ci> glc </ci>
+        <ci> GK_n_gkrp </ci>
+      </apply>
+      <apply>
+        <plus/>
+        <apply>
+          <power/>
+          <ci> glc </ci>
+          <ci> GK_n_gkrp </ci>
+        </apply>
+        <apply>
+          <power/>
+          <ci> GK_km_glc1 </ci>
+          <ci> GK_n_gkrp </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> GK_b </ci>
+          <ci> fru6p </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <ci> fru6p </ci>
+          <ci> GK_km_fru6p </ci>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
             </tbody>
         </table>
         <hr/>
@@ -4255,7 +4153,11 @@
 </td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -4354,7 +4256,11 @@
 </td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -4417,7 +4323,7 @@
         <table id="table_rules" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules [20]</th>
+	<th scope="col" class="warning">Rules [21]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -4436,7 +4342,11 @@
 </td>
     <td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -4454,7 +4364,11 @@
 </td>
     <td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -4472,7 +4386,11 @@
 </td>
     <td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> litre </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
 	<td>        -
@@ -4537,19 +4455,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -4621,19 +4532,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -4700,19 +4604,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -4737,19 +4634,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -4838,19 +4728,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -4944,19 +4827,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -4981,19 +4857,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> mole </ci>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
     </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -5195,6 +5064,61 @@
 	<td>        -
 </td>
 </tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">GK_gc_free</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <power/>
+        <ci> glc </ci>
+        <ci> GK_n_gkrp </ci>
+      </apply>
+      <apply>
+        <plus/>
+        <apply>
+          <power/>
+          <ci> glc </ci>
+          <ci> GK_n_gkrp </ci>
+        </apply>
+        <apply>
+          <power/>
+          <ci> GK_km_glc1 </ci>
+          <ci> GK_n_gkrp </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> GK_b </ci>
+          <ci> fru6p </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <ci> fru6p </ci>
+          <ci> GK_km_fru6p </ci>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
             </tbody>
         </table>
         <hr/>
@@ -5206,6 +5130,86 @@
     <!--------------------------------------------------->
     <!-- Reactions -->
     <!--------------------------------------------------->
+        <a class="anchor" id="Reactions"></a>
+        <table id="table_reactions" class="table table-condensed table-nonfluid table-hover">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Reactions [1]</th>
+	<th scope="col">name</th>
+	<th scope="col"></th>
+	<th scope="col">equation</th>
+	<th scope="col">modifiers</th>
+    <th scope="col">formula</th>
+	<th scope="col">derived units</th>
+	<th scope="col">sbo</th>
+	<th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">GK</td>
+	<td>Glucokinase</td>
+	    <td class="danger">&#10142;</td>
+	<td>glc + atp &#10142; glc6p + adp</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> scale_gly </ci>
+    <ci> GK_Vmax </ci>
+    <ci> GK_gc_free </ci>
+    <apply>
+      <divide/>
+      <ci> atp </ci>
+      <apply>
+        <plus/>
+        <ci> GK_km_atp </ci>
+        <ci> atp </ci>
+      </apply>
+    </apply>
+    <apply>
+      <divide/>
+      <apply>
+        <power/>
+        <ci> glc </ci>
+        <ci> GK_n </ci>
+      </apply>
+      <apply>
+        <plus/>
+        <apply>
+          <power/>
+          <ci> glc </ci>
+          <ci> GK_n </ci>
+        </apply>
+        <apply>
+          <power/>
+          <ci> GK_km_glc </ci>
+          <ci> GK_n </ci>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
     
     <!--------------------------------------------------->
     <!-- Events -->

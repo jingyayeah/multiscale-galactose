@@ -4,12 +4,9 @@ The underlying idea is to import the respective model information and use
 the module dictionaries to create the actual model.
 
 Uses the importlib to import the information.
-
-TODO: the parts which can be reused have to be exported to a BaseClass.
-
 """
 
-from __future__ import print_function
+from __future__ import print_function, division
 
 from libsbml import SBMLDocument, SBMLNamespaces
 from ..modelcreator_settings import PROGRAM_NAME, PROGRAM_VERSION
@@ -211,55 +208,52 @@ class CellModel(object):
         warnings.warn("Not implemented")
 
     ##########################################################################
-    # Units
+    # SBML Model Elements
     ##########################################################################
+    # TODO: more generic
     def createUnits(self):
-        create_unit_definitions(self.model, self.units)
-        # set main units in model
-        set_main_units(self.model, self.main_units)
+        """Creates model UnitDefinitions from units."""
+        if hasattr(self, 'units'):
+            create_unit_definitions(self.model, self.units)
+        if hasattr(self, 'main_units'):
+            # set main units in model
+            set_main_units(self.model, self.main_units)
 
-    ##########################################################################
-    # Functions
-    ##########################################################################
     def createFunctions(self):
-        self.addName(self.functions)
-        create_functions(self.model, self.functions)
+        """Creates model FunctionDefinitions from functions."""
+        if hasattr(self, 'functions'):
+            self.addName(self.functions)
+            create_functions(self.model, self.functions)
 
-    ##########################################################################
-    # Parameters
-    ##########################################################################
     def createParameters(self):
-        self.addName(self.parameters)
-        create_parameters(self.model, self.parameters)
+        """Creates model Parameters from parameters."""
+        if hasattr(self, 'parameters'):
+            self.addName(self.parameters)
+            create_parameters(self.model, self.parameters)
 
-    #########################################################################
-    # Compartments
-    #########################################################################
     def createCompartments(self):
-        self.addName(self.compartments)
-        create_compartments(self.model, self.compartments)
+        """Creates model Compartments from compartments."""
+        if hasattr(self, 'compartments'):
+            self.addName(self.compartments)
+            create_compartments(self.model, self.compartments)
 
-    ##########################################################################
-    # Species
-    ##########################################################################
     def createSpecies(self):
-        self.addName(self.species)
-        create_species(self.model, self.species)
+        """Creates model Species from species."""
+        if hasattr(self, 'species'):
+            self.addName(self.species)
+            create_species(self.model, self.species)
 
-    ##########################################################################
-    # Assignments
-    ##########################################################################
     def createInitialAssignments(self):
-        self.addName(self.assignments)
-        create_initial_assignments(self.model, self.assignments)
+        """Creates model InitialAssignments from assignments."""
+        if hasattr(self, 'assignments'):
+            self.addName(self.assignments)
+            create_initial_assignments(self.model, self.assignments)
 
-    #########################################################################
-    # Rules
-    #########################################################################
-    # Assignment Rules
     def createAssignmentRules(self):
-        self.addName(self.rules)
-        create_assignment_rules(self.model, self.rules)
+        """Creates model AssignmentRules from rules."""
+        if hasattr(self, 'rules'):
+            self.addName(self.rules)
+            create_assignment_rules(self.model, self.rules)
 
     #########################################################################
     # Reactions

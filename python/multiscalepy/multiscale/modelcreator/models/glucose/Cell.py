@@ -50,11 +50,11 @@ print(notes)
 creators = mkoenig
 main_units = {
     'time': 's',
-    'extent': 'mmol',
-    'substance': 'mmol',
+    'extent': UNIT_KIND_MOLE,
+    'substance': UNIT_KIND_MOLE,
     'length': 'm',
     'area': 'm2',
-    'volume': UNIT_KIND_LITRE,
+    'volume': 'm3',
 }
 units = dict()
 functions = dict()
@@ -75,17 +75,18 @@ units.update({
     'kg': [(UNIT_KIND_KILOGRAM, 1.0)],
     'm': [(UNIT_KIND_METRE, 1.0)],
     'm2': [(UNIT_KIND_METRE, 2.0)],
+    'm3': [(UNIT_KIND_METRE, 3.0)],
     'per_s': [(UNIT_KIND_SECOND, -1.0)],
     'min': [(UNIT_KIND_SECOND, 1.0, 0, 60)],
     's_per_min': [(UNIT_KIND_SECOND, 1.0),
                   (UNIT_KIND_SECOND, -1.0, 0, 60)],
-    'mmol': [(UNIT_KIND_MOLE, 1.0, -3, 1.0)],
     'mM': [(UNIT_KIND_MOLE, 1.0),
            (UNIT_KIND_METRE, -3.0)],
     'mMmM': [(UNIT_KIND_MOLE, 2.0),
              (UNIT_KIND_METRE, -6.0)],
-    'mmol_per_s': [(UNIT_KIND_MOLE, 1.0, -3, 1.0),
-                   (UNIT_KIND_SECOND, -1.0)],
+    'mol_per_s': [(UNIT_KIND_MOLE, 1.0),
+                  (UNIT_KIND_SECOND, -1.0)],
+
     'pmol': [(UNIT_KIND_MOLE, 1.0, -12, 1.0)],
     'pmol_per_l': [(UNIT_KIND_MOLE, 1.0, -12, 1.0),
                    (UNIT_KIND_LITRE, -1.0)],
@@ -113,9 +114,9 @@ names.update({
 ##############################################################
 compartments.update({
     # id : ('spatialDimension', 'unit', 'constant', 'assignment')
-    'ext': (3, 'litre', False, 'V_ext'),
-    'cyto': (3, 'litre', False, 'V_cyto'),
-    'mito': (3, 'litre', False, 'V_mito'),
+    'ext': (3, 'm3', False, 'V_ext'),
+    'cyto': (3, 'm3', False, 'V_cyto'),
+    'mito': (3, 'm3', False, 'V_mito'),
     'pm': (2, 'm2', True, '1.0 m2'),
     'mm': (2, 'm2', True, '1.0 m2'),
 })
@@ -247,10 +248,10 @@ names.update({
 ##############################################################
 parameters.update({
     # id: ('value', 'unit', 'constant')
-    'V_cyto': (1.0, 'litre', True),
+    'V_cyto': (1.0E-3, 'm3', True),
     'f_ext': (10.0, 'dimensionless', True),
     'f_mito': (0.2, 'dimensionless', True),
-    'Vliver': (1.5, 'litre', True),
+    'Vliver': (1.5E-3, 'm3', True),
     'fliver': (0.583333333333334, 'dimensionless', True),
     'bodyweight': (70, 'kg', True),
     'sec_per_min': (60, 's_per_min', True),
@@ -290,8 +291,8 @@ names.update({
 ##############################################################
 assignments.update({
     # id: ('value', 'unit')
-    'V_ext': ('f_ext * V_cyto', 'litre'),
-    'V_mito': ('f_mito * V_cyto', 'litre'),
+    'V_ext': ('f_ext * V_cyto', 'm3'),
+    'V_mito': ('f_mito * V_cyto', 'm3'),
     'conversion_factor': ('fliver*Vliver/V_cyto*sec_per_min * 1E3 dimensionless/bodyweight', 's_per_min_kg'),
 
     # scaling factors
@@ -343,6 +344,7 @@ names.update({
 ##############################################################
 # Reactions
 ##############################################################
+from Reactions import GK
 reactions.extend([
-
+    GK
 ])

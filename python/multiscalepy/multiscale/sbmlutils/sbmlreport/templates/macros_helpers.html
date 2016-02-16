@@ -47,7 +47,7 @@
 
 {% macro derived_units(item) %}
     {#
-        {{ item.getDerivedUnitDefinition()|SBML_unitDefinitionToString }}
+        {{ item.getDerivedUnitDefinition()|SBML_unitDefinitionToString1 }}
      #}
     {{ item.getDerivedUnitDefinition()|SBML_unitDefinitionToString|SBML_stringToMathML }}
 {% endmacro %}
