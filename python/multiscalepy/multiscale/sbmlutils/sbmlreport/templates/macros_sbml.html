@@ -97,7 +97,7 @@
 {% macro species_header(size) %}
     <th scope="col" class="hidden">type</th>
 	<th scope="col" class="warning">Species [{{ size }}]</th>
-	<th scope="col">name</th>
+    <th scope="col">name</th>
 	<th scope="col">compartment</th>
 	<th scope="col">boundary condition</th>
 	<th scope="col">constant</th>
@@ -107,6 +107,7 @@
 	<th scope="col">derived units</th>
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
+    {#  <th scope="col">XML</th>  #}
 {% endmacro %}
 
 {% macro species_content(item) %}
@@ -129,6 +130,7 @@
 	<td>{{ helpers.derived_units(item) }}</td>
 	<td>{{ helpers.sbo_term(item) }}</td>
 	<td>{{ helpers.annotation(item) }}</td>
+    {#  <td>{{ helpers.xml(item) }}</td>  #}
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -256,7 +258,7 @@
 	<td>{{ item|SBML_reactionToString }}</td>
 	<td>
         {% for mod in item.getListOfModifiers() %}
-        	{{mod.getSpecies}}<br />
+        	{{ mod.getSpecies() }}<br />
 		 {% endfor %}
     </td>
 	<td>{{ helpers.math(item.getKineticLaw()) }}</td>

@@ -45,6 +45,13 @@
     {% endif %}
 {% endmacro %}
 
+{%  macro xml(item) %}
+    <textarea style="border:none;">
+        {{ item.toSBML() }}
+    </textarea>
+{%  endmacro %}
+
+
 {% macro derived_units(item) %}
     {#
         {{ item.getDerivedUnitDefinition()|SBML_unitDefinitionToString1 }}

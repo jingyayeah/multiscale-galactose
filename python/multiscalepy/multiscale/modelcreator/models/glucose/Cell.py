@@ -82,14 +82,14 @@ units.update({
                   (UNIT_KIND_SECOND, -1.0, 0, 60)],
     'mM': [(UNIT_KIND_MOLE, 1.0),
            (UNIT_KIND_METRE, -3.0)],
-    'mMmM': [(UNIT_KIND_MOLE, 2.0),
+    'mM2': [(UNIT_KIND_MOLE, 2.0),
              (UNIT_KIND_METRE, -6.0)],
     'mol_per_s': [(UNIT_KIND_MOLE, 1.0),
                   (UNIT_KIND_SECOND, -1.0)],
 
     'pmol': [(UNIT_KIND_MOLE, 1.0, -12, 1.0)],
-    'pmol_per_l': [(UNIT_KIND_MOLE, 1.0, -12, 1.0),
-                   (UNIT_KIND_LITRE, -1.0)],
+    'pM': [(UNIT_KIND_MOLE, 1.0, -12, 1.0),
+           (UNIT_KIND_LITRE, -1.0)],
     'mumol_per_min_kg': [(UNIT_KIND_MOLE, 1.0, -6, 1.0),
                          (UNIT_KIND_SECOND, -1.0, 0, 60), (UNIT_KIND_KILOGRAM, -1.0)],
     's_per_min_kg': [(UNIT_KIND_SECOND, 1.0),
@@ -257,18 +257,18 @@ parameters.update({
     'sec_per_min': (60, 's_per_min', True),
 
     # hormonal regulation
-    'x_ins1': (818.9, 'pmol_per_l', True),
-    'x_ins2': (0, 'pmol_per_l', True),
+    'x_ins1': (818.9, 'pM', True),
+    'x_ins2': (0, 'pM', True),
     'x_ins3': (8.6, 'mM', True),
     'x_ins4': (4.2, 'dimensionless', True),
 
-    'x_glu1': (190, 'pmol_per_l', True),
-    'x_glu2': (37.9, 'pmol_per_l', True),
+    'x_glu1': (190, 'pM', True),
+    'x_glu2': (37.9, 'pM', True),
     'x_glu3': (3.01, 'mM', True),
     'x_glu4': (6.40, 'dimensionless', True),
 
-    'x_epi1': (6090, 'pmol_per_l', True),
-    'x_epi2': (100, 'pmol_per_l', True),
+    'x_epi1': (6090, 'pM', True),
+    'x_epi2': (100, 'pM', True),
     'x_epi3': (3.10, 'mM', True),
     'x_epi4': (8.40, 'dimensionless', True),
 
@@ -312,15 +312,15 @@ rules.update({
     # id: ('value', 'unit')
 
     # hormonal regulation
-    'ins': ('x_ins2 + (x_ins1-x_ins2) * glc_ext^x_ins4/(glc_ext^x_ins4 + x_ins3^x_ins4)', 'pmol_per_l'),
-    'ins_norm': ('max(0.0 pmol_per_l, ins-x_ins2)', 'pmol_per_l'),
-    'glu': ('x_glu2 + (x_glu1-x_glu2)*(1 dimensionless - glc_ext^x_glu4/(glc_ext^x_glu4 + x_glu3^x_glu4))', 'pmol_per_l'),
-    'glu_norm': ('max(0.0 pmol_per_l, glu-x_glu2)', 'pmol_per_l'),
-    'epi': ('x_epi2 + (x_epi1-x_epi2) * (1 dimensionless - glc_ext^x_epi4/(glc_ext^x_epi4 + x_epi3^x_epi4))', 'pmol_per_l'),
-    'epi_norm': ('max(0.0 pmol_per_l, epi-x_epi2)', 'pmol_per_l'),
-    'K_ins': ('(x_ins1-x_ins2) * K_val', 'pmol_per_l'),
-    'K_glu': ('(x_glu1-x_glu2) * K_val', 'pmol_per_l'),
-    'K_epi': ('(x_epi1-x_epi2) * K_val', 'pmol_per_l'),
+    'ins': ('x_ins2 + (x_ins1-x_ins2) * glc_ext^x_ins4/(glc_ext^x_ins4 + x_ins3^x_ins4)', 'pM'),
+    'ins_norm': ('max(0.0 pM, ins-x_ins2)', 'pM'),
+    'glu': ('x_glu2 + (x_glu1-x_glu2)*(1 dimensionless - glc_ext^x_glu4/(glc_ext^x_glu4 + x_glu3^x_glu4))', 'pM'),
+    'glu_norm': ('max(0.0 pM, glu-x_glu2)', 'pM'),
+    'epi': ('x_epi2 + (x_epi1-x_epi2) * (1 dimensionless - glc_ext^x_epi4/(glc_ext^x_epi4 + x_epi3^x_epi4))', 'pM'),
+    'epi_norm': ('max(0.0 pM, epi-x_epi2)', 'pM'),
+    'K_ins': ('(x_ins1-x_ins2) * K_val', 'pM'),
+    'K_glu': ('(x_glu1-x_glu2) * K_val', 'pM'),
+    'K_epi': ('(x_epi1-x_epi2) * K_val', 'pM'),
     'gamma': ('0.5 dimensionless * (1 dimensionless - ins_norm/(ins_norm+K_ins) + max(glu_norm/(glu_norm+K_glu), epi_f*epi_norm/(epi_norm+K_epi)))', 'dimensionless'),
 
     # balance rules
@@ -344,7 +344,8 @@ names.update({
 ##############################################################
 # Reactions
 ##############################################################
-from Reactions import GK
+from Reactions import *
 reactions.extend([
+    GLUT2,
     GK
 ])

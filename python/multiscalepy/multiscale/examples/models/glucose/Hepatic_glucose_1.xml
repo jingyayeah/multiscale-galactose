@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_80f0705e306a4bce812a29b36b2c8316" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_42d35bb60fb6483f9abfa2c8418f6392" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Glucose Metabolism</h1>
@@ -49,7 +49,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_80f0705e306a4bce812a29b36b2c8316">
+    <rdf:Description rdf:about="#meta_42d35bb60fb6483f9abfa2c8418f6392">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -65,10 +65,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-16T12:36:35Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-16T17:37:41Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-16T12:36:35Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-16T17:37:41Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -129,12 +129,6 @@
       <unit kind="mole" exponent="1" scale="-12" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
-  <unitDefinition id="mMmM">
-    <listOfUnits>
-      <unit kind="mole" exponent="2" scale="0" multiplier="1"/>
-      <unit kind="metre" exponent="-6" scale="0" multiplier="1"/>
-    </listOfUnits>
-  </unitDefinition>
   <unitDefinition id="s_per_min_kg">
     <listOfUnits>
       <unit kind="second" exponent="1" scale="0" multiplier="1"/>
@@ -145,12 +139,6 @@
   <unitDefinition id="kg">
     <listOfUnits>
       <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
-    </listOfUnits>
-  </unitDefinition>
-  <unitDefinition id="pmol_per_l">
-    <listOfUnits>
-      <unit kind="mole" exponent="1" scale="-12" multiplier="1"/>
-      <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
   <unitDefinition id="min">
@@ -167,6 +155,12 @@
   <unitDefinition id="m">
     <listOfUnits>
       <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mM2">
+    <listOfUnits>
+      <unit kind="mole" exponent="2" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-6" scale="0" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
   <unitDefinition id="mumol_per_min_kg">
@@ -197,15 +191,21 @@
       <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
+  <unitDefinition id="mol_per_s">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
   <unitDefinition id="per_s">
     <listOfUnits>
       <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
-  <unitDefinition id="mol_per_s">
+  <unitDefinition id="pM">
     <listOfUnits>
-      <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
-      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+      <unit kind="mole" exponent="1" scale="-12" multiplier="1"/>
+      <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
     </listOfUnits>
   </unitDefinition>
 </listOfUnitDefinitions><listOfCompartments>
@@ -268,47 +268,50 @@
   <parameter id="x_epi3" value="3.1" units="mM" constant="true"/>
   <parameter id="K_val" value="0.1" units="dimensionless" constant="true"/>
   <parameter id="x_glu4" value="6.4" units="dimensionless" constant="true"/>
-  <parameter id="x_epi1" value="6090" units="pmol_per_l" constant="true"/>
+  <parameter id="x_epi1" value="6090" units="pM" constant="true"/>
   <parameter id="epi_f" value="0.8" units="dimensionless" constant="true"/>
   <parameter id="f_ext" name="external volume factor" value="10" units="dimensionless" constant="true"/>
   <parameter id="fliver" name="parenchymal fraction liver" value="0.583333333333334" units="dimensionless" constant="true"/>
   <parameter id="sec_per_min" name="conversion" value="60" units="s_per_min" constant="true"/>
-  <parameter id="x_ins1" value="818.9" units="pmol_per_l" constant="true"/>
+  <parameter id="x_ins1" value="818.9" units="pM" constant="true"/>
   <parameter id="x_ins3" value="8.6" units="mM" constant="true"/>
-  <parameter id="x_ins2" value="0" units="pmol_per_l" constant="true"/>
+  <parameter id="x_ins2" value="0" units="pM" constant="true"/>
   <parameter id="x_glu3" value="3.01" units="mM" constant="true"/>
   <parameter id="x_ins4" value="4.2" units="dimensionless" constant="true"/>
-  <parameter id="x_glu1" value="190" units="pmol_per_l" constant="true"/>
+  <parameter id="x_glu1" value="190" units="pM" constant="true"/>
   <parameter id="V_cyto" name="cytosolic volume" value="0.001" units="m3" constant="true"/>
   <parameter id="x_epi4" value="8.4" units="dimensionless" constant="true"/>
   <parameter id="f_mito" name="mitochondrial volume factor" value="0.2" units="dimensionless" constant="true"/>
-  <parameter id="x_epi2" value="100" units="pmol_per_l" constant="true"/>
+  <parameter id="x_epi2" value="100" units="pM" constant="true"/>
   <parameter id="Vliver" name="liver volume" value="0.0015" units="m3" constant="true"/>
   <parameter id="bodyweight" name="bodyweight" value="70" units="kg" constant="true"/>
-  <parameter id="x_glu2" value="37.9" units="pmol_per_l" constant="true"/>
+  <parameter id="x_glu2" value="37.9" units="pM" constant="true"/>
   <parameter id="scale_glyglc" units="dimensionless" constant="true"/>
   <parameter id="V_mito" name="mitochondrial volume" units="m3" constant="true"/>
   <parameter id="conversion_factor" units="s_per_min_kg" constant="true"/>
   <parameter id="scale_gly" units="dimensionless" constant="true"/>
   <parameter id="scale" units="dimensionless" constant="true"/>
   <parameter id="V_ext" name="external volume" units="m3" constant="true"/>
-  <parameter id="K_glu" units="pmol_per_l" constant="false"/>
+  <parameter id="K_glu" units="pM" constant="false"/>
   <parameter id="gtp_tot" units="mM" constant="false"/>
-  <parameter id="glu_norm" units="pmol_per_l" constant="false"/>
-  <parameter id="ins_norm" units="pmol_per_l" constant="false"/>
+  <parameter id="glu_norm" units="pM" constant="false"/>
+  <parameter id="ins_norm" units="pM" constant="false"/>
   <parameter id="atp_tot" units="mM" constant="false"/>
-  <parameter id="K_epi" units="pmol_per_l" constant="false"/>
+  <parameter id="K_epi" units="pM" constant="false"/>
   <parameter id="utp_tot" units="mM" constant="false"/>
   <parameter id="nadh_tot" units="mM" constant="false"/>
-  <parameter id="epi_norm" units="pmol_per_l" constant="false"/>
-  <parameter id="K_ins" units="pmol_per_l" constant="false"/>
+  <parameter id="epi_norm" units="pM" constant="false"/>
+  <parameter id="K_ins" units="pM" constant="false"/>
   <parameter id="nadh_mito_tot" units="mM" constant="false"/>
-  <parameter id="epi" units="pmol_per_l" constant="false"/>
+  <parameter id="epi" units="pM" constant="false"/>
   <parameter id="atp_mito_tot" units="mM" constant="false"/>
   <parameter id="gtp_mito_tot" units="mM" constant="false"/>
-  <parameter id="ins" units="pmol_per_l" constant="false"/>
-  <parameter id="glu" units="pmol_per_l" constant="false"/>
+  <parameter id="ins" units="pM" constant="false"/>
+  <parameter id="glu" units="pM" constant="false"/>
   <parameter id="gamma" units="dimensionless" constant="false"/>
+  <parameter id="GLUT2_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="GLUT2_km" value="42" units="mM" constant="true"/>
+  <parameter id="GLUT2_Vmax" value="420" units="mol_per_s" constant="true"/>
   <parameter id="GK_n_gkrp" value="2" units="dimensionless" constant="true"/>
   <parameter id="GK_km_glc1" value="15" units="mM" constant="true"/>
   <parameter id="GK_km_fru6p" value="0.01" units="mM" constant="true"/>
@@ -430,7 +433,7 @@
     <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
         <ci> max </ci>
-        <cn sbml:units="pmol_per_l"> 0 </cn>
+        <cn sbml:units="pM"> 0 </cn>
         <apply>
           <minus/>
           <ci> glu </ci>
@@ -443,7 +446,7 @@
     <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
         <ci> max </ci>
-        <cn sbml:units="pmol_per_l"> 0 </cn>
+        <cn sbml:units="pM"> 0 </cn>
         <apply>
           <minus/>
           <ci> ins </ci>
@@ -498,7 +501,7 @@
     <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
         <ci> max </ci>
-        <cn sbml:units="pmol_per_l"> 0 </cn>
+        <cn sbml:units="pM"> 0 </cn>
         <apply>
           <minus/>
           <ci> epi </ci>
@@ -761,6 +764,53 @@
     </math>
   </assignmentRule>
 </listOfRules><listOfReactions>
+  <reaction id="GLUT2" name="GLUT2 glucose transporter" reversible="false" fast="false" compartment="pm">
+    <listOfReactants>
+      <speciesReference species="glc_ext" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="glc" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> scale_gly </ci>
+            <apply>
+              <divide/>
+              <ci> GLUT2_Vmax </ci>
+              <ci> GLUT2_km </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> glc_ext </ci>
+              <apply>
+                <divide/>
+                <ci> glc </ci>
+                <ci> GLUT2_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> glc_ext </ci>
+              <ci> GLUT2_km </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> glc </ci>
+              <ci> GLUT2_km </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
   <reaction id="GK" name="Glucokinase" reversible="false" fast="false" compartment="cyto">
     <listOfReactants>
       <speciesReference species="glc" stoichiometry="1" constant="true"/>
@@ -770,6 +820,10 @@
       <speciesReference species="glc6p" stoichiometry="1" constant="true"/>
       <speciesReference species="adp" stoichiometry="1" constant="true"/>
     </listOfProducts>
+    <listOfModifiers>
+      <modifierSpeciesReference species="glc1p"/>
+      <modifierSpeciesReference species="fru6p"/>
+    </listOfModifiers>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>

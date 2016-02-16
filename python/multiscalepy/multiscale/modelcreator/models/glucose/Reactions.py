@@ -1,5 +1,9 @@
 """
 Reactions and transporters of Galactose metabolism.
+
+TODO: the modfiers can be deduced from the equations.
+COMPARTMENTS: are not needed, but handled via comp
+
 """
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 
@@ -7,10 +11,25 @@ from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 #    REACTIONS
 #############################################################################################
 
+GLUT2 = ReactionTemplate(
+    rid='GLUT2',
+    name='GLUT2 glucose transporter',
+    equation='glc_ext -> glc []',
+    localization='pm',
+    compartments=[],
+    pars=[
+        ('GLUT2_keq', 1, 'dimensionless'),
+        ('GLUT2_km', 42, 'mM'),
+        ('GLUT2_Vmax', 420, 'mol_per_s'),
+    ],
+    rules=[],
+    formula=('scale_gly * (GLUT2_Vmax/GLUT2_km) * (glc_ext - glc/GLUT2_keq)/(1 dimensionless + glc_ext/GLUT2_km + glc/GLUT2_km)', 'mol_per_s')
+)
+
 GK = ReactionTemplate(
     rid='GK',
     name='Glucokinase',
-    equation='glc + atp => glc6p + adp []',
+    equation='glc + atp => glc6p + adp [glc1p, fru6p]',
     localization='cyto',
     compartments=[],
     pars=[
