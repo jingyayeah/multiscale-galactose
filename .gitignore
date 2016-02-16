@@ -30,3 +30,4 @@ results/nhanes/nhanes_GECkg.Rdata
 database/multiscale-galactose.2014*
 .Rproj.user
 *.pg_dump
+.ipynb_checkpoints
