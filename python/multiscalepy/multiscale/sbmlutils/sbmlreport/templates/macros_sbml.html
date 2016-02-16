@@ -105,6 +105,7 @@
 	<th scope="col">initial concentration</th>
 	<th scope="col">substance units</th>
 	<th scope="col">derived units</th>
+    {# <th scope="col">only substance units</th> #}
 	<th scope="col">sbo</th>
 	<th scope="col">cvterm</th>
     {#  <th scope="col">XML</th>  #}
@@ -120,7 +121,8 @@
 	<td>
         {% if item.isSetInitialAmount() %}
             {{ item.initial_amount }}
-        {% endif %}</td>
+        {% endif %}
+    </td>
 	<td>
         {% if item.isSetInitialConcentration() %}
             {{ item.initial_concentration }}
@@ -128,6 +130,7 @@
     </td>
 	<td>{{ item.substance_units }}</td>
 	<td>{{ helpers.derived_units(item) }}</td>
+    {#  {{ helpers.boolean(item.getHasOnlySubstanceUnits()) }} #}
 	<td>{{ helpers.sbo_term(item) }}</td>
 	<td>{{ helpers.annotation(item) }}</td>
     {#  <td>{{ helpers.xml(item) }}</td>  #}
@@ -251,7 +254,7 @@
 	<td class="active">{{ item.id }}</td>
 	<td>{{ item.name }}</td>
 	{% if item.reversible %}
-        <td class="success">&#10142;</td>
+        <td class="success">&#8646;</td>
     {% else %}
 	    <td class="danger">&#10142;</td>
     {% endif %}

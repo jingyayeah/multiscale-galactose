@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_42d35bb60fb6483f9abfa2c8418f6392" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_3ee09acb58864486bd24e9dedc1d0618" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Glucose Metabolism</h1>
@@ -49,7 +49,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_42d35bb60fb6483f9abfa2c8418f6392">
+    <rdf:Description rdf:about="#meta_3ee09acb58864486bd24e9dedc1d0618">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -65,10 +65,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-16T17:37:41Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-16T18:31:59Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-16T17:37:41Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-16T18:31:59Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -293,22 +293,25 @@
   <parameter id="scale" units="dimensionless" constant="true"/>
   <parameter id="V_ext" name="external volume" units="m3" constant="true"/>
   <parameter id="K_glu" units="pM" constant="false"/>
+  <parameter id="gamma" units="dimensionless" constant="false"/>
   <parameter id="gtp_tot" units="mM" constant="false"/>
+  <parameter id="nadh_mito_tot" units="mM" constant="false"/>
   <parameter id="glu_norm" units="pM" constant="false"/>
   <parameter id="ins_norm" units="pM" constant="false"/>
-  <parameter id="atp_tot" units="mM" constant="false"/>
+  <parameter id="atp_tot" name="ATP balance" units="mM" constant="false"/>
   <parameter id="K_epi" units="pM" constant="false"/>
-  <parameter id="utp_tot" units="mM" constant="false"/>
+  <parameter id="GLY" name="glycogenolysis/glycogen synthesis" units="mumol_per_min_kg" constant="false"/>
+  <parameter id="HGP" name="Hepatic glucose production/utilization" units="mumol_per_min_kg" constant="false"/>
   <parameter id="nadh_tot" units="mM" constant="false"/>
   <parameter id="epi_norm" units="pM" constant="false"/>
   <parameter id="K_ins" units="pM" constant="false"/>
-  <parameter id="nadh_mito_tot" units="mM" constant="false"/>
+  <parameter id="GNG" name="gluconeogenesis/glycolysis" units="mumol_per_min_kg" constant="false"/>
   <parameter id="epi" units="pM" constant="false"/>
-  <parameter id="atp_mito_tot" units="mM" constant="false"/>
+  <parameter id="utp_tot" units="mM" constant="false"/>
   <parameter id="gtp_mito_tot" units="mM" constant="false"/>
   <parameter id="ins" units="pM" constant="false"/>
   <parameter id="glu" units="pM" constant="false"/>
-  <parameter id="gamma" units="dimensionless" constant="false"/>
+  <parameter id="atp_mito_tot" units="mM" constant="false"/>
   <parameter id="GLUT2_keq" value="1" units="dimensionless" constant="true"/>
   <parameter id="GLUT2_km" value="42" units="mM" constant="true"/>
   <parameter id="GLUT2_Vmax" value="420" units="mol_per_s" constant="true"/>
@@ -321,6 +324,24 @@
   <parameter id="GK_km_atp" value="0.26" units="mM" constant="true"/>
   <parameter id="GK_Vmax" value="25.2" units="mol_per_s" constant="true"/>
   <parameter id="GK_gc_free" units="dimensionless" constant="false"/>
+  <parameter id="G6PASE_km_glc6p" value="2" units="mM" constant="true"/>
+  <parameter id="G6PASE_Vmax" value="18.9" units="mol_per_s" constant="true"/>
+  <parameter id="GPI_keq" value="0.517060817492925" units="dimensionless" constant="true"/>
+  <parameter id="GPI_km_glc6p" value="0.182" units="mM" constant="true"/>
+  <parameter id="GPI_km_fru6p" value="0.071" units="mM" constant="true"/>
+  <parameter id="GPI_Vmax" value="420" units="mol_per_s" constant="true"/>
+  <parameter id="G16PI_keq" value="15.7175540821514" units="dimensionless" constant="true"/>
+  <parameter id="G16PI_km_glc6p" value="0.67" units="mM" constant="true"/>
+  <parameter id="G16PI_km_glc1p" value="0.045" units="mM" constant="true"/>
+  <parameter id="G16PI_Vmax" value="100" units="mol_per_s" constant="true"/>
+  <parameter id="UPGASE_keq" value="0.312237619153088" units="dimensionless" constant="true"/>
+  <parameter id="UPGASE_km_utp" value="0.563" units="mM" constant="true"/>
+  <parameter id="UPGASE_km_glc1p" value="0.172" units="mM" constant="true"/>
+  <parameter id="UPGASE_km_udpglc" value="0.049" units="mM" constant="true"/>
+  <parameter id="UPGASE_km_pp" value="0.166" units="mM" constant="true"/>
+  <parameter id="UPGASE_Vmax" value="80" units="mol_per_s" constant="true"/>
+  <parameter id="PPASE_km_pp" value="0.005" units="mM" constant="true"/>
+  <parameter id="PPASE_Vmax" value="2.4" units="mol_per_s" constant="true"/>
 </listOfParameters><listOfInitialAssignments>
   <initialAssignment symbol="scale_glyglc">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -420,12 +441,70 @@
       </apply>
     </math>
   </assignmentRule>
+  <assignmentRule variable="gamma">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless"> 0.5 </cn>
+        <apply>
+          <plus/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> ins_norm </ci>
+              <apply>
+                <plus/>
+                <ci> ins_norm </ci>
+                <ci> K_ins </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <ci> max </ci>
+            <apply>
+              <divide/>
+              <ci> glu_norm </ci>
+              <apply>
+                <plus/>
+                <ci> glu_norm </ci>
+                <ci> K_glu </ci>
+              </apply>
+            </apply>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> epi_f </ci>
+                <ci> epi_norm </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> epi_norm </ci>
+                <ci> K_epi </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
   <assignmentRule variable="gtp_tot">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <plus/>
         <ci> gtp </ci>
         <ci> gdp </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="nadh_mito_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> nadh_mito </ci>
+        <ci> nad_mito </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -478,13 +557,24 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="utp_tot">
+  <assignmentRule variable="GLY">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
-        <plus/>
-        <ci> utp </ci>
-        <ci> udp </ci>
-        <ci> udpglc </ci>
+        <times/>
+        <apply>
+          <minus/>
+          <ci> G16PI </ci>
+        </apply>
+        <ci> conversion_factor </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="HGP">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> GLUT2 </ci>
+        <ci> conversion_factor </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -523,12 +613,12 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="nadh_mito_tot">
+  <assignmentRule variable="GNG">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
-        <plus/>
-        <ci> nadh_mito </ci>
-        <ci> nad_mito </ci>
+        <times/>
+        <ci> GPI </ci>
+        <ci> conversion_factor </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -573,12 +663,13 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="atp_mito_tot">
+  <assignmentRule variable="utp_tot">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <plus/>
-        <ci> atp_mito </ci>
-        <ci> adp_mito </ci>
+        <ci> utp </ci>
+        <ci> udp </ci>
+        <ci> udpglc </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -669,52 +760,12 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="gamma">
-    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <assignmentRule variable="atp_mito_tot">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
-        <times/>
-        <cn sbml:units="dimensionless"> 0.5 </cn>
-        <apply>
-          <plus/>
-          <apply>
-            <minus/>
-            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-            <apply>
-              <divide/>
-              <ci> ins_norm </ci>
-              <apply>
-                <plus/>
-                <ci> ins_norm </ci>
-                <ci> K_ins </ci>
-              </apply>
-            </apply>
-          </apply>
-          <apply>
-            <ci> max </ci>
-            <apply>
-              <divide/>
-              <ci> glu_norm </ci>
-              <apply>
-                <plus/>
-                <ci> glu_norm </ci>
-                <ci> K_glu </ci>
-              </apply>
-            </apply>
-            <apply>
-              <divide/>
-              <apply>
-                <times/>
-                <ci> epi_f </ci>
-                <ci> epi_norm </ci>
-              </apply>
-              <apply>
-                <plus/>
-                <ci> epi_norm </ci>
-                <ci> K_epi </ci>
-              </apply>
-            </apply>
-          </apply>
-        </apply>
+        <plus/>
+        <ci> atp_mito </ci>
+        <ci> adp_mito </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -764,7 +815,7 @@
     </math>
   </assignmentRule>
 </listOfRules><listOfReactions>
-  <reaction id="GLUT2" name="GLUT2 glucose transporter" reversible="false" fast="false" compartment="pm">
+  <reaction id="GLUT2" name="GLUT2 glucose transporter" reversible="true" fast="false" compartment="pm">
     <listOfReactants>
       <speciesReference species="glc_ext" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -860,6 +911,254 @@
                 <ci> GK_n </ci>
               </apply>
             </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="G6PASE" name="D-Glucose-6-phosphate Phosphatase" reversible="false" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="glc6p" stoichiometry="1" constant="true"/>
+      <speciesReference species="h2o" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="glc" stoichiometry="1" constant="true"/>
+      <speciesReference species="phos" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> G6PASE_Vmax </ci>
+          <apply>
+            <divide/>
+            <ci> glc6p </ci>
+            <apply>
+              <plus/>
+              <ci> G6PASE_km_glc6p </ci>
+              <ci> glc6p </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="GPI" name="D-Glucose-6-phosphate Isomerase" reversible="true" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="glc6p" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="fru6p" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> scale_gly </ci>
+            <apply>
+              <divide/>
+              <ci> GPI_Vmax </ci>
+              <ci> GPI_km_glc6p </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> glc6p </ci>
+              <apply>
+                <divide/>
+                <ci> fru6p </ci>
+                <ci> GPI_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> glc6p </ci>
+              <ci> GPI_km_glc6p </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> fru6p </ci>
+              <ci> GPI_km_fru6p </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="G16PI" name="Glucose 1-phosphate 1,6-phosphomutase" reversible="true" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="glc1p" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="glc6p" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> scale_glyglc </ci>
+            <apply>
+              <divide/>
+              <ci> G16PI_Vmax </ci>
+              <ci> G16PI_km_glc1p </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> glc1p </ci>
+              <apply>
+                <divide/>
+                <ci> glc6p </ci>
+                <ci> G16PI_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> glc1p </ci>
+              <ci> G16PI_km_glc1p </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> glc6p </ci>
+              <ci> G16PI_km_glc6p </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="UPGASE" name="UTP:Glucose-1-phosphate uridylyltransferase" reversible="true" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="utp" stoichiometry="1" constant="true"/>
+      <speciesReference species="glc1p" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="udpglc" stoichiometry="1" constant="true"/>
+      <speciesReference species="pp" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> scale_glyglc </ci>
+                <ci> UPGASE_Vmax </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> UPGASE_km_utp </ci>
+                <ci> UPGASE_km_glc1p </ci>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> utp </ci>
+                <ci> glc1p </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> udpglc </ci>
+                  <ci> pp </ci>
+                </apply>
+                <ci> UPGASE_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> utp </ci>
+                    <ci> UPGASE_km_utp </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> glc1p </ci>
+                    <ci> UPGASE_km_glc1p </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> udpglc </ci>
+                    <ci> UPGASE_km_udpglc </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> pp </ci>
+                    <ci> UPGASE_km_pp </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="PPASE" name="Pyrophosphate phosphohydrolase" reversible="false" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="pp" stoichiometry="1" constant="true"/>
+      <speciesReference species="h2o" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="phos" stoichiometry="2" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> scale_glyglc </ci>
+            <ci> PPASE_Vmax </ci>
+            <ci> pp </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <ci> pp </ci>
+            <ci> PPASE_km_pp </ci>
           </apply>
         </apply>
       </math>

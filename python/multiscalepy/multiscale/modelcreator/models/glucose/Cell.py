@@ -332,12 +332,20 @@ rules.update({
     'atp_mito_tot': ('atp_mito + adp_mito', 'mM'),
     'gtp_mito_tot': ('gtp_mito + gdp_mito', 'mM'),
 
+    # whole liver output
+    'HGP': ('GLUT2 * conversion_factor', 'mumol_per_min_kg'),
+    'GNG': ('GPI * conversion_factor', 'mumol_per_min_kg'),
+    'GLY': ('-G16PI * conversion_factor', 'mumol_per_min_kg'),
 })
 names.update({
-    'nadp_bal': 'NADP balance',
-    'adp_bal': 'ADP balance',
-    'udp_bal': 'UDP balance',
-    'phos_bal': 'Phosphate balance',
+    'nadp_tot': 'NADP balance',
+    'atp_tot': 'ATP balance',
+    'utp_bal': 'UTP balance',
+    'gtp_bal': 'GTP balance',
+
+    'HGP': 'Hepatic glucose production/utilization',
+    'GNG': 'gluconeogenesis/glycolysis',
+    'GLY': 'glycogenolysis/glycogen synthesis',
 })
 
 
@@ -347,5 +355,10 @@ names.update({
 from Reactions import *
 reactions.extend([
     GLUT2,
-    GK
+    GK,
+    G6PASE,
+    GPI,
+    G16PI,
+    UPGASE,
+    PPASE,
 ])

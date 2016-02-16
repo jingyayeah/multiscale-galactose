@@ -1,25 +1,22 @@
 # -*- coding: utf-8 -*-
 """
-Create detailed HTML report from given SBML.
+Create Report from given SBML file.
 
-The model report is implemented based on the django template language, which
- is used to render the SBML information.
+The model report is implemented based on a standard template language,
+which uses the SBML information to render the final document.
 
-Necessary to create the html and copy the additional css and js files.
+Currently the following templates are available:
+<HTML>
+- in addition to the created HTML, the necessary CSS and JS files are copied.
 
-*.html
-    css
-    js
-
-Configure an Engine, compile template, render with context
-
-Reusable template code, code separation & reduction of duplicate code is achieved via
-- template inheritance
-- template macros
-- ? how to call functions ?
-
-
+The basic steps of template creation are
+- configure an Engine (jinja2)
+- compile template
+- render with SBML context
 """
+# TODO: rate rules are not displayed correctly (they need dy/dt on the left side, compared to AssignmentRules)
+
+
 from __future__ import print_function, division
 
 import codecs
@@ -37,13 +34,21 @@ import sbmlfilters
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-# where are the templates
+# template location
 TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
-# TODO: rate rules are not displayed correctly (they need dy/dt on the left side, compared to AssignmentRules)
-# TODO: hasOnlySubstanceUnits missing in species table
 
 def copy_directory(src, dest):
+    """ Copy directory from source to destination.
+    :param src:
+    :type src:
+    :param dest:
+    :type dest:
+    :return:
+    :rtype:
+    """
+
+    # todo handle the rsync
     try:
         shutil.copytree(src, dest)
     # Directories are the same
@@ -80,7 +85,6 @@ def create_sbml_report(sbml, out_dir, template='report.html'):
     f_html.close()
 
     # copy the additional files
-    # todo handle the rsync
     copy_directory(os.path.join(TEMPLATE_DIR, '_report'), os.path.join(out_dir, '_report'))
 
 
@@ -145,6 +149,7 @@ def create_value_dictionary(model):
 #################################################################################################
 # Create report
 #################################################################################################
+# TODO: add test
 if __name__ == '__main__':
 
     import antimony
