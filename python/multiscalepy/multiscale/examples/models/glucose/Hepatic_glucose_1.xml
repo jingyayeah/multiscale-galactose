@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_058457f2c81a40aaa107e1e4fbbf6dc0" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_3042470e176b4334b869fbadc1361711" id="Hepatic_glucose_1" name="Hepatic_glucose_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Glucose Metabolism</h1>
@@ -49,7 +49,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_058457f2c81a40aaa107e1e4fbbf6dc0">
+    <rdf:Description rdf:about="#meta_3042470e176b4334b869fbadc1361711">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -65,10 +65,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-17T11:18:46Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-17T11:40:13Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-02-17T11:18:46Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-17T11:40:13Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -377,6 +377,32 @@
   <parameter id="GP_vmax_native" units="mol_per_s" constant="false"/>
   <parameter id="GP_phospho" units="mol_per_s" constant="false"/>
   <parameter id="GP_vmax_phospho" units="mol_per_s" constant="false"/>
+  <parameter id="NDKGTP_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="NDKGTP_km_atp" value="1.33" units="mM" constant="true"/>
+  <parameter id="NDKGTP_km_adp" value="0.042" units="mM" constant="true"/>
+  <parameter id="NDKGTP_km_gtp" value="0.15" units="mM" constant="true"/>
+  <parameter id="NDKGTP_km_gdp" value="0.031" units="mM" constant="true"/>
+  <parameter id="NDKGTP_Vmax" value="0" units="mol_per_s" constant="true"/>
+  <parameter id="NDKUTP_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="NDKUTP_km_atp" value="1.33" units="mM" constant="true"/>
+  <parameter id="NDKUTP_km_adp" value="0.042" units="mM" constant="true"/>
+  <parameter id="NDKUTP_km_utp" value="16" units="mM" constant="true"/>
+  <parameter id="NDKUTP_km_udp" value="0.19" units="mM" constant="true"/>
+  <parameter id="NDKUTP_Vmax" value="2940" units="mol_per_s" constant="true"/>
+  <parameter id="AK_keq" value="0.247390074904985" units="dimensionless" constant="true"/>
+  <parameter id="AK_km_atp" value="0.09" units="mM" constant="true"/>
+  <parameter id="AK_km_amp" value="0.08" units="mM" constant="true"/>
+  <parameter id="AK_km_adp" value="0.11" units="mM" constant="true"/>
+  <parameter id="AK_Vmax" value="0" units="mol_per_s" constant="true"/>
+  <parameter id="PFK2_n_native" value="1.3" units="dimensionless" constant="true"/>
+  <parameter id="PFK2_n_phospho" value="2.1" units="dimensionless" constant="true"/>
+  <parameter id="PFK2_k_fru6p_native" value="0.016" units="mM" constant="true"/>
+  <parameter id="PFK2_k_fru6p_phospho" value="0.05" units="mM" constant="true"/>
+  <parameter id="PFK2_k_atp_native" value="0.28" units="mM" constant="true"/>
+  <parameter id="PFK2_k_atp_phospho" value="0.65" units="mM" constant="true"/>
+  <parameter id="PFK2_Vmax" value="0.0042" units="mol_per_s" constant="true"/>
+  <parameter id="PFK2_phospho" units="mol_per_s" constant="false"/>
+  <parameter id="PFK2_native" units="mol_per_s" constant="false"/>
 </listOfParameters><listOfInitialAssignments>
   <initialAssignment symbol="scale_glyglc">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1165,6 +1191,90 @@
       </apply>
     </math>
   </assignmentRule>
+  <assignmentRule variable="PFK2_phospho">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> scale_gly </ci>
+              <ci> PFK2_Vmax </ci>
+              <apply>
+                <power/>
+                <ci> fru6p </ci>
+                <ci> PFK2_n_phospho </ci>
+              </apply>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <power/>
+                <ci> fru6p </ci>
+                <ci> PFK2_n_phospho </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> PFK2_k_fru6p_phospho </ci>
+                <ci> PFK2_n_phospho </ci>
+              </apply>
+            </apply>
+          </apply>
+          <ci> atp </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <ci> atp </ci>
+          <ci> PFK2_k_atp_phospho </ci>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="PFK2_native">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> scale_gly </ci>
+              <ci> PFK2_Vmax </ci>
+              <apply>
+                <power/>
+                <ci> fru6p </ci>
+                <ci> PFK2_n_native </ci>
+              </apply>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <power/>
+                <ci> fru6p </ci>
+                <ci> PFK2_n_native </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> PFK2_k_fru6p_native </ci>
+                <ci> PFK2_n_native </ci>
+              </apply>
+            </apply>
+          </apply>
+          <ci> atp </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <ci> atp </ci>
+          <ci> PFK2_k_atp_native </ci>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
 </listOfRules><listOfReactions>
   <reaction id="GLUT2" name="GLUT2 glucose transporter" reversible="true" fast="false" compartment="pm">
     <listOfReactants>
@@ -1545,7 +1655,7 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="GP" name="Glycogen-Phosphorylase" reversible="false" fast="false" compartment="cyto">
+  <reaction id="GP" name="Glycogen-Phosphorylase" reversible="true" fast="false" compartment="cyto">
     <listOfReactants>
       <speciesReference species="glyglc" stoichiometry="1" constant="true"/>
       <speciesReference species="phos" stoichiometry="1" constant="true"/>
@@ -1570,6 +1680,333 @@
             <times/>
             <ci> gamma </ci>
             <ci> GP_phospho </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="NDKGTP" name="Nucleoside-diphosphate kinase (ATP, GTP)" reversible="true" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="atp" stoichiometry="1" constant="true"/>
+      <speciesReference species="gdp" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="adp" stoichiometry="1" constant="true"/>
+      <speciesReference species="gtp" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> scale_gly </ci>
+                <ci> NDKGTP_Vmax </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> NDKGTP_km_atp </ci>
+                <ci> NDKGTP_km_gdp </ci>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> atp </ci>
+                <ci> gdp </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> adp </ci>
+                  <ci> gtp </ci>
+                </apply>
+                <ci> NDKGTP_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> atp </ci>
+                    <ci> NDKGTP_km_atp </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> gdp </ci>
+                    <ci> NDKGTP_km_gdp </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> adp </ci>
+                    <ci> NDKGTP_km_adp </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> gtp </ci>
+                    <ci> NDKGTP_km_gtp </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="NDKUTP" name="Nucleoside-diphosphate kinase (ATP, UTP)" reversible="true" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="atp" stoichiometry="1" constant="true"/>
+      <speciesReference species="udp" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="adp" stoichiometry="1" constant="true"/>
+      <speciesReference species="utp" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> scale_glyglc </ci>
+                <ci> NDKUTP_Vmax </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> NDKUTP_km_atp </ci>
+                <ci> NDKUTP_km_udp </ci>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> atp </ci>
+                <ci> udp </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> adp </ci>
+                  <ci> utp </ci>
+                </apply>
+                <ci> NDKUTP_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> atp </ci>
+                    <ci> NDKUTP_km_atp </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> udp </ci>
+                    <ci> NDKUTP_km_udp </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> adp </ci>
+                    <ci> NDKUTP_km_adp </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> utp </ci>
+                    <ci> NDKUTP_km_utp </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="AK" name="ATP:AMP phosphotransferase (Adenylatkinase)" reversible="true" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="atp" stoichiometry="1" constant="true"/>
+      <speciesReference species="amp" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="adp" stoichiometry="2" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> scale_gly </ci>
+                <ci> AK_Vmax </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> AK_km_atp </ci>
+                <ci> AK_km_amp </ci>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> atp </ci>
+                <ci> amp </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> adp </ci>
+                  <ci> adp </ci>
+                </apply>
+                <ci> AK_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> atp </ci>
+                    <ci> AK_km_atp </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> amp </ci>
+                    <ci> AK_km_amp </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> adp </ci>
+                    <ci> AK_km_adp </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> adp </ci>
+                    <ci> AK_km_adp </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="PFK2" name="ATP:D-fructose-6-phosphate 2-phosphotransferase" reversible="false" fast="false" compartment="cyto">
+    <listOfReactants>
+      <speciesReference species="fru6p" stoichiometry="1" constant="true"/>
+      <speciesReference species="atp" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="fru26bp" stoichiometry="1" constant="true"/>
+      <speciesReference species="adp" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <apply>
+              <minus/>
+              <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+              <ci> gamma </ci>
+            </apply>
+            <ci> PFK2_native </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> gamma </ci>
+            <ci> PFK2_phospho </ci>
           </apply>
         </apply>
       </math>

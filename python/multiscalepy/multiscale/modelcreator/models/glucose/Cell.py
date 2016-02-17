@@ -363,5 +363,20 @@ reactions.extend([
     UPGASE,
     PPASE,
     GS,
-    GP
+    GP,
+    NDKGTP,
+    NDKUTP,
+    AK,
+    PFK2,
+    FBP2,
+    PFK1,
+    FBP1,
+    ALD,
+    TPI,
+    GAPDH,
+    PGM,
+    EN,
+
+
+
 ])
