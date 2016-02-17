@@ -116,65 +116,60 @@ PPASE = ReactionTemplate(
     formula=('scale_glyglc * PPASE_Vmax * pp/(pp + PPASE_km_pp)', 'mol_per_s')
 )
 
+GS = ReactionTemplate(
+    rid='GS',
+    name='Glycogen synthase',
+    equation='udpglc => udp + glyglc []',
+    localization='cyto',
+    pars=[
+        ('GS_C', 500, 'mM'),
+        ('GS_k1_max', 0.2, 'dimensionless'),
+        ('GS_k1_nat', 0.224, 'mMmM'),
+        ('GS_k2_nat', 0.1504, 'mM'),
+        ('GS_k1_phospho', 3.003, 'mMmM'),
+        ('GS_k2_phospho', 0.09029, 'mM'),
+        ('GS_Vmax', 13.2, 'mol_per_s'),
+    ],
+    rules=[
+        ('GS_storage_factor', '(1 dimensionless + GS_k1_max) * (GS_C - glyglc)/( (GS_C - glyglc) + GS_k1_max * GS_C)', 'dimensionless'),
+        ('GS_k_udpglc_native', 'GS_k1_nat / (glc6p + GS_k2_nat)', 'mM'),
+        ('GS_k_udpglc_phospho', 'GS_k1_phospho / (glc6p + GS_k2_phospho)', 'mM'),
+        ('GS_native', 'scale_glyglc * GS_Vmax * GS_storage_factor * udpglc / (GS_k_udpglc_native + udpglc)', 'mol_per_s'),
+        ('GS_phospho', 'scale_glyglc * GS_Vmax * GS_storage_factor * udpglc / (GS_k_udpglc_phospho + udpglc)', 'mol_per_s'),
+    ],
+    formula=('(1 dimensionless -gamma)*GS_native + gamma*GS_phospho', 'mol_per_s')
+)
+
+GP = ReactionTemplate(
+    rid='GP',
+    name='Glycogen-Phosphorylase',
+    equation='glyglc + phos -> glc1p []',
+    localization='cyto',
+    pars=[
+        ('GP_keq', 0.211826505793075, 'per_mM'),
+        ('GP_k_glyc_native', 4.8, 'mM'),
+        ('GP_k_glyc_phospho', 2.7, 'mM'),
+        ('GP_k_glc1p_native', 120, 'mM'),
+        ('GP_k_glc1p_phospho', 2, 'mM'),
+        ('GP_k_p_native', 300, 'mM'),
+        ('GP_k_p_phospho', 5, 'mM'),
+        ('GP_ki_glc_phospho', 5, 'mM'),
+        ('GP_ka_amp_native', 1, 'mM'),
+        ('GP_base_amp_native', 0.03, 'dimensionless'),
+        ('GP_max_amp_native', 0.30, 'dimensionless'),
+        ('GP_Vmax', 6.8, 'mol_per_s'),
+    ],
+    rules=[
+        ('GP_fmax', '(1 dimensionless +GS_k1_max) * glyglc /( glyglc + GS_k1_max * GS_C)', 'dimensionless'),
+        ('GP_vmax_native', 'scale_glyglc * GP_Vmax * GP_fmax * (GP_base_amp_native + (GP_max_amp_native - GP_base_amp_native) *amp/(amp+GP_ka_amp_native))', 'dimensionless'),
+        ('GP_native', 'GP_vmax_native/(GP_k_glyc_native*GP_k_p_native) * (glyglc*phos - glc1p/GP_keq) / ( (1 dimensionless + glyglc/GP_k_glyc_native)*(1 dimensionless + phos/GP_k_p_native) + (1 dimensionless + glc1p/GP_k_glc1p_native) - 1 dimensionless)', 'mol_per_s'),
+        ('GP_vmax_phospho', 'scale_glyglc * GP_Vmax * GP_fmax * exp(-log(2 dimensionless)/GP_ki_glc_phospho * glc)', 'mol_per_s'),
+        ('GP_phospho', 'GP_vmax_phospho/(GP_k_glyc_phospho*GP_k_p_phospho) * (glyglc*phos - glc1p/GP_keq) / ( (1 dimensionless + glyglc/GP_k_glyc_phospho)*(1 dimensionless + phos/GP_k_p_phospho) + (1 dimensionless + glc1p/GP_k_glc1p_phospho) - 1 dimensionless)', 'mol_per_s'),
+    ],
+    formula=('(1 dimensionless - gamma) * GP_native + gamma*GP_phospho', 'mol_per_s')
+)
 
 """
-  GS is "Glycogen synthase";
-  GS : udpglc => udp + glyglc;
-  GS_C = 500 mM;
-  GS_k1_max = 0.2 dimensionless;
-  GS_k1_nat = 0.224 mMmM;
-  GS_k2_nat = 0.1504 mM;
-  GS_k1_phospho = 3.003 mMmM;
-  GS_k2_phospho = 0.09029 mM;
-  GS_Vmax =  13.2 mmol_per_s;
-
-  GS_storage_factor := (1 dimensionless + GS_k1_max) * (GS_C - glyglc)/( (GS_C - glyglc) + GS_k1_max * GS_C);
-  GS_k_udpglc_native := GS_k1_nat / (glc6p + GS_k2_nat);
-  GS_k_udpglc_phospho := GS_k1_phospho / (glc6p + GS_k2_phospho);
-  GS_native := scale_glyglc * GS_Vmax * GS_storage_factor * udpglc / (GS_k_udpglc_native + udpglc);
-  GS_phospho := scale_glyglc * GS_Vmax * GS_storage_factor * udpglc / (GS_k_udpglc_phospho + udpglc);
-  GS := (1 dimensionless -gamma)*GS_native + gamma*GS_phospho;
-  GS_storage_factor has dimensionless;
-  GS_k_udpglc_native has mM;
-  GS_k_udpglc_phospho has mM;
-  GS_native has mmol_per_s;
-  GS_phospho has mmol_per_s;
-  GS has mmol_per_s;
-
-
-  GP is "Glycogen-Phosphorylase";
-  GP : glyglc + phos -> glc1p;
-  GP_keq = 0.211826505793075 per_mM;
-  GP_k_glyc_native = 4.8 mM;
-  GP_k_glyc_phospho = 2.7 mM;
-  GP_k_glc1p_native = 120 mM;
-  GP_k_glc1p_phospho = 2 mM;
-  GP_k_p_native = 300 mM;
-  GP_k_p_phospho = 5 mM;
-  GP_ki_glc_phospho = 5 mM;
-  GP_ka_amp_native = 1 mM;
-  GP_base_amp_native = 0.03 dimensionless;
-  GP_max_amp_native = 0.30 dimensionless;
-  GP_Vmax = 6.8 mmol_per_s;
-
-  GP_C = GS_C;
-  GP_k1_max = GS_k1_max;
-  GP_fmax := (1 dimensionless +GP_k1_max) * glyglc /( glyglc + GP_k1_max * GP_C);
-  GP_vmax_native := scale_glyglc * GP_Vmax * GP_fmax * (GP_base_amp_native + (GP_max_amp_native - GP_base_amp_native) *amp/(amp+GP_ka_amp_native));
-  GP_native := GP_vmax_native/(GP_k_glyc_native*GP_k_p_native) * (glyglc*phos - glc1p/GP_keq) / ( (1 dimensionless + glyglc/GP_k_glyc_native)*(1 dimensionless + phos/GP_k_p_native) + (1 dimensionless + glc1p/GP_k_glc1p_native) - 1 dimensionless);
-  GP_vmax_phospho := scale_glyglc * GP_Vmax * GP_fmax * exp(-log(2 dimensionless)/GP_ki_glc_phospho * glc);
-  GP_phospho := GP_vmax_phospho/(GP_k_glyc_phospho*GP_k_p_phospho) * (glyglc*phos - glc1p/GP_keq) / ( (1 dimensionless + glyglc/GP_k_glyc_phospho)*(1 dimensionless + phos/GP_k_p_phospho) + (1 dimensionless + glc1p/GP_k_glc1p_phospho) - 1 dimensionless);
-  GP := (1 dimensionless - gamma) * GP_native + gamma*GP_phospho;
-
-  GP_C has mM;
-  GP_k1_max has dimensionless;
-  GP_fmax has dimensionless;
-  GP_vmax_native has mmol_per_s;
-  GP_native has mmol_per_s;
-  GP_vmax_phospho has mmol_per_s;
-  GP_phospho has mmol_per_s;
-  GP has mmol_per_s;
-
   NDKGTP is "Nucleoside-diphosphate kinase (ATP, GTP)";
   NDKGTP : atp + gdp -> adp + gtp;
   NDKGTP_keq = 1 dimensionless;

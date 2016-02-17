@@ -174,6 +174,7 @@
 {% macro assignment_header(size) %}
     <th scope="col" class="hidden">type</th>
 	<th scope="col" class="warning">InitialAssignments [{{ size }}]</th>
+    <th scope="col">name</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -183,7 +184,8 @@
 
 {% macro assignment_content(item) %}
     <td class="hidden">InitialAssignment</td>
-    <td class="active">{{ item.id }}</td>
+    <td class="active">{{ item.symbol }}</td>
+    <td>{{ item.name }}</td>
 	<td>=</td>
 	<td>{{ helpers.math(item) }}</td>
 	<td>{{ helpers.derived_units(item) }}</td>
@@ -197,6 +199,7 @@
 {% macro rule_header(size) %}
     <th scope="col" class="hidden">type</th>
 	<th scope="col" class="warning">Rules [{{ size }}]</th>
+    <th scope="col">name</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -206,8 +209,9 @@
 
 {% macro rule_content(item) %}
     <td class="hidden">Rule</td>
-	<td class="active">{{ item.id }}</td>
-	<td>=</td>
+	<td class="active">{{ item.variable }}</td>
+    <td>{{ item.name }}</td>
+	<td>:=</td>
 	<td>{{ helpers.math(item) }}</td>
     <td>{{ helpers.derived_units(item) }}</td>
 	<td>{{ helpers.sbo_term(item) }}</td>

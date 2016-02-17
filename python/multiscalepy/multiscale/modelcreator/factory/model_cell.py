@@ -255,6 +255,9 @@ class CellModel(object):
             self.addName(self.rules)
             create_assignment_rules(self.model, self.rules)
 
+    r1 = libsbml.AssignmentRule()
+    r1.setN
+
     #########################################################################
     # Reactions
     #########################################################################

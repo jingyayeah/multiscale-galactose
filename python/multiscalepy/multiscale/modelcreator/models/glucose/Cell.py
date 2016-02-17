@@ -361,4 +361,6 @@ reactions.extend([
     G16PI,
     UPGASE,
     PPASE,
+    GS,
+    GP
 ])
