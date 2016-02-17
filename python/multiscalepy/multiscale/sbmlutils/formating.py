@@ -117,6 +117,18 @@ def _isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
     """ Calculate the two floats are identical. """
     return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
 
+
+def ruleVariableToString(rule):
+    """ Formating of variable for rule. """
+    if isinstance(rule, libsbml.AlgebraicRule):
+        return '0'
+    elif isinstance(rule, libsbml.AssignmentRule):
+        return rule.variable
+    elif isinstance(rule, libsbml.RateRule):
+        return 'd {}/dt'.format(rule.variable)
+    else:
+        raise TypeError(rule)
+
 # ------------------------------
 # UnitDefinitions
 # ------------------------------
