@@ -10,7 +10,6 @@ from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 #############################################################################################
 #    REACTIONS
 #############################################################################################
-
 GLUT2 = ReactionTemplate(
     rid='GLUT2',
     name='GLUT2 glucose transporter',
@@ -275,7 +274,7 @@ PFK1 = ReactionTemplate(
 )
 
 FBP1 = ReactionTemplate(
-    rid='PFK1',
+    rid='FBP1',
     name='D-Fructose-1,6-bisphosphate 1-phosphohydrolase',
     equation='fru16bp + h2o => fru6p + phos []',
     localization='cyto',
@@ -379,9 +378,12 @@ EN = ReactionTemplate(
     formula=('scale_gly * EN_Vmax * (pg2 - pep/EN_keq) / (pg2 + EN_k_pg2 *(1 dimensionless + pep/EN_k_pep))', 'mol_per_s')
 )
 
-"""
-  PK is "Pyruvatkinase";
-  PK : pep + adp => pyr + atp;
+PK = ReactionTemplate(
+    rid='PK',
+    name='Pyruvatkinase',
+    equation='pep + adp => pyr + atp []',
+    localization='cyto',
+    pars=[
         ('PK_n', 3.5, 'dimensionless'),
         ('PK_n_p', 3.5, 'dimensionless'),
         ('PK_n_fbp', 1.8, 'dimensionless'),
@@ -389,8 +391,8 @@ EN = ReactionTemplate(
         ('PK_alpha', 1.0, 'dimensionless'),
         ('PK_alpha_p', 1.1, 'dimensionless'),
         ('PK_alpha_end', 1.0, 'dimensionless'),
-        ('PK_k_fbp', 0.16, 'E-3 mM;
-        ('PK_k_fbp_p', 0.35, 'E-3 mM;
+        ('PK_k_fbp', 0.16E-3, 'mM'),
+        ('PK_k_fbp_p', 0.35E-3, 'mM'),
         ('PK_k_pep', 0.58, 'mM'),
         ('PK_k_pep_p', 1.10, 'mM'),
         ('PK_k_pep_end', 0.08, 'mM'),
@@ -398,100 +400,125 @@ EN = ReactionTemplate(
         ('PK_base_act', 0.08, 'mM'),
         ('PK_base_act_p', 0.04, 'mM'),
         ('PK_Vmax', 46.2, 'mol_per_s'),
+    ],
+    rules=[
+        ('PK_f', 'fru16bp^PK_n_fbp / (PK_k_fbp^PK_n_fbp + fru16bp^PK_n_fbp)', 'dimensionless'),
+        ('PK_f_p', 'fru16bp^PK_n_fbp_p / (PK_k_fbp_p^PK_n_fbp_p + fru16bp^PK_n_fbp_p)', 'dimensionless'),
+        ('PK_alpha_inp', '(1 dimensionless - PK_f) * (PK_alpha - PK_alpha_end) + PK_alpha_end', 'dimensionless'),
+        ('PK_alpha_p_inp', '(1 dimensionless - PK_f_p) * (PK_alpha_p - PK_alpha_end) + PK_alpha_end', 'dimensionless'),
+        ('PK_pep_inp', '(1 dimensionless - PK_f) * (PK_k_pep - PK_k_pep_end) + PK_k_pep_end', 'mM'),
+        ('PK_pep_p_inp', '(1 dimensionless - PK_f_p) * (PK_k_pep_p - PK_k_pep_end) + PK_k_pep_end', 'mM'),
+        ('PK_native', 'scale_gly * PK_Vmax * PK_alpha_inp * pep^PK_n/(PK_pep_inp^PK_n + pep^PK_n) * adp/(adp + PK_k_adp) * ( PK_base_act + (1-PK_base_act) *PK_f )', 'mol_per_s'),
+        ('PK_phospho', 'scale_gly * PK_Vmax * PK_alpha_p_inp * pep^PK_n_p/(PK_pep_p_inp^PK_n_p + pep^PK_n_p) * adp/(adp + PK_k_adp) * ( PK_base_act_p + (1-PK_base_act_p) * PK_f_p )', 'mol_per_s'),
+    ],
+    formula=('(1 dimensionless - gamma)* PK_native + gamma * PK_phospho', 'mol_per_s')
+)
 
-  PK_f', 'fru16bp^PK_n_fbp / (PK_k_fbp^PK_n_fbp + fru16bp^PK_n_fbp);
-  PK_f_p', 'fru16bp^PK_n_fbp_p / (PK_k_fbp_p^PK_n_fbp_p + fru16bp^PK_n_fbp_p);
-  PK_alpha_inp', '(1 dimensionless - PK_f) * (PK_alpha - PK_alpha_end) + PK_alpha_end;
-  PK_alpha_p_inp', '(1 dimensionless - PK_f_p) * (PK_alpha_p - PK_alpha_end) + PK_alpha_end;
-  PK_pep_inp', '(1 dimensionless - PK_f) * (PK_k_pep - PK_k_pep_end) + PK_k_pep_end;
-  PK_pep_p_inp', '(1 dimensionless - PK_f_p) * (PK_k_pep_p - PK_k_pep_end) + PK_k_pep_end;
-  PK_native', 'scale_gly * PK_Vmax * PK_alpha_inp * pep^PK_n/(PK_pep_inp^PK_n + pep^PK_n) * adp/(adp + PK_k_adp) * ( PK_base_act + (1-PK_base_act) *PK_f );
-  PK_phospho', 'scale_gly * PK_Vmax * PK_alpha_p_inp * pep^PK_n_p/(PK_pep_p_inp^PK_n_p + pep^PK_n_p) * adp/(adp + PK_k_adp) * ( PK_base_act_p + (1-PK_base_act_p) * PK_f_p );
-  PK', '(1 dimensionless - gamma)* PK_native + gamma * PK_phospho;
-
-  PK_f has dimensionless;
-  PK_f_p has dimensionless;
-  PK_alpha_inp has dimensionless;
-  PK_alpha_p_inp has dimensionless;
-  PK_pep_inp has mM;
-  PK_pep_p_inp has mM;
-  PK_native has mol_per_s;
-  PK_phospho has mol_per_s;
-  PK has mol_per_s;
-
-
-  PEPCK is "PEPCK cyto";
-  PEPCK : oaa + gtp -> pep + gdp + co2;
-        ('PEPCK_keq', 3.369565215864287, 'E2 mM;
+PEPCK = ReactionTemplate(
+    rid='PEPCK',
+    name='PEPCK cyto',
+    equation='oaa + gtp <-> pep + gdp + co2 []',
+    localization='cyto',
+    pars=[
+        ('PEPCK_keq', 3.369565215864287E2, 'mM'),
         ('PEPCK_k_pep', 0.237, 'mM'),
         ('PEPCK_k_gdp', 0.0921, 'mM'),
         ('PEPCK_k_co2', 25.5, 'mM'),
         ('PEPCK_k_oaa', 0.0055, 'mM'),
         ('PEPCK_k_gtp', 0.0222, 'mM'),
         ('PEPCK_Vmax', 0, 'mol_per_s'),
-  PEPCK', 'scale_gly * PEPCK_Vmax / (PEPCK_k_oaa * PEPCK_k_gtp) * (oaa*gtp - pep*gdp*co2/PEPCK_keq) / ( (1 dimensionless + oaa/PEPCK_k_oaa)*(1 dimensionless +gtp/PEPCK_k_gtp) + (1 dimensionless + pep/PEPCK_k_pep)*(1 dimensionless + gdp/PEPCK_k_gdp)*(1 dimensionless +co2/PEPCK_k_co2) - 1 dimensionless);
-  PEPCK has mol_per_s;
+    ],
+    formula=('scale_gly * PEPCK_Vmax / (PEPCK_k_oaa * PEPCK_k_gtp) * (oaa*gtp - pep*gdp*co2/PEPCK_keq) / ( (1 dimensionless + oaa/PEPCK_k_oaa)*(1 dimensionless +gtp/PEPCK_k_gtp) + (1 dimensionless + pep/PEPCK_k_pep)*(1 dimensionless + gdp/PEPCK_k_gdp)*(1 dimensionless +co2/PEPCK_k_co2) - 1 dimensionless)', 'mol_per_s')
+)
 
-  PEPCKM is "PEPCK mito";
-  PEPCKM : oaa_mito + gtp_mito -> pep_mito + gdp_mito + co2_mito;
+PEPCKM = ReactionTemplate(
+    rid='PEPCKM',
+    name='PEPCK mito',
+    equation='oaa_mito + gtp_mito <-> pep_mito + gdp_mito + co2_mito []',
+    localization='mito',
+    pars=[
         ('PEPCKM_Vmax', 546, 'mol_per_s'),
-  PEPCKM', 'scale_gly * PEPCKM_Vmax / (PEPCK_k_oaa * PEPCK_k_gtp) * (oaa_mito*gtp_mito - pep_mito*gdp_mito*co2_mito/PEPCK_keq) / ( (1 dimensionless + oaa_mito/PEPCK_k_oaa)*(1 dimensionless + gtp_mito/PEPCK_k_gtp) + (1 dimensionless + pep_mito/PEPCK_k_pep)*(1 dimensionless + gdp_mito/PEPCK_k_gdp)*(1 dimensionless +co2_mito/PEPCK_k_co2) - 1 dimensionless );
-  PEPCKM has mol_per_s;
+    ],
+    formula=('scale_gly * PEPCKM_Vmax / (PEPCK_k_oaa * PEPCK_k_gtp) * (oaa_mito*gtp_mito - pep_mito*gdp_mito*co2_mito/PEPCK_keq) / ( (1 dimensionless + oaa_mito/PEPCK_k_oaa)*(1 dimensionless + gtp_mito/PEPCK_k_gtp) + (1 dimensionless + pep_mito/PEPCK_k_pep)*(1 dimensionless + gdp_mito/PEPCK_k_gdp)*(1 dimensionless +co2_mito/PEPCK_k_co2) - 1 dimensionless)', 'mol_per_s')
+)
 
-
-  PC is "Pyruvate Carboxylase";
-  PC : atp_mito + pyr_mito + co2_mito => oaa_mito + adp_mito + phos_mito;
+PC = ReactionTemplate(
+    rid='PC',
+    name='Pyruvate Carboxylase',
+    equation='atp_mito + pyr_mito + co2_mito => oaa_mito + adp_mito + phos_mito []',
+    localization='mito',
+    pars=[
         ('PC_k_atp', 0.22, 'mM'),
         ('PC_k_pyr', 0.22, 'mM'),
         ('PC_k_co2', 3.2, 'mM'),
         ('PC_k_acoa', 0.015, 'mM'),
         ('PC_n', 2.5, 'dimensionless'),
         ('PC_Vmax', 168, 'mol_per_s'),
-  PC', 'scale_gly * PC_Vmax * atp_mito/(PC_k_atp + atp_mito) * pyr_mito/(PC_k_pyr + pyr_mito) * co2_mito/(PC_k_co2 + co2_mito) * acoa_mito^PC_n / (acoa_mito^PC_n + PC_k_acoa^PC_n);
-  PC has mol_per_s;
+    ],
+    formula=('scale_gly * PC_Vmax * atp_mito/(PC_k_atp + atp_mito) * pyr_mito/(PC_k_pyr + pyr_mito) * co2_mito/(PC_k_co2 + co2_mito) * acoa_mito^PC_n / (acoa_mito^PC_n + PC_k_acoa^PC_n)', 'mol_per_s')
+)
 
-
-  LDH is "Lactate Dehydrogenase";
-  LDH : pyr + nadh -> lac + nad;
-        ('LDH_keq', 2.783210760047520, 'e-004 dimensionless;
+LDH = ReactionTemplate(
+    rid='LDH',
+    name='Lactate Dehydrogenase',
+    equation='pyr + nadh <-> lac + nad []',
+    localization='cyto',
+    pars=[
+        ('LDH_keq', 2.783210760047520E-004, 'dimensionless'),
         ('LDH_k_pyr', 0.495, 'mM'),
         ('LDH_k_lac', 31.98, 'mM'),
         ('LDH_k_nad', 0.984, 'mM'),
         ('LDH_k_nadh', 0.027, 'mM'),
         ('LDH_Vmax', 12.6, 'mol_per_s'),
-  LDH', 'scale_gly * LDH_Vmax / (LDH_k_pyr * LDH_k_nadh) * (pyr*nadh - lac*nad/LDH_keq) / ( (1 dimensionless +nadh/LDH_k_nadh)*(1 dimensionless +pyr/LDH_k_pyr) + (1 dimensionless +lac/LDH_k_lac) * (1 dimensionless +nad/LDH_k_nad) - 1 dimensionless);
-  LDH has mol_per_s;
+    ],
+    formula=('scale_gly * LDH_Vmax / (LDH_k_pyr * LDH_k_nadh) * (pyr*nadh - lac*nad/LDH_keq) / ( (1 dimensionless +nadh/LDH_k_nadh)*(1 dimensionless +pyr/LDH_k_pyr) + (1 dimensionless +lac/LDH_k_lac) * (1 dimensionless +nad/LDH_k_nad) - 1 dimensionless)', 'mol_per_s')
+)
 
-
-  LACT is "Lactate transport (import)";
-  LACT : lac_ext -> lac;
+LACT = ReactionTemplate(
+    rid='LACT',
+    name='Lactate transport (import)',
+    equation='lac_ext <-> lac []',
+    localization='pm',
+    pars=[
         ('LACT_keq', 1, 'dimensionless'),
         ('LACT_k_lac', 0.8, 'mM'),
         ('LACT_Vmax', 5.418, 'mol_per_s'),
-  LACT', 'scale_gly * LACT_Vmax/LACT_k_lac * (lac_ext - lac/LACT_keq) / (1 dimensionless + lac_ext/LACT_k_lac + lac/LACT_k_lac);
-  LACT has mol_per_s;
+    ],
+    formula=('scale_gly * LACT_Vmax/LACT_k_lac * (lac_ext - lac/LACT_keq) / (1 dimensionless + lac_ext/LACT_k_lac + lac/LACT_k_lac)', 'mol_per_s')
+)
 
-
-  PYRTM is "Pyruvate transport (mito)";
-  PYRTM : pyr -> pyr_mito;
+PYRTM = ReactionTemplate(
+    rid='PYRTM',
+    name='Pyruvate transport (mito)',
+    equation='pyr -> pyr_mito []',
+    localization='mm',
+    pars=[
         ('PYRTM_keq', 1, 'dimensionless'),
         ('PYRTM_k_pyr', 0.1, 'mM'),
         ('PYRTM_Vmax', 42, 'mol_per_s'),
-  PYRTM', 'scale_gly * PYRTM_Vmax/PYRTM_k_pyr * (pyr - pyr_mito/PYRTM_keq) / (1 dimensionless + pyr/PYRTM_k_pyr + pyr_mito/PYRTM_k_pyr);
-  PYRTM has mol_per_s;
+    ],
+    formula=('scale_gly * PYRTM_Vmax/PYRTM_k_pyr * (pyr - pyr_mito/PYRTM_keq) / (1 dimensionless + pyr/PYRTM_k_pyr + pyr_mito/PYRTM_k_pyr)', 'mol_per_s')
+)
 
-
-  PEPTM is "PEP Transport (export mito)";
-  PEPTM : pep_mito -> pep;
+PEPTM = ReactionTemplate(
+    rid='PEPTM',
+    name='PEP Transport (export mito)',
+    equation='pep_mito -> pep []',
+    localization='mm',
+    pars=[
         ('PEPTM_keq', 1, 'dimensionless'),
         ('PEPTM_k_pep', 0.1, 'mM'),
         ('PEPTM_Vmax', 33.6, 'mol_per_s'),
-  PEPTM', 'scale_gly * PEPTM_Vmax/PEPTM_k_pep * (pep_mito - pep/PEPTM_keq) / (1 dimensionless + pep/PEPTM_k_pep + pep_mito/PEPTM_k_pep);
-  PEPTM has mol_per_s;
+    ],
+    formula=('scale_gly * PEPTM_Vmax/PEPTM_k_pep * (pep_mito - pep/PEPTM_keq) / (1 dimensionless + pep/PEPTM_k_pep + pep_mito/PEPTM_k_pep)', 'mol_per_s')
+)
 
-
-  PDH is "Pyruvate Dehydrogenase";
-  PDH : pyr_mito + coa_mito + nad_mito => acoa_mito + co2_mito + nadh_mito +h_mito;
+PDH = ReactionTemplate(
+    rid='PDH',
+    name='Pyruvate Dehydrogenase',
+    equation='pyr_mito + coa_mito + nad_mito => acoa_mito + co2_mito + nadh_mito +h_mito []',
+    localization='mito',
+    pars=[
         ('PDH_k_pyr', 0.025, 'mM'),
         ('PDH_k_coa', 0.013, 'mM'),
         ('PDH_k_nad', 0.050, 'mM'),
@@ -500,55 +527,76 @@ EN = ReactionTemplate(
         ('PDH_alpha_nat', 5, 'dimensionless'),
         ('PDH_alpha_p', 1, 'dimensionless'),
         ('PDH_Vmax', 13.44, 'mol_per_s'),
+    ],
+    rules=[
+        ('PDH_base', 'scale_gly * PDH_Vmax * pyr_mito/(pyr_mito + PDH_k_pyr) * nad_mito/(nad_mito + PDH_k_nad*(1 dimensionless + nadh_mito/PDH_ki_nadh)) * coa_mito/(coa_mito + PDH_k_coa*(1 dimensionless +acoa_mito/PDH_ki_acoa))', 'mol_per_s'),
+        ('PDH_nat', 'PDH_base * PDH_alpha_nat', 'mol_per_s'),
+        ('PDH_p', 'PDH_base * PDH_alpha_p', 'mol_per_s'),
+    ],
+    formula=('(1 dimensionless - gamma) * PDH_nat + gamma*PDH_p', 'mol_per_s')
+)
 
-  PDH_base', 'scale_gly * PDH_Vmax * pyr_mito/(pyr_mito + PDH_k_pyr) * nad_mito/(nad_mito + PDH_k_nad*(1 dimensionless + nadh_mito/PDH_ki_nadh)) * coa_mito/(coa_mito + PDH_k_coa*(1 dimensionless +acoa_mito/PDH_ki_acoa));
-  PDH_nat', 'PDH_base * PDH_alpha_nat;
-  PDH_p', 'PDH_base * PDH_alpha_p;
-  PDH', '(1 dimensionless - gamma) * PDH_nat + gamma*PDH_p;
-  PDH_base has mol_per_s;
-  PDH_nat has mol_per_s;
-  PDH_p has mol_per_s;
-  PDH has mol_per_s;
-
-
-  CS is "Citrate Synthase";
-  CS : acoa_mito + oaa_mito + h2o_mito -> cit_mito + coa_mito;
-        ('CS_keq', 2.665990308427589, 'e+005 dimensionless;
+CS = ReactionTemplate(
+    rid='CS',
+    name='Citrate Synthase',
+    equation='acoa_mito + oaa_mito + h2o_mito <-> cit_mito + coa_mito []',
+    localization='mito',
+    pars=[
+        ('CS_keq', 2.665990308427589E5, 'dimensionless'),
         ('CS_k_oaa', 0.002, 'mM'),
         ('CS_k_acoa', 0.016, 'mM'),
         ('CS_k_cit', 0.420, 'mM'),
         ('CS_k_coa', 0.070, 'mM'),
         ('CS_Vmax', 4.2, 'mol_per_s'),
-  CS', 'scale_gly * CS_Vmax/(CS_k_oaa * CS_k_acoa) * (acoa_mito*oaa_mito - cit_mito*coa_mito/CS_keq) / ( (1 dimensionless +acoa_mito/CS_k_acoa)*(1 dimensionless +oaa_mito/CS_k_oaa) + (1 dimensionless +cit_mito/CS_k_cit)*(1 dimensionless +coa_mito/CS_k_coa) -1 dimensionless );
-  CS has mol_per_s;
+    ],
+    formula=('scale_gly * CS_Vmax/(CS_k_oaa * CS_k_acoa) * (acoa_mito*oaa_mito - cit_mito*coa_mito/CS_keq) / ( (1 dimensionless +acoa_mito/CS_k_acoa)*(1 dimensionless +oaa_mito/CS_k_oaa) + (1 dimensionless +cit_mito/CS_k_cit)*(1 dimensionless +coa_mito/CS_k_coa) -1 dimensionless)', 'mol_per_s')
+)
 
-
-  NDKGTPM is "Nucleoside-diphosphate kinase (ATP, GTP) mito";
-  NDKGTPM : atp_mito + gdp_mito -> adp_mito + gtp_mito;
+NDKGTPM = ReactionTemplate(
+    rid='NDKGTPM',
+    name='Nucleoside-diphosphate kinase (ATP, GTP) mito',
+    equation='atp_mito + gdp_mito <-> adp_mito + gtp_mito []',
+    localization='mito',
+    pars=[
         ('NDKGTPM_keq', 1, 'dimensionless'),
         ('NDKGTPM_k_atp', 1.33, 'mM'),
         ('NDKGTPM_k_adp', 0.042, 'mM'),
         ('NDKGTPM_k_gtp', 0.15, 'mM'),
         ('NDKGTPM_k_gdp', 0.031, 'mM'),
         ('NDKGTPM_Vmax', 420, 'mol_per_s'),
-  NDKGTPM', 'scale_gly * NDKGTPM_Vmax / (NDKGTPM_k_atp * NDKGTPM_k_gdp) * (atp_mito*gdp_mito - adp_mito*gtp_mito/NDKGTPM_keq) / ( (1 dimensionless + atp_mito/NDKGTPM_k_atp)*(1 dimensionless + gdp_mito/NDKGTPM_k_gdp) + (1 dimensionless + adp_mito/NDKGTPM_k_adp)*(1 dimensionless + gtp_mito/NDKGTPM_k_gtp) - 1 dimensionless) ;
-  NDKGTPM has mol_per_s;
+    ],
+    formula=('scale_gly * NDKGTPM_Vmax / (NDKGTPM_k_atp * NDKGTPM_k_gdp) * (atp_mito*gdp_mito - adp_mito*gtp_mito/NDKGTPM_keq) / ( (1 dimensionless + atp_mito/NDKGTPM_k_atp)*(1 dimensionless + gdp_mito/NDKGTPM_k_gdp) + (1 dimensionless + adp_mito/NDKGTPM_k_adp)*(1 dimensionless + gtp_mito/NDKGTPM_k_gtp) - 1 dimensionless)', 'mol_per_s')
+)
 
-  OAAFLX is "oxalacetate influx";
-  OAAFLX : => oaa_mito;
+OAAFLX = ReactionTemplate(
+    rid='OAAFLX',
+    name='oxalacetate influx',
+    equation='=> oaa_mito []',
+    localization='mito',
+    pars=[
         ('OAAFLX_Vmax', 0, 'mol_per_s'),
-  OAAFLX', 'scale_gly * OAAFLX_Vmax;
-  OAAFLX has mol_per_s;
+    ],
+    formula=('scale_gly * OAAFLX_Vmax', 'mol_per_s')
+)
 
-  ACOAFLX is "acetyl-coa efflux";
-  ACOAFLX : acoa_mito =>;
+ACOAFLX = ReactionTemplate(
+    rid='ACOAFLX',
+    name='acetyl-coa efflux',
+    equation='acoa_mito => []',
+    localization='mito',
+    pars=[
         ('ACOAFLX_Vmax', 0, 'mol_per_s'),
-  ACOAFLX', 'scale_gly * ACOAFLX_Vmax;
-  ACOAFLX has mol_per_s;
+    ],
+    formula=('scale_gly * ACOAFLX_Vmax', 'mol_per_s')
+)
 
-  CITFLX is "citrate efflux";
-  CITFLX : cit_mito =>;
+CITFLX = ReactionTemplate(
+    rid='CITFLX',
+    name='citrate efflux',
+    equation='cit_mito => []',
+    localization='mito',
+    pars=[
         ('CITFLX_Vmax', 0, 'mol_per_s'),
-  CITFLX', 'scale_gly * CITFLX_Vmax;
-  CITFLX has mol_per_s;
-"""
+    ],
+    formula=('scale_gly * CITFLX_Vmax', 'mol_per_s')
+)

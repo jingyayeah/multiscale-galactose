@@ -4,7 +4,7 @@ Test the equations.
 
 import unittest
 
-from multiscale.sbmlutils.equation import Equation, REV_SEP
+from multiscale.sbmlutils.equation import Equation, REV_SEP, IRREV_SEP
 
 
 class TestEquation(unittest.TestCase):
@@ -45,6 +45,20 @@ class TestEquation(unittest.TestCase):
         eq_string = 'A_ext => A []'
         eq = Equation(eq_string)
         self.assertEqual(len(eq.modifiers), 0)
+
+    def test_equation_no_reactants(self):
+        """ Test Equation. """
+        eq_string = ' => A'
+        eq = Equation(eq_string)
+        test_res = eq_string.replace('=>', IRREV_SEP)
+        self.assertEqual(eq.toString(), test_res)
+
+    def test_equation_no_products(self):
+        """ Test Equation. """
+        eq_string = 'B => '
+        eq = Equation(eq_string)
+        test_res = eq_string.replace('=>', IRREV_SEP)
+        self.assertEqual(eq.toString(), test_res)
 
 
 if __name__ == "__main__":

@@ -248,7 +248,7 @@
         <hr />
 
     <h1>Model : Hepatic_glucose_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-17 11:40<br /><b>Modified:</b> 2016-02-17 11:40<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-17 16:00<br /><b>Modified:</b> 2016-02-17 16:00<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -2442,7 +2442,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [132]</th>
+	<th scope="col" class="warning">Parameters [258]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -6403,6 +6403,3287 @@
 	<td>        -
 </td>
 </tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP2_km_fru26bp_native</td>
+	<td></td>
+	<td>            0.01
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP2_ki_fru6p_native</td>
+	<td></td>
+	<td>            0.0035
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP2_km_fru26bp_phospho</td>
+	<td></td>
+	<td>            0.0005
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP2_ki_fru6p_phospho</td>
+	<td></td>
+	<td>            0.01
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP2_Vmax</td>
+	<td></td>
+	<td>            0.126
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP2_native</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> FBP2_Vmax </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> fru6p </ci>
+            <ci> FBP2_ki_fru6p_native </ci>
+          </apply>
+        </apply>
+      </apply>
+      <ci> fru26bp </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> FBP2_km_fru26bp_native </ci>
+      <ci> fru26bp </ci>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP2_phospho</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> FBP2_Vmax </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> fru6p </ci>
+            <ci> FBP2_ki_fru6p_phospho </ci>
+          </apply>
+        </apply>
+      </apply>
+      <ci> fru26bp </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> FBP2_km_fru26bp_phospho </ci>
+      <ci> fru26bp </ci>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PFK1_km_atp</td>
+	<td></td>
+	<td>            0.111
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PFK1_km_fru6p</td>
+	<td></td>
+	<td>            0.077
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PFK1_ki_fru6p</td>
+	<td></td>
+	<td>            0.012
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PFK1_ka_fru26bp</td>
+	<td></td>
+	<td>            0.001
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PFK1_Vmax</td>
+	<td></td>
+	<td>            7.182
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP1_ki_fru26bp</td>
+	<td></td>
+	<td>            0.001
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP1_km_fru16bp</td>
+	<td></td>
+	<td>            0.0013
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">FBP1_Vmax</td>
+	<td></td>
+	<td>            4.326
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ALD_keq</td>
+	<td></td>
+	<td>            9.76298897363e-05
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ALD_km_fru16bp</td>
+	<td></td>
+	<td>            0.0071
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ALD_km_dhap</td>
+	<td></td>
+	<td>            0.0364
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ALD_km_grap</td>
+	<td></td>
+	<td>            0.0071
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ALD_ki1_grap</td>
+	<td></td>
+	<td>            0.0572
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ALD_ki2_grap</td>
+	<td></td>
+	<td>            0.176
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ALD_Vmax</td>
+	<td></td>
+	<td>            420.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TPI_keq</td>
+	<td></td>
+	<td>            0.0544769853868
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TPI_km_dhap</td>
+	<td></td>
+	<td>            0.59
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TPI_km_grap</td>
+	<td></td>
+	<td>            0.42
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TPI_Vmax</td>
+	<td></td>
+	<td>            420.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GAPDH_keq</td>
+	<td></td>
+	<td>            0.0867798661946
+    </td>
+	<td>per_mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> mole </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GAPDH_k_nad</td>
+	<td></td>
+	<td>            0.05
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GAPDH_k_grap</td>
+	<td></td>
+	<td>            0.005
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GAPDH_k_p</td>
+	<td></td>
+	<td>            3.9
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GAPDH_k_nadh</td>
+	<td></td>
+	<td>            0.0083
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GAPDH_k_bpg13</td>
+	<td></td>
+	<td>            0.0035
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">GAPDH_Vmax</td>
+	<td></td>
+	<td>            420.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGK_keq</td>
+	<td></td>
+	<td>            6.95864405249
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGK_k_adp</td>
+	<td></td>
+	<td>            0.35
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGK_k_atp</td>
+	<td></td>
+	<td>            0.48
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGK_k_bpg13</td>
+	<td></td>
+	<td>            0.002
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGK_k_pg3</td>
+	<td></td>
+	<td>            1.2
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGK_Vmax</td>
+	<td></td>
+	<td>            420.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGM_keq</td>
+	<td></td>
+	<td>            0.181375378837
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGM_k_pg3</td>
+	<td></td>
+	<td>            5.0
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGM_k_pg2</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PGM_Vmax</td>
+	<td></td>
+	<td>            420.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">EN_keq</td>
+	<td></td>
+	<td>            0.0544769853868
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">EN_k_pep</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">EN_k_pg2</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">EN_Vmax</td>
+	<td></td>
+	<td>            35.994
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_n</td>
+	<td></td>
+	<td>            3.5
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_n_p</td>
+	<td></td>
+	<td>            3.5
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_n_fbp</td>
+	<td></td>
+	<td>            1.8
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_n_fbp_p</td>
+	<td></td>
+	<td>            1.8
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_alpha</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_alpha_p</td>
+	<td></td>
+	<td>            1.1
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_alpha_end</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_k_fbp</td>
+	<td></td>
+	<td>            0.00016
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_k_fbp_p</td>
+	<td></td>
+	<td>            0.00035
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_k_pep</td>
+	<td></td>
+	<td>            0.58
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_k_pep_p</td>
+	<td></td>
+	<td>            1.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_k_pep_end</td>
+	<td></td>
+	<td>            0.08
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_k_adp</td>
+	<td></td>
+	<td>            2.3
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_base_act</td>
+	<td></td>
+	<td>            0.08
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_base_act_p</td>
+	<td></td>
+	<td>            0.04
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_Vmax</td>
+	<td></td>
+	<td>            46.2
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_pep_inp</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> PK_f </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> PK_k_pep </ci>
+        <ci> PK_k_pep_end </ci>
+      </apply>
+    </apply>
+    <ci> PK_k_pep_end </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_f_p</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> fru16bp </ci>
+      <ci> PK_n_fbp_p </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <apply>
+        <power/>
+        <ci> PK_k_fbp_p </ci>
+        <ci> PK_n_fbp_p </ci>
+      </apply>
+      <apply>
+        <power/>
+        <ci> fru16bp </ci>
+        <ci> PK_n_fbp_p </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_f</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> fru16bp </ci>
+      <ci> PK_n_fbp </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <apply>
+        <power/>
+        <ci> PK_k_fbp </ci>
+        <ci> PK_n_fbp </ci>
+      </apply>
+      <apply>
+        <power/>
+        <ci> fru16bp </ci>
+        <ci> PK_n_fbp </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_alpha_p_inp</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> PK_f_p </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> PK_alpha_p </ci>
+        <ci> PK_alpha_end </ci>
+      </apply>
+    </apply>
+    <ci> PK_alpha_end </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_alpha_inp</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> PK_f </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> PK_alpha </ci>
+        <ci> PK_alpha_end </ci>
+      </apply>
+    </apply>
+    <ci> PK_alpha_end </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_phospho</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> scale_gly </ci>
+            <ci> PK_Vmax </ci>
+            <ci> PK_alpha_p_inp </ci>
+            <apply>
+              <power/>
+              <ci> pep </ci>
+              <ci> PK_n_p </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> PK_pep_p_inp </ci>
+              <ci> PK_n_p </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> pep </ci>
+              <ci> PK_n_p </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> adp </ci>
+      </apply>
+      <apply>
+        <plus/>
+        <ci> adp </ci>
+        <ci> PK_k_adp </ci>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> PK_base_act_p </ci>
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn type="integer"> 1 </cn>
+          <ci> PK_base_act_p </ci>
+        </apply>
+        <ci> PK_f_p </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_pep_p_inp</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> PK_f_p </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> PK_k_pep_p </ci>
+        <ci> PK_k_pep_end </ci>
+      </apply>
+    </apply>
+    <ci> PK_k_pep_end </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PK_native</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> scale_gly </ci>
+            <ci> PK_Vmax </ci>
+            <ci> PK_alpha_inp </ci>
+            <apply>
+              <power/>
+              <ci> pep </ci>
+              <ci> PK_n </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> PK_pep_inp </ci>
+              <ci> PK_n </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> pep </ci>
+              <ci> PK_n </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> adp </ci>
+      </apply>
+      <apply>
+        <plus/>
+        <ci> adp </ci>
+        <ci> PK_k_adp </ci>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> PK_base_act </ci>
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn type="integer"> 1 </cn>
+          <ci> PK_base_act </ci>
+        </apply>
+        <ci> PK_f </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPCK_keq</td>
+	<td></td>
+	<td>            336.956521586
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPCK_k_pep</td>
+	<td></td>
+	<td>            0.237
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPCK_k_gdp</td>
+	<td></td>
+	<td>            0.0921
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPCK_k_co2</td>
+	<td></td>
+	<td>            25.5
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPCK_k_oaa</td>
+	<td></td>
+	<td>            0.0055
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPCK_k_gtp</td>
+	<td></td>
+	<td>            0.0222
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPCK_Vmax</td>
+	<td></td>
+	<td>            0.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPCKM_Vmax</td>
+	<td></td>
+	<td>            546.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PC_k_atp</td>
+	<td></td>
+	<td>            0.22
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PC_k_pyr</td>
+	<td></td>
+	<td>            0.22
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PC_k_co2</td>
+	<td></td>
+	<td>            3.2
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PC_k_acoa</td>
+	<td></td>
+	<td>            0.015
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PC_n</td>
+	<td></td>
+	<td>            2.5
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PC_Vmax</td>
+	<td></td>
+	<td>            168.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LDH_keq</td>
+	<td></td>
+	<td>            0.000278321076005
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LDH_k_pyr</td>
+	<td></td>
+	<td>            0.495
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LDH_k_lac</td>
+	<td></td>
+	<td>            31.98
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LDH_k_nad</td>
+	<td></td>
+	<td>            0.984
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LDH_k_nadh</td>
+	<td></td>
+	<td>            0.027
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LDH_Vmax</td>
+	<td></td>
+	<td>            12.6
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LACT_keq</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LACT_k_lac</td>
+	<td></td>
+	<td>            0.8
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">LACT_Vmax</td>
+	<td></td>
+	<td>            5.418
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PYRTM_keq</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PYRTM_k_pyr</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PYRTM_Vmax</td>
+	<td></td>
+	<td>            42.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPTM_keq</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPTM_k_pep</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PEPTM_Vmax</td>
+	<td></td>
+	<td>            33.6
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_k_pyr</td>
+	<td></td>
+	<td>            0.025
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_k_coa</td>
+	<td></td>
+	<td>            0.013
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_k_nad</td>
+	<td></td>
+	<td>            0.05
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_ki_acoa</td>
+	<td></td>
+	<td>            0.035
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_ki_nadh</td>
+	<td></td>
+	<td>            0.036
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_alpha_nat</td>
+	<td></td>
+	<td>            5.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_alpha_p</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_Vmax</td>
+	<td></td>
+	<td>            13.44
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_p</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> PDH_base </ci>
+    <ci> PDH_alpha_p </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_base</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> scale_gly </ci>
+              <ci> PDH_Vmax </ci>
+              <ci> pyr_mito </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> pyr_mito </ci>
+              <ci> PDH_k_pyr </ci>
+            </apply>
+          </apply>
+          <ci> nad_mito </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <ci> nad_mito </ci>
+          <apply>
+            <times/>
+            <ci> PDH_k_nad </ci>
+            <apply>
+              <plus/>
+              <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+              <apply>
+                <divide/>
+                <ci> nadh_mito </ci>
+                <ci> PDH_ki_nadh </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <ci> coa_mito </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> coa_mito </ci>
+      <apply>
+        <times/>
+        <ci> PDH_k_coa </ci>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> acoa_mito </ci>
+            <ci> PDH_ki_acoa </ci>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PDH_nat</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> PDH_base </ci>
+    <ci> PDH_alpha_nat </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CS_keq</td>
+	<td></td>
+	<td>            266599.030843
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CS_k_oaa</td>
+	<td></td>
+	<td>            0.002
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CS_k_acoa</td>
+	<td></td>
+	<td>            0.016
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CS_k_cit</td>
+	<td></td>
+	<td>            0.42
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CS_k_coa</td>
+	<td></td>
+	<td>            0.07
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CS_Vmax</td>
+	<td></td>
+	<td>            4.2
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">NDKGTPM_keq</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">NDKGTPM_k_atp</td>
+	<td></td>
+	<td>            1.33
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">NDKGTPM_k_adp</td>
+	<td></td>
+	<td>            0.042
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">NDKGTPM_k_gtp</td>
+	<td></td>
+	<td>            0.15
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">NDKGTPM_k_gdp</td>
+	<td></td>
+	<td>            0.031
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">NDKGTPM_Vmax</td>
+	<td></td>
+	<td>            420.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">OAAFLX_Vmax</td>
+	<td></td>
+	<td>            0.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">ACOAFLX_Vmax</td>
+	<td></td>
+	<td>            0.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CITFLX_Vmax</td>
+	<td></td>
+	<td>            0.0
+    </td>
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
             </tbody>
         </table>
         <hr/>
@@ -6630,7 +9911,7 @@
         <table id="table_rules" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules [36]</th>
+	<th scope="col" class="warning">Rules [49]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -8124,6 +11405,633 @@
 	<td>        -
 </td>
 </tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">FBP2_native</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> FBP2_Vmax </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> fru6p </ci>
+            <ci> FBP2_ki_fru6p_native </ci>
+          </apply>
+        </apply>
+      </apply>
+      <ci> fru26bp </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> FBP2_km_fru26bp_native </ci>
+      <ci> fru26bp </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">FBP2_phospho</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> FBP2_Vmax </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> fru6p </ci>
+            <ci> FBP2_ki_fru6p_phospho </ci>
+          </apply>
+        </apply>
+      </apply>
+      <ci> fru26bp </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> FBP2_km_fru26bp_phospho </ci>
+      <ci> fru26bp </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PK_pep_inp</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> PK_f </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> PK_k_pep </ci>
+        <ci> PK_k_pep_end </ci>
+      </apply>
+    </apply>
+    <ci> PK_k_pep_end </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PK_f_p</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> fru16bp </ci>
+      <ci> PK_n_fbp_p </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <apply>
+        <power/>
+        <ci> PK_k_fbp_p </ci>
+        <ci> PK_n_fbp_p </ci>
+      </apply>
+      <apply>
+        <power/>
+        <ci> fru16bp </ci>
+        <ci> PK_n_fbp_p </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PK_f</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> fru16bp </ci>
+      <ci> PK_n_fbp </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <apply>
+        <power/>
+        <ci> PK_k_fbp </ci>
+        <ci> PK_n_fbp </ci>
+      </apply>
+      <apply>
+        <power/>
+        <ci> fru16bp </ci>
+        <ci> PK_n_fbp </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PK_alpha_p_inp</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> PK_f_p </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> PK_alpha_p </ci>
+        <ci> PK_alpha_end </ci>
+      </apply>
+    </apply>
+    <ci> PK_alpha_end </ci>
+  </apply>
+</math>
+</td>
+    <td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PK_alpha_inp</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> PK_f </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> PK_alpha </ci>
+        <ci> PK_alpha_end </ci>
+      </apply>
+    </apply>
+    <ci> PK_alpha_end </ci>
+  </apply>
+</math>
+</td>
+    <td>    None
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PK_phospho</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> scale_gly </ci>
+            <ci> PK_Vmax </ci>
+            <ci> PK_alpha_p_inp </ci>
+            <apply>
+              <power/>
+              <ci> pep </ci>
+              <ci> PK_n_p </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> PK_pep_p_inp </ci>
+              <ci> PK_n_p </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> pep </ci>
+              <ci> PK_n_p </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> adp </ci>
+      </apply>
+      <apply>
+        <plus/>
+        <ci> adp </ci>
+        <ci> PK_k_adp </ci>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> PK_base_act_p </ci>
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn type="integer"> 1 </cn>
+          <ci> PK_base_act_p </ci>
+        </apply>
+        <ci> PK_f_p </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <power/>
+        <ci> mole </ci>
+        <cn type="integer"> 2 </cn>
+      </apply>
+      <apply>
+        <power/>
+        <ci> m </ci>
+        <cn type="integer"> 3 </cn>
+      </apply>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PK_pep_p_inp</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> PK_f_p </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> PK_k_pep_p </ci>
+        <ci> PK_k_pep_end </ci>
+      </apply>
+    </apply>
+    <ci> PK_k_pep_end </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PK_native</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> scale_gly </ci>
+            <ci> PK_Vmax </ci>
+            <ci> PK_alpha_inp </ci>
+            <apply>
+              <power/>
+              <ci> pep </ci>
+              <ci> PK_n </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> PK_pep_inp </ci>
+              <ci> PK_n </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> pep </ci>
+              <ci> PK_n </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> adp </ci>
+      </apply>
+      <apply>
+        <plus/>
+        <ci> adp </ci>
+        <ci> PK_k_adp </ci>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> PK_base_act </ci>
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn type="integer"> 1 </cn>
+          <ci> PK_base_act </ci>
+        </apply>
+        <ci> PK_f </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <apply>
+        <power/>
+        <ci> mole </ci>
+        <cn type="integer"> 2 </cn>
+      </apply>
+      <apply>
+        <power/>
+        <ci> m </ci>
+        <cn type="integer"> 3 </cn>
+      </apply>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PDH_p</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> PDH_base </ci>
+    <ci> PDH_alpha_p </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PDH_base</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> scale_gly </ci>
+              <ci> PDH_Vmax </ci>
+              <ci> pyr_mito </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> pyr_mito </ci>
+              <ci> PDH_k_pyr </ci>
+            </apply>
+          </apply>
+          <ci> nad_mito </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <ci> nad_mito </ci>
+          <apply>
+            <times/>
+            <ci> PDH_k_nad </ci>
+            <apply>
+              <plus/>
+              <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+              <apply>
+                <divide/>
+                <ci> nadh_mito </ci>
+                <ci> PDH_ki_nadh </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <ci> coa_mito </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> coa_mito </ci>
+      <apply>
+        <times/>
+        <ci> PDH_k_coa </ci>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> acoa_mito </ci>
+            <ci> PDH_ki_acoa </ci>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">PDH_nat</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> PDH_base </ci>
+    <ci> PDH_alpha_nat </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
             </tbody>
         </table>
         <hr/>
@@ -8139,7 +12047,7 @@
         <table id="table_reactions" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Reactions [13]</th>
+	<th scope="col" class="warning">Reactions [36]</th>
 	<th scope="col">name</th>
 	<th scope="col"></th>
 	<th scope="col">equation</th>
@@ -9021,6 +12929,1706 @@
       <ci> gamma </ci>
       <ci> PFK2_phospho </ci>
     </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">FBP2</td>
+	<td>D-Fructose-2,6-bisphosphate 2-phosphohydrolase</td>
+	    <td class="danger">&#10142;</td>
+	<td>fru26bp &#10142; fru6p + phos</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> gamma </ci>
+      </apply>
+      <ci> FBP2_native </ci>
+    </apply>
+    <apply>
+      <times/>
+      <ci> gamma </ci>
+      <ci> FBP2_phospho </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PFK1</td>
+	<td>ATP:D-fructose-6-phosphate 1-phosphotransferase</td>
+	    <td class="danger">&#10142;</td>
+	<td>fru6p + atp &#10142; fru16bp + adp</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> scale_gly </ci>
+      <ci> PFK1_Vmax </ci>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> fru26bp </ci>
+              <ci> PFK1_ka_fru26bp </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <ci> fru6p </ci>
+      <ci> atp </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <apply>
+        <times/>
+        <ci> PFK1_ki_fru6p </ci>
+        <ci> PFK1_km_atp </ci>
+      </apply>
+      <apply>
+        <times/>
+        <ci> PFK1_km_fru6p </ci>
+        <ci> atp </ci>
+      </apply>
+      <apply>
+        <times/>
+        <ci> PFK1_km_atp </ci>
+        <ci> fru6p </ci>
+      </apply>
+      <apply>
+        <times/>
+        <ci> atp </ci>
+        <ci> fru6p </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">FBP1</td>
+	<td>D-Fructose-1,6-bisphosphate 1-phosphohydrolase</td>
+	    <td class="danger">&#10142;</td>
+	<td>fru16bp + h2o &#10142; fru6p + phos</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> FBP1_Vmax </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> fru26bp </ci>
+            <ci> FBP1_ki_fru26bp </ci>
+          </apply>
+        </apply>
+      </apply>
+      <ci> fru16bp </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> fru16bp </ci>
+      <ci> FBP1_km_fru16bp </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">ALD</td>
+	<td>Aldolase</td>
+        <td class="success">&#8646;</td>
+	<td>fru16bp &#8646; grap + dhap</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> ALD_Vmax </ci>
+        </apply>
+        <ci> ALD_km_fru16bp </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> fru16bp </ci>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> grap </ci>
+            <ci> dhap </ci>
+          </apply>
+          <ci> ALD_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> fru16bp </ci>
+        <ci> ALD_km_fru16bp </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> grap </ci>
+        <ci> ALD_ki1_grap </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> dhap </ci>
+          <apply>
+            <plus/>
+            <ci> grap </ci>
+            <ci> ALD_km_grap </ci>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <ci> ALD_km_dhap </ci>
+          <ci> ALD_ki1_grap </ci>
+        </apply>
+      </apply>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> fru16bp </ci>
+          <ci> grap </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> ALD_km_fru16bp </ci>
+          <ci> ALD_ki2_grap </ci>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">TPI</td>
+	<td>Triosephosphate Isomerase</td>
+        <td class="success">&#8646;</td>
+	<td>dhap &#8646; grap</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> TPI_Vmax </ci>
+        </apply>
+        <ci> TPI_km_dhap </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> dhap </ci>
+        <apply>
+          <divide/>
+          <ci> grap </ci>
+          <ci> TPI_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> dhap </ci>
+        <ci> TPI_km_dhap </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> grap </ci>
+        <ci> TPI_km_grap </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">GAPDH</td>
+	<td>D-Glyceraldehyde-3-phosphate:NAD+ oxidoreductase</td>
+	    <td class="danger">&#10142;</td>
+	<td>grap + phos + nad &#10142; bpg13 + nadh + h</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> GAPDH_Vmax </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> GAPDH_k_nad </ci>
+          <ci> GAPDH_k_grap </ci>
+          <ci> GAPDH_k_p </ci>
+        </apply>
+      </apply>
+      <apply>
+        <minus/>
+        <apply>
+          <times/>
+          <ci> nad </ci>
+          <ci> grap </ci>
+          <ci> phos </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> bpg13 </ci>
+            <ci> nadh </ci>
+          </apply>
+          <ci> GAPDH_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> nad </ci>
+              <ci> GAPDH_k_nad </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> grap </ci>
+              <ci> GAPDH_k_grap </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> phos </ci>
+              <ci> GAPDH_k_p </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> nadh </ci>
+              <ci> GAPDH_k_nadh </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> bpg13 </ci>
+              <ci> GAPDH_k_bpg13 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PGK</td>
+	<td>Phosphoglycerate Kinase</td>
+        <td class="success">&#8646;</td>
+	<td>adp + bpg13 &#8646; atp + pg3</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> PGK_Vmax </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> PGK_k_adp </ci>
+          <ci> PGK_k_bpg13 </ci>
+        </apply>
+      </apply>
+      <apply>
+        <minus/>
+        <apply>
+          <times/>
+          <ci> adp </ci>
+          <ci> bpg13 </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> atp </ci>
+            <ci> pg3 </ci>
+          </apply>
+          <ci> PGK_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> adp </ci>
+              <ci> PGK_k_adp </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> bpg13 </ci>
+              <ci> PGK_k_bpg13 </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> atp </ci>
+              <ci> PGK_k_atp </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> pg3 </ci>
+              <ci> PGK_k_pg3 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PGM</td>
+	<td>2-Phospho-D-glycerate 2,3-phosphomutase</td>
+        <td class="success">&#8646;</td>
+	<td>pg3 &#8646; pg2</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> scale_gly </ci>
+      <ci> PGM_Vmax </ci>
+      <apply>
+        <minus/>
+        <ci> pg3 </ci>
+        <apply>
+          <divide/>
+          <ci> pg2 </ci>
+          <ci> PGM_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> pg3 </ci>
+      <apply>
+        <times/>
+        <ci> PGM_k_pg3 </ci>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> pg2 </ci>
+            <ci> PGM_k_pg2 </ci>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">EN</td>
+	<td>2-Phospho-D-glucerate hydro-lyase (enolase)</td>
+        <td class="success">&#8646;</td>
+	<td>pg2 &#8646; pep</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> scale_gly </ci>
+      <ci> EN_Vmax </ci>
+      <apply>
+        <minus/>
+        <ci> pg2 </ci>
+        <apply>
+          <divide/>
+          <ci> pep </ci>
+          <ci> EN_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> pg2 </ci>
+      <apply>
+        <times/>
+        <ci> EN_k_pg2 </ci>
+        <apply>
+          <plus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <ci> pep </ci>
+            <ci> EN_k_pep </ci>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PK</td>
+	<td>Pyruvatkinase</td>
+	    <td class="danger">&#10142;</td>
+	<td>pep + adp &#10142; pyr + atp</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> gamma </ci>
+      </apply>
+      <ci> PK_native </ci>
+    </apply>
+    <apply>
+      <times/>
+      <ci> gamma </ci>
+      <ci> PK_phospho </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PEPCK</td>
+	<td>PEPCK cyto</td>
+        <td class="success">&#8646;</td>
+	<td>oaa + gtp &#8646; pep + gdp + co2</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> PEPCK_Vmax </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> PEPCK_k_oaa </ci>
+          <ci> PEPCK_k_gtp </ci>
+        </apply>
+      </apply>
+      <apply>
+        <minus/>
+        <apply>
+          <times/>
+          <ci> oaa </ci>
+          <ci> gtp </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> pep </ci>
+            <ci> gdp </ci>
+            <ci> co2 </ci>
+          </apply>
+          <ci> PEPCK_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> oaa </ci>
+              <ci> PEPCK_k_oaa </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> gtp </ci>
+              <ci> PEPCK_k_gtp </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> pep </ci>
+              <ci> PEPCK_k_pep </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> gdp </ci>
+              <ci> PEPCK_k_gdp </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> co2 </ci>
+              <ci> PEPCK_k_co2 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PEPCKM</td>
+	<td>PEPCK mito</td>
+        <td class="success">&#8646;</td>
+	<td>oaa_mito + gtp_mito &#8646; pep_mito + gdp_mito + co2_mito</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> PEPCKM_Vmax </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> PEPCK_k_oaa </ci>
+          <ci> PEPCK_k_gtp </ci>
+        </apply>
+      </apply>
+      <apply>
+        <minus/>
+        <apply>
+          <times/>
+          <ci> oaa_mito </ci>
+          <ci> gtp_mito </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> pep_mito </ci>
+            <ci> gdp_mito </ci>
+            <ci> co2_mito </ci>
+          </apply>
+          <ci> PEPCK_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> oaa_mito </ci>
+              <ci> PEPCK_k_oaa </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> gtp_mito </ci>
+              <ci> PEPCK_k_gtp </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> pep_mito </ci>
+              <ci> PEPCK_k_pep </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> gdp_mito </ci>
+              <ci> PEPCK_k_gdp </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> co2_mito </ci>
+              <ci> PEPCK_k_co2 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PC</td>
+	<td>Pyruvate Carboxylase</td>
+	    <td class="danger">&#10142;</td>
+	<td>atp_mito + pyr_mito + co2_mito &#10142; oaa_mito + adp_mito + phos_mito</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> scale_gly </ci>
+                  <ci> PC_Vmax </ci>
+                  <ci> atp_mito </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> PC_k_atp </ci>
+                  <ci> atp_mito </ci>
+                </apply>
+              </apply>
+              <ci> pyr_mito </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> PC_k_pyr </ci>
+              <ci> pyr_mito </ci>
+            </apply>
+          </apply>
+          <ci> co2_mito </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <ci> PC_k_co2 </ci>
+          <ci> co2_mito </ci>
+        </apply>
+      </apply>
+      <apply>
+        <power/>
+        <ci> acoa_mito </ci>
+        <ci> PC_n </ci>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <apply>
+        <power/>
+        <ci> acoa_mito </ci>
+        <ci> PC_n </ci>
+      </apply>
+      <apply>
+        <power/>
+        <ci> PC_k_acoa </ci>
+        <ci> PC_n </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">LDH</td>
+	<td>Lactate Dehydrogenase</td>
+        <td class="success">&#8646;</td>
+	<td>pyr + nadh &#8646; lac + nad</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> LDH_Vmax </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> LDH_k_pyr </ci>
+          <ci> LDH_k_nadh </ci>
+        </apply>
+      </apply>
+      <apply>
+        <minus/>
+        <apply>
+          <times/>
+          <ci> pyr </ci>
+          <ci> nadh </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> lac </ci>
+            <ci> nad </ci>
+          </apply>
+          <ci> LDH_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> nadh </ci>
+              <ci> LDH_k_nadh </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> pyr </ci>
+              <ci> LDH_k_pyr </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> lac </ci>
+              <ci> LDH_k_lac </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> nad </ci>
+              <ci> LDH_k_nad </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">LACT</td>
+	<td>Lactate transport (import)</td>
+        <td class="success">&#8646;</td>
+	<td>lac_ext &#8646; lac</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> LACT_Vmax </ci>
+        </apply>
+        <ci> LACT_k_lac </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> lac_ext </ci>
+        <apply>
+          <divide/>
+          <ci> lac </ci>
+          <ci> LACT_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> lac_ext </ci>
+        <ci> LACT_k_lac </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> lac </ci>
+        <ci> LACT_k_lac </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PYRTM</td>
+	<td>Pyruvate transport (mito)</td>
+	    <td class="danger">&#10142;</td>
+	<td>pyr &#10142; pyr_mito</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> PYRTM_Vmax </ci>
+        </apply>
+        <ci> PYRTM_k_pyr </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> pyr </ci>
+        <apply>
+          <divide/>
+          <ci> pyr_mito </ci>
+          <ci> PYRTM_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> pyr </ci>
+        <ci> PYRTM_k_pyr </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> pyr_mito </ci>
+        <ci> PYRTM_k_pyr </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PEPTM</td>
+	<td>PEP Transport (export mito)</td>
+	    <td class="danger">&#10142;</td>
+	<td>pep_mito &#10142; pep</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> PEPTM_Vmax </ci>
+        </apply>
+        <ci> PEPTM_k_pep </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> pep_mito </ci>
+        <apply>
+          <divide/>
+          <ci> pep </ci>
+          <ci> PEPTM_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> pep </ci>
+        <ci> PEPTM_k_pep </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> pep_mito </ci>
+        <ci> PEPTM_k_pep </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PDH</td>
+	<td>Pyruvate Dehydrogenase</td>
+	    <td class="danger">&#10142;</td>
+	<td>pyr_mito + coa_mito + nad_mito &#10142; acoa_mito + co2_mito + nadh_mito + h_mito</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <plus/>
+    <apply>
+      <times/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> gamma </ci>
+      </apply>
+      <ci> PDH_nat </ci>
+    </apply>
+    <apply>
+      <times/>
+      <ci> gamma </ci>
+      <ci> PDH_p </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">CS</td>
+	<td>Citrate Synthase</td>
+        <td class="success">&#8646;</td>
+	<td>acoa_mito + oaa_mito + h2o_mito &#8646; cit_mito + coa_mito</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> CS_Vmax </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> CS_k_oaa </ci>
+          <ci> CS_k_acoa </ci>
+        </apply>
+      </apply>
+      <apply>
+        <minus/>
+        <apply>
+          <times/>
+          <ci> acoa_mito </ci>
+          <ci> oaa_mito </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> cit_mito </ci>
+            <ci> coa_mito </ci>
+          </apply>
+          <ci> CS_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> acoa_mito </ci>
+              <ci> CS_k_acoa </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> oaa_mito </ci>
+              <ci> CS_k_oaa </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> cit_mito </ci>
+              <ci> CS_k_cit </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> coa_mito </ci>
+              <ci> CS_k_coa </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">NDKGTPM</td>
+	<td>Nucleoside-diphosphate kinase (ATP, GTP) mito</td>
+        <td class="success">&#8646;</td>
+	<td>atp_mito + gdp_mito &#8646; adp_mito + gtp_mito</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <ci> scale_gly </ci>
+          <ci> NDKGTPM_Vmax </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> NDKGTPM_k_atp </ci>
+          <ci> NDKGTPM_k_gdp </ci>
+        </apply>
+      </apply>
+      <apply>
+        <minus/>
+        <apply>
+          <times/>
+          <ci> atp_mito </ci>
+          <ci> gdp_mito </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> adp_mito </ci>
+            <ci> gtp_mito </ci>
+          </apply>
+          <ci> NDKGTPM_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> atp_mito </ci>
+              <ci> NDKGTPM_k_atp </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> gdp_mito </ci>
+              <ci> NDKGTPM_k_gdp </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> adp_mito </ci>
+              <ci> NDKGTPM_k_adp </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> gtp_mito </ci>
+              <ci> NDKGTPM_k_gtp </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">OAAFLX</td>
+	<td>oxalacetate influx</td>
+	    <td class="danger">&#10142;</td>
+	<td> &#10142; oaa_mito</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> scale_gly </ci>
+    <ci> OAAFLX_Vmax </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">ACOAFLX</td>
+	<td>acetyl-coa efflux</td>
+	    <td class="danger">&#10142;</td>
+	<td>acoa_mito &#10142; </td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> scale_gly </ci>
+    <ci> ACOAFLX_Vmax </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">CITFLX</td>
+	<td>citrate efflux</td>
+	    <td class="danger">&#10142;</td>
+	<td>cit_mito &#10142; </td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> scale_gly </ci>
+    <ci> CITFLX_Vmax </ci>
   </apply>
 </math>
 </td>
