@@ -82,11 +82,12 @@ units.update({
                   (UNIT_KIND_SECOND, -1.0, 0, 60)],
     'mM': [(UNIT_KIND_MOLE, 1.0),
            (UNIT_KIND_METRE, -3.0)],
+    'per_mM': [(UNIT_KIND_METRE, 3.0),
+               (UNIT_KIND_MOLE, -1.0)],
     'mM2': [(UNIT_KIND_MOLE, 2.0),
              (UNIT_KIND_METRE, -6.0)],
     'mol_per_s': [(UNIT_KIND_MOLE, 1.0),
                   (UNIT_KIND_SECOND, -1.0)],
-
     'pmol': [(UNIT_KIND_MOLE, 1.0, -12, 1.0)],
     'pM': [(UNIT_KIND_MOLE, 1.0, -12, 1.0),
            (UNIT_KIND_LITRE, -1.0)],

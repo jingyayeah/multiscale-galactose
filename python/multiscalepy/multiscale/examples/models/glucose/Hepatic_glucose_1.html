@@ -248,7 +248,7 @@
         <hr />
 
     <h1>Model : Hepatic_glucose_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-17 11:07<br /><b>Modified:</b> 2016-02-17 11:07<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-17 11:18<br /><b>Modified:</b> 2016-02-17 11:18<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -369,7 +369,7 @@
         <table id="table_units" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">UnitDefinitions [15]</th>
+	<th scope="col" class="warning">UnitDefinitions [16]</th>
 	<th scope="col">name</th>
 	<th scope="col">units</th>
 	<th scope="col">sbo</th>
@@ -422,11 +422,19 @@
 </td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">kg</td>
+	<td class="active">per_mM</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> kg </ci>
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> mole </ci>
+  </apply>
 </math></td>
 	<td>        -
 </td>
@@ -595,6 +603,18 @@
     <ci> m </ci>
     <cn type="integer"> 2 </cn>
   </apply>
+</math></td>
+	<td>        -
+</td>
+	<td>        -
+</td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">kg</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> kg </ci>
 </math></td>
 	<td>        -
 </td>
@@ -4769,8 +4789,23 @@
 	<td></td>
 	<td>            0.224
     </td>
-	<td>mMmM</td>
-	<td>    None
+	<td>mM2</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> mole </ci>
+      <cn type="integer"> 2 </cn>
+    </apply>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 6 </cn>
+    </apply>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -4810,8 +4845,23 @@
 	<td></td>
 	<td>            3.003
     </td>
-	<td>mMmM</td>
-	<td>    None
+	<td>mM2</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> mole </ci>
+      <cn type="integer"> 2 </cn>
+    </apply>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 6 </cn>
+    </apply>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -5077,7 +5127,18 @@
 	<td>            0.211826505793
     </td>
 	<td>per_mM</td>
-	<td>    None
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> mole </ci>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -5507,8 +5568,15 @@
 </math>
 
     </td>
-	<td>dimensionless</td>
-	<td>    None
+	<td>mol_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
 </td>
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
@@ -6831,12 +6899,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
       <power/>
       <ci> m </ci>
       <cn type="integer"> 3 </cn>
     </apply>
-    <ci> mole </ci>
   </apply>
 </math>
 </td>
@@ -6865,12 +6933,12 @@
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <ci> mole </ci>
     <apply>
       <power/>
       <ci> m </ci>
       <cn type="integer"> 3 </cn>
     </apply>
-    <ci> mole </ci>
   </apply>
 </math>
 </td>
@@ -7027,7 +7095,14 @@
   </apply>
 </math>
 </td>
-    <td>    None
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
