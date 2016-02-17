@@ -6,8 +6,8 @@ Definition of units is done by defining the main_units of the model in
 addition with the definition of the individual units of the model.
 
 """
-from libsbml import *
-from Reactions import *
+from libsbml import UNIT_KIND_KILOGRAM, UNIT_KIND_MOLE, UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE
+from libsbml import XMLNode
 from ..templates import terms_of_use, mkoenig
 
 ##############################################################
@@ -86,7 +86,7 @@ units.update({
                (UNIT_KIND_MOLE, -1.0)],
     'mM2': [(UNIT_KIND_MOLE, 2.0),
              (UNIT_KIND_METRE, -6.0)],
-    'mol_per_s': [(UNIT_KIND_MOLE, 1.0),
+    'mole_per_s': [(UNIT_KIND_MOLE, 1.0),
                   (UNIT_KIND_SECOND, -1.0)],
     'pmol': [(UNIT_KIND_MOLE, 1.0, -12, 1.0)],
     'pM': [(UNIT_KIND_MOLE, 1.0, -12, 1.0),
@@ -298,8 +298,8 @@ assignments.update({
 
     # scaling factors
     'scale': ('1 dimensionless /60 dimensionless', 'dimensionless'),
-    'scale_gly': ('scale', 'dimensionless'),
-    'scale_glyglc': ('scale', 'dimensionless'),
+    'f_gly': ('scale', 'dimensionless'),
+    'f_glyglc': ('scale', 'dimensionless'),
 })
 names.update({
     'V_mito': 'mitochondrial volume',

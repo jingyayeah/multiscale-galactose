@@ -53,8 +53,6 @@ class Equation(object):
         # remove whitespaces
         items = [o.strip() for o in items]
         left, right = items[0], items[1]
-        print("left: '{}'".format(left))
-        print("right: '{}'".format(right))
         if len(left) > 0:
             self.reactants = self._parseHalfEquation(left)
         if len(right) > 0:
