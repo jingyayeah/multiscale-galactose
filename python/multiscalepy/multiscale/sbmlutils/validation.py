@@ -23,7 +23,7 @@ def validate_sbml(sbml_file, ucheck=True):
     return validator.validate(sbml_file)
 
 
-def check_sbml(filename):
+def check_sbml(sbml):
     """
     Checks the given SBML document and prints errors of the given severity.
 
@@ -31,17 +31,17 @@ def check_sbml(filename):
         doc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
         doc.setConsistencyChecks(libsbml.LIBSBML_CAT_MODELING_PRACTICE, False)
 
-    :param filename:
+    :param sbml: SBML file or str
+    :type sbml: file | str
     :return: number of errors
     """
+
     current = time.clock()
-    doc = libsbml.readSBML(filename)
+    doc = libsbml.readSBML(sbml)
     doc.checkConsistency()
     Nerrors = doc.getNumErrors()
 
     print()
-    print(" filename: " + filename)
-    print(" file size: " + str(os.stat(filename).st_size))
     print(" read time (ms): " + str(time.clock() - current))
     print(" validation error(s): " + str(Nerrors))
     print()

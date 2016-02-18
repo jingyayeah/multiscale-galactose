@@ -10,6 +10,7 @@ from multiscale.examples.testdata import demo_sbml_no_annotations, demo_id
 import django
 django.setup()
 
+
 class ApiTestCase(TestCase):
     def setUp(self):
         pass

@@ -16,7 +16,8 @@ from ..utils.naming import initString
 
 class ReactionTemplate(object):
     """ All reactions are instances of the ReactionTemplate. """
-    def __init__(self, rid, name, equation, localization, compartments, pars, rules, formula):
+    def __init__(self, rid, equation, formula,
+                 pars=[], rules=[], name=None, localization=None, compartments=[]):
         self.rid = rid
         self.key = name
         self.equation = Equation(equation)

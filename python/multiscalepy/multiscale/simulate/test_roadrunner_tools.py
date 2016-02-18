@@ -74,22 +74,6 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         self.assertEqual(101, s.shape[0])
         self.assertEqual(7, s.shape[1])
 
-    def test_simulation_fixed_steps2(self):
-        """ Test fixed step size simulation. """
-        import roadrunner
-        r1 = roadrunner.RoadRunner(demo_sbml)
-        s1 = r1.simulate(0, 10)
-        self.assertFalse(r1.getIntegrator().getSetting('variable_step_size'))
-        self.assertEqual(51, s1.shape[0])
-        self.assertEqual(7, s1.shape[1])
-
-        r2 = rt.MyRunner(demo_sbml)
-        r2.selections_floating_concentrations()
-        r2.set_integrator_settings(variable_step_size=False)
-        s2 = r2.simulate(0, 10)
-        self.assertFalse(r1.getIntegrator().getSetting('variable_step_size'))
-        self.assertEqual(51, s2.shape[0])
-        self.assertEqual(7, s2.shape[1])
 
     def test_simulation_variable_steps(self):
         """ Test variable step size simulation. """
@@ -110,7 +94,7 @@ class TestRoadRunnerToolsCase(unittest.TestCase):
         r.selections = ['time', 'Vmax_bA', 'Vmax_bB']
         parameters = {'Vmax_bA': 10.0, 'Vmax_bB': 7.15}
         s = r.simulate_complex(start=0, end=20, parameters=parameters)
-        df_gp = r.get_global_constant_parameters()
+        df_gp = r.df_global_parameters()
         self.assertEqual(10.0, df_gp.value['Vmax_bA'])
         self.assertEqual(7.15, df_gp.value['Vmax_bB'])
         self.assertEqual(10.0, s['Vmax_bA'][0])

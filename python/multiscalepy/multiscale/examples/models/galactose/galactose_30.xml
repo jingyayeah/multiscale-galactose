@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by multiscale-modelcreator version 0.1.0 on 2016-01-19 15:42 with libSBML version 5.12.1. -->
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_bb6a09df418d4b529a53c65aacb61855" id="galactose_30" name="galactose_30" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" metaid="meta_472443ea550b4e4699e65105e16b86dc" sboTerm="SBO:0000293" level="3" version="1" fbc:required="false">
+  <annotation>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#meta_472443ea550b4e4699e65105e16b86dc">
+        <bqmodel:is>
+          <rdf:Bag>
+            <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000293"/>
+          </rdf:Bag>
+        </bqmodel:is>
+      </rdf:Description>
+    </rdf:RDF>
+  </annotation>
+  <model metaid="meta_fb0649aab39e4988831f00ddcf508d7c" id="galactose_30" name="galactose_30" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Galactose Metabolism</h1>
@@ -13,7 +23,7 @@
       <div class="dc:publisher">This file has been produced by
     <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div>
     <h2>Terms of use</h2>
-    <div class="dc:rightsHolder">Copyright © 2015 Matthias Koenig.</div>
+    <div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div>
     <div class="dc:license">
       <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
         <ol>
@@ -27,7 +37,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_bb6a09df418d4b529a53c65aacb61855">
+    <rdf:Description rdf:about="#meta_fb0649aab39e4988831f00ddcf508d7c">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -37,17 +47,41 @@
             </vCard:N>
             <vCard:EMAIL>konigmatt@googlemail.com</vCard:EMAIL>
             <vCard:ORG rdf:parseType="Resource">
-              <vCard:Orgname>Charite Berlin</vCard:Orgname>
+              <vCard:Orgname>Humboldt-University Berlin, Institute for Theoretical Biology</vCard:Orgname>
             </vCard:ORG>
           </rdf:li>
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-01-19T15:42:24Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-18T18:37:31Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-01-19T15:42:24Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-02-18T18:37:31Z</dcterms:W3CDTF>
       </dcterms:modified>
+      <bqbiol:hasTaxon>
+        <rdf:Bag>
+          <rdf:li rdf:resource="http://identifiers.org/taxonomy/9606"/>
+        </rdf:Bag>
+      </bqbiol:hasTaxon>
+      <bqbiol:is>
+        <rdf:Bag>
+          <rdf:li rdf:resource="http://identifiers.org/bto/BTO:0000759"/>
+          <rdf:li rdf:resource="http://identifiers.org/uberon/UBERON:2107"/>
+          <rdf:li rdf:resource="http://identifiers.org/fma/FMA:7197"/>
+          <rdf:li rdf:resource="http://identifiers.org/bto/BTO:0000575"/>
+          <rdf:li rdf:resource="http://identifiers.org/fma/FMA:14515"/>
+        </rdf:Bag>
+      </bqbiol:is>
+      <bqbiol:isVersionOf>
+        <rdf:Bag>
+          <rdf:li rdf:resource="http://identifiers.org/pw/PW:0000042"/>
+          <rdf:li rdf:resource="http://identifiers.org/kegg.pathway/map00052"/>
+          <rdf:li rdf:resource="http://identifiers.org/smpdb/SMP00043"/>
+          <rdf:li rdf:resource="http://identifiers.org/go/GO:0019388"/>
+          <rdf:li rdf:resource="http://identifiers.org/reactome/REACTOME:R-HSA-70370.1"/>
+          <rdf:li rdf:resource="http://identifiers.org/metacyc/PWY-6317"/>
+        </rdf:Bag>
+      </bqbiol:isVersionOf>
     </rdf:Description>
   </rdf:RDF>
 </annotation><listOfUnitDefinitions>
@@ -200,47 +234,663 @@
     </listOfUnits>
   </unitDefinition>
 </listOfUnitDefinitions><listOfCompartments>
-  <compartment id="h" name="hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
-  <compartment id="c" name="cytosol" spatialDimensions="3" units="m3" constant="false"/>
-  <compartment id="e" name="external" spatialDimensions="3" units="m3" constant="false"/>
-  <compartment id="m" name="plasma membrane" spatialDimensions="2" units="m2" constant="false"/>
+  <compartment metaid="meta_1bf320c85fcd43fa8257582c8f577dca" sboTerm="SBO:0000290" id="h" name="hepatocyte" spatialDimensions="3" units="m3" constant="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_1bf320c85fcd43fa8257582c8f577dca">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000290"/>
+              <rdf:li rdf:resource="http://identifiers.org/go/GO:0005623"/>
+              <rdf:li rdf:resource="http://identifiers.org/fma/FMA:68646"/>
+              <rdf:li rdf:resource="http://identifiers.org/bto/BTO:0000575"/>
+              <rdf:li rdf:resource="http://identifiers.org/fma/FMA:14515"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </compartment>
+  <compartment metaid="meta_a1c38bb0744d4770b3204704eba5e744" sboTerm="SBO:0000290" id="c" name="cytosol" spatialDimensions="3" units="m3" constant="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_a1c38bb0744d4770b3204704eba5e744">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000290"/>
+              <rdf:li rdf:resource="http://identifiers.org/go/GO:0005829"/>
+              <rdf:li rdf:resource="http://identifiers.org/fma/FMA:66836"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </compartment>
+  <compartment metaid="meta_07ca4be852aa43cebae2053f6e3aa0ba" sboTerm="SBO:0000290" id="e" name="external" spatialDimensions="3" units="m3" constant="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_07ca4be852aa43cebae2053f6e3aa0ba">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000290"/>
+              <rdf:li rdf:resource="http://identifiers.org/go/GO:0005615"/>
+              <rdf:li rdf:resource="http://identifiers.org/fma/FMA:70022"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </compartment>
+  <compartment metaid="meta_dd3b9c355b8241599c91e234043b91a4" sboTerm="SBO:0000290" id="m" name="plasma membrane" spatialDimensions="2" units="m2" constant="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_dd3b9c355b8241599c91e234043b91a4">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000290"/>
+              <rdf:li rdf:resource="http://identifiers.org/go/GO:0005886"/>
+              <rdf:li rdf:resource="http://identifiers.org/fma/FMA:63841"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </compartment>
 </listOfCompartments><listOfSpecies>
-  <species id="c__ppi" name="pyrophosphate" compartment="c" initialConcentration="0.008" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="e__h2oM" name="water M*" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__glc1p" name="D-glucose 1-phophate" compartment="c" initialConcentration="0.012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__acptgal" name="Acceptor-galactose" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__acpt" name="Acceptor (glc/gal)" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__udpgal" name="UDP-D-galactose" compartment="c" initialConcentration="0.11" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__udp" name="UDP" compartment="c" initialConcentration="0.09" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__atp" name="ATP" compartment="c" initialConcentration="2.7" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__utp" name="UTP" compartment="c" initialConcentration="0.27" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="e__gal" name="D-galactose" compartment="e" initialConcentration="0.00012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__gal1pM" name="D-galactose 1-phosphate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__gal" name="D-galactose" compartment="c" initialConcentration="0.00012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__acptgalM" name="Acceptor-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__acptglc" name="Acceptor-glucose" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__galtolM" name="D-galactitol M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="e__galM" name="D-galactose M*" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__o2" name="O2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__glc6p" name="D-glucose 6-phosphate" compartment="c" initialConcentration="0.12" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__adp" name="ADP" compartment="c" initialConcentration="1.2" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="h__h2oM" name="water M*" compartment="h" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__co2" name="CO2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__nadp" name="NADP" compartment="c" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__hydron" name="H+" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__udpgalM" name="UDP-D-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__galM" name="D-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__galtol" name="D-galactitol" compartment="c" initialConcentration="0.001" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__nadph" name="NADPH" compartment="c" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__glc6pM" name="D-glucose 6-phosphate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__glc1pM" name="D-glucose 1-phophate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__udpglc" name="UDP-D-glucose" compartment="c" initialConcentration="0.34" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__h2o" name="water" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__gal1p" name="D-galactose 1-phosphate" compartment="c" initialConcentration="0.001" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__h2" name="H2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__acptglcM" name="Acceptor-glucose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="c__udpglcM" name="UDP-D-glucose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="c__phos" name="phosphate" compartment="c" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species metaid="meta_72cc1d8b07a24b49933147063c8a0365" sboTerm="SBO:0000247" id="c__ppi" name="pyrophosphate" compartment="c" initialConcentration="0.008" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="HO7P2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_72cc1d8b07a24b49933147063c8a0365">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:33019"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00013"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_f0b9398f9dc54e88bed8121967117574" sboTerm="SBO:0000247" id="e__h2oM" name="water M*" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="H2O">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_f0b9398f9dc54e88bed8121967117574">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15377"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00001"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_550aceafc2ad41a28f441ace2c4f3fcc" sboTerm="SBO:0000247" id="c__glc1p" name="D-glucose 1-phophate" compartment="c" initialConcentration="0.012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C6H11O9P">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_550aceafc2ad41a28f441ace2c4f3fcc">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58601"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00103"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_542963717418464f9a05b7f970998dbd" sboTerm="SBO:0000247" id="c__acptgal" name="Acceptor-galactose" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H1206R">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_542963717418464f9a05b7f970998dbd">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_8cca78483b5f42788f3ead021d4ed53d" sboTerm="SBO:0000247" id="c__acpt" name="Acceptor (glc/gal)" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="H2R">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_8cca78483b5f42788f3ead021d4ed53d">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_555bfe7c2fe8474ba384ace3306b47c1" sboTerm="SBO:0000247" id="c__udpgal" name="UDP-D-galactose" compartment="c" initialConcentration="0.11" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C15H22N2O17P2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_555bfe7c2fe8474ba384ace3306b47c1">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:66914"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00052"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_bc4c0d27f4864e838a9e6e4c5f7abf15" sboTerm="SBO:0000247" id="c__udp" name="UDP" compartment="c" initialConcentration="0.09" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="C9H11N2O12P2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_bc4c0d27f4864e838a9e6e4c5f7abf15">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58223"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00015"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_951ebab9776b4ddea03a5ebe7c41f84a" sboTerm="SBO:0000247" id="c__atp" name="ATP" compartment="c" initialConcentration="2.7" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_951ebab9776b4ddea03a5ebe7c41f84a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:30616"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00002"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_e99dd96c95c446908f2b56da0568559c" sboTerm="SBO:0000247" id="c__utp" name="UTP" compartment="c" initialConcentration="0.27" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C9H11N2O15P3">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e99dd96c95c446908f2b56da0568559c">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:46398"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00075"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_a7b18898f9cc4a1bb0b682fa3685389f" sboTerm="SBO:0000247" id="e__gal" name="D-galactose" compartment="e" initialConcentration="0.00012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H12O6">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_a7b18898f9cc4a1bb0b682fa3685389f">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:28061"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00124"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_9e69d07e44e94d84a338878a9d38476d" sboTerm="SBO:0000247" id="c__gal1pM" name="D-galactose 1-phosphate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C6H11O9P">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_9e69d07e44e94d84a338878a9d38476d">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58336"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00446"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_8570ef092032429789b76980847ec51a" sboTerm="SBO:0000247" id="c__gal" name="D-galactose" compartment="c" initialConcentration="0.00012" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H12O6">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_8570ef092032429789b76980847ec51a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:28061"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00124"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_7f001f08e7c04ac0b59aa7fd5e0a0351" sboTerm="SBO:0000247" id="c__acptgalM" name="Acceptor-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H1206R">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_7f001f08e7c04ac0b59aa7fd5e0a0351">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_a4228995372a4e4e8917e931be466dd0" sboTerm="SBO:0000247" id="c__acptglc" name="Acceptor-glucose" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H1206R">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_a4228995372a4e4e8917e931be466dd0">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_7b17a1e8e93d4f9f9c8c070352155571" sboTerm="SBO:0000247" id="c__galtolM" name="D-galactitol M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H14O6">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_7b17a1e8e93d4f9f9c8c070352155571">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16813"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C01697"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_69b8df9d6de148b2ba13560d65ec6a74" sboTerm="SBO:0000247" id="e__galM" name="D-galactose M*" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H12O6">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_69b8df9d6de148b2ba13560d65ec6a74">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:28061"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00124"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_c73c50318cef409496e13d4d72b55201" sboTerm="SBO:0000247" id="c__o2" name="O2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="O2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_c73c50318cef409496e13d4d72b55201">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15379"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00007"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_5249ec775ade4ccb83bdf33675dd076a" sboTerm="SBO:0000247" id="c__glc6p" name="D-glucose 6-phosphate" compartment="c" initialConcentration="0.12" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C6H11O9P">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_5249ec775ade4ccb83bdf33675dd076a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58225"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00668"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_95c1ce8830754bc59475c2e8597b4217" sboTerm="SBO:0000247" id="c__adp" name="ADP" compartment="c" initialConcentration="1.2" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="C10H12N5O10P2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_95c1ce8830754bc59475c2e8597b4217">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:456216"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00008"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_d6237ddbad6b41a28c926261b77af983" sboTerm="SBO:0000247" id="h__h2oM" name="water M*" compartment="h" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="H2O">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d6237ddbad6b41a28c926261b77af983">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15377"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00001"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_b11e9cc7a7e14b9596138fdea531c9d0" sboTerm="SBO:0000247" id="c__co2" name="CO2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="CO2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_b11e9cc7a7e14b9596138fdea531c9d0">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16526"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00011"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_90c07fca5ea54108a0eaf712f5797c0a" sboTerm="SBO:0000247" id="c__nadp" name="NADP" compartment="c" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="C21H25N7O17P3">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_90c07fca5ea54108a0eaf712f5797c0a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58349"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00006"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_82e6e1e784fb4eaa80ea86c8def1d966" sboTerm="SBO:0000247" id="c__hydron" name="H+" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="1" fbc:chemicalFormula="H">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_82e6e1e784fb4eaa80ea86c8def1d966">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15378"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00080"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_42ff9bc7689f4eb8b31ce4c550a3587c" sboTerm="SBO:0000247" id="c__udpgalM" name="UDP-D-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C15H22N2O17P2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_42ff9bc7689f4eb8b31ce4c550a3587c">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:66914"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00052"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_171e3f4cf7b94bd997c363e408a2e190" sboTerm="SBO:0000247" id="c__galM" name="D-galactose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H12O6">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_171e3f4cf7b94bd997c363e408a2e190">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:28061"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00124"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_b61fcccf844641d4a01d7171e6274fc6" sboTerm="SBO:0000247" id="c__galtol" name="D-galactitol" compartment="c" initialConcentration="0.001" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H14O6">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_b61fcccf844641d4a01d7171e6274fc6">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16813"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C01697"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_af6fb49c6a004344b7cef1187c1a7e87" sboTerm="SBO:0000247" id="c__nadph" name="NADPH" compartment="c" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C21H26N7O17P3">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_af6fb49c6a004344b7cef1187c1a7e87">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:57783"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00005"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_092ee2a460814860a6a7c68e5c7df214" sboTerm="SBO:0000247" id="c__glc6pM" name="D-glucose 6-phosphate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C6H11O9P">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_092ee2a460814860a6a7c68e5c7df214">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58225"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00668"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_d21625cf06e140b19ebad038558ab8f8" sboTerm="SBO:0000247" id="c__glc1pM" name="D-glucose 1-phophate M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C6H11O9P">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d21625cf06e140b19ebad038558ab8f8">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58601"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00103"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_9e72c320ce104262be2a57a46b056ca8" sboTerm="SBO:0000247" id="c__udpglc" name="UDP-D-glucose" compartment="c" initialConcentration="0.34" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C15H22N2O17P2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_9e72c320ce104262be2a57a46b056ca8">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58885"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00029"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_45da3a3ecee54167b05b69adab8b4e8b" sboTerm="SBO:0000247" id="c__h2o" name="water" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="H2O">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_45da3a3ecee54167b05b69adab8b4e8b">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15377"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00001"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_386c0e4effff4eac9838c374b902940c" sboTerm="SBO:0000247" id="c__gal1p" name="D-galactose 1-phosphate" compartment="c" initialConcentration="0.001" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C6H11O9P">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_386c0e4effff4eac9838c374b902940c">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58336"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00446"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_511077fe8b7349e99ebcd08518855614" sboTerm="SBO:0000247" id="c__h2" name="H2" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="H2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_511077fe8b7349e99ebcd08518855614">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:18276"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00282"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_61d4b470eb2e493581f3470c296d0bd1" sboTerm="SBO:0000247" id="c__acptglcM" name="Acceptor-glucose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H1206R">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_61d4b470eb2e493581f3470c296d0bd1">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_2936f0c2e530415791a9f63c79657087" sboTerm="SBO:0000247" id="c__udpglcM" name="UDP-D-glucose M*" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="C15H22N2O17P2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_2936f0c2e530415791a9f63c79657087">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:58885"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00029"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_4e6cb7537805490ca6314a14c99f86b9" sboTerm="SBO:0000247" id="c__phos" name="phosphate" compartment="c" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-2" fbc:chemicalFormula="HO4P">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_4e6cb7537805490ca6314a14c99f86b9">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:43474"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00009"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
 </listOfSpecies><listOfParameters>
   <parameter id="scale_f" name="metabolic scaling factor" value="0.31" units="per_m3" constant="true"/>
   <parameter id="y_cell" name="width hepatocyte" value="9.4e-06" units="m" constant="true"/>
@@ -257,24 +907,184 @@
   <parameter id="c__gal_tot" units="mM" constant="false"/>
   <parameter id="e__gal_tot" units="mM" constant="false"/>
   <parameter id="c__udpglc_tot" units="mM" constant="false"/>
-  <parameter id="c__adp_bal" name="ADP balance" units="mM" constant="false"/>
-  <parameter id="c__phos_bal" name="Phosphate balance" units="mM" constant="false"/>
+  <parameter metaid="meta_92052298b37f443189ff18d761e2648a" sboTerm="SBO:0000196" id="c__adp_bal" name="ADP balance" units="mM" constant="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_92052298b37f443189ff18d761e2648a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000196"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_c324ba90026d49a6b235e8ad51dc294f" sboTerm="SBO:0000196" id="c__phos_bal" name="Phosphate balance" units="mM" constant="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_c324ba90026d49a6b235e8ad51dc294f">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000196"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__glc6p_tot" units="mM" constant="false"/>
   <parameter id="c__gal1p_tot" units="mM" constant="false"/>
   <parameter id="c__scale" units="dimensionless" constant="false"/>
   <parameter id="c__galtol_tot" units="mM" constant="false"/>
   <parameter id="c__glc1p_tot" units="mM" constant="false"/>
   <parameter id="c__udpgal_tot" units="mM" constant="false"/>
-  <parameter id="c__udp_bal" name="UDP balance" units="mM" constant="false"/>
-  <parameter id="c__nadp_bal" name="NADP balance" units="mM" constant="false"/>
+  <parameter metaid="meta_0c8f12ee91e74a26bef4ed386a90e534" sboTerm="SBO:0000196" id="c__udp_bal" name="UDP balance" units="mM" constant="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_0c8f12ee91e74a26bef4ed386a90e534">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000196"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_69c4dacc83fc4a3580a2964168154dd9" sboTerm="SBO:0000196" id="c__nadp_bal" name="NADP balance" units="mM" constant="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_69c4dacc83fc4a3580a2964168154dd9">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000196"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="GALK_PA" value="0.024" units="mole" constant="true"/>
-  <parameter id="GALK_keq" value="50" units="dimensionless" constant="true"/>
-  <parameter id="GALK_k_gal1p" value="1.5" units="mM" constant="true"/>
-  <parameter id="GALK_k_adp" value="0.8" units="mM" constant="true"/>
-  <parameter id="GALK_ki_gal1p" value="5.3" units="mM" constant="true"/>
-  <parameter id="GALK_kcat" value="8.7" units="per_s" constant="true"/>
-  <parameter id="GALK_k_gal" value="0.14" units="mM" constant="true"/>
-  <parameter id="GALK_k_atp" value="0.034" units="mM" constant="true"/>
+  <parameter metaid="meta_e8b6e42f9dd04752b3511d86698a8042" sboTerm="SBO:0000281" id="GALK_keq" value="50" units="dimensionless" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e8b6e42f9dd04752b3511d86698a8042">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_8775ec80e833472ea69dea29b8b9f6cd" sboTerm="SBO:0000027" id="GALK_k_gal1p" value="1.5" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_8775ec80e833472ea69dea29b8b9f6cd">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/14785"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/45367"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isDescribedBy>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/pubmed/12694189"/>
+              <rdf:li rdf:resource="http://identifiers.org/pubmed/15024738"/>
+            </rdf:Bag>
+          </bqbiol:isDescribedBy>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_d8e6cecd8f56432fa1de860fd34e9597" sboTerm="SBO:0000027" id="GALK_k_adp" value="0.8" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d8e6cecd8f56432fa1de860fd34e9597">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_76b3a41f4ead4ff18cf145df6ca61cac" sboTerm="SBO:0000261" id="GALK_ki_gal1p" value="5.3" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_76b3a41f4ead4ff18cf145df6ca61cac">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000261"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_2ad0665b1e964107a7155c5f15d98d4f" sboTerm="SBO:0000025" id="GALK_kcat" value="8.7" units="per_s" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_2ad0665b1e964107a7155c5f15d98d4f">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000025"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/14785"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isDescribedBy>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/pubmed/12694189"/>
+            </rdf:Bag>
+          </bqbiol:isDescribedBy>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_7c962e88eed44bd98f7b9d8941b69ca7" sboTerm="SBO:0000027" id="GALK_k_gal" value="0.14" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_7c962e88eed44bd98f7b9d8941b69ca7">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/14785"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/45367"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isDescribedBy>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/pubmed/12694189"/>
+              <rdf:li rdf:resource="http://identifiers.org/pubmed/15024738"/>
+            </rdf:Bag>
+          </bqbiol:isDescribedBy>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_d173b9cc56724c768b750f1785421d8b" sboTerm="SBO:0000027" id="GALK_k_atp" value="0.034" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d173b9cc56724c768b750f1785421d8b">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/14792"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isDescribedBy>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/pubmed/12694189"/>
+            </rdf:Bag>
+          </bqbiol:isDescribedBy>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__GALK_P" value="1" units="mM" constant="true"/>
   <parameter id="c__GALK_V" units="mole_per_s_per_mM2" constant="false"/>
   <parameter id="c__GALK_Vb" units="mole_per_s" constant="false"/>
@@ -282,24 +1092,148 @@
   <parameter id="c__GALK_dm" units="dimensionless" constant="false"/>
   <parameter id="c__GALK_Vf" units="mole_per_s" constant="false"/>
   <parameter id="IMP_f" value="0.05" units="dimensionless" constant="true"/>
-  <parameter id="IMP_k_gal1p" value="0.35" units="mM" constant="true"/>
+  <parameter metaid="meta_b28946544d934850902c7f3b73c7318e" sboTerm="SBO:0000027" id="IMP_k_gal1p" value="0.35" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_b28946544d934850902c7f3b73c7318e">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__IMP_P" value="1" units="mM" constant="true"/>
   <parameter id="c__IMP_dm" units="dimensionless" constant="false"/>
   <parameter id="c__IMP_Vf" units="mole_per_s" constant="false"/>
   <parameter id="c__IMP_Vmax" units="mole_per_s" constant="false"/>
   <parameter id="ATPS_f" value="100" units="dimensionless" constant="true"/>
-  <parameter id="ATPS_keq" value="0.58" units="per_mM" constant="true"/>
-  <parameter id="ATPS_k_adp" value="0.1" units="mM" constant="true"/>
-  <parameter id="ATPS_k_atp" value="0.5" units="mM" constant="true"/>
-  <parameter id="ATPS_k_phos" value="0.1" units="mM" constant="true"/>
+  <parameter metaid="meta_b465abab4f1b4693a0dda8930e37d12c" sboTerm="SBO:0000281" id="ATPS_keq" value="0.58" units="per_mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_b465abab4f1b4693a0dda8930e37d12c">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_c44a680a46ef4f6395ebb81d01687fb9" sboTerm="SBO:0000027" id="ATPS_k_adp" value="0.1" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_c44a680a46ef4f6395ebb81d01687fb9">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_4cd7e0972f694274be753250f4b35e17" sboTerm="SBO:0000027" id="ATPS_k_atp" value="0.5" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_4cd7e0972f694274be753250f4b35e17">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_16dcce2b2f254192bb11eeabbefb9351" sboTerm="SBO:0000027" id="ATPS_k_phos" value="0.1" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_16dcce2b2f254192bb11eeabbefb9351">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__ATPS_P" value="1" units="mM" constant="true"/>
   <parameter id="c__ATPS_Vmax" units="mole_per_s" constant="false"/>
   <parameter id="ALDR_f" value="1000000" units="dimensionless" constant="true"/>
-  <parameter id="ALDR_keq" value="4" units="dimensionless" constant="true"/>
-  <parameter id="ALDR_k_gal" value="40" units="mM" constant="true"/>
-  <parameter id="ALDR_k_galtol" value="40" units="mM" constant="true"/>
-  <parameter id="ALDR_k_nadp" value="0.1" units="mM" constant="true"/>
-  <parameter id="ALDR_k_nadph" value="0.1" units="mM" constant="true"/>
+  <parameter metaid="meta_eb4f8a14cc774edd9e3671aa9e1807de" sboTerm="SBO:0000281" id="ALDR_keq" value="4" units="dimensionless" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_eb4f8a14cc774edd9e3671aa9e1807de">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_b22570a51c99467a88a6b6a14e74e3d0" sboTerm="SBO:0000027" id="ALDR_k_gal" value="40" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_b22570a51c99467a88a6b6a14e74e3d0">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/22893"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/15695"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_2ebe3dfc320548b7b6f8220d078c7a42" sboTerm="SBO:0000027" id="ALDR_k_galtol" value="40" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_2ebe3dfc320548b7b6f8220d078c7a42">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/22893"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/15695"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_fb921a8d2b0843399bae13b41bda4d0a" sboTerm="SBO:0000027" id="ALDR_k_nadp" value="0.1" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_fb921a8d2b0843399bae13b41bda4d0a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_12060bd08a7240cdb0c2f85d687074ec" sboTerm="SBO:0000027" id="ALDR_k_nadph" value="0.1" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_12060bd08a7240cdb0c2f85d687074ec">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__ALDR_P" value="1" units="mM" constant="true"/>
   <parameter id="c__ALDR_Vb" units="mole_per_s" constant="false"/>
   <parameter id="c__ALDR_V" units="mole_per_s_per_mM2" constant="false"/>
@@ -307,20 +1241,140 @@
   <parameter id="c__ALDR_dm" units="dimensionless" constant="false"/>
   <parameter id="c__ALDR_Vf" units="mole_per_s" constant="false"/>
   <parameter id="NADPR_f" value="1e-10" units="dimensionless" constant="true"/>
-  <parameter id="NADPR_keq" value="1" units="dimensionless" constant="true"/>
-  <parameter id="NADPR_k_nadp" value="0.015" units="mM" constant="true"/>
-  <parameter id="NADPR_ki_nadph" value="0.01" units="mM" constant="true"/>
+  <parameter metaid="meta_9072909e699142089590bcc904926fe7" sboTerm="SBO:0000281" id="NADPR_keq" value="1" units="dimensionless" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_9072909e699142089590bcc904926fe7">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_37f930e68ada4cfeae7f4597ed530db0" sboTerm="SBO:0000027" id="NADPR_k_nadp" value="0.015" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_37f930e68ada4cfeae7f4597ed530db0">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_567a586994f041bd848ef48b058a4451" sboTerm="SBO:0000261" id="NADPR_ki_nadph" value="0.01" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_567a586994f041bd848ef48b058a4451">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000261"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__NADPR_P" value="1" units="mM" constant="true"/>
   <parameter id="c__NADPR_Vmax" units="mole_per_s" constant="false"/>
   <parameter id="GALT_f" value="0.01" units="dimensionless" constant="true"/>
-  <parameter id="GALT_keq" value="1" units="dimensionless" constant="true"/>
-  <parameter id="GALT_k_glc1p" value="0.37" units="mM" constant="true"/>
-  <parameter id="GALT_k_udpgal" value="0.5" units="mM" constant="true"/>
-  <parameter id="GALT_ki_utp" value="0.13" units="mM" constant="true"/>
-  <parameter id="GALT_ki_udp" value="0.35" units="mM" constant="true"/>
+  <parameter metaid="meta_267aa27f1b5140658b3b401d7c0b2223" sboTerm="SBO:0000281" id="GALT_keq" value="1" units="dimensionless" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_267aa27f1b5140658b3b401d7c0b2223">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_c2949f88fcae4176a78fe58e5cc7013a" sboTerm="SBO:0000027" id="GALT_k_glc1p" value="0.37" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_c2949f88fcae4176a78fe58e5cc7013a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_6e20924824f54503a75216288f9f1988" sboTerm="SBO:0000027" id="GALT_k_udpgal" value="0.5" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_6e20924824f54503a75216288f9f1988">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_0ecc245cdd38415390f859f809c4478d" sboTerm="SBO:0000261" id="GALT_ki_utp" value="0.13" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_0ecc245cdd38415390f859f809c4478d">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000261"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_cb319befa6534bd9af9aa4413e748cd3" sboTerm="SBO:0000261" id="GALT_ki_udp" value="0.35" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_cb319befa6534bd9af9aa4413e748cd3">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000261"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="GALT_vm" value="804" units="dimensionless" constant="true"/>
-  <parameter id="GALT_k_gal1p" value="1.25" units="mM" constant="true"/>
-  <parameter id="GALT_k_udpglc" value="0.43" units="mM" constant="true"/>
+  <parameter metaid="meta_fe4f6fd38c0e4e67806c03083d498d39" sboTerm="SBO:0000027" id="GALT_k_gal1p" value="1.25" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_fe4f6fd38c0e4e67806c03083d498d39">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_fe1f4226309648a2b604b8ab532b92ff" sboTerm="SBO:0000027" id="GALT_k_udpglc" value="0.43" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_fe1f4226309648a2b604b8ab532b92ff">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__GALT_P" value="1" units="mM" constant="true"/>
   <parameter id="c__GALT_Vf" units="mole_per_s" constant="false"/>
   <parameter id="c__GALT_V" units="mole_per_s_per_mM2" constant="false"/>
@@ -329,10 +1383,62 @@
   <parameter id="c__GALT_dm" units="dimensionless" constant="false"/>
   <parameter id="GALE_f" value="0.3" units="dimensionless" constant="true"/>
   <parameter id="GALE_PA" value="0.0278" units="s" constant="true"/>
-  <parameter id="GALE_kcat" value="36" units="per_s" constant="true"/>
-  <parameter id="GALE_keq" value="0.33" units="dimensionless" constant="true"/>
-  <parameter id="GALE_k_udpglc" value="0.069" units="mM" constant="true"/>
-  <parameter id="GALE_k_udpgal" value="0.3" units="mM" constant="true"/>
+  <parameter metaid="meta_2be48d91a5e1408f9e542b8764bcecee" sboTerm="SBO:0000025" id="GALE_kcat" value="36" units="per_s" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_2be48d91a5e1408f9e542b8764bcecee">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000025"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/16222"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_321bc453d7934b96a6ca64c8a08254c2" sboTerm="SBO:0000281" id="GALE_keq" value="0.33" units="dimensionless" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_321bc453d7934b96a6ca64c8a08254c2">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_0594b45d71c94213b1f5161596c5e2c1" sboTerm="SBO:0000027" id="GALE_k_udpglc" value="0.069" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_0594b45d71c94213b1f5161596c5e2c1">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_6864de8364b94d4bab681134ff0b59e9" sboTerm="SBO:0000027" id="GALE_k_udpgal" value="0.3" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_6864de8364b94d4bab681134ff0b59e9">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/19823"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/46260"/>
+              <rdf:li rdf:resource="http://identifiers.org/sabiork.kineticrecord/46263"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__GALE_P" value="1" units="mM" constant="true"/>
   <parameter id="c__GALE_Vb" units="mole_per_s" constant="false"/>
   <parameter id="c__GALE_V" units="mole_per_s_per_mM" constant="false"/>
@@ -340,15 +1446,123 @@
   <parameter id="c__GALE_dm" units="dimensionless" constant="false"/>
   <parameter id="c__GALE_Vf" units="mole_per_s" constant="false"/>
   <parameter id="UGP_f" value="2000" units="dimensionless" constant="true"/>
-  <parameter id="UGP_keq" value="0.45" units="dimensionless" constant="true"/>
-  <parameter id="UGP_k_utp" value="0.563" units="mM" constant="true"/>
-  <parameter id="UGP_k_glc1p" value="0.172" units="mM" constant="true"/>
-  <parameter id="UGP_k_udpglc" value="0.049" units="mM" constant="true"/>
-  <parameter id="UGP_k_ppi" value="0.166" units="mM" constant="true"/>
-  <parameter id="UGP_k_gal1p" value="5" units="mM" constant="true"/>
-  <parameter id="UGP_k_udpgal" value="0.42" units="mM" constant="true"/>
-  <parameter id="UGP_ki_utp" value="0.643" units="mM" constant="true"/>
-  <parameter id="UGP_ki_udpglc" value="0.643" units="mM" constant="true"/>
+  <parameter metaid="meta_6f56b88f9a534ec5abadb1a180088460" sboTerm="SBO:0000281" id="UGP_keq" value="0.45" units="dimensionless" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_6f56b88f9a534ec5abadb1a180088460">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_4423875377ec46408852473054e2e6e8" sboTerm="SBO:0000027" id="UGP_k_utp" value="0.563" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_4423875377ec46408852473054e2e6e8">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_d3782b2a472a427681b667933e60865b" sboTerm="SBO:0000027" id="UGP_k_glc1p" value="0.172" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d3782b2a472a427681b667933e60865b">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_d25e3aea383240f3b0e9c174c4f6ff6b" sboTerm="SBO:0000027" id="UGP_k_udpglc" value="0.049" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d25e3aea383240f3b0e9c174c4f6ff6b">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_bdda0c0b6bb34db99f23e9aa8b1a4b3d" sboTerm="SBO:0000027" id="UGP_k_ppi" value="0.166" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_bdda0c0b6bb34db99f23e9aa8b1a4b3d">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_539631624741481a83e269837e8781b3" sboTerm="SBO:0000027" id="UGP_k_gal1p" value="5" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_539631624741481a83e269837e8781b3">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_a278a7d4e1594a81bf57c6980b7bc136" sboTerm="SBO:0000027" id="UGP_k_udpgal" value="0.42" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_a278a7d4e1594a81bf57c6980b7bc136">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_e32ea3d8b23f43628541e63ee8f65b25" sboTerm="SBO:0000261" id="UGP_ki_utp" value="0.643" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e32ea3d8b23f43628541e63ee8f65b25">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000261"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_c6473b0f9610498f90f7ac15585b30a1" sboTerm="SBO:0000261" id="UGP_ki_udpglc" value="0.643" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_c6473b0f9610498f90f7ac15585b30a1">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000261"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__UGP_P" value="1" units="mM" constant="true"/>
   <parameter id="c__UGP_Vf" units="mole_per_s" constant="false"/>
   <parameter id="c__UGP_V" units="mole_per_s_per_mM2" constant="false"/>
@@ -360,22 +1574,130 @@
   <parameter id="c__UGALP_V" units="mole_per_s_per_mM2" constant="false"/>
   <parameter id="c__UGALP_Vf" units="mole_per_s" constant="false"/>
   <parameter id="PPASE_f" value="0.05" units="dimensionless" constant="true"/>
-  <parameter id="PPASE_k_ppi" value="0.07" units="mM" constant="true"/>
+  <parameter metaid="meta_857044d4d8954a2093c8e05dd6573140" sboTerm="SBO:0000027" id="PPASE_k_ppi" value="0.07" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_857044d4d8954a2093c8e05dd6573140">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="PPASE_n" value="4" units="dimensionless" constant="true"/>
   <parameter id="c__PPASE_P" value="1" units="mM" constant="true"/>
   <parameter id="c__PPASE_Vmax" units="mole_per_s" constant="false"/>
   <parameter id="NDKU_f" value="2" units="dimensionless" constant="true"/>
-  <parameter id="NDKU_keq" value="1" units="dimensionless" constant="true"/>
-  <parameter id="NDKU_k_atp" value="1.33" units="mM" constant="true"/>
-  <parameter id="NDKU_k_adp" value="0.042" units="mM" constant="true"/>
-  <parameter id="NDKU_k_utp" value="27" units="mM" constant="true"/>
-  <parameter id="NDKU_k_udp" value="0.19" units="mM" constant="true"/>
+  <parameter metaid="meta_dfbcafdb441e47d0aee9aa2f5483a6d8" sboTerm="SBO:0000281" id="NDKU_keq" value="1" units="dimensionless" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_dfbcafdb441e47d0aee9aa2f5483a6d8">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_6d5a5a0fab754087bbf0ba3aa61c3f50" sboTerm="SBO:0000027" id="NDKU_k_atp" value="1.33" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_6d5a5a0fab754087bbf0ba3aa61c3f50">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_0ca2c0e08fd04fa2ae707146232f0a77" sboTerm="SBO:0000027" id="NDKU_k_adp" value="0.042" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_0ca2c0e08fd04fa2ae707146232f0a77">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_05eed84b054644429e495c92648ab6da" sboTerm="SBO:0000027" id="NDKU_k_utp" value="27" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_05eed84b054644429e495c92648ab6da">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_6b4c28f74eb040b48f77203da3931dc4" sboTerm="SBO:0000027" id="NDKU_k_udp" value="0.19" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_6b4c28f74eb040b48f77203da3931dc4">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__NDKU_P" value="1" units="mM" constant="true"/>
   <parameter id="c__NDKU_Vmax" units="mole_per_s" constant="false"/>
   <parameter id="PGM1_f" value="50" units="dimensionless" constant="true"/>
-  <parameter id="PGM1_keq" value="10" units="dimensionless" constant="true"/>
-  <parameter id="PGM1_k_glc6p" value="0.67" units="mM" constant="true"/>
-  <parameter id="PGM1_k_glc1p" value="0.045" units="mM" constant="true"/>
+  <parameter metaid="meta_e68f44ffefa34c6289d3e49a50ba18d4" sboTerm="SBO:0000281" id="PGM1_keq" value="10" units="dimensionless" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e68f44ffefa34c6289d3e49a50ba18d4">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_95e16e57cd6b41ddb534d42fadf00283" sboTerm="SBO:0000027" id="PGM1_k_glc6p" value="0.67" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_95e16e57cd6b41ddb534d42fadf00283">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_026b691add254c86ac700004abc40e41" sboTerm="SBO:0000027" id="PGM1_k_glc1p" value="0.045" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_026b691add254c86ac700004abc40e41">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__PGM1_P" value="1" units="mM" constant="true"/>
   <parameter id="c__PGM1_Vb" units="mole_per_s" constant="false"/>
   <parameter id="c__PGM1_V" units="mole_per_s_per_mM" constant="false"/>
@@ -383,13 +1705,61 @@
   <parameter id="c__PGM1_dm" units="dimensionless" constant="false"/>
   <parameter id="c__PGM1_Vf" units="mole_per_s" constant="false"/>
   <parameter id="GLY_f" value="0.1" units="dimensionless" constant="true"/>
-  <parameter id="GLY_k_glc6p" value="0.12" units="mM" constant="true"/>
-  <parameter id="GLY_k_p" value="0.2" units="mM" constant="true"/>
+  <parameter metaid="meta_099b18dfca6e4d9abc9793958a166320" sboTerm="SBO:0000027" id="GLY_k_glc6p" value="0.12" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_099b18dfca6e4d9abc9793958a166320">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_4be90c24415846999a0bce4083fc5530" sboTerm="SBO:0000027" id="GLY_k_p" value="0.2" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_4be90c24415846999a0bce4083fc5530">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__GLY_P" value="1" units="mM" constant="true"/>
   <parameter id="c__GLY_Vmax" units="mole_per_s" constant="false"/>
   <parameter id="GTF_f" value="0.02" units="dimensionless" constant="true"/>
-  <parameter id="GTF_k_udpgal" value="0.1" units="mM" constant="true"/>
-  <parameter id="GTF_k_udpglc" value="0.1" units="mM" constant="true"/>
+  <parameter metaid="meta_0666e4e0bbd44e2d9e87987b24090699" sboTerm="SBO:0000027" id="GTF_k_udpgal" value="0.1" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_0666e4e0bbd44e2d9e87987b24090699">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
+  <parameter metaid="meta_d5a37c2a3b4b4d6eb5e3c85c8e0d58a0" sboTerm="SBO:0000027" id="GTF_k_udpglc" value="0.1" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d5a37c2a3b4b4d6eb5e3c85c8e0d58a0">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__GTF_P" value="1" units="mM" constant="true"/>
   <parameter id="c__GTFGAL_Vf" units="mole_per_s" constant="false"/>
   <parameter id="c__GTF_Vmax" units="mole_per_s" constant="false"/>
@@ -398,7 +1768,19 @@
   <parameter id="H2OT_k" value="1" units="mM" constant="true"/>
   <parameter id="c__H2OT_Vmax" units="mole_per_s" constant="false"/>
   <parameter id="GLUT2_f" value="17" units="mole_per_s" constant="true"/>
-  <parameter id="GLUT2_k_gal" value="27.8" units="mM" constant="true"/>
+  <parameter metaid="meta_952b0e370efb4939a7a12e25e8c42ccb" sboTerm="SBO:0000027" id="GLUT2_k_gal" value="27.8" units="mM" constant="true">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_952b0e370efb4939a7a12e25e8c42ccb">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </parameter>
   <parameter id="c__GLUT2_P" value="1" units="mM" constant="true"/>
   <parameter id="c__GLUT2_V" units="mole_per_s_per_mM" constant="false"/>
   <parameter id="c__GLUT2_Vmax" units="mole_per_s" constant="false"/>
@@ -1561,7 +2943,33 @@
     </math>
   </assignmentRule>
 </listOfRules><listOfReactions>
-  <reaction id="c__GALK" name="Galactokinase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_765ba204cc6d42d88a661d91789252ca" sboTerm="SBO:0000176" id="c__GALK" name="Galactokinase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_765ba204cc6d42d88a661d91789252ca">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.1.6"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P51570"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R01092"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/13556"/>
+              <rdf:li rdf:resource="http://identifiers.org/reactome/REACTOME:R-HSA-70355.1"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/230200"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+          <bqbiol:isDescribedBy>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/pubmed/12694189"/>
+            </rdf:Bag>
+          </bqbiol:isDescribedBy>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal" stoichiometry="1" constant="true"/>
       <speciesReference species="c__atp" stoichiometry="1" constant="true"/>
@@ -1601,7 +3009,33 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALKM" name="Galactokinase M [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_a26f8de18abb404bbc4586606c099f41" sboTerm="SBO:0000176" id="c__GALKM" name="Galactokinase M [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_a26f8de18abb404bbc4586606c099f41">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.1.6"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P51570"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R01092"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/13556"/>
+              <rdf:li rdf:resource="http://identifiers.org/reactome/REACTOME:R-HSA-70355.1"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/230200"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+          <bqbiol:isDescribedBy>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/pubmed/12694189"/>
+            </rdf:Bag>
+          </bqbiol:isDescribedBy>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__galM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__atp" stoichiometry="1" constant="true"/>
@@ -1641,7 +3075,20 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__IMP" name="Inositol monophosphatase [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_10d7d91cb61b40a2af7a09af851c6756" sboTerm="SBO:0000176" id="c__IMP" name="Inositol monophosphatase [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_10d7d91cb61b40a2af7a09af851c6756">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/3.1.3.25"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P29218"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__h2o" stoichiometry="1" constant="true"/>
@@ -1667,7 +3114,20 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__IMPM" name="Inositol monophosphatase M [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_97d3514dcb3049b5b330c56c7f5398f0" sboTerm="SBO:0000176" id="c__IMPM" name="Inositol monophosphatase M [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_97d3514dcb3049b5b330c56c7f5398f0">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/3.1.3.25"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P29218"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__h2o" stoichiometry="1" constant="true"/>
@@ -1693,7 +3153,20 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__ATPS" name="ATP synthase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_98305f8fe29f4192a76f4e9fa6b129b4" sboTerm="SBO:0000176" id="c__ATPS" name="ATP synthase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_98305f8fe29f4192a76f4e9fa6b129b4">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00086"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/13068"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__adp" stoichiometry="1" constant="true"/>
       <speciesReference species="c__phos" stoichiometry="1" constant="true"/>
@@ -1765,7 +3238,26 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__ALDR" name="Aldose reductase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_9b6ea6ac99134ac8b365038a7e83c41e" sboTerm="SBO:0000176" id="c__ALDR" name="Aldose reductase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_9b6ea6ac99134ac8b365038a7e83c41e">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/1.1.1.21"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/37967"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R01095"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P15121"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal" stoichiometry="1" constant="true"/>
       <speciesReference species="c__nadph" stoichiometry="1" constant="true"/>
@@ -1805,7 +3297,26 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__ALDRM" name="Aldose reductase M [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_74290c741a13449db6391fc558d8ce9d" sboTerm="SBO:0000176" id="c__ALDRM" name="Aldose reductase M [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_74290c741a13449db6391fc558d8ce9d">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/1.1.1.21"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/37967"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R01095"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P15121"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__galM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__nadph" stoichiometry="1" constant="true"/>
@@ -1845,7 +3356,22 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__NADPR" name="NADP Reductase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_12caccb7eb914f609fce98b43ed0d78f" sboTerm="SBO:0000176" id="c__NADPR" name="NADP Reductase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_12caccb7eb914f609fce98b43ed0d78f">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/1.1.1.49"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/15844"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00835"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P11413"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__nadp" stoichiometry="1" constant="true"/>
       <speciesReference species="c__h2" stoichiometry="1" constant="true"/>
@@ -1893,7 +3419,27 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALT" name="Galactose-1-phosphate uridyl transferase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_a2f5c1fd2216436ca8d314e9db64d732" sboTerm="SBO:0000176" id="c__GALT" name="Galactose-1-phosphate uridyl transferase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_a2f5c1fd2216436ca8d314e9db64d732">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.7.12"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P07902"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/13992"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00955"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/230400"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
@@ -1952,7 +3498,27 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALTM1" name="Galactose-1-phosphate uridyl transferase M1 [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_e13bc1863a934ab990a22bdb48937ff1" sboTerm="SBO:0000176" id="c__GALTM1" name="Galactose-1-phosphate uridyl transferase M1 [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e13bc1863a934ab990a22bdb48937ff1">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.7.12"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P07902"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/13992"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00955"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/230400"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
@@ -2011,7 +3577,27 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALTM2" name="Galactose-1-phosphate uridyl transferase M2 [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_ff170684f1064fc49931b0beaff8f2d1" sboTerm="SBO:0000176" id="c__GALTM2" name="Galactose-1-phosphate uridyl transferase M2 [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_ff170684f1064fc49931b0beaff8f2d1">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.7.12"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P07902"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/13992"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00955"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/230400"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udpglcM" stoichiometry="1" constant="true"/>
@@ -2070,7 +3656,27 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALTM3" name="Galactose-1-phosphate uridyl transferase M3 [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_773a57e5197a48b8b205e1b9400ed618" sboTerm="SBO:0000176" id="c__GALTM3" name="Galactose-1-phosphate uridyl transferase M3 [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_773a57e5197a48b8b205e1b9400ed618">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.7.12"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P07902"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/13992"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00955"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/230400"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udpglcM" stoichiometry="1" constant="true"/>
@@ -2129,7 +3735,27 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GALE" name="UDP-glucose 4-epimerase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_d2b2d3e5235e451c9c544b3c122aeae4" sboTerm="SBO:0000176" id="c__GALE" name="UDP-glucose 4-epimerase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d2b2d3e5235e451c9c544b3c122aeae4">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/5.1.3.2"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/Q14376"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/22171"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00291"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/230350"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2203,7 +3829,22 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__UGP" name="UDP-glucose pyrophosphorylase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_d40748ef45ac406a80a06b4a25b74c72" sboTerm="SBO:0000176" id="c__UGP" name="UDP-glucose pyrophosphorylase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d40748ef45ac406a80a06b4a25b74c72">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.7.9"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/19892"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00289"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/Q16851"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__glc1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__utp" stoichiometry="1" constant="true"/>
@@ -2247,7 +3888,22 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__UGPM" name="UDP-glucose pyrophosphorylase M [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_51c1db9a4c5241d0a96a1d9383a26540" sboTerm="SBO:0000176" id="c__UGPM" name="UDP-glucose pyrophosphorylase M [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_51c1db9a4c5241d0a96a1d9383a26540">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.7.9"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/19892"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00289"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/Q16851"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__glc1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__utp" stoichiometry="1" constant="true"/>
@@ -2291,7 +3947,22 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__UGALP" name="UDP-galactose pyrophosphorylase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_bc313b3933e24327a4592a63e49aa070" sboTerm="SBO:0000176" id="c__UGALP" name="UDP-galactose pyrophosphorylase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_bc313b3933e24327a4592a63e49aa070">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.7.10"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/14212"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00502"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/Q16851"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal1p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__utp" stoichiometry="1" constant="true"/>
@@ -2335,7 +4006,22 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__UGALPM" name="UDP-galactose pyrophosphorylase M [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_c07cb0168fa9424296e5ee39d99813cd" sboTerm="SBO:0000176" id="c__UGALPM" name="UDP-galactose pyrophosphorylase M [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_c07cb0168fa9424296e5ee39d99813cd">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.7.10"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/14212"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00502"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/Q16851"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__gal1pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__utp" stoichiometry="1" constant="true"/>
@@ -2379,7 +4065,22 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__PPASE" name="Pyrophosphatase [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_51efec6c00374e5d8008b29557723e16" sboTerm="SBO:0000176" id="c__PPASE" name="Pyrophosphatase [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_51efec6c00374e5d8008b29557723e16">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/3.6.1.1"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/24579"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00004"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/Q15181"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__ppi" stoichiometry="1" constant="true"/>
       <speciesReference species="c__h2o" stoichiometry="1" constant="true"/>
@@ -2418,7 +4119,21 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__NDKU" name="ATP:UDP phosphotransferase [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_a96cb019967e49c495b9d1b7bdde8d34" sboTerm="SBO:0000176" id="c__NDKU" name="ATP:UDP phosphotransferase [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_a96cb019967e49c495b9d1b7bdde8d34">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/2.7.4.6"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/25101"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00156"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__atp" stoichiometry="1" constant="true"/>
       <speciesReference species="c__udp" stoichiometry="1" constant="true"/>
@@ -2513,7 +4228,27 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__PGM1" name="Phosphoglucomutase-1 [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_e175d36dd5074265ba1d8633f57db072" sboTerm="SBO:0000176" id="c__PGM1" name="Phosphoglucomutase-1 [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e175d36dd5074265ba1d8633f57db072">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/5.4.2.2"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/23539"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00959"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P36871"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/612934"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__glc1p" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2550,7 +4285,27 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__PGM1M" name="Phosphoglucomutase-1 M [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_e2de2dbb65b745c8906bd249760a0248" sboTerm="SBO:0000176" id="c__PGM1M" name="Phosphoglucomutase-1 M [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e2de2dbb65b745c8906bd249760a0248">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+              <rdf:li rdf:resource="http://identifiers.org/ec-code/5.4.2.2"/>
+              <rdf:li rdf:resource="http://identifiers.org/rhea/23539"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00959"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P36871"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/612934"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__glc1pM" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2587,7 +4342,18 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GLY" name="Glycolysis [c__]" reversible="true" fast="false" compartment="c">
+  <reaction metaid="meta_1533330582d644298f9652dcdc4a4211" sboTerm="SBO:0000176" id="c__GLY" name="Glycolysis [c__]" reversible="true" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_1533330582d644298f9652dcdc4a4211">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__glc6p" stoichiometry="1" constant="true"/>
       <speciesReference species="c__o2" stoichiometry="5" constant="true"/>
@@ -2624,7 +4390,18 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GLYM" name="Glycolysis M [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_9b75ab65ab3c4f9b886d5ebe177c40f9" sboTerm="SBO:0000176" id="c__GLYM" name="Glycolysis M [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_9b75ab65ab3c4f9b886d5ebe177c40f9">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__glc6pM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__o2" stoichiometry="5" constant="true"/>
@@ -2657,7 +4434,18 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GTFGAL" name="Glycosyltransferase galactose [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_4735859350114185ba551848ddd83ea0" sboTerm="SBO:0000176" id="c__GTFGAL" name="Glycosyltransferase galactose [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_4735859350114185ba551848ddd83ea0">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__udpgal" stoichiometry="1" constant="true"/>
       <speciesReference species="c__acpt" stoichiometry="1" constant="true"/>
@@ -2684,7 +4472,18 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GTFGALM" name="Glycosyltransferase galactose M [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_45dde2e3073a4d72a6c4665e3dd753ed" sboTerm="SBO:0000176" id="c__GTFGALM" name="Glycosyltransferase galactose M [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_45dde2e3073a4d72a6c4665e3dd753ed">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__udpgalM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__acpt" stoichiometry="1" constant="true"/>
@@ -2711,7 +4510,18 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GTFGLC" name="Glycosyltransferase glucose [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_8cbf3565d8cf42d0be30ab661091d55a" sboTerm="SBO:0000176" id="c__GTFGLC" name="Glycosyltransferase glucose [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_8cbf3565d8cf42d0be30ab661091d55a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__udpglc" stoichiometry="1" constant="true"/>
       <speciesReference species="c__acpt" stoichiometry="1" constant="true"/>
@@ -2738,7 +4548,18 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="c__GTFGLCM" name="Glycosyltransferase glucose M [c__]" reversible="false" fast="false" compartment="c">
+  <reaction metaid="meta_9e72aba8cc33468d9860784e7642651d" sboTerm="SBO:0000176" id="c__GTFGLCM" name="Glycosyltransferase glucose M [c__]" reversible="false" fast="false" compartment="c">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_9e72aba8cc33468d9860784e7642651d">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000176"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="c__udpglcM" stoichiometry="1" constant="true"/>
       <speciesReference species="c__acpt" stoichiometry="1" constant="true"/>
@@ -2765,7 +4586,18 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="e__H2OTM" name="H2O M transport [e__]" reversible="true" fast="false" compartment="m">
+  <reaction metaid="meta_e7b03cbed9fa4d9db4044c18d508afd9" sboTerm="SBO:0000185" id="e__H2OTM" name="H2O M transport [e__]" reversible="true" fast="false" compartment="m">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e7b03cbed9fa4d9db4044c18d508afd9">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000185"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="e__h2oM" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2790,7 +4622,24 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="e__GLUT2_GAL" name="galactose transport [e__]" reversible="true" fast="false" compartment="m">
+  <reaction metaid="meta_bfe3653940fc457fa13d5cde042b7fd7" sboTerm="SBO:0000185" id="e__GLUT2_GAL" name="galactose transport [e__]" reversible="true" fast="false" compartment="m">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_bfe3653940fc457fa13d5cde042b7fd7">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000185"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P11168"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/OMIM:227810"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="e__gal" stoichiometry="1" constant="true"/>
     </listOfReactants>
@@ -2815,7 +4664,24 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="e__GLUT2_GALM" name="galactose transport M [e__]" reversible="true" fast="false" compartment="m">
+  <reaction metaid="meta_9cd8ac65e5c1444c9732efb48871f92a" sboTerm="SBO:0000185" id="e__GLUT2_GALM" name="galactose transport M [e__]" reversible="true" fast="false" compartment="m">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_9cd8ac65e5c1444c9732efb48871f92a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000185"/>
+              <rdf:li rdf:resource="http://identifiers.org/uniprot/P11168"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/omim/227810"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
     <listOfReactants>
       <speciesReference species="e__galM" stoichiometry="1" constant="true"/>
     </listOfReactants>

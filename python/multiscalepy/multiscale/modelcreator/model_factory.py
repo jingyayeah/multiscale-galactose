@@ -7,11 +7,13 @@ The different model variants are driven by different events.
 from __future__ import print_function, division
 
 import os
+# import multiscale.multiscalesite.simapp.db.api as db_api
 
-import multiscale.multiscalesite.simapp.db.api as db_api
+
 from multiscale.modelcreator.factory.model_cell import CellModel
 from multiscale.sbmlutils.annotation import annotate_sbml_file
 from multiscale.sbmlutils.validation import validate_sbml
+from multiscale.sbmlutils.sbmlreport import sbmlreport
 
 from multiscale.examples.testdata import test_dir
 
@@ -108,18 +110,18 @@ def create_model(directory, model_info=[], f_annotations=None):
 
     f_sbml = os.path.join(directory, '{}.xml'.format(cell_model.model.getId()))
     cell_model.write_sbml(f_sbml)
-    f_model = f_sbml
 
+    # annotate
     if f_annotations is not None:
-        f_sbml_annotated = os.path.join(directory, '{}_annotated.xml'.format(cell_model.model_id))
-        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
-        validate_sbml(f_sbml_annotated)
-        f_model = f_sbml_annotated
+        # overwrite the normal file
+        annotate_sbml_file(f_sbml, f_annotations, f_sbml)
+
+    # create report
+    sbmlreport.create_sbml_report(sbml=f_sbml, out_dir=directory)
 
     # add model to database
-    db_api.create_model(f_model, model_format=db_api.CompModelFormat.SBML)
+    # db_api.create_model(f_model, model_format=db_api.CompModelFormat.SBML)
 
-    # TODO: create model report (HTML)
     return [cell_dict, cell_model]
 
 
@@ -127,7 +129,8 @@ def create_demo():
     """ Create demo network. """
     directory = os.path.join(test_dir, 'models', 'demo')
     model_info = ['multiscale.modelcreator.models.demo']
-    f_annotations = os.path.join(directory, 'demo_annotations.csv')
+    d = os.path.dirname(os.path.abspath(__file__))
+    f_annotations = os.path.join(d, 'models', 'demo', 'demo_annotations.xlsx')
     return create_model(directory, model_info, f_annotations)
 
 
@@ -144,13 +147,30 @@ def create_galactose():
     directory = os.path.join(test_dir, 'models', 'galactose')
     model_info = ['multiscale.modelcreator.models.hepatocyte',
                   'multiscale.modelcreator.models.galactose']
-    f_annotations = os.path.join(directory, 'galactose_annotations.csv')
+
+    d = os.path.dirname(os.path.abspath(__file__))
+    f_annotations = os.path.join(d, 'models', 'galactose', 'galactose_annotations.xlsx')
+
+    return create_model(directory, model_info, f_annotations)
+
+def create_glucose():
+    """ Create glucose network. """
+    directory = os.path.join(test_dir, 'models', 'glucose')
+    model_info = ['multiscale.modelcreator.models.glucose']
+
+    d = os.path.dirname(os.path.abspath(__file__))
+    f_annotations = os.path.join(d, 'models', 'glucose', 'glucose_annotations.xlsx')
+
     return create_model(directory, model_info, f_annotations)
 
 
 if __name__ == "__main__":
+
+    # TODO: add model creation tests
+
     [cell_dict, cell_model] = create_demo()
     [cell_dict, cell_model] = create_test()
     [cell_dict, cell_model] = create_galactose()
-    
+    [cell_dict, cell_model] = create_glucose()
+
 

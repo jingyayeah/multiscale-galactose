@@ -29,8 +29,8 @@ def create_simulation_directory(task):
 # ---------------------------------------------------------------------------------------------------------------------
 #   CSV
 # ---------------------------------------------------------------------------------------------------------------------
-def csv_file(sbml_id, sim):
-    return os.path.join(SIM_DIR, str(sim.task), "{}_S{}_roadrunner.csv".format(sbml_id, sim.pk))
+def csv_file(sim):
+    return os.path.join(SIM_DIR, str(sim.task), "{}.csv".format(sim.pk))
 
 
 def save_csv(filepath, data, header, keep_tmp=False):
@@ -44,8 +44,8 @@ def save_csv(filepath, data, header, keep_tmp=False):
 # ---------------------------------------------------------------------------------------------------------------------
 #   HDF5
 # ---------------------------------------------------------------------------------------------------------------------
-def hdf5_file(sbml_id, sim):
-    return os.path.join(SIM_DIR, str(sim.task), "{}_S{}_roadrunner.h5".format(sbml_id, sim.pk))
+def hdf5_file(sim):
+    return os.path.join(SIM_DIR, str(sim.task), "{}.h5".format(sim.pk))
     
 
 def save_hdf5(filepath, data, header):

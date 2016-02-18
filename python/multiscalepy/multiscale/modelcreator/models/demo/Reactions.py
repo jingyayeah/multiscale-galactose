@@ -1,16 +1,15 @@
 """
-Reactions and transporters of Demo metabolism.
+Reactions and transporters of demo metabolism.
 """
-
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 
 #############################################################################################
 #    REACTIONS
 #############################################################################################
 bA = ReactionTemplate(
-    'bA',
-    'bA (A import)',
-    'e__A => c__A []',
+    rid='bA',
+    name='bA (A import)',
+    equation='e__A => c__A []',
     localization='m',
     compartments=['c, e'],
     pars=[],
@@ -20,9 +19,9 @@ bA = ReactionTemplate(
 
 
 bB = ReactionTemplate(
-    'bB',
-    'bB (B export)',
-    'c__B => e__B []',
+    rid='bB',
+    name='bB (B export)',
+    equation='c__B => e__B []',
     localization='m',
     compartments=['c, e'],
     pars=[],
@@ -31,9 +30,9 @@ bB = ReactionTemplate(
 )
 
 bC = ReactionTemplate(
-    'bC',
-    'bC (C export)',
-    'c__C => e__C []',
+    rid='bC',
+    name='bC (C export)',
+    equation='c__C => e__C []',
     localization='m',
     compartments=['c, e'],
     pars=[],
@@ -42,45 +41,37 @@ bC = ReactionTemplate(
 )
 
 v1 = ReactionTemplate(
-    'v1',
-    'v1 (A -> B)',
-    'c__A -> c__B []',
+    rid='v1',
+    name='v1 (A -> B)',
+    equation='c__A -> c__B []',
     localization='c',
     compartments=['c'],
-    pars=[],
-    rules=[],
     formula=('(scale_f*Vmax_v1)/Km_A*(c__A - 1 dimensionless/Keq_v1*c__B)', 'mole_per_s')
 )
 
 v2 = ReactionTemplate(
-    'v2',
-    'v2 (A -> C)',
-    'c__A -> c__C []',
+    rid='v2',
+    name='v2 (A -> C)',
+    equation='c__A -> c__C []',
     localization='c',
     compartments=['c'],
-    pars=[],
-    rules=[],
     formula=('(scale_f*Vmax_v2)/Km_A*c__A', 'mole_per_s')
 )
 
 v3 = ReactionTemplate(
-    'v3',
-    'v3 (C -> A)',
-    'c__C -> c__A []',
+    rid='v3',
+    name='v3 (C -> A)',
+    equation='c__C -> c__A []',
     localization='c',
     compartments=['c'],
-    pars=[],
-    rules=[],
     formula=('(scale_f*Vmax_v3)/Km_A*c__C', 'mole_per_s')
 )
 
 v4 = ReactionTemplate(
-    'v4',
-    'v4 (C -> B)',
-    'c__C -> c__B []',
+    rid='v4',
+    name='v4 (C -> B)',
+    equation='c__C -> c__B []',
     localization='c',
     compartments=['c'],
-    pars=[],
-    rules=[],
     formula=('(scale_f*Vmax_v4)/Km_A*(c__C - 1 dimensionless/Keq_v4*c__B)', 'mole_per_s')
 )

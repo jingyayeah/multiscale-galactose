@@ -70,5 +70,4 @@ class Demo(Example):
         info = 'Simple demo network based on parameter distributions.'
         task = db_api.create_task(model=model, method=method, info=info)
         simulations = db_tools.create_simulations_from_samples(task, samples)
-        print(simulations)
         return simulations

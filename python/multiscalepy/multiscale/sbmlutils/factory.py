@@ -65,7 +65,9 @@ def create_unit_definitions(model, definitions):
 
 
 def _create_unit_definition(model, sid, units):
-    """ Creates the defined unit definitions. """
+    """ Creates the defined unit definitions.
+    (kind, exponent, scale, multiplier)
+    """
     unit_def = model.createUnitDefinition()
     unit_def.setId(sid)
     for data in units:
@@ -116,6 +118,31 @@ def get_unit_string(unit):
     if unit == '-':
         unit = UnitKind_toString(UNIT_KIND_DIMENSIONLESS)
     return unit
+
+##########################################################################
+# Functions
+##########################################################################
+def create_functions(model, functions):
+    sbml_functions = {}
+    for data in get_values(functions):
+        sid = data[A_ID]
+        sbml_functions[sid] = _create_function(model,
+            sid=sid,
+            formula=data[A_VALUE],
+            name=data.get(A_NAME, None))
+    return sbml_functions
+
+
+def _create_function(model, sid, formula, name):
+    f = model.createFunctionDefinition()
+    # f = libsbml.FunctionDefinition()
+
+    f.setId(sid)
+    ast_node = ast_node_from_formula(model, formula)
+    f.setMath(ast_node)
+    if name is not None:
+        f.setName(name)
+    return f
 
 
 ##########################################################################
@@ -266,9 +293,10 @@ def _create_rules(model, rules, rule_type):
     for data in get_values(rules):
         check_valid(data, 'rule')
         sid = data[A_ID]
+        name = data.get(A_NAME, None)
         # Create parameter if symbol is neither parameter or species, or compartment
         if (not model.getParameter(sid)) and (not model.getSpecies(sid)) and (not model.getCompartment(sid)):
-            _create_parameter(model, sid, unit=data.get(A_UNIT, None), name=data.get(A_NAME, None), value=None, constant=False)
+            _create_parameter(model, sid, unit=data.get(A_UNIT, None), name=name, value=None, constant=False)
         if not model.getRule(sid):
             if rule_type == "RateRule":
                 sbml_rules[sid] = _create_rate_rule(model, sid=sid, formula=data[A_VALUE])

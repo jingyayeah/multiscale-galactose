@@ -4,6 +4,7 @@ Demo kinetic network.
 """
 from libsbml import *
 from Reactions import *
+from ..templates import terms_of_use, mkoenig
 
 ##############################################################
 mid = 'Koenig_demo'
@@ -16,32 +17,10 @@ notes = XMLNode.convertStringToXMLNode("""
     <a href="http://sbmlutils.org" target="_blank" title="Access the definition of the SBML file format.">
     SBML</a>&#160;format.
     </p>
-      <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
-      <div class="dc:publisher">This file has been produced by
-      <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.
-      </div>
-
-    <h2>Terms of use</h2>
-      <div class="dc:rightsHolder">Copyright © 2015 Matthias Koenig.</div>
-      <div class="dc:license">
-      <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that
-      the following conditions are met:
-        <ol>
-          <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions
-              and the following disclaimer.</li>
-          <li>Redistributions in a different form must reproduce the above copyright notice, this list of
-              conditions and the following disclaimer in the documentation and/or other materials provided
-          with the distribution.</li>
-        </ol>
-        This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
-             the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
-      </div>
+    """ + terms_of_use + """
     </body>
-""")
-creators = {
-    # id : ('FamilyName', 'GivenName', 'Email', 'Organization')
-    'mk': ('Koenig', 'Matthias', 'konigmatt@googlemail.com', 'Charite Berlin'),
-}
+    """)
+creators = mkoenig
 main_units = {
     'time': 's',
     'extent': UNIT_KIND_MOLE,
@@ -95,12 +74,12 @@ names.update({
 ##############################################################
 species.update({
     # id : ('compartment', 'value', 'unit', 'boundaryCondition')
-    'c__A':       ('c', 0, 'mM', False),
-    'c__B':       ('c', 0.0, 'mM', False),
-    'c__C':       ('c', 0.0, 'mM', False),
-    'e__A':       ('e', 10.0, 'mM', False),
-    'e__B':       ('e', 0.0, 'mM', False),
-    'e__C':       ('e', 0.0, 'mM', False),
+    'c__A': ('c', 0, 'mM', False),
+    'c__B': ('c', 0.0, 'mM', False),
+    'c__C': ('c', 0.0, 'mM', False),
+    'e__A': ('e', 10.0, 'mM', False),
+    'e__B': ('e', 0.0, 'mM', False),
+    'e__C': ('e', 0.0, 'mM', False),
 })
 names.update({
     'A': 'A',

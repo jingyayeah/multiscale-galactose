@@ -30,6 +30,9 @@ TODO: annotations, description and model history
 
 TODO: galactose tissue models (flow & pressure)
 
+
+TODO: make the model creation reproducible, i.e. sort by ids
+
 ## Annotations
 Annotations are defined in separate annotation files. 
 For a id regular pattern the annotations are listed.

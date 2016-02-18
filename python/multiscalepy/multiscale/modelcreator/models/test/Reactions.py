@@ -1,5 +1,5 @@
 """
-Reactions and transporters of Galactose metabolism.
+Reactions and transporters of test model.
 """
 from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 
@@ -8,9 +8,9 @@ from multiscale.modelcreator.processes.ReactionTemplate import ReactionTemplate
 #############################################################################################
 
 GLUT2_GAL = ReactionTemplate(
-    'e__GLUT2_GAL',
-    'galactose transport [e__]',
-    'e__gal <-> c__gal []',
+    rid='e__GLUT2_GAL',
+    name='galactose transport [e__]',
+    equation='e__gal <-> c__gal []',
     # C6H1206 (0) <-> C6H1206 (0)
     localization='pm',
     compartments=['cyto__', 'ext__'],
@@ -19,9 +19,6 @@ GLUT2_GAL = ReactionTemplate(
             ('GLUT2_k_gal', 1.0, 'mM'),
             ('GLUT2_keq', 1.0, '-'),
     ],
-    rules=[
-    ],
     formula=('GLUT2_Vmax/GLUT2_k_gal * (e__gal - c__gal/GLUT2_keq)/(1 dimensionless + c__gal/GLUT2_k_gal + e__gal/GLUT2_k_gal) ', 'mole_per_s')
 )
-
 

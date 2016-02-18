@@ -52,7 +52,6 @@ class MyRunner(RoadRunner):
         # provide access to SBMLDocument
         self.sbml_doc = libsbml.readSBMLFromString(self.getCurrentSBML())
 
-
     #########################################################################
     # Settings
     #########################################################################
@@ -70,15 +69,14 @@ class MyRunner(RoadRunner):
 
     def set_integrator_settings(self, **kwargs):
         """ Set integrator settings. """
-        integrator = self.getIntegrator()
         for key, value in kwargs.items():
             # adapt the absolute_tolerance relative to the amounts
             if key == "absolute_tolerance":
                 value = value * min(self.model.getCompartmentVolumes())
-            integrator.setValue(key, value)
+            self.integrator.setValue(key, value)
 
         if self.debug:
-            print(integrator)
+            print(self.integrator)
 
     #########################################################################
     # Simulation
@@ -94,7 +92,7 @@ class MyRunner(RoadRunner):
         return RoadRunner.simulate(self, *args, **kwargs)
 
     def simulate_complex(self, concentrations={}, amounts={}, parameters={},
-                         reset_parameters=False, time_it=True, **kwargs):
+                         reset_parameters=False, **kwargs):
         """ Perform RoadRunner simulation.
             Sets parameter values given in parameters dictionary &
             initial values provided in dictionaries.
@@ -111,6 +109,7 @@ class MyRunner(RoadRunner):
             :returns tuple of simulation result and global parameters at end point of
                     simulation (<NamedArray>, <DataFrame>)
         """
+        # TODO: fixme (clear setting of concentrations).
         # change parameters & recalculate initial assignments
         if len(parameters) > 0:
             old_concentrations = self.store_concentrations()
@@ -298,28 +297,11 @@ class MyRunner(RoadRunner):
                        columns=self.selections)
         return df
 
-    # TODO: refactor
-    def get_global_constant_parameters(self):
-        """ Subset of global parameters which are constant.
-            Set of parameter which has constant values and is not calculated
-            based on an initialAssignment.
-        """
-        # All global parameters which are constant have to be varied.
-        parameter_ids = self.model.getGlobalParameterIds()
-        doc = libsbml.readSBMLFromString(self.getSBML())
-        model = doc.getModel()
-        const_parameter_ids = []
-        for pid in parameter_ids:
-            p = model.getParameter(pid)
-            if p.constant:
-                const_parameter_ids.append(pid)
-        return const_parameter_ids
-
     #########################################################################
     # Plotting
     #########################################################################
     @classmethod
-    def plot_results(results, *args, **kwargs):
+    def plot_results(cls, results, *args, **kwargs):
         """
         :param results: list of result matrices
         :return:
