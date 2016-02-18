@@ -14,6 +14,7 @@ GLUT2 = ReactionTemplate(
     rid='GLUT2',
     name='GLUT2 glucose transporter',
     equation='glc_ext <-> glc []',
+    # C6H1206 (0) <-> C6H12O6 (0)
     localization='pm',
     compartments=[],
     pars=[
@@ -29,6 +30,7 @@ GK = ReactionTemplate(
     rid='GK',
     name='Glucokinase',
     equation='glc + atp => glc6p + adp [glc1p, fru6p]',
+    # C6H1206 (0) + C10H12N5O13P3 (-4)  <-> C6H11O9P (-2) + C10H12N5O10P2 (-3) + H (1)
     localization='cyto',
     compartments=[],
     pars=[
@@ -51,6 +53,7 @@ G6PASE = ReactionTemplate(
     rid='G6PASE',
     name='D-Glucose-6-phosphate Phosphatase',
     equation='glc6p + h2o => glc + phos []',
+    # C6H11O9P (-2) + H20 (0) -> C6H12O6 (0) + HO4P (-2)
     localization='cyto',
     pars=[
         ('G6PASE_k_glc6p', 2, 'mM'),
@@ -63,6 +66,7 @@ GPI = ReactionTemplate(
     rid='GPI',
     name='D-Glucose-6-phosphate Isomerase',
     equation='glc6p <-> fru6p []',
+    # C6H11O9P (-2) <-> C6H11O9P (-2)
     localization='cyto',
     pars=[
         ('GPI_keq', 0.517060817492925, 'dimensionless'),
@@ -77,6 +81,7 @@ G16PI = ReactionTemplate(
     rid='G16PI',
     name='Glucose 1-phosphate 1,6-phosphomutase',
     equation='glc1p <-> glc6p []',
+    # C6H11O9P (-2) <-> C6H11O9P (-2)
     localization='cyto',
     pars=[
         ('G16PI_keq', 15.717554082151441, 'dimensionless'),
@@ -90,7 +95,8 @@ G16PI = ReactionTemplate(
 UPGASE = ReactionTemplate(
     rid='UPGASE',
     name='UTP:Glucose-1-phosphate uridylyltransferase',
-    equation='utp + glc1p <-> udpglc + pp []',
+    equation='glc1p + h + utp <-> pp + udpglc []',
+    # C6H11O9P (-2) + H (+1) + C9H11N2O15P3 (-4) <-> HO7P2 (-3) + C15H22N2O17P2 (-2)
     localization='cyto',
     pars=[
         ('UPGASE_keq', 0.312237619153088, 'dimensionless'),
@@ -106,7 +112,8 @@ UPGASE = ReactionTemplate(
 PPASE = ReactionTemplate(
     rid='PPASE',
     name='Pyrophosphate phosphohydrolase',
-    equation='pp + h2o => 2 phos []',
+    equation='pp + h2o => h + 2 phos []',
+    # HO7P2 (-3) + H2O (0) -> H (+1) + HO4P (-2)
     localization='cyto',
     pars=[
         ('PPASE_k_pp', 0.005, 'mM'),
@@ -118,7 +125,8 @@ PPASE = ReactionTemplate(
 GS = ReactionTemplate(
     rid='GS',
     name='Glycogen synthase',
-    equation='udpglc => udp + glyglc [glc6p]',
+    equation='udpglc + H2O => udp + h + glyglc [glc6p]',
+    # C15H22N2O17P2 (-2) + H20 (0) => C9H11N2O12P2 (-3) + H (+1) + C6H12O6(0)
     localization='cyto',
     pars=[
         ('GS_C', 500, 'mM'),
@@ -138,11 +146,16 @@ GS = ReactionTemplate(
     ],
     formula=('(1 dimensionless - gamma)*GSn + gamma*GSp', 'mole_per_s')
 )
+"""
+Synthesis of glycogen from uridine diphosphate glucose in liver.
+PMID: 14415527
+"""
 
 GP = ReactionTemplate(
     rid='GP',
     name='Glycogen-Phosphorylase',
-    equation='glyglc + phos <-> glc1p [phos, amp, glc]',
+    equation='glyglc + phos <-> glc1p + h2o [phos, amp, glc]',
+    # C6H12O6 (0) + H04P (-2) <-> C6H11O9P (-2) + H2O (0)
     localization='cyto',
     pars=[
         ('GP_keq', 0.211826505793075, 'per_mM'),

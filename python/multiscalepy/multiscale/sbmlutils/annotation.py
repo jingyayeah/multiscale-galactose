@@ -370,7 +370,7 @@ class ModelAnnotator(object):
         return res
 
     @staticmethod
-    def annotations_from_xlsx(xslxfile, delimiter='\t', rm_csv=True):
+    def annotations_from_xlsx(xslxfile, delimiter='\t', rm_csv=False):
         """Read annotations from xlsx file.
         xlsx is converted to csv file and than parsed with csv reader.
         """
