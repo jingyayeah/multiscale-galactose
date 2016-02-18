@@ -129,7 +129,8 @@ def create_demo():
     """ Create demo network. """
     directory = os.path.join(test_dir, 'models', 'demo')
     model_info = ['multiscale.modelcreator.models.demo']
-    f_annotations = os.path.join(directory, 'demo_annotations.xslx')
+    d = os.path.dirname(os.path.abspath(__file__))
+    f_annotations = os.path.join(d, 'models', 'demo', 'demo_annotations.xlsx')
     return create_model(directory, model_info, f_annotations)
 
 
@@ -167,12 +168,9 @@ if __name__ == "__main__":
 
     # TODO: add model creation tests
 
-    """
     [cell_dict, cell_model] = create_demo()
     [cell_dict, cell_model] = create_test()
     [cell_dict, cell_model] = create_galactose()
-    """
-    [cell_dict, cell_model] = create_galactose()
-    # [cell_dict, cell_model] = create_glucose()
-    
+    [cell_dict, cell_model] = create_glucose()
+
 

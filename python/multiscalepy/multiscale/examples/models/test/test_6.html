@@ -203,25 +203,30 @@
   <body xmlns="http://www.w3.org/1999/xhtml">
     <h1>Koenig Test Model</h1>
     <h2>Description</h2>
-    <h2>Terms of use</h2>
-    <div class="dc:rightsHolder">Copyright © 2015 Matthias Koenig.</div>
-    <div class="dc:license">
-      <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
+    <p>Test model.
+    </p>
+    <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+    <div class="dc:publisher">This file has been produced by
+    <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div>
+  <h2>Terms of use</h2>
+  <div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div>
+  <div class="dc:license">
+    <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
         <ol>
-        <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
-        <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
+      <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+      <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
           with the distribution.</li>
-      </ol>
+    </ol>
         This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
         </p>
-  </div>
+</div>
 </body>
 </notes>
 
         <hr />
 
     <h1>Model : test_6</h1>
-    <b>Creator</b><br />Matthias, Koenig, Charite Berlin, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-16 12:28<br /><b>Modified:</b> 2016-02-16 12:28<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-18 17:20<br /><b>Modified:</b> 2016-02-18 17:20<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -785,7 +790,14 @@
 
 	<td>3</td>
 	<td>m3</td>
-	<td>    metre (exponent = 3, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -805,7 +817,14 @@
 
 	<td>3</td>
 	<td>m3</td>
-	<td>    metre (exponent = 3, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -825,7 +844,14 @@
 
 	<td>2</td>
 	<td>m2</td>
-	<td>    metre (exponent = 2, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -844,7 +870,7 @@
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
 	<th scope="col" class="warning">Species [2]</th>
-	<th scope="col">name</th>
+    <th scope="col">name</th>
 	<th scope="col">compartment</th>
 	<th scope="col">boundary condition</th>
 	<th scope="col">constant</th>
@@ -866,12 +892,23 @@
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
 	<td>
-</td>
+    </td>
 	<td>
             0.00012
     </td>
 	<td>mole</td>
-	<td>    mole (exponent = 1, multiplier = 1, scale = 0), metre (exponent = -3, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -887,12 +924,23 @@
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
 	<td>
-</td>
+    </td>
 	<td>
             3.0
     </td>
 	<td>mole</td>
-	<td>    mole (exponent = 1, multiplier = 1, scale = 0), metre (exponent = -3, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -927,7 +975,10 @@
 	<td>            2.5e-05
     </td>
 	<td>m</td>
-	<td>    metre (exponent = 1, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> m </ci>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -942,7 +993,14 @@
 	<td>            1e-12
     </td>
 	<td>m3</td>
-	<td>    metre (exponent = 3, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -957,7 +1015,14 @@
 	<td>            1.0
     </td>
 	<td>m2</td>
-	<td>    metre (exponent = 2, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -981,7 +1046,14 @@
 
     </td>
 	<td>m3</td>
-	<td>    metre (exponent = 3, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -996,7 +1068,14 @@
 	<td>            1e-13
     </td>
 	<td>mole_per_s</td>
-	<td>    mole (exponent = 1, multiplier = 1, scale = 0), second (exponent = -1, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -1011,7 +1090,18 @@
 	<td>            1.0
     </td>
 	<td>mM</td>
-	<td>    metre (exponent = -3, multiplier = 1, scale = 0), mole (exponent = 1, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -1026,7 +1116,7 @@
 	<td>            1.0
     </td>
 	<td>dimensionless</td>
-	<td>    dimensionless (exponent = 1, multiplier = 1, scale = 0)
+	<td>    None
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -1057,6 +1147,7 @@
             <tbody>
                 <tr>    <td class="hidden">InitialAssignment</td>
     <td class="active">Vol_c</td>
+    <td></td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1068,7 +1159,14 @@
   </apply>
 </math>
 </td>
-	<td>    metre (exponent = 3, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -1077,13 +1175,21 @@
 </tr>
                 <tr>    <td class="hidden">InitialAssignment</td>
     <td class="active">ext</td>
+    <td></td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <ci> Vol_e </ci>
 </math>
 </td>
-	<td>    metre (exponent = 3, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -1092,13 +1198,21 @@
 </tr>
                 <tr>    <td class="hidden">InitialAssignment</td>
     <td class="active">pm</td>
+    <td></td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <ci> A_m </ci>
 </math>
 </td>
-	<td>    metre (exponent = 2, multiplier = 1, scale = 0)
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -1133,7 +1247,14 @@
   <ci> Vol_c </ci>
 </math>
 </td>
-    <td>    metre (exponent = 3, multiplier = 1, scale = 0)
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>
@@ -1170,7 +1291,7 @@
                 <tr>    <td class="hidden">Reaction</td>
 	<td class="active">e__GLUT2_GAL</td>
 	<td>galactose transport [e__]</td>
-        <td class="success">&#10142;</td>
+        <td class="success">&#8646;</td>
 	<td>e__gal &#8646; c__gal</td>
 	<td>
     </td>
@@ -1212,7 +1333,14 @@
   </apply>
 </math>
 </td>
-    <td>    second (exponent = -1, multiplier = 1, scale = 0), mole (exponent = 1, multiplier = 1, scale = 0)
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
 </td>
 	<td>        -
 </td>

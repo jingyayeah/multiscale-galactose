@@ -5,6 +5,7 @@ Mainly volumes which are calculated based on other parameters.
 """
 from libsbml import XMLNode
 from Reactions import *
+from ..templates import terms_of_use, mkoenig
 
 ##############################################################
 mid = 'test'
@@ -13,24 +14,12 @@ notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Test Model</h1>
     <h2>Description</h2>
-    <h2>Terms of use</h2>
-    <div class="dc:rightsHolder">Copyright © 2015 Matthias Koenig.</div>
-    <div class="dc:license">
-        <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
-        <ol>
-          <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
-          <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
-          with the distribution.</li>
-        </ol>
-        This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-        </p>
-    </div>
+    <p>Test model.
+    </p>
+    """ + terms_of_use + """
     </body>
-""")
-creators = {
-    # id : ('FamilyName', 'GivenName', 'Email', 'Organization')
-    'mk': ('Koenig', 'Matthias', 'konigmatt@googlemail.com', 'Charite Berlin'),
-}
+    """)
+creators = mkoenig
 units = dict()
 compartments = dict()
 species = dict()

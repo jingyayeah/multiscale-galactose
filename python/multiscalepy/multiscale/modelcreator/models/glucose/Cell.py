@@ -46,7 +46,7 @@ notes = XMLNode.convertStringToXMLNode("""
     """ + terms_of_use + """
     </body>
     """)
-print(notes)
+
 creators = mkoenig
 main_units = {
     'time': 's',
