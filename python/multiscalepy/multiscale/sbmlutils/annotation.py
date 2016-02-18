@@ -5,6 +5,12 @@ Handle the XML annotations and notes in SBML.
 Annotate models from information in annotation csv files.
 Thereby a model can be fully annotated from information
 stored in a separate annotation store.
+
+Annotation is performed via searching for ontology terms which describe the model and
+model components.
+A standard workflow is looking up the components for instance in things like OLS
+ontology lookup service.
+
 """
 # TODO: general logging for the whole system
 # TODO: check annotations against the MIRIAM info (load miriam info)
