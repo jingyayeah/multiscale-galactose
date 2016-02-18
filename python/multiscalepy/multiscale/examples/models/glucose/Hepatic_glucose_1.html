@@ -248,7 +248,7 @@
         <hr />
 
     <h1>Model : Hepatic_glucose_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-18 13:49<br /><b>Modified:</b> 2016-02-18 13:49<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-02-18 15:32<br /><b>Modified:</b> 2016-02-18 15:32<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -3925,7 +3925,7 @@
 
 	<td>        -
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/kegg.compound/C00723" target="_blank">C00723</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/kegg.compound/C00723" target="_blank">C00723</a><br /><a href="http://identifiers.org/uniprot/P01308" target="_blank">P01308</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
@@ -3998,7 +3998,7 @@
 
 	<td>        -
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/kegg.compound/C01501" target="_blank">C01501</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/kegg.compound/C01501" target="_blank">C01501</a><br /><a href="http://identifiers.org/uniprot/P01275" target="_blank">P01275</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
@@ -7800,19 +7800,8 @@
 	<td></td>
 	<td>            0.08
     </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
+	<td>dimensionless</td>
+	<td>    None
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -7826,19 +7815,8 @@
 	<td></td>
 	<td>            0.04
     </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
+	<td>dimensionless</td>
+	<td>    None
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -7940,7 +7918,7 @@
 	<td class="active">PKp</td>
 	<td></td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
     <times/>
     <apply>
@@ -7989,7 +7967,7 @@
         <times/>
         <apply>
           <minus/>
-          <cn type="integer"> 1 </cn>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
           <ci> PKp_ba </ci>
         </apply>
         <ci> PKp_f </ci>
@@ -8214,7 +8192,7 @@
 	<td class="active">PKn</td>
 	<td></td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
     <times/>
     <apply>
@@ -8263,7 +8241,7 @@
         <times/>
         <apply>
           <minus/>
-          <cn type="integer"> 1 </cn>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
           <ci> PKn_ba </ci>
         </apply>
         <ci> PKn_f </ci>
@@ -11509,7 +11487,7 @@
 	<td class="active">PKp</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
     <times/>
     <apply>
@@ -11558,7 +11536,7 @@
         <times/>
         <apply>
           <minus/>
-          <cn type="integer"> 1 </cn>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
           <ci> PKp_ba </ci>
         </apply>
         <ci> PKp_f </ci>
@@ -11570,20 +11548,8 @@
     <td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
-    <apply>
-      <divide/>
-      <apply>
-        <power/>
-        <ci> mole </ci>
-        <cn type="integer"> 2 </cn>
-      </apply>
-      <apply>
-        <power/>
-        <ci> m </ci>
-        <cn type="integer"> 3 </cn>
-      </apply>
-    </apply>
+    <divide/>
+    <ci> mole </ci>
     <ci> s </ci>
   </apply>
 </math>
@@ -11771,7 +11737,7 @@
 	<td class="active">PKn</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
     <times/>
     <apply>
@@ -11820,7 +11786,7 @@
         <times/>
         <apply>
           <minus/>
-          <cn type="integer"> 1 </cn>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
           <ci> PKn_ba </ci>
         </apply>
         <ci> PKn_f </ci>
@@ -11832,20 +11798,8 @@
     <td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
-    <apply>
-      <divide/>
-      <apply>
-        <power/>
-        <ci> mole </ci>
-        <cn type="integer"> 2 </cn>
-      </apply>
-      <apply>
-        <power/>
-        <ci> m </ci>
-        <cn type="integer"> 3 </cn>
-      </apply>
-    </apply>
+    <divide/>
+    <ci> mole </ci>
     <ci> s </ci>
   </apply>
 </math>
@@ -12116,7 +12070,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000185" target="_blank">SBO:0000185</a><br /><a href="http://identifiers.org/uniprot/P11168" target="_blank">P11168</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12179,7 +12133,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.1.2" target="_blank">2.7.1.2</a><br /><a href="http://identifiers.org/kegg.reaction/R00299" target="_blank">R00299</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.1.2" target="_blank">2.7.1.2</a><br /><a href="http://identifiers.org/kegg.reaction/R00299" target="_blank">R00299</a><br /><a href="http://identifiers.org/uniprot/P35557" target="_blank">P35557</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12218,7 +12172,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/3.1.3.9" target="_blank">3.1.3.9</a><br /><a href="http://identifiers.org/kegg.reaction/R00303" target="_blank">R00303</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/3.1.3.9" target="_blank">3.1.3.9</a><br /><a href="http://identifiers.org/kegg.reaction/R00303" target="_blank">R00303</a><br /><a href="http://identifiers.org/uniprot/P35575" target="_blank">P35575</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12278,7 +12232,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/5.3.1.9" target="_blank">5.3.1.9</a><br /><a href="http://identifiers.org/kegg.reaction/R00771" target="_blank">R00771</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/5.3.1.9" target="_blank">5.3.1.9</a><br /><a href="http://identifiers.org/kegg.reaction/R00771" target="_blank">R00771</a><br /><a href="http://identifiers.org/uniprot/P06744" target="_blank">P06744</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12338,7 +12292,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/5.4.2.2" target="_blank">5.4.2.2</a><br /><a href="http://identifiers.org/kegg.reaction/R00959" target="_blank">R00959</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/5.4.2.2" target="_blank">5.4.2.2</a><br /><a href="http://identifiers.org/kegg.reaction/R00959" target="_blank">R00959</a><br /><a href="http://identifiers.org/uniprot/P36871" target="_blank">P36871</a><br /><a href="http://identifiers.org/uniprot/Q96G03" target="_blank">Q96G03</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12448,7 +12402,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.7.9" target="_blank">2.7.7.9</a><br /><a href="http://identifiers.org/kegg.reaction/R00289" target="_blank">R00289</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.7.9" target="_blank">2.7.7.9</a><br /><a href="http://identifiers.org/kegg.reaction/R00289" target="_blank">R00289</a><br /><a href="http://identifiers.org/uniprot/Q16851" target="_blank">Q16851</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12487,7 +12441,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/3.6.1.1" target="_blank">3.6.1.1</a><br /><a href="http://identifiers.org/kegg.reaction/R00004" target="_blank">R00004</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/3.6.1.1" target="_blank">3.6.1.1</a><br /><a href="http://identifiers.org/kegg.reaction/R00004" target="_blank">R00004</a><br /><a href="http://identifiers.org/uniprot/Q15181" target="_blank">Q15181</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12528,9 +12482,9 @@
   </apply>
 </math>
 </td>
-	<td>        -
+	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        -
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/uniprot/P54840" target="_blank">P54840</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12573,9 +12527,9 @@
   </apply>
 </math>
 </td>
-	<td>        -
+	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        -
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/uniprot/P06737" target="_blank">P06737</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12947,7 +12901,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.1.105" target="_blank">2.7.1.105</a><br /><a href="http://identifiers.org/kegg.reaction/R02732" target="_blank">R02732</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.1.105" target="_blank">2.7.1.105</a><br /><a href="http://identifiers.org/kegg.reaction/R02732" target="_blank">R02732</a><br /><a href="http://identifiers.org/uniprot/P16118" target="_blank">P16118</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -12989,7 +12943,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/3.1.3.46" target="_blank">3.1.3.46</a><br /><a href="http://identifiers.org/kegg.reaction/R02731" target="_blank">R02731</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/3.1.3.46" target="_blank">3.1.3.46</a><br /><a href="http://identifiers.org/kegg.reaction/R02731" target="_blank">R02731</a><br /><a href="http://identifiers.org/uniprot/P16118" target="_blank">P16118</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13065,7 +13019,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.1.11" target="_blank">2.7.1.11</a><br /><a href="http://identifiers.org/kegg.reaction/R00756" target="_blank">R00756</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.1.11" target="_blank">2.7.1.11</a><br /><a href="http://identifiers.org/kegg.reaction/R00756" target="_blank">R00756</a><br /><a href="http://identifiers.org/uniprot/P17858" target="_blank">P17858</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13120,7 +13074,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/3.1.3.11" target="_blank">3.1.3.11</a><br /><a href="http://identifiers.org/kegg.reaction/R00762" target="_blank">R00762</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/3.1.3.11" target="_blank">3.1.3.11</a><br /><a href="http://identifiers.org/kegg.reaction/R00762" target="_blank">R00762</a><br /><a href="http://identifiers.org/uniprot/O00757" target="_blank">O00757</a><br /><a href="http://identifiers.org/uniprot/P09467" target="_blank">P09467</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13217,7 +13171,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/4.1.2.13" target="_blank">4.1.2.13</a><br /><a href="http://identifiers.org/kegg.reaction/R01068" target="_blank">R01068</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/4.1.2.13" target="_blank">4.1.2.13</a><br /><a href="http://identifiers.org/kegg.reaction/R01068" target="_blank">R01068</a><br /><a href="http://identifiers.org/uniprot/P05062" target="_blank">P05062</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13280,7 +13234,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/5.3.1.1" target="_blank">5.3.1.1</a><br /><a href="http://identifiers.org/kegg.reaction/R01015" target="_blank">R01015</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/5.3.1.1" target="_blank">5.3.1.1</a><br /><a href="http://identifiers.org/kegg.reaction/R01015" target="_blank">R01015</a><br /><a href="http://identifiers.org/uniprot/P60174" target="_blank">P60174</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13401,7 +13355,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/1.2.1.12" target="_blank">1.2.1.12</a><br /><a href="http://identifiers.org/kegg.reaction/R01061" target="_blank">R01061</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/1.2.1.12" target="_blank">1.2.1.12</a><br /><a href="http://identifiers.org/kegg.reaction/R01061" target="_blank">R01061</a><br /><a href="http://identifiers.org/uniprot/P04406" target="_blank">P04406</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13511,7 +13465,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.2.3" target="_blank">2.7.2.3</a><br /><a href="http://identifiers.org/kegg.reaction/R01512" target="_blank">R01512</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.2.3" target="_blank">2.7.2.3</a><br /><a href="http://identifiers.org/kegg.reaction/R01512" target="_blank">R01512</a><br /><a href="http://identifiers.org/kegg.reaction/P00558" target="_blank">P00558</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13570,7 +13524,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/5.4.2.1" target="_blank">5.4.2.1</a><br /><a href="http://identifiers.org/kegg.reaction/R01518" target="_blank">R01518</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/5.4.2.1" target="_blank">5.4.2.1</a><br /><a href="http://identifiers.org/kegg.reaction/R01518" target="_blank">R01518</a><br /><a href="http://identifiers.org/uniprot/P18669" target="_blank">P18669</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13629,7 +13583,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/4.2.1.11" target="_blank">4.2.1.11</a><br /><a href="http://identifiers.org/kegg.reaction/R00658" target="_blank">R00658</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/4.2.1.11" target="_blank">4.2.1.11</a><br /><a href="http://identifiers.org/kegg.reaction/R00658" target="_blank">R00658</a><br /><a href="http://identifiers.org/uniprot/P06733" target="_blank">P06733</a><br /><a href="http://identifiers.org/uniprot/P09104" target="_blank">P09104</a><br /><a href="http://identifiers.org/uniprot/P13929" target="_blank">P13929</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13672,7 +13626,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.1.40" target="_blank">2.7.1.40</a><br /><a href="http://identifiers.org/kegg.reaction/R00200" target="_blank">R00200</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.7.1.40" target="_blank">2.7.1.40</a><br /><a href="http://identifiers.org/kegg.reaction/R00200" target="_blank">R00200</a><br /><a href="http://identifiers.org/uniprot/P30613" target="_blank">P30613</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13792,7 +13746,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/4.1.1.32" target="_blank">4.1.1.32</a><br /><a href="http://identifiers.org/kegg.reaction/R00431" target="_blank">R00431</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/4.1.1.32" target="_blank">4.1.1.32</a><br /><a href="http://identifiers.org/kegg.reaction/R00431" target="_blank">R00431</a><br /><a href="http://identifiers.org/uniprot/P35558" target="_blank">P35558</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -13912,7 +13866,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/4.1.1.32" target="_blank">4.1.1.32</a><br /><a href="http://identifiers.org/kegg.reaction/R00431" target="_blank">R00431</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/4.1.1.32" target="_blank">4.1.1.32</a><br /><a href="http://identifiers.org/kegg.reaction/R00431" target="_blank">R00431</a><br /><a href="http://identifiers.org/uniprot/Q16822" target="_blank">Q16822</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -14000,7 +13954,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/6.4.1.1" target="_blank">6.4.1.1</a><br /><a href="http://identifiers.org/kegg.reaction/R00344" target="_blank">R00344</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/6.4.1.1" target="_blank">6.4.1.1</a><br /><a href="http://identifiers.org/kegg.reaction/R00344" target="_blank">R00344</a><br /><a href="http://identifiers.org/uniprot/P11498" target="_blank">P11498</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -14110,7 +14064,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/1.1.1.27" target="_blank">1.1.1.27</a><br /><a href="http://identifiers.org/kegg.reaction/R00703" target="_blank">R00703</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/1.1.1.27" target="_blank">1.1.1.27</a><br /><a href="http://identifiers.org/kegg.reaction/R00703" target="_blank">R00703</a><br /><a href="http://identifiers.org/uniprot/P00338" target="_blank">P00338</a><br /><a href="http://identifiers.org/uniprot/P07195" target="_blank">P07195</a><br /><a href="http://identifiers.org/uniprot/P07864" target="_blank">P07864</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -14341,7 +14295,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/1.2.4.1" target="_blank">1.2.4.1</a><br /><a href="http://identifiers.org/kegg.reaction/R00209" target="_blank">R00209</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/1.2.4.1" target="_blank">1.2.4.1</a><br /><a href="http://identifiers.org/kegg.reaction/R00209" target="_blank">R00209</a><br /><a href="http://identifiers.org/uniprot/P08559" target="_blank">P08559</a><br /><a href="http://identifiers.org/uniprot/P11177" target="_blank">P11177</a><br /><a href="http://identifiers.org/uniprot/P10515" target="_blank">P10515</a><br /><a href="http://identifiers.org/uniprot/P09622" target="_blank">P09622</a><br /><a href="http://identifiers.org/uniprot/O00330" target="_blank">O00330</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>
@@ -14451,7 +14405,7 @@
 </td>
 	<td>        <a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a>
 </td>
-	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.3.3.1" target="_blank">2.3.3.1</a><br /><a href="http://identifiers.org/kegg.reaction/R00351" target="_blank">R00351</a>
+	<td>        <b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000176" target="_blank">SBO:0000176</a><br /><a href="http://identifiers.org/ec-code/2.3.3.1" target="_blank">2.3.3.1</a><br /><a href="http://identifiers.org/kegg.reaction/R00351" target="_blank">R00351</a><br /><a href="http://identifiers.org/uniprot/O75390" target="_blank">O75390</a>
 </td>
 </tr>
                 <tr>    <td class="hidden">Reaction</td>

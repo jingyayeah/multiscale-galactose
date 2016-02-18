@@ -394,8 +394,8 @@ PK = ReactionTemplate(
         ('PKp_k_fbp', 0.35E-3, 'mM'),
         ('PKn_k_pep', 0.58, 'mM'),
         ('PKp_k_pep', 1.10, 'mM'),
-        ('PKn_ba', 0.08, 'mM'),
-        ('PKp_ba', 0.04, 'mM'),
+        ('PKn_ba', 0.08, 'dimensionless'),
+        ('PKp_ba', 0.04, 'dimensionless'),
         
         ('PK_ae', 1.0, 'dimensionless'),
         ('PKn_k_pep_end', 0.08, 'mM'),
@@ -410,8 +410,8 @@ PK = ReactionTemplate(
         ('PKp_alpha_inp', '(1 dimensionless - PKp_f) * (PKp_alpha - PK_ae) + PK_ae', 'dimensionless'),
         ('PKn_pep_inp', '(1 dimensionless - PKn_f) * (PKn_k_pep - PKn_k_pep_end) + PKn_k_pep_end', 'mM'),
         ('PKp_pep_inp', '(1 dimensionless - PKp_f) * (PKp_k_pep - PKn_k_pep_end) + PKn_k_pep_end', 'mM'),
-        ('PKn', 'f_gly * PK_Vmax * PKn_alpha_inp * pep^PKn_n/(PKn_pep_inp^PKn_n + pep^PKn_n) * adp/(adp + PK_k_adp) * ( PKn_ba + (1-PKn_ba) * PKn_f )', 'mole_per_s'),
-        ('PKp', 'f_gly * PK_Vmax * PKp_alpha_inp * pep^PKp_n/(PKp_pep_inp^PKp_n + pep^PKp_n) * adp/(adp + PK_k_adp) * ( PKp_ba + (1-PKp_ba) * PKp_f )', 'mole_per_s'),
+        ('PKn', 'f_gly * PK_Vmax * PKn_alpha_inp * pep^PKn_n/(PKn_pep_inp^PKn_n + pep^PKn_n) * adp/(adp + PK_k_adp) * ( PKn_ba + (1 dimensionless - PKn_ba) * PKn_f )', 'mole_per_s'),
+        ('PKp', 'f_gly * PK_Vmax * PKp_alpha_inp * pep^PKp_n/(PKp_pep_inp^PKp_n + pep^PKp_n) * adp/(adp + PK_k_adp) * ( PKp_ba + (1 dimensionless - PKp_ba) * PKp_f )', 'mole_per_s'),
     ],
     formula=('(1 dimensionless - gamma)* PKn + gamma * PKp', 'mole_per_s')
 )
