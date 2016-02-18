@@ -16,7 +16,7 @@ TODO: add the model description & history to the model
 
 """
 from libsbml import XMLNode
-from Reactions import *
+from ..templates import terms_of_use, mkoenig
 
 ##############################################################
 mid = 'galactose'
@@ -239,21 +239,38 @@ names.update({
 ##############################################################
 # Reactions
 ##############################################################
+import Reactions
 reactions.extend([
-    GALK, GALKM,
-    IMP, IMPM,
-    ATPS,
-    ALDR, ALDRM,
-    NADPR,
-    GALT, GALTM1, GALTM2, GALTM3,
-    GALE, GALEM,
-    UGP, UGPM,
-    UGALP, UGALPM,
-    PPASE,
-    NDKU,
-    PGM1, PGM1M,
-    GLY, GLYM,
-    GTFGAL, GTFGALM,
-    GTFGLC, GTFGLCM,
-    H2OTM, GLUT2_GAL, GLUT2_GALM
+    Reactions.GALK,
+    Reactions.GALKM,
+    Reactions.IMP,
+    Reactions.IMPM,
+    Reactions.ATPS,
+    Reactions.ALDR,
+    Reactions.ALDRM,
+    Reactions.NADPR,
+    Reactions.GALT,
+    Reactions.GALTM1,
+    Reactions.GALTM2,
+    Reactions.GALTM3,
+    Reactions.GALE,
+    Reactions.GALEM,
+    Reactions.UGP,
+    Reactions.UGPM,
+    Reactions.UGALP,
+    Reactions.UGALPM,
+    Reactions.PPASE,
+    Reactions.NDKU,
+    Reactions.PGM1,
+    Reactions.PGM1M,
+    Reactions.GLY,
+    Reactions.GLYM,
+    Reactions.GTFGAL,
+    Reactions.GTFGALM,
+    Reactions.GTFGLC,
+    Reactions.GTFGLCM,
+
+    Reactions.H2OTM,
+    Reactions.GLUT2_GAL,
+    Reactions.GLUT2_GALM
 ])
