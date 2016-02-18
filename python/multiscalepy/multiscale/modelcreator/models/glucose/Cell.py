@@ -304,6 +304,9 @@ assignments.update({
 names.update({
     'V_mito': 'mitochondrial volume',
     'V_ext': 'external volume',
+    'scale': 'scaling factor rates',
+    'f_glc': 'scaling factor glycolysis',
+    'f_glyglc': 'scaling factor glycogen metabolism',
 })
 
 ##############################################################
@@ -339,12 +342,20 @@ rules.update({
     'GLY': ('-G16PI * conversion_factor', 'mumol_per_min_kg'),
 })
 names.update({
-    'nadp_tot': 'NADP balance',
-    'atp_tot': 'ATP balance',
-    'utp_bal': 'UTP balance',
-    'gtp_bal': 'GTP balance',
+    'ins': 'insulin',
+    'epi': 'epinephrine',
+    'glu': 'glucagon',
+    'gamma': 'phosphorylation state',
 
-    'HGP': 'Hepatic glucose production/utilization',
+    'nadh_tot': 'NADH balance',
+    'atp_tot': 'ATP balance',
+    'utp_tot': 'UTP balance',
+    'gtp_tot': 'GTP balance',
+    'nadh_mito_tot': 'NADH mito balance',
+    'atp_mito_tot': 'ATP mito balance',
+    'gtp_mito_tot': 'GTP mito balance',
+
+    'HGP': 'hepatic glucose production/utilization',
     'GNG': 'gluconeogenesis/glycolysis',
     'GLY': 'glycogenolysis/glycogen synthesis',
 })
