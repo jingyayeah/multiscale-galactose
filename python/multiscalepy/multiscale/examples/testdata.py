@@ -22,6 +22,11 @@ galactose_singlecell_sbml_no_annotations = os.path.join(test_dir, 'models/galact
 galactose_tissue_sbml = os.path.join(test_dir, 'models/galactose', 'Galactose_v128_Nc20_dilution.xml')
 galactose_annotations = os.path.join(test_dir, 'models/galactose', 'galactose_annotations.csv')
 
+# galactose ------------------
+glucose_id = 'Hepatic_glucose_1'
+glucose_sbml = os.path.join(test_dir, 'models/glucose', '{}_annotated.xml'.format(glucose_id))
+
+
 # test -----------------------
 test_id = 'test_6'
 test_sbml = os.path.join(test_dir, 'models/test', '{}.xml'.format(test_id))

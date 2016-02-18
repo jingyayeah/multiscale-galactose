@@ -7,8 +7,6 @@ The different model variants are driven by different events.
 from __future__ import print_function, division
 
 import os
-
-import libsbml
 # import multiscale.multiscalesite.simapp.db.api as db_api
 
 
@@ -112,14 +110,11 @@ def create_model(directory, model_info=[], f_annotations=None):
 
     f_sbml = os.path.join(directory, '{}.xml'.format(cell_model.model.getId()))
     cell_model.write_sbml(f_sbml)
-    f_model = f_sbml
 
     # annotate
     if f_annotations is not None:
-        f_sbml_annotated = os.path.join(directory, '{}_annotated.xml'.format(cell_model.model_id))
-        annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated)
-        validate_sbml(f_sbml_annotated)
-        f_model = f_sbml_annotated
+        # overwrite the normal file
+        annotate_sbml_file(f_sbml, f_annotations, f_sbml)
 
     # create report
     sbmlreport.create_sbml_report(sbml=f_sbml, out_dir=directory)
@@ -134,7 +129,7 @@ def create_demo():
     """ Create demo network. """
     directory = os.path.join(test_dir, 'models', 'demo')
     model_info = ['multiscale.modelcreator.models.demo']
-    f_annotations = os.path.join(directory, 'demo_annotations.csv')
+    f_annotations = os.path.join(directory, 'demo_annotations.xslx')
     return create_model(directory, model_info, f_annotations)
 
 
@@ -158,10 +153,10 @@ def create_glucose():
     """ Create glucose network. """
     directory = os.path.join(test_dir, 'models', 'glucose')
     model_info = ['multiscale.modelcreator.models.glucose']
-    f_annotations = os.path.join(directory, 'glucose_annotations.csv')
 
-    # TODO: update the annotations (full information)
-    f_annotations = None
+    d = os.path.dirname(os.path.abspath(__file__))
+    f_annotations = os.path.join(d, 'models', 'glucose', 'glucose_annotations.xlsx')
+
     return create_model(directory, model_info, f_annotations)
 
 

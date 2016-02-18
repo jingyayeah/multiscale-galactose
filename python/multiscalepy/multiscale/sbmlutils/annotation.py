@@ -167,7 +167,13 @@ class ModelAnnotation(object):
     def __init__(self, d):
         self.d = d
         for k in self._keys:
-            setattr(self, k, d[k])
+            # optional fields
+            if k in ['qualifier', 'collection', 'name']:
+                value = d.get(k, '')
+            # required fields
+            else:
+                value = d[k]
+            setattr(self, k, value)
         self.check()
 
     def check(self):
@@ -328,9 +334,16 @@ class ModelAnnotator(object):
             raise AnnotationException('Qualifier not found: {}'.format(qualifier_str))
         return libsbml.__dict__.get(qualifier_str)
 
+    @staticmethod
+    def annotations_from_file(file_path, delimiter='\t'):
+        if file_path.endswith('.xlsx'):
+            return ModelAnnotator.annotations_from_xlsx(file_path, delimiter=delimiter)
+        else:
+            return ModelAnnotator.annotations_from_csv(file_path, delimiter=delimiter)
+
 
     @staticmethod
-    def annotations_from_file(csvfile, delimiter='\t'):
+    def annotations_from_csv(csvfile, delimiter='\t'):
         """ Read annotations from csv in annotation data structure. """
         res = []
         f = open(csvfile, 'rb')
@@ -356,8 +369,25 @@ class ModelAnnotator(object):
 
         return res
 
+    @staticmethod
+    def annotations_from_xlsx(xslxfile, delimiter='\t', rm_csv=True):
+        """Read annotations from xlsx file.
+        xlsx is converted to csv file and than parsed with csv reader.
+        """
+        import pyexcel as pe
+        import pyexcel.ext.xlsx
 
-def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated, suffix="annotated"):
+        csvfile = "{}.csv".format(xslxfile)
+        pe.save_as(file_name=xslxfile, dest_file_name=csvfile, dest_delimiter=delimiter)
+        res = ModelAnnotator.annotations_from_csv(csvfile, delimiter=delimiter)
+
+        if rm_csv:
+            import os
+            os.remove(csvfile)
+        return res
+
+
+def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated):
     """
     Annotate a given SBML file with the provided annotations.
 
@@ -374,14 +404,6 @@ def annotate_sbml_file(f_sbml, f_annotations, f_sbml_annotated, suffix="annotate
     # annotate the model
     annotator = ModelAnnotator(doc, annotations)
     annotator.annotate_model()
-
-    # Update id
-    # TODO: necessary ? File name does not have to be model id
-    # Handle this better
-    model = doc.getModel()
-    if model:
-        mid = "{}_{}".format(model.getId(), suffix)
-        model.setId(mid)
 
     # Save
     libsbml.writeSBMLToFile(doc, f_sbml_annotated)
