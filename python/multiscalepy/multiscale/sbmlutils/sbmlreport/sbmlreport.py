@@ -38,27 +38,6 @@ sys.setdefaultencoding('utf-8')
 TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
 
-def copy_directory(src, dest):
-    """ Copy directory from source to destination.
-    :param src:
-    :type src:
-    :param dest:
-    :type dest:
-    :return:
-    :rtype:
-    """
-
-    # todo handle the rsync
-    try:
-        shutil.copytree(src, dest)
-    # Directories are the same
-    except shutil.Error as e:
-        print('Directory not copied. Error: %s' % e)
-    # Any error saying that the directory doesn't exist
-    except OSError as e:
-        print('Directory not copied. Error: %s' % e)
-
-
 def create_sbml_report(sbml, out_dir, template='report.html'):
     """ Creates the SBML report in the out_dir
 
@@ -78,17 +57,17 @@ def create_sbml_report(sbml, out_dir, template='report.html'):
     libsbml.writeSBMLToFile(doc, f_sbml)
 
     # write html (unicode)
-    html = create_html(doc, html_template=template)
+    html = _create_html(doc, html_template=template)
     f_html = codecs.open(os.path.join(out_dir, '{}.html'.format(mid)),
                          encoding='utf-8', mode='w')
     f_html.write(html)
     f_html.close()
 
     # copy the additional files
-    copy_directory(os.path.join(TEMPLATE_DIR, '_report'), os.path.join(out_dir, '_report'))
+    _copy_directory(os.path.join(TEMPLATE_DIR, '_report'), os.path.join(out_dir, '_report'))
 
 
-def create_html(doc, html_template='test_template.html'):
+def _create_html(doc, html_template='test_template.html'):
     """Create HTML from SBML.
 
     :param doc:
@@ -99,7 +78,7 @@ def create_html(doc, html_template='test_template.html'):
     :rtype:
     """
     model = doc.getModel()
-    values = create_value_dictionary(model)
+    values = _create_value_dictionary(model)
 
     # template environment
     env = Environment(loader=FileSystemLoader(TEMPLATE_DIR),
@@ -131,7 +110,7 @@ def create_html(doc, html_template='test_template.html'):
     return template.render(c)
 
 
-def create_value_dictionary(model):
+def _create_value_dictionary(model):
     values = dict()
 
     # parse all the initial assignments
@@ -145,6 +124,26 @@ def create_value_dictionary(model):
         # math = ' = {}'.format(libsbml.formulaToString(rule.getMath()))
         values[sid] = rule
     return values
+
+def _copy_directory(src, dest):
+    """ Copy directory from source to destination.
+    :param src:
+    :type src:
+    :param dest:
+    :type dest:
+    :return:
+    :rtype:
+    """
+
+    # todo handle the rsync
+    try:
+        shutil.copytree(src, dest)
+    # Directories are the same
+    except shutil.Error as e:
+        print('Directory not copied. Error: %s' % e)
+    # Any error saying that the directory doesn't exist
+    except OSError as e:
+        print('Directory not copied. Error: %s' % e)
 
 #################################################################################################
 # Create report
