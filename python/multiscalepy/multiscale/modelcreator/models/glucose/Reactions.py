@@ -185,6 +185,7 @@ NDKGTP = ReactionTemplate(
     rid='NDKGTP',
     name='Nucleoside-diphosphate kinase (ATP, GTP)',
     equation='atp + gdp <-> adp + gtp []',
+    # C10H12N5O13P3 (-4) + C10H12N5O11P2 (-3) <-> C10H12N5O10P2 (-3) + C10H12N5O14P3 (-4)
     localization='cyto',
     pars=[
         ('NDKGTP_keq', 1, 'dimensionless'),
@@ -202,6 +203,7 @@ NDKUTP = ReactionTemplate(
     rid='NDKUTP',
     name='Nucleoside-diphosphate kinase (ATP, UTP)',
     equation='atp + udp <-> adp + utp []',
+    # C10H12N5O13P3 (-4) + C9H11N2O12P2 (-3) <-> C10H12N5O10P2 (-3) + C9H11N2O15P3 (-4)
     localization='cyto',
     pars=[
         ('NDKUTP_keq', 1, 'dimensionless'),
@@ -218,7 +220,8 @@ NDKUTP = ReactionTemplate(
 AK = ReactionTemplate(
     rid='AK',
     name='ATP:AMP phosphotransferase (Adenylatkinase)',
-    equation='atp + amp <-> 2 adp []',
+    equation='amp + adp <-> 2 adp []',
+    # C10H12N5O7P (-2) + C10H12N5O13P3 (-4) <-> C10H12N5O10P2 (-3)
     localization='cyto',
     pars=[
         ('AK_keq', 0.247390074904985, 'dimensionless'),
@@ -235,6 +238,7 @@ PFK2 = ReactionTemplate(
     rid='PFK2',
     name='ATP:D-fructose-6-phosphate 2-phosphotransferase',
     equation='fru6p + atp => fru26bp + adp []',
+    # C6H11O9P (-2) + C10H12N5O13P3 (-4) => C6H10O12P2 (-4) + C10H12N5O10P2 (-3)
     localization='cyto',
     pars=[
         ('PFK2n_n', 1.3, 'dimensionless'),
@@ -255,7 +259,8 @@ PFK2 = ReactionTemplate(
 FBP2 = ReactionTemplate(
     rid='FBP2',
     name='D-Fructose-2,6-bisphosphate 2-phosphohydrolase',
-    equation='fru26bp => fru6p + phos []',
+    equation='fru26bp + h2o => fru6p + phos []',
+    # C6H10O12P2 (-4) + H2O (0) => C6H11O9P (-2) + HO4P (-2)
     localization='cyto',
     pars=[
         ('FBP2n_k_fru26bp', 0.010, 'mM'),
@@ -270,6 +275,20 @@ FBP2 = ReactionTemplate(
     ],
     formula=('(1 dimensionless - gamma) * FBP2n + gamma * FBP2p', 'mole_per_s')
 )
+"""
+Goldstein BN, Maevsky AA. (2002)
+Critical switch of the metabolic fluxes by phosphofructo-2-kinase:fructose-2,6-bisphosphatase. A kinetic model.
+PMID: 12482582
+
+Rider MH, Bertrand L, Vertommen D, Michels PA, Rousseau GG, Hue L. (2004)
+6-phosphofructo-2-kinase/fructose-2,6-bisphosphatase: head-to-head with a bifunctional enzyme that controls glycolysis.
+PMID: 15170386
+
+Okar DA, Live DH, Devany MH, Lange AJ. (2000)
+Mechanism of the bisphosphatase reaction of 6-phosphofructo-2-kinase/fructose-2,6-bisphosphatase probed by (1)H-(15)N NMR spectroscopy.
+PMID: 10933792
+"""
+
 
 PFK1 = ReactionTemplate(
     rid='PFK1',
