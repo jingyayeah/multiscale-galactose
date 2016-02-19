@@ -15,8 +15,7 @@ if __name__ == "__main__":
     fbc.check_balance(path)
 
     model = fbc.load_cobra_model(path)
-    print(len(model.reactions))
-    r = model.reactions.get_by_id('GLUT2')
+
 
 
 

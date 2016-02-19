@@ -85,3 +85,22 @@ def check_balance(sbml_path):
         mb = r.check_mass_balance()
         if len(mb) > 0:
             print(r.id, mb, r.reaction)
+
+
+if __name__ == "__main__":
+    from libsbml import *
+
+    sbmlns = SBMLNamespaces(3, 1, "fbc", 2)
+    doc = SBMLDocument(sbmlns)
+    doc.setPackageRequired("fbc", False)
+    model = doc.createModel()
+    mplugin = model.getPlugin("fbc")
+    mplugin.setStrict(False)
+
+    s = model.createSpecies()
+    s.setId('S1')
+    sfbc = s.getPlugin('fbc')
+    sfbc.setChemicalFormula('H2O')
+
+    sbml_str = writeSBMLToString(doc)
+    print(sbml_str)

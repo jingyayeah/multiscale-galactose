@@ -168,9 +168,9 @@ if __name__ == "__main__":
 
     # TODO: add model creation tests
 
-    [cell_dict, cell_model] = create_demo()
+    # [cell_dict, cell_model] = create_demo()
     # [cell_dict, cell_model] = create_test()
     # [cell_dict, cell_model] = create_galactose()
-    # [cell_dict, cell_model] = create_glucose()
+    [cell_dict, cell_model] = create_glucose()
 
 

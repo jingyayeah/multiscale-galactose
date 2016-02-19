@@ -29,7 +29,7 @@ GLUT2 = ReactionTemplate(
 GK = ReactionTemplate(
     rid='GK',
     name='Glucokinase',
-    equation='glc + atp => glc6p + adp [glc1p, fru6p]',
+    equation='glc + atp => glc6p + adp + h [glc1p, fru6p]',
     # C6H1206 (0) + C10H12N5O13P3 (-4)  <-> C6H11O9P (-2) + C10H12N5O10P2 (-3) + H (1)
     localization='cyto',
     compartments=[],
@@ -53,7 +53,7 @@ G6PASE = ReactionTemplate(
     rid='G6PASE',
     name='D-Glucose-6-phosphate Phosphatase',
     equation='glc6p + h2o => glc + phos []',
-    # C6H11O9P (-2) + H20 (0) -> C6H12O6 (0) + HO4P (-2)
+    # C6H11O9P (-2) + H2O (0) -> C6H12O6 (0) + HO4P (-2)
     localization='cyto',
     pars=[
         ('G6PASE_k_glc6p', 2, 'mM'),
@@ -490,7 +490,7 @@ PEPCKM = ReactionTemplate(
 PC = ReactionTemplate(
     rid='PC',
     name='Pyruvate Carboxylase',
-    equation='atp_mito + pyr_mito + co2_mito => adp_mito + oaa_mito + phos_mito + 2 h [acoa_mito]',
+    equation='atp_mito + pyr_mito + co2_mito + h2o_mito => adp_mito + oaa_mito + phos_mito + 2 h [acoa_mito]',
     # C10H12N5O13P3 (-4) + C3H3O3 (-1) + CO2 (0) + H2O (0) => C10H12N5O10P2 (-3) + C4H2O5 (-2) + HO4P (-2) + 2H (+2)
     localization='mito',
     pars=[

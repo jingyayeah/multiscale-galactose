@@ -315,12 +315,6 @@ mm	compartment	RDF	FMA:66861	BQB_IS	fma	membrane of mitochondrion
 ^pp[_]*\w*$	species	Formula	HO7P2
 ^pp[_]*\w*$	species	Charge	-3
 
-^h2o[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^h2o[_]*\w*$	species	RDF	CHEBI:15377	BQB_IS	chebi	water
-^h2o[_]*\w*$	species	RDF	C00001	BQB_IS	kegg.compound	H2O
-^h2o[_]*\w*$	species	Formula	H2O
-^h2o[_]*\w*$	species	Charge	0
-
 ^co2[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^co2[_]*\w*$	species	RDF	CHEBI:16526	BQB_IS	chebi	carbon dioxide
 ^co2[_]*\w*$	species	RDF	C00011	BQB_IS	kegg.compound	CO2
@@ -338,6 +332,12 @@ mm	compartment	RDF	FMA:66861	BQB_IS	fma	membrane of mitochondrion
 ^h2[_]*\w*$	species	RDF	C00282	BQB_IS	kegg.compound	Hydrogen
 ^h2[_]*\w*$	species	Formula	H2
 ^h2[_]*\w*$	species	Charge	0
+
+^h2o[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^h2o[_]*\w*$	species	RDF	CHEBI:15377	BQB_IS	chebi	water
+^h2o[_]*\w*$	species	RDF	C00001	BQB_IS	kegg.compound	H2O
+^h2o[_]*\w*$	species	Formula	H2O
+^h2o[_]*\w*$	species	Charge	0
 
 ^glc1p[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^glc1p[_]*\w*$	species	RDF	C00103	BQB_IS	kegg.compound	D-Glucose 1-phosphate
