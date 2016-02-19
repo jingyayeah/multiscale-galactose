@@ -406,7 +406,8 @@ PGM = ReactionTemplate(
 EN = ReactionTemplate(
     rid='EN',
     name='2-Phospho-D-glucerate hydro-lyase (enolase)',
-    equation='pg2 <-> pep []',
+    equation='pg2 <-> h2o + pep []',
+    # C3H4O7P (-3) <-> H2O (0) + C3H2O6P (-3)
     localization='cyto',
     pars=[
         ('EN_keq', 0.054476985386756, 'dimensionless'),
@@ -420,7 +421,8 @@ EN = ReactionTemplate(
 PK = ReactionTemplate(
     rid='PK',
     name='Pyruvatkinase',
-    equation='pep + adp => pyr + atp [fru16bp]',
+    equation='pep + adp + h => pyr + atp [fru16bp]',
+    # C3H2O6P (-3) + C10H12N5O10P2 (-3) + H (+1) => C10H12N5O13P3 (-4) + C3H3O3 (-1)
     localization='cyto',
     pars=[
         ('PKn_n', 3.5, 'dimensionless'),
@@ -458,7 +460,8 @@ PK = ReactionTemplate(
 PEPCK = ReactionTemplate(
     rid='PEPCK',
     name='PEPCK cyto',
-    equation='oaa + gtp <-> pep + gdp + co2 []',
+    equation='gtp + oaa <-> co2 + gdp + pep []',
+    # C10H12N5O14P3 (-4) + C4H2O5 (-2) <-> CO2 (0) + C10H12N5O11P2 (-3) + C3H2O6P (-3)
     localization='cyto',
     pars=[
         ('PEPCK_keq', 3.369565215864287E2, 'mM'),
@@ -475,7 +478,8 @@ PEPCK = ReactionTemplate(
 PEPCKM = ReactionTemplate(
     rid='PEPCKM',
     name='PEPCK mito',
-    equation='oaa_mito + gtp_mito <-> pep_mito + gdp_mito + co2_mito []',
+    equation='gtp_mito + oaa_mito <-> co2_mito + gdp_mito + pep_mito []',
+    # C10H12N5O14P3 (-4) + C4H2O5 (-2) <-> CO2 (0) + C10H12N5O11P2 (-3) + C3H2O6P (-3)
     localization='mito',
     pars=[
         ('PEPCKM_Vmax', 546, 'mole_per_s'),
@@ -486,7 +490,8 @@ PEPCKM = ReactionTemplate(
 PC = ReactionTemplate(
     rid='PC',
     name='Pyruvate Carboxylase',
-    equation='atp_mito + pyr_mito + co2_mito => oaa_mito + adp_mito + phos_mito [acoa_mito]',
+    equation='atp_mito + pyr_mito + co2_mito => adp_mito + oaa_mito + phos_mito + 2 h [acoa_mito]',
+    # C10H12N5O13P3 (-4) + C3H3O3 (-1) + CO2 (0) + H2O (0) => C10H12N5O10P2 (-3) + C4H2O5 (-2) + HO4P (-2) + 2H (+2)
     localization='mito',
     pars=[
         ('PC_k_atp', 0.22, 'mM'),
@@ -502,7 +507,8 @@ PC = ReactionTemplate(
 LDH = ReactionTemplate(
     rid='LDH',
     name='Lactate Dehydrogenase',
-    equation='pyr + nadh <-> lac + nad []',
+    equation='pyr + nadh + h <-> lac + nad []',
+    # C3H3O3 (-1) + C21H27N7O14P2 (-2) + H (+1) <-> C3H5O3 (-1) + C21H26N7O14P2 (-1)
     localization='cyto',
     pars=[
         ('LDH_keq', 2.783210760047520E-004, 'dimensionless'),
@@ -519,6 +525,7 @@ LACT = ReactionTemplate(
     rid='LACT',
     name='Lactate transport (import)',
     equation='lac_ext <-> lac []',
+    # C3H5O3 (-1) <-> C3H5O3 (-1)
     localization='pm',
     pars=[
         ('LACT_keq', 1, 'dimensionless'),
@@ -531,7 +538,8 @@ LACT = ReactionTemplate(
 PYRTM = ReactionTemplate(
     rid='PYRTM',
     name='Pyruvate transport (mito)',
-    equation='pyr -> pyr_mito []',
+    equation='pyr <-> pyr_mito []',
+    # C3H3O3 (-1) <-> C3H3O3 (-1)
     localization='mm',
     pars=[
         ('PYRTM_keq', 1, 'dimensionless'),
@@ -544,7 +552,8 @@ PYRTM = ReactionTemplate(
 PEPTM = ReactionTemplate(
     rid='PEPTM',
     name='PEP Transport (export mito)',
-    equation='pep_mito -> pep []',
+    equation='pep_mito <-> pep []',
+    # C3H2O6P (-3) <-> C3H2O6P (-3)
     localization='mm',
     pars=[
         ('PEPTM_keq', 1, 'dimensionless'),
@@ -557,7 +566,8 @@ PEPTM = ReactionTemplate(
 PDH = ReactionTemplate(
     rid='PDH',
     name='Pyruvate Dehydrogenase',
-    equation='pyr_mito + coa_mito + nad_mito => acoa_mito + co2_mito + nadh_mito +h_mito []',
+    equation='pyr_mito + coa_mito + nad_mito => acoa_mito + co2_mito + nadh_mito []',
+    # C3H3O3 (-1) + C21H32N7O16P3S (-4) + C21H26N7O14P2 (-1) => C23H34N7O17P3S (-4) + CO2 (0) + C21H27N7O14P2 (-2)
     localization='mito',
     pars=[
         ('PDH_k_pyr', 0.025, 'mM'),
@@ -580,7 +590,8 @@ PDH = ReactionTemplate(
 CS = ReactionTemplate(
     rid='CS',
     name='Citrate Synthase',
-    equation='acoa_mito + oaa_mito + h2o_mito <-> cit_mito + coa_mito []',
+    equation='acoa_mito + oaa_mito + h2o_mito <-> cit_mito + coa_mito + h_mito []',
+    # C23H34N7O17P3S (-4) + H2O (0) + C4H2O5 (-2) <-> C6H5O7 (-3) + C21H32N7O16P3S (-4) + H (+1)
     localization='mito',
     pars=[
         ('CS_keq', 2.665990308427589E5, 'dimensionless'),
@@ -597,6 +608,7 @@ NDKGTPM = ReactionTemplate(
     rid='NDKGTPM',
     name='Nucleoside-diphosphate kinase (ATP, GTP) mito',
     equation='atp_mito + gdp_mito <-> adp_mito + gtp_mito []',
+    # C10H12N5O13P3 (-4) + C10H12N5O11P2 (-3) <-> C10H12N5O10P2 (-3) + C10H12N5O14P3 (-4)
     localization='mito',
     pars=[
         ('NDKGTPM_keq', 1, 'dimensionless'),
@@ -613,6 +625,7 @@ OAAFLX = ReactionTemplate(
     rid='OAAFLX',
     name='oxalacetate influx',
     equation='=> oaa_mito []',
+    # ->
     localization='mito',
     pars=[
         ('OAAFLX_Vmax', 0, 'mole_per_s'),
