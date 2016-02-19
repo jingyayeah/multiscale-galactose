@@ -125,7 +125,7 @@ PPASE = ReactionTemplate(
 GS = ReactionTemplate(
     rid='GS',
     name='Glycogen synthase',
-    equation='udpglc + H2O => udp + h + glyglc [glc6p]',
+    equation='udpglc + h2o => udp + h + glyglc [glc6p]',
     # C15H22N2O17P2 (-2) + H20 (0) => C9H11N2O12P2 (-3) + H (+1) + C6H12O6(0)
     localization='cyto',
     pars=[
@@ -220,7 +220,7 @@ NDKUTP = ReactionTemplate(
 AK = ReactionTemplate(
     rid='AK',
     name='ATP:AMP phosphotransferase (Adenylatkinase)',
-    equation='amp + adp <-> 2 adp []',
+    equation='amp + atp <-> 2 adp []',
     # C10H12N5O7P (-2) + C10H12N5O13P3 (-4) <-> C10H12N5O10P2 (-3)
     localization='cyto',
     pars=[
