@@ -237,8 +237,8 @@ AK = ReactionTemplate(
 PFK2 = ReactionTemplate(
     rid='PFK2',
     name='ATP:D-fructose-6-phosphate 2-phosphotransferase',
-    equation='fru6p + atp => fru26bp + adp []',
-    # C6H11O9P (-2) + C10H12N5O13P3 (-4) => C6H10O12P2 (-4) + C10H12N5O10P2 (-3)
+    equation='fru6p + atp => fru26bp + adp + h []',
+    # C6H11O9P (-2) + C10H12N5O13P3 (-4) => C6H10O12P2 (-4) + C10H12N5O10P2 (-3) + H (+1)
     localization='cyto',
     pars=[
         ('PFK2n_n', 1.3, 'dimensionless'),
@@ -293,7 +293,8 @@ PMID: 10933792
 PFK1 = ReactionTemplate(
     rid='PFK1',
     name='ATP:D-fructose-6-phosphate 1-phosphotransferase',
-    equation='fru6p + atp => fru16bp + adp [fru26bp]',
+    equation='fru6p + atp => fru16bp + adp + h [fru26bp]',
+    # C6H11O9P (-2) + C10H12N5O13P3 (-4) => C6H10O12P2 (-4) + C10H12N5O10P2 (-3) + H (+1)
     localization='cyto',
     pars=[
         ('PFK1_k_atp', 0.111, 'mM'),
@@ -309,6 +310,7 @@ FBP1 = ReactionTemplate(
     rid='FBP1',
     name='D-Fructose-1,6-bisphosphate 1-phosphohydrolase',
     equation='fru16bp + h2o => fru6p + phos [fru26bp]',
+    # C6H10O12P2 (-4) + H2O (0) => C6H11O9P (-2) + HO4P (-2)
     localization='cyto',
     pars=[
         ('FBP1_ki_fru26bp', 0.001, 'mM'),
@@ -322,6 +324,7 @@ ALD = ReactionTemplate(
     rid='ALD',
     name='Aldolase',
     equation='fru16bp <-> grap + dhap []',
+    # C6H10O12P2 (-4) <-> C3H5O6P (-2) + C3H5O6P (-2)
     localization='cyto',
     pars=[
         ('ALD_keq', 9.762988973629690E-5, 'mM'),
@@ -339,6 +342,7 @@ TPI = ReactionTemplate(
     rid='TPI',
     name='Triosephosphate Isomerase',
     equation='dhap <-> grap []',
+    # C3H5O6P (-2) <-> C3H5O6P (-2)
     localization='cyto',
     pars=[
         ('TPI_keq', 0.054476985386756, 'dimensionless'),
@@ -352,7 +356,8 @@ TPI = ReactionTemplate(
 GAPDH = ReactionTemplate(
     rid='GAPDH',
     name='D-Glyceraldehyde-3-phosphate:NAD+ oxidoreductase',
-    equation='grap + phos + nad -> bpg13 + nadh + h []',
+    equation='grap + nad + phos <-> bpg13 + nadh + h []',
+    # C3H5O6P (-2) + C21H26N7O14P2 (-1) + HO4P (-2) <-> C3H4O10P2 (-4) + C21H27N7O14P2 (-2) + H (+1)
     localization='cyto',
     pars=[
         ('GAPDH_keq', 0.086779866194594, 'per_mM'),
@@ -370,6 +375,7 @@ PGK = ReactionTemplate(
     rid='PGK',
     name='Phosphoglycerate Kinase',
     equation='adp + bpg13 <-> atp + pg3 []',
+    # C10H12N5O10P2 (-3) + C3H4O10P2 (-4) <-> C10H12N5O13P3 (-4) + C3H4O7P (-3)
     localization='cyto',
     pars=[
         ('PGK_keq', 6.958644052488538, 'dimensionless'),
@@ -386,6 +392,7 @@ PGM = ReactionTemplate(
     rid='PGM',
     name='2-Phospho-D-glycerate 2,3-phosphomutase',
     equation='pg3 <-> pg2 []',
+    # C3H4O7P (-3) <-> C3H4O7P (-3)
     localization='cyto',
     pars=[
         ('PGM_keq', 0.181375378837397, 'dimensionless'),
