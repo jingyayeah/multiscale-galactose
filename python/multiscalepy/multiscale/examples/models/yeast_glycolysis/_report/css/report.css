@@ -11,6 +11,11 @@ a.anchor{display: block; position: relative; top: -60px; visibility: hidden;}
     color: darkblue;
 }
 
+.cvterm {
+    font-size: x-small;
+}
+
+
 .red {
     color: darkred;
 }

@@ -5,7 +5,7 @@
 <!------------------------------------------------------->
 {% macro model(m) %}
 	<tr><td class="active">id</td><td>{{ m.id }}</td></tr>
-	<tr><td class="active">name</td><td>{{ m.name}}</td></tr>
+	<tr><td class="active">name</td><td>{{ m.name }}</td></tr>
 	<tr><td class="active">version</td><td>L{{ m.level }}V{{ m.version }}</td></tr>
 	<tr><td class="active">time</td><td>{{ m.time_units }}</td></tr>
 	<tr><td class="active">substance</td><td>{{ m.substance_units }}</td></tr>
@@ -23,8 +23,8 @@
 	<th scope="col" class="warning">FunctionDefinitions [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">math</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
 {% endmacro %}
 
 {% macro function_content(item) %}
@@ -32,8 +32,8 @@
 	<td class="active">{{ item.id }}</td>
 	<td>{{ item.name }}</td>
 	<td>{{ helpers.math(item) }}</td>
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -44,8 +44,8 @@
 	<th scope="col" class="warning">UnitDefinitions [{{ size }}]</th>
 	<th scope="col">name</th>
 	<th scope="col">units</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
 {% endmacro %}
 
 {% macro unit_content(item) %}
@@ -53,8 +53,8 @@
 	<td class="active">{{ item.id }}</td>
 	<td>{{ item.name }}</td>
 	<td>{{ item|SBML_unitDefinitionToString|SBML_stringToMathML }}</td>
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -69,8 +69,8 @@
 	<th scope="col">spatial dimensions</th>
 	<th scope="col">unit</th>
 	<th scope="col">derived unit</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
 {% endmacro %}
 
 {% macro compartment_content(item, values) %}
@@ -87,8 +87,8 @@
 	<td>{{ item.spatial_dimensions }}</td>
 	<td>{{ item.units }}</td>
 	<td>{{ helpers.derived_units(item) }}</td>
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -106,15 +106,16 @@
 	<th scope="col">substance units</th>
 	<th scope="col">derived units</th>
     {# <th scope="col">only substance units</th> #}
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
     {#  <th scope="col">XML</th>  #}
 {% endmacro %}
 
 {% macro species_content(item) %}
     <td class="hidden">Species</td>
 	<td class="active">{{ item.id }}</td>
-	<td>{{ item.name }}</td>
+	<td>{{ item.name }}<br />
+        <span class="cvterm blue">{{ item|SBML_formulaChargeString }}</span></td>
 	<td>{{ item.compartment }}</td>
     {{ helpers.boolean(item.boundary_condition) }}
     {{ helpers.boolean(item.constant) }}
@@ -131,8 +132,8 @@
 	<td>{{ item.substance_units }}</td>
 	<td>{{ helpers.derived_units(item) }}</td>
     {#  {{ helpers.boolean(item.getHasOnlySubstanceUnits()) }} #}
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
     {#  <td>{{ helpers.xml(item) }}</td>  #}
 {% endmacro %}
 
@@ -147,8 +148,8 @@
 	<th scope="col">unit</th>
 	<th scope="col">derived unit</th>
 	<th scope="col">constant</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
 {% endmacro %}
 
 {% macro parameter_content(item, values) %}
@@ -164,8 +165,8 @@
 	<td>{{ item.units }}</td>
 	<td>{{ helpers.derived_units(item) }}</td>
     {{ helpers.boolean(item.constant) }}
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -177,8 +178,8 @@
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
 {% endmacro %}
 
 {% macro assignment_content(item) %}
@@ -188,8 +189,8 @@
 	<td>=</td>
 	<td>{{ helpers.math(item) }}</td>
 	<td>{{ helpers.derived_units(item) }}</td>
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -201,8 +202,8 @@
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
 {% endmacro %}
 
 {% macro rule_content(item) %}
@@ -211,8 +212,8 @@
 	<td>=</td>
 	<td>{{ helpers.math(item) }}</td>
     <td>{{ helpers.derived_units(item) }}</td>
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -222,16 +223,16 @@
     <th scope="col" class="hidden">type</th>
 	<th scope="col" class="warning">Constraints [{{ size }}]</th>
 	<th scope="col">constraint</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
 {% endmacro %}
 
 {% macro constraint_content(item) %}
     <td class="hidden">Constraint</td>
     <td class="active">{{ item.id }}</td>
 	<td>{{ helpers.math(item) }}</td>
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -246,8 +247,8 @@
 	<th scope="col">modifiers</th>
     <th scope="col">formula</th>
 	<th scope="col">derived units</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
 {% endmacro %}
 
 {% macro reaction_content(item) %}
@@ -267,8 +268,8 @@
     </td>
 	<td>{{ helpers.math(item.getKineticLaw()) }}</td>
     <td>{{ helpers.derived_units(item.getKineticLaw()) }}</td>
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}
 
 <!------------------------------------------------------->
@@ -282,8 +283,9 @@
 	<th scope="col">priority</th>
 	<th scope="col">delay</th>
 	<th scope="col">assignments</th>
-	<th scope="col">sbo</th>
-	<th scope="col">cvterm</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
+
 {% endmacro %}
 
 {% macro event_content(item) %}
@@ -301,6 +303,6 @@
     		{{eva.getId}} = {{ helpers.math(eva) }}<br />
     	{% endfor %}
     </td>
-	<td>{{ helpers.sbo_term(item) }}</td>
-	<td>{{ helpers.annotation(item) }}</td>
+	<td>{{ helpers.sbo(item) }}</td>
+	<td>{{ helpers.cvterm(item) }}</td>
 {% endmacro %}

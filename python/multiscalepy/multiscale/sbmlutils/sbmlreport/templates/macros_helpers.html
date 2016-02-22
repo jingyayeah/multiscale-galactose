@@ -8,20 +8,32 @@
     {% endif %}
 {% endmacro %}
 
-{% macro sbo_term(item) %}
-    {% if item.getSBOTerm() != -1 %}
-        <a href="{{ item.getSBOTermAsURL() }}" target="_blank">{{ item.getSBOTermID() }}</a>
-    {% else %}
-        -
+
+{% macro cvterm(item) %}
+    {% if item.isSetAnnotation() %}
+       <div class="cvterm">{{ item|SBML_annotationToString }}</div>
     {% endif %}
 {% endmacro %}
 
-{% macro annotation(item) %}
-    {% if item.isSetAnnotation() %}
-        {{ item|SBML_annotationToString }}
-    {% else %}
-        -
+
+{% macro sbo(item) %}
+    {% if item.getSBOTerm() != -1 %}
+        <div class="cvterm">
+        <a href="{{ item.getSBOTermAsURL() }}" target="_blank">{{ item.getSBOTermID() }}</a>
+        </div>
     {% endif %}
+{% endmacro %}
+
+
+{% macro annotation(item) %}
+    <div class="cvterm">
+    {% if item.getSBOTerm() != -1 %}
+        <a href="{{ item.getSBOTermAsURL() }}" target="_blank">{{ item.getSBOTermID() }}</a><br />
+    {% endif %}
+    {% if item.isSetAnnotation() %}
+       {{ item|SBML_annotationToString }}
+    {% endif %}
+    </div>
 {% endmacro %}
 
 

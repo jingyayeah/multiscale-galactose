@@ -17,6 +17,7 @@ filters = [
     'SBML_unitDefinitionToString',
     'SBML_modelHistoryToString',
     'SBML_reactionToString',
+    'SBML_formulaChargeString',
     'SBML_ruleVariableToString',
 ]
 
@@ -47,6 +48,9 @@ def SBML_modelHistoryToString(mhistory):
 
 def SBML_reactionToString(reaction):
     return equationStringFromReaction(reaction)
+
+def SBML_formulaChargeString(species):
+    return formulaChargeStringFromSpecies(species)
 
 
 def SBML_unitDefinitionToString1(ud):

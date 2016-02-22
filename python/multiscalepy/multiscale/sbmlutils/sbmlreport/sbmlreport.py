@@ -18,7 +18,7 @@ The basic steps of template creation are
 
 
 from __future__ import print_function, division
-
+import warnings
 import codecs
 import os
 import shutil
@@ -28,6 +28,8 @@ import libsbml
 from jinja2 import Environment, FileSystemLoader
 
 import sbmlfilters
+from ..validation import validate_sbml
+
 
 # Change default encoding to UTF-8
 # We need to reload sys module first, because setdefaultencoding is available only at startup time
@@ -38,7 +40,7 @@ sys.setdefaultencoding('utf-8')
 TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
 
-def create_sbml_report(sbml, out_dir, template='report.html'):
+def create_sbml_report(sbml, out_dir, template='report.html', suffix=''):
     """ Creates the SBML report in the out_dir
 
     :param doc:
@@ -49,10 +51,25 @@ def create_sbml_report(sbml, out_dir, template='report.html'):
     :rtype:
     """
 
-    # write sbml
+    # check the sbml file
+    validate_sbml(sbml)
+
+    # read sbml
     doc = libsbml.readSBML(sbml)
     model = doc.getModel()
     mid = model.id
+    if len(suffix) > 0:
+        mid = '{}_{}'.format(mid, suffix)
+        model.setId(mid)
+
+    # promote local parameters
+    props = libsbml.ConversionProperties()
+    props.addOption("promoteLocalParameters", True, "Promotes all Local Parameters to Global ones")
+    if doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS:
+        warnings.warn("SBML Conversion failed...")
+    else:
+        print("SBML Conversion successful")
+
     f_sbml = os.path.join(out_dir, '{}.xml'.format(mid))
     libsbml.writeSBMLToFile(doc, f_sbml)
 
