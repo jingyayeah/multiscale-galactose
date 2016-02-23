@@ -200,7 +200,9 @@ class ModelAnnotator(object):
         self.id_dict = self.get_ids_from_model()
 
     def get_ids_from_model(self):
-        """ Create ids dictionary from the model. """
+        """ Create ids dictionary from the model.
+        The dictionary of ids is stored for the given set.
+        """
         # TODO: generic generation
         id_dict = dict()
         id_dict['model'] = [self.model.getId()]
@@ -223,7 +225,7 @@ class ModelAnnotator(object):
 
         lof = self.model.getListOfRules()
         if lof:
-            id_dict['rule'] = [item.getId() for item in lof]
+            id_dict['rule'] = [item.getVariable() for item in lof]
 
         lof = self.model.getListOfEvents()
         if lof:
@@ -242,7 +244,7 @@ class ModelAnnotator(object):
                 ids = self.id_dict[a.sbml_type]
                 # find the subset of ids matching the pattern
                 pattern_ids = self.__class__.get_matching_ids(ids, pattern)
-                elements = self.__class__.elements_from_ids(self.model, pattern_ids)
+                elements = self.__class__.elements_from_ids(self.model, pattern_ids, sbml_type=a.sbml_type)
             self.annotate_components(elements, a)
 
 
@@ -258,15 +260,19 @@ class ModelAnnotator(object):
         return match_ids
 
     @staticmethod
-    def elements_from_ids(model, sbml_ids):
+    def elements_from_ids(model, sbml_ids, sbml_type=None):
         elements = []
         for sid in sbml_ids:
-            e = model.getElementBySId(sid)
+            if sbml_type == 'rule':
+                e = model.getRuleByVariable(sid)
+            else:
+                # returns the first element with id
+                e = model.getElementBySId(sid)
             if e is None:
                 if sid == model.getId():
                     e = model
                 else:
-                    print('Element could not be found: {}'.format(sid))
+                    warnings.warn('Element could not be found: {}'.format(sid))
                     continue
             elements.append(e)
         return elements

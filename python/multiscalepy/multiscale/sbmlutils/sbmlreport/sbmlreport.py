@@ -40,7 +40,7 @@ sys.setdefaultencoding('utf-8')
 TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
 
-def create_sbml_report(sbml, out_dir, template='report.html', suffix=''):
+def create_sbml_report(sbml, out_dir, template='report.html', promote=False):
     """ Creates the SBML report in the out_dir
 
     :param doc:
@@ -58,17 +58,18 @@ def create_sbml_report(sbml, out_dir, template='report.html', suffix=''):
     doc = libsbml.readSBML(sbml)
     model = doc.getModel()
     mid = model.id
-    if len(suffix) > 0:
-        mid = '{}_{}'.format(mid, suffix)
+
+    if promote:
+        mid = '{}_{}'.format(mid, 'promoted')
         model.setId(mid)
 
-    # promote local parameters
-    props = libsbml.ConversionProperties()
-    props.addOption("promoteLocalParameters", True, "Promotes all Local Parameters to Global ones")
-    if doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS:
-        warnings.warn("SBML Conversion failed...")
-    else:
-        print("SBML Conversion successful")
+        # promote local parameters
+        props = libsbml.ConversionProperties()
+        props.addOption("promoteLocalParameters", True, "Promotes all Local Parameters to Global ones")
+        if doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS:
+            warnings.warn("SBML Conversion failed...")
+        else:
+            print("SBML Conversion successful")
 
     f_sbml = os.path.join(out_dir, '{}.xml'.format(mid))
     libsbml.writeSBMLToFile(doc, f_sbml)

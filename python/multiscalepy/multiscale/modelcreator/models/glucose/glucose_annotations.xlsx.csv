@@ -454,4 +454,4 @@ mm	compartment	RDF	FMA:66861	BQB_IS	fma	membrane of mitochondrion
 ^cit[_]*\w*$	species	Charge	-3
 
 # rules
-^[\w_]*_tot$	parameter	RDF	SBO:0000359	BQB_IS	biomodels.sbo	mass conservation law
+^[\w_]*_tot$	rule	RDF	SBO:0000359	BQB_IS	biomodels.sbo	mass conservation law
