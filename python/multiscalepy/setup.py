@@ -10,7 +10,7 @@ python setup.py sdist
 
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-import codecs # To use a consistent encoding
+import codecs  # To use a consistent encoding
 import os
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -28,18 +28,18 @@ else:
 
 
 # Get the long description from the relevant file
-with open(os.path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
+with open(os.path.join(here, 'DESCRIPTION.rst')) as f:
     long_description = f.read()
 
 setup(
-    name='multiscale',
+    name='multiscalepy',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     version=verstr,
 
-    description='simulation plots',
+    description='Multiscale Liver Simulations',
     long_description=long_description,
 
     # The project's main homepage.
@@ -47,10 +47,10 @@ setup(
 
     # Author details
     author='Matthias Koenig',
-    author_email='konigmatt@googlemails.com',
+    author_email='konigmatt@googlemail.com',
 
     # Choose your license
-    license='GPL',
+    license='MIT',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -58,7 +58,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
 
         # Indicate who your project is intended for
         'Intended Audience :: Science/Research',
@@ -78,12 +78,20 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='roadrunner',
+    keywords='multiscale modeling',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
     # exclude=['contrib', 'docs', 'examples*']
-    packages=find_packages(),
+    packages=[
+        'multiscale',
+        'multiscale.examples',
+        'multiscale.modelcreator',
+        'multiscale.multiscalesite',
+        'multiscale.sbmlutils',
+        'multiscale.simulate',
+        'multiscale.util',
+    ],
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
