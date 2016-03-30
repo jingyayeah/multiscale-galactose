@@ -1,6 +1,8 @@
 """
 Utils for the creation and work with comp models.
 """
+# TODO: allow generic arguments the factory function and use them to set
+#   metaId, sbo, name, id,
 
 # Modeling frameworks
 SBO_CONTINOUS_FRAMEWORK = 'SBO:0000062'
@@ -54,6 +56,25 @@ def get_submodel_frameworks(doc):
         frameworks[sid] = {"sid": sid, "modelRef": submodel.getModelRef(), "sbo": sbo}
 
     return frameworks
+
+
+##########################################################################
+# Ports
+##########################################################################
+# Ports are stored in an optional child ListOfPorts object, which,  if
+# present, must contain one or more Port objects.  All of the Ports
+# present in the ListOfPorts collectively define the 'port interface' of
+# the Model.
+def _create_port(model, pid, idRef, name=None):
+    print("create port")
+    cmodel = model.getPlugin("comp")
+    p = cmodel.createPort()
+    p.setId(pid)
+    p.setIdRef(idRef)
+    if name is not None:
+        p.setName(name)
+    return p
+
 
 ##########################################################################
 # Replacement helpers
