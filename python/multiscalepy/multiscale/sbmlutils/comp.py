@@ -65,14 +65,36 @@ def get_submodel_frameworks(doc):
 # present, must contain one or more Port objects.  All of the Ports
 # present in the ListOfPorts collectively define the 'port interface' of
 # the Model.
-def _create_port(model, pid, idRef, name=None):
-    print("create port")
+
+PORT_TYPE_PORT = "port"
+PORT_TYPE_INPUT = "input port"
+PORT_TYPE_OUTPUT = "output port"
+
+
+def _create_port(model, pid, name=None, portRef=None, idRef=None, unitRef=None, metaIdRef=None, portType=PORT_TYPE_PORT):
     cmodel = model.getPlugin("comp")
     p = cmodel.createPort()
     p.setId(pid)
-    p.setIdRef(idRef)
     if name is not None:
         p.setName(name)
+    if portRef is not None:
+        p.setPortRef(portRef)
+    if idRef is not None:
+        p.setIdRef(idRef)
+    if unitRef is not None:
+        p.setUnitRef(unitRef)
+    if metaIdRef is not None:
+        p.setMetaIdRef(metaIdRef)
+    if portType == PORT_TYPE_PORT:
+        # SBO:0000599 - port
+        p.setSBOTerm(599)
+    elif portType == PORT_TYPE_INPUT:
+        # SBO:0000600 - input port
+        p.setSBOTerm(600)
+    elif portType == PORT_TYPE_OUTPUT:
+        # SBO:0000601 - output port
+        p.setSBOTerm(601)
+
     return p
 
 

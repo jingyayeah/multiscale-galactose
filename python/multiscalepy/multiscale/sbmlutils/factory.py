@@ -8,6 +8,8 @@ The objects send to the create_... functions have to be dictionaries with
 certain keys (TODO: better via classes)
 
 """
+# TODO: support SBOTerms & MetaIds via keyword
+
 from __future__ import print_function, division
 
 import warnings
