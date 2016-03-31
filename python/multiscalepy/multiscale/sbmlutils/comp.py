@@ -2,10 +2,10 @@
 Utils for the creation and work with comp models.
 """
 from __future__ import print_function, division
-
-from mpmath.functions.factorials import fac2
+from validation import check
 
 import factory
+import libsbml
 
 # TODO: allow generic arguments the factory function and use them to set
 #   metaId, sbo, name, id,
@@ -106,33 +106,132 @@ def _create_port(model, pid, name=None, portRef=None, idRef=None, unitRef=None, 
 
     return p
 
-
 ##########################################################################
 # Replacement helpers
 ##########################################################################
-def replace_elements(model, sid, replaced_elements):
+SBASE_REF_TYPE_PORT = "portRef"
+SBASE_REF_TYPE_ID = "idRef"
+SBASE_REF_TYPE_UNIT = "unitRef"
+SBASE_REF_TYPE_METAID = "metIdRef"
+
+
+def replace_elements(model, sid, ref_type, replaced_elements):
     """
     Replace elements in comp.
     """
-    e = model.getElementBySId(sid)
-    eplugin = e.getPlugin("comp")
-
-    for mid, rep_ids in replaced_elements.iteritems():
+    for submodel, rep_ids in replaced_elements.iteritems():
         for rep_id in rep_ids:
-            print(sid, '--rep-->', mid, ':', rep_id)
-            replaced_element = eplugin.createReplacedElement()
-            replaced_element.setSubmodelRef(mid)
-            replaced_element.setIdRef(rep_id)
+            _create_replaced_element(model, sid, submodel, rep_id, ref_type=ref_type)
 
 
-def replaced_by(model, sid, submodel_id, idRef):
+def replace_element_in_submodels(model, sid, ref_type, submodels):
+    """
+    Replace elements submodels with the identical id.
+    For instance to replace all the units in the submodels.
+    """
+    for submodel in submodels:
+        _create_replaced_element(model, sid, submodel, sid, ref_type=ref_type)
+
+
+def _create_replaced_element(model, sid, submodel, replaced_id, ref_type):
+    eplugin = _get_eplugin_by_sid(model, sid)
+
+    print(sid, '--rep-->', submodel, ':', replaced_id)
+    rep_element = eplugin.createReplacedElement()
+    rep_element.setSubmodelRef(submodel)
+    _set_ref(rep_element, ref_id=replaced_id, ref_type=ref_type)
+
+    return rep_element
+
+
+def replaced_by(model, sid, ref_type, submodel, replaced_by):
     """
     The element with sid in the model is replaced by the
     replacing_id in the submodel with submodel_id.
     """
-    e = model.getElementBySId(sid)
-    eplugin = e.getPlugin("comp")
+    eplugin = _get_eplugin_by_sid(model=model, sid=sid)
     rby = eplugin.createReplacedBy()
-    rby.setIdRef(idRef)
-    rby.setSubmodelRef(submodel_id)
+    rby.setSubmodelRef(submodel)
+    _set_ref(object=rby, ref_id=replaced_by, ref_type=ref_type)
 
+
+def _get_eplugin_by_sid(model, sid):
+    """
+    Gets the comp plugin by sid.
+    """
+    e = model.getElementBySId(sid)
+    if not e:
+        e = model.getUnitDefinition(sid)
+    eplugin = e.getPlugin("comp")
+    return eplugin
+
+
+def _set_ref(object, ref_id, ref_type):
+    """
+    Sets the reference for given reference type in the object.
+    Objects can be
+        ReplacedBy
+        ReplacedElement
+    """
+    if ref_type == SBASE_REF_TYPE_ID:
+        object.setIdRef(ref_id)
+    elif ref_type == SBASE_REF_TYPE_UNIT:
+        object.setUnitRef(ref_id)
+    elif ref_type == SBASE_REF_TYPE_PORT:
+        object.setPortRef(ref_id)
+    elif ref_type == SBASE_REF_TYPE_METAID:
+        object.setMetaIdRef(ref_id)
+
+
+##########################################################################
+# flatten model
+##########################################################################
+def flattenSBMLFile(sbml_file, leave_ports=True, output_file=None):
+    """
+    Flatten the given SBML file.
+    """
+    reader = libsbml.SBMLReader()
+    check(reader, 'create an SBMLReader object.')
+    doc = reader.readSBML(sbml_file)
+    return flattenSBMLDocument(doc, leave_ports=leave_ports, output_file=output_file)
+
+
+def flattenSBMLDocument(doc, leave_ports=True, output_file=None):
+    """ Flatten the given SBMLDocument.
+
+    :param doc: SBMLDocument to flatten.
+    :type doc: SBMLDocument
+    :return:
+    :rtype:
+    """
+
+    if doc.getNumErrors() > 0:
+        if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
+            # Handle case of unreadable file here.
+            doc.printErrors()
+        elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
+            # Handle case of other file error here.
+            doc.printErrors()
+        else:
+            # Handle other error cases here.
+            doc.printErrors()
+
+    # converter options
+    props = libsbml.ConversionProperties()
+    props.addOption("flatten comp", True)  # Invokes CompFlatteningConverter
+    props.addOption("leave_ports", leave_ports)  # Indicates whether to leave ports
+
+    # convert
+    result = doc.convert(props)
+    if result != libsbml.LIBSBML_OPERATION_SUCCESS:
+        doc.printErrors()
+        return
+
+    if output_file is not None:
+        # Write the results to the output file.
+        writer = libsbml.SBMLWriter()
+        check(writer, 'create an SBMLWriter object.')
+        writer.writeSBML(doc, output_file)
+        print("Flattened model written to {}".format(output_file))
+
+    return doc
