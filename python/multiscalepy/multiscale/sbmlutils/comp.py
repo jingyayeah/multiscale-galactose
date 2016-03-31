@@ -123,3 +123,16 @@ def replace_elements(model, sid, replaced_elements):
             replaced_element = eplugin.createReplacedElement()
             replaced_element.setSubmodelRef(mid)
             replaced_element.setIdRef(rep_id)
+
+
+def replaced_by(model, sid, submodel_id, idRef):
+    """
+    The element with sid in the model is replaced by the
+    replacing_id in the submodel with submodel_id.
+    """
+    e = model.getElementBySId(sid)
+    eplugin = e.getPlugin("comp")
+    rby = eplugin.createReplacedBy()
+    rby.setIdRef(idRef)
+    rby.setSubmodelRef(submodel_id)
+
