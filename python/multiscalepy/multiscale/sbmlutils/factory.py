@@ -328,7 +328,7 @@ def _create_rule(model, rule, sid, formula):
 # Reactions
 ##########################################################################
 def create_reaction(model, rid, name, fast=False, reversible=True, reactants={}, products={},
-                    formula=None):
+                    formula=None, compartment=None):
     """ Create basic reaction structure. """
     r = model.createReaction()
     r.setId(rid)
@@ -353,6 +353,9 @@ def create_reaction(model, rid, name, fast=False, reversible=True, reactants={},
         ast_node = ast_node_from_formula(model=model, formula=formula)
         law = r.createKineticLaw()
         law.setMath(ast_node)
+
+    if compartment is not None:
+        r.setCompartment(compartment)
 
     return r
 
