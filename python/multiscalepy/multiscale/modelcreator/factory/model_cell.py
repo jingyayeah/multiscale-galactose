@@ -14,9 +14,9 @@ from ..processes.ReactionFactory import *
 from ..processes.ReactionTemplate import ReactionTemplate
 from ..utils import naming
 
-from multiscale.sbmlutils.factory import *
-from multiscale.sbmlutils.sbmlio import check, write_sbml
-from multiscale.sbmlutils import annotation
+from sbmlutils.factory import *
+from sbmlutils.sbmlio import check, write_sbml
+from sbmlutils import annotation
 
 
 class CellModel(object):

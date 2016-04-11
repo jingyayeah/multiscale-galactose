@@ -7,14 +7,12 @@ The different model variants are driven by different events.
 from __future__ import print_function, division
 
 import os
-# import multiscale.multiscalesite.simapp.db.api as db_api
 
+from sbmlutils.annotation import annotate_sbml_file
+from sbmlutils.validation import validate_sbml
+from sbmlutils.report import sbmlreport
 
 from multiscale.modelcreator.factory.model_cell import CellModel
-from multiscale.sbmlutils.annotation import annotate_sbml_file
-from multiscale.sbmlutils.validation import validate_sbml
-from multiscale.sbmlutils.sbmlreport import sbmlreport
-
 from multiscale.examples.testdata import test_dir
 
 """
@@ -95,7 +93,7 @@ def tissue_model():
 # TODO: proper checks of models via model hash
 
 
-def create_model(directory, model_info=[], f_annotations=None):
+def create_model(directory, model_info=[], f_annotations=None, suffix=None):
     """
     :param directory: where to create the SBML files
     :param model_info: model_info strings of python modules
@@ -108,7 +106,12 @@ def create_model(directory, model_info=[], f_annotations=None):
     cell_model = CellModel(cell_dict=cell_dict)
     cell_model.create_sbml()
 
-    f_sbml = os.path.join(directory, '{}.xml'.format(cell_model.model.getId()))
+    mid = cell_model.model.getId()
+    if suffix is not None:
+        fname = '{}{}.xml'.format(mid, suffix)
+    else:
+        fname = '{}.xml'.format(mid)
+    f_sbml = os.path.join(directory, fname)
     cell_model.write_sbml(f_sbml)
 
     # annotate
@@ -131,6 +134,8 @@ def create_demo():
     model_info = ['multiscale.modelcreator.models.demo']
     d = os.path.dirname(os.path.abspath(__file__))
     f_annotations = os.path.join(d, 'models', 'demo', 'demo_annotations.xlsx')
+
+    create_model(directory, model_info, f_annotations=None, suffix='_no_annotations')
     return create_model(directory, model_info, f_annotations)
 
 
@@ -150,8 +155,9 @@ def create_galactose():
 
     d = os.path.dirname(os.path.abspath(__file__))
     f_annotations = os.path.join(d, 'models', 'galactose', 'galactose_annotations.xlsx')
-
+    create_model(directory, model_info, f_annotations=None, suffix="_no_annotations")
     return create_model(directory, model_info, f_annotations)
+
 
 def create_glucose():
     """ Create glucose network. """
@@ -164,13 +170,14 @@ def create_glucose():
     return create_model(directory, model_info, f_annotations)
 
 
+#########################################################################
 if __name__ == "__main__":
 
     # TODO: add model creation tests
 
-    # [cell_dict, cell_model] = create_demo()
-    # [cell_dict, cell_model] = create_test()
-    # [cell_dict, cell_model] = create_galactose()
+    [cell_dict, cell_model] = create_demo()
+    [cell_dict, cell_model] = create_test()
+    [cell_dict, cell_model] = create_galactose()
     [cell_dict, cell_model] = create_glucose()
 
 
