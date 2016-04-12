@@ -243,11 +243,29 @@ mm	compartment	RDF	FMA:66861	BQB_IS	fma	membrane of mitochondrion
 ^NDKGTPM$	reaction	RDF	R00330	BQB_IS	kegg.reaction
 
 # species
-^glc[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^glc[_]*\w*$	species	RDF	CHEBI:4167	BQB_IS	chebi	D-glucopyranose
-^glc[_]*\w*$	species	RDF	C00031	BQB_IS	kegg.compound	D-Glucose
-^glc[_]*\w*$	species	Formula	C6H12O6
-^glc[_]*\w*$	species	Charge	0
+^caf[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^caf[_]*\w*$	species	RDF	CHEBI:27732	BQB_IS	chebi	caffeine
+^caf[_]*\w*$	species	RDF	C07481	BQB_IS	kegg.compound	caffeine
+^caf[_]*\w*$	species	Formula	C8H10N4O2
+^caf[_]*\w*$	species	Charge	0
+
+^px[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^px[_]*\w*$	species	RDF	CHEBI:25858	BQB_IS	chebi	1,7-dimethylxanthine
+^px[_]*\w*$	species	RDF	C13747	BQB_IS	kegg.compound	1,7-dimethylxanthine
+^px[_]*\w*$	species	Formula	C7H8N4O2
+^px[_]*\w*$	species	Charge	0
+
+^tb[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^tb[_]*\w*$	species	RDF	CHEBI:28946	BQB_IS	chebi	theobromine
+^tb[_]*\w*$	species	RDF	C07480	BQB_IS	kegg.compound	theobromine
+^tb[_]*\w*$	species	Formula	C7H8N4O2
+^tb[_]*\w*$	species	Charge	0
+
+^tp[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
+^tp[_]*\w*$	species	RDF	CHEBI:28177	BQB_IS	chebi	theophylline
+^tp[_]*\w*$	species	RDF	C07130	BQB_IS	kegg.compound	theophylline
+^tp[_]*\w*$	species	Formula	C7H8N4O2
+^tp[_]*\w*$	species	Charge	0
 
 ^atp[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
 ^atp[_]*\w*$	species	RDF	CHEBI:30616	BQB_IS	chebi	ATP(4-)
@@ -339,119 +357,6 @@ mm	compartment	RDF	FMA:66861	BQB_IS	fma	membrane of mitochondrion
 ^h2o[_]*\w*$	species	Formula	H2O
 ^h2o[_]*\w*$	species	Charge	0
 
-^glc1p[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^glc1p[_]*\w*$	species	RDF	C00103	BQB_IS	kegg.compound	D-Glucose 1-phosphate
-^glc1p[_]*\w*$	species	RDF	CHEBI:58601	BQB_IS	chebi	alpha-D-glucose 1-phosphate(2-)
-^glc1p[_]*\w*$	species	Formula	C6H11O9P
-^glc1p[_]*\w*$	species	Charge	-2
-
-^udpglc[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^udpglc[_]*\w*$	species	RDF	C00029	BQB_IS_VERSION_OF	kegg.compound	UDP-glucose
-^udpglc[_]*\w*$	species	RDF	CHEBI:58885	BQB_IS	chebi	UDP-alpha-D-glucose(2-)
-^udpglc[_]*\w*$	species	Formula	C15H22N2O17P2
-^udpglc[_]*\w*$	species	Charge	-2
-
-^glyglc[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^glyglc[_]*\w*$	species	RDF	C00182	BQB_IS_VERSION_OF	kegg.compound
-^glyglc[_]*\w*$	species	RDF	CHEBI:28087	BQB_IS_VERSION_OF	chebi
-^glyglc[_]*\w*$	species	Formula	C6H12O6
-^glyglc[_]*\w*$	species	Charge	0
-
-^glc6p[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^glc6p[_]*\w*$	species	RDF	C00668	BQB_IS_VERSION_OF	kegg.compound	alpha-D-Glucose 6-phosphate
-^glc6p[_]*\w*$	species	RDF	CHEBI:61548	BQB_IS	chebi	D-glucopyranose 6-phosphate(2-)
-^glc6p[_]*\w*$	species	Formula	C6H11O9P
-^glc6p[_]*\w*$	species	Charge	-2
-
-^fru6p[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^fru6p[_]*\w*$	species	RDF	C00085	BQB_IS_VERSION_OF	kegg.compound
-^fru6p[_]*\w*$	species	RDF	CHEBI:57579	BQB_IS	chebi	D-fructose 6-phosphate(2−)
-^fru6p[_]*\w*$	species	Formula	C6H11O9P
-^fru6p[_]*\w*$	species	Charge	-2
-
-^fru16bp[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^fru16bp[_]*\w*$	species	RDF	C00354	BQB_IS_VERSION_OF	kegg.compound
-^fru16bp[_]*\w*$	species	RDF	CHEBI:49299	BQB_IS	chebi	D-fructofuranose 1,6-bisphosphate(4-)
-^fru16bp[_]*\w*$	species	Formula	C6H10O12P2
-^fru16bp[_]*\w*$	species	Charge	-4
-
-^fru26bp[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^fru26bp[_]*\w*$	species	RDF	C00665	BQB_IS_VERSION_OF	kegg.compound
-^fru26bp[_]*\w*$	species	RDF	CHEBI:58579	BQB_IS	chebi	β-D-fructofuranose 2,6-bisphosphate(4−)
-^fru26bp[_]*\w*$	species	Formula	C6H10O12P2
-^fru26bp[_]*\w*$	species	Charge	-4
-
-^grap[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^grap[_]*\w*$	species	RDF	C00118	BQB_IS_VERSION_OF	kegg.compound
-^grap[_]*\w*$	species	RDF	CHEBI:59776	BQB_IS	chebi	D-glyceraldehyde 3-phosphate(2-)
-^grap[_]*\w*$	species	Formula	C3H5O6P
-^grap[_]*\w*$	species	Charge	-2
-
-^dhap[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^dhap[_]*\w*$	species	RDF	C00111	BQB_IS_VERSION_OF	kegg.compound
-^dhap[_]*\w*$	species	RDF	CHEBI:57642	BQB_IS	chebi	glycerone phosphate(2-)
-^dhap[_]*\w*$	species	Formula	C3H5O6P
-^dhap[_]*\w*$	species	Charge	-2
-
-^bpg13[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^bpg13[_]*\w*$	species	RDF	C00236	BQB_IS_VERSION_OF	kegg.compound
-^bpg13[_]*\w*$	species	RDF	CHEBI:57604	BQB_IS	chebi	3-phosphonato-D-glyceroyl phosphate(4-)
-^bpg13[_]*\w*$	species	Formula	C3H4O10P2
-^bpg13[_]*\w*$	species	Charge	-4
-
-^pg3[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^pg3[_]*\w*$	species	RDF	C00197	BQB_IS_VERSION_OF	kegg.compound
-^pg3[_]*\w*$	species	RDF	CHEBI:58272	BQB_IS	chebi	3-phosphonato-D-glycerate(3-)
-^pg3[_]*\w*$	species	Formula	C3H4O7P
-^pg3[_]*\w*$	species	Charge	-3
-
-^pg2[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^pg2[_]*\w*$	species	RDF	C00631	BQB_IS_VERSION_OF	kegg.compound
-^pg2[_]*\w*$	species	RDF	CHEBI:58289	BQB_IS	chebi	2-phosphonato-D-glycerate(3-)
-^pg2[_]*\w*$	species	Formula	C3H4O7P
-^pg2[_]*\w*$	species	Charge	-3
-
-^pep[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^pep[_]*\w*$	species	RDF	C00074	BQB_IS_VERSION_OF	kegg.compound
-^pep[_]*\w*$	species	RDF	CHEBI:58702	BQB_IS	chebi	phosphonatoenolpyruvate
-^pep[_]*\w*$	species	Formula	C3H2O6P
-^pep[_]*\w*$	species	Charge	-3
-
-^pyr[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^pyr[_]*\w*$	species	RDF	C00022	BQB_IS_VERSION_OF	kegg.compound
-^pyr[_]*\w*$	species	RDF	CHEBI:15361	BQB_IS	chebi	pyruvate
-^pyr[_]*\w*$	species	Formula	C3H3O3
-^pyr[_]*\w*$	species	Charge	-1
-
-^oaa[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^oaa[_]*\w*$	species	RDF	C00036	BQB_IS_VERSION_OF	kegg.compound
-^oaa[_]*\w*$	species	RDF	CHEBI:16452	BQB_IS	chebi	oxaloacetate(2-)
-^oaa[_]*\w*$	species	Formula	C4H2O5
-^oaa[_]*\w*$	species	Charge	-2
-
-^lac[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^lac[_]*\w*$	species	RDF	C00186	BQB_IS_VERSION_OF	kegg.compound
-^lac[_]*\w*$	species	RDF	CHEBI:16651	BQB_IS	chebi	(S)-lactate
-^lac[_]*\w*$	species	Formula	C3H5O3
-^lac[_]*\w*$	species	Charge	-1
-
-^coa[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^coa[_]*\w*$	species	RDF	C00010	BQB_IS_VERSION_OF	kegg.compound
-^coa[_]*\w*$	species	RDF	CHEBI:57287	BQB_IS	chebi	coenzyme A(4-)
-^coa[_]*\w*$	species	Formula	C21H32N7O16P3S
-^coa[_]*\w*$	species	Charge	-4
-
-^acoa[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^acoa[_]*\w*$	species	RDF	C00024	BQB_IS_VERSION_OF	kegg.compound
-^acoa[_]*\w*$	species	RDF	CHEBI:57288	BQB_IS	chebi	acetyl-CoA(4-)
-^acoa[_]*\w*$	species	Formula	C23H34N7O17P3S
-^acoa[_]*\w*$	species	Charge	-4
-
-^cit[_]*\w*$	species	RDF	SBO:0000247	BQB_IS	biomodels.sbo	simple chemical
-^cit[_]*\w*$	species	RDF	C00158	BQB_IS_VERSION_OF	kegg.compound
-^cit[_]*\w*$	species	RDF	CHEBI:16947	BQB_IS	chebi	citrate(3-)
-^cit[_]*\w*$	species	Formula	C6H5O7
-^cit[_]*\w*$	species	Charge	-3
 
 # rules
 ^[\w_]*_tot$	rule	RDF	SBO:0000359	BQB_IS	biomodels.sbo	mass conservation law

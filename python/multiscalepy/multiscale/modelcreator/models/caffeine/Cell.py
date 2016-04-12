@@ -64,16 +64,15 @@ names.update({
 ##############################################################
 species.update({
     # id : ('compartment', 'value', 'unit', 'boundaryCondition')
-    'caf_ext': ('e', 0.1, 'mM', True),
-    'px_ext': ('e', 0, 'mM', True),
-    'tb_ext': ('e', 0, 'mM', True),
-    'tp_ext': ('e', 0, 'mM', True),
+    'caf_ext': ('e', 0.0021, 'mM', True),
+    'px_ext': ('e', 0.010, 'mM', True),
+    'tb_ext': ('e', 0.0011, 'mM', True),
+    'tp_ext': ('e', 0.029, 'mM', True),
 
     'caf': ('c', 0, 'mM', True),
     'px': ('c', 0, 'mM', True),
     'tb': ('c', 0, 'mM', True),
     'tp': ('c', 0, 'mM', True),
-
 
     'atp': ('c', 2.8000, 'mM', True),
     'adp': ('c', 0.8000, 'mM', True),
@@ -92,6 +91,11 @@ species.update({
 
 })
 names.update({
+    'caf_ext': 'caffeine',
+    'px_ext': 'paraxanthine',
+    'tb_ext': 'theobromine',
+    'tp_ext': 'theophylline',
+
     'caf': 'caffeine',
     'px': 'paraxanthine',
     'tb': 'theobromine',

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" metaid="meta_5e2bac1b0ae443bdb7eb3c8de369d8ae" sboTerm="SBO:0000293" level="3" version="1" fbc:required="false">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" metaid="meta_0b018bb443a3450ba0bb2c4fbca8a1a1" sboTerm="SBO:0000293" level="3" version="1" fbc:required="false">
   <annotation>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-      <rdf:Description rdf:about="#meta_5e2bac1b0ae443bdb7eb3c8de369d8ae">
+      <rdf:Description rdf:about="#meta_0b018bb443a3450ba0bb2c4fbca8a1a1">
         <bqmodel:is>
           <rdf:Bag>
             <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000293"/>
@@ -11,7 +11,7 @@
       </rdf:Description>
     </rdf:RDF>
   </annotation>
-  <model metaid="meta_7e828c1f38d44a119723e0a2f9ebb042" id="Hepatic_caffeine_1" name="Hepatic_caffeine_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_a6c6a4f87c1641758e38bc5051c93774" id="Hepatic_caffeine_1" name="Hepatic_caffeine_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Caffeine Metabolism</h1>
@@ -37,7 +37,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_7e828c1f38d44a119723e0a2f9ebb042">
+    <rdf:Description rdf:about="#meta_a6c6a4f87c1641758e38bc5051c93774">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -53,10 +53,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-04-12T11:11:12Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-04-12T17:52:21Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-04-12T11:11:12Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-04-12T17:52:21Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -213,10 +213,10 @@
   <compartment id="h" name="hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
   <compartment id="c" name="cytosol" spatialDimensions="3" units="m3" constant="false"/>
   <compartment id="e" name="external" spatialDimensions="3" units="m3" constant="false"/>
-  <compartment metaid="meta_60f6b3b79aea4b3a90acea914f98ba28" sboTerm="SBO:0000290" id="pm" name="plasma membrane" spatialDimensions="2" units="m2" constant="false">
+  <compartment metaid="meta_4a79d43599134eaeb1758a3ccf41072c" sboTerm="SBO:0000290" id="pm" name="plasma membrane" spatialDimensions="2" units="m2" constant="false">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_60f6b3b79aea4b3a90acea914f98ba28">
+        <rdf:Description rdf:about="#meta_4a79d43599134eaeb1758a3ccf41072c">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000290"/>
@@ -229,10 +229,10 @@
     </annotation>
   </compartment>
 </listOfCompartments><listOfSpecies>
-  <species metaid="meta_fab7e01c58d24addbad8aa25406f9f52" sboTerm="SBO:0000247" id="gdp" name="GDP" compartment="c" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="C10H12N5O11P2">
+  <species metaid="meta_4227e572ac6944e99035f25128e3c860" sboTerm="SBO:0000247" id="gdp" name="GDP" compartment="c" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="C10H12N5O11P2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_fab7e01c58d24addbad8aa25406f9f52">
+        <rdf:Description rdf:about="#meta_4227e572ac6944e99035f25128e3c860">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -248,32 +248,25 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species id="theophylline" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="caffeine" name="caffeine" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="paraxanthine" name="paraxanthine" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species metaid="meta_5de79b280ac346b1a1d65b6b1c0b2306" sboTerm="SBO:0000247" id="utp" name="UTP" compartment="c" initialConcentration="0.27" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C9H11N2O15P3">
+  <species metaid="meta_073b933d76b74b48b756a7adb5bed0d0" sboTerm="SBO:0000247" id="caf_ext" name="caffeine" compartment="e" initialConcentration="0.0021" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C8H10N4O2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_5de79b280ac346b1a1d65b6b1c0b2306">
+        <rdf:Description rdf:about="#meta_073b933d76b74b48b756a7adb5bed0d0">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
-              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:46398"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:27732"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C07481"/>
             </rdf:Bag>
           </bqbiol:is>
-          <bqbiol:isVersionOf>
-            <rdf:Bag>
-              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00075"/>
-            </rdf:Bag>
-          </bqbiol:isVersionOf>
         </rdf:Description>
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_c919b110e6d9450ab17bbab8f91b9e86" sboTerm="SBO:0000247" id="pp" name="pyrophosphate" compartment="c" initialConcentration="0.008" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="HO7P2">
+  <species metaid="meta_793cfedfaae44f348af728021b62237c" sboTerm="SBO:0000247" id="pp" name="pyrophosphate" compartment="c" initialConcentration="0.008" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="HO7P2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_c919b110e6d9450ab17bbab8f91b9e86">
+        <rdf:Description rdf:about="#meta_793cfedfaae44f348af728021b62237c">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -289,10 +282,10 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_3fd68447f9b6435cb35c01b42c75c9b0" sboTerm="SBO:0000247" id="co2" name="CO2" compartment="c" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="CO2">
+  <species metaid="meta_410b83422eea4d109b1924be48fa447e" sboTerm="SBO:0000247" id="co2" name="CO2" compartment="c" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="CO2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_3fd68447f9b6435cb35c01b42c75c9b0">
+        <rdf:Description rdf:about="#meta_410b83422eea4d109b1924be48fa447e">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -304,30 +297,78 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_6d1731173853434499a8f1eabfbc9a7d" sboTerm="SBO:0000247" id="nad" name="NAD+" compartment="c" initialConcentration="1.22" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-1" fbc:chemicalFormula="C21H26N7O14P2">
+  <species metaid="meta_f786fa55943a4ac680dd19ed0222fff7" sboTerm="SBO:0000247" id="adp" name="ADP" compartment="c" initialConcentration="0.8" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-3" fbc:chemicalFormula="C10H12N5O10P2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_6d1731173853434499a8f1eabfbc9a7d">
+        <rdf:Description rdf:about="#meta_f786fa55943a4ac680dd19ed0222fff7">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
-              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:57540"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:456216"/>
             </rdf:Bag>
           </bqbiol:is>
           <bqbiol:isVersionOf>
             <rdf:Bag>
-              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00003"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00008"/>
             </rdf:Bag>
           </bqbiol:isVersionOf>
         </rdf:Description>
       </rdf:RDF>
     </annotation>
   </species>
-  <species id="theophylline_ext" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species metaid="meta_be4ab8a3574b45e199e8716742d6150a" sboTerm="SBO:0000247" id="gtp" name="GTP" compartment="c" initialConcentration="0.29" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C10H12N5O14P3">
+  <species metaid="meta_d6137f15af63414d9a9de7c89c1549a3" sboTerm="SBO:0000247" id="px" name="paraxanthine" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C7H8N4O2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_be4ab8a3574b45e199e8716742d6150a">
+        <rdf:Description rdf:about="#meta_d6137f15af63414d9a9de7c89c1549a3">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:25858"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C13747"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_d99baaaa696a414cbee670a317e37191" sboTerm="SBO:0000247" id="utp" name="UTP" compartment="c" initialConcentration="0.27" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C9H11N2O15P3">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_d99baaaa696a414cbee670a317e37191">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:46398"/>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00075"/>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_5194ba0d20654eca8c57b8c354a9bf98" sboTerm="SBO:0000247" id="tp" name="theophylline" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C7H8N4O2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_5194ba0d20654eca8c57b8c354a9bf98">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:28177"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C07130"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_b51aca7fdd9a4117985fe1196e90b312" sboTerm="SBO:0000247" id="gtp" name="GTP" compartment="c" initialConcentration="0.29" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C10H12N5O14P3">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_b51aca7fdd9a4117985fe1196e90b312">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -343,10 +384,40 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_df7d6bd4b31d4066a3bb58233a6a6cbd" sboTerm="SBO:0000247" id="udp" name="UDP" compartment="c" initialConcentration="0.09" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="C9H11N2O12P2">
+  <species metaid="meta_991d473cb60940a6bf50ef34247ec889" sboTerm="SBO:0000247" id="tb" name="theobromine" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C7H8N4O2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_df7d6bd4b31d4066a3bb58233a6a6cbd">
+        <rdf:Description rdf:about="#meta_991d473cb60940a6bf50ef34247ec889">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:28946"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C07480"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_309c8eb0dad949a1bb2d49538aa0aae5" sboTerm="SBO:0000247" id="tb_ext" name="theobromine" compartment="e" initialConcentration="0.0011" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C7H8N4O2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_309c8eb0dad949a1bb2d49538aa0aae5">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:28946"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C07480"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_e5dbdcb1c138478ab0cc0c051f4adc29" sboTerm="SBO:0000247" id="udp" name="UDP" compartment="c" initialConcentration="0.09" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-3" fbc:chemicalFormula="C9H11N2O12P2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_e5dbdcb1c138478ab0cc0c051f4adc29">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -362,10 +433,10 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_6ea862b1718243e8b60ca46faa6a7c03" sboTerm="SBO:0000247" id="nadh" name="NADH" compartment="c" initialConcentration="0.00056" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-2" fbc:chemicalFormula="C21H27N7O14P2">
+  <species metaid="meta_0c438898b42544a0a2a05733a4c163dd" sboTerm="SBO:0000247" id="nadh" name="NADH" compartment="c" initialConcentration="0.00056" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-2" fbc:chemicalFormula="C21H27N7O14P2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_6ea862b1718243e8b60ca46faa6a7c03">
+        <rdf:Description rdf:about="#meta_0c438898b42544a0a2a05733a4c163dd">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -383,10 +454,10 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_a139e76ec1c34b779827c75cb105d8cd" sboTerm="SBO:0000247" id="hydron" name="H+" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="1" fbc:chemicalFormula="H">
+  <species metaid="meta_e050882b821545fb9d5a9a0281bd4ccf" sboTerm="SBO:0000247" id="hydron" name="H+" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="1" fbc:chemicalFormula="H">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_a139e76ec1c34b779827c75cb105d8cd">
+        <rdf:Description rdf:about="#meta_e050882b821545fb9d5a9a0281bd4ccf">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -398,13 +469,10 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species id="caffeine_ext" compartment="e" initialConcentration="0.1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="theobromine_ext" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="paraxanthine_ext" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species metaid="meta_736049ac72504704b2f89916ffdc05f0" sboTerm="SBO:0000247" id="amp" name="AMP" compartment="c" initialConcentration="0.16" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-2" fbc:chemicalFormula="C10H12N5O7P">
+  <species metaid="meta_eff1838a7275487da4761628bfc737b4" sboTerm="SBO:0000247" id="amp" name="AMP" compartment="c" initialConcentration="0.16" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-2" fbc:chemicalFormula="C10H12N5O7P">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_736049ac72504704b2f89916ffdc05f0">
+        <rdf:Description rdf:about="#meta_eff1838a7275487da4761628bfc737b4">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -420,10 +488,25 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_83479d69f05f4bc886da321c16e2e1a9" sboTerm="SBO:0000247" id="phos" name="phosphate" compartment="c" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-2" fbc:chemicalFormula="HO4P">
+  <species metaid="meta_e5561c50bd2b4865a0b467e515109f27" sboTerm="SBO:0000247" id="tp_ext" name="theophylline" compartment="e" initialConcentration="0.029" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C7H8N4O2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_83479d69f05f4bc886da321c16e2e1a9">
+        <rdf:Description rdf:about="#meta_e5561c50bd2b4865a0b467e515109f27">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:28177"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C07130"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_96eb52813a6f42a29025024cae6ae30a" sboTerm="SBO:0000247" id="phos" name="phosphate" compartment="c" initialConcentration="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-2" fbc:chemicalFormula="HO4P">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_96eb52813a6f42a29025024cae6ae30a">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -439,30 +522,44 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_0683c1603f4148ab81ca08ab69a2ce74" sboTerm="SBO:0000247" id="adp" name="ADP" compartment="c" initialConcentration="0.8" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-3" fbc:chemicalFormula="C10H12N5O10P2">
+  <species metaid="meta_102b3e2f934048d4bffa4f79321b72c7" sboTerm="SBO:0000247" id="nad" name="NAD+" compartment="c" initialConcentration="1.22" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-1" fbc:chemicalFormula="C21H26N7O14P2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_0683c1603f4148ab81ca08ab69a2ce74">
+        <rdf:Description rdf:about="#meta_102b3e2f934048d4bffa4f79321b72c7">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
-              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:456216"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:57540"/>
             </rdf:Bag>
           </bqbiol:is>
           <bqbiol:isVersionOf>
             <rdf:Bag>
-              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00008"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00003"/>
             </rdf:Bag>
           </bqbiol:isVersionOf>
         </rdf:Description>
       </rdf:RDF>
     </annotation>
   </species>
-  <species id="theobromine" name="theobromine" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species metaid="meta_887f7f5d6a1c40ebb4dbfa998201b4b4" sboTerm="SBO:0000247" id="h2o" name="H2O" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="H2O">
+  <species metaid="meta_edee125413884106810c103cbe7c300b" sboTerm="SBO:0000247" id="px_ext" name="paraxanthine" compartment="e" initialConcentration="0.01" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C7H8N4O2">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_887f7f5d6a1c40ebb4dbfa998201b4b4">
+        <rdf:Description rdf:about="#meta_edee125413884106810c103cbe7c300b">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:25858"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C13747"/>
+            </rdf:Bag>
+          </bqbiol:is>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_97f3c96cd7534607a7c846f106af8e4b" sboTerm="SBO:0000247" id="h2o" name="H2O" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="H2O">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_97f3c96cd7534607a7c846f106af8e4b">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -478,10 +575,10 @@
       </rdf:RDF>
     </annotation>
   </species>
-  <species metaid="meta_2fbd53c90c744371848b707bd961d1e1" sboTerm="SBO:0000247" id="atp" name="ATP" compartment="c" initialConcentration="2.8" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3">
+  <species metaid="meta_3a70cae1e38f4a449afee184d5594f81" sboTerm="SBO:0000247" id="atp" name="ATP" compartment="c" initialConcentration="2.8" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_2fbd53c90c744371848b707bd961d1e1">
+        <rdf:Description rdf:about="#meta_3a70cae1e38f4a449afee184d5594f81">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
@@ -493,6 +590,21 @@
               <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00002"/>
             </rdf:Bag>
           </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+  </species>
+  <species metaid="meta_5651e635ca174e8799c9bfb5b772968a" sboTerm="SBO:0000247" id="caf" name="caffeine" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false" fbc:charge="0" fbc:chemicalFormula="C8H10N4O2">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_5651e635ca174e8799c9bfb5b772968a">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000247"/>
+              <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:27732"/>
+              <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C07481"/>
+            </rdf:Bag>
+          </bqbiol:is>
         </rdf:Description>
       </rdf:RDF>
     </annotation>
@@ -510,10 +622,10 @@
   <parameter id="c__nad_bal" name="NAD balance" units="mM" constant="false"/>
   <parameter id="c__adp_bal" name="ADP balance" units="mM" constant="false"/>
   <parameter id="c__udp_bal" name="UDP balance" units="mM" constant="false"/>
-  <parameter metaid="meta_893453d3ce694deb9d2a1141d5b483d6" sboTerm="SBO:0000281" id="CAFT_keq" value="1" units="dimensionless" constant="true">
+  <parameter metaid="meta_ffbcefafdf3241be801363f6397e8d24" sboTerm="SBO:0000281" id="CAFT_keq" value="1" units="dimensionless" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_893453d3ce694deb9d2a1141d5b483d6">
+        <rdf:Description rdf:about="#meta_ffbcefafdf3241be801363f6397e8d24">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
@@ -523,10 +635,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_b90d8c45a5d7489496e377842bce76d9" sboTerm="SBO:0000027" id="CAFT_k_caffeine" value="0.1" units="mM" constant="true">
+  <parameter metaid="meta_9f8fd5e5450040aba6472a1ecd21f79e" sboTerm="SBO:0000027" id="CAFT_k_caf" value="0.1" units="mM" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_b90d8c45a5d7489496e377842bce76d9">
+        <rdf:Description rdf:about="#meta_9f8fd5e5450040aba6472a1ecd21f79e">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
@@ -536,10 +648,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_a94b695763ac4cf48c7a9ddd168570c0" sboTerm="SBO:0000186" id="CAFT_Vmax" value="10" units="mole_per_s" constant="true">
+  <parameter metaid="meta_6d0896d005494e6b87115aa1b1f97d2d" sboTerm="SBO:0000186" id="CAFT_Vmax" value="10" units="mole_per_s" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_a94b695763ac4cf48c7a9ddd168570c0">
+        <rdf:Description rdf:about="#meta_6d0896d005494e6b87115aa1b1f97d2d">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000186"/>
@@ -549,10 +661,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_720d7bd69c7947cf91303b1d2ed65f92" sboTerm="SBO:0000281" id="PXT_keq" value="1" units="dimensionless" constant="true">
+  <parameter metaid="meta_4c2541f227554d408632fa234ff41d71" sboTerm="SBO:0000281" id="PXT_keq" value="1" units="dimensionless" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_720d7bd69c7947cf91303b1d2ed65f92">
+        <rdf:Description rdf:about="#meta_4c2541f227554d408632fa234ff41d71">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
@@ -562,10 +674,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_ae48d3a770c446d9b75853856535986e" sboTerm="SBO:0000027" id="PXT_k_paraxanthine" value="0.1" units="mM" constant="true">
+  <parameter metaid="meta_a1759d09924240fdb84d596ec74a02e6" sboTerm="SBO:0000027" id="PXT_k_px" value="0.1" units="mM" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_ae48d3a770c446d9b75853856535986e">
+        <rdf:Description rdf:about="#meta_a1759d09924240fdb84d596ec74a02e6">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
@@ -575,10 +687,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_581f000dc05a4488a90764c515a5d95d" sboTerm="SBO:0000186" id="PXT_Vmax" value="2" units="mole_per_s" constant="true">
+  <parameter metaid="meta_ff8e61e5507640c3a3340aac28611853" sboTerm="SBO:0000186" id="PXT_Vmax" value="2" units="mole_per_s" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_581f000dc05a4488a90764c515a5d95d">
+        <rdf:Description rdf:about="#meta_ff8e61e5507640c3a3340aac28611853">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000186"/>
@@ -588,10 +700,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_a5f442c23fb044ff9437aa0da4b17d59" sboTerm="SBO:0000281" id="TBT_keq" value="1" units="dimensionless" constant="true">
+  <parameter metaid="meta_e1ce167c3fb84694937df1a2a9783872" sboTerm="SBO:0000281" id="TBT_keq" value="1" units="dimensionless" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_a5f442c23fb044ff9437aa0da4b17d59">
+        <rdf:Description rdf:about="#meta_e1ce167c3fb84694937df1a2a9783872">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
@@ -601,10 +713,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_5b4990ef9cad42b4b50fd75f99bf8052" sboTerm="SBO:0000027" id="TBT_k_theobromine" value="0.1" units="mM" constant="true">
+  <parameter metaid="meta_dae819f3bed04e1d9eb4e893d8d8d3d1" sboTerm="SBO:0000027" id="TBT_k_tb" value="0.1" units="mM" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_5b4990ef9cad42b4b50fd75f99bf8052">
+        <rdf:Description rdf:about="#meta_dae819f3bed04e1d9eb4e893d8d8d3d1">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
@@ -614,10 +726,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_9011d906e13842318a7517ec067a736b" sboTerm="SBO:0000186" id="TBT_Vmax" value="2" units="mole_per_s" constant="true">
+  <parameter metaid="meta_7773063d5bec4dee8fdc166a8547a949" sboTerm="SBO:0000186" id="TBT_Vmax" value="2" units="mole_per_s" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_9011d906e13842318a7517ec067a736b">
+        <rdf:Description rdf:about="#meta_7773063d5bec4dee8fdc166a8547a949">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000186"/>
@@ -627,10 +739,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_8938bab5016f4015bcd3701010a95f97" sboTerm="SBO:0000281" id="TPT_keq" value="1" units="dimensionless" constant="true">
+  <parameter metaid="meta_b9fb2d1bab354c3ba8942b3f5b89aa3f" sboTerm="SBO:0000281" id="TPT_keq" value="1" units="dimensionless" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_8938bab5016f4015bcd3701010a95f97">
+        <rdf:Description rdf:about="#meta_b9fb2d1bab354c3ba8942b3f5b89aa3f">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000281"/>
@@ -640,10 +752,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_d6a2a549f8e047ab9239f7d251f51988" sboTerm="SBO:0000027" id="TPT_k_theophylline" value="0.1" units="mM" constant="true">
+  <parameter metaid="meta_011521fc9ffc4fb98bf6eadcea6584fd" sboTerm="SBO:0000027" id="TPT_k_tp" value="0.1" units="mM" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_d6a2a549f8e047ab9239f7d251f51988">
+        <rdf:Description rdf:about="#meta_011521fc9ffc4fb98bf6eadcea6584fd">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
@@ -653,10 +765,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_8d6073fcd60a46a4b62288457ed03047" sboTerm="SBO:0000186" id="TPT_Vmax" value="2" units="mole_per_s" constant="true">
+  <parameter metaid="meta_e7b753d0c03b4e6c820b9dc1a59937db" sboTerm="SBO:0000186" id="TPT_Vmax" value="2" units="mole_per_s" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_8d6073fcd60a46a4b62288457ed03047">
+        <rdf:Description rdf:about="#meta_e7b753d0c03b4e6c820b9dc1a59937db">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000186"/>
@@ -666,10 +778,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_72e38f6eadaa43b68e93f51e3ed852dd" sboTerm="SBO:0000027" id="CAF2PX_k_caffeine" value="0.1" units="mM" constant="true">
+  <parameter metaid="meta_c9cfc843c798437a8b161d8a3623238c" sboTerm="SBO:0000027" id="CAF2PX_k_caf" value="0.1" units="mM" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_72e38f6eadaa43b68e93f51e3ed852dd">
+        <rdf:Description rdf:about="#meta_c9cfc843c798437a8b161d8a3623238c">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
@@ -679,10 +791,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_1cfa343166774c3f8aeda225ec817fe8" sboTerm="SBO:0000186" id="CAF2PX_Vmax" value="8.4" units="mole_per_s" constant="true">
+  <parameter metaid="meta_4d2b63b0b9c1412e8804142c91df2357" sboTerm="SBO:0000186" id="CAF2PX_Vmax" value="8.4" units="mole_per_s" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_1cfa343166774c3f8aeda225ec817fe8">
+        <rdf:Description rdf:about="#meta_4d2b63b0b9c1412e8804142c91df2357">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000186"/>
@@ -692,10 +804,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_0441989817a643c387d1d85ab267c373" sboTerm="SBO:0000027" id="CAF2TB_k_caffeine" value="0.1" units="mM" constant="true">
+  <parameter metaid="meta_4a8a460422144dc1a4cb33685a55a147" sboTerm="SBO:0000027" id="CAF2TB_k_caf" value="0.1" units="mM" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_0441989817a643c387d1d85ab267c373">
+        <rdf:Description rdf:about="#meta_4a8a460422144dc1a4cb33685a55a147">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
@@ -705,10 +817,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_814fce751ff5461da8c344d9681db08b" sboTerm="SBO:0000186" id="CAF2TB_Vmax" value="1.2" units="mole_per_s" constant="true">
+  <parameter metaid="meta_e2b939b04fbd401585fcec2b1440f82a" sboTerm="SBO:0000186" id="CAF2TB_Vmax" value="1.2" units="mole_per_s" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_814fce751ff5461da8c344d9681db08b">
+        <rdf:Description rdf:about="#meta_e2b939b04fbd401585fcec2b1440f82a">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000186"/>
@@ -718,10 +830,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_a0c79342b37a445d9182c94eaa5796f8" sboTerm="SBO:0000027" id="CAF2TP_k_caffeine" value="0.1" units="mM" constant="true">
+  <parameter metaid="meta_fb5755ded25f4cf6a11d63753b0e107e" sboTerm="SBO:0000027" id="CAF2TP_k_caf" value="0.1" units="mM" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_a0c79342b37a445d9182c94eaa5796f8">
+        <rdf:Description rdf:about="#meta_fb5755ded25f4cf6a11d63753b0e107e">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000027"/>
@@ -731,10 +843,10 @@
       </rdf:RDF>
     </annotation>
   </parameter>
-  <parameter metaid="meta_9c0bd71549e74b1e97afadaaee82dcbd" sboTerm="SBO:0000186" id="CAF2TP_Vmax" value="0.4" units="mole_per_s" constant="true">
+  <parameter metaid="meta_ccf4001e4c8d41e596866fd1beece18e" sboTerm="SBO:0000186" id="CAF2TP_Vmax" value="0.4" units="mole_per_s" constant="true">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_9c0bd71549e74b1e97afadaaee82dcbd">
+        <rdf:Description rdf:about="#meta_ccf4001e4c8d41e596866fd1beece18e">
           <bqbiol:is>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000186"/>
@@ -829,10 +941,10 @@
 </listOfRules><listOfReactions>
   <reaction id="CAFT" name="caffeine transporter" reversible="true" fast="false" compartment="pm">
     <listOfReactants>
-      <speciesReference species="caffeine_ext" stoichiometry="1" constant="true"/>
+      <speciesReference species="caf_ext" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
-      <speciesReference species="caffeine" stoichiometry="1" constant="true"/>
+      <speciesReference species="caf" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
@@ -844,14 +956,14 @@
             <apply>
               <divide/>
               <ci> CAFT_Vmax </ci>
-              <ci> CAFT_k_caffeine </ci>
+              <ci> CAFT_k_caf </ci>
             </apply>
             <apply>
               <minus/>
-              <ci> caffeine_ext </ci>
+              <ci> caf_ext </ci>
               <apply>
                 <divide/>
-                <ci> caffeine </ci>
+                <ci> caf </ci>
                 <ci> CAFT_keq </ci>
               </apply>
             </apply>
@@ -861,13 +973,13 @@
             <cn sbml:units="dimensionless" type="integer"> 1 </cn>
             <apply>
               <divide/>
-              <ci> caffeine_ext </ci>
-              <ci> CAFT_k_caffeine </ci>
+              <ci> caf_ext </ci>
+              <ci> CAFT_k_caf </ci>
             </apply>
             <apply>
               <divide/>
-              <ci> caffeine </ci>
-              <ci> CAFT_k_caffeine </ci>
+              <ci> caf </ci>
+              <ci> CAFT_k_caf </ci>
             </apply>
           </apply>
         </apply>
@@ -876,10 +988,10 @@
   </reaction>
   <reaction id="PXT" name="paraxanthine transporter" reversible="true" fast="false" compartment="pm">
     <listOfReactants>
-      <speciesReference species="paraxanthine_ext" stoichiometry="1" constant="true"/>
+      <speciesReference species="px" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
-      <speciesReference species="paraxanthine" stoichiometry="1" constant="true"/>
+      <speciesReference species="px_ext" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
@@ -891,14 +1003,14 @@
             <apply>
               <divide/>
               <ci> PXT_Vmax </ci>
-              <ci> PXT_k_paraxanthine </ci>
+              <ci> PXT_k_px </ci>
             </apply>
             <apply>
               <minus/>
-              <ci> paraxanthine_ext </ci>
+              <ci> px </ci>
               <apply>
                 <divide/>
-                <ci> paraxanthine </ci>
+                <ci> px_ext </ci>
                 <ci> PXT_keq </ci>
               </apply>
             </apply>
@@ -908,13 +1020,13 @@
             <cn sbml:units="dimensionless" type="integer"> 1 </cn>
             <apply>
               <divide/>
-              <ci> paraxanthine_ext </ci>
-              <ci> PXT_k_paraxanthine </ci>
+              <ci> px_ext </ci>
+              <ci> PXT_k_px </ci>
             </apply>
             <apply>
               <divide/>
-              <ci> paraxanthine </ci>
-              <ci> PXT_k_paraxanthine </ci>
+              <ci> px </ci>
+              <ci> PXT_k_px </ci>
             </apply>
           </apply>
         </apply>
@@ -923,10 +1035,10 @@
   </reaction>
   <reaction id="TBT" name="theobromine transporter" reversible="true" fast="false" compartment="pm">
     <listOfReactants>
-      <speciesReference species="theobromine_ext" stoichiometry="1" constant="true"/>
+      <speciesReference species="tb" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
-      <speciesReference species="theobromine" stoichiometry="1" constant="true"/>
+      <speciesReference species="tb_ext" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
@@ -938,14 +1050,14 @@
             <apply>
               <divide/>
               <ci> TBT_Vmax </ci>
-              <ci> TBT_k_theobromine </ci>
+              <ci> TBT_k_tb </ci>
             </apply>
             <apply>
               <minus/>
-              <ci> theobromine_ext </ci>
+              <ci> tb </ci>
               <apply>
                 <divide/>
-                <ci> theobromine </ci>
+                <ci> tb_ext </ci>
                 <ci> TBT_keq </ci>
               </apply>
             </apply>
@@ -955,13 +1067,13 @@
             <cn sbml:units="dimensionless" type="integer"> 1 </cn>
             <apply>
               <divide/>
-              <ci> theobromine_ext </ci>
-              <ci> TBT_k_theobromine </ci>
+              <ci> tb_ext </ci>
+              <ci> TBT_k_tb </ci>
             </apply>
             <apply>
               <divide/>
-              <ci> theobromine </ci>
-              <ci> TBT_k_theobromine </ci>
+              <ci> tb </ci>
+              <ci> TBT_k_tb </ci>
             </apply>
           </apply>
         </apply>
@@ -970,10 +1082,10 @@
   </reaction>
   <reaction id="TPT" name="theophylline transporter" reversible="true" fast="false" compartment="pm">
     <listOfReactants>
-      <speciesReference species="theophylline_ext" stoichiometry="1" constant="true"/>
+      <speciesReference species="tp" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
-      <speciesReference species="theophylline" stoichiometry="1" constant="true"/>
+      <speciesReference species="tp_ext" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
@@ -985,14 +1097,14 @@
             <apply>
               <divide/>
               <ci> TPT_Vmax </ci>
-              <ci> TPT_k_theophylline </ci>
+              <ci> TPT_k_tp </ci>
             </apply>
             <apply>
               <minus/>
-              <ci> theophylline_ext </ci>
+              <ci> tp </ci>
               <apply>
                 <divide/>
-                <ci> theophylline </ci>
+                <ci> tp_ext </ci>
                 <ci> TPT_keq </ci>
               </apply>
             </apply>
@@ -1002,13 +1114,13 @@
             <cn sbml:units="dimensionless" type="integer"> 1 </cn>
             <apply>
               <divide/>
-              <ci> theophylline_ext </ci>
-              <ci> TPT_k_theophylline </ci>
+              <ci> tp_ext </ci>
+              <ci> TPT_k_tp </ci>
             </apply>
             <apply>
               <divide/>
-              <ci> theophylline </ci>
-              <ci> TPT_k_theophylline </ci>
+              <ci> tp </ci>
+              <ci> TPT_k_tp </ci>
             </apply>
           </apply>
         </apply>
@@ -1017,10 +1129,10 @@
   </reaction>
   <reaction id="CAF2PX" name="CAF2PX" reversible="false" fast="false" compartment="c">
     <listOfReactants>
-      <speciesReference species="caffeine" stoichiometry="1" constant="true"/>
+      <speciesReference species="caf" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
-      <speciesReference species="paraxanthine" stoichiometry="1" constant="true"/>
+      <speciesReference species="px" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1030,12 +1142,12 @@
             <times/>
             <ci> f_caf </ci>
             <ci> CAF2PX_Vmax </ci>
-            <ci> caffeine </ci>
+            <ci> caf </ci>
           </apply>
           <apply>
             <plus/>
-            <ci> CAF2PX_k_caffeine </ci>
-            <ci> caffeine </ci>
+            <ci> CAF2PX_k_caf </ci>
+            <ci> caf </ci>
           </apply>
         </apply>
       </math>
@@ -1043,10 +1155,10 @@
   </reaction>
   <reaction id="CAF2TB" name="CAF2TB" reversible="false" fast="false" compartment="c">
     <listOfReactants>
-      <speciesReference species="caffeine" stoichiometry="1" constant="true"/>
+      <speciesReference species="caf" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
-      <speciesReference species="theobromine" stoichiometry="1" constant="true"/>
+      <speciesReference species="tb" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1056,12 +1168,12 @@
             <times/>
             <ci> f_caf </ci>
             <ci> CAF2TB_Vmax </ci>
-            <ci> caffeine </ci>
+            <ci> caf </ci>
           </apply>
           <apply>
             <plus/>
-            <ci> CAF2TB_k_caffeine </ci>
-            <ci> caffeine </ci>
+            <ci> CAF2TB_k_caf </ci>
+            <ci> caf </ci>
           </apply>
         </apply>
       </math>
@@ -1069,10 +1181,10 @@
   </reaction>
   <reaction id="CAF2TP" name="CAF2TP" reversible="false" fast="false" compartment="c">
     <listOfReactants>
-      <speciesReference species="caffeine" stoichiometry="1" constant="true"/>
+      <speciesReference species="caf" stoichiometry="1" constant="true"/>
     </listOfReactants>
     <listOfProducts>
-      <speciesReference species="theobromine" stoichiometry="1" constant="true"/>
+      <speciesReference species="tp" stoichiometry="1" constant="true"/>
     </listOfProducts>
     <kineticLaw>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1082,12 +1194,12 @@
             <times/>
             <ci> f_caf </ci>
             <ci> CAF2TP_Vmax </ci>
-            <ci> caffeine </ci>
+            <ci> caf </ci>
           </apply>
           <apply>
             <plus/>
-            <ci> CAF2TP_k_caffeine </ci>
-            <ci> caffeine </ci>
+            <ci> CAF2TP_k_caf </ci>
+            <ci> caf </ci>
           </apply>
         </apply>
       </math>
