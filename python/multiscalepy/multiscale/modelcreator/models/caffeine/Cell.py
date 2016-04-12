@@ -1,0 +1,181 @@
+# -*- coding=utf-8 -*-
+"""
+Hepatic glucose model (Koenig 2012).
+
+Definition of units is done by defining the main_units of the model in
+addition with the definition of the individual units of the model.
+
+"""
+from libsbml import UNIT_KIND_KILOGRAM, UNIT_KIND_MOLE, UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE
+from libsbml import XMLNode
+from ..templates import terms_of_use, mkoenig
+
+##############################################################
+mid = 'Hepatic_caffeine'
+version = 1
+notes = XMLNode.convertStringToXMLNode("""
+    <body xmlns='http://www.w3.org/1999/xhtml'>
+    <h1>Koenig Human Caffeine Metabolism</h1>
+    <h2>Description</h2>
+    <p>
+        This is a metabolism model of Human caffeine metabolism in <a href="http://sbml.org">SBML</a> format.
+    </p>
+    """ + terms_of_use + """
+    </body>
+    """)
+creators = mkoenig
+main_units = {
+    'time': 's',
+    'extent': UNIT_KIND_MOLE,
+    'substance': UNIT_KIND_MOLE,
+    'length': 'm',
+    'area': 'm2',
+    'volume': 'm3',
+}
+units = dict()
+functions = dict()
+compartments = dict()
+species = dict()
+parameters = dict()
+names = dict()
+assignments = dict()
+rules = dict()
+reactions = []
+
+##############################################################
+# Compartments
+##############################################################
+compartments.update({
+    # id : ('spatialDimension', 'unit', 'constant', 'assignment')
+    'e': (3, 'm3', False, 'Vol_e'),
+    'h': (3, 'm3', False, 'Vol_h'),
+    'c': (3, 'm3', False, 'Vol_c'),
+    'pm': (2, 'm2', False, 'A_m'),
+})
+names.update({
+    'e': 'external',
+    'h': 'hepatocyte',
+    'c': 'cytosol',
+    'pm': 'plasma membrane',
+})
+
+##############################################################
+# Species
+##############################################################
+species.update({
+    # id : ('compartment', 'value', 'unit', 'boundaryCondition')
+    'caf_ext': ('e', 0.1, 'mM', True),
+    'px_ext': ('e', 0, 'mM', True),
+    'tb_ext': ('e', 0, 'mM', True),
+    'tp_ext': ('e', 0, 'mM', True),
+
+    'caf': ('c', 0, 'mM', True),
+    'px': ('c', 0, 'mM', True),
+    'tb': ('c', 0, 'mM', True),
+    'tp': ('c', 0, 'mM', True),
+
+
+    'atp': ('c', 2.8000, 'mM', True),
+    'adp': ('c', 0.8000, 'mM', True),
+    'amp': ('c', 0.1600, 'mM', True),
+    'utp': ('c', 0.2700, 'mM', False),
+    'udp': ('c', 0.0900, 'mM', False),
+    'gtp': ('c', 0.2900, 'mM', False),
+    'gdp': ('c', 0.1000, 'mM', False),
+    'nad': ('c', 1.2200, 'mM', True),
+    'nadh': ('c', 0.56E-3, 'mM', True),
+    'phos': ('c', 5.0000, 'mM', True),
+    'pp': ('c', 0.0080, 'mM', False),
+    'co2': ('c', 5.0000, 'mM', True),
+    'h2o': ('c', 0.0, 'mM', True),
+    'hydron': ('c', 0.0, 'mM', True),
+
+})
+names.update({
+    'caf': 'caffeine',
+    'px': 'paraxanthine',
+    'tb': 'theobromine',
+    'tp': 'theophylline',
+
+    'atp': 'ATP',
+    'adp': 'ADP',
+    'amp': 'AMP',
+    'utp': 'UTP',
+    'udp': 'UDP',
+    'gtp': 'GTP',
+    'gdp': 'GDP',
+    'nad': 'NAD+',
+    'nadh': 'NADH',
+    'phos': 'phosphate',
+    'pp': 'pyrophosphate',
+    'co2': 'CO2',
+    'h2o': 'H2O',
+    'hydron': 'H+',
+})
+
+##############################################################
+# Parameters
+##############################################################
+parameters.update({
+    # id: ('value', 'unit', 'constant')
+    'f_caf':      (0.31, 'dimensionless', True),
+    'y_cell':       (9.40E-6, 'm', True),
+    'x_cell':       (25E-6, 'm', True),
+    'f_tissue':     (0.8, '-', True),
+    'f_cyto':       (0.4, '-', True),
+})
+names.update({
+    'f_caf': 'metabolic scaling factor',
+    'y_cell': 'width hepatocyte',
+    'x_cell': 'length hepatocyte',
+    'f_tissue': 'parenchymal fraction of liver',
+    'f_cyto': 'cytosolic fraction of hepatocyte'
+})
+
+##############################################################
+# Assignments
+##############################################################
+assignments.update({
+    # id: ('value', 'unit')
+    'Vol_h': ('x_cell*x_cell*y_cell', 'm3'),
+    'Vol_e': ('Vol_h', 'm3'),
+    'Vol_c': ('f_cyto*Vol_h', 'm3'),
+    'A_m': ('x_cell*x_cell', 'm2'),
+})
+names.update({
+    'Vol_h': 'volume hepatocyte',
+    'Vol_c': 'volume cytosol',
+    'Vol_e': 'volume external compartment',
+    'A_m': 'area plasma membrane',
+})
+
+##############################################################
+# Rules
+##############################################################
+rules.update({
+    # id: ('value', 'unit')
+    'c__nad_bal': ('nad + nadh', 'mM'),
+    'c__adp_bal': ('atp + adp', 'mM'),
+    'c__udp_bal': ('utp + udp', 'mM'),
+
+})
+names.update({
+    'nad_bal': 'NAD balance',
+    'adp_bal': 'ADP balance',
+    'udp_bal': 'UDP balance',
+})
+
+
+##############################################################
+# Reactions
+##############################################################
+import Reactions
+reactions.extend([
+    Reactions.CAFT,
+    Reactions.PXT,
+    Reactions.TBT,
+    Reactions.TPT,
+    Reactions.CAF2PX,
+    Reactions.CAF2TB,
+    Reactions.CAF2TP,
+])
