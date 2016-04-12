@@ -6,6 +6,9 @@ Definition of units is done by defining the main_units of the model in
 addition with the definition of the individual units of the model.
 
 """
+
+# TODO: include microsome compartment
+
 from libsbml import UNIT_KIND_KILOGRAM, UNIT_KIND_MOLE, UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE
 from libsbml import XMLNode
 from ..templates import terms_of_use, mkoenig
@@ -64,30 +67,30 @@ names.update({
 ##############################################################
 species.update({
     # id : ('compartment', 'value', 'unit', 'boundaryCondition')
-    'caf_ext': ('e', 0.0021, 'mM', True),
-    'px_ext': ('e', 0.010, 'mM', True),
-    'tb_ext': ('e', 0.0011, 'mM', True),
-    'tp_ext': ('e', 0.029, 'mM', True),
+    'caf_ext': ('e', 0.0021, 'mM', False),
+    'px_ext': ('e', 0.010, 'mM', False),
+    'tb_ext': ('e', 0.0011, 'mM', False),
+    'tp_ext': ('e', 0.029, 'mM', False),
 
-    'caf': ('c', 0, 'mM', True),
-    'px': ('c', 0, 'mM', True),
-    'tb': ('c', 0, 'mM', True),
-    'tp': ('c', 0, 'mM', True),
+    'caf': ('c', 0, 'mM', False),
+    'px': ('c', 0, 'mM', False),
+    'tb': ('c', 0, 'mM', False),
+    'tp': ('c', 0, 'mM', False),
 
-    'atp': ('c', 2.8000, 'mM', True),
-    'adp': ('c', 0.8000, 'mM', True),
-    'amp': ('c', 0.1600, 'mM', True),
-    'utp': ('c', 0.2700, 'mM', False),
-    'udp': ('c', 0.0900, 'mM', False),
-    'gtp': ('c', 0.2900, 'mM', False),
-    'gdp': ('c', 0.1000, 'mM', False),
-    'nad': ('c', 1.2200, 'mM', True),
-    'nadh': ('c', 0.56E-3, 'mM', True),
-    'phos': ('c', 5.0000, 'mM', True),
-    'pp': ('c', 0.0080, 'mM', False),
-    'co2': ('c', 5.0000, 'mM', True),
-    'h2o': ('c', 0.0, 'mM', True),
-    'hydron': ('c', 0.0, 'mM', True),
+    # 'atp': ('c', 2.8000, 'mM', False),
+    # 'adp': ('c', 0.8000, 'mM', False),
+    # 'amp': ('c', 0.1600, 'mM', False),
+    # 'utp': ('c', 0.2700, 'mM', False),
+    # 'udp': ('c', 0.0900, 'mM', False),
+    # 'gtp': ('c', 0.2900, 'mM', False),
+    # 'gdp': ('c', 0.1000, 'mM', False),
+    # 'nad': ('c', 1.2200, 'mM', False),
+    # 'nadh': ('c', 0.56E-3, 'mM', False),
+    # 'phos': ('c', 5.0000, 'mM', False),
+    # 'pp': ('c', 0.0080, 'mM', False),
+    # 'co2': ('c', 5.0000, 'mM', False),
+    # 'h2o': ('c', 0.0, 'mM', False),
+    # 'hydron': ('c', 0.0, 'mM', False),
 
 })
 names.update({
@@ -122,14 +125,14 @@ names.update({
 ##############################################################
 parameters.update({
     # id: ('value', 'unit', 'constant')
-    'f_caf':      (0.31, 'dimensionless', True),
+    'f_met':      (0.31, 'per_m3', True),
     'y_cell':       (9.40E-6, 'm', True),
     'x_cell':       (25E-6, 'm', True),
     'f_tissue':     (0.8, '-', True),
     'f_cyto':       (0.4, '-', True),
 })
 names.update({
-    'f_caf': 'metabolic scaling factor',
+    'f_met': 'metabolic scaling factor',
     'y_cell': 'width hepatocyte',
     'x_cell': 'length hepatocyte',
     'f_tissue': 'parenchymal fraction of liver',
@@ -158,9 +161,10 @@ names.update({
 ##############################################################
 rules.update({
     # id: ('value', 'unit')
-    'c__nad_bal': ('nad + nadh', 'mM'),
-    'c__adp_bal': ('atp + adp', 'mM'),
-    'c__udp_bal': ('utp + udp', 'mM'),
+    # 'c__nad_bal': ('nad + nadh', 'mM'),
+    # 'c__adp_bal': ('atp + adp', 'mM'),
+    # 'c__udp_bal': ('utp + udp', 'mM'),
+    'f_caf': ('f_met * Vol_h', '-'),
 
 })
 names.update({
