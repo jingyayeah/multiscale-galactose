@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+  <model metaid="meta_b1ab71e1effb4818a5f7d87bcd2fd80a" id="Sturis1991_1" name="Sturis1991_1" substanceUnits="mg" timeUnits="min" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mg" fbc:strict="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_b1ab71e1effb4818a5f7d87bcd2fd80a">
+          <dc:creator>
+            <rdf:Bag>
+              <rdf:li rdf:parseType="Resource">
+                <vCard:N rdf:parseType="Resource">
+                  <vCard:Family>Koenig</vCard:Family>
+                  <vCard:Given>Matthias</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL>konigmatt@googlemail.com</vCard:EMAIL>
+                <vCard:ORG rdf:parseType="Resource">
+                  <vCard:Orgname>Humboldt-University Berlin, Institute for Theoretical Biology</vCard:Orgname>
+                </vCard:ORG>
+              </rdf:li>
+            </rdf:Bag>
+          </dc:creator>
+          <dcterms:created rdf:parseType="Resource">
+            <dcterms:W3CDTF>2016-05-03T16:41:33Z</dcterms:W3CDTF>
+          </dcterms:created>
+          <dcterms:modified rdf:parseType="Resource">
+            <dcterms:W3CDTF>2016-05-03T16:41:33Z</dcterms:W3CDTF>
+          </dcterms:modified>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+    <listOfFunctionDefinitions>
+      <functionDefinition id="f1" name="pancreatic insulin production">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> G </ci>
+            </bvar>
+            <bvar>
+              <ci> Rm </ci>
+            </bvar>
+            <bvar>
+              <ci> C1 </ci>
+            </bvar>
+            <bvar>
+              <ci> Vg </ci>
+            </bvar>
+            <bvar>
+              <ci> a1 </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <ci> Rm </ci>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> C1 </ci>
+                      <apply>
+                        <divide/>
+                        <ci> G </ci>
+                        <ci> Vg </ci>
+                      </apply>
+                    </apply>
+                    <ci> a1 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="mg">
+        <listOfUnits>
+          <unit kind="gram" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mU_per_l">
+        <listOfUnits>
+          <unit kind="katal" exponent="1" scale="-12" multiplier="16.67"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="min">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mU_per_min">
+        <listOfUnits>
+          <unit kind="katal" exponent="1" scale="-12" multiplier="16.67"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mg_per_min">
+        <listOfUnits>
+          <unit kind="gram" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="l_per_mU">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="katal" exponent="-1" scale="-12" multiplier="16.67"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mg_per_l">
+        <listOfUnits>
+          <unit kind="gram" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mU">
+        <listOfUnits>
+          <unit kind="katal" exponent="1" scale="-12" multiplier="16.67"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m2">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="l_per_min">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="Vp" name="plasma space" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="Vi" name="insulin space" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="Vg" name="glucose space" spatialDimensions="3" units="litre" constant="true"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="U0" value="40" units="mg_per_min" constant="true"/>
+      <parameter id="Rg" value="180" units="mg_per_min" constant="true"/>
+      <parameter id="Rm" value="210" units="mU_per_min" constant="true"/>
+      <parameter id="tp" value="6" units="min" constant="true"/>
+      <parameter id="ti" value="100" units="min" constant="true"/>
+      <parameter id="C3" value="1000" units="mg_per_l" constant="true"/>
+      <parameter id="C2" value="144" units="mg_per_l" constant="true"/>
+      <parameter id="td" value="36" units="min" constant="true"/>
+      <parameter id="C5" value="26" units="mU_per_l" constant="true"/>
+      <parameter id="C4" value="80" units="mU_per_l" constant="true"/>
+      <parameter id="E" value="0.2" units="l_per_min" constant="true"/>
+      <parameter id="G" name="amount of glucose in plasma and intracellular space" value="0" units="mg" constant="true"/>
+      <parameter id="a1" value="300" units="mg_per_l" constant="true"/>
+      <parameter id="x2" name="delay variable x2" value="0" units="mU" constant="true"/>
+      <parameter id="x3" name="delay variable x3" value="0" units="mU" constant="true"/>
+      <parameter id="x1" name="delay variable x1" value="0" units="mU" constant="true"/>
+      <parameter id="C1" value="2000" units="mg_per_l" constant="true"/>
+      <parameter id="Ub" value="72" units="mg_per_min" constant="true"/>
+      <parameter id="a" value="0.29" units="l_per_mU" constant="true"/>
+      <parameter id="Um" value="940" units="mg_per_min" constant="true"/>
+      <parameter id="b" value="1.77" units="dimensionless" constant="true"/>
+      <parameter id="Ip" name="amount of insulin in plasma" value="0" units="mU" constant="true"/>
+      <parameter id="Ii" name="amount of insulin in intracellular space" value="0" units="mU" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="Vp">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <cn sbml:units="litre"> 3 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <cn sbml:units="litre"> 11 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vg">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <cn sbml:units="litre"> 10 </cn>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>

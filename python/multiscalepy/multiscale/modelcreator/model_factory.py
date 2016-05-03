@@ -182,11 +182,24 @@ def create_caffeine():
     return create_model(directory, model_info, f_annotations)
 
 
+def create_Sturis1991():
+    """ Create caffeine network. """
+    directory = os.path.join(test_dir, 'models', 'Sturis1991')
+    model_info = ['multiscale.modelcreator.models.Sturis1991']
+
+    # d = os.path.dirname(os.path.abspath(__file__))
+    # f_annotations = os.path.join(d, 'models', 'caffeine', 'caffeine_annotations.xlsx')
+
+    return create_model(directory, model_info, f_annotations=None)
+
+
 #########################################################################
 if __name__ == "__main__":
 
+    [cell_dict, cell_model] = create_Sturis1991()
+
     # TODO: add model creation tests
-    [cell_dict, cell_model] = create_caffeine()
+    # [cell_dict, cell_model] = create_caffeine()
 
     """
     [cell_dict, cell_model] = create_demo()
