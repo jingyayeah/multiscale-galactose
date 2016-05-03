@@ -38,6 +38,7 @@ class CellModel(object):
              'parameters',
              'assignments',
              'rules',
+             'rate_rules',
              'reactions']
 
     # Dictionary keys for respective lists
@@ -49,6 +50,7 @@ class CellModel(object):
         'parameters': ('value', 'unit', 'constant'),
         'assignments': ('value', 'unit'),
         'rules': ('value', 'unit'),
+        'rate_rules': ('value', 'unit'),
     }
 
     def __init__(self, cell_dict):
@@ -171,6 +173,7 @@ class CellModel(object):
         self.createInitialAssignments()
         self.createCompartments()
         self.createAssignmentRules()
+        self.createRateRules()
 
         self.createSpecies()
         self.createCellReactions()
@@ -254,6 +257,13 @@ class CellModel(object):
         if hasattr(self, 'rules'):
             self.addName(self.rules)
             create_assignment_rules(self.model, self.rules)
+
+    def createRateRules(self):
+        """Creates model AssignmentRules from rules."""
+        print('creating rules: ', self.rate_rules)
+        if hasattr(self, 'rate_rules'):
+            self.addName(self.rate_rules)
+            create_rate_rules(self.model, self.rate_rules)
 
     #########################################################################
     # Reactions

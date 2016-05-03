@@ -79,6 +79,7 @@ parameters = dict()
 names = dict()
 assignments = dict()
 rules = dict()
+rate_rules = dict()
 reactions = []
 
 #########################################################################
@@ -116,9 +117,17 @@ units.update({
 functions.update({
     # id : ('assignment')
     'f1': ('lambda(G, Rm, C1, Vg, a1, Rm/(1 + exp((C1-G/Vg)/a1)) )', ),
+    'f2': ('lambda(G, Ub, C2, Vg, Ub*(1 - exp(-G/(C2*Vg)) ) )',),
+    'f3': ('lambda(G, C3, Vg, G/(C3*Vg) )',),
+    'f4': ('lambda(Ii, U0, Um, b, C4, Vi, E, ti, U0 + (Um - U0)/(1 + exp(-b*ln(Ii/C4*(1/Vi + 1/(E*ti))))) )',),
+    'f5': ('lambda(x3, Rg, a, Vp, C5, Rg/(1 + exp(a*(x3/Vp - C5))) )',),
 })
 names.update({
     'f1': 'pancreatic insulin production',
+    'f2': 'insulin-independent glucose utilization',
+    'f3': 'glucose utilization',
+    'f4': 'insulin-dependent glucose utilization',
+    'f5': 'influence of insulin on HGP',
 })
 
 ##############################################################
@@ -151,13 +160,13 @@ names.update({
 ##############################################################
 parameters.update({
     # id: ('value', 'unit', 'constant')
-    'G': (0, 'mg', True),
-    'Ip': (0, 'mU', True),
-    'Ii': (0, 'mU', True),
+    'Ip': (0, 'mU', False),
+    'Ii': (0, 'mU', False),
+    'G': (0, 'mg', False),
 
-    'x1': (0, 'mU', True),
-    'x2': (0, 'mU', True),
-    'x3': (0, 'mU', True),
+    'x1': (0, 'mU', False),
+    'x2': (0, 'mU', False),
+    'x3': (0, 'mU', False),
 
     'E': (0.2, 'l_per_min', True),
     'tp': (6, 'min', True),
@@ -203,12 +212,11 @@ names.update({
 
 rules.update({
     # id: ('value', 'unit')
-
-    # hormonal regulation
-    # 'ins': ('x_ins2 + (x_ins1-x_ins2) * glc_ext^x_ins4/(glc_ext^x_ins4 + x_ins3^x_ins4)', 'pM'),
-
 })
-names.update({
+
+rate_rules.update({
+    # id: ('value', 'unit')
+    'x1': ('3 dimensionless/td * (Ip-x1)', 'mU_per_min'),
 
 })
 
