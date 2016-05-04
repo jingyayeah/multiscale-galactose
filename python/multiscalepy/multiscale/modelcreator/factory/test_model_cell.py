@@ -3,7 +3,6 @@ Test model_cell.
 """
 
 import unittest
-
 from multiscale.modelcreator.factory.model_cell import CellModel
 
 

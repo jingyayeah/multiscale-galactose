@@ -11,9 +11,12 @@ used in simulations.
 
 # TODO: rename Sample -> ParameterCollection (??) , better naming. This is not really describing what it is doing.
 from __future__ import print_function, division
-from simapp.models import ParameterType, Parameter
+
 from copy import deepcopy
 
+import django
+django.setup()
+from simapp.models import ParameterType, Parameter
 
 class SampleParameterException(Exception):
     """ Exception for any problem with parameter samples. """

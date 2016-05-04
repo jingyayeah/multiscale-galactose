@@ -9,6 +9,8 @@ from django.test import TestCase
 from multiscale.simulate.dist.samples import Sample
 from demo import Demo
 
+import django
+django.setup()
 
 class TestDemo(TestCase):
 

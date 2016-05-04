@@ -13,9 +13,9 @@ class TestReactionTemplate(unittest.TestCase):
             bA: A_ext => A; (scale_f*(Vmax_bA/Km_A)*(A_ext - A))/(1 dimensionless + A_ext/Km_A + A/Km_A);
         """
         rt = ReactionTemplate(
-            'bA',
-            'bA (A import)',
-            'A_ext => A []',
+            rid='bA',
+            name='bA (A import)',
+            equation='A_ext => A []',
             localization='membrane',
             compartments=['cell, extern'],
             pars=[],

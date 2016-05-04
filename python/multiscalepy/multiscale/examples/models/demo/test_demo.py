@@ -3,7 +3,7 @@ from __future__ import print_function
 import unittest
 
 import roadrunner
-from multiscale.sbmlutils import validation
+from sbmlutils import validation
 
 from multiscale.examples.testdata import galactose_singlecell_sbml
 

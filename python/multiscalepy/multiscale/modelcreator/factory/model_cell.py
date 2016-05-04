@@ -156,7 +156,9 @@ class CellModel(object):
         self.doc.setPackageRequired("fbc", False)
         self.model = self.doc.createModel()
         mplugin = self.model.getPlugin("fbc")
+        print("FBCModelPlugin", mplugin)
         mplugin.setStrict(False)
+
         # name & id
         check(self.model.setId(self.model_id), 'set id')
         check(self.model.setName(self.model_id), 'set name')
@@ -260,7 +262,6 @@ class CellModel(object):
 
     def createRateRules(self):
         """Creates model AssignmentRules from rules."""
-        print('creating rules: ', self.rate_rules)
         if hasattr(self, 'rate_rules'):
             self.addName(self.rate_rules)
             create_rate_rules(self.model, self.rate_rules)

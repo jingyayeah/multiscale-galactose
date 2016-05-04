@@ -9,7 +9,7 @@ requests
 sh
 enum34
 psycopg2==2.6.1
-django==1.8.7
+django==1.9.6
 django-debug-toolbar
 django-extensions
 django-haystack

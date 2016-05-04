@@ -4,19 +4,11 @@ Testing the expected roadrunner behaviour.
 import unittest
 import roadrunner
 import tellurium as te
+import roadrunner_tools as rt
+from multiscale.examples.testdata import demo_sbml
+
 
 class RoadrunnerTestCase(unittest.TestCase):
-    def setUp(self):
-        self.model1 = """
-
-
-        """
-
-
-
-    def test_something(self):
-        self.assertEqual(True, False)
-
 
     def test_simulation_fixed_steps2(self):
         """ Test fixed step size simulation. """
@@ -76,7 +68,6 @@ class RoadrunnerTestCase(unittest.TestCase):
         s = r.simulate_complex(start=0, end=20, amounts=amounts)
         self.assertEqual(0.01, s['e__A'][0])
         self.assertEqual(0.004, s['e__B'][0])
-
 
     def test_selections(self):
         """ Test the standard selection of roadrunner. """

@@ -5,12 +5,13 @@ Testing the distribution examples.
 # TODO: implement the Galactose examples
 from __future__ import print_function, division
 import unittest
+import django
+django.setup()
 
 from simapp.models import ParameterType
 from ..dist.sampling import Sampling
 from ..dist.distributions import DistributionType, DistributionParameterType
 from demo.demo import Demo
-from examples import GalactoseFlow
 
 
 class ExampleTestCase(unittest.TestCase):
@@ -70,26 +71,6 @@ class ExampleTestCase(unittest.TestCase):
         sampling = Sampling(distributions)
         samples = sampling.sample(n_samples=10)
         self.assertEqual(len(samples), 10)
-
-    def test_galactose_flow(self):
-        self.assertEqual(1, 0)
-
-        print('-' * 80)
-        distribution_data = GalactoseFlow.get_distributions()
-        for key, value in distribution_data.iteritems():
-            print(key, ':', value)
-        print('-' * 80)
-
-        print('-' * 80)
-        distributions = Demo.get_distributions()
-        for d in distributions:
-            print(d)
-
-        # Do some samples
-        samples = sample_from_distribution(distributions, n_samples=10)
-        for s in samples:
-            print(s)
-        print('-' * 80)
 
 
 if __name__ == '__main__':

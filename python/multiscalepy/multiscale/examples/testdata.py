@@ -11,8 +11,8 @@ test_dir = os.path.dirname(os.path.abspath(__file__))
 
 # demo -----------------------
 demo_id = 'Koenig_demo_10'
-demo_sbml = os.path.join(test_dir, 'models/demo', '{}_annotated.xml'.format(demo_id))
-demo_sbml_no_annotations = os.path.join(test_dir, 'models/demo', '{}.xml'.format(demo_id))
+demo_sbml = os.path.join(test_dir, 'models/demo', '{}.xml'.format(demo_id))
+demo_sbml_no_annotations = os.path.join(test_dir, 'models/demo', '{}_no_annotations.xml'.format(demo_id))
 demo_annotations = os.path.join(test_dir, 'models/demo', 'demo_annotations.csv')
 
 # galactose ------------------

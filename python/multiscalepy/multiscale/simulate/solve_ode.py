@@ -45,17 +45,15 @@ def solve_roadrunner(simulations):
         absolute_tolerance=settings[SettingKey.ABS_TOL],
         relative_tolerance=settings[SettingKey.REL_TOL]
     )
-    # simulate options
-    if SettingKey.STEPS in settings:
-        rr.simulateOptions.steps = settings[SettingKey.STEPS]
     # simulations
     for sim in simulations:
         _solve_roadrunner_single(rr, sim,
                                  start=settings[SettingKey.T_START],
-                                 end=settings[SettingKey.T_END])
+                                 end=settings[SettingKey.T_END],
+                                 steps=settings.get(SettingKey.STEPS, None))
 
 
-def _solve_roadrunner_single(rr, sim, start, end, hdf5=True, csv=False):
+def _solve_roadrunner_single(rr, sim, start, end, steps=None, hdf5=True, csv=False):
     """ Integrate single roadrunner simulation from start to end.
 
     :param rr: MyRunner instance with loaded model
@@ -105,7 +103,10 @@ def _solve_roadrunner_single(rr, sim, start, end, hdf5=True, csv=False):
 
         # ode integration
         tstart_int = time.time()
-        s = rr.simulate(start=start, end=end)
+        if steps is not None:
+            s = rr.simulate(start=start, end=end, steps=steps)
+        else:
+            s = rr.simulate(start=start, end=end)
         time_integration = time.time() - tstart_int
 
         # complete model reset
