@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_eb698f3512f34cf0af36d287756c0dc7" id="Sturis1991_1" name="Sturis1991_1" substanceUnits="mg" timeUnits="min" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mg" fbc:strict="false">
+  <model metaid="meta_8a7607d5e77942ea9389f0b0b6233545" id="Sturis1991_1" name="Sturis1991_1" substanceUnits="mg" timeUnits="min" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mg" fbc:strict="false">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_eb698f3512f34cf0af36d287756c0dc7">
+        <rdf:Description rdf:about="#meta_8a7607d5e77942ea9389f0b0b6233545">
           <dc:creator>
             <rdf:Bag>
               <rdf:li rdf:parseType="Resource">
@@ -19,17 +19,17 @@
             </rdf:Bag>
           </dc:creator>
           <dcterms:created rdf:parseType="Resource">
-            <dcterms:W3CDTF>2016-05-04T16:55:35Z</dcterms:W3CDTF>
+            <dcterms:W3CDTF>2016-05-04T10:40:48Z</dcterms:W3CDTF>
           </dcterms:created>
           <dcterms:modified rdf:parseType="Resource">
-            <dcterms:W3CDTF>2016-05-04T16:55:35Z</dcterms:W3CDTF>
+            <dcterms:W3CDTF>2016-05-04T10:40:48Z</dcterms:W3CDTF>
           </dcterms:modified>
         </rdf:Description>
       </rdf:RDF>
     </annotation>
     <listOfFunctionDefinitions>
       <functionDefinition id="f1" name="pancreatic insulin production">
-        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
               <ci> G </ci>
@@ -51,7 +51,7 @@
               <ci> Rm </ci>
               <apply>
                 <plus/>
-                <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                <cn type="integer"> 1 </cn>
                 <apply>
                   <exp/>
                   <apply>
@@ -74,7 +74,7 @@
         </math>
       </functionDefinition>
       <functionDefinition id="f2" name="insulin-independent glucose utilization">
-        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
               <ci> G </ci>
@@ -93,7 +93,7 @@
               <ci> Ub </ci>
               <apply>
                 <minus/>
-                <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                <cn type="integer"> 1 </cn>
                 <apply>
                   <exp/>
                   <apply>
@@ -139,7 +139,7 @@
         </math>
       </functionDefinition>
       <functionDefinition id="f4" name="insulin-dependent glucose utilization">
-        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
               <ci> Ii </ci>
@@ -177,7 +177,7 @@
                 </apply>
                 <apply>
                   <plus/>
-                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <cn type="integer"> 1 </cn>
                   <apply>
                     <exp/>
                     <apply>
@@ -199,12 +199,12 @@
                             <plus/>
                             <apply>
                               <divide/>
-                              <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                              <cn type="integer"> 1 </cn>
                               <ci> Vi </ci>
                             </apply>
                             <apply>
                               <divide/>
-                              <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                              <cn type="integer"> 1 </cn>
                               <apply>
                                 <times/>
                                 <ci> E </ci>
@@ -223,7 +223,7 @@
         </math>
       </functionDefinition>
       <functionDefinition id="f5" name="influence of insulin on HGP">
-        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
               <ci> x3 </ci>
@@ -245,7 +245,7 @@
               <ci> Rg </ci>
               <apply>
                 <plus/>
-                <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                <cn type="integer"> 1 </cn>
                 <apply>
                   <exp/>
                   <apply>
@@ -332,35 +332,34 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="Vp" name="Vp distribution volume for insulin in plasma" spatialDimensions="3" units="litre" constant="true"/>
-      <compartment id="Vi" name="effective volume of intercellular space" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="Vp" name="plasma space" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="Vi" name="insulin space" spatialDimensions="3" units="litre" constant="true"/>
       <compartment id="Vg" name="glucose space" spatialDimensions="3" units="litre" constant="true"/>
     </listOfCompartments>
     <listOfParameters>
       <parameter id="U0" value="40" units="mg_per_min" constant="true"/>
       <parameter id="Rg" value="180" units="mg_per_min" constant="true"/>
       <parameter id="Rm" value="210" units="mU_per_min" constant="true"/>
-      <parameter id="Gin" name="exogenous glucose supply" value="216" units="mg_per_min" constant="true"/>
-      <parameter id="tp" name="exponential insulin degadation time plasma" value="6" units="min" constant="true"/>
-      <parameter id="ti" name="exponential insulin degadation time intracellular space" value="100" units="min" constant="true"/>
+      <parameter id="tp" value="6" units="min" constant="true"/>
+      <parameter id="ti" value="100" units="min" constant="true"/>
       <parameter id="C3" value="1000" units="mg_per_l" constant="true"/>
       <parameter id="C2" value="144" units="mg_per_l" constant="true"/>
       <parameter id="td" value="36" units="min" constant="true"/>
       <parameter id="C5" value="26" units="mU_per_l" constant="true"/>
       <parameter id="C4" value="80" units="mU_per_l" constant="true"/>
-      <parameter id="E" name="insulin transfer rate between volumes E" value="0.2" units="l_per_min" constant="true"/>
-      <parameter id="G" name="amount of glucose in plasma and intracellular space" value="12000" units="mg" constant="false"/>
+      <parameter id="E" value="0.2" units="l_per_min" constant="true"/>
+      <parameter id="G" name="amount of glucose in plasma and intracellular space" value="0" units="mg" constant="false"/>
       <parameter id="a1" value="300" units="mg_per_l" constant="true"/>
-      <parameter id="x2" name="delay variable x2" value="90" units="mU" constant="false"/>
-      <parameter id="x3" name="delay variable x3" value="90" units="mU" constant="false"/>
-      <parameter id="x1" name="delay variable x1" value="90" units="mU" constant="false"/>
+      <parameter id="x2" name="delay variable x2" value="0" units="mU" constant="false"/>
+      <parameter id="x3" name="delay variable x3" value="0" units="mU" constant="false"/>
+      <parameter id="x1" name="delay variable x1" value="0" units="mU" constant="false"/>
       <parameter id="C1" value="2000" units="mg_per_l" constant="true"/>
       <parameter id="Ub" value="72" units="mg_per_min" constant="true"/>
       <parameter id="a" value="0.29" units="l_per_mU" constant="true"/>
       <parameter id="Um" value="940" units="mg_per_min" constant="true"/>
       <parameter id="b" value="1.77" units="dimensionless" constant="true"/>
-      <parameter id="Ip" name="amount of insulin in plasma" value="90" units="mU" constant="false"/>
-      <parameter id="Ii" name="amount of insulin in intracellular space" value="330" units="mU" constant="false"/>
+      <parameter id="Ip" name="amount of insulin in plasma" value="0" units="mU" constant="false"/>
+      <parameter id="Ii" name="amount of insulin in intracellular space" value="0" units="mU" constant="false"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment symbol="Vp">
@@ -380,158 +379,6 @@
       </initialAssignment>
     </listOfInitialAssignments>
     <listOfRules>
-      <rateRule variable="G">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <minus/>
-              <apply>
-                <minus/>
-                <ci> Gin </ci>
-                <apply>
-                  <ci> f2 </ci>
-                  <ci> G </ci>
-                  <ci> Ub </ci>
-                  <ci> C2 </ci>
-                  <ci> Vg </ci>
-                </apply>
-              </apply>
-              <apply>
-                <times/>
-                <apply>
-                  <ci> f3 </ci>
-                  <ci> G </ci>
-                  <ci> C3 </ci>
-                  <ci> Vg </ci>
-                </apply>
-                <apply>
-                  <ci> f4 </ci>
-                  <ci> Ii </ci>
-                  <ci> U0 </ci>
-                  <ci> Um </ci>
-                  <ci> b </ci>
-                  <ci> C4 </ci>
-                  <ci> Vi </ci>
-                  <ci> E </ci>
-                  <ci> ti </ci>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <ci> f5 </ci>
-              <ci> x3 </ci>
-              <ci> Rg </ci>
-              <ci> a </ci>
-              <ci> Vp </ci>
-              <ci> C5 </ci>
-            </apply>
-          </apply>
-        </math>
-      </rateRule>
-      <rateRule variable="Ip">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <minus/>
-            <apply>
-              <minus/>
-              <apply>
-                <ci> f1 </ci>
-                <ci> G </ci>
-                <ci> Rm </ci>
-                <ci> C1 </ci>
-                <ci> Vg </ci>
-                <ci> a1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> E </ci>
-                <apply>
-                  <minus/>
-                  <apply>
-                    <divide/>
-                    <ci> Ip </ci>
-                    <ci> Vp </ci>
-                  </apply>
-                  <apply>
-                    <divide/>
-                    <ci> Ii </ci>
-                    <ci> Vi </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <divide/>
-              <ci> Ip </ci>
-              <ci> tp </ci>
-            </apply>
-          </apply>
-        </math>
-      </rateRule>
-      <rateRule variable="Ii">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <minus/>
-            <apply>
-              <times/>
-              <ci> E </ci>
-              <apply>
-                <minus/>
-                <apply>
-                  <divide/>
-                  <ci> Ip </ci>
-                  <ci> Vp </ci>
-                </apply>
-                <apply>
-                  <divide/>
-                  <ci> Ii </ci>
-                  <ci> Vi </ci>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <divide/>
-              <ci> Ii </ci>
-              <ci> ti </ci>
-            </apply>
-          </apply>
-        </math>
-      </rateRule>
-      <rateRule variable="x2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <cn sbml:units="dimensionless" type="integer"> 3 </cn>
-              <ci> td </ci>
-            </apply>
-            <apply>
-              <minus/>
-              <ci> x1 </ci>
-              <ci> x2 </ci>
-            </apply>
-          </apply>
-        </math>
-      </rateRule>
-      <rateRule variable="x3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <cn sbml:units="dimensionless" type="integer"> 3 </cn>
-              <ci> td </ci>
-            </apply>
-            <apply>
-              <minus/>
-              <ci> x2 </ci>
-              <ci> x3 </ci>
-            </apply>
-          </apply>
-        </math>
-      </rateRule>
       <rateRule variable="x1">
         <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
           <apply>

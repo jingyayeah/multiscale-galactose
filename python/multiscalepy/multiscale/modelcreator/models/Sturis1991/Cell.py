@@ -34,7 +34,6 @@ notes = XMLNode.convertStringToXMLNode("""
     supply. If the insulin level is high enough for the hepatic release of glucose to nearly vanish, the opposite
     effect is observed. For insulin concentrations close to the point of inflection of the insulin-glucose
     dose-response curve an oscillatory and a constant insulin infusion produce similar effects.</p>
-
     <div class="bibo:title">
         <a href="http://identifiers.org/pubmed/2035636" title="Access to this publication">Computer model for mechanisms underlying ultradian oscillations of insulin and glucose.</a>
     </div>
@@ -116,11 +115,11 @@ units.update({
 ##############################################################
 functions.update({
     # id : ('assignment')
-    'f1': ('lambda(G, Rm, C1, Vg, a1, Rm/(1 + exp((C1-G/Vg)/a1)) )', ),
-    'f2': ('lambda(G, Ub, C2, Vg, Ub*(1 - exp(-G/(C2*Vg)) ) )',),
+    'f1': ('lambda(G, Rm, C1, Vg, a1, Rm/(1 dimensionless + exp((C1-G/Vg)/a1)) )', ),
+    'f2': ('lambda(G, Ub, C2, Vg, Ub*(1 dimensionless - exp(-G/(C2*Vg)) ) )',),
     'f3': ('lambda(G, C3, Vg, G/(C3*Vg) )',),
-    'f4': ('lambda(Ii, U0, Um, b, C4, Vi, E, ti, U0 + (Um - U0)/(1 + exp(-b*ln(Ii/C4*(1/Vi + 1/(E*ti))))) )',),
-    'f5': ('lambda(x3, Rg, a, Vp, C5, Rg/(1 + exp(a*(x3/Vp - C5))) )',),
+    'f4': ('lambda(Ii, U0, Um, b, C4, Vi, E, ti, U0 + (Um - U0)/(1 dimensionless + exp(-b*ln(Ii/C4*(1 dimensionless/Vi + 1 dimensionless/(E*ti))))) )',),
+    'f5': ('lambda(x3, Rg, a, Vp, C5, Rg/(1 dimensionless + exp(a*(x3/Vp - C5))) )',),
 })
 names.update({
     'f1': 'pancreatic insulin production',
@@ -140,8 +139,8 @@ compartments.update({
     'Vg': (3, UNIT_KIND_LITRE, True, '10.0 litre'),
 })
 names.update({
-    'Vp': 'plasma space',
-    'Vi': 'insulin space',
+    'Vp': 'Vp distribution volume for insulin in plasma',
+    'Vi': 'effective volume of intercellular space',
     'Vg': 'glucose space',
 })
 
@@ -160,14 +159,15 @@ names.update({
 ##############################################################
 parameters.update({
     # id: ('value', 'unit', 'constant')
-    'Ip': (0, 'mU', False),
-    'Ii': (0, 'mU', False),
-    'G': (0, 'mg', False),
+    'Ip': (90, 'mU', False),  # Ip(0) = 30[mU/l] => 90[mU] with Vp = 3[l] (Tolic2000, Fig.1)
+    'Ii': (330, 'mU', False),  # Ii(0) = 30[mU/l] => 330[mU] with Vi = 11[l] (Tolic2000, Fig.1)
+    'G': (12000, 'mg', False),  # G(0) = 120 [mg/dl] => 12000 with Vg = 10[l] (Tolic2000, Fig.1)
 
-    'x1': (0, 'mU', False),
-    'x2': (0, 'mU', False),
-    'x3': (0, 'mU', False),
+    'x1': (90, 'mU', False),  # x1(0) = x2(0) = x3(0) = Ip(0)
+    'x2': (90, 'mU', False),
+    'x3': (90, 'mU', False),
 
+    'Gin': (216, 'mg_per_min', True),
     'E': (0.2, 'l_per_min', True),
     'tp': (6, 'min', True),
     'ti': (100, 'min', True),
@@ -194,6 +194,10 @@ names.update({
     'x1': 'delay variable x1',
     'x2': 'delay variable x2',
     'x3': 'delay variable x3',
+    'Gin': 'exogenous glucose supply',
+    'E': 'insulin transfer rate between volumes E',
+    'tp': 'exponential insulin degadation time plasma',
+    'ti': 'exponential insulin degadation time intracellular space',
 })
 
 ##############################################################
@@ -208,16 +212,27 @@ names.update({
 ##############################################################
 # Rules
 ##############################################################
-# TODO: rate rules
 
 rules.update({
     # id: ('value', 'unit')
 })
 
+# rate rules
+'''
+    'f1': ('lambda(G, Rm, C1, Vg, a1, Rm/(1 + exp((C1-G/Vg)/a1)) )', ),
+    'f2': ('lambda(G, Ub, C2, Vg, Ub*(1 - exp(-G/(C2*Vg)) ) )',),
+    'f3': ('lambda(G, C3, Vg, G/(C3*Vg) )',),
+    'f4': ('lambda(Ii, U0, Um, b, C4, Vi, E, ti, U0 + (Um - U0)/(1 + exp(-b*ln(Ii/C4*(1/Vi + 1/(E*ti))))) )',),
+    'f5': ('lambda(x3, Rg, a, Vp, C5, Rg/(1 + exp(a*(x3/Vp - C5))) )',),
+'''
 rate_rules.update({
     # id: ('value', 'unit')
+    'Ip': ('f1(G, Rm, C1, Vg, a1) - E*(Ip/Vp - Ii/Vi) - Ip/tp', 'mU_per_min'),
+    'Ii': ('E*(Ip/Vp - Ii/Vi)-Ii/ti', 'mU_per_min'),
+    'G': ('Gin -f2(G, Ub, C2, Vg) - f3(G, C3, Vg)*f4(Ii, U0, Um, b, C4, Vi, E, ti) + f5(x3, Rg, a, Vp, C5)', 'mg_per_min'),
     'x1': ('3 dimensionless/td * (Ip-x1)', 'mU_per_min'),
-
+    'x2': ('3 dimensionless/td * (x1-x2)', 'mU_per_min'),
+    'x3': ('3 dimensionless/td * (x2-x3)', 'mU_per_min'),
 })
 
 

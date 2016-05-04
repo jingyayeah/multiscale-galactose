@@ -200,7 +200,7 @@
 
 
     <h1>Model : Sturis1991_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-03 17:08<br /><b>Modified:</b> 2016-05-03 17:08<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-04 16:55<br /><b>Modified:</b> 2016-05-04 16:55<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -251,7 +251,7 @@
 	<td class="active">f1</td>
 	<td>pancreatic insulin production</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <lambda>
     <bvar>
       <ci> G </ci>
@@ -273,7 +273,7 @@
       <ci> Rm </ci>
       <apply>
         <plus/>
-        <cn type="integer"> 1 </cn>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
         <apply>
           <exp/>
           <apply>
@@ -302,7 +302,7 @@
 	<td class="active">f2</td>
 	<td>insulin-independent glucose utilization</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <lambda>
     <bvar>
       <ci> G </ci>
@@ -321,7 +321,7 @@
       <ci> Ub </ci>
       <apply>
         <minus/>
-        <cn type="integer"> 1 </cn>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
         <apply>
           <exp/>
           <apply>
@@ -379,7 +379,7 @@
 	<td class="active">f4</td>
 	<td>insulin-dependent glucose utilization</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <lambda>
     <bvar>
       <ci> Ii </ci>
@@ -417,7 +417,7 @@
         </apply>
         <apply>
           <plus/>
-          <cn type="integer"> 1 </cn>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
           <apply>
             <exp/>
             <apply>
@@ -439,12 +439,12 @@
                     <plus/>
                     <apply>
                       <divide/>
-                      <cn type="integer"> 1 </cn>
+                      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
                       <ci> Vi </ci>
                     </apply>
                     <apply>
                       <divide/>
-                      <cn type="integer"> 1 </cn>
+                      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
                       <apply>
                         <times/>
                         <ci> E </ci>
@@ -469,7 +469,7 @@
 	<td class="active">f5</td>
 	<td>influence of insulin on HGP</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <lambda>
     <bvar>
       <ci> x3 </ci>
@@ -491,7 +491,7 @@
       <ci> Rg </ci>
       <apply>
         <plus/>
-        <cn type="integer"> 1 </cn>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
         <apply>
           <exp/>
           <apply>
@@ -550,7 +550,7 @@
         <cn type="integer"> 3 </cn>
       </apply>
     </apply>
-    <ci> gram </ci>
+    <ci> g </ci>
   </apply>
 </math></td>
 	<td></td>
@@ -574,7 +574,7 @@
           <cn type="integer"> 12 </cn>
         </apply>
       </apply>
-      <ci> katal </ci>
+      <ci> kat </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -602,25 +602,25 @@
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
     <apply>
-      <divide/>
+      <times/>
+      <cn> 16.67 </cn>
       <apply>
-        <times/>
-        <cn> 16.67 </cn>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> katal </ci>
       </apply>
-      <cn> 60 </cn>
+      <ci> kat </ci>
     </apply>
-    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math></td>
 	<td></td>
@@ -632,24 +632,24 @@
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
     <apply>
-      <divide/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> gram </ci>
       </apply>
-      <cn> 60 </cn>
+      <ci> g </ci>
     </apply>
-    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math></td>
 	<td></td>
@@ -671,24 +671,21 @@
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
+    <ci> litre </ci>
     <apply>
-      <divide/>
-      <ci> litre </ci>
+      <times/>
+      <cn> 16.67 </cn>
       <apply>
-        <times/>
-        <cn> 16.67 </cn>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
       </apply>
+      <ci> kat </ci>
     </apply>
-    <ci> katal </ci>
   </apply>
 </math></td>
 	<td></td>
@@ -711,7 +708,7 @@
           <cn type="integer"> 3 </cn>
         </apply>
       </apply>
-      <ci> gram </ci>
+      <ci> g </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -735,7 +732,7 @@
         <cn type="integer"> 12 </cn>
       </apply>
     </apply>
-    <ci> katal </ci>
+    <ci> kat </ci>
   </apply>
 </math></td>
 	<td></td>
@@ -761,13 +758,13 @@
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
+    <ci> litre </ci>
     <apply>
-      <divide/>
-      <ci> litre </ci>
+      <times/>
       <cn> 60 </cn>
+      <ci> s </ci>
     </apply>
-    <ci> s </ci>
   </apply>
 </math></td>
 	<td></td>
@@ -798,7 +795,7 @@
             <tbody>
                 <tr>    <td class="hidden">Compartment</td>
 	<td class="active">Vp</td>
-	<td>plasma space</td>
+	<td>Vp distribution volume for insulin in plasma</td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <cn sbml:units="litre"> 3 </cn>
@@ -819,7 +816,7 @@
 </tr>
                 <tr>    <td class="hidden">Compartment</td>
 	<td class="active">Vi</td>
-	<td>insulin space</td>
+	<td>effective volume of intercellular space</td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <cn sbml:units="litre"> 11 </cn>
@@ -874,7 +871,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [23]</th>
+	<th scope="col" class="warning">Parameters [24]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -894,24 +891,24 @@
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
     <apply>
-      <divide/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> gram </ci>
       </apply>
-      <cn> 60 </cn>
+      <ci> g </ci>
     </apply>
-    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math>
 </td>
@@ -929,24 +926,24 @@
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
     <apply>
-      <divide/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> gram </ci>
       </apply>
-      <cn> 60 </cn>
+      <ci> g </ci>
     </apply>
-    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math>
 </td>
@@ -964,25 +961,60 @@
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
     <apply>
-      <divide/>
+      <times/>
+      <cn> 16.67 </cn>
       <apply>
-        <times/>
-        <cn> 16.67 </cn>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> katal </ci>
       </apply>
-      <cn> 60 </cn>
+      <ci> kat </ci>
     </apply>
-    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Gin</td>
+	<td>exogenous glucose supply</td>
+	<td>            216.0
+    </td>
+	<td>mg_per_min</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> g </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math>
 </td>
@@ -993,7 +1025,7 @@
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">tp</td>
-	<td></td>
+	<td>exponential insulin degadation time plasma</td>
 	<td>            6.0
     </td>
 	<td>min</td>
@@ -1013,7 +1045,7 @@
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">ti</td>
-	<td></td>
+	<td>exponential insulin degadation time intracellular space</td>
 	<td>            100.0
     </td>
 	<td>min</td>
@@ -1051,7 +1083,7 @@
           <cn type="integer"> 3 </cn>
         </apply>
       </apply>
-      <ci> gram </ci>
+      <ci> g </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1082,7 +1114,7 @@
           <cn type="integer"> 3 </cn>
         </apply>
       </apply>
-      <ci> gram </ci>
+      <ci> g </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1134,7 +1166,7 @@
           <cn type="integer"> 12 </cn>
         </apply>
       </apply>
-      <ci> katal </ci>
+      <ci> kat </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1166,7 +1198,7 @@
           <cn type="integer"> 12 </cn>
         </apply>
       </apply>
-      <ci> katal </ci>
+      <ci> kat </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1179,20 +1211,20 @@
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">E</td>
-	<td></td>
+	<td>insulin transfer rate between volumes E</td>
 	<td>            0.2
     </td>
 	<td>l_per_min</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
+    <ci> litre </ci>
     <apply>
-      <divide/>
-      <ci> litre </ci>
+      <times/>
       <cn> 60 </cn>
+      <ci> s </ci>
     </apply>
-    <ci> s </ci>
   </apply>
 </math>
 </td>
@@ -1204,7 +1236,7 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">G</td>
 	<td>amount of glucose in plasma and intracellular space</td>
-	<td>            0.0
+	<td>            12000.0
     </td>
 	<td>mg</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -1219,7 +1251,7 @@
         <cn type="integer"> 3 </cn>
       </apply>
     </apply>
-    <ci> gram </ci>
+    <ci> g </ci>
   </apply>
 </math>
 </td>
@@ -1248,7 +1280,7 @@
           <cn type="integer"> 3 </cn>
         </apply>
       </apply>
-      <ci> gram </ci>
+      <ci> g </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1262,7 +1294,7 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">x2</td>
 	<td>delay variable x2</td>
-	<td>            0.0
+	<td>            90.0
     </td>
 	<td>mU</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -1278,7 +1310,7 @@
         <cn type="integer"> 12 </cn>
       </apply>
     </apply>
-    <ci> katal </ci>
+    <ci> kat </ci>
   </apply>
 </math>
 </td>
@@ -1290,7 +1322,7 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">x3</td>
 	<td>delay variable x3</td>
-	<td>            0.0
+	<td>            90.0
     </td>
 	<td>mU</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -1306,7 +1338,7 @@
         <cn type="integer"> 12 </cn>
       </apply>
     </apply>
-    <ci> katal </ci>
+    <ci> kat </ci>
   </apply>
 </math>
 </td>
@@ -1318,7 +1350,7 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">x1</td>
 	<td>delay variable x1</td>
-	<td>            0.0
+	<td>            90.0
     </td>
 	<td>mU</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -1334,7 +1366,7 @@
         <cn type="integer"> 12 </cn>
       </apply>
     </apply>
-    <ci> katal </ci>
+    <ci> kat </ci>
   </apply>
 </math>
 </td>
@@ -1363,7 +1395,7 @@
           <cn type="integer"> 3 </cn>
         </apply>
       </apply>
-      <ci> gram </ci>
+      <ci> g </ci>
     </apply>
     <ci> litre </ci>
   </apply>
@@ -1383,24 +1415,24 @@
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
     <apply>
-      <divide/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> gram </ci>
       </apply>
-      <cn> 60 </cn>
+      <ci> g </ci>
     </apply>
-    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math>
 </td>
@@ -1418,24 +1450,21 @@
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
+    <ci> litre </ci>
     <apply>
-      <divide/>
-      <ci> litre </ci>
+      <times/>
+      <cn> 16.67 </cn>
       <apply>
-        <times/>
-        <cn> 16.67 </cn>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
       </apply>
+      <ci> kat </ci>
     </apply>
-    <ci> katal </ci>
   </apply>
 </math>
 </td>
@@ -1453,24 +1482,24 @@
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
     <apply>
-      <divide/>
+      <times/>
       <apply>
-        <times/>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 3 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
         </apply>
-        <ci> gram </ci>
       </apply>
-      <cn> 60 </cn>
+      <ci> g </ci>
     </apply>
-    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math>
 </td>
@@ -1495,7 +1524,7 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">Ip</td>
 	<td>amount of insulin in plasma</td>
-	<td>            0.0
+	<td>            90.0
     </td>
 	<td>mU</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -1511,7 +1540,7 @@
         <cn type="integer"> 12 </cn>
       </apply>
     </apply>
-    <ci> katal </ci>
+    <ci> kat </ci>
   </apply>
 </math>
 </td>
@@ -1523,7 +1552,7 @@
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">Ii</td>
 	<td>amount of insulin in intracellular space</td>
-	<td>            0.0
+	<td>            330.0
     </td>
 	<td>mU</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -1539,7 +1568,7 @@
         <cn type="integer"> 12 </cn>
       </apply>
     </apply>
-    <ci> katal </ci>
+    <ci> kat </ci>
   </apply>
 </math>
 </td>
@@ -1630,7 +1659,7 @@
         <table id="table_rules" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules [1]</th>
+	<th scope="col" class="warning">Rules [6]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -1639,6 +1668,312 @@
 </tr>
             </thead>
             <tbody>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">d G/dt</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <apply>
+      <minus/>
+      <apply>
+        <minus/>
+        <ci> Gin </ci>
+        <apply>
+          <ci> f2 </ci>
+          <ci> G </ci>
+          <ci> Ub </ci>
+          <ci> C2 </ci>
+          <ci> Vg </ci>
+        </apply>
+      </apply>
+      <apply>
+        <times/>
+        <apply>
+          <ci> f3 </ci>
+          <ci> G </ci>
+          <ci> C3 </ci>
+          <ci> Vg </ci>
+        </apply>
+        <apply>
+          <ci> f4 </ci>
+          <ci> Ii </ci>
+          <ci> U0 </ci>
+          <ci> Um </ci>
+          <ci> b </ci>
+          <ci> C4 </ci>
+          <ci> Vi </ci>
+          <ci> E </ci>
+          <ci> ti </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <ci> f5 </ci>
+      <ci> x3 </ci>
+      <ci> Rg </ci>
+      <ci> a </ci>
+      <ci> Vp </ci>
+      <ci> C5 </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> g </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">d Ip/dt</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <minus/>
+    <apply>
+      <minus/>
+      <apply>
+        <ci> f1 </ci>
+        <ci> G </ci>
+        <ci> Rm </ci>
+        <ci> C1 </ci>
+        <ci> Vg </ci>
+        <ci> a1 </ci>
+      </apply>
+      <apply>
+        <times/>
+        <ci> E </ci>
+        <apply>
+          <minus/>
+          <apply>
+            <divide/>
+            <ci> Ip </ci>
+            <ci> Vp </ci>
+          </apply>
+          <apply>
+            <divide/>
+            <ci> Ii </ci>
+            <ci> Vi </ci>
+          </apply>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <divide/>
+      <ci> Ip </ci>
+      <ci> tp </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <cn> 16.67 </cn>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> kat </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">d Ii/dt</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <minus/>
+    <apply>
+      <times/>
+      <ci> E </ci>
+      <apply>
+        <minus/>
+        <apply>
+          <divide/>
+          <ci> Ip </ci>
+          <ci> Vp </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <ci> Ii </ci>
+          <ci> Vi </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <divide/>
+      <ci> Ii </ci>
+      <ci> ti </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <cn> 16.67 </cn>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> kat </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">d x2/dt</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <cn sbml:units="dimensionless" type="integer"> 3 </cn>
+      <ci> td </ci>
+    </apply>
+    <apply>
+      <minus/>
+      <ci> x1 </ci>
+      <ci> x2 </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <cn> 16.67 </cn>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> kat </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">d x3/dt</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <cn sbml:units="dimensionless" type="integer"> 3 </cn>
+      <ci> td </ci>
+    </apply>
+    <apply>
+      <minus/>
+      <ci> x2 </ci>
+      <ci> x3 </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <cn> 16.67 </cn>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
+        </apply>
+      </apply>
+      <ci> kat </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
                 <tr>    <td class="hidden">Rule</td>
 	<td class="active">d x1/dt</td>
 	<td>=</td>
@@ -1662,25 +1997,25 @@
     <td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
+    <divide/>
     <apply>
-      <divide/>
+      <times/>
+      <cn> 16.67 </cn>
       <apply>
-        <times/>
-        <cn> 16.67 </cn>
+        <power/>
+        <cn type="integer"> 10 </cn>
         <apply>
-          <power/>
-          <cn type="integer"> 10 </cn>
-          <apply>
-            <minus/>
-            <cn type="integer"> 12 </cn>
-          </apply>
+          <minus/>
+          <cn type="integer"> 12 </cn>
         </apply>
-        <ci> katal </ci>
       </apply>
-      <cn> 60 </cn>
+      <ci> kat </ci>
     </apply>
-    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math>
 </td>
