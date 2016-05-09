@@ -58,31 +58,27 @@ reactions = []
 ##########################################################################
 # units (kind, exponent, scale=0, multiplier=1.0)
 units.update({
-    'h': [(UNIT_KIND_SECOND, 1.0, 0, 3600)],
-
+    'hr': [(UNIT_KIND_SECOND, 1.0, 0, 3600)],
+    'kg': [(UNIT_KIND_GRAM, 1.0, 3, 1.0)],
     'm': [(UNIT_KIND_METRE, 1.0)],
     'm2': [(UNIT_KIND_METRE, 2.0)],
 
+    'per_hr': [(UNIT_KIND_SECOND, -1.0, 0, 3600)],
+
     'mg': [(UNIT_KIND_GRAM, 1.0, -3, 1.0)],
-    'mg_per_min': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
-                   (UNIT_KIND_SECOND, -1.0, 0, 60)],
-    'mg_per_l': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
+    'mg_per_litre': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
                    (UNIT_KIND_LITRE, -1.0, 0, 1.0)],
+    'mg_per_g': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
+                     (UNIT_KIND_GRAM, -1.0, 0, 1.0)],
 
-    'kg'
-    'litre_per_kg'
-
-    'mU': [(UNIT_KIND_KATAL, 1.0, -12, 16.67)],
-    'mU_per_min': [(UNIT_KIND_KATAL, 1.0, -12, 16.67),
-                   (UNIT_KIND_SECOND, -1.0, 0, 60)],
-    'mU_per_l': [(UNIT_KIND_KATAL, 1.0, -12, 16.67),
-                 (UNIT_KIND_LITRE, -1.0, 0, 1.0)],
-    'l_per_mU': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
-                 (UNIT_KIND_KATAL, -1.0, -12, 16.67)],
-
-    'l_per_min': [(UNIT_KIND_LITRE, 1.0),
-                  (UNIT_KIND_SECOND, -1.0, 0, 60)],
-
+    'litre_per_hr': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
+                     (UNIT_KIND_SECOND, -1.0, 0, 3600)],
+    'litre_per_kg': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
+                     (UNIT_KIND_GRAM, -1.0, 3, 1.0)],
+    'litre_per_hr_kg': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
+                        (UNIT_KIND_GRAM, -1.0, 3, 1.0), (UNIT_KIND_SECOND, -1.0, 0, 3600)],
+    # 'mulitre_per_min_mg'
+    # 'ml_per_s'
 })
 
 ##############################################################
@@ -146,10 +142,40 @@ names.update({
 # Species
 ##############################################################
 species.update({
+    # TODO: substance units
     # id : ('compartment', 'value', 'unit', 'boundaryCondition')
+    'Cad': ('ad', 0, 'mg_per_litre', False),
+    'Cbo': ('bo', 0, 'mg_per_litre', False),
+    'Cbr': ('br', 0, 'mg_per_litre', False),
+    'Cgu': ('gu', 0, 'mg_per_litre', False),
+    'Che': ('he', 0, 'mg_per_litre', False),
+    'Cki': ('ki', 0, 'mg_per_litre', False),
+    'Cli': ('li', 0, 'mg_per_litre', False),
+    'Clu': ('lu', 0, 'mg_per_litre', False),
+    'Cmu': ('mu', 0, 'mg_per_litre', False),
+    'Csk': ('sk', 0, 'mg_per_litre', False),
+    'Csp': ('sp', 0, 'mg_per_litre', False),
+    'Cte': ('te', 0, 'mg_per_litre', False),
+    'Cve': ('ve', 0, 'mg_per_litre', False),
+    'Car': ('ar', 0, 'mg_per_litre', False),
+    'Cre': ('re', 0, 'mg_per_litre', False),
 })
 names.update({
-
+    'Cad': 'C [mg/l] adipose',
+    'Cbo': 'C [mg/l] bone',
+    'Cbr': 'C [mg/l] brain',
+    'Cgu': 'C [mg/l] gut',
+    'Che': 'C [mg/l] heart',
+    'Cki': 'C [mg/l] kidney',
+    'Cli': 'C [mg/l] liver',
+    'Clu': 'C [mg/l] lung',
+    'Cmu': 'C [mg/l] muscle',
+    'Csk': 'C [mg/l] skin',
+    'Csp': 'C [mg/l] spleen',
+    'Cte': 'C [mg/l] testes',
+    'Cve': 'C [mg/l] venous blood',
+    'Car': 'C [mg/l] arterial blood',
+    'Cre': 'C [mg/l] rest of body',
 })
 
 ##############################################################
@@ -166,12 +192,14 @@ parameters.update({
     # clearances
     'HLM_CLint': (10, 'mulitre_per_min_mg', True),
     'CLrenal': (0, 'litre_per_hr', True),
+    'MPPGL': (45, 'mg_per_g', True),
 
     # absorption
     'Ka': (1, 'per_hr', True),
     'F': (1, '-', True),
 
     # dosing
+    'D': (0, 'mg', True),
     'IVDOSE': (0, 'mg', True),
     'PODOSE': (100, 'mg', True),
 
@@ -240,9 +268,11 @@ names.update({
 
     'Ka': 'Ka [1/hr] absorption',
     'F': 'fraction absorbed',
+    'MPPGL': 'mg microsomal protein per g liver',
 
-    'IVDOSE': 'IV Bolus Dose [mg]',
-    'PODOSE': 'Oral Bolus Dose [mg]',
+    'IVDOSE': 'IV bolus dose [mg]',
+    'PODOSE': 'oral bolus dose [mg]',
+    'D': 'oral dose [mg]',
 
     'BW': 'body weight',
     'CO': 'cardiac output [ml/s]',
@@ -300,7 +330,8 @@ names.update({
 ##############################################################
 assignments.update({
     # id: ('value', 'unit')
-
+    'Cve': ('IVDOSE/Vve', 'mg_per_litre'),
+    'D': ('PODOSE', 'mg'),
 })
 
 ##############################################################
@@ -310,7 +341,30 @@ assignments.update({
 rules.update({
     # id: ('value', 'unit')
 
-    'CO': ('CO/1000*60*60', 'litre_per_hr'),
+    # concentrations
+    'Cad': ('Aad/Vad', 'mg_per_litre'),
+    'Cbo': ('Abo/Vbo', 'mg_per_litre'),
+    'Cbr': ('Abr/Vbr', 'mg_per_litre'),
+    'Cgu': ('Agu/Vgu', 'mg_per_litre'),
+    'Che': ('Ahe/Vhe', 'mg_per_litre'),
+    'Cki': ('Aki/Vki', 'mg_per_litre'),
+    'Cli': ('Ali/Vli', 'mg_per_litre'),
+    'Clu': ('Alu/Vlu', 'mg_per_litre'),
+    'Cmu': ('Amu/Vmu', 'mg_per_litre'),
+    'Csk': ('Ask/Vsk', 'mg_per_litre'),
+    'Csp': ('Asp/Vsp', 'mg_per_litre'),
+    'Cte': ('Ate/Vte', 'mg_per_litre'),
+    'Cve': ('Ave/Vve', 'mg_per_litre'),
+    'Car': ('Aar/Var', 'mg_per_litre'),
+    'Cre': ('Are/Vre', 'mg_per_litre'),
+
+    # free concentrations
+    'Cpl_ve': ('Cve/Bp', 'mg_per_litre'),
+    'Cli_free': ('Cli*fup', 'mg_per_litre'),
+    'Cki_free': ('Cki*fup', 'mg_per_litre'),
+
+    # clearance
+    'CLmet': ('(HLM_CLint/fumic) * MPPGL * Vli * 60 / 1000', 'litre_per_hr'),
 
     # volumes
     'Vad': ('BW*FVad', UNIT_KIND_LITRE),
@@ -334,6 +388,7 @@ rules.update({
     'Vplas_art': ('Vpl*Var/(Vve + Var)', UNIT_KIND_LITRE),
 
     # blood flows
+    'QC': ('CO/1000*60*60', 'litre_per_hr'),
     'Qad': ('QC*FQad', 'litre_per_hr'),
     'Qbo': ('QC*FQbo', 'litre_per_hr'),
     'Qbr': ('QC*FQbr', 'litre_per_hr'),
@@ -348,9 +403,24 @@ rules.update({
     'Qsp': ('QC*FQsp', 'litre_per_hr'),
     'Qte': ('QC*FQte', 'litre_per_hr'),
     'Qre': ('QC*FQre', 'litre_per_hr'),
+
+    # rates
+    'Absorption': ('Ka*D*F', 'mg_per_hr'),
+    'Venous': ('Qad*(Cad/Kpad*BP) + Qbo*(Cbo/Kpbo*BP) + Qbr*(Cbr/Kpbr*BP) + '
+               'Qhe*(Che/Kphe*BP) + Qki*(Cki/Kpki*BP) + Qh*(Cli/Kpli*BP) + '
+               'Qmu*(Cmu/Kpmu*BP) + Qsk*(Csk/Kpsk*BP) + Qte*(Cte/Kpte*BP) + '
+               'Qre*(Cre/Kpre*BP)', 'mg_per_hr'),
+
+    # concentrations
+
 })
 names.update({
-    'Qad' : 'adipose blood flow',
+    'Cli_free': 'free liver concentration',
+    'Cki_free': 'free kidney concentration',
+
+    'CLmet': 'CLint scaled [l/hr]',
+
+    'Qad': 'adipose blood flow',
     'Qbo': 'bone blood flow',
     'Qbr': 'brain blood flow',
     'Qgu': 'gut blood flow',
@@ -367,12 +437,27 @@ names.update({
 })
 
 rate_rules.update({
-
+    'Aad': ('Qad * (Car - Cad/Kpad*BP)', 'mg_per_hr'),
+    'Abo': ('Qbo * (Car - Cbo/Kpbo*BP)', 'mg_per_hr'),
+    'Abr': ('Qbr * (Car - Cbr/Kpbr*BP)', 'mg_per_hr'),
+    'Agu': ('Absorption + Qgu*(Car - Cgu/Kpgu*BP)', 'mg_per_hr'),
+    'Ahe': ('Qhe*(Car - Che/Kphe*BP)', 'mg_per_hr'),
+    'Aki': ('Qki*(Car - Cki/Kpki*BP) - CLrenal*Cki_free', 'mg_per_hr'),
+    'Ali': ('Qha*Car + Qgu*(Cgu/Kpgu*BP) + Qsp*(Csp/Kpsp*BP) - Qh*(Cli/Kpli*BP) - Cliv_free*CLmet', 'mg_per_hr'),
+    'Alu': ('Qlu*Cve - Qlu*(Clu/Kplu*BP)', 'mg_per_hr'),
+    'Amu': ('Qmu*(Car - Cmu/Kpmu*BP)', 'mg_per_hr'),
+    'Ask': ('Qsk*(Car - Csk/Kpsk*BP)', 'mg_per_hr'),
+    'Asp': ('Qsp*(Car - Csp/Kpsp*BP)', 'mg_per_hr'),
+    'Ate': ('Qte*(Car - Cte/Kpte*BP)', 'mg_per_hr'),
+    'Ave': ('Venous - Qlu*Cve', 'mg_per_hr'),
+    'Aar': ('Qlu*(Clu/Kplu*BP) - Qlu*Car', 'mg_per_hr'),
+    'Are': ('Qre*(Car - Cre/Kpre*BP)', 'mg_per_hr'),
+    'D': ('-Absorption', 'mg_per_hr'),
 })
 
 
 ##############################################################
 # Reactions
 ##############################################################
-import Reactions
+
 reactions.extend([])
