@@ -193,11 +193,23 @@ def create_Sturis1991():
     return create_model(directory, model_info, f_annotations=None)
 
 
+def create_Jones2013():
+    """ Create PKPD example. """
+    directory = os.path.join(test_dir, 'models', 'Jones2013')
+    model_info = ['multiscale.modelcreator.models.Jones2013']
+
+    # d = os.path.dirname(os.path.abspath(__file__))
+    # f_annotations = os.path.join(d, 'models', 'caffeine', 'caffeine_annotations.xlsx')
+
+    return create_model(directory, model_info, f_annotations=None)
+
+
+
 #########################################################################
 if __name__ == "__main__":
 
-    [cell_dict, cell_model] = create_Sturis1991()
-
+    # [cell_dict, cell_model] = create_Sturis1991()
+    [cell_dict, cell_model] = create_Jones2013()
     # TODO: add model creation tests
     # [cell_dict, cell_model] = create_caffeine()
 

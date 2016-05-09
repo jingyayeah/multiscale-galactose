@@ -35,7 +35,7 @@ notes = XMLNode.convertStringToXMLNode("""
 
 creators = mkoenig
 main_units = {
-    'time': 'h',
+    'time': 'hr',
     'extent': 'mg',
     'substance': 'mg',
     'length': 'm',
@@ -70,13 +70,13 @@ units.update({
                    (UNIT_KIND_LITRE, -1.0, 0, 1.0)],
     'mg_per_g': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
                      (UNIT_KIND_GRAM, -1.0, 0, 1.0)],
+    'mg_per_hr': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
+                 (UNIT_KIND_SECOND, -1.0, 0, 3600)],
 
     'litre_per_hr': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
                      (UNIT_KIND_SECOND, -1.0, 0, 3600)],
     'litre_per_kg': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
                      (UNIT_KIND_GRAM, -1.0, 3, 1.0)],
-    'litre_per_hr_kg': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
-                        (UNIT_KIND_GRAM, -1.0, 3, 1.0), (UNIT_KIND_SECOND, -1.0, 0, 3600)],
     # 'mulitre_per_min_mg'
     # 'ml_per_s'
 })
@@ -95,25 +95,25 @@ names.update({
 ##############################################################
 compartments.update({
     # id : ('spatialDimension', 'unit', 'constant', 'assignment')
-    'Vad': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vbo': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vbr': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vgu': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vhe': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vki': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vli': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vlu': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vmu': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vsk': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vsp': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vte': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vve': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Var': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vpl': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vrb': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vre': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vplas_ven': (3, UNIT_KIND_LITRE, True, '0 litre'),
-    'Vplas_art': (3, UNIT_KIND_LITRE, True, '0 litre'),
+    'Vad': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vbo': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vbr': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vgu': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vhe': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vki': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vli': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vlu': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vmu': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vsk': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vsp': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vte': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vve': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Var': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vpl': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vrb': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vre': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vplas_ven': (3, UNIT_KIND_LITRE, False, '1 litre'),
+    'Vplas_art': (3, UNIT_KIND_LITRE, False, '1 litre'),
 })
 
 names.update({
@@ -144,22 +144,27 @@ names.update({
 species.update({
     # TODO: substance units
     # id : ('compartment', 'value', 'unit', 'boundaryCondition')
-    'Cad': ('ad', 0, 'mg_per_litre', False),
-    'Cbo': ('bo', 0, 'mg_per_litre', False),
-    'Cbr': ('br', 0, 'mg_per_litre', False),
-    'Cgu': ('gu', 0, 'mg_per_litre', False),
-    'Che': ('he', 0, 'mg_per_litre', False),
-    'Cki': ('ki', 0, 'mg_per_litre', False),
-    'Cli': ('li', 0, 'mg_per_litre', False),
-    'Clu': ('lu', 0, 'mg_per_litre', False),
-    'Cmu': ('mu', 0, 'mg_per_litre', False),
-    'Csk': ('sk', 0, 'mg_per_litre', False),
-    'Csp': ('sp', 0, 'mg_per_litre', False),
-    'Cte': ('te', 0, 'mg_per_litre', False),
-    'Cve': ('ve', 0, 'mg_per_litre', False),
-    'Car': ('ar', 0, 'mg_per_litre', False),
-    'Cre': ('re', 0, 'mg_per_litre', False),
+
 })
+# This should be handled as species
+'''
+'Cad': ('ad', 0, 'mg_per_litre', False),
+'Cbo': ('bo', 0, 'mg_per_litre', False),
+'Cbr': ('br', 0, 'mg_per_litre', False),
+'Cgu': ('gu', 0, 'mg_per_litre', False),
+'Che': ('he', 0, 'mg_per_litre', False),
+'Cki': ('ki', 0, 'mg_per_litre', False),
+'Cli': ('li', 0, 'mg_per_litre', False),
+'Clu': ('lu', 0, 'mg_per_litre', False),
+'Cmu': ('mu', 0, 'mg_per_litre', False),
+'Csk': ('sk', 0, 'mg_per_litre', False),
+'Csp': ('sp', 0, 'mg_per_litre', False),
+'Cte': ('te', 0, 'mg_per_litre', False),
+'Cve': ('ve', 0, 'mg_per_litre', False),
+'Car': ('ar', 0, 'mg_per_litre', False),
+'Cre': ('re', 0, 'mg_per_litre', False),
+'''
+
 names.update({
     'Cad': 'C [mg/l] adipose',
     'Cbo': 'C [mg/l] bone',
@@ -199,14 +204,15 @@ parameters.update({
     'F': (1, '-', True),
 
     # dosing
-    'D': (0, 'mg', True),
+    'Ave': (0, 'mg', False),
+    'D': (0, 'mg', False),
     'IVDOSE': (0, 'mg', True),
     'PODOSE': (100, 'mg', True),
 
     # whole body data
     'BW': (70, 'kg', True),
     'CO': (108.33, 'ml_per_s', True),
-    'QC': (108.33*1000*60*60, 'litre_per_hr', True),
+    'QC': (108.33*1000*60*60, 'litre_per_hr', False),
 
     # fractional tissue volumes
     'FVad': (0.213, 'litre_per_kg', True),
@@ -228,19 +234,19 @@ parameters.update({
     'FVre': (0.099771, 'litre_per_kg', True),
 
     # fractional tissue blood flows
-    'FQad': (0.05, 'litre_per_hr_kg', True),
-    'FQbo': (0.05, 'litre_per_hr_kg', True),
-    'FQbr': (0.12, 'litre_per_hr_kg', True),
-    'FQgu': (0.146462, 'litre_per_hr_kg', True),
-    'FQhe': (0.04, 'litre_per_hr_kg', True),
-    'FQki': (0.19, 'litre_per_hr_kg', True),
-    'FQh': (0.215385, 'litre_per_hr_kg', True),
-    'FQlu': (1, 'litre_per_hr_kg', True),
-    'FQmu': (0.17, 'litre_per_hr_kg', True),
-    'FQsk': (0.05, 'litre_per_hr_kg', True),
-    'FQsp': (0.017231, 'litre_per_hr_kg', True),
-    'FQte': (0.01076, 'litre_per_hr_kg', True),
-    'FQre': (0.103855, 'litre_per_hr_kg', True),
+    'FQad': (0.05, '-', True),
+    'FQbo': (0.05, '-', True),
+    'FQbr': (0.12, '-', True),
+    'FQgu': (0.146462, '-', True),
+    'FQhe': (0.04, '-', True),
+    'FQki': (0.19, '-', True),
+    'FQh': (0.215385, '-', True),
+    'FQlu': (1, '-', True),
+    'FQmu': (0.17, '-', True),
+    'FQsk': (0.05, '-', True),
+    'FQsp': (0.017231, '-', True),
+    'FQte': (0.01076, '-', True),
+    'FQre': (0.103855, '-', True),
 
     # tissue to plasma partition coefficients
     'Kpad': (1, '-', True),
@@ -263,7 +269,7 @@ names.update({
     'BP': 'blood to plasma ratio',
     'fumic': 'fraction unbound in microsomes',
 
-    'HLM_CLint': 'HLM CLint apparent [µl/min/mg]',
+    'HLM_CLint': 'HLM CLint apparent [mul/min/mg]',
     'CLrenal': 'CLint renal [L/hr]',
 
     'Ka': 'Ka [1/hr] absorption',
@@ -330,7 +336,22 @@ names.update({
 ##############################################################
 assignments.update({
     # id: ('value', 'unit')
-    'Cve': ('IVDOSE/Vve', 'mg_per_litre'),
+    # 'Cve': ('IVDOSE/Vve', 'mg_per_litre'),
+    'Aad': ('0 mg', 'mg'),
+    'Abo': ('0 mg', 'mg'),
+    'Abr': ('0 mg', 'mg'),
+    'Agu': ('0 mg', 'mg'),
+    'Ahe': ('0 mg', 'mg'),
+    'Aki': ('0 mg', 'mg'),
+    'Ali': ('0 mg', 'mg'),
+    'Alu': ('0 mg', 'mg'),
+    'Amu': ('0 mg', 'mg'),
+    'Ask': ('0 mg', 'mg'),
+    'Asp': ('0 mg', 'mg'),
+    'Ate': ('0 mg', 'mg'),
+    'Ave': ('IVDOSE', 'mg'),
+    'Aar': ('0 mg', 'mg'),
+    'Are': ('0 mg', 'mg'),
     'D': ('PODOSE', 'mg'),
 })
 
@@ -359,7 +380,7 @@ rules.update({
     'Cre': ('Are/Vre', 'mg_per_litre'),
 
     # free concentrations
-    'Cpl_ve': ('Cve/Bp', 'mg_per_litre'),
+    'Cpl_ve': ('Cve/BP', 'mg_per_litre'),
     'Cli_free': ('Cli*fup', 'mg_per_litre'),
     'Cki_free': ('Cki*fup', 'mg_per_litre'),
 
@@ -443,7 +464,7 @@ rate_rules.update({
     'Agu': ('Absorption + Qgu*(Car - Cgu/Kpgu*BP)', 'mg_per_hr'),
     'Ahe': ('Qhe*(Car - Che/Kphe*BP)', 'mg_per_hr'),
     'Aki': ('Qki*(Car - Cki/Kpki*BP) - CLrenal*Cki_free', 'mg_per_hr'),
-    'Ali': ('Qha*Car + Qgu*(Cgu/Kpgu*BP) + Qsp*(Csp/Kpsp*BP) - Qh*(Cli/Kpli*BP) - Cliv_free*CLmet', 'mg_per_hr'),
+    'Ali': ('Qha*Car + Qgu*(Cgu/Kpgu*BP) + Qsp*(Csp/Kpsp*BP) - Qh*(Cli/Kpli*BP) - Cli_free*CLmet', 'mg_per_hr'),
     'Alu': ('Qlu*Cve - Qlu*(Clu/Kplu*BP)', 'mg_per_hr'),
     'Amu': ('Qmu*(Car - Cmu/Kpmu*BP)', 'mg_per_hr'),
     'Ask': ('Qsk*(Car - Csk/Kpsk*BP)', 'mg_per_hr'),
