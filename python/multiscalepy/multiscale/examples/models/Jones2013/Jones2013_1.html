@@ -197,9 +197,39 @@
     <a class="anchor" id="Model"></a>
 
 
+                <notes>
+  <body xmlns="http://www.w3.org/1999/xhtml">
+    <h1>Jones2013 - PKPD</h1>
+    <h2>Description</h2>
+    <p>
+        This model is an example physiologically based pharmakokinetic model (PKPD) encoded in <a href="http://sbml.org">SBML</a> format.
+        The model is available in the supplement of the article:
+    </p>
+  <div class="bibo:title">
+    <a href="http://identifiers.org/pubmed/23945604" title="Access to this publication">Basic Concepts in Physiologically Based Pharmacokinetic Modeling in Drug Discovery and Development.</a>
+  </div>
+  <div class="bibo:authorList">HM Jones and K Rowland-Yeo</div>
+  <div class="bibo:Journal">CPT Pharmacometrics Syst Pharmacol. 2013 Aug 14;2:e63. doi: 10.1038/psp.2013.41.</div>
+  <p/>
+  <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+  <div class="dc:publisher">This file has been produced by
+    <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div><h2>Terms of use</h2><div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div><div class="dc:license">
+  <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
+        <ol>
+    <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+    <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
+          with the distribution.</li>
+  </ol>
+        This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+        </p>
+</div>
+</body>
+</notes>
+
+        <hr />
 
     <h1>Model : Jones2013_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-09 23:36<br /><b>Modified:</b> 2016-05-09 23:36<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-10 08:57<br /><b>Modified:</b> 2016-05-10 08:57<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -218,7 +248,7 @@
                 <tr>	<tr><td class="active">id</td><td>Jones2013_1</td></tr>
 	<tr><td class="active">name</td><td>Jones2013_1</td></tr>
 	<tr><td class="active">version</td><td>L3V1</td></tr>
-	<tr><td class="active">time</td><td>hr</td></tr>
+	<tr><td class="active">time</td><td>h</td></tr>
 	<tr><td class="active">substance</td><td>mg</td></tr>
 	<tr><td class="active">extent</td><td>mg</td></tr>
 	<tr><td class="active">volume</td><td>litre</td></tr>
@@ -242,7 +272,7 @@
         <table id="table_units" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">UnitDefinitions [11]</th>
+	<th scope="col" class="warning">UnitDefinitions [17]</th>
 	<th scope="col">name</th>
 	<th scope="col">units</th>
     <th scope="col">sbo</th>
@@ -250,6 +280,31 @@
 </tr>
             </thead>
             <tbody>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">mulitre_per_g</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 6 </cn>
+        </apply>
+      </apply>
+      <ci> litre </ci>
+    </apply>
+    <ci> g </ci>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
 	<td class="active">mg</td>
 	<td></td>
@@ -290,6 +345,24 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">s_per_h</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> s </ci>
+    <apply>
+      <times/>
+      <cn> 3600 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
 	<td class="active">mg_per_g</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
@@ -315,32 +388,54 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">hr</td>
+	<td class="active">mg_per_h</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
-    <cn> 3600 </cn>
-    <ci> s </ci>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> g </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 3600 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math></td>
 	<td></td>
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">litre_per_hr</td>
+	<td class="active">ml_per_litre</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
-    <ci> litre </ci>
     <apply>
       <times/>
-      <cn> 3600 </cn>
-      <ci> s </ci>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> litre </ci>
     </apply>
+    <ci> litre </ci>
   </apply>
 </math></td>
 	<td></td>
@@ -379,13 +474,87 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">per_hr</td>
+	<td class="active">h</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <cn> 3600 </cn>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">mulitre_per_min_mg</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
-    <cn type="integer"> 1 </cn>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 6 </cn>
+        </apply>
+      </apply>
+      <ci> litre </ci>
+    </apply>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> g </ci>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">min_per_h</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 3600 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">litre_per_h</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> litre </ci>
     <apply>
       <times/>
       <cn> 3600 </cn>
@@ -411,7 +580,7 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">mg_per_hr</td>
+	<td class="active">ml_per_s</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -427,13 +596,9 @@
           <cn type="integer"> 3 </cn>
         </apply>
       </apply>
-      <ci> g </ci>
+      <ci> litre </ci>
     </apply>
-    <apply>
-      <times/>
-      <cn> 3600 </cn>
-      <ci> s </ci>
-    </apply>
+    <ci> s </ci>
   </apply>
 </math></td>
 	<td></td>
@@ -459,6 +624,24 @@
       <ci> g </ci>
     </apply>
     <ci> litre </ci>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">per_h</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <cn type="integer"> 1 </cn>
+    <apply>
+      <times/>
+      <cn> 3600 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math></td>
 	<td></td>
@@ -918,7 +1101,38 @@
 	<td>            10.0
     </td>
 	<td>mulitre_per_min_mg</td>
-	<td>    None
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 6 </cn>
+        </apply>
+      </apply>
+      <ci> litre </ci>
+    </apply>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> g </ci>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -1512,7 +1726,25 @@
 	<td>            108.33
     </td>
 	<td>ml_per_s</td>
-	<td>    None
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> litre </ci>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -1648,7 +1880,7 @@
 	<td>CLint renal [L/hr]</td>
 	<td>            0.0
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -1970,7 +2202,7 @@
 	<td>cardiac output [L/hr]</td>
 	<td>            389988000.0
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -2007,7 +2239,7 @@
 	<td>Ka [1/hr] absorption</td>
 	<td>            1.0
     </td>
-	<td>per_hr</td>
+	<td>per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -2835,7 +3067,7 @@
 </math>
 
     </td>
-	<td>mg_per_hr</td>
+	<td>mg_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -2878,7 +3110,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3105,7 +3337,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3137,7 +3369,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3173,7 +3405,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3205,7 +3437,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3237,7 +3469,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3269,7 +3501,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3438,7 +3670,7 @@
 </math>
 
     </td>
-	<td>mg_per_hr</td>
+	<td>mg_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3598,7 +3830,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3747,7 +3979,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3818,7 +4050,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3850,7 +4082,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -3921,7 +4153,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -4031,7 +4263,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -4063,7 +4295,7 @@
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -4086,7 +4318,7 @@
 	<td class="active">CLmet</td>
 	<td>CLint scaled [l/hr]</td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
     <divide/>
     <apply>
@@ -4098,14 +4330,14 @@
       </apply>
       <ci> MPPGL </ci>
       <ci> Vli </ci>
-      <cn type="integer"> 60 </cn>
+      <cn sbml:units="min_per_h" type="integer"> 60 </cn>
     </apply>
-    <cn type="integer"> 1000 </cn>
+    <cn sbml:units="mulitre_per_g" type="integer"> 1000 </cn>
   </apply>
 </math>
 
     </td>
-	<td>litre_per_hr</td>
+	<td>litre_per_h</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -6067,20 +6299,38 @@
 	<td class="active">QC</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
     <times/>
     <apply>
       <divide/>
       <ci> CO </ci>
-      <cn type="integer"> 1000 </cn>
+      <cn sbml:units="ml_per_litre" type="integer"> 1000 </cn>
     </apply>
-    <cn type="integer"> 60 </cn>
-    <cn type="integer"> 60 </cn>
+    <cn sbml:units="s_per_h" type="integer"> 3600 </cn>
   </apply>
 </math>
 </td>
-    <td>    None
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <cn> 0.277777777778 </cn>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> litre </ci>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
 </td>
 	<td></td>
 	<td></td>
@@ -6145,7 +6395,7 @@
 	<td class="active">CLmet</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
   <apply>
     <divide/>
     <apply>
@@ -6157,18 +6407,26 @@
       </apply>
       <ci> MPPGL </ci>
       <ci> Vli </ci>
-      <cn type="integer"> 60 </cn>
+      <cn sbml:units="min_per_h" type="integer"> 60 </cn>
     </apply>
-    <cn type="integer"> 1000 </cn>
+    <cn sbml:units="mulitre_per_g" type="integer"> 1000 </cn>
   </apply>
 </math>
 </td>
     <td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <times/>
-    <cn> 0.001 </cn>
-    <ci> litre </ci>
+    <divide/>
+    <apply>
+      <times/>
+      <cn> 0.0166666666667 </cn>
+      <ci> litre </ci>
+    </apply>
+    <apply>
+      <times/>
+      <cn> 60 </cn>
+      <ci> s </ci>
+    </apply>
   </apply>
 </math>
 </td>

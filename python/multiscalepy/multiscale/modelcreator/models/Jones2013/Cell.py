@@ -2,8 +2,7 @@
 """
 PKPD example model
 """
-from libsbml import UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE
-from libsbml import UNIT_KIND_GRAM, UNIT_KIND_KATAL, UNIT_KIND_DIMENSIONLESS
+from libsbml import UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE, UNIT_KIND_GRAM
 from libsbml import XMLNode
 from ..templates import terms_of_use, mkoenig
 
@@ -12,30 +11,25 @@ mid = 'Jones2013'
 version = 1
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
-    <h1>Jones2013</h1>
+    <h1>Jones2013 - PKPD</h1>
     <h2>Description</h2>
     <p>
-        This is a PKPD model in <a href="http://sbml.org">SBML</a> format.
+        This model is an example physiologically based pharmakokinetic model (PKPD) encoded in <a href="http://sbml.org">SBML</a> format.
+        The model is available in the supplement of the article:
     </p>
-    <p>This model is described in the supplement of the article:</p>
     <div class="bibo:title">
         <a href="http://identifiers.org/pubmed/23945604" title="Access to this publication">Basic Concepts in Physiologically Based Pharmacokinetic Modeling in Drug Discovery and Development.</a>
     </div>
     <div class="bibo:authorList">HM Jones and K Rowland-Yeo</div>
     <div class="bibo:Journal">CPT Pharmacometrics Syst Pharmacol. 2013 Aug 14;2:e63. doi: 10.1038/psp.2013.41.</div>
-    <p>Abstract:</p>
-    <div class="bibo:abstract">
     <p></p>
-    <div class="bibo:title">
-        <a href="http://identifiers.org/pubmed/2035636" title="Access to this publication">Basic Concepts in Physiologically Based Pharmacokinetic Modeling in Drug Discovery and Development.</a>
-    </div>
     """ + terms_of_use + """
     </body>
     """)
 
 creators = mkoenig
 main_units = {
-    'time': 'hr',
+    'time': 'h',
     'extent': 'mg',
     'substance': 'mg',
     'length': 'm',
@@ -58,27 +52,41 @@ reactions = []
 ##########################################################################
 # units (kind, exponent, scale=0, multiplier=1.0)
 units.update({
-    'hr': [(UNIT_KIND_SECOND, 1.0, 0, 3600)],
+    'h': [(UNIT_KIND_SECOND, 1.0, 0, 3600)],
     'kg': [(UNIT_KIND_GRAM, 1.0, 3, 1.0)],
     'm': [(UNIT_KIND_METRE, 1.0)],
     'm2': [(UNIT_KIND_METRE, 2.0)],
 
-    'per_hr': [(UNIT_KIND_SECOND, -1.0, 0, 3600)],
+    'per_h': [(UNIT_KIND_SECOND, -1.0, 0, 3600)],
 
     'mg': [(UNIT_KIND_GRAM, 1.0, -3, 1.0)],
     'mg_per_litre': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
                    (UNIT_KIND_LITRE, -1.0, 0, 1.0)],
     'mg_per_g': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
                      (UNIT_KIND_GRAM, -1.0, 0, 1.0)],
-    'mg_per_hr': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
+    'mg_per_h': [(UNIT_KIND_GRAM, 1.0, -3, 1.0),
                  (UNIT_KIND_SECOND, -1.0, 0, 3600)],
 
-    'litre_per_hr': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
+    'litre_per_h': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
                      (UNIT_KIND_SECOND, -1.0, 0, 3600)],
     'litre_per_kg': [(UNIT_KIND_LITRE, 1.0, 0, 1.0),
                      (UNIT_KIND_GRAM, -1.0, 3, 1.0)],
-    # 'mulitre_per_min_mg'
-    # 'ml_per_s'
+    'mulitre_per_min_mg': [(UNIT_KIND_LITRE, 1.0, -6, 1.0),
+                           (UNIT_KIND_SECOND, -1.0, 0, 60), (UNIT_KIND_GRAM, -1.0, -3, 1.0)],
+    'ml_per_s': [(UNIT_KIND_LITRE, 1.0, -3, 1.0),
+                 (UNIT_KIND_SECOND, -1.0, 0, 1)],
+
+    # conversion factors
+    's_per_h': [(UNIT_KIND_SECOND, 1.0, 0, 1.0),
+                (UNIT_KIND_SECOND, -1.0, 0, 3600)],
+    'min_per_h': [(UNIT_KIND_SECOND, 1.0, 0, 60),
+                  (UNIT_KIND_SECOND, -1.0, 0, 3600)],
+
+    'ml_per_litre': [(UNIT_KIND_LITRE, 1.0, -3, 1.0),
+                     (UNIT_KIND_LITRE, -1.0, 0, 1)],
+    'mulitre_per_g': [(UNIT_KIND_LITRE, 1.0, -6, 1.0),
+                      (UNIT_KIND_GRAM, -1.0, 0, 1)],
+
 })
 
 ##############################################################
@@ -142,7 +150,6 @@ names.update({
 # Species
 ##############################################################
 species.update({
-    # TODO: substance units
     # id : ('compartment', 'value', 'unit', 'boundaryCondition')
 
 })
@@ -196,11 +203,11 @@ parameters.update({
 
     # clearances
     'HLM_CLint': (10, 'mulitre_per_min_mg', True),
-    'CLrenal': (0, 'litre_per_hr', True),
+    'CLrenal': (0, 'litre_per_h', True),
     'MPPGL': (45, 'mg_per_g', True),
 
     # absorption
-    'Ka': (1, 'per_hr', True),
+    'Ka': (1, 'per_h', True),
     'F': (1, '-', True),
 
     # dosing
@@ -212,7 +219,7 @@ parameters.update({
     # whole body data
     'BW': (70, 'kg', True),
     'CO': (108.33, 'ml_per_s', True),
-    'QC': (108.33*1000*60*60, 'litre_per_hr', False),
+    'QC': (108.33*1000*60*60, 'litre_per_h', False),
 
     # fractional tissue volumes
     'FVad': (0.213, 'litre_per_kg', True),
@@ -385,7 +392,7 @@ rules.update({
     'Cki_free': ('Cki*fup', 'mg_per_litre'),
 
     # clearance
-    'CLmet': ('(HLM_CLint/fumic) * MPPGL * Vli * 60 / 1000', 'litre_per_hr'),
+    'CLmet': ('(HLM_CLint/fumic) * MPPGL * Vli * 60 min_per_h / 1000 mulitre_per_g', 'litre_per_h'),
 
     # volumes
     'Vad': ('BW*FVad', UNIT_KIND_LITRE),
@@ -409,28 +416,28 @@ rules.update({
     'Vplas_art': ('Vpl*Var/(Vve + Var)', UNIT_KIND_LITRE),
 
     # blood flows
-    'QC': ('CO/1000*60*60', 'litre_per_hr'),
-    'Qad': ('QC*FQad', 'litre_per_hr'),
-    'Qbo': ('QC*FQbo', 'litre_per_hr'),
-    'Qbr': ('QC*FQbr', 'litre_per_hr'),
-    'Qgu': ('QC*FQgu', 'litre_per_hr'),
-    'Qhe': ('QC*FQhe', 'litre_per_hr'),
-    'Qki': ('QC*FQki', 'litre_per_hr'),
-    'Qh': ('QC*FQh', 'litre_per_hr'),
-    'Qha': ('Qh - Qgu - Qsp', 'litre_per_hr'),
-    'Qlu': ('QC*FQlu', 'litre_per_hr'),
-    'Qmu': ('QC*FQmu', 'litre_per_hr'),
-    'Qsk': ('QC*FQsk', 'litre_per_hr'),
-    'Qsp': ('QC*FQsp', 'litre_per_hr'),
-    'Qte': ('QC*FQte', 'litre_per_hr'),
-    'Qre': ('QC*FQre', 'litre_per_hr'),
+    'QC': ('CO/1000 ml_per_litre * 3600 s_per_h', 'litre_per_h'),
+    'Qad': ('QC*FQad', 'litre_per_h'),
+    'Qbo': ('QC*FQbo', 'litre_per_h'),
+    'Qbr': ('QC*FQbr', 'litre_per_h'),
+    'Qgu': ('QC*FQgu', 'litre_per_h'),
+    'Qhe': ('QC*FQhe', 'litre_per_h'),
+    'Qki': ('QC*FQki', 'litre_per_h'),
+    'Qh': ('QC*FQh', 'litre_per_h'),
+    'Qha': ('Qh - Qgu - Qsp', 'litre_per_h'),
+    'Qlu': ('QC*FQlu', 'litre_per_h'),
+    'Qmu': ('QC*FQmu', 'litre_per_h'),
+    'Qsk': ('QC*FQsk', 'litre_per_h'),
+    'Qsp': ('QC*FQsp', 'litre_per_h'),
+    'Qte': ('QC*FQte', 'litre_per_h'),
+    'Qre': ('QC*FQre', 'litre_per_h'),
 
     # rates
-    'Absorption': ('Ka*D*F', 'mg_per_hr'),
+    'Absorption': ('Ka*D*F', 'mg_per_h'),
     'Venous': ('Qad*(Cad/Kpad*BP) + Qbo*(Cbo/Kpbo*BP) + Qbr*(Cbr/Kpbr*BP) + '
                'Qhe*(Che/Kphe*BP) + Qki*(Cki/Kpki*BP) + Qh*(Cli/Kpli*BP) + '
                'Qmu*(Cmu/Kpmu*BP) + Qsk*(Csk/Kpsk*BP) + Qte*(Cte/Kpte*BP) + '
-               'Qre*(Cre/Kpre*BP)', 'mg_per_hr'),
+               'Qre*(Cre/Kpre*BP)', 'mg_per_h'),
 
     # concentrations
 
@@ -458,22 +465,22 @@ names.update({
 })
 
 rate_rules.update({
-    'Aad': ('Qad * (Car - Cad/Kpad*BP)', 'mg_per_hr'),
-    'Abo': ('Qbo * (Car - Cbo/Kpbo*BP)', 'mg_per_hr'),
-    'Abr': ('Qbr * (Car - Cbr/Kpbr*BP)', 'mg_per_hr'),
-    'Agu': ('Absorption + Qgu*(Car - Cgu/Kpgu*BP)', 'mg_per_hr'),
-    'Ahe': ('Qhe*(Car - Che/Kphe*BP)', 'mg_per_hr'),
-    'Aki': ('Qki*(Car - Cki/Kpki*BP) - CLrenal*Cki_free', 'mg_per_hr'),
-    'Ali': ('Qha*Car + Qgu*(Cgu/Kpgu*BP) + Qsp*(Csp/Kpsp*BP) - Qh*(Cli/Kpli*BP) - Cli_free*CLmet', 'mg_per_hr'),
-    'Alu': ('Qlu*Cve - Qlu*(Clu/Kplu*BP)', 'mg_per_hr'),
-    'Amu': ('Qmu*(Car - Cmu/Kpmu*BP)', 'mg_per_hr'),
-    'Ask': ('Qsk*(Car - Csk/Kpsk*BP)', 'mg_per_hr'),
-    'Asp': ('Qsp*(Car - Csp/Kpsp*BP)', 'mg_per_hr'),
-    'Ate': ('Qte*(Car - Cte/Kpte*BP)', 'mg_per_hr'),
-    'Ave': ('Venous - Qlu*Cve', 'mg_per_hr'),
-    'Aar': ('Qlu*(Clu/Kplu*BP) - Qlu*Car', 'mg_per_hr'),
-    'Are': ('Qre*(Car - Cre/Kpre*BP)', 'mg_per_hr'),
-    'D': ('-Absorption', 'mg_per_hr'),
+    'Aad': ('Qad * (Car - Cad/Kpad*BP)', 'mg_per_h'),
+    'Abo': ('Qbo * (Car - Cbo/Kpbo*BP)', 'mg_per_h'),
+    'Abr': ('Qbr * (Car - Cbr/Kpbr*BP)', 'mg_per_h'),
+    'Agu': ('Absorption + Qgu*(Car - Cgu/Kpgu*BP)', 'mg_per_h'),
+    'Ahe': ('Qhe*(Car - Che/Kphe*BP)', 'mg_per_h'),
+    'Aki': ('Qki*(Car - Cki/Kpki*BP) - CLrenal*Cki_free', 'mg_per_h'),
+    'Ali': ('Qha*Car + Qgu*(Cgu/Kpgu*BP) + Qsp*(Csp/Kpsp*BP) - Qh*(Cli/Kpli*BP) - Cli_free*CLmet', 'mg_per_h'),
+    'Alu': ('Qlu*Cve - Qlu*(Clu/Kplu*BP)', 'mg_per_h'),
+    'Amu': ('Qmu*(Car - Cmu/Kpmu*BP)', 'mg_per_h'),
+    'Ask': ('Qsk*(Car - Csk/Kpsk*BP)', 'mg_per_h'),
+    'Asp': ('Qsp*(Car - Csp/Kpsp*BP)', 'mg_per_h'),
+    'Ate': ('Qte*(Car - Cte/Kpte*BP)', 'mg_per_h'),
+    'Ave': ('Venous - Qlu*Cve', 'mg_per_h'),
+    'Aar': ('Qlu*(Clu/Kplu*BP) - Qlu*Car', 'mg_per_h'),
+    'Are': ('Qre*(Car - Cre/Kpre*BP)', 'mg_per_h'),
+    'D': ('-Absorption', 'mg_per_h'),
 })
 
 
