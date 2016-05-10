@@ -15,6 +15,7 @@ notes = XMLNode.convertStringToXMLNode("""
     <h2>Description</h2>
     <p>
         This model is an example physiologically based pharmakokinetic model (PKPD) encoded in <a href="http://sbml.org">SBML</a> format.
+        <img src="Jones2013_PKPD.png"></img><br />
         The model is available in the supplement of the article:
     </p>
     <div class="bibo:title">
@@ -439,7 +440,8 @@ rules.update({
                'Qmu*(Cmu/Kpmu*BP) + Qsk*(Csk/Kpsk*BP) + Qte*(Cte/Kpte*BP) + '
                'Qre*(Cre/Kpre*BP)', 'mg_per_h'),
 
-    # concentrations
+    # total substance
+    'Abody': ('Aad + Aar + Abo + Abr + Agu + Ahe + Aki + Ali + Alu + Amu + Ask + Asp + Ate + Are + Ave ', 'mg')
 
 })
 names.update({

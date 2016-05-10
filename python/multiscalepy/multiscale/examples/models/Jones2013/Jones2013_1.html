@@ -203,6 +203,8 @@
     <h2>Description</h2>
     <p>
         This model is an example physiologically based pharmakokinetic model (PKPD) encoded in <a href="http://sbml.org">SBML</a> format.
+        <img src="Jones2013_PKPD.png"/>
+    <br/>
         The model is available in the supplement of the article:
     </p>
   <div class="bibo:title">
@@ -229,7 +231,7 @@
         <hr />
 
     <h1>Model : Jones2013_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-10 08:57<br /><b>Modified:</b> 2016-05-10 08:57<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-10 10:47<br /><b>Modified:</b> 2016-05-10 10:47<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -1084,7 +1086,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [107]</th>
+	<th scope="col" class="warning">Parameters [108]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -3489,6 +3491,54 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Abody</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> Aad </ci>
+    <ci> Aar </ci>
+    <ci> Abo </ci>
+    <ci> Abr </ci>
+    <ci> Agu </ci>
+    <ci> Ahe </ci>
+    <ci> Aki </ci>
+    <ci> Ali </ci>
+    <ci> Alu </ci>
+    <ci> Amu </ci>
+    <ci> Ask </ci>
+    <ci> Asp </ci>
+    <ci> Ate </ci>
+    <ci> Are </ci>
+    <ci> Ave </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>mg</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <power/>
+      <cn type="integer"> 10 </cn>
+      <apply>
+        <minus/>
+        <cn type="integer"> 3 </cn>
+      </apply>
+    </apply>
+    <ci> g </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
 	<td class="active">Qbr</td>
 	<td>brain blood flow</td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
@@ -3529,6 +3579,45 @@
     <divide/>
     <ci> Aar </ci>
     <ci> Var </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>mg_per_litre</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> g </ci>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Cgu</td>
+	<td>C [mg/l] gut</td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> Agu </ci>
+    <ci> Vgu </ci>
   </apply>
 </math>
 
@@ -4093,45 +4182,6 @@
       <cn> 3600 </cn>
       <ci> s </ci>
     </apply>
-  </apply>
-</math>
-</td>
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">Cgu</td>
-	<td>C [mg/l] gut</td>
-	<td>                <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> Agu </ci>
-    <ci> Vgu </ci>
-  </apply>
-</math>
-
-    </td>
-	<td>mg_per_litre</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> g </ci>
-    </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>
@@ -4835,7 +4885,7 @@
         <table id="table_rules" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules [71]</th>
+	<th scope="col" class="warning">Rules [72]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -5606,6 +5656,50 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">Rule</td>
+	<td class="active">Abody</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <plus/>
+    <ci> Aad </ci>
+    <ci> Aar </ci>
+    <ci> Abo </ci>
+    <ci> Abr </ci>
+    <ci> Agu </ci>
+    <ci> Ahe </ci>
+    <ci> Aki </ci>
+    <ci> Ali </ci>
+    <ci> Alu </ci>
+    <ci> Amu </ci>
+    <ci> Ask </ci>
+    <ci> Asp </ci>
+    <ci> Ate </ci>
+    <ci> Are </ci>
+    <ci> Ave </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <power/>
+      <cn type="integer"> 10 </cn>
+      <apply>
+        <minus/>
+        <cn type="integer"> 3 </cn>
+      </apply>
+    </apply>
+    <ci> g </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
 	<td class="active">Qbr</td>
 	<td>=</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -5642,6 +5736,41 @@
     <divide/>
     <ci> Aar </ci>
     <ci> Var </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <apply>
+        <power/>
+        <cn type="integer"> 10 </cn>
+        <apply>
+          <minus/>
+          <cn type="integer"> 3 </cn>
+        </apply>
+      </apply>
+      <ci> g </ci>
+    </apply>
+    <ci> litre </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">Cgu</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> Agu </ci>
+    <ci> Vgu </ci>
   </apply>
 </math>
 </td>
@@ -6156,41 +6285,6 @@
       <cn> 3600 </cn>
       <ci> s </ci>
     </apply>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Rule</td>
-	<td class="active">Cgu</td>
-	<td>=</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> Agu </ci>
-    <ci> Vgu </ci>
-  </apply>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <apply>
-        <power/>
-        <cn type="integer"> 10 </cn>
-        <apply>
-          <minus/>
-          <cn type="integer"> 3 </cn>
-        </apply>
-      </apply>
-      <ci> g </ci>
-    </apply>
-    <ci> litre </ci>
   </apply>
 </math>
 </td>

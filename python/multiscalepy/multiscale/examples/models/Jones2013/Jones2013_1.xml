@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_37d210d4f43e4631b12e48c1a22c35c2" id="Jones2013_1" name="Jones2013_1" substanceUnits="mg" timeUnits="h" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mg" fbc:strict="false">
+  <model metaid="meta_28797d562a3a48558cf59a97f5d2832d" id="Jones2013_1" name="Jones2013_1" substanceUnits="mg" timeUnits="h" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mg" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Jones2013 - PKPD</h1>
         <h2>Description</h2>
         <p>
         This model is an example physiologically based pharmakokinetic model (PKPD) encoded in <a href="http://sbml.org">SBML</a> format.
+        <img src="Jones2013_PKPD.png"/>
+        <br/>
         The model is available in the supplement of the article:
     </p>
       <div class="bibo:title">
@@ -33,7 +35,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_37d210d4f43e4631b12e48c1a22c35c2">
+    <rdf:Description rdf:about="#meta_28797d562a3a48558cf59a97f5d2832d">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -49,10 +51,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-10T08:57:02Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-10T10:47:27Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-10T08:57:02Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-10T10:47:27Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -261,8 +263,10 @@
   <parameter id="Qha" name="hepatic artery blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qhe" name="heart blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qbo" name="bone blood flow" units="litre_per_h" constant="false"/>
+  <parameter id="Abody" units="mg" constant="false"/>
   <parameter id="Qbr" name="brain blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Car" name="C [mg/l] arterial blood" units="mg_per_litre" constant="false"/>
+  <parameter id="Cgu" name="C [mg/l] gut" units="mg_per_litre" constant="false"/>
   <parameter id="Venous" units="mg_per_h" constant="false"/>
   <parameter id="Cte" name="C [mg/l] testes" units="mg_per_litre" constant="false"/>
   <parameter id="Cki" name="C [mg/l] kidney" units="mg_per_litre" constant="false"/>
@@ -275,7 +279,6 @@
   <parameter id="Cki_free" name="free kidney concentration" units="mg_per_litre" constant="false"/>
   <parameter id="Qre" name="rest of body blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qad" name="adipose blood flow" units="litre_per_h" constant="false"/>
-  <parameter id="Cgu" name="C [mg/l] gut" units="mg_per_litre" constant="false"/>
   <parameter id="Qmu" name="muscle blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Cbo" name="C [mg/l] bone" units="mg_per_litre" constant="false"/>
   <parameter id="Cbr" name="C [mg/l] brain" units="mg_per_litre" constant="false"/>
@@ -590,6 +593,28 @@
       </apply>
     </math>
   </assignmentRule>
+  <assignmentRule variable="Abody">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <ci> Aad </ci>
+        <ci> Aar </ci>
+        <ci> Abo </ci>
+        <ci> Abr </ci>
+        <ci> Agu </ci>
+        <ci> Ahe </ci>
+        <ci> Aki </ci>
+        <ci> Ali </ci>
+        <ci> Alu </ci>
+        <ci> Amu </ci>
+        <ci> Ask </ci>
+        <ci> Asp </ci>
+        <ci> Ate </ci>
+        <ci> Are </ci>
+        <ci> Ave </ci>
+      </apply>
+    </math>
+  </assignmentRule>
   <assignmentRule variable="Qbr">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -605,6 +630,15 @@
         <divide/>
         <ci> Aar </ci>
         <ci> Var </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Cgu">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <ci> Agu </ci>
+        <ci> Vgu </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -811,15 +845,6 @@
         <times/>
         <ci> QC </ci>
         <ci> FQad </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Cgu">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> Agu </ci>
-        <ci> Vgu </ci>
       </apply>
     </math>
   </assignmentRule>
