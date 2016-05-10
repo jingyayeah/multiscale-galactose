@@ -183,13 +183,14 @@ def create_caffeine():
 
 
 def create_Sturis1991():
-    """ Create caffeine network. """
     directory = os.path.join(test_dir, 'models', 'Sturis1991')
     model_info = ['multiscale.modelcreator.models.Sturis1991']
+    return create_model(directory, model_info, f_annotations=None)
 
-    # d = os.path.dirname(os.path.abspath(__file__))
-    # f_annotations = os.path.join(d, 'models', 'caffeine', 'caffeine_annotations.xlsx')
 
+def create_Sturis1991Delay():
+    directory = os.path.join(test_dir, 'models', 'Sturis1991Delay')
+    model_info = ['multiscale.modelcreator.models.Sturis1991Delay']
     return create_model(directory, model_info, f_annotations=None)
 
 
@@ -204,12 +205,30 @@ def create_Jones2013():
     return create_model(directory, model_info, f_annotations=None)
 
 
+def create_AssignmentTest():
+    """ Create PKPD example. """
+    directory = os.path.join(test_dir, 'models', 'AssignmentTest')
+    model_info = ['multiscale.modelcreator.models.AssignmentTest']
+    return create_model(directory, model_info, f_annotations=None)
+
+
+def create_PKPD():
+    """ Create PKPD example. """
+    directory = os.path.join(test_dir, 'models', 'PKPD')
+    model_info = ['multiscale.modelcreator.models.PKPD']
+    return create_model(directory, model_info, f_annotations=None)
+
 
 #########################################################################
 if __name__ == "__main__":
 
     # [cell_dict, cell_model] = create_Sturis1991()
-    [cell_dict, cell_model] = create_Jones2013()
+    [cell_dict, cell_model] = create_Sturis1991Delay()
+
+    # [cell_dict, cell_model] = create_Jones2013()
+    # [cell_dict, cell_model] = create_AssignmentTest()
+    # [cell_dict, cell_model] = create_PKPD()
+
     # TODO: add model creation tests
     # [cell_dict, cell_model] = create_caffeine()
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.9.0 with libSBML version 5.13.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="delay_model" name="delay_model">
+    <listOfParameters>
+      <parameter id="T" value="10" constant="true"/>
+      <parameter id="tau" value="5" constant="true"/>
+      <parameter id="k1" constant="false"/>
+      <parameter id="k2" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="k1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <sin/>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <cn type="integer"> 2 </cn>
+                  <pi/>
+                </apply>
+                <ci> T </ci>
+              </apply>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="k2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/delay"> delay </csymbol>
+            <ci> k1 </ci>
+            <ci> tau </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

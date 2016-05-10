@@ -1,0 +1,207 @@
+;####################################################################################
+
+{HUMAN PBPK MODEL}
+
+METHOD Stiff
+STARTTIME = 0
+STOPTIME = 24 	; hours
+
+{Initial conditions for tissues - amount in mg}
+
+INIT Aad = 0		; adipose
+INIT Abo = 0		; bone
+INIT Abr = 0       		; brain
+INIT Agu = 0		; gut
+INIT Ahe = 0		; heart
+INIT Aki	= 0		; kidney
+INIT Ali= 0		; liver
+INIT Alu = 0		; lung
+INIT Amu = 0		; muscle
+INIT Ask = 0		; skin
+INIT Asp = 0		; spleen
+INIT Ate = 0		; testes
+INIT Ave = IVDOSE	; venous blood
+INIT Aar = 0		; arterial blood
+INIT Are = 0		; rest of body
+INIT D = PODOSE	; oral dose
+
+{Differential equations - mg/hr}
+
+d/dt(Aad) = Qad*(Carterial - Cadipose/Kpad*BP)				; adipose
+d/dt(Abo) = Qbo*(Carterial - Cbone/Kpbo*BP)				; bone
+d/dt(Abr) = Qbr*(Carterial - Cbrain/Kpbr*BP)				; brain
+d/dt(Agu) = Absorption + Qgu*(Carterial - Cgut/Kpgu*BP) 		; gut
+d/dt(Ahe) = Qhe*(Carterial - Cheart/Kphe*BP)				; heart
+d/dt(Aki) = Qki*(Carterial - Ckidney/Kpki*BP) - CLrenal*Ckidneyfree	; kidney
+d/dt(Ali)= Qha*Carterial + Qgu*(Cgut/Kpgu*BP) + Qsp*(Cspleen/Kpsp*BP) - Qh*(Cliver/Kpli*BP) - Cliverfree*CLmet							; liver
+d/dt(Alu) = Qlu*Cvenous - Qlu*(Clung/Kplu*BP) 				; lung
+d/dt(Amu) = Qmu*(Carterial - Cmuscle/Kpmu*BP)           			; muscle
+d/dt(Ask) = Qsk*(Carterial - Cskin/Kpsk*BP)				; skin
+d/dt(Asp) = Qsp*(Carterial - Cspleen/Kpsp*BP)				; spleen
+d/dt(Ate) = Qte*(Carterial - Ctestes/Kpte*BP)				; testes
+d/dt(Ave) = Venous - Qlu*Cvenous 					; venous blood
+d/dt(Aar) = Qlu*(Clung/Kplu*BP) - Qlu*Carterial				; arterial blood
+d/dt(Are) = Qre*(Carterial - Crest/Kpre*BP)				; rest of body
+d/dt(D) = - Absorption				            			; oral dosing
+
+Venous = Qad*(Cadipose/Kpad*BP) + Qbo*(Cbone/Kpbo*BP) + Qbr*(Cbrain/Kpbr*BP) +  Qhe*(Cheart/Kphe*BP) + Qki*(Ckidney/Kpki*BP) + Qh*(Cliver/Kpli*BP)  + Qmu*(Cmuscle/Kpmu*BP) + Qsk*(Cskin/Kpsk*BP) + Qte*(Ctestes/Kpte*BP) + Qre*(Crest/Kpre*BP)
+
+Absorption = Ka*D*F
+
+{Calculation of total concentrations - mg/L}
+
+Cadipose = Aad/Vad		; adipose
+Cbone = Abo/Vbo		    ; bone
+Cbrain = Abr/Vbr		; brain
+Cgut = Agu/Vgu			; gut
+Cheart = Ahe/Vhe		; heart
+Ckidney = Aki/Vki		; kidney
+Cliver = Ali/(Vli)			; liver
+Clung = Alu/Vlu			; lung
+Cmuscle = Amu/Vmu		; muscle
+Cskin = Ask/Vsk			; skin
+Cspleen = Asp/Vsp		; spleen
+Ctestes = Ate/Vte		; testes
+Cvenous = Ave/Vve		; venous blood
+Carterial = Aar/Var		; arterial blood
+Crest = Are/Vre 			; rest of body
+Cplasmavenous = Cvenous/BP	; venous plasma
+
+{Calculation of free concentrations - mg/L}
+
+Cliverfree = Cliver*fup		; liver
+Ckidneyfree = Ckidney*fup	; kidney
+
+{Clearance calculations}
+
+MPPGL = 45						; mg microsomal protein per g liver
+CLmet = (HLM_CLint/fumic)*MPPGL*Vli*60/1000	; CLint scaled (L/hr)
+
+;####################################################################################
+
+{SPECIES SPECIFIC PARAMETERS}
+
+{Fractional tissue volumes}
+
+FVad = 0.213		; adipose
+FVbo = 0.085629	; bone
+FVbr = 0.02		; brain
+FVgu = 0.0171		; gut
+FVhe = 0.0047		; heart
+FVki = 0.0044		; kidney
+FVli = 0.021		; liver
+FVlu = 0.0076		; lung
+FVmu = 0.4                 	; muscle
+FVsk = 0.0371              	; skin
+FVsp = 0.0026              	; spleen
+FVte = 0.01                	; testes
+FVve = 0.0514		; venous
+FVar = 0.0257		; arterial
+FVpl = 0.0424             	; plasma
+FVrb = 0.0347              	; erythrocytes
+FVre = 0.099771          	; rest of body
+
+{Total tissue volumes - L}
+
+BW = 70		; BW (kg)
+Vad = BW*FVad		; adipose
+Vbo = BW*FVbo        	; bone
+Vbr = BW*FVbr		; brain
+Vgu = BW*FVgu          	; gut
+Vhe = BW*FVhe        	; heart
+Vki = BW*FVki          	; kidney
+Vli = BW*FVli		; liver
+Vlu = BW*FVlu		; lung
+Vmu = BW*FVmu      	; muscle
+Vsk = BW*FVsk          	; skin
+Vsp = BW*FVsp          	; spleen
+Vte = BW*FVte         	; testes
+Vve = BW*FVve		; venous blood
+Var = BW*FVar		; arterial blood
+Vpl = BW*FVpl          	; plasma
+Vrb = BW*FVrb          	; erythrocytes
+Vre = BW*FVre        	; rest of body
+
+Vplas_ven = Vpl*Vve/(Vve + Var) 	; venous plasma
+Vplas_art = Vpl*Var/(Vve + Var) 	; arterial plasma
+
+{Fractional tissue blood flows}
+
+FQad = 0.05              	; adipose
+FQbo = 0.05              	; bone
+FQbr = 0.12              	; brain
+FQgu = 0.146462      	; gut
+FQhe = 0.04              	; heart
+FQki = 0.19              	; kidney
+FQh = 0.215385       	; hepatic (venous side)
+FQlu = 1	         	; lung
+FQmu = 0.17             	; muscle
+FQsk = 0.05              	; skin
+FQsp = 0.017231       	; spleen
+FQte = 0.01076         	; testes
+FQre = 0.103855       	; rest of body
+
+{Total tissue blood flows - L/hr}
+
+CO = 108.33		; cardiac output (ml/s)
+QC = CO/1000*60*60     ; cardiac output (L/hr)
+
+Qad = QC*FQad            	; adipose
+Qbo = QC*FQbo            	; bone
+Qbr = QC*FQbr             	; brain
+Qgu = QC*FQgu            	; gut
+Qhe = QC*FQhe            	; heart
+Qki = QC*FQki              	; kidney
+Qh = QC*FQh               	; hepatic (venous side)
+Qha = Qh - Qgu - Qsp 	; hepatic artery
+Qlu = QC*FQlu		; lung
+Qmu = QC*FQmu          	; muscle
+Qsk = QC*FQsk            	; skin
+Qsp = QC*FQsp            	; spleen
+Qte = QC*FQte             	; testes
+Qre = QC*FQre		; rest of body
+
+;####################################################################################
+
+{COMPOUND SPECIFIC PARAMETERS}
+
+{Tissue to plasma partition coefficients}
+
+Kpad = 1     	; adipose
+Kpbo = 1    	; bone
+Kpbr = 1   	; brain
+Kpgu = 1   	; gut
+Kphe = 1    	; heart
+Kpki = 1  	; kidney
+Kpli = 1		; liver
+Kplu = 1		; lung
+Kpmu = 1    	; muscle
+Kpsk = 1   	; skin
+Kpsp = 1    	; spleen
+Kpte = 1    	; testes
+Kpre = 1    	; rest of body
+
+{In vitro binding data}
+
+fup = 1		; fraction unbound in plasma
+BP = 1		; blood to plasma ratio
+fumic = 1	; fraction unbound in microsomes
+
+{Clearances}
+
+HLM_CLint = 10	; HLM CLint apparent (ul/min/mg)
+CLrenal = 0	; CLint renal (L/hr)
+
+{Absorption}
+
+Ka = 1		; Ka (hr-1)
+F  = 1		; fraction absorbed
+
+;####################################################################################
+
+{DOSING}
+
+IVDOSE = 0	; IV Bolus Dose (mg)
+PODOSE = 100	; Oral Bolus Dose (mg)
+
+;####################################################################################

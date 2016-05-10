@@ -7,7 +7,7 @@ from libsbml import XMLNode
 from ..templates import terms_of_use, mkoenig
 
 ##############################################################
-mid = 'Jones2013'
+mid = 'PKPD model'
 version = 1
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
@@ -152,26 +152,22 @@ names.update({
 ##############################################################
 species.update({
     # id : ('compartment', 'value', 'unit', 'boundaryCondition')
-
+    'Cad': ('Vad', 0, 'mg_per_litre', False),
+    'Cbo': ('Vbo', 0, 'mg_per_litre', False),
+    'Cbr': ('Vbr', 0, 'mg_per_litre', False),
+    'Cgu': ('Vgu', 0, 'mg_per_litre', False),
+    'Che': ('Vhe', 0, 'mg_per_litre', False),
+    'Cki': ('Vki', 0, 'mg_per_litre', False),
+    'Cli': ('Vli', 0, 'mg_per_litre', False),
+    'Clu': ('Vlu', 0, 'mg_per_litre', False),
+    'Cmu': ('Vmu', 0, 'mg_per_litre', False),
+    'Csk': ('Vsk', 0, 'mg_per_litre', False),
+    'Csp': ('Vsp', 0, 'mg_per_litre', False),
+    'Cte': ('Vte', 0, 'mg_per_litre', False),
+    'Cve': ('Vve', 0, 'mg_per_litre', False),
+    'Car': ('Var', 0, 'mg_per_litre', False),
+    'Cre': ('Vre', 0, 'mg_per_litre', False),
 })
-# This should be handled as species
-'''
-'Cad': ('ad', 0, 'mg_per_litre', False),
-'Cbo': ('bo', 0, 'mg_per_litre', False),
-'Cbr': ('br', 0, 'mg_per_litre', False),
-'Cgu': ('gu', 0, 'mg_per_litre', False),
-'Che': ('he', 0, 'mg_per_litre', False),
-'Cki': ('ki', 0, 'mg_per_litre', False),
-'Cli': ('li', 0, 'mg_per_litre', False),
-'Clu': ('lu', 0, 'mg_per_litre', False),
-'Cmu': ('mu', 0, 'mg_per_litre', False),
-'Csk': ('sk', 0, 'mg_per_litre', False),
-'Csp': ('sp', 0, 'mg_per_litre', False),
-'Cte': ('te', 0, 'mg_per_litre', False),
-'Cve': ('ve', 0, 'mg_per_litre', False),
-'Car': ('ar', 0, 'mg_per_litre', False),
-'Cre': ('re', 0, 'mg_per_litre', False),
-'''
 
 names.update({
     'Cad': 'C [mg/l] adipose',
@@ -371,23 +367,6 @@ assignments.update({
 rules.update({
     # id: ('value', 'unit')
 
-    # concentrations
-    'Cad': ('Aad/Vad', 'mg_per_litre'),
-    'Cbo': ('Abo/Vbo', 'mg_per_litre'),
-    'Cbr': ('Abr/Vbr', 'mg_per_litre'),
-    'Cgu': ('Agu/Vgu', 'mg_per_litre'),
-    'Che': ('Ahe/Vhe', 'mg_per_litre'),
-    'Cki': ('Aki/Vki', 'mg_per_litre'),
-    'Cli': ('Ali/Vli', 'mg_per_litre'),
-    'Clu': ('Alu/Vlu', 'mg_per_litre'),
-    'Cmu': ('Amu/Vmu', 'mg_per_litre'),
-    'Csk': ('Ask/Vsk', 'mg_per_litre'),
-    'Csp': ('Asp/Vsp', 'mg_per_litre'),
-    'Cte': ('Ate/Vte', 'mg_per_litre'),
-    'Cve': ('Ave/Vve', 'mg_per_litre'),
-    'Car': ('Aar/Var', 'mg_per_litre'),
-    'Cre': ('Are/Vre', 'mg_per_litre'),
-
     # free concentrations
     'Cpl_ve': ('Cve/BP', 'mg_per_litre'),
     'Cli_free': ('Cli*fup', 'mg_per_litre'),
@@ -483,6 +462,7 @@ rate_rules.update({
     'Ave': ('Venous - Qlu*Cve', 'mg_per_h'),
     'Aar': ('Qlu*(Clu/Kplu*BP) - Qlu*Car', 'mg_per_h'),
     'Are': ('Qre*(Car - Cre/Kpre*BP)', 'mg_per_h'),
+
     'D': ('-Absorption', 'mg_per_h'),
     'DCL': ('CLrenal*Cki_free + Cli_free*CLmet', 'mg_per_h'),
 })
@@ -491,5 +471,5 @@ rate_rules.update({
 ##############################################################
 # Reactions
 ##############################################################
-
-reactions.extend([])
+from Reactions import AR2AD, AD2VE
+# reactions.extend([AR2AD, AD2VE])
