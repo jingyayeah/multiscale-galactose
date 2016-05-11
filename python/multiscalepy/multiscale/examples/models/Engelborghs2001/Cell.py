@@ -1,15 +1,18 @@
 # -*- coding=utf-8 -*-
 """
 Model of insulin and glucose system.
+
+Use of delay models.
 """
 from __future__ import print_function, division
 from libsbml import UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE, UNIT_KIND_GRAM, UNIT_KIND_KATAL
 from libsbml import XMLNode
 from sbmlutils.modelcreator import templates
 
+
 ##############################################################
 creators = templates.creators
-mid = 'Sturis1991'
+mid = 'Engelborghs2001'
 version = 1
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
@@ -115,11 +118,13 @@ units.update({
 ##############################################################
 functions.update({
     # id : ('assignment')
-    'f1': ('lambda(G, Rm, C1, Vg, a1, Rm/(1 dimensionless + exp((C1-G/Vg)/a1)) )', ),
-    'f2': ('lambda(G, Ub, C2, Vg, Ub*(1 dimensionless - exp(-G/(C2*Vg)) ) )',),
-    'f3': ('lambda(G, C3, Vg, G/(C3*Vg) )',),
-    'f4': ('lambda(Ii, U0, Um, b, C4, Vi, E, ti, U0 + (Um - U0)/(1 dimensionless + exp(-b*ln(Ii/C4*(1 dimensionless/Vi + 1 dimensionless/(E*ti))))) )',),
-    'f5': ('lambda(x3, Rg, a, Vp, C5, Rg/(1 dimensionless + exp(a*(x3/Vp - C5))) )',),
+    'f1': ('lambda(G, Rm, C1, V3, a1, Rm/(1 dimensionless + exp((C1-G/V3)/a1)) )', ),
+    'f2': ('lambda(G, Ub, C2, V3, Ub*(1 dimensionless - exp(-G/(C2*V3)) ) )',),
+    'f3': ('lambda(G, C3, V3, G/(C3*V3) )',),
+
+    'f4': ('lambda(I, U0, Um, V1, U0 + Um/(1 dimensionless + exp(-1.772*log(I/V1) + 7.76 dimensionless)) )',),
+
+    'f5': ('lambda(I, Rg, a, V1, C5, Rg/(1 dimensionless + exp(a*(I/V1 - C5))) )',),
 })
 names.update({
     'f1': 'pancreatic insulin production',
@@ -134,24 +139,12 @@ names.update({
 ##############################################################
 compartments.update({
     # id : ('spatialDimension', 'unit', 'constant', 'assignment')
-    'Vp': (3, UNIT_KIND_LITRE, True, '3.0 litre'),
-    'Vi': (3, UNIT_KIND_LITRE, True, '11.0 litre'),
-    'Vg': (3, UNIT_KIND_LITRE, True, '10.0 litre'),
+    'V1': (3, UNIT_KIND_LITRE, True, '3.0 litre'),
+    'V3': (3, UNIT_KIND_LITRE, True, '10.0 litre'),
 })
 names.update({
-    'Vp': 'Vp distribution volume for insulin in plasma',
-    'Vi': 'effective volume of intercellular space',
-    'Vg': 'glucose space',
-})
-
-##############################################################
-# Species
-##############################################################
-species.update({
-    # id : ('compartment', 'value', 'unit', 'boundaryCondition')
-})
-names.update({
-
+    'V1': 'Vp distribution volume for insulin in plasma',
+    'V3': 'glucose space',
 })
 
 ##############################################################
@@ -159,84 +152,58 @@ names.update({
 ##############################################################
 parameters.update({
     # id: ('value', 'unit', 'constant')
-    'Ip': (90, 'mU', False),  # Ip(0) = 30[mU/l] => 90[mU] with Vp = 3[l] (Tolic2000, Fig.1)
-    'Ii': (330, 'mU', False),  # Ii(0) = 30[mU/l] => 330[mU] with Vi = 11[l] (Tolic2000, Fig.1)
+    'I': (90, 'mU', False),  # Ip(0) = 30[mU/l] => 90[mU] with Vp = 3[l] (Tolic2000, Fig.1)
     'G': (12000, 'mg', False),  # G(0) = 120 [mg/dl] => 12000 with Vg = 10[l] (Tolic2000, Fig.1)
 
-    'x1': (90, 'mU', False),  # x1(0) = x2(0) = x3(0) = Ip(0)
-    'x2': (90, 'mU', False),
-    'x3': (90, 'mU', False),
+    'Eg': (216, 'mg_per_min', True),
+    'tau2': (10, 'min', True),
 
-    'Gin': (216, 'mg_per_min', True),
-    'E': (0.2, 'l_per_min', True),
-    'tp': (6, 'min', True),
-    'ti': (100, 'min', True),
-    'td': (36, 'min', True),
+    # f1
     'Rm': (210, 'mU_per_min', True),
-    'a1': (300, 'mg_per_l', True),
     'C1': (2000, 'mg_per_l', True),
+    'a1': (300, 'mg_per_l', True),
+
+    # f2
     'Ub': (72, 'mg_per_min', True),
     'C2': (144, 'mg_per_l', True),
-    'C3': (1000, 'mg_per_l', True),
-    'U0': (40, 'mg_per_min', True),
-    'Um': (940, 'mg_per_min', True),
+
+    # f3
+    'C3': (1000, 'mg_per_l', True),  # 100 ?
+
+    # f4
+    'U0': (4, 'mg_per_min', True),
+    'Um': (90, 'mg_per_min', True),
     'b': (1.77, '-', True),
     'C4': (80, 'mU_per_l', True),
+
+    # f5
     'Rg': (180, 'mg_per_min', True),
     'a': (0.29, 'l_per_mU', True),
     'C5': (26, 'mU_per_l', True),
+
+
+    't1': (100, 'min', True),
+    'td': (36, 'min', True),
 })
 names.update({
-    'G': 'amount of glucose in plasma and intracellular space',
-    'Ip': 'amount of insulin in plasma',
-    'Ii': 'amount of insulin in intracellular space',
+    'G': 'amount of glucose',
+    'I': 'amount of insulin',
 
-    'x1': 'delay variable x1',
-    'x2': 'delay variable x2',
-    'x3': 'delay variable x3',
-    'Gin': 'exogenous glucose supply',
-    'E': 'insulin transfer rate between volumes E',
-    'tp': 'exponential insulin degadation time plasma',
-    'ti': 'exponential insulin degadation time intracellular space',
-})
-
-##############################################################
-# Assignments
-##############################################################
-assignments.update({
-    # id: ('value', 'unit')
-})
-names.update({
+    'Eg': 'exogenous glucose supply',
+    't1': 'exponential insulin degradation time',
 })
 
 ##############################################################
 # Rules
 ##############################################################
-
 rules.update({
     # id: ('value', 'unit')
 })
 
-# rate rules
-'''
-    'f1': ('lambda(G, Rm, C1, Vg, a1, Rm/(1 + exp((C1-G/Vg)/a1)) )', ),
-    'f2': ('lambda(G, Ub, C2, Vg, Ub*(1 - exp(-G/(C2*Vg)) ) )',),
-    'f3': ('lambda(G, C3, Vg, G/(C3*Vg) )',),
-    'f4': ('lambda(Ii, U0, Um, b, C4, Vi, E, ti, U0 + (Um - U0)/(1 + exp(-b*ln(Ii/C4*(1/Vi + 1/(E*ti))))) )',),
-    'f5': ('lambda(x3, Rg, a, Vp, C5, Rg/(1 + exp(a*(x3/Vp - C5))) )',),
-'''
 rate_rules.update({
     # id: ('value', 'unit')
-    'Ip': ('f1(G, Rm, C1, Vg, a1) - E*(Ip/Vp - Ii/Vi) - Ip/tp', 'mU_per_min'),
-    'Ii': ('E*(Ip/Vp - Ii/Vi)-Ii/ti', 'mU_per_min'),
-    'G': ('Gin -f2(G, Ub, C2, Vg) - f3(G, C3, Vg)*f4(Ii, U0, Um, b, C4, Vi, E, ti) + f5(x3, Rg, a, Vp, C5)', 'mg_per_min'),
-    'x1': ('3 dimensionless/td * (Ip-x1)', 'mU_per_min'),
-    'x2': ('3 dimensionless/td * (x1-x2)', 'mU_per_min'),
-    'x3': ('3 dimensionless/td * (x2-x3)', 'mU_per_min'),
+    'I': ('f1(G, Rm, C1, V3, a1) - I/t1', 'mU_per_min'),
+    'G': ('Eg + f5( delay(I, tau2), Rg, a, V1, C5) - f2(G, Ub, C2, V3) - f3(G, C3, V3)*f4(I, U0, Um, V1)', 'mg_per_min'),
+    # delay x, y
+    # The value of x at y time units in the past.
 })
-
-
-##############################################################
-# Reactions
-##############################################################
-reactions.extend([])

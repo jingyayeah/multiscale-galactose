@@ -7,7 +7,7 @@ Caffeine is metabolized in the liver into three primary metabolites:
     and theophylline (4%).
 
 """
-from sbmlutils.modelcreator.processes import ReactionTemplate
+from sbmlutils.modelcreator.processes.ReactionTemplate import ReactionTemplate
 
 #############################################################################################
 #    REACTIONS

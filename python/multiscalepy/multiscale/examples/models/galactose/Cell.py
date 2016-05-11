@@ -15,12 +15,14 @@ TODO: how to handle the versions and names of the multiple submodels ?
 TODO: add the model description & history to the model
 
 """
+from __future__ import print_function, division
 from libsbml import XMLNode
-from ..templates import terms_of_use, mkoenig
+from sbmlutils.modelcreator import templates
 
 ##############################################################
+creators = templates.creators
 mid = 'galactose'
-version = 30
+version = 31
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Human Galactose Metabolism</h1>
@@ -28,10 +30,9 @@ notes = XMLNode.convertStringToXMLNode("""
     <p>This is a metabolism model of Human galactose metabolism in
     <a href="http://sbmlutils.org" target="_blank" title="Access the definition of the SBML file format.">SBML</a>&#160;format.
     </p>
-    """ + terms_of_use + """
+    """ + templates.terms_of_use + """
     </body>
     """)
-creators = mkoenig
 units = dict()
 compartments = dict()
 species = dict()

@@ -1,7 +1,7 @@
 """
 Reactions and transporters of test model.
 """
-from sbmlutils.modelcreator.processes import ReactionTemplate
+from sbmlutils.modelcreator.processes.ReactionTemplate import ReactionTemplate
 
 #############################################################################################
 #    REACTIONS

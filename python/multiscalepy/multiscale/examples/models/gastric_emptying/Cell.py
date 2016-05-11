@@ -3,8 +3,9 @@
 Demo kinetic network.
 """
 from libsbml import *
+from sbmlutils.modelcreator.templates import terms_of_use, mkoenig
 from Reactions import *
-from ..templates import terms_of_use, mkoenig
+
 
 ##############################################################
 mid = 'Stahel_gastric_emptying'

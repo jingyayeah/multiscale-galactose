@@ -4,14 +4,13 @@ PKPD example model
 """
 from libsbml import UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE, UNIT_KIND_GRAM
 from libsbml import XMLNode
-from ..templates import terms_of_use, mkoenig
+from sbmlutils.modelcreator import templates
 
 ##############################################################
+creators = templates.creators
 mid = 'AssignmentTest'
 version = 1
 notes = XMLNode.convertStringToXMLNode("""""")
-
-creators = mkoenig
 main_units = {
     'time': 'h',
     'extent': 'mg',

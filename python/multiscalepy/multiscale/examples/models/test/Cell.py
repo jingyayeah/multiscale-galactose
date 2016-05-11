@@ -3,11 +3,13 @@
 Test model to check the update of global depending parameters in Roadrunner.
 Mainly volumes which are calculated based on other parameters.
 """
+from __future__ import print_function, division
 from libsbml import XMLNode
+from sbmlutils.modelcreator import templates
 from Reactions import *
-from ..templates import terms_of_use, mkoenig
 
 ##############################################################
+creators = templates.creators
 mid = 'test'
 version = 6
 notes = XMLNode.convertStringToXMLNode("""
@@ -16,10 +18,9 @@ notes = XMLNode.convertStringToXMLNode("""
     <h2>Description</h2>
     <p>Test model.
     </p>
-    """ + terms_of_use + """
+    """ + templates.terms_of_use + """
     </body>
     """)
-creators = mkoenig
 units = dict()
 compartments = dict()
 species = dict()

@@ -5,7 +5,7 @@ TODO: the modfiers can be deduced from the equations.
 COMPARTMENTS: are not needed, but handled via comp
 
 """
-from sbmlutils.modelcreator.processes import ReactionTemplate
+from sbmlutils.modelcreator.processes.ReactionTemplate import ReactionTemplate
 
 #############################################################################################
 #    REACTIONS

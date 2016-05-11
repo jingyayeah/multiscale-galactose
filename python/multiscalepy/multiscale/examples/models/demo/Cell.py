@@ -2,14 +2,17 @@
 """
 Demo kinetic network.
 """
-from libsbml import *
+from __future__ import print_function, division
+import libsbml
+from libsbml import UNIT_KIND_MOLE, UNIT_KIND_SECOND, UNIT_KIND_KILOGRAM, UNIT_KIND_METRE
+from sbmlutils.modelcreator import templates
+
 from Reactions import *
-from ..templates import terms_of_use, mkoenig
 
 ##############################################################
 mid = 'Koenig_demo'
 version = 10
-notes = XMLNode.convertStringToXMLNode("""
+notes = libsbml.XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Demo Metabolism</h1>
     <h2>Description</h2>
@@ -17,10 +20,10 @@ notes = XMLNode.convertStringToXMLNode("""
     <a href="http://sbmlutils.org" target="_blank" title="Access the definition of the SBML file format.">
     SBML</a>&#160;format.
     </p>
-    """ + terms_of_use + """
+    """ + templates.terms_of_use + """
     </body>
     """)
-creators = mkoenig
+creators = templates.creators
 main_units = {
     'time': 's',
     'extent': UNIT_KIND_MOLE,
@@ -133,6 +136,7 @@ rules.update({
 ##############################################################
 # Reactions
 ##############################################################
+
 reactions.extend([
     bA, bB, bC, v1, v2, v3, v4
 ])

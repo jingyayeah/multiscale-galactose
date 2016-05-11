@@ -9,11 +9,12 @@ addition with the definition of the individual units of the model.
 
 # TODO: include microsome compartment
 
-from libsbml import UNIT_KIND_KILOGRAM, UNIT_KIND_MOLE, UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE
+from libsbml import UNIT_KIND_MOLE
 from libsbml import XMLNode
-from ..templates import terms_of_use, mkoenig
+from sbmlutils.modelcreator import templates
 
 ##############################################################
+creators = templates.creators
 mid = 'Hepatic_caffeine'
 version = 1
 notes = XMLNode.convertStringToXMLNode("""
@@ -23,10 +24,10 @@ notes = XMLNode.convertStringToXMLNode("""
     <p>
         This is a metabolism model of Human caffeine metabolism in <a href="http://sbml.org">SBML</a> format.
     </p>
-    """ + terms_of_use + """
+    """ + templates.terms_of_use + """
     </body>
     """)
-creators = mkoenig
+
 main_units = {
     'time': 's',
     'extent': UNIT_KIND_MOLE,

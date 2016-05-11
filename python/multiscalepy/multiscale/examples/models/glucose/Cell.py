@@ -8,9 +8,10 @@ addition with the definition of the individual units of the model.
 """
 from libsbml import UNIT_KIND_KILOGRAM, UNIT_KIND_MOLE, UNIT_KIND_METRE, UNIT_KIND_SECOND, UNIT_KIND_LITRE
 from libsbml import XMLNode
-from ..templates import terms_of_use, mkoenig
+from sbmlutils.modelcreator import templates
 
 ##############################################################
+creators = templates.creators
 mid = 'Hepatic_glucose'
 version = 1
 notes = XMLNode.convertStringToXMLNode("""
@@ -43,11 +44,10 @@ notes = XMLNode.convertStringToXMLNode("""
          understanding the role of the liver in glucose homeostasis under normal conditions and in diseases
          like diabetes or glycogen storage diseases.</p>
     </div>
-    """ + terms_of_use + """
+    """ + templates.terms_of_use + """
     </body>
     """)
 
-creators = mkoenig
 main_units = {
     'time': 's',
     'extent': UNIT_KIND_MOLE,

@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+  <model metaid="meta_2bbf8fa2125146babb5d5e298128597a" id="Engelborghs2001_1" name="Engelborghs2001_1" substanceUnits="mg" timeUnits="min" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mg" fbc:strict="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_2bbf8fa2125146babb5d5e298128597a">
+          <dc:creator>
+            <rdf:Bag>
+              <rdf:li rdf:parseType="Resource">
+                <vCard:N rdf:parseType="Resource">
+                  <vCard:Family>Koenig</vCard:Family>
+                  <vCard:Given>Matthias</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL>konigmatt@googlemail.com</vCard:EMAIL>
+                <vCard:ORG rdf:parseType="Resource">
+                  <vCard:Orgname>Humboldt-University Berlin, Institute for Theoretical Biology</vCard:Orgname>
+                </vCard:ORG>
+              </rdf:li>
+            </rdf:Bag>
+          </dc:creator>
+          <dcterms:created rdf:parseType="Resource">
+            <dcterms:W3CDTF>2016-05-11T17:09:59Z</dcterms:W3CDTF>
+          </dcterms:created>
+          <dcterms:modified rdf:parseType="Resource">
+            <dcterms:W3CDTF>2016-05-11T17:09:59Z</dcterms:W3CDTF>
+          </dcterms:modified>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+    <listOfFunctionDefinitions>
+      <functionDefinition id="f1" name="pancreatic insulin production">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <lambda>
+            <bvar>
+              <ci> G </ci>
+            </bvar>
+            <bvar>
+              <ci> Rm </ci>
+            </bvar>
+            <bvar>
+              <ci> C1 </ci>
+            </bvar>
+            <bvar>
+              <ci> V3 </ci>
+            </bvar>
+            <bvar>
+              <ci> a1 </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <ci> Rm </ci>
+              <apply>
+                <plus/>
+                <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> C1 </ci>
+                      <apply>
+                        <divide/>
+                        <ci> G </ci>
+                        <ci> V3 </ci>
+                      </apply>
+                    </apply>
+                    <ci> a1 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="f2" name="insulin-independent glucose utilization">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <lambda>
+            <bvar>
+              <ci> G </ci>
+            </bvar>
+            <bvar>
+              <ci> Ub </ci>
+            </bvar>
+            <bvar>
+              <ci> C2 </ci>
+            </bvar>
+            <bvar>
+              <ci> V3 </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> Ub </ci>
+              <apply>
+                <minus/>
+                <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> G </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> C2 </ci>
+                      <ci> V3 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="f3" name="glucose utilization">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> G </ci>
+            </bvar>
+            <bvar>
+              <ci> C3 </ci>
+            </bvar>
+            <bvar>
+              <ci> V3 </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <ci> G </ci>
+              <apply>
+                <times/>
+                <ci> C3 </ci>
+                <ci> V3 </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="f4" name="insulin-dependent glucose utilization">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <lambda>
+            <bvar>
+              <ci> I </ci>
+            </bvar>
+            <bvar>
+              <ci> U0 </ci>
+            </bvar>
+            <bvar>
+              <ci> Um </ci>
+            </bvar>
+            <bvar>
+              <ci> V1 </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <ci> U0 </ci>
+              <apply>
+                <divide/>
+                <ci> Um </ci>
+                <apply>
+                  <plus/>
+                  <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <apply>
+                          <minus/>
+                          <cn> 1.772 </cn>
+                        </apply>
+                        <apply>
+                          <log/>
+                          <logbase>
+                            <cn type="integer"> 10 </cn>
+                          </logbase>
+                          <apply>
+                            <divide/>
+                            <ci> I </ci>
+                            <ci> V1 </ci>
+                          </apply>
+                        </apply>
+                      </apply>
+                      <cn sbml:units="dimensionless"> 7.76 </cn>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="f5" name="influence of insulin on HGP">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <lambda>
+            <bvar>
+              <ci> I </ci>
+            </bvar>
+            <bvar>
+              <ci> Rg </ci>
+            </bvar>
+            <bvar>
+              <ci> a </ci>
+            </bvar>
+            <bvar>
+              <ci> V1 </ci>
+            </bvar>
+            <bvar>
+              <ci> C5 </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <ci> Rg </ci>
+              <apply>
+                <plus/>
+                <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <times/>
+                    <ci> a </ci>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <divide/>
+                        <ci> I </ci>
+                        <ci> V1 </ci>
+                      </apply>
+                      <ci> C5 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="mg">
+        <listOfUnits>
+          <unit kind="gram" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mU_per_l">
+        <listOfUnits>
+          <unit kind="katal" exponent="1" scale="-12" multiplier="16.67"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="min">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mU_per_min">
+        <listOfUnits>
+          <unit kind="katal" exponent="1" scale="-12" multiplier="16.67"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mg_per_min">
+        <listOfUnits>
+          <unit kind="gram" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="l_per_mU">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="katal" exponent="-1" scale="-12" multiplier="16.67"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mg_per_l">
+        <listOfUnits>
+          <unit kind="gram" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mU">
+        <listOfUnits>
+          <unit kind="katal" exponent="1" scale="-12" multiplier="16.67"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m2">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="l_per_min">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="V1" name="Vp distribution volume for insulin in plasma" spatialDimensions="3" units="litre" constant="true"/>
+      <compartment id="V3" name="glucose space" spatialDimensions="3" units="litre" constant="true"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="a" value="0.29" units="l_per_mU" constant="true"/>
+      <parameter id="a1" value="300" units="mg_per_l" constant="true"/>
+      <parameter id="b" value="1.77" units="dimensionless" constant="true"/>
+      <parameter id="G" name="amount of glucose" value="12000" units="mg" constant="false"/>
+      <parameter id="I" name="amount of insulin" value="90" units="mU" constant="false"/>
+      <parameter id="Eg" name="exogenous glucose supply" value="216" units="mg_per_min" constant="true"/>
+      <parameter id="Ub" value="72" units="mg_per_min" constant="true"/>
+      <parameter id="U0" value="4" units="mg_per_min" constant="true"/>
+      <parameter id="t1" name="exponential insulin degradation time" value="100" units="min" constant="true"/>
+      <parameter id="Um" value="90" units="mg_per_min" constant="true"/>
+      <parameter id="tau2" value="10" units="min" constant="true"/>
+      <parameter id="Rm" value="210" units="mU_per_min" constant="true"/>
+      <parameter id="C3" value="1000" units="mg_per_l" constant="true"/>
+      <parameter id="C2" value="144" units="mg_per_l" constant="true"/>
+      <parameter id="td" value="36" units="min" constant="true"/>
+      <parameter id="Rg" value="180" units="mg_per_min" constant="true"/>
+      <parameter id="C1" value="2000" units="mg_per_l" constant="true"/>
+      <parameter id="C5" value="26" units="mU_per_l" constant="true"/>
+      <parameter id="C4" value="80" units="mU_per_l" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="V1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <cn sbml:units="litre"> 3 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="V3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <cn sbml:units="litre"> 10 </cn>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule variable="I">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <ci> f1 </ci>
+              <ci> G </ci>
+              <ci> Rm </ci>
+              <ci> C1 </ci>
+              <ci> V3 </ci>
+              <ci> a1 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> I </ci>
+              <ci> t1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="G">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> Eg </ci>
+                <apply>
+                  <ci> f5 </ci>
+                  <apply>
+                    <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/delay"> delay </csymbol>
+                    <ci> I </ci>
+                    <ci> tau2 </ci>
+                  </apply>
+                  <ci> Rg </ci>
+                  <ci> a </ci>
+                  <ci> V1 </ci>
+                  <ci> C5 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <ci> f2 </ci>
+                <ci> G </ci>
+                <ci> Ub </ci>
+                <ci> C2 </ci>
+                <ci> V3 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <ci> f3 </ci>
+                <ci> G </ci>
+                <ci> C3 </ci>
+                <ci> V3 </ci>
+              </apply>
+              <apply>
+                <ci> f4 </ci>
+                <ci> I </ci>
+                <ci> U0 </ci>
+                <ci> Um </ci>
+                <ci> V1 </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
