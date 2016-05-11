@@ -6,7 +6,7 @@ The provided functions recreate matrices and arrows lost in the SBML
 encoding for easier analysis.
 """
 
-from multiscale.modelcreator.utils.naming import *
+from sbmlutils.modelcreator import *
 from pandas import DataFrame, Series
 
 

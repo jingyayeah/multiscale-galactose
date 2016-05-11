@@ -12,7 +12,7 @@ import os
 
 import multiscale.odesim.roadrunner_tools as rt
 
-import multiscale.modelcreator.utils.naming as naming
+import sbmlutils.modelcreator.utils.naming as naming
 import multiscale.simulate.analysis.galactose.settings as settings
 
 # ----------------------------------------------------------------------

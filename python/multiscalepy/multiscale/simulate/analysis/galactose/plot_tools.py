@@ -17,7 +17,7 @@ from __future__ import print_function
 import matplotlib.pylab as plt
 import pandas as pd
 
-from multiscale.modelcreator.utils import naming
+from sbmlutils.modelcreator import naming
 from multiscale.simulate.analysis.galactose import get_ids_from_selection
 
 
