@@ -1,18 +1,18 @@
+"""
+Unittests for the galactose network.
+"""
 from __future__ import print_function
 
 import unittest
-
 import roadrunner
 from sbmlutils import validation
-
-from multiscale.examples.testdata import galactose_singlecell_sbml
+from galactose import galactose_singlecell_sbml
 
 
 class GalactoseTestCase(unittest.TestCase):
     """
     Unit tests on the galactose model to check the model behavior.
     """
-
     def test_validate_sbml(self):
         vres = validation.validate_sbml(galactose_singlecell_sbml, ucheck=True)
         self.assertEqual(vres["numCCErr"], 0)

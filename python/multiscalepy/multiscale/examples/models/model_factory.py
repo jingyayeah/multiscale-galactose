@@ -85,32 +85,6 @@ def tissue_model():
 
 #############################################################################################
 
-def create_AssignmentTest():
-    """ Test model for assignments in PKPD models. """
-    base_dir = os.path.join(test_dir, 'models', 'AssignmentTest')
-    return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
-                                     model_info=['multiscale.examples.models.AssignmentTest'])
-
-def create_demo():
-    """ Create demo network. """
-    base_dir = os.path.join(test_dir, 'models', 'demo')
-    target_dir = os.path.join(base_dir, 'results')
-    f_annotations = os.path.join(base_dir, 'demo_annotations.xlsx')
-
-    # python model info
-    model_info = ['multiscale.examples.models.demo']
-
-    modelcreator.create_model(target_dir, model_info, f_annotations=None, suffix='_no_annotations')
-    return modelcreator.create_model(target_dir, model_info, f_annotations)
-
-
-def create_test():
-    """ Create test model. """
-    name = 'test'
-    base_dir = os.path.join(test_dir, 'models', name)
-    return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
-                                     model_info=['{}.{}'.format(model_module, 'hepatocyte'),
-                                                 '{}.{}'.format(model_module, name)])
 def create_Jones2013():
     """ Create PKPD example. """
     name = 'Jones2013'
@@ -137,7 +111,7 @@ def create_Engelborghs2001():
     name = 'Engelborghs2001'
     base_dir = os.path.join(test_dir, 'models', name)
     return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
-                                     model_info=[''.format(model_module, name)])
+                                     model_info=['{}.{}'.format(model_module, name)])
 
 def create_glucose():
     """ Create glucose network. """
@@ -177,28 +151,21 @@ def create_caffeine():
 #########################################################################
 if __name__ == "__main__":
     # ------------------------------------------
-    # Test models
-    # ------------------------------------------
-    # [cell_dict, cell_model] = create_test()
-    # [cell_dict, cell_model] = create_demo()
-
-    # ------------------------------------------
     # PKPD models
     # ------------------------------------------
-    # [cell_dict, cell_model] = create_AssignmentTest()
-    # [cell_dict, cell_model] = create_Jones2013()
-    # [cell_dict, cell_model] = create_Jones2013Reactions()
+    [cell_dict, cell_model] = create_Jones2013()
+    [cell_dict, cell_model] = create_Jones2013Reactions()
 
     # ------------------------------------------
     # Glucose-Insulin system
     # ------------------------------------------
-    # [cell_dict, cell_model] = create_Sturis1991()
-    # [cell_dict, cell_model] = create_Engelborghs2001()
-    # [cell_dict, cell_model] = create_glucose()
+    [cell_dict, cell_model] = create_Sturis1991()
+    [cell_dict, cell_model] = create_Engelborghs2001()
+    [cell_dict, cell_model] = create_glucose()
 
     # ------------------------------------------
     # Liver clearance
     # ------------------------------------------
-    # [cell_dict, cell_model] = create_caffeine()
+    [cell_dict, cell_model] = create_caffeine()
     [cell_dict, cell_model] = create_galactose()
 
