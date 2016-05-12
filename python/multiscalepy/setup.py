@@ -86,9 +86,6 @@ setup(
     packages=[
         'multiscale',
         'multiscale.examples',
-        'multiscale.modelcreator',
-        'multiscale.multiscalesite',
-        'multiscale.sbmlutils',
         'multiscale.simulate',
         'multiscale.util',
     ],
