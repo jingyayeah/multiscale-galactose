@@ -7,10 +7,11 @@ from __future__ import print_function, division
 import unittest
 from django.test import TestCase
 from multiscale.simulate.dist.samples import Sample
-from demo import Demo
+from demo_sampling import Demo
 
 import django
 django.setup()
+
 
 class TestDemo(TestCase):
 

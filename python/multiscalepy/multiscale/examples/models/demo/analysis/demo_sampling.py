@@ -1,19 +1,24 @@
 """
 Creating example simulations for demo network.
+
+Parameters are sampled from example distributions and the
+parameter sets used to create simulations.
 """
 
 from __future__ import print_function, division
 
-
-import simapp.db.api as db_api
+# interaction with database layer
+import modelmanager.simapp.db.api as db_api
 import multiscale.simulate.db.tools as db_tools
+
+# working with distribution
 from multiscale.simulate.dist.distributions import Distribution, DistributionType, DistributionParameterType
 from multiscale.simulate.dist.sampling import Sampling, SamplingType, SampleParameter
-from multiscale.simulate.analysis.examples import Example
-from multiscale.examples.testdata import demo_sbml
+
+from multiscale.examples.models.demo.demo import demo_sbml
 
 
-class Demo(Example):
+class Demo(object):
     file_path = demo_sbml
     model_format = db_api.CompModelFormat.SBML
 

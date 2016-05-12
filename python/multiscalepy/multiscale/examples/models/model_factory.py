@@ -4,8 +4,8 @@ Create all the example models.
 from __future__ import print_function, division
 import os
 from sbmlutils import modelcreator
-from multiscale.examples.testdata import test_dir
 
+models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 model_module = 'multiscale.examples.models'
 
 # TODO: Create the Tissue & PKPD models
@@ -85,46 +85,44 @@ def tissue_model():
 
 #############################################################################################
 
+
+
+
 def create_Jones2013():
     """ Create PKPD example. """
     name = 'Jones2013'
-    base_dir = os.path.join(test_dir, 'models', name)
-    return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
+    return modelcreator.create_model(target_dir=os.path.join(models_dir, name, 'results'),
                                      model_info=['{}.{}'.format(model_module, name)])
 
 def create_Jones2013Reactions():
     """ Create PKPD example. """
     name = 'Jones2013Reactions'
-    base_dir = os.path.join(test_dir, 'models', name)
-    return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
+    return modelcreator.create_model(target_dir=os.path.join(models_dir, name, 'results'),
                                      model_info=['{}.{}'.format(model_module, name)])
 
 def create_Sturis1991():
     """ Glucose-Insulin model. """
     name = 'Sturis1991'
-    base_dir = os.path.join(test_dir, 'models', name)
-    return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
+    return modelcreator.create_model(target_dir=os.path.join(models_dir, name, 'results'),
                                      model_info=['{}.{}'.format(model_module, name)])
 
 def create_Engelborghs2001():
     """ Glucose-Insulin model with delay. """
     name = 'Engelborghs2001'
-    base_dir = os.path.join(test_dir, 'models', name)
-    return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
+    return modelcreator.create_model(target_dir=os.path.join(models_dir, name, 'results'),
                                      model_info=['{}.{}'.format(model_module, name)])
 
 def create_glucose():
     """ Create glucose network. """
     name = 'glucose'
-    base_dir = os.path.join(test_dir, 'models', name)
-    return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
+    return modelcreator.create_model(target_dir=os.path.join(models_dir, name, 'results'),
                                      model_info=['{}.{}'.format(model_module, name)],
-                                     f_annotations=os.path.join(base_dir, 'glucose_annotations.xlsx'))
+                                     f_annotations=os.path.join(models_dir, name, 'glucose_annotations.xlsx'))
 
 def create_galactose():
     """ Create galactose network. """
     name = 'galactose'
-    base_dir = os.path.join(test_dir, 'models', name)
+    base_dir = os.path.join(models_dir, name)
     target_dir = os.path.join(base_dir, 'results')
     model_info = ['{}.{}'.format(model_module, 'hepatocyte'),
                   '{}.{}'.format(model_module, name)]
@@ -134,15 +132,14 @@ def create_galactose():
                  f_annotations=None,
                  suffix="_no_annotations")
     # create with annotations
-    return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
-                                     model_info=['{}.{}'.format(model_module, 'hepatocyte'),
-                                                 '{}.{}'.format(model_module, name)],
+    return modelcreator.create_model(target_dir=target_dir,
+                                     model_info=model_info,
                                      f_annotations=os.path.join(base_dir, '{}_annotations.xlsx'.format(name)))
 
 def create_caffeine():
     """ Create caffeine network. """
     name = 'caffeine'
-    base_dir = os.path.join(test_dir, 'models', name)
+    base_dir = os.path.join(models_dir, name)
     return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
                                      model_info=['{}.{}'.format(model_module, 'hepatocyte'),
                                                  '{}.{}'.format(model_module, name)],
@@ -150,6 +147,13 @@ def create_caffeine():
 
 #########################################################################
 if __name__ == "__main__":
+    # ------------------------------------------
+    # Test models
+    # ------------------------------------------
+    from multiscale.examples.models.demo import demo
+    [cell_dict, cell_model] = demo.create_demo()
+
+    '''
     # ------------------------------------------
     # PKPD models
     # ------------------------------------------
@@ -168,4 +172,4 @@ if __name__ == "__main__":
     # ------------------------------------------
     [cell_dict, cell_model] = create_caffeine()
     [cell_dict, cell_model] = create_galactose()
-
+    '''
