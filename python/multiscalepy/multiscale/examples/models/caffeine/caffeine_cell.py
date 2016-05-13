@@ -63,7 +63,6 @@ rules = [
 ##############################################################
 # Reactions
 ##############################################################
-'''
 import caffeine_reactions as cr
 reactions = [
     cr.CAFT,
@@ -74,4 +73,3 @@ reactions = [
     cr.CAF2TB,
     cr.CAF2TP,
 ]
-'''

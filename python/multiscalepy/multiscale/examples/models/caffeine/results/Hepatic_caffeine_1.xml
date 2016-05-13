@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_2e74776fc61c436fb8c858f184c874e6" id="Hepatic_caffeine_1" name="Hepatic_caffeine_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_78cd9eba62e046dfab955ec8ef83766c" id="Hepatic_caffeine_1" name="Hepatic_caffeine_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Caffeine Metabolism</h1>
@@ -26,7 +26,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_2e74776fc61c436fb8c858f184c874e6">
+    <rdf:Description rdf:about="#meta_78cd9eba62e046dfab955ec8ef83766c">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -52,10 +52,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-13T16:49:31Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-13T17:38:17Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-13T16:49:31Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-13T17:38:17Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -233,6 +233,24 @@
   <parameter id="Vol_c" name="volume external compartment" units="m3" constant="true"/>
   <parameter id="A_m" name="area plasma membrane" units="m2" constant="true"/>
   <parameter id="f_caf" name="scaling factor" units="dimensionless" constant="false"/>
+  <parameter id="CAFT_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="CAFT_k_caf" value="0.1" units="mM" constant="true"/>
+  <parameter id="CAFT_Vmax" value="10" units="mole_per_s" constant="true"/>
+  <parameter id="PXT_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="PXT_k_px" value="0.1" units="mM" constant="true"/>
+  <parameter id="PXT_Vmax" value="2" units="mole_per_s" constant="true"/>
+  <parameter id="TBT_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="TBT_k_tb" value="0.1" units="mM" constant="true"/>
+  <parameter id="TBT_Vmax" value="2" units="mole_per_s" constant="true"/>
+  <parameter id="TPT_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="TPT_k_tp" value="0.1" units="mM" constant="true"/>
+  <parameter id="TPT_Vmax" value="2" units="mole_per_s" constant="true"/>
+  <parameter id="CAF2PX_k_caf" value="0.1" units="mM" constant="true"/>
+  <parameter id="CAF2PX_Vmax" value="8.4" units="mole_per_s" constant="true"/>
+  <parameter id="CAF2TB_k_caf" value="0.1" units="mM" constant="true"/>
+  <parameter id="CAF2TB_Vmax" value="1.2" units="mole_per_s" constant="true"/>
+  <parameter id="CAF2TP_k_caf" value="0.1" units="mM" constant="true"/>
+  <parameter id="CAF2TP_Vmax" value="0.4" units="mole_per_s" constant="true"/>
 </listOfParameters><listOfInitialAssignments>
   <initialAssignment symbol="Vol_h">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -297,6 +315,273 @@
       </apply>
     </math>
   </assignmentRule>
-</listOfRules>
+</listOfRules><listOfReactions>
+  <reaction id="CAFT" name="caffeine transporter" reversible="true" fast="false" compartment="pm">
+    <listOfReactants>
+      <speciesReference species="caf_ext" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="caf" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_caf </ci>
+            <apply>
+              <divide/>
+              <ci> CAFT_Vmax </ci>
+              <ci> CAFT_k_caf </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> caf_ext </ci>
+              <apply>
+                <divide/>
+                <ci> caf </ci>
+                <ci> CAFT_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> caf_ext </ci>
+              <ci> CAFT_k_caf </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> caf </ci>
+              <ci> CAFT_k_caf </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="PXT" name="paraxanthine transporter" reversible="true" fast="false" compartment="pm">
+    <listOfReactants>
+      <speciesReference species="px" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="px_ext" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_caf </ci>
+            <apply>
+              <divide/>
+              <ci> PXT_Vmax </ci>
+              <ci> PXT_k_px </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> px </ci>
+              <apply>
+                <divide/>
+                <ci> px_ext </ci>
+                <ci> PXT_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> px_ext </ci>
+              <ci> PXT_k_px </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> px </ci>
+              <ci> PXT_k_px </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="TBT" name="theobromine transporter" reversible="true" fast="false" compartment="pm">
+    <listOfReactants>
+      <speciesReference species="tb" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="tb_ext" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_caf </ci>
+            <apply>
+              <divide/>
+              <ci> TBT_Vmax </ci>
+              <ci> TBT_k_tb </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> tb </ci>
+              <apply>
+                <divide/>
+                <ci> tb_ext </ci>
+                <ci> TBT_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> tb_ext </ci>
+              <ci> TBT_k_tb </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> tb </ci>
+              <ci> TBT_k_tb </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="TPT" name="theophylline transporter" reversible="true" fast="false" compartment="pm">
+    <listOfReactants>
+      <speciesReference species="tp" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="tp_ext" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_caf </ci>
+            <apply>
+              <divide/>
+              <ci> TPT_Vmax </ci>
+              <ci> TPT_k_tp </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> tp </ci>
+              <apply>
+                <divide/>
+                <ci> tp_ext </ci>
+                <ci> TPT_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> tp_ext </ci>
+              <ci> TPT_k_tp </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> tp </ci>
+              <ci> TPT_k_tp </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="CAF2PX" name="CAF2PX" reversible="false" fast="false" compartment="c">
+    <listOfReactants>
+      <speciesReference species="caf" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="px" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_caf </ci>
+            <ci> CAF2PX_Vmax </ci>
+            <ci> caf </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <ci> CAF2PX_k_caf </ci>
+            <ci> caf </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="CAF2TB" name="CAF2TB" reversible="false" fast="false" compartment="c">
+    <listOfReactants>
+      <speciesReference species="caf" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="tb" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_caf </ci>
+            <ci> CAF2TB_Vmax </ci>
+            <ci> caf </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <ci> CAF2TB_k_caf </ci>
+            <ci> caf </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="CAF2TP" name="CAF2TP" reversible="false" fast="false" compartment="c">
+    <listOfReactants>
+      <speciesReference species="caf" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="tp" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_caf </ci>
+            <ci> CAF2TP_Vmax </ci>
+            <ci> caf </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <ci> CAF2TP_k_caf </ci>
+            <ci> caf </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+</listOfReactions>
 </model>
 </sbml>

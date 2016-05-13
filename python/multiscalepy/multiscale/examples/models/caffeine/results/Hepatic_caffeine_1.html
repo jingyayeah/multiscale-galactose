@@ -183,6 +183,7 @@
                     <li><a href="#Parameters">Parameters</a></li>
                     <li><a href="#InitialAssignments">InitialAssignments</a></li>
                     <li><a href="#Rules">Rules</a></li>
+                    <li><a href="#Reactions">Reactions</a></li>
             </ul>
         </div>
         <!-- END LEFT -->
@@ -223,7 +224,7 @@
         <hr />
 
     <h1>Model : Hepatic_caffeine_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-13 16:49<br /><b>Modified:</b> 2016-05-13 16:49<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-13 17:38<br /><b>Modified:</b> 2016-05-13 17:38<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
@@ -1111,7 +1112,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [10]</th>
+	<th scope="col" class="warning">Parameters [28]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -1330,6 +1331,366 @@
 	<td>    None
 </td>
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAFT_keq</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAFT_k_caf</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAFT_Vmax</td>
+	<td></td>
+	<td>            10.0
+    </td>
+	<td>mole_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PXT_keq</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PXT_k_px</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">PXT_Vmax</td>
+	<td></td>
+	<td>            2.0
+    </td>
+	<td>mole_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TBT_keq</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TBT_k_tb</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TBT_Vmax</td>
+	<td></td>
+	<td>            2.0
+    </td>
+	<td>mole_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TPT_keq</td>
+	<td></td>
+	<td>            1.0
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TPT_k_tp</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">TPT_Vmax</td>
+	<td></td>
+	<td>            2.0
+    </td>
+	<td>mole_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAF2PX_k_caf</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAF2PX_Vmax</td>
+	<td></td>
+	<td>            8.4
+    </td>
+	<td>mole_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAF2TB_k_caf</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAF2TB_Vmax</td>
+	<td></td>
+	<td>            1.2
+    </td>
+	<td>mole_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAF2TP_k_caf</td>
+	<td></td>
+	<td>            0.1
+    </td>
+	<td>mM</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">CAF2TP_Vmax</td>
+	<td></td>
+	<td>            0.4
+    </td>
+	<td>mole_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
 	<td></td>
 	<td></td>
@@ -1579,6 +1940,368 @@
     <!--------------------------------------------------->
     <!-- Reactions -->
     <!--------------------------------------------------->
+        <a class="anchor" id="Reactions"></a>
+        <table id="table_reactions" class="table table-condensed table-nonfluid table-hover">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Reactions [7]</th>
+	<th scope="col">name</th>
+	<th scope="col"></th>
+	<th scope="col">equation</th>
+	<th scope="col">modifiers</th>
+    <th scope="col">formula</th>
+	<th scope="col">derived units</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">CAFT</td>
+	<td>caffeine transporter</td>
+        <td class="success">&#8646;</td>
+	<td>caf_ext &#8646; caf</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> f_caf </ci>
+      <apply>
+        <divide/>
+        <ci> CAFT_Vmax </ci>
+        <ci> CAFT_k_caf </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> caf_ext </ci>
+        <apply>
+          <divide/>
+          <ci> caf </ci>
+          <ci> CAFT_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> caf_ext </ci>
+        <ci> CAFT_k_caf </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> caf </ci>
+        <ci> CAFT_k_caf </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">PXT</td>
+	<td>paraxanthine transporter</td>
+        <td class="success">&#8646;</td>
+	<td>px &#8646; px_ext</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> f_caf </ci>
+      <apply>
+        <divide/>
+        <ci> PXT_Vmax </ci>
+        <ci> PXT_k_px </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> px </ci>
+        <apply>
+          <divide/>
+          <ci> px_ext </ci>
+          <ci> PXT_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> px_ext </ci>
+        <ci> PXT_k_px </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> px </ci>
+        <ci> PXT_k_px </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">TBT</td>
+	<td>theobromine transporter</td>
+        <td class="success">&#8646;</td>
+	<td>tb &#8646; tb_ext</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> f_caf </ci>
+      <apply>
+        <divide/>
+        <ci> TBT_Vmax </ci>
+        <ci> TBT_k_tb </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> tb </ci>
+        <apply>
+          <divide/>
+          <ci> tb_ext </ci>
+          <ci> TBT_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> tb_ext </ci>
+        <ci> TBT_k_tb </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> tb </ci>
+        <ci> TBT_k_tb </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">TPT</td>
+	<td>theophylline transporter</td>
+        <td class="success">&#8646;</td>
+	<td>tp &#8646; tp_ext</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> f_caf </ci>
+      <apply>
+        <divide/>
+        <ci> TPT_Vmax </ci>
+        <ci> TPT_k_tp </ci>
+      </apply>
+      <apply>
+        <minus/>
+        <ci> tp </ci>
+        <apply>
+          <divide/>
+          <ci> tp_ext </ci>
+          <ci> TPT_keq </ci>
+        </apply>
+      </apply>
+    </apply>
+    <apply>
+      <plus/>
+      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+      <apply>
+        <divide/>
+        <ci> tp_ext </ci>
+        <ci> TPT_k_tp </ci>
+      </apply>
+      <apply>
+        <divide/>
+        <ci> tp </ci>
+        <ci> TPT_k_tp </ci>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">CAF2PX</td>
+	<td>CAF2PX</td>
+	    <td class="danger">&#10142;</td>
+	<td>caf &#10142; px</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> f_caf </ci>
+      <ci> CAF2PX_Vmax </ci>
+      <ci> caf </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> CAF2PX_k_caf </ci>
+      <ci> caf </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">CAF2TB</td>
+	<td>CAF2TB</td>
+	    <td class="danger">&#10142;</td>
+	<td>caf &#10142; tb</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> f_caf </ci>
+      <ci> CAF2TB_Vmax </ci>
+      <ci> caf </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> CAF2TB_k_caf </ci>
+      <ci> caf </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">CAF2TP</td>
+	<td>CAF2TP</td>
+	    <td class="danger">&#10142;</td>
+	<td>caf &#10142; tp</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> f_caf </ci>
+      <ci> CAF2TP_Vmax </ci>
+      <ci> caf </ci>
+    </apply>
+    <apply>
+      <plus/>
+      <ci> CAF2TP_k_caf </ci>
+      <ci> caf </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
     
     <!--------------------------------------------------->
     <!-- Events -->
