@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+  <model metaid="meta_4d76de5fe6d94cd3ac9add8e9f593a81" id="hepatocyte_2" name="hepatocyte_2" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_4d76de5fe6d94cd3ac9add8e9f593a81">
+          <dc:creator>
+            <rdf:Bag>
+              <rdf:li rdf:parseType="Resource">
+                <vCard:N rdf:parseType="Resource">
+                  <vCard:Family>Koenig</vCard:Family>
+                  <vCard:Given>Matthias</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL>konigmatt@googlemail.com</vCard:EMAIL>
+                <vCard:ORG rdf:parseType="Resource">
+                  <vCard:Orgname>Humboldt-University Berlin, Institute for Theoretical Biology</vCard:Orgname>
+                </vCard:ORG>
+              </rdf:li>
+            </rdf:Bag>
+          </dc:creator>
+          <dcterms:created rdf:parseType="Resource">
+            <dcterms:W3CDTF>2016-05-13T16:07:25Z</dcterms:W3CDTF>
+          </dcterms:created>
+          <dcterms:modified rdf:parseType="Resource">
+            <dcterms:W3CDTF>2016-05-13T16:07:25Z</dcterms:W3CDTF>
+          </dcterms:modified>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+    <listOfUnitDefinitions>
+      <unitDefinition id="s">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="kg">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m2">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m3">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mole_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mole_per_s_per_mM">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mole_per_s_per_mM2">
+        <listOfUnits>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="6" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m2_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m3_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_mM">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_m2">
+        <listOfUnits>
+          <unit kind="metre" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_m3">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="kg_per_m3">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m3_per_skg">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="kilogram" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa_s">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa_s_per_m4">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-4" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa_s_per_m3">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa_s_per_m2">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m6_per_Pa2_s2">
+        <listOfUnits>
+          <unit kind="pascal" exponent="-2" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-2" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="6" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="f_met" name="metabolic scaling factor" value="0.31" units="per_m3" constant="true"/>
+      <parameter id="y_cell" name="width hepatocyte" value="9.4e-06" units="m" constant="true"/>
+      <parameter id="x_cell" name="length hepatocyte" value="2.5e-05" units="m" constant="true"/>
+      <parameter id="f_tissue" name="parenchymal fraction of liver" value="0.8" units="dimensionless" constant="true"/>
+      <parameter id="f_cyto" name="cytosolic fraction of hepatocyte" value="0.4" units="dimensionless" constant="true"/>
+      <parameter id="Vol_h" name="volume hepatocyte" units="m3" constant="true"/>
+      <parameter id="Vol_e" name="volume cytosol" units="m3" constant="true"/>
+      <parameter id="Vol_c" name="volume external compartment" units="m3" constant="true"/>
+      <parameter id="A_m" name="area plasma membrane" units="m2" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="Vol_h">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> x_cell </ci>
+            <ci> x_cell </ci>
+            <ci> y_cell </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vol_e">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_h </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Vol_c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> f_cyto </ci>
+            <ci> Vol_h </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="A_m">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> x_cell </ci>
+            <ci> x_cell </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>
