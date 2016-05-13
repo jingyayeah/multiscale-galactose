@@ -1,90 +1,23 @@
 """
-Model factory for the creation of the sinusoidal metabolic models.
-Cellular models are integrated into the sinusoidal structure.
-A modular structure of processes for the single hepatocyte processes and transporters
-exists which allows to reuse the created sinusoidal model for various simulations, like
-clearance of a variety of substances.
+Template for the creation of sinusoidal unit models.
+
+Cellular models are integrated into the sinusoidal template with the
+SBML comp extension.
+
+The core idea is to have a modular model structure which allows the easy integration
+of various single hepatocyte models.
 
 Important features:
 - important is a fast turnover between changes and simulations. 
   Currently this is quit cumbersome and necessary to write down the full network.
 - single cell models as well as the full sinusoidal architecture have to be generated 
   at once.
-
 """
 
-from libsbml import UNIT_KIND_SECOND, UNIT_KIND_MOLE,\
-    UNIT_KIND_METRE,UNIT_KIND_KILOGRAM
-from _libsbml import UNIT_KIND_PASCAL, UNIT_KIND_DIMENSIONLESS
-
 #########################################################################
 
-units = dict()
-names = dict()
-pars = []
-external = []
-assignments = []
-rules = []
-
-#########################################################################
-# Main Units
-##########################################################################
-main_units = {
-    'time': 's',
-    'extent': UNIT_KIND_MOLE,
-    'substance': UNIT_KIND_MOLE,
-    'length': 'm',
-    'area': 'm2',
-    'volume': 'm3',
-}
-#########################################################################
-# Units
-##########################################################################
-# units (kind, exponent, scale=0, multiplier=1.0)
-# u_new = (multiplier  
-units = {
-    's': [(UNIT_KIND_SECOND, 1.0)],
-    'kg': [(UNIT_KIND_KILOGRAM, 1.0)],
-    'm': [(UNIT_KIND_METRE, 1.0)],
-    'm2': [(UNIT_KIND_METRE, 2.0)],
-    'm3': [(UNIT_KIND_METRE, 3.0)],
-    'per_s': [(UNIT_KIND_SECOND, -1.0)],
-    'mole_per_s': [(UNIT_KIND_MOLE, 1.0),
-                       (UNIT_KIND_SECOND, -1.0)],
-    'mole_per_s_per_mM': [(UNIT_KIND_METRE, 3.0),
-                       (UNIT_KIND_SECOND, -1.0) ],
-    'mole_per_s_per_mM2': [(UNIT_KIND_MOLE, -1.0), (UNIT_KIND_METRE, 6.0),
-                       (UNIT_KIND_SECOND, -1.0) ],
-    'm_per_s': [(UNIT_KIND_METRE, 1.0),
-                    (UNIT_KIND_SECOND, -1.0)],
-    'm2_per_s': [(UNIT_KIND_METRE, 2.0),
-                    (UNIT_KIND_SECOND, -1.0)],
-    'm3_per_s': [(UNIT_KIND_METRE, 3.0),
-                    (UNIT_KIND_SECOND, -1.0)],
-    'mM': [(UNIT_KIND_MOLE, 1.0, 0),
-                    (UNIT_KIND_METRE, -3.0)],
-    'mM_s': [(UNIT_KIND_MOLE, 1.0), (UNIT_KIND_SECOND, 1.0),
-                    (UNIT_KIND_METRE, -3.0)],
-    'per_mM': [(UNIT_KIND_METRE, 3.0),
-                    (UNIT_KIND_MOLE, -1.0)],
-    'per_m2': [(UNIT_KIND_METRE, -2.0)],
-    'per_m3': [(UNIT_KIND_METRE, -3.0)],
-    'kg_per_m3': [(UNIT_KIND_KILOGRAM, 1.0),
-                    (UNIT_KIND_METRE, -3.0)],
-    'm3_per_skg': [(UNIT_KIND_METRE, 3.0),
-                    (UNIT_KIND_KILOGRAM, -1.0), (UNIT_KIND_SECOND, -1.0)],
-    'Pa': [(UNIT_KIND_PASCAL, 1.0)],
-    'Pa_s': [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0)],
-    'Pa_s_per_m4': [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0),
-                     (UNIT_KIND_METRE, -4.0)],
-    'Pa_s_per_m3': [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0),
-                     (UNIT_KIND_METRE, -3.0)],
-    'Pa_s_per_m2': [(UNIT_KIND_PASCAL, 1.0), (UNIT_KIND_SECOND, 1.0),
-                     (UNIT_KIND_METRE, -2.0)],
-    'm6_per_Pa2_s2': [(UNIT_KIND_PASCAL, -2.0), (UNIT_KIND_SECOND, -2.0),
-                     (UNIT_KIND_METRE, 6.0)],
-    
-}
+mid = 'sinusoidal_unit'
+version = 1
 
 ##########################################################################
 # Parameters
