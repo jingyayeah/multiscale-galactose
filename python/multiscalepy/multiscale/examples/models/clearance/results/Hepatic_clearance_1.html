@@ -11,7 +11,7 @@
     <!-- <meta http-equiv="refresh" content="5" /> -->
 
     <link rel="icon" href="_report/images/sbml.ico">
-    <title>hepatocyte_2</title>
+    <title>Hepatic_clearance_1</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
@@ -160,7 +160,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#top">hepatocyte_2</a>
+            <a class="navbar-brand" href="#top">Hepatic_clearance_1</a>
         </div>
 
         <form class="navbar-form navbar-left">
@@ -179,6 +179,7 @@
                 <li><a href="#top">Model</a></li>
                     <li><a href="#UnitDefinitions">UnitDefinitions</a></li>
                     <li><a href="#Compartments">Compartments</a></li>
+                    <li><a href="#Species">Species</a></li>
                     <li><a href="#Parameters">Parameters</a></li>
                     <li><a href="#InitialAssignments">InitialAssignments</a></li>
                     <li><a href="#Rules">Rules</a></li>
@@ -197,13 +198,36 @@
     <a class="anchor" id="Model"></a>
 
 
+                <notes>
+  <body xmlns="http://www.w3.org/1999/xhtml">
+    <h1>Hepatic clearance</h1>
+    <h2>Description</h2>
+    <p>
+        This is a metabolism model of clearance metabolism in <a href="http://sbml.org">SBML</a> format.
+    </p>
+  <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+  <div class="dc:publisher">This file has been produced by
+    <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div><h2>Terms of use</h2><div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div><div class="dc:license">
+  <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
+        <ol>
+    <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+    <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
+          with the distribution.</li>
+  </ol>
+        This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+        </p>
+</div>
+</body>
+</notes>
 
-    <h1>Model : hepatocyte_2</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-13 16:24<br /><b>Modified:</b> 2016-05-13 16:24<br /><br />
+        <hr />
+
+    <h1>Model : Hepatic_clearance_1</h1>
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-13 16:25<br /><b>Modified:</b> 2016-05-13 16:25<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
-                <a href="hepatocyte_2.xml" target="_blank"><img src="_report/images/sbml.png" height="20" alt="SBML model" title="SBML model"/> </a><br /><br />
+                <a href="Hepatic_clearance_1.xml" target="_blank"><img src="_report/images/sbml.png" height="20" alt="SBML model" title="SBML model"/> </a><br /><br />
                     <div class="cvterm">
     </div>
 <br />
@@ -215,8 +239,8 @@
             <td>
                 <table id="table_model" class="table table-condensed table-nonfluid table-hover">
                 <tbody>
-                <tr>	<tr><td class="active">id</td><td>hepatocyte_2</td></tr>
-	<tr><td class="active">name</td><td>hepatocyte_2</td></tr>
+                <tr>	<tr><td class="active">id</td><td>Hepatic_clearance_1</td></tr>
+	<tr><td class="active">name</td><td>Hepatic_clearance_1</td></tr>
 	<tr><td class="active">version</td><td>L3V1</td></tr>
 	<tr><td class="active">time</td><td>s</td></tr>
 	<tr><td class="active">substance</td><td>mole</td></tr>
@@ -810,6 +834,120 @@
     <!--------------------------------------------------->
     <!-- Species -->
     <!--------------------------------------------------->
+        <a class="anchor" id="Species"></a>
+        <table id="table_species" class="table table-condensed table-nonfluid table-hover">
+            <thead>
+            <tr>    <th scope="col" class="hidden">type</th>
+	<th scope="col" class="warning">Species [3]</th>
+    <th scope="col">name</th>
+	<th scope="col">compartment</th>
+	<th scope="col">boundary condition</th>
+	<th scope="col">constant</th>
+	<th scope="col">initial amount</th>
+	<th scope="col">initial concentration</th>
+	<th scope="col">substance units</th>
+	<th scope="col">derived units</th>
+    <th scope="col">sbo</th>
+    <th scope="col">cvterm</th>
+</tr>
+            </thead>
+            <tbody>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">S_ext</td>
+	<td>substance S<br />
+        <span class="cvterm blue"></span></td>
+	<td>e</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>
+    </td>
+	<td>
+            0.0021
+    </td>
+	<td>mole</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">S</td>
+	<td>substance S<br />
+        <span class="cvterm blue"></span></td>
+	<td>c</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>
+    </td>
+	<td>
+            0.0
+    </td>
+	<td>mole</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">P</td>
+	<td>product P<br />
+        <span class="cvterm blue"></span></td>
+	<td>c</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>
+    </td>
+	<td>
+            0.0
+    </td>
+	<td>mole</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+            </tbody>
+        </table>
+        <hr/>
 
     <!--------------------------------------------------->
     <!-- Parameters -->
@@ -818,7 +956,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [9]</th>
+	<th scope="col" class="warning">Parameters [10]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -1020,6 +1158,27 @@
 	<td></td>
 	<td></td>
 </tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">f_cl</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> f_met </ci>
+    <ci> Vol_h </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
             </tbody>
         </table>
         <hr/>
@@ -1148,7 +1307,7 @@
         <table id="table_rules" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules [4]</th>
+	<th scope="col" class="warning">Rules [5]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -1233,6 +1392,23 @@
     <cn type="integer"> 2 </cn>
   </apply>
 </math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">f_cl</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> f_met </ci>
+    <ci> Vol_h </ci>
+  </apply>
+</math>
+</td>
+    <td>    None
 </td>
 	<td></td>
 	<td></td>

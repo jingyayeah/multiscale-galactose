@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_4d76de5fe6d94cd3ac9add8e9f593a81" id="hepatocyte_2" name="hepatocyte_2" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_98846cf585d04ab7a9865149dfa94a08" id="hepatocyte_2" name="hepatocyte_2" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-        <rdf:Description rdf:about="#meta_4d76de5fe6d94cd3ac9add8e9f593a81">
+        <rdf:Description rdf:about="#meta_98846cf585d04ab7a9865149dfa94a08">
           <dc:creator>
             <rdf:Bag>
               <rdf:li rdf:parseType="Resource">
@@ -19,10 +19,10 @@
             </rdf:Bag>
           </dc:creator>
           <dcterms:created rdf:parseType="Resource">
-            <dcterms:W3CDTF>2016-05-13T16:07:25Z</dcterms:W3CDTF>
+            <dcterms:W3CDTF>2016-05-13T16:24:30Z</dcterms:W3CDTF>
           </dcterms:created>
           <dcterms:modified rdf:parseType="Resource">
-            <dcterms:W3CDTF>2016-05-13T16:07:25Z</dcterms:W3CDTF>
+            <dcterms:W3CDTF>2016-05-13T16:24:30Z</dcterms:W3CDTF>
           </dcterms:modified>
         </rdf:Description>
       </rdf:RDF>
@@ -177,6 +177,12 @@
         </listOfUnits>
       </unitDefinition>
     </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="e" name="external" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="h" name="hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="c" name="cytosol" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="pm" name="plasma membrane" spatialDimensions="2" units="m2" constant="false"/>
+    </listOfCompartments>
     <listOfParameters>
       <parameter id="f_met" name="metabolic scaling factor" value="0.31" units="per_m3" constant="true"/>
       <parameter id="y_cell" name="width hepatocyte" value="9.4e-06" units="m" constant="true"/>
@@ -223,5 +229,27 @@
         </math>
       </initialAssignment>
     </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule variable="e">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_e </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="h">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_h </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_c </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="pm">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> A_m </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
   </model>
 </sbml>
