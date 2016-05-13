@@ -12,7 +12,7 @@ sbml_path = os.path.join(base_dir, 'results', '{}_{}.xml'.format(hepatocyte.mid,
 def create_model():
     """ Create model. """
     return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
-                                     model_info=['multiscale.examples.models.templates.hepatocyte'])
+                                     modules=['multiscale.examples.models.templates.hepatocyte'])
 
 
 #################################################################################################

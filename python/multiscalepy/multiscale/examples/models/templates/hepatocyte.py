@@ -8,6 +8,7 @@ import sbmlutils.modelcreator.modelcreator as mc
 ##############################################################
 creators = templates.creators
 mid = 'hepatocyte'
+notes = ''
 version = 2
 main_units = {
     'time': 's',
@@ -17,6 +18,7 @@ main_units = {
     'area': 'm2',
     'volume': 'm3',
 }
+names = {}
 
 #########################################################################
 # Units
