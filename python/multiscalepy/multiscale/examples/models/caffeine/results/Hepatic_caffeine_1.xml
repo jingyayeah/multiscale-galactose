@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_78cd9eba62e046dfab955ec8ef83766c" id="Hepatic_caffeine_1" name="Hepatic_caffeine_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_d88849bd1ed747429cbc44deed0cbf1b" id="Hepatic_caffeine_1" name="Hepatic_caffeine_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Human Caffeine Metabolism</h1>
@@ -26,7 +26,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_78cd9eba62e046dfab955ec8ef83766c">
+    <rdf:Description rdf:about="#meta_d88849bd1ed747429cbc44deed0cbf1b">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -52,10 +52,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-13T17:38:17Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-13T18:48:42Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-13T17:38:17Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-13T18:48:42Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
