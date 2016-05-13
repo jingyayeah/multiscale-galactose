@@ -183,7 +183,6 @@
                     <li><a href="#Parameters">Parameters</a></li>
                     <li><a href="#InitialAssignments">InitialAssignments</a></li>
                     <li><a href="#Rules">Rules</a></li>
-                    <li><a href="#Reactions">Reactions</a></li>
             </ul>
         </div>
         <!-- END LEFT -->
@@ -208,7 +207,7 @@
     </p>
   <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
   <div class="dc:publisher">This file has been produced by
-    <a href="https://livermetabolism.com/contact.html" title="Koenig Matthias" target="_blank">Koenig Matthias</a>.</div><h2>Terms of use</h2><div class="dc:rightsHolder">Copyright © 2016 Koenig Matthias.</div><div class="dc:license">
+    <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div><h2>Terms of use</h2><div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div><div class="dc:license">
   <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
         <ol>
     <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
@@ -224,14 +223,12 @@
         <hr />
 
     <h1>Model : Hepatic_caffeine_1</h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-12 14:11<br /><b>Modified:</b> 2016-05-12 14:11<br /><br />
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-13 16:49<br /><b>Modified:</b> 2016-05-13 16:49<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
                 <a href="Hepatic_caffeine_1.xml" target="_blank"><img src="_report/images/sbml.png" height="20" alt="SBML model" title="SBML model"/> </a><br /><br />
                     <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000293" target="_blank">SBO:0000293</a><br />
-       <b>BQM_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000293" target="_blank">SBO:0000293</a>
     </div>
 <br />
                     <div class="cvterm">
@@ -278,126 +275,72 @@
             </thead>
             <tbody>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">Pa_s_per_m2</td>
+	<td class="active">s</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> pascal </ci>
-      <ci> s </ci>
-    </apply>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 2 </cn>
-    </apply>
-  </apply>
+  <ci> s </ci>
 </math></td>
 	<td></td>
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">Pa_s_per_m3</td>
+	<td class="active">kg</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> pascal </ci>
-      <ci> s </ci>
-    </apply>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
+  <ci> kg </ci>
 </math></td>
 	<td></td>
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">Pa_s_per_m4</td>
+	<td class="active">m</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> pascal </ci>
-      <ci> s </ci>
-    </apply>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 4 </cn>
-    </apply>
-  </apply>
+  <ci> m </ci>
 </math></td>
 	<td></td>
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">Pa</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> pascal </ci>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">m_per_s</td>
+	<td class="active">m2</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <divide/>
+    <power/>
     <ci> m </ci>
+    <cn type="integer"> 2 </cn>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">m3</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">per_s</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <cn type="integer"> 1 </cn>
     <ci> s </ci>
-  </apply>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">per_m3</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <cn type="integer"> 1 </cn>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">per_m2</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <cn type="integer"> 1 </cn>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 2 </cn>
-    </apply>
   </apply>
 </math></td>
 	<td></td>
@@ -418,7 +361,7 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">m2_per_s</td>
+	<td class="active">mole_per_s_per_mM</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -427,7 +370,7 @@
     <apply>
       <power/>
       <ci> m </ci>
-      <cn type="integer"> 2 </cn>
+      <cn type="integer"> 3 </cn>
     </apply>
     <ci> s </ci>
   </apply>
@@ -458,7 +401,39 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">m3_per_skg</td>
+	<td class="active">m_per_s</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> m </ci>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">m2_per_s</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 2 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">m3_per_s</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -469,25 +444,25 @@
       <ci> m </ci>
       <cn type="integer"> 3 </cn>
     </apply>
-    <apply>
-      <times/>
-      <ci> kg </ci>
-      <ci> s </ci>
-    </apply>
+    <ci> s </ci>
   </apply>
 </math></td>
 	<td></td>
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">m2</td>
+	<td class="active">mM</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
-    <power/>
-    <ci> m </ci>
-    <cn type="integer"> 2 </cn>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
   </apply>
 </math></td>
 	<td></td>
@@ -516,45 +491,35 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">per_s</td>
+	<td class="active">per_mM</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> mole </ci>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">per_m2</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
     <cn type="integer"> 1 </cn>
-    <ci> s </ci>
-  </apply>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">m3</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <power/>
-    <ci> m </ci>
-    <cn type="integer"> 3 </cn>
-  </apply>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">mM</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
     <apply>
       <power/>
       <ci> m </ci>
-      <cn type="integer"> 3 </cn>
+      <cn type="integer"> 2 </cn>
     </apply>
   </apply>
 </math></td>
@@ -562,18 +527,18 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">mole_per_s_per_mM</td>
+	<td class="active">per_m3</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
     <divide/>
+    <cn type="integer"> 1 </cn>
     <apply>
       <power/>
       <ci> m </ci>
       <cn type="integer"> 3 </cn>
     </apply>
-    <ci> s </ci>
   </apply>
 </math></td>
 	<td></td>
@@ -598,7 +563,7 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">per_mM</td>
+	<td class="active">m3_per_skg</td>
 	<td></td>
 	<td><?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -609,7 +574,101 @@
       <ci> m </ci>
       <cn type="integer"> 3 </cn>
     </apply>
-    <ci> mole </ci>
+    <apply>
+      <times/>
+      <ci> kg </ci>
+      <ci> s </ci>
+    </apply>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">Pa</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> pascal </ci>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">Pa_s</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> pascal </ci>
+    <ci> s </ci>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">Pa_s_per_m4</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> pascal </ci>
+      <ci> s </ci>
+    </apply>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 4 </cn>
+    </apply>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">Pa_s_per_m3</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> pascal </ci>
+      <ci> s </ci>
+    </apply>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math></td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">UnitDefinition</td>
+	<td class="active">Pa_s_per_m2</td>
+	<td></td>
+	<td><?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <times/>
+      <ci> pascal </ci>
+      <ci> s </ci>
+    </apply>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 2 </cn>
+    </apply>
   </apply>
 </math></td>
 	<td></td>
@@ -645,68 +704,6 @@
 	<td></td>
 	<td></td>
 </tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">kg</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> kg </ci>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">m</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> m </ci>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">s</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> s </ci>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">Pa_s</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <times/>
-    <ci> pascal </ci>
-    <ci> s </ci>
-  </apply>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">UnitDefinition</td>
-	<td class="active">m3_per_s</td>
-	<td></td>
-	<td><?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-    <ci> s </ci>
-  </apply>
-</math></td>
-	<td></td>
-	<td></td>
-</tr>
             </tbody>
         </table>
         <hr/>
@@ -730,6 +727,31 @@
 </tr>
             </thead>
             <tbody>
+                <tr>    <td class="hidden">Compartment</td>
+	<td class="active">e</td>
+	<td>external</td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> Vol_e </ci>
+</math>
+
+    </td>
+	        <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>3</td>
+	<td>m3</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
                 <tr>    <td class="hidden">Compartment</td>
 	<td class="active">h</td>
 	<td>hepatocyte</td>
@@ -781,31 +803,6 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">Compartment</td>
-	<td class="active">e</td>
-	<td>external</td>
-	<td>                <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> Vol_e </ci>
-</math>
-
-    </td>
-	        <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-	<td>3</td>
-	<td>m3</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <power/>
-    <ci> m </ci>
-    <cn type="integer"> 3 </cn>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Compartment</td>
 	<td class="active">pm</td>
 	<td>plasma membrane</td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
@@ -827,12 +824,8 @@
   </apply>
 </math>
 </td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000290" target="_blank">SBO:0000290</a><br /><a href="http://identifiers.org/go/GO:0005886" target="_blank">GO:0005886</a><br /><a href="http://identifiers.org/fma/FMA:63841" target="_blank">FMA:63841</a></div>
-</td>
+	<td></td>
+	<td></td>
 </tr>
             </tbody>
         </table>
@@ -860,44 +853,9 @@
             </thead>
             <tbody>
                 <tr>    <td class="hidden">Species</td>
-	<td class="active">tb_ext</td>
-	<td>theobromine<br />
-        <span class="cvterm blue">C7H8N4O2</span></td>
-	<td>e</td>
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-	<td>
-    </td>
-	<td>
-            0.0011
-    </td>
-	<td>mole</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br /><a href="http://identifiers.org/chebi/CHEBI:28946" target="_blank">CHEBI:28946</a><br /><a href="http://identifiers.org/kegg.compound/C07480" target="_blank">C07480</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Species</td>
 	<td class="active">caf_ext</td>
 	<td>caffeine<br />
-        <span class="cvterm blue">C8H10N4O2</span></td>
+        <span class="cvterm blue"></span></td>
 	<td>e</td>
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
@@ -922,17 +880,13 @@
   </apply>
 </math>
 </td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br /><a href="http://identifiers.org/chebi/CHEBI:27732" target="_blank">CHEBI:27732</a><br /><a href="http://identifiers.org/kegg.compound/C07481" target="_blank">C07481</a></div>
-</td>
+	<td></td>
+	<td></td>
 </tr>
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">px_ext</td>
 	<td>paraxanthine<br />
-        <span class="cvterm blue">C7H8N4O2</span></td>
+        <span class="cvterm blue"></span></td>
 	<td>e</td>
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
@@ -957,88 +911,14 @@
   </apply>
 </math>
 </td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br /><a href="http://identifiers.org/chebi/CHEBI:25858" target="_blank">CHEBI:25858</a><br /><a href="http://identifiers.org/kegg.compound/C13747" target="_blank">C13747</a></div>
-</td>
+	<td></td>
+	<td></td>
 </tr>
                 <tr>    <td class="hidden">Species</td>
-	<td class="active">tp</td>
-	<td>theophylline<br />
-        <span class="cvterm blue">C7H8N4O2</span></td>
-	<td>c</td>
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-	<td>
-    </td>
-	<td>
-            0.0
-    </td>
-	<td>mole</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br /><a href="http://identifiers.org/chebi/CHEBI:28177" target="_blank">CHEBI:28177</a><br /><a href="http://identifiers.org/kegg.compound/C07130" target="_blank">C07130</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Species</td>
-	<td class="active">caf</td>
-	<td>caffeine<br />
-        <span class="cvterm blue">C8H10N4O2</span></td>
-	<td>c</td>
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-	<td>
-    </td>
-	<td>
-            0.0
-    </td>
-	<td>mole</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br /><a href="http://identifiers.org/chebi/CHEBI:27732" target="_blank">CHEBI:27732</a><br /><a href="http://identifiers.org/kegg.compound/C07481" target="_blank">C07481</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Species</td>
-	<td class="active">tb</td>
+	<td class="active">tb_ext</td>
 	<td>theobromine<br />
-        <span class="cvterm blue">C7H8N4O2</span></td>
-	<td>c</td>
+        <span class="cvterm blue"></span></td>
+	<td>e</td>
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
@@ -1046,42 +926,7 @@
 	<td>
     </td>
 	<td>
-            0.0
-    </td>
-	<td>mole</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br /><a href="http://identifiers.org/chebi/CHEBI:28946" target="_blank">CHEBI:28946</a><br /><a href="http://identifiers.org/kegg.compound/C07480" target="_blank">C07480</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Species</td>
-	<td class="active">px</td>
-	<td>paraxanthine<br />
-        <span class="cvterm blue">C7H8N4O2</span></td>
-	<td>c</td>
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
-
-	<td>
-    </td>
-	<td>
-            0.0
+            0.0011
     </td>
 	<td>mole</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -1097,17 +942,13 @@
   </apply>
 </math>
 </td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br /><a href="http://identifiers.org/chebi/CHEBI:25858" target="_blank">CHEBI:25858</a><br /><a href="http://identifiers.org/kegg.compound/C13747" target="_blank">C13747</a></div>
-</td>
+	<td></td>
+	<td></td>
 </tr>
                 <tr>    <td class="hidden">Species</td>
 	<td class="active">tp_ext</td>
 	<td>theophylline<br />
-        <span class="cvterm blue">C7H8N4O2</span></td>
+        <span class="cvterm blue"></span></td>
 	<td>e</td>
             <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
 
@@ -1132,12 +973,132 @@
   </apply>
 </math>
 </td>
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a>
-        </div>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">caf</td>
+	<td>caffeine<br />
+        <span class="cvterm blue"></span></td>
+	<td>c</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>
+    </td>
+	<td>
+            0.0
+    </td>
+	<td>mole</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
 </td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000247" target="_blank">SBO:0000247</a><br /><a href="http://identifiers.org/chebi/CHEBI:28177" target="_blank">CHEBI:28177</a><br /><a href="http://identifiers.org/kegg.compound/C07130" target="_blank">C07130</a></div>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">px</td>
+	<td>paraxanthine<br />
+        <span class="cvterm blue"></span></td>
+	<td>c</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>
+    </td>
+	<td>
+            0.0
+    </td>
+	<td>mole</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
 </td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">tb</td>
+	<td>theobromine<br />
+        <span class="cvterm blue"></span></td>
+	<td>c</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>
+    </td>
+	<td>
+            0.0
+    </td>
+	<td>mole</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Species</td>
+	<td class="active">tp</td>
+	<td>theophylline<br />
+        <span class="cvterm blue"></span></td>
+	<td>c</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td>
+    </td>
+	<td>
+            0.0
+    </td>
+	<td>mole</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
 </tr>
             </tbody>
         </table>
@@ -1150,7 +1111,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [28]</th>
+	<th scope="col" class="warning">Parameters [10]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -1186,9 +1147,9 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
-	<td class="active">x_cell</td>
-	<td>length hepatocyte</td>
-	<td>            2.5e-05
+	<td class="active">y_cell</td>
+	<td>width hepatocyte</td>
+	<td>            9.4e-06
     </td>
 	<td>m</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -1202,12 +1163,15 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
-	<td class="active">f_cyto</td>
-	<td>cytosolic fraction of hepatocyte</td>
-	<td>            0.4
+	<td class="active">x_cell</td>
+	<td>length hepatocyte</td>
+	<td>            2.5e-05
     </td>
-	<td>dimensionless</td>
-	<td>    None
+	<td>m</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> m </ci>
+</math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
 
@@ -1228,14 +1192,40 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
-	<td class="active">y_cell</td>
-	<td>width hepatocyte</td>
-	<td>            9.4e-06
+	<td class="active">f_cyto</td>
+	<td>cytosolic fraction of hepatocyte</td>
+	<td>            0.4
     </td>
-	<td>m</td>
+	<td>dimensionless</td>
+	<td>    None
+</td>
+            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Vol_h</td>
+	<td>volume hepatocyte</td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> x_cell </ci>
+    <ci> x_cell </ci>
+    <ci> y_cell </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>m3</td>
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> m </ci>
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
 </math>
 </td>
             <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
@@ -1245,7 +1235,7 @@
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">Vol_e</td>
-	<td>volume external compartment</td>
+	<td>volume cytosol</td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <ci> Vol_h </ci>
@@ -1269,7 +1259,7 @@
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
 	<td class="active">Vol_c</td>
-	<td>volume cytosol</td>
+	<td>volume external compartment</td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -1324,37 +1314,8 @@
 	<td></td>
 </tr>
                 <tr>    <td class="hidden">Parameter</td>
-	<td class="active">Vol_h</td>
-	<td>volume hepatocyte</td>
-	<td>                <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <times/>
-    <ci> x_cell </ci>
-    <ci> x_cell </ci>
-    <ci> y_cell </ci>
-  </apply>
-</math>
-
-    </td>
-	<td>m3</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <power/>
-    <ci> m </ci>
-    <cn type="integer"> 3 </cn>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
 	<td class="active">f_caf</td>
-	<td></td>
+	<td>scaling factor</td>
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <apply>
@@ -1372,438 +1333,6 @@
 
 	<td></td>
 	<td></td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAFT_keq</td>
-	<td></td>
-	<td>            1.0
-    </td>
-	<td>dimensionless</td>
-	<td>    None
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAFT_k_caf</td>
-	<td></td>
-	<td>            0.1
-    </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAFT_Vmax</td>
-	<td></td>
-	<td>            10.0
-    </td>
-	<td>mole_per_s</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">PXT_keq</td>
-	<td></td>
-	<td>            1.0
-    </td>
-	<td>dimensionless</td>
-	<td>    None
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">PXT_k_px</td>
-	<td></td>
-	<td>            0.1
-    </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">PXT_Vmax</td>
-	<td></td>
-	<td>            2.0
-    </td>
-	<td>mole_per_s</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">TBT_keq</td>
-	<td></td>
-	<td>            1.0
-    </td>
-	<td>dimensionless</td>
-	<td>    None
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">TBT_k_tb</td>
-	<td></td>
-	<td>            0.1
-    </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">TBT_Vmax</td>
-	<td></td>
-	<td>            2.0
-    </td>
-	<td>mole_per_s</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">TPT_keq</td>
-	<td></td>
-	<td>            1.0
-    </td>
-	<td>dimensionless</td>
-	<td>    None
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000281" target="_blank">SBO:0000281</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">TPT_k_tp</td>
-	<td></td>
-	<td>            0.1
-    </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">TPT_Vmax</td>
-	<td></td>
-	<td>            2.0
-    </td>
-	<td>mole_per_s</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAF2PX_k_caf</td>
-	<td></td>
-	<td>            0.1
-    </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAF2PX_Vmax</td>
-	<td></td>
-	<td>            8.4
-    </td>
-	<td>mole_per_s</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAF2TB_k_caf</td>
-	<td></td>
-	<td>            0.1
-    </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAF2TB_Vmax</td>
-	<td></td>
-	<td>            1.2
-    </td>
-	<td>mole_per_s</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAF2TP_k_caf</td>
-	<td></td>
-	<td>            0.1
-    </td>
-	<td>mM</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <apply>
-      <power/>
-      <ci> m </ci>
-      <cn type="integer"> 3 </cn>
-    </apply>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000027" target="_blank">SBO:0000027</a></div>
-</td>
-</tr>
-                <tr>    <td class="hidden">Parameter</td>
-	<td class="active">CAF2TP_Vmax</td>
-	<td></td>
-	<td>            0.4
-    </td>
-	<td>mole_per_s</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-            <td class="success"><span class="glyphicon glyphicon-ok green"></span><span class="invisible">T</span></td>
-
-	<td>        <div class="cvterm">
-        <a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a>
-        </div>
-</td>
-	<td>       <div class="cvterm"><b>BQB_IS</b><br /><a href="http://identifiers.org/biomodels.sbo/SBO:0000186" target="_blank">SBO:0000186</a></div>
-</td>
 </tr>
             </tbody>
         </table>
@@ -1825,6 +1354,32 @@
 </tr>
             </thead>
             <tbody>
+                <tr>    <td class="hidden">InitialAssignment</td>
+    <td class="active">Vol_h</td>
+    <td></td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> x_cell </ci>
+    <ci> x_cell </ci>
+    <ci> y_cell </ci>
+  </apply>
+</math>
+</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
                 <tr>    <td class="hidden">InitialAssignment</td>
     <td class="active">Vol_e</td>
     <td></td>
@@ -1896,32 +1451,6 @@
 	<td></td>
 	<td></td>
 </tr>
-                <tr>    <td class="hidden">InitialAssignment</td>
-    <td class="active">Vol_h</td>
-    <td></td>
-	<td>=</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <times/>
-    <ci> x_cell </ci>
-    <ci> x_cell </ci>
-    <ci> y_cell </ci>
-  </apply>
-</math>
-</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <power/>
-    <ci> m </ci>
-    <cn type="integer"> 3 </cn>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
             </tbody>
         </table>
         <hr/>
@@ -1942,6 +1471,26 @@
 </tr>
             </thead>
             <tbody>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">e</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <ci> Vol_e </ci>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <power/>
+    <ci> m </ci>
+    <cn type="integer"> 3 </cn>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
                 <tr>    <td class="hidden">Rule</td>
 	<td class="active">h</td>
 	<td>=</td>
@@ -1968,26 +1517,6 @@
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <ci> Vol_c </ci>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <power/>
-    <ci> m </ci>
-    <cn type="integer"> 3 </cn>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Rule</td>
-	<td class="active">e</td>
-	<td>=</td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <ci> Vol_e </ci>
 </math>
 </td>
     <td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -2050,368 +1579,6 @@
     <!--------------------------------------------------->
     <!-- Reactions -->
     <!--------------------------------------------------->
-        <a class="anchor" id="Reactions"></a>
-        <table id="table_reactions" class="table table-condensed table-nonfluid table-hover">
-            <thead>
-            <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Reactions [7]</th>
-	<th scope="col">name</th>
-	<th scope="col"></th>
-	<th scope="col">equation</th>
-	<th scope="col">modifiers</th>
-    <th scope="col">formula</th>
-	<th scope="col">derived units</th>
-    <th scope="col">sbo</th>
-    <th scope="col">cvterm</th>
-</tr>
-            </thead>
-            <tbody>
-                <tr>    <td class="hidden">Reaction</td>
-	<td class="active">CAFT</td>
-	<td>caffeine transporter</td>
-        <td class="success">&#8646;</td>
-	<td>caf_ext &#8646; caf</td>
-	<td>
-    </td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> f_caf </ci>
-      <apply>
-        <divide/>
-        <ci> CAFT_Vmax </ci>
-        <ci> CAFT_k_caf </ci>
-      </apply>
-      <apply>
-        <minus/>
-        <ci> caf_ext </ci>
-        <apply>
-          <divide/>
-          <ci> caf </ci>
-          <ci> CAFT_keq </ci>
-        </apply>
-      </apply>
-    </apply>
-    <apply>
-      <plus/>
-      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-      <apply>
-        <divide/>
-        <ci> caf_ext </ci>
-        <ci> CAFT_k_caf </ci>
-      </apply>
-      <apply>
-        <divide/>
-        <ci> caf </ci>
-        <ci> CAFT_k_caf </ci>
-      </apply>
-    </apply>
-  </apply>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Reaction</td>
-	<td class="active">PXT</td>
-	<td>paraxanthine transporter</td>
-        <td class="success">&#8646;</td>
-	<td>px &#8646; px_ext</td>
-	<td>
-    </td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> f_caf </ci>
-      <apply>
-        <divide/>
-        <ci> PXT_Vmax </ci>
-        <ci> PXT_k_px </ci>
-      </apply>
-      <apply>
-        <minus/>
-        <ci> px </ci>
-        <apply>
-          <divide/>
-          <ci> px_ext </ci>
-          <ci> PXT_keq </ci>
-        </apply>
-      </apply>
-    </apply>
-    <apply>
-      <plus/>
-      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-      <apply>
-        <divide/>
-        <ci> px_ext </ci>
-        <ci> PXT_k_px </ci>
-      </apply>
-      <apply>
-        <divide/>
-        <ci> px </ci>
-        <ci> PXT_k_px </ci>
-      </apply>
-    </apply>
-  </apply>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Reaction</td>
-	<td class="active">TBT</td>
-	<td>theobromine transporter</td>
-        <td class="success">&#8646;</td>
-	<td>tb &#8646; tb_ext</td>
-	<td>
-    </td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> f_caf </ci>
-      <apply>
-        <divide/>
-        <ci> TBT_Vmax </ci>
-        <ci> TBT_k_tb </ci>
-      </apply>
-      <apply>
-        <minus/>
-        <ci> tb </ci>
-        <apply>
-          <divide/>
-          <ci> tb_ext </ci>
-          <ci> TBT_keq </ci>
-        </apply>
-      </apply>
-    </apply>
-    <apply>
-      <plus/>
-      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-      <apply>
-        <divide/>
-        <ci> tb_ext </ci>
-        <ci> TBT_k_tb </ci>
-      </apply>
-      <apply>
-        <divide/>
-        <ci> tb </ci>
-        <ci> TBT_k_tb </ci>
-      </apply>
-    </apply>
-  </apply>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Reaction</td>
-	<td class="active">TPT</td>
-	<td>theophylline transporter</td>
-        <td class="success">&#8646;</td>
-	<td>tp &#8646; tp_ext</td>
-	<td>
-    </td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> f_caf </ci>
-      <apply>
-        <divide/>
-        <ci> TPT_Vmax </ci>
-        <ci> TPT_k_tp </ci>
-      </apply>
-      <apply>
-        <minus/>
-        <ci> tp </ci>
-        <apply>
-          <divide/>
-          <ci> tp_ext </ci>
-          <ci> TPT_keq </ci>
-        </apply>
-      </apply>
-    </apply>
-    <apply>
-      <plus/>
-      <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-      <apply>
-        <divide/>
-        <ci> tp_ext </ci>
-        <ci> TPT_k_tp </ci>
-      </apply>
-      <apply>
-        <divide/>
-        <ci> tp </ci>
-        <ci> TPT_k_tp </ci>
-      </apply>
-    </apply>
-  </apply>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Reaction</td>
-	<td class="active">CAF2PX</td>
-	<td>CAF2PX</td>
-	    <td class="danger">&#10142;</td>
-	<td>caf &#10142; px</td>
-	<td>
-    </td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> f_caf </ci>
-      <ci> CAF2PX_Vmax </ci>
-      <ci> caf </ci>
-    </apply>
-    <apply>
-      <plus/>
-      <ci> CAF2PX_k_caf </ci>
-      <ci> caf </ci>
-    </apply>
-  </apply>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Reaction</td>
-	<td class="active">CAF2TB</td>
-	<td>CAF2TB</td>
-	    <td class="danger">&#10142;</td>
-	<td>caf &#10142; tb</td>
-	<td>
-    </td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> f_caf </ci>
-      <ci> CAF2TB_Vmax </ci>
-      <ci> caf </ci>
-    </apply>
-    <apply>
-      <plus/>
-      <ci> CAF2TB_k_caf </ci>
-      <ci> caf </ci>
-    </apply>
-  </apply>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-                <tr>    <td class="hidden">Reaction</td>
-	<td class="active">CAF2TP</td>
-	<td>CAF2TP</td>
-	    <td class="danger">&#10142;</td>
-	<td>caf &#10142; tp</td>
-	<td>
-    </td>
-	<td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <apply>
-      <times/>
-      <ci> f_caf </ci>
-      <ci> CAF2TP_Vmax </ci>
-      <ci> caf </ci>
-    </apply>
-    <apply>
-      <plus/>
-      <ci> CAF2TP_k_caf </ci>
-      <ci> caf </ci>
-    </apply>
-  </apply>
-</math>
-</td>
-    <td>    <?xml version="1.0" encoding="UTF-8"?>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <apply>
-    <divide/>
-    <ci> mole </ci>
-    <ci> s </ci>
-  </apply>
-</math>
-</td>
-	<td></td>
-	<td></td>
-</tr>
-            </tbody>
-        </table>
-        <hr/>
     
     <!--------------------------------------------------->
     <!-- Events -->
