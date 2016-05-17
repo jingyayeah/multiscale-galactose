@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_80a958a4f3ee48be833b96bbe3ca8749" id="Jones2013_2" name="Jones2013_2" substanceUnits="mg" timeUnits="h" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mg" fbc:strict="false">
+  <model metaid="meta_de4f7555131c4e34b5f4e08643ca55af" id="pkpd_2" name="pkpd_2" substanceUnits="mg" timeUnits="h" volumeUnits="litre" areaUnits="m2" lengthUnits="m" extentUnits="mg" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
-        <h1>Jones2013 - PKPD</h1>
+        <h1>Minimal PKPD model for liver clearance.</h1>
         <h2>Description</h2>
         <p>
         This model is an example physiologically based pharmakokinetic model (PKPD) encoded in <a href="http://sbml.org">SBML</a> format.
@@ -35,7 +35,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_80a958a4f3ee48be833b96bbe3ca8749">
+    <rdf:Description rdf:about="#meta_de4f7555131c4e34b5f4e08643ca55af">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -157,23 +157,15 @@
     </listOfUnits>
   </unitDefinition>
 </listOfUnitDefinitions><listOfCompartments>
-  <compartment id="Vad" name="adipose" spatialDimensions="3" size="1" units="litre" constant="false"/>
-  <compartment id="Vbo" name="bone" spatialDimensions="3" size="1" units="litre" constant="false"/>
-  <compartment id="Vbr" name="brain" spatialDimensions="3" size="1" units="litre" constant="false"/>
+  <compartment id="Vre" name="rest of body" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vgu" name="gut" spatialDimensions="3" size="1" units="litre" constant="false"/>
-  <compartment id="Vhe" name="heart" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vki" name="kidney" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vli" name="liver" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vlu" name="lung" spatialDimensions="3" size="1" units="litre" constant="false"/>
-  <compartment id="Vmu" name="muscle" spatialDimensions="3" size="1" units="litre" constant="false"/>
-  <compartment id="Vsk" name="skin" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vsp" name="spleen" spatialDimensions="3" size="1" units="litre" constant="false"/>
-  <compartment id="Vte" name="testes" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vve" name="venous blood" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Var" name="arterial blood" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vpl" name="plasma" spatialDimensions="3" size="1" units="litre" constant="false"/>
-  <compartment id="Vrb" name="erythrocytes" spatialDimensions="3" size="1" units="litre" constant="false"/>
-  <compartment id="Vre" name="rest of body" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vplas_ven" name="venous plasma" spatialDimensions="3" size="1" units="litre" constant="false"/>
   <compartment id="Vplas_art" name="arterial plasma" spatialDimensions="3" size="1" units="litre" constant="false"/>
 </listOfCompartments><listOfParameters>
@@ -193,95 +185,52 @@
   <parameter id="BW" name="body weight" value="70" units="kg" constant="true"/>
   <parameter id="CO" name="cardiac output [ml/s]" value="108.33" units="ml_per_s" constant="true"/>
   <parameter id="QC" name="cardiac output [L/hr]" value="389988000" units="litre_per_h" constant="false"/>
-  <parameter id="FVad" name="adipose fractional tissue volume" value="0.213" units="litre_per_kg" constant="true"/>
-  <parameter id="FVbo" name="bone fractional tissue volume" value="0.085629" units="litre_per_kg" constant="true"/>
-  <parameter id="FVbr" name="brain fractional tissue volume" value="0.02" units="litre_per_kg" constant="true"/>
+  <parameter id="FVre" name="rest of body fractional tissue volume" value="0.9049" units="litre_per_kg" constant="true"/>
   <parameter id="FVgu" name="gut fractional tissue volume" value="0.0171" units="litre_per_kg" constant="true"/>
-  <parameter id="FVhe" name="heart fractional tissue volume" value="0.0047" units="litre_per_kg" constant="true"/>
   <parameter id="FVki" name="kidney fractional tissue volume" value="0.0044" units="litre_per_kg" constant="true"/>
   <parameter id="FVli" name="liver fractional tissue volume" value="0.021" units="litre_per_kg" constant="true"/>
   <parameter id="FVlu" name="lung fractional tissue volume" value="0.0076" units="litre_per_kg" constant="true"/>
-  <parameter id="FVmu" name="muscle fractional tissue volume" value="0.4" units="litre_per_kg" constant="true"/>
-  <parameter id="FVsk" name="skin fractional tissue volume" value="0.0371" units="litre_per_kg" constant="true"/>
   <parameter id="FVsp" name="spleen fractional tissue volume" value="0.0026" units="litre_per_kg" constant="true"/>
-  <parameter id="FVte" name="testes fractional tissue volume" value="0.01" units="litre_per_kg" constant="true"/>
   <parameter id="FVve" name="venous fractional tissue volume" value="0.0514" units="litre_per_kg" constant="true"/>
   <parameter id="FVar" name="arterial fractional tissue volume" value="0.0257" units="litre_per_kg" constant="true"/>
   <parameter id="FVpl" name="plasma fractional tissue volume" value="0.0424" units="litre_per_kg" constant="true"/>
-  <parameter id="FVrb" name="erythrocytes fractional tissue volume" value="0.0347" units="litre_per_kg" constant="true"/>
-  <parameter id="FVre" name="rest of body fractional tissue volume" value="0.099771" units="litre_per_kg" constant="true"/>
-  <parameter id="FQad" name="adipose fractional tissue blood flow" value="0.05" units="dimensionless" constant="true"/>
-  <parameter id="FQbo" name="bone fractional tissue blood flow" value="0.05" units="dimensionless" constant="true"/>
-  <parameter id="FQbr" name="brain fractional tissue blood flow" value="0.12" units="dimensionless" constant="true"/>
   <parameter id="FQgu" name="gut fractional tissue blood flow" value="0.146462" units="dimensionless" constant="true"/>
-  <parameter id="FQhe" name="heart fractional tissue blood flow" value="0.04" units="dimensionless" constant="true"/>
   <parameter id="FQki" name="kidney fractional tissue blood flow" value="0.19" units="dimensionless" constant="true"/>
   <parameter id="FQh" name="hepatic (venous side) fractional tissue blood flow" value="0.215385" units="dimensionless" constant="true"/>
   <parameter id="FQlu" name="lung fractional tissue blood flow" value="1" units="dimensionless" constant="true"/>
-  <parameter id="FQmu" name="muscle fractional tissue blood flow" value="0.17" units="dimensionless" constant="true"/>
-  <parameter id="FQsk" name="skin fractional tissue blood flow" value="0.05" units="dimensionless" constant="true"/>
   <parameter id="FQsp" name="spleen fractional tissue blood flow" value="0.017231" units="dimensionless" constant="true"/>
-  <parameter id="FQte" name="testes fractional tissue blood flow" value="0.01076" units="dimensionless" constant="true"/>
-  <parameter id="FQre" name="rest of body fractional tissue blood flow" value="0.103855" units="dimensionless" constant="true"/>
-  <parameter id="Kpad" name="adipose tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
-  <parameter id="Kpbo" name="bone tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
-  <parameter id="Kpbr" name="brain tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
+  <parameter id="FQre" name="rest of body fractional tissue blood flow" value="0.594615" units="dimensionless" constant="true"/>
   <parameter id="Kpgu" name="gut tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
-  <parameter id="Kphe" name="heart tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
   <parameter id="Kpki" name="kidney tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
   <parameter id="Kpli" name="liver tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
   <parameter id="Kplu" name="lung tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
-  <parameter id="Kpmu" name="muscle tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
-  <parameter id="Kpsk" name="skin tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
   <parameter id="Kpsp" name="spleen tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
-  <parameter id="Kpte" name="testes tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
   <parameter id="Kpre" name="rest tissue plasma partition coefficient" value="1" units="dimensionless" constant="true"/>
-  <parameter id="Aad" value="0" units="mg" constant="false"/>
-  <parameter id="Abo" value="0" units="mg" constant="false"/>
-  <parameter id="Abr" value="0" units="mg" constant="false"/>
   <parameter id="Agu" value="0" units="mg" constant="false"/>
-  <parameter id="Ahe" value="0" units="mg" constant="false"/>
   <parameter id="Aki" value="0" units="mg" constant="false"/>
   <parameter id="Ali" value="0" units="mg" constant="false"/>
   <parameter id="Alu" value="0" units="mg" constant="false"/>
-  <parameter id="Amu" value="0" units="mg" constant="false"/>
-  <parameter id="Ask" value="0" units="mg" constant="false"/>
   <parameter id="Asp" value="0" units="mg" constant="false"/>
-  <parameter id="Ate" value="0" units="mg" constant="false"/>
-  <parameter id="Aar" value="0" units="mg" constant="false"/>
   <parameter id="Are" value="0" units="mg" constant="false"/>
-  <parameter id="Cad" name="C [mg/l] adipose" units="mg_per_litre" constant="false"/>
-  <parameter id="Cbo" name="C [mg/l] bone" units="mg_per_litre" constant="false"/>
-  <parameter id="Cbr" name="C [mg/l] brain" units="mg_per_litre" constant="false"/>
+  <parameter id="Aar" value="0" units="mg" constant="false"/>
   <parameter id="Cgu" name="C [mg/l] gut" units="mg_per_litre" constant="false"/>
-  <parameter id="Che" name="C [mg/l] heart" units="mg_per_litre" constant="false"/>
   <parameter id="Cki" name="C [mg/l] kidney" units="mg_per_litre" constant="false"/>
   <parameter id="Cli" name="C [mg/l] liver" units="mg_per_litre" constant="false"/>
   <parameter id="Clu" name="C [mg/l] lung" units="mg_per_litre" constant="false"/>
-  <parameter id="Cmu" name="C [mg/l] muscle" units="mg_per_litre" constant="false"/>
-  <parameter id="Csk" name="C [mg/l] skin" units="mg_per_litre" constant="false"/>
   <parameter id="Csp" name="C [mg/l] spleen" units="mg_per_litre" constant="false"/>
-  <parameter id="Cte" name="C [mg/l] testes" units="mg_per_litre" constant="false"/>
+  <parameter id="Cre" name="C [mg/l] rest of body" units="mg_per_litre" constant="false"/>
   <parameter id="Cve" name="C [mg/l] venous blood" units="mg_per_litre" constant="false"/>
   <parameter id="Car" name="C [mg/l] arterial blood" units="mg_per_litre" constant="false"/>
-  <parameter id="Cre" name="C [mg/l] rest of body" units="mg_per_litre" constant="false"/>
   <parameter id="Cpl_ve" units="mg_per_litre" constant="false"/>
   <parameter id="Cli_free" name="free liver concentration" units="mg_per_litre" constant="false"/>
   <parameter id="Cki_free" name="free kidney concentration" units="mg_per_litre" constant="false"/>
   <parameter id="CLmet" name="CLint scaled [l/hr]" units="litre_per_h" constant="false"/>
-  <parameter id="Qad" name="adipose blood flow" units="litre_per_h" constant="false"/>
-  <parameter id="Qbo" name="bone blood flow" units="litre_per_h" constant="false"/>
-  <parameter id="Qbr" name="brain blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qgu" name="gut blood flow" units="litre_per_h" constant="false"/>
-  <parameter id="Qhe" name="heart blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qki" name="kidney blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qh" name="hepatic (venous side) blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qha" name="hepatic artery blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qlu" name="lung blood flow" units="litre_per_h" constant="false"/>
-  <parameter id="Qmu" name="muscle blood flow" units="litre_per_h" constant="false"/>
-  <parameter id="Qsk" name="skin blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qsp" name="spleen blood flow" units="litre_per_h" constant="false"/>
-  <parameter id="Qte" name="testes blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Qre" name="rest of body blood flow" units="litre_per_h" constant="false"/>
   <parameter id="Absorption" units="mg_per_h" constant="false"/>
   <parameter id="Venous" units="mg_per_h" constant="false"/>
@@ -298,48 +247,12 @@
     </math>
   </initialAssignment>
 </listOfInitialAssignments><listOfRules>
-  <assignmentRule variable="Cad">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> Aad </ci>
-        <ci> Vad </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Cbo">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> Abo </ci>
-        <ci> Vbo </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Cbr">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> Abr </ci>
-        <ci> Vbr </ci>
-      </apply>
-    </math>
-  </assignmentRule>
   <assignmentRule variable="Cgu">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <divide/>
         <ci> Agu </ci>
         <ci> Vgu </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Che">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> Ahe </ci>
-        <ci> Vhe </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -370,24 +283,6 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="Cmu">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> Amu </ci>
-        <ci> Vmu </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Csk">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> Ask </ci>
-        <ci> Vsk </ci>
-      </apply>
-    </math>
-  </assignmentRule>
   <assignmentRule variable="Csp">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -397,12 +292,12 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="Cte">
+  <assignmentRule variable="Cre">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <divide/>
-        <ci> Ate </ci>
-        <ci> Vte </ci>
+        <ci> Are </ci>
+        <ci> Vre </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -421,15 +316,6 @@
         <divide/>
         <ci> Aar </ci>
         <ci> Var </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Cre">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> Are </ci>
-        <ci> Vre </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -479,48 +365,12 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="Vad">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> BW </ci>
-        <ci> FVad </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Vbo">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> BW </ci>
-        <ci> FVbo </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Vbr">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> BW </ci>
-        <ci> FVbr </ci>
-      </apply>
-    </math>
-  </assignmentRule>
   <assignmentRule variable="Vgu">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <times/>
         <ci> BW </ci>
         <ci> FVgu </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Vhe">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> BW </ci>
-        <ci> FVhe </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -551,39 +401,12 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="Vmu">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> BW </ci>
-        <ci> FVmu </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Vsk">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> BW </ci>
-        <ci> FVsk </ci>
-      </apply>
-    </math>
-  </assignmentRule>
   <assignmentRule variable="Vsp">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <times/>
         <ci> BW </ci>
         <ci> FVsp </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Vte">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> BW </ci>
-        <ci> FVte </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -611,15 +434,6 @@
         <times/>
         <ci> BW </ci>
         <ci> FVpl </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Vrb">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> BW </ci>
-        <ci> FVrb </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -679,48 +493,12 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="Qad">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> QC </ci>
-        <ci> FQad </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Qbo">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> QC </ci>
-        <ci> FQbo </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Qbr">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> QC </ci>
-        <ci> FQbr </ci>
-      </apply>
-    </math>
-  </assignmentRule>
   <assignmentRule variable="Qgu">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <times/>
         <ci> QC </ci>
         <ci> FQgu </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Qhe">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> QC </ci>
-        <ci> FQhe </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -764,39 +542,12 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="Qmu">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> QC </ci>
-        <ci> FQmu </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Qsk">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> QC </ci>
-        <ci> FQsk </ci>
-      </apply>
-    </math>
-  </assignmentRule>
   <assignmentRule variable="Qsp">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <times/>
         <ci> QC </ci>
         <ci> FQsp </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Qte">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> QC </ci>
-        <ci> FQte </ci>
       </apply>
     </math>
   </assignmentRule>
@@ -825,46 +576,6 @@
         <plus/>
         <apply>
           <times/>
-          <ci> Qad </ci>
-          <apply>
-            <divide/>
-            <ci> Cad </ci>
-            <ci> Kpad </ci>
-          </apply>
-          <ci> BP </ci>
-        </apply>
-        <apply>
-          <times/>
-          <ci> Qbo </ci>
-          <apply>
-            <divide/>
-            <ci> Cbo </ci>
-            <ci> Kpbo </ci>
-          </apply>
-          <ci> BP </ci>
-        </apply>
-        <apply>
-          <times/>
-          <ci> Qbr </ci>
-          <apply>
-            <divide/>
-            <ci> Cbr </ci>
-            <ci> Kpbr </ci>
-          </apply>
-          <ci> BP </ci>
-        </apply>
-        <apply>
-          <times/>
-          <ci> Qhe </ci>
-          <apply>
-            <divide/>
-            <ci> Che </ci>
-            <ci> Kphe </ci>
-          </apply>
-          <ci> BP </ci>
-        </apply>
-        <apply>
-          <times/>
           <ci> Qki </ci>
           <apply>
             <divide/>
@@ -885,36 +596,6 @@
         </apply>
         <apply>
           <times/>
-          <ci> Qmu </ci>
-          <apply>
-            <divide/>
-            <ci> Cmu </ci>
-            <ci> Kpmu </ci>
-          </apply>
-          <ci> BP </ci>
-        </apply>
-        <apply>
-          <times/>
-          <ci> Qsk </ci>
-          <apply>
-            <divide/>
-            <ci> Csk </ci>
-            <ci> Kpsk </ci>
-          </apply>
-          <ci> BP </ci>
-        </apply>
-        <apply>
-          <times/>
-          <ci> Qte </ci>
-          <apply>
-            <divide/>
-            <ci> Cte </ci>
-            <ci> Kpte </ci>
-          </apply>
-          <ci> BP </ci>
-        </apply>
-        <apply>
-          <times/>
           <ci> Qre </ci>
           <apply>
             <divide/>
@@ -930,87 +611,17 @@
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <plus/>
-        <ci> Aad </ci>
         <ci> Aar </ci>
-        <ci> Abo </ci>
-        <ci> Abr </ci>
         <ci> Agu </ci>
-        <ci> Ahe </ci>
         <ci> Aki </ci>
         <ci> Ali </ci>
         <ci> Alu </ci>
-        <ci> Amu </ci>
-        <ci> Ask </ci>
         <ci> Asp </ci>
-        <ci> Ate </ci>
         <ci> Are </ci>
         <ci> Ave </ci>
       </apply>
     </math>
   </assignmentRule>
-  <rateRule variable="Aad">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> Qad </ci>
-        <apply>
-          <minus/>
-          <ci> Car </ci>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Cad </ci>
-              <ci> Kpad </ci>
-            </apply>
-            <ci> BP </ci>
-          </apply>
-        </apply>
-      </apply>
-    </math>
-  </rateRule>
-  <rateRule variable="Abo">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> Qbo </ci>
-        <apply>
-          <minus/>
-          <ci> Car </ci>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Cbo </ci>
-              <ci> Kpbo </ci>
-            </apply>
-            <ci> BP </ci>
-          </apply>
-        </apply>
-      </apply>
-    </math>
-  </rateRule>
-  <rateRule variable="Abr">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> Qbr </ci>
-        <apply>
-          <minus/>
-          <ci> Car </ci>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Cbr </ci>
-              <ci> Kpbr </ci>
-            </apply>
-            <ci> BP </ci>
-          </apply>
-        </apply>
-      </apply>
-    </math>
-  </rateRule>
   <rateRule variable="Agu">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -1031,27 +642,6 @@
               </apply>
               <ci> BP </ci>
             </apply>
-          </apply>
-        </apply>
-      </apply>
-    </math>
-  </rateRule>
-  <rateRule variable="Ahe">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> Qhe </ci>
-        <apply>
-          <minus/>
-          <ci> Car </ci>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Che </ci>
-              <ci> Kphe </ci>
-            </apply>
-            <ci> BP </ci>
           </apply>
         </apply>
       </apply>
@@ -1161,48 +751,6 @@
       </apply>
     </math>
   </rateRule>
-  <rateRule variable="Amu">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> Qmu </ci>
-        <apply>
-          <minus/>
-          <ci> Car </ci>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Cmu </ci>
-              <ci> Kpmu </ci>
-            </apply>
-            <ci> BP </ci>
-          </apply>
-        </apply>
-      </apply>
-    </math>
-  </rateRule>
-  <rateRule variable="Ask">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> Qsk </ci>
-        <apply>
-          <minus/>
-          <ci> Car </ci>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Csk </ci>
-              <ci> Kpsk </ci>
-            </apply>
-            <ci> BP </ci>
-          </apply>
-        </apply>
-      </apply>
-    </math>
-  </rateRule>
   <rateRule variable="Asp">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -1217,27 +765,6 @@
               <divide/>
               <ci> Csp </ci>
               <ci> Kpsp </ci>
-            </apply>
-            <ci> BP </ci>
-          </apply>
-        </apply>
-      </apply>
-    </math>
-  </rateRule>
-  <rateRule variable="Ate">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <times/>
-        <ci> Qte </ci>
-        <apply>
-          <minus/>
-          <ci> Car </ci>
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <ci> Cte </ci>
-              <ci> Kpte </ci>
             </apply>
             <ci> BP </ci>
           </apply>
