@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_b4b596b83e894504a8413bc995080186" id="Hepatic_clearance_1" name="Hepatic_clearance_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_3a737a76cb3241fc90ed4e208322f1a6" id="Hepatic_clearance_1" name="Hepatic_clearance_1" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Hepatic clearance</h1>
@@ -26,7 +26,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_b4b596b83e894504a8413bc995080186">
+    <rdf:Description rdf:about="#meta_3a737a76cb3241fc90ed4e208322f1a6">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -42,10 +42,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-13T16:25:15Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-17T13:01:36Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-13T16:25:15Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-17T13:01:36Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -207,6 +207,7 @@
   <species id="S_ext" name="substance S" compartment="e" initialConcentration="0.0021" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="S" name="substance S" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="P" name="product P" compartment="c" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="P_ext" name="product P" compartment="e" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
 </listOfSpecies><listOfParameters>
   <parameter id="f_met" name="metabolic scaling factor" value="0.31" units="per_m3" constant="true"/>
   <parameter id="y_cell" name="width hepatocyte" value="9.4e-06" units="m" constant="true"/>
@@ -218,6 +219,14 @@
   <parameter id="Vol_c" name="volume external compartment" units="m3" constant="true"/>
   <parameter id="A_m" name="area plasma membrane" units="m2" constant="true"/>
   <parameter id="f_cl" units="dimensionless" constant="false"/>
+  <parameter id="ST_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="ST_k_S" value="0.1" units="mM" constant="true"/>
+  <parameter id="ST_Vmax" value="10" units="mole_per_s" constant="true"/>
+  <parameter id="S2P_k_S" value="0.1" units="mM" constant="true"/>
+  <parameter id="S2P_Vmax" value="8.4" units="mole_per_s" constant="true"/>
+  <parameter id="PT_keq" value="1" units="dimensionless" constant="true"/>
+  <parameter id="PT_k_P" value="0.1" units="mM" constant="true"/>
+  <parameter id="PT_Vmax" value="10" units="mole_per_s" constant="true"/>
 </listOfParameters><listOfInitialAssignments>
   <initialAssignment symbol="Vol_h">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -274,14 +283,136 @@
     </math>
   </assignmentRule>
   <assignmentRule variable="f_cl">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
       <apply>
         <times/>
         <ci> f_met </ci>
+        <cn sbml:units="dimensionless"> 0.2 </cn>
         <ci> Vol_h </ci>
       </apply>
     </math>
   </assignmentRule>
-</listOfRules>
+</listOfRules><listOfReactions>
+  <reaction id="ST" name="S transporter" reversible="true" fast="false" compartment="pm">
+    <listOfReactants>
+      <speciesReference species="S_ext" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_cl </ci>
+            <apply>
+              <divide/>
+              <ci> ST_Vmax </ci>
+              <ci> ST_k_S </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> S_ext </ci>
+              <apply>
+                <divide/>
+                <ci> S </ci>
+                <ci> ST_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> S_ext </ci>
+              <ci> ST_k_S </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> S </ci>
+              <ci> ST_k_S </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="S2P" name="S2P (S =&gt; P)" reversible="false" fast="false" compartment="c">
+    <listOfReactants>
+      <speciesReference species="S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_cl </ci>
+            <ci> S2P_Vmax </ci>
+            <ci> S </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <ci> S2P_k_S </ci>
+            <ci> S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="PT" name="P transporter" reversible="true" fast="false" compartment="pm">
+    <listOfReactants>
+      <speciesReference species="P_ext" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> f_cl </ci>
+            <apply>
+              <divide/>
+              <ci> PT_Vmax </ci>
+              <ci> PT_k_P </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> P_ext </ci>
+              <apply>
+                <divide/>
+                <ci> P </ci>
+                <ci> PT_keq </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> P_ext </ci>
+              <ci> PT_k_P </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> P </ci>
+              <ci> PT_k_P </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+</listOfReactions>
 </model>
 </sbml>

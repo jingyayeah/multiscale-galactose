@@ -11,6 +11,8 @@ from caffeine import sbml_path
 
 class ModelTestCase(unittest.TestCase):
 
+    # TODO: create the model & run the tests.
+
     def test_validate_sbml(self):
         vres = validation.validate_sbml(sbml_path, ucheck=True)
         self.assertEqual(vres["numCCErr"], 0)
@@ -31,6 +33,8 @@ class ModelTestCase(unittest.TestCase):
         self.assertEqual(s[-1, 0], 10)
         # test correct number of steps
         self.assertEqual(len(s['time']), steps+1)
+
+    # TODO: execute notebook code
 
 
 if __name__ == '__main__':

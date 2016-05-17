@@ -16,8 +16,10 @@ sbml_path = os.path.join(target_dir, '{}_{}.xml'.format(mid, version))
 
 def create_model():
     """ Create model. """
-    return modelcreator.create_model(modules=['multiscale.examples.models.templates.hepatocyte',
-                                              'multiscale.examples.models.caffeine.caffeine_cell'],
+    return modelcreator.create_model(modules=[
+                                        'multiscale.examples.models.templates.units',
+                                        'multiscale.examples.models.templates.hepatocyte',
+                                        'multiscale.examples.models.caffeine.caffeine_cell'],
                                      target_dir=target_dir)
 
 

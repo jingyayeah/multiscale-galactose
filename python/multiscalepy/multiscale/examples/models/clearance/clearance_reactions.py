@@ -1,117 +1,55 @@
 """
-Reactions and transporters of hepatic caffeine metabolism.
+Clearance example for model coupling.
 
-Caffeine is metabolized in the liver into three primary metabolites:
-    paraxanthine (84%),
-    theobromine (12%),
-    and theophylline (4%).
-
+Substance S is transformed by the liver into P which than can be exported.
 """
 from sbmlutils.modelcreator.processes.ReactionTemplate import ReactionTemplate
+import sbmlutils.modelcreator.modelcreator as mc
 
 #############################################################################################
 #    REACTIONS
 #############################################################################################
 
-# Caffeine Import
-CAFT = ReactionTemplate(
-    rid='CAFT',
-    name='caffeine transporter',
-    equation='caf_ext <-> caf []',
-    # C8H10N4O2 (0) <-> C8H10N4O2 (0)
-    localization='pm',
+# S import
+ST = ReactionTemplate(
+    rid='ST',
+    name='S transporter',
+    equation='S_ext <-> S []',
+    compartment='pm',
     pars=[
-        ('CAFT_keq', 1, 'dimensionless'),
-        ('CAFT_k_caf', 0.1, 'mM'),
-        ('CAFT_Vmax', 10, 'mole_per_s'),
+        mc.Parameter('ST_keq', 1, 'dimensionless'),
+        mc.Parameter('ST_k_S', 0.1, 'mM'),
+        mc.Parameter('ST_Vmax', 10, 'mole_per_s'),
     ],
     rules=[],
-    formula=('f_caf * (CAFT_Vmax/CAFT_k_caf) * (caf_ext - caf/CAFT_keq) / ' +
-                '(1 dimensionless + caf_ext/CAFT_k_caf + caf/CAFT_k_caf)', 'mole_per_s')
+    formula=('f_cl * (ST_Vmax/ST_k_S) * (S_ext - S/ST_keq) / ' +
+                '(1 dimensionless + S_ext/ST_k_S + S/ST_k_S)', 'mole_per_s')
 )
 
-PXT = ReactionTemplate(
-    rid='PXT',
-    name='paraxanthine transporter',
-    equation='px <-> px_ext []',
-    # C7H8N4O2 (0) <-> C7H8N4O2 (0)
-    localization='pm',
+S2P = ReactionTemplate(
+    rid='S2P',
+    name='S2P (S => P)',
+    equation='S => P []',
+    compartment='c',
     pars=[
-        ('PXT_keq', 1, 'dimensionless'),
-        ('PXT_k_px', 0.1, 'mM'),
-        ('PXT_Vmax', 2, 'mole_per_s'),
+        mc.Parameter('S2P_k_S', 0.1, 'mM'),
+        mc.Parameter('S2P_Vmax', 8.4, 'mole_per_s'),
+    ],
+    formula=('f_cl * S2P_Vmax * S/(S2P_k_S + S)', 'mole_per_s')
+)
+
+# P import
+PT = ReactionTemplate(
+    rid='PT',
+    name='P transporter',
+    equation='P_ext <-> P []',
+    compartment='pm',
+    pars=[
+        mc.Parameter('PT_keq', 1, 'dimensionless'),
+        mc.Parameter('PT_k_P', 0.1, 'mM'),
+        mc.Parameter('PT_Vmax', 10, 'mole_per_s'),
     ],
     rules=[],
-    formula=('f_caf * (PXT_Vmax/PXT_k_px) * (px - px_ext/PXT_keq) / ' +
-                '(1 dimensionless + px_ext/PXT_k_px + px/PXT_k_px)', 'mole_per_s')
-)
-
-TBT = ReactionTemplate(
-    rid='TBT',
-    name='theobromine transporter',
-    equation='tb <-> tb_ext []',
-    # C7H8N4O2 (0) <-> C7H8N4O2 (0)
-    localization='pm',
-    pars=[
-        ('TBT_keq', 1, 'dimensionless'),
-        ('TBT_k_tb', 0.1, 'mM'),
-        ('TBT_Vmax', 2, 'mole_per_s'),
-    ],
-    rules=[],
-    formula=('f_caf * (TBT_Vmax/TBT_k_tb) * (tb - tb_ext/TBT_keq)/(1 dimensionless + tb_ext/TBT_k_tb + tb/TBT_k_tb)', 'mole_per_s')
-)
-
-TPT = ReactionTemplate(
-    rid='TPT',
-    name='theophylline transporter',
-    equation='tp <-> tp_ext []',
-    # C7H8N4O2 (0) <-> C7H8N4O2 (0)
-    localization='pm',
-    pars=[
-        ('TPT_keq', 1, 'dimensionless'),
-        ('TPT_k_tp', 0.1, 'mM'),
-        ('TPT_Vmax', 2, 'mole_per_s'),
-    ],
-    rules=[],
-    formula=('f_caf * (TPT_Vmax/TPT_k_tp) * (tp - tp_ext/TPT_keq) / ' +
-                '(1 dimensionless + tp_ext/TPT_k_tp + tp/TPT_k_tp)', 'mole_per_s')
-)
-
-CAF2PX = ReactionTemplate(
-    rid='CAF2PX',
-    name='CAF2PX',
-    equation='caf => px []',
-    # ?
-    localization='c',
-    pars=[
-        ('CAF2PX_k_caf', 0.1, 'mM'),
-        ('CAF2PX_Vmax', 8.4, 'mole_per_s'),
-    ],
-    formula=('f_caf * CAF2PX_Vmax * caf/(CAF2PX_k_caf + caf)', 'mole_per_s')
-)
-
-CAF2TB = ReactionTemplate(
-    rid='CAF2TB',
-    name='CAF2TB',
-    equation='caf => tb []',
-    # ?
-    localization='c',
-    pars=[
-        ('CAF2TB_k_caf', 0.1, 'mM'),
-        ('CAF2TB_Vmax', 1.2, 'mole_per_s'),
-    ],
-    formula=('f_caf * CAF2TB_Vmax * caf/(CAF2TB_k_caf + caf)', 'mole_per_s')
-)
-
-CAF2TP = ReactionTemplate(
-    rid='CAF2TP',
-    name='CAF2TP',
-    equation='caf => tp []',
-    # ?
-    localization='c',
-    pars=[
-        ('CAF2TP_k_caf', 0.1, 'mM'),
-        ('CAF2TP_Vmax', 0.4, 'mole_per_s'),
-    ],
-    formula=('f_caf * CAF2TP_Vmax * caf/(CAF2TP_k_caf + caf)', 'mole_per_s')
+    formula=('f_cl * (PT_Vmax/PT_k_P) * (P_ext - P/PT_keq) / ' +
+                '(1 dimensionless + P_ext/PT_k_P + P/PT_k_P)', 'mole_per_s')
 )

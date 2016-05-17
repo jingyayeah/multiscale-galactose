@@ -8,6 +8,7 @@ import roadrunner
 from sbmlutils import validation
 import clearance
 
+
 class ModelTestCase(unittest.TestCase):
     def test_validate_sbml(self):
         """ Validate the SBML. """

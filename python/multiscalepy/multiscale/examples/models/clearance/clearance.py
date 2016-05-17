@@ -15,7 +15,8 @@ sbml_path = os.path.join(target_dir, '{}_{}.xml'.format(clearance_cell.mid, clea
 
 def create_model():
     """ Create model. """
-    return modelcreator.create_model(modules=['multiscale.examples.models.templates.hepatocyte',
+    return modelcreator.create_model(modules=['multiscale.examples.models.templates.units',
+                                              'multiscale.examples.models.templates.hepatocyte',
                                               'multiscale.examples.models.clearance.clearance_cell'],
                                      target_dir=target_dir)
 
