@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by sbmlutils version 0.1.2 on 2016-05-19 12:23 with libSBML version 5.13.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+  <model metaid="meta_2e72dc74766240dbbc85a94948215221" id="Sinusoid_Test_1" name="Sinusoid_Test_1" fbc:strict="false">
+    <listOfCompartments>
+      <compartment id="PP" name="[PP] periportal" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="PV" name="[PV] perivenious" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="S01" name="[S01] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="D01" name="[D01] disse" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="H01" name="[H01] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="S02" name="[S02] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="D02" name="[D02] disse" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="H02" name="[H02] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="S03" name="[S03] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="D03" name="[D03] disse" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="H03" name="[H03] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="S04" name="[S04] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="D04" name="[D04] disse" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="H04" name="[H04] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="S05" name="[S05] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="D05" name="[D05] disse" spatialDimensions="3" units="m3" constant="false"/>
+      <compartment id="H05" name="[H05] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="PP__gal" name="[PP] None" compartment="PP" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species id="PV__gal" name="[PV] None" compartment="PV" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S01__gal" name="[S01] None" compartment="S01" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D01__gal" name="[D01] None" compartment="D01" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S02__gal" name="[S02] None" compartment="S02" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D02__gal" name="[D02] None" compartment="D02" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S03__gal" name="[S03] None" compartment="S03" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D03__gal" name="[D03] None" compartment="D03" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S04__gal" name="[S04] None" compartment="S04" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D04__gal" name="[D04] None" compartment="D04" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S05__gal" name="[S05] None" compartment="S05" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D05__gal" name="[D05] None" compartment="D05" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="PP__suc" name="[PP] None" compartment="PP" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species id="PV__suc" name="[PV] None" compartment="PV" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S01__suc" name="[S01] None" compartment="S01" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D01__suc" name="[D01] None" compartment="D01" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S02__suc" name="[S02] None" compartment="S02" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D02__suc" name="[D02] None" compartment="D02" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S03__suc" name="[S03] None" compartment="S03" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D03__suc" name="[D03] None" compartment="D03" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S04__suc" name="[S04] None" compartment="S04" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D04__suc" name="[D04] None" compartment="D04" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S05__suc" name="[S05] None" compartment="S05" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="D05__suc" name="[D05] None" compartment="D05" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfRules>
+      <assignmentRule variable="PP">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_pp </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="PV">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_pv </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="S01">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_sin </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="D01">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_dis </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H01">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_cell </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="S02">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_sin </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="D02">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_dis </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H02">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_cell </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="S03">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_sin </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="D03">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_dis </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H03">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_cell </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="S04">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_sin </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="D04">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_dis </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H04">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_cell </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="S05">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_sin </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="D05">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_dis </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="H05">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Vol_cell </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

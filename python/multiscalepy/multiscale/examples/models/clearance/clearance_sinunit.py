@@ -12,6 +12,7 @@ from sbmlutils.modelcreator import db
 
 #####################################################################################
 if __name__ == "__main__":
+    import os
 
     sin_species = [
         sinunit.SinusoidSpecies('gal', 1.0, unit='mM', D=db.diffusion['gal'], r=db.radius['gal']),
@@ -28,4 +29,5 @@ if __name__ == "__main__":
     f.core_model.info()
 
     core_model.create_sbml()
+    core_model.write_sbml(filepath=os.path.join('.', 'results', '{}.xml'.format(core_model.model_id)))
 
