@@ -1,7 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by sbmlutils version 0.1.2 on 2016-05-19 12:23 with libSBML version 5.13.1. -->
+<!-- Created by sbmlutils version 0.1.2 on 2016-05-19 12:38 with libSBML version 5.13.1. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_2e72dc74766240dbbc85a94948215221" id="Sinusoid_Test_1" name="Sinusoid_Test_1" fbc:strict="false">
+  <model metaid="meta_78a81336c235482190ebc3bcd56737e7" id="Sinusoid_Test_1" name="Sinusoid_Test_1" fbc:strict="false">
+    <listOfUnitDefinitions>
+      <unitDefinition id="s">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="kg">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m2">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m3">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_s">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mole_per_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mole_per_s_per_mM">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mole_per_s_per_mM2">
+        <listOfUnits>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="6" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m2_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m3_per_s">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM_s">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_mM">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_m2">
+        <listOfUnits>
+          <unit kind="metre" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_m3">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="kg_per_m3">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m3_per_skg">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="kilogram" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa_s">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa_s_per_m4">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-4" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa_s_per_m3">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Pa_s_per_m2">
+        <listOfUnits>
+          <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="m6_per_Pa2_s2">
+        <listOfUnits>
+          <unit kind="pascal" exponent="-2" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-2" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="6" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
     <listOfCompartments>
       <compartment id="PP" name="[PP] periportal" spatialDimensions="3" units="m3" constant="false"/>
       <compartment id="PV" name="[PV] perivenious" spatialDimensions="3" units="m3" constant="false"/>

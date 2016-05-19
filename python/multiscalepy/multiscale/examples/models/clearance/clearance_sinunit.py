@@ -3,11 +3,8 @@ Sinusoidal Unit information
 """
 from __future__ import print_function, division
 from sbmlutils.modelcreator.factory import sinunit
-from sbmlutils.modelcreator import CoreModel
+from sbmlutils.modelcreator import CoreModel, Preprocess
 from sbmlutils.modelcreator import db
-
-
-
 
 
 #####################################################################################
@@ -20,9 +17,14 @@ if __name__ == "__main__":
     ]
 
     # Create the sinusoidal model
+    model_dict = Preprocess.dict_from_modules(modules=['multiscale.examples.models.templates.units'])
+    unit_model = CoreModel.from_dict(model_dict)
+
     core_model = CoreModel()
     core_model.mid = 'Sinusoid_Test'
     core_model.version = 1
+    core_model.units = unit_model.units
+
     f = sinunit.SinusoidalUnitFactory(Nc=5, sin_species=sin_species, core_model=core_model)
     print(f.mid)
     print(f.core_model)
