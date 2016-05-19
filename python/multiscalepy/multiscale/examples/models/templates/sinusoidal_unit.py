@@ -13,10 +13,25 @@ Important features:
 - single cell models as well as the full sinusoidal architecture have to be generated 
   at once.
 """
+from libsbml import XMLNode
 import sbmlutils.modelcreator.modelcreator as mc
+from sbmlutils.modelcreator import templates
+
 
 mid = 'sinusoidal_unit'
 version = 1
+creators = templates.creators
+
+notes = XMLNode.convertStringToXMLNode("""
+    <body xmlns='http://www.w3.org/1999/xhtml'>
+    <h1>Koenig Sinusoidal Unit Model</h1>
+    <h2>Description</h2>
+    <p>This is the template model of the sinusodial unit in
+    <a href="http://sbml.org" target="_blank" title="Access the definition of the SBML file format.">SBML</a>&#160;format.
+    </p>
+    """ + templates.terms_of_use + """
+    </body>
+    """)
 
 
 parameters = [
