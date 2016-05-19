@@ -13,38 +13,42 @@ Important features:
 - single cell models as well as the full sinusoidal architecture have to be generated 
   at once.
 """
+import units
+import sbmlutils.modelcreator.modelcreator as mc
 
 #########################################################################
-
 mid = 'sinusoidal_unit'
 version = 1
+main_units = units.main_units
+creators = units.creators
+
 
 ##########################################################################
 # Parameters
 ##########################################################################
-pars.extend([
+parameters = [
             # id, value, unit, constant
-            ('L',           500E-6,   'm',      True),
-            ('y_sin',       4.4E-6,   'm',      True),
-            ('y_end',     0.165E-6,   'm',      True),
-            ('y_dis',       2.3E-6,   'm',      True),
-            ('y_cell',     9.40E-6,   'm',      True),
-            
-            ('N_fen',        10E12,   'per_m2', True),
-            ('r_fen',      53.5E-9,   'm',      True),
-            
-            ('rho_liv',     1.25E3,    'kg_per_m3', True), 
-            ('f_tissue',     0.8, '-', True),
-            ('f_cyto',       0.4, '-', True),
-            
-            ('Pa',       1333.22, 'Pa', True), # 1mmHg = 133.322
+            mc.Parameter('L', 500E-6, 'm', constant=True, name='sinusoidal length'),
+    mc.Parameter('y_sin',       4.4E-6,   'm',      True),
+    mc.Parameter('y_end',     0.165E-6,   'm',      True),
+    mc.Parameter('y_dis',       2.3E-6,   'm',      True),
+    mc.Parameter('y_cell',     9.40E-6,   'm',      True),
+
+    mc.Parameter('N_fen',        10E12,   'per_m2', True),
+    mc.Parameter('r_fen',      53.5E-9,   'm',      True),
+
+    mc.Parameter('rho_liv',     1.25E3,    'kg_per_m3', True),
+    mc.Parameter('f_tissue',     0.8, '-', True),
+    mc.Parameter('f_cyto',       0.4, '-', True),
+
+    mc.Parameter('Pa',       1333.22, 'Pa', True), # 1mmHg = 133.322
             ('Pb',       266.64,  'Pa', True), 
             ('nu_f',     10.0, '-', True),
             ('nu_plasma', 0.0018, 'Pa_s', True),
-])
+]
+
 names['Nc'] = 'number of cells in sinusoidal unit'
-names['Nf'] = 'external compartments per cell'
-names['L'] = 'sinusoidal length'
+
 names['y_sin'] = 'sinusoidal radius'
 names['y_end'] = 'endothelial cell thickness'
 names['y_dis'] = 'width space of Disse'
