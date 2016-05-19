@@ -17,13 +17,11 @@ if __name__ == "__main__":
     ]
 
     # Create the sinusoidal model
-    model_dict = Preprocess.dict_from_modules(modules=['multiscale.examples.models.templates.units'])
-    unit_model = CoreModel.from_dict(model_dict)
-
-    core_model = CoreModel()
+    model_dict = Preprocess.dict_from_modules(modules=['multiscale.examples.models.templates.units',
+                                                       'multiscale.examples.models.templates.sinusoidal_unit'])
+    core_model = CoreModel.from_dict(model_dict)
     core_model.mid = 'Sinusoid_Test'
     core_model.version = 1
-    core_model.units = unit_model.units
 
     f = sinunit.SinusoidalUnitFactory(Nc=5, sin_species=sin_species, core_model=core_model)
     print(f.mid)
@@ -31,5 +29,9 @@ if __name__ == "__main__":
     f.core_model.info()
 
     core_model.create_sbml()
-    core_model.write_sbml(filepath=os.path.join('.', 'results', '{}.xml'.format(core_model.model_id)))
+    target_dir = os.path.join('.', 'results')
+    sbml_path = os.path.join(target_dir, '{}.xml'.format(core_model.model_id))
+    core_model.write_sbml(filepath=sbml_path)
 
+    from sbmlutils.report import sbmlreport
+    sbmlreport.create_sbml_report(sbml_path, out_dir=target_dir)

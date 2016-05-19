@@ -13,124 +13,65 @@ Important features:
 - single cell models as well as the full sinusoidal architecture have to be generated 
   at once.
 """
-import units
 import sbmlutils.modelcreator.modelcreator as mc
 
-#########################################################################
 mid = 'sinusoidal_unit'
 version = 1
-main_units = units.main_units
-creators = units.creators
 
 
-##########################################################################
-# Parameters
-##########################################################################
 parameters = [
-            # id, value, unit, constant
-            mc.Parameter('L', 500E-6, 'm', constant=True, name='sinusoidal length'),
-    mc.Parameter('y_sin',       4.4E-6,   'm',      True),
-    mc.Parameter('y_end',     0.165E-6,   'm',      True),
-    mc.Parameter('y_dis',       2.3E-6,   'm',      True),
-    mc.Parameter('y_cell',     9.40E-6,   'm',      True),
+    mc.Parameter('L', 500E-6, 'm', name='sinusoidal length'),
+    mc.Parameter('y_sin', 4.4E-6, 'm', name='sinusoidal radius'),
+    mc.Parameter('y_end', 0.165E-6, 'm', name='endothelial cell thickness'),
+    mc.Parameter('y_dis', 2.3E-6, 'm', name='width space of Disse'),
+    mc.Parameter('y_cell', 9.40E-6, 'm', name='width hepatocyte'),
 
-    mc.Parameter('N_fen',        10E12,   'per_m2', True),
-    mc.Parameter('r_fen',      53.5E-9,   'm',      True),
+    mc.Parameter('N_fen',  10E12, 'per_m2', name='fenestrations per area'),
+    mc.Parameter('r_fen', 53.5E-9, 'm', name='fenestration radius'),
 
-    mc.Parameter('rho_liv',     1.25E3,    'kg_per_m3', True),
-    mc.Parameter('f_tissue',     0.8, '-', True),
-    mc.Parameter('f_cyto',       0.4, '-', True),
+    mc.Parameter('rho_liv', 1.25E3, 'kg_per_m3', name='liver density'),
+    mc.Parameter('f_tissue', 0.8, '-', name='parenchymal fraction of liver'),
+    # mc.Parameter('f_cyto', 0.4, '-', name='cytosolic fraction of hepatocyte'),
 
-    mc.Parameter('Pa',       1333.22, 'Pa', True), # 1mmHg = 133.322
-            ('Pb',       266.64,  'Pa', True), 
-            ('nu_f',     10.0, '-', True),
-            ('nu_plasma', 0.0018, 'Pa_s', True),
+    mc.Parameter('Pa', 1333.22, 'Pa', name='pressure periportal'),  # 1mmHg = 133.322
+    mc.Parameter('Pb', 266.64,  'Pa', name='pressure perivenious'),
+    mc.Parameter('nu_f', 10.0, '-', name='viscosity factor for sinusoidal resistance'),
+    mc.Parameter('nu_plasma', 0.0018, 'Pa_s', name='plasma viscosity'),
 ]
 
-names['Nc'] = 'number of cells in sinusoidal unit'
-
-names['y_sin'] = 'sinusoidal radius'
-names['y_end'] = 'endothelial cell thickness'
-names['y_dis'] = 'width space of Disse'
-names['y_cell'] = 'width hepatocyte'
-names['flow_sin'] = 'sinusoidal flow velocity'
-names['N_fen'] = 'fenestrations per area'
-names['r_fen'] = 'fenestration radius'
-
-names['rho_liv'] = 'liver density'
-names['f_tissue'] = 'parenchymal fraction of liver'
-names['f_cyto'] = 'cytosolic fraction of hepatocyte'
-
-names['Pa'] = 'pressure periportal'
-names['Pb'] = 'pressure perivenious'
+'''
 names['Pa_per_mmHg'] = 'conversion factor between Pa and mmHg'
-names['nu_f'] = 'viscosity factor for sinusoidal resistance'
-names['nu_plasma'] = 'plasma viscosity'
-
-names['Nc'] = 'hepatocytes in sinusoid'
 names['scale_f'] = 'metabolic scaling factor'
 names['REF_P'] = 'reference protein amount'
 names['deficiency'] = 'type of galactosemia'
 names['gal_challenge'] = 'galactose challenge periportal'
+'''
 
-##########################################################################
-# AssignmentRules
-##########################################################################
-rules.extend([
-            # id, assignment, unit
-            ('x_cell', 'L/Nc', 'm'),
-            ('x_sin',  "x_cell/Nf", "m"),
-            ("A_sin", "pi*y_sin^2",  "m2"),
-            ("A_dis", "pi*(y_sin+y_end+y_dis)^2 - pi*(y_sin+y_end)^2",  "m2"),
-            ("A_sindis", "2 dimensionless *pi*y_sin*x_sin",  "m2"),
-            ("A_sinunit", "pi*(y_sin+y_end+y_dis+y_cell)^2",  "m2"),
-            ("Vol_sin", "A_sin*x_sin",  "m3"),
-            ("Vol_dis", "A_dis*x_sin",  "m3"),
-            ("Vol_cell", "pi*x_cell*( (y_sin+y_end+y_dis+y_cell)^2-(y_sin+y_end+y_dis)^2 )", "m3"),
-            ("Vol_cyto", "f_cyto*Vol_cell",  "m3"),
-            ("Vol_pp", "Vol_sin", "m3"),
-            ("Vol_pv", "Vol_sin", "m3"),
-            ("Vol_sinunit", "L*pi*(y_sin+y_end+y_dis+y_cell)^2", "m3"),
-            ("f_sin",  "Vol_sin/(A_sinunit*x_sin)", '-'),
-            ("f_dis", "Vol_dis/(A_sinunit*x_sin)", '-'),
-            ("f_cell", "Vol_cell/(A_sinunit*x_sin)", '-'),
-            ('flow_sin',    'PP_Q/A_sin',   'm_per_s'),
-            ("Q_sinunit", "PP_Q", "m3_per_s"),
-            ("f_fen", "N_fen*pi*(r_fen)^2", '-'),
-            # ("m_liv", "rho_liv * Vol_liv", "kg"),
-            # ("q_liv" , "Q_liv/m_liv", "m3_per_skg"),
-            ("P0", "0.5 dimensionless * (Pa+Pb)", 'Pa'),
-            ("nu", "nu_f * nu_plasma", 'Pa_s'),
-            ("W", "8 dimensionless * nu/(pi*y_sin^4)", 'Pa_s_per_m4'),
-            ("w", "4 dimensionless *nu*y_end/(pi^2* r_fen^4*y_sin*N_fen)", 'Pa_s_per_m2'),
-            ("lambda", "sqrt(w/W)", 'm'),
-])
-
-names['x_cell'] = 'length cell compartment'
-names['x_sin'] = 'length sinusoidal compartment'
-names['A_sin'] = 'cross section sinusoid'
-names['A_dis'] = 'cross section space of Disse'
-names['A_sindis'] = 'exchange area between sinusoid and Disse'
-names['A_sinunit'] = 'cross section sinusoidal unit'
-names['Vol_sin'] = 'volume sinusoidal compartment'
-names['Vol_dis'] = 'volume Disse compartment'
-names['Vol_cell'] = 'volume cell compartment'
-names['Vol_pp'] = 'volume periportal'
-names['Vol_pv'] = 'volume perivenious'
-names['Vol_sinunit'] = 'total volume sinusoidal unit'
-names['f_sin'] = 'sinusoidal fraction of volume'
-names['f_dis'] = 'Disse fraction of volume'
-names['f_cell'] = 'cell fraction of volume'
-names['Q_sinunit'] = 'volume flow sinusoid'
-names['f_cyto'] = 'cytosolic fraction of cell volume'
-names['f_fen'] = 'fenestration porosity'
-names['P0'] = 'resulting oncotic pressure P0 = Poc-Pot'
-names['nu'] = 'hepatic viscosity'
-names['W'] = 'specific hydraulic resistance capillary'
-names['w'] = 'specific hydraulic resistance of all pores'
-    
-
-##########################################################################
-# InitialAssignments
-##########################################################################
-assignments.extend([])
+rules = [
+    mc.Rule('x_cell', 'L/Nc', 'm', name='length cell compartment'),
+    mc.Rule('x_sin',  'x_cell', 'm', name='length sinusoidal compartment'),
+    mc.Rule('A_sin', 'pi*y_sin^2',  'm2', name='cross section sinusoid'),
+    mc.Rule('A_dis', 'pi*(y_sin+y_end+y_dis)^2 - pi*(y_sin+y_end)^2',  'm2', name='cross section space of Disse'),
+    mc.Rule('A_sindis', '2 dimensionless *pi*y_sin*x_sin',  'm2', name='exchange area between sinusoid and Disse'),
+    mc.Rule('A_sinunit', 'pi*(y_sin+y_end+y_dis+y_cell)^2',  'm2', name='cross section sinusoidal unit'),
+    mc.Rule('Vol_sin', 'A_sin*x_sin',  'm3', name='volume sinusoidal compartment'),
+    mc.Rule('Vol_dis', 'A_dis*x_sin',  'm3', name='volume Disse compartment'),
+    mc.Rule('Vol_cell', 'pi*x_cell*( (y_sin+y_end+y_dis+y_cell)^2-(y_sin+y_end+y_dis)^2 )', 'm3', name='volume cell compartment'),
+    # mc.Rule('Vol_cyto', 'f_cyto*Vol_cell',  'm3', name='volume cytosol'),
+    mc.Rule('Vol_pp', 'Vol_sin', 'm3', name='volume periportal'),
+    mc.Rule('Vol_pv', 'Vol_sin', 'm3', name='volume perivenious'),
+    mc.Rule('Vol_sinunit', 'L*pi*(y_sin+y_end+y_dis+y_cell)^2', 'm3', name='total volume sinusoidal unit'),
+    mc.Rule('f_sin',  'Vol_sin/(A_sinunit*x_sin)', '-', name='sinusoidal fraction of volume'),
+    mc.Rule('f_dis', 'Vol_dis/(A_sinunit*x_sin)', '-', name='Disse fraction of volume'),
+    mc.Rule('f_cell', 'Vol_cell/(A_sinunit*x_sin)', '-', name='cell fraction of volume'),
+    mc.Rule('flow_sin',    'PP_Q/A_sin',   'm_per_s', name='periportal flow velocity'),
+    mc.Rule('Q_sinunit', 'PP_Q', 'm3_per_s', name='volume flow sinusoid'),
+    mc.Rule('f_fen', 'N_fen*pi*(r_fen)^2', '-', name='fenestration porosity'),
+            # ('m_liv', 'rho_liv * Vol_liv', 'kg'),
+            # ('q_liv' , 'Q_liv/m_liv', 'm3_per_skg'),
+    mc.Rule('P0', '0.5 dimensionless * (Pa+Pb)', 'Pa', name='resulting oncotic pressure P0 = Poc-Pot'),
+    mc.Rule('nu', 'nu_f * nu_plasma', 'Pa_s', name='hepatic viscosity'),
+    mc.Rule('W', '8 dimensionless * nu/(pi*y_sin^4)', 'Pa_s_per_m4', name='specific hydraulic resistance capillary'),
+    mc.Rule('w', '4 dimensionless *nu*y_end/(pi^2* r_fen^4*y_sin*N_fen)', 'Pa_s_per_m2', name='specific hydraulic resistance of all pores'),
+    mc.Rule('lambda', 'sqrt(w/W)', 'm', name='lambda reistance'),
+]
