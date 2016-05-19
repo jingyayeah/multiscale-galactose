@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
-  <model metaid="meta_bf0aab4ab1c04dfeb8137015822490fc" id="Sinusoid_Clearance_2" name="Sinusoid_Clearance_2" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+  <model metaid="meta_1194b30974da452f9935ed1f50573d41" id="Sinusoid_Clearance_Nc5_v2" name="Sinusoid_Clearance_Nc5_v2" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Sinusoidal Unit Model</h1>
@@ -26,7 +26,7 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-    <rdf:Description rdf:about="#meta_bf0aab4ab1c04dfeb8137015822490fc">
+    <rdf:Description rdf:about="#meta_1194b30974da452f9935ed1f50573d41">
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -52,10 +52,10 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-19T17:21:38Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-19T18:48:05Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
-        <dcterms:W3CDTF>2016-05-19T17:21:38Z</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2016-05-19T18:48:05Z</dcterms:W3CDTF>
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -239,18 +239,18 @@
   <species id="D04__S" name="[D04] substance S" compartment="D04" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="S05__S" name="[S05] substance S" compartment="S05" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
   <species id="D05__S" name="[D05] substance S" compartment="D05" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="PP__P" name="[PP] product P" compartment="PP" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="PV__P" name="[PV] product P" compartment="PV" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="S01__P" name="[S01] product P" compartment="S01" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="D01__P" name="[D01] product P" compartment="D01" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="S02__P" name="[S02] product P" compartment="S02" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="D02__P" name="[D02] product P" compartment="D02" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="S03__P" name="[S03] product P" compartment="S03" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="D03__P" name="[D03] product P" compartment="D03" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="S04__P" name="[S04] product P" compartment="S04" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="D04__P" name="[D04] product P" compartment="D04" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="S05__P" name="[S05] product P" compartment="S05" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="D05__P" name="[D05] product P" compartment="D05" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="PP__P" name="[PP] product P" compartment="PP" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="PV__P" name="[PV] product P" compartment="PV" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S01__P" name="[S01] product P" compartment="S01" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D01__P" name="[D01] product P" compartment="D01" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S02__P" name="[S02] product P" compartment="S02" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D02__P" name="[D02] product P" compartment="D02" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S03__P" name="[S03] product P" compartment="S03" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D03__P" name="[D03] product P" compartment="D03" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S04__P" name="[S04] product P" compartment="S04" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D04__P" name="[D04] product P" compartment="D04" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S05__P" name="[S05] product P" compartment="S05" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D05__P" name="[D05] product P" compartment="D05" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
 </listOfSpecies><listOfParameters>
   <parameter id="L" name="sinusoidal length" value="0.0005" units="m" constant="true"/>
   <parameter id="y_sin" name="sinusoidal radius" value="4.4e-06" units="m" constant="true"/>
