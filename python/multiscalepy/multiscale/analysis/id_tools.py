@@ -1,5 +1,5 @@
 """
-Helper tools to access galactose model information.
+Helper tools to access sinusoidal unit information.
 
 Simulation tool to create the matrices from the resulting odesim.
 The provided functions recreate matrices and arrows lost in the SBML
@@ -10,16 +10,12 @@ from sbmlutils.modelcreator import *
 from pandas import DataFrame, Series
 
 
+# TODO: get sinusoidal ids for given species
+# TODO: get disse ids for given species
+# TODO: get hepatocye ids for given species
+# TODO: get the indices in the the respective r.timeCourseSelection, for
+#       creating the subsets of solution matrices
 
-def get_PP_ids():
-
-    pass
-
-def get_PV_ids():
-    pass
-
-def get_compounds():
-    pass
 
 
 def get_ids_from_selection(name, selections, comp_type='H'):
