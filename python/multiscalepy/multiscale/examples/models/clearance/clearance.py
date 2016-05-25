@@ -48,9 +48,13 @@ def create_sinusoidal_unit():
     flow_dict = Preprocess.dict_from_modules(modules=['multiscale.examples.models.templates.units',
                                                           'multiscale.examples.models.templates.sinusoidal_unit',
                                                           'multiscale.examples.models.templates.sinusoidal_flow'])
+    info_dict = {sinunit.SinusoidalUnitFactory.TYPE_PRESSURE: pressure_dict,
+                 sinunit.SinusoidalUnitFactory.TYPE_FLOW: flow_dict}
 
-    for model_type, model_dict in {sinunit.SinusoidalUnitFactory.TYPE_PRESSURE: pressure_dict,
-                                   sinunit.SinusoidalUnitFactory.TYPE_FLOW: flow_dict}.iteritems():
+    # info_dict = {sinunit.SinusoidalUnitFactory.TYPE_FLOW: flow_dict}
+    # info_dict = {sinunit.SinusoidalUnitFactory.TYPE_PRESSURE: pressure_dict}
+
+    for model_type, model_dict in info_dict.iteritems():
 
 
         s_model = CoreModel.from_dict(model_dict)
@@ -58,7 +62,7 @@ def create_sinusoidal_unit():
 
         # extend core model with sinusoidal unit information
         f = sinunit.SinusoidalUnitFactory(Nc=Nc, sin_species=sin_species, core_model=s_model, model_type=model_type)
-        # f.s_model.info()
+        f.core_model.info()
 
         s_model.create_sbml()
 
