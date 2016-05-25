@@ -35,23 +35,21 @@ notes = XMLNode.convertStringToXMLNode("""
 
 
 parameters = [
+    # geometry
     mc.Parameter('L', 500E-6, 'm', name='sinusoidal length'),
     mc.Parameter('y_sin', 4.4E-6, 'm', name='sinusoidal radius'),
     mc.Parameter('y_end', 0.165E-6, 'm', name='endothelial cell thickness'),
     mc.Parameter('y_dis', 2.3E-6, 'm', name='width space of Disse'),
     mc.Parameter('y_cell', 9.40E-6, 'm', name='width hepatocyte'),
 
+    # fenestraetion
     mc.Parameter('N_fen',  10E12, 'per_m2', name='fenestrations per area'),
     mc.Parameter('r_fen', 53.5E-9, 'm', name='fenestration radius'),
 
+    # scaling and fractions
     mc.Parameter('rho_liv', 1.25E3, 'kg_per_m3', name='liver density'),
     mc.Parameter('f_tissue', 0.8, '-', name='parenchymal fraction of liver'),
     # mc.Parameter('f_cyto', 0.4, '-', name='cytosolic fraction of hepatocyte'),
-
-    mc.Parameter('Pa', 1333.22, 'Pa', name='pressure periportal'),  # 1mmHg = 133.322
-    mc.Parameter('Pb', 266.64,  'Pa', name='pressure perivenious'),
-    mc.Parameter('nu_f', 10.0, '-', name='viscosity factor for sinusoidal resistance'),
-    mc.Parameter('nu_plasma', 0.0018, 'Pa_s', name='plasma viscosity'),
 ]
 
 '''
@@ -79,14 +77,8 @@ rules = [
     mc.Rule('f_sin',  'Vol_sin/(A_sinunit*x_sin)', '-', name='sinusoidal fraction of volume'),
     mc.Rule('f_dis', 'Vol_dis/(A_sinunit*x_sin)', '-', name='Disse fraction of volume'),
     mc.Rule('f_cell', 'Vol_cell/(A_sinunit*x_sin)', '-', name='cell fraction of volume'),
-    mc.Rule('flow_sin',    'PP_Q/A_sin',   'm_per_s', name='periportal flow velocity'),
-    mc.Rule('Q_sinunit', 'PP_Q', 'm3_per_s', name='volume flow sinusoid'),
+
     mc.Rule('f_fen', 'N_fen*pi*(r_fen)^2', '-', name='fenestration porosity'),
             # ('m_liv', 'rho_liv * Vol_liv', 'kg'),
             # ('q_liv' , 'Q_liv/m_liv', 'm3_per_skg'),
-    mc.Rule('P0', '0.5 dimensionless * (Pa+Pb)', 'Pa', name='resulting oncotic pressure P0 = Poc-Pot'),
-    mc.Rule('nu', 'nu_f * nu_plasma', 'Pa_s', name='hepatic viscosity'),
-    mc.Rule('W', '8 dimensionless * nu/(pi*y_sin^4)', 'Pa_s_per_m4', name='specific hydraulic resistance capillary'),
-    mc.Rule('w', '4 dimensionless *nu*y_end/(pi^2* r_fen^4*y_sin*N_fen)', 'Pa_s_per_m2', name='specific hydraulic resistance of all pores'),
-    mc.Rule('lambda', 'sqrt(w/W)', 'm', name='lambda reistance'),
 ]
