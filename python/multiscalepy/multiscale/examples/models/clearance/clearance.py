@@ -32,7 +32,7 @@ def create_sinusoidal_unit():
     ######################################
     # sinusoidal unit transport model
     ######################################
-    Nc = 5
+    Nc = 100
     version = 'v3'
 
     sin_species = [

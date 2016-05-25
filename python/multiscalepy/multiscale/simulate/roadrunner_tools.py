@@ -226,22 +226,39 @@ class MyRunner(RoadRunner):
     #########################################################################
     # Helper for units & selections
     #########################################################################
-    # TODO: create some frozenset for fast checking
-    # self.parameters = frozenset(self.)
-
-    def selections_floating_concentrations(self):
+    def select_floating_concentrations(self):
         """
         Set floating concentration selections in RoadRunner.
+        Time is part of the selection.
+
             list[str] of selections for time, [c1], ..[cN]
         """
-        self.selections = ['time'] + sorted(['[{}]'.format(s) for s in self.model.getFloatingSpeciesIds()])
+        self.timeCourseSelections = ['time'] + sorted(['[{}]'.format(s) for s in self.model.getFloatingSpeciesIds()])
 
-    def selections_floating_amounts(self):
+    def select_concentrations(self):
+        """ Set Floating and boundary concentrations.
+
+        Time is part of the selection.
+        :return:
+        :rtype:
+        """
+        self.timeCourseSelections = ['time'] + sorted(['[{}]'.format(s) for s in self.model.getBoundarySpeciesIds()]) + \
+                                    sorted(['[{}]'.format(s) for s in self.model.getFloatingSpeciesIds()])
+
+    def select_floating_amounts(self):
         """
         Set floating amount selections in RoadRunner.
             list[str] of selections for time, c1, ..cN
         """
-        self.selections = ['time'] + sorted(self.model.getFloatingSpeciesIds())
+        self.timeCourseSelections = ['time'] + sorted(self.model.getFloatingSpeciesIds())
+
+    def select_amounts(self):
+        """
+        Set floating and boundary amount selections in RoadRunner.
+            list[str] of selections for time, c1, ..cN
+        """
+        self.timeCourseSelections = ['time'] + sorted(self.model.getBoundarySpeciesIds()) + \
+                                    sorted(self.model.getFloatingSpeciesIds())
 
     #########################################################################
     # DataFrames

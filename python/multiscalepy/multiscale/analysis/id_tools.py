@@ -6,7 +6,8 @@ The provided functions recreate matrices and arrows lost in the SBML
 encoding for easier analysis.
 """
 
-from sbmlutils.modelcreator import *
+
+from sbmlutils.modelcreator.factory import sinnaming as naming
 from pandas import DataFrame, Series
 
 
@@ -16,6 +17,54 @@ from pandas import DataFrame, Series
 # TODO: get the indices in the the respective r.timeCourseSelection, for
 #       creating the subsets of solution matrices
 
+
+class IdResolver(object):
+    """ Helper class to resolve ids. """
+
+    def __init__(self, selections, Nc):
+        """ The selection and number of cells are required. """
+        self.indices = dict(zip(selections, range(len(selections))))
+        self.Nc = Nc
+
+    def _compartment_ids(self, id_function, sid, concentration=True):
+        ids = [id_function(sid, k) for k in range(1, int(self.Nc+1))]
+        # only in the case of concentrations the additional brackets are needed
+        if concentration:
+            ids = ['[{}]'.format(s) for s in ids]
+        return ids
+
+    def sinusoidal_ids(self, sid, concentration=True):
+        """ Get sinusoidal amount/concentration ids. """
+        return self._compartment_ids(id_function=naming.getSinusoidSpeciesId, sid=sid,
+                                     concentration=concentration)
+
+    def disse_ids(self, sid, concentration=True):
+        """ Get disse amount/concentration ids. """
+        return self._compartment_ids(id_function=naming.getDisseSpeciesId, sid=sid,
+                                     concentration=concentration)
+
+    def pp_id(self, sid, concentration=True):
+        """ Get periportal amount/concentration ids. """
+        pp_id = naming.getPPSpeciesId(sid)
+        if concentration:
+            pp_id = '[{}]'.format(pp_id)
+        return pp_id
+
+    def pv_id(self, sid, concentration=True):
+        pv_id = naming.getPVSpeciesId(sid)
+        if concentration:
+            pv_id = '[{}]'.format(pv_id)
+        return pv_id
+
+    def find_indices(self, ids):
+        """ Resolve the indices in the timeCourseSelection for given ids.
+
+        :param ids:
+        :type ids:
+        :return:
+        :rtype:
+        """
+        return [self.indices[token] for token in ids]
 
 
 def get_ids_from_selection(name, selections, comp_type='H'):
