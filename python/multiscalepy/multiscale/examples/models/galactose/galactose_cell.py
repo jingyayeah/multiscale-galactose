@@ -9,20 +9,17 @@ are localized in.
 e__x : extracellular compartment (Disse)
 h__x : hepatocyte compartment (total internal cell volume)
 c__x : cytosolic compartment (fraction of hepatocyte which is cytosol)
-
-
-TODO: how to handle the versions and names of the multiple submodels ?
-TODO: add the model description & history to the model
-
 """
+
 from __future__ import print_function, division
 from libsbml import XMLNode
 from sbmlutils.modelcreator import templates
+import galactose_reactions as rgal
 
 ##############################################################
 creators = templates.creators
 mid = 'galactose'
-version = 31
+version = 32
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Human Galactose Metabolism</h1>
@@ -221,38 +218,37 @@ names.update({
 ##############################################################
 # Reactions
 ##############################################################
-import Reactions
 reactions.extend([
-    Reactions.GALK,
-    Reactions.GALKM,
-    Reactions.IMP,
-    Reactions.IMPM,
-    Reactions.ATPS,
-    Reactions.ALDR,
-    Reactions.ALDRM,
-    Reactions.NADPR,
-    Reactions.GALT,
-    Reactions.GALTM1,
-    Reactions.GALTM2,
-    Reactions.GALTM3,
-    Reactions.GALE,
-    Reactions.GALEM,
-    Reactions.UGP,
-    Reactions.UGPM,
-    Reactions.UGALP,
-    Reactions.UGALPM,
-    Reactions.PPASE,
-    Reactions.NDKU,
-    Reactions.PGM1,
-    Reactions.PGM1M,
-    Reactions.GLY,
-    Reactions.GLYM,
-    Reactions.GTFGAL,
-    Reactions.GTFGALM,
-    Reactions.GTFGLC,
-    Reactions.GTFGLCM,
+    rgal.GALK,
+    rgal.GALKM,
+    rgal.IMP,
+    rgal.IMPM,
+    rgal.ATPS,
+    rgal.ALDR,
+    rgal.ALDRM,
+    rgal.NADPR,
+    rgal.GALT,
+    rgal.GALTM1,
+    rgal.GALTM2,
+    rgal.GALTM3,
+    rgal.GALE,
+    rgal.GALEM,
+    rgal.UGP,
+    rgal.UGPM,
+    rgal.UGALP,
+    rgal.UGALPM,
+    rgal.PPASE,
+    rgal.NDKU,
+    rgal.PGM1,
+    rgal.PGM1M,
+    rgal.GLY,
+    rgal.GLYM,
+    rgal.GTFGAL,
+    rgal.GTFGALM,
+    rgal.GTFGLC,
+    rgal.GTFGLCM,
 
-    Reactions.H2OTM,
-    Reactions.GLUT2_GAL,
-    Reactions.GLUT2_GALM
+    rgal.H2OTM,
+    rgal.GLUT2_GAL,
+    rgal.GLUT2_GALM
 ])

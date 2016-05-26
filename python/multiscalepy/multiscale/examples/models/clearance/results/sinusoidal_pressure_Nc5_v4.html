@@ -11,7 +11,7 @@
     <!-- <meta http-equiv="refresh" content="5" /> -->
 
     <link rel="icon" href="_report/images/sbml.ico">
-    <title></title>
+    <title>sinusoidal_pressure_Nc5_v4</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
@@ -160,7 +160,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#top"></a>
+            <a class="navbar-brand" href="#top">sinusoidal_pressure_Nc5_v4</a>
         </div>
 
         <form class="navbar-form navbar-left">
@@ -222,12 +222,12 @@
 
         <hr />
 
-    <h1>Model : </h1>
-    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-26 12:05<br /><b>Modified:</b> 2016-05-26 12:05<br /><br />
+    <h1>Model : sinusoidal_pressure_Nc5_v4</h1>
+    <b>Creator</b><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br />Matthias, Koenig, Humboldt-University Berlin, Institute for Theoretical Biology, <a href="mailto:konigmatt@googlemail.com" target="_blank">konigmatt@googlemail.com</a><br /><b>Created:</b> 2016-05-26 12:09<br /><b>Modified:</b> 2016-05-26 12:09<br /><br />
     <table id="table_model_annotation" class="table table-condensed table-nonfluid table-hover">
         <tr>
             <td>
-                <a href=".xml" target="_blank"><img src="_report/images/sbml.png" height="20" alt="SBML model" title="SBML model"/> </a><br /><br />
+                <a href="sinusoidal_pressure_Nc5_v4.xml" target="_blank"><img src="_report/images/sbml.png" height="20" alt="SBML model" title="SBML model"/> </a><br /><br />
                     <div class="cvterm">
     </div>
 <br />
@@ -239,8 +239,8 @@
             <td>
                 <table id="table_model" class="table table-condensed table-nonfluid table-hover">
                 <tbody>
-                <tr>	<tr><td class="active">id</td><td></td></tr>
-	<tr><td class="active">name</td><td>sinusoidal_pressure_Nc5_v3-xflow2</td></tr>
+                <tr>	<tr><td class="active">id</td><td>sinusoidal_pressure_Nc5_v4</td></tr>
+	<tr><td class="active">name</td><td>sinusoidal_pressure_Nc5_v4</td></tr>
 	<tr><td class="active">version</td><td>L3V1</td></tr>
 	<tr><td class="active">time</td><td>s</td></tr>
 	<tr><td class="active">substance</td><td>mole</td></tr>
@@ -1932,7 +1932,7 @@
         <table id="table_parameters" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Parameters [70]</th>
+	<th scope="col" class="warning">Parameters [76]</th>
 	<th scope="col">name</th>
 	<th scope="col">value</th>
 	<th scope="col">unit</th>
@@ -2974,6 +2974,340 @@
 	<td>                <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <ci> PP_Q </ci>
+</math>
+
+    </td>
+	<td>m3_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Dx_sin_S</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DS </ci>
+      <ci> x_sin </ci>
+    </apply>
+    <ci> A_sin </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>m3_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Dx_dis_S</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DS </ci>
+      <ci> x_sin </ci>
+    </apply>
+    <ci> A_dis </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>m3_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Dy_sindis_S</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DS </ci>
+      <ci> y_dis </ci>
+    </apply>
+    <ci> f_fen </ci>
+    <ci> A_sindis </ci>
+    <apply>
+      <power/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <ci> r_S </ci>
+          <ci> r_fen </ci>
+        </apply>
+      </apply>
+      <cn type="integer"> 2 </cn>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <cn sbml:units="dimensionless"> 2.104 </cn>
+              <ci> r_S </ci>
+            </apply>
+            <ci> r_fen </ci>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <cn sbml:units="dimensionless"> 2.09 </cn>
+          <apply>
+            <power/>
+            <apply>
+              <divide/>
+              <ci> r_S </ci>
+              <ci> r_fen </ci>
+            </apply>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+      </apply>
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless"> 0.95 </cn>
+        <apply>
+          <power/>
+          <apply>
+            <divide/>
+            <ci> r_S </ci>
+            <ci> r_fen </ci>
+          </apply>
+          <cn type="integer"> 5 </cn>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+
+    </td>
+	<td>m3_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Dx_sin_P</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DP </ci>
+      <ci> x_sin </ci>
+    </apply>
+    <ci> A_sin </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>m3_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Dx_dis_P</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DP </ci>
+      <ci> x_sin </ci>
+    </apply>
+    <ci> A_dis </ci>
+  </apply>
+</math>
+
+    </td>
+	<td>m3_per_s</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+            <td class="danger"><span class="glyphicon glyphicon-remove red"><span class="invisible">F</span></span></td>
+
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Parameter</td>
+	<td class="active">Dy_sindis_P</td>
+	<td></td>
+	<td>                <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DP </ci>
+      <ci> y_dis </ci>
+    </apply>
+    <ci> f_fen </ci>
+    <ci> A_sindis </ci>
+    <apply>
+      <power/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <ci> r_P </ci>
+          <ci> r_fen </ci>
+        </apply>
+      </apply>
+      <cn type="integer"> 2 </cn>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <cn sbml:units="dimensionless"> 2.104 </cn>
+              <ci> r_P </ci>
+            </apply>
+            <ci> r_fen </ci>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <cn sbml:units="dimensionless"> 2.09 </cn>
+          <apply>
+            <power/>
+            <apply>
+              <divide/>
+              <ci> r_P </ci>
+              <ci> r_fen </ci>
+            </apply>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+      </apply>
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless"> 0.95 </cn>
+        <apply>
+          <power/>
+          <apply>
+            <divide/>
+            <ci> r_P </ci>
+            <ci> r_fen </ci>
+          </apply>
+          <cn type="integer"> 5 </cn>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
 </math>
 
     </td>
@@ -6266,7 +6600,7 @@
         <table id="table_rules" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Rules [69]</th>
+	<th scope="col" class="warning">Rules [75]</th>
 	<th scope="col">&nbsp;</th>
 	<th scope="col">assignment</th>
 	<th scope="col">derived units</th>
@@ -7243,6 +7577,316 @@
 	<td>    <?xml version="1.0" encoding="UTF-8"?>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <ci> PP_Q </ci>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">Dx_sin_S</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DS </ci>
+      <ci> x_sin </ci>
+    </apply>
+    <ci> A_sin </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">Dx_dis_S</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DS </ci>
+      <ci> x_sin </ci>
+    </apply>
+    <ci> A_dis </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">Dy_sindis_S</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DS </ci>
+      <ci> y_dis </ci>
+    </apply>
+    <ci> f_fen </ci>
+    <ci> A_sindis </ci>
+    <apply>
+      <power/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <ci> r_S </ci>
+          <ci> r_fen </ci>
+        </apply>
+      </apply>
+      <cn type="integer"> 2 </cn>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <cn sbml:units="dimensionless"> 2.104 </cn>
+              <ci> r_S </ci>
+            </apply>
+            <ci> r_fen </ci>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <cn sbml:units="dimensionless"> 2.09 </cn>
+          <apply>
+            <power/>
+            <apply>
+              <divide/>
+              <ci> r_S </ci>
+              <ci> r_fen </ci>
+            </apply>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+      </apply>
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless"> 0.95 </cn>
+        <apply>
+          <power/>
+          <apply>
+            <divide/>
+            <ci> r_S </ci>
+            <ci> r_fen </ci>
+          </apply>
+          <cn type="integer"> 5 </cn>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">Dx_sin_P</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DP </ci>
+      <ci> x_sin </ci>
+    </apply>
+    <ci> A_sin </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">Dx_dis_P</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DP </ci>
+      <ci> x_sin </ci>
+    </apply>
+    <ci> A_dis </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <apply>
+      <power/>
+      <ci> m </ci>
+      <cn type="integer"> 3 </cn>
+    </apply>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Rule</td>
+	<td class="active">Dy_sindis_P</td>
+	<td>=</td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+  <apply>
+    <times/>
+    <apply>
+      <divide/>
+      <ci> DP </ci>
+      <ci> y_dis </ci>
+    </apply>
+    <ci> f_fen </ci>
+    <ci> A_sindis </ci>
+    <apply>
+      <power/>
+      <apply>
+        <minus/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <apply>
+          <divide/>
+          <ci> r_P </ci>
+          <ci> r_fen </ci>
+        </apply>
+      </apply>
+      <cn type="integer"> 2 </cn>
+    </apply>
+    <apply>
+      <minus/>
+      <apply>
+        <plus/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <cn sbml:units="dimensionless"> 2.104 </cn>
+              <ci> r_P </ci>
+            </apply>
+            <ci> r_fen </ci>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <cn sbml:units="dimensionless"> 2.09 </cn>
+          <apply>
+            <power/>
+            <apply>
+              <divide/>
+              <ci> r_P </ci>
+              <ci> r_fen </ci>
+            </apply>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </apply>
+      </apply>
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless"> 0.95 </cn>
+        <apply>
+          <power/>
+          <apply>
+            <divide/>
+            <ci> r_P </ci>
+            <ci> r_fen </ci>
+          </apply>
+          <cn type="integer"> 5 </cn>
+        </apply>
+      </apply>
+    </apply>
+  </apply>
 </math>
 </td>
     <td>    <?xml version="1.0" encoding="UTF-8"?>
@@ -10415,7 +11059,7 @@
         <table id="table_reactions" class="table table-condensed table-nonfluid table-hover">
             <thead>
             <tr>    <th scope="col" class="hidden">type</th>
-	<th scope="col" class="warning">Reactions [24]</th>
+	<th scope="col" class="warning">Reactions [54]</th>
 	<th scope="col">name</th>
 	<th scope="col"></th>
 	<th scope="col">equation</th>
@@ -10804,6 +11448,966 @@
     <times/>
     <ci> PV_Q </ci>
     <ci> PV__P </ci>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_PPS01_S</td>
+	<td>[PP <-> S01] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>PP__S &#8646; S01__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_S </ci>
+    <apply>
+      <minus/>
+      <ci> PP__S </ci>
+      <ci> S01__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S01S02_S</td>
+	<td>[S01 <-> S02] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S01__S &#8646; S02__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_S </ci>
+    <apply>
+      <minus/>
+      <ci> S01__S </ci>
+      <ci> S02__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S02S03_S</td>
+	<td>[S02 <-> S03] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S02__S &#8646; S03__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_S </ci>
+    <apply>
+      <minus/>
+      <ci> S02__S </ci>
+      <ci> S03__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S03S04_S</td>
+	<td>[S03 <-> S04] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S03__S &#8646; S04__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_S </ci>
+    <apply>
+      <minus/>
+      <ci> S03__S </ci>
+      <ci> S04__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S04S05_S</td>
+	<td>[S04 <-> S05] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S04__S &#8646; S05__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_S </ci>
+    <apply>
+      <minus/>
+      <ci> S04__S </ci>
+      <ci> S05__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S05PV_S</td>
+	<td>[S05 <-> PV] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S05__S &#8646; PV__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_S </ci>
+    <apply>
+      <minus/>
+      <ci> S05__S </ci>
+      <ci> PV__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_D01D02_S</td>
+	<td>[D01 <-> D02] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>D01__S &#8646; D02__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_dis_S </ci>
+    <apply>
+      <minus/>
+      <ci> D01__S </ci>
+      <ci> D02__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_D02D03_S</td>
+	<td>[D02 <-> D03] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>D02__S &#8646; D03__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_dis_S </ci>
+    <apply>
+      <minus/>
+      <ci> D02__S </ci>
+      <ci> D03__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_D03D04_S</td>
+	<td>[D03 <-> D04] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>D03__S &#8646; D04__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_dis_S </ci>
+    <apply>
+      <minus/>
+      <ci> D03__S </ci>
+      <ci> D04__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_D04D05_S</td>
+	<td>[D04 <-> D05] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>D04__S &#8646; D05__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_dis_S </ci>
+    <apply>
+      <minus/>
+      <ci> D04__S </ci>
+      <ci> D05__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S01D01_S</td>
+	<td>[S01 <-> D01] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S01__S &#8646; D01__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_S </ci>
+    <apply>
+      <minus/>
+      <ci> S01__S </ci>
+      <ci> D01__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S02D02_S</td>
+	<td>[S02 <-> D02] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S02__S &#8646; D02__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_S </ci>
+    <apply>
+      <minus/>
+      <ci> S02__S </ci>
+      <ci> D02__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S03D03_S</td>
+	<td>[S03 <-> D03] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S03__S &#8646; D03__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_S </ci>
+    <apply>
+      <minus/>
+      <ci> S03__S </ci>
+      <ci> D03__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S04D04_S</td>
+	<td>[S04 <-> D04] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S04__S &#8646; D04__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_S </ci>
+    <apply>
+      <minus/>
+      <ci> S04__S </ci>
+      <ci> D04__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S05D05_S</td>
+	<td>[S05 <-> D05] diffusion S</td>
+        <td class="success">&#8646;</td>
+	<td>S05__S &#8646; D05__S</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_S </ci>
+    <apply>
+      <minus/>
+      <ci> S05__S </ci>
+      <ci> D05__S </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_PPS01_P</td>
+	<td>[PP <-> S01] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>PP__P &#8646; S01__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_P </ci>
+    <apply>
+      <minus/>
+      <ci> PP__P </ci>
+      <ci> S01__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S01S02_P</td>
+	<td>[S01 <-> S02] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S01__P &#8646; S02__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_P </ci>
+    <apply>
+      <minus/>
+      <ci> S01__P </ci>
+      <ci> S02__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S02S03_P</td>
+	<td>[S02 <-> S03] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S02__P &#8646; S03__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_P </ci>
+    <apply>
+      <minus/>
+      <ci> S02__P </ci>
+      <ci> S03__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S03S04_P</td>
+	<td>[S03 <-> S04] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S03__P &#8646; S04__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_P </ci>
+    <apply>
+      <minus/>
+      <ci> S03__P </ci>
+      <ci> S04__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S04S05_P</td>
+	<td>[S04 <-> S05] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S04__P &#8646; S05__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_P </ci>
+    <apply>
+      <minus/>
+      <ci> S04__P </ci>
+      <ci> S05__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S05PV_P</td>
+	<td>[S05 <-> PV] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S05__P &#8646; PV__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_sin_P </ci>
+    <apply>
+      <minus/>
+      <ci> S05__P </ci>
+      <ci> PV__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_D01D02_P</td>
+	<td>[D01 <-> D02] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>D01__P &#8646; D02__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_dis_P </ci>
+    <apply>
+      <minus/>
+      <ci> D01__P </ci>
+      <ci> D02__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_D02D03_P</td>
+	<td>[D02 <-> D03] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>D02__P &#8646; D03__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_dis_P </ci>
+    <apply>
+      <minus/>
+      <ci> D02__P </ci>
+      <ci> D03__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_D03D04_P</td>
+	<td>[D03 <-> D04] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>D03__P &#8646; D04__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_dis_P </ci>
+    <apply>
+      <minus/>
+      <ci> D03__P </ci>
+      <ci> D04__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_D04D05_P</td>
+	<td>[D04 <-> D05] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>D04__P &#8646; D05__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dx_dis_P </ci>
+    <apply>
+      <minus/>
+      <ci> D04__P </ci>
+      <ci> D05__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S01D01_P</td>
+	<td>[S01 <-> D01] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S01__P &#8646; D01__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_P </ci>
+    <apply>
+      <minus/>
+      <ci> S01__P </ci>
+      <ci> D01__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S02D02_P</td>
+	<td>[S02 <-> D02] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S02__P &#8646; D02__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_P </ci>
+    <apply>
+      <minus/>
+      <ci> S02__P </ci>
+      <ci> D02__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S03D03_P</td>
+	<td>[S03 <-> D03] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S03__P &#8646; D03__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_P </ci>
+    <apply>
+      <minus/>
+      <ci> S03__P </ci>
+      <ci> D03__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S04D04_P</td>
+	<td>[S04 <-> D04] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S04__P &#8646; D04__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_P </ci>
+    <apply>
+      <minus/>
+      <ci> S04__P </ci>
+      <ci> D04__P </ci>
+    </apply>
+  </apply>
+</math>
+</td>
+    <td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <divide/>
+    <ci> mole </ci>
+    <ci> s </ci>
+  </apply>
+</math>
+</td>
+	<td></td>
+	<td></td>
+</tr>
+                <tr>    <td class="hidden">Reaction</td>
+	<td class="active">D_S05D05_P</td>
+	<td>[S05 <-> D05] diffusion P</td>
+        <td class="success">&#8646;</td>
+	<td>S05__P &#8646; D05__P</td>
+	<td>
+    </td>
+	<td>    <?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <ci> Dy_sindis_P </ci>
+    <apply>
+      <minus/>
+      <ci> S05__P </ci>
+      <ci> D05__P </ci>
+    </apply>
   </apply>
 </math>
 </td>
