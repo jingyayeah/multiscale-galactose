@@ -33,7 +33,7 @@ def create_sinusoidal_unit():
     # sinusoidal unit transport model
     ######################################
     Nc = 5
-    version = 'v3-only-xflow'
+    version = 'v3-xflow'
 
     sin_species = [
         sinunit.SinusoidSpecies('S', 1.0, unit='mM', D=db.diffusion['S'], r=db.radius['S'], name="substance S"),
