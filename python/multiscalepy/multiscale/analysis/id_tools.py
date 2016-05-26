@@ -80,77 +80,84 @@ def get_ids_from_selection(name, selections, comp_type='H'):
 def get_Nc(gp):
     return int(gp.ix['Nc'].value)
 
-def get_P(gp):
-    ''' Get DataFrame of local pressures from global parameters. 
-        Information from global parameters only valid if the 
-        calculated values are stationary.
-    '''
-    Nc = get_Nc(gp)
-    ids = []
-    x_ids = []
 
-    # PP
-    ids.append( getPressureId(getPPId()) )
-    x_ids.append( getPositionId(getPPId()) )
-    # along sinusoid
-    for k in xrange(Nc):    
-        ids.append( getPressureId(getSinusoidId(k+1)) )
-        x_ids.append( getPositionId(getSinusoidId(k+1)) )
-    # PV
-    ids.append( getPressureId(getPVId()) )
-    x_ids.append( getPositionId(getPVId()) )
-    
-    # create result df
-    P = DataFrame({'value': gp.ix[ids].value}, 
-                  index=ids)
-    x = Series(gp.ix[x_ids].value)
-    x.index = P.index # replace index
-    P['x'] = x # add colum
-    return P
+#############################
+# Pressure model
+#############################
+# Helper functions for getting the capillary flow and pressure profiles.
+
+def get_P(gp):
+    """ Get DataFrame of local pressures in sinusoid.
+
+    The global parameter dataframe gp is used to lookup the values.
+    Information from global parameters only valid if the
+    calculated values are stationary.
+
+    :param gp: global parameter DataFrame
+    :type gp: DataFrame
+    :return:
+    :rtype:
+    """
+    Nc = get_Nc(gp)
+
+    # get the ids of volumes
+    ids = [naming.getPPId()] + [naming.getSinusoidId(k) for k in range(1, Nc+1)] + [naming.getPVId()]
+
+    # get pressure and position
+    x_ids = [naming.getPositionId(sid) for sid in ids]
+    P_ids = [naming.getPressureId(sid) for sid in ids]
+
+    # first get the DataSeries, than the numpy values
+    return DataFrame({'x': gp.ix[x_ids].value.values,
+                      'P': gp.ix[P_ids].value.values}, index=x_ids)
 
 
 def get_Q(gp):
-    ''' Capillary flow vector. '''
+    """ Get DataFrame of local flows in sinusoid.
+
+    Calculated on midpoints between volumes.
+    """
     Nc = get_Nc(gp)
-    ids = []
-    x_ids = []
 
     # PP
-    ids.append( getQFlowId(getPPId()) )
-    x_ids.append( getPositionId(getPPId()) )
+    pp_id = naming.getPPId()
+    x_ids = [naming.getPositionId(pp_id)]
+    Q_ids = [naming.getQFlowId(pp_id)]
+
     # along sinusoid
-    for k in xrange(Nc-1):    
-        sid1 = getSinusoidId(k+1)
-        sid2 = getSinusoidId(k+2)
-        ids.append( getQFlowId(sid1, sid2) )
-        x_ids.append( getPositionId(sid1, sid2) )
+    for k in range(1, Nc):
+        sid1 = naming.getSinusoidId(k)
+        sid2 = naming.getSinusoidId(k+1)
+        x_ids.append(naming.getPositionId(sid1, sid2))
+        Q_ids.append(naming.getQFlowId(sid1, sid2))
+
     # PV
-    ids.append( getQFlowId(getPVId()) )
-    x_ids.append( getPositionId(getPVId()) )
-    
-    # create result df
-    Q = DataFrame({'value': gp.ix[ids].value}, 
-                  index=ids)
-    x = Series(gp.ix[x_ids].value)
-    x.index = Q.index # replace index
-    Q['x'] = x # add colum
-    return Q
-        
+    pv_id = naming.getPVId()
+    x_ids.append(naming.getPositionId(pv_id))
+    Q_ids.append(naming.getQFlowId(pv_id))
+
+    # first get the DataSeries, than the numpy values
+    return DataFrame({'x': gp.ix[x_ids].value.values,
+                      'Q': gp.ix[Q_ids].value.values}, index=x_ids)
+
 
 def get_q(gp):
-    ''' Pore flow vector. '''
-    Nc = get_Nc(gp)
-    ids = []
-    x_ids = []
+    """ Get DataFrame of pore flow in sinusoid.
 
-    # along sinusoid
-    for k in xrange(Nc):    
-        ids.append( getqFlowId(getSinusoidId(k+1)) )
-        x_ids.append( getPositionId(getSinusoidId(k+1)) )
-    
-    q = DataFrame({'value': gp.ix[ids].value}, 
-                  index=ids)
-    x = Series(gp.ix[x_ids].value)
-    x.index = q.index # replace index
-    q['x'] = x # add colum
-    return q
+    :param gp: global parameter DataFrame
+    :type gp: DataFrame
+    :return:
+    :rtype:
+    """
+    Nc = get_Nc(gp)
+
+    # get the ids of volumes
+    ids = [naming.getSinusoidId(k) for k in range(1, Nc+1)]
+
+    # get pressure and position
+    x_ids = [naming.getPositionId(sid) for sid in ids]
+    q_ids = [naming.getqFlowId(sid) for sid in ids]
+
+    # first get the DataSeries, than the numpy values
+    return DataFrame({'x': gp.ix[x_ids].value.values,
+                      'q': gp.ix[q_ids].value.values}, index=x_ids)

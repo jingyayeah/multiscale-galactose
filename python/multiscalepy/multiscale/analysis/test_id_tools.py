@@ -6,7 +6,7 @@ from id_tools import *
 
 from multiscale.examples.models.clearance import clearance
 from multiscale.simulate import roadrunner_tools as rt
-sbml_path = os.path.join(clearance.base_dir, 'results', 'sinusoidal_flow_Nc5_v3.xml')
+sbml_path = os.path.join(clearance.base_dir, 'results', 'sinusoidal_pressure_Nc5_v3.xml')
 
 
 class IdResolverTestCase(unittest.TestCase):
@@ -41,7 +41,18 @@ class IdResolverTestCase(unittest.TestCase):
         print(resolver.find_indices(disse_ids))
         print(resolver.find_indices([pp_id] + sin_ids + [pv_id]))
 
+        # self.assertEqual(True, False)
+
+    def test_pressure(self):
+        r = self.__class__.r
+        gp = r.df_global_parameters()
+        print(get_P(gp))
+        print(get_Q(gp))
+        print(get_q(gp))
+
         self.assertEqual(True, False)
+
+
 
 
 if __name__ == '__main__':
