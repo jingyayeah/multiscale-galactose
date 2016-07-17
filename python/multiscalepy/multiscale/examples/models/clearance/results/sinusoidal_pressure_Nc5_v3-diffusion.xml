@@ -1,0 +1,4304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by sbmlutils version 0.1.2 on 2016-05-26 09:04 with libSBML version 5.13.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+  <model metaid="meta_5f8537098a4d4d1ab48765edd2650cf1" name="sinusoidal_pressure_Nc5_v3-diffusion" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+    <notes>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <h1>Koenig Sinusoidal Unit Model</h1>
+        <h2>Description</h2>
+        <p>This is the template model of the sinusodial unit in
+    <a href="http://sbml.org" target="_blank" title="Access the definition of the SBML file format.">SBML</a> format.
+    </p>
+      <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+      <div class="dc:publisher">This file has been created by
+    <a href="https://livermetabolism.com/contact.html" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div>
+    <h2>Terms of use</h2>
+    <div class="dc:rightsHolder">Copyright © 2016 Matthias Koenig.</div>
+    <div class="dc:license">
+      <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that the following conditions are met:
+        <ol>
+        <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+        <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided
+          with the distribution.</li>
+      </ol>
+        This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+        </p>
+  </div>
+</body>
+</notes><annotation>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+    <rdf:Description rdf:about="#meta_5f8537098a4d4d1ab48765edd2650cf1">
+      <dc:creator>
+        <rdf:Bag>
+          <rdf:li rdf:parseType="Resource">
+            <vCard:N rdf:parseType="Resource">
+              <vCard:Family>Koenig</vCard:Family>
+              <vCard:Given>Matthias</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL>konigmatt@googlemail.com</vCard:EMAIL>
+            <vCard:ORG rdf:parseType="Resource">
+              <vCard:Orgname>Humboldt-University Berlin, Institute for Theoretical Biology</vCard:Orgname>
+            </vCard:ORG>
+          </rdf:li>
+          <rdf:li rdf:parseType="Resource">
+            <vCard:N rdf:parseType="Resource">
+              <vCard:Family>Koenig</vCard:Family>
+              <vCard:Given>Matthias</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL>konigmatt@googlemail.com</vCard:EMAIL>
+            <vCard:ORG rdf:parseType="Resource">
+              <vCard:Orgname>Humboldt-University Berlin, Institute for Theoretical Biology</vCard:Orgname>
+            </vCard:ORG>
+          </rdf:li>
+        </rdf:Bag>
+      </dc:creator>
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2016-05-26T09:04:57Z</dcterms:W3CDTF>
+      </dcterms:created>
+      <dcterms:modified rdf:parseType="Resource">
+        <dcterms:W3CDTF>2016-05-26T09:04:57Z</dcterms:W3CDTF>
+      </dcterms:modified>
+    </rdf:Description>
+  </rdf:RDF>
+</annotation><listOfUnitDefinitions>
+  <unitDefinition id="s">
+    <listOfUnits>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="kg">
+    <listOfUnits>
+      <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m">
+    <listOfUnits>
+      <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m2">
+    <listOfUnits>
+      <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m3">
+    <listOfUnits>
+      <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="per_s">
+    <listOfUnits>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mole_per_s">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mole_per_s_per_mM">
+    <listOfUnits>
+      <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mole_per_s_per_mM2">
+    <listOfUnits>
+      <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="6" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m_per_s">
+    <listOfUnits>
+      <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m2_per_s">
+    <listOfUnits>
+      <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m3_per_s">
+    <listOfUnits>
+      <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mM">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="mM_s">
+    <listOfUnits>
+      <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="per_mM">
+    <listOfUnits>
+      <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+      <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="per_m2">
+    <listOfUnits>
+      <unit kind="metre" exponent="-2" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="per_m3">
+    <listOfUnits>
+      <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="kg_per_m3">
+    <listOfUnits>
+      <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m3_per_skg">
+    <listOfUnits>
+      <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+      <unit kind="kilogram" exponent="-1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="Pa">
+    <listOfUnits>
+      <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="Pa_s">
+    <listOfUnits>
+      <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="Pa_s_per_m4">
+    <listOfUnits>
+      <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-4" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="Pa_s_per_m3">
+    <listOfUnits>
+      <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="Pa_s_per_m2">
+    <listOfUnits>
+      <unit kind="pascal" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="-2" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+  <unitDefinition id="m6_per_Pa2_s2">
+    <listOfUnits>
+      <unit kind="pascal" exponent="-2" scale="0" multiplier="1"/>
+      <unit kind="second" exponent="-2" scale="0" multiplier="1"/>
+      <unit kind="metre" exponent="6" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+</listOfUnitDefinitions><listOfCompartments>
+  <compartment id="PP" name="[PP] periportal" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="PV" name="[PV] perivenious" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="S01" name="[S01] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="D01" name="[D01] disse" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="H01" name="[H01] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="S02" name="[S02] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="D02" name="[D02] disse" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="H02" name="[H02] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="S03" name="[S03] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="D03" name="[D03] disse" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="H03" name="[H03] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="S04" name="[S04] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="D04" name="[D04] disse" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="H04" name="[H04] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="S05" name="[S05] sinusoid" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="D05" name="[D05] disse" spatialDimensions="3" units="m3" constant="false"/>
+  <compartment id="H05" name="[H05] hepatocyte" spatialDimensions="3" units="m3" constant="false"/>
+</listOfCompartments><listOfSpecies>
+  <species id="PP__S" name="[PP] substance S" compartment="PP" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="PV__S" name="[PV] substance S" compartment="PV" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S01__S" name="[S01] substance S" compartment="S01" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D01__S" name="[D01] substance S" compartment="D01" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S02__S" name="[S02] substance S" compartment="S02" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D02__S" name="[D02] substance S" compartment="D02" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S03__S" name="[S03] substance S" compartment="S03" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D03__S" name="[D03] substance S" compartment="D03" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S04__S" name="[S04] substance S" compartment="S04" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D04__S" name="[D04] substance S" compartment="D04" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S05__S" name="[S05] substance S" compartment="S05" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D05__S" name="[D05] substance S" compartment="D05" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="PP__P" name="[PP] product P" compartment="PP" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+  <species id="PV__P" name="[PV] product P" compartment="PV" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S01__P" name="[S01] product P" compartment="S01" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D01__P" name="[D01] product P" compartment="D01" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S02__P" name="[S02] product P" compartment="S02" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D02__P" name="[D02] product P" compartment="D02" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S03__P" name="[S03] product P" compartment="S03" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D03__P" name="[D03] product P" compartment="D03" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S04__P" name="[S04] product P" compartment="S04" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D04__P" name="[D04] product P" compartment="D04" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="S05__P" name="[S05] product P" compartment="S05" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+  <species id="D05__P" name="[D05] product P" compartment="D05" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+</listOfSpecies><listOfParameters>
+  <parameter id="L" name="sinusoidal length" value="0.0005" units="m" constant="true"/>
+  <parameter id="y_sin" name="sinusoidal radius" value="4.4e-06" units="m" constant="true"/>
+  <parameter id="y_end" name="endothelial cell thickness" value="1.65e-07" units="m" constant="true"/>
+  <parameter id="y_dis" name="width space of Disse" value="2.3e-06" units="m" constant="true"/>
+  <parameter id="y_cell" name="width hepatocyte" value="9.4e-06" units="m" constant="true"/>
+  <parameter id="N_fen" name="fenestrations per area" value="10000000000000" units="per_m2" constant="true"/>
+  <parameter id="r_fen" name="fenestration radius" value="5.35e-08" units="m" constant="true"/>
+  <parameter id="rho_liv" name="liver density" value="1250" units="kg_per_m3" constant="true"/>
+  <parameter id="f_tissue" name="parenchymal fraction of liver" value="0.8" units="dimensionless" constant="true"/>
+  <parameter id="Pa" name="pressure periportal" value="1333.22" units="Pa" constant="true"/>
+  <parameter id="Pb" name="pressure perivenious" value="266.64" units="Pa" constant="true"/>
+  <parameter id="nu_f" name="viscosity factor for sinusoidal resistance" value="10" units="dimensionless" constant="true"/>
+  <parameter id="nu_plasma" name="plasma viscosity" value="0.0018" units="Pa_s" constant="true"/>
+  <parameter id="Nc" name="cells in sinusoidal unit" value="5" units="dimensionless" constant="true"/>
+  <parameter id="DS" name="diffusion constant S" value="9.1e-10" units="m2_per_s" constant="true"/>
+  <parameter id="r_S" name="effective radius S" value="3.6e-10" units="m" constant="true"/>
+  <parameter id="DP" name="diffusion constant P" value="7.2e-10" units="m2_per_s" constant="true"/>
+  <parameter id="r_P" name="effective radius P" value="4.4e-10" units="m" constant="true"/>
+  <parameter id="x_cell" name="length cell compartment" units="m" constant="false"/>
+  <parameter id="x_sin" name="length sinusoidal compartment" units="m" constant="false"/>
+  <parameter id="A_sin" name="cross section sinusoid" units="m2" constant="false"/>
+  <parameter id="A_dis" name="cross section space of Disse" units="m2" constant="false"/>
+  <parameter id="A_sindis" name="exchange area between sinusoid and Disse" units="m2" constant="false"/>
+  <parameter id="A_sinunit" name="cross section sinusoidal unit" units="m2" constant="false"/>
+  <parameter id="Vol_sin" name="volume sinusoidal compartment" units="m3" constant="false"/>
+  <parameter id="Vol_dis" name="volume Disse compartment" units="m3" constant="false"/>
+  <parameter id="Vol_cell" name="volume cell compartment" units="m3" constant="false"/>
+  <parameter id="Vol_pp" name="volume periportal" units="m3" constant="false"/>
+  <parameter id="Vol_pv" name="volume perivenious" units="m3" constant="false"/>
+  <parameter id="Vol_sinunit" name="total volume sinusoidal unit" units="m3" constant="false"/>
+  <parameter id="f_sin" name="sinusoidal fraction of volume" units="dimensionless" constant="false"/>
+  <parameter id="f_dis" name="Disse fraction of volume" units="dimensionless" constant="false"/>
+  <parameter id="f_cell" name="cell fraction of volume" units="dimensionless" constant="false"/>
+  <parameter id="f_fen" name="fenestration porosity" units="dimensionless" constant="false"/>
+  <parameter id="P0" name="resulting oncotic pressure P0 = Poc-Pot" units="Pa" constant="false"/>
+  <parameter id="nu" name="hepatic viscosity" units="Pa_s" constant="false"/>
+  <parameter id="W" name="specific hydraulic resistance capillary" units="Pa_s_per_m4" constant="false"/>
+  <parameter id="w" name="specific hydraulic resistance of all pores" units="Pa_s_per_m2" constant="false"/>
+  <parameter id="lambda" name="lambda reistance" units="m" constant="false"/>
+  <parameter id="flow_sin" name="periportal flow velocity" units="m_per_s" constant="false"/>
+  <parameter id="Q_sinunit" name="volume flow sinusoid" units="m3_per_s" constant="false"/>
+  <parameter id="Dx_sin_S" units="m3_per_s" constant="false"/>
+  <parameter id="Dx_dis_S" units="m3_per_s" constant="false"/>
+  <parameter id="Dy_sindis_S" units="m3_per_s" constant="false"/>
+  <parameter id="Dx_sin_P" units="m3_per_s" constant="false"/>
+  <parameter id="Dx_dis_P" units="m3_per_s" constant="false"/>
+  <parameter id="Dy_sindis_P" units="m3_per_s" constant="false"/>
+  <parameter id="PP_x" units="m" constant="false"/>
+  <parameter id="PV_x" units="m" constant="false"/>
+  <parameter id="S01_x" units="m" constant="false"/>
+  <parameter id="S02_x" units="m" constant="false"/>
+  <parameter id="S03_x" units="m" constant="false"/>
+  <parameter id="S04_x" units="m" constant="false"/>
+  <parameter id="S05_x" units="m" constant="false"/>
+  <parameter id="S01S02_x" units="m" constant="false"/>
+  <parameter id="S02S03_x" units="m" constant="false"/>
+  <parameter id="S03S04_x" units="m" constant="false"/>
+  <parameter id="S04S05_x" units="m" constant="false"/>
+  <parameter id="PP_P" units="Pa" constant="false"/>
+  <parameter id="PV_P" units="Pa" constant="false"/>
+  <parameter id="S01_P" units="Pa" constant="false"/>
+  <parameter id="S02_P" units="Pa" constant="false"/>
+  <parameter id="S03_P" units="Pa" constant="false"/>
+  <parameter id="S04_P" units="Pa" constant="false"/>
+  <parameter id="S05_P" units="Pa" constant="false"/>
+  <parameter id="PP_Q" units="m3_per_s" constant="false"/>
+  <parameter id="PV_Q" units="m3_per_s" constant="false"/>
+  <parameter id="S01S02_Q" units="m3_per_s" constant="false"/>
+  <parameter id="S02S03_Q" units="m3_per_s" constant="false"/>
+  <parameter id="S03S04_Q" units="m3_per_s" constant="false"/>
+  <parameter id="S04S05_Q" units="m3_per_s" constant="false"/>
+  <parameter id="S01_q" units="m2_per_s" constant="false"/>
+  <parameter id="S02_q" units="m2_per_s" constant="false"/>
+  <parameter id="S03_q" units="m2_per_s" constant="false"/>
+  <parameter id="S04_q" units="m2_per_s" constant="false"/>
+  <parameter id="S05_q" units="m2_per_s" constant="false"/>
+</listOfParameters><listOfRules>
+  <assignmentRule variable="PP">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_pp </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="PV">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_pv </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S01">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_sin </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="D01">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_dis </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="H01">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_cell </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S02">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_sin </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="D02">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_dis </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="H02">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_cell </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S03">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_sin </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="D03">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_dis </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="H03">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_cell </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S04">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_sin </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="D04">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_dis </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="H04">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_cell </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S05">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_sin </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="D05">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_dis </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="H05">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_cell </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="x_cell">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <ci> L </ci>
+        <ci> Nc </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="x_sin">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> x_cell </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="A_sin">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <pi/>
+        <apply>
+          <power/>
+          <ci> y_sin </ci>
+          <cn type="integer"> 2 </cn>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="A_dis">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <minus/>
+        <apply>
+          <times/>
+          <pi/>
+          <apply>
+            <power/>
+            <apply>
+              <plus/>
+              <ci> y_sin </ci>
+              <ci> y_end </ci>
+              <ci> y_dis </ci>
+            </apply>
+            <cn type="integer"> 2 </cn>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <pi/>
+          <apply>
+            <power/>
+            <apply>
+              <plus/>
+              <ci> y_sin </ci>
+              <ci> y_end </ci>
+            </apply>
+            <cn type="integer"> 2 </cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="A_sindis">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless" type="integer"> 2 </cn>
+        <pi/>
+        <ci> y_sin </ci>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="A_sinunit">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <pi/>
+        <apply>
+          <power/>
+          <apply>
+            <plus/>
+            <ci> y_sin </ci>
+            <ci> y_end </ci>
+            <ci> y_dis </ci>
+            <ci> y_cell </ci>
+          </apply>
+          <cn type="integer"> 2 </cn>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Vol_sin">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> A_sin </ci>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Vol_dis">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> A_dis </ci>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Vol_cell">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <pi/>
+        <ci> x_cell </ci>
+        <apply>
+          <minus/>
+          <apply>
+            <power/>
+            <apply>
+              <plus/>
+              <ci> y_sin </ci>
+              <ci> y_end </ci>
+              <ci> y_dis </ci>
+              <ci> y_cell </ci>
+            </apply>
+            <cn type="integer"> 2 </cn>
+          </apply>
+          <apply>
+            <power/>
+            <apply>
+              <plus/>
+              <ci> y_sin </ci>
+              <ci> y_end </ci>
+              <ci> y_dis </ci>
+            </apply>
+            <cn type="integer"> 2 </cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Vol_pp">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_sin </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Vol_pv">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> Vol_sin </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Vol_sinunit">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> L </ci>
+        <pi/>
+        <apply>
+          <power/>
+          <apply>
+            <plus/>
+            <ci> y_sin </ci>
+            <ci> y_end </ci>
+            <ci> y_dis </ci>
+            <ci> y_cell </ci>
+          </apply>
+          <cn type="integer"> 2 </cn>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="f_sin">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <ci> Vol_sin </ci>
+        <apply>
+          <times/>
+          <ci> A_sinunit </ci>
+          <ci> x_sin </ci>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="f_dis">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <ci> Vol_dis </ci>
+        <apply>
+          <times/>
+          <ci> A_sinunit </ci>
+          <ci> x_sin </ci>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="f_cell">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <ci> Vol_cell </ci>
+        <apply>
+          <times/>
+          <ci> A_sinunit </ci>
+          <ci> x_sin </ci>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="f_fen">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> N_fen </ci>
+        <pi/>
+        <apply>
+          <power/>
+          <ci> r_fen </ci>
+          <cn type="integer"> 2 </cn>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="P0">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless"> 0.5 </cn>
+        <apply>
+          <plus/>
+          <ci> Pa </ci>
+          <ci> Pb </ci>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="nu">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> nu_f </ci>
+        <ci> nu_plasma </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="W">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <cn sbml:units="dimensionless" type="integer"> 8 </cn>
+          <ci> nu </ci>
+        </apply>
+        <apply>
+          <times/>
+          <pi/>
+          <apply>
+            <power/>
+            <ci> y_sin </ci>
+            <cn type="integer"> 4 </cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="w">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <divide/>
+        <apply>
+          <times/>
+          <cn sbml:units="dimensionless" type="integer"> 4 </cn>
+          <ci> nu </ci>
+          <ci> y_end </ci>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <power/>
+            <pi/>
+            <cn type="integer"> 2 </cn>
+          </apply>
+          <apply>
+            <power/>
+            <ci> r_fen </ci>
+            <cn type="integer"> 4 </cn>
+          </apply>
+          <ci> y_sin </ci>
+          <ci> N_fen </ci>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="lambda">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <root/>
+        <degree>
+          <cn type="integer"> 2 </cn>
+        </degree>
+        <apply>
+          <divide/>
+          <ci> w </ci>
+          <ci> W </ci>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="flow_sin">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <ci> PP_Q </ci>
+        <ci> A_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Q_sinunit">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> PP_Q </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Dx_sin_S">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <ci> DS </ci>
+          <ci> x_sin </ci>
+        </apply>
+        <ci> A_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Dx_dis_S">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <ci> DS </ci>
+          <ci> x_sin </ci>
+        </apply>
+        <ci> A_dis </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Dy_sindis_S">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <ci> DS </ci>
+          <ci> y_dis </ci>
+        </apply>
+        <ci> f_fen </ci>
+        <ci> A_sindis </ci>
+        <apply>
+          <power/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> r_S </ci>
+              <ci> r_fen </ci>
+            </apply>
+          </apply>
+          <cn type="integer"> 2 </cn>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <minus/>
+              <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <cn sbml:units="dimensionless"> 2.104 </cn>
+                  <ci> r_S </ci>
+                </apply>
+                <ci> r_fen </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn sbml:units="dimensionless"> 2.09 </cn>
+              <apply>
+                <power/>
+                <apply>
+                  <divide/>
+                  <ci> r_S </ci>
+                  <ci> r_fen </ci>
+                </apply>
+                <cn type="integer"> 3 </cn>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <cn sbml:units="dimensionless"> 0.95 </cn>
+            <apply>
+              <power/>
+              <apply>
+                <divide/>
+                <ci> r_S </ci>
+                <ci> r_fen </ci>
+              </apply>
+              <cn type="integer"> 5 </cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Dx_sin_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <ci> DP </ci>
+          <ci> x_sin </ci>
+        </apply>
+        <ci> A_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Dx_dis_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <ci> DP </ci>
+          <ci> x_sin </ci>
+        </apply>
+        <ci> A_dis </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Dy_sindis_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <ci> DP </ci>
+          <ci> y_dis </ci>
+        </apply>
+        <ci> f_fen </ci>
+        <ci> A_sindis </ci>
+        <apply>
+          <power/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <apply>
+              <divide/>
+              <ci> r_P </ci>
+              <ci> r_fen </ci>
+            </apply>
+          </apply>
+          <cn type="integer"> 2 </cn>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <minus/>
+              <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <cn sbml:units="dimensionless"> 2.104 </cn>
+                  <ci> r_P </ci>
+                </apply>
+                <ci> r_fen </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn sbml:units="dimensionless"> 2.09 </cn>
+              <apply>
+                <power/>
+                <apply>
+                  <divide/>
+                  <ci> r_P </ci>
+                  <ci> r_fen </ci>
+                </apply>
+                <cn type="integer"> 3 </cn>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <cn sbml:units="dimensionless"> 0.95 </cn>
+            <apply>
+              <power/>
+              <apply>
+                <divide/>
+                <ci> r_P </ci>
+                <ci> r_fen </ci>
+              </apply>
+              <cn type="integer"> 5 </cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="PP_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <cn sbml:units="m" type="integer"> 0 </cn>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="PV_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> L </ci>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S01_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <cn sbml:units="dimensionless"> 0.5 </cn>
+        </apply>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S02_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 2 </cn>
+          <cn sbml:units="dimensionless"> 0.5 </cn>
+        </apply>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S03_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 3 </cn>
+          <cn sbml:units="dimensionless"> 0.5 </cn>
+        </apply>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S04_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 4 </cn>
+          <cn sbml:units="dimensionless"> 0.5 </cn>
+        </apply>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S05_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <minus/>
+          <cn sbml:units="dimensionless" type="integer"> 5 </cn>
+          <cn sbml:units="dimensionless"> 0.5 </cn>
+        </apply>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S01S02_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S02S03_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless" type="integer"> 2 </cn>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S03S04_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless" type="integer"> 3 </cn>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S04S05_x">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <cn sbml:units="dimensionless" type="integer"> 4 </cn>
+        <ci> x_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="PP_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <ci> PP_x </ci>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <ci> Pb </ci>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> PP_x </ci>
+              </apply>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> P0 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="PV_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <ci> PV_x </ci>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <ci> Pb </ci>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> PV_x </ci>
+              </apply>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> P0 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S01_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <ci> S01_x </ci>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <ci> Pb </ci>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> S01_x </ci>
+              </apply>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> P0 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S02_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <ci> S02_x </ci>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <ci> Pb </ci>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> S02_x </ci>
+              </apply>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> P0 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S03_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <ci> S03_x </ci>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <ci> Pb </ci>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> S03_x </ci>
+              </apply>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> P0 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S04_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <ci> S04_x </ci>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <ci> Pb </ci>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> S04_x </ci>
+              </apply>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> P0 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S05_P">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <ci> S05_x </ci>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <ci> Pb </ci>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Pa </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> L </ci>
+                  </apply>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci> L </ci>
+                  <ci> lambda </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <exp/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> S05_x </ci>
+              </apply>
+              <ci> lambda </ci>
+            </apply>
+          </apply>
+        </apply>
+        <ci> P0 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="PP_Q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+          <apply>
+            <root/>
+            <degree>
+              <cn type="integer"> 2 </cn>
+            </degree>
+            <apply>
+              <times/>
+              <ci> W </ci>
+              <ci> w </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> PP_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> PP_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="PV_Q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+          <apply>
+            <root/>
+            <degree>
+              <cn type="integer"> 2 </cn>
+            </degree>
+            <apply>
+              <times/>
+              <ci> W </ci>
+              <ci> w </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> PV_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> PV_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S01S02_Q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+          <apply>
+            <root/>
+            <degree>
+              <cn type="integer"> 2 </cn>
+            </degree>
+            <apply>
+              <times/>
+              <ci> W </ci>
+              <ci> w </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S01S02_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S01S02_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S02S03_Q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+          <apply>
+            <root/>
+            <degree>
+              <cn type="integer"> 2 </cn>
+            </degree>
+            <apply>
+              <times/>
+              <ci> W </ci>
+              <ci> w </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S02S03_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S02S03_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S03S04_Q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+          <apply>
+            <root/>
+            <degree>
+              <cn type="integer"> 2 </cn>
+            </degree>
+            <apply>
+              <times/>
+              <ci> W </ci>
+              <ci> w </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S03S04_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S03S04_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S04S05_Q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <apply>
+            <minus/>
+            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          </apply>
+          <apply>
+            <root/>
+            <degree>
+              <cn type="integer"> 2 </cn>
+            </degree>
+            <apply>
+              <times/>
+              <ci> W </ci>
+              <ci> w </ci>
+            </apply>
+          </apply>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S04S05_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S04S05_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S01_q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <ci> w </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S01_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S01_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S02_q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <ci> w </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S02_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S02_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S03_q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <ci> w </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S03_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S03_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S04_q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <ci> w </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S04_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S04_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="S05_q">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <times/>
+        <apply>
+          <divide/>
+          <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+          <ci> w </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> Pb </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> L </ci>
+                      </apply>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <ci> S05_x </ci>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <ci> P0 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> Pa </ci>
+                    <ci> P0 </ci>
+                  </apply>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <ci> L </ci>
+                      <ci> lambda </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> L </ci>
+                    </apply>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <ci> L </ci>
+                    <ci> lambda </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> S05_x </ci>
+                </apply>
+                <ci> lambda </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </assignmentRule>
+</listOfRules><listOfReactions>
+  <reaction id="D_PPS01_S" name="[PP &lt;-&gt; S01] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="PP__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S01__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_S </ci>
+          <apply>
+            <minus/>
+            <ci> PP__S </ci>
+            <ci> S01__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S01S02_S" name="[S01 &lt;-&gt; S02] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S01__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S02__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_S </ci>
+          <apply>
+            <minus/>
+            <ci> S01__S </ci>
+            <ci> S02__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S02S03_S" name="[S02 &lt;-&gt; S03] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S02__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S03__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_S </ci>
+          <apply>
+            <minus/>
+            <ci> S02__S </ci>
+            <ci> S03__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S03S04_S" name="[S03 &lt;-&gt; S04] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S03__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S04__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_S </ci>
+          <apply>
+            <minus/>
+            <ci> S03__S </ci>
+            <ci> S04__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S04S05_S" name="[S04 &lt;-&gt; S05] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S04__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S05__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_S </ci>
+          <apply>
+            <minus/>
+            <ci> S04__S </ci>
+            <ci> S05__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S05PV_S" name="[S05 &lt;-&gt; PV] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S05__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="PV__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_S </ci>
+          <apply>
+            <minus/>
+            <ci> S05__S </ci>
+            <ci> PV__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_D01D02_S" name="[D01 &lt;-&gt; D02] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="D01__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D02__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_dis_S </ci>
+          <apply>
+            <minus/>
+            <ci> D01__S </ci>
+            <ci> D02__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_D02D03_S" name="[D02 &lt;-&gt; D03] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="D02__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D03__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_dis_S </ci>
+          <apply>
+            <minus/>
+            <ci> D02__S </ci>
+            <ci> D03__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_D03D04_S" name="[D03 &lt;-&gt; D04] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="D03__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D04__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_dis_S </ci>
+          <apply>
+            <minus/>
+            <ci> D03__S </ci>
+            <ci> D04__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_D04D05_S" name="[D04 &lt;-&gt; D05] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="D04__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D05__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_dis_S </ci>
+          <apply>
+            <minus/>
+            <ci> D04__S </ci>
+            <ci> D05__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S01D01_S" name="[S01 &lt;-&gt; D01] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S01__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D01__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_S </ci>
+          <apply>
+            <minus/>
+            <ci> S01__S </ci>
+            <ci> D01__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S02D02_S" name="[S02 &lt;-&gt; D02] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S02__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D02__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_S </ci>
+          <apply>
+            <minus/>
+            <ci> S02__S </ci>
+            <ci> D02__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S03D03_S" name="[S03 &lt;-&gt; D03] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S03__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D03__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_S </ci>
+          <apply>
+            <minus/>
+            <ci> S03__S </ci>
+            <ci> D03__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S04D04_S" name="[S04 &lt;-&gt; D04] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S04__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D04__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_S </ci>
+          <apply>
+            <minus/>
+            <ci> S04__S </ci>
+            <ci> D04__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S05D05_S" name="[S05 &lt;-&gt; D05] diffusion S" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S05__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D05__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_S </ci>
+          <apply>
+            <minus/>
+            <ci> S05__S </ci>
+            <ci> D05__S </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_PPS01_P" name="[PP &lt;-&gt; S01] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="PP__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S01__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_P </ci>
+          <apply>
+            <minus/>
+            <ci> PP__P </ci>
+            <ci> S01__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S01S02_P" name="[S01 &lt;-&gt; S02] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S01__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S02__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_P </ci>
+          <apply>
+            <minus/>
+            <ci> S01__P </ci>
+            <ci> S02__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S02S03_P" name="[S02 &lt;-&gt; S03] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S02__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S03__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_P </ci>
+          <apply>
+            <minus/>
+            <ci> S02__P </ci>
+            <ci> S03__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S03S04_P" name="[S03 &lt;-&gt; S04] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S03__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S04__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_P </ci>
+          <apply>
+            <minus/>
+            <ci> S03__P </ci>
+            <ci> S04__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S04S05_P" name="[S04 &lt;-&gt; S05] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S04__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S05__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_P </ci>
+          <apply>
+            <minus/>
+            <ci> S04__P </ci>
+            <ci> S05__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S05PV_P" name="[S05 &lt;-&gt; PV] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S05__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="PV__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_sin_P </ci>
+          <apply>
+            <minus/>
+            <ci> S05__P </ci>
+            <ci> PV__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_D01D02_P" name="[D01 &lt;-&gt; D02] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="D01__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D02__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_dis_P </ci>
+          <apply>
+            <minus/>
+            <ci> D01__P </ci>
+            <ci> D02__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_D02D03_P" name="[D02 &lt;-&gt; D03] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="D02__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D03__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_dis_P </ci>
+          <apply>
+            <minus/>
+            <ci> D02__P </ci>
+            <ci> D03__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_D03D04_P" name="[D03 &lt;-&gt; D04] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="D03__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D04__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_dis_P </ci>
+          <apply>
+            <minus/>
+            <ci> D03__P </ci>
+            <ci> D04__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_D04D05_P" name="[D04 &lt;-&gt; D05] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="D04__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D05__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dx_dis_P </ci>
+          <apply>
+            <minus/>
+            <ci> D04__P </ci>
+            <ci> D05__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S01D01_P" name="[S01 &lt;-&gt; D01] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S01__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D01__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_P </ci>
+          <apply>
+            <minus/>
+            <ci> S01__P </ci>
+            <ci> D01__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S02D02_P" name="[S02 &lt;-&gt; D02] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S02__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D02__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_P </ci>
+          <apply>
+            <minus/>
+            <ci> S02__P </ci>
+            <ci> D02__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S03D03_P" name="[S03 &lt;-&gt; D03] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S03__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D03__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_P </ci>
+          <apply>
+            <minus/>
+            <ci> S03__P </ci>
+            <ci> D03__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S04D04_P" name="[S04 &lt;-&gt; D04] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S04__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D04__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_P </ci>
+          <apply>
+            <minus/>
+            <ci> S04__P </ci>
+            <ci> D04__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="D_S05D05_P" name="[S05 &lt;-&gt; D05] diffusion P" reversible="true" fast="false">
+    <listOfReactants>
+      <speciesReference species="S05__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D05__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> Dy_sindis_P </ci>
+          <apply>
+            <minus/>
+            <ci> S05__P </ci>
+            <ci> D05__P </ci>
+          </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+</listOfReactions>
+</model>
+</sbml>

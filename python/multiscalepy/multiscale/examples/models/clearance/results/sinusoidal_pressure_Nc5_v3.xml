@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+<<<<<<< HEAD:python/multiscalepy/multiscale/examples/models/clearance/results/Sinusoid_Clearance_Nc5_v2.xml
   <model metaid="meta_e0ff7e373cd24086b69e3687b90d4080" id="Sinusoid_Clearance_Nc5_v2" name="Sinusoid_Clearance_Nc5_v2" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+=======
+  <model metaid="meta_5cd6b6dfab6d4945bb782280ab463272" id="sinusoidal_pressure_Nc5_v3" name="sinusoidal_pressure_Nc5_v3" substanceUnits="mole" timeUnits="s" volumeUnits="m3" areaUnits="m2" lengthUnits="m" extentUnits="mole" fbc:strict="false">
+>>>>>>> 79c4560ac6411cee531c2733843a175abb28b35b:python/multiscalepy/multiscale/examples/models/clearance/results/sinusoidal_pressure_Nc5_v3.xml
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <h1>Koenig Sinusoidal Unit Model</h1>
@@ -26,7 +30,11 @@
 </body>
 </notes><annotation>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+<<<<<<< HEAD:python/multiscalepy/multiscale/examples/models/clearance/results/Sinusoid_Clearance_Nc5_v2.xml
     <rdf:Description rdf:about="#meta_e0ff7e373cd24086b69e3687b90d4080">
+=======
+    <rdf:Description rdf:about="#meta_5cd6b6dfab6d4945bb782280ab463272">
+>>>>>>> 79c4560ac6411cee531c2733843a175abb28b35b:python/multiscalepy/multiscale/examples/models/clearance/results/sinusoidal_pressure_Nc5_v3.xml
       <dc:creator>
         <rdf:Bag>
           <rdf:li rdf:parseType="Resource">
@@ -52,10 +60,17 @@
         </rdf:Bag>
       </dc:creator>
       <dcterms:created rdf:parseType="Resource">
+<<<<<<< HEAD:python/multiscalepy/multiscale/examples/models/clearance/results/Sinusoid_Clearance_Nc5_v2.xml
         <dcterms:W3CDTF>2016-05-21T11:14:13Z</dcterms:W3CDTF>
       </dcterms:created>
       <dcterms:modified rdf:parseType="Resource">
         <dcterms:W3CDTF>2016-05-21T11:14:13Z</dcterms:W3CDTF>
+=======
+        <dcterms:W3CDTF>2016-05-25T14:52:14Z</dcterms:W3CDTF>
+      </dcterms:created>
+      <dcterms:modified rdf:parseType="Resource">
+        <dcterms:W3CDTF>2016-05-25T14:52:14Z</dcterms:W3CDTF>
+>>>>>>> 79c4560ac6411cee531c2733843a175abb28b35b:python/multiscalepy/multiscale/examples/models/clearance/results/sinusoidal_pressure_Nc5_v3.xml
       </dcterms:modified>
     </rdf:Description>
   </rdf:RDF>
@@ -285,14 +300,14 @@
   <parameter id="f_sin" name="sinusoidal fraction of volume" units="dimensionless" constant="false"/>
   <parameter id="f_dis" name="Disse fraction of volume" units="dimensionless" constant="false"/>
   <parameter id="f_cell" name="cell fraction of volume" units="dimensionless" constant="false"/>
-  <parameter id="flow_sin" name="periportal flow velocity" units="m_per_s" constant="false"/>
-  <parameter id="Q_sinunit" name="volume flow sinusoid" units="m3_per_s" constant="false"/>
   <parameter id="f_fen" name="fenestration porosity" units="dimensionless" constant="false"/>
   <parameter id="P0" name="resulting oncotic pressure P0 = Poc-Pot" units="Pa" constant="false"/>
   <parameter id="nu" name="hepatic viscosity" units="Pa_s" constant="false"/>
   <parameter id="W" name="specific hydraulic resistance capillary" units="Pa_s_per_m4" constant="false"/>
   <parameter id="w" name="specific hydraulic resistance of all pores" units="Pa_s_per_m2" constant="false"/>
   <parameter id="lambda" name="lambda reistance" units="m" constant="false"/>
+  <parameter id="flow_sin" name="periportal flow velocity" units="m_per_s" constant="false"/>
+  <parameter id="Q_sinunit" name="volume flow sinusoid" units="m3_per_s" constant="false"/>
   <parameter id="Dx_sin_S" units="m3_per_s" constant="false"/>
   <parameter id="Dx_dis_S" units="m3_per_s" constant="false"/>
   <parameter id="Dy_sindis_S" units="m3_per_s" constant="false"/>
@@ -625,20 +640,6 @@
       </apply>
     </math>
   </assignmentRule>
-  <assignmentRule variable="flow_sin">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <apply>
-        <divide/>
-        <ci> PP_Q </ci>
-        <ci> A_sin </ci>
-      </apply>
-    </math>
-  </assignmentRule>
-  <assignmentRule variable="Q_sinunit">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <ci> PP_Q </ci>
-    </math>
-  </assignmentRule>
   <assignmentRule variable="f_fen">
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -737,6 +738,20 @@
           <ci> W </ci>
         </apply>
       </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="flow_sin">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <ci> PP_Q </ci>
+        <ci> A_sin </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="Q_sinunit">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <ci> PP_Q </ci>
     </math>
   </assignmentRule>
   <assignmentRule variable="Dx_sin_S">
@@ -3900,186 +3915,6 @@
       </math>
     </kineticLaw>
   </reaction>
-  <reaction id="F_S01D01_S" name="[S01 -&gt; D01] convection S" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S01__S" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D01__S" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S01_q </ci>
-          <ci> x_sin </ci>
-          <ci> S01__S </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S02D02_S" name="[S02 -&gt; D02] convection S" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S02__S" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D02__S" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S02_q </ci>
-          <ci> x_sin </ci>
-          <ci> S02__S </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S03D03_S" name="[S03 -&gt; D03] convection S" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S03__S" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D03__S" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S03_q </ci>
-          <ci> x_sin </ci>
-          <ci> S03__S </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S04D04_S" name="[S04 -&gt; D04] convection S" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S04__S" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D04__S" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S04_q </ci>
-          <ci> x_sin </ci>
-          <ci> S04__S </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S05D05_S" name="[S05 -&gt; D05] convection S" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S05__S" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D05__S" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S05_q </ci>
-          <ci> x_sin </ci>
-          <ci> S05__S </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S01D01_P" name="[S01 -&gt; D01] convection P" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S01__P" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D01__P" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S01_q </ci>
-          <ci> x_sin </ci>
-          <ci> S01__P </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S02D02_P" name="[S02 -&gt; D02] convection P" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S02__P" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D02__P" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S02_q </ci>
-          <ci> x_sin </ci>
-          <ci> S02__P </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S03D03_P" name="[S03 -&gt; D03] convection P" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S03__P" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D03__P" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S03_q </ci>
-          <ci> x_sin </ci>
-          <ci> S03__P </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S04D04_P" name="[S04 -&gt; D04] convection P" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S04__P" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D04__P" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S04_q </ci>
-          <ci> x_sin </ci>
-          <ci> S04__P </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="F_S05D05_P" name="[S05 -&gt; D05] convection P" reversible="false" fast="false">
-    <listOfReactants>
-      <speciesReference species="S05__P" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="D05__P" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> S05_q </ci>
-          <ci> x_sin </ci>
-          <ci> S05__P </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
   <reaction id="D_PPS01_S" name="[PP &lt;-&gt; S01] diffusion S" reversible="true" fast="false">
     <listOfReactants>
       <speciesReference species="PP__S" stoichiometry="1" constant="true"/>
@@ -4706,6 +4541,186 @@
             <ci> S05__P </ci>
             <ci> D05__P </ci>
           </apply>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S01D01_S" name="[S01 -&gt; D01] convection S" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S01__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D01__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S01_q </ci>
+          <ci> x_sin </ci>
+          <ci> S01__S </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S02D02_S" name="[S02 -&gt; D02] convection S" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S02__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D02__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S02_q </ci>
+          <ci> x_sin </ci>
+          <ci> S02__S </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S03D03_S" name="[S03 -&gt; D03] convection S" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S03__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D03__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S03_q </ci>
+          <ci> x_sin </ci>
+          <ci> S03__S </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S04D04_S" name="[S04 -&gt; D04] convection S" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S04__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D04__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S04_q </ci>
+          <ci> x_sin </ci>
+          <ci> S04__S </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S05D05_S" name="[S05 -&gt; D05] convection S" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S05__S" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D05__S" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S05_q </ci>
+          <ci> x_sin </ci>
+          <ci> S05__S </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S01D01_P" name="[S01 -&gt; D01] convection P" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S01__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D01__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S01_q </ci>
+          <ci> x_sin </ci>
+          <ci> S01__P </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S02D02_P" name="[S02 -&gt; D02] convection P" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S02__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D02__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S02_q </ci>
+          <ci> x_sin </ci>
+          <ci> S02__P </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S03D03_P" name="[S03 -&gt; D03] convection P" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S03__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D03__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S03_q </ci>
+          <ci> x_sin </ci>
+          <ci> S03__P </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S04D04_P" name="[S04 -&gt; D04] convection P" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S04__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D04__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S04_q </ci>
+          <ci> x_sin </ci>
+          <ci> S04__P </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="F_S05D05_P" name="[S05 -&gt; D05] convection P" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S05__P" stoichiometry="1" constant="true"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="D05__P" stoichiometry="1" constant="true"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> S05_q </ci>
+          <ci> x_sin </ci>
+          <ci> S05__P </ci>
         </apply>
       </math>
     </kineticLaw>

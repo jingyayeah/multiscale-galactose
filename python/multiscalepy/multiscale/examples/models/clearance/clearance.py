@@ -32,30 +32,45 @@ def create_sinusoidal_unit():
     ######################################
     # sinusoidal unit transport model
     ######################################
+    Nc = 5
+    version = 'v4'
+
     sin_species = [
         sinunit.SinusoidSpecies('S', 1.0, unit='mM', D=db.diffusion['S'], r=db.radius['S'], name="substance S"),
         sinunit.SinusoidSpecies('P', 0.0, unit='mM', D=db.diffusion['P'], r=db.radius['P'], name="product P"),
     ]
 
-    # Create sinusoidal model
-    model_dict = Preprocess.dict_from_modules(modules=['multiscale.examples.models.templates.units',
-                                                       'multiscale.examples.models.templates.sinusoidal_unit'])
-    core_model = CoreModel.from_dict(model_dict)
-    core_model.mid = 'Sinusoid_Clearance'
-    Nc = 5
-    version = 'v2'
-    core_model.version = 'Nc{}_{}'.format(Nc, version)
+    # Create sinusoidal flow and pressure models
+    pressure_dict = Preprocess.dict_from_modules(modules=['multiscale.examples.models.templates.units',
+                                                       'multiscale.examples.models.templates.sinusoidal_unit',
+                                                       'multiscale.examples.models.templates.sinusoidal_pressure'])
 
-    # extends the core model
-    f = sinunit.SinusoidalUnitFactory(Nc=Nc, sin_species=sin_species, core_model=core_model)
-    f.core_model.info()
+    flow_dict = Preprocess.dict_from_modules(modules=['multiscale.examples.models.templates.units',
+                                                          'multiscale.examples.models.templates.sinusoidal_unit',
+                                                          'multiscale.examples.models.templates.sinusoidal_flow'])
+    info_dict = {sinunit.SinusoidalUnitFactory.TYPE_PRESSURE: pressure_dict,
+                 sinunit.SinusoidalUnitFactory.TYPE_FLOW: flow_dict}
 
-    core_model.create_sbml()
-    sbml_path = os.path.join(target_dir, '{}.xml'.format(core_model.model_id))
-    core_model.write_sbml(filepath=sbml_path)
+    # info_dict = {sinunit.SinusoidalUnitFactory.TYPE_FLOW: flow_dict}
+    # info_dict = {sinunit.SinusoidalUnitFactory.TYPE_PRESSURE: pressure_dict}
 
-    from sbmlutils.report import sbmlreport
-    sbmlreport.create_sbml_report(sbml_path, out_dir=target_dir)
+    for model_type, model_dict in info_dict.iteritems():
+
+
+        s_model = CoreModel.from_dict(model_dict)
+        s_model.version = 'Nc{}_{}'.format(Nc, version)
+
+        # extend core model with sinusoidal unit information
+        f = sinunit.SinusoidalUnitFactory(Nc=Nc, sin_species=sin_species, core_model=s_model, model_type=model_type)
+        f.core_model.info()
+
+        s_model.create_sbml()
+
+        sbml_path = os.path.join(target_dir, '{}.xml'.format(s_model.model_id))
+        s_model.write_sbml(filepath=sbml_path)
+
+        from sbmlutils.report import sbmlreport
+        sbmlreport.create_sbml_report(sbml_path, out_dir=target_dir)
 
 
 #################################################################################################

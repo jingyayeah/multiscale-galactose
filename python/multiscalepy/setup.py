@@ -85,6 +85,7 @@ setup(
     # exclude=['contrib', 'docs', 'examples*']
     packages=[
         'multiscale',
+        'multiscale.analysis',
         'multiscale.examples',
         'multiscale.simulate',
         'multiscale.util',
