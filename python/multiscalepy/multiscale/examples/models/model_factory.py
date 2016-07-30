@@ -150,8 +150,10 @@ if __name__ == "__main__":
     # ------------------------------------------
     # Test models
     # ------------------------------------------
+    '''
     from multiscale.examples.models.demo import demo
     [cell_dict, cell_model] = demo.create_demo()
+    '''
 
     '''
     # ------------------------------------------
@@ -166,10 +168,11 @@ if __name__ == "__main__":
     [cell_dict, cell_model] = create_Sturis1991()
     [cell_dict, cell_model] = create_Engelborghs2001()
     [cell_dict, cell_model] = create_glucose()
+    '''
 
     # ------------------------------------------
     # Liver clearance
     # ------------------------------------------
     [cell_dict, cell_model] = create_caffeine()
     [cell_dict, cell_model] = create_galactose()
-    '''
+
