@@ -141,9 +141,9 @@ def create_caffeine():
     name = 'caffeine'
     base_dir = os.path.join(models_dir, name)
     return modelcreator.create_model(target_dir=os.path.join(base_dir, 'results'),
-                                     model_info=['{}.{}'.format(model_module, 'hepatocyte'),
+                                     modules=['{}.{}'.format(model_module, 'hepatocyte'),
                                                  '{}.{}'.format(model_module, name)],
-                                     f_annotations=os.path.join(base_dir, 'caffeine_annotations.xlsx'))
+                                     annotations=os.path.join(base_dir, 'caffeine_annotations.xlsx'))
 
 #########################################################################
 if __name__ == "__main__":
