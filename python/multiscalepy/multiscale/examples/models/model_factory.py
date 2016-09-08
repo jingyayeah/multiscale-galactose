@@ -119,22 +119,6 @@ def create_glucose():
                                      model_info=['{}.{}'.format(model_module, name)],
                                      f_annotations=os.path.join(models_dir, name, 'glucose_annotations.xlsx'))
 
-def create_galactose():
-    """ Create galactose network. """
-    name = 'galactose'
-    base_dir = os.path.join(models_dir, name)
-    target_dir = os.path.join(base_dir, 'results')
-    model_info = ['{}.{}'.format(model_module, 'hepatocyte'),
-                  '{}.{}'.format(model_module, name)]
-    # create without annotations
-    modelcreator.create_model(target_dir=target_dir,
-                 model_info=model_info,
-                 f_annotations=None,
-                 suffix="_no_annotations")
-    # create with annotations
-    return modelcreator.create_model(target_dir=target_dir,
-                                     model_info=model_info,
-                                     f_annotations=os.path.join(base_dir, '{}_annotations.xlsx'.format(name)))
 
 def create_caffeine():
     """ Create caffeine network. """

@@ -22,7 +22,7 @@ from sbmlutils.modelcreator import templates
 ##############################################################
 creators = templates.creators
 mid = 'galactose'
-version = 31
+version = 32
 notes = XMLNode.convertStringToXMLNode("""
     <body xmlns='http://www.w3.org/1999/xhtml'>
     <h1>Koenig Human Galactose Metabolism</h1>
