@@ -85,9 +85,6 @@ def tissue_model():
 
 #############################################################################################
 
-
-
-
 def create_Jones2013():
     """ Create PKPD example. """
     name = 'Jones2013'
@@ -112,12 +109,6 @@ def create_Engelborghs2001():
     return modelcreator.create_model(target_dir=os.path.join(models_dir, name, 'results'),
                                      model_info=['{}.{}'.format(model_module, name)])
 
-def create_glucose():
-    """ Create glucose network. """
-    name = 'glucose'
-    return modelcreator.create_model(target_dir=os.path.join(models_dir, name, 'results'),
-                                     model_info=['{}.{}'.format(model_module, name)],
-                                     f_annotations=os.path.join(models_dir, name, 'glucose_annotations.xlsx'))
 
 def create_galactose():
     """ Create galactose network. """
@@ -169,10 +160,11 @@ if __name__ == "__main__":
     [cell_dict, cell_model] = create_Engelborghs2001()
     [cell_dict, cell_model] = create_glucose()
     '''
+    [cell_dict, cell_model] = create_glucose()
 
     # ------------------------------------------
     # Liver clearance
     # ------------------------------------------
-    [cell_dict, cell_model] = create_caffeine()
-    [cell_dict, cell_model] = create_galactose()
+    # [cell_dict, cell_model] = create_caffeine()
+    # [cell_dict, cell_model] = create_galactose()
 
